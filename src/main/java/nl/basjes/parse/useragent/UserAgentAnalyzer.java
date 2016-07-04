@@ -43,7 +43,7 @@ import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION;
 public class UserAgentAnalyzer extends Analyzer {
 
     private static final int INFORM_ACTIONS_HASHMAP_SIZE = 1000000;
-    private static final int PARSE_CACHE_SIZE = 1000;
+    private static final int PARSE_CACHE_SIZE = 10000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
     private List<Matcher> allMatchers;
