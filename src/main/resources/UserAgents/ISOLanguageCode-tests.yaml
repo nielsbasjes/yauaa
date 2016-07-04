@@ -1,0 +1,50 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+config:
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.1.2; nl-nl; A510 Build/JZO54K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30 [FB_IAB/FB4A;FBAV/25.0.0.19.30;]'
+      expected:
+        AgentLanguage                      : 'Dutch (Netherlands)'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.1.2; nl-be; SAMSUNG GT-I8190N/I8190NXXANI1 Build/JZO54K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
+      expected:
+        AgentLanguage                      : 'Dutch (Belgium)'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.1.2; fr-fr; HUAWEI MT1-U06 Build/HuaweiMT1-U06) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 ACHEETAHI/2100501044'
+      expected:
+        AgentLanguage                      : 'French (France)'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.1.1; es-es; SGPT12 Build/TJDSU0177) AppleWebKit/537.16 (KHTML, like Gecko) Version/4.0 Safari/537.16'
+      expected:
+        AgentLanguage                      : 'Spanish (Spain)'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.1.1; en-us; MPQC785 IPS Build/JRO03C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
+      expected:
+        AgentLanguage                      : 'English (United States)'
+

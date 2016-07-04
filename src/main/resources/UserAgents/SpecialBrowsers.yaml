@@ -1,0 +1,378 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+config:
+
+  - matcher:
+      require:
+        - 'IsNull[agent.(1)product.(1)name="Mozilla"]'
+      extract:
+#
+        - 'AgentClass            :   5:"Special"'
+        - 'AgentName             :   5:agent.(1)product.name'
+
+  - matcher:
+      require:
+        - 'IsNull[agent.(1)product.(1)name="Mozilla"]'
+      extract:
+#
+        - 'AgentClass            :   5:"Special"'
+        - 'AgentName             :   5:agent.(1)product.url'
+
+  - matcher:
+      require:
+        - 'IsNull[agent.(1)product.(1)name="Mozilla"]'
+      extract:
+        - 'AgentVersion          :   5:agent.(1)product.(1)comments.(1)entry.(1)text'
+
+  - matcher:
+      require:
+        - 'IsNull[agent.(1)product.(1)name="Mozilla"]'
+      extract:
+        - 'AgentVersion          :   6:agent.(1)product.version'
+
+  - matcher:
+      extract:
+        - 'AgentClass            :   2010:"Browser"'
+        - 'AgentName             :   2010:"Crazy Browser"'
+        - 'AgentVersion          :   2010:agent.(1)product.(1)comments.entry.product.name="Crazy Browser"^.version'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.(1)text="Viera"'
+      extract:
+        - 'AgentClass            :2015:"Browser"'
+        - 'AgentName             :2015:"Viera"'
+        - 'AgentVersion          :2015:"Viera"'
+
+  - matcher:
+      extract:
+        - 'AgentClass            :2016:"Browser"'
+        - 'AgentName             :2016:"Viera"'
+        - 'AgentVersion          :2016:agent.product.name="Viera"^.version'
+
+
+  - test:
+      input:
+        user_agent_string: 'Links (2.1pre15; Linux 2.4.26 i686; 128x48)'
+      expected:
+        AgentClass                         : 'Special'
+        AgentName                          : 'Links'
+        AgentVersion                       : '2.1pre15'
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Linux Desktop'
+        DeviceCpu                          : 'Intel i686'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Linux'
+        OperatingSystemVersion             : '2.4.26'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; rv:1.7.3) Gecko/20040919 Firefox/0.10'
+      expected:
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Firefox'
+        AgentVersion                       : '0.10'
+        DeviceClass                        : 'Desktop'
+        DeviceCpu                          : 'Intel i686'
+        DeviceName                         : 'Linux Desktop'
+        LayoutEngineBuild                  : '20040919'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Gecko'
+        LayoutEngineVersion                : '1.7.3'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Linux'
+        OperatingSystemVersion             : 'Intel i686'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; brip1; RainBird 1.01/HT; Crazy Browser 1.0.5; .NET CLR 1.1.4322)'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 2000'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Internet Explorer'
+        LayoutEngineVersion                : '6.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Crazy Browser'
+        AgentVersion                       : '1.0.5'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; FreeBSD; U; Viera; nl-NL) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.14 Chrome/23.0.1271.97 Safari/537.11'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'FreeBSD Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'FreeBSD'
+        OperatingSystemVersion             : '??'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '537.11'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Viera'
+        AgentVersion                       : '3.10.14'
+        AgentLanguage                      : 'Dutch (Netherlands)'
+        AgentSecurity                      : 'Strong security'
+
+
+
+  - matcher:
+#      options:
+#        - 'verbose'
+      require:
+#        - ''
+#        - 'agent.(3)product.(1)version="4.4.3.1000"'
+      extract:
+        - 'AgentClass            :   2015:"Browser"'
+        - 'AgentName             :   2015:"Maxthon"'
+        - 'AgentVersion          :   2015:agent.(3)product.(1)name="Maxthon"^.version'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows NT 6.0) AppleWebKit/537.36 (KHTML, like Gecko) Maxthon/4.4.3.1000 Chrome/30.0.1599.101 Safari/537.36'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows Vista'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '30.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Maxthon'
+        AgentVersion                       : '4.4.3.1000'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 8.1.2 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) 1Password/5.1.2 (like Version/12B440 Mobile/8.1.2 Safari/8536.25)'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPad'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '8.1.2'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '536.26'
+        AgentClass                         : 'Browser'
+        AgentName                          : '1Password'
+        AgentVersion                       : '5.1.2'
+
+
+# If the BASE64 minimal size gets too smal this becomes a parse error
+  - test:
+      input:
+        user_agent_string: 'AndroidDownloadManager/5.0.1 (Linux; U; Android 5.0.1; HUAWEI GRA-L09 Build/HUAWEIGRA-L09)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'HUAWEI GRA-L09'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '5.0.1'
+        OperatingSystemVersionBuild        : 'HUAWEIGRA-L09'
+        LayoutEngineClass                  : 'Unknown'
+        LayoutEngineName                   : 'Unknown'
+        LayoutEngineVersion                : 'Unknown'
+        AgentClass                         : 'Special'
+        AgentName                          : 'AndroidDownloadManager'
+        AgentVersion                       : '5.0.1'
+        AgentSecurity                      : 'Strong security'
+
+
+  - test:
+#      options:
+##        - 'verbose'
+#        - 'init'
+#        - 'only'
+      input:
+        user_agent_string: 'http://Anonymouse.org/ (Unix)'
+      expected:
+        AgentClass                         : 'Special'
+        AgentName                          : 'http://Anonymouse.org/'
+        AgentVersion                       : 'Unix'
+
+#TODO
+#
+#  - test:
+##      options:
+##        - 'verbose'
+##        - 'init'
+##        - 'only'
+#      input:
+##        name: 'You can give the test case a name'
+#        user_agent_string: 'Mozilla/5.0 (compatible; CloudFlare-AlwaysOnline/1.0; +http://www.cloudflare.com/always-online) AppleWebKit/534.34'
+#
+  - test:
+      input:
+        user_agent_string: 'Mobitest 1.8 (iPhone; iPhone OS 7.1.2; nl_NL)'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'iPhone'
+        DeviceBrand                        : 'Apple'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iPhone OS'
+        OperatingSystemVersion             : '7.1.2'
+        LayoutEngineClass                  : 'Unknown'
+        LayoutEngineName                   : 'Unknown'
+        LayoutEngineVersion                : 'Unknown'
+        AgentClass                         : 'Special'
+        AgentName                          : 'Mobitest'
+        AgentVersion                       : '1.8'
+        AgentLanguage                      : 'Dutch (Netherlands)'
+
+#
+#
+#  - test:
+##      options:
+##        - 'verbose'
+##        - 'init'
+##        - 'only'
+#      input:
+##        name: 'You can give the test case a name'
+#        user_agent_string: 'python-requests/2.1.0 CPython/2.7.3 Linux/3.2.0-4-amd64'
+#
+#  - test:
+##      options:
+##        - 'verbose'
+##        - 'init'
+##        - 'only'
+#      input:
+##        name: 'You can give the test case a name'
+#        user_agent_string: 'Mozilla/5.0 compatible; MSIE 9.0; Windows NT 4.1 Chrome/31.0.1229.79'
+#      expected:
+
+#DoCoMo	1.0	DoCoMo/1.0/D503iS/c10
+#DoCoMo	1.0	DoCoMo/1.0/P502i/c10 (Google CHTML Proxy/1.0)
+#DoCoMo	2.0	DoCoMo/2.0 F900i(c100;TB;W22H12),gzip(gfe) (via translate.google.com)
+#DoCoMo	2.0	DoCoMo/2.0 N900i(c100;TB;W24H12)
+#Doris	1.10	Doris/1.10 [en] (Symbian)
+#Doris	1.17	Doris/1.17 [en] (Symbian)
+
+#Mozilla/4.5 (compatible; iCab 2.9.7; Macintosh; U; PPC)
+#Mozilla/4.5 (compatible; iCab 2.9.7; Macintosh; U; PPC; Mac OS X)
+#Jakarta Commons-HttpClient/2.0.1
+#Java/1.5.0
+#Mozilla/5.0 (compatible; Konqueror/3.1; OpenBSD)
+#Mozilla/5.0 (compatible; Konqueror/3.1; SunOS)
+#Mozilla/5.0 (compatible; Konqueror/3.1.3; OpenBSD 3.4)
+#Mozilla/5.0 (compatible; Konqueror/3.2; Darwin) (KHTML, like Gecko)
+#
+#Firefox/32.0.3 (x86 en-US); anonymized by Abelssoft 1598848102
+#Firefox/34.0.5 (x86 de); anonymized by Abelssoft 1811190192
+#Firefox/34.0.5 (x86 de); anonymized by Abelssoft 223791841
+#
+#Google-Sitemaps/1.0
+#GT-I9190/V1 Linux/3.4.39 Android/4.4.4 Release/10.31.2014 Browser/AppleWebKit534.30 Mobile Safari/534.30 MBBMS/2.2 System/Android 4.4.4
+#GT-I9300 Linux/3.0.13 Android/4.1.9 Release/02.02.2013 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.0.1;
+#
+#
+#JUC (D\xccFH\xa93;U; 4.0.4; zh-cn; LT28h; 720*1280) UCWEB7.9.0.94/139/352
+#JUC (Linux; U; 2.3.6; zh-cn; T730; 320*480) UCWEB7.9.0.94/139/33183
+#JUC (Linux; U; 4.1.2; zh-cn; GT-N7000; 800*1280) UCWEB7.9.0.94/139/352
+#JUC (Linux; U; 4.1.2; zh-cn; GT-S5282; 240*320) UCWEB7.9.0.94/139/444
+#JUC (Linux; U; 4.4.2; zh-cn; SM-G355H; 480*800) UCWEB7.9.0.94/139/444
+#JUC(Linux;U;Android1.6;Zh_cn;E10i;240*320;)UCWEB7.8.0.95/139/355
+#
+#
+#Lenovo-A820t_TD/S100 Linux/3.4.0 Android/4.1 Release/1.4.2013 Browser/AppleWebKit534.30 Mobile Safari/534.30
+#Lenovo-A830/S100 Linux/3.4.0 Android/4.2 Release/01.23.2013 Browser/AppleWebKit534.30 Profile/ Configuration/ Mobile Safari/534.30
+#Lenovo-A880/S100 Linux/3.4.5 Android/4.2 Release/08.07.2013 Browser/AppleWebKit 534.30 Profile/ Configuration;
+#LG/KC910/V10a Browser/Obigo-Q7.1 MMS/LG-MMS-V1.0/1.2 MediaPlayer/LGPlayer/1.0 Java/ASVM/1.1 Profile/MIDP-2.1 Configuration/CLDC-1.1
+#LG-KP500 Teleca/WAP2.0 MIDP-2.0/CLDC-1.1 UNTRUSTED/1.0
+#LG-LG840G/V100[TF013293005745563000000017406413182] Obigo/Q7.3 Profile/MIDP-2.1 Configuration/CLDC-1.1
+#
+#MT6572_TD/V1 Linux/3.4.5 Android/4.2.2 Release/03.26.2013 Browser/AppleWebKit534.30 Mobile Safari/534.30 MBBMS/2.2;
+#MT6572/V1 Linux/3.4.5 Android/4.2.2_OS Release/03.04.2014 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.2.2_OS;
+#
+#Nokia110/2.0 (03.51) Profile/MIDP-2.1 Configuration/CLDC-1.1  UNTRUSTED/1.0
+#Nokia112/2.0 (03.26) Profile/MIDP-2.1 Configuration/CLDC-1.1 UCWEB/2.0 (Java; U; MIDP-2.0; en-US; Nokia112) U2/1.0.0 UCBrowser/9.3.0.326 U2/1.0.0 Mobile
+#
+#Nokia2320c-2b/2.0(ATT.11.10) Profile/MIDP-2.1 Configuration/CLDC-1.1
+#Nokia2690/2.0 (10.10) Profile/MIDP-2.1 Configuration/CLDC-1.1 UCWEB/2.0 (Java; U; MIDP-2.0; en-US; Nokia2690) U2/1.0.0 UCBrowser/9.4.1.377 U2/1.0.0 Mobile
+#
+#OneBrowser/4.2.0/Adr(Linux; U; Android 2.3.5; nl-nl; GT-I9100 Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Mobile Safari/533.1
+#
+#
+#SAMSUNG-GT-B7330/1.0 (compatible; MSIE 6.0; Windows CE; IEMobile 8.12; MSIEMobile 6.0)
+#SAMSUNG-GT-C3312/1.0 NetFront/4.2 Profile/MIDP-2.0 Configuration/CLDC-1.1
+#SAMSUNG-GT-S3850/S3850XEKC5 SHP/VPP/R5 Dolfin/2.0 NexPlayer/3.0 SMM-MMS/1.2.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B
+#SAMSUNG-GT-S3850/S3850XXKC2 SHP/VPP/R5 Dolfin/2.0 NexPlayer/3.0 SMM-MMS/1.2.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B
+#SAMSUNG-GT-S5260P/S5260PCEKJ1 SHP/VPP/R5 Dolfin/2.0 NexPlayer/3.0 SMM-MMS/1.2.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B
+#SAMSUNG-GT-S5260/S5260XXKD1 SHP/VPP/R5 Dolfin/2.0 NexPlayer/3.0 SMM-MMS/1.2.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B
+#SAMSUNG-S8000/S800MCEIK1 SHP/VPP/R5 Jasmine/1.0 Nextreaming SMM-MMS/1.2.0 profile/MIDP-2.1 configuration/CLDC-1.1 SS-Widget/S8000-FM
+#SAMSUNG-SCH-M715/1.0 (compatible; MSIE 6.0; Windows CE; IEMobile 8.12; MSIEMobile 6.0)
+#
+#
+#UCWEB/2.0(BlackBerry; U; 9.6.0.93; en-us; 9360/9.6.0.93) U2/1.0.0 UCBrowser/8.1.0.216 U2/1.0.0 Mobile
+#UCWEB/2.0 (iOS; U; iPh OS 5_0_1; zh-CN; iPh4,1) U2/1.0.0 UCBrowser/9.5.1.408 U2/1.0.0 Mobile
+#UCWEB/2.0 (Java; U; MIDP-2.0; en; Nokia500) U2/1.0.0 UCBrowser/9.5.0.449 U2/1.0.0 Mobile UNTRUSTED/1.0 3gpp-gba
+#UCWEB/2.0 (Java; U; MIDP-2.0; en-US; Nokia501) U2/1.0.0 UCBrowser/9.5.0.449 U2/1.0.0 Mobile
+#UCWEB/2.0 (Java; U; MIDP-2.0; en-US; Nokia501) U2/1.0.0 UCBrowser/9.5.0.449 U2/1.0.0 Mobile UNTRUSTED/1.0
+#UCWEB/2.0 (Java; U; MIDP-2.0; en-US; Nokia6085) U2/1.0.0 UCBrowser/9.5.0.449 U2/1.0.0 Mobile
+#UCWEB/2.0 (Java; U; MIDP-2.0; en-US; NokiaAsha500DualSIM) U2/1.0.0 UCBrowser/9.5.0.449 U2/1.0.0 Mobile
+#UCWEB/2.0 (Java; U; MIDP-2.0; en-US; nokiac5-00.2) U2/1.0.0 UCBrowser/9.2.0.311 U2/1.0.0 Mobile 3gpp-gba
+#UCWEB/2.0 (Java; U; MIDP-2.0; en-US; NokiaE63-1) U2/1.0.0 UCBrowser/9.4.1.377 U2/1.0.0 Mobile UNTRUSTED/1.0
+#UCWEB/2.0 (Java; U; MIDP-2.0; en-US; SAMSUNG-GT-S3850) U2/1.0.0 UCBrowser/9.5.0.449 U2/1.0.0 Mobile UNTRUSTED/1.0
+#
+#UCWEB/2.0 (MIDP-2.0; U; Adr 4.4.4; en-US; SM-G530H) U2/1.0.0 UCBrowser/9.8.0.534 U2/1.0.0 Mobile
+#UCWEB/2.0 (MIDP-2.0; U; Adr 4.4.4; en-US; XT1022) U2/1.0.0 UCBrowser/9.7.0.520 U2/1.0.0 Mobile
+#UCWEB/2.0 (MIDP-2.0; U; Adr 4.4.4; v.smartads.com.ph; GT-I5500) U2/1.0.0 UCBrowser/9.8.0.534 U2/1.0.0 Mobile
+#UCWEB/2.0 (Symbian; U; S60 V3; en-US; NOKIA6120c) U2/1.0.0 UCBrowser/9.2.0.336 U2/1.0.0 Mobile
+#UCWEB/2.0 (Symbian; U; S60 V3; en-US; NokiaC5-00.2) U2/1.0.0 UCBrowser/9.2.0.336 U2/1.0.0 Mobile
+#UCWEB/2.0 (Symbian; U; S60 V3; en-US; NOKIAE5-00) U2/1.0.0 UCBrowser/9.2.0.336 U2/1.0.0 Mobile
+#UCWEB/2.0 (Symbian; U; S60 V3; en-US; NokiaE63) U2/1.0.0 UCBrowser/9.2.0.336 U2/1.0.0 Mobile
+#
+#UCWEB/2.0 (Symbian; U; S60 V5; es-LA; Nokia5233) U2/1.0.0 UCBrowser/9.2.0.336 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 7.10; en-US; NOKIA; Lumia 610) U2/1.0.0 UCBrowser/3.2.0.340 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 7.10; en-US; NOKIA; Lumia 710) U2/1.0.0 UCBrowser/3.2.0.340 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 8.0; de-DE; HTC;  8S by HTC) U2/1.0.0 UCBrowser/4.2.0.524 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 8.0; en-US; HTC;  8S by HTC) U2/1.0.0 UCBrowser/4.2.0.524 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 8.0; en-US; HTC;  8X by HTC) U2/1.0.0 UCBrowser/4.2.1.541 U2/1.0.0 Mobile
+#
+#
+#UCWEB/2.0 (Windows; U; wds 8.0; es-LA; NOKIA; RM-915_lta_lta_245) U2/1.0.0 UCBrowser/4.2.1.541 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 8.0; pt-BR; NOKIA; RM-915_lta_brazil_211) U2/1.0.0 UCBrowser/4.1.0.504 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 8.0; pt-BR; NOKIA; RM-915_lta_brazil_211) U2/1.0.0 UCBrowser/4.2.0.524 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 8.10; en-IN; Microsoft; RM-1090_1001) U2/1.0.0 UCBrowser/4.2.1.541 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 8.10; en-IN; NOKIA; RM-1040_1001) U2/1.0.0 UCBrowser/4.2.0.524 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 8.10; en-IN; NOKIA; RM-914_im_india_269) U2/1.0.0 UCBrowser/4.2.1.541 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 8.10; en-IN; NOKIA; RM-978_1046) U2/1.0.0 UCBrowser/4.2.1.541 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 8.10; en-US; HUAWEI; HUAWEI W2-U00) U2/1.0.0 UCBrowser/4.2.0.524 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 8.10; en-US; NOKIA; RM-1017_1056) U2/1.0.0 UCBrowser/4.2.1.541 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 8.10; en-US; NOKIA; RM-1045_1063) U2/1.0.0 UCBrowser/4.2.0.524 U2/1.0.0 Mobile
+#UCWEB/2.0 (Windows; U; wds 8.10; en-US; NOKIA; RM-1045_1063) U2/1.0.0 UCBrowser/4.2.1.541 U2/1.0.0 Mobile
+#WebKit/3.9.4, (CE-HTML/1.0 NETTV/3.3.0 NewB) PHILIPS-AVM-2013/1.30 (Philips, BDP7750, wireless)
+#WebKit/4.1.9, (CE-HTML/1.0 NETTV/3.3.0 NewB) PHILIPS-AVM-2013/1.16 (Philips, HTB5260G, wireless)
+#WebKit/4.2.5, (CE-HTML/1.0 NETTV/3.3.0 NewB) PHILIPS-AVM-2013/1.35 (Philips, BDP5700, wireless)
+#SAMSUNG-GT-S3333 Opera/9.80 (X11; Linux zvav; U; pt) Presto/2.12.423 Version/12.16
+#SAMSUNG GT-S3570 Opera/9.80 (J2ME/MIDP; Opera Mini/6.5.30607/36.1609; U; nl) Presto/2.12.423 Version/12.16
+#UCWEB/2.0 (Linux; U; Opera Mini/7.1.32052/30.3697; en-US; HTC_Desire_500) U2/1.0.0 UCBrowser/9.7.0.520 Mobile
+#
+
+
+
+#471     8       SSL Labs (https://www.ssllabs.com/about/assessment.html); on behalf of 85.17.131.202
+#AlienBlue/2.9.10.0.2 CFNetwork/758.4.3 Darwin/15.6.0
+#AlienBlue/2.9.5 CFNetwork/758.3.15 Darwin/15.4.0

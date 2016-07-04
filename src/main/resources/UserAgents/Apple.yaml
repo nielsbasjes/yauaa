@@ -1,0 +1,809 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+config:
+
+  - matcher:
+      extract:
+        - 'DeviceClass           : 100:"Phone"'
+        - 'DeviceBrand           : 100:"Apple"'
+        - 'DeviceName            : 100:"iPhone"'
+        - 'OperatingSystemClass  : 100:"Mobile"'
+        - 'OperatingSystemName   : 100:agent.(1)product.(1)comments.entry.product.name="iPhone OS"'
+        - 'OperatingSystemVersion: 100:CleanVersion[agent.(1)product.(1)comments.entry.product.name="iPhone OS"^.version]'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name#3="Mac OS X"'
+        - 'IsNull[agent.(1)product.(1)comments.entry.product.name="like Mac OS X"]'
+      extract:
+        - 'DeviceClass           :  20:"Desktop"'
+        - 'DeviceBrand           :  20:"Apple"'
+        - 'DeviceName            :  20:"Macintosh"'
+        - 'OperatingSystemClass  :  20:"Desktop"'
+        - 'OperatingSystemName   :  20:"Mac OS X"'
+        - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name#3="Mac OS X"^.version]'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text#3="Mac OS X"'
+        - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
+      extract:
+        - 'DeviceClass           :  19:"Desktop"'
+        - 'DeviceBrand           :  19:"Apple"'
+        - 'DeviceName            :  19:"Macintosh"'
+        - 'DeviceCpu             :  19:"Intel"'
+        - 'OperatingSystemClass  :  19:"Desktop"'
+        - 'OperatingSystemName   :  19:"Mac OS X"'
+        - 'OperatingSystemVersion:  19:"X"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name#4="Intel Mac OS X"'
+        - 'IsNull[agent.(1)product.(1)comments.entry.product.name="like Mac OS X"]'
+      extract:
+        - 'DeviceClass           :  20:"Desktop"'
+        - 'DeviceBrand           :  20:"Apple"'
+        - 'DeviceName            :  20:"Macintosh"'
+        - 'DeviceCpu             :  20:"Intel"'
+        - 'OperatingSystemClass  :  20:"Desktop"'
+        - 'OperatingSystemName   :  20:"Mac OS X"'
+        - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="Intel Mac OS X"^.version]'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text#4="Intel Mac OS X"'
+        - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
+      extract:
+        - 'DeviceClass           :  19:"Desktop"'
+        - 'DeviceBrand           :  19:"Apple"'
+        - 'DeviceName            :  19:"Macintosh"'
+        - 'DeviceCpu             :  19:"Intel"'
+        - 'OperatingSystemClass  :  19:"Desktop"'
+        - 'OperatingSystemName   :  19:"Mac OS X"'
+        - 'OperatingSystemVersion:  19:"X"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name#4="PPC Mac OS X"'
+        - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
+      extract:
+        - 'DeviceClass           :  20:"Desktop"'
+        - 'DeviceBrand           :  20:"Apple"'
+        - 'DeviceName            :  20:"Macintosh"'
+        - 'DeviceCpu             :  20:"PowerPC"'
+        - 'OperatingSystemClass  :  20:"Desktop"'
+        - 'OperatingSystemName   :  20:"Mac OS X"'
+        - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="PPC Mac OS X"^.version]'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text#4="PPC Mac OS X"'
+        - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
+      extract:
+        - 'DeviceClass           :  19:"Desktop"'
+        - 'DeviceBrand           :  19:"Apple"'
+        - 'DeviceName            :  19:"Macintosh"'
+        - 'DeviceCpu             :  19:"PowerPC"'
+        - 'OperatingSystemClass  :  19:"Desktop"'
+        - 'OperatingSystemName   :  19:"Mac OS X"'
+        - 'OperatingSystemVersion:  19:"X"'
+
+  - matcher:
+     require:
+       - 'agent.(1)product.(1)comments.entry.product.name#4="PowerPC Mac OS X"'
+       - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
+     extract:
+       - 'DeviceClass           :  20:"Desktop"'
+       - 'DeviceBrand           :  20:"Apple"'
+       - 'DeviceName            :  20:"Macintosh"'
+       - 'DeviceCpu             :  20:"PowerPC"'
+       - 'OperatingSystemClass  :  20:"Desktop"'
+       - 'OperatingSystemName   :  20:"Mac OS X"'
+       - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="PowerPC Mac OS X"^.version]'
+
+  - matcher:
+     require:
+       - 'agent.(1)product.(1)comments.entry.text#4="PowerPC Mac OS X"'
+       - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
+     extract:
+       - 'DeviceClass           :  19:"Desktop"'
+       - 'DeviceBrand           :  19:"Apple"'
+       - 'DeviceName            :  19:"Macintosh"'
+       - 'DeviceCpu             :  19:"PowerPC"'
+       - 'OperatingSystemClass  :  19:"Desktop"'
+       - 'OperatingSystemName   :  19:"Mac OS X"'
+       - 'OperatingSystemVersion:  19:"X"'
+
+  - matcher:
+     require:
+       - 'agent.(1)product.(1)comments.entry.product.name#4="ARM Mac OS X"'
+       - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
+     extract:
+       - 'DeviceClass           :  20:"Desktop"'
+       - 'DeviceBrand           :  20:"Apple"'
+       - 'DeviceName            :  20:"Macintosh"'
+       - 'DeviceCpu             :  20:"ARM"'
+       - 'OperatingSystemClass  :  20:"Desktop"'
+       - 'OperatingSystemName   :  20:"Mac OS X"'
+       - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="ARM Mac OS X"^.version]'
+
+  - matcher:
+     require:
+       - 'agent.(1)product.(1)comments.entry.text#4="ARM Mac OS X"'
+       - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
+     extract:
+       - 'DeviceClass           :  19:"Desktop"'
+       - 'DeviceBrand           :  19:"Apple"'
+       - 'DeviceName            :  19:"Macintosh"'
+       - 'DeviceCpu             :  19:"ARM"'
+       - 'OperatingSystemClass  :  19:"Desktop"'
+       - 'OperatingSystemName   :  19:"Mac OS X"'
+       - 'OperatingSystemVersion:  19:"X"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.(1)text="CPU like Mac OS X"'
+      extract:
+       - 'OperatingSystemClass  :  20:"Mobile"'
+       - 'OperatingSystemName   :  20:"iOS"'
+       - 'OperatingSystemVersion:  20:"Unknown"'
+
+  - matcher:
+     require:
+       - 'agent.(1)product.(1)comments.entry.product.name="CPU"^>="like Mac OS X"'
+     extract:
+       - 'DeviceFirmwareVersion :  20:agent.product.name="Mobile"^.version'
+       - 'OperatingSystemClass  :  20:"Mobile"'
+       - 'OperatingSystemName   :  20:"iOS"'
+       - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="CPU"^.version]'
+
+  - matcher:
+     require:
+       - 'agent.(1)product.(1)comments.entry.product.name="CPU OS"^>="like Mac OS X"'
+     extract:
+       - 'DeviceFirmwareVersion :  20:agent.product.name="Mobile"^.version'
+       - 'OperatingSystemClass  :  20:"Mobile"'
+       - 'OperatingSystemName   :  20:"iOS"'
+       - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="CPU OS"^.version]'
+
+  - matcher:
+     require:
+       - 'agent.(1)product.(1)comments.entry.product.name="CPU OS"^>="like Mac OS X"'
+     extract:
+       - 'OperatingSystemClass  :  20:"Mobile"'
+       - 'OperatingSystemName   :  20:"iOS"'
+       - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="CPU OS"^.version]'
+
+
+  - matcher:
+     require:
+       - 'agent.(1)product.(1)comments.entry.product.name="CPU iPhone OS"^>="like Mac OS X"'
+     extract:
+       - 'DeviceFirmwareVersion :   20:agent.product.name="Mobile"^.version'
+       - 'OperatingSystemClass  :   20:"Mobile"'
+       - 'OperatingSystemName   :   20:"iOS"'
+       - 'OperatingSystemVersion:   20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="CPU iPhone OS"^.version]'
+
+  - matcher:
+     require:
+       - 'agent.(1)product.(1)comments.entry.product.name="CPU iPad OS"^>="like Mac OS X"'
+     extract:
+       - 'DeviceFirmwareVersion :   20:agent.product.name="Mobile"^.version'
+       - 'OperatingSystemClass  :   20:"Mobile"'
+       - 'OperatingSystemName   :   20:"iOS"'
+       - 'OperatingSystemVersion:   20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="CPU iPad OS"^.version]'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.(1)entry.text="Macintosh"'
+      extract:
+        - 'DeviceClass           :  10:"Desktop"'
+        - 'DeviceBrand           :  10:"Apple"'
+        - 'DeviceName            :  10:"Macintosh"'
+
+  - matcher:
+      extract:
+#       - 'DeviceClass           :  20:LookUp[AppleDeviceType;agent.(1)product.(1)comments.(1)entry.text]'
+#       - 'DeviceBrand           :  20:"Apple"'
+#       - 'DeviceName            :  20:agent.(1)product.(1)comments.(1)entry.text'
+       - 'OperatingSystemClass  :  20:"Mobile"'
+       - 'OperatingSystemName   :  20:"iOS"'
+       - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.(1)product.(1)name="iOS"^.version]'
+
+# Testcases for apps
+
+  - test:
+      input:
+        user_agent_string: 'bol.com/1.8.2 (iPad; iOS 9.3; Scale/2.00)'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceName                         : 'iPad'
+        DeviceBrand                        : 'Apple'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '9.3'
+        LayoutEngineClass                  : 'Unknown'
+        LayoutEngineName                   : 'Unknown'
+        LayoutEngineVersion                : 'Unknown'
+        AgentClass                         : 'Special'
+        AgentName                          : 'bol.com'
+        AgentVersion                       : '1.8.2'
+
+  - test:
+      input:
+        user_agent_string: 'bol.com/1.8.2 (iPhone; iOS 10.0; Scale/2.00)'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'iPhone'
+        DeviceBrand                        : 'Apple'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '10.0'
+        LayoutEngineClass                  : 'Unknown'
+        LayoutEngineName                   : 'Unknown'
+        LayoutEngineVersion                : 'Unknown'
+        AgentClass                         : 'Special'
+        AgentName                          : 'bol.com'
+        AgentVersion                       : '1.8.2'
+
+
+  - test:
+      input:
+        user_agent_string: 'Voordeel 1.3.0 rv:1.30 (iPhone; iPhone OS 7.1.1; nl_NL)'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPhone'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iPhone OS'
+        OperatingSystemVersion             : '7.1.1'
+#        LayoutEngineClass      : 'App'
+#        LayoutEngineName       : ''
+#        LayoutEngineBuild      : ''
+#        LayoutEngineVersion    : ''
+        AgentClass                         : 'Special'
+        AgentName                          : 'Voordeel'
+        AgentVersion                       : '1.3.0'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) CriOS/40.0.2214.73 Mobile/11D201 Safari/9537.53'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPad'
+        DeviceFirmwareVersion              : '11D201'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '7.1.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '40.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '40.0.2214.73'
+
+
+# TODO: GSA Google Search Appliance ?
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) GSA/5.1.42378 Mobile/11D201 Safari/9537.53'
+#      expected:
+#        DeviceClass             : 'Tablet'
+#        DeviceBrand             : 'Apple'
+#        DeviceName              : 'iPad'
+#        DeviceFirmwareVersion   : '11D201'
+#        OperatingSystemClass    : 'Mobile'
+#        OperatingSystemName     : 'iOS'
+#        OperatingSystemVersion  : '7.1.1'
+#        LayoutEngineClass       : 'Browser'
+#        LayoutEngineName        : 'AppleWebKit'
+#        LayoutEngineVersion     : '537.51.2'
+#        AgentClass              : 'Browser'
+#        AgentName               : 'Safari'
+#        AgentVersion            : '9537.53'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D201'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPad'
+        DeviceFirmwareVersion              : '11D201'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '7.1.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '537.51.2'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'AppleWebKit'
+        AgentVersion                       : '537.51.2'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B367 Safari/531.21.10'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPad'
+        DeviceFirmwareVersion              : '7B367'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '3.2'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '531.21.10'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '4.0.4'
+        AgentSecurity                      : "Strong security"
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; U; CPU OS 4_2_1 like Mac OS X; nl-nl) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8C148 Safari/6533.18.5'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPad'
+        DeviceFirmwareVersion              : '8C148'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '4.2.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '533.17.9'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '5.0.2'
+        AgentSecurity                      : 'Strong security'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; U; CPU OS 4_3_3 like Mac OS X; nl-nl) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPad'
+        DeviceFirmwareVersion              : '8J2'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '4.3.3'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '533.17.9'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '5.0.2'
+        AgentSecurity                      : 'Strong security'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; U; CPU OS 4_3_5 like Mac OS X; nl-nl) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8L1 Safari/6533.18.5'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPad'
+        DeviceFirmwareVersion              : '8L1'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '4.3.5'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '533.17.9'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '5.0.2'
+        AgentSecurity                      : 'Strong security'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad;U;CPU OS 5_1_1 like Mac OS X; zh-cn)AppleWebKit/534.46.0(KHTML, like Gecko)CriOS/19.0.1084.60 Mobile/9B206 Safari/7534.48.3'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPad'
+        DeviceFirmwareVersion              : '9B206'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '5.1.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '534.46.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '19.0.1084.60'
+        AgentSecurity                      : 'Strong security'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; U; CPU OS 5_1 like Mac OS X; en-us) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPad'
+        DeviceFirmwareVersion              : '9B176'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '5.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '534.46'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '5.1'
+        AgentSecurity                      : 'Strong security'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B329 Safari/8536.25'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPhone'
+        DeviceFirmwareVersion              : '10B329'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '6.1.3'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '536.26'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '6.0'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_6 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B500 Safari/8536.25'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPhone'
+        DeviceFirmwareVersion              : '10B500'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '6.1.6'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '536.26'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '6.0'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_2 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A501 Safari/9537.53'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPhone'
+        DeviceFirmwareVersion              : '11A501'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '7.0.2'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '537.51.1'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '7.0'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_3 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B511 Safari/9537.53'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPhone'
+        DeviceFirmwareVersion              : '11B511'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '7.0.3'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '537.51.1'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '7.0'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_6 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B651 Safari/9537.53'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPhone'
+        DeviceFirmwareVersion              : '11B651'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '7.0.6'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '537.51.1'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '7.0'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12F70'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPhone'
+        DeviceFirmwareVersion              : '12F70'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '8.3'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '600.1.4'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'AppleWebKit'
+        AgentVersion                       : '600.1.4'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPod; CPU iPhone OS 6_1_6 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B500 Safari/8536.25'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPod'
+        DeviceFirmwareVersion              : '10B500'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '6.1.6'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '536.26'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '6.0'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPod touch; CPU iPhone OS 8_1_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B440 Safari/600.1.4'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPod touch'
+        DeviceFirmwareVersion              : '12B440'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '8.1.2'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '600.1.4'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '8.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 9_2_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13D11'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPad'
+        DeviceFirmwareVersion              : '13D11'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '9.2.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '601.1.46'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'AppleWebKit'
+        AgentVersion                       : '601.1.46'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/600.3.18 (KHTML, like Gecko) Version/8.0.3 Safari/600.3.18'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'Macintosh'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Mac OS X'
+        OperatingSystemVersion             : '10.10.2'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '600.3.18'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '8.0.3'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.2) Gecko/20040825 Camino/0.8.1'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'Macintosh'
+        DeviceCpu                          : 'PowerPC'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Mac OS X'
+        OperatingSystemVersion             : 'X'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Gecko'
+        LayoutEngineVersion                : '1.7.2'
+        LayoutEngineBuild                  : '20040825'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Camino'
+        AgentVersion                       : '0.8.1'
+        AgentLanguage                      : 'English (United States)'
+        AgentSecurity                      : 'Strong security'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 8_1_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko)'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPad'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '8.1.3'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '600.1.4'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'AppleWebKit'
+        AgentVersion                       : '600.1.4'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; CPU iPad OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceName                         : 'iPad'
+        DeviceBrand                        : 'Apple'
+        DeviceFirmwareVersion              : '12A4345d'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '8.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '600.1.3'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '8.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; U; CPU like Mac OS X; en) AppleWebKit/420+'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceName                         : 'iPad'
+        DeviceBrand                        : 'Apple'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : 'Unknown'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '420'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'AppleWebKit'
+        AgentVersion                       : '420'
+        AgentLanguage                      : 'English'
+        AgentSecurity                      : 'Strong security'
+
+  - test:
+      input:
+        user_agent_string: 'Airmail 1.3.3 rv:237 (Macintosh; Mac OS X 10.9.3; nl_NL)'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Macintosh'
+        DeviceBrand                        : 'Apple'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Mac OS X'
+        OperatingSystemVersion             : '10.9.3'
+        LayoutEngineClass                  : 'Unknown'
+        LayoutEngineName                   : 'Unknown'
+        LayoutEngineVersion                : 'Unknown'
+        AgentClass                         : 'Special'
+        AgentName                          : 'Airmail'
+        AgentVersion                       : '1.3.3'
+        AgentLanguage                      : 'Dutch (Netherlands)'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; U; CPU OS_3_2_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B500 Safari/531.21.10'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceName                         : 'iPad'
+        DeviceBrand                        : 'Apple'
+        DeviceFirmwareVersion              : '7B500'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : 'OS.3.2.2'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '531.21.10'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '4.0.4'
+        AgentLanguage                      : 'English (United States)'
+        AgentSecurity                      : 'Strong security'
+
+
+  - matcher:
+      extract:
+        - 'AgentClass            :  19:"Mobile App"'
+        - 'AgentName             :  19:agent.([2-5])product.(1)name="Mobile"^>.name'
+        - 'AgentVersion          :  19:agent.([2-5])product.(1)name="Mobile"^>.version'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13B143 Instagram 7.10.0 (iPhone5,4; iPhone OS 9_1; nl_NL@calendar=buddhist; nl-NL; scale=2.00; 640x1136)'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'iPhone'
+        DeviceBrand                        : 'Apple'
+        DeviceFirmwareVersion              : '13B143'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '9.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '601.1.46'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'Instagram'
+        AgentVersion                       : '7.10.0'
+        AgentLanguage                      : 'Dutch (Netherlands)'
+
+# Has empty version at the end
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.1 Mobile/11D201 Safari/'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceName                         : 'iPad'
+        DeviceBrand                        : 'Apple'
+        DeviceFirmwareVersion              : '11D201'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '7.1.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '537.51.2'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '7.1'

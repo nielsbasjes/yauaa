@@ -1,0 +1,101 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+config:
+
+  - matcher:
+      extract:
+        - 'DeviceClass           :   1:"Desktop"'
+        - 'DeviceBrand           :   1:"Sun"'
+        - 'DeviceName            :   1:"Sun"'
+        - 'OperatingSystemClass  :   1:"Desktop"'
+        - 'OperatingSystemName   :   1:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name="SunOS"'
+        - 'OperatingSystemVersion:   1:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name="SunOS"^.version'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; SunOS i86pc; rv:31.0) Gecko/20100101 Firefox/31.0'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Sun'
+        DeviceBrand                        : 'Sun'
+        DeviceCpu                          : 'i86pc'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'SunOS'
+        OperatingSystemVersion             : 'i86pc'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Gecko'
+        LayoutEngineVersion                : '31.0'
+        LayoutEngineBuild                  : '20100101'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Firefox'
+        AgentVersion                       : '31.0'
+
+  - matcher:
+      extract:
+        - 'DeviceClass           :   10:"Desktop"'
+        - 'DeviceName            :   10:"Desktop"'
+        - 'OperatingSystemClass  :   10:"Desktop"'
+        - 'OperatingSystemName   :   10:agent.product.comments.entry="OS/2"'
+        - 'OperatingSystemVersion:   10:"2.x"'
+
+  - matcher:
+      extract:
+        - 'DeviceClass           :   20:"Desktop"'
+        - 'DeviceName            :   20:"Desktop"'
+        - 'OperatingSystemClass  :   20:"Desktop"'
+        - 'OperatingSystemName   :   20:agent.product.comments.entry="OS/2"'
+        - 'OperatingSystemVersion:   20:agent.product.comments.entry.product.name="Warp"^'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (OS/2; Warp 4.5; rv:24.0) Gecko/20100101 Firefox/24.0'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'OS/2'
+        OperatingSystemVersion             : 'Warp 4.5'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Gecko'
+        LayoutEngineVersion                : '24.0'
+        LayoutEngineBuild                  : '20100101'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Firefox'
+        AgentVersion                       : '24.0'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.61 [de] (OS/2; U)'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'OS/2'
+        OperatingSystemVersion             : '2.x'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Mozilla'
+        LayoutEngineVersion                : '4.61'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Netscape'
+        AgentVersion                       : '4.61'
+        AgentLanguage                      : 'German'
+        AgentSecurity                      : 'Strong security'
+
+

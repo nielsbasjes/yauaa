@@ -1,0 +1,646 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+config:
+
+  - matcher:
+      extract:
+        - 'DeviceClass                 :  50:"Mobile"'
+        - 'DeviceName                  :  10:"Android Mobile"'
+        - 'OperatingSystemClass        : 500:"Mobile"'
+        - 'OperatingSystemName         : 500:"Android"'
+        - 'OperatingSystemVersion      : 500:agent.(1)product.comments.entry.product.name="Android"^.version'
+
+  - matcher:
+      extract:
+        - 'DeviceClass                 :  50:"Mobile"'
+        - 'DeviceName                  :  10:"Android Mobile"'
+        - 'OperatingSystemClass        : 500:"Mobile"'
+        - 'OperatingSystemName         : 500:"Android"'
+        - 'OperatingSystemVersion      : 500:agent.(1)product.comments.entry.product.name="Adr"^.version'
+
+  - matcher:
+      extract:
+        - 'DeviceClass                 :  51:"Mobile"'
+        - 'DeviceName                  :  11:"Android Mobile"'
+        - 'OperatingSystemClass        : 501:"Mobile"'
+        - 'OperatingSystemName         : 501:"Android"'
+        - 'OperatingSystemVersion      : 501:agent.product.name="Android"^.version'
+
+  - matcher:
+      extract:
+        - 'DeviceClass                 :  51:"Mobile"'
+        - 'DeviceName                  :  11:"Android Mobile"'
+        - 'OperatingSystemClass        : 501:"Mobile"'
+        - 'OperatingSystemName         : 501:"Android"'
+        - 'OperatingSystemVersion      : 501:agent.product.name="Adr"^.version'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.text="Android"'
+      extract:
+        - 'DeviceClass                 :  2:"Mobile"'
+        - 'DeviceName                  :  1:"Android Mobile"'
+        - 'OperatingSystemClass        :  2:"Mobile"'
+        - 'OperatingSystemName         :  2:"Android"'
+        - 'OperatingSystemVersion      :  2:"??"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+      extract:
+        - 'DeviceClass                 :  51:"Mobile"'
+        - 'DeviceName                  :  51:agent.(1)product.(1)comments.entry.product.name="Build"^<'
+        - 'OperatingSystemVersionBuild :  51:agent.(1)product.(1)comments.entry.product.name="Build"^.version'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.text="Tablet"'
+      extract:
+        - 'DeviceClass                 :  3:"Tablet"'
+        - 'OperatingSystemClass        :  3:"Mobile"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name="Android"'
+      extract:
+        - 'OperatingSystemVersionBuild :  80:agent.(1)product.(1)comments.entry.product.name%1="Build"^.version'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name="Android"'
+      extract:
+        - 'OperatingSystemVersionBuild :  79:agent.(1)product.(1)comments.entry.product.name%2="Build"^.version'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name="Android"'
+      extract:
+        - 'OperatingSystemVersionBuild :  78:agent.(1)product.(1)comments.entry.product.name%3="Build"^.version'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name="Android"'
+      extract:
+        - 'OperatingSystemVersionBuild :  77:agent.(1)product.(1)comments.entry.product.name%4="Build"^.version'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name="Android"'
+      extract:
+        - 'DeviceName                  :  75:agent.(1)product.(1)comments.entry%2="Build"@#1'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name="Android"'
+      extract:
+        - 'DeviceName                  :  76:agent.(1)product.(1)comments.entry%3="Build"@#2'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name="Android"'
+      extract:
+        - 'DeviceName                  :  77:agent.(1)product.(1)comments.entry%4="Build"@#3'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name="Android"'
+      extract:
+        - 'DeviceName                  :  78:agent.(1)product.(1)comments.entry%5="Build"@#4'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name="Android"'
+      extract:
+        - 'DeviceName                  :  79:agent.(1)product.(1)comments.entry%6="Build"@#5'
+
+  - matcher:
+      extract:
+        - 'DeviceClass            :  2014:"Desktop"'
+        - 'DeviceBrand            :  2014:"Google"'
+        - 'DeviceName             :  2014:"Chromebook"'
+        - 'DeviceCpu              :  2014:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^.(1)version]'
+        - 'OperatingSystemClass   :  2014:"Desktop"'
+        - 'OperatingSystemName    :  2014:"Chrome OS"'
+        - 'OperatingSystemVersion :  2014:agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^.(2)version'
+
+  - matcher:
+      extract:
+        - 'DeviceClass            :  2014:"Desktop"'
+        - 'DeviceBrand            :  2014:"Google"'
+        - 'DeviceName             :  2014:"Chromebook"'
+        - 'OperatingSystemClass   :  2014:"Desktop"'
+        - 'OperatingSystemName    :  2014:"Chrome OS"'
+        - 'OperatingSystemVersion :  2014:agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^.(1)version'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'Nexus 6'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '6.0'
+        OperatingSystemVersionBuild        : 'MRA58N'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '46.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '46.0.2490.76'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; SM-N9005 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.70 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'SM-N9005'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.4.2'
+        OperatingSystemVersionBuild        : 'KOT49H'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '33.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '33.0.1750.70'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; SM-G901F Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.57 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'SM-G901F'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.4.4'
+        OperatingSystemVersionBuild        : 'KTU84P'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '41.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '41.0.2272.57'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; Xperia P Build/KTU84Q) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.109 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'Xperia P'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.4.4'
+        OperatingSystemVersionBuild        : 'KTU84Q'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '40.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '40.0.2214.109'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; Xoom 3G Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'Xoom 3G'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.4.4'
+        OperatingSystemVersionBuild        : 'KTU84P'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '41.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '41.0.2272.96'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 5.0; nl-be; LG-D855 Build/LRX21R.A1417119896) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/34.0.1847.118 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'LG-D855'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '5.0'
+        OperatingSystemVersionBuild        : 'LRX21R.A1417119896'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '34.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '34.0.1847.118'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 5.0; en-gb; LG-D855/V20e Build/LRX21R.A1417847022) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/34.0.1847.118 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'LG-D855/V20e'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '5.0'
+        OperatingSystemVersionBuild        : 'LRX21R.A1417847022'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '34.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '34.0.1847.118'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 5.0; en-gb; LG-D855/D85520e Build/LRX21R.A1417604035) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/34.0.1847.118 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'LG-D855/D85520e'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '5.0'
+        OperatingSystemVersionBuild        : 'LRX21R.A1417604035'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '34.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '34.0.1847.118'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.1; Nexus 4 Build/JOP40D) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.89 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'Nexus 4'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.2.1'
+        OperatingSystemVersionBuild        : 'JOP40D'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '40.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '40.0.2214.89'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.1; Galaxy Nexus Build/JOP40D) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.108 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'Galaxy Nexus'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.2.1'
+        OperatingSystemVersionBuild        : 'JOP40D'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '42.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '42.0.2311.108'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.3; HP SlateBook 10 x2 PC Build/4.3-17r20-03-23) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'HP SlateBook 10 x2 PC'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.3'
+        OperatingSystemVersionBuild        : '4.3-17r20-03-23'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '31.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '31.0.1650.59'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.3; GT-N7105 Build/JSS15J) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.108 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'GT-N7105'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.3'
+        OperatingSystemVersionBuild        : 'JSS15J'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '42.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '42.0.2311.108'
+
+  - test:
+      input:
+      # TODO: What does OPR/27.0.1698.88647 mean?
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.3; HTC Sensation XE with Beats Audio Z715e Build/IML74K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.89 Mobile Safari/537.36 OPR/27.0.1698.88647'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'HTC Sensation XE with Beats Audio Z715e'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.0.3'
+        OperatingSystemVersionBuild        : 'IML74K'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '40.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '40.0.2214.89'
+
+#
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; el-gr; Tab1060 Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'Tab1060'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.2.2'
+        OperatingSystemVersionBuild        : 'JDQ39'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '534.30'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '4.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; CrOS x86_64 6310.68.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.96 Safari/537.36'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceBrand                        : 'Google'
+        DeviceName                         : 'Chromebook'
+        DeviceCpu                          : 'Intel x86_64'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Chrome OS'
+        OperatingSystemVersion             : '6310.68.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '39.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '39.0.2171.96'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; CrOS armv7l 6680.81.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceBrand                        : 'Google'
+        DeviceName                         : 'Chromebook'
+        DeviceCpu                          : 'ARMv7l'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Chrome OS'
+        OperatingSystemVersion             : '6680.81.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '41.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '41.0.2272.118'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; CrOS x86_64 6680.78.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.102 Safari/537.36'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceBrand                        : 'Google'
+        DeviceName                         : 'Chromebook'
+        DeviceCpu                          : 'Intel x86_64'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Chrome OS'
+        OperatingSystemVersion             : '6680.78.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '41.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '41.0.2272.102'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.3.6; nl-nl; GT-I9070 Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'GT-I9070'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '2.3.6'
+        OperatingSystemVersionBuild        : 'GINGERBREAD'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '533.1'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Mobile Safari'
+        AgentVersion                       : '4.0'
+        AgentLanguage                      : 'Dutch (Netherlands)'
+        AgentSecurity                      : 'Strong security'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Android; Tablet; rv:34.0) Gecko/34.0 Firefox/34.0'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceName                         : 'Android Mobile'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '??'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Gecko'
+        LayoutEngineVersion                : '34.0'
+        LayoutEngineBuild                  : '34.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Firefox'
+        AgentVersion                       : '34.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.1.1; en-us; TAB10-201 Build/Xenta) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'TAB10-201'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.1.1'
+        OperatingSystemVersionBuild        : 'Xenta'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '534.30'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '4.0'
+        AgentLanguage                      : 'English (United States)'
+        AgentSecurity                      : 'Strong security'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; HUAWEI G6-U10 Build/HuaweiG6-U10) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'HUAWEI G6-U10'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.4.2'
+        OperatingSystemVersionBuild        : 'HuaweiG6-U10'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '30.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '30.0.0.0'         # I think this is wrong, yet I do not have a better conclusion.
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.1; nl-nl; ASUS Transformer Pad TF300T Build/JOP40D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'ASUS Transformer Pad TF300T'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.2.1'
+        OperatingSystemVersionBuild        : 'JOP40D'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '534.30'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '4.0'
+        AgentLanguage                      : 'Dutch (Netherlands)'
+        AgentSecurity                      : 'Strong security'
+
+
+
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.0.3; nl-nl; Transformer TF101 Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'Transformer TF101'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersionBuild        : 'IML74K'
+        OperatingSystemVersion             : '4.0.3'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '534.30'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '4.0'
+        AgentLanguage                      : 'Dutch (Netherlands)'
+        AgentSecurity                      : 'Strong security'
+
+
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.1; ASUS Transformer Pad TF300T Build/JOP40D) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.109 Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'ASUS Transformer Pad TF300T'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.2.1'
+        OperatingSystemVersionBuild        : 'JOP40D'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '40.0'
+        LayoutEngineVersionMajor           : '40'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '40.0.2214.109'
+        AgentVersionMajor                  : '40'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.3; Transformer TF101 Build/IML74K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.93 Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'Transformer TF101'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.0.3'
+        OperatingSystemVersionBuild        : 'IML74K'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '39.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '39.0.2171.93'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; HP Pavilion dv6500 Notebook PC     Build/KVT49L) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.89 Safari/537.36 OPR/27.0.1698.88647'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'HP Pavilion dv6500 Notebook PC'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.4.2'
+        OperatingSystemVersionBuild        : 'KVT49L'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '40.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '40.0.2214.89'
+
+
+
+# TODO:
+#Android-Mail/6.5.122794288.release
+#Android-Mail/6.5.123664905.release
+
+#  - test:
+#      input:
+#        user_agent_string: 'Android-SAMSUNG-GT-I9060C/101.40404'
+#Android-SAMSUNG-GT-I9500/101.50001
+#AndroidDownloadManager/5.1 (Linux; U; Android 5.1; XT1039 Build/LPB23.13-17.6)
+#AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; A0001 Build/MMB29X)
+#AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; D5803 Build/23.5.A.0.575)
+#AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; MI 4W Build/MMB29M)
+#AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; MI NOTE LTE Build/MMB29M)
+#AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; Nexus 6P Build/MMB29M)

@@ -1,0 +1,168 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+config:
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry="Windows CE"'
+      extract:
+        - 'DeviceClass               : 101:"Mobile"'
+        - 'DeviceName                : 101:"Mobile"'
+        - 'OperatingSystemClass      : 101:"Mobile"'
+        - 'OperatingSystemName       : 100:"Windows CE"'
+        - 'OperatingSystemVersion    : 100:"Windows CE"'
+
+  - matcher:
+      extract:
+        - 'AgentClass            : 2011:"Browser"'
+        - 'AgentName             : 2011:"IE Mobile"'
+        - 'AgentVersion          : 2011:agent.product.comments.entry.product.name="IEMobile"^.version'
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry="Windows CE"'
+        - 'IsNull[agent.(1)product.name="Mozilla"]'
+      extract:
+        - 'DeviceClass               : 401:"Mobile"'
+        - 'DeviceName                : 403:agent.(1)product.name'
+        - 'DeviceVersion             : 403:agent.(1)product.name^.version'
+
+
+  - matcher:
+#      options:
+#        - 'verbose'
+      require:
+        - 'agent.product.comments.entry="Windows CE"'
+        - 'agent.product.name="Profile"^<.name!="Mozilla"'
+      extract:
+        - 'DeviceClass               : 401:"Mobile"'
+        - 'DeviceName                : 402:agent.product.name="Profile"^<.name'
+        - 'DeviceVersion             : 402:agent.product.name="Profile"^<.version'
+
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows CE, BrailleNote; IEMobile 7.11)'
+#
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 7.11) PPC; MDA_compact_IV/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1'
+
+  - test:
+      input:
+        user_agent_string: 'HTC_Touch_Pro2_T7373 Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 8.12; MSIEMobile 6.0)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'HTC_Touch_Pro2_T7373 Mozilla'   # Ok, weird but unfixable
+        DeviceVersion                      : '4.0'                            # Ok, weird but unfixable
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows CE'
+        OperatingSystemVersion             : 'Windows CE'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Internet Explorer Mobile'
+        LayoutEngineVersion                : '6.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '8.12'
+
+  - test:
+      input:
+        user_agent_string: 'SAMSUNG-GT-B6520/1.0 Profile/MIDP-2.1 Configuration/CLDC-1.1 Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 8.12; MSIEMobile 6.5)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'SAMSUNG-GT-B6520'
+        DeviceVersion                      : '1.0'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows CE'
+        OperatingSystemVersion             : 'Windows CE'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Internet Explorer Mobile'
+        LayoutEngineVersion                : '6.5'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '8.12'
+
+
+  - test:
+      input:
+        user_agent_string: 'SonyEricssonM1i/R1BA Browser/Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 8.12; MSIEMobile 6.5) Profile/MIDP-2.1 Configuration/CLDC-1.1'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'SonyEricssonM1i'
+        DeviceVersion                      : 'R1BA'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows CE'
+        OperatingSystemVersion             : 'Windows CE'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Internet Explorer Mobile'
+        LayoutEngineVersion                : '6.5'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '8.12'
+
+  - test:
+      input:
+        user_agent_string: 'PPC; 240x320; HTC_P3450/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 7.6)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'HTC_P3450'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows CE'
+        OperatingSystemVersion             : 'Windows CE'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Internet Explorer'
+        LayoutEngineVersion                : '6.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '7.6'
+        DeviceVersion                      : '1.0'
+
+
+
+
+#
+## Must be IEMobile on HTP_P33300 device. Almost all values are wrong.
+## The PPC and 240x320 parts caused parse errors in earlier versions.
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 6.12) PPC; 240x320; HTC_P3300/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1'
+      expected:
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'HTC_P3300'
+        DeviceVersion                      : '1.0'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows CE'
+        OperatingSystemVersion             : 'Windows CE'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Internet Explorer'
+        LayoutEngineVersion                : '6.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '6.12'
+
+
+
+
+
+
+
+
+
+
+

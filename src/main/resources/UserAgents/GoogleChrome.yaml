@@ -1,0 +1,163 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+#https://en.wikipedia.org/wiki/List_of_web_browsers
+#
+#Layout engines
+#Gecko is developed by the Mozilla Foundation.
+#KHTML is developed by the KDE project.
+#Presto is developed by Opera Software for use in Opera. Development stopped as Opera transitioned to Blink.
+#Tasman was developed by Microsoft for use in Internet Explorer 5 for Macintosh.
+#Trident is developed by Microsoft for use in the Windows versions of Internet Explorer 4 to Internet Explorer 11.
+#WebKit is a fork of KHTML by Apple Inc. used in Apple Safari, Chromium and Google Chrome.
+#Blink is a 2013 fork of WebKit by Google used in Chromium, Google Chrome and Opera.[20]
+#Servo is an experimental web browser layout engine being developed cooperatively by Mozilla and Samsung.
+#EdgeHTML is the engine developed by Microsoft for Edge. It is a largely rewritten fork of Trident with all legacy code removed.
+
+config:
+
+  - matcher:
+      extract:
+        - 'AgentClass            :   2014:"Browser"'
+        - 'AgentName             :   2014:"Chrome"'
+        - 'AgentVersion          :   2014:agent.product.(1)name="Chrome"^.version'
+
+  # Chrome on iOS
+  - matcher:
+      extract:
+        - 'AgentClass            :   2014:"Browser"'
+        - 'AgentName             :   2014:"Chrome"'
+        - 'AgentVersion          :   2014:agent.product.(1)name="CriOS"^.version'
+
+  # Chrome uses Blink starting with version 28
+  # See https://en.wikipedia.org/wiki/Blink_(web_engine)
+  # We define the 'old' version with a higher score and set the new one as the default
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Chrome"'
+        - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="Chrome"^.version#1]'
+        - 'agent.product.(1)name="AppleWebKit"^.version#1="537"'
+        - 'agent.product.(1)version#1="537"' # This is a matching speedup trick
+      extract:
+        - 'LayoutEngineClass     :   1000:"Browser"'
+        - 'LayoutEngineName      :   1000:"AppleWebKit"'
+        - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="CriOS"'
+        - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="CriOS"^.version#1]'
+        - 'agent.product.(1)name="AppleWebKit"^.version#1="537"'
+        - 'agent.product.(1)version#1="537"' # This is a matching speedup trick
+      extract:
+        - 'LayoutEngineClass     :   1000:"Browser"'
+        - 'LayoutEngineName      :   1000:"AppleWebKit"'
+        - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Chrome"'
+        - 'agent.product.(1)name="AppleWebKit"^.version#1="537"'
+        - 'agent.product.(1)version#1="537"' # This is a matching speedup trick
+      extract:
+        - 'LayoutEngineClass     :    999:"Browser"'
+        - 'LayoutEngineName      :    999:"Blink"'
+        - 'LayoutEngineVersion   :    999:agent.product.(1)name="Chrome"^.version#2'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="CriOS"'
+        - 'agent.product.(1)name="AppleWebKit"^.version#1="537"'
+        - 'agent.product.(1)version#1="537"' # This is a matching speedup trick
+      extract:
+        - 'LayoutEngineClass     :    999:"Browser"'
+        - 'LayoutEngineName      :    999:"Blink"'
+        - 'LayoutEngineVersion   :    999:agent.product.(1)name="CriOS"^.version#2'
+
+
+  - lookup:
+      name: 'ChromeLayoutEngineName'
+      map:
+       "0"  : "AppleWebKit"
+       "1"  : "AppleWebKit"
+       "2"  : "AppleWebKit"
+       "3"  : "AppleWebKit"
+       "4"  : "AppleWebKit"
+       "5"  : "AppleWebKit"
+       "6"  : "AppleWebKit"
+       "7"  : "AppleWebKit"
+       "8"  : "AppleWebKit"
+       "9"  : "AppleWebKit"
+       "10" : "AppleWebKit"
+       "11" : "AppleWebKit"
+       "12" : "AppleWebKit"
+       "13" : "AppleWebKit"
+       "14" : "AppleWebKit"
+       "15" : "AppleWebKit"
+       "16" : "AppleWebKit"
+       "17" : "AppleWebKit"
+       "18" : "AppleWebKit"
+       "19" : "AppleWebKit"
+       "20" : "AppleWebKit"
+       "21" : "AppleWebKit"
+       "22" : "AppleWebKit"
+       "23" : "AppleWebKit"
+       "24" : "AppleWebKit"
+       "25" : "AppleWebKit"
+       "26" : "AppleWebKit"
+       "27" : "AppleWebKit"
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.2.149.27 Safari/525.13'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows XP'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '525.13'
+        LayoutEngineVersionMajor           : '525'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '0.2.149.27'
+        AgentVersionMajor                  : '0'
+        AgentLanguage                      : 'English (United States)'
+        AgentSecurity                      : 'Strong security'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; CrOS x86_64 6310.68.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.96 Safari/537.36'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Chromebook'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Chrome OS'
+        OperatingSystemVersion             : '6310.68.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '39.0'
+        LayoutEngineVersionMajor           : '39'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '39.0.2171.96'
+        AgentVersionMajor                  : '39'
+        DeviceBrand                        : 'Google'
+        DeviceCpu                          : 'Intel x86_64'

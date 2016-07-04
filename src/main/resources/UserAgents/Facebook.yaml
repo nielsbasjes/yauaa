@@ -1,0 +1,273 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# Apparently the Facebook apps send out extra fields in the useragent string telling a lot about the device.
+# See also
+# http://mpulp.mobi/2012/01/funky-user-agent-on-facebook-iphone-app/
+# http://stackoverflow.com/questions/11414006/is-this-a-facebook-for-ios-webview-user-agent
+# http://stackoverflow.com/questions/29094232/what-is-the-user-agent-string-for-facebook-app-from-android
+
+config:
+
+#========================================
+
+  - matcher:
+      require:
+        # The "Facebook In-App browser is "FaceBook iOS" FBIOS
+        - 'agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version="FBIOS"'
+      extract:
+        - 'AgentClass   : 3000:"Mobile App"'
+        - 'AgentName    : 3000:"Facebook App for iOS"'
+        - 'AgentVersion : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+        - 'AgentBuild   : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBBV"^.version'
+
+#========================================
+
+#FB_IAB: Facebook In-App Browser (followed by a version)
+#FBAV: Facebook App Version (followed by a version)
+  - matcher:
+      require:
+        # The "Facebook In-App browser is "FaceBook 4 Android" FB4A
+        - 'agent.product.([1-2])comments.entry.(1)product="FB_IAB/FB4A"'
+      extract:
+        - 'AgentClass   : 3000:"Mobile App"'
+        - 'AgentName    : 3000:"Facebook App for Android"'
+        - 'AgentVersion : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+#        - 'agent.product.([1-2])comments.entry.(1)product.(1)version="30.0.0.19.17"'
+
+  - matcher:
+      require:
+        # The "Facebook In-App browser is "FaceBook 4 Android" FB4A
+        - 'agent.product.([1-2])comments.entry.(1)product="FBAN/FB4A"'
+      extract:
+        - 'AgentClass   : 3000:"Mobile App"'
+        - 'AgentName    : 3000:"Facebook App for Android"'
+        - 'AgentVersion : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+
+#========================================
+
+  - matcher:
+      extract:
+        - 'FacebookDeviceClass:   3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBID"^.version'
+        - 'FacebookDeviceName:    3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBMD"^.version'
+        - 'FacebookDeviceVersion: 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBDV"^.version'
+
+  - matcher:
+      require:
+        - 'agent.product.([1-2])comments.entry.(1)product="FBID/tablet"'
+      extract:
+        - 'DeviceClass:       200:"Tablet"'
+
+  - matcher:
+      require:
+        - 'agent.product.([1-2])comments.entry.(1)product="FBID/phone"'
+      extract:
+        - 'DeviceClass:       200:"Phone"'
+
+
+  - matcher:
+      extract:
+        - 'DeviceName:        200:agent.product.([1-2])comments.entry.(1)product.(1)name="FBMD"^.version'
+        - 'DeviceVersion:     200:agent.product.([1-2])comments.entry.(1)product.(1)name="FBDV"^.version'
+
+  - matcher:
+      extract:
+        - 'FacebookOperatingSystemName:     3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSN"^.version'
+        - 'FacebookOperatingSystemVersion:  3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSV"^.version'
+        - 'FacebookFBSS:                    3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSS"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass:    200:"Mobile"'
+        - 'OperatingSystemName:     200:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSN"^.version'
+        - 'OperatingSystemVersion:  200:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSV"^.version'
+
+  - matcher:
+      extract:
+        - 'AgentLanguage: 3001:LookUp[ISOLanguageCodes;agent.product.([1-2])comments.entry.(1)product.(1)name="FBLC"^.version]'
+
+  - matcher:
+      extract:
+        - 'AgentLanguage: 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBLC"^.version'
+
+
+  - matcher:
+      extract:
+        - 'FacebookCarrier: 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBCR"^.version'
+
+  - matcher:
+      extract:
+        - 'FacebookFBOP: 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBOP"^.version'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12D508 [FBAN/FBIOS;FBAV/27.0.0.10.12;FBBV/8291884;FBDV/iPad4,1;FBMD/iPad;FBSN/iPhone OS;FBSV/8.2;FBSS/2; FBCR/;FBID/tablet;FBLC/nl_NL;FBOP/1]'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPad'
+        DeviceFirmwareVersion              : '12D508'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iPhone OS'
+        OperatingSystemVersion             : '8.2'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '600.1.4'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'Facebook App for iOS'
+        AgentVersion                       : '27.0.0.10.12'
+        AgentBuild                         : '8291884'
+        AgentLanguage                      : 'Dutch (Netherlands)'
+        FacebookDeviceClass                : 'tablet'
+        FacebookDeviceName                 : 'iPad'
+        FacebookDeviceVersion              : 'iPad4,1'
+        FacebookFBOP                       : '1'
+        FacebookFBSS                       : '2'
+        FacebookOperatingSystemName        : 'iPhone OS'
+        FacebookOperatingSystemVersion     : '8.2'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 8_1_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12B435 [FBAN/FBIOS;FBAV/26.0.0.11.13;FBBV/7806348;FBDV/iPad4,2;FBMD/iPad;FBSN/iPhone OS;FBSV/8.1.1;FBSS/2; FBCR/TelfortNL;FBID/tablet;FBLC/nl_NL;FBOP/1]'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'iPad'
+        DeviceFirmwareVersion              : '12B435'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iPhone OS'
+        OperatingSystemVersion             : '8.1.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '600.1.4'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'Facebook App for iOS'
+        AgentVersion                       : '26.0.0.11.13'
+        AgentBuild                         : '7806348'
+        AgentLanguage                      : 'Dutch (Netherlands)'
+        FacebookCarrier                    : 'TelfortNL'
+        FacebookDeviceClass                : 'tablet'
+        FacebookDeviceName                 : 'iPad'
+        FacebookDeviceVersion              : 'iPad4,2'
+        FacebookFBOP                       : '1'
+        FacebookFBSS                       : '2'
+        FacebookOperatingSystemName        : 'iPhone OS'
+        FacebookOperatingSystemVersion     : '8.1.1'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; SM-T520 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Safari/537.36 [FBAN/FB4A;FBAV/22.0.0.15.13;]'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'SM-T520'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.4.2'
+        OperatingSystemVersionBuild        : 'KOT49H'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '30.0'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'Facebook App for Android'
+        AgentVersion                       : '22.0.0.15.13'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; nl-nl; GT-P5110 Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30 [FB_IAB/FB4A;FBAV/30.0.0.19.17;]'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'GT-P5110'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.2.2'
+        OperatingSystemVersionBuild        : 'JDQ39'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '534.30'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'Facebook App for Android'
+        AgentVersion                       : '30.0.0.19.17'
+        AgentLanguage                      : 'Dutch (Netherlands)'
+        AgentSecurity                      : 'Strong security'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/28.0.0.20.16;]'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'GT-I9505'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.4.2'
+        OperatingSystemVersionBuild        : 'KOT49H'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '30.0'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'Facebook App for Android'
+        AgentVersion                       : '28.0.0.20.16'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; SM-G901F Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36 [FBAN/FB4A;FBAV/20.0.0.25.15;]'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'SM-G901F'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.4.4'
+        OperatingSystemVersionBuild        : 'KTU84P'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '33.0'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'Facebook App for Android'
+        AgentVersion                       : '20.0.0.25.15'
+
+
+
+# TODO: A broken version of the Facebook app
+  - test:
+      input:
+        user_agent_string: '(null) [FBAN/FBIOS;FBAV/50.0.0.47.191;FBBV/23973043;FBDV/iPad4,4;FBMD/iPad;FBSN/iPhone OS;FBSV/8.0.2;FBSS/2; FBCR/;FBID/tablet;FBLC/nl_NL;FBOP/1]'
+      expected:
+        DeviceClass                        : 'Tablet'
+        DeviceName                         : 'iPad'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iPhone OS'
+        OperatingSystemVersion             : '8.0.2'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Mozilla'
+        LayoutEngineVersion                : '5.0'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'Facebook App for iOS'
+        AgentVersion                       : '50.0.0.47.191'
+        AgentBuild                         : '23973043'
+        AgentLanguage                      : 'Dutch (Netherlands)'
+        DeviceVersion                      : 'iPad4,4'
+        FacebookDeviceClass                : 'tablet'
+        FacebookDeviceName                 : 'iPad'
+        FacebookDeviceVersion              : 'iPad4,4'
+        FacebookFBOP                       : '1'
+        FacebookFBSS                       : '2'
+        FacebookOperatingSystemName        : 'iPhone OS'
+        FacebookOperatingSystemVersion     : '8.0.2'

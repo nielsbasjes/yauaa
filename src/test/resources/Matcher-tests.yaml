@@ -1,0 +1,412 @@
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+MATCH_OPTIONS: &MATCH_OPTIONS
+  options:
+#    - 'verbose'
+
+TEST_OPTIONS: &TEST_OPTIONS
+  options:
+#    - 'verbose'
+#    - 'init'
+
+config:
+  - lookup:
+      name: 'MSWindowsOSName'
+      map:
+        "Windows NT 10.0": "Windows NT"
+        "Windows NT 6.4":  "Windows NT"
+        "Windows NT 6.3":  "Windows NT"
+        "Windows NT 6.2":  "Windows NT"
+        "Windows NT 6.1":  "Windows NT"
+        "Windows NT 6.0":  "Windows NT"
+        "Windows NT 5.2":  "Windows NT"
+        "Windows NT 5.1":  "Windows NT"
+        "Windows NT 5.01": "Windows NT"
+        "Windows NT 5.0":  "Windows NT"
+        "Windows 2000":    "Windows NT"
+        "Windows NT 4.0":  "Windows NT"
+        "Win 9x 4.90":     "Windows 9x"
+        "Windows 98":      "Windows 9x"
+        "Windows 95":      "Windows 9x"
+        "Windows CE":      "Windows CE"
+
+  - lookup:
+      name: 'MSWindowsOSVersion'
+      map:
+        "Windows NT 10.0": "Windows 10.0"
+        "Windows NT 6.4":  "Windows 10 Preview"
+        "Windows NT 6.3":  "Windows 8.1"
+        "Windows NT 6.2":  "Windows 8"
+        "Windows NT 6.1":  "Windows 7"
+        "Windows NT 6.0":  "Windows Vista"
+        "Windows NT 5.2":  "Windows Server 2003; Windows XP x64 Edition"
+        "Windows NT 5.1":  "Windows XP"
+        "Windows NT 5.01": "Windows 2000, Service Pack 1 (SP1)"
+        "Windows NT 5.0":  "Windows 2000"
+        "Windows 2000":    "Windows 2000"
+        "Windows NT 4.0":  "Windows NT 4.0"
+        "Win 9x 4.90":     "Windows Millennium Edition"
+        "Windows 98":      "Windows 98"
+        "Windows 95":      "Windows 95"
+        "Windows CE":      "Windows CE"
+
+  - lookup:
+      name: 'TridentVersions'
+      map:
+        "Trident": "Kale naam"
+        "7.0": "Kale versie"
+        "Trident/7.0": "Totaal"
+
+  - lookup:
+      name: 'FixedLookup'
+      map:
+        "1.0": "One"
+
+#Variations to test:
+#path
+#path=value
+#path=value+steps
+#path=value+steps=value
+#path+steps
+#path+steps=value
+
+#lookup[path]
+#lookup[path=value]
+#lookup[path=value+steps]
+#lookup[path=value+steps=value]
+#lookup[path+steps]
+#lookup[path+steps=value]
+
+
+#matchers:
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#
+#      extract:
+
+#Variations to test:
+#path
+#path=value
+#path=value+steps
+#path=value+steps=value
+#path+steps
+#path+steps=value
+
+#lookup[path]
+#lookup[path=value]
+#lookup[path=value+steps]
+#lookup[path=value+steps=value]
+#lookup[path+steps]
+#lookup[path+steps=value]
+matchers:
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'FixedValue:1:"Foo bar"'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'FixedValueLookupOk:1:LookUp[FixedLookup;"1.0"]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'FixedValueLookupDefaultOk:1:LookUp[FixedLookup;"1.0";"Two"]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'FixedValueLookupDefaultBad:1:LookUp[FixedLookup;"Not there";"Two"]'
+
+####
+## This matcher will always cause a fatal error because the lookup of a fixed value failed.
+#  - matcher:
+#      extract:
+#        - 'FixedValueLookupBad:1:LookUp[FixedLookup;"Not there"]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'Path:1:agent.(1)product.comments.([2-10])entry.product.name'                          #path
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'PathValue:1:agent.(1)product.(*)comments.entry.(*)product.name="Trident"'                #path=value
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'PathValueSteps:1:agent.(1)product.(*)comments.entry.(*)product.name="Trident"^.version'       #path=value+steps
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'PathValueStepsValue:1:agent.(1)product.(*)comments.entry.(*)product.name="Trident"^.version="7.0"' #path=value+steps=value
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'PathSteps:1:agent.(1)product.(*)comments.([2-10])entry.product.name^.version'                 #path+steps
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'PathStepsValue:1:agent.(1)product.(*)comments.entry.(*)product.name^.version="7.0"'           #path+steps=value
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupPath1:1:LookUp[TridentVersions;agent.(1)product.(*)comments.entry.(*)product]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupPath2:1:LookUp[TridentVersions;agent.(1)product.(*)comments.entry.(*)product.name]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupPathValue:1:LookUp[TridentVersions;agent.(1)product.(*)comments.entry.(*)product.name="Trident"]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupPathValueSteps1:1:LookUp[TridentVersions;agent.(1)product.(*)comments.entry.(*)product.name="Trident"^]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupPathValueSteps2:1:LookUp[TridentVersions;agent.(1)product.(*)comments.entry.(*)product.name="Trident"^.version]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupPathValueStepsValue1:1:LookUp[TridentVersions;agent.(1)product.(*)comments.entry.(*)product.name="Trident"^.version="7.0"]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupPathValueStepsValue1NULL:1:LookUp[TridentVersions;agent.(1)product.(*)comments.entry.(*)product.name="Trident"^.version="7.1"]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupPathValueStepsValue2:1:LookUp[TridentVersions;agent.(1)product.name="Mozilla"^.(*)comments.entry.(*)product.name="Trident"]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupPathValueStepsValue2NULL:1:LookUp[TridentVersions;agent.(1)product.name="Mozilla"^.(*)comments.entry.(*)product.name="Tridenttt"]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'PathValueStepsValue3:1:agent.(1)product.name{"Moz"^.(*)comments.entry.(*)product.version{"7."'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'SIMBAR:1:agent.([1-2])product.(*)comments.entry.([1-20])keyvalue.key="SIMBAR"^.uuid'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'OtherUUID:1:agent.product.comments.entry.keyvalue.key!="SIMBAR"^.uuid'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'OperatingSystem:1:LookUp[MSWindowsOSNames;agent.(1)product.(*)comments.entry.(*)product.name#1="Windows"^]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWords1:    1:agent.product.name#1'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWords2:    1:agent.product.name#2'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWords3:    1:agent.product.name#3'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWords4:    1:agent.product.name#4'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWord1:     1:agent.product.name%1'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWord2:     1:agent.([1-2])product.name%2'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWord2a:     1:agent.(1)product.(1)name%2="two"@'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWord3:     1:agent.product.name%3'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWord4:     1:agent.product.name%4'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWords1:  1:agent.product.comments.entry.text#1'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWords2:  1:agent.product.comments.entry.text#2'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWords3:  1:agent.product.comments.entry.text#3'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWords4:  1:agent.product.comments.entry.text#4'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWord1: 1:agent.product.comments.entry.text%1'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWord2: 1:agent.product.comments.entry.text%2'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWord3: 1:agent.product.comments.entry.text%3'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWord4: 1:agent.product.comments.entry.text%4'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWord4: 1:LookUp[TridentVersions;agent.(1)product.([2-4])comments.entry.(*)product.name#1="Trident"^.(*)version%2{"7.";"DefaultValue"]'
+
+tests:
+  - test:
+      <<: *TEST_OPTIONS
+      input:
+        name: 'Path walker'
+        user_agent_string:           'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; Name = MASB; rv:11.0; Nokia501.2/11.1.3/java_runtime_version=Nokia_Asha_1_1_1; SIMBAR={A43F3165-FAC1-11E1-8828-00123F6EDBB1}; ;http://bla.bla.com/page.html ; bla=11111111-2222-3333-4444-555555555555; email:aap@noot.nl) like Gecko'
+      expected:
+        FixedValue:                  'Foo bar'
+        FixedValueLookupOk:          'One'
+#        FixedValueLookupBad:         '<<<null>>>'    # This one cannot be tested this way
+        FixedValueLookupDefaultOk:   'One'
+        FixedValueLookupDefaultBad:  'Two'
+        Path:                        'Trident'
+        PathValue:                   'Trident'
+        PathValueSteps:              '7.0'
+        PathValueStepsValue:         '7.0'
+        PathSteps:                   '7.0'
+        PathStepsValue:              '7.0'
+        LookupPath1:                 'Totaal'
+        LookupPath2:                 'Kale naam'
+        LookupPathValue:             'Kale naam'
+        LookupPathValueSteps1:       'Totaal'
+        LookupPathValueSteps2:       'Kale versie'
+        LookupPathValueStepsValue1:  'Kale versie'
+        LookupPathValueStepsValue2:  'Kale naam'
+        SIMBAR:                      'A43F3165-FAC1-11E1-8828-00123F6EDBB1'
+        OtherUUID:                   '11111111-2222-3333-4444-555555555555'
+        OperatingSystem:             'Windows 7'
+        LookupPathValueStepsValue1NULL: '<<<null>>>'
+        LookupPathValueStepsValue2NULL: '<<<null>>>'
+        PathValueStepsValue3:        '7.0'
+        CommentWord1:                'WOW64'
+        CommentWords1:               'WOW64'
+        NameWord1:                   'Mozilla'
+        NameWords1:                  'Mozilla'
+
+  - test:
+      <<: *TEST_OPTIONS
+      input:
+        name: 'Fall through match'
+        user_agent_string:           'Mozilla/5.0 (Lookup/1; Lookup/2; Lookup/3)'
+      expected:
+        LookupTest1:       '<<<null>>>'
+        LookupTest2:       '<<<null>>>'
+
+
+  - test:
+      <<: *TEST_OPTIONS
+      input:
+        name: 'Picking a word'
+        user_agent_string:          'One two three /1.0(One two three)'
+      expected:
+        FixedValue:                 'Foo bar'
+        NameWord1:                  'One'
+        NameWord2:                  'two'
+        NameWord2a:                 'One two three'
+        NameWord3:                  'three'
+        NameWord4:                  '<<<null>>>'
+
+        NameWords1:                 'One'
+        NameWords2:                 'One two'
+        NameWords3:                 'One two three'
+        NameWords4:                 '<<<null>>>'
+
+        CommentWord1:               'One'
+        CommentWord2:               'two'
+        CommentWord3:               'three'
+        CommentWord4:               '<<<null>>>'
+
+        CommentWords1:              'One'
+        CommentWords2:              'One two'
+        CommentWords3:              'One two three'
+        CommentWords4:              '<<<null>>>'
+
+        FixedValueLookupOk:          'One'
+        FixedValueLookupDefaultOk:   'One'
+        FixedValueLookupDefaultBad:  'Two'
+
+  # This MUST be the last test in the file !!
+  - test:
+      options:
+        - 'verbose'
+        - 'init'
+      input:
+        name: 'Showing init output'
+        user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; Name = MASB; rv:11.0; Nokia501.2/11.1.3/java_runtime_version=Nokia_Asha_1_1_1; SIMBAR={A43F3165-FAC1-11E1-8828-00123F6EDBB1}; ;http://bla.bla.com/page.html ; bla=11111111-2222-3333-4444-555555555555; email:aap@noot.nl) like Gecko'

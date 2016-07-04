@@ -1,0 +1,387 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+config:
+
+  - matcher:
+      extract:
+        - 'DeviceClass           : 100:"Mobile"'
+        - 'DeviceName            : 100:"Generic Windows Phone"'
+        - 'OperatingSystemClass  : 600:"Mobile"'
+        - 'OperatingSystemName   : 600:"Windows Phone"'
+        - 'OperatingSystemVersion: 600:agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"^.version'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+      extract:
+        - 'DeviceClass           : 200:"Mobile"'
+        - 'DeviceBrand           : 200:"Microsoft"'
+        - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="Microsoft"^>'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+      extract:
+        - 'DeviceClass           : 200:"Mobile"'
+        - 'DeviceBrand           : 200:"Nokia"'
+        - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="Nokia"^>'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+      extract:
+        - 'DeviceClass           : 200:"Mobile"'
+        - 'DeviceBrand           : 200:"Acer"'
+        - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="Acer"^>'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+      extract:
+        - 'DeviceClass           : 200:"Mobile"'
+        - 'DeviceBrand           : 200:"HTC"'
+        - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="HTC"^>'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+      extract:
+        - 'DeviceClass           : 200:"Mobile"'
+        - 'DeviceBrand           : 200:"Huawei"'
+        - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="Huawei"^>'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+      extract:
+        - 'DeviceClass           : 200:"Mobile"'
+        - 'DeviceBrand           : 200:"Samsung"'
+        - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="Samsung"^>'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+      extract:
+        - 'DeviceClass           : 200:"Mobile"'
+        - 'DeviceBrand           : 200:"Archos"'
+        - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="Archos"^>'
+
+  - matcher:
+      extract:
+        - 'DeviceClass           : 199:"Phone"'
+        - 'DeviceBrand           : 199:"Nokia"'
+        - 'DeviceName            : 199:agent.(1)product.(1)comments.entry#1="Lumia"@'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.0; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 520) like iPhone OS 7_0_3 Mac OS X AppleWebKit/537 (KHTML, like Gecko) Mobile Safari/537'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Nokia'
+        DeviceName                         : 'Lumia 520'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '8.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '7.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '11.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; NOKIA; Lumia 800)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Nokia'
+        DeviceName                         : 'Lumia 800'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '7.5'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '5.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '9.0'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 920) like Gecko'
+      expected:
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Nokia'
+        DeviceName                         : 'Lumia 920'
+        DeviceCpu                          : 'ARM'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '8.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '7.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '11.0'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.0; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 930; Vodafone) like iPhone OS 7_0_3 Mac OS X AppleWebKit/537 (KHTML, like Gecko) Mobile Safari/537'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Nokia'
+        DeviceName                         : 'Lumia 930'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '8.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '7.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '11.0'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; NOKIA; Lumia 520)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Nokia'
+        DeviceName                         : 'Lumia 520'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '7.5'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '5.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '9.0'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; Acer; Allegro)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Acer'
+        DeviceName                         : 'Allegro'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '7.5'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '5.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '9.0'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; HTC; Windows Phone 8S by HTC)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'HTC'
+        DeviceName                         : 'Windows Phone 8S by HTC'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '8.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '6.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '10.0'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; HTC; Windows Phone 8S by HTC; 1.04.172.01)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'HTC'
+        DeviceName                         : 'Windows Phone 8S by HTC'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '8.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '6.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '10.0'
+
+
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; Acer; Allegro)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Acer'
+        DeviceName                         : 'Allegro'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '7.5'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '5.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '9.0'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.0; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 930; vodafone NL) like iPhone OS 7_0_3 Mac OS X AppleWebKit/537 (KHTML, like Gecko) Mobile Safari/537'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Nokia'
+        DeviceName                         : 'Lumia 930'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '8.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '7.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '11.0'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; NOKIA; Lumia 630) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Mobile Safari/537.36 Edge/12.0'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Nokia'
+        DeviceName                         : 'Lumia 630'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '10.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'EdgeHTML'
+        LayoutEngineVersion                : '12.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Edge'
+        AgentVersion                       : '12.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Nokia'
+        DeviceName                         : 'Lumia 520'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '8.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '6.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '10.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.0; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 930) like iPhone OS 7_0_3 Mac OS X AppleWebKit/537 (KHTML, like Gecko) Mobile Safari/537'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Nokia'
+        DeviceName                         : 'Lumia 930'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '8.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '7.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '11.0'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; HUAWEI; W1-U00)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Huawei'
+        DeviceName                         : 'W1-U00'
+        DeviceCpu                          : 'ARM'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '8.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '6.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '10.0'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; SAMSUNG; GT-I8750)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Samsung'
+        DeviceName                         : 'GT-I8750'
+        DeviceCpu                          : 'ARM'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '8.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '6.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '10.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; ARCHOS; 40 Cesium) like Gecko'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : '40 Cesium'
+        DeviceBrand                        : 'Archos'
+        DeviceCpu                          : 'ARM'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '8.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '7.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '11.0'
+

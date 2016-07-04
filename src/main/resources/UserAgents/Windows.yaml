@@ -1,0 +1,241 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+---
+config:
+  - lookup:
+      name: 'MSWindowsOSName'
+      map:
+        "Windows NT 10.0": "Windows NT"
+        "Windows NT 6.4":  "Windows NT"
+        "Windows NT 6.3":  "Windows NT"
+        "Windows 8.1":     "Windows NT"
+        "Windows NT 6.2":  "Windows NT"
+        "Windows NT 6.1":  "Windows NT"
+        "Windows NT 6.0":  "Windows NT"
+        "Windows NT 5.2":  "Windows NT"
+        "Windows NT 5.1":  "Windows NT"
+        "Windows NT 5.01": "Windows NT"
+        "Windows NT 5.0":  "Windows NT"
+        "Windows 2000":    "Windows NT"
+        "Windows NT 4.0":  "Windows NT"
+        "Windows NT":      "Windows NT"
+        "Win 9x 4.90":     "Windows 9x"
+        "Windows 98":      "Windows 9x"
+        "Windows 95":      "Windows 9x"
+        "Windows CE":      "Windows CE"
+
+  - lookup:
+      name: 'MSWindowsOSVersion'
+      map:
+        "Windows NT 10.0": "Windows 10.0"
+        "Windows NT 6.4":  "Windows 10 Preview"
+        "Windows NT 6.3":  "Windows 8.1"
+        "Windows 8.1":  "Windows 8.1"
+        "Windows NT 6.2":  "Windows 8"
+        "Windows NT 6.1":  "Windows 7"
+        "Windows NT 6.0":  "Windows Vista"
+        "Windows NT 5.2":  "Windows Server 2003; Windows XP x64 Edition"
+        "Windows NT 5.1":  "Windows XP"
+        "Windows NT 5.01": "Windows 2000, Service Pack 1 (SP1)"
+        "Windows NT 5.0":  "Windows 2000"
+        "Windows 2000":    "Windows 2000"
+        "Windows NT 4.0":  "Windows NT 4.0"
+        "Windows NT":      "Windows NT"
+        "Win 9x 4.90":     "Windows Millennium Edition"
+        "Windows 98":      "Windows 98"
+        "Windows 95":      "Windows 95"
+        "Windows CE":      "Windows CE"
+
+
+  - matcher:
+      extract:
+        - 'DeviceClass               : 100:"Desktop"'
+        - 'DeviceName                : 100:"Desktop"'
+        - 'OperatingSystemClass      : 100:"Desktop"'
+        - 'OperatingSystemName       : 100:LookUp[MSWindowsOSName;agent.(1)product.comments.entry.product]'
+        - 'OperatingSystemVersion    : 100:LookUp[MSWindowsOSVersion;agent.(1)product.comments.entry.product]'
+        - 'OperatingSystemNameVersion: 100:LookUp[MSWindowsOSVersion;agent.(1)product.comments.entry.product]'
+
+
+  - matcher:
+      extract:
+        - 'DeviceClass               : 100:"Desktop"'
+        - 'DeviceName                : 100:"Desktop"'
+        - 'OperatingSystemClass      : 100:"Desktop"'
+        - 'OperatingSystemName       : 100:LookUp[MSWindowsOSName;agent.(1)product.comments.entry.product]'
+        - 'OperatingSystemVersion    : 100:LookUp[MSWindowsOSVersion;agent.(1)product.comments.entry.product]'
+        - 'OperatingSystemNameVersion: 100:LookUp[MSWindowsOSVersion;agent.(1)product.comments.entry.product]'
+
+  - matcher:
+      extract:
+        - 'DeviceClass               :  50:"Desktop"'
+        - 'DeviceName                :  50:"Desktop"'
+        - 'OperatingSystemClass      :  50:"Desktop"'
+        - 'OperatingSystemName       :   5:"Windows NT"'
+        - 'OperatingSystemVersion    :   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
+        - 'OperatingSystemNameVersion:   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
+
+  - matcher:
+      extract:
+        - 'DeviceClass               : 100:"Desktop"'
+        - 'DeviceName                : 100:"Desktop"'
+        - 'OperatingSystemClass      : 100:"Desktop"'
+        - 'OperatingSystemName       : 100:LookUp[MSWindowsOSName;agent.(1)product.comments.entry.text]'
+        - 'OperatingSystemVersion    : 100:LookUp[MSWindowsOSVersion;agent.(1)product.comments.entry.text]'
+        - 'OperatingSystemNameVersion: 100:LookUp[MSWindowsOSVersion;agent.(1)product.comments.entry.text]'
+
+
+
+  - matcher:
+      extract:
+        - 'DeviceClass               : 100:"Desktop"'
+        - 'DeviceName                : 100:"Desktop"'
+        - 'OperatingSystemClass      : 100:"Desktop"'
+        - 'OperatingSystemName       : 100:LookUp[MSWindowsOSName;agent.product]'
+        - 'OperatingSystemVersion    : 100:LookUp[MSWindowsOSVersion;agent.product]'
+        - 'OperatingSystemNameVersion: 100:LookUp[MSWindowsOSVersion;agent.product]'
+
+
+  - matcher:
+      extract:
+        - 'DeviceClass               : 100:"Desktop"'
+        - 'DeviceName                : 100:"Desktop"'
+        - 'OperatingSystemClass      : 100:"Desktop"'
+        - 'OperatingSystemName       : 100:LookUp[MSWindowsOSName;agent.product]'
+        - 'OperatingSystemVersion    : 100:LookUp[MSWindowsOSVersion;agent.product]'
+        - 'OperatingSystemNameVersion: 100:LookUp[MSWindowsOSVersion;agent.product]'
+
+  - matcher:
+      extract:
+        - 'DeviceClass               :  50:"Desktop"'
+        - 'DeviceName                :  50:"Desktop"'
+        - 'OperatingSystemClass      :  50:"Desktop"'
+        - 'OperatingSystemName       :   5:"Windows NT"'
+        - 'OperatingSystemVersion    :   5:agent.product.name="Windows NT"^'
+        - 'OperatingSystemNameVersion:   5:agent.product.name="Windows NT"^'
+
+  - matcher:
+      extract:
+        - 'DeviceClass               : 100:"Desktop"'
+        - 'DeviceName                : 100:"Desktop"'
+        - 'OperatingSystemClass      : 100:"Desktop"'
+        - 'OperatingSystemName       : 100:LookUp[MSWindowsOSName;agent.product.text]'
+        - 'OperatingSystemVersion    : 100:LookUp[MSWindowsOSVersion;agent.product.text]'
+        - 'OperatingSystemNameVersion: 100:LookUp[MSWindowsOSVersion;agent.product.text]'
+
+
+  - test:
+      input:
+        user_agent_string:  'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 7'
+
+  - test:
+      input:
+        user_agent_string:  'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko'
+      expected:
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 7'
+
+  - test:
+      input:
+        user_agent_string:  'Mozilla/5.0 (Win 9x 4.90; WOW64; Trident/7.0; rv:11.0) like Gecko'
+      expected:
+        OperatingSystemName                : 'Windows 9x'
+        OperatingSystemVersion             : 'Windows Millennium Edition'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows NT 6.4; WOW64; Trident/7.0; rv:11.0) like Gecko'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 10 Preview'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '7.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Internet Explorer'
+        AgentVersion                       : '11.0'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows 8.1; Trident/7.0; rv:11.0) like Gecko'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 8.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '7.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Internet Explorer'
+        AgentVersion                       : '11.0'
+
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows; U; MSIE 9.0; Windows NT 9.0; en-US)'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows NT 9.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '5.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Internet Explorer'
+        AgentVersion                       : '9.0'
+        AgentLanguage                      : 'English (United States)'
+        AgentSecurity                      : 'Strong security'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows NT 4.10; rv:34.0) Gecko/20100101 Firefox/34.0'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows NT 4.10'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Gecko'
+        LayoutEngineVersion                : '34.0'
+        LayoutEngineBuild                  : '20100101'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Firefox'
+        AgentVersion                       : '34.0'
+
+

@@ -1,0 +1,185 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+config:
+
+
+  - lookup:
+      name: 'MacOSName'
+      map:
+        "PPC Mac OS X": "Mac OS"
+        "PPC Mac OS X Mach-O": "Mac OS"
+
+  - lookup:
+      name: 'MaxOSVersion'
+      map:
+        "PPC Mac OS X": "X"
+        "PPC Mac OS X Mach-O": "X"
+
+  - matcher:
+      extract:
+        - 'LayoutEngineClass     :   11:"Browser"'
+        - 'LayoutEngineName      :   11:"AppleWebKit"'
+        - 'LayoutEngineVersion   :   11:agent.product.(1)name="AppleWebKit"^.version'
+
+  - matcher:
+      extract:
+        - 'AgentClass            :   11:"Browser"'
+        - 'AgentName             :   11:"AppleWebKit"'
+        - 'AgentVersion          :   11:agent.product.(1)name="AppleWebKit"^.version'
+
+  - matcher:
+      extract:
+        - 'AgentClass            :   13:"Browser"'
+        - 'AgentName             :   13:agent.product.(1)name="AppleWebKit"^>.name!="Mobile"'
+        - 'AgentVersion          :   13:agent.product.(1)name="AppleWebKit"^>.version'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name="Mozilla"'
+        - 'agent.(1)product.(1)version="5.0"'
+      extract:
+        - 'AgentClass             :  10:"Browser"'
+        - 'AgentName              :  10:agent.(1)product.(1)comments.entry.(1)product.(1)name'
+        - 'AgentVersion           :  10:agent.(1)product.(1)comments.entry.(1)product.(1)version'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name="Mozilla"'
+        - 'agent.(1)product.(1)version="5.0"'
+        - 'IsNull[agent.(2)product.(1)name="AppleWebKit"]'
+        - 'IsNull[agent.(2)product.(1)name="Mobile"]'
+        - 'IsNull[agent.(2)product.(1)name="Version"]'
+      extract:
+        - 'AgentClass             :  16:"Browser"'
+        - 'AgentName              :  16:agent.(2)product.(1)name!="AppleWebKit"'
+        - 'AgentVersion           :  16:agent.(2)product.(1)version'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name="Mozilla"'
+        - 'agent.(1)product.(1)version="5.0"'
+        - 'IsNull[agent.(3)product.(1)name="AppleWebKit"]'
+        - 'IsNull[agent.(3)product.(1)name="Mobile"]'
+        - 'IsNull[agent.(3)product.(1)name="Version"]'
+      extract:
+        - 'AgentClass             :  15:"Browser"'
+        - 'AgentName              :  15:agent.(3)product.(1)name'
+        - 'AgentVersion           :  15:agent.(3)product.(1)version'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name="Mozilla"'
+        - 'agent.(1)product.(1)version="5.0"'
+        - 'IsNull[agent.(4)product.(1)name="AppleWebKit"]'
+        - 'IsNull[agent.(4)product.(1)name="Mobile"]'
+        - 'IsNull[agent.(4)product.(1)name="Version"]'
+      extract:
+        - 'AgentClass             :  14:"Browser"'
+        - 'AgentName              :  14:agent.(4)product.(1)name'
+        - 'AgentVersion           :  14:agent.(4)product.(1)version'
+
+
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="AppleWebKit"'
+        - 'agent.product.(1)name="Safari"'
+      extract:
+        - 'AgentClass            :   20:"Browser"'
+        - 'AgentName             :   20:"Safari"'
+#        - 'AgentBuildVersion     :   20:agent.product.(1)name="Safari"^.version'
+        - 'AgentVersion          :   18:agent.product.(1)name="Safari"^.version'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="AppleWebKit"'
+        - 'agent.product.(1)name="Safari"'
+      extract:
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Mobile Safari"'
+      extract:
+        - 'AgentClass            :   20:"Browser"'
+        - 'AgentName             :   20:"Mobile Safari"'
+#        - 'AgentBuildVersion     :   20:agent.product.(1)name="Mobile Safari"^.version'
+        - 'AgentVersion          :   18:agent.product.(1)name="Mobile Safari"^.version'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="AppleWebKit"'
+        - 'agent.product.(1)name="Mobile Safari"'
+      extract:
+
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Mobile Safari"'
+      extract:
+        - 'AgentClass            :   25:"Browser"'
+        - 'AgentName             :   25:"Mobile Safari"'
+        - 'AgentVersion          :   25:agent.product.(1)name="Version"^.version'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Safari"'
+      extract:
+        - 'AgentClass            :   25:"Browser"'
+        - 'AgentName             :   25:"Safari"'
+        - 'AgentVersion          :   25:agent.product.(1)name="Version"^.version'
+
+
+#Safari:
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; de-de) AppleWebKit/85.7 (KHTML, like Gecko) Safari/85.5'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'Macintosh'
+        DeviceCpu                          : 'PowerPC'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Mac OS X'
+        OperatingSystemVersion             : 'X'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '85.7'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '85.5'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/ERD62) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'Nexus One'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '2.2'
+        OperatingSystemVersionBuild        : 'ERD62'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '530.17'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Mobile Safari'
+        AgentVersion                       : '4.0'
+        AgentSecurity                      : 'Strong security'
+
+

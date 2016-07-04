@@ -1,0 +1,168 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+config:
+# Testcases for apps
+
+# https://user-agents.me/cfnetwork-version-list
+# If you create an iOS app and retrieve data from a webserver,
+# the app will create an default user agent as "AppName/version CFNetwork/version Darwin/version".
+
+
+  - matcher:
+      require:
+        - 'agent.(2)product.(1)name="CFNetwork"'
+      extract:
+        - 'DeviceClass           :  10:"Mobile"'
+        - 'DeviceBrand           :  10:"Apple"'
+        - 'DeviceName            :  10:"iOS Device"'
+        - 'OperatingSystemClass  :  10:"Mobile"'
+        - 'OperatingSystemName   :  10:"Darwin"'
+        - 'OperatingSystemVersion:  10:agent.(3)product.(1)name="Darwin"^.version'
+        - 'LayoutEngineClass     :  10:"Mobile App"'
+        - 'LayoutEngineName      :  10:agent.(1)product.(1)name'
+        - 'LayoutEngineVersion   :  10:agent.(1)product.(1)version'
+        - 'AgentClass            :  10:"Mobile App"'
+        - 'AgentName             :  10:agent.(1)product.(1)name'
+        - 'AgentVersion          :  10:agent.(1)product.(1)version'
+
+  - matcher:
+      require:
+        - 'agent.(2)product.(1)name="CFNetwork"'
+        - 'agent.(1)product.(1)comments.(1)entry="unknown version"'
+      extract:
+        - 'DeviceClass           :  10:"Mobile"'
+        - 'DeviceBrand           :  10:"Apple"'
+        - 'DeviceName            :  10:"iOS Device"'
+        - 'OperatingSystemClass  :  10:"Mobile"'
+        - 'OperatingSystemName   :  10:"Darwin"'
+        - 'OperatingSystemVersion:  10:agent.(3)product.(1)name="Darwin"^.version'
+        - 'LayoutEngineClass     :  10:"Mobile App"'
+        - 'LayoutEngineName      :  10:agent.(1)product.(1)name'
+        - 'LayoutEngineVersion   :  10:"Unknown"'
+        - 'AgentClass            :  10:"Mobile App"'
+        - 'AgentName             :  10:agent.(1)product.(1)name'
+        - 'AgentVersion          :  10:"Unknown"'
+
+  - test:
+      input:
+        user_agent_string: 'bol.com/94 CFNetwork/758.2.8 Darwin/15.0.0'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'iOS Device'
+        DeviceBrand                        : 'Apple'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Darwin'
+        OperatingSystemVersion             : '15.0.0'
+        LayoutEngineClass                  : 'Mobile App'
+        LayoutEngineName                   : 'bol.com'
+        LayoutEngineVersion                : '94'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'bol.com'
+        AgentVersion                       : '94'
+
+  - test:
+      input:
+        user_agent_string: 'iButler-Swift/1 CFNetwork/711.3.15 Darwin/14.0.0'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'iOS Device'
+        DeviceBrand                        : 'Apple'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Darwin'
+        OperatingSystemVersion             : '14.0.0'
+        LayoutEngineClass                  : 'Mobile App'
+        LayoutEngineName                   : 'iButler-Swift'
+        LayoutEngineVersion                : '1'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'iButler-Swift'
+        AgentVersion                       : '1'
+
+  - test:
+      input:
+        user_agent_string: 'GoodReader4/100 CFNetwork/711.5.6 Darwin/14.0.0'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'iOS Device'
+        DeviceBrand                        : 'Apple'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Darwin'
+        OperatingSystemVersion             : '14.0.0'
+        LayoutEngineClass                  : 'Mobile App'
+        LayoutEngineName                   : 'GoodReader4'
+        LayoutEngineVersion                : '100'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'GoodReader4'
+        AgentVersion                       : '100'
+
+  - test:
+      input:
+        user_agent_string: 'iCoreService (unknown version) CFNetwork/720.2.4 Darwin/14.1.0 (x86_64)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'iOS Device'
+        DeviceBrand                        : 'Apple'
+        DeviceCpu                          : 'Intel x86_64'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Darwin'
+        OperatingSystemVersion             : '14.1.0'
+        LayoutEngineClass                  : 'Mobile App'
+        LayoutEngineName                   : 'iCoreService'
+        LayoutEngineVersion                : 'Unknown'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'iCoreService'
+        AgentVersion                       : 'Unknown'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'MoxDocumentApplication (unknown version) CFNetwork/720.5.7 Darwin/14.5.0 (x86_64)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'iOS Device'
+        DeviceBrand                        : 'Apple'
+        DeviceCpu                          : 'Intel x86_64'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Darwin'
+        OperatingSystemVersion             : '14.5.0'
+        LayoutEngineClass                  : 'Mobile App'
+        LayoutEngineName                   : 'MoxDocumentApplication'
+        LayoutEngineVersion                : 'Unknown'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'MoxDocumentApplication'
+        AgentVersion                       : 'Unknown'
+
+
+  - test:
+      input:
+        user_agent_string: 'com.ddeville.llwebkit.linkchecker/1 CFNetwork/760.2.6 Darwin/15.3.0 (x86_64)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'iOS Device'
+        DeviceBrand                        : 'Apple'
+        DeviceCpu                          : 'Intel x86_64'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Darwin'
+        OperatingSystemVersion             : '15.3.0'
+        LayoutEngineClass                  : 'Mobile App'
+        LayoutEngineName                   : 'com.ddeville.llwebkit.linkchecker'
+        LayoutEngineVersion                : '1'
+        AgentClass                         : 'Mobile App'
+        AgentName                          : 'com.ddeville.llwebkit.linkchecker'
+        AgentVersion                       : '1'
+

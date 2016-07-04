@@ -1,0 +1,101 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+config:
+
+
+  - matcher:
+      extract:
+        - 'AgentInformationUrl  :  1:agent.([1-5])product.comments.entry.url'
+
+  - matcher:
+      extract:
+        - 'AgentInformationUrl  :  2:agent.([1-5])product.comments.entry.product.version.url'
+
+  - matcher:
+      extract:
+        - 'AgentInformationUrl  :  3:agent.([1-5])product.comments.entry.keyvalue.url'
+
+  - matcher:
+      extract:
+        - 'AgentInformationUrl  :  4:agent.([1-10])url'
+
+
+
+
+  - matcher:
+      extract:
+        - 'AgentInformationEmail:  1:agent.([1-5])product.comments.entry.email'
+
+  - matcher:
+      extract:
+        - 'AgentInformationUrl  :  2:agent.([1-5])product.comments.entry.product.version.email'
+
+  - matcher:
+      extract:
+        - 'AgentInformationEmail:  3:agent.([1-5])product.comments.entry.keyvalue.email'
+
+  - matcher:
+      extract:
+        - 'AgentInformationEmail:  4:agent.([1-10])email'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.0 (http://example.nl)'
+      expected:
+        AgentInformationUrl                : 'http://example.nl'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.0 (URL=http://example.nl)'
+      expected:
+        AgentInformationUrl                : 'http://example.nl'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.0 (URL:http://example.nl)'
+      expected:
+        AgentInformationUrl                : 'http://example.nl'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.0 (info@example.nl)'
+      expected:
+        AgentInformationEmail              : 'info@example.nl'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.0 (URL=info@example.nl)'
+      expected:
+        AgentInformationEmail              : 'info@example.nl'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.0 (URL:info@example.nl)'
+      expected:
+        AgentInformationEmail              : 'info@example.nl'
+
+  - test:
+      input:
+        user_agent_string: 'Twikle/1.0 , http://twikle.com , contact@twikle.com'
+      expected:
+        AgentClass                         : 'Special'
+        AgentName                          : 'Twikle'
+        AgentVersion                       : '1.0'
+        AgentInformationEmail              : 'contact@twikle.com'
+        AgentInformationUrl                : 'http://twikle.com'

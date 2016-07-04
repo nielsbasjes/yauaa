@@ -1,0 +1,150 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+config:
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.text="masking-agent"'
+      extract:
+        - 'Anonymized            :   1:"Anonymized"'
+        - 'DeviceClass           :   1:"Anonymized"'
+        - 'DeviceName            :   1:"Anonymized"'
+        - 'OperatingSystemClass  :   1:"Anonymized"'
+        - 'OperatingSystemName   :   1:"Anonymized"'
+        - 'OperatingSystemVersion:   1:"Anonymized"'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (masking-agent; rv:25.0) Gecko/20100101 Firefox/25.0'
+      expected:
+        DeviceClass                        : 'Anonymized'
+        DeviceName                         : 'Anonymized'
+        OperatingSystemClass               : 'Anonymized'
+        OperatingSystemName                : 'Anonymized'
+        OperatingSystemVersion             : 'Anonymized'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Gecko'
+        LayoutEngineVersion                : '25.0'
+        LayoutEngineBuild                  : '20100101'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Firefox'
+        AgentVersion                       : '25.0'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.(1)entry="000000000"'
+      extract:
+        - 'Anonymized            :   1:"Anonymized"'
+        - 'DeviceClass           :  10:"Anonymized"'
+        - 'DeviceName            :  10:"Anonymized"'
+        - 'OperatingSystemClass  :  10:"Anonymized"' # Cloud, Desktop, Mobile, Embedded
+        - 'OperatingSystemName   :  10:"Anonymized"'
+        - 'OperatingSystemVersion:  10:"Anonymized"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.(1)entry="0000000000"'
+      extract:
+        - 'Anonymized            :   1:"Anonymized"'
+        - 'DeviceClass           :  10:"Anonymized"'
+        - 'DeviceName            :  10:"Anonymized"'
+        - 'OperatingSystemClass  :  10:"Anonymized"' # Cloud, Desktop, Mobile, Embedded
+        - 'OperatingSystemName   :  10:"Anonymized"'
+        - 'OperatingSystemVersion:  10:"Anonymized"'
+
+  - matcher:
+      require:
+        - 'agent.product.name#1="anonymized"'
+      extract:
+        - 'Anonymized            :   1:"Anonymized"'
+        - 'DeviceClass           :  10:"Anonymized"'
+        - 'DeviceName            :  10:"Anonymized"'
+        - 'OperatingSystemClass  :  10:"Anonymized"' # Cloud, Desktop, Mobile, Embedded
+        - 'OperatingSystemName   :  10:"Anonymized"'
+        - 'OperatingSystemVersion:  10:"Anonymized"'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (000000000; 00000 000 00 0 000000) DDDDDDDDDDDDDDDDDDDD DDDDDDD DDDD DDDDDD DDDDDDDDDDDDD DDDDDDDDDDDDDDD'
+      expected:
+        Anonymized                         : 'Anonymized'
+        DeviceClass                        : 'Anonymized'
+        DeviceName                         : 'Anonymized'
+        OperatingSystemClass               : 'Anonymized'
+        OperatingSystemName                : 'Anonymized'
+        OperatingSystemVersion             : 'Anonymized'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Mozilla'
+        LayoutEngineVersion                : '5.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : '00000'
+        AgentVersion                       : '000'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; rv:28.0) Gecko/20100101 Firefox/28.0 anonymized by Abelssoft 462766946'
+      expected:
+        Anonymized                         : 'Anonymized'
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 8'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Gecko'
+        LayoutEngineVersion                : '28.0'
+        LayoutEngineBuild                  : '20100101'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'anonymized by Abelssoft'
+        AgentVersion                       : '462766946'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.22 anonymized by Abelssoft 1392034350'
+      expected:
+        Anonymized                         : 'Anonymized'
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 8'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '39.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '39.0.2171.95'
+
+  - test:
+      input:
+        user_agent_string: 'Firefox/36.0.3 (x86 en-US); anonymized by Abelssoft 1222574064'
+      expected:
+        DeviceClass                        : 'Anonymized'
+        DeviceName                         : 'Anonymized'
+        DeviceCpu                          : 'x86'
+        OperatingSystemClass               : 'Anonymized'
+        OperatingSystemName                : 'Anonymized'
+        OperatingSystemVersion             : 'Anonymized'
+        LayoutEngineClass                  : 'Unknown'
+        LayoutEngineName                   : 'Unknown'
+        LayoutEngineVersion                : 'Unknown'
+        AgentClass                         : 'Special'
+        AgentName                          : 'Firefox'
+        AgentVersion                       : '36.0.3'
+        AgentLanguage                      : 'English (United States)'

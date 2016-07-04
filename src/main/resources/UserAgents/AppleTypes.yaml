@@ -1,0 +1,1166 @@
+# =============================================
+# THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY
+# =============================================
+config:
+  - lookup:
+      name: 'AppleDeviceClass'
+      map:
+       "iPhone" : "Phone"
+       "iPad" : "Tablet"
+       "iPod" : "Tablet"
+       "iPod touch" : "Tablet"
+       "iPhone1,1" : "Phone"
+       "iPhone1,2" : "Phone"
+       "iPhone2,1" : "Phone"
+       "iPhone3,1" : "Phone"
+       "iPhone3,3" : "Phone"
+       "iPhone4,1" : "Phone"
+       "iPhone5,1" : "Phone"
+       "iPhone5,2" : "Phone"
+       "iPhone5,3" : "Phone"
+       "iPhone5,4" : "Phone"
+       "iPhone6,1" : "Phone"
+       "iPhone6,2" : "Phone"
+       "iPhone7,1" : "Phone"
+       "iPhone7,2" : "Phone"
+       "iPhone8,1" : "Phone"
+       "iPhone8,2" : "Phone"
+       "iPad1,1" : "Tablet"
+       "iPad2,1" : "Tablet"
+       "iPad2,2" : "Tablet"
+       "iPad2,3" : "Tablet"
+       "iPad2,4" : "Tablet"
+       "iPad2,5" : "Tablet"
+       "iPad2,6" : "Tablet"
+       "iPad2,7" : "Tablet"
+       "iPad3,1" : "Tablet"
+       "iPad3,2" : "Tablet"
+       "iPad3,3" : "Tablet"
+       "iPad3,4" : "Tablet"
+       "iPad3,5" : "Tablet"
+       "iPad3,6" : "Tablet"
+       "iPad4,1" : "Tablet"
+       "iPad4,2" : "Tablet"
+       "iPad4,3" : "Tablet"
+       "iPad4,4" : "Tablet"
+       "iPad4,5" : "Tablet"
+       "iPad4,6" : "Tablet"
+       "iPad4,7" : "Tablet"
+       "iPad4,8" : "Tablet"
+       "iPad4,9" : "Tablet"
+       "iPad5,1" : "Tablet"
+       "iPad5,2" : "Tablet"
+       "iPad5,3" : "Tablet"
+       "iPad5,4" : "Tablet"
+       "iPad6,7" : "Tablet"
+       "iPad6,8" : "Tablet"
+       "iPod1,1" : "Tablet"
+       "iPod2,1" : "Tablet"
+       "iPod3,1" : "Tablet"
+       "iPod4,1" : "Tablet"
+       "iPod5,1" : "Tablet"
+       "iPod7,1" : "Tablet"
+
+  - lookup:
+      name: 'AppleDeviceName'
+      map:
+       "iPhone" : "iPhone"
+       "iPad" : "iPad"
+       "iPod" : "iPod"
+       "iPod touch" : "iPod touch"
+       "iPhone1,1" : "iPhone"
+       "iPhone1,2" : "iPhone"
+       "iPhone2,1" : "iPhone"
+       "iPhone3,1" : "iPhone"
+       "iPhone3,3" : "iPhone"
+       "iPhone4,1" : "iPhone"
+       "iPhone5,1" : "iPhone"
+       "iPhone5,2" : "iPhone"
+       "iPhone5,3" : "iPhone"
+       "iPhone5,4" : "iPhone"
+       "iPhone6,1" : "iPhone"
+       "iPhone6,2" : "iPhone"
+       "iPhone7,1" : "iPhone"
+       "iPhone7,2" : "iPhone"
+       "iPhone8,1" : "iPhone"
+       "iPhone8,2" : "iPhone"
+       "iPad1,1" : "iPad"
+       "iPad2,1" : "iPad"
+       "iPad2,2" : "iPad"
+       "iPad2,3" : "iPad"
+       "iPad2,4" : "iPad"
+       "iPad2,5" : "iPad"
+       "iPad2,6" : "iPad"
+       "iPad2,7" : "iPad"
+       "iPad3,1" : "iPad"
+       "iPad3,2" : "iPad"
+       "iPad3,3" : "iPad"
+       "iPad3,4" : "iPad"
+       "iPad3,5" : "iPad"
+       "iPad3,6" : "iPad"
+       "iPad4,1" : "iPad"
+       "iPad4,2" : "iPad"
+       "iPad4,3" : "iPad"
+       "iPad4,4" : "iPad"
+       "iPad4,5" : "iPad"
+       "iPad4,6" : "iPad"
+       "iPad4,7" : "iPad"
+       "iPad4,8" : "iPad"
+       "iPad4,9" : "iPad"
+       "iPad5,1" : "iPad"
+       "iPad5,2" : "iPad"
+       "iPad5,3" : "iPad"
+       "iPad5,4" : "iPad"
+       "iPad6,7" : "iPad"
+       "iPad6,8" : "iPad"
+       "iPod1,1" : "iPod touch"
+       "iPod2,1" : "iPod touch"
+       "iPod3,1" : "iPod touch"
+       "iPod4,1" : "iPod touch"
+       "iPod5,1" : "iPod touch"
+       "iPod7,1" : "iPod touch"
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPod"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPod"'
+        - 'DeviceVersion : 100:"iPod"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPod"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPod"'
+        - 'DeviceVersion : 101:"iPod"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPod touch"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPod touch"'
+        - 'DeviceVersion : 100:"iPod touch"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPod touch"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPod touch"'
+        - 'DeviceVersion : 101:"iPod touch"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone1,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone1,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone1,2"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 3G"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone1,2"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 3G"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone2,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 3GS"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone2,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 3GS"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone3,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 4 (GSM)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone3,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 4 (GSM)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone3,3"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 4 (CDMA)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone3,3"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 4 (CDMA)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone4,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 4S"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone4,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 4S"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone5,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 5 (A1428)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone5,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 5 (A1428)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone5,2"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 5 (A1429)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone5,2"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 5 (A1429)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone5,3"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 5c (A1456/A1532)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone5,3"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 5c (A1456/A1532)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone5,4"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 5c (A1507/A1516/A1529)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone5,4"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 5c (A1507/A1516/A1529)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone6,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 5s (A1433/A1453)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone6,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 5s (A1433/A1453)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone6,2"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 5s (A1457/A1518/A1530)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone6,2"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 5s (A1457/A1518/A1530)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone7,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 6 Plus"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone7,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 6 Plus"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone7,2"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 6"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone7,2"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 6"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone8,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 6s"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone8,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 6s"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone8,2"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 6s Plus"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone8,2"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 6s Plus"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad1,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad1,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad2,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad 2 (Wi-Fi)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad2,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad 2 (Wi-Fi)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad2,2"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad 2 (GSM)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad2,2"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad 2 (GSM)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad2,3"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad 2 (CDMA)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad2,3"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad 2 (CDMA)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad2,4"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad 2 (Wi-Fi, revised)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad2,4"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad 2 (Wi-Fi, revised)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad2,5"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad mini (Wi-Fi)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad2,5"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad mini (Wi-Fi)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad2,6"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad mini (A1454)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad2,6"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad mini (A1454)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad2,7"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad mini (A1455)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad2,7"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad mini (A1455)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad3,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad (3rd gen, Wi-Fi)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad3,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad (3rd gen, Wi-Fi)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad3,2"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad (3rd gen, Wi-Fi+LTE Verizon)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad3,2"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad (3rd gen, Wi-Fi+LTE Verizon)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad3,3"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad (3rd gen, Wi-Fi+LTE AT&T)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad3,3"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad (3rd gen, Wi-Fi+LTE AT&T)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad3,4"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad (4th gen, Wi-Fi)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad3,4"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad (4th gen, Wi-Fi)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad3,5"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad (4th gen, A1459)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad3,5"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad (4th gen, A1459)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad3,6"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad (4th gen, A1460)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad3,6"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad (4th gen, A1460)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad4,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad Air (Wi-Fi)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad4,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad Air (Wi-Fi)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad4,2"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad Air (Wi-Fi+LTE)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad4,2"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad Air (Wi-Fi+LTE)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad4,3"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad Air (Rev)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad4,3"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad Air (Rev)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad4,4"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad mini 2 (Wi-Fi)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad4,4"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad mini 2 (Wi-Fi)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad4,5"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad mini 2 (Wi-Fi+LTE)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad4,5"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad mini 2 (Wi-Fi+LTE)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad4,6"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad mini 2 (Rev)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad4,6"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad mini 2 (Rev)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad4,7"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad mini 3 (Wi-Fi)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad4,7"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad mini 3 (Wi-Fi)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad4,8"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad mini 3 (A1600)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad4,8"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad mini 3 (A1600)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad4,9"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad mini 3 (A1601)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad4,9"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad mini 3 (A1601)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad5,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad mini 4 (Wi-Fi)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad5,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad mini 4 (Wi-Fi)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad5,2"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad mini 4 (Wi-Fi+LTE)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad5,2"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad mini 4 (Wi-Fi+LTE)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad5,3"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad Air 2 (Wi-Fi)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad5,3"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad Air 2 (Wi-Fi)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad5,4"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad Air 2 (Wi-Fi+LTE)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad5,4"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad Air 2 (Wi-Fi+LTE)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad6,7"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad Pro (Wi-Fi)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad6,7"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad Pro (Wi-Fi)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad6,8"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad Pro (Wi-Fi+LTE)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad6,8"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad Pro (Wi-Fi+LTE)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPod1,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPod touch"'
+        - 'DeviceVersion : 100:"iPod touch"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPod1,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPod touch"'
+        - 'DeviceVersion : 101:"iPod touch"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPod2,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPod touch"'
+        - 'DeviceVersion : 100:"iPod touch (2nd gen)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPod2,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPod touch"'
+        - 'DeviceVersion : 101:"iPod touch (2nd gen)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPod3,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPod touch"'
+        - 'DeviceVersion : 100:"iPod touch (3rd gen)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPod3,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPod touch"'
+        - 'DeviceVersion : 101:"iPod touch (3rd gen)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPod4,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPod touch"'
+        - 'DeviceVersion : 100:"iPod touch (4th gen)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPod4,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPod touch"'
+        - 'DeviceVersion : 101:"iPod touch (4th gen)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPod5,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPod touch"'
+        - 'DeviceVersion : 100:"iPod touch (5th gen)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPod5,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPod touch"'
+        - 'DeviceVersion : 101:"iPod touch (5th gen)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPod7,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPod touch"'
+        - 'DeviceVersion : 100:"iPod touch (6th gen)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPod7,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPod touch"'
+        - 'DeviceVersion : 101:"iPod touch (6th gen)"'
+

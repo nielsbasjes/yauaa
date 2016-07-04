@@ -1,0 +1,219 @@
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+MATCH_OPTIONS: &MATCH_OPTIONS
+  options:
+#    - 'verbose'
+
+TEST_OPTIONS: &TEST_OPTIONS
+  options:
+#    - 'verbose'
+
+
+config:
+
+# Walking around
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'WalkLeft1:1:agent.product.name="Three"^<'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'WalkLeft1Name:1:agent.product.name="Three"^<.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'WalkLeft2:1:agent.product.name="Three"^<<'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'WalkLeft2Name:1:agent.product.name="Three"^<<.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'WalkLeft3:1:agent.product.name="Three"^<<<'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'WalkLeft3Name:1:agent.product.name="Three"^<<<.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'WalkRight1:1:agent.product.name="Three"^>'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'WalkRight1Name:1:agent.product.name="Three"^>.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'WalkRight2:1:agent.product.name="Three"^>>'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'WalkRight2Name:1:agent.product.name="Three"^>>.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'WalkRight3:1:agent.product.name="Three"^>>>'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'WalkRight3Name:1:agent.product.name="Three"^>>>.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'GetSpecificProduct:1:agent.product.name="Three"^^.(2)product'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'GetSpecificProductVersion:1:agent.product.name="Three"^.(3)version'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CompareAfterStep:1:agent.product.name="Three"^>="Four/4".version'
+
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkLeft1       : 1 :agent.product.comments.entry.product.name="Mies"^^<.product'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkLeft1Name   : 1 :agent.product.comments.entry.product.name="Mies"^^<.product.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkLeft2       : 1 :agent.product.comments.entry.product.name="Mies"^^<<.product'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkLeft2Name   : 1 :agent.product.comments.entry.product.name="Mies"^^<<.product.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkLeft3       : 1 :agent.product.comments.entry.product.name="Mies"^^<<<.product'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkLeft3Name   : 1 :agent.product.comments.entry.product.name="Mies"^^<<<.product.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkRight1      : 1 :agent.product.comments.entry.product.name="Mies"^^>.product'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkRight1Name  : 1 :agent.product.comments.entry.product.name="Mies"^^>.product.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkRight2      : 1 :agent.product.comments.entry.product.name="Mies"^^>>.product'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkRight2Name  : 1 :agent.product.comments.entry.product.name="Mies"^^>>.product.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkRight3      : 1 :agent.product.comments.entry.product.name="Mies"^^>>>.product'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkRight3Name  : 1 :agent.product.comments.entry.product.name="Mies"^^>>>.product.name'
+
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'WordMatchFlipFlop: 1:agent.(1)product.(1)comments.entry.(1)text#1="One"@%3="Three"@%2'
+
+  - test:
+      <<: *TEST_OPTIONS
+      input:
+        name: 'Walking around'
+        user_agent_string:            'One/1 Two/2 Three/3.1/3.2/3.3/3.4/3.5 Four/4 Five/5'
+      expected:
+        WalkLeft1                  :  'Two/2'
+        WalkLeft1Name              :  'Two'
+        WalkLeft2                  :  'One/1'
+        WalkLeft2Name              :  'One'
+        WalkLeft3                  :  '<<<null>>>'
+        WalkLeft3Name              :  '<<<null>>>'
+        WalkRight1                 :  'Four/4'
+        WalkRight1Name             :  'Four'
+        WalkRight2                 :  'Five/5'
+        WalkRight2Name             :  'Five'
+        WalkRight3                 :  '<<<null>>>'
+        WalkRight3Name             :  '<<<null>>>'
+        CompareAfterStep           :  '4'
+        GetSpecificProduct         :  'Two/2'
+        GetSpecificProductVersion  :  '3.3'
+
+  - test:
+      <<: *TEST_OPTIONS
+      input:
+          name: 'Walking around in comments'
+          user_agent_string:         'One/1 Two/2 (Aap/1; Noot/2 ;Mies/3 ; Wim/4;   Zus/5) Four/4 Five/5'
+      expected:
+          CommentWalkLeft1         : 'Noot/2'
+          CommentWalkLeft1Name     : 'Noot'
+          CommentWalkLeft2         : 'Aap/1'
+          CommentWalkLeft2Name     : 'Aap'
+          CommentWalkLeft3         : '<<<null>>>'
+          CommentWalkLeft3Name     : '<<<null>>>'
+          CommentWalkRight1        : 'Wim/4'
+          CommentWalkRight1Name    : 'Wim'
+          CommentWalkRight2        : 'Zus/5'
+          CommentWalkRight2Name    : 'Zus'
+          CommentWalkRight3        : '<<<null>>>'
+          CommentWalkRight3Name    : '<<<null>>>'
+
+  - test:
+      <<: *TEST_OPTIONS
+      input:
+        name: 'Special case'
+        user_agent_string:           'Word/1 ( One Two Three )'
+      expected:
+        WordMatchFlipFlop: 'Two'

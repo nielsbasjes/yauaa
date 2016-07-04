@@ -1,0 +1,802 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+config:
+
+  - lookup:
+      name: 'lookupname'
+      map:
+        "From1" : "To1"
+        "From2" : "To2"
+        "From3" : "To3"
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.product.(1)name="Browser"^.(1)version="Browser"'
+      extract:
+        - 'DeviceClass    : 1000:"Mobile"'
+        - 'DeviceBrand    : 1000:agent.(1)product.(1)comments.entry.product.(1)name="Browser"^<.name'
+        - 'DeviceName     : 1000:agent.(1)product.(1)comments.entry.product.(1)name="Browser"^<.(1)version'
+        - 'DeviceVersion  : 1000:agent.(1)product.(1)comments.entry.product.(1)name="Browser"^<.(2)version'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Macintosh); Intel Mac OS X 10_7_5) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.97 Safari/537.11'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceBrand                        : 'Apple'
+        DeviceName                         : 'Macintosh'
+        DeviceCpu                          : 'Intel'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Mac OS X'
+        OperatingSystemVersion             : '10.7.5'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '537.11'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '23.0.1271.97'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; nl-; YC-3135D Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'YC-3135D'
+#        DeviceVersion                   : 'YC-3135D'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.2.2'
+        OperatingSystemVersionBuild        : 'JDQ39'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '534.30'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '4.0'
+        AgentSecurity                      : 'Strong security'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.4.2; HUAWEI P7-L10/HuaweiP7-L10C02B129 Browser/Browser/4.4.2) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'HUAWEI'
+        DeviceName                         : 'P7-L10'
+        DeviceVersion                      : 'HuaweiP7-L10C02B129'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.4.2'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '30.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '30.0.0.0'
+        AgentSecurity                      : 'Strong security'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; rv:35.0 () Gecko/20100101 Firefox/35.0 ( anonymized by Abelssoft 152378206'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 8'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Gecko'
+        LayoutEngineVersion                : '35.0'
+        LayoutEngineBuild                  : '20100101'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Firefox'
+        AgentVersion                       : '35.0'
+
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name%2"Mozilla"'
+        - 'agent.(1)product.(1)name%1{"PB"'
+      extract:
+        - 'AgentClass     :3000:"Browser"'
+        - 'AgentName      :3000:"PirateBrowser"'
+        - 'AgentVersion   :3000:agent.(1)product.(1)name#1'
+
+  - test:
+      input:
+        name: 'PrirateBrowser 0.6b'
+        user_agent_string: 'PB0.6b Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 7'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Gecko'
+        LayoutEngineVersion                : '23.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'PirateBrowser'
+        AgentVersion                       : 'PB0.6b'
+        LayoutEngineBuild                  : '20100101'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; BTRS31753; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET4.0C; .NET4.0E; staticlogin:product=cboxf2010&act=login&info=ZmlsZW5hbWU9UG93ZXJXb3JkMjAxME94Zl9VbHRpbWF0ZS5leGUmbWFjPTBGRTRFMzZCMUZBNTQ1RTQ5QUZGOEE1QzZDRkNERUEwJnBhc3Nwb3J0PSZ2ZXJzaW9uPTIwMTAuNi4zLjYuMiZjcmFzaHR5cGU9MQ==&verify=cced4bb7457606add430a1b6be544f30; InfoPath.3)'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows XP'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '4.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Internet Explorer'
+        AgentVersion                       : '8.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows NT; Win64; x64; rv:26.0) Gecko/20100101 Firefox/26.0 Waterfox/26.0'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows NT'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Gecko'
+        LayoutEngineVersion                : '26.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Waterfox'
+        AgentVersion                       : '26.0'
+        DeviceCpu                          : 'x64'
+        LayoutEngineBuild                  : '20100101'
+
+
+# LET OP DIE SLASHES !!! MN Dat de javacode hem MET die slashed ontvangt !!!
+  - test:
+     input:
+        user_agent_string: 'Mozilla/5.0 \\(iPhone; CPU iPhone OS 7_0 like Mac OS X; en-us\\) AppleWebKit/537.51.1 \\(KHTML, like Gecko\\) Version/7.0 Mobile/11A465 Safari/9537.53'
+     expected:
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'iPhone'
+        DeviceBrand                        : 'Apple'
+        DeviceFirmwareVersion              : '11A465'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '7.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '537.51.1'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '7.0'
+        AgentLanguage                      : 'English (United States)'
+
+
+# Die { } gaven een parse error waardoor de rest niet gezien wordt.
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/5.0; {World Online})'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows Vista'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '5.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Internet Explorer'
+        AgentVersion                       : '9.0'
+
+# These gave syntax errors in the 2016-04-01 version
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_2_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13D15; DDG-iOS-709'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'iPhone'
+        DeviceBrand                        : 'Apple'
+        DeviceFirmwareVersion              : '13D15'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '9.2.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '601.1.46'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'AppleWebKit'
+        AgentVersion                       : '601.1.46'
+
+
+# The random text in the comment caused problems
+  - test:
+      input:
+#        name: 'You can give the test case a name'
+        user_agent_string: 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; @Oj~?JYJ4Uig}MTTl|@Jr6js/DrNZl@zO/se+/; GTB7.5; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; Tablet PC 2.0)'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 7'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '4.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Internet Explorer'
+        AgentVersion                       : '8.0'
+
+# The lone '-' causes parse errors
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.1.2; -; GT-S6810 Build/JZO54K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
+      expected:
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'GT-S6810'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.1.2'
+        OperatingSystemVersionBuild        : 'JZO54K'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '534.30'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Mobile Safari'
+        AgentVersion                       : '4.0'
+        AgentSecurity                      : 'Strong security'
+
+
+# Silk browser
+  - matcher:
+      extract:
+        - 'AgentClass            :  50:"Browser"'
+        - 'AgentName             :  50:"Silk"'
+        - 'AgentVersion          :  50:agent.(1)product.(1)comments.entry.(1)product.(1)name="Silk"^.version'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-us; Silk/1.0.146.3-Gen4_12000410) AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16 Silk-Accelerated=true'
+      expected:
+        DeviceClass                      : 'Desktop'                     # 20
+        DeviceName                       : 'Macintosh'                   # 20
+        OperatingSystemClass             : 'Desktop'                     # 20
+        OperatingSystemName              : 'Mac OS X'                    # 20
+        OperatingSystemVersion           : '10.6.3'                      # 20
+        OperatingSystemNameVersion       : 'Mac OS X 10.6.3'             # 20
+        LayoutEngineClass                : 'Browser'                     # 11
+        LayoutEngineName                 : 'AppleWebKit'                 # 11
+        LayoutEngineVersion              : '533.16'                      # 11
+        LayoutEngineVersionMajor         : '533'                         # 11
+        LayoutEngineNameVersion          : 'AppleWebKit 533.16'          # 11
+        LayoutEngineNameVersionMajor     : 'AppleWebKit 533'             # 11
+        AgentClass                       : 'Browser'                     # 25
+        AgentName                        : 'Silk'                      # 25
+        AgentVersion                     : '1.0.146.3-Gen4_12000410'                         # 25
+        AgentVersionMajor                : '1'                           # 25
+        AgentLanguage                    : 'English (United States)'     # 5
+        AgentNameVersion                 : 'Silk 1.0.146.3-Gen4_12000410'                  # 25
+        AgentNameVersionMajor            : 'Silk 1'                    # 25
+        AgentSecurity                    : 'Strong security'             # 50
+        DeviceBrand                      : 'Apple'                       # 20
+        DeviceCpu                        : 'Intel'                       # 20
+
+
+#FIXME: Is really SogouMSE,SogouMobileBrowser/4.0.0
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.1; zh-cn; HUAWEI G610-U00 Build/HuaweiG610-U00) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 SogouMSE,SogouMobileBrowser/4.0.0'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'HUAWEI G610-U00'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.2.1'
+        OperatingSystemVersionBuild        : 'HuaweiG610-U00'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '534.30'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Mobile Safari'
+        AgentVersion                       : '4.0'
+        AgentLanguage                      : 'Chinese (S)'
+        AgentSecurity                      : 'Strong security'
+
+# This caused a NullPointerException in a previous version.
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.1) Gecko/ /10.0.1'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 7'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Gecko'
+        LayoutEngineVersion                : '10.0.1'
+        LayoutEngineBuild                  : '10.0.1'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Gecko'
+        AgentVersion                       : '10.0.1'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) index.html?Referrer=ADVNLGOO0020270001kop Safari/538.1'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Linux Desktop'
+        DeviceCpu                          : 'Intel x86_64'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Linux'
+        OperatingSystemVersion             : 'Intel x86_64'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '538.1'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '538.1'
+        AgentInformationUrl                : 'index.html?Referrer=ADVNLGOO0020270001kop'
+
+  # Caused a syntax error because of the = in the version of Build
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.2; WETAB07D04B Build/=WETAB07D04B20140312) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'WETAB07D04B'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.2.2'
+        OperatingSystemVersionBuild        : 'WETAB07D04B20140312'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '47.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '47.0.2526.83'
+
+  # Has { } parts
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/5.0; {12Move})'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows Vista'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '5.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Internet Explorer'
+        AgentVersion                       : '9.0'
+
+  # Has { } parts
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; Noldus B.V. {www.Noldus.com}; rv:11.0) like Gecko'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 8.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '7.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Internet Explorer'
+        AgentVersion                       : '11.0'
+        AgentInformationUrl                : 'www.Noldus.com'
+
+
+# Too many spaces
+  - test:
+      input:
+        user_agent_string: 'Mozilla / 5.0 (iPhone; CPU iPhone OS 8_1_2 like Mac OS X) AppleWebKit / 600.1.4 (KHTML, like Gecko) Version / 8.0 Mobile / 12B440 Safari / 600.1.4'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'iPhone'
+        DeviceBrand                        : 'Apple'
+        DeviceFirmwareVersion              : '12B440'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '8.1.2'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '600.1.4'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '8.0'
+
+# Missing product name
+  - test:
+      input:
+        user_agent_string: '/5.0 (Windows; U; Windows NT 5.1; en-ZW) AppleWebKit/534.34 (KHTML, like Gecko)  QtWeb Internet Browser/3.8.5 http://www.QtWeb.net'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows XP'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '534.34'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'QtWeb Internet Browser'
+        AgentVersion                       : '3.8.5'
+        AgentInformationUrl                : 'http://www.QtWeb.net'
+        AgentLanguage                      : 'English (Zimbabwe)'
+        AgentSecurity                      : 'Strong security'
+
+
+  - matcher:
+      extract:
+        - 'AgentClass : 0:"Special"'
+        - 'AgentName  : 1:agent.(1)text'
+
+#  - matcher:
+#      extract:
+#        - 'AgentClass : 0:"Special"'
+#        - 'AgentName  : 0:agent'
+
+## Barely anything
+#  - test:
+#      input:
+#        user_agent_string: 'HttpClient'
+#      expected:
+#        AgentClass                         : 'Special'
+#        AgentName                          : 'HttpClient'
+
+## Barely anything
+#  - test:
+#      input:
+#        user_agent_string: 'Go http package'
+#      expected:
+#        AgentClass                         : 'Special'
+#        AgentName                          : 'Go http package'
+
+## Barely anything
+#  - test:
+#      input:
+#        user_agent_string: 'Java1.3.0'
+#      expected:
+#        AgentClass                         : 'Special'
+#        AgentName                          : 'Java1.3.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; SM-N920S Build/LMY47X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/47.0.2526.100 Mobile Safari/537.36;KAKAOTALK 1400218'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'SM-N920S'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '5.1.1'
+        OperatingSystemVersionBuild        : 'LMY47X'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '47.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '47.0.2526.100'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows 98; PalmSource/hspr-H102; Blazer/4.0) 16;320x320'
+      expected:
+      # FIXME: Should be PalmSource
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows 9x'
+        OperatingSystemVersion             : 'Windows 98'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Internet Explorer'
+        LayoutEngineVersion                : '6.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Internet Explorer'
+        AgentVersion                       : '6.0'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0); 360Spider(compatible; HaosouSpider; http://www.haosou.com/help/help_3_2.html)'
+      expected:
+      # FIXME: Should be HaosouSpider
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 7'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '5.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Internet Explorer'
+        AgentVersion                       : '9.0'
+        AgentInformationUrl                : 'http://www.haosou.com/help/help_3_2.html'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; MI NOTE LTE Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36; leidianbrowser (100.0.2)'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'MI NOTE LTE'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.4.4'
+        OperatingSystemVersionBuild        : 'KTU84P'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '33.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '33.0.0.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1; Z820 Build/LMY47D); AppleWebkit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile Safari/537.36'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'Z820'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '5.1'
+        OperatingSystemVersionBuild        : 'LMY47D'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '37.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '37.0.0.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0) 88XI4n5O'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'Generic Windows Phone'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '7.5'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '5.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '9.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows Phone OS 7.0; Trident/3.1; IEMobile/7.0; Nokia;N70) 88XI4n5O'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceBrand                        : 'Nokia'
+        DeviceName                         : 'N70'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Windows Phone'
+        OperatingSystemVersion             : '7.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Internet Explorer'
+        LayoutEngineVersion                : '7.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'IE Mobile'
+        AgentVersion                       : '7.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12F70 - iOSWebview'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'iPhone'
+        DeviceBrand                        : 'Apple'
+        DeviceFirmwareVersion              : '12F70'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '8.3'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '600.1.4'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'AppleWebKit'
+        AgentVersion                       : '600.1.4'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; KFFOWI Build/LMY47O) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/41.51020.2250.0246 Mobile Safari/537.36 cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0'
+      # FIXME: cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'KFFOWI'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '5.1.1'
+        OperatingSystemVersionBuild        : 'LMY47O'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '41.51020'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '41.51020.2250.0246'
+
+#  - test:
+#      input:
+#        user_agent_string: 'Java1.0.21.0'
+#      expected:
+#        DeviceClass                        : 'Unknown'
+#        DeviceName                         : 'Unknown'
+#        OperatingSystemClass               : 'Unknown'
+#        OperatingSystemName                : 'Unknown'
+#        OperatingSystemVersion             : 'Unknown'
+#        LayoutEngineClass                  : 'Unknown'
+#        LayoutEngineName                   : 'Unknown'
+#        LayoutEngineVersion                : 'Unknown'
+#        AgentClass                         : 'Special'
+#        AgentName                          : 'Java1.0.21.0'
+#        AgentVersion                       : 'Unknown'
+
+  - test:
+      input:
+        user_agent_string: 'WordPress/3.5; http://smartphone.ro'
+      expected:
+        DeviceClass                        : 'Unknown'
+        DeviceName                         : 'Unknown'
+        OperatingSystemClass               : 'Unknown'
+        OperatingSystemName                : 'Unknown'
+        OperatingSystemVersion             : 'Unknown'
+        LayoutEngineClass                  : 'Unknown'
+        LayoutEngineName                   : 'Unknown'
+        LayoutEngineVersion                : 'Unknown'
+        AgentClass                         : 'Special'
+        AgentName                          : 'WordPress'
+        AgentVersion                       : '3.5'
+        AgentInformationUrl                : 'http://smartphone.ro'
+
+  - test:
+      input:
+        user_agent_string: 'WordPress.com; http://momspiration.nl'
+      expected:
+        DeviceClass                        : 'Unknown'
+        DeviceName                         : 'Unknown'
+        OperatingSystemClass               : 'Unknown'
+        OperatingSystemName                : 'Unknown'
+        OperatingSystemVersion             : 'Unknown'
+        LayoutEngineClass                  : 'Unknown'
+        LayoutEngineName                   : 'Unknown'
+        LayoutEngineVersion                : 'Unknown'
+        AgentClass                         : 'Special'
+        AgentName                          : 'WordPress.com'
+        AgentVersion                       : 'Unknown'
+        AgentInformationUrl                : 'http://momspiration.nl'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.3; -nl; LT30p Build/9.2.A.1.205) AppleWebKit/537.16 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.16'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'LT30p'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.3'
+        OperatingSystemVersionBuild        : '9.2.A.1.205'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '537.16'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Mobile Safari'
+        AgentVersion                       : '4.0'
+        AgentSecurity                      : 'Strong security'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D201 - iOSWebview'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'iPhone'
+        DeviceBrand                        : 'Apple'
+        DeviceFirmwareVersion              : '11D201'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '7.1.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '537.51.2'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'AppleWebKit'
+        AgentVersion                       : '537.51.2'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; Abonti/0.91 - http://www.abonti.com)'
+      expected:
+        DeviceClass                        : 'Unknown'
+        DeviceName                         : 'Unknown'
+        OperatingSystemClass               : 'Unknown'
+        OperatingSystemName                : 'Unknown'
+        OperatingSystemVersion             : 'Unknown'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Mozilla'
+        LayoutEngineVersion                : '5.0'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Abonti'
+        AgentVersion                       : '0.91'
+        AgentInformationUrl                : 'http://www.abonti.com'
+
+  - matcher:
+      extract:
+        - 'AgentClass     :    100:"Browser"'
+        - 'AgentName      :    100:"Abonti"'
+        - 'AgentVersion   :    100:agent.(1)product.(1)comments.entry.(1)product.(1)name="Abonti"^.version'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; compatible; Abonti/0.91 - http://www.abonti.com ; Android 4.3; -nl; LT30p Build/9.2.A.1.205) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D201 - iOSWebview'
+      expected:
+        DeviceClass                        : 'Mobile'
+        DeviceName                         : 'LT30p'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.3'
+        OperatingSystemVersionBuild        : '9.2.A.1.205'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '537.51.2'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Abonti'
+        AgentVersion                       : '0.91'
+        AgentInformationUrl                : 'http://www.abonti.com'
+        AgentSecurity                      : 'Strong security'
+
+# Contains __ that breaks the parser
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12F70 Weibo (iPhone6,2__weibo__5.7.1__iphone__os8.3)'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'iPhone'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '8.3'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '600.1.4'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'AppleWebKit'
+        AgentVersion                       : '600.1.4'
+        DeviceBrand                        : 'Apple'
+        DeviceFirmwareVersion              : '12F70'
+        DeviceVersion                      : 'iPhone'
+
+# TODO: Json wrapped useragent
+#  - test:
+#       input:
+#         user_agent_string: "{'User-Agent': 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)'}"
+#  - test:
+#       input:
+#         user_agent_string: "{u'User-Agent': u'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'}"
+

@@ -1,0 +1,243 @@
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+MATCH_OPTIONS: &MATCH_OPTIONS
+  options:
+#    - 'verbose'
+
+TEST_OPTIONS: &TEST_OPTIONS
+  options:
+#    - 'verbose'
+#    - 'init'
+
+
+config:
+  - lookup:
+      name: 'FullA'
+      map:
+        "Lookup/111": "Full One"
+
+  - lookup:
+      name: 'FullB'
+      map:
+        "Lookup/222": "Full Two"
+
+  - lookup:
+      name: 'FullC'
+      map:
+        "Lookup/333": "Full Three"
+
+  - lookup:
+      name: 'FullD'
+      map:
+        "444": "Full Four"
+
+  - lookup:
+      name: 'VersionA'
+      map:
+        "111": "Version One"
+
+  - lookup:
+      name: 'VersionB'
+      map:
+        "222": "Version Two"
+
+  - lookup:
+      name: 'VersionC'
+      map:
+        "333": "Version Three"
+
+  - lookup:
+      name: 'VersionD'
+      map:
+        "444": "Version Four"
+
+  - lookup:
+      name: 'Versions'
+      map:
+        "111": "Version One"
+        "222": "Version Two"
+        "333": "Version Three"
+        "444": "Version Four"
+
+  - lookup:
+      name: 'EmptyLookup'
+      map:
+        "Well almost empty": "Should not get this"
+
+matchers:
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupDirectTestA:1:LookUp[FullA;agent.([1-4])product.(*)comments.([1-4])entry.product]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupDirectTestB:1:LookUp[FullB;agent.([1-4])product.(*)comments.([1-4])entry.product]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupDirectTestC:1:LookUp[FullC;agent.([1-4])product.(*)comments.([1-4])entry.product]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupStepsTestA1:1:LookUp[VersionA;agent.([1-4])product.(*)comments.([1-4])entry.product.version]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupStepsTestB1:1:LookUp[VersionB;agent.([1-4])product.(*)comments.([1-4])entry.product.version]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupStepsTestC1:1:LookUp[VersionC;agent.([1-4])product.(*)comments.([1-4])entry.product.version]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupStepsTestA2:1:LookUp[VersionA;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^.version]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupStepsTestB2:1:LookUp[VersionB;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^.version]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupStepsTestC2:1:LookUp[VersionC;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^.version]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupStepsTestA3:1:LookUp[FullA;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupStepsTestB3:1:LookUp[FullB;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupStepsTestC3:1:LookUp[FullC;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupStepsTestA3Default:1:LookUp[EmptyLookup;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^.version;"Default"]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'Equals:     1:  agent.(1)product.(1)comments.([1-5])entry.product.(1)name="Three"^.version'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'StartsTh:   1:  agent.(1)product.(1)comments.([1-5])entry.product.(1)name{"Th"^.version'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'EndsWo:     1:  agent.(1)product.(1)comments.([1-5])entry.product.(1)name}"wo"^.version'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'ContainsOU: 1:  agent.(1)product.(1)comments.([1-5])entry.product.(1)name~"ou"^.version'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VEquals:     1:  LookUp[Versions;agent.(1)product.comments.entry.product.name="Three"^.version]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+#        - 'verbose'
+      extract:
+        - 'VStartsTh:   1:  LookUp[Versions;agent.(1)product.comments.entry.product.name{"Th"^.version]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VEndsWo:     1:  LookUp[Versions;agent.(1)product.comments.entry.product.name}"wo"^.version]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VContainsOU: 1:  LookUp[Versions;agent.(1)product.comments.entry.product.name~"ou"^.version]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      require:
+        - 'IsNull[agent.(100)product.name]'
+        - 'agent.(1)product.comments.entry.product.name="Lookup"'
+      extract:
+        - 'RequireIsNull: 1:"IsNull"'
+
+
+tests:
+#  - test:
+#      <<: *TEST_OPTIONS
+#      input:
+#        name: 'Word Splitter validation'
+#        user_agent_string: 'Mozilla/5.0 (One/111; Two-two two/222; Three Three/333; Four Four Four Four Four Four Four Four )'
+
+
+  - test:
+      <<: *TEST_OPTIONS
+      input:
+        name: 'Lookup Fall through match'
+        user_agent_string: 'Mozilla/5.0 (Lookup/111; Lookup/222; Lookup/333)'
+      expected:
+        LookupDirectTestA: "Full One"
+        LookupDirectTestB: "Full Two"
+        LookupDirectTestC: "Full Three"
+        LookupStepsTestA1: "Version One"
+        LookupStepsTestB1: "Version Two"
+        LookupStepsTestC1: "Version Three"
+        LookupStepsTestA2: "Version One"
+        LookupStepsTestB2: "Version Two"
+        LookupStepsTestC2: "Version Three"
+        LookupStepsTestA3: "Full One"
+        LookupStepsTestB3: "Full Two"
+        LookupStepsTestC3: "Full Three"
+        LookupStepsTestA3Default: "Default"
+        RequireIsNull:     "IsNull"
+
+  - test:
+      <<: *TEST_OPTIONS
+      input:
+        name: 'Substring matching'
+        user_agent_string: 'Mozilla/5.0 (One/111; Two/222; Three/333; Four/444)'
+      expected:
+        Equals: "333"
+        StartsTh: "333"
+        EndsWo: "222"
+        ContainsOU: "444"
+        VEquals: "Version Three"
+        VStartsTh: "Version Three"
+        VEndsWo: "Version Two"
+        VContainsOU: "Version Four"
+        LookupStepsTestA1: "Version One"
+        LookupStepsTestB1: "Version Two"
+        LookupStepsTestC1: "Version Three"
+
