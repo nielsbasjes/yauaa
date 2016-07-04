@@ -34,6 +34,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
+
 public class UserAgentTreeFlattener extends UserAgentBaseListener {
     private ParseTreeWalker walker;
     private Analyzer analyzer;
@@ -134,6 +136,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
      */
     private UserAgent _parse(UserAgent userAgent) {
         if (userAgent.getUserAgentString() == null) {
+            userAgent.set(SYNTAX_ERROR,"true",1);
             return userAgent; // Cannot parse this
         }
 

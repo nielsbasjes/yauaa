@@ -154,7 +154,7 @@ public class TestParseUserAgent {
         checkResult(data, schema, "DeviceBrand",                    "Hacker"   );
         checkResult(data, schema, "DeviceCpu",                      null       );
         checkResult(data, schema, "DeviceFirmwareVersion",          null       );
-        checkResult(data, schema, "DeviceVersion",                  "Hacker"   );
+        checkResult(data, schema, "DeviceVersion",                  null       );
         checkResult(data, schema, "FacebookCarrier",                null       );
         checkResult(data, schema, "FacebookDeviceClass",            null       );
         checkResult(data, schema, "FacebookDeviceName",             null       );
