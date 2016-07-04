@@ -1,6 +1,5 @@
 Parsing Useragents
-===
-
+==================
 Parsing useragents is considered by many to be a rediculously hard problem.
 The main problems are:
 
@@ -8,7 +7,7 @@ The main problems are:
 - Useragents LIE that they are their competing predecessor with an extra flag.
 
 We're all compatible
-===
+====================
 The pattern the 'normal' browser builders are following is that they all LIE about the ancestor they are trying to improve upon.
 
 The reason this system (historically) works is because a lot of website builders do a very simple check to see if they can use a specific feature.
@@ -47,11 +46,11 @@ Also regular expressions are notoriously hard to write and debug.
 I wanted to see if a completely different approach would work: Can we actually parse these things into a tree and work from there.
 
 Core design idea
-==============================
+================
 
-Core design idea:
 The parser (ANTLR4 based) will be able to parse a lot of the agents but not all.
 Tests have shown that it will parse >99% of all useragents on a large website which is more than 99.99% of the traffic.
+
 Now the ones that it is not able to parse are the ones that have been set manually to a invalid value.
 So if that happens we assume you are a hacker.
 In all other cases we have matchers that are triggered if a sepcific value is found by the parser.
@@ -77,8 +76,17 @@ points to all the applicable matcher actions. As a consequence
   - the startup is "slow"
   - the memory footprint is pretty big due to the number of matchers, the size of the hashmap and the cache of the parsed useragents.
 
+
+Performance
+===========
+On my i7 system I see a speed of around 90 useragents per second or about 11ms each.
+A LRU cache is in place that does over 1M per second if they are in the cache.
+
+In the canonical usecase of analysing clickstream data you will see a 11ms hit per visitor and for all the other clicks
+the values are retrieved from this cache at close to 0 time.
+
 License
-===
+=======
     Yet Another UserAgent Analyzer
     Copyright (C) 2013-2016 Niels Basjes
 
