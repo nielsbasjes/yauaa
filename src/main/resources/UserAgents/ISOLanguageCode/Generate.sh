@@ -21,6 +21,22 @@ echo "# THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY"
 echo "# ============================================="
 echo ""
 echo "config:"
+
+echo "  - matcher:"
+echo "      extract:"
+echo "        - 'AgentLanguage :  5:LookUp[ISOLanguageCodes;agent.(1)product.(1)comments.entry.([1-2])text]'"
+echo ""
+
+echo "  - matcher:"
+echo "      extract:"
+echo "        - 'AgentLanguage :  5:LookUp[ISOLanguageCodes;agent.([2-4])product.(1)comments.([1-5])entry.([1-2])text]'"
+echo ""
+
+echo "  - matcher:"
+echo "      extract:"
+echo "        - 'AgentLanguage :  5:LookUp[ISOLanguageCodes;agent.([1-2])product.(2)comments.([1-5])entry.([1-2])text]'"
+echo ""
+
 echo "  - lookup:"
 echo "      name: 'ISOLanguageCodes'"
 echo "      map:"
@@ -29,27 +45,27 @@ do
     echo "          \"$(echo ${line} | cut -d' ' -f1)\" : \"$(echo ${line} | cut -d' ' -f2-)\""
 done
 
-cat "ISOLanguageCodes.csv" | while read line ; \
-do
-    echo "  - matcher:"
-    echo "      require:"
-    echo "        - 'agent.(1)product.(1)comments.entry.([1-2])text=\"$(echo ${line} | cut -d' ' -f1)\"'"
-    echo "      extract:"
-    echo "        - 'AgentLanguage :  5:\"$(echo ${line} | cut -d' ' -f2-)\"'"
-    echo ""
-
-    echo "  - matcher:"
-    echo "      require:"
-    echo "        - 'agent.([2-4])product.(1)comments.([1-5])entry.([1-2])text=\"$(echo ${line} | cut -d' ' -f1)\"'"
-    echo "      extract:"
-    echo "        - 'AgentLanguage :  5:\"$(echo ${line} | cut -d' ' -f2-)\"'"
-    echo ""
-
-    echo "  - matcher:"
-    echo "      require:"
-    echo "        - 'agent.([1-2])product.(2)comments.([1-5])entry.([1-2])text=\"$(echo ${line} | cut -d' ' -f1)\"'"
-    echo "      extract:"
-    echo "        - 'AgentLanguage :  5:\"$(echo ${line} | cut -d' ' -f2-)\"'"
-    echo ""
-done
+#cat "ISOLanguageCodes.csv" | while read line ; \
+#do
+#    echo "  - matcher:"
+#    echo "      require:"
+#    echo "        - 'agent.(1)product.(1)comments.entry.([1-2])text=\"$(echo ${line} | cut -d' ' -f1)\"'"
+#    echo "      extract:"
+#    echo "        - 'AgentLanguage :  5:\"$(echo ${line} | cut -d' ' -f2-)\"'"
+#    echo ""
+#
+#    echo "  - matcher:"
+#    echo "      require:"
+#    echo "        - 'agent.([2-4])product.(1)comments.([1-5])entry.([1-2])text=\"$(echo ${line} | cut -d' ' -f1)\"'"
+#    echo "      extract:"
+#    echo "        - 'AgentLanguage :  5:\"$(echo ${line} | cut -d' ' -f2-)\"'"
+#    echo ""
+#
+#    echo "  - matcher:"
+#    echo "      require:"
+#    echo "        - 'agent.([1-2])product.(2)comments.([1-5])entry.([1-2])text=\"$(echo ${line} | cut -d' ' -f1)\"'"
+#    echo "      extract:"
+#    echo "        - 'AgentLanguage :  5:\"$(echo ${line} | cut -d' ' -f2-)\"'"
+#    echo ""
+#done
 ) > ../ISOLanguageCode.yaml
