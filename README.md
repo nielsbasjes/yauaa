@@ -1,6 +1,6 @@
 Parsing Useragents
 ==================
-Parsing useragents is considered by many to be a rediculously hard problem.
+Parsing useragents is considered by many to be a ridiculously hard problem.
 The main problems are:
 
 - Although there seems to be a specification, many do not follow it.
