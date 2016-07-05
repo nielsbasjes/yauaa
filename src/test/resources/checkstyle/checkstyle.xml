@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<module name="Checker">
+  <module name="SuppressionFilter">
+    <property name="file" value="${checkstyle.suppressions.file}"/>
+  </module>
+  <module name="SuppressionCommentFilter"/>
+
+  <!-- Checks that a package.html file exists for each package. -->
+  <!-- See http://checkstyle.sf.net/config_javadoc.html#PackageHtml -->
+  <!-- module name="JavadocPackage"/ -->
+
+  <!-- Checks whether files end with a new line. -->
+  <!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
+  <module name="NewlineAtEndOfFile">
+    <property name="lineSeparator" value="lf"/>
+  </module>
+
+  <!-- Checks that property files contain the same keys. -->
+  <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
+  <module name="Translation" />
+
+  <module name="FileLength" />
+  <module name="FileTabCharacter" />
+
+  <module name="TreeWalker">
+
+    <!-- Checks for Javadoc comments. -->
+    <!-- See http://checkstyle.sf.net/config_javadoc.html -->
+    <!-- <module name="JavadocType"> <property name="scope" value="public"/> <property name="allowMissingParamTags" value="true"/> </module> <module name="JavadocStyle"/> -->
+
+    <!-- Checks for Naming Conventions. -->
+    <!-- See http://checkstyle.sf.net/config_naming.html -->
+    <module name="ConstantName" />
+    <module name="LocalFinalVariableName" />
+    <module name="LocalVariableName" />
+    <module name="MemberName" />
+    <module name="MethodName" />
+    <module name="PackageName" />
+    <module name="ParameterName" />
+    <module name="StaticVariableName" />
+    <module name="TypeName" />
+
+    <!-- Checks for Headers -->
+    <!-- See http://checkstyle.sf.net/config_header.html -->
+    <!-- <module name="Header"> -->
+    <!-- The follow property value demonstrates the ability -->
+    <!-- to have access to ANT properties. In this case it uses -->
+    <!-- the ${basedir} property to allow Checkstyle to be run -->
+    <!-- from any directory within a project. See property -->
+    <!-- expansion, -->
+    <!-- http://checkstyle.sf.net/config.html#properties -->
+    <!-- <property -->
+    <!-- name="headerFile" -->
+    <!-- value="${basedir}/java.header"/> -->
+    <!-- </module> -->
+
+    <!-- Following interprets the header file as regular expressions. -->
+    <!-- <module name="RegexpHeader"/> -->
+
+
+    <!-- Checks for imports -->
+    <!-- See http://checkstyle.sf.net/config_import.html -->
+    <module name="IllegalImport" /> <!-- defaults to sun.* packages -->
+    <module name="AvoidStarImport"/>
+    <module name="RedundantImport"/>
+    <module name="UnusedImports"/>
+
+    <module name="EmptyStatement"/>
+    <module name="IllegalInstantiation"/>
+    <module name="SimplifyBooleanExpression"/>
+    <module name="SimplifyBooleanReturn"/>
+
+    <module name="InterfaceIsType"/>
+    <module name="ArrayTypeStyle"/>
+
+    <!-- Checks for Size Violations. -->
+    <!-- See http://checkstyle.sf.net/config_sizes.html -->
+    <module name="LineLength">
+      <property name="max" value="150" />
+    </module>
+    <module name="MethodLength">
+      <property name="max" value="300" />
+      <property name="countEmpty" value="false" />
+    </module>
+    <module name="ParameterNumber" />
+
+    <!-- Checks for whitespace -->
+    <!-- See http://checkstyle.sf.net/config_whitespace.html -->
+    <module name="EmptyForIteratorPad" />
+    <module name="MethodParamPad" />
+    <module name="NoWhitespaceAfter" />
+    <module name="NoWhitespaceBefore" />
+    <module name="ParenPad" />
+    <module name="TypecastParenPad" />
+    <module name="WhitespaceAfter">
+      <property name="tokens" value="COMMA, SEMI" />
+    </module>
+    <!-- Alert about trailing whitespace -->
+    <module name="Regexp">
+      <property name="format" value="[ \t]+$"/>
+      <property name="illegalPattern" value="true"/>
+      <property name="message" value="Trailing whitespace"/>
+    </module>
+
+    <!-- Modifier Checks -->
+    <!-- See http://checkstyle.sf.net/config_modifiers.html -->
+    <module name="ModifierOrder" />
+    <module name="RedundantModifier" />
+
+
+    <!-- Checks for blocks. You know, those {}'s -->
+    <!-- See http://checkstyle.sf.net/config_blocks.html -->
+    <module name="AvoidNestedBlocks" />
+    <module name="EmptyBlock" />
+    <module name="LeftCurly" />
+    <module name="NeedBraces" />
+    <module name="RightCurly">
+      <property name="option" value="same" />
+    </module>
+
+
+    <!-- Checks for common coding problems -->
+    <!-- See http://checkstyle.sf.net/config_coding.html -->
+    <!--<module name="AvoidInlineConditionals" />-->
+    <!-- <module name="DoubleCheckedLocking"/> -->
+    <module name="EmptyStatement" />
+    <module name="EqualsHashCode" />
+    <module name="HiddenField">
+      <property name="ignoreConstructorParameter" value="true" />
+    </module>
+    <module name="IllegalInstantiation" />
+    <module name="InnerAssignment" />
+    <module name="MissingSwitchDefault" />
+    <module name="SimplifyBooleanExpression" />
+    <module name="SimplifyBooleanReturn" />
+
+    <!-- Checks for class design -->
+    <!-- See http://checkstyle.sf.net/config_design.html -->
+    <module name="FinalClass" />
+    <module name="HideUtilityClassConstructor" />
+    <module name="InterfaceIsType" />
+    <module name="VisibilityModifier">
+      <property name="packageAllowed" value="true"/>
+      <property name="protectedAllowed" value="true"/>
+    </module>
+
+    <!-- Miscellaneous other checks. -->
+    <!-- See http://checkstyle.sf.net/config_misc.html -->
+    <module name="ArrayTypeStyle" />
+    <module name="Indentation">
+      <property name="basicOffset" value="4" />
+      <property name="braceAdjustment" value="0" />
+      <property name="caseIndent" value="4" />
+      <property name="throwsIndent" value="4" />
+      <property name="arrayInitIndent" value="4" />
+      <property name="lineWrappingIndentation" value="4" />
+    </module>
+
+    <!-- module name="TodoComment"/ -->
+    <module name="UpperEll" />
+
+  </module>
+
+</module>

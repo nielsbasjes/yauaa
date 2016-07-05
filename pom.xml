@@ -39,6 +39,7 @@
     <antlr.version>4.5.3</antlr.version>
     <hadoop.version>2.7.2</hadoop.version>
     <pig.version>0.16.0</pig.version>
+    <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
   </properties>
 
   <dependencies>
@@ -168,6 +169,31 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${checkstyle-plugin.version}</version>
+        <configuration>
+          <consoleOutput>true</consoleOutput>
+          <configLocation>src/test/resources/checkstyle/checkstyle.xml</configLocation>
+          <suppressionsLocation>src/test/resources/checkstyle/suppressions.xml</suppressionsLocation>
+        </configuration>
+        <!-- Runs by default in the verify phase  (mvn verify or later in the build cycle)
+             the 'check' goal will fail the build if it does not pass.  "mvn checkstyle:check"
+             will do this alone, or "mvn checkstyle:checkstyle" will report but not break  -->
+        <executions>
+          <execution>
+            <id>checkstyle-check</id>
+            <phase>test</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+
     </plugins>
   </build>
 
