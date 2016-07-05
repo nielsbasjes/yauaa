@@ -20,6 +20,28 @@ echo "# ============================================="
 echo "# THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY"
 echo "# ============================================="
 echo "config:"
+
+#echo "
+#  - matcher:
+#      extract:
+#        - 'DeviceCpu : 105:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%1]'
+#  - matcher:
+#      extract:
+#        - 'DeviceCpu : 104:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%2]'
+#  - matcher:
+#      extract:
+#        - 'DeviceCpu : 103:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%3]'
+#  - matcher:
+#      extract:
+#        - 'DeviceCpu : 102:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%4]'
+#  - matcher:
+#      extract:
+#        - 'DeviceCpu : 101:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%5]'
+#  - matcher:
+#      extract:
+#        - 'DeviceCpu : 101:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry.product.version]'
+#"
+
 echo "  - lookup:"
 echo "      name: 'CPUArchitectures'"
 echo "      map:"
