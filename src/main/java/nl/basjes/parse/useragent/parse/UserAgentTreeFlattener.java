@@ -241,6 +241,12 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     @Override
+    public void enterProductNameUrl(ProductNameUrlContext ctx) {
+        inform(ctx, "name");
+        inform(ctx, "name.(1)url", ctx.getText(), true);
+    }
+
+    @Override
     public void enterProductNameBare(ProductNameBareContext ctx) {
         informSubstrings(ctx, "name");
     }

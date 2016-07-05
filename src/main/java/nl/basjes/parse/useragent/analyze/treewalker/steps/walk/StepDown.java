@@ -245,6 +245,11 @@ public class StepDown extends Step {
         }
 
         @Override
+        public List<? extends ParserRuleContext> visitProductNameUrl(ProductNameUrlContext ctx) {
+            return Collections.emptyList(); // Cannot walk in here at all
+        }
+
+        @Override
         public List<? extends ParserRuleContext> visitProductNameUuid(ProductNameUuidContext ctx) {
             return Collections.emptyList(); // Cannot walk in here at all
         }
