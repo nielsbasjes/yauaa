@@ -242,8 +242,53 @@ config:
         AgentVersion                       : '1.8'
         AgentLanguage                      : 'Dutch (Netherlands)'
 
+
+
+## FIXME:
+#  - matcher:
+#      require:
+#        - 'agent.product="Profile/MIDP-2.1"'
+#        - 'agent.product.(1)name="Browser"'
+#      extract:
+#        - 'DeviceClass           :   1000:"Mobile"'
+#        - 'DeviceBrand           :   1000:agent.(2)product.(1)name'
+#        - 'DeviceName            :   1000:agent.(2)product.(1)name'
+#        - 'DeviceVersion         :   1000:agent.(2)product.(1)version'
+#        - 'OperatingSystemClass  :   1000:"Mobile"'
+##        - 'OperatingSystemName   :   1:' # ( Linux / Android / Windows ...)
+##        - 'OperatingSystemVersion:   1:' # 1.2 / 43 / ...
+#        - 'LayoutEngineClass     :    100:"Browser"'
+#        - 'LayoutEngineName      :    100:agent.product.(1)name="Browser"^.(1)version'
+#        - 'LayoutEngineVersion   :    100:agent.product.(1)name="Browser"^.(2)version'
+#        - 'AgentClass            :   1000:"Browser"'
+#        - 'AgentName             :   1000:agent.product.(1)name="Browser"^.(1)version'
+#        - 'AgentVersion          :   1000:agent.product.(1)name="Browser"^.(2)version'
 #
-#
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/4.0 SonyEricssonW910iv/R1FA Browser/NetFront/3.4 Profile/MIDP-2.1 Configuration/CLDC-1.1'
+#      expected:
+#        DeviceClass                        : 'Mobile'                 # 1000
+#        DeviceName                         : 'SonyEricssonW910iv'     # 1000
+#        DeviceBrand                        : 'SonyEricssonW910iv'     # 1000
+#        DeviceVersion                      : 'R1FA'                   # 1000
+#        OperatingSystemClass               : 'Mobile'                 # 1000
+#        OperatingSystemName                : 'Unknown'                # -1
+#        OperatingSystemVersion             : 'Unknown'                # -1
+#        LayoutEngineClass                  : 'Browser'                # 3
+#        LayoutEngineName                   : 'NetFront'                # 3
+#        LayoutEngineVersion                : '3.4'                    # 3
+#        LayoutEngineVersionMajor           : '3'                      # 3
+#        AgentClass                         : 'Browser'                # 1000
+#        AgentName                          : 'NetFront'               # 1000
+#        AgentVersion                       : '3.4'                    # 1000
+#        AgentVersionMajor                  : '3'                      # 1000
+#        AgentNameVersion                   : 'NetFront 3.4'           # 1000
+#        AgentNameVersionMajor              : 'NetFront 3'             # 1000
+#        LayoutEngineNameVersion            : 'NetFront 3.4'           # 1000
+#        LayoutEngineNameVersionMajor       : 'NetFront 3'             # 1000
+
+
 #  - test:
 ##      options:
 ##        - 'verbose'
