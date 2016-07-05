@@ -20,7 +20,6 @@
 package nl.basjes.parse.useragent;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,39 +62,4 @@ public class TestMatcherExpressions {
         UserAgentAnalyzer uaa = new UserAgentAnalyzer("classpath*:AllFields-tests.yaml");
         Assert.assertTrue(uaa.runTests(false, true));
     }
-
-    @Test
-    @Ignore
-    public void performanceTest() {
-        runPerformanceTest(false,    1000);
-        runPerformanceTest(true, 10000000);
-    }
-
-    private void runPerformanceTest(boolean cached, long count) {
-        UserAgentAnalyzer uaa = new UserAgentAnalyzer();
-        if (!cached) {
-            uaa.disableCaching();
-        }
-
-        UserAgent agent = new UserAgent("Mozilla/5.0 (Linux; Android 6.0; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36");
-
-        // Preheat the jit compiler.
-        for (int i = 0; i < 500; i++) {
-            agent.reset();
-            uaa.parse(agent);
-        }
-
-        long start = System.nanoTime();
-        LOG.info("Start @ {}", start);
-        // Try to repeatedly parse a 'normal' agent without any caching.
-        for (int i = 0; i < count; i++) {
-            agent.reset();
-            uaa.parse(agent);
-        }
-        long stop = System.nanoTime();
-        LOG.info("Stop  @ {}", stop);
-        LOG.info("Did {} in {} ns ({} sec)--> {}/sec", count, stop-start, (stop-start)/1000000000 , (1000000000*count)/(stop-start));
-    }
-
-
 }
