@@ -32,7 +32,7 @@ public class StepCleanVersion extends Step {
         if (actualValue == null) {
             return "<<<Null Value>>>";
         }
-        return EvilManualUseragentStringHacks.replaceString(actualValue,"_",".");
+        return EvilManualUseragentStringHacks.replaceString(actualValue, "_", ".");
     }
 
     @Override

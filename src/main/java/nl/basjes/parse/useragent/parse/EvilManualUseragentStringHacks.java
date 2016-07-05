@@ -19,7 +19,9 @@
 
 package nl.basjes.parse.useragent.parse;
 
-public class EvilManualUseragentStringHacks {
+public final class EvilManualUseragentStringHacks {
+    private EvilManualUseragentStringHacks() {
+    }
 
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
@@ -74,16 +76,16 @@ public class EvilManualUseragentStringHacks {
         int idxSearchFor = 0;
         while ((idxSearchFor = input.indexOf(searchFor, startIdx)) >= 0) {
             //grab a part of input which does not include searchFor
-            result.append( input.substring(startIdx, idxSearchFor) );
+            result.append(input.substring(startIdx, idxSearchFor));
             //add replaceWith to take place of searchFor
-            result.append( replaceWith );
+            result.append(replaceWith);
 
             //reset the startIdx to just after the current match, to see
             //if there are any further matches
             startIdx = idxSearchFor + searchFor.length();
         }
         //the final chunk will go to the end of input
-        result.append( input.substring(startIdx) );
+        result.append(input.substring(startIdx));
         return result.toString();
     }
 

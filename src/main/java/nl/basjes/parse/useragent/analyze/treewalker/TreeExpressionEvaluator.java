@@ -53,9 +53,9 @@ public class TreeExpressionEvaluator {
         walkList = new WalkList(requiredPattern, lookups);
     }
 
-    public void setVerbose(boolean verbose) {
-        this.verbose = verbose;
-        walkList.setVerbose(verbose);
+    public void setVerbose(boolean newVerbose) {
+        this.verbose = newVerbose;
+        walkList.setVerbose(newVerbose);
     }
 
     /**
@@ -82,7 +82,8 @@ public class TreeExpressionEvaluator {
                     if (ctx.defaultValue != null) {
                         return ctx.defaultValue.getText();
                     }
-                    throw new InvalidParserConfigurationException("Fixed value >>" + value + "<< is missing in lookup: \"" + ctx.lookup.getText() + "\" ");
+                    throw new InvalidParserConfigurationException(
+                        "Fixed value >>" + value + "<< is missing in lookup: \"" + ctx.lookup.getText() + "\" ");
                 }
                 return resultingValue;
             }

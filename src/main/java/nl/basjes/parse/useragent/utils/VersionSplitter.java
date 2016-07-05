@@ -19,14 +19,19 @@
 
 package nl.basjes.parse.useragent.utils;
 
-public class VersionSplitter {
+public final class VersionSplitter {
+    private VersionSplitter() {
+    }
+
     public static boolean isVersionSeparator(char c) {
         switch (c) {
             case '.':
             case '_':
                 return true;
+            default:
+                return false;
         }
-        return false;
+
     }
 
     /**
@@ -37,7 +42,7 @@ public class VersionSplitter {
      * @return The offset of the next word
      */
     public static int findNextVersionStart(char[] chars, int offset) {
-        for (int charNr = offset ; charNr<chars.length; charNr++) {
+        for (int charNr = offset; charNr<chars.length; charNr++) {
             char theChar = chars[charNr];
             if (!isVersionSeparator(theChar)) {
                 return charNr;

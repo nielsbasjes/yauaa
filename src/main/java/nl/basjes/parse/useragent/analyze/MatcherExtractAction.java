@@ -46,18 +46,18 @@ public class MatcherExtractAction extends MatcherAction {
         return this.fixedValue != null;
     }
 
-    protected void setFixedValue(String fixedValue) {
+    protected void setFixedValue(String newFixedValue) {
         if (verbose) {
-            LOG.info("-- set Fixed value({} , {} , {})", attribute, confidence, fixedValue);
+            LOG.info("-- set Fixed value({} , {} , {})", attribute, confidence, newFixedValue);
         }
-        this.fixedValue = fixedValue;
+        this.fixedValue = newFixedValue;
     }
 
     public String getAttribute() {
         return attribute;
     }
 
-    public void inform(String key, String foundValue) {
+    public void inform(String key, String newlyFoundValue) {
         if (verbose) {
             LOG.info("INFO  : EXTRACT ({}): {}", attribute, key);
             LOG.info("NEED  : EXTRACT ({}): {}", attribute, getMatchExpression());
@@ -68,7 +68,7 @@ public class MatcherExtractAction extends MatcherAction {
          * So we always use the first value we find.
          */
         if (this.foundValue == null) {
-            this.foundValue = foundValue;
+            this.foundValue = newlyFoundValue;
             if (verbose) {
                 LOG.info("KEPT  : EXTRACT ({}): {}", attribute, key);
             }

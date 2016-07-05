@@ -20,9 +20,34 @@
 package nl.basjes.parse.useragent.analyze.treewalker.steps;
 
 import nl.basjes.parse.useragent.UserAgentTreeWalkerBaseVisitor;
-import nl.basjes.parse.useragent.UserAgentTreeWalkerParser;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherPathContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherPathLookupContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.PathContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.PathFixedValueContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.PathWalkContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepBackToFullContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepContainsValueContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepDownContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepEndsWithValueContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepEqualsValueContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepFirstWordsContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepNextContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepNotEqualsValueContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepPrevContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepSingleWordContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepStartsWithValueContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepUpContext;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.*;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepCleanVersion;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepContains;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEndsWith;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEquals;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepDefaultValue;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepBackToFull;
@@ -41,8 +66,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.*;
-
 public class WalkList {
     private static final Logger LOG = LoggerFactory.getLogger(WalkList.class);
 
@@ -51,10 +74,10 @@ public class WalkList {
 
     private boolean verbose;
 
-    public void setVerbose(boolean verbose) {
-        this.verbose = verbose;
+    public void setVerbose(boolean newVerbose) {
+        this.verbose = newVerbose;
         for (Step step : steps) {
-            step.setVerbose(verbose);
+            step.setVerbose(newVerbose);
         }
     }
 

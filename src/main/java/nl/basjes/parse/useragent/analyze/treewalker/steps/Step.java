@@ -28,22 +28,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class Step {
-    protected static Logger LOG = LoggerFactory.getLogger(Step.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(Step.class);
     private int stepNr;
     protected String logprefix = "";
     private Step nextStep;
 
     protected boolean verbose = false;
 
-    public void setVerbose(boolean verbose) {
-        this.verbose = verbose;
+    public void setVerbose(boolean newVerbose) {
+        this.verbose = newVerbose;
     }
 
-    public final void setNextStep(int stepNr, Step nextStep) {
-        this.stepNr = stepNr;
-        this.nextStep = nextStep;
+    public final void setNextStep(int newStepNr, Step newNextStep) {
+        this.stepNr = newStepNr;
+        this.nextStep = newNextStep;
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < stepNr + 1; i++) {
+        for (int i = 0; i < newStepNr + 1; i++) {
             sb.append("-->");
         }
         logprefix = sb.toString();
@@ -78,11 +78,11 @@ public abstract class Step {
         }
 
         // Needed because of the way the ANTLR rules have been defined.
-        if (   tree instanceof UserAgentParser.ProductNameBareContext
-            || tree instanceof UserAgentParser.ProductNameEmailContext
-            || tree instanceof UserAgentParser.ProductNameUuidContext
-            || tree instanceof UserAgentParser.ProductNameKeyValueContext
-            || tree instanceof UserAgentParser.ProductNameVersionContext
+        if (tree instanceof UserAgentParser.ProductNameBareContext      ||
+            tree instanceof UserAgentParser.ProductNameEmailContext     ||
+            tree instanceof UserAgentParser.ProductNameUuidContext      ||
+            tree instanceof UserAgentParser.ProductNameKeyValueContext  ||
+            tree instanceof UserAgentParser.ProductNameVersionContext
             ) {
             return up(tree.getParent());
         }
@@ -118,7 +118,8 @@ public abstract class Step {
      * This must iterate of all possibilities and return the first matching result.
      *
      * @param tree  The tree to walk into.
-     * @param value The string representation of the previous step (needed for compare and lookup operations). The null value means to use the implicit 'full' value (i.e. tree.getText() )
+     * @param value The string representation of the previous step (needed for compare and lookup operations).
+     *              The null value means to use the implicit 'full' value (i.e. tree.getText() )
      * @return Either null or the actual value that was found.
      */
     public abstract String walk(ParseTree tree, String value);

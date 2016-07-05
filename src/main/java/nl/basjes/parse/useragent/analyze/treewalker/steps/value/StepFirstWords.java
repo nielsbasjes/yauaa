@@ -39,7 +39,7 @@ public class StepFirstWords extends Step {
         String filteredValue;
         if (tree.getChildCount() == 1 &&
             tree.getChild(0).getClass().getSimpleName().equals("SimpleVersionContext")) {
-                filteredValue = VersionSplitter.getFirstVersions(actualValue, numberOfWords);
+            filteredValue = VersionSplitter.getFirstVersions(actualValue, numberOfWords);
         } else {
             filteredValue = WordSplitter.getFirstWords(actualValue, numberOfWords);
         }

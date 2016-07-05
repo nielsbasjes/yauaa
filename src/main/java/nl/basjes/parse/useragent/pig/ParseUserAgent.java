@@ -34,13 +34,13 @@ import java.util.List;
 
 public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
 
-    private final static TupleFactory tupleFactory = TupleFactory.getInstance();
-    private final static UserAgentAnalyzer userAgentAnalyzer = new UserAgentAnalyzer();
+    private static final TupleFactory TUPLE_FACTORY = TupleFactory.getInstance();
+    private static final UserAgentAnalyzer USER_AGENT_ANALYZER = new UserAgentAnalyzer();
     private static List<String> allFieldNames = null;
 
     private static List<String> getAllFieldNamesSorted() {
         if (allFieldNames == null) {
-            allFieldNames = userAgentAnalyzer.getAllPossibleFieldNamesSorted();
+            allFieldNames = USER_AGENT_ANALYZER.getAllPossibleFieldNamesSorted();
         }
         return allFieldNames;
     }
@@ -49,8 +49,8 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
     public Tuple exec(Tuple tuple) throws IOException {
         String userAgentString = (String) tuple.get(0);
 
-        UserAgent agent = userAgentAnalyzer.parse(userAgentString);
-        Tuple result = tupleFactory.newTuple();
+        UserAgent agent = USER_AGENT_ANALYZER.parse(userAgentString);
+        Tuple result = TUPLE_FACTORY.newTuple();
         for (String fieldName: getAllFieldNamesSorted()) {
             result.append(agent.getValue(fieldName));
         }

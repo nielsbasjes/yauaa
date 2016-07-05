@@ -54,7 +54,7 @@ public class UserAgentVersionDissector extends Dissector {
             return; // Nothing to do
         }
 
-        String full = versionString.replaceAll("_",".");
+        String full = versionString.replaceAll("_", ".");
 
         parsable.addDissection(inputname, "STRING", "full", full);
 

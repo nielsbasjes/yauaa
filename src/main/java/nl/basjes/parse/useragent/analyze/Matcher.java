@@ -23,10 +23,14 @@ import nl.basjes.parse.useragent.UserAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Matcher {
-    private final Logger LOG = LoggerFactory.getLogger(Matcher.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Matcher.class);
 
     private Analyzer analyzer;
     private List<MatcherAction> dynamicActions;
@@ -80,7 +84,7 @@ public class Matcher {
                 if (verbose) {
                     LOG.info("EXTRACT: {}", extractConfig);
                 }
-                String configParts[] = extractConfig.split(":", 3);
+                String[] configParts = extractConfig.split(":", 3);
                 String attribute = configParts[0].trim();
                 String confidence = configParts[1].trim();
                 String config = configParts[2].trim();

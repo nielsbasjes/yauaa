@@ -29,7 +29,6 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
@@ -112,13 +111,13 @@ public class UserAgentDissector extends Dissector {
     protected void initializeNewInstance(Dissector dissector) {
     }
 
-    private static final Map<String,String> fieldNameMappingCache = new HashMap<>(64);
+    private static final Map<String, String> FIELD_NAME_MAPPING_CACHE = new HashMap<>(64);
 
     static String fieldNameToDissectionName(String fieldName) {
-        String dissectionName = fieldNameMappingCache.get(fieldName);
+        String dissectionName = FIELD_NAME_MAPPING_CACHE.get(fieldName);
         if (dissectionName == null) {
-            dissectionName = fieldName.replaceAll("([A-Z])","_$1").toLowerCase(Locale.ENGLISH).replaceFirst("_","");
-            fieldNameMappingCache.put(fieldName, dissectionName);
+            dissectionName = fieldName.replaceAll("([A-Z])", "_$1").toLowerCase(Locale.ENGLISH).replaceFirst("_", "");
+            FIELD_NAME_MAPPING_CACHE.put(fieldName, dissectionName);
         }
         return dissectionName;
     }

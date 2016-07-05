@@ -58,7 +58,7 @@ public final class Main {
             String strLine;
 
             if (commandlineOptions.csvFormat) {
-                for (String field : UserAgent.standardFields) {
+                for (String field : UserAgent.STANDARD_FIELDS) {
                     System.out.print(field);
                     System.out.print("\t");
                 }
@@ -112,16 +112,16 @@ public final class Main {
                 UserAgent agent = uaa.parse(agentStr);
 
                 boolean hasBad = false;
-                for (String field : UserAgent.standardFields) {
+                for (String field : UserAgent.STANDARD_FIELDS) {
                     if (agent.get(field).confidence < 0) {
                         hasBad = true;
                         break;
                     }
                 }
 
-                linesTotal  ++;
-                hitsTotal   += hits;
-                ipsTotal    += ips;
+                linesTotal++;
+                hitsTotal += hits;
+                ipsTotal  += ips;
 
                 if (agent.hasSyntaxError) {
                     if (commandlineOptions.yamlFormat) {
@@ -134,13 +134,12 @@ public final class Main {
                 }
 
                 if (!hasBad) {
-                    linesMatched ++;
-                    hitsMatched  += hits;
-                    ipsMatched   += ips;
+                    linesMatched++;
+                    hitsMatched += hits;
+                    ipsMatched  += ips;
                 }
 
                 if (linesTotal % 1000 == 0) {
-
                     long nowTime = System.nanoTime();
                     long speed = (1000000000L*(linesTotal-segmentStartLines))/(nowTime-segmentStartTime);
                     System.err.println("Lines = "+linesTotal + "   Speed = " + speed + "/sec.");
@@ -156,12 +155,12 @@ public final class Main {
 
                 if (commandlineOptions.yamlFormat) {
                     System.out.print(agent.toYamlTestCase());
-                } else
+                }
                 if (commandlineOptions.jsonFormat) {
                     System.out.print(agent.toJson());
-                } else
+                }
                 if (commandlineOptions.csvFormat){
-                    for (String field : UserAgent.standardFields) {
+                    for (String field : UserAgent.STANDARD_FIELDS) {
                         System.out.print(agent.get(field).getValue());
                         System.out.print("\t");
                     }
@@ -175,7 +174,7 @@ public final class Main {
             LOG.info("Stop  @ {}", stop);
 
             LOG.info("-------------------------------------------------------------");
-            LOG.info("Performance: {} in {} sec --> {}/sec", linesTotal, (stop-start)/1000000000L , (1000000000L*linesTotal)/(stop-start));
+            LOG.info("Performance: {} in {} sec --> {}/sec", linesTotal, (stop-start)/1000000000L, (1000000000L*linesTotal)/(stop-start));
             LOG.info("-------------------------------------------------------------");
             LOG.info("Parse results of {} lines", linesTotal);
             LOG.info("Parsed without error: {} (={}%)", linesOk, 100.0*(double)linesOk/(double)linesTotal);
@@ -241,7 +240,7 @@ public final class Main {
 
         @Override
         public void inform(String path, String value, ParseTree ctx) {
-            System.out.println(path);// + " = " + value);
+            System.out.println(path); // + " = " + value);
         }
 
         @Override

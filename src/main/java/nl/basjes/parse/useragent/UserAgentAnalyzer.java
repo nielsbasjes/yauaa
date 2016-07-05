@@ -35,10 +35,33 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Formatter;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
-import static nl.basjes.parse.useragent.UserAgent.*;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.STANDARD_FIELDS;
+import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 
 public class UserAgentAnalyzer extends Analyzer {
 
@@ -48,7 +71,7 @@ public class UserAgentAnalyzer extends Analyzer {
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
     private List<Matcher> allMatchers;
     private Map<String, Set<MatcherAction>> informMatcherActions;
-    private Map<String,List<Map<String, List<String>>>> matcherConfigs = new HashMap<>(64);
+    private Map<String, List<Map<String, List<String>>>> matcherConfigs = new HashMap<>(64);
 
     private boolean doingOnlyASingleTest = false;
 
@@ -168,7 +191,7 @@ public class UserAgentAnalyzer extends Analyzer {
         Collections.sort(fieldNames);
 
         List<String> result = new ArrayList<>();
-        for (String fieldName : standardFields) {
+        for (String fieldName : STANDARD_FIELDS) {
             fieldNames.remove(fieldName);
             result.add(fieldName);
         }
@@ -216,16 +239,19 @@ config:
         }
 
         if (!(loadedYaml instanceof Map)) {
-            throw new InvalidParserConfigurationException("Yaml config  ("+filename+"): File must be a Map");
+            throw new InvalidParserConfigurationException(
+                "Yaml config  ("+filename+"): File must be a Map");
         }
 
         @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
-        Object rawConfig = ((Map<String,Object>) loadedYaml).get("config");
+        Object rawConfig = ((Map<String, Object>) loadedYaml).get("config");
         if (rawConfig == null) {
-            throw new InvalidParserConfigurationException("Yaml config ("+filename+"): Missing 'config' top level entry");
+            throw new InvalidParserConfigurationException(
+                "Yaml config ("+filename+"): Missing 'config' top level entry");
         }
         if (!(rawConfig instanceof List)) {
-            throw new InvalidParserConfigurationException("Yaml config ("+filename+"): Top level 'config' must be a Map");
+            throw new InvalidParserConfigurationException(
+                "Yaml config ("+filename+"): Top level 'config' must be a Map");
         }
 
         @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
@@ -234,16 +260,18 @@ config:
         for (Object configEntry: configList) {
             entryCount++;
             if (!(configEntry instanceof Map)) {
-                throw new InvalidParserConfigurationException("Yaml config ("+filename+" ["+entryCount+"]): Entry must be a Map");
+                throw new InvalidParserConfigurationException(
+                    "Yaml config ("+filename+" ["+entryCount+"]): Entry must be a Map");
             }
             @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
-            Map<String,Object> entry = (Map<String,Object>) configEntry;
+            Map<String, Object> entry = (Map<String, Object>) configEntry;
             if (entry.size() != 1) {
                 StringBuilder sb = new StringBuilder();
                 for (String key: entry.keySet()) {
                     sb.append('"').append(key).append("\" ");
                 }
-                throw new InvalidParserConfigurationException("Yaml config ("+filename+" ["+entryCount+"]): Entry has more than one child: "+sb.toString());
+                throw new InvalidParserConfigurationException(
+                    "Yaml config ("+filename+" ["+entryCount+"]): Entry has more than one child: "+sb.toString());
             }
 
             Map.Entry<String, Object> onlyEntry = entry.entrySet().iterator().next();
@@ -253,25 +281,30 @@ config:
 
                 case "lookup":
                     if (!(value instanceof Map)) {
-                        throw new InvalidParserConfigurationException("Yaml config ("+filename+" ["+entryCount+"]): Entry 'lookup' must be a Map");
+                        throw new InvalidParserConfigurationException(
+                            "Yaml config ("+filename+" ["+entryCount+"]): Entry 'lookup' must be a Map");
                     }
 
                     @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
                     Map<String, Object> newLookup = (Map<String, Object>)value;
                     Object rawName = newLookup.get("name");
                     if (rawName == null) {
-                        throw new InvalidParserConfigurationException("Yaml config ("+filename+" ["+entryCount+"]): Lookup does not have 'name'");
+                        throw new InvalidParserConfigurationException(
+                            "Yaml config ("+filename+" ["+entryCount+"]): Lookup does not have 'name'");
                     }
                     if (!(rawName instanceof String)) {
-                        throw new InvalidParserConfigurationException("Yaml config ("+filename+" ["+entryCount+"]): Lookup 'name' must be a String");
+                        throw new InvalidParserConfigurationException(
+                            "Yaml config ("+filename+" ["+entryCount+"]): Lookup 'name' must be a String");
                     }
 
                     Object rawMap = newLookup.get("map");
                     if (rawMap == null) {
-                        throw new InvalidParserConfigurationException("Yaml config ("+filename+" ["+entryCount+"]): Lookup does not have 'map'");
+                        throw new InvalidParserConfigurationException(
+                            "Yaml config ("+filename+" ["+entryCount+"]): Lookup does not have 'map'");
                     }
                     if (!(rawMap instanceof Map)) {
-                        throw new InvalidParserConfigurationException("Yaml config ("+filename+" ["+entryCount+"]): Lookup 'map' must be a Map");
+                        throw new InvalidParserConfigurationException(
+                            "Yaml config ("+filename+" ["+entryCount+"]): Lookup 'map' must be a Map");
                     }
 
                     @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
@@ -281,7 +314,8 @@ config:
 
                 case "matcher":
                     if (!(value instanceof Map)) {
-                        throw new InvalidParserConfigurationException("Yaml config ("+filename+"): Entry 'matcher' must be a Map");
+                        throw new InvalidParserConfigurationException(
+                            "Yaml config ("+filename+"): Entry 'matcher' must be a Map");
                     }
                     @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
                     Map<String, List<String>> matcherConfig = (Map<String, List<String>>) value;
@@ -297,7 +331,8 @@ config:
                 case "test":
                     if (!doingOnlyASingleTest) {
                         if (!(value instanceof Map)) {
-                            throw new InvalidParserConfigurationException("Yaml config (" + filename + "): Entry 'testcase' must be a Map");
+                            throw new InvalidParserConfigurationException(
+                                "Yaml config (" + filename + "): Entry 'testcase' must be a Map");
                         }
                         @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
                                 Map<String, Map<String, String>> testCase = (Map<String, Map<String, String>>) value;
@@ -323,7 +358,8 @@ config:
                     break;
 
                 default:
-                    throw new InvalidParserConfigurationException("Yaml config ("+filename+"): Found unexpected config entry: " + key + ", allowed are 'lookup, 'matcher' and 'test'");
+                    throw new InvalidParserConfigurationException(
+                        "Yaml config ("+filename+"): Found unexpected config entry: " + key + ", allowed are 'lookup, 'matcher' and 'test'");
             }
         }
 
@@ -341,20 +377,20 @@ config:
 
     private boolean verbose = false;
 
-    public void setVerbose(boolean verbose) {
-        this.verbose = verbose;
-        flattener.setVerbose(verbose);
+    public void setVerbose(boolean newVerbose) {
+        this.verbose = newVerbose;
+        flattener.setVerbose(newVerbose);
     }
 
     public UserAgent parse(String userAgentString) {
         UserAgent userAgent = new UserAgent(userAgentString);
 //        userAgent.setDebug(verbose);
-        return _parse(userAgent);
+        return cachedParse(userAgent);
     }
 
     public UserAgent parse(UserAgent userAgent) {
         userAgent.reset();
-        return _parse(userAgent);
+        return cachedParse(userAgent);
     }
 
     private boolean cachingEnabled = true;
@@ -363,10 +399,10 @@ config:
         cachingEnabled = false;
     }
 
-    private UserAgent _parse(UserAgent userAgent) {
+    private UserAgent cachedParse(UserAgent userAgent) {
 
         if (!cachingEnabled) {
-            return __parse(userAgent);
+            return nonCachedParse(userAgent);
         }
 
         String userAgentString = userAgent.getUserAgentString();
@@ -374,14 +410,14 @@ config:
         if (cachedValue != null) {
             userAgent.clone(cachedValue);
         } else {
-            cachedValue = new UserAgent(__parse(userAgent));
+            cachedValue = new UserAgent(nonCachedParse(userAgent));
             parseCache.put(userAgentString, cachedValue);
         }
         // We have our answer.
         return userAgent;
     }
 
-    private UserAgent __parse(UserAgent userAgent) {
+    private UserAgent nonCachedParse(UserAgent userAgent) {
 
         boolean setVerboseTemporarily = userAgent.isDebug();
 
@@ -457,7 +493,7 @@ config:
         UserAgent.AgentField firstField = userAgent.get(firstName);
         UserAgent.AgentField secondField = userAgent.get(secondName);
         if (firstField.confidence < 0 || secondField.confidence < 0) {
-            if (firstField.confidence >= 0 ) {
+            if (firstField.confidence >= 0) {
                 userAgent.set(targetName, firstField.getValue(), firstField.confidence);
                 return; // No usefull input
             }
@@ -477,13 +513,14 @@ config:
         }
 
     }
-        private void addMajorVersionField(UserAgent userAgent, String versionName, String majorVersionName) {
+
+    private void addMajorVersionField(UserAgent userAgent, String versionName, String majorVersionName) {
         UserAgent.AgentField agentVersionMajor = userAgent.get(majorVersionName);
         if (agentVersionMajor == null || agentVersionMajor.confidence == -1) {
             UserAgent.AgentField agentVersion = userAgent.get(versionName);
             userAgent.set(
                 majorVersionName,
-                VersionSplitter.getSingleVersion(agentVersion.getValue(),1),
+                VersionSplitter.getSingleVersion(agentVersion.getValue(), 1),
                 agentVersion.confidence);
         }
     }
@@ -505,7 +542,7 @@ config:
 
                 int count = 1;
                 for (MatcherAction action: relevantActions) {
-                    LOG.info("+++ -------> ({}): {}",count, action.toString());
+                    LOG.info("+++ -------> ({}): {}", count, action.toString());
                     count++;
                 }
 
@@ -554,7 +591,7 @@ config:
         List<String> values = new ArrayList<>(128);
         UserAgentTreeFlattener flattener;
 
-        public GetAllPathsAnalyzer(String useragent) {
+        GetAllPathsAnalyzer(String useragent) {
             flattener = new UserAgentTreeFlattener(this);
             flattener.parse(useragent);
         }
@@ -584,7 +621,7 @@ config:
         String actual;
         boolean pass;
         boolean warn;
-        public long confidence;
+        long confidence;
     }
 
     /**
@@ -645,9 +682,9 @@ config:
                 setVerbose(false);
                 agent.setDebug(false);
             } else {
-                boolean verbose = options.contains("verbose");
-                setVerbose(verbose);
-                agent.setDebug(verbose);
+                boolean newVerbose = options.contains("verbose");
+                setVerbose(newVerbose);
+                agent.setDebug(newVerbose);
                 init = options.contains("init");
             }
             if (expected == null || expected.size() == 0) {
@@ -797,7 +834,7 @@ config:
                 sb.append("#        - 'LayoutEngineName      :   1:' # ( GoogleBot / Bing / Yahoo / ...) / (Trident /Gecko / Webkit / ...)\n");
                 sb.append("#        - 'LayoutEngineVersion   :   1:' # 7.0 / 1.2 / ... \n");
                 sb.append("#        - 'AgentClass            :   1:' # Hacker / Robot / Browser / ... \n");
-                sb.append("#        - 'AgentName             :   1:' # ( GoogleBot / Bing / Yahoo / ...) / ( Firefox / Chrome / Internet Explorer ) \n");
+                sb.append("#        - 'AgentName             :   1:' # ( GoogleBot / Bing / Yahoo / ...) / ( Firefox / Chrome / ... ) \n");
                 sb.append("#        - 'AgentVersion          :   1:' # 4.0 / 43.1.2.3 / ...\n");
                 sb.append("\n");
                 sb.append("\n");

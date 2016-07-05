@@ -25,34 +25,39 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import java.util.HashMap;
 import java.util.Map;
 
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.*;
+import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepDownContext;
+import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.NumberRangeContext;
+import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.NumberRangeAllContext;
+import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.NumberRangeSingleValueContext;
+import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.NumberRangeStartToEndContext;
+import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.NumberRangeEmptyContext;
 
 public class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<NumberRangeList> {
 
     private static final Integer DEFAULT_MIN = 1;
     private static final Integer DEFAULT_MAX = 10;
 
-    private static Map<String, Integer> MAX_RANGE = new HashMap<>();
+    private static final Map<String, Integer> MAX_RANGE = new HashMap<>();
 
     static {
         // Hardcoded maximum values because of the parsing rules
-        MAX_RANGE.put("agent"     ,           1);
-        MAX_RANGE.put("name"      ,           1);
-        MAX_RANGE.put("key"       ,           1);
+        MAX_RANGE.put("agent",                1);
+        MAX_RANGE.put("name",                 1);
+        MAX_RANGE.put("key",                  1);
 
         // Did statistics on over 200K real useragents from 2015.
         // These are the maximum values from that test set (+ a little margin)
-        MAX_RANGE.put("value"     ,           2); // Max was 2
-        MAX_RANGE.put("version"   ,           5); // Max was 4
-        MAX_RANGE.put("comments"  ,           2); // Max was 2
-        MAX_RANGE.put("entry"     ,          20); // Max was much higher
-        MAX_RANGE.put("product"   ,          10); // Max was much higher
+        MAX_RANGE.put("value",                2); // Max was 2
+        MAX_RANGE.put("version",              5); // Max was 4
+        MAX_RANGE.put("comments",             2); // Max was 2
+        MAX_RANGE.put("entry",               20); // Max was much higher
+        MAX_RANGE.put("product",             10); // Max was much higher
 
-        MAX_RANGE.put("email"     ,           2);
-        MAX_RANGE.put("keyvalue"  ,           3);
-        MAX_RANGE.put("text"      ,           8);
-        MAX_RANGE.put("url"       ,           2);
-        MAX_RANGE.put("uuid"      ,           4);
+        MAX_RANGE.put("email",                2);
+        MAX_RANGE.put("keyvalue",             3);
+        MAX_RANGE.put("text",                 8);
+        MAX_RANGE.put("url",                  2);
+        MAX_RANGE.put("uuid",                 4);
     }
 
     private Integer getMaxRange(NumberRangeContext ctx) {
@@ -71,10 +76,10 @@ public class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<NumberRan
         return maxRange;
     }
 
-    private static final NumberRangeVisitor singleton = new NumberRangeVisitor();
+    private static final NumberRangeVisitor NUMBER_RANGE_VISITOR = new NumberRangeVisitor();
 
     public static NumberRangeList getList(NumberRangeContext ctx) {
-        return singleton.visit(ctx);
+        return NUMBER_RANGE_VISITOR.visit(ctx);
     }
 
     @Override

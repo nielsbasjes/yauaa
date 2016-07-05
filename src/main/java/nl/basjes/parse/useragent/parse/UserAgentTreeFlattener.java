@@ -23,7 +23,31 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentBaseListener;
 import nl.basjes.parse.useragent.UserAgentLexer;
 import nl.basjes.parse.useragent.UserAgentParser;
-import nl.basjes.parse.useragent.UserAgentParser.*;
+import nl.basjes.parse.useragent.UserAgentParser.UserAgentContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductContext;
+import nl.basjes.parse.useragent.UserAgentParser.CommentProductContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductWordVersionContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameBareContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductVersionContext;
+import nl.basjes.parse.useragent.UserAgentParser.SimpleVersionContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameVersionContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameEmailContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameUrlContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameUuidContext;
+import nl.basjes.parse.useragent.UserAgentParser.UuIdContext;
+import nl.basjes.parse.useragent.UserAgentParser.EmailAddressContext;
+import nl.basjes.parse.useragent.UserAgentParser.SiteUrlContext;
+import nl.basjes.parse.useragent.UserAgentParser.Base64Context;
+import nl.basjes.parse.useragent.UserAgentParser.CommentBlockContext;
+import nl.basjes.parse.useragent.UserAgentParser.CommentEntryContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameKeyValueContext;
+import nl.basjes.parse.useragent.UserAgentParser.KeyValueProductVersionNameContext;
+import nl.basjes.parse.useragent.UserAgentParser.KeyValueContext;
+import nl.basjes.parse.useragent.UserAgentParser.KeyValueVersionNameContext;
+import nl.basjes.parse.useragent.UserAgentParser.KeyNameContext;
+import nl.basjes.parse.useragent.UserAgentParser.EmptyWordContext;
+import nl.basjes.parse.useragent.UserAgentParser.MultipleWordsContext;
+import nl.basjes.parse.useragent.UserAgentParser.VersionWordContext;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
@@ -39,6 +63,12 @@ import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 public class UserAgentTreeFlattener extends UserAgentBaseListener {
     private ParseTreeWalker walker;
     private Analyzer analyzer;
+
+    enum PathType {
+        CHILD,
+        COMMENT,
+        VERSION
+    }
 
     public class State {
         long child = 0;
@@ -57,11 +87,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
             this.name = name;
         }
 
-        public static final int CHILD = 0;
-        public static final int COMMENT = 1;
-        public static final int VERSION = 2;
-
-        public String calculatePath(int type, boolean fakeChild) {
+        public String calculatePath(PathType type, boolean fakeChild) {
             ParseTree node = ctx;
             path = name;
             if (node == null) {
@@ -97,6 +123,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
                     }
                     counter = parentState.version;
                     break;
+                default:
             }
 
             this.path = parentState.path + ".(" + counter + ')' + name;
@@ -114,18 +141,18 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
 
     private boolean verbose = false;
 
-    public void setVerbose(boolean verbose) {
-        this.verbose = verbose;
+    public void setVerbose(boolean newVerbose) {
+        this.verbose = newVerbose;
     }
 
     public UserAgent parse(String userAgentString) {
         UserAgent userAgent = new UserAgent(userAgentString);
-        return _parse(userAgent);
+        return parseIntoCleanUserAgent(userAgent);
     }
 
     public UserAgent parse(UserAgent userAgent) {
         userAgent.reset();
-        return _parse(userAgent);
+        return parseIntoCleanUserAgent(userAgent);
     }
 
     /**
@@ -134,9 +161,9 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
      * @param userAgent The useragent instance that needs to be parsed
      * @return If the parse was valid (i.e. were there any parser errors: true=valid; false=has errors
      */
-    private UserAgent _parse(UserAgent userAgent) {
+    private UserAgent parseIntoCleanUserAgent(UserAgent userAgent) {
         if (userAgent.getUserAgentString() == null) {
-            userAgent.set(SYNTAX_ERROR,"true",1);
+            userAgent.set(SYNTAX_ERROR, "true", 1);
             return userAgent; // Cannot parse this
         }
 
@@ -147,13 +174,13 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
         state = new ParseTreeProperty<>();
 
         State rootState = new State("agent");
-        rootState.calculatePath(State.CHILD, false);
+        rootState.calculatePath(PathType.CHILD, false);
         state.put(userAgentContext, rootState);
 
         if (userAgent.hasSyntaxError()) {
-            inform(null,"__SyntaxError__", "true");
+            inform(null, "__SyntaxError__", "true");
         } else {
-            inform(null,"__SyntaxError__", "false");
+            inform(null, "__SyntaxError__", "false");
         }
 
         walker.walk(this, userAgentContext);
@@ -181,14 +208,16 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
             state.put(stateCtx, myState);
         }
 
-        int childType = State.CHILD;
+        PathType childType;
         switch (name) {
             case "comments":
-                childType = State.COMMENT;
+                childType = PathType.COMMENT;
                 break;
             case "version":
-                childType = State.VERSION;
+                childType = PathType.VERSION;
                 break;
+            default:
+                childType = PathType.CHILD;
         }
 
         String path = myState.calculatePath(childType, fakeChild);
@@ -269,7 +298,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     @Override
     public void enterProductVersion(ProductVersionContext ctx) {
         if (ctx.getChildCount() != 1 ||
-            ! (ctx.getChild(0) instanceof SimpleVersionContext)) {
+            !(ctx.getChild(0) instanceof SimpleVersionContext)) {
             inform(ctx, "version");
         }
     }

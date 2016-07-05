@@ -19,7 +19,10 @@
 
 package nl.basjes.parse.useragent.utils;
 
-public class WordSplitter {
+public final class WordSplitter {
+    private WordSplitter() {
+    }
+
     public static boolean isWordSeparator(char c) {
         switch (c) {
             case ' ':
@@ -35,16 +38,18 @@ public class WordSplitter {
             case '(': // EndOfString marker
             case ')': // EndOfString marker
                 return true;
+            default:
+                return false;
         }
-        return false;
     }
     public static boolean isEndOfStringSeparator(char c) {
         switch (c) {
             case '(':
             case ')':
                 return true;
+            default:
+                return false;
         }
-        return false;
     }
 
     /**
@@ -55,7 +60,7 @@ public class WordSplitter {
      * @return The offset of the next word
      */
     public static int findNextWordStart(char[] chars, int offset) {
-        for (int charNr = offset ; charNr<chars.length; charNr++) {
+        for (int charNr = offset; charNr<chars.length; charNr++) {
             char theChar = chars[charNr];
             if (isEndOfStringSeparator(theChar)) {
                 return -1;

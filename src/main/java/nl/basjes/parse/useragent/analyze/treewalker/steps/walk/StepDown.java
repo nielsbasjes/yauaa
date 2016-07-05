@@ -20,7 +20,6 @@
 package nl.basjes.parse.useragent.analyze.treewalker.steps.walk;
 
 import nl.basjes.parse.useragent.UserAgentBaseVisitor;
-import nl.basjes.parse.useragent.UserAgentParser;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.NumberRangeList;
 import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
@@ -32,7 +31,32 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static nl.basjes.parse.useragent.UserAgentParser.*;
+import static nl.basjes.parse.useragent.UserAgentParser.UserAgentContext;
+import static nl.basjes.parse.useragent.UserAgentParser.RootTextPartContext;
+import static nl.basjes.parse.useragent.UserAgentParser.ProductContext;
+import static nl.basjes.parse.useragent.UserAgentParser.CommentProductContext;
+import static nl.basjes.parse.useragent.UserAgentParser.ProductWordVersionContext;
+import static nl.basjes.parse.useragent.UserAgentParser.ProductNameContext;
+import static nl.basjes.parse.useragent.UserAgentParser.ProductNameBareContext;
+import static nl.basjes.parse.useragent.UserAgentParser.ProductVersionContext;
+import static nl.basjes.parse.useragent.UserAgentParser.ProductNameVersionContext;
+import static nl.basjes.parse.useragent.UserAgentParser.ProductNameEmailContext;
+import static nl.basjes.parse.useragent.UserAgentParser.ProductNameUrlContext;
+import static nl.basjes.parse.useragent.UserAgentParser.ProductNameUuidContext;
+import static nl.basjes.parse.useragent.UserAgentParser.UuIdContext;
+import static nl.basjes.parse.useragent.UserAgentParser.EmailAddressContext;
+import static nl.basjes.parse.useragent.UserAgentParser.SiteUrlContext;
+import static nl.basjes.parse.useragent.UserAgentParser.CommentSeparatorContext;
+import static nl.basjes.parse.useragent.UserAgentParser.CommentBlockContext;
+import static nl.basjes.parse.useragent.UserAgentParser.CommentEntryContext;
+import static nl.basjes.parse.useragent.UserAgentParser.ProductNameKeyValueContext;
+import static nl.basjes.parse.useragent.UserAgentParser.KeyValueProductVersionNameContext;
+import static nl.basjes.parse.useragent.UserAgentParser.KeyValueContext;
+import static nl.basjes.parse.useragent.UserAgentParser.KeyValueVersionNameContext;
+import static nl.basjes.parse.useragent.UserAgentParser.KeyNameContext;
+import static nl.basjes.parse.useragent.UserAgentParser.EmptyWordContext;
+import static nl.basjes.parse.useragent.UserAgentParser.MultipleWordsContext;
+import static nl.basjes.parse.useragent.UserAgentParser.VersionWordContext;
 import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.NumberRangeContext;
 
 public class StepDown extends Step {
@@ -164,12 +188,13 @@ public class StepDown extends Step {
                     return getChildren(ctx, EmailAddressContext.class);
                 case "text":
                     return getChildren(ctx, RootTextPartContext.class);
+                default:
+                    return Collections.emptyList();
             }
-            return Collections.emptyList();
         }
 
 
-        private List<? extends ParserRuleContext> __visitProduct(ParserRuleContext ctx) {
+        private List<? extends ParserRuleContext> visitGenericProduct(ParserRuleContext ctx) {
             switch (name) {
                 case "name":
                     return getChildren(ctx, false,  ProductNameContext.class);
@@ -178,18 +203,19 @@ public class StepDown extends Step {
                                                     ProductWordVersionContext.class);
                 case "comments":
                     return getChildren(ctx, true,   CommentBlockContext.class);
+                default:
+                    return Collections.emptyList();
             }
-            return Collections.emptyList();
         }
 
         @Override
         public List<? extends ParserRuleContext> visitProduct(ProductContext ctx) {
-            return __visitProduct(ctx);
+            return visitGenericProduct(ctx);
         }
 
         @Override
         public List<? extends ParserRuleContext> visitCommentProduct(CommentProductContext ctx) {
-            return __visitProduct(ctx);
+            return visitGenericProduct(ctx);
         }
 
         @Override
@@ -235,8 +261,9 @@ public class StepDown extends Step {
                     return children;
                 case "comments":
                     return getChildren(ctx, true, CommentBlockContext.class);
+                default:
+                    return Collections.emptyList();
             }
-            return Collections.emptyList();
         }
 
         @Override
@@ -289,8 +316,9 @@ public class StepDown extends Step {
                                             SiteUrlContext.class,
                                             EmailAddressContext.class,
                                             KeyValueVersionNameContext.class);
+                default:
+                    return Collections.emptyList();
             }
-            return Collections.emptyList();
         }
 
         @Override
@@ -303,8 +331,9 @@ public class StepDown extends Step {
             switch (name) {
                 case "entry":
                     return getChildren(ctx, CommentEntryContext.class);
+                default:
+                    return Collections.emptyList();
             }
-            return Collections.emptyList();
         }
 
         @Override
@@ -326,8 +355,9 @@ public class StepDown extends Step {
                     return getChildren(ctx, MultipleWordsContext.class,
                                             VersionWordContext.class,
                                             EmptyWordContext.class);
+                default:
+                    return Collections.emptyList();
             }
-            return Collections.emptyList();
         }
 
         @Override
