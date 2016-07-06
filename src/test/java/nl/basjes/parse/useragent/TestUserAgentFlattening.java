@@ -1412,7 +1412,7 @@ public class TestUserAgentFlattening {
         );
         validateUserAgent(
                 " --user-agent=Mozilla/5.0 (Linux; U; Android 4.0.3; en-gb; ARCHOS 80G9 Build/Deode@4.0.7) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30"
-                ,"agent=\"--user-agent=Mozilla/5.0 (Linux; U; Android 4.0.3; en-gb; ARCHOS 80G9 Build/Deode@4.0.7) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30\""
+                ,"agent=\" --user-agent=Mozilla/5.0 (Linux; U; Android 4.0.3; en-gb; ARCHOS 80G9 Build/Deode@4.0.7) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30\""
                 ,"agent.(1)product=\"Mozilla/5.0 (Linux; U; Android 4.0.3; en-gb; ARCHOS 80G9 Build/Deode@4.0.7)\""
                 ,"agent.(1)product.(1)name=\"Mozilla\""
                 ,"agent.(1)product.(1)name#1=\"Mozilla\""

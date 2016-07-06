@@ -30,17 +30,19 @@ public final class AntlrUtils {
     }
 
     public static String getSourceText(ParserRuleContext ctx){
-        if (ctx.start == null || ctx.stop == null) {
+        if (ctx.start == null) {
+            return null; // Invalid
+        }
+        if (ctx.stop == null) {
             return ctx.getText();
         }
-        CharStream input = ctx.start.getInputStream();
         int startIndex = ctx.start.getStartIndex();
         int stopIndex = ctx.stop.getStopIndex();
-        if (startIndex >= stopIndex) {
+        if (stopIndex < startIndex) {
             return ctx.getText();
         }
-        Interval interval = new Interval(startIndex, stopIndex);
-        return input.getText(interval);
+        CharStream inputStream = ctx.start.getInputStream();
+        return inputStream.getText(new Interval(startIndex, stopIndex));
     }
 
     public static String getSourceText(RuleNode ruleNode){
