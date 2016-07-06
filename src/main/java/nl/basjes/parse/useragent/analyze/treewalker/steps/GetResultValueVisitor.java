@@ -24,6 +24,8 @@ import nl.basjes.parse.useragent.UserAgentParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 
+import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
+
 public class GetResultValueVisitor extends UserAgentBaseVisitor<String> {
 
     private static final GetResultValueVisitor INSTANCE = new GetResultValueVisitor();
@@ -40,6 +42,6 @@ public class GetResultValueVisitor extends UserAgentBaseVisitor<String> {
     // This way we can force all other implementations to be really simple.
     @Override
     public String visitChildren(RuleNode node) {
-        return node.getText();
+        return getSourceText(node);
     }
 }

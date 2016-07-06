@@ -62,7 +62,7 @@ QUOTE3:       '\\\\'    -> skip;
 BAD_ESC_TAB:  '\\t'     -> skip;
 
 // We do NOT skip these because in some cases we want to check for the presence or absence of a SPACE
-SPACE       :        (' '|'\t'|'+')+ ;
+SPACE       :        (' '|'\t'|'+')+ -> skip ;
 EMAIL       :        [a-zA-Z0-9]+
                        ('@' | ' '+ 'at'  ' '+ | ' '* '[' 'at'  ']' ' '*) [a-zA-Z0-9\-]+
                      ( ('.' | ' '+ 'dot' ' '+ | ' '* '[' 'dot' ']' ' '*) [a-zA-Z0-9]+   )*
@@ -120,11 +120,11 @@ BASE64: B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk*
 // Parser
 
 userAgent
-    : (SPACE|SEMICOLON|COMMA|MINUS|'\''|'"'|'\\'|';'|'='|BRACEOPEN|BLOCKOPEN)*              // Leading garbage
-    (('user-agent'|'User-Agent'|'UserAgent') (COLON|SPACE|COMMA|EQUALS|'\\t')*)?            // Leading garbage
-    ( (SPACE|COMMA|SEMICOLON| SPACE+ MINUS SPACE+)* ( product | emailAddress | siteUrl | rootTextPart SPACE* SEMICOLON) )*
-    ( ( SPACE+ MINUS SPACE+ )? ( SPACE* (SEMICOLON|COMMA)? SPACE* rootTextPart ) )*                 // Capture trailing text like "like Gecko"
-    (SPACE|SEMICOLON|COMMA|MINUS|PLUS|'\''|'"'|'\\'|';'|'='|BRACECLOSE|BLOCKCLOSE)*              // Trailing garbage
+    : (SEMICOLON|COMMA|MINUS|'\''|'"'|'\\'|';'|'='|BRACEOPEN|BLOCKOPEN)*              // Leading garbage
+    (('user-agent'|'User-Agent'|'UserAgent') (COLON|COMMA|EQUALS|'\\t')*)?            // Leading garbage
+    ( (COMMA|SEMICOLON|  MINUS )* ( product | emailAddress | siteUrl | rootTextPart  SEMICOLON) )*
+    ( (  MINUS  )? (  (SEMICOLON|COMMA)?  rootTextPart ) )*                 // Capture trailing text like "like Gecko"
+    (SEMICOLON|COMMA|MINUS|PLUS|'\''|'"'|'\\'|';'|'='|BRACECLOSE|BLOCKCLOSE)*              // Trailing garbage
     ;
 
 rootTextPart:
@@ -138,48 +138,48 @@ Not everyone uses the / as the version separator
 And then there are messy edge cases like "foo 1.0 rv:23 (bar)"
 */
 product
-    : name=productName   ( SPACE*                                   version=productVersion )+
-                         ( SPACE* (SPACE? SLASH)+ SPACE? EQUALS?    version=productVersion )*
-                         ( SPACE* (SEMICOLON|MINUS)? SPACE*         commentBlock
-                          (SPACE* (SPACE? SLASH)+ SPACE? EQUALS?    version=productVersion )* )*
+    : name=productName   (                        version=productVersion )+
+                         (  ( SLASH)+  EQUALS?    version=productVersion )*
+                         (  (SEMICOLON|MINUS)?    commentBlock
+                          ( ( SLASH)+  EQUALS?    version=productVersion )* )*
 
-    | name=productName   ( SPACE*                                   version=productVersion )*
-                         ( SPACE* (SPACE? SLASH)+ SPACE? EQUALS?    version=productVersion )+
-                         ( SPACE* (SEMICOLON|MINUS)? SPACE*         commentBlock
-                          (SPACE* (SPACE? SLASH)+ SPACE? EQUALS?    version=productVersion )* )*
+    | name=productName   (                        version=productVersion )*
+                         (  ( SLASH)+  EQUALS?    version=productVersion )+
+                         (  (SEMICOLON|MINUS)?    commentBlock
+                          ( ( SLASH)+  EQUALS?    version=productVersion )* )*
 
-    | name=productName   ( SPACE* (SEMICOLON|MINUS)? SPACE*         commentBlock
-                          (SPACE* (SPACE? SLASH)+ SPACE? EQUALS?    version=productVersion )*
+    | name=productName   (  (SEMICOLON|MINUS)?    commentBlock
+                          ( ( SLASH)+  EQUALS?    version=productVersion )*
                          )+
     | name=productName   (
-                           COLON? SLASH ( productWordVersion (SPACE* SLASH* productVersion )* | productVersion )
-                           ( SPACE* (SEMICOLON|MINUS)? SPACE*       commentBlock ) ?
+                           COLON? SLASH ( productWordVersion ( SLASH* productVersion )* | productVersion )
+                           (  (SEMICOLON|MINUS)?  commentBlock ) ?
                          )+
     | name=productName   SLASH
     ;
 
 commentProduct
-    : name=productName   ( SPACE*                                   version=productVersion )+
-                         ( SPACE* (SPACE? SLASH)+ SPACE? EQUALS?    version=productVersion )*
-                         ( SPACE* MINUS?                            commentBlock
-                          (SPACE* (SPACE? SLASH)+ SPACE? EQUALS?    version=productVersion )* )*
+    : name=productName   (                        version=productVersion )+
+                         (  ( SLASH)+  EQUALS?    version=productVersion )*
+                         (  MINUS?                commentBlock
+                          ( ( SLASH)+  EQUALS?    version=productVersion )* )*
 
-    | name=productName   ( SPACE*                                   version=productVersion )*
-                         ( SPACE* (SPACE? SLASH)+ SPACE? EQUALS?    version=productVersion )+
-                         ( SPACE* MINUS?                            commentBlock
-                          (SPACE* (SPACE? SLASH)+ SPACE? EQUALS?    version=productVersion )* )*
+    | name=productName   (                        version=productVersion )*
+                         (  ( SLASH)+  EQUALS?    version=productVersion )+
+                         (  MINUS?                commentBlock
+                          ( ( SLASH)+  EQUALS?    version=productVersion )* )*
 
-    | name=productName   ( SPACE* MINUS?                            commentBlock
-                          (SPACE* (SPACE? SLASH)+ SPACE? EQUALS?    version=productVersion )*
+    | name=productName   (  MINUS?                commentBlock
+                          ( ( SLASH)+  EQUALS?    version=productVersion )*
                          )+
     | name=productName   (
-                           COLON? SLASH ( productWordVersion (SPACE* SLASH* productVersion )* | productVersion )
+                           COLON? SLASH ( productWordVersion ( SLASH* productVersion )* | productVersion )
                          )+
     | name=productName   SLASH
     ;
 
 productWordVersion
-    : WORD ((SPACE|MINUS) WORD)*
+    : WORD ((MINUS?) WORD)*
     ;
 
 productName
@@ -192,7 +192,7 @@ productName
     ;
 
 productNameBare
-    : WORD ((SPACE|MINUS|COMMA)+ WORD)*
+    : WORD ((MINUS|COMMA)* WORD)*
     ;
 
 productVersion
@@ -202,7 +202,7 @@ productVersion
     | uuId
     | base64
     | simpleVersion
-    | VERSION (SPACE+ VERSION)+
+    | VERSION+
     | VERSION (SLASH WORD)+
     ;
 
@@ -211,7 +211,7 @@ simpleVersion
     ;
 
 productNameVersion
-    : VERSION ((SPACE|MINUS)+ WORD)*
+    : VERSION ((MINUS)* WORD)*
     ;
 
 productNameEmail:
@@ -245,13 +245,13 @@ base64
     ;
 
 commentSeparator
-            : SPACE* (SEMICOLON|COMMA) SPACE*
-            | SPACE+ MINUS SPACE+
+            :  (SEMICOLON|COMMA)
+            |  MINUS
             ;
 
 commentBlock
-    : ( BRACEOPEN SPACE* commentEntry (commentSeparator commentEntry)* SPACE* (BRACECLOSE | EOF)) // Sometimes the last closing brace is just missing
-    | ( BLOCKOPEN SPACE* commentEntry (commentSeparator commentEntry)* SPACE* (BLOCKCLOSE | EOF)) // Sometimes the last closing block is just missing
+    : ( BRACEOPEN  commentEntry (commentSeparator commentEntry)*  (BRACECLOSE | EOF)) // Sometimes the last closing brace is just missing
+    | ( BLOCKOPEN  commentEntry (commentSeparator commentEntry)*  (BLOCKCLOSE | EOF)) // Sometimes the last closing block is just missing
     ;
 
 commentEntry:  ( emptyWord )
@@ -275,7 +275,7 @@ commentEntry:  ( emptyWord )
                | CURLYBRACEOPEN base64        CURLYBRACECLOSE
                )
                (
-                 SPACE*
+
                  ( commentBlock
                  | keyValue
                  | product
@@ -295,21 +295,21 @@ commentEntry:  ( emptyWord )
                  | CURLYBRACEOPEN base64        CURLYBRACECLOSE
                  )
                )*
-               ( SPACE* commentProduct ) ?
+               (  commentProduct ) ?
             ;
 
 productNameKeyValue:
-            key=keyName SPACE*
+            key=keyName
             (
-                ((COLON|EQUALS)+ SPACE* ( uuId | siteUrl | emailAddress | multipleWords | base64 | keyValueProductVersionName) )+
+                ((COLON|EQUALS)+  ( uuId | siteUrl | emailAddress | multipleWords | base64 | keyValueProductVersionName) )+
             );
 
 keyValueProductVersionName:
             VERSION (SLASH WORD)*|VERSION;
 
 keyValue    :
-            key=keyName SPACE*
-            ( ( ((COLON|EQUALS)+ SPACE* ( uuId | siteUrl | emailAddress | multipleWords | base64 | keyValueVersionName) )+ )
+            key=keyName
+            ( ( ((COLON|EQUALS)+  ( uuId | siteUrl | emailAddress | multipleWords | base64 | keyValueVersionName) )+ )
             | (COLON|EQUALS));
 
 keyValueVersionName:
@@ -319,12 +319,12 @@ keyName     :
             WORD(MINUS WORD)*|VERSION;
 
 emptyWord
-    : SPACE*
-    | SPACE* MINUS SPACE*
+    :
+    |  MINUS
     ;
 
 multipleWords
-    : MINUS? WORD ((SPACE|MINUS)* WORD)* ((SPACE|MINUS)* MINUS)?
+    : MINUS? WORD ((MINUS)* WORD)* ((MINUS)* MINUS)?
     | GIBBERISH
     ;
 
