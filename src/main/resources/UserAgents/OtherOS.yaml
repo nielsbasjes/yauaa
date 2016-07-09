@@ -20,12 +20,12 @@ config:
 
   - matcher:
       extract:
-        - 'DeviceClass           :   1:"Desktop"'
-        - 'DeviceBrand           :   1:"Sun"'
-        - 'DeviceName            :   1:"Sun"'
-        - 'OperatingSystemClass  :   1:"Desktop"'
-        - 'OperatingSystemName   :   1:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name="SunOS"'
-        - 'OperatingSystemVersion:   1:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name="SunOS"^.version'
+        - 'DeviceClass           :   10:"Desktop"'
+        - 'DeviceBrand           :   10:"Sun"'
+        - 'DeviceName            :   10:"Sun"'
+        - 'OperatingSystemClass  :   10:"Desktop"'
+        - 'OperatingSystemName   :   10:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name="SunOS"'
+        - 'OperatingSystemVersion:   10:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name="SunOS"^.version'
 
   - test:
       input:

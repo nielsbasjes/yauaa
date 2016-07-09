@@ -54,10 +54,10 @@ config:
         - 'agent.(1)product.comments.entry.text="Android"'
       extract:
         - 'DeviceClass                 :  2:"Mobile"'
-        - 'DeviceName                  :  1:"Android Mobile"'
-        - 'OperatingSystemClass        :  2:"Mobile"'
-        - 'OperatingSystemName         :  2:"Android"'
-        - 'OperatingSystemVersion      :  2:"??"'
+        - 'DeviceName                  :  3:"Android Mobile"'
+        - 'OperatingSystemClass        :  3:"Mobile"'
+        - 'OperatingSystemName         :  3:"Android"'
+        - 'OperatingSystemVersion      :  3:"??"'
 
   - matcher:
       require:
@@ -73,6 +73,21 @@ config:
       extract:
         - 'DeviceClass                 :  3:"Tablet"'
         - 'OperatingSystemClass        :  3:"Mobile"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.text="Mobile"'
+      extract:
+        - 'DeviceClass                 :  3:"Mobile"'
+        - 'OperatingSystemClass        :  3:"Mobile"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.text="Phone"'
+      extract:
+        - 'DeviceClass                 :  3:"Phone"'
+        - 'OperatingSystemClass        :  3:"Mobile"'
+
 
   - matcher:
       require:
