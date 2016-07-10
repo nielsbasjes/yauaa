@@ -389,6 +389,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     @Override
+    public void enterKeyWithoutValue(UserAgentParser.KeyWithoutValueContext ctx) {
+        inform(ctx, "keyvalue");
+    }
+
+    @Override
     public void enterKeyName(KeyNameContext ctx) {
         inform(ctx, "key");
     }

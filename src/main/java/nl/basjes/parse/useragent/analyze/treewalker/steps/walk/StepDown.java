@@ -20,6 +20,7 @@
 package nl.basjes.parse.useragent.analyze.treewalker.steps.walk;
 
 import nl.basjes.parse.useragent.UserAgentBaseVisitor;
+import nl.basjes.parse.useragent.UserAgentParser.KeyWithoutValueContext;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.NumberRangeList;
 import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
@@ -322,6 +323,16 @@ public class StepDown extends Step {
         }
 
         @Override
+        public List<? extends ParserRuleContext> visitKeyWithoutValue(KeyWithoutValueContext ctx) {
+            switch (name) {
+                case "key":
+                    return getChildren(ctx, KeyNameContext.class);
+                default:
+                    return Collections.emptyList();
+            }
+        }
+
+        @Override
         public List<? extends ParserRuleContext> visitKeyValueProductVersionName(KeyValueProductVersionNameContext ctx) {
             return Collections.emptyList(); // Cannot walk in here at all
         }
@@ -342,7 +353,8 @@ public class StepDown extends Step {
                 case "comments":
                     return getChildren(ctx, CommentBlockContext.class);
                 case "keyvalue":
-                    return getChildren(ctx, KeyValueContext.class);
+                    return getChildren(ctx, KeyValueContext.class,
+                                            KeyWithoutValueContext.class);
                 case "product":
                     return getChildren(ctx, CommentProductContext.class);
                 case "uuid":
