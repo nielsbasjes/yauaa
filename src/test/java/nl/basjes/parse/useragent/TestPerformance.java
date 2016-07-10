@@ -28,6 +28,7 @@ public class TestPerformance {
     private static final Logger LOG = LoggerFactory.getLogger(TestPerformance.class);
 
     @Test
+    @Ignore
     public void performanceTestNoCache() {
         runPerformanceTest(false,    1000);
     }
