@@ -161,3 +161,29 @@ config:
         AgentVersionMajor                  : '39'
         DeviceBrand                        : 'Google'
         DeviceCpu                          : 'Intel x86_64'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19'
+      expected:
+        DeviceClass                        : 'Phone'                    # 100
+        DeviceName                         : 'Galaxy Nexus'             # 76
+        OperatingSystemClass               : 'Mobile'                   # 500
+        OperatingSystemName                : 'Android'                  # 500
+        OperatingSystemVersion             : '4.0.4'                    # 500
+        OperatingSystemNameVersion         : 'Android 4.0.4'            # 500
+        OperatingSystemVersionBuild        : 'IMM76B'                   # 78
+        LayoutEngineClass                  : 'Browser'                  # 11
+        LayoutEngineName                   : 'AppleWebKit'              # 11
+        LayoutEngineVersion                : '535.19'                   # 11
+        LayoutEngineVersionMajor           : '535'                      # 11
+        LayoutEngineNameVersion            : 'AppleWebKit 535.19'       # 11
+        LayoutEngineNameVersionMajor       : 'AppleWebKit 535'          # 11
+        AgentClass                         : 'Browser'                  # 2014
+        AgentName                          : 'Chrome'                   # 2014
+        AgentVersion                       : '18.0.1025.133'            # 2014
+        AgentVersionMajor                  : '18'                       # 2014
+        AgentNameVersion                   : 'Chrome 18.0.1025.133'     # 2014
+        AgentNameVersionMajor              : 'Chrome 18'                # 2014

@@ -1,0 +1,186 @@
+config:
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   2:"Mobile"' # Cloud, Desktop, Mobile, Embedded
+        - 'OperatingSystemName   :   2:"Firefox OS"' # ( Linux / Android / Windows ...)
+        - 'OperatingSystemVersion:   2:agent.product.(1)name="Firefox"^.version'
+
+#====================================================================================
+#Testcases documented on https://wiki.mozilla.org/Compatibility/UADetectionLibraries
+#UA strings to test with:
+
+#Firefox Mobile for Android:
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Android; Mobile; rv:24.0) Gecko/24.0 Firefox/24.0'
+      expected:
+        DeviceClass                        : 'Mobile'             # 3
+        DeviceName                         : 'Android Mobile'     # 3
+        OperatingSystemClass               : 'Mobile'             # 3
+        OperatingSystemName                : 'Android'            # 3
+        OperatingSystemVersion             : '??'                 # 3
+        OperatingSystemNameVersion         : 'Android ??'         # 3
+        LayoutEngineClass                  : 'Browser'            # 2000
+        LayoutEngineName                   : 'Gecko'              # 2000
+        LayoutEngineVersion                : '24.0'               # 2000
+        LayoutEngineVersionMajor           : '24'                 # 2000
+        AgentClass                         : 'Browser'            # 2000
+        AgentName                          : 'Firefox'            # 2000
+        AgentVersion                       : '24.0'               # 2000
+        AgentVersionMajor                  : '24'                 # 2000
+        AgentNameVersion                   : 'Firefox 24.0'       # 2000
+        AgentNameVersionMajor              : 'Firefox 24'         # 2000
+        LayoutEngineBuild                  : '24.0'               # 2000
+        LayoutEngineNameVersion            : 'Gecko 24.0'         # 2000
+        LayoutEngineNameVersionMajor       : 'Gecko 24'           # 2000
+
+#Firefox OS phones:
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Mobile; rv:18.0) Gecko/18.0 Firefox/18.0'
+      expected:
+        DeviceClass                        : 'Mobile'              # 3
+        DeviceName                         : 'Unknown'             # -1
+        OperatingSystemClass               : 'Mobile'              # 3
+        OperatingSystemName                : 'Firefox OS'          # 2
+        OperatingSystemVersion             : '18.0'                # 2
+        OperatingSystemNameVersion         : 'Firefox OS 18.0'     # 2
+        LayoutEngineClass                  : 'Browser'             # 2000
+        LayoutEngineName                   : 'Gecko'               # 2000
+        LayoutEngineVersion                : '18.0'                # 2000
+        LayoutEngineVersionMajor           : '18'                  # 2000
+        AgentClass                         : 'Browser'             # 2000
+        AgentName                          : 'Firefox'             # 2000
+        AgentVersion                       : '18.0'                # 2000
+        AgentVersionMajor                  : '18'                  # 2000
+        AgentNameVersion                   : 'Firefox 18.0'        # 2000
+        AgentNameVersionMajor              : 'Firefox 18'          # 2000
+        LayoutEngineBuild                  : '18.0'                # 2000
+        LayoutEngineNameVersion            : 'Gecko 18.0'          # 2000
+        LayoutEngineNameVersionMajor       : 'Gecko 18'            # 2000
+
+
+#Firefox OS tablets:
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Tablet; rv:29.0) Gecko/29.0 Firefox/29.0'
+      expected:
+        DeviceClass                        : 'Tablet'           # 3
+        DeviceName                         : 'Unknown'          # -1
+        OperatingSystemClass               : 'Mobile'           # 3
+        OperatingSystemName                : 'Firefox OS'          # 2
+        OperatingSystemVersion             : '29.0'                # 2
+        OperatingSystemNameVersion         : 'Firefox OS 29.0'     # 2
+        LayoutEngineClass                  : 'Browser'          # 2000
+        LayoutEngineName                   : 'Gecko'            # 2000
+        LayoutEngineVersion                : '29.0'             # 2000
+        LayoutEngineVersionMajor           : '29'               # 2000
+        AgentClass                         : 'Browser'          # 2000
+        AgentName                          : 'Firefox'          # 2000
+        AgentVersion                       : '29.0'             # 2000
+        AgentVersionMajor                  : '29'               # 2000
+        AgentNameVersion                   : 'Firefox 29.0'     # 2000
+        AgentNameVersionMajor              : 'Firefox 29'       # 2000
+        LayoutEngineBuild                  : '29.0'             # 2000
+        LayoutEngineNameVersion            : 'Gecko 29.0'       # 2000
+        LayoutEngineNameVersionMajor       : 'Gecko 29'         # 2000
+
+#Some known Firefox OS UA strings with device ids (found in bugzil.la/873385):
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Mobile; ZTEOPEN; rv:18.1) Gecko/18.1 Firefox/18.1'
+      expected:
+        DeviceClass                        : 'Mobile'          # -1
+        DeviceName                         : 'Unknown'          # -1
+        OperatingSystemClass               : 'Mobile'          # -1
+        OperatingSystemName                : 'Firefox OS'          # 2
+        OperatingSystemVersion             : '18.1'                # 2
+        OperatingSystemNameVersion         : 'Firefox OS 18.1'     # 2
+        LayoutEngineClass                  : 'Browser'          # 2000
+        LayoutEngineName                   : 'Gecko'            # 2000
+        LayoutEngineVersion                : '18.1'             # 2000
+        LayoutEngineVersionMajor           : '18'               # 2000
+        AgentClass                         : 'Browser'          # 2000
+        AgentName                          : 'Firefox'          # 2000
+        AgentVersion                       : '18.1'             # 2000
+        AgentVersionMajor                  : '18'               # 2000
+        AgentNameVersion                   : 'Firefox 18.1'     # 2000
+        AgentNameVersionMajor              : 'Firefox 18'       # 2000
+        LayoutEngineBuild                  : '18.1'             # 2000
+        LayoutEngineNameVersion            : 'Gecko 18.1'       # 2000
+        LayoutEngineNameVersionMajor       : 'Gecko 18'         # 2000
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Mobile; HUAWEIY300-F1; rv:18.1) Gecko/18.1 Firefox/18.1'
+      expected:
+        DeviceClass                        : 'Mobile'          # -1
+        DeviceName                         : 'Unknown'          # -1
+        OperatingSystemClass               : 'Mobile'          # -1
+        OperatingSystemName                : 'Firefox OS'          # 2
+        OperatingSystemVersion             : '18.1'                # 2
+        OperatingSystemNameVersion         : 'Firefox OS 18.1'     # 2
+        LayoutEngineClass                  : 'Browser'          # 2000
+        LayoutEngineName                   : 'Gecko'            # 2000
+        LayoutEngineVersion                : '18.1'             # 2000
+        LayoutEngineVersionMajor           : '18'               # 2000
+        AgentClass                         : 'Browser'          # 2000
+        AgentName                          : 'Firefox'          # 2000
+        AgentVersion                       : '18.1'             # 2000
+        AgentVersionMajor                  : '18'               # 2000
+        AgentNameVersion                   : 'Firefox 18.1'     # 2000
+        AgentNameVersionMajor              : 'Firefox 18'       # 2000
+        LayoutEngineBuild                  : '18.1'             # 2000
+        LayoutEngineNameVersion            : 'Gecko 18.1'       # 2000
+        LayoutEngineNameVersionMajor       : 'Gecko 18'         # 2000
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Mobile; LG-D300; rv:18.1) Gecko/18.1 Firefox/18.1'
+      expected:
+        DeviceClass                        : 'Mobile'          # -1
+        DeviceName                         : 'Unknown'          # -1
+        OperatingSystemClass               : 'Mobile'          # -1
+        OperatingSystemName                : 'Firefox OS'          # 2
+        OperatingSystemVersion             : '18.1'                # 2
+        OperatingSystemNameVersion         : 'Firefox OS 18.1'     # 2
+        LayoutEngineClass                  : 'Browser'          # 2000
+        LayoutEngineName                   : 'Gecko'            # 2000
+        LayoutEngineVersion                : '18.1'             # 2000
+        LayoutEngineVersionMajor           : '18'               # 2000
+        AgentClass                         : 'Browser'          # 2000
+        AgentName                          : 'Firefox'          # 2000
+        AgentVersion                       : '18.1'             # 2000
+        AgentVersionMajor                  : '18'               # 2000
+        AgentNameVersion                   : 'Firefox 18.1'     # 2000
+        AgentNameVersionMajor              : 'Firefox 18'       # 2000
+        LayoutEngineBuild                  : '18.1'             # 2000
+        LayoutEngineNameVersion            : 'Gecko 18.1'       # 2000
+        LayoutEngineNameVersionMajor       : 'Gecko 18'         # 2000
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Mobile; ALCATELOneTouch4012X; rv:18.1) Gecko/18.1 Firefox/18.1'
+      expected:
+        DeviceClass                        : 'Mobile'          # -1
+        DeviceName                         : 'Unknown'          # -1
+        OperatingSystemClass               : 'Mobile'          # -1
+        OperatingSystemName                : 'Firefox OS'          # 2
+        OperatingSystemVersion             : '18.1'                # 2
+        OperatingSystemNameVersion         : 'Firefox OS 18.1'     # 2
+        LayoutEngineClass                  : 'Browser'          # 2000
+        LayoutEngineName                   : 'Gecko'            # 2000
+        LayoutEngineVersion                : '18.1'             # 2000
+        LayoutEngineVersionMajor           : '18'               # 2000
+        AgentClass                         : 'Browser'          # 2000
+        AgentName                          : 'Firefox'          # 2000
+        AgentVersion                       : '18.1'             # 2000
+        AgentVersionMajor                  : '18'               # 2000
+        AgentNameVersion                   : 'Firefox 18.1'     # 2000
+        AgentNameVersionMajor              : 'Firefox 18'       # 2000
+        LayoutEngineBuild                  : '18.1'             # 2000
+        LayoutEngineNameVersion            : 'Gecko 18.1'       # 2000
+        LayoutEngineNameVersionMajor       : 'Gecko 18'         # 2000
+
+#====================================================================================

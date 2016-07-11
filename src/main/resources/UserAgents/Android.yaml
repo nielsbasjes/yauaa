@@ -54,10 +54,10 @@ config:
         - 'agent.(1)product.comments.entry.text="Android"'
       extract:
         - 'DeviceClass                 :  2:"Mobile"'
-        - 'DeviceName                  :  1:"Android Mobile"'
-        - 'OperatingSystemClass        :  2:"Mobile"'
-        - 'OperatingSystemName         :  2:"Android"'
-        - 'OperatingSystemVersion      :  2:"??"'
+        - 'DeviceName                  :  3:"Android Mobile"'
+        - 'OperatingSystemClass        :  3:"Mobile"'
+        - 'OperatingSystemName         :  3:"Android"'
+        - 'OperatingSystemVersion      :  3:"??"'
 
   - matcher:
       require:
@@ -73,6 +73,64 @@ config:
       extract:
         - 'DeviceClass                 :  3:"Tablet"'
         - 'OperatingSystemClass        :  3:"Mobile"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.text="Mobile"'
+      extract:
+        - 'DeviceClass                 :  3:"Mobile"'
+        - 'OperatingSystemClass        :  3:"Mobile"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.text="Phone"'
+      extract:
+        - 'DeviceClass                 :  3:"Phone"'
+        - 'OperatingSystemClass        :  3:"Mobile"'
+
+# ===========================
+# https://developer.chrome.com/multidevice/user-agent
+#   If you are parsing user agent strings using regular expressions, the following can be used to check against Chrome on Android phones and tablets:
+#
+#   Phone pattern: 'Android' + 'Chrome/[.0-9]* Mobile'
+#   Tablet pattern: 'Android' + 'Chrome/[.0-9]* (?!Mobile)'
+
+# We ignore the Chrome part and apply this to all "Safari/ Mobile Safari" situations on what seems to be Android
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"'
+        - 'agent.product.(1)name="Mobile Safari"'
+      extract:
+        - 'DeviceClass                 :   1000:"Phone"'
+        - 'OperatingSystemClass        :   1000:"Mobile"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Android"'
+        - 'agent.product.(1)name="Mobile Safari"'
+      extract:
+        - 'DeviceClass                 :   1000:"Phone"'
+        - 'OperatingSystemClass        :   1000:"Mobile"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"'
+        - 'agent.product.(1)name="Safari"'
+      extract:
+        - 'DeviceClass                 :   1000:"Tablet"'
+        - 'OperatingSystemClass        :   1000:"Mobile"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Android"'
+        - 'agent.product.(1)name="Safari"'
+      extract:
+        - 'DeviceClass                 :   1000:"Tablet"'
+        - 'OperatingSystemClass        :   1000:"Mobile"'
+
+# ===========================
+
 
   - matcher:
       require:
@@ -152,7 +210,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'Nexus 6'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -169,7 +227,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; SM-N9005 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.70 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'SM-N9005'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -187,7 +245,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; SM-G901F Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.57 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'SM-G901F'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -205,7 +263,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; Xperia P Build/KTU84Q) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.109 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'Xperia P'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -223,7 +281,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; Xoom 3G Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Tablet'
         DeviceName                         : 'Xoom 3G'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -241,7 +299,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 5.0; nl-be; LG-D855 Build/LRX21R.A1417119896) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/34.0.1847.118 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'LG-D855'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -259,7 +317,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 5.0; en-gb; LG-D855/V20e Build/LRX21R.A1417847022) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/34.0.1847.118 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'LG-D855/V20e'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -277,7 +335,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 5.0; en-gb; LG-D855/D85520e Build/LRX21R.A1417604035) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/34.0.1847.118 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'LG-D855/D85520e'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -295,7 +353,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.1; Nexus 4 Build/JOP40D) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.89 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'Nexus 4'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -313,7 +371,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.1; Galaxy Nexus Build/JOP40D) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.108 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'Galaxy Nexus'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -330,7 +388,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.3; HP SlateBook 10 x2 PC Build/4.3-17r20-03-23) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Tablet'
         DeviceName                         : 'HP SlateBook 10 x2 PC'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -347,7 +405,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.3; GT-N7105 Build/JSS15J) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.108 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'GT-N7105'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -365,7 +423,7 @@ config:
       # TODO: What does OPR/27.0.1698.88647 mean?
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.3; HTC Sensation XE with Beats Audio Z715e Build/IML74K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.89 Mobile Safari/537.36 OPR/27.0.1698.88647'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'HTC Sensation XE with Beats Audio Z715e'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -383,7 +441,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; el-gr; Tab1060 Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Tablet'
         DeviceName                         : 'Tab1060'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -457,7 +515,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.3.6; nl-nl; GT-I9070 Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'GT-I9070'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -493,7 +551,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.1.1; en-us; TAB10-201 Build/Xenta) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Tablet'
         DeviceName                         : 'TAB10-201'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -513,7 +571,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; HUAWEI G6-U10 Build/HuaweiG6-U10) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'HUAWEI G6-U10'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -532,7 +590,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.1; nl-nl; ASUS Transformer Pad TF300T Build/JOP40D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Tablet'
         DeviceName                         : 'ASUS Transformer Pad TF300T'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -556,7 +614,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.0.3; nl-nl; Transformer TF101 Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Tablet'
         DeviceName                         : 'Transformer TF101'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -579,7 +637,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.1; ASUS Transformer Pad TF300T Build/JOP40D) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.109 Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Tablet'
         DeviceName                         : 'ASUS Transformer Pad TF300T'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -598,7 +656,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.3; Transformer TF101 Build/IML74K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.93 Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Tablet'
         DeviceName                         : 'Transformer TF101'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -615,7 +673,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; HP Pavilion dv6500 Notebook PC     Build/KVT49L) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.89 Safari/537.36 OPR/27.0.1698.88647'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Tablet'
         DeviceName                         : 'HP Pavilion dv6500 Notebook PC'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'

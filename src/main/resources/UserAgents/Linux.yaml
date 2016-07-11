@@ -30,7 +30,7 @@ config:
         - 'DeviceName            :   5:"Linux Desktop"'
         - 'OperatingSystemClass  :   5:"Desktop"'
         - 'OperatingSystemName   :   5:"Linux"'
-        - 'OperatingSystemVersion:   2:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linux"^.version]'
+        - 'OperatingSystemVersion:   5:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linux"^.version]'
 
   - matcher:
       extract:
@@ -38,7 +38,7 @@ config:
         - 'DeviceName            :   5:"Linux Desktop"'
         - 'OperatingSystemClass  :   5:"Desktop"'
         - 'OperatingSystemName   :   5:"Linux"'
-        - 'OperatingSystemVersion:   3:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.text%1="Linux"@%2]'
+        - 'OperatingSystemVersion:   6:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.text%1="Linux"@%2]'
 
 
   - matcher:
@@ -47,7 +47,7 @@ config:
         - 'DeviceName            :   5:"Linux Desktop"'
         - 'OperatingSystemClass  :   5:"Desktop"'
         - 'OperatingSystemName   :   5:"Linux"'
-        - 'OperatingSystemVersion:   1:agent.(1)product.(1)comments.entry.product.name="Linux"^.version'
+        - 'OperatingSystemVersion:   4:agent.(1)product.(1)comments.entry.product.name="Linux"^.version'
 
   - matcher:
       require:

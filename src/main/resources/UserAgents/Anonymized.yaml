@@ -32,18 +32,26 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (masking-agent; rv:25.0) Gecko/20100101 Firefox/25.0'
       expected:
-        DeviceClass                        : 'Anonymized'
-        DeviceName                         : 'Anonymized'
-        OperatingSystemClass               : 'Anonymized'
-        OperatingSystemName                : 'Anonymized'
-        OperatingSystemVersion             : 'Anonymized'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'Gecko'
-        LayoutEngineVersion                : '25.0'
-        LayoutEngineBuild                  : '20100101'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Firefox'
-        AgentVersion                       : '25.0'
+        Anonymized                       : 'Anonymized'
+        DeviceClass                      : 'Anonymized'
+        DeviceName                       : 'Anonymized'
+        OperatingSystemClass             : 'Mobile'
+        OperatingSystemName              : 'Firefox OS'
+        OperatingSystemVersion           : '25.0'
+        OperatingSystemNameVersion       : 'Firefox OS 25.0'
+        LayoutEngineClass                : 'Browser'
+        LayoutEngineName                 : 'Gecko'
+        LayoutEngineVersion              : '25.0'
+        LayoutEngineVersionMajor         : '25'
+        AgentClass                       : 'Browser'
+        AgentName                        : 'Firefox'
+        AgentVersion                     : '25.0'
+        AgentVersionMajor                : '25'
+        AgentNameVersion                 : 'Firefox 25.0'
+        AgentNameVersionMajor            : 'Firefox 25'
+        LayoutEngineBuild                : '20100101'
+        LayoutEngineNameVersion          : 'Gecko 25.0'
+        LayoutEngineNameVersionMajor     : 'Gecko 25'
 
   - matcher:
       require:
@@ -77,6 +85,12 @@ config:
         - 'OperatingSystemClass  :  10:"Anonymized"' # Cloud, Desktop, Mobile, Embedded
         - 'OperatingSystemName   :  10:"Anonymized"'
         - 'OperatingSystemVersion:  10:"Anonymized"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.(1)product.(1)name#1="anonymized"'
+      extract:
+        - 'Anonymized            :   1:"Anonymized"'
 
   - test:
       input:
@@ -148,3 +162,45 @@ config:
         AgentName                          : 'Firefox'
         AgentVersion                       : '36.0.3'
         AgentLanguage                      : 'English (United States)'
+
+
+# This one got broken while improving the parser
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; rv:35.0 () Gecko/20100101 Firefox/35.0 ( anonymized by Abelssoft 152378206'
+#      expected:
+#        DeviceClass                        : 'Desktop'
+#        DeviceName                         : 'Desktop'
+#        OperatingSystemClass               : 'Desktop'
+#        OperatingSystemName                : 'Windows NT'
+#        OperatingSystemVersion             : 'Windows 8'
+#        LayoutEngineClass                  : 'Browser'
+#        LayoutEngineName                   : 'Gecko'
+#        LayoutEngineVersion                : '35.0'
+#        LayoutEngineBuild                  : '20100101'
+#        AgentClass                         : 'Browser'
+#        AgentName                          : 'Firefox'
+#        AgentVersion                       : '35.0'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; anonymized by Abelssoft 423514663; BTRS102280; GTB7.5; anonymized by Abelssoft 423514663; .NET CLR 2.0.50727; .NET4.0C; InfoPath.3; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET4.0E)'
+      expected:
+        DeviceClass                      : 'Desktop'                   # 100
+        DeviceName                       : 'Desktop'                   # 100
+        OperatingSystemClass             : 'Desktop'                   # 100
+        OperatingSystemName              : 'Windows NT'                # 100
+        OperatingSystemVersion           : 'Windows XP'                # 100
+        OperatingSystemNameVersion       : 'Windows XP'                # 100
+        LayoutEngineClass                : 'Browser'                   # 2010
+        LayoutEngineName                 : 'Trident'                   # 2010
+        LayoutEngineVersion              : '4.0'                       # 2010
+        LayoutEngineVersionMajor         : '4'                         # 2010
+        AgentClass                       : 'Browser'                   # 2010
+        AgentName                        : 'Internet Explorer'         # 2010
+        AgentVersion                     : '8.0'                       # 2010
+        AgentVersionMajor                : '8'                         # 2010
+        AgentNameVersion                 : 'Internet Explorer 8.0'     # 2010
+        AgentNameVersionMajor            : 'Internet Explorer 8'       # 2010
+        LayoutEngineNameVersion          : 'Trident 4.0'               # 2010
+        LayoutEngineNameVersionMajor     : 'Trident 4'                 # 2010

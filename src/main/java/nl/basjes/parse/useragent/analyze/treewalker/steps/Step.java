@@ -27,6 +27,8 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
+
 public abstract class Step {
     protected static final Logger LOG = LoggerFactory.getLogger(Step.class);
     private int stepNr;
@@ -62,7 +64,7 @@ public abstract class Step {
         }
 
         if (verbose) {
-            LOG.info("{} Tree: >>>{}<<<", logprefix, tree.getText());
+            LOG.info("{} Tree: >>>{}<<<", logprefix, getSourceText(tree));
             LOG.info("{} Enter step({}): {}", logprefix, stepNr, nextStep);
         }
         String result = nextStep.walk(tree, value);
@@ -96,7 +98,7 @@ public abstract class Step {
 
     protected String getActualValue(ParseTree tree, String value) {
         if (value == null) {
-            return tree.getText();
+            return getSourceText(tree);
         }
         return value;
     }
@@ -119,7 +121,7 @@ public abstract class Step {
      *
      * @param tree  The tree to walk into.
      * @param value The string representation of the previous step (needed for compare and lookup operations).
-     *              The null value means to use the implicit 'full' value (i.e. tree.getText() )
+     *              The null value means to use the implicit 'full' value (i.e. getSourceText(tree) )
      * @return Either null or the actual value that was found.
      */
     public abstract String walk(ParseTree tree, String value);

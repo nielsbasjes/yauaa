@@ -20,6 +20,8 @@
 package nl.basjes.parse.useragent.analyze.treewalker.steps.walk;
 
 import nl.basjes.parse.useragent.UserAgentBaseVisitor;
+import nl.basjes.parse.useragent.UserAgentParser.KeyWithoutValueContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameNoVersionContext;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.NumberRangeList;
 import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
@@ -197,7 +199,8 @@ public class StepDown extends Step {
         private List<? extends ParserRuleContext> visitGenericProduct(ParserRuleContext ctx) {
             switch (name) {
                 case "name":
-                    return getChildren(ctx, false,  ProductNameContext.class);
+                    return getChildren(ctx, false,  ProductNameContext.class,
+                                                    ProductNameNoVersionContext.class);
                 case "version":
                     return getChildren(ctx, true,   ProductVersionContext.class,
                                                     ProductWordVersionContext.class);
@@ -220,7 +223,7 @@ public class StepDown extends Step {
 
         @Override
         public List<? extends ParserRuleContext> visitProductName(ProductNameContext ctx) {
-            return visit(ctx);
+            return Collections.emptyList();
         }
 
         @Override
@@ -322,6 +325,16 @@ public class StepDown extends Step {
         }
 
         @Override
+        public List<? extends ParserRuleContext> visitKeyWithoutValue(KeyWithoutValueContext ctx) {
+            switch (name) {
+                case "key":
+                    return getChildren(ctx, KeyNameContext.class);
+                default:
+                    return Collections.emptyList();
+            }
+        }
+
+        @Override
         public List<? extends ParserRuleContext> visitKeyValueProductVersionName(KeyValueProductVersionNameContext ctx) {
             return Collections.emptyList(); // Cannot walk in here at all
         }
@@ -342,7 +355,8 @@ public class StepDown extends Step {
                 case "comments":
                     return getChildren(ctx, CommentBlockContext.class);
                 case "keyvalue":
-                    return getChildren(ctx, KeyValueContext.class);
+                    return getChildren(ctx, KeyValueContext.class,
+                                            KeyWithoutValueContext.class);
                 case "product":
                     return getChildren(ctx, CommentProductContext.class);
                 case "uuid":

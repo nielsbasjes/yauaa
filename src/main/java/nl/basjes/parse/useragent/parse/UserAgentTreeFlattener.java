@@ -59,6 +59,7 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
+import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
 public class UserAgentTreeFlattener extends UserAgentBaseListener {
     private ParseTreeWalker walker;
@@ -190,7 +191,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     // =================================================================================
 
     private void inform(ParseTree ctx, String path) {
-        inform(ctx, path, ctx.getText());
+        inform(ctx, path, getSourceText(ctx));
     }
 
     private void inform(ParseTree ctx, String name, String value) {
@@ -264,6 +265,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     @Override
+    public void enterProductNameNoVersion(UserAgentParser.ProductNameNoVersionContext ctx) {
+        inform(ctx, "product");
+    }
+
+    @Override
     public void enterProductNameEmail(ProductNameEmailContext ctx) {
         inform(ctx, "name");
         inform(ctx, "name.(1)email", ctx.getText(), true);
@@ -333,11 +339,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     private void informSubstrings(ParserRuleContext ctx, String name, int maxSubStrings) {
-        inform(ctx, name, ctx.getText(), false);
+        String text = getSourceText(ctx);
+        inform(ctx, name, text, false);
 
         int startOffsetPrevious = 0;
         int count = 1;
-        String text = ctx.getText();
         char[] chars = text.toCharArray();
         String firstWords;
         while((firstWords = WordSplitter.getFirstWords(text, count))!=null) {
@@ -357,11 +363,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     private void informSubVersions(ParserRuleContext ctx, String name, int maxSubStrings) {
-        inform(ctx, name, ctx.getText(), false);
+        String text = getSourceText(ctx);
+        inform(ctx, name, text, false);
 
         int startOffsetPrevious = 0;
         int count = 1;
-        String text = ctx.getText();
         char[] chars = text.toCharArray();
         String firstVersions;
         while((firstVersions = VersionSplitter.getFirstVersions(text, count))!=null) {
@@ -384,6 +390,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
 
     @Override
     public void enterKeyValue(KeyValueContext ctx) {
+        inform(ctx, "keyvalue");
+    }
+
+    @Override
+    public void enterKeyWithoutValue(UserAgentParser.KeyWithoutValueContext ctx) {
         inform(ctx, "keyvalue");
     }
 
