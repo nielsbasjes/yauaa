@@ -20,7 +20,6 @@
 package nl.basjes.parse.useragent.analyze.treewalker.steps.walk;
 
 import nl.basjes.parse.useragent.UserAgentBaseVisitor;
-import nl.basjes.parse.useragent.UserAgentParser;
 import nl.basjes.parse.useragent.UserAgentParser.KeyWithoutValueContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductNameNoVersionContext;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
