@@ -125,7 +125,7 @@ userAgent
     : (SEMICOLON|COMMA|MINUS|'\''|'"'|'\\'|';'|'='|BRACEOPEN|BLOCKOPEN)*                // Leading garbage
       (('user-agent'|'User-Agent'|'UserAgent') (COLON|COMMA|EQUALS|'\\t')*)?            // Leading garbage
       ( (SEMICOLON|COMMA|MINUS)? ( product | emailAddress | siteUrl | rootTextPart SEMICOLON) )*
-      ( (SEMICOLON|COMMA|MINUS)? rootTextPart )*                                        // Capture trailing text like "like Gecko"
+      ( rootTextPart ( (SEMICOLON|COMMA|MINUS) rootTextPart )* ) ?                      // Capture trailing text like "like Gecko"
         (SEMICOLON|COMMA|MINUS|PLUS|'\''|'"'|'\\'|';'|'='|BRACECLOSE|BLOCKCLOSE)*       // Trailing garbage
     ;
 
@@ -254,52 +254,33 @@ commentBlock
     ;
 
 commentEntry
-    :  ( emptyWord )
-    |  ( productNameNoVersion
-       | keyWithoutValue
-       | multipleWords
-       | CURLYBRACEOPEN productNameNoVersion CURLYBRACECLOSE
-       | CURLYBRACEOPEN keyWithoutValue CURLYBRACECLOSE
-       )
-    |  ( commentBlock
-       | commentProduct
-       | keyValue
-       | uuId
-       | siteUrl
-       | emailAddress
-       | versionWord
-       | base64
-       | CURLYBRACEOPEN commentProduct  CURLYBRACECLOSE
-       | CURLYBRACEOPEN keyValue        CURLYBRACECLOSE
-       | CURLYBRACEOPEN uuId            CURLYBRACECLOSE
-       | CURLYBRACEOPEN siteUrl         CURLYBRACECLOSE
-       | CURLYBRACEOPEN emailAddress    CURLYBRACECLOSE
-       | CURLYBRACEOPEN multipleWords   CURLYBRACECLOSE
-       | CURLYBRACEOPEN versionWord     CURLYBRACECLOSE
-       | CURLYBRACEOPEN base64          CURLYBRACECLOSE
-       )
-       ( commentBlock
-       | commentProduct
-       | keyValue
-       | uuId
-       | siteUrl
-       | emailAddress
-       | multipleWords
-       | base64
-       | CURLYBRACEOPEN commentProduct  CURLYBRACECLOSE
-       | CURLYBRACEOPEN keyValue        CURLYBRACECLOSE
-       | CURLYBRACEOPEN uuId            CURLYBRACECLOSE
-       | CURLYBRACEOPEN siteUrl         CURLYBRACECLOSE
-       | CURLYBRACEOPEN emailAddress    CURLYBRACECLOSE
-       | CURLYBRACEOPEN multipleWords   CURLYBRACECLOSE
-       | CURLYBRACEOPEN versionWord     CURLYBRACECLOSE
-       | CURLYBRACEOPEN base64          CURLYBRACECLOSE
-       )*
-       ( productNameNoVersion
-       | keyWithoutValue
-       | CURLYBRACEOPEN productNameNoVersion CURLYBRACECLOSE
-       | CURLYBRACEOPEN keyWithoutValue CURLYBRACECLOSE
-       )?
+    :   ( emptyWord )
+    |   (
+            ( commentBlock
+            | commentProduct
+            | keyValue
+            | uuId
+            | siteUrl
+            | emailAddress
+            | versionWord
+            | base64
+            | CURLYBRACEOPEN commentProduct  CURLYBRACECLOSE
+            | CURLYBRACEOPEN keyValue        CURLYBRACECLOSE
+            | CURLYBRACEOPEN uuId            CURLYBRACECLOSE
+            | CURLYBRACEOPEN siteUrl         CURLYBRACECLOSE
+            | CURLYBRACEOPEN emailAddress    CURLYBRACECLOSE
+            | CURLYBRACEOPEN multipleWords   CURLYBRACECLOSE
+            | CURLYBRACEOPEN versionWord     CURLYBRACECLOSE
+            | CURLYBRACEOPEN base64          CURLYBRACECLOSE
+            )
+            (MINUS*)
+        )*
+        ( multipleWords
+        | productNameNoVersion
+        | keyWithoutValue
+        | CURLYBRACEOPEN productNameNoVersion CURLYBRACECLOSE
+        | CURLYBRACEOPEN keyWithoutValue CURLYBRACECLOSE
+        )?
     ;
 
 productNameKeyValue
@@ -352,7 +333,7 @@ emptyWord
     ;
 
 multipleWords
-    : MINUS* WORD ((MINUS)* WORD)* MINUS*
+    : (MINUS* WORD)+ MINUS*
     | GIBBERISH
     ;
 
