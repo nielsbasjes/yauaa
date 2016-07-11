@@ -106,14 +106,6 @@ WORD
       )+
     ;
 
-//WORDS
-//    : MINUS* SingleWORD ((SPACE|MINUS|COMMA)+ SingleWORD)* MINUS*
-//    ;
-
-//VERSION
-//    : VersionWORD //(SPACE+ VersionWORD)*
-//    ;
-
 // Base64 Encoded strings: Note we do NOT recognize the variant where the '-' is used because that conflicts with the uuid
 fragment B64Letter    : [a-zA-Z0-9\+\?_/];
 fragment B64Chunk     : B64Letter B64Letter B64Letter B64Letter;
@@ -148,39 +140,43 @@ Not everyone uses the / as the version separator
 And then there are messy edge cases like "foo 1.0 rv:23 (bar)"
 */
 product
-    : productName   (                     productVersion )+
-                    (  COLON? SLASH+  EQUALS?    productVersion )*
-                    (  (SEMICOLON|MINUS)? commentBlock ( SLASH+  EQUALS?  productVersion )* )*
+    : productName   (                           productVersion )+
+                    (  COLON? SLASH+ EQUALS?    productVersion )*
+                    (  (SEMICOLON|MINUS)?       commentBlock
+                       ( SLASH+  EQUALS?        productVersion )* )*
 
-    | productName   (  COLON? SLASH+  EQUALS?    productVersion )+
-                    (  (SEMICOLON|MINUS)? commentBlock ( SLASH+  EQUALS?  productVersion )* )*
+    | productName   (  COLON? SLASH+ EQUALS?    productVersion )+
+                    (  (SEMICOLON|MINUS)?       commentBlock
+                       ( SLASH+  EQUALS?        productVersion )* )*
 
-    | productName   (  (SEMICOLON|MINUS)? commentBlock ( SLASH+  EQUALS?  productVersion )* )+
+    | productName   (  (SEMICOLON|MINUS)?       commentBlock
+                       ( SLASH+  EQUALS?        productVersion )* )
 
-    | productName   ( COLON? SLASH productWordVersion ( SLASH* productVersion )*
-                        (  (SEMICOLON|MINUS)? commentBlock ) ? )+
+    | productName   (  COLON? SLASH productWordVersion
+                        ( SLASH* productVersion )*
+                        (SEMICOLON|MINUS)?      commentBlock ?
+                    )+
 
     | productName   SLASH
     ;
 
 commentProduct
-    : productName   (                     productVersion )+
-                    (  SLASH+  EQUALS?    productVersion )*
-                    (  MINUS?             commentBlock
-                     ( SLASH+  EQUALS?    productVersion )* )*
+    : productName   (                       productVersion )+
+                    (   SLASH+  EQUALS?     productVersion )*
+                    (   MINUS?              commentBlock
+                        ( SLASH+  EQUALS?   productVersion )* )*
 
-    | productName   (  SLASH+  EQUALS?    productVersion )+
-                    (  MINUS?             commentBlock
-                     ( SLASH+  EQUALS?    productVersion )* )*
+    | productName   (   SLASH+  EQUALS?     productVersion )+
+                    (   MINUS?              commentBlock
+                        ( SLASH+  EQUALS?   productVersion )* )*
 
-    | productName   (  MINUS?             commentBlock
-                     ( SLASH+  EQUALS?    productVersion )*
+    | productName   (   MINUS?              commentBlock
+                        ( SLASH+  EQUALS?   productVersion )*
                     )+
     | productName   (
-                      COLON? SLASH productWordVersion ( SLASH* productVersion )*
+                        COLON? SLASH productWordVersion
+                        ( SLASH* productVersion )*
                     )+
-
-//    | productName   SLASH
     ;
 
 productWordVersion
