@@ -28,7 +28,7 @@ config:
       require:
         - 'agent.(1)product.(1)comments.entry.product.(1)name="Browser"^.(1)version="Browser"'
       extract:
-        - 'DeviceClass    : 1000:"Mobile"'
+        - 'DeviceClass    :   50:"Mobile"'
         - 'DeviceBrand    : 1000:agent.(1)product.(1)comments.entry.product.(1)name="Browser"^<.name'
         - 'DeviceName     : 1000:agent.(1)product.(1)comments.entry.product.(1)name="Browser"^<.(1)version'
         - 'DeviceVersion  : 1000:agent.(1)product.(1)comments.entry.product.(1)name="Browser"^<.(2)version'
@@ -55,7 +55,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; nl-; YC-3135D Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Tablet'
         DeviceName                         : 'YC-3135D'
 #        DeviceVersion                   : 'YC-3135D'
         OperatingSystemClass               : 'Mobile'
@@ -74,7 +74,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.4.2; HUAWEI P7-L10/HuaweiP7-L10C02B129 Browser/Browser/4.4.2) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceBrand                        : 'HUAWEI'
         DeviceName                         : 'P7-L10'
         DeviceVersion                      : 'HuaweiP7-L10C02B129'
@@ -88,25 +88,6 @@ config:
         AgentName                          : 'Chrome'
         AgentVersion                       : '30.0.0.0'
         AgentSecurity                      : 'Strong security'
-
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; rv:35.0 () Gecko/20100101 Firefox/35.0 ( anonymized by Abelssoft 152378206'
-      expected:
-        DeviceClass                        : 'Desktop'
-        DeviceName                         : 'Desktop'
-        OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Windows NT'
-        OperatingSystemVersion             : 'Windows 8'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'Gecko'
-        LayoutEngineVersion                : '35.0'
-        LayoutEngineBuild                  : '20100101'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Firefox'
-        AgentVersion                       : '35.0'
-
-
 
   - matcher:
       require:
@@ -252,7 +233,7 @@ config:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.1.2; -; GT-S6810 Build/JZO54K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
       expected:
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'GT-S6810'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -307,7 +288,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.1; zh-cn; HUAWEI G610-U00 Build/HuaweiG610-U00) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 SogouMSE,SogouMobileBrowser/4.0.0'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'HUAWEI G610-U00'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -363,7 +344,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.2; WETAB07D04B Build/=WETAB07D04B20140312) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'WETAB07D04B'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -490,7 +471,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; SM-N920S Build/LMY47X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/47.0.2526.100 Mobile Safari/537.36;KAKAOTALK 1400218'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'SM-N920S'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -543,7 +524,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; MI NOTE LTE Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36; leidianbrowser (100.0.2)'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'MI NOTE LTE'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -560,7 +541,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1; Z820 Build/LMY47D); AppleWebkit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile Safari/537.36'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'Z820'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -577,7 +558,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0) 88XI4n5O'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'Generic Windows Phone'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Windows Phone'
@@ -593,7 +574,7 @@ config:
       input:
         user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows Phone OS 7.0; Trident/3.1; IEMobile/7.0; Nokia;N70) 88XI4n5O'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceBrand                        : 'Nokia'
         DeviceName                         : 'N70'
         OperatingSystemClass               : 'Mobile'
@@ -630,7 +611,7 @@ config:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; KFFOWI Build/LMY47O) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/41.51020.2250.0246 Mobile Safari/537.36 cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0'
       # FIXME: cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'KFFOWI'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
@@ -697,7 +678,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.3; -nl; LT30p Build/9.2.A.1.205) AppleWebKit/537.16 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.16'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceName                         : 'LT30p'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
