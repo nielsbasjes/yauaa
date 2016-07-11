@@ -21,25 +21,30 @@ echo "# ============================================="
 echo "# THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY"
 echo "# ============================================="
 echo "config:"
+echo "  - matcher:"
+echo "      extract:"
+echo "        - 'DeviceBrand :  200:LookUp[WindowsOEMCodes;agent.(1)product.comments.entry.text]'"
+
 echo "  - lookup:"
 echo "      name: 'WindowsOEMCodes'"
 echo "      map:"
-cat "WindowsOEMCodes.csv" | grep . | while read line ; \
+cat "WindowsOEMCodes.csv" | grep . | fgrep -v '#' | while read line ; \
 do
     code=$(echo ${line} | cut -d' ' -f1)
     value=$(echo ${line} | cut -d' ' -f2- | sed 's/^ *//')
     echo "       \"${code}\" : \"${value}\""
 done
 
-cat "WindowsOEMCodes.csv" | grep . | while read line ; \
-do
-    code=$(echo ${line} | cut -d' ' -f1)
-    value=$(echo ${line} | cut -d' ' -f2- | sed 's/^ *//')
-    echo "  - matcher:"
-    echo "      require:"
-    echo "        - 'agent.(1)product.comments.entry.text=\"${code}\"'"
-    echo "      extract:"
-    echo "        - 'DeviceBrand :  200:\"${value}\"'"
-    echo ""
-done
+#cat "WindowsOEMCodes.csv" | grep . | while read line ; \
+#do
+#    code=$(echo ${line} | cut -d' ' -f1)
+#    value=$(echo ${line} | cut -d' ' -f2- | sed 's/^ *//')
+#    echo "  - matcher:"
+#    echo "      require:"
+#    echo "        - 'agent.(1)product.comments.entry.text=\"${code}\"'"
+#    echo "      extract:"
+#    echo "        - 'DeviceBrand :  200:\"${value}\"'"
+#    echo ""
+#done
+
 ) > ../WindowsOEMCodes.yaml
