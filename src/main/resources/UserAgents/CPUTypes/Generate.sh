@@ -21,26 +21,26 @@ echo "# THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY"
 echo "# ============================================="
 echo "config:"
 
-#echo "
-#  - matcher:
-#      extract:
-#        - 'DeviceCpu : 105:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%1]'
-#  - matcher:
-#      extract:
-#        - 'DeviceCpu : 104:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%2]'
-#  - matcher:
-#      extract:
-#        - 'DeviceCpu : 103:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%3]'
-#  - matcher:
-#      extract:
-#        - 'DeviceCpu : 102:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%4]'
-#  - matcher:
-#      extract:
-#        - 'DeviceCpu : 101:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%5]'
-#  - matcher:
-#      extract:
-#        - 'DeviceCpu : 101:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry.product.version]'
-#"
+echo "
+  - matcher:
+      extract:
+        - 'DeviceCpu : 105:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%1]'
+  - matcher:
+      extract:
+        - 'DeviceCpu : 104:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%2]'
+  - matcher:
+      extract:
+        - 'DeviceCpu : 103:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%3]'
+  - matcher:
+      extract:
+        - 'DeviceCpu : 102:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%4]'
+  - matcher:
+      extract:
+        - 'DeviceCpu : 101:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%5]'
+  - matcher:
+      extract:
+        - 'DeviceCpu : 101:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry.product.version]'
+"
 
 echo "  - lookup:"
 echo "      name: 'CPUArchitectures'"
@@ -52,41 +52,42 @@ do
     echo "       \"${cpu}\" : \"${value}\""
 done
 
-cat "CPUTypes.csv" | while read line ; \
-do
-    cpu=$(echo ${line} | cut -d' ' -f1)
-    value=$(echo ${line} | cut -d' ' -f2-)
-echo "
-  - matcher:
-      require:
-        - 'agent.([1-3])product.(1)comments.entry%1=\"${cpu}\"'
-      extract:
-        - 'DeviceCpu : 105:\"${value}\"'
-  - matcher:
-      require:
-        - 'agent.([1-3])product.(1)comments.entry%2=\"${cpu}\"'
-      extract:
-        - 'DeviceCpu : 104:\"${value}\"'
-  - matcher:
-      require:
-        - 'agent.([1-3])product.(1)comments.entry%3=\"${cpu}\"'
-      extract:
-        - 'DeviceCpu : 103:\"${value}\"'
-  - matcher:
-      require:
-        - 'agent.([1-3])product.(1)comments.entry%4=\"${cpu}\"'
-      extract:
-        - 'DeviceCpu : 102:\"${value}\"'
-  - matcher:
-      require:
-        - 'agent.([1-3])product.(1)comments.entry%5=\"${cpu}\"'
-      extract:
-        - 'DeviceCpu : 101:\"${value}\"'
-  - matcher:
-      require:
-        - 'agent.([1-3])product.(1)comments.entry.product.version=\"${cpu}\"'
-      extract:
-        - 'DeviceCpu : 101:\"${value}\"'
-"
-done
+#cat "CPUTypes.csv" | while read line ; \
+#do
+#    cpu=$(echo ${line} | cut -d' ' -f1)
+#    value=$(echo ${line} | cut -d' ' -f2-)
+#echo "
+#  - matcher:
+#      require:
+#        - 'agent.([1-3])product.(1)comments.entry%1=\"${cpu}\"'
+#      extract:
+#        - 'DeviceCpu : 105:\"${value}\"'
+#  - matcher:
+#      require:
+#        - 'agent.([1-3])product.(1)comments.entry%2=\"${cpu}\"'
+#      extract:
+#        - 'DeviceCpu : 104:\"${value}\"'
+#  - matcher:
+#      require:
+#        - 'agent.([1-3])product.(1)comments.entry%3=\"${cpu}\"'
+#      extract:
+#        - 'DeviceCpu : 103:\"${value}\"'
+#  - matcher:
+#      require:
+#        - 'agent.([1-3])product.(1)comments.entry%4=\"${cpu}\"'
+#      extract:
+#        - 'DeviceCpu : 102:\"${value}\"'
+#  - matcher:
+#      require:
+#        - 'agent.([1-3])product.(1)comments.entry%5=\"${cpu}\"'
+#      extract:
+#        - 'DeviceCpu : 101:\"${value}\"'
+#  - matcher:
+#      require:
+#        - 'agent.([1-3])product.(1)comments.entry.product.version=\"${cpu}\"'
+#      extract:
+#        - 'DeviceCpu : 101:\"${value}\"'
+#"
+#done
+
 ) > ../CPUTypes.yaml
