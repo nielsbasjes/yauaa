@@ -28,15 +28,13 @@ public class TestPerformance {
     private static final Logger LOG = LoggerFactory.getLogger(TestPerformance.class);
 
     @Test
-    @Ignore
     public void performanceTestNoCache() {
-        runPerformanceTest(false,    1000);
+        runPerformanceTest(false,   10000);
     }
 
     @Test
-    @Ignore
     public void performanceTestCached() {
-        runPerformanceTest(true, 10000000);
+        runPerformanceTest(true, 1000000);
     }
 
     private void runPerformanceTest(boolean cached, long count) {
