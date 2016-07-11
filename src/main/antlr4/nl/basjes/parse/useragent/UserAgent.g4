@@ -130,11 +130,11 @@ BASE64: B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk*
 // Parser
 
 userAgent
-    : (SEMICOLON|COMMA|MINUS|'\''|'"'|'\\'|';'|'='|BRACEOPEN|BLOCKOPEN)*              // Leading garbage
-    (('user-agent'|'User-Agent'|'UserAgent') (COLON|COMMA|EQUALS|'\\t')*)?            // Leading garbage
-    ( (COMMA|SEMICOLON|  MINUS )* ( product | emailAddress | siteUrl | rootTextPart  SEMICOLON) )*
-    ( (  MINUS  )? (  (SEMICOLON|COMMA)?  rootTextPart ) )*                 // Capture trailing text like "like Gecko"
-    (SEMICOLON|COMMA|MINUS|PLUS|'\''|'"'|'\\'|';'|'='|BRACECLOSE|BLOCKCLOSE)*              // Trailing garbage
+    : (SEMICOLON|COMMA|MINUS|'\''|'"'|'\\'|';'|'='|BRACEOPEN|BLOCKOPEN)*                // Leading garbage
+      (('user-agent'|'User-Agent'|'UserAgent') (COLON|COMMA|EQUALS|'\\t')*)?            // Leading garbage
+      ( (SEMICOLON|COMMA|MINUS)? ( product | emailAddress | siteUrl | rootTextPart SEMICOLON) )*
+      ( (SEMICOLON|COMMA|MINUS)? rootTextPart )*                                        // Capture trailing text like "like Gecko"
+        (SEMICOLON|COMMA|MINUS|PLUS|'\''|'"'|'\\'|';'|'='|BRACECLOSE|BLOCKCLOSE)*       // Trailing garbage
     ;
 
 rootTextPart:
@@ -148,10 +148,18 @@ Not everyone uses the / as the version separator
 And then there are messy edge cases like "foo 1.0 rv:23 (bar)"
 */
 product
-    : productName   (                     productVersion )+   (  SLASH+  EQUALS?    productVersion )*   (  (SEMICOLON|MINUS)? commentBlock ( SLASH+  EQUALS?  productVersion )* )*
-    | productName                                             (  SLASH+  EQUALS?    productVersion )+   (  (SEMICOLON|MINUS)? commentBlock ( SLASH+  EQUALS?  productVersion )* )*
-    | productName                                                                                       (  (SEMICOLON|MINUS)? commentBlock ( SLASH+  EQUALS?  productVersion )* )+
-    | productName   ( COLON? SLASH ( productWordVersion ( SLASH* productVersion )* | productVersion )   (  (SEMICOLON|MINUS)? commentBlock ) ? )+
+    : productName   (                     productVersion )+
+                    (  COLON? SLASH+  EQUALS?    productVersion )*
+                    (  (SEMICOLON|MINUS)? commentBlock ( SLASH+  EQUALS?  productVersion )* )*
+
+    | productName   (  COLON? SLASH+  EQUALS?    productVersion )+
+                    (  (SEMICOLON|MINUS)? commentBlock ( SLASH+  EQUALS?  productVersion )* )*
+
+    | productName   (  (SEMICOLON|MINUS)? commentBlock ( SLASH+  EQUALS?  productVersion )* )+
+
+    | productName   ( COLON? SLASH productWordVersion ( SLASH* productVersion )*
+                        (  (SEMICOLON|MINUS)? commentBlock ) ? )+
+
     | productName   SLASH
     ;
 
@@ -169,9 +177,10 @@ commentProduct
                      ( SLASH+  EQUALS?    productVersion )*
                     )+
     | productName   (
-                      COLON? SLASH ( productWordVersion ( SLASH* productVersion )* | productVersion )
+                      COLON? SLASH productWordVersion ( SLASH* productVersion )*
                     )+
-    | productName   SLASH
+
+//    | productName   SLASH
     ;
 
 productWordVersion
@@ -253,20 +262,22 @@ commentBlock
 
 commentEntry
     :  ( emptyWord )
-    |  ( commentProduct )
-    |  ( commentBlock
-       | keyValue
+    |  ( productNameNoVersion
        | keyWithoutValue
+       | CURLYBRACEOPEN productNameNoVersion CURLYBRACECLOSE
+       | CURLYBRACEOPEN keyWithoutValue CURLYBRACECLOSE
+       )
+    |  ( commentBlock
        | commentProduct
+       | keyValue
        | uuId
        | siteUrl
        | emailAddress
        | multipleWords
        | versionWord
        | base64
-       | CURLYBRACEOPEN keyValue        CURLYBRACECLOSE
-       | CURLYBRACEOPEN keyWithoutValue CURLYBRACECLOSE
        | CURLYBRACEOPEN commentProduct  CURLYBRACECLOSE
+       | CURLYBRACEOPEN keyValue        CURLYBRACECLOSE
        | CURLYBRACEOPEN uuId            CURLYBRACECLOSE
        | CURLYBRACEOPEN siteUrl         CURLYBRACECLOSE
        | CURLYBRACEOPEN emailAddress    CURLYBRACECLOSE
@@ -274,6 +285,11 @@ commentEntry
        | CURLYBRACEOPEN versionWord     CURLYBRACECLOSE
        | CURLYBRACEOPEN base64          CURLYBRACECLOSE
        )+
+       ( productNameNoVersion
+       | keyWithoutValue
+       | CURLYBRACEOPEN productNameNoVersion CURLYBRACECLOSE
+       | CURLYBRACEOPEN keyWithoutValue CURLYBRACECLOSE
+       )?
     ;
 
 productNameKeyValue
@@ -284,6 +300,11 @@ productNameKeyValue
            ( uuId | siteUrl | emailAddress | multipleWords | base64 | keyValueProductVersionName )
          )+
        );
+
+productNameNoVersion
+    :  productName SLASH
+    ;
+
 
 keyValueProductVersionName
     : VERSION (SLASH WORD)*

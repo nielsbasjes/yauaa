@@ -265,6 +265,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     @Override
+    public void enterProductNameNoVersion(UserAgentParser.ProductNameNoVersionContext ctx) {
+        inform(ctx, "product");
+    }
+
+    @Override
     public void enterProductNameEmail(ProductNameEmailContext ctx) {
         inform(ctx, "name");
         inform(ctx, "name.(1)email", ctx.getText(), true);
