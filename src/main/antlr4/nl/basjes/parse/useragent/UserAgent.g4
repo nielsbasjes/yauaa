@@ -285,7 +285,6 @@ commentEntry
        | siteUrl
        | emailAddress
        | multipleWords
-       | versionWord
        | base64
        | CURLYBRACEOPEN commentProduct  CURLYBRACECLOSE
        | CURLYBRACEOPEN keyValue        CURLYBRACECLOSE
