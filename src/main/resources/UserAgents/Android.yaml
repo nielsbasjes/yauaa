@@ -67,26 +67,31 @@ config:
         - 'DeviceName                  :  51:agent.(1)product.(1)comments.entry.product.name="Build"^<'
         - 'OperatingSystemVersionBuild :  51:agent.(1)product.(1)comments.entry.product.name="Build"^.version'
 
+
+# ===========================
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Gecko_user_agent_string_reference
+# When Firefox runs on a device that has the phone form factor, there is a Mobile; token in the platform part of the UA string.
+# When Firefox runs on a tablet device, there is a Tablet; token in the platform part of the UA string instead
   - matcher:
       require:
         - 'agent.(1)product.comments.entry.text="Tablet"'
       extract:
-        - 'DeviceClass                 :  3:"Tablet"'
-        - 'OperatingSystemClass        :  3:"Mobile"'
+        - 'DeviceClass                 :  1000:"Tablet"'
+        - 'OperatingSystemClass        :  1000:"Mobile"'
 
   - matcher:
       require:
         - 'agent.(1)product.comments.entry.text="Mobile"'
       extract:
-        - 'DeviceClass                 :  3:"Mobile"'
-        - 'OperatingSystemClass        :  3:"Mobile"'
+        - 'DeviceClass                 :  1000:"Phone"'
+        - 'OperatingSystemClass        :  1000:"Mobile"'
 
   - matcher:
       require:
         - 'agent.(1)product.comments.entry.text="Phone"'
       extract:
-        - 'DeviceClass                 :  3:"Phone"'
-        - 'OperatingSystemClass        :  3:"Mobile"'
+        - 'DeviceClass                 :  1000:"Phone"'
+        - 'OperatingSystemClass        :  1000:"Mobile"'
 
 # ===========================
 # https://developer.chrome.com/multidevice/user-agent
