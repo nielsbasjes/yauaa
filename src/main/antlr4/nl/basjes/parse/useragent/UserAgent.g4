@@ -150,14 +150,13 @@ product
                        ( SLASH+  EQUALS?        productVersion )* )*
 
     | productName   (  (SEMICOLON|MINUS)?       commentBlock
-                       ( SLASH+  EQUALS?        productVersion )* )
+                       ( SLASH+  EQUALS?        productVersion )* )+
 
     | productName   (  COLON? SLASH productWordVersion
                         ( SLASH* productVersion )*
-                        (SEMICOLON|MINUS)?      commentBlock ?
-                    )+
+                        (SEMICOLON|MINUS)?      commentBlock ?    )+
 
-    | productName   SLASH
+    | productName   SLASH EOF
     ;
 
 commentProduct
@@ -171,12 +170,10 @@ commentProduct
                         ( SLASH+  EQUALS?   productVersion )* )*
 
     | productName   (   MINUS?              commentBlock
-                        ( SLASH+  EQUALS?   productVersion )*
-                    )+
-    | productName   (
-                        COLON? SLASH productWordVersion
-                        ( SLASH* productVersion )*
-                    )+
+                        ( SLASH+  EQUALS?   productVersion )* )+
+
+    | productName   (   COLON? SLASH productWordVersion
+                        ( SLASH* productVersion )*            )+
     ;
 
 productWordVersion
@@ -248,7 +245,7 @@ base64
 commentSeparator
     : SEMICOLON
     | COMMA
-    | MINUS
+//    | MINUS
     ;
 
 commentBlock
@@ -260,10 +257,28 @@ commentEntry
     :  ( emptyWord )
     |  ( productNameNoVersion
        | keyWithoutValue
+       | multipleWords
        | CURLYBRACEOPEN productNameNoVersion CURLYBRACECLOSE
        | CURLYBRACEOPEN keyWithoutValue CURLYBRACECLOSE
        )
     |  ( commentBlock
+       | commentProduct
+       | keyValue
+       | uuId
+       | siteUrl
+       | emailAddress
+       | versionWord
+       | base64
+       | CURLYBRACEOPEN commentProduct  CURLYBRACECLOSE
+       | CURLYBRACEOPEN keyValue        CURLYBRACECLOSE
+       | CURLYBRACEOPEN uuId            CURLYBRACECLOSE
+       | CURLYBRACEOPEN siteUrl         CURLYBRACECLOSE
+       | CURLYBRACEOPEN emailAddress    CURLYBRACECLOSE
+       | CURLYBRACEOPEN multipleWords   CURLYBRACECLOSE
+       | CURLYBRACEOPEN versionWord     CURLYBRACECLOSE
+       | CURLYBRACEOPEN base64          CURLYBRACECLOSE
+       )
+       ( commentBlock
        | commentProduct
        | keyValue
        | uuId
@@ -280,7 +295,7 @@ commentEntry
        | CURLYBRACEOPEN multipleWords   CURLYBRACECLOSE
        | CURLYBRACEOPEN versionWord     CURLYBRACECLOSE
        | CURLYBRACEOPEN base64          CURLYBRACECLOSE
-       )+
+       )*
        ( productNameNoVersion
        | keyWithoutValue
        | CURLYBRACEOPEN productNameNoVersion CURLYBRACECLOSE
