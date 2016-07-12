@@ -1,0 +1,491 @@
+# =============================================
+# THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY
+# =============================================
+config:
+  - lookup:
+      name: 'OperatingSystemNames'
+      map:
+       "ASPLinux" : "ASPLinux"
+       "CentOS" : "CentOS"
+       "Debian" : "Debian"
+       "Debian GNU" : "Debian GNU"
+       "Fedora" : "Fedora"
+       "FoxOS" : "FoxOS"
+       "FreeBSD" : "FreeBSD"
+       "Linpus" : "Linpus"
+       "Linspire" : "Linspire"
+       "Mandriva" : "Mandriva"
+       "Linux Mint" : "Linux Mint"
+       "Moblin" : "Moblin"
+       "Namoroka" : "Namoroka"
+       "NaverBot" : "NaverBot"
+       "PCLinuxOS" : "PCLinuxOS"
+       "Slackware" : "Slackware"
+       "Solaris" : "Solaris"
+       "SUSE" : "SUSE"
+       "Ubuntu" : "Ubuntu"
+       "Kubuntu" : "Kubuntu"
+       "Xubuntu" : "Xubuntu"
+       "Yoper" : "Yoper"
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="ASPLinux"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"ASPLinux"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"ASPLinux"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="ASPLinux"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"ASPLinux"'
+        - 'OperatingSystemVersion:   100:agent.product.name="ASPLinux"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="CentOS"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"CentOS"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"CentOS"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="CentOS"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"CentOS"'
+        - 'OperatingSystemVersion:   100:agent.product.name="CentOS"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Debian"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Debian"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Debian"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Debian"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Debian"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Debian"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Debian GNU"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Debian GNU"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Debian GNU"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Debian GNU"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Debian GNU"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Debian GNU"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Fedora"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Fedora"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Fedora"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Fedora"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Fedora"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Fedora"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="FoxOS"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"FoxOS"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"FoxOS"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="FoxOS"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"FoxOS"'
+        - 'OperatingSystemVersion:   100:agent.product.name="FoxOS"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="FreeBSD"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"FreeBSD"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"FreeBSD"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="FreeBSD"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"FreeBSD"'
+        - 'OperatingSystemVersion:   100:agent.product.name="FreeBSD"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Linpus"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Linpus"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Linpus"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Linpus"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Linpus"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Linpus"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Linspire"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Linspire"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Linspire"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Linspire"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Linspire"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Linspire"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Mandriva"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Mandriva"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Mandriva"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Mandriva"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Mandriva"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Mandriva"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Linux Mint"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Linux Mint"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Linux Mint"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Linux Mint"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Linux Mint"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Linux Mint"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Moblin"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Moblin"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Moblin"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Moblin"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Moblin"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Moblin"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Namoroka"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Namoroka"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Namoroka"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Namoroka"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Namoroka"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Namoroka"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="NaverBot"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"NaverBot"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"NaverBot"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="NaverBot"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"NaverBot"'
+        - 'OperatingSystemVersion:   100:agent.product.name="NaverBot"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="PCLinuxOS"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"PCLinuxOS"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"PCLinuxOS"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="PCLinuxOS"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"PCLinuxOS"'
+        - 'OperatingSystemVersion:   100:agent.product.name="PCLinuxOS"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Slackware"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Slackware"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Slackware"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Slackware"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Slackware"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Slackware"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Solaris"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Solaris"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Solaris"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Solaris"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Solaris"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Solaris"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="SUSE"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"SUSE"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"SUSE"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="SUSE"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"SUSE"'
+        - 'OperatingSystemVersion:   100:agent.product.name="SUSE"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Ubuntu"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Ubuntu"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Ubuntu"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Ubuntu"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Ubuntu"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Ubuntu"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Kubuntu"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Kubuntu"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Kubuntu"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Kubuntu"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Kubuntu"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Kubuntu"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Xubuntu"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Xubuntu"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Xubuntu"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Xubuntu"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Xubuntu"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Xubuntu"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Yoper"'
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Yoper"'
+        - 'OperatingSystemVersion:   100:"??"'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Yoper"'
+        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Yoper"^.version'
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass  :   100:"Desktop"'
+        - 'OperatingSystemName   :   100:"Yoper"'
+        - 'OperatingSystemVersion:   100:agent.product.name="Yoper"^.version'
+

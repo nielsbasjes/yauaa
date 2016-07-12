@@ -544,21 +544,117 @@ config:
 
 
 
-#TODO Centos
-# Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.15) Gecko/20110330 CentOS/3.6-1.el5.centos Firefox/3.6.15
+#Centos
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.15) Gecko/20110330 CentOS/3.6-1.el5.centos Firefox/3.6.15'
+      expected:
+        DeviceClass                        : 'Desktop'                     # 5
+        DeviceName                         : 'Linux Desktop'               # 5
+        DeviceCpu                          : 'Intel x86_64'                # 104
+        OperatingSystemClass               : 'Desktop'                     # 5
+        OperatingSystemName                : 'CentOS'                       # 5
+        OperatingSystemVersion             : '3.6-1.el5.centos'                # 5
+        OperatingSystemNameVersion         : 'CentOS 3.6-1.el5.centos'          # 5
+        LayoutEngineClass                  : 'Browser'                     # 2000
+        LayoutEngineName                   : 'Gecko'                       # 2000
+        LayoutEngineVersion                : '1.9.2.15'                    # 2000
+        LayoutEngineVersionMajor           : '1'                           # 2000
+        AgentClass                         : 'Browser'                     # 2001
+        AgentName                          : 'Firefox'                     # 2001
+        AgentVersion                       : '3.6.15'                      # 2001
+        AgentVersionMajor                  : '3'                           # 2001
+        AgentLanguage                      : 'English (United States)'     # 5
+        AgentNameVersion                   : 'Firefox 3.6.15'              # 2001
+        AgentNameVersionMajor              : 'Firefox 3'                   # 2001
+        AgentSecurity                      : 'Strong security'             # 50
+        LayoutEngineBuild                  : '20110330'                    # 2000
+        LayoutEngineNameVersion            : 'Gecko 1.9.2.15'              # 2000
+        LayoutEngineNameVersionMajor       : 'Gecko 1'                     # 2000
 
-#TODO Suse
-#450	1275	Mozilla/5.0 (X11; U; Linux i686; nl; rv:1.9.2.3) Gecko/20100401 SUSE/3.6.3-1.2 Firefox/3.6.3
+#Suse
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; nl; rv:1.9.2.3) Gecko/20100401 SUSE/3.6.3-1.2 Firefox/3.6.3'
+      expected:
+        DeviceClass                        : 'Desktop'             # 5
+        DeviceName                         : 'Linux Desktop'       # 5
+        DeviceCpu                          : 'Intel i686'          # 104
+        OperatingSystemClass               : 'Desktop'             # 100
+        OperatingSystemName                : 'SUSE'                # 100
+        OperatingSystemVersion             : '3.6.3-1.2'           # 100
+        OperatingSystemNameVersion         : 'SUSE 3.6.3-1.2'      # 100
+        LayoutEngineClass                  : 'Browser'             # 2000
+        LayoutEngineName                   : 'Gecko'               # 2000
+        LayoutEngineVersion                : '1.9.2.3'             # 2000
+        LayoutEngineVersionMajor           : '1'                   # 2000
+        AgentClass                         : 'Browser'             # 2001
+        AgentName                          : 'Firefox'             # 2001
+        AgentVersion                       : '3.6.3'               # 2001
+        AgentVersionMajor                  : '3'                   # 2001
+        AgentLanguage                      : 'Dutch'               # 5
+        AgentNameVersion                   : 'Firefox 3.6.3'       # 2001
+        AgentNameVersionMajor              : 'Firefox 3'           # 2001
+        AgentSecurity                      : 'Strong security'     # 50
+        LayoutEngineBuild                  : '20100401'            # 2000
+        LayoutEngineNameVersion            : 'Gecko 1.9.2.3'       # 2000
+        LayoutEngineNameVersionMajor       : 'Gecko 1'             # 2000
+
 #26	63	Mozilla/5.0 (X11; U; Linux i686; nl; rv:1.9.0.4) Gecko/2008103100 SUSE/3.0.4-4.6 Firefox/3.0.4
 #21	149	Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.4) Gecko/20091016 SUSE/3.5.4-1.1.2 Firefox/3.5.4
 #18	593	Mozilla/5.0 (X11; U; Linux i686; nl; rv:1.9.2.24) Gecko/20111101 SUSE/3.6.24-0.2.1 Firefox/3.6.24
 #12	87	Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.32 (KHTML, like Gecko) Chrome/27.0.1425.0 Safari/537.32 SUSE/27.0.1425.0
 #Opera/9.80 (X11; Linux x86_64; Suse) Presto/2.12.388 Version/12.16
 
-#TODO Debian (??)
-#Mozilla/5.0 (Macintosh; ARM Mac OS X) AppleWebKit/538.15 (KHTML, like Gecko) Safari/538.15 Version/6.0 Debian/7.8 (3.8.2.0-0rpi18rpi1) Epiphany/3.8.2
-#NEW CPU:  ARM Mac OS X
-#Mozilla/5.0 (X11; Linux i686; Debian GNU/Linux 7.8 (wheezy)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.0 Maxthon/1.0.5.3 Safari/537.36
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Macintosh; ARM Mac OS X) AppleWebKit/538.15 (KHTML, like Gecko) Safari/538.15 Version/6.0 Debian/7.8 (3.8.2.0-0rpi18rpi1) Epiphany/3.8.2'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Macintosh'
+        DeviceBrand                        : 'Apple'
+        DeviceCpu                          : 'ARM'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Debian'
+        OperatingSystemVersion             : '7.8'
+        OperatingSystemNameVersion         : 'Debian 7.8'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '538.15'
+        LayoutEngineVersionMajor           : '538'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '6.0'
+        AgentVersionMajor                  : '6'
+        AgentNameVersion                   : 'Safari 6.0'
+        AgentNameVersionMajor              : 'Safari 6'
+        LayoutEngineNameVersion            : 'AppleWebKit 538.15'
+        LayoutEngineNameVersionMajor       : 'AppleWebKit 538'
+
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0 (X11; Linux i686; Debian GNU/Linux 7.8 (wheezy)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.0 Maxthon/1.0.5.3 Safari/537.36'
+#      expected:
+#        DeviceClass                        : 'Desktop'                # 5
+#        DeviceName                         : 'Linux Desktop'          # 5
+#        OperatingSystemClass               : 'Desktop'                # 100
+#        OperatingSystemName                : 'Debian GNU'             # 100
+#        OperatingSystemVersion             : 'Linux'                  # 100
+#        OperatingSystemNameVersion         : 'Debian GNU Linux'       # FIXME: Should be 7.8
+#        LayoutEngineClass                  : 'Browser'                # 999
+#        LayoutEngineName                   : 'Blink'                  # 999
+#        LayoutEngineVersion                : '33.0'                   # 999
+#        LayoutEngineVersionMajor           : '33'                     # 999
+#        AgentClass                         : 'Browser'                # 2014
+#        AgentName                          : 'Chrome'                 # 2014
+#        AgentVersion                       : '33.0.1750.0'            # 2014
+#        AgentVersionMajor                  : '33'                     # 2014
+#        AgentNameVersion                   : 'Chrome 33.0.1750.0'     # 2014
+#        AgentNameVersionMajor              : 'Chrome 33'              # 2014
+#        DeviceCpu                          : 'Intel i686'             # 104
+#        LayoutEngineNameVersion            : 'Blink 33.0'             # 999
+#        LayoutEngineNameVersionMajor       : 'Blink 33'               # 999
+
 #Mozilla/5.0 (X11; U; Linux i686; nl-nl) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/531.2+ Debian/squeeze (2.30.6-1) Epiphany/2.30.6
 #Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.0.16) Gecko/2009121609 Iceweasel/3.0.6 (Debian-3.0.6-3)
 
