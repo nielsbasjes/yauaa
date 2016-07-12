@@ -1,3 +1,55 @@
+Introduction
+============
+This is a library that tries to analyze the useragent string and extract as many relevant attributes as possible.
+There are as little as possible lookup tables included the system really tries to analyze the useragent and extract values from it.
+
+The resulting output fields can be classified into several categories:
+
+- The **Device**:
+The hardware that was used.
+- The **Operating System**:
+The base software that runs on the hardware
+- The **Layout Engine**:
+The underlying core that converts the 'HTML' into a visual/interactive
+- The **Agent**:
+The actual "Browser" that was used.
+- **Extra fields**:
+In some cases we have additional fields to describe the agent. These fields are among others specific fields for the Facebook and Kobo apps,
+and fields to describe deliberate useragent manipulation situations (Anonymization, Hackers, etc.)
+
+Note that **not all fields are always available**. So if you look at a specific field you will in general find null values and "Unknown" in there aswell.
+
+Example output
+==============
+As an example the useragent of my phone:
+
+    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 6 Build/MOB30M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.81 Mobile Safari/537.36
+
+is converted into this set of fields:
+
+| Field name | Value |
+| --- | --- |
+|  **Device**Class                      | 'Phone'                |
+|  **Device**Name                       | 'Nexus 6'              |
+|  **OperatingSystem**Class             | 'Mobile'               |
+|  **OperatingSystem**Name              | 'Android'              |
+|  **OperatingSystem**Version           | '6.0.1'                |
+|  **OperatingSystem**NameVersion       | 'Android 6.0.1'        |
+|  **OperatingSystem**VersionBuild      | 'MOB30M'               |
+|  **LayoutEngine**Class                | 'Browser'              |
+|  **LayoutEngine**Name                 | 'Blink'                |
+|  **LayoutEngine**Version              | '51.0'                 |
+|  **LayoutEngine**VersionMajor         | '51'                   |
+|  **LayoutEngine**NameVersion          | 'Blink 51.0'           |
+|  **LayoutEngine**NameVersionMajor     | 'Blink 51'             |
+|  **Agent**Class                       | 'Browser'              |
+|  **Agent**Name                        | 'Chrome'               |
+|  **Agent**Version                     | '51.0.2704.81'         |
+|  **Agent**VersionMajor                | '51'                   |
+|  **Agent**NameVersion                 | 'Chrome 51.0.2704.81'  |
+|  **Agent**NameVersionMajor            | 'Chrome 51'            |
+
+
 Parsing Useragents
 ==================
 Parsing useragents is considered by many to be a ridiculously hard problem.
@@ -6,8 +58,6 @@ The main problems are:
 - Although there seems to be a specification, many do not follow it.
 - Useragents LIE that they are their competing predecessor with an extra flag.
 
-We're all compatible
-====================
 The pattern the 'normal' browser builders are following is that they all LIE about the ancestor they are trying to improve upon.
 
 The reason this system (historically) works is because a lot of website builders do a very simple check to see if they can use a specific feature.
@@ -39,14 +89,13 @@ When looking at most implementations of analysing the useragents I see that most
 lists of regular expressions.
 These are (in the systems I have seen) executed in a specific order to find the first one that matches.
 
-The main problem I see in this solution direction is that the order in which things occur determines if the patterns match or not.
+In this solution direction the order in which things occur determines if the patterns match or not.
 
-Also regular expressions are notoriously hard to write and debug.
-
-I wanted to see if a completely different approach would work: Can we actually parse these things into a tree and work from there.
+Regular expressions are notoriously hard to write and debug and (unless you make them really complex) the order in which parts of the pattern occur is fixed.
 
 Core design idea
 ================
+I wanted to see if a completely different approach would work: Can we actually parse these things into a tree and work from there.
 
 The parser (ANTLR4 based) will be able to parse a lot of the agents but not all.
 Tests have shown that it will parse >99% of all useragents on a large website which is more than 99.99% of the traffic.
@@ -62,7 +111,7 @@ High level implementation overview
 ==================================================
 The main concept of this useragent parser is that we have two things:
 
-1. A Parser (ANTLR4) that converts the useragent into a nice tree throught which we can walk along.
+1. A Parser (ANTLR4) that converts the useragent into a nice tree through which we can walk along.
 2. A collection of matchers.
   - A matcher triggers if a set of patterns is present in the tree.
   - Each pattern is detected by a "matcher action" that triggers and can fill a single attribute.
@@ -76,14 +125,13 @@ points to all the applicable matcher actions. As a consequence
   - the startup is "slow"
   - the memory footprint is pretty big due to the number of matchers, the size of the hashmap and the cache of the parsed useragents.
 
-
 Performance
 ===========
 On my i7 system I see a speed of around 4000 useragents per second or <1ms each.
 A LRU cache is in place that does over 1M per second if they are in the cache.
 
-In the canonical usecase of analysing clickstream data you will see a 1ms hit per visitor and for all the other clicks
-the values are retrieved from this cache at close to 0 time.
+In the canonical usecase of analysing clickstream data you will see a <1ms hit per visitor (or better: per new non-cached useragent)
+and for all the other clicks the values are retrieved from this cache at close to 0 time.
 
 License
 =======
