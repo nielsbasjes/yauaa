@@ -244,7 +244,6 @@ public class StepDown extends Step {
         @Override
         public List<? extends ParserRuleContext> visitProductNameKeyValue(ProductNameKeyValueContext ctx) {
             switch (name) {
-                // FIXME: Use the start and end range indicators
                 case "key":
                     return Collections.singletonList((ParserRuleContext) ctx.key);
                 case "value":
