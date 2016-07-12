@@ -48,15 +48,15 @@ public class TestDissectUserAgent {
 
             "STRING:operating_system_class",
             "STRING:operating_system_name",
-            "HTTP.USERAGENT.VERSION:operating_system_version",
+            "STRING:operating_system_version",
 
             "STRING:layout_engine_class",
             "STRING:layout_engine_name",
-            "HTTP.USERAGENT.VERSION:layout_engine_version",
+            "STRING:layout_engine_version",
 
             "STRING:agent_class",
             "STRING:agent_name",
-            "HTTP.USERAGENT.VERSION:agent_version",
+            "STRING:agent_version",
         })
         public void setValue(final String name, final String value) {
             results.put(name, value);
@@ -86,15 +86,15 @@ public class TestDissectUserAgent {
 
         assertEquals("Desktop",       results.get("STRING:operating_system_class"));
         assertEquals("Linux",         results.get("STRING:operating_system_name"));
-        assertEquals("Intel x86_64",  results.get("HTTP.USERAGENT.VERSION:operating_system_version"));
+        assertEquals("Intel x86_64",  results.get("STRING:operating_system_version"));
 
         assertEquals("Browser",       results.get("STRING:layout_engine_class"));
         assertEquals("Blink",         results.get("STRING:layout_engine_name"));
-        assertEquals("48.0",          results.get("HTTP.USERAGENT.VERSION:layout_engine_version"));
+        assertEquals("48.0",          results.get("STRING:layout_engine_version"));
 
         assertEquals("Browser",       results.get("STRING:agent_class"));
         assertEquals("Chrome",        results.get("STRING:agent_name"));
-        assertEquals("48.0.2564.82",  results.get("HTTP.USERAGENT.VERSION:agent_version"));
+        assertEquals("48.0.2564.82",  results.get("STRING:agent_version"));
     }
 
     @Test

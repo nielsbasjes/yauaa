@@ -63,16 +63,14 @@ public class UserAgentDissector extends Dissector {
 
         String userAgentString = agentField.getValue().getString();
 
-        if (userAgentString != null) { // TODO: Figure out why this happens (because it does)
-            UserAgent agent = userAgentAnalyzer.parse(userAgentString);
+        if (userAgentString == null) {
+            return;  // TODO: Figure out why this happens (because it does)
+        }
 
-            for (String fieldName : agent.getAvailableFieldNames()) {
-                if (fieldName.endsWith("Version")) {
-                    parsable.addDissection(inputname, "HTTP.USERAGENT.VERSION", fieldNameToDissectionName(fieldName), agent.getValue(fieldName));
-                } else {
-                    parsable.addDissection(inputname, "STRING", fieldNameToDissectionName(fieldName), agent.getValue(fieldName));
-                }
-            }
+        UserAgent agent = userAgentAnalyzer.parse(userAgentString);
+
+        for (String fieldName : agent.getAvailableFieldNames()) {
+            parsable.addDissection(inputname, "STRING", fieldNameToDissectionName(fieldName), agent.getValue(fieldName));
         }
     }
 
@@ -87,11 +85,7 @@ public class UserAgentDissector extends Dissector {
         // First the standard fields in the standard order, then the non-standard fields alphabetically
         List<String> fieldNames = userAgentAnalyzer.getAllPossibleFieldNamesSorted();
         for (String fieldName : fieldNames) {
-            if (fieldName.endsWith("Version")) {
-                result.add("HTTP.USERAGENT.VERSION:" + fieldNameToDissectionName(fieldName));
-            } else {
-                result.add("STRING:" + fieldNameToDissectionName(fieldName));
-            }
+            result.add("STRING:" + fieldNameToDissectionName(fieldName));
         }
         return result;
 
