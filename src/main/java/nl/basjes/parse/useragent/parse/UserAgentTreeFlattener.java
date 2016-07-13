@@ -26,7 +26,7 @@ import nl.basjes.parse.useragent.UserAgentParser;
 import nl.basjes.parse.useragent.UserAgentParser.UserAgentContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductContext;
 import nl.basjes.parse.useragent.UserAgentParser.CommentProductContext;
-import nl.basjes.parse.useragent.UserAgentParser.ProductWordVersionContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductVersionWordsContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductNameBareContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductVersionContext;
 import nl.basjes.parse.useragent.UserAgentParser.SimpleVersionContext;
@@ -310,13 +310,18 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     @Override
+    public void enterProductVersionSingleWord(UserAgentParser.ProductVersionSingleWordContext ctx) {
+        inform(ctx, "version");
+    }
+
+    @Override
     public void enterSimpleVersion(SimpleVersionContext ctx) {
         informSubVersions(ctx, "version");
     }
 
     @Override
-    public void enterProductWordVersion(ProductWordVersionContext ctx) {
-        inform(ctx, "version");
+    public void enterProductVersionWords(ProductVersionWordsContext ctx) {
+        informSubstrings(ctx, "version");
     }
 
     @Override

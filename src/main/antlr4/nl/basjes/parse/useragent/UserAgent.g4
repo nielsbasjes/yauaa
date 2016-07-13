@@ -141,42 +141,43 @@ And then there are messy edge cases like "foo 1.0 rv:23 (bar)"
 */
 product
     : productName   (                           productVersion )+
-                    (  COLON? SLASH+ EQUALS?    productVersion )*
+                    (  COLON? SLASH+ EQUALS?    (productVersion|productVersionSingleWord) )*
                     (  (SEMICOLON|MINUS)?       commentBlock
-                       ( SLASH+  EQUALS?        productVersion )* )*
-
-    | productName   (  COLON? SLASH+ EQUALS?    productVersion )+
-                    (  (SEMICOLON|MINUS)?       commentBlock
-                       ( SLASH+  EQUALS?        productVersion )* )*
+                       ( SLASH+  EQUALS?        (productVersion|productVersionSingleWord) )* )*
 
     | productName   (  (SEMICOLON|MINUS)?       commentBlock
-                       ( SLASH+  EQUALS?        productVersion )* )+
+                       ( SLASH+  EQUALS?        (productVersion|productVersionSingleWord) )* )+
 
-    | productName   (  COLON? SLASH productWordVersion
+    | productName   (  COLON? SLASH productVersionWords
                         ( SLASH* productVersion )*
                         (SEMICOLON|MINUS)?      commentBlock ?    )+
+
+    | productName   (  COLON? SLASH+ EQUALS?    (productVersion|productVersionSingleWord) )+
+                    (  (SEMICOLON|MINUS)?       commentBlock
+                       ( SLASH+  EQUALS?        (productVersion|productVersionSingleWord) )* )*
 
     | productName   SLASH EOF
     ;
 
 commentProduct
     : productName   (                       productVersion )+
-                    (   SLASH+  EQUALS?     productVersion )*
+                    (   SLASH+  EQUALS?     (productVersion|productVersionSingleWord) )*
                     (   MINUS?              commentBlock
-                        ( SLASH+  EQUALS?   productVersion )* )*
-
-    | productName   (   SLASH+  EQUALS?     productVersion )+
-                    (   MINUS?              commentBlock
-                        ( SLASH+  EQUALS?   productVersion )* )*
+                        ( SLASH+  EQUALS?   (productVersion|productVersionSingleWord) )* )*
 
     | productName   (   MINUS?              commentBlock
-                        ( SLASH+  EQUALS?   productVersion )* )+
+                        ( SLASH+  EQUALS?   (productVersion|productVersionSingleWord) )* )+
 
-    | productName   (   COLON? SLASH productWordVersion
+    | productName   (   COLON? SLASH productVersionWords
                         ( SLASH* productVersion )*            )+
+
+    | productName   (   SLASH+  EQUALS?     (productVersion|productVersionSingleWord) )+
+                    (   MINUS?              commentBlock
+                        ( SLASH+  EQUALS?   (productVersion|productVersionSingleWord) )* )*
+
     ;
 
-productWordVersion
+productVersionWords
     : WORD (MINUS? WORD)*
     ;
 
@@ -200,6 +201,10 @@ productVersion
     | uuId
     | base64
     | simpleVersion
+    ;
+
+productVersionSingleWord
+    : WORD
     ;
 
 simpleVersion

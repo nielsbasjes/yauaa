@@ -22,6 +22,7 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.walk;
 import nl.basjes.parse.useragent.UserAgentBaseVisitor;
 import nl.basjes.parse.useragent.UserAgentParser.KeyWithoutValueContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductNameNoVersionContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductVersionSingleWordContext;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.NumberRangeList;
 import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
@@ -37,7 +38,7 @@ import static nl.basjes.parse.useragent.UserAgentParser.UserAgentContext;
 import static nl.basjes.parse.useragent.UserAgentParser.RootTextPartContext;
 import static nl.basjes.parse.useragent.UserAgentParser.ProductContext;
 import static nl.basjes.parse.useragent.UserAgentParser.CommentProductContext;
-import static nl.basjes.parse.useragent.UserAgentParser.ProductWordVersionContext;
+import static nl.basjes.parse.useragent.UserAgentParser.ProductVersionWordsContext;
 import static nl.basjes.parse.useragent.UserAgentParser.ProductNameContext;
 import static nl.basjes.parse.useragent.UserAgentParser.ProductNameBareContext;
 import static nl.basjes.parse.useragent.UserAgentParser.ProductVersionContext;
@@ -203,7 +204,8 @@ public class StepDown extends Step {
                                                     ProductNameNoVersionContext.class);
                 case "version":
                     return getChildren(ctx, true,   ProductVersionContext.class,
-                                                    ProductWordVersionContext.class);
+                                                    ProductVersionWordsContext.class,
+                                                    ProductVersionSingleWordContext.class);
                 case "comments":
                     return getChildren(ctx, true,   CommentBlockContext.class);
                 default:
@@ -237,7 +239,12 @@ public class StepDown extends Step {
         }
 
         @Override
-        public List<? extends ParserRuleContext> visitProductWordVersion(ProductWordVersionContext ctx) {
+        public List<? extends ParserRuleContext> visitProductVersionWords(ProductVersionWordsContext ctx) {
+            return Collections.emptyList(); // Cannot walk in here at all
+        }
+
+        @Override
+        public List<? extends ParserRuleContext> visitProductVersionSingleWord(ProductVersionSingleWordContext ctx) {
             return Collections.emptyList(); // Cannot walk in here at all
         }
 

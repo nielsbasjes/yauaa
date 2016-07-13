@@ -63,6 +63,47 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)version=\"1\""
         );
 
+        // Edge case about where to break product and version info
+        validateUserAgent(
+            "one/two 3 four five/6 (one/two 3 four five/6)"
+            ,"agent=\"one/two 3 four five/6 (one/two 3 four five/6)\""
+            ,"agent.(1)product=\"one/two 3\""
+            ,"agent.(1)product.(1)name=\"one\""
+            ,"agent.(1)product.(1)version=\"two\""
+            ,"agent.(1)product.(2)version=\"3\""
+
+            ,"agent.(2)product=\"four five/6 (one/two 3 four five/6)\""
+            ,"agent.(2)product.(1)name=\"four five\""
+            ,"agent.(2)product.(1)version=\"6\""
+
+            ,"agent.(2)product.(1)comments.(1)entry=\"one/two 3 four five/6\""
+
+            ,"agent.(2)product.(1)comments.(1)entry.(1)product=\"one/two 3\""
+            ,"agent.(2)product.(1)comments.(1)entry.(1)product.(1)name=\"one\""
+            ,"agent.(2)product.(1)comments.(1)entry.(1)product.(1)version=\"two\""
+            ,"agent.(2)product.(1)comments.(1)entry.(1)product.(2)version=\"3\""
+
+            ,"agent.(2)product.(1)comments.(1)entry.(2)product=\"four five/6\""
+            ,"agent.(2)product.(1)comments.(1)entry.(2)product.(1)name=\"four five\""
+            ,"agent.(2)product.(1)comments.(1)entry.(2)product.(1)version=\"6\""
+        );
+
+
+        validateUserAgent(
+            "Foo 1/A (Bar 2/B)"
+            ,"agent=\"Foo 1/A (Bar 2/B)\""
+            ,"agent.(1)product=\"Foo 1/A (Bar 2/B)\""
+            ,"agent.(1)product.(1)name=\"Foo\""
+            ,"agent.(1)product.(1)version=\"1\""
+            ,"agent.(1)product.(2)version=\"A\""
+            ,"agent.(1)product.(1)comments=\"(Bar 2/B)\""
+            ,"agent.(1)product.(1)comments.(1)entry=\"Bar 2/B\""
+            ,"agent.(1)product.(1)comments.(1)entry.(1)product=\"Bar 2/B\""
+            ,"agent.(1)product.(1)comments.(1)entry.(1)product.(1)name=\"Bar\""
+            ,"agent.(1)product.(1)comments.(1)entry.(1)product.(1)version=\"2\""
+            ,"agent.(1)product.(1)comments.(1)entry.(1)product.(2)version=\"B\""
+        );
+
         validateUserAgent(
                 "Mozilla/5.0 (foo)"
                 ,"agent=\"Mozilla/5.0 (foo)\""
