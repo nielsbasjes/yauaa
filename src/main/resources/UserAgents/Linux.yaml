@@ -84,99 +84,6 @@ config:
         - 'DeviceCpu             :   15:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linux"^.(2)version]'
         - 'OperatingSystemVersion:   15:agent.(1)product.(1)comments.entry.product.name="Linux"^.(1)version'
 
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)comments.entry.text="Ubuntu"'
-        - 'agent.(1)product.(1)comments.entry.product.(1)name#1="Linux"'
-      extract:
-        - 'DeviceClass           :   5:"Desktop"'
-        - 'DeviceName            :   5:"Linux Desktop"'
-        - 'OperatingSystemClass  :   100:"Desktop"'
-        - 'OperatingSystemName   :   100:"Ubuntu Linux"'
-        - 'OperatingSystemVersion:   100:"??"'
-
-  - matcher:
-      require:
-        - 'agent.product.(1)name#1="Ubuntu"'
-        - 'agent.(1)product.(1)comments.entry.product.(1)name#1="Linux"'
-      extract:
-        - 'DeviceClass           :   5:"Desktop"'
-        - 'DeviceName            :   5:"Linux Desktop"'
-        - 'OperatingSystemClass  :   100:"Desktop"'
-        - 'OperatingSystemName   :   100:"Ubuntu Linux"'
-        - 'OperatingSystemVersion:   100:"??"'
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)comments.entry.product.(1)name#1="Linux"'
-      extract:
-        - 'DeviceClass           :   5:"Desktop"'
-        - 'DeviceName            :   5:"Linux Desktop"'
-        - 'OperatingSystemClass  :   101:"Desktop"'
-        - 'OperatingSystemName   :   101:"Ubuntu Linux"'
-        - 'OperatingSystemVersion:   101:agent.product.(1)name="Ubuntu"^.version'
-
-
-# BSD
-
-  - matcher:
-      extract:
-        - 'DeviceClass           :   7:"Desktop"'
-        - 'DeviceName            :   7:"FreeBSD Desktop"'
-        - 'OperatingSystemClass  :   7:"Desktop"'
-        - 'OperatingSystemName   :   7:"FreeBSD"'
-        - 'OperatingSystemVersion:   7:agent.(1)product.(1)comments.entry.(1)product.(1)name="FreeBSD"^.version'
-
-
-  - matcher:
-      extract:
-        - 'DeviceClass           :   7:"Desktop"'
-        - 'DeviceName            :   7:"NetBSD Desktop"'
-        - 'OperatingSystemClass  :   7:"Desktop"'
-        - 'OperatingSystemName   :   7:"NetBSD"'
-        - 'OperatingSystemVersion:   7:agent.(1)product.(1)comments.entry.(1)product.(1)name="NetBSD"^.version'
-
-  - matcher:
-      extract:
-        - 'DeviceClass           :   7:"Desktop"'
-        - 'DeviceName            :   7:"OpenBSD Desktop"'
-        - 'OperatingSystemClass  :   7:"Desktop"'
-        - 'OperatingSystemName   :   7:"OpenBSD"'
-        - 'OperatingSystemVersion:   7:agent.(1)product.(1)comments.entry.(1)product.(1)name="OpenBSD"^.version'
-
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)comments.entry.(1)text="FreeBSD"'
-      extract:
-        - 'DeviceClass           :   6:"Desktop"'
-        - 'DeviceName            :   6:"FreeBSD Desktop"'
-        - 'OperatingSystemClass  :   6:"Desktop"'
-        - 'OperatingSystemName   :   6:"FreeBSD"'
-        - 'OperatingSystemVersion:   6:"??"'
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)comments.entry.(1)text="NetBSD"'
-      extract:
-        - 'DeviceClass           :   6:"Desktop"'
-        - 'DeviceName            :   6:"NetBSD Desktop"'
-        - 'OperatingSystemClass  :   6:"Desktop"'
-        - 'OperatingSystemName   :   6:"NetBSD"'
-        - 'OperatingSystemVersion:   6:"??"'
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)comments.entry.(1)text="OpenBSD"'
-      extract:
-        - 'DeviceClass           :   6:"Desktop"'
-        - 'DeviceName            :   6:"OpenBSD Desktop"'
-        - 'OperatingSystemClass  :   6:"Desktop"'
-        - 'OperatingSystemName   :   6:"OpenBSD"'
-        - 'OperatingSystemVersion:   6:"??"'
-
-
   - test:
       input:
         user_agent_string: 'Links (2.1pre15; Linux 2.4.26 i686; 128x48)'
@@ -303,7 +210,7 @@ config:
         DeviceName                         : 'Linux Desktop'
         DeviceCpu                          : 'Intel x86_64'
         OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Ubuntu Linux'
+        OperatingSystemName                : 'Ubuntu'
         OperatingSystemVersion             : '??'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'Gecko'
@@ -322,7 +229,7 @@ config:
         DeviceName                         : 'Linux Desktop'
         DeviceCpu                          : 'Intel x86_64'
         OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Ubuntu Linux'
+        OperatingSystemName                : 'Ubuntu'
         OperatingSystemVersion             : '??'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'Blink'
@@ -340,7 +247,7 @@ config:
         DeviceName                         : 'Linux Desktop'
         DeviceCpu                          : 'Intel i686'
         OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Ubuntu Linux'
+        OperatingSystemName                : 'Ubuntu'
         OperatingSystemVersion             : '14.10'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'AppleWebKit'
@@ -432,60 +339,150 @@ config:
         AgentVersion                       : '1.7.2'
         AgentLanguage                      : 'English'
 
-#TODO:
-#  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
-#      input:
-##        name: 'You can give the test case a name'
-#        user_agent_string: 'Mozilla/5.0 (X11; Jolicloud Linux i686) AppleWebKit/537.6 (KHTML, like Gecko) Joli OS/1.2 Chromium/23.0.1240.0 Chrome/23.0.1240.0 Safari/537.6'
+# Joli
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; Jolicloud Linux i686) AppleWebKit/537.6 (KHTML, like Gecko) Joli OS/1.2 Chromium/23.0.1240.0 Chrome/23.0.1240.0 Safari/537.6'
+      expected:
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Linux Desktop'
+        DeviceCpu                          : 'Intel i686'             # 103
+        OperatingSystemClass               : 'Desktop'                # 100
+        OperatingSystemName                : 'Joli OS'                # 100
+        OperatingSystemVersion             : '1.2'                    # 100
+        OperatingSystemNameVersion         : 'Joli OS 1.2'            # 100
+        LayoutEngineClass                  : 'Browser'                # 1000
+        LayoutEngineName                   : 'AppleWebKit'            # 1000
+        LayoutEngineVersion                : '537.6'                  # 1000
+        LayoutEngineVersionMajor           : '537'                    # 1000
+        AgentClass                         : 'Browser'                # 2014
+        AgentName                          : 'Chrome'                 # 2014
+        AgentVersion                       : '23.0.1240.0'            # 2014
+        AgentVersionMajor                  : '23'                     # 2014
+        AgentNameVersion                   : 'Chrome 23.0.1240.0'     # 2014
+        AgentNameVersionMajor              : 'Chrome 23'              # 2014
+        LayoutEngineNameVersion            : 'AppleWebKit 537.6'      # 1000
+        LayoutEngineNameVersionMajor       : 'AppleWebKit 537'        # 1000
+
+# Linux Mint
+  - test:
+      input:
+        user_agent_string: 'Opera/9.80 (X11; Linux i686; Edition Linux Mint) Presto/2.12.388 Version/12.16'
+      expected:
+        DeviceClass                        : 'Desktop'                   # 5
+        DeviceName                         : 'Linux Desktop'             # 5
+        DeviceCpu                          : 'Intel i686'                # 104
+        OperatingSystemClass               : 'Desktop'                   # 100
+        OperatingSystemName                : 'Edition Linux Mint'        # 100
+        OperatingSystemVersion             : '??'                        # 100
+        OperatingSystemNameVersion         : 'Edition Linux Mint ??'     # 100
+        LayoutEngineClass                  : 'Browser'                   # 2011
+        LayoutEngineName                   : 'Presto'                    # 2011
+        LayoutEngineVersion                : '2.12.388'                  # 2011
+        LayoutEngineVersionMajor           : '2'                         # 2011
+        LayoutEngineNameVersion            : 'Presto 2.12.388'           # 2011
+        LayoutEngineNameVersionMajor       : 'Presto 2'                  # 2011
+        AgentClass                         : 'Browser'                   # 2011
+        AgentName                          : 'Opera'                     # 2011
+        AgentVersion                       : '12.16'                     # 2011
+        AgentVersionMajor                  : '12'                        # 2011
+        AgentNameVersion                   : 'Opera 12.16'               # 2011
+        AgentNameVersionMajor              : 'Opera 12'                  # 2011
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.1.3) Gecko/20091020 Linux Mint/8 (Helena) Firefox/3.5.3'
+      expected:
+        DeviceClass                        : 'Desktop'                     # 5
+        DeviceName                         : 'Linux Desktop'               # 5
+        DeviceCpu                          : 'Intel i686'                  # 104
+        OperatingSystemClass               : 'Desktop'                     # 100
+        OperatingSystemName                : 'Linux Mint'                  # 100
+        OperatingSystemVersion             : '8'                           # 100
+        OperatingSystemNameVersion         : 'Linux Mint 8'                # 100
+        LayoutEngineClass                  : 'Browser'                     # 2000
+        LayoutEngineName                   : 'Gecko'                       # 2000
+        LayoutEngineVersion                : '1.9.1.3'                     # 2000
+        LayoutEngineVersionMajor           : '1'                           # 2000
+        LayoutEngineBuild                  : '20091020'                    # 2000
+        LayoutEngineNameVersion            : 'Gecko 1.9.1.3'               # 2000
+        LayoutEngineNameVersionMajor       : 'Gecko 1'                     # 2000
+        AgentClass                         : 'Browser'                     # 2001
+        AgentName                          : 'Firefox'                     # 2001
+        AgentVersion                       : '3.5.3'                       # 2001
+        AgentVersionMajor                  : '3'                           # 2001
+        AgentLanguage                      : 'English (United States)'     # 5
+        AgentNameVersion                   : 'Firefox 3.5.3'               # 2001
+        AgentNameVersionMajor              : 'Firefox 3'                   # 2001
+        AgentSecurity                      : 'Strong security'             # 50
 
 
-#TODO Linux Mint
-#440     1897    Opera/9.80 (X11; Linux i686; Edition Linux Mint) Presto/2.12.388 Version/12.16
-#397     2308    Opera/9.80 (X11; Linux x86_64; Edition Linux Mint) Presto/2.12.388 Version/12.16
-#14      61      Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.1.3) Gecko/20091020 Linux Mint/8 (Helena) Firefox/3.5.3
-#9       103     Mozilla/5.0 (X11; Linux i686; Linux Mint 16 Petra) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.0 Maxthon/1.0.5.3 Safari/537.36
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; Linux i686; Linux Mint 16 Petra) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.0 Maxthon/1.0.5.3 Safari/537.36'
+      expected:
+        DeviceClass                        : 'Desktop'                # 5
+        DeviceName                         : 'Linux Desktop'          # 5
+        DeviceCpu                          : 'Intel i686'             # 104
+        OperatingSystemClass               : 'Desktop'                # 100
+        OperatingSystemName                : 'Linux Mint'             # 100
+        OperatingSystemVersion             : '16'                     # 100
+        OperatingSystemNameVersion         : 'Linux Mint 16'          # 100
+        LayoutEngineClass                  : 'Browser'                # 999
+        LayoutEngineName                   : 'Blink'                  # 999
+        LayoutEngineVersion                : '33.0'                   # 999
+        LayoutEngineVersionMajor           : '33'                     # 999
+        LayoutEngineNameVersion            : 'Blink 33.0'             # 999
+        LayoutEngineNameVersionMajor       : 'Blink 33'               # 999
+        AgentClass                         : 'Browser'                # 2014
+        AgentName                          : 'Chrome'                 # FIXME: Must be Maxthon
+        AgentVersion                       : '33.0.1750.0'            # 2014
+        AgentVersionMajor                  : '33'                     # 2014
+        AgentNameVersion                   : 'Chrome 33.0.1750.0'     # 2014
+        AgentNameVersionMajor              : 'Chrome 33'              # 2014
+
+
 #7       16      Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.10) Gecko/20100922 Linux Mint/10 (Julia) Firefox/3.6.10
 
 #TODO All Ubuntu variants (Kubuntu)
-#Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.9 (like Gecko) (Kubuntu)
-#Mozilla/5.0 (compatible; Konqueror/4.4; Linux) KHTML/4.4.5 (like Gecko) Kubuntu
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.9 (like Gecko) (Kubuntu)'
+
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0 (compatible; Konqueror/4.4; Linux) KHTML/4.4.5 (like Gecko) Kubuntu'
 
 #  - test:
 #      input:
 #        user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; ChaletOS based on Xubuntu 14.04.1 LTS) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.0 Maxthon/1.0.5.3 Safari/537.36'
 
-##TODO Fedora
-
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)comments.entry.text="Fedora"'
-      extract:
-        - 'DeviceClass           :   5:"Desktop"'
-        - 'DeviceName            :   5:"Linux Desktop"'
-        - 'OperatingSystemClass  :   100:"Desktop"'
-        - 'OperatingSystemName   :   100:"Fedora Linux"'
-        - 'OperatingSystemVersion:   100:"??"'
-
-  - matcher:
-      extract:
-        - 'DeviceClass           :   5:"Desktop"'
-        - 'DeviceName            :   5:"Linux Desktop"'
-        - 'OperatingSystemClass  :   100:"Desktop"'
-        - 'OperatingSystemName   :   100:"Fedora Linux"'
-        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Fedora"^.version'
-
-  - matcher:
-      extract:
-        - 'DeviceClass           :   5:"Desktop"'
-        - 'DeviceName            :   5:"Linux Desktop"'
-        - 'OperatingSystemClass  :   100:"Desktop"'
-        - 'OperatingSystemName   :   100:"Fedora Linux"'
-        - 'OperatingSystemVersion:   100:agent.product.name="Fedora"^.version'
+#
+#  - matcher:
+#      require:
+#        - 'agent.(1)product.(1)comments.entry.text="Fedora"'
+#      extract:
+#        - 'DeviceClass           :   5:"Desktop"'
+#        - 'DeviceName            :   5:"Linux Desktop"'
+#        - 'OperatingSystemClass  :   100:"Desktop"'
+#        - 'OperatingSystemName   :   100:"Fedora Linux"'
+#        - 'OperatingSystemVersion:   100:"??"'
+#
+#  - matcher:
+#      extract:
+#        - 'DeviceClass           :   5:"Desktop"'
+#        - 'DeviceName            :   5:"Linux Desktop"'
+#        - 'OperatingSystemClass  :   100:"Desktop"'
+#        - 'OperatingSystemName   :   100:"Fedora Linux"'
+#        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name="Fedora"^.version'
+#
+#  - matcher:
+#      extract:
+#        - 'DeviceClass           :   5:"Desktop"'
+#        - 'DeviceName            :   5:"Linux Desktop"'
+#        - 'OperatingSystemClass  :   100:"Desktop"'
+#        - 'OperatingSystemName   :   100:"Fedora Linux"'
+#        - 'OperatingSystemVersion:   100:agent.product.name="Fedora"^.version'
 
   - test:
       input:
@@ -495,7 +492,7 @@ config:
         DeviceName                         : 'Linux Desktop'
         DeviceCpu                          : 'Intel x86_64'
         OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Fedora Linux'
+        OperatingSystemName                : 'Fedora'
         OperatingSystemVersion             : '??'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'Gecko'
@@ -512,7 +509,7 @@ config:
         DeviceClass                        : 'Desktop'
         DeviceName                         : 'Linux Desktop'
         OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Fedora Linux'
+        OperatingSystemName                : 'Fedora'
         OperatingSystemVersion             : '20'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'Gecko'
@@ -530,7 +527,7 @@ config:
         DeviceName                         : 'Linux Desktop'
         DeviceCpu                          : 'Intel i686'
         OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Fedora Linux'
+        OperatingSystemName                : 'Fedora'
         OperatingSystemVersion             : '3.6.17-1.fc13'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'Gecko'

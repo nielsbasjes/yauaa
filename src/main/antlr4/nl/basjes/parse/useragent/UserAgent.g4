@@ -125,7 +125,7 @@ userAgent
     : (SEMICOLON|COMMA|MINUS|'\''|'"'|'\\'|';'|'='|BRACEOPEN|BLOCKOPEN)*                // Leading garbage
       (('user-agent'|'User-Agent'|'UserAgent') (COLON|COMMA|EQUALS|'\\t')*)?            // Leading garbage
       ( (SEMICOLON|COMMA|MINUS)? ( product | emailAddress | siteUrl | rootTextPart SEMICOLON) )*
-      ( rootTextPart ( (SEMICOLON|COMMA|MINUS) rootTextPart )* ) ?                      // Capture trailing text like "like Gecko"
+      ( (SEMICOLON|COMMA|MINUS)? rootTextPart ( (SEMICOLON|COMMA|MINUS) rootTextPart )* ) ?                      // Capture trailing text like "like Gecko"
         (SEMICOLON|COMMA|MINUS|PLUS|'\''|'"'|'\\'|';'|'='|BRACECLOSE|BLOCKCLOSE)*       // Trailing garbage
     ;
 
@@ -315,7 +315,7 @@ keyValue
     ;
 
 keyWithoutValue
-    : key=keyName (COLON|EQUALS)
+    : key=keyName (COLON|EQUALS)+
     ;
 
 keyValueVersionName

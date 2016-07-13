@@ -21,36 +21,100 @@ echo "# THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY"
 echo "# ============================================="
 echo "config:"
 
-echo "  - lookup:"
-echo "      name: 'OperatingSystemNames'"
-echo "      map:"
-cat "OperatingSystemNames.csv" | grep . | fgrep -v '#' | while read osname ; \
-do
-    echo "       \"${osname}\" : \"${osname}\""
-done
+#echo "  - lookup:"
+#echo "      name: 'OperatingSystemNames'"
+#echo "      map:"
+#cat "OperatingSystemNames.csv" | grep . | fgrep -v '#' | while read line ; \
+#do
+#    osname=$(   echo ${line} | cut -d'|' -f1)
+#    devclass=$( echo ${line} | cut -d'|' -f2)
+#    devname=$(  echo ${line} | cut -d'|' -f3)
+#    echo "       \"${osname}\" : \"${osname}\""
+#done
 
-cat "OperatingSystemNames.csv" | grep . | fgrep -v '#' | while read osname ; \
+#echo "  - lookup:"
+#echo "      name: 'DeviceClassess'"
+#echo "      map:"
+#cat "OperatingSystemNames.csv" | grep . | fgrep -v '#' | while read line ; \
+#do
+#    osname=$(   echo ${line} | cut -d'|' -f1)
+#    devclass=$( echo ${line} | cut -d'|' -f2)
+#    devname=$(  echo ${line} | cut -d'|' -f3)
+#    echo "       \"${osname}\" : \"${devclass}\""
+#done
+
+#echo "  - lookup:"
+#echo "      name: 'DeviceNames'"
+#echo "      map:"
+#cat "OperatingSystemNames.csv" | grep . | fgrep -v '#' | while read line ; \
+#do
+#    osname=$(   echo ${line} | cut -d'|' -f1)
+#    devclass=$( echo ${line} | cut -d'|' -f2)
+#    devname=$(  echo ${line} | cut -d'|' -f3)
+#    echo "       \"${osname}\" : \"${devname}\""
+#done
+
+cat "OperatingSystemNames.csv" | grep . | fgrep -v '#' | while read line ; \
 do
+    osname=$(   echo ${line} | cut -d'|' -f1)
+    devclass=$( echo ${line} | cut -d'|' -f2)
+    devname=$(  echo ${line} | cut -d'|' -f3)
 echo "
   - matcher:
       require:
         - 'agent.(1)product.(1)comments.entry.text=\"${osname}\"'
       extract:
-        - 'OperatingSystemClass  :   100:\"Desktop\"'
-        - 'OperatingSystemName   :   100:\"${osname}\"'
-        - 'OperatingSystemVersion:   100:\"??\"'
+        - 'DeviceClass           :   10:\"${devclass}\"'
+        - 'DeviceName            :   10:\"${devname}\"'
+        - 'OperatingSystemClass  :   50:\"Desktop\"'
+        - 'OperatingSystemName   :   50:\"${osname}\"'
+        - 'OperatingSystemVersion:   50:\"??\"'
 
   - matcher:
       extract:
-        - 'OperatingSystemClass  :   100:\"Desktop\"'
-        - 'OperatingSystemName   :   100:\"${osname}\"'
-        - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.version'
+        - 'DeviceClass           :   10:\"${devclass}\"'
+        - 'DeviceName            :   10:\"${devname}\"'
+        - 'OperatingSystemClass  :   50:\"Desktop\"'
+        - 'OperatingSystemName   :   50:\"${osname}\"'
+        - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.version'
 
   - matcher:
       extract:
-        - 'OperatingSystemClass  :   100:\"Desktop\"'
-        - 'OperatingSystemName   :   100:\"${osname}\"'
-        - 'OperatingSystemVersion:   100:agent.product.name=\"${osname}\"^.version'
+        - 'DeviceClass           :   10:\"${devclass}\"'
+        - 'DeviceName            :   10:\"${devname}\"'
+        - 'OperatingSystemClass  :   50:\"Desktop\"'
+        - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text=\"${osname}\"'
+        - 'OperatingSystemVersion:   50:\"??\"'
+
+  - matcher:
+      extract:
+        - 'DeviceClass           :   10:\"${devclass}\"'
+        - 'DeviceName            :   10:\"${devname}\"'
+        - 'OperatingSystemClass  :   50:\"Desktop\"'
+        - 'OperatingSystemName   :   50:\"${osname}\"'
+        - 'OperatingSystemVersion:   50:agent.product.name=\"${osname}\"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.product.name#1=\"${osname}\"'
+      extract:
+        - 'DeviceClass           :   10:\"${devclass}\"'
+        - 'DeviceName            :   10:\"${devname}\"'
+        - 'OperatingSystemClass  :   50:\"Desktop\"'
+        - 'OperatingSystemName   :   50:\"${osname}\"'
+        - 'OperatingSystemVersion:   50:\"??\"'
+
+  - matcher:
+      require:
+        - 'agent.product.name#2=\"${osname}\"'
+      extract:
+        - 'DeviceClass           :   10:\"${devclass}\"'
+        - 'DeviceName            :   10:\"${devname}\"'
+        - 'OperatingSystemClass  :   50:\"Desktop\"'
+        - 'OperatingSystemName   :   50:\"${osname}\"'
+        - 'OperatingSystemVersion:   50:\"??\"'
+
 "
 done
 

