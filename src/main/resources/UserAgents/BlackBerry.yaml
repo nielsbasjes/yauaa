@@ -21,7 +21,7 @@ config:
       require:
         - 'agent.(1)product.(1)comments.entry.text="BB10"'
       extract:
-        - 'DeviceClass            : 100:"Mobile"'
+        - 'DeviceClass            : 100:"Phone"'
         - 'DeviceBrand            : 100:"BlackBerry"'
         - 'DeviceName             : 100:"BlackBerry 10"'
         - 'OperatingSystemClass   : 100:"Mobile"'
@@ -34,7 +34,7 @@ config:
         - 'agent.(1)product.(1)comments.(1)entry.text="PlayBook"'
         - 'agent.(1)product.(1)comments.entry.product.(1)name="RIM Tablet OS"'
       extract:
-        - 'DeviceClass            :  2013:"Mobile"'
+        - 'DeviceClass            :  2013:"Tablet"'
         - 'DeviceBrand            :  2013:"BlackBerry"'
         - 'DeviceName             :  2013:"BlackBerry PlayBook"'
         - 'OperatingSystemClass   :  2013:"Mobile"'
@@ -43,7 +43,7 @@ config:
 
   - matcher:
       extract:
-        - 'DeviceClass            :  2013:"Mobile"'
+        - 'DeviceClass            :  2013:"Phone"' # Best guess
         - 'DeviceBrand            :  2013:"BlackBerry"'
         - 'DeviceName             :  2013:agent.(1)product.(1)comments.(3)entry.(1)product.(1)name="BlackBerry"^'
         - 'OperatingSystemClass   :  2013:"Mobile"'
@@ -55,7 +55,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (BB10; Kbd) AppleWebKit/537.35+ (KHTML, like Gecko) Version/10.3.1.2243 Mobile Safari/537.35+'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceBrand                        : 'BlackBerry'
         DeviceName                         : 'BlackBerry 10'
         OperatingSystemClass               : 'Mobile'
@@ -73,7 +73,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (BB10; Touch) AppleWebKit/537.35+ (KHTML, like Gecko) Version/10.3.1.2243 Mobile Safari/537.35+'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceBrand                        : 'BlackBerry'
         DeviceName                         : 'BlackBerry 10'
         OperatingSystemClass               : 'Mobile'
@@ -90,7 +90,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (PlayBook; U; RIM Tablet OS 2.1.0; en-US) AppleWebKit/536.2+ (KHTML, like Gecko) Version/7.2.1.0 Safari/536.2+'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Tablet'
         DeviceBrand                        : 'BlackBerry'
         DeviceName                         : 'BlackBerry PlayBook'
         OperatingSystemClass               : 'Mobile'
@@ -109,7 +109,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (BB10; Touch) AppleWebKit/537.35+ (KHTML, like Gecko) Version/10.2.1.3442 Mobile Safari/537.35+'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceBrand                        : 'BlackBerry'
         DeviceName                         : 'BlackBerry 10'
         OperatingSystemClass               : 'Mobile'
@@ -126,7 +126,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (BlackBerry; U; BlackBerry 9900; nl) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.1.0.714 Mobile Safari/534.11+'
       expected:
-        DeviceClass                        : 'Mobile'
+        DeviceClass                        : 'Phone'
         DeviceBrand                        : 'BlackBerry'
         DeviceName                         : 'BlackBerry 9900'
         OperatingSystemClass               : 'Mobile'
