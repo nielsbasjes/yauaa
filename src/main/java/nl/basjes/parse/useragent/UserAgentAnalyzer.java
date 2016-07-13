@@ -660,7 +660,7 @@ config:
         for (int i = filenameHeaderLength; i < maxFilenameLength; i++) {
             sb.append(' ');
         }
-        sb.append("|vv --> S=Syntax Error, A=Abiguity during parse");
+        sb.append("|vv --> S=Syntax Error, A=Ambiguity during parse");
 
         LOG.info(sb.toString());
         LOG.info("+-------------------------------------------------------------------------------------------");
