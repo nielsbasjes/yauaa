@@ -99,11 +99,14 @@ VERSION
     : (~[0-9\+\;\{\}\(\)\/\ \t\:\=\[\]\"])*[0-9]+(~[\+\;\{\}\(\)\/\ \t\:\=\[\]\"])*
     ;
 
+fragment WORDLetter
+    : (~[0-9\+\;\{\}\(\)\/\ \t\:\=\[\]\"\-,])  // Normal letters
+    | '\\x'[0-9a-f][0-9a-f]                    // Hex encoded letters \xab\x12
+    ;
 WORD
-    : (
-         (~[0-9\+\;\{\}\(\)\/\ \t\:\=\[\]\"\-,])  // Normal letters
-        |'\\x'[0-9a-f][0-9a-f]             // Hex encoded letters \xab\x12
-      )+
+    : WORDLetter+ MINUS*
+    | WORDLetter+ (MINUS+ WORDLetter+ )+ MINUS*
+    | SPACE MINUS SPACE
     ;
 
 // Base64 Encoded strings: Note we do NOT recognize the variant where the '-' is used because that conflicts with the uuid
@@ -116,7 +119,7 @@ fragment B64LastChunk3: B64Letter '='       '='       '=';
 fragment B64LastChunk: B64LastChunk0 | B64LastChunk1 | B64LastChunk2 | B64LastChunk3;
 
 // We want to avoid matching agains normal names and uuids so a BASE64 needs to be pretty long
-BASE64: B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk* B64LastChunk;
+BASE64: B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk* B64LastChunk;
 
 // =========================================================================================
 // Parser
@@ -340,6 +343,7 @@ emptyWord
 multipleWords
     : (MINUS* WORD)+ MINUS*
     | GIBBERISH
+    | MINUS
     ;
 
 versionWord
