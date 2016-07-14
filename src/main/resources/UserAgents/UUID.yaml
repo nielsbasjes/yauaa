@@ -32,11 +32,15 @@ config:
 
   - matcher:
       extract:
-        - 'AgentUuid:4:agent.product.uuid'
+        - 'AgentUuid:4:agent.product.name.uuid'
 
   - matcher:
       extract:
-        - 'AgentUuid:5:agent.uuid'
+        - 'AgentUuid:5:agent.product.uuid'
+
+  - matcher:
+      extract:
+        - 'AgentUuid:6:agent.uuid'
 
   - test:
       input:

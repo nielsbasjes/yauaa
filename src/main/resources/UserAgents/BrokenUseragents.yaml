@@ -798,6 +798,164 @@ config:
         AgentNameVersion                 : 'Chrome 30.0.0.0'     # 2014
         AgentNameVersionMajor            : 'Chrome 30'           # 2014
 
+
+# Parse errors due to missing version values
+  - test:
+      input:
+        user_agent_string: 'Lenovo-A750/S102 Linux/2.6.35.7 Android/2.3 Release/12.12.2011 Browser/AppleWebKit533.1 Profile/ Configuration/'
+      expected:
+        DeviceClass                      : 'Mobile'                           # 301
+        DeviceName                       : 'Lenovo-A750'                      # 301
+        DeviceFirmwareVersion            : '12.12.2011'                       # 301
+        DeviceVersion                    : 'S102'                             # 301
+        OperatingSystemClass             : 'Mobile'                           # 501
+        OperatingSystemName              : 'Android'                          # 501
+        OperatingSystemVersion           : '2.3'                              # 501
+        OperatingSystemNameVersion       : 'Android 2.3'                      # 501
+        LayoutEngineClass                : 'Browser'                          # 1
+        LayoutEngineName                 : 'AppleWebKit'                      # 1
+        LayoutEngineVersion              : 'AppleWebKit533.1'                 # 1
+        LayoutEngineVersionMajor         : 'AppleWebKit533'                   # 1
+        LayoutEngineNameVersion          : 'AppleWebKit AppleWebKit533.1'     # 1
+        LayoutEngineNameVersionMajor     : 'AppleWebKit AppleWebKit533'       # 1
+        AgentClass                       : 'Special'                          # 5
+        AgentName                        : 'Lenovo-A750'                      # 5
+        AgentVersion                     : 'S102'                             # 6
+        AgentVersionMajor                : 'S102'                             # 6
+        AgentNameVersion                 : 'Lenovo-A750 S102'                 # 6
+        AgentNameVersionMajor            : 'Lenovo-A750 S102'                 # 6
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_2_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13D15 MOBILE-LEQUIPE/IOS/PHONE/6.9.3/(null)'
+      expected:
+        DeviceClass                      : 'Phone'                    # 100
+        DeviceName                       : 'iPhone'                   # 100
+        OperatingSystemClass             : 'Mobile'                   # 20
+        OperatingSystemName              : 'iOS'                      # 20
+        OperatingSystemVersion           : '9.2.1'                    # 20
+        LayoutEngineClass                : 'Browser'                  # 11
+        LayoutEngineName                 : 'AppleWebKit'              # 11
+        LayoutEngineVersion              : '601.1.46'                 # 11
+        LayoutEngineVersionMajor         : '601'                      # 11
+        AgentClass                       : 'Mobile App'               # 19
+        AgentName                        : 'MOBILE-LEQUIPE'           # 19
+        AgentVersion                     : 'IOS'                      # 19
+        AgentVersionMajor                : 'IOS'                      # 19
+        AgentNameVersion                 : 'MOBILE-LEQUIPE IOS'       # 19
+        AgentNameVersionMajor            : 'MOBILE-LEQUIPE IOS'       # 19
+        DeviceBrand                      : 'Apple'                    # 100
+        DeviceFirmwareVersion            : '13D15'                    # 20
+        DeviceVersion                    : 'iPhone'                   # 100
+        LayoutEngineNameVersion          : 'AppleWebKit 601.1.46'     # 11
+        LayoutEngineNameVersionMajor     : 'AppleWebKit 601'          # 11
+        OperatingSystemNameVersion       : 'iOS 9.2.1'                # 20
+
+  - test:
+      input:
+        user_agent_string: 'Opera/9.80 (Android; Opera Mini/7.28879/27.1662; U; en-us) Presto/2.8.119 Version/11.10 UCBrowser/8.4.1.204/145/33567/'
+      expected:
+        DeviceClass                      : 'Mobile'                      # 2
+        DeviceName                       : 'Android Mobile'              # 3
+        OperatingSystemClass             : 'Mobile'                      # 3
+        OperatingSystemName              : 'Android'                     # 3
+        OperatingSystemVersion           : '??'                          # 3
+        OperatingSystemNameVersion       : 'Android ??'                  # 3
+        LayoutEngineClass                : 'Browser'                     # 2011
+        LayoutEngineName                 : 'Presto'                      # 2011
+        LayoutEngineVersion              : '2.8.119'                     # 2011
+        LayoutEngineVersionMajor         : '2'                           # 2011
+        LayoutEngineNameVersion          : 'Presto 2.8.119'              # 2011
+        LayoutEngineNameVersionMajor     : 'Presto 2'                    # 2011
+        AgentClass                       : 'Browser'                     # 2012
+        AgentName                        : 'Opera Mini'                  # 2012
+        AgentVersion                     : '7.28879'                     # 2012
+        AgentVersionMajor                : '7'                           # 2012
+        AgentLanguage                    : 'English (United States)'     # 5
+        AgentNameVersion                 : 'Opera Mini 7.28879'          # 2012
+        AgentNameVersionMajor            : 'Opera Mini 7'                # 2012
+        AgentSecurity                    : 'Strong security'             # 50
+
+
+# Parse error due to value that looks like a BASE64
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12A405 rabbit%2F1.0 baiduboxapp/0_0.1.1.7_enohpi_4331_057/2.0.8_2C2%257enohPi/1099a/75301144EBD727E95FF2FCCE44CE285869CC516F1ORDGCCTNPA/1'
+      expected:
+        DeviceClass                      : 'Phone'                                                  # 100
+        DeviceName                       : 'iPhone'                                                 # 100
+        DeviceBrand                      : 'Apple'                                                  # 100
+        DeviceFirmwareVersion            : '12A405'                                                 # 20
+        DeviceVersion                    : 'iPhone'                                                 # 100
+        OperatingSystemClass             : 'Mobile'                                                 # 20
+        OperatingSystemName              : 'iOS'                                                    # 20
+        OperatingSystemVersion           : '8.0.2'                                                  # 20
+        OperatingSystemNameVersion       : 'iOS 8.0.2'                                              # 20
+        LayoutEngineClass                : 'Browser'                                                # 11
+        LayoutEngineName                 : 'AppleWebKit'                                            # 11
+        LayoutEngineVersion              : '600.1.4'                                                # 11
+        LayoutEngineVersionMajor         : '600'                                                    # 11
+        LayoutEngineNameVersion          : 'AppleWebKit 600.1.4'                                    # 11
+        LayoutEngineNameVersionMajor     : 'AppleWebKit 600'                                        # 11
+        AgentClass                       : 'Mobile App'                                             # 19
+        AgentName                        : 'rabbit%2F1.0 baiduboxapp'                               # 19
+        AgentVersion                     : '0_0.1.1.7_enohpi_4331_057'                              # 19
+        AgentVersionMajor                : '0'                                                      # 19
+        AgentNameVersion                 : 'rabbit%2F1.0 baiduboxapp 0_0.1.1.7_enohpi_4331_057'     # 19
+        AgentNameVersionMajor            : 'rabbit%2F1.0 baiduboxapp 0'                             # 19
+
+# Parse error about the " 480X854 motorola DROIDX" at the end
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.2.1; en-us; DROIDX Build/VZW) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1 480X854 motorola DROIDX'
+      expected:
+        DeviceClass                      : 'Phone'                       # 1000
+        DeviceName                       : 'DROIDX'                      # 75
+        OperatingSystemClass             : 'Mobile'                      # 1000
+        OperatingSystemName              : 'Android'                     # 500
+        OperatingSystemVersion           : '2.2.1'                       # 500
+        OperatingSystemNameVersion       : 'Android 2.2.1'               # 500
+        OperatingSystemVersionBuild      : 'VZW'                         # 79
+        LayoutEngineClass                : 'Browser'                     # 11
+        LayoutEngineName                 : 'AppleWebKit'                 # 11
+        LayoutEngineVersion              : '533.1'                       # 11
+        LayoutEngineVersionMajor         : '533'                         # 11
+        LayoutEngineNameVersion          : 'AppleWebKit 533.1'           # 11
+        LayoutEngineNameVersionMajor     : 'AppleWebKit 533'             # 11
+        AgentClass                       : 'Browser'                     # 25
+        AgentName                        : 'Mobile Safari'               # 25
+        AgentVersion                     : '4.0'                         # 25
+        AgentVersionMajor                : '4'                           # 25
+        AgentLanguage                    : 'English (United States)'     # 5
+        AgentNameVersion                 : 'Mobile Safari 4.0'           # 25
+        AgentNameVersionMajor            : 'Mobile Safari 4'             # 25
+        AgentSecurity                    : 'Strong security'             # 50
+
+# Lots of ; and not comment block
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0; iPhone; CPU iPhone OS 8_1_2 like Mac OS X; AppleWebKit/600.1.4; KHTML, like Gecko; Version/8.0 Mobile/12B440 Safari/600.1.4'
+      expected:
+        DeviceClass                      : 'Phone'                   # 101
+        DeviceName                       : 'iPhone'                  # 101
+        DeviceBrand                      : 'Apple'                   # 101
+        DeviceVersion                    : 'iPhone'                  # 101
+        OperatingSystemClass             : 'Unknown'                 # FIXME: iPhone OS at root level
+        OperatingSystemName              : 'Unknown'                 # FIXME: iPhone OS at root level
+        OperatingSystemVersion           : 'Unknown'                 # FIXME: iPhone OS at root level
+        LayoutEngineClass                : 'Browser'                 # 11
+        LayoutEngineName                 : 'AppleWebKit'             # 11
+        LayoutEngineVersion              : '600.1.4'                 # 11
+        LayoutEngineVersionMajor         : '600'                     # 11
+        LayoutEngineNameVersion          : 'AppleWebKit 600.1.4'     # 11
+        LayoutEngineNameVersionMajor     : 'AppleWebKit 600'         # 11
+        AgentClass                       : 'Browser'                 # 25
+        AgentName                        : 'Safari'                  # 25
+        AgentVersion                     : '8.0'                     # 25
+        AgentVersionMajor                : '8'                       # 25
+        AgentNameVersion                 : 'Safari 8.0'              # 25
+        AgentNameVersionMajor            : 'Safari 8'                # 25
+
 # TODO: Json wrapped useragent
 #  - test:
 #       input:

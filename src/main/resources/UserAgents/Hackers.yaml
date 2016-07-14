@@ -389,6 +389,35 @@ config:
         HackerToolkit                      : 'Unknown'     # 1
         OperatingSystemNameVersion         : 'Hacker'      # 1
 
+
+# If there is ONLY a product name and nothing else then this is either manipulated or a Hacker.
+  - matcher:
+      require:
+        - 'IsNull[agent.(1)product.(1)version]'
+        - 'IsNull[agent.(1)product.(1)comments]'
+        - 'IsNull[agent.(2)product]'
+      extract:
+        - 'DeviceClass                        : 10:"Hacker"'
+        - 'DeviceName                         : 10:"Hacker"'
+        - 'DeviceBrand                        : 10:"Hacker"'
+        - 'DeviceVersion                      : 10:"Hacker"'
+        - 'OperatingSystemClass               : 10:"Hacker"'
+        - 'OperatingSystemName                : 10:"Hacker"'
+        - 'OperatingSystemVersion             : 10:"Hacker"'
+        - 'OperatingSystemNameVersion         : 10:"Hacker"'
+        - 'LayoutEngineClass                  : 10:"Hacker"'
+        - 'LayoutEngineName                   : 10:"Hacker"'
+        - 'LayoutEngineVersion                : 10:"Hacker"'
+        - 'LayoutEngineVersionMajor           : 10:"Hacker"'
+        - 'AgentClass                         : 10:"Hacker"'
+        - 'AgentName                          : 10:"Hacker"'
+        - 'AgentVersion                       : 10:"Hacker"'
+        - 'AgentVersionMajor                  : 10:"Hacker"'
+        - 'HackerAttackVector                 : 10:"Unknown"'
+        - 'HackerToolkit                      : 10:"Unknown"'
+        - 'AgentNameVersion                   : 10:"Hacker"'
+        - 'AgentNameVersionMajor              : 10:"Hacker"'
+
   - test:
       input:
         user_agent_string: "true <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF' || curl -X POST"

@@ -35,6 +35,10 @@ config:
       extract:
         - 'AgentInformationUrl  :  4:agent.([1-10])url'
 
+  - matcher:
+      extract:
+        - 'AgentInformationUrl  :  5:agent.([1-5])product.(1)name.(1)url'
+
 
 
 
@@ -53,6 +57,10 @@ config:
   - matcher:
       extract:
         - 'AgentInformationEmail:  4:agent.([1-10])email'
+
+  - matcher:
+      extract:
+        - 'AgentInformationEmail:  5:agent.([1-5])product.(1)name.(1)email'
 
   - test:
       input:

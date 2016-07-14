@@ -617,10 +617,10 @@ public class TestUserAgentFlattening {
             ,"agent.(1)product.(1)comments.(1)entry.(1)keyvalue=\"Some-Thing=true\""
             ,"agent.(1)product.(1)comments.(1)entry.(1)keyvalue.(1)key=\"Some-Thing\""
             ,"agent.(1)product.(1)comments.(1)entry.(1)keyvalue.(2)text=\"true\""
-            ,"agent.(2)keyvalue=\"Some-Thing=true\""
-            ,"agent.(2)keyvalue.(1)key=\"Some-Thing\""
-            ,"agent.(2)keyvalue.(2)text=\"true\""
-
+            ,"agent.(2)product=\"Some-Thing=true\""
+            ,"agent.(2)product.(1)name=\"Some-Thing=true\""
+            ,"agent.(2)product.(1)name.(1)key=\"Some-Thing\""
+            ,"agent.(2)product.(1)name.(2)text=\"true\""
         );
 
     }
@@ -850,11 +850,8 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value=\"11.0\""
                 ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value#1=\"11.0\""
                 ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value%1=\"11.0\""
-                ,"agent.(2)text=\"like Gecko\""
-                ,"agent.(2)text#1=\"like\""
-                ,"agent.(2)text%1=\"like\""
-                ,"agent.(2)text#2=\"like Gecko\""
-                ,"agent.(2)text%2=\"Gecko\""
+                ,"agent.(2)product=\"like Gecko\""
+                ,"agent.(2)product.(1)name=\"like Gecko\""
         );
 
         validateUserAgent(
@@ -1021,6 +1018,7 @@ public class TestUserAgentFlattening {
                 ,"agent.(3)product.(1)name%1=\"Firefox\""
                 ,"agent.(3)product.(1)version=\"3.0.19\""
         );
+
         validateUserAgent(
                 "Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; nl-nl) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10"
                 ,"agent=\"Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; nl-nl) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10\""
@@ -1102,14 +1100,11 @@ public class TestUserAgentFlattening {
                 ,"agent.(5)product.(1)name#1=\"Safari\""
                 ,"agent.(5)product.(1)name%1=\"Safari\""
                 ,"agent.(5)product.(1)version=\"531.21.102011-10-16\""
-                ,"agent.(6)keyvalue=\"20:23:10\""
-                ,"agent.(6)keyvalue.(1)key=\"20\""
-                ,"agent.(6)keyvalue.(2)value=\"23\""
-                ,"agent.(6)keyvalue.(2)value#1=\"23\""
-                ,"agent.(6)keyvalue.(2)value%1=\"23\""
-                ,"agent.(6)keyvalue.(3)value=\"10\""
-                ,"agent.(6)keyvalue.(3)value#1=\"10\""
-                ,"agent.(6)keyvalue.(3)value%1=\"10\""
+                ,"agent.(6)product=\"20:23:10\""
+                ,"agent.(6)product.(1)name=\"20:23:10\""
+                ,"agent.(6)product.(1)name.(1)key=\"20\""
+                ,"agent.(6)product.(1)name.(1)version=\"23\""
+                ,"agent.(6)product.(1)name.(2)version=\"10\""
         );
         validateUserAgent(
                 "Airmail 1.3.3 rv:237 (Macintosh; Mac OS X 10.9.3; nl_NL)"
@@ -1594,11 +1589,12 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments.(10)entry.(1)keyvalue=\"email:aap@noot.nl\""
                 ,"agent.(1)product.(1)comments.(10)entry.(1)keyvalue.(1)key=\"email\""
                 ,"agent.(1)product.(1)comments.(10)entry.(1)keyvalue.(2)email=\"aap@noot.nl\""
-                ,"agent.(2)text=\"like Gecko\""
-                ,"agent.(2)text#1=\"like\""
-                ,"agent.(2)text%1=\"like\""
-                ,"agent.(2)text#2=\"like Gecko\""
-                ,"agent.(2)text%2=\"Gecko\""
+                ,"agent.(2)product=\"like Gecko\""
+                ,"agent.(2)product.(1)name=\"like Gecko\""
+                ,"agent.(2)product.(1)name#1=\"like\""
+                ,"agent.(2)product.(1)name%1=\"like\""
+                ,"agent.(2)product.(1)name#2=\"like Gecko\""
+                ,"agent.(2)product.(1)name%2=\"Gecko\""
         );
 
         // This is the pattern we encountered for the first time with the PirateBrowser
@@ -1760,11 +1756,10 @@ public class TestUserAgentFlattening {
                 ,"agent.(4)product.(1)name#1=\"Safari\""
                 ,"agent.(4)product.(1)name%1=\"Safari\""
                 ,"agent.(4)product.(1)version=\"535.20\""
-                ,"agent.(5)keyvalue=\"rr:1511\""
-                ,"agent.(5)keyvalue.(1)key=\"rr\""
-                ,"agent.(5)keyvalue.(2)value=\"1511\""
-                ,"agent.(5)keyvalue.(2)value#1=\"1511\""
-                ,"agent.(5)keyvalue.(2)value%1=\"1511\""
+                ,"agent.(5)product=\"rr:1511\""
+                ,"agent.(5)product.(1)name=\"rr:1511\""
+                ,"agent.(5)product.(1)name.(1)key=\"rr\""
+                ,"agent.(5)product.(1)name.(1)version=\"1511\""
         );
 
 //        // Although VERY strange we do see this in real life

@@ -128,7 +128,7 @@ userAgent
     : (SEMICOLON|COMMA|MINUS|'\''|'"'|'\\'|';'|'='|BRACEOPEN|BLOCKOPEN)*                // Leading garbage
       (('user-agent'|'User-Agent'|'UserAgent') (COLON|COMMA|EQUALS|'\\t')*)?            // Leading garbage
       ( (SEMICOLON|COMMA|MINUS)? ( product | emailAddress | siteUrl | rootTextPart SEMICOLON) )*
-      ( (SEMICOLON|COMMA|MINUS)? rootTextPart ( (SEMICOLON|COMMA|MINUS) rootTextPart )* ) ?                      // Capture trailing text like "like Gecko"
+      ( (SEMICOLON|COMMA|MINUS)? rootTextPart )*                        // Capture trailing text like "like Gecko"
         (SEMICOLON|COMMA|MINUS|PLUS|'\''|'"'|'\\'|';'|'='|BRACECLOSE|BLOCKCLOSE)*       // Trailing garbage
     ;
 
@@ -145,30 +145,34 @@ And then there are messy edge cases like "foo 1.0 rv:23 (bar)"
 product
     : productName   (                           productVersion )+
                     (  COLON? SLASH+ EQUALS?    (productVersion|productVersionSingleWord) )*
-                    (  (SEMICOLON|MINUS)?       commentBlock
+                    (  SLASH? (SEMICOLON|MINUS)? commentBlock
                        ( SLASH+  EQUALS?        (productVersion|productVersionSingleWord) )* )*
+                    (SLASH EOF)?
 
-    | productName   (  (SEMICOLON|MINUS)?       commentBlock
+    | productName   (  SLASH? (SEMICOLON|MINUS)?       commentBlock
                        ( SLASH+  EQUALS?        (productVersion|productVersionSingleWord) )* )+
+                    (SLASH EOF)?
 
     | productName   (  COLON? SLASH productVersionWords
                         ( SLASH* productVersion )*
-                        (SEMICOLON|MINUS)?      commentBlock ?    )+
+                        SLASH? (SEMICOLON|MINUS)?      commentBlock ?    )+
+                    (SLASH EOF)?
 
     | productName   (  COLON? SLASH+ EQUALS?    (productVersion|productVersionSingleWord) )+
-                    (  (SEMICOLON|MINUS)?       commentBlock
+                    (  SLASH? (SEMICOLON|MINUS)?       commentBlock
                        ( SLASH+  EQUALS?        (productVersion|productVersionSingleWord) )* )*
+                    (SLASH EOF)?
 
-    | productName   SLASH EOF
+    | productName   (SLASH EOF)?
     ;
 
 commentProduct
     : productName   (                       productVersion )+
                     (   SLASH+  EQUALS?     (productVersion|productVersionSingleWord) )*
-                    (   MINUS?              commentBlock
+                    (   SLASH?  MINUS?      commentBlock
                         ( SLASH+  EQUALS?   (productVersion|productVersionSingleWord) )* )*
 
-    | productName   (   MINUS?              commentBlock
+    | productName   (   SLASH? MINUS?       commentBlock
                         ( SLASH+  EQUALS?   (productVersion|productVersionSingleWord) )* )+
 
     | productName   (   COLON? SLASH productVersionWords

@@ -218,9 +218,6 @@ config:
 
   - matcher:
       extract:
-#       - 'DeviceClass           :  20:LookUp[AppleDeviceType;agent.(1)product.(1)comments.(1)entry.text]'
-#       - 'DeviceBrand           :  20:"Apple"'
-#       - 'DeviceName            :  20:agent.(1)product.(1)comments.(1)entry.text'
        - 'OperatingSystemClass  :  20:"Mobile"'
        - 'OperatingSystemName   :  20:"iOS"'
        - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.(1)product.(1)name="iOS"^.version]'
