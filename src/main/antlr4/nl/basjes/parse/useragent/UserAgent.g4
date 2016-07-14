@@ -199,6 +199,7 @@ productName
 
 productNameBare
     : WORD ((MINUS|COMMA)* WORD)*
+    | (WORD ((MINUS|COMMA)* WORD)*)? CURLYBRACEOPEN WORD ((MINUS|COMMA)* WORD)* CURLYBRACECLOSE (WORD ((MINUS|COMMA)* WORD)*)?
     ;
 
 productVersion
@@ -212,6 +213,7 @@ productVersion
 
 productVersionSingleWord
     : WORD
+    | CURLYBRACEOPEN WORD CURLYBRACECLOSE
     ;
 
 simpleVersion

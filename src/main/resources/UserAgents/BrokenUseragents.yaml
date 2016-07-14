@@ -956,6 +956,33 @@ config:
         AgentNameVersion                 : 'Safari 8.0'              # 25
         AgentNameVersionMajor            : 'Safari 8'                # 25
 
+# Parse errors due to the "{...}" parts
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 6.1; ar; rv:1.9.1) Gecko/20090624 AskTb{TB_NAME}/{TB_VERSION} Firefox/3.5'
+      expected:
+        DeviceClass                      : 'Desktop'             # 100
+        DeviceName                       : 'Desktop'             # 100
+        OperatingSystemClass             : 'Desktop'             # 100
+        OperatingSystemName              : 'Windows NT'          # 100
+        OperatingSystemVersion           : 'Windows 7'           # 100
+        OperatingSystemNameVersion       : 'Windows 7'           # 100
+        LayoutEngineClass                : 'Browser'             # 2000
+        LayoutEngineName                 : 'Gecko'               # 2000
+        LayoutEngineVersion              : '1.9.1'               # 2000
+        LayoutEngineVersionMajor         : '1'                   # 2000
+        LayoutEngineBuild                : '20090624'            # 2000
+        LayoutEngineNameVersion          : 'Gecko 1.9.1'         # 2000
+        LayoutEngineNameVersionMajor     : 'Gecko 1'             # 2000
+        AgentClass                       : 'Browser'             # 2001
+        AgentName                        : 'Firefox'             # 2001
+        AgentVersion                     : '3.5'                 # 2001
+        AgentVersionMajor                : '3'                   # 2001
+        AgentLanguage                    : 'Arabic'              # 5
+        AgentNameVersion                 : 'Firefox 3.5'         # 2001
+        AgentNameVersionMajor            : 'Firefox 3'           # 2001
+        AgentSecurity                    : 'Strong security'     # 50
+
 # TODO: Json wrapped useragent
 #  - test:
 #       input:
