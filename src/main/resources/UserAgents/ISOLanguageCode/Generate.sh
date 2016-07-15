@@ -24,21 +24,32 @@ echo "config:"
 
 echo "  - matcher:"
 echo "      extract:"
-echo "        - 'AgentLanguage :  5:LookUp[ISOLanguageCodes;agent.(1)product.(1)comments.entry.([1-2])text]'"
+echo "        - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.(1)product.(1)comments.entry.([1-2])text]'"
+echo "        - 'AgentLanguage :  5:LookUp[ISOLanguageCodesName;agent.(1)product.(1)comments.entry.([1-2])text]'"
 echo ""
 
 echo "  - matcher:"
 echo "      extract:"
-echo "        - 'AgentLanguage :  5:LookUp[ISOLanguageCodes;agent.([2-4])product.(1)comments.([1-5])entry.([1-2])text]'"
+echo "        - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.([2-4])product.(1)comments.([1-5])entry.([1-2])text]'"
+echo "        - 'AgentLanguage :  5:LookUp[ISOLanguageCodesName;agent.([2-4])product.(1)comments.([1-5])entry.([1-2])text]'"
 echo ""
 
 echo "  - matcher:"
 echo "      extract:"
-echo "        - 'AgentLanguage :  5:LookUp[ISOLanguageCodes;agent.([1-2])product.(2)comments.([1-5])entry.([1-2])text]'"
+echo "        - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.([1-2])product.(2)comments.([1-5])entry.([1-2])text]'"
+echo "        - 'AgentLanguage :  5:LookUp[ISOLanguageCodesName;agent.([1-2])product.(2)comments.([1-5])entry.([1-2])text]'"
 echo ""
 
 echo "  - lookup:"
 echo "      name: 'ISOLanguageCodes'"
+echo "      map:"
+cat "ISOLanguageCodes.csv" | while read line ; \
+do
+    echo "          \"$(echo ${line} | cut -d' ' -f1)\" : \"$(echo ${line} | cut -d' ' -f1)\""
+done
+
+echo "  - lookup:"
+echo "      name: 'ISOLanguageCodesName'"
 echo "      map:"
 cat "ISOLanguageCodes.csv" | while read line ; \
 do
