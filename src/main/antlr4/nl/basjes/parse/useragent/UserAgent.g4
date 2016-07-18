@@ -208,7 +208,7 @@ productVersion
     | siteUrl
     | uuId
     | base64
-    | simpleVersion
+    | singleVersion
     ;
 
 productVersionSingleWord
@@ -216,7 +216,7 @@ productVersionSingleWord
     | CURLYBRACEOPEN WORD CURLYBRACECLOSE
     ;
 
-simpleVersion
+singleVersion
     : VERSION
     ;
 

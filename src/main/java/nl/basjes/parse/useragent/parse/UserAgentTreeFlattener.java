@@ -29,7 +29,7 @@ import nl.basjes.parse.useragent.UserAgentParser.CommentProductContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductVersionWordsContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductNameBareContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductVersionContext;
-import nl.basjes.parse.useragent.UserAgentParser.SimpleVersionContext;
+import nl.basjes.parse.useragent.UserAgentParser.SingleVersionContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductNameVersionContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductNameEmailContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductNameUrlContext;
@@ -304,7 +304,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     @Override
     public void enterProductVersion(ProductVersionContext ctx) {
         if (ctx.getChildCount() != 1 ||
-            !(ctx.getChild(0) instanceof SimpleVersionContext)) {
+            !(ctx.getChild(0) instanceof SingleVersionContext)) {
             inform(ctx, "version");
         }
     }
@@ -315,7 +315,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     @Override
-    public void enterSimpleVersion(SimpleVersionContext ctx) {
+    public void enterSingleVersion(SingleVersionContext ctx) {
         informSubVersions(ctx, "version");
     }
 
