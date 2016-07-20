@@ -19,6 +19,7 @@
 
 package nl.basjes.parse.useragent;
 
+import nl.basjes.parse.useragent.UserAgentAnalyzer.GetAllPathsAnalyzer;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -273,14 +274,14 @@ public class TestUserAgentFlattening {
     @Test
     public void testFlatteningComment() throws Exception {
         // Comment variations
-        validateUserAgent("One/1 (;Key=Value;; Key=Two Value;OneWord;Two words; Numb3rWord ; TwoNumb3r W0rds ; em@il.nl ; http://web.site ; Sub product/2(Sub Comment;))"
-                ,"agent=\"One/1 (;Key=Value;; Key=Two Value;OneWord;Two words; Numb3rWord ; TwoNumb3r W0rds ; em@il.nl ; http://web.site ; Sub product/2(Sub Comment;))\""
-                ,"agent.(1)product=\"One/1 (;Key=Value;; Key=Two Value;OneWord;Two words; Numb3rWord ; TwoNumb3r W0rds ; em@il.nl ; http://web.site ; Sub product/2(Sub Comment;))\""
+        validateUserAgent("One/1 (;Key=Value;; Key=Two Value;OneWord;Two words; Numb3rWord ; TwoNumb3r W0rds ; em@il.nl ; http://web.site ; Sub product/2(Sub Comment,))"
+                ,"agent=\"One/1 (;Key=Value;; Key=Two Value;OneWord;Two words; Numb3rWord ; TwoNumb3r W0rds ; em@il.nl ; http://web.site ; Sub product/2(Sub Comment,))\""
+                ,"agent.(1)product=\"One/1 (;Key=Value;; Key=Two Value;OneWord;Two words; Numb3rWord ; TwoNumb3r W0rds ; em@il.nl ; http://web.site ; Sub product/2(Sub Comment,))\""
                 ,"agent.(1)product.(1)name=\"One\""
                 ,"agent.(1)product.(1)name#1=\"One\""
                 ,"agent.(1)product.(1)name%1=\"One\""
                 ,"agent.(1)product.(1)version=\"1\""
-                ,"agent.(1)product.(1)comments=\"(;Key=Value;; Key=Two Value;OneWord;Two words; Numb3rWord ; TwoNumb3r W0rds ; em@il.nl ; http://web.site ; Sub product/2(Sub Comment;))\""
+                ,"agent.(1)product.(1)comments=\"(;Key=Value;; Key=Two Value;OneWord;Two words; Numb3rWord ; TwoNumb3r W0rds ; em@il.nl ; http://web.site ; Sub product/2(Sub Comment,))\""
                 ,"agent.(1)product.(1)comments.(1)entry=\"\""
                 ,"agent.(1)product.(1)comments.(1)entry.(1)text=\"\""
                 ,"agent.(1)product.(1)comments.(2)entry=\"Key=Value\""
@@ -323,15 +324,15 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments.(9)entry.(1)email=\"em@il.nl\""
                 ,"agent.(1)product.(1)comments.(10)entry=\"http://web.site\""
                 ,"agent.(1)product.(1)comments.(10)entry.(1)url=\"http://web.site\""
-                ,"agent.(1)product.(1)comments.(11)entry=\"Sub product/2(Sub Comment;)\""
-                ,"agent.(1)product.(1)comments.(11)entry.(1)product=\"Sub product/2(Sub Comment;)\""
+                ,"agent.(1)product.(1)comments.(11)entry=\"Sub product/2(Sub Comment,)\""
+                ,"agent.(1)product.(1)comments.(11)entry.(1)product=\"Sub product/2(Sub Comment,)\""
                 ,"agent.(1)product.(1)comments.(11)entry.(1)product.(1)name=\"Sub product\""
                 ,"agent.(1)product.(1)comments.(11)entry.(1)product.(1)name#1=\"Sub\""
                 ,"agent.(1)product.(1)comments.(11)entry.(1)product.(1)name%1=\"Sub\""
                 ,"agent.(1)product.(1)comments.(11)entry.(1)product.(1)name#2=\"Sub product\""
                 ,"agent.(1)product.(1)comments.(11)entry.(1)product.(1)name%2=\"product\""
                 ,"agent.(1)product.(1)comments.(11)entry.(1)product.(1)version=\"2\""
-                ,"agent.(1)product.(1)comments.(11)entry.(1)product.(1)comments=\"(Sub Comment;)\""
+                ,"agent.(1)product.(1)comments.(11)entry.(1)product.(1)comments=\"(Sub Comment,)\""
                 ,"agent.(1)product.(1)comments.(11)entry.(1)product.(1)comments.(1)entry=\"Sub Comment\""
                 ,"agent.(1)product.(1)comments.(11)entry.(1)product.(1)comments.(1)entry.(1)text=\"Sub Comment\""
                 ,"agent.(1)product.(1)comments.(11)entry.(1)product.(1)comments.(1)entry.(1)text#1=\"Sub\""
@@ -548,9 +549,9 @@ public class TestUserAgentFlattening {
 
 
         validateUserAgent(
-                "One two 1.2.3 rv:4.5.6 (One; Two Two 1.2.3/4 (sub one 1.0 ; sub two)/5; Three Three)/1.2"
+                "One two 1.2.3 rv:4.5.6 (One; Two Two 1.2.3/4 (sub one 1.0 , sub two)/5; Three Three)/1.2"
 
-                ,"agent.(1)product=\"One two 1.2.3 rv:4.5.6 (One; Two Two 1.2.3/4 (sub one 1.0 ; sub two)/5; Three Three)/1.2\""
+                ,"agent.(1)product=\"One two 1.2.3 rv:4.5.6 (One; Two Two 1.2.3/4 (sub one 1.0 , sub two)/5; Three Three)/1.2\""
                 ,"agent.(1)product.(1)name=\"One two\""
                 ,"agent.(1)product.(1)name#1=\"One\""
                 ,"agent.(1)product.(1)name%1=\"One\""
@@ -566,16 +567,22 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(2)version=\"rv:4.5.6\""
                 ,"agent.(1)product.(2)version.(1)keyvalue=\"rv:4.5.6\""
                 ,"agent.(1)product.(2)version.(1)keyvalue.(1)key=\"rv\""
+                ,"agent.(1)product.(2)version.(1)keyvalue=\"rv:4.5.6\""
+                ,"agent.(1)product.(2)version.(1)keyvalue.(1)key=\"rv\""
                 ,"agent.(1)product.(2)version.(1)keyvalue.(2)value=\"4.5.6\""
-                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value#1=\"4.5.6\""
-                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value%1=\"4.5.6\""
-                ,"agent.(1)product.(1)comments=\"(One; Two Two 1.2.3/4 (sub one 1.0 ; sub two)/5; Three Three)\""
+                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value#1=\"4\""
+                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value%1=\"4\""
+                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value#2=\"4.5\""
+                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value%2=\"5\""
+                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value#3=\"4.5.6\""
+                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value%3=\"6\""
+                ,"agent.(1)product.(1)comments=\"(One; Two Two 1.2.3/4 (sub one 1.0 , sub two)/5; Three Three)\""
                 ,"agent.(1)product.(1)comments.(1)entry=\"One\""
                 ,"agent.(1)product.(1)comments.(1)entry.(1)text=\"One\""
                 ,"agent.(1)product.(1)comments.(1)entry.(1)text#1=\"One\""
                 ,"agent.(1)product.(1)comments.(1)entry.(1)text%1=\"One\""
-                ,"agent.(1)product.(1)comments.(2)entry=\"Two Two 1.2.3/4 (sub one 1.0 ; sub two)/5\""
-                ,"agent.(1)product.(1)comments.(2)entry.(1)product=\"Two Two 1.2.3/4 (sub one 1.0 ; sub two)/5\""
+                ,"agent.(1)product.(1)comments.(2)entry=\"Two Two 1.2.3/4 (sub one 1.0 , sub two)/5\""
+                ,"agent.(1)product.(1)comments.(2)entry.(1)product=\"Two Two 1.2.3/4 (sub one 1.0 , sub two)/5\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name=\"Two Two\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name#1=\"Two\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name%1=\"Two\""
@@ -583,7 +590,7 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name%2=\"Two\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)version=\"1.2.3\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(2)version=\"4\""
-                ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments=\"(sub one 1.0 ; sub two)\""
+                ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments=\"(sub one 1.0 , sub two)\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(1)entry=\"sub one 1.0\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(1)entry.(1)product=\"sub one 1.0\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(1)entry.(1)product.(1)name=\"sub one\""
@@ -617,10 +624,11 @@ public class TestUserAgentFlattening {
             ,"agent.(1)product.(1)comments.(1)entry.(1)keyvalue=\"Some-Thing=true\""
             ,"agent.(1)product.(1)comments.(1)entry.(1)keyvalue.(1)key=\"Some-Thing\""
             ,"agent.(1)product.(1)comments.(1)entry.(1)keyvalue.(2)text=\"true\""
-            ,"agent.(2)product=\"Some-Thing=true\""
-            ,"agent.(2)product.(1)name=\"Some-Thing=true\""
-            ,"agent.(2)product.(1)name.(1)key=\"Some-Thing\""
-            ,"agent.(2)product.(1)name.(2)text=\"true\""
+            ,"agent.(2)keyvalue=\"Some-Thing=true\""
+            ,"agent.(2)keyvalue.(1)key=\"Some-Thing\""
+            ,"agent.(2)keyvalue.(2)text=\"true\""
+            ,"agent.(2)keyvalue.(2)text#1=\"true\""
+            ,"agent.(2)keyvalue.(2)text%1=\"true\""
         );
 
     }
@@ -769,8 +777,10 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments.(7)entry.(1)product.(1)version=\"1.1.4322\""
                 ,"agent.(1)product.(1)comments.(8)entry=\"InfoPath.1\""
                 ,"agent.(1)product.(1)comments.(8)entry.(1)text=\"InfoPath.1\""
-                ,"agent.(1)product.(1)comments.(8)entry.(1)text#1=\"InfoPath.1\""
-                ,"agent.(1)product.(1)comments.(8)entry.(1)text%1=\"InfoPath.1\""
+                ,"agent.(1)product.(1)comments.(8)entry.(1)text#1=\"InfoPath\""
+                ,"agent.(1)product.(1)comments.(8)entry.(1)text%1=\"InfoPath\""
+                ,"agent.(1)product.(1)comments.(8)entry.(1)text#2=\"InfoPath.1\""
+                ,"agent.(1)product.(1)comments.(8)entry.(1)text%2=\"1\""
                 ,"agent.(1)product.(1)comments.(9)entry=\"IEMB3\""
                 ,"agent.(1)product.(1)comments.(9)entry.(1)text=\"IEMB3\""
                 ,"agent.(1)product.(1)comments.(9)entry.(1)text#1=\"IEMB3\""
@@ -848,10 +858,11 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue=\"rv:11.0\""
                 ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(1)key=\"rv\""
                 ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value=\"11.0\""
-                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value#1=\"11.0\""
-                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value%1=\"11.0\""
-                ,"agent.(2)product=\"like Gecko\""
-                ,"agent.(2)product.(1)name=\"like Gecko\""
+                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value#1=\"11\""
+                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value%1=\"11\""
+                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value#2=\"11.0\""
+                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value%2=\"0\""
+                ,"agent.(2)text=\"like Gecko\""
         );
 
         validateUserAgent(
@@ -866,8 +877,10 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(2)version.(1)keyvalue=\"rv:1.30\""
                 ,"agent.(1)product.(2)version.(1)keyvalue.(1)key=\"rv\""
                 ,"agent.(1)product.(2)version.(1)keyvalue.(2)value=\"1.30\""
-                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value#1=\"1.30\""
-                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value%1=\"1.30\""
+                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value#1=\"1\""
+                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value%1=\"1\""
+                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value#2=\"1.30\""
+                ,"agent.(1)product.(2)version.(1)keyvalue.(2)value%2=\"30\""
                 ,"agent.(1)product.(1)comments=\"(iPhone; iPhone OS 7.1.1; nl_NL)\""
                 ,"agent.(1)product.(1)comments.(1)entry=\"iPhone\""
                 ,"agent.(1)product.(1)comments.(1)entry.(1)text=\"iPhone\""
@@ -981,8 +994,14 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue=\"rv:1.9.0.19\""
                 ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(1)key=\"rv\""
                 ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value=\"1.9.0.19\""
-                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value#1=\"1.9.0.19\""
-                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value%1=\"1.9.0.19\""
+                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value#1=\"1\""
+                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value%1=\"1\""
+                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value#2=\"1.9\""
+                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value%2=\"9\""
+                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value#3=\"1.9.0\""
+                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value%3=\"0\""
+                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value#4=\"1.9.0.19\""
+                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value%4=\"19\""
 
                 ,"agent.(1)product.(1)comments.(6)entry=\"aggregator:Spinn3r (Spinn3r 3.1)\""
                 ,"agent.(1)product.(1)comments.(6)entry.(1)product=\"aggregator:Spinn3r (Spinn3r 3.1)\""
@@ -1100,11 +1119,10 @@ public class TestUserAgentFlattening {
                 ,"agent.(5)product.(1)name#1=\"Safari\""
                 ,"agent.(5)product.(1)name%1=\"Safari\""
                 ,"agent.(5)product.(1)version=\"531.21.102011-10-16\""
-                ,"agent.(6)product=\"20:23:10\""
-                ,"agent.(6)product.(1)name=\"20:23:10\""
-                ,"agent.(6)product.(1)name.(1)key=\"20\""
-                ,"agent.(6)product.(1)name.(1)version=\"23\""
-                ,"agent.(6)product.(1)name.(2)version=\"10\""
+                ,"agent.(6)keyvalue=\"20:23:10\""
+                ,"agent.(6)keyvalue.(1)key=\"20\""
+                ,"agent.(6)keyvalue.(2)value=\"23\""
+                ,"agent.(6)keyvalue.(3)value=\"10\""
         );
         validateUserAgent(
                 "Airmail 1.3.3 rv:237 (Macintosh; Mac OS X 10.9.3; nl_NL)"
@@ -1303,8 +1321,10 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments.(2)entry=\"Nokia501.2/11.1.3/java_runtime_version=Nokia_Asha_1_1_1\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product=\"Nokia501.2/11.1.3/java_runtime_version=Nokia_Asha_1_1_1\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name=\"Nokia501.2\""
-                ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name#1=\"Nokia501.2\""
-                ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name%1=\"Nokia501.2\""
+                ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name#1=\"Nokia501\""
+                ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name%1=\"Nokia501\""
+                ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name#2=\"Nokia501.2\""
+                ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name%2=\"2\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)version=\"11.1.3\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(2)version=\"java_runtime_version=Nokia_Asha_1_1_1\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(2)version.(1)keyvalue=\"java_runtime_version=Nokia_Asha_1_1_1\""
@@ -1376,8 +1396,10 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)base64=\"J6HBo2OOPD50bdr79CgSjLigxKUK+idfrxaKO1+FNCY=\""
                 ,"agent.(1)product.(1)comments.(6)entry=\"GTB7.4\""
                 ,"agent.(1)product.(1)comments.(6)entry.(1)text=\"GTB7.4\""
-                ,"agent.(1)product.(1)comments.(6)entry.(1)text#1=\"GTB7.4\""
-                ,"agent.(1)product.(1)comments.(6)entry.(1)text%1=\"GTB7.4\""
+                ,"agent.(1)product.(1)comments.(6)entry.(1)text#1=\"GTB7\""
+                ,"agent.(1)product.(1)comments.(6)entry.(1)text%1=\"GTB7\""
+                ,"agent.(1)product.(1)comments.(6)entry.(1)text#2=\"GTB7.4\""
+                ,"agent.(1)product.(1)comments.(6)entry.(1)text%2=\"4\""
                 ,"agent.(1)product.(1)comments.(7)entry=\".NET CLR 2.0.50727\""
                 ,"agent.(1)product.(1)comments.(7)entry.(1)product=\".NET CLR 2.0.50727\""
                 ,"agent.(1)product.(1)comments.(7)entry.(1)product.(1)name=\".NET CLR\""
@@ -1404,12 +1426,8 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments.(9)entry.(1)product.(1)version=\"3.5.30729\""
                 ,"agent.(1)product.(1)comments.(10)entry=\".NET4.0C\""
                 ,"agent.(1)product.(1)comments.(10)entry.(1)text=\".NET4.0C\""
-                ,"agent.(1)product.(1)comments.(10)entry.(1)text#1=\".NET4.0C\""
-                ,"agent.(1)product.(1)comments.(10)entry.(1)text%1=\".NET4.0C\""
                 ,"agent.(1)product.(1)comments.(11)entry=\".NET4.0E\""
                 ,"agent.(1)product.(1)comments.(11)entry.(1)text=\".NET4.0E\""
-                ,"agent.(1)product.(1)comments.(11)entry.(1)text#1=\".NET4.0E\""
-                ,"agent.(1)product.(1)comments.(11)entry.(1)text%1=\".NET4.0E\""
         );
 
         validateUserAgent(
@@ -1448,7 +1466,7 @@ public class TestUserAgentFlattening {
         );
         validateUserAgent(
                 " --user-agent=Mozilla/5.0 (Linux; U; Android 4.0.3; en-gb; ARCHOS 80G9 Build/Deode@4.0.7) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30"
-                ,"agent=\"--user-agent=Mozilla/5.0 (Linux; U; Android 4.0.3; en-gb; ARCHOS 80G9 Build/Deode@4.0.7) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30\""
+                ,"agent=\"Mozilla/5.0 (Linux; U; Android 4.0.3; en-gb; ARCHOS 80G9 Build/Deode@4.0.7) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30\""
                 ,"agent.(1)product=\"Mozilla/5.0 (Linux; U; Android 4.0.3; en-gb; ARCHOS 80G9 Build/Deode@4.0.7)\""
                 ,"agent.(1)product.(1)name=\"Mozilla\""
                 ,"agent.(1)product.(1)name#1=\"Mozilla\""
@@ -1563,13 +1581,9 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue=\"rv:11.0\""
                 ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(1)key=\"rv\""
                 ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value=\"11.0\""
-                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value#1=\"11.0\""
-                ,"agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)value%1=\"11.0\""
                 ,"agent.(1)product.(1)comments.(6)entry=\"Nokia501.2/11.1.3/java_runtime_version=Nokia_Asha_1_1_1\""
                 ,"agent.(1)product.(1)comments.(6)entry.(1)product=\"Nokia501.2/11.1.3/java_runtime_version=Nokia_Asha_1_1_1\""
                 ,"agent.(1)product.(1)comments.(6)entry.(1)product.(1)name=\"Nokia501.2\""
-                ,"agent.(1)product.(1)comments.(6)entry.(1)product.(1)name#1=\"Nokia501.2\""
-                ,"agent.(1)product.(1)comments.(6)entry.(1)product.(1)name%1=\"Nokia501.2\""
                 ,"agent.(1)product.(1)comments.(6)entry.(1)product.(1)version=\"11.1.3\""
                 ,"agent.(1)product.(1)comments.(6)entry.(1)product.(2)version=\"java_runtime_version=Nokia_Asha_1_1_1\""
                 ,"agent.(1)product.(1)comments.(6)entry.(1)product.(2)version.(1)keyvalue=\"java_runtime_version=Nokia_Asha_1_1_1\""
@@ -1589,12 +1603,7 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments.(10)entry.(1)keyvalue=\"email:aap@noot.nl\""
                 ,"agent.(1)product.(1)comments.(10)entry.(1)keyvalue.(1)key=\"email\""
                 ,"agent.(1)product.(1)comments.(10)entry.(1)keyvalue.(2)email=\"aap@noot.nl\""
-                ,"agent.(2)product=\"like Gecko\""
-                ,"agent.(2)product.(1)name=\"like Gecko\""
-                ,"agent.(2)product.(1)name#1=\"like\""
-                ,"agent.(2)product.(1)name%1=\"like\""
-                ,"agent.(2)product.(1)name#2=\"like Gecko\""
-                ,"agent.(2)product.(1)name%2=\"Gecko\""
+                ,"agent.(2)text=\"like Gecko\""
         );
 
         // This is the pattern we encountered for the first time with the PirateBrowser
@@ -1603,10 +1612,12 @@ public class TestUserAgentFlattening {
                 ,"agent=\"PB0.6b Mozilla/5.0 (foo)\""
                 ,"agent.(1)product=\"PB0.6b Mozilla/5.0 (foo)\""
                 ,"agent.(1)product.(1)name=\"PB0.6b Mozilla\""
-                ,"agent.(1)product.(1)name#1=\"PB0.6b\""
-                ,"agent.(1)product.(1)name%1=\"PB0.6b\""
-                ,"agent.(1)product.(1)name#2=\"PB0.6b Mozilla\""
-                ,"agent.(1)product.(1)name%2=\"Mozilla\""
+                ,"agent.(1)product.(1)name#1=\"PB0\""
+                ,"agent.(1)product.(1)name%1=\"PB0\""
+                ,"agent.(1)product.(1)name#2=\"PB0.6b\""
+                ,"agent.(1)product.(1)name%2=\"6b\""
+                ,"agent.(1)product.(1)name#3=\"PB0.6b Mozilla\""
+                ,"agent.(1)product.(1)name%3=\"Mozilla\""
                 ,"agent.(1)product.(1)version=\"5.0\""
                 ,"agent.(1)product.(1)comments=\"(foo)\""
                 ,"agent.(1)product.(1)comments.(1)entry=\"foo\""
@@ -1756,10 +1767,11 @@ public class TestUserAgentFlattening {
                 ,"agent.(4)product.(1)name#1=\"Safari\""
                 ,"agent.(4)product.(1)name%1=\"Safari\""
                 ,"agent.(4)product.(1)version=\"535.20\""
-                ,"agent.(5)product=\"rr:1511\""
-                ,"agent.(5)product.(1)name=\"rr:1511\""
-                ,"agent.(5)product.(1)name.(1)key=\"rr\""
-                ,"agent.(5)product.(1)name.(1)version=\"1511\""
+                ,"agent.(5)keyvalue=\"rr:1511\""
+                ,"agent.(5)keyvalue.(1)key=\"rr\""
+                ,"agent.(5)keyvalue.(2)value=\"1511\""
+                ,"agent.(5)keyvalue.(2)value#1=\"1511\""
+                ,"agent.(5)keyvalue.(2)value%1=\"1511\""
         );
 
 //        // Although VERY strange we do see this in real life
@@ -1821,31 +1833,12 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments=\"(000000000; 00000 000 00 0 000000)\""
                 ,"agent.(1)product.(1)comments.(1)entry=\"000000000\""
                 ,"agent.(1)product.(1)comments.(1)entry.(1)text=\"000000000\""
-                ,"agent.(1)product.(1)comments.(1)entry.(1)text#1=\"000000000\""
-                ,"agent.(1)product.(1)comments.(1)entry.(1)text%1=\"000000000\""
                 ,"agent.(1)product.(1)comments.(2)entry=\"00000 000 00 0 000000\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product=\"00000 000 00 0 000000\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name=\"00000\""
-                ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name#1=\"00000\""
-                ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)name%1=\"00000\""
                 ,"agent.(1)product.(1)comments.(2)entry.(1)product.(1)version=\"000\""
-                ,"agent.(1)product.(1)comments.(2)entry.(1)product.(2)version=\"00\""
-                ,"agent.(1)product.(1)comments.(2)entry.(1)product.(3)version=\"0\""
-                ,"agent.(1)product.(1)comments.(2)entry.(1)product.(4)version=\"000000\""
-                // AFter this point the results are nonsense because of parsing errors.
-//                ,"agent.(2)product=\"\""
-//                ,"agent.(3)product=\"DDDDDDDDDDDDDDDDDDDD\""
-//                ,"agent.(4)product=\"\""
-//                ,"agent.(5)product=\"DDDDDDD\""
-//                ,"agent.(6)product=\"\""
-//                ,"agent.(7)product=\"DDDD\""
-//                ,"agent.(8)product=\"\""
-//                ,"agent.(9)product=\"DDDDDD\""
-//                ,"agent.(10)product=\"\""
-//                ,"agent.(11)product=\"DDDDDDDDDDDDD\""
-//                ,"agent.(12)product=\"\""
-//                ,"agent.(13)product=\"DDDDDDDDDDDDDDDD\""
-        );
+                ,"agent.(2)text=\"DDDDDDDDDDDDDDDDDDDD DDDDDDD DDDD DDDDDD DDDDDDDDDDDDD DDDDDDDDDDDDDDDD\""
+       );
 
         validateUserAgent(
                 "Mozilla/5.0 (iPad; CPU OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12D508 [FBAN/FBIOS;FBAV/27.0.0.10.12;FBBV/8291884;FBDV/iPad4,1;FBMD/iPad;FBSN/iP;FBSV/8.2;FBSS/2; FBCR/;FBID/tablet;FBLC/nl_NL;FBOP/1]"
@@ -1883,22 +1876,8 @@ public class TestUserAgentFlattening {
                 ,"agent.(2)product.(1)name%1=\"AppleWebKit\""
                 ,"agent.(2)product.(1)version=\"600.1.4\""
                 ,"agent.(2)product.(1)comments=\"(KHTML, like Gecko)\""
-                ,"agent.(2)product.(1)comments.(1)entry=\"KHTML\""
-                ,"agent.(2)product.(1)comments.(1)entry#1=\"KHTML\""
-                ,"agent.(2)product.(1)comments.(1)entry%1=\"KHTML\""
                 ,"agent.(2)product.(1)comments.(1)entry.(1)text=\"KHTML\""
-                ,"agent.(2)product.(1)comments.(1)entry.(1)text#1=\"KHTML\""
-                ,"agent.(2)product.(1)comments.(1)entry.(1)text%1=\"KHTML\""
-                ,"agent.(2)product.(1)comments.(2)entry=\"like Gecko\""
-                ,"agent.(2)product.(1)comments.(2)entry#1=\"like\""
-                ,"agent.(2)product.(1)comments.(2)entry%1=\"like\""
-                ,"agent.(2)product.(1)comments.(2)entry#2=\"like Gecko\""
-                ,"agent.(2)product.(1)comments.(2)entry%2=\"Gecko\""
                 ,"agent.(2)product.(1)comments.(2)entry.(1)text=\"like Gecko\""
-                ,"agent.(2)product.(1)comments.(2)entry.(1)text#1=\"like\""
-                ,"agent.(2)product.(1)comments.(2)entry.(1)text%1=\"like\""
-                ,"agent.(2)product.(1)comments.(2)entry.(1)text#2=\"like Gecko\""
-                ,"agent.(2)product.(1)comments.(2)entry.(1)text%2=\"Gecko\""
                 ,"agent.(3)product=\"Mobile/12D508 [FBAN/FBIOS;FBAV/27.0.0.10.12;FBBV/8291884;FBDV/iPad4,1;FBMD/iPad;FBSN/iP;FBSV/8.2;FBSS/2; FBCR/;FBID/tablet;FBLC/nl_NL;FBOP/1]\""
                 ,"agent.(3)product.(1)name=\"Mobile\""
                 ,"agent.(3)product.(1)name#1=\"Mobile\""
@@ -1984,7 +1963,7 @@ public class TestUserAgentFlattening {
     public void testFlatteningExtremeTestCase() throws Exception {
 
         validateUserAgent(
-                "0n3 Niels Basjes/1/2(+http://niels.basjes.nl/index.html?foo=1&bar=2#marker (http://github.com) ; foo ; bar@baz.com ; Mozilla Mozilla/4.0((Windows NT;etc.)) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH)info@example.com (Yadda)"
+                "0n3 Niels Basjes/1/2(+http://niels.basjes.nl/index.html?foo=1&bar=2#marker (http://github.com) ; foo ; bar@baz.com ; Mozilla Mozilla/4.0((Windows NT,etc.)) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH)info@example.com (Yadda)"
                 ,"agent.(1)product.(1)name=\"0n3 Niels Basjes\""
                 ,"agent.(1)product.(1)name#1=\"0n3\""
                 ,"agent.(1)product.(1)name%1=\"0n3\""
@@ -1994,7 +1973,7 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)name%3=\"Basjes\""
                 ,"agent.(1)product.(1)version=\"1\""
                 ,"agent.(1)product.(2)version=\"2\""
-                ,"agent.(1)product.(1)comments=\"(+http://niels.basjes.nl/index.html?foo=1&bar=2#marker (http://github.com) ; foo ; bar@baz.com ; Mozilla Mozilla/4.0((Windows NT;etc.)) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH)\""
+                ,"agent.(1)product.(1)comments=\"(+http://niels.basjes.nl/index.html?foo=1&bar=2#marker (http://github.com) ; foo ; bar@baz.com ; Mozilla Mozilla/4.0((Windows NT,etc.)) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH)\""
                 ,"agent.(1)product.(1)comments.(1)entry=\"http://niels.basjes.nl/index.html?foo=1&bar=2#marker (http://github.com)\""
                 ,"agent.(1)product.(1)comments.(1)entry.(1)product=\"http://niels.basjes.nl/index.html?foo=1&bar=2#marker (http://github.com)\""
                 ,"agent.(1)product.(1)comments.(1)entry.(1)product.(1)name=\"http://niels.basjes.nl/index.html?foo=1&bar=2#marker\""
@@ -2008,32 +1987,33 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)comments.(2)entry.(1)text%1=\"foo\""
                 ,"agent.(1)product.(1)comments.(3)entry=\"bar@baz.com\""
                 ,"agent.(1)product.(1)comments.(3)entry.(1)email=\"bar@baz.com\""
-                ,"agent.(1)product.(1)comments.(4)entry=\"Mozilla Mozilla/4.0((Windows NT;etc.)) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH\""
+                ,"agent.(1)product.(1)comments.(4)entry=\"Mozilla Mozilla/4.0((Windows NT,etc.)) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH\""
                 ,"agent.(1)product.(1)comments.(4)entry#1=\"Mozilla\""
                 ,"agent.(1)product.(1)comments.(4)entry%1=\"Mozilla\""
                 ,"agent.(1)product.(1)comments.(4)entry#2=\"Mozilla Mozilla\""
                 ,"agent.(1)product.(1)comments.(4)entry%2=\"Mozilla\""
-                ,"agent.(1)product.(1)comments.(4)entry#3=\"Mozilla Mozilla/4.0\""
-                ,"agent.(1)product.(1)comments.(4)entry%3=\"4.0\""
+                ,"agent.(1)product.(1)comments.(4)entry#3=\"Mozilla Mozilla/4\""
+                ,"agent.(1)product.(1)comments.(4)entry%3=\"4\""
+                ,"agent.(1)product.(1)comments.(4)entry#4=\"Mozilla Mozilla/4.0\""
+                ,"agent.(1)product.(1)comments.(4)entry%4=\"0\""
                 ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)name=\"Mozilla Mozilla\""
                 ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)name#1=\"Mozilla\""
                 ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)name%1=\"Mozilla\""
                 ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)name#2=\"Mozilla Mozilla\""
                 ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)name%2=\"Mozilla\""
                 ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)version=\"4.0\""
-                ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments=\"((Windows NT;etc.))\""
-                ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry=\"(Windows NT;etc.)\""
-                ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments=\"(Windows NT;etc.)\""
+                ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments=\"((Windows NT,etc.))\""
+                ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry=\"(Windows NT,etc.)\""
+                ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments=\"(Windows NT,etc.)\""
                 ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments.(1)entry=\"Windows NT\""
                 ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments.(1)entry.(1)text=\"Windows NT\""
                 ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments.(1)entry.(1)text#1=\"Windows\""
                 ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments.(1)entry.(1)text%1=\"Windows\""
                 ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments.(1)entry.(1)text#2=\"Windows NT\""
                 ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments.(1)entry.(1)text%2=\"NT\""
-                ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments.(2)entry=\"etc.\""
                 ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments.(2)entry.(1)text=\"etc.\""
-                ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments.(2)entry.(1)text#1=\"etc.\""
-                ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments.(2)entry.(1)text%1=\"etc.\""
+                ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments.(2)entry.(1)text#1=\"etc\""
+                ,"agent.(1)product.(1)comments.(4)entry.(1)product.(1)comments.(1)entry.(1)comments.(2)entry.(1)text%1=\"etc\""
                 ,"agent.(2)product=\"info@example.com (Yadda)\""
                 ,"agent.(2)product.(1)name=\"info@example.com\""
                 ,"agent.(2)product.(1)name.(1)email=\"info@example.com\""
@@ -2062,15 +2042,25 @@ public class TestUserAgentFlattening {
         sb.append("| ").append(useragent).append('\n');
         sb.append("|-------------------------------------- \n");
 
-        List<String> paths = UserAgentAnalyzer.getAllPaths(useragent);
+        GetAllPathsAnalyzer analyzer = UserAgentAnalyzer.getAllPathsAnalyzer(useragent);
+        UserAgent parsedUseragent = analyzer.getResult();
+
+        if (parsedUseragent.hasAmbiguity()) {
+            sb.append("| Ambiguity \n");
+        }
+        if (parsedUseragent.hasSyntaxError()) {
+            sb.append("| Syntax Error \n");
+        }
+
+        List<String> paths = analyzer.getValues();
 
         boolean ok = true;
         for (String value : requiredValues) {
-            if (!paths.contains(value)) {
-                sb.append("| -- Missing: ").append(value).append('\n');
-                ok = false;
+            if (paths.contains(value)) {
+                sb.append("|             : ").append(value).append('\n');
             } else {
-                sb.append("| ++ Present: ").append(value).append('\n');
+                sb.append("| Missing --> : ").append(value).append('\n');
+                ok = false;
             }
         }
 

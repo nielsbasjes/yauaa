@@ -96,7 +96,7 @@ config:
       extract:
         - 'AgentClass     :3000:"Browser"'
         - 'AgentName      :3000:"PirateBrowser"'
-        - 'AgentVersion   :3000:agent.(1)product.(1)name#1'
+        - 'AgentVersion   :3000:agent.(1)product.(1)name#2'
 
   - test:
       input:
@@ -931,30 +931,30 @@ config:
         AgentNameVersionMajor            : 'Mobile Safari 4'             # 25
         AgentSecurity                    : 'Strong security'             # 50
 
-# Lots of ; and not comment block
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0; iPhone; CPU iPhone OS 8_1_2 like Mac OS X; AppleWebKit/600.1.4; KHTML, like Gecko; Version/8.0 Mobile/12B440 Safari/600.1.4'
-      expected:
-        DeviceClass                      : 'Phone'                   # 101
-        DeviceName                       : 'iPhone'                  # 101
-        DeviceBrand                      : 'Apple'                   # 101
-        DeviceVersion                    : 'iPhone'                  # 101
-        OperatingSystemClass             : 'Unknown'                 # FIXME: iPhone OS at root level
-        OperatingSystemName              : 'Unknown'                 # FIXME: iPhone OS at root level
-        OperatingSystemVersion           : 'Unknown'                 # FIXME: iPhone OS at root level
-        LayoutEngineClass                : 'Browser'                 # 11
-        LayoutEngineName                 : 'AppleWebKit'             # 11
-        LayoutEngineVersion              : '600.1.4'                 # 11
-        LayoutEngineVersionMajor         : '600'                     # 11
-        LayoutEngineNameVersion          : 'AppleWebKit 600.1.4'     # 11
-        LayoutEngineNameVersionMajor     : 'AppleWebKit 600'         # 11
-        AgentClass                       : 'Browser'                 # 25
-        AgentName                        : 'Safari'                  # 25
-        AgentVersion                     : '8.0'                     # 25
-        AgentVersionMajor                : '8'                       # 25
-        AgentNameVersion                 : 'Safari 8.0'              # 25
-        AgentNameVersionMajor            : 'Safari 8'                # 25
+### Lots of ; and not comment block
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0; iPhone; CPU iPhone OS 8_1_2 like Mac OS X; AppleWebKit/600.1.4; KHTML, like Gecko; Version/8.0 Mobile/12B440 Safari/600.1.4'
+#      expected:
+#        DeviceClass                      : 'Phone'                   # 101
+#        DeviceName                       : 'iPhone'                  # 101
+#        DeviceBrand                      : 'Apple'                   # 101
+#        DeviceVersion                    : 'iPhone'                  # 101
+#        OperatingSystemClass             : 'Unknown'                 # FIXME: iPhone OS at root level
+#        OperatingSystemName              : 'Unknown'                 # FIXME: iPhone OS at root level
+#        OperatingSystemVersion           : 'Unknown'                 # FIXME: iPhone OS at root level
+#        LayoutEngineClass                : 'Browser'                 # 11
+#        LayoutEngineName                 : 'AppleWebKit'             # 11
+#        LayoutEngineVersion              : '600.1.4'                 # 11
+#        LayoutEngineVersionMajor         : '600'                     # 11
+#        LayoutEngineNameVersion          : 'AppleWebKit 600.1.4'     # 11
+#        LayoutEngineNameVersionMajor     : 'AppleWebKit 600'         # 11
+#        AgentClass                       : 'Browser'                 # 25
+#        AgentName                        : 'Safari'                  # 25
+#        AgentVersion                     : '8.0'                     # 25
+#        AgentVersionMajor                : '8'                       # 25
+#        AgentNameVersion                 : 'Safari 8.0'              # 25
+#        AgentNameVersionMajor            : 'Safari 8'                # 25
 
 # Parse errors due to the "{...}" parts
   - test:
@@ -983,10 +983,92 @@ config:
         AgentNameVersionMajor            : 'Firefox 3'           # 2001
         AgentSecurity                    : 'Strong security'     # 50
 
-# TODO: Json wrapped useragent
+# With url encoding ...
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0%20%28Linux%3B%20Android%206.0.1%3B%20SM-G920F%20Build/MMB29K%29%20AppleWebKit/537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome/49.0.2623.91%20Mobile%20Safari/537.36 Requester IP: 94.226.145.25'
+      expected:
+        DeviceClass                      : 'Phone'
+        DeviceName                       : 'SM-G920F'
+        OperatingSystemClass             : 'Mobile'
+        OperatingSystemName              : 'Android'
+        OperatingSystemVersion           : '6.0.1'
+        OperatingSystemNameVersion       : 'Android 6.0.1'
+        OperatingSystemVersionBuild      : 'MMB29K'
+        LayoutEngineClass                : 'Browser'
+        LayoutEngineName                 : 'Blink'
+        LayoutEngineVersion              : '49.0'
+        LayoutEngineVersionMajor         : '49'
+        LayoutEngineNameVersion          : 'Blink 49.0'
+        LayoutEngineNameVersionMajor     : 'Blink 49'
+        AgentClass                       : 'Browser'
+        AgentName                        : 'Chrome'
+        AgentVersion                     : '49.0.2623.91'
+        AgentVersionMajor                : '49'
+        AgentNameVersion                 : 'Chrome 49.0.2623.91'
+        AgentNameVersionMajor            : 'Chrome 49'
+
+# Lots of quotes half way the useragent
+  - test:
+      input:
+         user_agent_string: '"""Mozilla/5.0 (Linux; U; Android 4.2.2; en-us; Lenco 7\"""" tablet Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30"""'
+      expected:
+        DeviceClass                      : 'Tablet'
+        DeviceName                       : 'Lenco 7\"""" tablet'
+        OperatingSystemClass             : 'Mobile'
+        OperatingSystemName              : 'Android'
+        OperatingSystemVersion           : '4.2.2'
+        OperatingSystemNameVersion       : 'Android 4.2.2'
+        OperatingSystemVersionBuild      : 'JDQ39'
+        LayoutEngineClass                : 'Browser'
+        LayoutEngineName                 : 'AppleWebKit'
+        LayoutEngineVersion              : '534.30'
+        LayoutEngineVersionMajor         : '534'
+        LayoutEngineNameVersion          : 'AppleWebKit 534.30'
+        LayoutEngineNameVersionMajor     : 'AppleWebKit 534'
+        AgentClass                       : 'Browser'
+        AgentName                        : 'Safari'
+        AgentVersion                     : '4.0'
+        AgentVersionMajor                : '4'
+        AgentLanguage                    : 'English (United States)'
+        AgentLanguageCode                : 'en-us'
+        AgentNameVersion                 : 'Safari 4.0'
+        AgentNameVersionMajor            : 'Safari 4'
+        AgentSecurity                    : 'Strong security'
+
+  - test:
+      input:
+         user_agent_string: '"Mozilla/5.0 (Linux; U; Android 4.2.2; de-de; PocketBook SURFpad 3 (7,85\"") Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30"'
+      expected:
+        DeviceClass                      : 'Tablet'                             # 1000
+        DeviceName                       : 'PocketBook SURFpad 3 (7,85\"")'     # 51
+        OperatingSystemClass             : 'Mobile'                             # 1000
+        OperatingSystemName              : 'Android'                            # 500
+        OperatingSystemVersion           : '4.2.2'                              # 500
+        OperatingSystemNameVersion       : 'Android 4.2.2'                      # 500
+        OperatingSystemVersionBuild      : 'JDQ39'                              # 80
+        LayoutEngineClass                : 'Browser'                            # 11
+        LayoutEngineName                 : 'AppleWebKit'                        # 11
+        LayoutEngineVersion              : '534.30'                             # 11
+        LayoutEngineVersionMajor         : '534'                                # 11
+        LayoutEngineNameVersion          : 'AppleWebKit 534.30'                 # 11
+        LayoutEngineNameVersionMajor     : 'AppleWebKit 534'                    # 11
+        AgentClass                       : 'Browser'                            # 25
+        AgentName                        : 'Safari'                             # 25
+        AgentVersion                     : '4.0'                                # 25
+        AgentVersionMajor                : '4'                                  # 25
+        AgentLanguage                    : 'German (Germany)'                   # 5
+        AgentLanguageCode                : 'de-de'                              # 5
+        AgentNameVersion                 : 'Safari 4.0'                         # 25
+        AgentNameVersionMajor            : 'Safari 4'                           # 25
+        AgentSecurity                    : 'Strong security'                    # 50
+
+
+# TODO (low prio): Json wrapped useragent
 #  - test:
-#       input:
-#         user_agent_string: "{'User-Agent': 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)'}"
+#      input:
+#        user_agent_string: "{'User-Agent': 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)'}"
+
 #  - test:
 #       input:
 #         user_agent_string: "{u'User-Agent': u'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'}"

@@ -23,6 +23,7 @@ import nl.basjes.parse.useragent.UserAgentBaseVisitor;
 import nl.basjes.parse.useragent.UserAgentParser.KeyWithoutValueContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductNameNoVersionContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductVersionSingleWordContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductVersionWithCommasContext;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.NumberRangeList;
 import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
@@ -40,7 +41,7 @@ import static nl.basjes.parse.useragent.UserAgentParser.ProductContext;
 import static nl.basjes.parse.useragent.UserAgentParser.CommentProductContext;
 import static nl.basjes.parse.useragent.UserAgentParser.ProductVersionWordsContext;
 import static nl.basjes.parse.useragent.UserAgentParser.ProductNameContext;
-import static nl.basjes.parse.useragent.UserAgentParser.ProductNameBareContext;
+import static nl.basjes.parse.useragent.UserAgentParser.ProductNameWordsContext;
 import static nl.basjes.parse.useragent.UserAgentParser.ProductVersionContext;
 import static nl.basjes.parse.useragent.UserAgentParser.ProductNameVersionContext;
 import static nl.basjes.parse.useragent.UserAgentParser.ProductNameEmailContext;
@@ -59,7 +60,7 @@ import static nl.basjes.parse.useragent.UserAgentParser.KeyValueVersionNameConte
 import static nl.basjes.parse.useragent.UserAgentParser.KeyNameContext;
 import static nl.basjes.parse.useragent.UserAgentParser.EmptyWordContext;
 import static nl.basjes.parse.useragent.UserAgentParser.MultipleWordsContext;
-import static nl.basjes.parse.useragent.UserAgentParser.VersionWordContext;
+import static nl.basjes.parse.useragent.UserAgentParser.VersionWordsContext;
 import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.NumberRangeContext;
 
 public class StepDown extends Step {
@@ -196,7 +197,6 @@ public class StepDown extends Step {
             }
         }
 
-
         private List<? extends ParserRuleContext> visitGenericProduct(ParserRuleContext ctx) {
             switch (name) {
                 case "name":
@@ -204,10 +204,12 @@ public class StepDown extends Step {
                                                     ProductNameNoVersionContext.class);
                 case "version":
                     return getChildren(ctx, true,   ProductVersionContext.class,
+                                                    ProductVersionWithCommasContext.class,
                                                     ProductVersionWordsContext.class,
                                                     ProductVersionSingleWordContext.class);
                 case "comments":
                     return getChildren(ctx, true,   CommentBlockContext.class);
+                //, NestedCommentBlockContext.class);
                 default:
                     return Collections.emptyList();
             }
@@ -229,7 +231,12 @@ public class StepDown extends Step {
         }
 
         @Override
-        public List<? extends ParserRuleContext> visitProductNameBare(ProductNameBareContext ctx) {
+        public List<? extends ParserRuleContext> visitProductNameNoVersion(ProductNameNoVersionContext ctx) {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public List<? extends ParserRuleContext> visitProductNameWords(ProductNameWordsContext ctx) {
             return Collections.emptyList(); // Cannot walk in here at all
         }
 
@@ -269,7 +276,10 @@ public class StepDown extends Step {
                     }
                     return children;
                 case "comments":
-                    return getChildren(ctx, true, CommentBlockContext.class);
+                    return getChildren(ctx, true, CommentBlockContext.class
+//                        ,
+//                                                  NestedCommentBlockContext.class
+                    );
                 default:
                     return Collections.emptyList();
             }
@@ -292,6 +302,12 @@ public class StepDown extends Step {
 
         @Override
         public List<? extends ParserRuleContext> visitProductVersion(ProductVersionContext ctx) {
+            return visit(ctx);
+        }
+
+
+        @Override
+        public List<? extends ParserRuleContext> visitProductVersionWithCommas(ProductVersionWithCommasContext ctx) {
             return visit(ctx);
         }
 
@@ -373,7 +389,7 @@ public class StepDown extends Step {
                     return getChildren(ctx, EmailAddressContext.class);
                 case "text":
                     return getChildren(ctx, MultipleWordsContext.class,
-                                            VersionWordContext.class,
+                                            VersionWordsContext.class,
                                             EmptyWordContext.class);
                 default:
                     return Collections.emptyList();
@@ -396,7 +412,7 @@ public class StepDown extends Step {
         }
 
         @Override
-        public List<? extends ParserRuleContext> visitVersionWord(VersionWordContext ctx) {
+        public List<? extends ParserRuleContext> visitVersionWords(VersionWordsContext ctx) {
             return Collections.emptyList(); // Cannot walk in here at all
         }
 

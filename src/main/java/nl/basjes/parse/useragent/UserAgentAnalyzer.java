@@ -591,13 +591,19 @@ config:
         List<String> values = new ArrayList<>(128);
         UserAgentTreeFlattener flattener;
 
+        private UserAgent result;
+
         GetAllPathsAnalyzer(String useragent) {
             flattener = new UserAgentTreeFlattener(this);
-            flattener.parse(useragent);
+            result = flattener.parse(useragent);
         }
 
         public List<String> getValues() {
             return values;
+        }
+
+        public UserAgent getResult() {
+            return result;
         }
 
         public void inform(String path, String value, ParseTree ctx) {
@@ -611,6 +617,10 @@ config:
 
     public static List<String> getAllPaths(String agent) {
         return new GetAllPathsAnalyzer(agent).getValues();
+    }
+
+    public static GetAllPathsAnalyzer getAllPathsAnalyzer(String agent) {
+        return new GetAllPathsAnalyzer(agent);
     }
 
     // ===============================================================================================================
@@ -708,12 +718,12 @@ config:
             agent = parse(agent);
 
             sb.append('|');
-            if (agent.hasSyntaxError) {
+            if (agent.hasSyntaxError()) {
                 sb.append('S');
             } else {
                 sb.append(' ');
             }
-            if (agent.hasAmbiguity) {
+            if (agent.hasAmbiguity()) {
                 sb.append('A');
             } else {
                 sb.append(' ');
@@ -803,10 +813,10 @@ config:
                 LOG.error("| TEST FAILED !");
             }
 
-            if (agent.hasAmbiguity) {
+            if (agent.hasAmbiguity()) {
                 LOG.info("| Parsing problem: Ambiguity");
             }
-            if (agent.hasSyntaxError) {
+            if (agent.hasSyntaxError()) {
                 LOG.info("| Parsing problem: Syntax Error");
             }
 
@@ -818,7 +828,7 @@ config:
                 sb.append("#      options:\n");
                 sb.append("#        - 'verbose'\n");
                 sb.append("      require:\n");
-                for (String path : getAllPaths(userAgentString)) {
+                for (String path : getAllPathsAnalyzer(userAgentString).getValues()) {
                     if (path.contains("=\"")) {
                         sb.append("#        - '").append(path).append("'\n");
                     }

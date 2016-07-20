@@ -70,6 +70,15 @@ echo "
         - 'DeviceClass   : 101:\"${deviceClass}\"'
         - 'DeviceName    : 101:\"${deviceName}\"'
         - 'DeviceVersion : 101:\"${deviceVersion}\"'
+
+  - matcher:
+      require:
+        - 'agent.text=\"${key}\"'
+      extract:
+        - 'DeviceBrand   : 101:\"Apple\"'
+        - 'DeviceClass   : 101:\"${deviceClass}\"'
+        - 'DeviceName    : 101:\"${deviceName}\"'
+        - 'DeviceVersion : 101:\"${deviceVersion}\"'
 "
 done
 ) > ../AppleTypes.yaml

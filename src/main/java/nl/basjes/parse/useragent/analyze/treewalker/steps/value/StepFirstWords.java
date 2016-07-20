@@ -19,7 +19,8 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps.value;
 
-import nl.basjes.parse.useragent.UserAgentParser;
+import nl.basjes.parse.useragent.UserAgentParser.SingleVersionContext;
+import nl.basjes.parse.useragent.UserAgentParser.SingleVersionWithCommasContext;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
@@ -38,8 +39,9 @@ public class StepFirstWords extends Step {
     public String walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
         String filteredValue;
-        if (tree.getChildCount() == 1 &&
-            tree.getChild(0) instanceof UserAgentParser.SingleVersionContext) {
+        if (tree.getChildCount() == 1 && (
+              tree.getChild(0) instanceof SingleVersionContext |
+              tree.getChild(0) instanceof SingleVersionWithCommasContext) ) {
             filteredValue = VersionSplitter.getFirstVersions(actualValue, numberOfWords);
         } else {
             filteredValue = WordSplitter.getFirstWords(actualValue, numberOfWords);

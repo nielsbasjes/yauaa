@@ -80,7 +80,7 @@ public abstract class Step {
         }
 
         // Needed because of the way the ANTLR rules have been defined.
-        if (tree instanceof UserAgentParser.ProductNameBareContext      ||
+        if (tree instanceof UserAgentParser.ProductNameWordsContext     ||
             tree instanceof UserAgentParser.ProductNameEmailContext     ||
             tree instanceof UserAgentParser.ProductNameUuidContext      ||
             tree instanceof UserAgentParser.ProductNameKeyValueContext  ||
@@ -93,6 +93,7 @@ public abstract class Step {
 
     protected final boolean treeIsSeparator(ParseTree tree) {
         return tree instanceof CommentSeparatorContext
+//            || tree instanceof NestedCommentSeparatorContext
             || tree instanceof TerminalNode;
     }
 

@@ -73,8 +73,8 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         AGENT_VERSION_MAJOR
     };
 
-    boolean hasSyntaxError;
-    boolean hasAmbiguity;
+    private boolean hasSyntaxError;
+    private boolean hasAmbiguity;
 
     public boolean hasSyntaxError() {
         return hasSyntaxError;

@@ -123,7 +123,7 @@ public final class Main {
                 hitsTotal += hits;
                 ipsTotal  += ips;
 
-                if (agent.hasSyntaxError) {
+                if (agent.hasSyntaxError()) {
                     if (commandlineOptions.yamlFormat) {
                         System.out.println("# Syntax error: " + agentStr);
                     }

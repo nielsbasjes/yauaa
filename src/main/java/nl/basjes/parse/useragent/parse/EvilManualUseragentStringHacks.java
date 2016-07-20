@@ -19,6 +19,9 @@
 
 package nl.basjes.parse.useragent.parse;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 public final class EvilManualUseragentStringHacks {
     private EvilManualUseragentStringHacks() {
     }
@@ -36,19 +39,20 @@ public final class EvilManualUseragentStringHacks {
         }
         String result = useragent;
         // This one is a single useragent that hold significant traffic
-        if (useragent.contains(" (Macintosh); ")){
+        if (result.contains(" (Macintosh); ")){
             result = replaceString(result, " (Macintosh); ", " (Macintosh; ");
         }
 
         // This happens in a broken version of the Facebook app a lot
-        if (useragent.startsWith("(null")){
+        if (result.startsWith("(null")){
             // We simply prefix a fake product name to continue parsing.
             result = "Mozilla/5.0 " + result;
-        }
-        // This happens occasionally
-        if (useragent.startsWith("/")){
-            // We simply prefix a fake product name to continue parsing.
-            result = "Mozilla" + result;
+        } else {
+            // This happens occasionally
+            if (result.startsWith("/")) {
+                // We simply prefix a fake product name to continue parsing.
+                result = "Mozilla" + result;
+            }
         }
 
         // Kick some garbage that sometimes occurs.
@@ -59,6 +63,14 @@ public final class EvilManualUseragentStringHacks {
         // The Weibo useragent This one is a single useragent that hold significant traffic
         if (useragent.contains("__")){
             result = replaceString(result, "__", " ");
+        }
+
+        if (result.contains("%20")) {
+            try {
+                result = URLDecoder.decode(result, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                // Ignore and continue.
+            }
         }
 
         return result; // 99.99% of the cases nothing will have changed.

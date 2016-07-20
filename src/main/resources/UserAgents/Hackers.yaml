@@ -395,6 +395,7 @@ config:
       require:
         - 'IsNull[agent.(1)product.(1)version]'
         - 'IsNull[agent.(1)product.(1)comments]'
+        - 'IsNull[agent.url]'
         - 'IsNull[agent.(2)product]'
       extract:
         - 'DeviceClass                        : 10:"Hacker"'

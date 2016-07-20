@@ -26,6 +26,7 @@ public final class WordSplitter {
     public static boolean isWordSeparator(char c) {
         switch (c) {
             case ' ':
+            case '.':
             case ':':
             case ';':
             case '=':

@@ -23,11 +23,13 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentBaseListener;
 import nl.basjes.parse.useragent.UserAgentLexer;
 import nl.basjes.parse.useragent.UserAgentParser;
+import nl.basjes.parse.useragent.UserAgentParser.ProductVersionWithCommasContext;
+import nl.basjes.parse.useragent.UserAgentParser.SingleVersionWithCommasContext;
 import nl.basjes.parse.useragent.UserAgentParser.UserAgentContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductContext;
 import nl.basjes.parse.useragent.UserAgentParser.CommentProductContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductVersionWordsContext;
-import nl.basjes.parse.useragent.UserAgentParser.ProductNameBareContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameWordsContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductVersionContext;
 import nl.basjes.parse.useragent.UserAgentParser.SingleVersionContext;
 import nl.basjes.parse.useragent.UserAgentParser.ProductNameVersionContext;
@@ -47,7 +49,7 @@ import nl.basjes.parse.useragent.UserAgentParser.KeyValueVersionNameContext;
 import nl.basjes.parse.useragent.UserAgentParser.KeyNameContext;
 import nl.basjes.parse.useragent.UserAgentParser.EmptyWordContext;
 import nl.basjes.parse.useragent.UserAgentParser.MultipleWordsContext;
-import nl.basjes.parse.useragent.UserAgentParser.VersionWordContext;
+import nl.basjes.parse.useragent.UserAgentParser.VersionWordsContext;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
@@ -264,6 +266,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
         inform(ctx, "product");
     }
 
+//    @Override
+//    public void enterNestedCommentProduct(UserAgentParser.NestedCommentProductContext ctx) {
+//        inform(ctx, "product");
+//    }
+
     @Override
     public void enterProductNameNoVersion(UserAgentParser.ProductNameNoVersionContext ctx) {
         inform(ctx, "product");
@@ -282,7 +289,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     @Override
-    public void enterProductNameBare(ProductNameBareContext ctx) {
+    public void enterProductNameWords(ProductNameWordsContext ctx) {
         informSubstrings(ctx, "name");
     }
 
@@ -303,11 +310,30 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
 
     @Override
     public void enterProductVersion(ProductVersionContext ctx) {
-        if (ctx.getChildCount() != 1 ||
-            !(ctx.getChild(0) instanceof SingleVersionContext)) {
-            inform(ctx, "version");
-        }
+        enterProductVersion((ParseTree)ctx);
     }
+
+    @Override
+    public void enterProductVersionWithCommas(ProductVersionWithCommasContext ctx) {
+        enterProductVersion(ctx);
+    }
+
+    public void enterProductVersion(ParseTree ctx) {
+        if (ctx.getChildCount() != 1) {
+            // These are the specials with multiple children like keyvalue, etc.
+            inform(ctx, "version");
+            return;
+        }
+
+        ParseTree child = ctx.getChild(0);
+        // Only for the SingleVersion edition we want to have splits of the version.
+        if (child instanceof SingleVersionContext || child instanceof SingleVersionWithCommasContext) {
+            return;
+        }
+
+        inform(ctx, "version");
+    }
+
 
     @Override
     public void enterProductVersionSingleWord(UserAgentParser.ProductVersionSingleWordContext ctx) {
@@ -316,6 +342,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
 
     @Override
     public void enterSingleVersion(SingleVersionContext ctx) {
+        informSubVersions(ctx, "version");
+    }
+
+    @Override
+    public void enterSingleVersionWithCommas(SingleVersionWithCommasContext ctx) {
         informSubVersions(ctx, "version");
     }
 
@@ -338,6 +369,16 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     public void enterCommentEntry(CommentEntryContext ctx) {
         informSubstrings(ctx, "entry");
     }
+
+//    @Override
+//    public void enterNestedCommentBlock(UserAgentParser.NestedCommentBlockContext ctx) {
+//        inform(ctx, "comments");
+//    }
+//
+//    @Override
+//    public void enterNestedCommentEntry(NestedCommentEntryContext ctx) {
+//        informSubstrings(ctx, "entry");
+//    }
 
     private void informSubstrings(ParserRuleContext ctx, String name) {
         informSubstrings(ctx, name, 10);
@@ -391,12 +432,10 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
         }
     }
 
-
     @Override
     public void enterMultipleWords(MultipleWordsContext ctx) {
         informSubstrings(ctx, "text");
     }
-
 
     @Override
     public void enterKeyValue(KeyValueContext ctx) {
@@ -419,7 +458,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     @Override
-    public void enterVersionWord(VersionWordContext ctx) {
+    public void enterVersionWords(VersionWordsContext ctx) {
         informSubstrings(ctx, "text");
     }
 
