@@ -691,69 +691,6 @@ config:
         AgentName                          : 'Chrome'
         AgentVersion                       : '40.0.2214.89'
 
-
-
-# SamsungBrowser
-  - matcher:
-      extract:
-        - 'DeviceBrand           :   100:"Samsung"' # (Google/AWS/Asure) / Samsung / Apple / ...
-        - 'AgentClass            :   2015:"Browser"' # Hacker / Robot / Browser / ...
-        - 'AgentName             :   2015:"SamsungBrowser"' # ( GoogleBot / Bing / Yahoo / ...) / ( Firefox / Chrome / ... )
-        - 'AgentVersion          :   2015:agent.(3)product.(1)name="SamsungBrowser"^.version' # 4.0 / 43.1.2.3 / ...
-
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-G920F/G920FXXEinterim Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/44.0.2403.133 Mobile Safari/537.36'
-      expected:
-        DeviceClass                      : 'Phone'                                # 1000
-        DeviceName                       : 'SAMSUNG SM-G920F/G920FXXEinterim'     # 78
-        DeviceBrand                      : 'Samsung'                              # 100
-        OperatingSystemClass             : 'Mobile'                               # 1000
-        OperatingSystemName              : 'Android'                              # 500
-        OperatingSystemVersion           : '6.0.1'                                # 500
-        OperatingSystemNameVersion       : 'Android 6.0.1'                        # 500
-        OperatingSystemVersionBuild      : 'MMB29K'                               # 80
-        LayoutEngineClass                : 'Browser'                              # 999
-        LayoutEngineName                 : 'Blink'                                # 999
-        LayoutEngineVersion              : '44.0'                                 # 999
-        LayoutEngineVersionMajor         : '44'                                   # 999
-        LayoutEngineNameVersion          : 'Blink 44.0'                           # 999
-        LayoutEngineNameVersionMajor     : 'Blink 44'                             # 999
-        AgentClass                       : 'Browser'                              # 2015
-        AgentName                        : 'SamsungBrowser'                       # 2015
-        AgentVersion                     : '4.0'                                  # 2015
-        AgentVersionMajor                : '4'                                    # 2015
-        AgentNameVersion                 : 'SamsungBrowser 4.0'                   # 2015
-        AgentNameVersionMajor            : 'SamsungBrowser 4'                     # 2015
-
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-G920F Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/3.0 Chrome/38.0.2125.102 Mobile VR Safari/537.36'
-      expected:
-        DeviceClass                      : 'Mobile'                 # 51
-        DeviceName                       : 'SAMSUNG SM-G920F'       # 77
-        DeviceBrand                      : 'Samsung'                # 100
-        OperatingSystemClass             : 'Mobile'                 # 500
-        OperatingSystemName              : 'Android'                # 500
-        OperatingSystemVersion           : '6.0.1'                  # 500
-        OperatingSystemNameVersion       : 'Android 6.0.1'          # 500
-        OperatingSystemVersionBuild      : 'MMB29K'                 # 80
-        LayoutEngineClass                : 'Browser'                # 999
-        LayoutEngineName                 : 'Blink'                  # 999
-        LayoutEngineVersion              : '38.0'                   # 999
-        LayoutEngineVersionMajor         : '38'                     # 999
-        LayoutEngineNameVersion          : 'Blink 38.0'             # 999
-        LayoutEngineNameVersionMajor     : 'Blink 38'               # 999
-        AgentClass                       : 'Browser'                # 2015
-        AgentName                        : 'SamsungBrowser'         # 2015
-        AgentVersion                     : '3.0'                    # 2015
-        AgentVersionMajor                : '3'                      # 2015
-        AgentNameVersion                 : 'SamsungBrowser 3.0'     # 2015
-        AgentNameVersionMajor            : 'SamsungBrowser 3'       # 2015
-
-
-
-
 # TODO: Android-Mail
 #Android-Mail/6.5.122794288.release
 #Android-Mail/6.5.123664905.release
