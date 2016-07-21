@@ -155,3 +155,36 @@ config:
         AgentLanguage                      : 'English'
         AgentSecurity                      : 'Strong security'
 
+
+  # Chrome on iOS
+  - matcher:
+      extract:
+        - 'AgentClass            :   2014:"Browser"'
+        - 'AgentName             :   2014:"Opera"'
+        - 'AgentVersion          :   2014:agent.product.(1)name="OPiOS"^.version'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 9_3_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) OPiOS/13.0.1.100754 Mobile/13E238 Safari/9537.53'
+      expected:
+        DeviceClass                        : 'Tablet'                   # 100
+        DeviceName                         : 'iPad'                     # 100
+        DeviceBrand                        : 'Apple'                    # 100
+        DeviceFirmwareVersion              : '13E238'                   # 20
+        DeviceVersion                      : 'iPad'                     # 100
+        OperatingSystemNameVersion         : 'iOS 9.3.1'                # 20
+        OperatingSystemClass               : 'Mobile'                   # 20
+        OperatingSystemName                : 'iOS'                      # 20
+        OperatingSystemVersion             : '9.3.1'                    # 20
+        LayoutEngineClass                  : 'Browser'                  # 11
+        LayoutEngineName                   : 'AppleWebKit'              # 11
+        LayoutEngineVersion                : '601.1.46'                 # 11
+        LayoutEngineVersionMajor           : '601'                      # 11
+        LayoutEngineNameVersion            : 'AppleWebKit 601.1.46'     # 11
+        LayoutEngineNameVersionMajor       : 'AppleWebKit 601'          # 11
+        AgentClass                         : 'Browser'                  # 2014
+        AgentName                          : 'Opera'                    # 2014
+        AgentVersion                       : '13.0.1.100754'            # 2014
+        AgentVersionMajor                  : '13'                       # 2014
+        AgentNameVersion                   : 'Opera 13.0.1.100754'      # 2014
+        AgentNameVersionMajor              : 'Opera 13'                 # 2014
