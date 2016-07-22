@@ -191,7 +191,8 @@ a file that is part of their installation. This file is normally installed at ${
 
 So to build this UDF you need the platfora-udf.jar in a place where maven can find it.
 
-At the time of writing we were running Platfora 5.2.0 so we chose these values to deploy it:
+At the time of writing we were running Platfora 5.2.0 so we chose these values to deploy it as:
+
     group:    com.platfora.udf
     artifact: platfora-udf
     version:  5.2.0-LOCAL
