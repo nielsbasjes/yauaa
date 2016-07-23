@@ -60,6 +60,7 @@ import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.PRE_SORTED_FIELDS_LIST;
 import static nl.basjes.parse.useragent.UserAgent.STANDARD_FIELDS;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 
@@ -191,7 +192,7 @@ public class UserAgentAnalyzer extends Analyzer {
         Collections.sort(fieldNames);
 
         List<String> result = new ArrayList<>();
-        for (String fieldName : STANDARD_FIELDS) {
+        for (String fieldName : PRE_SORTED_FIELDS_LIST) {
             fieldNames.remove(fieldName);
             result.add(fieldName);
         }
@@ -783,6 +784,7 @@ config:
                     if (!result.pass) {
                         result.warn=true;
                         if (expectedSomething) {
+                            result.warn=false;
                             pass = false;
                             allPass = false;
                         } else {
