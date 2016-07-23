@@ -35,11 +35,9 @@ config:
         - 'AgentVersion         :  2000:agent.([2-5])product.name="Gecko"^>.version'
 
   - matcher:
-      require:
-#        - 'IsNull[agent.([2-5])product.name="Gecko"^>>.name#1="anonymized"]'
       extract:
         - 'AgentClass           :  2001:"Browser"'
-        - 'AgentName            :  2001:agent.([2-5])product.name="Gecko"^>>.name'
+        - 'AgentName            :  2001:agent.([2-5])product.name="Gecko"^>>.name#1!="anonymized"@'
         - 'AgentVersion         :  2001:agent.([2-5])product.name="Gecko"^>>.version'
 
 
