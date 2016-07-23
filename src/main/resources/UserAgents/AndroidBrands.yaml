@@ -356,6 +356,56 @@ config:
   - matcher:
       require:
         - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name="Build"^<{"HP"'
+      extract:
+        - 'DeviceBrand                 :  105:"HP"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%1="Build"@{"HP"'
+      extract:
+        - 'DeviceBrand                 :  104:"HP"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%2="Build"@{"HP"'
+      extract:
+        - 'DeviceBrand                 :  103:"HP"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%3="Build"@{"HP"'
+      extract:
+        - 'DeviceBrand                 :  102:"HP"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%4="Build"@{"HP"'
+      extract:
+        - 'DeviceBrand                 :  101:"HP"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%5="Build"@{"HP"'
+      extract:
+        - 'DeviceBrand                 :  100:"HP"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.name{"HP"'
+      extract:
+        - 'DeviceBrand                 :  110:"HP"'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
         - 'agent.(1)product.(1)comments.entry.product.name="Build"^<{"Ascend"'
       extract:
         - 'DeviceBrand                 :  105:"Huawei"'
@@ -699,6 +749,56 @@ config:
       require:
         - 'agent.(1)product.comments.entry.product.name="Android"'
         - 'agent.(1)product.name{"ASUS"'
+      extract:
+        - 'DeviceBrand                 :  110:"Asus"'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name="Build"^<{"Transformer"'
+      extract:
+        - 'DeviceBrand                 :  105:"Asus"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%1="Build"@{"Transformer"'
+      extract:
+        - 'DeviceBrand                 :  104:"Asus"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%2="Build"@{"Transformer"'
+      extract:
+        - 'DeviceBrand                 :  103:"Asus"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%3="Build"@{"Transformer"'
+      extract:
+        - 'DeviceBrand                 :  102:"Asus"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%4="Build"@{"Transformer"'
+      extract:
+        - 'DeviceBrand                 :  101:"Asus"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%5="Build"@{"Transformer"'
+      extract:
+        - 'DeviceBrand                 :  100:"Asus"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.name{"Transformer"'
       extract:
         - 'DeviceBrand                 :  110:"Asus"'
 
