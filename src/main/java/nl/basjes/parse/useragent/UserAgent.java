@@ -407,7 +407,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
             AgentField field = allFields.get(fieldName);
             if (field.getValue() != null) {
                 sb.append("    ").append(fieldName);
-                for (int l = fieldName.length(); l< maxLength+2; l++) {
+                for (int l = fieldName.length(); l < maxLength + 2; l++) {
                     sb.append(' ');
                 }
                 sb.append(": '").append(field.getValue()).append('\'');
@@ -422,22 +422,84 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         List<String> resultSet = new ArrayList<>(allFields.size());
         for (String fieldName : allFields.keySet()) {
             AgentField field = allFields.get(fieldName);
-            if (field.confidence >= 0 && field.getValue() != null) {
+            if (field != null && field.confidence >= 0 && field.getValue() != null) {
                 resultSet.add(fieldName);
             }
         }
         return resultSet;
     }
 
+    // We manually sort the list of fields to ensure the output is consistent.
+    // Any unspecified fieldnames will be appended to the end.
+    public static final List<String> PRE_SORTED_FIELDS_LIST = new ArrayList<>(32);
+
+    static {
+        PRE_SORTED_FIELDS_LIST.add("DeviceClass");
+        PRE_SORTED_FIELDS_LIST.add("DeviceName");
+        PRE_SORTED_FIELDS_LIST.add("DeviceBrand");
+        PRE_SORTED_FIELDS_LIST.add("DeviceCpu");
+        PRE_SORTED_FIELDS_LIST.add("DeviceFirmwareVersion");
+        PRE_SORTED_FIELDS_LIST.add("DeviceVersion");
+
+        PRE_SORTED_FIELDS_LIST.add("OperatingSystemClass");
+        PRE_SORTED_FIELDS_LIST.add("OperatingSystemName");
+        PRE_SORTED_FIELDS_LIST.add("OperatingSystemVersion");
+        PRE_SORTED_FIELDS_LIST.add("OperatingSystemNameVersion");
+        PRE_SORTED_FIELDS_LIST.add("OperatingSystemVersionBuild");
+
+        PRE_SORTED_FIELDS_LIST.add("LayoutEngineClass");
+        PRE_SORTED_FIELDS_LIST.add("LayoutEngineName");
+        PRE_SORTED_FIELDS_LIST.add("LayoutEngineVersion");
+        PRE_SORTED_FIELDS_LIST.add("LayoutEngineVersionMajor");
+        PRE_SORTED_FIELDS_LIST.add("LayoutEngineNameVersion");
+        PRE_SORTED_FIELDS_LIST.add("LayoutEngineNameVersionMajor");
+        PRE_SORTED_FIELDS_LIST.add("LayoutEngineBuild");
+
+        PRE_SORTED_FIELDS_LIST.add("AgentClass");
+        PRE_SORTED_FIELDS_LIST.add("AgentName");
+        PRE_SORTED_FIELDS_LIST.add("AgentVersion");
+        PRE_SORTED_FIELDS_LIST.add("AgentVersionMajor");
+        PRE_SORTED_FIELDS_LIST.add("AgentNameVersion");
+        PRE_SORTED_FIELDS_LIST.add("AgentNameVersionMajor");
+        PRE_SORTED_FIELDS_LIST.add("AgentBuild");
+        PRE_SORTED_FIELDS_LIST.add("AgentLanguage");
+        PRE_SORTED_FIELDS_LIST.add("AgentLanguageCode");
+        PRE_SORTED_FIELDS_LIST.add("AgentInformationEmail");
+        PRE_SORTED_FIELDS_LIST.add("AgentInformationUrl");
+        PRE_SORTED_FIELDS_LIST.add("AgentSecurity");
+        PRE_SORTED_FIELDS_LIST.add("AgentUuid");
+
+        PRE_SORTED_FIELDS_LIST.add("FacebookCarrier");
+        PRE_SORTED_FIELDS_LIST.add("FacebookDeviceClass");
+        PRE_SORTED_FIELDS_LIST.add("FacebookDeviceName");
+        PRE_SORTED_FIELDS_LIST.add("FacebookDeviceVersion");
+        PRE_SORTED_FIELDS_LIST.add("FacebookFBOP");
+        PRE_SORTED_FIELDS_LIST.add("FacebookFBSS");
+        PRE_SORTED_FIELDS_LIST.add("FacebookOperatingSystemName");
+        PRE_SORTED_FIELDS_LIST.add("FacebookOperatingSystemVersion");
+
+        PRE_SORTED_FIELDS_LIST.add("Anonymized");
+
+        PRE_SORTED_FIELDS_LIST.add("HackerAttackVector");
+        PRE_SORTED_FIELDS_LIST.add("HackerToolkit");
+
+        PRE_SORTED_FIELDS_LIST.add("KoboAffiliate");
+        PRE_SORTED_FIELDS_LIST.add("KoboPlatformId");
+
+        PRE_SORTED_FIELDS_LIST.add("__SyntaxError__");
+    }
+
     public List<String> getAvailableFieldNamesSorted() {
         List<String> fieldNames = new ArrayList<>(getAvailableFieldNames());
-        Collections.sort(fieldNames);
 
         List<String> result = new ArrayList<>();
-        for (String fieldName : STANDARD_FIELDS) {
-            fieldNames.remove(fieldName);
-            result.add(fieldName);
+        for (String fieldName : PRE_SORTED_FIELDS_LIST) {
+            if (fieldNames.remove(fieldName)) {
+                result.add(fieldName);
+            }
         }
+
+        Collections.sort(fieldNames);
         for (String fieldName : fieldNames) {
             result.add(fieldName);
         }

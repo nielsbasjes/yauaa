@@ -169,11 +169,11 @@ public class UserAgentAnalyzer extends Analyzer {
         LOG.info("Matchers     : {}", allMatchers.size());
         LOG.info("Hashmap size : {}", informMatcherActions.size());
         LOG.info("Testcases    : {}", testCases .size());
-//        LOG.info("All possible field names:");
-//        int count = 1;
-//        for (String fieldName : getAllPossibleFieldNames()) {
-//            LOG.info("- {}: {}", count++, fieldName);
-//        }
+        LOG.info("All possible field names:");
+        int count = 1;
+        for (String fieldName : getAllPossibleFieldNamesSorted()) {
+            LOG.info("- {}: {}", count++, fieldName);
+        }
     }
 
 
@@ -752,10 +752,24 @@ config:
             int maxExpectedLength = 9; // "Expected".length()+1;
 
             if (expected != null) {
-                for (Map.Entry<String, String> expectation : expected.entrySet()) {
+                List<String> fieldNames = agent.getAvailableFieldNamesSorted();
+                for (String fieldName : fieldNames) {
+
                     TestResult result = new TestResult();
-                    result.field = expectation.getKey();
-                    result.expected = expectation.getValue();
+                    result.field = fieldName;
+                    boolean expectedSomething;
+
+                    // Expected value
+                    String expectedValue = expected.get(fieldName);
+                    if (expectedValue == null) {
+                        expectedSomething = false;
+                        result.expected = "<<absent>>";
+                    } else {
+                        expectedSomething = true;
+                        result.expected = expectedValue;
+                    }
+
+                    // Actual value
                     UserAgent.AgentField agentField = agent.get(result.field);
                     if (agentField != null) {
                         result.actual = agentField.value;
@@ -764,44 +778,27 @@ config:
                     if (result.actual == null) {
                         result.actual = "<<<null>>>";
                     }
+
                     result.pass = result.actual.equals(result.expected);
                     if (!result.pass) {
-                        pass = false;
-                        allPass = false;
+                        result.warn=true;
+                        if (expectedSomething) {
+                            pass = false;
+                            allPass = false;
+                        } else {
+                            if (failOnUnexpected) {
+                                result.warn=false;
+                                pass = false;
+                                allPass = false;
+                            }
+                        }
                     }
+
                     results.add(result);
 
                     maxNameLength = Math.max(maxNameLength, result.field.length());
                     maxActualLength = Math.max(maxActualLength, result.actual.length());
                     maxExpectedLength = Math.max(maxExpectedLength, result.expected.length());
-                }
-
-                List<String> fieldNames = agent.getAvailableFieldNames();
-                Collections.sort(fieldNames);
-                for (String fieldName : fieldNames) {
-                    if (!expected.containsKey(fieldName)) {
-                        TestResult result = new TestResult();
-                        result.field = fieldName;
-                        result.expected = "<<ABSENT>>";
-                        UserAgent.AgentField agentField = agent.get(result.field);
-                        result.actual = agentField.value;
-                        result.confidence = agentField.confidence;
-
-                        result.pass = false;
-
-                        if (failOnUnexpected) {
-                            pass = false;
-                            allPass = false;
-                            result.warn = false;
-                        } else {
-                            result.warn = true;
-                        }
-                        results.add(result);
-
-                        maxNameLength = Math.max(maxNameLength, result.field.length());
-                        maxActualLength = Math.max(maxActualLength, result.actual.length());
-                        maxExpectedLength = Math.max(maxExpectedLength, result.expected.length());
-                    }
                 }
             }
 
