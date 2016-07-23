@@ -1552,3 +1552,53 @@ config:
       extract:
         - 'DeviceBrand                 :  110:"Motorola"'
 
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name="Build"^<{"Xoom"'
+      extract:
+        - 'DeviceBrand                 :  105:"Motorola"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%1="Build"@{"Xoom"'
+      extract:
+        - 'DeviceBrand                 :  104:"Motorola"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%2="Build"@{"Xoom"'
+      extract:
+        - 'DeviceBrand                 :  103:"Motorola"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%3="Build"@{"Xoom"'
+      extract:
+        - 'DeviceBrand                 :  102:"Motorola"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%4="Build"@{"Xoom"'
+      extract:
+        - 'DeviceBrand                 :  101:"Motorola"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.(1)comments.entry.product.name%5="Build"@{"Xoom"'
+      extract:
+        - 'DeviceBrand                 :  100:"Motorola"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name="Android"'
+        - 'agent.(1)product.name{"Xoom"'
+      extract:
+        - 'DeviceBrand                 :  110:"Motorola"'
+
