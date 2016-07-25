@@ -29,26 +29,11 @@ import org.apache.pig.impl.logicalLayer.FrontendException;
 import org.apache.pig.impl.logicalLayer.schema.Schema;
 import org.junit.Test;
 
-import java.util.List;
-
-import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
-import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
-import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION;
-import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION_MAJOR;
-import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
-import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
-import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
-import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_CLASS;
-import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME;
-import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION;
-import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION_MAJOR;
-import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
-import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME;
-import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
 import static org.apache.pig.builtin.mock.Storage.resetData;
-import static org.apache.pig.builtin.mock.Storage.schema;
 import static org.apache.pig.builtin.mock.Storage.tuple;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.fail;
 
 public class TestParseUserAgent {
     @Test

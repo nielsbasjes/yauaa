@@ -23,32 +23,32 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentBaseListener;
 import nl.basjes.parse.useragent.UserAgentLexer;
 import nl.basjes.parse.useragent.UserAgentParser;
-import nl.basjes.parse.useragent.UserAgentParser.ProductVersionWithCommasContext;
-import nl.basjes.parse.useragent.UserAgentParser.SingleVersionWithCommasContext;
-import nl.basjes.parse.useragent.UserAgentParser.UserAgentContext;
-import nl.basjes.parse.useragent.UserAgentParser.ProductContext;
-import nl.basjes.parse.useragent.UserAgentParser.CommentProductContext;
-import nl.basjes.parse.useragent.UserAgentParser.ProductVersionWordsContext;
-import nl.basjes.parse.useragent.UserAgentParser.ProductNameWordsContext;
-import nl.basjes.parse.useragent.UserAgentParser.ProductVersionContext;
-import nl.basjes.parse.useragent.UserAgentParser.SingleVersionContext;
-import nl.basjes.parse.useragent.UserAgentParser.ProductNameVersionContext;
-import nl.basjes.parse.useragent.UserAgentParser.ProductNameEmailContext;
-import nl.basjes.parse.useragent.UserAgentParser.ProductNameUrlContext;
-import nl.basjes.parse.useragent.UserAgentParser.ProductNameUuidContext;
-import nl.basjes.parse.useragent.UserAgentParser.UuIdContext;
-import nl.basjes.parse.useragent.UserAgentParser.EmailAddressContext;
-import nl.basjes.parse.useragent.UserAgentParser.SiteUrlContext;
 import nl.basjes.parse.useragent.UserAgentParser.Base64Context;
 import nl.basjes.parse.useragent.UserAgentParser.CommentBlockContext;
 import nl.basjes.parse.useragent.UserAgentParser.CommentEntryContext;
-import nl.basjes.parse.useragent.UserAgentParser.ProductNameKeyValueContext;
-import nl.basjes.parse.useragent.UserAgentParser.KeyValueProductVersionNameContext;
-import nl.basjes.parse.useragent.UserAgentParser.KeyValueContext;
-import nl.basjes.parse.useragent.UserAgentParser.KeyValueVersionNameContext;
-import nl.basjes.parse.useragent.UserAgentParser.KeyNameContext;
+import nl.basjes.parse.useragent.UserAgentParser.CommentProductContext;
+import nl.basjes.parse.useragent.UserAgentParser.EmailAddressContext;
 import nl.basjes.parse.useragent.UserAgentParser.EmptyWordContext;
+import nl.basjes.parse.useragent.UserAgentParser.KeyNameContext;
+import nl.basjes.parse.useragent.UserAgentParser.KeyValueContext;
+import nl.basjes.parse.useragent.UserAgentParser.KeyValueProductVersionNameContext;
+import nl.basjes.parse.useragent.UserAgentParser.KeyValueVersionNameContext;
 import nl.basjes.parse.useragent.UserAgentParser.MultipleWordsContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameEmailContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameKeyValueContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameUrlContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameUuidContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameVersionContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductNameWordsContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductVersionContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductVersionWithCommasContext;
+import nl.basjes.parse.useragent.UserAgentParser.ProductVersionWordsContext;
+import nl.basjes.parse.useragent.UserAgentParser.SingleVersionContext;
+import nl.basjes.parse.useragent.UserAgentParser.SingleVersionWithCommasContext;
+import nl.basjes.parse.useragent.UserAgentParser.SiteUrlContext;
+import nl.basjes.parse.useragent.UserAgentParser.UserAgentContext;
+import nl.basjes.parse.useragent.UserAgentParser.UuIdContext;
 import nl.basjes.parse.useragent.UserAgentParser.VersionWordsContext;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
@@ -265,11 +265,6 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     public void enterCommentProduct(CommentProductContext ctx) {
         inform(ctx, "product");
     }
-
-//    @Override
-//    public void enterNestedCommentProduct(UserAgentParser.NestedCommentProductContext ctx) {
-//        inform(ctx, "product");
-//    }
 
     @Override
     public void enterProductNameNoVersion(UserAgentParser.ProductNameNoVersionContext ctx) {

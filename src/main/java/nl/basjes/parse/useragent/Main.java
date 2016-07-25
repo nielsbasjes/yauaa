@@ -58,12 +58,15 @@ public final class Main {
             String strLine;
 
             if (commandlineOptions.csvFormat) {
-                for (String field : UserAgent.STANDARD_FIELDS) {
+                for (String field : UserAgent.PRE_SORTED_FIELDS_LIST) {
                     System.out.print(field);
                     System.out.print("\t");
                 }
                 System.out.println("Useragent");
             }
+
+            long ambiguities    = 0;
+            long syntaxErrors   = 0;
 
             long linesTotal   = 0;
             long hitsTotal    = 0;
@@ -139,12 +142,21 @@ public final class Main {
                     ipsMatched  += ips;
                 }
 
+                if (agent.hasAmbiguity()) {
+                    ambiguities++;
+                }
+                if (agent.hasSyntaxError()) {
+                    syntaxErrors++;
+                }
+
                 if (linesTotal % 1000 == 0) {
                     long nowTime = System.nanoTime();
                     long speed = (1000000000L*(linesTotal-segmentStartLines))/(nowTime-segmentStartTime);
-                    System.err.println("Lines = "+linesTotal + "   Speed = " + speed + "/sec.");
+                    System.err.println("Lines = "+linesTotal + " (A="+ambiguities+" S="+syntaxErrors+")  Speed = " + speed + "/sec.");
                     segmentStartTime = nowTime;
                     segmentStartLines = linesTotal;
+                    ambiguities=0;
+                    syntaxErrors=0;
                 }
 
                 if (commandlineOptions.outputOnlyBadResults) {
@@ -160,8 +172,11 @@ public final class Main {
                     System.out.print(agent.toJson());
                 }
                 if (commandlineOptions.csvFormat){
-                    for (String field : UserAgent.STANDARD_FIELDS) {
-                        System.out.print(agent.get(field).getValue());
+                    for (String field : UserAgent.PRE_SORTED_FIELDS_LIST) {
+                        String value = agent.getValue(field);
+                        if (value!=null) {
+                            System.out.print(value);
+                        }
                         System.out.print("\t");
                     }
                     System.out.println(agent.getUserAgentString());
@@ -207,8 +222,8 @@ public final class Main {
         @Option(name = "-in", usage = "Location of input file", required = true)
         private String inFile;
 
-        @Option(name = "-testAll", usage = "Run the tests against all built in testcases", required = false)
-        private boolean testAll = false;
+//        @Option(name = "-testAll", usage = "Run the tests against all built in testcases", required = false)
+//        private boolean testAll = false;
 
         @Option(name = "-yaml", usage = "Output in yaml testcase format", required = false, forbids = {"-csv", "-json"})
         private boolean yamlFormat = false;
@@ -224,9 +239,9 @@ public final class Main {
 
         @Option(name = "-debug", usage = "Set to enable debugging.", required = false)
         private boolean debug = false;
-
-        @Option(name = "-stats", usage = "Set to enable statistics.", required = false)
-        private boolean stats = false;
+//
+//        @Option(name = "-stats", usage = "Set to enable statistics.", required = false)
+//        private boolean stats = false;
 
         @Option(name = "-fullFlatten", usage = "Set to flatten each parsed agent string.", required = false)
         private boolean fullFlatten = false;

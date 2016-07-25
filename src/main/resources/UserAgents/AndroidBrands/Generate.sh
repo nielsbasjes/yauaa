@@ -31,35 +31,35 @@ echo "
         - 'agent.(1)product.comments.entry.product.name=\"Android\"'
         - 'agent.(1)product.(1)comments.entry.product.name=\"Build\"^<{\"${prefix}\"'
       extract:
-        - 'DeviceBrand                 :  100:\"${brand}\"'
+        - 'DeviceBrand                 :  105:\"${brand}\"'
 
   - matcher:
       require:
         - 'agent.(1)product.comments.entry.product.name=\"Android\"'
         - 'agent.(1)product.(1)comments.entry.product.name%1=\"Build\"@{\"${prefix}\"'
       extract:
-        - 'DeviceBrand                 :  100:\"${brand}\"'
+        - 'DeviceBrand                 :  104:\"${brand}\"'
 
   - matcher:
       require:
         - 'agent.(1)product.comments.entry.product.name=\"Android\"'
         - 'agent.(1)product.(1)comments.entry.product.name%2=\"Build\"@{\"${prefix}\"'
       extract:
-        - 'DeviceBrand                 :  100:\"${brand}\"'
+        - 'DeviceBrand                 :  103:\"${brand}\"'
 
   - matcher:
       require:
         - 'agent.(1)product.comments.entry.product.name=\"Android\"'
         - 'agent.(1)product.(1)comments.entry.product.name%3=\"Build\"@{\"${prefix}\"'
       extract:
-        - 'DeviceBrand                 :  100:\"${brand}\"'
+        - 'DeviceBrand                 :  102:\"${brand}\"'
 
   - matcher:
       require:
         - 'agent.(1)product.comments.entry.product.name=\"Android\"'
         - 'agent.(1)product.(1)comments.entry.product.name%4=\"Build\"@{\"${prefix}\"'
       extract:
-        - 'DeviceBrand                 :  100:\"${brand}\"'
+        - 'DeviceBrand                 :  101:\"${brand}\"'
 
   - matcher:
       require:
@@ -67,6 +67,13 @@ echo "
         - 'agent.(1)product.(1)comments.entry.product.name%5=\"Build\"@{\"${prefix}\"'
       extract:
         - 'DeviceBrand                 :  100:\"${brand}\"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.product.name=\"Android\"'
+        - 'agent.(1)product.name{\"${prefix}\"'
+      extract:
+        - 'DeviceBrand                 :  110:\"${brand}\"'
 "
 done
 ) > ../AndroidBrands.yaml

@@ -91,10 +91,29 @@ config:
         - 'FacebookOperatingSystemVersion:  3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSV"^.version'
         - 'FacebookFBSS:                    3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSS"^.version'
 
+
+
+
+  - matcher:
+      extract:
+        - 'OperatingSystemClass:    199:"Mobile"'
+        - 'OperatingSystemName:     199:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSN"^.version'
+        - 'OperatingSystemVersion:  199:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSV"^.version'
+
+  - lookup:
+      name: 'FBSNCleanup'
+      map:
+       "iPhone OS" : "iOS"
+       "iPhoneOS" : "iOS"
+       "iPad OS" : "iOS"
+       "iPadOS" : "iOS"
+       "iPod OS" : "iOS"
+       "iPodOS" : "iOS"
+
   - matcher:
       extract:
         - 'OperatingSystemClass:    200:"Mobile"'
-        - 'OperatingSystemName:     200:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSN"^.version'
+        - 'OperatingSystemName:     200:LookUp[FBSNCleanup;agent.product.([1-2])comments.entry.(1)product.(1)name="FBSN"^.version]'
         - 'OperatingSystemVersion:  200:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSV"^.version'
 
   - matcher:
@@ -124,7 +143,7 @@ config:
         DeviceName                         : 'iPad'
         DeviceFirmwareVersion              : '12D508'
         OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'iPhone OS'
+        OperatingSystemName                : 'iOS'
         OperatingSystemVersion             : '8.2'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'AppleWebKit'
@@ -152,7 +171,7 @@ config:
         DeviceName                         : 'iPad'
         DeviceFirmwareVersion              : '12B435'
         OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'iPhone OS'
+        OperatingSystemName                : 'iOS'
         OperatingSystemVersion             : '8.1.1'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'AppleWebKit'
@@ -250,7 +269,7 @@ config:
         DeviceClass                        : 'Tablet'
         DeviceName                         : 'iPad'
         OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'iPhone OS'
+        OperatingSystemName                : 'iOS'
         OperatingSystemVersion             : '8.0.2'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'Mozilla'
