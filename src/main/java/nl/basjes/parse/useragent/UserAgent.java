@@ -75,6 +75,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
 
     private boolean hasSyntaxError;
     private boolean hasAmbiguity;
+    private int     ambiguityCount;
 
     public boolean hasSyntaxError() {
         return hasSyntaxError;
@@ -82,6 +83,10 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
 
     public boolean hasAmbiguity() {
         return hasAmbiguity;
+    }
+
+    public int getAmbiguityCount() {
+        return ambiguityCount;
     }
 
     @Override
@@ -113,6 +118,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
             BitSet ambigAlts,
             ATNConfigSet configs) {
         hasAmbiguity = true;
+        ambiguityCount++;
 //        allFields.put("__Ambiguity__",new AgentField("true"));
     }
 
@@ -248,6 +254,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
     public void reset() {
         hasSyntaxError = false;
         hasAmbiguity = false;
+        ambiguityCount = 0;
 
         for (AgentField field : allFields.values()) {
             field.reset();

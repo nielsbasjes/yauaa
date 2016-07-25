@@ -562,6 +562,7 @@ config:
      * This function is used only for analyzing which patterns that could possibly be relevant
      * were actually relevant for the matcher actions
      */
+    @SuppressWarnings({"unused"})
     public List<MatcherAction.Match> getMatches() {
         List<MatcherAction.Match> allMatches = new ArrayList<>(128);
         for (Matcher matcher: allMatchers) {
@@ -615,6 +616,7 @@ config:
         }
     }
 
+    @SuppressWarnings({"unused"})
     public static List<String> getAllPaths(String agent) {
         return new GetAllPathsAnalyzer(agent).getValues();
     }
@@ -639,6 +641,7 @@ config:
      *
      * @return true if all tests were successful.
      */
+    @SuppressWarnings({"unused"})
     public boolean runTests() {
         return runTests(false, true);
     }
@@ -670,7 +673,7 @@ config:
         for (int i = filenameHeaderLength; i < maxFilenameLength; i++) {
             sb.append(' ');
         }
-        sb.append("|vv --> S=Syntax Error, A=Ambiguity during parse");
+        sb.append("|vv --> S=Syntax Error, [1-9]=Number of ambiguities during parse");
 
         LOG.info(sb.toString());
         LOG.info("+-------------------------------------------------------------------------------------------");
@@ -724,7 +727,7 @@ config:
                 sb.append(' ');
             }
             if (agent.hasAmbiguity()) {
-                sb.append('A');
+                sb.append(agent.getAmbiguityCount());
             } else {
                 sb.append(' ');
             }
@@ -812,7 +815,7 @@ config:
             }
 
             if (agent.hasAmbiguity()) {
-                LOG.info("| Parsing problem: Ambiguity");
+                LOG.info("| Parsing problem: Ambiguity {} times. ", agent.getAmbiguityCount());
             }
             if (agent.hasSyntaxError()) {
                 LOG.info("| Parsing problem: Syntax Error");
