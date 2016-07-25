@@ -195,8 +195,10 @@ commentProduct
 
     | productName   (   COLON? SLASH productVersionWords
                         ( SLASH* productVersionWithCommas )*            )+
+                    (   MINUS?              commentBlock
+                        ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) )* )*
 
-    | productName   (   SLASH+  EQUALS?     (productVersionWithCommas|productVersionSingleWord) )+
+    | productName   (   SLASH+  EQUALS?     (productVersionWithCommas) )+
                     (   MINUS?              commentBlock
                         ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) )* )*
     ;
