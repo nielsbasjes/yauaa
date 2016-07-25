@@ -301,9 +301,6 @@ config:
 
 # ------------------------------------------------------------
   - test:
-      options:
-#        - 'verbose'
-#        - 'init'
       input:
         user_agent_string: 'DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
       expected:
@@ -323,9 +320,6 @@ config:
 
 # ------------------------------------------------------------
   - test:
-      options:
-#        - 'verbose'
-#        - 'init'
       input:
         user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
       expected:
@@ -361,9 +355,6 @@ config:
 #Kwaliteitscontrole voor Google AdsBot-bestemmingspagina	AdsBot-Google
 
   - test:
-      options:
-#        - 'verbose'
-#        - 'init'
       input:
         user_agent_string: 'AdsBot-Google (+http://www.google.com/adsbot.html)'
       expected:
@@ -381,12 +372,42 @@ config:
         AgentVersion                       : 'AdsBot-Google'
         AgentInformationUrl                : 'http://www.google.com/adsbot.html'
 
+# Mobile google bots
+#  - test:
+#      input:
+#        user_agent_string: 'DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
+#
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+#
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+#
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+#
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+#
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36'
+#
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; Google Web Preview Analytics) Chrome/27.0.1453 Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+#
+#  - test:
+#      input:
+#        user_agent_string: 'SAMSUNG-SGH-E250/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Browser/6.2.3.3.c.1.101 (GUI) MMP/2.0 (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
+
 # ------------------------------------------------------------
 
   - test:
-      options:
-#        - 'verbose'
-#        - 'init'
       input:
         user_agent_string: 'Sogou web spider/4.0(+http://www.sogou.com/docs/help/webmasters.htm#07)'
       expected:
@@ -405,13 +426,8 @@ config:
         OperatingSystemVersion             : 'Cloud'
 
 
-#FIXME: THIS IS REALLY A ROBOT !!!
   - test:
-      options:
-#        - 'verbose'
-#        - 'init'
       input:
-#        name: 'You can give the test case a name'
         user_agent_string: 'Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34'
       expected:
         DeviceClass                        : 'Robot'
@@ -429,11 +445,7 @@ config:
         AgentVersion                       : '1.9.8'
 
   - test:
-      options:
-#        - 'verbose'
-#        - 'init'
       input:
-#        name: 'You can give the test case a name'
         user_agent_string: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
       expected:
         DeviceClass                        : 'Cloud'
