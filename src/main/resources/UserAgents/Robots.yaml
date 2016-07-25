@@ -479,16 +479,56 @@ config:
         AgentName                          : 'Baiduspider'
         AgentVersion                       : '2.0'
         AgentInformationUrl                : 'http://www.baidu.com/search/spider.html'
+
+
+
+#Yahoo
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Yahoo! Slurp"'
+      extract:
+        - 'DeviceClass           :  3020:"Cloud"'
+        - 'DeviceBrand           :  3020:"Yahoo"'
+        - 'DeviceName            :  3020:"Yahoo"'
+        - 'OperatingSystemClass  :  3020:"Cloud"'
+        - 'OperatingSystemName   :  3020:"Yahoo"'
+        - 'OperatingSystemVersion:  3020:"Yahoo"'
+        - 'LayoutEngineClass     :  3020:"Robot"'
+        - 'LayoutEngineName      :  3020:"Yahoo! Slurp"'
+        - 'LayoutEngineVersion   :  3020:"Yahoo! Slurp"'
+        - 'AgentClass            :  3020:"Robot"'
+        - 'AgentName             :  3020:"Yahoo! Slurp"'
+        - 'AgentVersion          :  3020:"Yahoo! Slurp"'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)'
+        DeviceClass                          : 'Cloud'
+        DeviceName                           : 'Yahoo'
+        DeviceBrand                          : 'Yahoo'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Yahoo'
+        OperatingSystemVersion               : 'Yahoo'
+        OperatingSystemNameVersion           : 'Yahoo'
+        LayoutEngineClass                    : 'Robot'
+        LayoutEngineName                     : 'Yahoo! Slurp'
+        LayoutEngineVersion                  : 'Yahoo! Slurp'
+        LayoutEngineVersionMajor             : 'Yahoo! Slurp'
+        LayoutEngineNameVersion              : 'Yahoo! Slurp'
+        LayoutEngineNameVersionMajor         : 'Yahoo! Slurp'
+        AgentClass                           : 'Robot'
+        AgentName                            : 'Yahoo! Slurp'
+        AgentVersion                         : 'Yahoo! Slurp'
+        AgentVersionMajor                    : 'Yahoo! Slurp'
+        AgentNameVersion                     : 'Yahoo! Slurp'
+        AgentNameVersionMajor                : 'Yahoo! Slurp'
+        AgentInformationUrl                  : 'http://help.yahoo.com/help/us/ysearch/slurp'
+
 # TODO
 #  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
 #      input:
 ##        name: 'You can give the test case a name'
 #        user_agent_string: 'Mozilla/5.0 (compatible; Charlotte/1.1; http://www.searchme.com/support/)'
-#      expected:
 #
 #
 #Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)

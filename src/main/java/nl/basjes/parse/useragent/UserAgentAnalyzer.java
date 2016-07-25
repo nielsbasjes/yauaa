@@ -169,11 +169,11 @@ public class UserAgentAnalyzer extends Analyzer {
         LOG.info("Matchers     : {}", allMatchers.size());
         LOG.info("Hashmap size : {}", informMatcherActions.size());
         LOG.info("Testcases    : {}", testCases .size());
-        LOG.info("All possible field names:");
-        int count = 1;
-        for (String fieldName : getAllPossibleFieldNamesSorted()) {
-            LOG.info("- {}: {}", count++, fieldName);
-        }
+//        LOG.info("All possible field names:");
+//        int count = 1;
+//        for (String fieldName : getAllPossibleFieldNames()) {
+//            LOG.info("- {}: {}", count++, fieldName);
+//        }
     }
 
 

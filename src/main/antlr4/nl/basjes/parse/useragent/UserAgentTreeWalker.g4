@@ -22,7 +22,7 @@ grammar UserAgentTreeWalker;
 // ===============================================================
 
 VALUENAME       : [a-zA-Z][a-zA-Z0-9]+    ;
-VALUE           : DOUBLEQUOTE ( '\\' [btnfr"'\\] | ~[\\"!]  )* DOUBLEQUOTE ;
+VALUE           : DOUBLEQUOTE ( '\\' [btnfr"'\\] | ~[\\"]  )* DOUBLEQUOTE ;
 
 UP              : '^'           ;
 NEXT            : '>'           ;
