@@ -281,42 +281,159 @@ config:
 # ------------------------------------------------------------
 #Googlebot-Mobile
 
+# Mobile google bots
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)product.(1)name="Googlebot"'
+        - 'agent.product.name="Mobile"'
+      extract:
+        - 'AgentClass            :   10000:"Robot Mobile"'
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)product.(1)name="Googlebot"'
+        - 'agent.product.name="Mobile Safari"'
+      extract:
+        - 'AgentClass            :   10000:"Robot Mobile"'
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)product.(1)name="Googlebot-Mobile"'
+      extract:
+        - 'AgentClass            :   10000:"Robot Mobile"'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+      expected:
+        DeviceClass                          : 'Cloud'
+        DeviceName                           : 'Google'
+        DeviceBrand                          : 'Google'
+        DeviceFirmwareVersion                : '10A5376e'
+        DeviceVersion                        : 'iPhone'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Google'
+        OperatingSystemVersion               : 'Google'
+        OperatingSystemNameVersion           : 'Google'
+        LayoutEngineClass                    : 'Robot'
+        LayoutEngineName                     : 'Googlebot'
+        LayoutEngineVersion                  : 'Googlebot'
+        LayoutEngineVersionMajor             : 'Googlebot'
+        LayoutEngineNameVersion              : 'Googlebot'
+        LayoutEngineNameVersionMajor         : 'Googlebot'
+        AgentClass                           : 'Robot Mobile'
+        AgentName                            : 'Googlebot'
+        AgentVersion                         : '2.1'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Googlebot 2.1'
+        AgentNameVersionMajor                : 'Googlebot 2'
+        AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+      expected:
+        DeviceClass                          : 'Cloud'
+        DeviceName                           : 'Google'
+        DeviceBrand                          : 'Google'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Google'
+        OperatingSystemVersion               : 'Google'
+        OperatingSystemNameVersion           : 'Google'
+        OperatingSystemVersionBuild          : 'IMM76B'
+        LayoutEngineClass                    : 'Robot'
+        LayoutEngineName                     : 'Googlebot'
+        LayoutEngineVersion                  : 'Googlebot'
+        LayoutEngineVersionMajor             : 'Googlebot'
+        LayoutEngineNameVersion              : 'Googlebot'
+        LayoutEngineNameVersionMajor         : 'Googlebot'
+        AgentClass                           : 'Robot Mobile'
+        AgentName                            : 'Googlebot'
+        AgentVersion                         : '2.1'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Googlebot 2.1'
+        AgentNameVersionMajor                : 'Googlebot 2'
+        AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36'
+      expected:
+        DeviceClass                          : 'Cloud'
+        DeviceName                           : 'Google'
+        DeviceBrand                          : 'Google'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Google'
+        OperatingSystemVersion               : 'Google'
+        OperatingSystemNameVersion           : 'Google'
+        LayoutEngineClass                    : 'Robot'
+        LayoutEngineName                     : 'Googlebot'
+        LayoutEngineVersion                  : 'Googlebot'
+        LayoutEngineVersionMajor             : 'Googlebot'
+        LayoutEngineNameVersion              : 'Googlebot'
+        LayoutEngineNameVersionMajor         : 'Googlebot'
+        AgentClass                           : 'Robot'
+        AgentName                            : 'Googlebot'
+        AgentVersion                         : '2.1'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Googlebot 2.1'
+        AgentNameVersionMajor                : 'Googlebot 2'
+        AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
   - test:
       input:
         user_agent_string: 'SAMSUNG-SGH-E250/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Browser/6.2.3.3.c.1.101 (GUI) MMP/2.0 (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
       expected:
-        DeviceClass                        : 'Cloud'
-        DeviceBrand                        : 'Google'
-        DeviceName                         : 'Google'
-        OperatingSystemClass               : 'Cloud'
-        OperatingSystemName                : 'Google'
-        OperatingSystemVersion             : 'Google'
-        LayoutEngineClass                  : 'Robot'
-        LayoutEngineName                   : 'Googlebot'
-        LayoutEngineVersion                : 'Googlebot'
-        AgentClass                         : 'Robot'
-        AgentName                          : 'Googlebot-Mobile'
-        AgentVersion                       : '2.1'
-        AgentInformationUrl                : 'http://www.google.com/bot.html'
+        DeviceClass                          : 'Cloud'
+        DeviceName                           : 'Google'
+        DeviceBrand                          : 'Google'
+        DeviceVersion                        : '1.0'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Google'
+        OperatingSystemVersion               : 'Google'
+        OperatingSystemNameVersion           : 'Google'
+        LayoutEngineClass                    : 'Robot'
+        LayoutEngineName                     : 'Googlebot'
+        LayoutEngineVersion                  : 'Googlebot'
+        LayoutEngineVersionMajor             : 'Googlebot'
+        LayoutEngineNameVersion              : 'Googlebot'
+        LayoutEngineNameVersionMajor         : 'Googlebot'
+        AgentClass                           : 'Robot Mobile'
+        AgentName                            : 'Googlebot-Mobile'
+        AgentVersion                         : '2.1'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Googlebot-Mobile 2.1'
+        AgentNameVersionMajor                : 'Googlebot-Mobile 2'
+        AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
 # ------------------------------------------------------------
   - test:
       input:
         user_agent_string: 'DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
       expected:
-        DeviceClass                        : 'Cloud'
-        DeviceBrand                        : 'Google'
-        DeviceName                         : 'Google'
-        OperatingSystemClass               : 'Cloud'
-        OperatingSystemName                : 'Google'
-        OperatingSystemVersion             : 'Google'
-        LayoutEngineClass                  : 'Robot'
-        LayoutEngineName                   : 'Googlebot'
-        LayoutEngineVersion                : 'Googlebot'
-        AgentClass                         : 'Robot'
-        AgentName                          : 'Googlebot-Mobile'
-        AgentVersion                       : '2.1'
-        AgentInformationUrl                : 'http://www.google.com/bot.html'
+        DeviceClass                          : 'Cloud'
+        DeviceName                           : 'Google'
+        DeviceBrand                          : 'Google'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Google'
+        OperatingSystemVersion               : 'Google'
+        OperatingSystemNameVersion           : 'Google'
+        LayoutEngineClass                    : 'Robot'
+        LayoutEngineName                     : 'Googlebot'
+        LayoutEngineVersion                  : 'Googlebot'
+        LayoutEngineVersionMajor             : 'Googlebot'
+        LayoutEngineNameVersion              : 'Googlebot'
+        LayoutEngineNameVersionMajor         : 'Googlebot'
+        AgentClass                           : 'Robot Mobile'
+        AgentName                            : 'Googlebot-Mobile'
+        AgentVersion                         : '2.1'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Googlebot-Mobile 2.1'
+        AgentNameVersionMajor                : 'Googlebot-Mobile 2'
+        AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
 # ------------------------------------------------------------
   - test:
@@ -332,7 +449,7 @@ config:
         LayoutEngineClass                  : 'Robot'
         LayoutEngineName                   : 'Googlebot'
         LayoutEngineVersion                : 'Googlebot'
-        AgentClass                         : 'Robot'
+        AgentClass                         : 'Robot Mobile'
         AgentName                          : 'Googlebot'
         AgentVersion                       : '2.1'
         AgentInformationUrl                : 'http://www.google.com/bot.html'
@@ -372,38 +489,6 @@ config:
         AgentVersion                       : 'AdsBot-Google'
         AgentInformationUrl                : 'http://www.google.com/adsbot.html'
 
-# Mobile google bots
-#  - test:
-#      input:
-#        user_agent_string: 'DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
-#
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-#
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-#
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-#
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-#
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36'
-#
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; Google Web Preview Analytics) Chrome/27.0.1453 Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-#
-#  - test:
-#      input:
-#        user_agent_string: 'SAMSUNG-SGH-E250/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Browser/6.2.3.3.c.1.101 (GUI) MMP/2.0 (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
 
 # ------------------------------------------------------------
 
@@ -515,6 +600,7 @@ config:
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)'
+      expected:
         DeviceClass                          : 'Cloud'
         DeviceName                           : 'Yahoo'
         DeviceBrand                          : 'Yahoo'
