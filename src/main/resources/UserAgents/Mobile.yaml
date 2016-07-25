@@ -405,6 +405,114 @@ config:
 
 
   - matcher:
+      require:
+        - 'agent.(1)product.(1)name="UCWEB"'
+      extract:
+        - 'DeviceClass           :   110:"Mobile"'
+        - 'DeviceName            :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)name'
+        - 'DeviceVersion         :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)version'
+        - 'OperatingSystemClass     :   10:"Mobile"'
+        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+        - 'OperatingSystemVersion   :   10:"??"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name="UCWEB"'
+      extract:
+        - 'DeviceClass           :   109:"Mobile"'
+        - 'DeviceName            :   109:agent.(1)product.(1)comments.(7)entry.text'
+        - 'OperatingSystemClass     :   10:"Mobile"'
+        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+        - 'OperatingSystemVersion   :   10:"??"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name="UCWEB"'
+      extract:
+        - 'DeviceClass           :   108:"Mobile"'
+        - 'DeviceName            :   108:agent.(1)product.(1)comments.(6)entry.(1)product.(1)name'
+        - 'DeviceVersion         :   108:agent.(1)product.(1)comments.(6)entry.(1)product.(1)version'
+        - 'OperatingSystemClass     :   10:"Mobile"'
+        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+        - 'OperatingSystemVersion   :   10:"??"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name="UCWEB"'
+      extract:
+        - 'DeviceClass           :   107:"Mobile"'
+        - 'DeviceName            :   107:agent.(1)product.(1)comments.(6)entry.text'
+        - 'OperatingSystemClass     :   10:"Mobile"'
+        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+        - 'OperatingSystemVersion   :   10:"??"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name="UCWEB"'
+      extract:
+        - 'DeviceClass           :   106:"Mobile"'
+        - 'DeviceName            :   106:agent.(1)product.(1)comments.(5)entry.(1)product.(1)name'
+        - 'DeviceVersion         :   106:agent.(1)product.(1)comments.(5)entry.(1)product.(1)version'
+        - 'OperatingSystemClass     :   10:"Mobile"'
+        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+        - 'OperatingSystemVersion   :   10:"??"'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name="UCWEB"'
+      extract:
+        - 'DeviceClass           :   105:"Mobile"'
+        - 'DeviceName            :   105:agent.(1)product.(1)comments.(5)entry.text'
+        - 'OperatingSystemClass     :   10:"Mobile"'
+        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+        - 'OperatingSystemVersion   :   10:"??"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name="UCWEB"'
+      extract:
+        - 'DeviceClass           :   104:"Mobile"'
+        - 'DeviceName            :   104:agent.(1)product.(1)comments.(4)entry.(1)product.(1)name'
+        - 'DeviceVersion         :   104:agent.(1)product.(1)comments.(4)entry.(1)product.(1)version'
+        - 'OperatingSystemClass     :   10:"Mobile"'
+        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+        - 'OperatingSystemVersion   :   10:"??"'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name="UCWEB"'
+      extract:
+        - 'DeviceClass           :   103:"Mobile"'
+        - 'DeviceName            :   103:agent.(1)product.(1)comments.(4)entry.text'
+        - 'OperatingSystemClass     :   10:"Mobile"'
+        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+        - 'OperatingSystemVersion   :   10:"??"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name="UCWEB"'
+      extract:
+        - 'DeviceClass              :   102:"Mobile"'
+        - 'DeviceName               :   102:agent.(1)product.(1)comments.(3)entry.(1)product.(1)name'
+        - 'DeviceVersion            :   102:agent.(1)product.(1)comments.(3)entry.(1)product.(1)version'
+        - 'OperatingSystemClass     :   10:"Mobile"'
+        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+        - 'OperatingSystemVersion   :   10:"??"'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)name="UCWEB"'
+      extract:
+        - 'DeviceClass           :   101:"Mobile"'
+        - 'DeviceName            :   101:agent.(1)product.(1)comments.(3)entry.text'
+        - 'OperatingSystemClass     :   10:"Mobile"'
+        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+        - 'OperatingSystemVersion   :   10:"??"'
+
+  - matcher:
       extract:
         - 'LayoutEngineClass     :  101:"Browser"'
         - 'LayoutEngineName      :  101:"UCBrowser"'
@@ -493,3 +601,29 @@ config:
         AgentLanguage                      : 'Chinese (S)'
         AgentSecurity                      : 'Strong security'
 
+  - test:
+      input:
+        user_agent_string: 'UCWEB/8.8 (iPhone; CPU OS_6; en-US)AppleWebKit/534.1 U3/3.0.0 Mobile'
+      expected:
+        DeviceClass                          : 'Mobile'
+        DeviceName                           : 'en-US'
+        DeviceBrand                          : 'Apple'
+        DeviceVersion                        : 'iPhone'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'iOS'
+        OperatingSystemVersion               : '??'
+        OperatingSystemNameVersion           : 'iOS ??'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '534.1'
+        LayoutEngineVersionMajor             : '534'
+        LayoutEngineNameVersion              : 'AppleWebKit 534.1'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'U3'
+        AgentVersion                         : '3.0.0'
+        AgentVersionMajor                    : '3'
+        AgentNameVersion                     : 'U3 3.0.0'
+        AgentNameVersionMajor                : 'U3 3'
+        AgentLanguage                        : 'English (United States)'
+        AgentLanguageCode                    : 'en-us'

@@ -46,6 +46,19 @@ do
     echo "       \"${key}\" : \"${deviceName}\""
 done
 
+echo ""
+echo "  - lookup:"
+echo "      name: 'AppleDeviceVersion'"
+echo "      map:"
+cat "AppleTypes.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
+do
+    key=$(echo ${line} | cut -d'|' -f1)
+    deviceClass=$(echo ${line} | cut -d'|' -f2)
+    deviceName=$(echo ${line} | cut -d'|' -f3)
+    deviceVersion=$(echo ${line} | cut -d'|' -f4-)
+    echo "       \"${key}\" : \"${deviceVersion}\""
+done
+
 cat "AppleTypes.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
 do
     key=$(echo ${line} | cut -d'|' -f1)
