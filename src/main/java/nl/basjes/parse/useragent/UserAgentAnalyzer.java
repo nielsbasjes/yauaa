@@ -647,6 +647,10 @@ config:
     }
 
     public boolean runTests(boolean showAll, boolean failOnUnexpected) {
+        return runTests(showAll, failOnUnexpected, false);
+    }
+
+    public boolean runTests(boolean showAll, boolean failOnUnexpected, boolean measureSpeed) {
         boolean allPass = true;
         if (testCases == null) {
             return allPass;
@@ -673,7 +677,7 @@ config:
         for (int i = filenameHeaderLength; i < maxFilenameLength; i++) {
             sb.append(' ');
         }
-        sb.append("|vv --> S=Syntax Error, [1-9]=Number of ambiguities during parse");
+        sb.append("|S|AA|  PPS| --> S=Syntax Error, AA=Number of ambiguities during parse, PPS=parses/sec");
 
         LOG.info(sb.toString());
         LOG.info("+-------------------------------------------------------------------------------------------");
@@ -718,7 +722,24 @@ config:
             }
 
             agent.setUserAgentString(userAgentString);
-            agent = parse(agent);
+
+
+            long measuredSpeed=-1;
+            if (measureSpeed) {
+                disableCaching();
+                // Preheat
+                for (int i = 0; i < 100; i++) {
+                    agent = parse(agent);
+                }
+                long startTime = System.nanoTime();
+                for (int i = 0; i < 1000; i++) {
+                    agent = parse(agent);
+                }
+                long stopTime = System.nanoTime();
+                measuredSpeed = (1000000000L*(1000))/(stopTime-startTime);
+            } else {
+                agent = parse(agent);
+            }
 
             sb.append('|');
             if (agent.hasSyntaxError()) {
@@ -727,9 +748,15 @@ config:
                 sb.append(' ');
             }
             if (agent.hasAmbiguity()) {
-                sb.append(agent.getAmbiguityCount());
+                sb.append(String.format("|%2d", agent.getAmbiguityCount()));
             } else {
-                sb.append(' ');
+                sb.append("|  ");
+            }
+
+            if (measureSpeed) {
+                sb.append('|').append(String.format("%5d", measuredSpeed));
+            } else {
+                sb.append("|  ~  ");
             }
 
             sb.append("| ").append(testName);
