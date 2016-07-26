@@ -127,7 +127,8 @@ points to all the applicable matcher actions. As a consequence
 
 Performance
 ===========
-On my i7 system I see a speed of around 4000 useragents per second or <1ms each.
+On my i7 system I see a speed ranging from 500 to 4000 useragents per second (depending on the length and ambiguities in the useragent).
+On average the speed is above 1000 per second or <1ms each.
 A LRU cache is in place that does over 1M per second if they are in the cache.
 
 In the canonical usecase of analysing clickstream data you will see a <1ms hit per visitor (or better: per new non-cached useragent)
