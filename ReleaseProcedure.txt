@@ -4,7 +4,7 @@ So we do it manually.
 # Ensure all has been committed
 
 # Ensure it all works
-mvn clean package
+mvn clean package -Pplatfora
 mvn clean
 
 # Creating and publishing the new Tagging
@@ -28,10 +28,10 @@ git push origin v${RELEASEVERSION}
 
 # These two profiles are defined in ~/.m2/settings.xml
 git checkout v${RELEASEVERSION}
-mvn clean deploy -Prelease -Pdeploy-local
+mvn clean deploy -Pplatfora -Prelease -Pdeploy-local
 
 VERIFY If this all looks good
 
-mvn clean deploy -Prelease -Pdeploy-sonatype
+mvn clean deploy -Pplatfora -Prelease -Pdeploy-sonatype
 
 git checkout master
