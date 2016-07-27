@@ -24,8 +24,8 @@ config:
       require:
         - 'agent.(1)product.name~"spider"'
       extract:
-        - 'DeviceClass           :  100:"Cloud"'
-        - 'DeviceBrand           :  100:"Cloud"'
+        - 'DeviceClass           :  100:"Robot"'
+        - 'DeviceBrand           :  100:"Robot"'
         - 'DeviceName            :  100:agent.(1)product.name'
         - 'OperatingSystemClass  :  100:"Cloud"'
         - 'OperatingSystemName   :  100:"Cloud"'
@@ -41,8 +41,8 @@ config:
       require:
         - 'agent.(1)product.name~"crawl"'
       extract:
-        - 'DeviceClass           :  100:"Cloud"'
-        - 'DeviceBrand           :  100:"Cloud"'
+        - 'DeviceClass           :  100:"Robot"'
+        - 'DeviceBrand           :  100:"Robot"'
         - 'DeviceName            :  100:agent.(1)product.name'
         - 'OperatingSystemClass  :  100:"Cloud"'
         - 'OperatingSystemName   :  100:"Cloud"'
@@ -58,8 +58,8 @@ config:
       require:
         - 'agent.(1)product.name~"bot"'
       extract:
-        - 'DeviceClass           :  100:"Cloud"'
-        - 'DeviceBrand           :  100:"Cloud"'
+        - 'DeviceClass           :  100:"Robot"'
+        - 'DeviceBrand           :  100:"Robot"'
         - 'DeviceName            :  100:agent.(1)product.name'
         - 'OperatingSystemClass  :  100:"Cloud"'
         - 'OperatingSystemName   :  100:"Cloud"'
@@ -76,8 +76,8 @@ config:
       require:
         - 'agent.(1)product.comments.entry.product.name~"spider"'
       extract:
-        - 'DeviceClass           :  100:"Cloud"'
-        - 'DeviceBrand           :  100:"Cloud"'
+        - 'DeviceClass           :  100:"Robot"'
+        - 'DeviceBrand           :  100:"Robot"'
         - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"spider"'
         - 'OperatingSystemClass  :  100:"Cloud"'
         - 'OperatingSystemName   :  100:"Cloud"'
@@ -93,8 +93,8 @@ config:
       require:
         - 'agent.(1)product.comments.entry.product.name~"crawl"'
       extract:
-        - 'DeviceClass           :  100:"Cloud"'
-        - 'DeviceBrand           :  100:"Cloud"'
+        - 'DeviceClass           :  100:"Robot"'
+        - 'DeviceBrand           :  100:"Robot"'
         - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"crawl"'
         - 'OperatingSystemClass  :  100:"Cloud"'
         - 'OperatingSystemName   :  100:"Cloud"'
@@ -110,8 +110,8 @@ config:
       require:
         - 'agent.(1)product.comments.entry.product.name~"bot"'
       extract:
-        - 'DeviceClass           :  100:"Cloud"'
-        - 'DeviceBrand           :  100:"Cloud"'
+        - 'DeviceClass           :  100:"Robot"'
+        - 'DeviceBrand           :  100:"Robot"'
         - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name'
         - 'OperatingSystemClass  :  100:"Cloud"'
         - 'OperatingSystemName   :  100:"Cloud"'
@@ -127,7 +127,7 @@ config:
       require:
         - 'agent.product.comments.entry.url="http://www.google.com/bot.html"'
       extract:
-        - 'DeviceClass           :  3000:"Cloud"'
+        - 'DeviceClass           :  3000:"Robot"'
         - 'DeviceBrand           :  3000:"Google"'
         - 'DeviceName            :  3000:"Google"'
         - 'OperatingSystemClass  :  3000:"Cloud"'
@@ -142,7 +142,7 @@ config:
 
   - matcher:
       extract:
-        - 'DeviceClass           :  3010:"Cloud"'
+        - 'DeviceClass           :  3010:"Robot"'
         - 'DeviceBrand           :  3010:"Google"'
         - 'DeviceName            :  3010:"Google"'
         - 'OperatingSystemClass  :  3010:"Cloud"'
@@ -174,7 +174,7 @@ config:
       require:
         - 'agent.(1)product.(1)name="AdsBot-Google"'
       extract:
-        - 'DeviceClass           :  3020:"Cloud"'
+        - 'DeviceClass           :  3020:"Robot"'
         - 'DeviceBrand           :  3020:"Google"'
         - 'DeviceName            :  3020:"Google"'
         - 'OperatingSystemClass  :  3020:"Cloud"'
@@ -189,7 +189,7 @@ config:
 
   - matcher:
       extract:
-        - 'DeviceClass           : 3000:"Cloud"'
+        - 'DeviceClass           : 3000:"Robot"'
         - 'DeviceBrand           : 3000:"Microsoft"'
         - 'DeviceName            : 3000:"BingBot"'
         - 'OperatingSystemClass  : 3000:"Cloud"'
@@ -208,7 +208,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
       expected:
-        DeviceClass                        : 'Cloud'
+        DeviceClass                        : 'Robot'
         DeviceBrand                        : 'Google'
         DeviceName                         : 'Google'
         OperatingSystemClass               : 'Cloud'
@@ -227,7 +227,7 @@ config:
       input:
         user_agent_string: 'Googlebot/2.1 (+http://www.google.com/bot.html)'
       expected:
-        DeviceClass                        : 'Cloud'
+        DeviceClass                        : 'Robot'
         DeviceBrand                        : 'Google'
         DeviceName                         : 'Google'
         OperatingSystemClass               : 'Cloud'
@@ -247,7 +247,7 @@ config:
       input:
         user_agent_string: 'Googlebot-Image/1.0'
       expected:
-        DeviceClass                        : 'Cloud'
+        DeviceClass                        : 'Robot'
         DeviceBrand                        : 'Google'
         DeviceName                         : 'Google'
         OperatingSystemClass               : 'Cloud'
@@ -265,7 +265,7 @@ config:
       input:
         user_agent_string: 'Googlebot-Video/1.0'
       expected:
-        DeviceClass                        : 'Cloud'
+        DeviceClass                        : 'Robot'
         DeviceBrand                        : 'Google'
         DeviceName                         : 'Google'
         OperatingSystemClass               : 'Cloud'
@@ -290,6 +290,7 @@ config:
         - 'agent.product.name="Mobile"'
       extract:
         - 'AgentClass            :   10000:"Robot Mobile"'
+        - 'DeviceClass           :   10000:"Robot Mobile"'
 
   - matcher:
       require:
@@ -297,19 +298,21 @@ config:
         - 'agent.product.name="Mobile Safari"'
       extract:
         - 'AgentClass            :   10000:"Robot Mobile"'
+        - 'DeviceClass           :   10000:"Robot Mobile"'
 
   - matcher:
       require:
         - 'agent.product.comments.entry.(1)product.(1)name="Googlebot-Mobile"'
       extract:
         - 'AgentClass            :   10000:"Robot Mobile"'
+        - 'DeviceClass           :   10000:"Robot Mobile"'
 
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
       expected:
-        DeviceClass                          : 'Cloud'
+        DeviceClass                          : 'Robot Mobile'
         DeviceName                           : 'Google'
         DeviceBrand                          : 'Google'
         DeviceFirmwareVersion                : '10A5376e'
@@ -336,7 +339,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
       expected:
-        DeviceClass                          : 'Cloud'
+        DeviceClass                          : 'Robot Mobile'
         DeviceName                           : 'Google'
         DeviceBrand                          : 'Google'
         OperatingSystemClass                 : 'Cloud'
@@ -362,7 +365,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36'
       expected:
-        DeviceClass                          : 'Cloud'
+        DeviceClass                          : 'Robot'
         DeviceName                           : 'Google'
         DeviceBrand                          : 'Google'
         OperatingSystemClass                 : 'Cloud'
@@ -387,7 +390,7 @@ config:
       input:
         user_agent_string: 'SAMSUNG-SGH-E250/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Browser/6.2.3.3.c.1.101 (GUI) MMP/2.0 (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
       expected:
-        DeviceClass                          : 'Cloud'
+        DeviceClass                          : 'Robot Mobile'
         DeviceName                           : 'Google'
         DeviceBrand                          : 'Google'
         DeviceVersion                        : '1.0'
@@ -414,7 +417,7 @@ config:
       input:
         user_agent_string: 'DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
       expected:
-        DeviceClass                          : 'Cloud'
+        DeviceClass                          : 'Robot Mobile'
         DeviceName                           : 'Google'
         DeviceBrand                          : 'Google'
         OperatingSystemClass                 : 'Cloud'
@@ -440,7 +443,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
       expected:
-        DeviceClass                        : 'Cloud'
+        DeviceClass                        : 'Robot Mobile'
         DeviceBrand                        : 'Google'
         DeviceName                         : 'Google'
         OperatingSystemClass               : 'Cloud'
@@ -475,7 +478,7 @@ config:
       input:
         user_agent_string: 'AdsBot-Google (+http://www.google.com/adsbot.html)'
       expected:
-        DeviceClass                        : 'Cloud'
+        DeviceClass                        : 'Robot'
         DeviceBrand                        : 'Google'
         DeviceName                         : 'Google'
         OperatingSystemClass               : 'Cloud'
@@ -500,8 +503,8 @@ config:
         AgentName                          : 'Sogou web spider'
         AgentVersion                       : '4.0'
         AgentInformationUrl                : 'http://www.sogou.com/docs/help/webmasters.htm#07'
-        DeviceBrand                        : 'Cloud'
-        DeviceClass                        : 'Cloud'
+        DeviceBrand                        : 'Robot'
+        DeviceClass                        : 'Robot'
         DeviceName                         : 'Sogou web spider'
         LayoutEngineClass                  : 'Robot'
         LayoutEngineName                   : 'Sogou web spider'
@@ -533,7 +536,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
       expected:
-        DeviceClass                        : 'Cloud'
+        DeviceClass                        : 'Robot'
         DeviceBrand                        : 'Microsoft'
         DeviceName                         : 'BingBot'
         OperatingSystemClass               : 'Cloud'
@@ -563,8 +566,8 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)'
       expected:
-        DeviceClass                        : 'Cloud'
-        DeviceBrand                        : 'Cloud'
+        DeviceClass                        : 'Robot'
+        DeviceBrand                        : 'Robot'
         DeviceName                         : 'Baiduspider'
         OperatingSystemClass               : 'Cloud'
         OperatingSystemName                : 'Cloud'
@@ -584,7 +587,7 @@ config:
       require:
         - 'agent.(1)product.(1)comments.entry.text="Yahoo! Slurp"'
       extract:
-        - 'DeviceClass           :  3020:"Cloud"'
+        - 'DeviceClass           :  3020:"Robot"'
         - 'DeviceBrand           :  3020:"Yahoo"'
         - 'DeviceName            :  3020:"Yahoo"'
         - 'OperatingSystemClass  :  3020:"Cloud"'
@@ -601,7 +604,7 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)'
       expected:
-        DeviceClass                          : 'Cloud'
+        DeviceClass                          : 'Robot'
         DeviceName                           : 'Yahoo'
         DeviceBrand                          : 'Yahoo'
         OperatingSystemClass                 : 'Cloud'
