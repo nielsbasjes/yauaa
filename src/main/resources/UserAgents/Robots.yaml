@@ -112,7 +112,7 @@ config:
       extract:
         - 'DeviceClass           :  100:"Robot"'
         - 'DeviceBrand           :  100:"Robot"'
-        - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name'
+        - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"bot"'
         - 'OperatingSystemClass  :  100:"Cloud"'
         - 'OperatingSystemName   :  100:"Cloud"'
         - 'OperatingSystemVersion:  100:"Cloud"'
@@ -122,6 +122,60 @@ config:
         - 'AgentClass            :  100:"Robot"'
         - 'AgentName             :  100:agent.(1)product.comments.entry.product.name~"bot"'
         - 'AgentVersion          :  100:agent.(1)product.comments.entry.product.name~"bot"^.version'
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.text~"spider"'
+      extract:
+        - 'DeviceClass           :  100:"Robot"'
+        - 'DeviceBrand           :  100:"Robot"'
+        - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"spider"'
+        - 'OperatingSystemClass  :  100:"Cloud"'
+        - 'OperatingSystemName   :  100:"Cloud"'
+        - 'OperatingSystemVersion:  100:"Cloud"'
+        - 'LayoutEngineClass     :  100:"Robot"'
+        - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.text~"spider"'
+        - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.text~"spider"'
+        - 'AgentClass            :  100:"Robot"'
+        - 'AgentName             :  100:agent.(1)product.comments.entry.text~"spider"'
+        - 'AgentVersion          :  100:agent.(1)product.comments.entry.text~"spider"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.text~"crawl"'
+      extract:
+        - 'DeviceClass           :  100:"Robot"'
+        - 'DeviceBrand           :  100:"Robot"'
+        - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"crawl"'
+        - 'OperatingSystemClass  :  100:"Cloud"'
+        - 'OperatingSystemName   :  100:"Cloud"'
+        - 'OperatingSystemVersion:  100:"Cloud"'
+        - 'LayoutEngineClass     :  100:"Robot"'
+        - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.text~"crawl"'
+        - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.text~"crawl"'
+        - 'AgentClass            :  100:"Robot"'
+        - 'AgentName             :  100:agent.(1)product.comments.entry.text~"crawl"'
+        - 'AgentVersion          :  100:agent.(1)product.comments.entry.text~"crawl"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.text~"bot"'
+      extract:
+        - 'DeviceClass           :  100:"Robot"'
+        - 'DeviceBrand           :  100:"Robot"'
+        - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"bot"'
+        - 'OperatingSystemClass  :  100:"Cloud"'
+        - 'OperatingSystemName   :  100:"Cloud"'
+        - 'OperatingSystemVersion:  100:"Cloud"'
+        - 'LayoutEngineClass     :  100:"Robot"'
+        - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.text~"bot"'
+        - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.text~"bot"'
+        - 'AgentClass            :  100:"Robot"'
+        - 'AgentName             :  100:agent.(1)product.comments.entry.text~"bot"'
+        - 'AgentVersion          :  100:agent.(1)product.comments.entry.text~"bot"'
+
+
 
   - matcher:
       require:
@@ -307,6 +361,17 @@ config:
         - 'AgentClass            :   10000:"Robot Mobile"'
         - 'DeviceClass           :   10000:"Robot Mobile"'
 
+# In almost all cases the precense of a URL indicates that it is a Robot/Spider with an information URL
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.url'
+      extract:
+        - 'DeviceClass           :   1:"Robot"' # Hacker / Cloud / Server / Desktop / Tablet / Phone / Watch
+        - 'DeviceBrand           :   1:"Robot"' # (Google/AWS/Asure) / Samsung / Apple / ...
+        - 'DeviceName            :   1:"Robot"' # (Google/AWS/Asure) / Samsung Galaxy SII / ...
+        - 'OperatingSystemClass  :   1:"Cloud"' # Cloud, Desktop, Mobile, Embedded
+        - 'OperatingSystemName   :   1:"Cloud"' # ( Linux / Android / Windows ...)
+        - 'OperatingSystemVersion:   1:"Cloud"' # 1.2 / 43 / ...
 
   - test:
       input:
@@ -625,16 +690,111 @@ config:
         AgentNameVersionMajor                : 'Yahoo! Slurp'
         AgentInformationUrl                  : 'http://help.yahoo.com/help/us/ysearch/slurp'
 
+# Archive.org_bot
+  - test:
+      input:
+         user_agent_string: 'Mozilla/5.0 (compatible; archive.org_bot; Wayback Machine Live Record; +http://archive.org/details/archive.org_bot)'
+      expected:
+        DeviceClass                          : 'Robot'
+        DeviceName                           : 'archive.org_bot'
+        DeviceBrand                          : 'Robot'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Cloud'
+        OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
+        LayoutEngineClass                    : 'Robot'
+        LayoutEngineName                     : 'archive.org_bot'
+        LayoutEngineVersion                  : 'archive.org_bot'
+        LayoutEngineVersionMajor             : 'archive'
+        LayoutEngineNameVersion              : 'archive.org_bot'
+        LayoutEngineNameVersionMajor         : 'archive.org_bot archive'
+        AgentClass                           : 'Robot'
+        AgentName                            : 'archive.org_bot'
+        AgentVersion                         : 'archive.org_bot'
+        AgentVersionMajor                    : 'archive'
+        AgentNameVersion                     : 'archive.org_bot'
+        AgentNameVersionMajor                : 'archive.org_bot archive'
+        AgentInformationUrl                  : 'http://archive.org/details/archive.org_bot'
+
+
+
 # TODO
-#  - test:
-#      input:
-##        name: 'You can give the test case a name'
-#        user_agent_string: 'Mozilla/5.0 (compatible; Charlotte/1.1; http://www.searchme.com/support/)'
-#
-#
-#Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)
-#Mozilla/5.0 (compatible; SputnikBot/2.3; +http://corp.sputnik.ru/webmaster)
-#Mozilla/5.0 (compatible; Applebot/0.3; +http://www.apple.com/go/applebot)
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; Charlotte/1.1; http://www.searchme.com/support/)'
+      expected:
+        DeviceClass                          : 'Robot'
+        DeviceName                           : 'Robot'
+        DeviceBrand                          : 'Robot'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Cloud'
+        OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Mozilla'
+        LayoutEngineVersion                  : '5.0'
+        LayoutEngineVersionMajor             : '5'
+        LayoutEngineNameVersion              : 'Mozilla 5.0'
+        LayoutEngineNameVersionMajor         : 'Mozilla 5'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Charlotte'
+        AgentVersion                         : '1.1'
+        AgentVersionMajor                    : '1'
+        AgentNameVersion                     : 'Charlotte 1.1'
+        AgentNameVersionMajor                : 'Charlotte 1'
+        AgentInformationUrl                  : 'http://www.searchme.com/support/'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; SputnikBot/2.3; +http://corp.sputnik.ru/webmaster)'
+      expected:
+        DeviceClass                          : 'Robot'
+        DeviceName                           : 'SputnikBot'
+        DeviceBrand                          : 'Robot'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Cloud'
+        OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
+        LayoutEngineClass                    : 'Robot'
+        LayoutEngineName                     : 'SputnikBot'
+        LayoutEngineVersion                  : '2.3'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'SputnikBot 2.3'
+        LayoutEngineNameVersionMajor         : 'SputnikBot 2'
+        AgentClass                           : 'Robot'
+        AgentName                            : 'SputnikBot'
+        AgentVersion                         : '2.3'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'SputnikBot 2.3'
+        AgentNameVersionMajor                : 'SputnikBot 2'
+        AgentInformationUrl                  : 'http://corp.sputnik.ru/webmaster'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; Applebot/0.3; +http://www.apple.com/go/applebot)'
+      expected:
+        DeviceClass                          : 'Robot'
+        DeviceName                           : 'Applebot'
+        DeviceBrand                          : 'Robot'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Cloud'
+        OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
+        LayoutEngineClass                    : 'Robot'
+        LayoutEngineName                     : 'Applebot'
+        LayoutEngineVersion                  : '0.3'
+        LayoutEngineVersionMajor             : '0'
+        LayoutEngineNameVersion              : 'Applebot 0.3'
+        LayoutEngineNameVersionMajor         : 'Applebot 0'
+        AgentClass                           : 'Robot'
+        AgentName                            : 'Applebot'
+        AgentVersion                         : '0.3'
+        AgentVersionMajor                    : '0'
+        AgentNameVersion                     : 'Applebot 0.3'
+        AgentNameVersionMajor                : 'Applebot 0'
+        AgentInformationUrl                  : 'http://www.apple.com/go/applebot'
+
+
 #Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Applebot/0.3; +http://www.apple.com/
 
 #we follow your robots.txt settings before crawling, you can slow down the bot by change the Crawl-Delay parameter in the settings.if you have an enquiry, please email

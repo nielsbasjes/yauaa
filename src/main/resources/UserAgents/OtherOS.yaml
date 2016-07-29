@@ -18,21 +18,21 @@
 
 config:
 
-  - matcher:
-      extract:
-        - 'DeviceClass           :   10:"Desktop"'
-        - 'DeviceBrand           :   10:"Sun"'
-        - 'DeviceName            :   10:"Sun"'
-        - 'OperatingSystemClass  :   10:"Desktop"'
-        - 'OperatingSystemName   :   10:agent.(1)product.(1)comments.entry.(1)product.(1)name="SunOS"'
-        - 'OperatingSystemVersion:   10:agent.(1)product.(1)comments.entry.(1)product.(1)name="SunOS"^.version'
+#  - matcher:
+#      extract:
+#        - 'DeviceClass           :   10:"Desktop"'
+#        - 'DeviceBrand           :   10:"Sun"'
+#        - 'DeviceName            :   10:"Sun"'
+#        - 'OperatingSystemClass  :   10:"Desktop"'
+#        - 'OperatingSystemName   :   10:agent.(1)product.(1)comments.entry.(1)product.(1)name="SunOS"'
+#        - 'OperatingSystemVersion:   10:agent.(1)product.(1)comments.entry.(1)product.(1)name="SunOS"^.version'
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (X11; SunOS i86pc; rv:31.0) Gecko/20100101 Firefox/31.0'
       expected:
         DeviceClass                        : 'Desktop'
-        DeviceName                         : 'Sun'
+        DeviceName                         : 'Sun Desktop'
         DeviceBrand                        : 'Sun'
         DeviceCpu                          : 'i86pc'
         OperatingSystemClass               : 'Desktop'
@@ -97,5 +97,28 @@ config:
         AgentVersion                       : '4.61'
         AgentLanguage                      : 'German'
         AgentSecurity                      : 'Strong security'
+
+  - test:
+      input:
+         user_agent_string: 'NokiaC6-00/10.0.021 (SymbianOS/9.4; Series60/5.0 Mozilla/5.0; Profile/MIDP-2.1 Configuration/CLDC-1.1) AppleWebkit/525 (KHTML, like Gecko) BrowserNG/7.2.6 UNTRUSTED/1.0 3gpp-gba 88XI4n5O'
+      expected:
+        DeviceClass                          : 'Phone'
+        DeviceName                           : 'SymbianOS Phone'     # FIXME: Should be "NokiaC6"
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'SymbianOS'
+        OperatingSystemVersion               : '9.4'
+        OperatingSystemNameVersion           : 'SymbianOS 9.4'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '525'
+        LayoutEngineVersionMajor             : '525'
+        LayoutEngineNameVersion              : 'AppleWebKit 525'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 525'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'BrowserNG'
+        AgentVersion                         : '7.2.6'
+        AgentVersionMajor                    : '7'
+        AgentNameVersion                     : 'BrowserNG 7.2.6'
+        AgentNameVersionMajor                : 'BrowserNG 7'
 
 

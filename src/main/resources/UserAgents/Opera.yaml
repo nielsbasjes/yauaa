@@ -112,6 +112,7 @@ config:
         - 'AgentClass            :   2012:"Browser"'
         - 'AgentName             :   2012:"Opera Mini"'
         - 'AgentVersion          :   2012:agent.product.comments.entry.product.(1)name="Opera Mini"^.version'
+        - 'DeviceClass           :      1:"Mobile"'
 
   - test:
       input:
@@ -188,3 +189,74 @@ config:
         AgentVersionMajor                  : '13'                       # 2014
         AgentNameVersion                   : 'Opera 13.0.1.100754'      # 2014
         AgentNameVersionMajor              : 'Opera 13'                 # 2014
+
+
+  - test:
+      input:
+         user_agent_string: 'Opera/9.80 (J2ME/MIDP; Opera Mini/4.2.16402/37.7936; U; en) Presto/2.12.423 Version/12.16'
+      expected:
+      # TODO: Extract J2ME/MIDP
+        DeviceClass                          : 'Mobile'                   # 1
+        LayoutEngineClass                    : 'Browser'                  # 2011
+        LayoutEngineName                     : 'Presto'                   # 2011
+        LayoutEngineVersion                  : '2.12.423'                 # 2011
+        LayoutEngineVersionMajor             : '2'                        # 2011
+        LayoutEngineNameVersion              : 'Presto 2.12.423'          # 2011
+        LayoutEngineNameVersionMajor         : 'Presto 2'                 # 2011
+        AgentClass                           : 'Browser'                  # 2012
+        AgentName                            : 'Opera Mini'               # 2012
+        AgentVersion                         : '4.2.16402'                # 2012
+        AgentVersionMajor                    : '4'                        # 2012
+        AgentNameVersion                     : 'Opera Mini 4.2.16402'     # 2012
+        AgentNameVersionMajor                : 'Opera Mini 4'             # 2012
+        AgentLanguage                        : 'English'                  # 5
+        AgentLanguageCode                    : 'en'                       # 5
+        AgentSecurity                        : 'Strong security'          # 50
+
+
+
+  - test:
+      input:
+      # TODO: Extract MAUI Runtime
+         user_agent_string: 'Opera/9.80 (MAUI Runtime; Opera Mini/4.4.39010/37.7936; U; nl) Presto/2.12.423 Version/12.16'
+      expected:
+        DeviceClass                          : 'Mobile'                   # 1
+        LayoutEngineClass                    : 'Browser'                  # 2011
+        LayoutEngineName                     : 'Presto'                   # 2011
+        LayoutEngineVersion                  : '2.12.423'                 # 2011
+        LayoutEngineVersionMajor             : '2'                        # 2011
+        LayoutEngineNameVersion              : 'Presto 2.12.423'          # 2011
+        LayoutEngineNameVersionMajor         : 'Presto 2'                 # 2011
+        AgentClass                           : 'Browser'                  # 2012
+        AgentName                            : 'Opera Mini'               # 2012
+        AgentVersion                         : '4.4.39010'                # 2012
+        AgentVersionMajor                    : '4'                        # 2012
+        AgentNameVersion                     : 'Opera Mini 4.4.39010'     # 2012
+        AgentNameVersionMajor                : 'Opera Mini 4'             # 2012
+        AgentLanguage                        : 'Dutch'                    # 5
+        AgentLanguageCode                    : 'nl'                       # 5
+        AgentSecurity                        : 'Strong security'          # 50
+
+
+
+  - test:
+      input:
+      # TODO: Extract SpreadTrum
+         user_agent_string: 'Opera/9.80 (SpreadTrum; Opera Mini/4.4.31492/37.7936; U; en) Presto/2.12.423 Version/12.16'
+      expected:
+        DeviceClass                          : 'Mobile'                   # 1
+        LayoutEngineClass                    : 'Browser'                  # 2011
+        LayoutEngineName                     : 'Presto'                   # 2011
+        LayoutEngineVersion                  : '2.12.423'                 # 2011
+        LayoutEngineVersionMajor             : '2'                        # 2011
+        LayoutEngineNameVersion              : 'Presto 2.12.423'          # 2011
+        LayoutEngineNameVersionMajor         : 'Presto 2'                 # 2011
+        AgentClass                           : 'Browser'                  # 2012
+        AgentName                            : 'Opera Mini'               # 2012
+        AgentVersion                         : '4.4.31492'                # 2012
+        AgentVersionMajor                    : '4'                        # 2012
+        AgentNameVersion                     : 'Opera Mini 4.4.31492'     # 2012
+        AgentNameVersionMajor                : 'Opera Mini 4'             # 2012
+        AgentLanguage                        : 'English'                  # 5
+        AgentLanguageCode                    : 'en'                       # 5
+        AgentSecurity                        : 'Strong security'          # 50

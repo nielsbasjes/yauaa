@@ -21,40 +21,7 @@ echo "# THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY"
 echo "# ============================================="
 echo "config:"
 
-#echo "  - lookup:"
-#echo "      name: 'OperatingSystemNames'"
-#echo "      map:"
-#cat "OperatingSystemNames.csv" | grep . | fgrep -v '#' | while read line ; \
-#do
-#    osname=$(   echo ${line} | cut -d'|' -f1)
-#    devclass=$( echo ${line} | cut -d'|' -f2)
-#    devname=$(  echo ${line} | cut -d'|' -f3)
-#    echo "       \"${osname}\" : \"${osname}\""
-#done
-
-#echo "  - lookup:"
-#echo "      name: 'DeviceClassess'"
-#echo "      map:"
-#cat "OperatingSystemNames.csv" | grep . | fgrep -v '#' | while read line ; \
-#do
-#    osname=$(   echo ${line} | cut -d'|' -f1)
-#    devclass=$( echo ${line} | cut -d'|' -f2)
-#    devname=$(  echo ${line} | cut -d'|' -f3)
-#    echo "       \"${osname}\" : \"${devclass}\""
-#done
-
-#echo "  - lookup:"
-#echo "      name: 'DeviceNames'"
-#echo "      map:"
-#cat "OperatingSystemNames.csv" | grep . | fgrep -v '#' | while read line ; \
-#do
-#    osname=$(   echo ${line} | cut -d'|' -f1)
-#    devclass=$( echo ${line} | cut -d'|' -f2)
-#    devname=$(  echo ${line} | cut -d'|' -f3)
-#    echo "       \"${osname}\" : \"${devname}\""
-#done
-
-cat "OperatingSystemNames.csv" | grep . | fgrep -v '#' | while read line ; \
+cat "OperatingSystemDeviceNames.csv" | grep . | fgrep -v '#' | while read line ; \
 do
     osname=$(   echo ${line} | cut -d'|' -f1)
     devclass=$( echo ${line} | cut -d'|' -f2)
@@ -118,4 +85,4 @@ echo "
 "
 done
 
-) > ../OperatingSystemNames.yaml
+) > ../OperatingSystemDeviceNames.yaml

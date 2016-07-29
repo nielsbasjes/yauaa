@@ -18,49 +18,6 @@
 
 ---
 config:
-  - lookup:
-      name: 'MSWindowsOSName'
-      map:
-        "Windows NT 10.0": "Windows NT"
-        "Windows NT 6.4":  "Windows NT"
-        "Windows NT 6.3":  "Windows NT"
-        "Windows 8.1":     "Windows NT"
-        "Windows NT 6.2":  "Windows NT"
-        "Windows NT 6.1":  "Windows NT"
-        "Windows NT 6.0":  "Windows NT"
-        "Windows NT 5.2":  "Windows NT"
-        "Windows NT 5.1":  "Windows NT"
-        "Windows NT 5.01": "Windows NT"
-        "Windows NT 5.0":  "Windows NT"
-        "Windows 2000":    "Windows NT"
-        "Windows NT 4.0":  "Windows NT"
-        "Windows NT":      "Windows NT"
-        "Win 9x 4.90":     "Windows 9x"
-        "Windows 98":      "Windows 9x"
-        "Windows 95":      "Windows 9x"
-        "Windows CE":      "Windows CE"
-
-  - lookup:
-      name: 'MSWindowsOSVersion'
-      map:
-        "Windows NT 10.0": "Windows 10.0"
-        "Windows NT 6.4":  "Windows 10 Preview"
-        "Windows NT 6.3":  "Windows 8.1"
-        "Windows 8.1":  "Windows 8.1"
-        "Windows NT 6.2":  "Windows 8"
-        "Windows NT 6.1":  "Windows 7"
-        "Windows NT 6.0":  "Windows Vista"
-        "Windows NT 5.2":  "Windows Server 2003; Windows XP x64 Edition"
-        "Windows NT 5.1":  "Windows XP"
-        "Windows NT 5.01": "Windows 2000, Service Pack 1 (SP1)"
-        "Windows NT 5.0":  "Windows 2000"
-        "Windows 2000":    "Windows 2000"
-        "Windows NT 4.0":  "Windows NT 4.0"
-        "Windows NT":      "Windows NT"
-        "Win 9x 4.90":     "Windows Millennium Edition"
-        "Windows 98":      "Windows 98"
-        "Windows 95":      "Windows 95"
-        "Windows CE":      "Windows CE"
 
 
   - matcher:
@@ -68,9 +25,9 @@ config:
         - 'DeviceClass               : 100:"Desktop"'
         - 'DeviceName                : 100:"Desktop"'
         - 'OperatingSystemClass      : 100:"Desktop"'
-        - 'OperatingSystemName       : 100:LookUp[MSWindowsOSName;agent.(1)product.comments.entry.product]'
-        - 'OperatingSystemVersion    : 100:LookUp[MSWindowsOSVersion;agent.(1)product.comments.entry.product]'
-        - 'OperatingSystemNameVersion: 100:LookUp[MSWindowsOSVersion;agent.(1)product.comments.entry.product]'
+        - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.(1)product.comments.entry.product]'
+        - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
+        - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
 
 
   - matcher:
@@ -78,9 +35,9 @@ config:
         - 'DeviceClass               : 100:"Desktop"'
         - 'DeviceName                : 100:"Desktop"'
         - 'OperatingSystemClass      : 100:"Desktop"'
-        - 'OperatingSystemName       : 100:LookUp[MSWindowsOSName;agent.(1)product.comments.entry.product]'
-        - 'OperatingSystemVersion    : 100:LookUp[MSWindowsOSVersion;agent.(1)product.comments.entry.product]'
-        - 'OperatingSystemNameVersion: 100:LookUp[MSWindowsOSVersion;agent.(1)product.comments.entry.product]'
+        - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.(1)product.comments.entry.product]'
+        - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
+        - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
 
   - matcher:
       extract:
@@ -96,9 +53,9 @@ config:
         - 'DeviceClass               : 100:"Desktop"'
         - 'DeviceName                : 100:"Desktop"'
         - 'OperatingSystemClass      : 100:"Desktop"'
-        - 'OperatingSystemName       : 100:LookUp[MSWindowsOSName;agent.(1)product.comments.entry.text]'
-        - 'OperatingSystemVersion    : 100:LookUp[MSWindowsOSVersion;agent.(1)product.comments.entry.text]'
-        - 'OperatingSystemNameVersion: 100:LookUp[MSWindowsOSVersion;agent.(1)product.comments.entry.text]'
+        - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.(1)product.comments.entry.text]'
+        - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.text]'
+        - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.text]'
 
 
 
@@ -107,9 +64,9 @@ config:
         - 'DeviceClass               : 100:"Desktop"'
         - 'DeviceName                : 100:"Desktop"'
         - 'OperatingSystemClass      : 100:"Desktop"'
-        - 'OperatingSystemName       : 100:LookUp[MSWindowsOSName;agent.product]'
-        - 'OperatingSystemVersion    : 100:LookUp[MSWindowsOSVersion;agent.product]'
-        - 'OperatingSystemNameVersion: 100:LookUp[MSWindowsOSVersion;agent.product]'
+        - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product]'
+        - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product]'
+        - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product]'
 
 
   - matcher:
@@ -117,9 +74,9 @@ config:
         - 'DeviceClass               : 100:"Desktop"'
         - 'DeviceName                : 100:"Desktop"'
         - 'OperatingSystemClass      : 100:"Desktop"'
-        - 'OperatingSystemName       : 100:LookUp[MSWindowsOSName;agent.product]'
-        - 'OperatingSystemVersion    : 100:LookUp[MSWindowsOSVersion;agent.product]'
-        - 'OperatingSystemNameVersion: 100:LookUp[MSWindowsOSVersion;agent.product]'
+        - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product]'
+        - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product]'
+        - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product]'
 
   - matcher:
       extract:
@@ -135,9 +92,9 @@ config:
         - 'DeviceClass               : 100:"Desktop"'
         - 'DeviceName                : 100:"Desktop"'
         - 'OperatingSystemClass      : 100:"Desktop"'
-        - 'OperatingSystemName       : 100:LookUp[MSWindowsOSName;agent.product.text]'
-        - 'OperatingSystemVersion    : 100:LookUp[MSWindowsOSVersion;agent.product.text]'
-        - 'OperatingSystemNameVersion: 100:LookUp[MSWindowsOSVersion;agent.product.text]'
+        - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product.text]'
+        - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product.text]'
+        - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product.text]'
 
 
   - test:

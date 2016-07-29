@@ -19,6 +19,17 @@ config:
 
   - matcher:
       require:
+        - 'agent.(1)product.(1)comments.entry.text="BlackBerry"'
+      extract:
+        - 'DeviceClass            : 10:"Phone"'
+        - 'DeviceBrand            : 10:"BlackBerry"'
+        - 'DeviceName             : 10:"BlackBerry"'
+        - 'OperatingSystemClass   : 10:"Mobile"'
+        - 'OperatingSystemName    : 10:"RIM OS"'
+        - 'OperatingSystemVersion : 10:"RIM OS"'
+
+  - matcher:
+      require:
         - 'agent.(1)product.(1)comments.entry.text="BB10"'
       extract:
         - 'DeviceClass            : 100:"Phone"'
@@ -140,3 +151,32 @@ config:
         AgentVersion                       : '7.1.0.714'
         AgentLanguage                      : 'Dutch'
         AgentSecurity                      : 'Strong security'
+
+
+  - test:
+      input:
+         user_agent_string: 'Opera/9.80 (BlackBerry; Opera Mini/7.1.33553/37.7936; U; en) Presto/2.12.423 Version/12.16'
+      expected:
+        DeviceClass                        : 'Phone'                    # 1
+        DeviceName                         : 'BlackBerry'               # 1
+        DeviceBrand                        : 'BlackBerry'               # 1
+        OperatingSystemClass               : 'Mobile'                   # 1
+        OperatingSystemName                : 'RIM OS'                   # 1
+        OperatingSystemVersion             : 'RIM OS'                   # 1
+        OperatingSystemNameVersion         : 'RIM OS'                   # 1
+        LayoutEngineClass                  : 'Browser'                  # 2011
+        LayoutEngineName                   : 'Presto'                   # 2011
+        LayoutEngineVersion                : '2.12.423'                 # 2011
+        LayoutEngineVersionMajor           : '2'                        # 2011
+        LayoutEngineNameVersion            : 'Presto 2.12.423'          # 2011
+        LayoutEngineNameVersionMajor       : 'Presto 2'                 # 2011
+        AgentClass                         : 'Browser'                  # 2012
+        AgentName                          : 'Opera Mini'               # 2012
+        AgentVersion                       : '7.1.33553'                # 2012
+        AgentVersionMajor                  : '7'                        # 2012
+        AgentNameVersion                   : 'Opera Mini 7.1.33553'     # 2012
+        AgentNameVersionMajor              : 'Opera Mini 7'             # 2012
+        AgentLanguage                      : 'English'                  # 5
+        AgentLanguageCode                  : 'en'                       # 5
+        AgentSecurity                      : 'Strong security'          # 50
+
