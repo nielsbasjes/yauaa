@@ -36,7 +36,9 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -96,16 +98,27 @@ public class UserAgentAnalyzer extends Analyzer {
         flattener = new UserAgentTreeFlattener(this);
         yaml = new Yaml();
 
-        Resource[] resources;
+        List<Resource> resources;
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            resources = resolver.getResources(resourceString);
+            resources = Arrays.asList(resolver.getResources(resourceString));
+            Collections.sort(resources, new Comparator<Resource>() {
+                @Override
+                public int compare(Resource resource1, Resource resource2) {
+                    String name1 = resource1.getFilename();
+                    String name2 = resource2.getFilename();
+                    return name1.compareTo(name2);
+                }
+            });
+
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
         doingOnlyASingleTest = false;
         int maxFilenameLength = 0;
+
+
         for (Resource resource : resources) {
             try {
                 maxFilenameLength = Math.max(maxFilenameLength, resource.getFilename().length());
@@ -114,7 +127,7 @@ public class UserAgentAnalyzer extends Analyzer {
                 e.printStackTrace();
             }
         }
-        LOG.info("Loaded {} files", resources.length);
+        LOG.info("Loaded {} files", resources.size());
 
         if (lookups != null && !lookups.isEmpty()) {
             // All compares are done in a case insensitive way. So we lowercase ALL keys of the lookups beforehand.
@@ -133,11 +146,16 @@ public class UserAgentAnalyzer extends Analyzer {
         int totalNumberOfMatchers = 0;
         if (matcherConfigs != null) {
             long fullStart = System.nanoTime();
-            for (Map.Entry<String, List<Map<String, List<String>>>> matcherConfigSet: matcherConfigs.entrySet()){
+            for (Resource resource : resources) {
+                String configFilename= resource.getFilename();
+                List<Map<String, List<String>>> matcherConfig = matcherConfigs.get(configFilename);
+                if (matcherConfig== null) {
+                    continue; // No matchers in this file (probably only lookups and/or tests)
+                }
                 long start = System.nanoTime();
                 int startSize = informMatcherActions.size();
 //                LOG.info("Start @ {}", start);
-                for (Map<String, List<String>> map : matcherConfigSet.getValue()) {
+                for (Map<String, List<String>> map : matcherConfig) {
                     allMatchers.add(new Matcher(this, lookups, map));
                     totalNumberOfMatchers++;
                 }
@@ -146,8 +164,8 @@ public class UserAgentAnalyzer extends Analyzer {
 //                LOG.info("Stop  @ {}", stop);
                 Formatter msg = new Formatter(Locale.ENGLISH);
                 msg.format("Building %4d matchers from %-"+maxFilenameLength+"s took %5d msec resulted in %8d extra hashmap entries",
-                    matcherConfigSet.getValue().size(),
-                    matcherConfigSet.getKey(),
+                    matcherConfig.size(),
+                    configFilename,
                     (stop-start)/1000000,
                     stopSize-startSize);
                 LOG.info(msg.toString());
