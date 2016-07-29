@@ -695,8 +695,11 @@ config:
         for (int i = filenameHeaderLength; i < maxFilenameLength; i++) {
             sb.append(' ');
         }
-        sb.append("|S|AA|  PPS| --> S=Syntax Error, AA=Number of ambiguities during parse, PPS=parses/sec");
-
+        if (measureSpeed) {
+            sb.append("|S|AA|  PPS| --> S=Syntax Error, AA=Number of ambiguities during parse, PPS=parses/sec");
+        } else {
+            sb.append("|S|AA| --> S=Syntax Error, AA=Number of ambiguities during parse");
+        }
         LOG.info(sb.toString());
         LOG.info("+-------------------------------------------------------------------------------------------");
 
@@ -773,8 +776,6 @@ config:
 
             if (measureSpeed) {
                 sb.append('|').append(String.format("%5d", measuredSpeed));
-            } else {
-                sb.append("|  ~  ");
             }
 
             sb.append("| ").append(testName);
