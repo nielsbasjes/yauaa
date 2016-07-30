@@ -27,12 +27,19 @@ import java.util.List;
 
 public abstract class AbstractAnalyzeUserAgent implements UserDefinedFunction {
 
-    private static final UserAgentAnalyzer ANALYZER = new UserAgentAnalyzer();
+    private static UserAgentAnalyzer ANALYZER = null;
     private static List<String> allPossibleFieldNamesSorted = null;
+
+    private UserAgentAnalyzer getAnalyzer() {
+        if (ANALYZER == null) {
+            ANALYZER = new UserAgentAnalyzer();
+        }
+        return ANALYZER;
+    }
 
     protected List<String> getAllPossibleFieldNamesSorted() {
         if (allPossibleFieldNamesSorted == null) {
-            allPossibleFieldNamesSorted = ANALYZER.getAllPossibleFieldNamesSorted();
+            allPossibleFieldNamesSorted = getAnalyzer().getAllPossibleFieldNamesSorted();
         }
         return allPossibleFieldNamesSorted;
     }
@@ -42,10 +49,7 @@ public abstract class AbstractAnalyzeUserAgent implements UserDefinedFunction {
     }
 
     protected UserAgent parseUserAgent(String useragent) {
-        if (useragent == null) {
-            return null;
-        }
-        return ANALYZER.parse(useragent);
+        return getAnalyzer().parse(useragent);
     }
 
 }
