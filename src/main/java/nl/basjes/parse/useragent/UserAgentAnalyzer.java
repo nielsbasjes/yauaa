@@ -36,9 +36,7 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -46,6 +44,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
@@ -98,19 +97,13 @@ public class UserAgentAnalyzer extends Analyzer {
         flattener = new UserAgentTreeFlattener(this);
         yaml = new Yaml();
 
-        List<Resource> resources;
+        Map<String, Resource> resources = new TreeMap<>();
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            resources = Arrays.asList(resolver.getResources(resourceString));
-            Collections.sort(resources, new Comparator<Resource>() {
-                @Override
-                public int compare(Resource resource1, Resource resource2) {
-                    String name1 = resource1.getFilename();
-                    String name2 = resource2.getFilename();
-                    return name1.compareTo(name2);
-                }
-            });
-
+            Resource[] resourceArray = resolver.getResources(resourceString);
+            for (Resource resource:resourceArray) {
+                resources.put(resource.getFilename(), resource);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -119,10 +112,12 @@ public class UserAgentAnalyzer extends Analyzer {
         int maxFilenameLength = 0;
 
 
-        for (Resource resource : resources) {
+        for (Map.Entry<String, Resource> resourceEntry : resources.entrySet()) {
             try {
-                maxFilenameLength = Math.max(maxFilenameLength, resource.getFilename().length());
-                loadResource(resource.getInputStream(), resource.getFilename());
+                Resource resource = resourceEntry.getValue();
+                String filename = resource.getFilename();
+                maxFilenameLength = Math.max(maxFilenameLength, filename.length());
+                loadResource(resource.getInputStream(), filename);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -146,22 +141,23 @@ public class UserAgentAnalyzer extends Analyzer {
         int totalNumberOfMatchers = 0;
         if (matcherConfigs != null) {
             long fullStart = System.nanoTime();
-            for (Resource resource : resources) {
+            for (Map.Entry<String, Resource> resourceEntry : resources.entrySet()) {
+                Resource resource = resourceEntry.getValue();
                 String configFilename= resource.getFilename();
                 List<Map<String, List<String>>> matcherConfig = matcherConfigs.get(configFilename);
                 if (matcherConfig== null) {
                     continue; // No matchers in this file (probably only lookups and/or tests)
                 }
+
                 long start = System.nanoTime();
                 int startSize = informMatcherActions.size();
-//                LOG.info("Start @ {}", start);
                 for (Map<String, List<String>> map : matcherConfig) {
                     allMatchers.add(new Matcher(this, lookups, map));
                     totalNumberOfMatchers++;
                 }
                 long stop = System.nanoTime();
                 int stopSize = informMatcherActions.size();
-//                LOG.info("Stop  @ {}", stop);
+
                 Formatter msg = new Formatter(Locale.ENGLISH);
                 msg.format("Building %4d matchers from %-"+maxFilenameLength+"s took %5d msec resulted in %8d extra hashmap entries",
                     matcherConfig.size(),
@@ -171,7 +167,6 @@ public class UserAgentAnalyzer extends Analyzer {
                 LOG.info(msg.toString());
             }
             long fullStop = System.nanoTime();
-//            LOG.info("Total time building all matchers: {} msec", (fullStop-fullStart)/1000000);
 
             Formatter msg = new Formatter(Locale.ENGLISH);
             msg.format("Building %4d matchers from %4d files took %5d msec resulted in %8d hashmap entries",
@@ -402,7 +397,6 @@ config:
 
     public UserAgent parse(String userAgentString) {
         UserAgent userAgent = new UserAgent(userAgentString);
-//        userAgent.setDebug(verbose);
         return cachedParse(userAgent);
     }
 
@@ -418,7 +412,6 @@ config:
     }
 
     private UserAgent cachedParse(UserAgent userAgent) {
-
         if (!cachingEnabled) {
             return nonCachedParse(userAgent);
         }
