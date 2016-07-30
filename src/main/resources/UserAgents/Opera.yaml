@@ -38,6 +38,17 @@ config:
         - 'AgentName                  : 2011:"Opera"'
         - 'AgentVersion               : 2011:agent.product.name="Version"^.version'
 
+# https://en.m.wikipedia.org/wiki/Presto_(layout_engine)
+# OPR Implies the BLink engine instead of Presto
+  - matcher:
+      extract:
+        - 'LayoutEngineClass          : 2020:"Browser"'
+        - 'LayoutEngineName           : 2020:"Blink"'
+        - 'LayoutEngineVersion        : 2020:agent.product.name="Chrome"^.version'
+        - 'AgentClass                 : 2020:"Browser"'
+        - 'AgentName                  : 2020:"Opera"'
+        - 'AgentVersion               : 2020:agent.product.name="Opr"^.version'
+
   - test:
       input:
         user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; en) Opera 9.51'
@@ -193,9 +204,9 @@ config:
 
   - test:
       input:
+      # TODO: Extract J2ME/MIDP
          user_agent_string: 'Opera/9.80 (J2ME/MIDP; Opera Mini/4.2.16402/37.7936; U; en) Presto/2.12.423 Version/12.16'
       expected:
-      # TODO: Extract J2ME/MIDP
         DeviceClass                          : 'Mobile'                   # 1
         LayoutEngineClass                    : 'Browser'                  # 2011
         LayoutEngineName                     : 'Presto'                   # 2011
@@ -212,7 +223,6 @@ config:
         AgentLanguage                        : 'English'                  # 5
         AgentLanguageCode                    : 'en'                       # 5
         AgentSecurity                        : 'Strong security'          # 50
-
 
 
   - test:
@@ -236,7 +246,6 @@ config:
         AgentLanguage                        : 'Dutch'                    # 5
         AgentLanguageCode                    : 'nl'                       # 5
         AgentSecurity                        : 'Strong security'          # 50
-
 
 
   - test:
