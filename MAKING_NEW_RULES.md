@@ -61,5 +61,46 @@ If we choose to create a new file make sure is starts with "config:"
 **TODO**
 
 
+Where the rules are located
+===========================
+Under the main resources there is a folder called *UserAgents* .
+In the folder a collection of yaml files are located.
+Each of those files contains matchers, lookups, tests or any combination of them
+in any order. This means that in many cases you'll find a relevant test case close
+to the rules.
+
+The overall structure is this:
+
+    config:
+      - lookup:
+        name: 'lookupname'
+        map:
+            "From1" : "To1"
+            "From2" : "To2"
+            "From3" : "To3"
+
+      - matcher:
+          options:
+            - 'verbose'
+          require:
+            - 'Require pattern'
+            - 'Require pattern'
+          extract:
+            - 'Extract pattern'
+            - 'Extract pattern'
+      
+      - test:
+          options:
+            - 'verbose'
+            - 'init'
+          input:
+            user_agent_string: 'Useragent'
+            name: 'The name of the test'
+          expected:
+            FieldName     : 'ExpectedValue'
+            FieldName     : 'ExpectedValue'
+            FieldName     : 'ExpectedValue'
+
+
 
 
