@@ -27,14 +27,14 @@ import java.util.List;
 
 public abstract class AbstractAnalyzeUserAgent implements UserDefinedFunction {
 
-    private static UserAgentAnalyzer ANALYZER = null;
+    private static UserAgentAnalyzer userAgentAnalyzer = null;
     private static List<String> allPossibleFieldNamesSorted = null;
 
     private UserAgentAnalyzer getAnalyzer() {
-        if (ANALYZER == null) {
-            ANALYZER = new UserAgentAnalyzer();
+        if (userAgentAnalyzer == null) {
+            userAgentAnalyzer = new UserAgentAnalyzer();
         }
-        return ANALYZER;
+        return userAgentAnalyzer;
     }
 
     protected List<String> getAllPossibleFieldNamesSorted() {
