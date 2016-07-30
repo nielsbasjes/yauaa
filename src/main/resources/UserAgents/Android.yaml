@@ -70,6 +70,8 @@ config:
 
 # ===========================
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Gecko_user_agent_string_reference
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
 # When Firefox runs on a device that has the phone form factor, there is a Mobile; token in the platform part of the UA string.
 # When Firefox runs on a tablet device, there is a Tablet; token in the platform part of the UA string instead
   - matcher:
@@ -92,6 +94,13 @@ config:
       extract:
         - 'DeviceClass                 :  1000:"Phone"'
         - 'OperatingSystemClass        :  1000:"Mobile"'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.comments.entry.text="TV"'
+      extract:
+        - 'DeviceClass                 :  1000:"TV"'
+#        - 'OperatingSystemClass        :  1000:"Mobile"'
 
 # ===========================
 # https://developer.chrome.com/multidevice/user-agent
