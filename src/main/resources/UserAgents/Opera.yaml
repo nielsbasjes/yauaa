@@ -269,3 +269,26 @@ config:
         AgentLanguage                        : 'English'                  # 5
         AgentLanguageCode                    : 'en'                       # 5
         AgentSecurity                        : 'Strong security'          # 50
+
+  - test:
+      input:
+         user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.52 Safari/537.36 OPR/15.0.1147.100'
+      expected:
+        DeviceClass                          : 'Desktop'                 # 100
+        DeviceName                           : 'Desktop'                 # 100
+        OperatingSystemClass                 : 'Desktop'                 # 100
+        OperatingSystemName                  : 'Windows NT'              # 100
+        OperatingSystemVersion               : 'Windows 7'               # 100
+        OperatingSystemNameVersion           : 'Windows 7'               # 100
+        LayoutEngineClass                    : 'Browser'                 # 2020
+        LayoutEngineName                     : 'Blink'                   # 2020
+        LayoutEngineVersion                  : '28.0.1500.52'            # 2020
+        LayoutEngineVersionMajor             : '28'                      # 2020
+        LayoutEngineNameVersion              : 'Blink 28.0.1500.52'      # 2020
+        LayoutEngineNameVersionMajor         : 'Blink 28'                # 2020
+        AgentClass                           : 'Browser'                 # 2020
+        AgentName                            : 'Opera'                   # 2020
+        AgentVersion                         : '15.0.1147.100'           # 2020
+        AgentVersionMajor                    : '15'                      # 2020
+        AgentNameVersion                     : 'Opera 15.0.1147.100'     # 2020
+        AgentNameVersionMajor                : 'Opera 15'                # 2020
