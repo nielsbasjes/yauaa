@@ -19,16 +19,6 @@
 config:
 
   - lookup:
-      name: 'EdgeLayoutEngineName'
-      map:
-        "Edge/12.0": "EdgeHTML"
-
-  - lookup:
-      name: 'EdgeLayoutEngineVersion'
-      map:
-        "Edge/12.0": "4.0"
-
-  - lookup:
       name: 'TridentAgentName'
       map:
         "Trident/4.0": "Internet Explorer"
@@ -150,16 +140,37 @@ config:
         - 'AgentVersion          :   2010:LookUp[TridentAgentVersion;agent.product.name="Trident"^]'
 
 
+
+# https://msdn.microsoft.com/en-us/library/hh869301(v=vs.85).aspx
+# User-agent strings for Microsoft Edge
+
+# Desktop
+# Mozilla/5.0 (Windows NT 10.0; <64-bit tags>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Safari/<WebKit Rev> Edge/<EdgeHTML Rev>.<Windows Build>
+
+# Mobile:
+# Mozilla/5.0 (Windows Phone 10.0; Android <Android Version>; <Device Manufacturer>; <Device Model>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev> Edge/<EdgeHTML Rev>.<Windows Build>
+
+# Webview
+# Note  "MSAppHost/<WebView Rev>" is added when EdgeHTML is hosted in a Universal Windows App using WebView.
+# TODO: WebView
+
+
   - matcher:
       extract:
-
         - 'LayoutEngineClass     :   2015:"Browser"'
         - 'LayoutEngineName      :   2015:"EdgeHTML"'
-        - 'LayoutEngineVersion   :   2015:agent.product.name="Edge"^.version'
+        - 'LayoutEngineVersion   :   2015:agent.product.name="Edge"^.version#1'
 
         - 'AgentClass            :   2015:"Browser"'
         - 'AgentName             :   2015:agent.product.name="Edge"'
-        - 'AgentVersion          :   2015:agent.product.name="Edge"^.version'
+        - 'AgentVersion          :   2015:agent.product.name="Edge"^.version#1'
+
+# If it is not '0' then the second part of the Edge version is the Windows 10 BUILD number
+  - matcher:
+      require:
+        - 'agent.product.name="Edge"^.version%2!="0"'
+      extract:
+        - 'OperatingSystemVersionBuild :  100:agent.product.name="Edge"^.version%2'
 
 
 # IE 2.0:
@@ -219,124 +230,181 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0'
       expected:
-        DeviceClass                        : 'Desktop'
-        DeviceName                         : 'Desktop'
-        OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Windows NT'
-        OperatingSystemVersion             : 'Windows 10.0'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'EdgeHTML'
-        LayoutEngineVersion                : '12.0'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Edge'
-        AgentVersion                       : '12.0'
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Desktop'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Windows NT'
+        OperatingSystemVersion               : 'Windows 10.0'
+        OperatingSystemNameVersion           : 'Windows 10.0'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '12'
+        LayoutEngineVersionMajor             : '12'
+        LayoutEngineNameVersion              : 'EdgeHTML 12'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 12'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Edge'
+        AgentVersion                         : '12'
+        AgentVersionMajor                    : '12'
+        AgentNameVersion                     : 'Edge 12'
+        AgentNameVersionMajor                : 'Edge 12'
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; NOKIA; Lumia 928) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Mobile Safari/537.36 Edge/13.10586'
       expected:
-        DeviceClass                        : 'Phone'
-        DeviceName                         : 'Lumia 928'
-        DeviceBrand                        : 'Nokia'
-        OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'Windows Phone'
-        OperatingSystemVersion             : '10.0'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'EdgeHTML'
-        LayoutEngineVersion                : '13.10586'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Edge'
-        AgentVersion                       : '13.10586'
+        DeviceClass                          : 'Phone'
+        DeviceName                           : 'Lumia 928'
+        DeviceBrand                          : 'Nokia'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Windows Phone'
+        OperatingSystemVersion               : '10.0'
+        OperatingSystemNameVersion           : 'Windows Phone 10.0'
+        OperatingSystemVersionBuild          : '10586'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '13'
+        LayoutEngineVersionMajor             : '13'
+        LayoutEngineNameVersion              : 'EdgeHTML 13'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Edge'
+        AgentVersion                         : '13'
+        AgentVersionMajor                    : '13'
+        AgentNameVersion                     : 'Edge 13'
+        AgentNameVersionMajor                : 'Edge 13'
+
 
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Mobile Safari/537.36 Edge/13.10586'
       expected:
-        DeviceClass                        : 'Game Console'
-        DeviceName                         : 'Xbox'
-        DeviceVersion                      : 'Xbox One'
-        DeviceBrand                        : 'Microsoft'
-        OperatingSystemClass               : 'Game Console'
-        OperatingSystemName                : 'Xbox'
-        OperatingSystemVersion             : 'Xbox One'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'EdgeHTML'
-        LayoutEngineVersion                : '13.10586'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Edge'
-        AgentVersion                       : '13.10586'
+        DeviceClass                          : 'Game Console'
+        DeviceName                           : 'Xbox'
+        DeviceBrand                          : 'Microsoft'
+        DeviceVersion                        : 'Xbox One'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Windows Phone'
+        OperatingSystemVersion               : '10.0'
+        OperatingSystemNameVersion           : 'Windows Phone 10.0'
+        OperatingSystemVersionBuild          : '10586'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '13'
+        LayoutEngineVersionMajor             : '13'
+        LayoutEngineNameVersion              : 'EdgeHTML 13'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Edge'
+        AgentVersion                         : '13'
+        AgentVersionMajor                    : '13'
+        AgentNameVersion                     : 'Edge 13'
+        AgentNameVersionMajor                : 'Edge 13'
 
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; NOKIA; Lumia 730 Dual SIM) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Mobile Safari/537.36 Edge/12.10166'
       expected:
-        DeviceClass                        : 'Phone'
-        DeviceName                         : 'Lumia 730 Dual SIM'
-        DeviceBrand                        : 'Nokia'
-        OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'Windows Phone'
-        OperatingSystemVersion             : '10.0'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'EdgeHTML'
-        LayoutEngineVersion                : '12.10166'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Edge'
-        AgentVersion                       : '12.10166'
+        DeviceClass                          : 'Phone'
+        DeviceName                           : 'Lumia 730 Dual SIM'
+        DeviceBrand                          : 'Nokia'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Windows Phone'
+        OperatingSystemVersion               : '10.0'
+        OperatingSystemNameVersion           : 'Windows Phone 10.0'
+        OperatingSystemVersionBuild          : '10166'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '12'
+        LayoutEngineVersionMajor             : '12'
+        LayoutEngineNameVersion              : 'EdgeHTML 12'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 12'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Edge'
+        AgentVersion                         : '12'
+        AgentVersionMajor                    : '12'
+        AgentNameVersion                     : 'Edge 12'
+        AgentNameVersionMajor                : 'Edge 12'
 
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; Microsoft; RM-1092) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Mobile Safari/537.36 Edge/14.14295'
       expected:
-        DeviceClass                        : 'Phone'
-        DeviceName                         : 'RM-1092'
-        DeviceBrand                        : 'Microsoft'
-        OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'Windows Phone'
-        OperatingSystemVersion             : '10.0'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'EdgeHTML'
-        LayoutEngineVersion                : '14.14295'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Edge'
-        AgentVersion                       : '14.14295'
+        DeviceClass                          : 'Phone'
+        DeviceName                           : 'RM-1092'
+        DeviceBrand                          : 'Microsoft'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Windows Phone'
+        OperatingSystemVersion               : '10.0'
+        OperatingSystemNameVersion           : 'Windows Phone 10.0'
+        OperatingSystemVersionBuild          : '14295'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '14'
+        LayoutEngineVersionMajor             : '14'
+        LayoutEngineNameVersion              : 'EdgeHTML 14'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 14'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Edge'
+        AgentVersion                         : '14'
+        AgentVersionMajor                    : '14'
+        AgentNameVersion                     : 'Edge 14'
+        AgentNameVersionMajor                : 'Edge 14'
 
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.14257'
       expected:
-        DeviceClass                        : 'Desktop'
-        DeviceName                         : 'Desktop'
-        OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Windows NT'
-        OperatingSystemVersion             : 'Windows 10.0'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'EdgeHTML'
-        LayoutEngineVersion                : '13.14257'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Edge'
-        AgentVersion                       : '13.14257'
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Desktop'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Windows NT'
+        OperatingSystemVersion               : 'Windows 10.0'
+        OperatingSystemNameVersion           : 'Windows 10.0'
+        OperatingSystemVersionBuild          : '14257'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '13'
+        LayoutEngineVersionMajor             : '13'
+        LayoutEngineNameVersion              : 'EdgeHTML 13'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Edge'
+        AgentVersion                         : '13'
+        AgentVersionMajor                    : '13'
+        AgentNameVersion                     : 'Edge 13'
+        AgentNameVersionMajor                : 'Edge 13'
 
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; ARM) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/14.14291'
       expected:
-        DeviceClass                        : 'Desktop'
-        DeviceName                         : 'Desktop'
-        DeviceCpu                          : 'ARM'
-        OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Windows NT'
-        OperatingSystemVersion             : 'Windows 10.0'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'EdgeHTML'
-        LayoutEngineVersion                : '14.14291'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Edge'
-        AgentVersion                       : '14.14291'
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Desktop'
+        DeviceCpu                            : 'ARM'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Windows NT'
+        OperatingSystemVersion               : 'Windows 10.0'
+        OperatingSystemNameVersion           : 'Windows 10.0'
+        OperatingSystemVersionBuild          : '14291'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '14'
+        LayoutEngineVersionMajor             : '14'
+        LayoutEngineNameVersion              : 'EdgeHTML 14'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 14'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Edge'
+        AgentVersion                         : '14'
+        AgentVersionMajor                    : '14'
+        AgentNameVersion                     : 'Edge 14'
+        AgentNameVersionMajor                : 'Edge 14'
+
 
 
   - test:
@@ -344,38 +412,55 @@ config:
         user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; ARM; Lumia 640 LTE) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586'
       expected:
         #FIXME: Desktop OS on Mobile phone ?!?!?!
-        DeviceClass                        : 'Phone'
-        DeviceName                         : 'Lumia 640 LTE'
-        DeviceBrand                        : 'Nokia'
-        DeviceCpu                          : 'ARM'
-        OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Windows NT'
-        OperatingSystemVersion             : 'Windows 10.0'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'EdgeHTML'
-        LayoutEngineVersion                : '13.10586'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Edge'
-        AgentVersion                       : '13.10586'
+        DeviceClass                          : 'Phone'
+        DeviceName                           : 'Lumia 640 LTE'
+        DeviceBrand                          : 'Nokia'
+        DeviceCpu                            : 'ARM'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Windows NT'
+        OperatingSystemVersion               : 'Windows 10.0'
+        OperatingSystemNameVersion           : 'Windows 10.0'
+        OperatingSystemVersionBuild          : '10586'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '13'
+        LayoutEngineVersionMajor             : '13'
+        LayoutEngineNameVersion              : 'EdgeHTML 13'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Edge'
+        AgentVersion                         : '13'
+        AgentVersionMajor                    : '13'
+        AgentNameVersion                     : 'Edge 13'
+        AgentNameVersionMajor                : 'Edge 13'
 
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; ARM; Lumia 640 LTE Dual SIM) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586'
       expected:
-        DeviceClass                        : 'Phone'
-        DeviceName                         : 'Lumia 640 LTE Dual SIM'
-        DeviceBrand                        : 'Nokia'
-        DeviceCpu                          : 'ARM'
-        OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Windows NT'
-        OperatingSystemVersion             : 'Windows 10.0'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'EdgeHTML'
-        LayoutEngineVersion                : '13.10586'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Edge'
-        AgentVersion                       : '13.10586'
+        #FIXME: Desktop OS on Mobile phone ?!?!?!
+        DeviceClass                          : 'Phone'
+        DeviceName                           : 'Lumia 640 LTE Dual SIM'
+        DeviceBrand                          : 'Nokia'
+        DeviceCpu                            : 'ARM'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Windows NT'
+        OperatingSystemVersion               : 'Windows 10.0'
+        OperatingSystemNameVersion           : 'Windows 10.0'
+        OperatingSystemVersionBuild          : '10586'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '13'
+        LayoutEngineVersionMajor             : '13'
+        LayoutEngineNameVersion              : 'EdgeHTML 13'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Edge'
+        AgentVersion                         : '13'
+        AgentVersionMajor                    : '13'
+        AgentNameVersion                     : 'Edge 13'
+        AgentNameVersionMajor                : 'Edge 13'
 
 
   - test:
@@ -383,69 +468,195 @@ config:
         user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; WebView/3.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240'
       expected:
       #TODO: What is WebView??
-        DeviceClass                        : 'Desktop'
-        DeviceName                         : 'Desktop'
-        OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Windows NT'
-        OperatingSystemVersion             : 'Windows 10.0'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'EdgeHTML'
-        LayoutEngineVersion                : '12.10240'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Edge'
-        AgentVersion                       : '12.10240'
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Desktop'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Windows NT'
+        OperatingSystemVersion               : 'Windows 10.0'
+        OperatingSystemNameVersion           : 'Windows 10.0'
+        OperatingSystemVersionBuild          : '10240'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '12'
+        LayoutEngineVersionMajor             : '12'
+        LayoutEngineNameVersion              : 'EdgeHTML 12'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 12'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Edge'
+        AgentVersion                         : '12'
+        AgentVersionMajor                    : '12'
+        AgentNameVersion                     : 'Edge 12'
+        AgentNameVersionMajor                : 'Edge 12'
 
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2351.3 Safari/537.36 Edge/12.0'
       expected:
-        DeviceClass                        : 'Desktop'
-        DeviceName                         : 'Desktop'
-        DeviceCpu                          : 'x64'
-        OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Windows NT'
-        OperatingSystemVersion             : 'Windows 10.0'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'EdgeHTML'
-        LayoutEngineVersion                : '12.0'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Edge'
-        AgentVersion                       : '12.0'
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Desktop'
+        DeviceCpu                            : 'x64'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Windows NT'
+        OperatingSystemVersion               : 'Windows 10.0'
+        OperatingSystemNameVersion           : 'Windows 10.0'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '12'
+        LayoutEngineVersionMajor             : '12'
+        LayoutEngineNameVersion              : 'EdgeHTML 12'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 12'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Edge'
+        AgentVersion                         : '12'
+        AgentVersionMajor                    : '12'
+        AgentNameVersion                     : 'Edge 12'
+        AgentNameVersionMajor                : 'Edge 12'
+
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586,gzip(gfe)'
       expected:
-        DeviceClass                        : 'Desktop'
-        DeviceName                         : 'Desktop'
-        DeviceCpu                          : 'x64'
-        OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Windows NT'
-        OperatingSystemVersion             : 'Windows 10.0'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'EdgeHTML'
-        LayoutEngineVersion                : '13.10586'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Edge'
-        AgentVersion                       : '13.10586'
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Desktop'
+        DeviceCpu                            : 'x64'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Windows NT'
+        OperatingSystemVersion               : 'Windows 10.0'
+        OperatingSystemNameVersion           : 'Windows 10.0'
+        OperatingSystemVersionBuild          : '10586'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '13'
+        LayoutEngineVersionMajor             : '13'
+        LayoutEngineNameVersion              : 'EdgeHTML 13'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Edge'
+        AgentVersion                         : '13'
+        AgentVersionMajor                    : '13'
+        AgentNameVersion                     : 'Edge 13'
+        AgentNameVersionMajor                : 'Edge 13'
+
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/14.14279'
       expected:
-        DeviceClass                        : 'Desktop'
-        DeviceName                         : 'Desktop'
-        DeviceCpu                          : 'x64'
-        OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Windows NT'
-        OperatingSystemVersion             : 'Windows 10.0'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'EdgeHTML'
-        LayoutEngineVersion                : '14.14279'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Edge'
-        AgentVersion                       : '14.14279'
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Desktop'
+        DeviceCpu                            : 'x64'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Windows NT'
+        OperatingSystemVersion               : 'Windows 10.0'
+        OperatingSystemNameVersion           : 'Windows 10.0'
+        OperatingSystemVersionBuild          : '14279'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '14'
+        LayoutEngineVersionMajor             : '14'
+        LayoutEngineNameVersion              : 'EdgeHTML 14'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 14'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Edge'
+        AgentVersion                         : '14'
+        AgentVersionMajor                    : '14'
+        AgentNameVersion                     : 'Edge 14'
+        AgentNameVersionMajor                : 'Edge 14'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Edge"'
+      extract:
+        - 'AgentClass            : 10000:"Browser Webview"'
+        - 'AgentName             : 10000:"Edge Webview"'
+        - 'AgentVersion          :  2500:agent.(1)product.(1)comments.entry.product.name="MSAppHost"^.version'
+        - 'WebviewAppName    :    0:"Unknown Webview App"'
+        - 'WebviewAppVersion :    0:"0"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Edge"'
+      extract:
+        - 'AgentClass            : 10000:"Browser Webview"'
+        - 'AgentName             : 10000:"Edge Webview"'
+        - 'AgentVersion          :  2500:agent.product.(1)name="MSAppHost"^.version'
+        - 'WebviewAppName    :    0:"Unknown Webview App"'
+        - 'WebviewAppVersion :    0:"0"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)comments.entry.product.name="Trident"'
+      extract:
+        - 'AgentClass            : 10000:"Browser Webview"'
+        - 'AgentName             : 10000:"Internet Explorer Webview"'
+        - 'AgentVersion          :  2500:agent.(1)product.(1)comments.entry.product.name="MSAppHost"^.version'
+        - 'WebviewAppName    :    0:"Unknown Webview App"'
+        - 'WebviewAppVersion :    0:"0"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)comments.entry.product.name="Trident"'
+      extract:
+        - 'AgentClass            : 10000:"Browser Webview"'
+        - 'AgentName             : 10000:"Internet Explorer Webview"'
+        - 'AgentVersion          :  2500:agent.product.(1)name="MSAppHost"^.version'
+        - 'WebviewAppName    :    0:"Unknown Webview App"'
+        - 'WebviewAppVersion :    0:"0"'
+
+
+# MSAppHost means webview
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; MSAppHost/3.0; Microsoft; Virtual) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Mobile Safari/537.36 Edge/13.10586'
+      expected:
+        DeviceClass                          : 'Phone'
+        DeviceName                           : 'Virtual'
+        DeviceBrand                          : 'Microsoft'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Windows Phone'
+        OperatingSystemVersion               : '10.0'
+        OperatingSystemNameVersion           : 'Windows Phone 10.0'
+        OperatingSystemVersionBuild          : '10586'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'EdgeHTML'
+        LayoutEngineVersion                  : '13'
+        LayoutEngineVersionMajor             : '13'
+        LayoutEngineNameVersion              : 'EdgeHTML 13'
+        LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
+        AgentClass                           : 'Browser Webview'
+        AgentName                            : 'Edge Webview'
+        AgentVersion                         : '3.0'
+        AgentVersionMajor                    : '3'
+        AgentNameVersion                     : 'Edge Webview 3.0'
+        AgentNameVersionMajor                : 'Edge Webview 3'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; Trident/7.0; MSAppHost/2.0; rv:11.0) like Gecko'
+      expected:
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Desktop'
+        DeviceCpu                            : 'x64'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Windows NT'
+        OperatingSystemVersion               : 'Windows 8.1'
+        OperatingSystemNameVersion           : 'Windows 8.1'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Trident'
+        LayoutEngineVersion                  : '7.0'
+        LayoutEngineVersionMajor             : '7'
+        LayoutEngineNameVersion              : 'Trident 7.0'
+        LayoutEngineNameVersionMajor         : 'Trident 7'
+        AgentClass                           : 'Browser Webview'
+        AgentName                            : 'Internet Explorer Webview'
+        AgentVersion                         : '2.0'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Internet Explorer Webview 2.0'
+        AgentNameVersionMajor                : 'Internet Explorer Webview 2'
+
 
   - test:
       input:
@@ -478,5 +689,4 @@ config:
         AgentClass                         : 'Browser'
         AgentName                          : 'Chrome'
         AgentVersion                       : '31.0.1229.79'
-
 

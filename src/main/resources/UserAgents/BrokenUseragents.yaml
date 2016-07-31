@@ -75,18 +75,25 @@ config:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.4.2; HUAWEI P7-L10/HuaweiP7-L10C02B129 Browser/Browser/4.4.2) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
       expected:
         DeviceClass                        : 'Phone'
-        DeviceBrand                        : 'HUAWEI'
         DeviceName                         : 'P7-L10'
+        DeviceBrand                        : 'HUAWEI'
         DeviceVersion                      : 'HuaweiP7-L10C02B129'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
         OperatingSystemVersion             : '4.4.2'
+        OperatingSystemNameVersion         : 'Android 4.4.2'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'Blink'
         LayoutEngineVersion                : '30.0'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Chrome'
+        LayoutEngineVersionMajor           : '30'
+        LayoutEngineNameVersion            : 'Blink 30.0'
+        LayoutEngineNameVersionMajor       : 'Blink 30'
+        AgentClass                         : 'Browser Webview'
+        AgentName                          : 'Chrome Webview'
         AgentVersion                       : '30.0.0.0'
+        AgentVersionMajor                  : '30'
+        AgentNameVersion                   : 'Chrome Webview 30.0.0.0'
+        AgentNameVersionMajor              : 'Chrome Webview 30'
         AgentSecurity                      : 'Strong security'
 
   - matcher:
@@ -259,28 +266,28 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-us; Silk/1.0.146.3-Gen4_12000410) AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16 Silk-Accelerated=true'
       expected:
-        DeviceClass                      : 'Desktop'                     # 20
-        DeviceName                       : 'Macintosh'                   # 20
-        OperatingSystemClass             : 'Desktop'                     # 20
-        OperatingSystemName              : 'Mac OS X'                    # 20
-        OperatingSystemVersion           : '10.6.3'                      # 20
-        OperatingSystemNameVersion       : 'Mac OS X 10.6.3'             # 20
-        LayoutEngineClass                : 'Browser'                     # 11
-        LayoutEngineName                 : 'AppleWebKit'                 # 11
-        LayoutEngineVersion              : '533.16'                      # 11
-        LayoutEngineVersionMajor         : '533'                         # 11
-        LayoutEngineNameVersion          : 'AppleWebKit 533.16'          # 11
-        LayoutEngineNameVersionMajor     : 'AppleWebKit 533'             # 11
-        AgentClass                       : 'Browser'                     # 25
-        AgentName                        : 'Silk'                      # 25
-        AgentVersion                     : '1.0.146.3-Gen4_12000410'                         # 25
-        AgentVersionMajor                : '1'                           # 25
-        AgentLanguage                    : 'English (United States)'     # 5
-        AgentNameVersion                 : 'Silk 1.0.146.3-Gen4_12000410'                  # 25
-        AgentNameVersionMajor            : 'Silk 1'                    # 25
-        AgentSecurity                    : 'Strong security'             # 50
-        DeviceBrand                      : 'Apple'                       # 20
-        DeviceCpu                        : 'Intel'                       # 20
+        DeviceClass                      : 'Desktop'
+        DeviceName                       : 'Macintosh'
+        OperatingSystemClass             : 'Desktop'
+        OperatingSystemName              : 'Mac OS X'
+        OperatingSystemVersion           : '10.6.3'
+        OperatingSystemNameVersion       : 'Mac OS X 10.6.3'
+        LayoutEngineClass                : 'Browser'
+        LayoutEngineName                 : 'AppleWebKit'
+        LayoutEngineVersion              : '533.16'
+        LayoutEngineVersionMajor         : '533'
+        LayoutEngineNameVersion          : 'AppleWebKit 533.16'
+        LayoutEngineNameVersionMajor     : 'AppleWebKit 533'
+        AgentClass                       : 'Browser'
+        AgentName                        : 'Silk'
+        AgentVersion                     : '1.0.146.3-Gen4_12000410'
+        AgentVersionMajor                : '1'
+        AgentLanguage                    : 'English (United States)'
+        AgentNameVersion                 : 'Silk 1.0.146.3-Gen4_12000410'
+        AgentNameVersionMajor            : 'Silk 1'
+        AgentSecurity                    : 'Strong security'
+        DeviceBrand                      : 'Apple'
+        DeviceCpu                        : 'Intel'
 
 
 #FIXME: Is really SogouMSE,SogouMobileBrowser/4.0.0
@@ -473,16 +480,25 @@ config:
       expected:
         DeviceClass                        : 'Phone'
         DeviceName                         : 'SM-N920S'
+        DeviceBrand                        : 'Samsung'
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
         OperatingSystemVersion             : '5.1.1'
+        OperatingSystemNameVersion         : 'Android 5.1.1'
         OperatingSystemVersionBuild        : 'LMY47X'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'Blink'
         LayoutEngineVersion                : '47.0'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Chrome'
+        LayoutEngineVersionMajor           : '47'
+        LayoutEngineNameVersion            : 'Blink 47.0'
+        LayoutEngineNameVersionMajor       : 'Blink 47'
+        AgentClass                         : 'Browser Webview'
+        AgentName                          : 'Chrome Webview'
         AgentVersion                       : '47.0.2526.100'
+        AgentVersionMajor                  : '47'
+        AgentNameVersion                   : 'Chrome Webview 47.0.2526.100'
+        AgentNameVersionMajor              : 'Chrome Webview 47'
+
 
   - test:
       input:
@@ -529,13 +545,20 @@ config:
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
         OperatingSystemVersion             : '4.4.4'
+        OperatingSystemNameVersion         : 'Android 4.4.4'
         OperatingSystemVersionBuild        : 'KTU84P'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'Blink'
         LayoutEngineVersion                : '33.0'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Chrome'
+        LayoutEngineVersionMajor           : '33'
+        LayoutEngineNameVersion            : 'Blink 33.0'
+        LayoutEngineNameVersionMajor       : 'Blink 33'
+        AgentClass                         : 'Browser Webview'
+        AgentName                          : 'Chrome Webview'
         AgentVersion                       : '33.0.0.0'
+        AgentVersionMajor                  : '33'
+        AgentNameVersion                   : 'Chrome Webview 33.0.0.0'
+        AgentNameVersionMajor              : 'Chrome Webview 33'
 
   - test:
       input:
@@ -546,13 +569,20 @@ config:
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
         OperatingSystemVersion             : '5.1'
+        OperatingSystemNameVersion         : 'Android 5.1'
         OperatingSystemVersionBuild        : 'LMY47D'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'Blink'
         LayoutEngineVersion                : '37.0'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Chrome'
+        LayoutEngineVersionMajor           : '37'
+        LayoutEngineNameVersion            : 'Blink 37.0'
+        LayoutEngineNameVersionMajor       : 'Blink 37'
+        AgentClass                         : 'Browser Webview'
+        AgentName                          : 'Chrome Webview'
         AgentVersion                       : '37.0.0.0'
+        AgentVersionMajor                  : '37'
+        AgentNameVersion                   : 'Chrome Webview 37.0.0.0'
+        AgentNameVersionMajor              : 'Chrome Webview 37'
 
   - test:
       input:
@@ -616,13 +646,20 @@ config:
         OperatingSystemClass               : 'Mobile'
         OperatingSystemName                : 'Android'
         OperatingSystemVersion             : '5.1.1'
+        OperatingSystemNameVersion         : 'Android 5.1.1'
         OperatingSystemVersionBuild        : 'LMY47O'
         LayoutEngineClass                  : 'Browser'
         LayoutEngineName                   : 'Blink'
         LayoutEngineVersion                : '41.51020'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Chrome'
+        LayoutEngineVersionMajor           : '41'
+        LayoutEngineNameVersion            : 'Blink 41.51020'
+        LayoutEngineNameVersionMajor       : 'Blink 41'
+        AgentClass                         : 'Browser Webview'
+        AgentName                          : 'Chrome Webview'
         AgentVersion                       : '41.51020.2250.0246'
+        AgentVersionMajor                  : '41'
+        AgentNameVersion                   : 'Chrome Webview 41.51020.2250.0246'
+        AgentNameVersionMajor              : 'Chrome Webview 41'
 
 #  - test:
 #      input:
@@ -778,25 +815,25 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; SM - G900H Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
       expected:
-        DeviceClass                      : 'Phone'               # 1000
-        DeviceName                       : 'SM - G900H'          # 76
-        OperatingSystemClass             : 'Mobile'              # 1000
-        OperatingSystemName              : 'Android'             # 500
-        OperatingSystemVersion           : '4.4.2'               # 500
-        OperatingSystemNameVersion       : 'Android 4.4.2'       # 500
-        OperatingSystemVersionBuild      : 'KOT49H'              # 80
-        LayoutEngineClass                : 'Browser'             # 999
-        LayoutEngineName                 : 'Blink'               # 999
-        LayoutEngineVersion              : '30.0'                # 999
-        LayoutEngineVersionMajor         : '30'                  # 999
-        LayoutEngineNameVersion          : 'Blink 30.0'          # 999
-        LayoutEngineNameVersionMajor     : 'Blink 30'            # 999
-        AgentClass                       : 'Browser'             # 2014
-        AgentName                        : 'Chrome'              # 2014
-        AgentVersion                     : '30.0.0.0'            # FIXME: This must be a FAKE !
-        AgentVersionMajor                : '30'                  # 2014
-        AgentNameVersion                 : 'Chrome 30.0.0.0'     # 2014
-        AgentNameVersionMajor            : 'Chrome 30'           # 2014
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'SM - G900H'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.4.2'
+        OperatingSystemNameVersion         : 'Android 4.4.2'
+        OperatingSystemVersionBuild        : 'KOT49H'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Blink'
+        LayoutEngineVersion                : '30.0'
+        LayoutEngineVersionMajor           : '30'
+        LayoutEngineNameVersion            : 'Blink 30.0'
+        LayoutEngineNameVersionMajor       : 'Blink 30'
+        AgentClass                         : 'Browser Webview'
+        AgentName                          : 'Chrome Webview'
+        AgentVersion                       : '30.0.0.0'
+        AgentVersionMajor                  : '30'
+        AgentNameVersion                   : 'Chrome Webview 30.0.0.0'
+        AgentNameVersionMajor              : 'Chrome Webview 30'
 
 
 # Parse errors due to missing version values
@@ -804,77 +841,77 @@ config:
       input:
         user_agent_string: 'Lenovo-A750/S102 Linux/2.6.35.7 Android/2.3 Release/12.12.2011 Browser/AppleWebKit533.1 Profile/ Configuration/'
       expected:
-        DeviceClass                      : 'Mobile'                           # 301
-        DeviceName                       : 'Lenovo-A750'                      # 301
-        DeviceFirmwareVersion            : '12.12.2011'                       # 301
-        DeviceVersion                    : 'S102'                             # 301
-        OperatingSystemClass             : 'Mobile'                           # 501
-        OperatingSystemName              : 'Android'                          # 501
-        OperatingSystemVersion           : '2.3'                              # 501
-        OperatingSystemNameVersion       : 'Android 2.3'                      # 501
-        LayoutEngineClass                : 'Browser'                          # 1
-        LayoutEngineName                 : 'AppleWebKit'                      # 1
-        LayoutEngineVersion              : 'AppleWebKit533.1'                 # 1
-        LayoutEngineVersionMajor         : 'AppleWebKit533'                   # 1
-        LayoutEngineNameVersion          : 'AppleWebKit AppleWebKit533.1'     # 1
-        LayoutEngineNameVersionMajor     : 'AppleWebKit AppleWebKit533'       # 1
-        AgentClass                       : 'Special'                          # 5
-        AgentName                        : 'Lenovo-A750'                      # 5
-        AgentVersion                     : 'S102'                             # 6
-        AgentVersionMajor                : 'S102'                             # 6
-        AgentNameVersion                 : 'Lenovo-A750 S102'                 # 6
-        AgentNameVersionMajor            : 'Lenovo-A750 S102'                 # 6
+        DeviceClass                      : 'Mobile'
+        DeviceName                       : 'Lenovo-A750'
+        DeviceFirmwareVersion            : '12.12.2011'
+        DeviceVersion                    : 'S102'
+        OperatingSystemClass             : 'Mobile'
+        OperatingSystemName              : 'Android'
+        OperatingSystemVersion           : '2.3'
+        OperatingSystemNameVersion       : 'Android 2.3'
+        LayoutEngineClass                : 'Browser'
+        LayoutEngineName                 : 'AppleWebKit'
+        LayoutEngineVersion              : 'AppleWebKit533.1'
+        LayoutEngineVersionMajor         : 'AppleWebKit533'
+        LayoutEngineNameVersion          : 'AppleWebKit AppleWebKit533.1'
+        LayoutEngineNameVersionMajor     : 'AppleWebKit AppleWebKit533'
+        AgentClass                       : 'Special'
+        AgentName                        : 'Lenovo-A750'
+        AgentVersion                     : 'S102'
+        AgentVersionMajor                : 'S102'
+        AgentNameVersion                 : 'Lenovo-A750 S102'
+        AgentNameVersionMajor            : 'Lenovo-A750 S102'
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_2_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13D15 MOBILE-LEQUIPE/IOS/PHONE/6.9.3/(null)'
       expected:
-        DeviceClass                      : 'Phone'                    # 100
-        DeviceName                       : 'iPhone'                   # 100
-        OperatingSystemClass             : 'Mobile'                   # 20
-        OperatingSystemName              : 'iOS'                      # 20
-        OperatingSystemVersion           : '9.2.1'                    # 20
-        LayoutEngineClass                : 'Browser'                  # 11
-        LayoutEngineName                 : 'AppleWebKit'              # 11
-        LayoutEngineVersion              : '601.1.46'                 # 11
-        LayoutEngineVersionMajor         : '601'                      # 11
-        AgentClass                       : 'Mobile App'               # 19
-        AgentName                        : 'MOBILE-LEQUIPE'           # 19
-        AgentVersion                     : 'IOS'                      # 19
-        AgentVersionMajor                : 'IOS'                      # 19
-        AgentNameVersion                 : 'MOBILE-LEQUIPE IOS'       # 19
-        AgentNameVersionMajor            : 'MOBILE-LEQUIPE IOS'       # 19
-        DeviceBrand                      : 'Apple'                    # 100
-        DeviceFirmwareVersion            : '13D15'                    # 20
-        DeviceVersion                    : 'iPhone'                   # 100
-        LayoutEngineNameVersion          : 'AppleWebKit 601.1.46'     # 11
-        LayoutEngineNameVersionMajor     : 'AppleWebKit 601'          # 11
-        OperatingSystemNameVersion       : 'iOS 9.2.1'                # 20
+        DeviceClass                      : 'Phone'
+        DeviceName                       : 'iPhone'
+        OperatingSystemClass             : 'Mobile'
+        OperatingSystemName              : 'iOS'
+        OperatingSystemVersion           : '9.2.1'
+        LayoutEngineClass                : 'Browser'
+        LayoutEngineName                 : 'AppleWebKit'
+        LayoutEngineVersion              : '601.1.46'
+        LayoutEngineVersionMajor         : '601'
+        AgentClass                       : 'Mobile App'
+        AgentName                        : 'MOBILE-LEQUIPE'
+        AgentVersion                     : 'IOS'
+        AgentVersionMajor                : 'IOS'
+        AgentNameVersion                 : 'MOBILE-LEQUIPE IOS'
+        AgentNameVersionMajor            : 'MOBILE-LEQUIPE IOS'
+        DeviceBrand                      : 'Apple'
+        DeviceFirmwareVersion            : '13D15'
+        DeviceVersion                    : 'iPhone'
+        LayoutEngineNameVersion          : 'AppleWebKit 601.1.46'
+        LayoutEngineNameVersionMajor     : 'AppleWebKit 601'
+        OperatingSystemNameVersion       : 'iOS 9.2.1'
 
   - test:
       input:
         user_agent_string: 'Opera/9.80 (Android; Opera Mini/7.28879/27.1662; U; en-us) Presto/2.8.119 Version/11.10 UCBrowser/8.4.1.204/145/33567/'
       expected:
-        DeviceClass                      : 'Mobile'                      # 2
-        DeviceName                       : 'Android Mobile'              # 3
-        OperatingSystemClass             : 'Mobile'                      # 3
-        OperatingSystemName              : 'Android'                     # 3
-        OperatingSystemVersion           : '??'                          # 3
-        OperatingSystemNameVersion       : 'Android ??'                  # 3
-        LayoutEngineClass                : 'Browser'                     # 2011
-        LayoutEngineName                 : 'Presto'                      # 2011
-        LayoutEngineVersion              : '2.8.119'                     # 2011
-        LayoutEngineVersionMajor         : '2'                           # 2011
-        LayoutEngineNameVersion          : 'Presto 2.8.119'              # 2011
-        LayoutEngineNameVersionMajor     : 'Presto 2'                    # 2011
-        AgentClass                       : 'Browser'                     # 2012
-        AgentName                        : 'Opera Mini'                  # 2012
-        AgentVersion                     : '7.28879'                     # 2012
-        AgentVersionMajor                : '7'                           # 2012
-        AgentLanguage                    : 'English (United States)'     # 5
-        AgentNameVersion                 : 'Opera Mini 7.28879'          # 2012
-        AgentNameVersionMajor            : 'Opera Mini 7'                # 2012
-        AgentSecurity                    : 'Strong security'             # 50
+        DeviceClass                      : 'Mobile'
+        DeviceName                       : 'Android Mobile'
+        OperatingSystemClass             : 'Mobile'
+        OperatingSystemName              : 'Android'
+        OperatingSystemVersion           : '??'
+        OperatingSystemNameVersion       : 'Android ??'
+        LayoutEngineClass                : 'Browser'
+        LayoutEngineName                 : 'Presto'
+        LayoutEngineVersion              : '2.8.119'
+        LayoutEngineVersionMajor         : '2'
+        LayoutEngineNameVersion          : 'Presto 2.8.119'
+        LayoutEngineNameVersionMajor     : 'Presto 2'
+        AgentClass                       : 'Browser'
+        AgentName                        : 'Opera Mini'
+        AgentVersion                     : '7.28879'
+        AgentVersionMajor                : '7'
+        AgentLanguage                    : 'English (United States)'
+        AgentNameVersion                 : 'Opera Mini 7.28879'
+        AgentNameVersionMajor            : 'Opera Mini 7'
+        AgentSecurity                    : 'Strong security'
 
 
 # Parse error due to value that looks like a BASE64
@@ -882,106 +919,106 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12A405 rabbit%2F1.0 baiduboxapp/0_0.1.1.7_enohpi_4331_057/2.0.8_2C2%257enohPi/1099a/75301144EBD727E95FF2FCCE44CE285869CC516F1ORDGCCTNPA/1'
       expected:
-        DeviceClass                      : 'Phone'                                                  # 100
-        DeviceName                       : 'iPhone'                                                 # 100
-        DeviceBrand                      : 'Apple'                                                  # 100
-        DeviceFirmwareVersion            : '12A405'                                                 # 20
-        DeviceVersion                    : 'iPhone'                                                 # 100
-        OperatingSystemClass             : 'Mobile'                                                 # 20
-        OperatingSystemName              : 'iOS'                                                    # 20
-        OperatingSystemVersion           : '8.0.2'                                                  # 20
-        OperatingSystemNameVersion       : 'iOS 8.0.2'                                              # 20
-        LayoutEngineClass                : 'Browser'                                                # 11
-        LayoutEngineName                 : 'AppleWebKit'                                            # 11
-        LayoutEngineVersion              : '600.1.4'                                                # 11
-        LayoutEngineVersionMajor         : '600'                                                    # 11
-        LayoutEngineNameVersion          : 'AppleWebKit 600.1.4'                                    # 11
-        LayoutEngineNameVersionMajor     : 'AppleWebKit 600'                                        # 11
-        AgentClass                       : 'Mobile App'                                             # 19
-        AgentName                        : 'rabbit%2F1.0 baiduboxapp'                               # 19
-        AgentVersion                     : '0_0.1.1.7_enohpi_4331_057'                              # 19
-        AgentVersionMajor                : '0'                                                      # 19
-        AgentNameVersion                 : 'rabbit%2F1.0 baiduboxapp 0_0.1.1.7_enohpi_4331_057'     # 19
-        AgentNameVersionMajor            : 'rabbit%2F1.0 baiduboxapp 0'                             # 19
+        DeviceClass                      : 'Phone'
+        DeviceName                       : 'iPhone'
+        DeviceBrand                      : 'Apple'
+        DeviceFirmwareVersion            : '12A405'
+        DeviceVersion                    : 'iPhone'
+        OperatingSystemClass             : 'Mobile'
+        OperatingSystemName              : 'iOS'
+        OperatingSystemVersion           : '8.0.2'
+        OperatingSystemNameVersion       : 'iOS 8.0.2'
+        LayoutEngineClass                : 'Browser'
+        LayoutEngineName                 : 'AppleWebKit'
+        LayoutEngineVersion              : '600.1.4'
+        LayoutEngineVersionMajor         : '600'
+        LayoutEngineNameVersion          : 'AppleWebKit 600.1.4'
+        LayoutEngineNameVersionMajor     : 'AppleWebKit 600'
+        AgentClass                       : 'Mobile App'
+        AgentName                        : 'rabbit%2F1.0 baiduboxapp'
+        AgentVersion                     : '0_0.1.1.7_enohpi_4331_057'
+        AgentVersionMajor                : '0'
+        AgentNameVersion                 : 'rabbit%2F1.0 baiduboxapp 0_0.1.1.7_enohpi_4331_057'
+        AgentNameVersionMajor            : 'rabbit%2F1.0 baiduboxapp 0'
 
 # Parse error about the " 480X854 motorola DROIDX" at the end
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.2.1; en-us; DROIDX Build/VZW) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1 480X854 motorola DROIDX'
       expected:
-        DeviceClass                      : 'Phone'                       # 1000
-        DeviceName                       : 'DROIDX'                      # 75
-        OperatingSystemClass             : 'Mobile'                      # 1000
-        OperatingSystemName              : 'Android'                     # 500
-        OperatingSystemVersion           : '2.2.1'                       # 500
-        OperatingSystemNameVersion       : 'Android 2.2.1'               # 500
-        OperatingSystemVersionBuild      : 'VZW'                         # 79
-        LayoutEngineClass                : 'Browser'                     # 11
-        LayoutEngineName                 : 'AppleWebKit'                 # 11
-        LayoutEngineVersion              : '533.1'                       # 11
-        LayoutEngineVersionMajor         : '533'                         # 11
-        LayoutEngineNameVersion          : 'AppleWebKit 533.1'           # 11
-        LayoutEngineNameVersionMajor     : 'AppleWebKit 533'             # 11
-        AgentClass                       : 'Browser'                     # 25
-        AgentName                        : 'Mobile Safari'               # 25
-        AgentVersion                     : '4.0'                         # 25
-        AgentVersionMajor                : '4'                           # 25
-        AgentLanguage                    : 'English (United States)'     # 5
-        AgentNameVersion                 : 'Mobile Safari 4.0'           # 25
-        AgentNameVersionMajor            : 'Mobile Safari 4'             # 25
-        AgentSecurity                    : 'Strong security'             # 50
+        DeviceClass                      : 'Phone'
+        DeviceName                       : 'DROIDX'
+        OperatingSystemClass             : 'Mobile'
+        OperatingSystemName              : 'Android'
+        OperatingSystemVersion           : '2.2.1'
+        OperatingSystemNameVersion       : 'Android 2.2.1'
+        OperatingSystemVersionBuild      : 'VZW'
+        LayoutEngineClass                : 'Browser'
+        LayoutEngineName                 : 'AppleWebKit'
+        LayoutEngineVersion              : '533.1'
+        LayoutEngineVersionMajor         : '533'
+        LayoutEngineNameVersion          : 'AppleWebKit 533.1'
+        LayoutEngineNameVersionMajor     : 'AppleWebKit 533'
+        AgentClass                       : 'Browser'
+        AgentName                        : 'Mobile Safari'
+        AgentVersion                     : '4.0'
+        AgentVersionMajor                : '4'
+        AgentLanguage                    : 'English (United States)'
+        AgentNameVersion                 : 'Mobile Safari 4.0'
+        AgentNameVersionMajor            : 'Mobile Safari 4'
+        AgentSecurity                    : 'Strong security'
 
 ### Lots of ; and not comment block
 #  - test:
 #      input:
 #        user_agent_string: 'Mozilla/5.0; iPhone; CPU iPhone OS 8_1_2 like Mac OS X; AppleWebKit/600.1.4; KHTML, like Gecko; Version/8.0 Mobile/12B440 Safari/600.1.4'
 #      expected:
-#        DeviceClass                      : 'Phone'                   # 101
-#        DeviceName                       : 'iPhone'                  # 101
-#        DeviceBrand                      : 'Apple'                   # 101
-#        DeviceVersion                    : 'iPhone'                  # 101
+#        DeviceClass                      : 'Phone'
+#        DeviceName                       : 'iPhone'
+#        DeviceBrand                      : 'Apple'
+#        DeviceVersion                    : 'iPhone'
 #        OperatingSystemClass             : 'Unknown'                 # FIXME: iPhone OS at root level
 #        OperatingSystemName              : 'Unknown'                 # FIXME: iPhone OS at root level
 #        OperatingSystemVersion           : 'Unknown'                 # FIXME: iPhone OS at root level
-#        LayoutEngineClass                : 'Browser'                 # 11
-#        LayoutEngineName                 : 'AppleWebKit'             # 11
-#        LayoutEngineVersion              : '600.1.4'                 # 11
-#        LayoutEngineVersionMajor         : '600'                     # 11
-#        LayoutEngineNameVersion          : 'AppleWebKit 600.1.4'     # 11
-#        LayoutEngineNameVersionMajor     : 'AppleWebKit 600'         # 11
-#        AgentClass                       : 'Browser'                 # 25
-#        AgentName                        : 'Safari'                  # 25
-#        AgentVersion                     : '8.0'                     # 25
-#        AgentVersionMajor                : '8'                       # 25
-#        AgentNameVersion                 : 'Safari 8.0'              # 25
-#        AgentNameVersionMajor            : 'Safari 8'                # 25
+#        LayoutEngineClass                : 'Browser'
+#        LayoutEngineName                 : 'AppleWebKit'
+#        LayoutEngineVersion              : '600.1.4'
+#        LayoutEngineVersionMajor         : '600'
+#        LayoutEngineNameVersion          : 'AppleWebKit 600.1.4'
+#        LayoutEngineNameVersionMajor     : 'AppleWebKit 600'
+#        AgentClass                       : 'Browser'
+#        AgentName                        : 'Safari'
+#        AgentVersion                     : '8.0'
+#        AgentVersionMajor                : '8'
+#        AgentNameVersion                 : 'Safari 8.0'
+#        AgentNameVersionMajor            : 'Safari 8'
 
 # Parse errors due to the "{...}" parts
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 6.1; ar; rv:1.9.1) Gecko/20090624 AskTb{TB_NAME}/{TB_VERSION} Firefox/3.5'
       expected:
-        DeviceClass                      : 'Desktop'             # 100
-        DeviceName                       : 'Desktop'             # 100
-        OperatingSystemClass             : 'Desktop'             # 100
-        OperatingSystemName              : 'Windows NT'          # 100
-        OperatingSystemVersion           : 'Windows 7'           # 100
-        OperatingSystemNameVersion       : 'Windows 7'           # 100
-        LayoutEngineClass                : 'Browser'             # 2000
-        LayoutEngineName                 : 'Gecko'               # 2000
-        LayoutEngineVersion              : '1.9.1'               # 2000
-        LayoutEngineVersionMajor         : '1'                   # 2000
-        LayoutEngineBuild                : '20090624'            # 2000
-        LayoutEngineNameVersion          : 'Gecko 1.9.1'         # 2000
-        LayoutEngineNameVersionMajor     : 'Gecko 1'             # 2000
-        AgentClass                       : 'Browser'             # 2001
-        AgentName                        : 'Firefox'             # 2001
-        AgentVersion                     : '3.5'                 # 2001
-        AgentVersionMajor                : '3'                   # 2001
-        AgentLanguage                    : 'Arabic'              # 5
-        AgentNameVersion                 : 'Firefox 3.5'         # 2001
-        AgentNameVersionMajor            : 'Firefox 3'           # 2001
-        AgentSecurity                    : 'Strong security'     # 50
+        DeviceClass                      : 'Desktop'
+        DeviceName                       : 'Desktop'
+        OperatingSystemClass             : 'Desktop'
+        OperatingSystemName              : 'Windows NT'
+        OperatingSystemVersion           : 'Windows 7'
+        OperatingSystemNameVersion       : 'Windows 7'
+        LayoutEngineClass                : 'Browser'
+        LayoutEngineName                 : 'Gecko'
+        LayoutEngineVersion              : '1.9.1'
+        LayoutEngineVersionMajor         : '1'
+        LayoutEngineBuild                : '20090624'
+        LayoutEngineNameVersion          : 'Gecko 1.9.1'
+        LayoutEngineNameVersionMajor     : 'Gecko 1'
+        AgentClass                       : 'Browser'
+        AgentName                        : 'Firefox'
+        AgentVersion                     : '3.5'
+        AgentVersionMajor                : '3'
+        AgentLanguage                    : 'Arabic'
+        AgentNameVersion                 : 'Firefox 3.5'
+        AgentNameVersionMajor            : 'Firefox 3'
+        AgentSecurity                    : 'Strong security'
 
 # With url encoding ...
   - test:
@@ -1040,28 +1077,28 @@ config:
       input:
          user_agent_string: '"Mozilla/5.0 (Linux; U; Android 4.2.2; de-de; PocketBook SURFpad 3 (7,85\"") Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30"'
       expected:
-        DeviceClass                      : 'Tablet'                             # 1000
-        DeviceName                       : 'PocketBook SURFpad 3 (7,85\"")'     # 51
-        OperatingSystemClass             : 'Mobile'                             # 1000
-        OperatingSystemName              : 'Android'                            # 500
-        OperatingSystemVersion           : '4.2.2'                              # 500
-        OperatingSystemNameVersion       : 'Android 4.2.2'                      # 500
-        OperatingSystemVersionBuild      : 'JDQ39'                              # 80
-        LayoutEngineClass                : 'Browser'                            # 11
-        LayoutEngineName                 : 'AppleWebKit'                        # 11
-        LayoutEngineVersion              : '534.30'                             # 11
-        LayoutEngineVersionMajor         : '534'                                # 11
-        LayoutEngineNameVersion          : 'AppleWebKit 534.30'                 # 11
-        LayoutEngineNameVersionMajor     : 'AppleWebKit 534'                    # 11
-        AgentClass                       : 'Browser'                            # 25
-        AgentName                        : 'Safari'                             # 25
-        AgentVersion                     : '4.0'                                # 25
-        AgentVersionMajor                : '4'                                  # 25
-        AgentLanguage                    : 'German (Germany)'                   # 5
-        AgentLanguageCode                : 'de-de'                              # 5
-        AgentNameVersion                 : 'Safari 4.0'                         # 25
-        AgentNameVersionMajor            : 'Safari 4'                           # 25
-        AgentSecurity                    : 'Strong security'                    # 50
+        DeviceClass                      : 'Tablet'
+        DeviceName                       : 'PocketBook SURFpad 3 (7,85\"")'
+        OperatingSystemClass             : 'Mobile'
+        OperatingSystemName              : 'Android'
+        OperatingSystemVersion           : '4.2.2'
+        OperatingSystemNameVersion       : 'Android 4.2.2'
+        OperatingSystemVersionBuild      : 'JDQ39'
+        LayoutEngineClass                : 'Browser'
+        LayoutEngineName                 : 'AppleWebKit'
+        LayoutEngineVersion              : '534.30'
+        LayoutEngineVersionMajor         : '534'
+        LayoutEngineNameVersion          : 'AppleWebKit 534.30'
+        LayoutEngineNameVersionMajor     : 'AppleWebKit 534'
+        AgentClass                       : 'Browser'
+        AgentName                        : 'Safari'
+        AgentVersion                     : '4.0'
+        AgentVersionMajor                : '4'
+        AgentLanguage                    : 'German (Germany)'
+        AgentLanguageCode                : 'de-de'
+        AgentNameVersion                 : 'Safari 4.0'
+        AgentNameVersionMajor            : 'Safari 4'
+        AgentSecurity                    : 'Strong security'
 
 
 # TODO (low prio): Json wrapped useragent
@@ -1078,24 +1115,24 @@ config:
       input:
          user_agent_string: 'Mozilla/4.0 (compatible; MSIE 8.0; Windows 6.3; WOW64; Trident/5.0)'
       expected:
-        DeviceClass                        : 'Desktop'                   # 100
-        DeviceName                         : 'Desktop'                   # 100
-        OperatingSystemClass               : 'Desktop'                   # 100
-        OperatingSystemName                : 'Windows NT'                # 100
-        OperatingSystemVersion             : 'Windows 8.1'               # 100
-        OperatingSystemNameVersion         : 'Windows 8.1'               # 100
-        LayoutEngineClass                  : 'Browser'                   # 2010
-        LayoutEngineName                   : 'Trident'                   # 2010
-        LayoutEngineVersion                : '5.0'                       # 2010
-        LayoutEngineVersionMajor           : '5'                         # 2010
-        LayoutEngineNameVersion            : 'Trident 5.0'               # 2010
-        LayoutEngineNameVersionMajor       : 'Trident 5'                 # 2010
-        AgentClass                         : 'Browser'                   # 2010
-        AgentName                          : 'Internet Explorer'         # 2010
-        AgentVersion                       : '9.0'                       # 2010
-        AgentVersionMajor                  : '9'                         # 2010
-        AgentNameVersion                   : 'Internet Explorer 9.0'     # 2010
-        AgentNameVersionMajor              : 'Internet Explorer 9'       # 2010
+        DeviceClass                        : 'Desktop'
+        DeviceName                         : 'Desktop'
+        OperatingSystemClass               : 'Desktop'
+        OperatingSystemName                : 'Windows NT'
+        OperatingSystemVersion             : 'Windows 8.1'
+        OperatingSystemNameVersion         : 'Windows 8.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'Trident'
+        LayoutEngineVersion                : '5.0'
+        LayoutEngineVersionMajor           : '5'
+        LayoutEngineNameVersion            : 'Trident 5.0'
+        LayoutEngineNameVersionMajor       : 'Trident 5'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Internet Explorer'
+        AgentVersion                       : '9.0'
+        AgentVersionMajor                  : '9'
+        AgentNameVersion                   : 'Internet Explorer 9.0'
+        AgentNameVersionMajor              : 'Internet Explorer 9'
 
 #  - test:
 #      input:

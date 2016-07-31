@@ -163,27 +163,91 @@ config:
         DeviceCpu                          : 'Intel x86_64'
 
 
-
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19'
       expected:
-        DeviceClass                        : 'Phone'                    # 100
-        DeviceName                         : 'Galaxy Nexus'             # 76
-        OperatingSystemClass               : 'Mobile'                   # 500
-        OperatingSystemName                : 'Android'                  # 500
-        OperatingSystemVersion             : '4.0.4'                    # 500
-        OperatingSystemNameVersion         : 'Android 4.0.4'            # 500
-        OperatingSystemVersionBuild        : 'IMM76B'                   # 78
-        LayoutEngineClass                  : 'Browser'                  # 11
-        LayoutEngineName                   : 'AppleWebKit'              # 11
-        LayoutEngineVersion                : '535.19'                   # 11
-        LayoutEngineVersionMajor           : '535'                      # 11
-        LayoutEngineNameVersion            : 'AppleWebKit 535.19'       # 11
-        LayoutEngineNameVersionMajor       : 'AppleWebKit 535'          # 11
-        AgentClass                         : 'Browser'                  # 2014
-        AgentName                          : 'Chrome'                   # 2014
-        AgentVersion                       : '18.0.1025.133'            # 2014
-        AgentVersionMajor                  : '18'                       # 2014
-        AgentNameVersion                   : 'Chrome 18.0.1025.133'     # 2014
-        AgentNameVersionMajor              : 'Chrome 18'                # 2014
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'Galaxy Nexus'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '4.0.4'
+        OperatingSystemNameVersion         : 'Android 4.0.4'
+        OperatingSystemVersionBuild        : 'IMM76B'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '535.19'
+        LayoutEngineVersionMajor           : '535'
+        LayoutEngineNameVersion            : 'AppleWebKit 535.19'
+        LayoutEngineNameVersionMajor       : 'AppleWebKit 535'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Chrome'
+        AgentVersion                       : '18.0.1025.133'
+        AgentVersionMajor                  : '18'
+        AgentNameVersion                   : 'Chrome 18.0.1025.133'
+        AgentNameVersionMajor              : 'Chrome 18'
+
+
+
+# Webview
+# https://developer.chrome.com/multidevice/user-agent
+
+# WebView UA in KitKat to Lollipop
+# Mozilla/5.0 (Linux; Android 4.4; Nexus 5 Build/_BuildID_) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36
+# If you’re attempting to differentiate between the WebView and Chrome for Android, you should look for the
+# presence of the Version/_X.X_ string in the WebView user-agent string.
+# Don’t rely on the specific Chrome version number (for example, 30.0.0.0) as the version numbers
+# changes with each release.
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Version"'
+      extract:
+        - 'AgentClass      :   2500:"Browser Webview"'
+        - 'AgentName       :   2500:"Chrome Webview"'
+        - 'AgentVersion    :   2500:agent.product.(1)name="Chrome"^.version'
+        - 'WebviewAppName    :    0:"Unknown Webview App"'
+        - 'WebviewAppVersion :    0:"0"'
+
+
+# WebView UA in Lollipop and Above
+# In the newer versions of WebView, you can differentiate the WebView by looking for the wv field
+# as highlighted below.
+
+# Mozilla/5.0 (Linux; Android 5.1.1; Nexus 5 Build/LMY48B; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.65 Mobile Safari/537.36
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.(1)text="wv"'
+        - 'agent.product.(1)name="Chrome"'
+      extract:
+        - 'AgentClass      :   10000:"Browser Webview"'
+        - 'AgentName       :   10000:"Chrome Webview"'
+        - 'AgentVersion    :   10000:agent.product.(1)name="Chrome"^.version'
+        - 'WebviewAppName    :    0:"Unknown Webview App"'
+        - 'WebviewAppVersion :    0:"0"'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; Nexus 5 Build/LMY48B; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.65 Mobile Safari/537.36'
+      expected:
+        DeviceClass                          : 'Phone'
+        DeviceName                           : 'Nexus 5'
+        DeviceBrand                          : 'Google'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Android'
+        OperatingSystemVersion               : '5.1.1'
+        OperatingSystemNameVersion           : 'Android 5.1.1'
+        OperatingSystemVersionBuild          : 'LMY48B'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Blink'
+        LayoutEngineVersion                  : '43.0'
+        LayoutEngineVersionMajor             : '43'
+        LayoutEngineNameVersion              : 'Blink 43.0'
+        LayoutEngineNameVersionMajor         : 'Blink 43'
+        AgentClass                           : 'Browser Webview'
+        AgentName                            : 'Chrome Webview'
+        AgentVersion                         : '43.0.2357.65'
+        AgentVersionMajor                    : '43'
+        AgentNameVersion                     : 'Chrome Webview 43.0.2357.65'
+        AgentNameVersionMajor                : 'Chrome Webview 43'

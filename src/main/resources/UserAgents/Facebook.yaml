@@ -26,38 +26,62 @@ config:
 
 #========================================
 
+  - lookup:
+      name: 'FaceBookAppNames'
+      map:
+        'FB4A'             : 'Facebook App for Android'
+        'FBIOS'            : 'Facebook App for iOS'
+        'FBForIPhone'      : 'Facebook App for iOS'
+        'MessengerForiOS'  : 'Facebook Messenger for iOS'
+        'FBMentionsForiOS' : 'Facebook Mentions for iOS' # Special app for actors and such
+        'FBPageAdmin'      : 'Facebook Pageadmin'
+        'GroupsForiOS'     : 'Facebook Groups for iOS'
+        'AtWorkForiOS'     : 'Facebook at Work for iOS'
+        'FBBlack'          : 'FBBlack'                   # Unknown, perhaps hacked useragent string?
+
+  - matcher:
+      extract:
+        - 'AgentClass        : 1001:"Mobile App"'
+        - 'AgentName         : 1001:LookUp[FaceBookAppNames;agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version]'
+        - 'AgentVersion      : 1001:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+        - 'WebviewAppName    : 1001:LookUp[FaceBookAppNames;agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version]'
+        - 'WebviewAppVersion : 1001:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+
+  - matcher:
+      extract:
+        - 'AgentClass        : 1000:"Mobile App"'
+        - 'AgentName         : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version'
+        - 'AgentVersion      : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+        - 'WebviewAppName    : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version'
+        - 'WebviewAppVersion : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+
+  - matcher:
+      extract:
+        - 'AgentClass        : 1001:"Mobile App"'
+        - 'AgentName         : 1001:LookUp[FaceBookAppNames;agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"^.version]'
+        - 'AgentVersion      : 1001:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+        - 'WebviewAppName    : 1001:LookUp[FaceBookAppNames;agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"^.version]'
+        - 'WebviewAppVersion : 1001:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+
+  - matcher:
+      extract:
+        - 'AgentClass        : 1000:"Mobile App"'
+        - 'AgentName         : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"^.version'
+        - 'AgentVersion      : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+        - 'WebviewAppName    : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"^.version'
+        - 'WebviewAppVersion : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+
   - matcher:
       require:
-        # The "Facebook In-App browser is "FaceBook iOS" FBIOS
-        - 'agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version="FBIOS"'
+        - 'agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"'
       extract:
-        - 'AgentClass   : 3000:"Mobile App"'
-        - 'AgentName    : 3000:"Facebook App for iOS"'
-        - 'AgentVersion : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
         - 'AgentBuild   : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBBV"^.version'
 
-#========================================
-
-#FB_IAB: Facebook In-App Browser (followed by a version)
-#FBAV: Facebook App Version (followed by a version)
   - matcher:
       require:
-        # The "Facebook In-App browser is "FaceBook 4 Android" FB4A
-        - 'agent.product.([1-2])comments.entry.(1)product="FB_IAB/FB4A"'
+        - 'agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"'
       extract:
-        - 'AgentClass   : 3000:"Mobile App"'
-        - 'AgentName    : 3000:"Facebook App for Android"'
-        - 'AgentVersion : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
-#        - 'agent.product.([1-2])comments.entry.(1)product.(1)version="30.0.0.19.17"'
-
-  - matcher:
-      require:
-        # The "Facebook In-App browser is "FaceBook 4 Android" FB4A
-        - 'agent.product.([1-2])comments.entry.(1)product="FBAN/FB4A"'
-      extract:
-        - 'AgentClass   : 3000:"Mobile App"'
-        - 'AgentName    : 3000:"Facebook App for Android"'
-        - 'AgentVersion : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+        - 'AgentBuild   : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBBV"^.version'
 
 #========================================
 
@@ -79,7 +103,6 @@ config:
       extract:
         - 'DeviceClass:       200:"Phone"'
 
-
   - matcher:
       extract:
         - 'DeviceName:        200:agent.product.([1-2])comments.entry.(1)product.(1)name="FBMD"^.version'
@@ -95,9 +118,6 @@ config:
         - 'FacebookOperatingSystemName:     3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSN"^.version'
         - 'FacebookOperatingSystemVersion:  3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSV"^.version'
         - 'FacebookFBSS:                    3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSS"^.version'
-
-
-
 
   - matcher:
       extract:
@@ -216,23 +236,32 @@ config:
          FacebookOperatingSystemVersion       : '8.1.1'
 
 
-
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; SM-T520 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Safari/537.36 [FBAN/FB4A;FBAV/22.0.0.15.13;]'
       expected:
-        DeviceClass                        : 'Tablet'
-        DeviceName                         : 'SM-T520'
-        OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'Android'
-        OperatingSystemVersion             : '4.4.2'
-        OperatingSystemVersionBuild        : 'KOT49H'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'Blink'
-        LayoutEngineVersion                : '30.0'
-        AgentClass                         : 'Mobile App'
-        AgentName                          : 'Facebook App for Android'
-        AgentVersion                       : '22.0.0.15.13'
+        DeviceClass                          : 'Tablet'
+        DeviceName                           : 'SM-T520'
+        DeviceBrand                          : 'Samsung'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Android'
+        OperatingSystemVersion               : '4.4.2'
+        OperatingSystemNameVersion           : 'Android 4.4.2'
+        OperatingSystemVersionBuild          : 'KOT49H'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Blink'
+        LayoutEngineVersion                  : '30.0'
+        LayoutEngineVersionMajor             : '30'
+        LayoutEngineNameVersion              : 'Blink 30.0'
+        LayoutEngineNameVersionMajor         : 'Blink 30'
+        AgentClass                           : 'Browser Webview'
+        AgentName                            : 'Chrome Webview'
+        AgentVersion                         : '30.0.0.0'
+        AgentVersionMajor                    : '30'
+        AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+        AgentNameVersionMajor                : 'Chrome Webview 30'
+        WebviewAppName                       : 'Facebook App for Android'
+        WebviewAppVersion                    : '22.0.0.15.13'
 
   - test:
       input:
@@ -258,35 +287,55 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/28.0.0.20.16;]'
       expected:
-        DeviceClass                        : 'Phone'
-        DeviceName                         : 'GT-I9505'
-        OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'Android'
-        OperatingSystemVersion             : '4.4.2'
-        OperatingSystemVersionBuild        : 'KOT49H'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'Blink'
-        LayoutEngineVersion                : '30.0'
-        AgentClass                         : 'Mobile App'
-        AgentName                          : 'Facebook App for Android'
-        AgentVersion                       : '28.0.0.20.16'
+        DeviceClass                          : 'Phone'
+        DeviceName                           : 'GT-I9505'
+        DeviceBrand                          : 'Samsung'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Android'
+        OperatingSystemVersion               : '4.4.2'
+        OperatingSystemNameVersion           : 'Android 4.4.2'
+        OperatingSystemVersionBuild          : 'KOT49H'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Blink'
+        LayoutEngineVersion                  : '30.0'
+        LayoutEngineVersionMajor             : '30'
+        LayoutEngineNameVersion              : 'Blink 30.0'
+        LayoutEngineNameVersionMajor         : 'Blink 30'
+        AgentClass                           : 'Browser Webview'
+        AgentName                            : 'Chrome Webview'
+        AgentVersion                         : '30.0.0.0'
+        AgentVersionMajor                    : '30'
+        AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+        AgentNameVersionMajor                : 'Chrome Webview 30'
+        WebviewAppName                       : 'Facebook App for Android'
+        WebviewAppVersion                    : '28.0.0.20.16'
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; SM-G901F Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36 [FBAN/FB4A;FBAV/20.0.0.25.15;]'
       expected:
-        DeviceClass                        : 'Phone'
-        DeviceName                         : 'SM-G901F'
-        OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'Android'
-        OperatingSystemVersion             : '4.4.4'
-        OperatingSystemVersionBuild        : 'KTU84P'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'Blink'
-        LayoutEngineVersion                : '33.0'
-        AgentClass                         : 'Mobile App'
-        AgentName                          : 'Facebook App for Android'
-        AgentVersion                       : '20.0.0.25.15'
+        DeviceClass                          : 'Phone'
+        DeviceName                           : 'SM-G901F'
+        DeviceBrand                          : 'Samsung'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Android'
+        OperatingSystemVersion               : '4.4.4'
+        OperatingSystemNameVersion           : 'Android 4.4.4'
+        OperatingSystemVersionBuild          : 'KTU84P'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Blink'
+        LayoutEngineVersion                  : '33.0'
+        LayoutEngineVersionMajor             : '33'
+        LayoutEngineNameVersion              : 'Blink 33.0'
+        LayoutEngineNameVersionMajor         : 'Blink 33'
+        AgentClass                           : 'Browser Webview'
+        AgentName                            : 'Chrome Webview'
+        AgentVersion                         : '33.0.0.0'
+        AgentVersionMajor                    : '33'
+        AgentNameVersion                     : 'Chrome Webview 33.0.0.0'
+        AgentNameVersionMajor                : 'Chrome Webview 33'
+        WebviewAppName                       : 'Facebook App for Android'
+        WebviewAppVersion                    : '20.0.0.25.15'
 
   - test:
       input:
@@ -341,12 +390,13 @@ config:
         LayoutEngineVersionMajor             : '601'
         LayoutEngineNameVersion              : 'AppleWebKit 601.1.46'
         LayoutEngineNameVersionMajor         : 'AppleWebKit 601'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'AppleWebKit'
-        AgentVersion                         : '601.1.46'
-        AgentVersionMajor                    : '601'
-        AgentNameVersion                     : 'AppleWebKit 601.1.46'
-        AgentNameVersionMajor                : 'AppleWebKit 601'
+        AgentClass                           : 'Mobile App'
+        AgentName                            : 'Facebook Messenger for iOS'
+        AgentVersion                         : '73.0.0.33.71'
+        AgentVersionMajor                    : '73'
+        AgentNameVersion                     : 'Facebook Messenger for iOS 73.0.0.33.71'
+        AgentNameVersionMajor                : 'Facebook Messenger for iOS 73'
+        AgentBuild                           : '31011105'
         AgentLanguage                        : 'Dutch (Netherlands)'
         FacebookCarrier                      : 'OrangeB'
         FacebookDeviceClass                  : 'phone'

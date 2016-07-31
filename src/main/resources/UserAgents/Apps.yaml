@@ -22,7 +22,6 @@ config:
 # If you create an iOS app and retrieve data from a webserver,
 # the app will create an default user agent as "AppName/version CFNetwork/version Darwin/version".
 
-
   - matcher:
       require:
         - 'agent.(2)product.(1)name="CFNetwork"'
@@ -31,7 +30,7 @@ config:
         - 'DeviceBrand           :  10:"Apple"'
         - 'DeviceName            :  10:"iOS Device"'
         - 'OperatingSystemClass  :  10:"Mobile"'
-        - 'OperatingSystemName   :  10:"Darwin"'
+        - 'OperatingSystemName   :  10:"Darwin (iOS)"'
         - 'OperatingSystemVersion:  10:agent.(3)product.(1)name="Darwin"^.version'
         - 'LayoutEngineClass     :  10:"Mobile App"'
         - 'LayoutEngineName      :  10:agent.(1)product.(1)name'
@@ -49,7 +48,7 @@ config:
         - 'DeviceBrand           :  10:"Apple"'
         - 'DeviceName            :  10:"iOS Device"'
         - 'OperatingSystemClass  :  10:"Mobile"'
-        - 'OperatingSystemName   :  10:"Darwin"'
+        - 'OperatingSystemName   :  10:"Darwin (iOS)"'
         - 'OperatingSystemVersion:  10:agent.(3)product.(1)name="Darwin"^.version'
         - 'LayoutEngineClass     :  10:"Mobile App"'
         - 'LayoutEngineName      :  10:agent.(1)product.(1)name'
@@ -66,7 +65,7 @@ config:
         DeviceName                         : 'iOS Device'
         DeviceBrand                        : 'Apple'
         OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'Darwin'
+        OperatingSystemName                : 'Darwin (iOS)'
         OperatingSystemVersion             : '15.0.0'
         LayoutEngineClass                  : 'Mobile App'
         LayoutEngineName                   : 'bol.com'
@@ -83,7 +82,7 @@ config:
         DeviceName                         : 'iOS Device'
         DeviceBrand                        : 'Apple'
         OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'Darwin'
+        OperatingSystemName                : 'Darwin (iOS)'
         OperatingSystemVersion             : '14.0.0'
         LayoutEngineClass                  : 'Mobile App'
         LayoutEngineName                   : 'iButler-Swift'
@@ -100,7 +99,7 @@ config:
         DeviceName                         : 'iOS Device'
         DeviceBrand                        : 'Apple'
         OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'Darwin'
+        OperatingSystemName                : 'Darwin (iOS)'
         OperatingSystemVersion             : '14.0.0'
         LayoutEngineClass                  : 'Mobile App'
         LayoutEngineName                   : 'GoodReader4'
@@ -118,7 +117,7 @@ config:
         DeviceBrand                        : 'Apple'
         DeviceCpu                          : 'Intel x86_64'
         OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'Darwin'
+        OperatingSystemName                : 'Darwin (iOS)'
         OperatingSystemVersion             : '14.1.0'
         LayoutEngineClass                  : 'Mobile App'
         LayoutEngineName                   : 'iCoreService'
@@ -138,7 +137,7 @@ config:
         DeviceBrand                        : 'Apple'
         DeviceCpu                          : 'Intel x86_64'
         OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'Darwin'
+        OperatingSystemName                : 'Darwin (iOS)'
         OperatingSystemVersion             : '14.5.0'
         LayoutEngineClass                  : 'Mobile App'
         LayoutEngineName                   : 'MoxDocumentApplication'
@@ -157,7 +156,7 @@ config:
         DeviceBrand                        : 'Apple'
         DeviceCpu                          : 'Intel x86_64'
         OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'Darwin'
+        OperatingSystemName                : 'Darwin (iOS)'
         OperatingSystemVersion             : '15.3.0'
         LayoutEngineClass                  : 'Mobile App'
         LayoutEngineName                   : 'com.ddeville.llwebkit.linkchecker'
@@ -165,4 +164,3 @@ config:
         AgentClass                         : 'Mobile App'
         AgentName                          : 'com.ddeville.llwebkit.linkchecker'
         AgentVersion                       : '1'
-
