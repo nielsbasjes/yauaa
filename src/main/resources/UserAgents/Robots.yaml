@@ -795,6 +795,87 @@ config:
         AgentInformationUrl                  : 'http://www.apple.com/go/applebot'
 
 
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; ltbot/0.3.6 +http://www.kdsl.tu-darmstadt.de/de/kdsl/research-program/crawling-and-semantic-structuring/)'
+      expected:
+        DeviceClass                          : 'Robot'
+        DeviceName                           : 'ltbot'
+        DeviceBrand                          : 'Robot'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Cloud'
+        OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
+        LayoutEngineClass                    : 'Robot'
+        LayoutEngineName                     : 'ltbot'
+        LayoutEngineVersion                  : '0.3.6'
+        LayoutEngineVersionMajor             : '0'
+        LayoutEngineNameVersion              : 'ltbot 0.3.6'
+        LayoutEngineNameVersionMajor         : 'ltbot 0'
+        AgentClass                           : 'Robot'
+        AgentName                            : 'ltbot'
+        AgentVersion                         : '0.3.6'
+        AgentVersionMajor                    : '0'
+        AgentNameVersion                     : 'ltbot 0.3.6'
+        AgentNameVersionMajor                : 'ltbot 0'
+        AgentInformationUrl                  : 'http://www.kdsl.tu-darmstadt.de/de/kdsl/research-program/crawling-and-semantic-structuring/'
+
+  - test:
+      input:
+        user_agent_string: 'NeumobBot/0.2.16 (+http://www.neumob.com/bot)'
+      expected:
+        DeviceClass                          : 'Robot'
+        DeviceName                           : 'NeumobBot'
+        DeviceBrand                          : 'Robot'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Cloud'
+        OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
+        LayoutEngineClass                    : 'Robot'
+        LayoutEngineName                     : 'NeumobBot'
+        LayoutEngineVersion                  : '0.2.16'
+        LayoutEngineVersionMajor             : '0'
+        LayoutEngineNameVersion              : 'NeumobBot 0.2.16'
+        LayoutEngineNameVersionMajor         : 'NeumobBot 0'
+        AgentClass                           : 'Robot'
+        AgentName                            : 'NeumobBot'
+        AgentVersion                         : '0.2.16'
+        AgentVersionMajor                    : '0'
+        AgentNameVersion                     : 'NeumobBot 0.2.16'
+        AgentNameVersionMajor                : 'NeumobBot 0'
+        AgentInformationUrl                  : 'http://www.neumob.com/bot'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; MojeekBot/0.6; +https://www.mojeek.com/bot.html)'
+      expected:
+        DeviceClass                          : 'Robot'
+        DeviceName                           : 'MojeekBot'
+        DeviceBrand                          : 'Robot'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Cloud'
+        OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
+        LayoutEngineClass                    : 'Robot'
+        LayoutEngineName                     : 'MojeekBot'
+        LayoutEngineVersion                  : '0.6'
+        LayoutEngineVersionMajor             : '0'
+        LayoutEngineNameVersion              : 'MojeekBot 0.6'
+        LayoutEngineNameVersionMajor         : 'MojeekBot 0'
+        AgentClass                           : 'Robot'
+        AgentName                            : 'MojeekBot'
+        AgentVersion                         : '0.6'
+        AgentVersionMajor                    : '0'
+        AgentNameVersion                     : 'MojeekBot 0.6'
+        AgentNameVersionMajor                : 'MojeekBot 0'
+        AgentInformationUrl                  : 'https://www.mojeek.com/bot.html'
+
+#TODO: Google developer testing tool
+#  - test:
+#      input:
+#         user_agent_string: 'Mozilla/5.0 (compatible; Google-Structured-Data-Testing-Tool +http://developers.google.com/structured-data/testing-tool/)'
+
+
 #Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Applebot/0.3; +http://www.apple.com/
 
 #we follow your robots.txt settings before crawling, you can slow down the bot by change the Crawl-Delay parameter in the settings.if you have an enquiry, please email

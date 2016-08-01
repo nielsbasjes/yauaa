@@ -267,14 +267,46 @@ config:
 #      input:
 ##        name: 'You can give the test case a name'
 #        user_agent_string: 'Mozilla/5.0 (%s; U; %s; en-US; Valve Source Client; %s) AppleWebKit/532.1 (KHTML, like Gecko) Chrome/3.0.195.24 Safari/532.1'
-#
-#
-#  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
-#      input:
-##        name: 'You can give the test case a name'
-#        user_agent_string: 'Mozilla/5.0 (New Nintendo 3DS like iPhone) AppleWebKit/536.30 (KHTML, like Gecko) NX/3.0.0.5.10 Mobile NintendoBrowser/1.1.9996.EU'
-#      expected:
+
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.(1)entry="New Nintendo 3DS like iPhone"'
+      extract:
+        - 'DeviceClass                  : 2014:"Game Console"'
+        - 'DeviceBrand                  : 2014:"Nintendo"'
+        - 'DeviceName                   : 2014:"New Nintendo 3DS"'
+
+  - matcher:
+      require:
+        - 'agent.(4)product.(1)name="Mobile NintendoBrowser"'
+        - 'agent.(4)product.(1)version="1.6.10147.EU"'
+      extract:
+        - 'AgentClass            :   20:"Browser"'
+        - 'AgentName             :   20:"NintendoBrowser"'
+        - 'AgentVersion          :   20:agent.(4)product.(1)name="Mobile NintendoBrowser"^.version'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (New Nintendo 3DS like iPhone) AppleWebKit/536.30 (KHTML, like Gecko) NX/3.0.0.5.19 Mobile NintendoBrowser/1.6.10147.EU'
+      expected:
+        DeviceClass                          : 'Game Console'
+        DeviceName                           : 'New Nintendo 3DS'
+        DeviceBrand                          : 'Nintendo'
+        OperatingSystemClass                 : 'Game Console'
+        OperatingSystemName                  : 'Nintendo NX'
+        OperatingSystemVersion               : '3.0.0.5.19'
+        OperatingSystemNameVersion           : 'Nintendo NX 3.0.0.5.19'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '536.30'
+        LayoutEngineVersionMajor             : '536'
+        LayoutEngineNameVersion              : 'AppleWebKit 536.30'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'NintendoBrowser'
+        AgentVersion                         : '1.6.10147.EU'
+        AgentVersionMajor                    : '1'
+        AgentNameVersion                     : 'NintendoBrowser 1.6.10147.EU'
+        AgentNameVersionMajor                : 'NintendoBrowser 1'
