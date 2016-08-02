@@ -1,0 +1,239 @@
+config:
+#http://artsy.github.io/blog/2012/10/18/the-perils-of-ios-user-agent-sniffing/
+# iOS Safari
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'iPhone'
+        DeviceBrand                        : 'Apple'
+        DeviceFirmwareVersion              : '9A334'
+        DeviceVersion                      : 'iPhone'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '5.0'
+        OperatingSystemNameVersion         : 'iOS 5.0'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '534.46'
+        LayoutEngineVersionMajor           : '534'
+        LayoutEngineNameVersion            : 'AppleWebKit 534.46'
+        LayoutEngineNameVersionMajor       : 'AppleWebKit 534'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Safari'
+        AgentVersion                       : '5.1'
+        AgentVersionMajor                  : '5'
+        AgentNameVersion                   : 'Safari 5.1'
+        AgentNameVersionMajor              : 'Safari 5'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="AppleWebKit"'
+        - 'agent.product.(1)name="Mobile"'
+        - 'IsNull[agent.product.(1)name="Mobile"^>]'
+        - 'IsNull[agent.product.(1)name="Safari"]'
+      extract:
+        - 'AgentClass            :   20:"Browser Webview"'
+        - 'AgentName             :   20:"UIWebView"'
+        - 'AgentVersion          :   20:agent.product.(1)name="AppleWebKit"^.version'
+        - 'WebviewAppName        :    1:"Unknown App"'
+        - 'WebviewAppVersion     :    1:"??"'
+
+# UIWebView --> No "Safari" at the end
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_1 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Mobile/8B117'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'iPhone'
+        DeviceBrand                        : 'Apple'
+        DeviceFirmwareVersion              : '8B117'
+        DeviceVersion                      : 'iPhone'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '4.1'
+        OperatingSystemNameVersion         : 'iOS 4.1'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '532.9'
+        LayoutEngineVersionMajor           : '532'
+        LayoutEngineNameVersion            : 'AppleWebKit 532.9'
+        LayoutEngineNameVersionMajor       : 'AppleWebKit 532'
+        AgentClass                         : 'Browser Webview'
+        AgentName                          : 'UIWebView'
+        AgentVersion                       : '532.9'
+        AgentVersionMajor                  : '532'
+        AgentNameVersion                   : 'UIWebView 532.9'
+        AgentNameVersionMajor              : 'UIWebView 532'
+        AgentLanguage                      : 'English (United States)'
+        AgentLanguageCode                  : 'en-us'
+        AgentSecurity                      : 'Strong security'
+        WebviewAppName                     : 'Unknown App'
+        WebviewAppVersion                  : '??'
+
+
+# Facebook UIWebView
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 5_1_1 like Mac OS X; ru_RU) AppleWebKit (KHTML, like Gecko) Mobile [FBAN/FBForIPhone;FBAV/4.1;FBBV/4100.0;FBDV/iPhone3,1;FBMD/iPhone;FBSN/iPhone OS;FBSV/5.1.1;FBSS/2; tablet;FBLC/en_US]'
+      expected:
+        DeviceClass                          : 'Phone'
+        DeviceName                           : 'iPhone'
+        DeviceBrand                          : 'Apple'
+        DeviceVersion                        : 'iPhone 4 (GSM)'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'iOS'
+        OperatingSystemVersion               : '5.1.1'
+        OperatingSystemNameVersion           : 'iOS 5.1.1'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Mozilla'
+        LayoutEngineVersion                  : '5.0'
+        LayoutEngineVersionMajor             : '5'
+        LayoutEngineNameVersion              : 'Mozilla 5.0'
+        LayoutEngineNameVersionMajor         : 'Mozilla 5'
+        AgentClass                           : 'Browser Webview'
+        AgentName                            : 'UIWebView'
+        AgentVersion                         : '4.1'
+        AgentVersionMajor                    : '4'
+        AgentNameVersion                     : 'UIWebView 4.1'
+        AgentNameVersionMajor                : 'UIWebView 4'
+        AgentBuild                           : '4100.0'
+        AgentLanguage                        : 'English (United States)'
+        AgentLanguageCode                    : 'ru_ru'
+        AgentSecurity                        : 'Strong security'
+        FacebookFBSS                         : '2'
+        FacebookOperatingSystemName          : 'iPhone OS'
+        FacebookOperatingSystemVersion       : '5.1.1'
+        WebviewAppName                       : 'Facebook App for iOS'
+        WebviewAppVersion                    : '4.1'
+
+
+#https://mobiforge.com/research-analysis/webviews-and-user-agent-strings
+#Twitter/Tweetbot for iOS User-Agent string
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12D508'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'iPhone'
+        DeviceBrand                        : 'Apple'
+        DeviceFirmwareVersion              : '12D508'
+        DeviceVersion                      : 'iPhone'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'iOS'
+        OperatingSystemVersion             : '8.2'
+        OperatingSystemNameVersion         : 'iOS 8.2'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '600.1.4'
+        LayoutEngineVersionMajor           : '600'
+        LayoutEngineNameVersion            : 'AppleWebKit 600.1.4'
+        LayoutEngineNameVersionMajor       : 'AppleWebKit 600'
+        AgentClass                         : 'Browser Webview'
+        AgentName                          : 'UIWebView'
+        AgentVersion                       : '600.1.4'
+        AgentVersionMajor                  : '600'
+        AgentNameVersion                   : 'UIWebView 600.1.4'
+        AgentNameVersionMajor              : 'UIWebView 600'
+        WebviewAppName                     : 'Unknown App'
+        WebviewAppVersion                  : '??'
+
+
+#Facebook for iOS User-Agent string
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12D508 [FBAN/FBIOS;FBAV/27.0.0.10.12;FBBV/8291884;FBDV/iPhone7,1;FBMD/iPhone;FBSN/iPhone OS;FBSV/8.2;FBSS/3; FBCR/vodafoneIE;FBID/phone;FBLC/en_US;FBOP/5]'
+      expected:
+        DeviceClass                          : 'Phone'
+        DeviceName                           : 'iPhone'
+        DeviceBrand                          : 'Apple'
+        DeviceFirmwareVersion                : '12D508'
+        DeviceVersion                        : 'iPhone 6 Plus'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'iOS'
+        OperatingSystemVersion               : '8.2'
+        OperatingSystemNameVersion           : 'iOS 8.2'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '600.1.4'
+        LayoutEngineVersionMajor             : '600'
+        LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+        AgentClass                           : 'Browser Webview'
+        AgentName                            : 'UIWebView'
+        AgentVersion                         : '27.0.0.10.12'
+        AgentVersionMajor                    : '27'
+        AgentNameVersion                     : 'UIWebView 27.0.0.10.12'
+        AgentNameVersionMajor                : 'UIWebView 27'
+        AgentBuild                           : '8291884'
+        AgentLanguage                        : 'English (United States)'
+        FacebookCarrier                      : 'vodafoneIE'
+        FacebookDeviceClass                  : 'phone'
+        FacebookDeviceName                   : 'iPhone'
+        FacebookDeviceVersion                : 'iPhone7,1'
+        FacebookFBOP                         : '5'
+        FacebookFBSS                         : '3'
+        FacebookOperatingSystemName          : 'iPhone OS'
+        FacebookOperatingSystemVersion       : '8.2'
+        WebviewAppName                       : 'Facebook App for iOS'
+        WebviewAppVersion                    : '27.0.0.10.12'
+
+
+# FIXME: According to https://mobiforge.com/research-analysis/webviews-and-user-agent-strings my current rules are incorrect
+#Safari for iOS User-Agent string
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12D508'
+#      expected:
+#        DeviceClass                          : 'Phone'
+#        DeviceName                           : 'iPhone'
+#        DeviceBrand                          : 'Apple'
+#        DeviceFirmwareVersion                : '12D508'
+#        DeviceVersion                        : 'iPhone'
+#        OperatingSystemClass                 : 'Mobile'
+#        OperatingSystemName                  : 'iOS'
+#        OperatingSystemVersion               : '8.2'
+#        OperatingSystemNameVersion           : 'iOS 8.2'
+#        LayoutEngineClass                    : 'Browser'
+#        LayoutEngineName                     : 'AppleWebKit'
+#        LayoutEngineVersion                  : '600.1.4'
+#        LayoutEngineVersionMajor             : '600'
+#        LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+#        LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+#        AgentClass                           : 'Browser Webview'
+#        AgentName                            : 'UIWebView'
+#        AgentVersion                         : '600.1.4'
+#        AgentVersionMajor                    : '600'
+#        AgentNameVersion                     : 'UIWebView 600.1.4'
+#        AgentNameVersionMajor                : 'UIWebView 600'
+#        WebviewAppName                       : 'Unknown App'
+#        WebviewAppVersion                    : '??'
+#
+##Whatsapp for iOS User-Agent string
+#  - test:
+#      input:
+#        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12D508 Safari/600.1.4'
+#      expected:
+#        DeviceClass                          : 'Phone'
+#        DeviceName                           : 'iPhone'
+#        DeviceBrand                          : 'Apple'
+#        DeviceFirmwareVersion                : '12D508'
+#        DeviceVersion                        : 'iPhone'
+#        OperatingSystemClass                 : 'Mobile'
+#        OperatingSystemName                  : 'iOS'
+#        OperatingSystemVersion               : '8.2'
+#        OperatingSystemNameVersion           : 'iOS 8.2'
+#        LayoutEngineClass                    : 'Browser'
+#        LayoutEngineName                     : 'AppleWebKit'
+#        LayoutEngineVersion                  : '600.1.4'
+#        LayoutEngineVersionMajor             : '600'
+#        LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+#        LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+#        AgentClass                           : 'Browser'
+#        AgentName                            : 'Safari'
+#        AgentVersion                         : '8.0'
+#        AgentVersionMajor                    : '8'
+#        AgentNameVersion                     : 'Safari 8.0'
+#        AgentNameVersionMajor                : 'Safari 8'
+
