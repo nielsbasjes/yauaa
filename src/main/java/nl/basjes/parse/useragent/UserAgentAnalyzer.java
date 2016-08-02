@@ -666,7 +666,7 @@ config:
         if (testCases == null) {
             return allPass;
         }
-        UserAgent agent = new UserAgent();
+        UserAgent agent = new DebugUserAgent();
 
         List<TestResult> results = new ArrayList<>(32);
 
@@ -975,6 +975,8 @@ config:
 
             LOG.info(separator);
             LOG.info("");
+
+            LOG.info(((DebugUserAgent)agent).toMatchTrace());
 
             LOG.info("\n\ntests:\n"+agent.toYamlTestCase());
             if (!pass && !showAll) {
