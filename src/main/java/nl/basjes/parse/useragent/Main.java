@@ -51,6 +51,12 @@ public final class Main {
             UserAgentTreeFlattener flattenPrinter = new UserAgentTreeFlattener(new FlattenPrinter());
             uaa.setVerbose(commandlineOptions.debug);
 
+            if (commandlineOptions.useragent != null) {
+                UserAgent userAgent = uaa.parse(commandlineOptions.useragent);
+                System.out.println(userAgent.toYamlTestCase());
+                return;
+            }
+
             // Open the file
             FileInputStream fstream = new FileInputStream(commandlineOptions.inFile);
             BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
@@ -219,8 +225,11 @@ public final class Main {
 
     @SuppressWarnings({"PMD.ImmutableField"})
     private static class CommandOptions {
-        @Option(name = "-in", usage = "Location of input file", required = true)
-        private String inFile;
+        @Option(name = "-ua", usage = "A single useragent string", required = false, forbids = {"-in"})
+        private String useragent = null;
+
+        @Option(name = "-in", usage = "Location of input file", required = false, forbids = {"-ue"})
+        private String inFile = null;
 
 //        @Option(name = "-testAll", usage = "Run the tests against all built in testcases", required = false)
 //        private boolean testAll = false;
