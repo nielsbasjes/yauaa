@@ -402,3 +402,27 @@ config:
         AgentNameVersionMajor                : 'Firefox 18'
 
 #====================================================================================
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Android; Mobile; rv:25.9) Gecko/25.9 Firefox/31.9 PaleMoon/25.9.4'
+      expected:
+        DeviceClass                          : 'Phone'
+        DeviceName                           : 'Android Mobile'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Android'
+        OperatingSystemVersion               : '??'
+        OperatingSystemNameVersion           : 'Android ??'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Gecko'
+        LayoutEngineVersion                  : '25.9'
+        LayoutEngineVersionMajor             : '25'
+        LayoutEngineNameVersion              : 'Gecko 25.9'
+        LayoutEngineNameVersionMajor         : 'Gecko 25'
+        LayoutEngineBuild                    : '25.9'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'PaleMoon'
+        AgentVersion                         : '25.9.4'
+        AgentVersionMajor                    : '25'
+        AgentNameVersion                     : 'PaleMoon 25.9.4'
+        AgentNameVersionMajor                : 'PaleMoon 25'
