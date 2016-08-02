@@ -9,10 +9,13 @@ config:
        "iPad" : "Tablet"
        "iPod" : "Tablet"
        "iPod touch" : "Tablet"
+       "Watch1,1" : "Watch"
+       "Watch1,2" : "Watch"
        "iPhone1,1" : "Phone"
        "iPhone1,2" : "Phone"
        "iPhone2,1" : "Phone"
        "iPhone3,1" : "Phone"
+       "iPhone3,2" : "Phone"
        "iPhone3,3" : "Phone"
        "iPhone4,1" : "Phone"
        "iPhone5,1" : "Phone"
@@ -25,6 +28,7 @@ config:
        "iPhone7,2" : "Phone"
        "iPhone8,1" : "Phone"
        "iPhone8,2" : "Phone"
+       "iPhone8,4" : "Phone"
        "iPad1,1" : "Tablet"
        "iPad2,1" : "Tablet"
        "iPad2,2" : "Tablet"
@@ -52,6 +56,8 @@ config:
        "iPad5,2" : "Tablet"
        "iPad5,3" : "Tablet"
        "iPad5,4" : "Tablet"
+       "iPad6,3" : "Tablet"
+       "iPad6,4" : "Tablet"
        "iPad6,7" : "Tablet"
        "iPad6,8" : "Tablet"
        "iPod1,1" : "Tablet"
@@ -68,10 +74,13 @@ config:
        "iPad" : "iPad"
        "iPod" : "iPod"
        "iPod touch" : "iPod touch"
+       "Watch1,1" : "Apple Watch"
+       "Watch1,2" : "Apple Watch"
        "iPhone1,1" : "iPhone"
        "iPhone1,2" : "iPhone"
        "iPhone2,1" : "iPhone"
        "iPhone3,1" : "iPhone"
+       "iPhone3,2" : "iPhone"
        "iPhone3,3" : "iPhone"
        "iPhone4,1" : "iPhone"
        "iPhone5,1" : "iPhone"
@@ -84,6 +93,7 @@ config:
        "iPhone7,2" : "iPhone"
        "iPhone8,1" : "iPhone"
        "iPhone8,2" : "iPhone"
+       "iPhone8,4" : "iPhone"
        "iPad1,1" : "iPad"
        "iPad2,1" : "iPad"
        "iPad2,2" : "iPad"
@@ -111,6 +121,8 @@ config:
        "iPad5,2" : "iPad"
        "iPad5,3" : "iPad"
        "iPad5,4" : "iPad"
+       "iPad6,3" : "iPad"
+       "iPad6,4" : "iPad"
        "iPad6,7" : "iPad"
        "iPad6,8" : "iPad"
        "iPod1,1" : "iPod touch"
@@ -127,10 +139,13 @@ config:
        "iPad" : "iPad"
        "iPod" : "iPod"
        "iPod touch" : "iPod touch"
+       "Watch1,1" : "Apple Watch"
+       "Watch1,2" : "Apple Watch"
        "iPhone1,1" : "iPhone"
        "iPhone1,2" : "iPhone 3G"
        "iPhone2,1" : "iPhone 3GS"
        "iPhone3,1" : "iPhone 4 (GSM)"
+       "iPhone3,2" : "iPhone 4"
        "iPhone3,3" : "iPhone 4 (CDMA)"
        "iPhone4,1" : "iPhone 4S"
        "iPhone5,1" : "iPhone 5 (A1428)"
@@ -143,6 +158,7 @@ config:
        "iPhone7,2" : "iPhone 6"
        "iPhone8,1" : "iPhone 6s"
        "iPhone8,2" : "iPhone 6s Plus"
+       "iPhone8,4" : "iPhone SE"
        "iPad1,1" : "iPad"
        "iPad2,1" : "iPad 2 (Wi-Fi)"
        "iPad2,2" : "iPad 2 (GSM)"
@@ -170,8 +186,10 @@ config:
        "iPad5,2" : "iPad mini 4 (Wi-Fi+LTE)"
        "iPad5,3" : "iPad Air 2 (Wi-Fi)"
        "iPad5,4" : "iPad Air 2 (Wi-Fi+LTE)"
-       "iPad6,7" : "iPad Pro (Wi-Fi)"
-       "iPad6,8" : "iPad Pro (Wi-Fi+LTE)"
+       "iPad6,3" : "iPad Pro (9.7 inch) (Wi-Fi)"
+       "iPad6,4" : "iPad Pro (9.7 inch) (Wi-Fi+LTE)"
+       "iPad6,7" : "iPad Pro (12.9 inch) (Wi-Fi)"
+       "iPad6,8" : "iPad Pro (12.9 inch) (Wi-Fi+LTE)"
        "iPod1,1" : "iPod touch"
        "iPod2,1" : "iPod touch (2nd gen)"
        "iPod3,1" : "iPod touch (3rd gen)"
@@ -293,6 +311,62 @@ config:
 
   - matcher:
       require:
+        - 'agent.product.comments.entry.(1)text="Watch1,1"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Watch"'
+        - 'DeviceName    : 100:"Apple Watch"'
+        - 'DeviceVersion : 100:"Apple Watch"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Watch1,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Watch"'
+        - 'DeviceName    : 101:"Apple Watch"'
+        - 'DeviceVersion : 101:"Apple Watch"'
+
+  - matcher:
+      require:
+        - 'agent.text="Watch1,1"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Watch"'
+        - 'DeviceName    : 101:"Apple Watch"'
+        - 'DeviceVersion : 101:"Apple Watch"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="Watch1,2"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Watch"'
+        - 'DeviceName    : 100:"Apple Watch"'
+        - 'DeviceVersion : 100:"Apple Watch"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Watch1,2"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Watch"'
+        - 'DeviceName    : 101:"Apple Watch"'
+        - 'DeviceVersion : 101:"Apple Watch"'
+
+  - matcher:
+      require:
+        - 'agent.text="Watch1,2"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Watch"'
+        - 'DeviceName    : 101:"Apple Watch"'
+        - 'DeviceVersion : 101:"Apple Watch"'
+
+
+  - matcher:
+      require:
         - 'agent.product.comments.entry.(1)text="iPhone1,1"'
       extract:
         - 'DeviceBrand   : 100:"Apple"'
@@ -401,6 +475,34 @@ config:
         - 'DeviceClass   : 101:"Phone"'
         - 'DeviceName    : 101:"iPhone"'
         - 'DeviceVersion : 101:"iPhone 4 (GSM)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone3,2"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone 4"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone3,2"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 4"'
+
+  - matcher:
+      require:
+        - 'agent.text="iPhone3,2"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone 4"'
 
 
   - matcher:
@@ -737,6 +839,34 @@ config:
         - 'DeviceClass   : 101:"Phone"'
         - 'DeviceName    : 101:"iPhone"'
         - 'DeviceVersion : 101:"iPhone 6s Plus"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPhone8,4"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Phone"'
+        - 'DeviceName    : 100:"iPhone"'
+        - 'DeviceVersion : 100:"iPhone SE"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPhone8,4"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone SE"'
+
+  - matcher:
+      require:
+        - 'agent.text="iPhone8,4"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Phone"'
+        - 'DeviceName    : 101:"iPhone"'
+        - 'DeviceVersion : 101:"iPhone SE"'
 
 
   - matcher:
@@ -1497,12 +1627,68 @@ config:
 
   - matcher:
       require:
+        - 'agent.product.comments.entry.(1)text="iPad6,3"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad Pro (9.7 inch) (Wi-Fi)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad6,3"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad Pro (9.7 inch) (Wi-Fi)"'
+
+  - matcher:
+      require:
+        - 'agent.text="iPad6,3"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad Pro (9.7 inch) (Wi-Fi)"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.comments.entry.(1)text="iPad6,4"'
+      extract:
+        - 'DeviceBrand   : 100:"Apple"'
+        - 'DeviceClass   : 100:"Tablet"'
+        - 'DeviceName    : 100:"iPad"'
+        - 'DeviceVersion : 100:"iPad Pro (9.7 inch) (Wi-Fi+LTE)"'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="iPad6,4"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad Pro (9.7 inch) (Wi-Fi+LTE)"'
+
+  - matcher:
+      require:
+        - 'agent.text="iPad6,4"'
+      extract:
+        - 'DeviceBrand   : 101:"Apple"'
+        - 'DeviceClass   : 101:"Tablet"'
+        - 'DeviceName    : 101:"iPad"'
+        - 'DeviceVersion : 101:"iPad Pro (9.7 inch) (Wi-Fi+LTE)"'
+
+
+  - matcher:
+      require:
         - 'agent.product.comments.entry.(1)text="iPad6,7"'
       extract:
         - 'DeviceBrand   : 100:"Apple"'
         - 'DeviceClass   : 100:"Tablet"'
         - 'DeviceName    : 100:"iPad"'
-        - 'DeviceVersion : 100:"iPad Pro (Wi-Fi)"'
+        - 'DeviceVersion : 100:"iPad Pro (12.9 inch) (Wi-Fi)"'
 
   - matcher:
       require:
@@ -1511,7 +1697,7 @@ config:
         - 'DeviceBrand   : 101:"Apple"'
         - 'DeviceClass   : 101:"Tablet"'
         - 'DeviceName    : 101:"iPad"'
-        - 'DeviceVersion : 101:"iPad Pro (Wi-Fi)"'
+        - 'DeviceVersion : 101:"iPad Pro (12.9 inch) (Wi-Fi)"'
 
   - matcher:
       require:
@@ -1520,7 +1706,7 @@ config:
         - 'DeviceBrand   : 101:"Apple"'
         - 'DeviceClass   : 101:"Tablet"'
         - 'DeviceName    : 101:"iPad"'
-        - 'DeviceVersion : 101:"iPad Pro (Wi-Fi)"'
+        - 'DeviceVersion : 101:"iPad Pro (12.9 inch) (Wi-Fi)"'
 
 
   - matcher:
@@ -1530,7 +1716,7 @@ config:
         - 'DeviceBrand   : 100:"Apple"'
         - 'DeviceClass   : 100:"Tablet"'
         - 'DeviceName    : 100:"iPad"'
-        - 'DeviceVersion : 100:"iPad Pro (Wi-Fi+LTE)"'
+        - 'DeviceVersion : 100:"iPad Pro (12.9 inch) (Wi-Fi+LTE)"'
 
   - matcher:
       require:
@@ -1539,7 +1725,7 @@ config:
         - 'DeviceBrand   : 101:"Apple"'
         - 'DeviceClass   : 101:"Tablet"'
         - 'DeviceName    : 101:"iPad"'
-        - 'DeviceVersion : 101:"iPad Pro (Wi-Fi+LTE)"'
+        - 'DeviceVersion : 101:"iPad Pro (12.9 inch) (Wi-Fi+LTE)"'
 
   - matcher:
       require:
@@ -1548,7 +1734,7 @@ config:
         - 'DeviceBrand   : 101:"Apple"'
         - 'DeviceClass   : 101:"Tablet"'
         - 'DeviceName    : 101:"iPad"'
-        - 'DeviceVersion : 101:"iPad Pro (Wi-Fi+LTE)"'
+        - 'DeviceVersion : 101:"iPad Pro (12.9 inch) (Wi-Fi+LTE)"'
 
 
   - matcher:
