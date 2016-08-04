@@ -303,7 +303,14 @@ config:
         DeviceCpu                        : 'Intel'
 
 
-#FIXME: Is really SogouMSE,SogouMobileBrowser/4.0.0
+
+# Is really SogouMSE,SogouMobileBrowser/4.0.0
+  - matcher:
+      extract:
+        - 'AgentClass            :  50:"Browser"'
+        - 'AgentName             :  50:"SogouMobileBrowser"'
+        - 'AgentVersion          :  50:agent.product.(1)name="SogouMSE,SogouMobileBrowser"^.version'
+
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.1; zh-cn; HUAWEI G610-U00 Build/HuaweiG610-U00) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 SogouMSE,SogouMobileBrowser/4.0.0'
@@ -323,11 +330,11 @@ config:
         LayoutEngineNameVersion              : 'AppleWebKit 534.30'
         LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
         AgentClass                           : 'Browser'
-        AgentName                            : 'Stock Android Browser'
-        AgentVersion                         : '4.0'
+        AgentName                            : 'SogouMobileBrowser'
+        AgentVersion                         : '4.0.0'
         AgentVersionMajor                    : '4'
-        AgentNameVersion                     : 'Stock Android Browser 4.0'
-        AgentNameVersionMajor                : 'Stock Android Browser 4'
+        AgentNameVersion                     : 'SogouMobileBrowser 4.0.0'
+        AgentNameVersionMajor                : 'SogouMobileBrowser 4'
         AgentLanguage                        : 'Chinese (S)'
         AgentLanguageCode                    : 'zh-cn'
         AgentSecurity                        : 'Strong security'
