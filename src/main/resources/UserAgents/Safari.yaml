@@ -18,19 +18,6 @@
 
 config:
 
-
-  - lookup:
-      name: 'MacOSName'
-      map:
-        "PPC Mac OS X": "Mac OS"
-        "PPC Mac OS X Mach-O": "Mac OS"
-
-  - lookup:
-      name: 'MaxOSVersion'
-      map:
-        "PPC Mac OS X": "X"
-        "PPC Mac OS X Mach-O": "X"
-
   - matcher:
       extract:
         - 'LayoutEngineClass     :   11:"Browser"'
@@ -94,8 +81,6 @@ config:
         - 'AgentName              :  14:agent.(4)product.(1)name'
         - 'AgentVersion           :  14:agent.(4)product.(1)version'
 
-
-
   - matcher:
       require:
         - 'agent.product.(1)name="AppleWebKit"'
@@ -103,14 +88,7 @@ config:
       extract:
         - 'AgentClass            :   20:"Browser"'
         - 'AgentName             :   20:"Safari"'
-#        - 'AgentBuildVersion     :   20:agent.product.(1)name="Safari"^.version'
         - 'AgentVersion          :   18:agent.product.(1)name="Safari"^.version'
-
-  - matcher:
-      require:
-        - 'agent.product.(1)name="AppleWebKit"'
-        - 'agent.product.(1)name="Safari"'
-      extract:
 
   - matcher:
       require:
@@ -118,15 +96,7 @@ config:
       extract:
         - 'AgentClass            :   20:"Browser"'
         - 'AgentName             :   20:"Mobile Safari"'
-#        - 'AgentBuildVersion     :   20:agent.product.(1)name="Mobile Safari"^.version'
         - 'AgentVersion          :   18:agent.product.(1)name="Mobile Safari"^.version'
-
-  - matcher:
-      require:
-        - 'agent.product.(1)name="AppleWebKit"'
-        - 'agent.product.(1)name="Mobile Safari"'
-      extract:
-
 
   - matcher:
       require:
@@ -150,19 +120,29 @@ config:
       input:
         user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; de-de) AppleWebKit/85.7 (KHTML, like Gecko) Safari/85.5'
       expected:
-        DeviceClass                        : 'Desktop'
-        DeviceBrand                        : 'Apple'
-        DeviceName                         : 'Macintosh'
-        DeviceCpu                          : 'PowerPC'
-        OperatingSystemClass               : 'Desktop'
-        OperatingSystemName                : 'Mac OS X'
-        OperatingSystemVersion             : 'X'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'AppleWebKit'
-        LayoutEngineVersion                : '85.7'
-        AgentClass                         : 'Browser'
-        AgentName                          : 'Safari'
-        AgentVersion                       : '85.5'
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Macintosh'
+        DeviceBrand                          : 'Apple'
+        DeviceCpu                            : 'PowerPC'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Mac OS X'
+        OperatingSystemVersion               : '10.?'
+        OperatingSystemNameVersion           : 'Mac OS X 10.?'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '85.7'
+        LayoutEngineVersionMajor             : '85'
+        LayoutEngineNameVersion              : 'AppleWebKit 85.7'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 85'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Safari'
+        AgentVersion                         : '85.5'
+        AgentVersionMajor                    : '85'
+        AgentNameVersion                     : 'Safari 85.5'
+        AgentNameVersionMajor                : 'Safari 85'
+        AgentLanguage                        : 'German (Germany)'
+        AgentLanguageCode                    : 'de-de'
+        AgentSecurity                        : 'Strong security'
 
   - test:
       input:
@@ -191,5 +171,132 @@ config:
         AgentLanguage                        : 'English (United States)'
         AgentLanguageCode                    : 'en-us'
         AgentSecurity                        : 'Strong security'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/600.7.12 (KHTML, like Gecko) Version/7.1.7 Safari/537.85.16'
+      expected:
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Macintosh'
+        DeviceBrand                          : 'Apple'
+        DeviceCpu                            : 'Intel'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Mac OS X'
+        OperatingSystemVersion               : '10.9.5'
+        OperatingSystemNameVersion           : 'Mac OS X 10.9.5'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '600.7.12'
+        LayoutEngineVersionMajor             : '600'
+        LayoutEngineNameVersion              : 'AppleWebKit 600.7.12'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Safari'
+        AgentVersion                         : '7.1.7'
+        AgentVersionMajor                    : '7'
+        AgentNameVersion                     : 'Safari 7.1.7'
+        AgentNameVersionMajor                : 'Safari 7'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36'
+      expected:
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Macintosh'
+        DeviceBrand                          : 'Apple'
+        DeviceCpu                            : 'Intel'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Mac OS X'
+        OperatingSystemVersion               : '10.10.1'
+        OperatingSystemNameVersion           : 'Mac OS X 10.10.1'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Blink'
+        LayoutEngineVersion                  : '41.0'
+        LayoutEngineVersionMajor             : '41'
+        LayoutEngineNameVersion              : 'Blink 41.0'
+        LayoutEngineNameVersionMajor         : 'Blink 41'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Chrome'
+        AgentVersion                         : '41.0.2227.1'
+        AgentVersionMajor                    : '41'
+        AgentNameVersion                     : 'Chrome 41.0.2227.1'
+        AgentNameVersionMajor                : 'Chrome 41'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_7; en) AppleWebKit/530.19.2 (KHTML, like Gecko) Version/4.0.2 Safari/530.19.2'
+      expected:
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Macintosh'
+        DeviceBrand                          : 'Apple'
+        DeviceCpu                            : 'Intel'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Mac OS X'
+        OperatingSystemVersion               : '10.5.7'
+        OperatingSystemNameVersion           : 'Mac OS X 10.5.7'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '530.19.2'
+        LayoutEngineVersionMajor             : '530'
+        LayoutEngineNameVersion              : 'AppleWebKit 530.19.2'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 530'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Safari'
+        AgentVersion                         : '4.0.2'
+        AgentVersionMajor                    : '4'
+        AgentNameVersion                     : 'Safari 4.0.2'
+        AgentNameVersionMajor                : 'Safari 4'
+        AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
+        AgentSecurity                        : 'Strong security'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36 OPR/36.0.2130.32'
+      expected:
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Macintosh'
+        DeviceBrand                          : 'Apple'
+        DeviceCpu                            : 'Intel'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Mac OS X'
+        OperatingSystemVersion               : '10.7.5'
+        OperatingSystemNameVersion           : 'Mac OS X 10.7.5'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Blink'
+        LayoutEngineVersion                  : '49.0.2623.75'
+        LayoutEngineVersionMajor             : '49'
+        LayoutEngineNameVersion              : 'Blink 49.0.2623.75'
+        LayoutEngineNameVersionMajor         : 'Blink 49'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Opera'
+        AgentVersion                         : '36.0.2130.32'
+        AgentVersionMajor                    : '36'
+        AgentNameVersion                     : 'Opera 36.0.2130.32'
+        AgentNameVersionMajor                : 'Opera 36'
+
+  - test:
+      input:
+        user_agent_string: 'MacOutlook/0.0.0.160212 (Intel Mac OS X Version 10.11.4 (Build 15E65))'
+      expected:
+        DeviceClass                      : 'Desktop'
+        DeviceName                       : 'Macintosh'
+        DeviceBrand                      : 'Apple'
+        DeviceCpu                        : 'Intel'
+        OperatingSystemClass             : 'Desktop'
+        OperatingSystemName              : 'Mac OS X'
+        OperatingSystemVersion           : '10.11.4'
+        OperatingSystemNameVersion       : 'Mac OS X 10.11.4'
+        AgentClass                       : 'Special'
+        AgentName                        : 'MacOutlook'
+        AgentVersion                     : '0.0.0.160212'
+        AgentVersionMajor                : '0'
+        AgentNameVersion                 : 'MacOutlook 0.0.0.160212'
+        AgentNameVersionMajor            : 'MacOutlook 0'
 
 

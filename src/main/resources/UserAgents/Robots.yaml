@@ -775,7 +775,7 @@ config:
       expected:
         DeviceClass                          : 'Robot'
         DeviceName                           : 'Applebot'
-        DeviceBrand                          : 'Robot'
+        DeviceBrand                          : 'Apple'
         OperatingSystemClass                 : 'Cloud'
         OperatingSystemName                  : 'Cloud'
         OperatingSystemVersion               : 'Cloud'
@@ -869,6 +869,90 @@ config:
         AgentNameVersion                     : 'MojeekBot 0.6'
         AgentNameVersionMajor                : 'MojeekBot 0'
         AgentInformationUrl                  : 'https://www.mojeek.com/bot.html'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)comments.entry.(1)product.(1)name="FlipboardProxy"'
+      extract:
+        - 'DeviceClass            :   5000:"Robot"'
+        - 'DeviceName             :   5000:"FlipboardProxy"'
+        - 'DeviceBrand            :   5000:"Flipboard"'
+        - 'OperatingSystemClass   :   5000:"Cloud"'
+        - 'OperatingSystemName    :   5000:"Cloud"'
+        - 'OperatingSystemVersion :   5000:"Cloud"'
+        - 'AgentClass             :   5000:"Robot"'
+        - 'AgentName              :   5000:"FlipboardProxy"'
+        - 'AgentVersion           :   5000:agent.product.(1)comments.entry.(1)product.(1)name="FlipboardProxy"^.version'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:28.0) Gecko/20100101 Firefox/28.0 (FlipboardProxy/1.1; +http://flipboard.com/browserproxy)'
+      expected:
+        DeviceClass                          : 'Robot'
+        DeviceName                           : 'FlipboardProxy'
+        DeviceBrand                          : 'Flipboard'
+        DeviceCpu                            : 'Intel'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Cloud'
+        OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Gecko'
+        LayoutEngineVersion                  : '28.0'
+        LayoutEngineVersionMajor             : '28'
+        LayoutEngineNameVersion              : 'Gecko 28.0'
+        LayoutEngineNameVersionMajor         : 'Gecko 28'
+        LayoutEngineBuild                    : '20100101'
+        AgentClass                           : 'Robot'
+        AgentName                            : 'FlipboardProxy'
+        AgentVersion                         : '1.1'
+        AgentVersionMajor                    : '1'
+        AgentNameVersion                     : 'FlipboardProxy 1.1'
+        AgentNameVersionMajor                : 'FlipboardProxy 1'
+        AgentInformationUrl                  : 'http://flipboard.com/browserproxy'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)comments.entry.(1)product.(1)name="Applebot"'
+      extract:
+        - 'DeviceClass            :   5000:"Robot"'
+        - 'DeviceName             :   5000:"Applebot"'
+        - 'DeviceBrand            :   5000:"Apple"'
+        - 'OperatingSystemClass   :   5000:"Cloud"'
+        - 'OperatingSystemName    :   5000:"Cloud"'
+        - 'OperatingSystemVersion :   5000:"Cloud"'
+        - 'AgentClass             :   5000:"Robot"'
+        - 'AgentName              :   5000:"Applebot"'
+        - 'AgentVersion           :   5000:agent.product.(1)comments.entry.(1)product.(1)name="Applebot"^.version'
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/600.2.5 (KHTML, like Gecko) Version/8.0.2 Safari/600.2.5 (Applebot/0.1; +http://www.apple.com/go/applebot)'
+      expected:
+        DeviceClass                          : 'Robot'
+        DeviceName                           : 'Applebot'
+        DeviceBrand                          : 'Apple'
+        DeviceCpu                            : 'Intel'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Cloud'
+        OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '600.2.5'
+        LayoutEngineVersionMajor             : '600'
+        LayoutEngineNameVersion              : 'AppleWebKit 600.2.5'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+        AgentClass                           : 'Robot'
+        AgentName                            : 'Applebot'
+        AgentVersion                         : '0.1'
+        AgentVersionMajor                    : '0'
+        AgentNameVersion                     : 'Applebot 0.1'
+        AgentNameVersionMajor                : 'Applebot 0'
+        AgentInformationUrl                  : 'http://www.apple.com/go/applebot'
+
+
+
 
 #TODO: Google developer testing tool
 #  - test:
