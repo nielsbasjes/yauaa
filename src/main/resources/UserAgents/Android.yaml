@@ -586,11 +586,11 @@ config:
         LayoutEngineNameVersion            : 'AppleWebKit 534.30'
         LayoutEngineNameVersionMajor       : 'AppleWebKit 534'
         AgentClass                         : 'Browser'
-        AgentName                          : 'Safari'
+        AgentName                          : 'Stock Android Browser'
         AgentVersion                       : '4.0'
         AgentVersionMajor                  : '4'
-        AgentNameVersion                   : 'Safari 4.0'
-        AgentNameVersionMajor              : 'Safari 4'
+        AgentNameVersion                   : 'Stock Android Browser 4.0'
+        AgentNameVersionMajor              : 'Stock Android Browser 4'
         AgentLanguage                      : 'Greek (Greece)'
         AgentLanguageCode                  : 'el-gr'
         AgentSecurity                      : 'Strong security'
@@ -693,11 +693,11 @@ config:
         LayoutEngineNameVersion            : 'AppleWebKit 533.1'
         LayoutEngineNameVersionMajor       : 'AppleWebKit 533'
         AgentClass                         : 'Browser'
-        AgentName                          : 'Mobile Safari'
+        AgentName                          : 'Stock Android Browser'
         AgentVersion                       : '4.0'
         AgentVersionMajor                  : '4'
-        AgentNameVersion                   : 'Mobile Safari 4.0'
-        AgentNameVersionMajor              : 'Mobile Safari 4'
+        AgentNameVersion                   : 'Stock Android Browser 4.0'
+        AgentNameVersionMajor              : 'Stock Android Browser 4'
         AgentLanguage                      : 'Dutch (Netherlands)'
         AgentLanguageCode                  : 'nl-nl'
         AgentSecurity                      : 'Strong security'
@@ -746,11 +746,11 @@ config:
         LayoutEngineNameVersion            : 'AppleWebKit 534.30'
         LayoutEngineNameVersionMajor       : 'AppleWebKit 534'
         AgentClass                         : 'Browser'
-        AgentName                          : 'Safari'
+        AgentName                          : 'Stock Android Browser'
         AgentVersion                       : '4.0'
         AgentVersionMajor                  : '4'
-        AgentNameVersion                   : 'Safari 4.0'
-        AgentNameVersionMajor              : 'Safari 4'
+        AgentNameVersion                   : 'Stock Android Browser 4.0'
+        AgentNameVersionMajor              : 'Stock Android Browser 4'
         AgentLanguage                      : 'English (United States)'
         AgentLanguageCode                  : 'en-us'
         AgentSecurity                      : 'Strong security'
@@ -801,11 +801,11 @@ config:
         LayoutEngineNameVersion            : 'AppleWebKit 534.30'
         LayoutEngineNameVersionMajor       : 'AppleWebKit 534'
         AgentClass                         : 'Browser'
-        AgentName                          : 'Safari'
+        AgentName                          : 'Stock Android Browser'
         AgentVersion                       : '4.0'
         AgentVersionMajor                  : '4'
-        AgentNameVersion                   : 'Safari 4.0'
-        AgentNameVersionMajor              : 'Safari 4'
+        AgentNameVersion                   : 'Stock Android Browser 4.0'
+        AgentNameVersionMajor              : 'Stock Android Browser 4'
         AgentLanguage                      : 'Dutch (Netherlands)'
         AgentLanguageCode                  : 'nl-nl'
         AgentSecurity                      : 'Strong security'
@@ -830,16 +830,14 @@ config:
         LayoutEngineNameVersion            : 'AppleWebKit 534.30'
         LayoutEngineNameVersionMajor       : 'AppleWebKit 534'
         AgentClass                         : 'Browser'
-        AgentName                          : 'Safari'
+        AgentName                          : 'Stock Android Browser'
         AgentVersion                       : '4.0'
         AgentVersionMajor                  : '4'
-        AgentNameVersion                   : 'Safari 4.0'
-        AgentNameVersionMajor              : 'Safari 4'
+        AgentNameVersion                   : 'Stock Android Browser 4.0'
+        AgentNameVersionMajor              : 'Stock Android Browser 4'
         AgentLanguage                      : 'Dutch (Netherlands)'
         AgentLanguageCode                  : 'nl-nl'
         AgentSecurity                      : 'Strong security'
-
-
 
 
   - test:
@@ -936,11 +934,59 @@ config:
 #AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; Nexus 6P Build/MMB29M)
 
 
-#TODO: Stock android browser
+#Stock android browser
 #http://stackoverflow.com/questions/14403766/how-to-detect-the-stock-android-browser
 # The stock Android browser never went above 534, and Chrome is 537 or higher.
-#
-#Mozilla/5.0 (Linux; U; Android 1.6; ar-us; SonyEricssonX10i Build/R2BA026) AppleWebKit/528.5+ (KHTML, like Gecko) Version/3.1.2 Mobile Safari/525.20.1
+
+# My analysis:
+#There is no browser on Android that is Safari.
+#So if we conclude that it must be Safari then it really is the stock android browser.
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Mobile Safari"'
+        - 'agent.(1)product.comments.entry.product.(1)name="Android"'
+      extract:
+        - 'AgentClass            :   26:"Browser"'
+        - 'AgentName             :   26:"Stock Android Browser"'
+        - 'AgentVersion          :   26:agent.product.(1)name="Version"^.version'
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="Safari"'
+        - 'agent.(1)product.comments.entry.product.(1)name="Android"'
+      extract:
+        - 'AgentClass            :   26:"Browser"'
+        - 'AgentName             :   26:"Stock Android Browser"'
+        - 'AgentVersion          :   26:agent.product.(1)name="Version"^.version'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 1.6; ar-us; SonyEricssonX10i Build/R2BA026) AppleWebKit/528.5+ (KHTML, like Gecko) Version/3.1.2 Mobile Safari/525.20.1'
+      expected:
+        DeviceClass                        : 'Phone'
+        DeviceName                         : 'SonyEricssonX10i'
+        DeviceBrand                        : 'SonyEricsson'
+        OperatingSystemClass               : 'Mobile'
+        OperatingSystemName                : 'Android'
+        OperatingSystemVersion             : '1.6'
+        OperatingSystemNameVersion         : 'Android 1.6'
+        OperatingSystemVersionBuild        : 'R2BA026'
+        LayoutEngineClass                  : 'Browser'
+        LayoutEngineName                   : 'AppleWebKit'
+        LayoutEngineVersion                : '528.5'
+        LayoutEngineVersionMajor           : '528'
+        LayoutEngineNameVersion            : 'AppleWebKit 528.5'
+        LayoutEngineNameVersionMajor       : 'AppleWebKit 528'
+        AgentClass                         : 'Browser'
+        AgentName                          : 'Stock Android Browser'
+        AgentVersion                       : '3.1.2'
+        AgentVersionMajor                  : '3'
+        AgentNameVersion                   : 'Stock Android Browser 3.1.2'
+        AgentNameVersionMajor              : 'Stock Android Browser 3'
+        AgentSecurity                      : 'Strong security'
+
 #Mozilla/5.0 (Linux; U; Android 2.1-update1; es-mx; SonyEricssonE10a Build/2.0.A.0.504) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17
 #Mozilla/5.0 (Linux; U; Android 2.2.1; de-de; HTC_Wildfire_A3333 Build/FRG83D) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
 #Mozilla/5.0 (Linux; U; Android 2.2.1; en-ca; LG-P505R Build/FRG83) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
