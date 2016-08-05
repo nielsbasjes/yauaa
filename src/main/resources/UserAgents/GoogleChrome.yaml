@@ -131,15 +131,21 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Windows NT'
         OperatingSystemVersion               : 'Windows XP'
+        OperatingSystemNameVersion           : 'Windows XP'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : '525.13'
         LayoutEngineVersionMajor             : '525'
+        LayoutEngineNameVersion              : 'AppleWebKit 525.13'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 525'
         AgentClass                           : 'Browser'
         AgentName                            : 'Chrome'
         AgentVersion                         : '0.2.149.27'
         AgentVersionMajor                    : '0'
+        AgentNameVersion                     : 'Chrome 0.2.149.27'
+        AgentNameVersionMajor                : 'Chrome 0'
         AgentLanguage                        : 'English (United States)'
+        AgentLanguageCode                    : 'en-us'
         AgentSecurity                        : 'Strong security'
 
   - test:
@@ -148,19 +154,24 @@ config:
       expected:
         DeviceClass                          : 'Desktop'
         DeviceName                           : 'Chromebook'
+        DeviceBrand                          : 'Google'
+        DeviceCpu                            : 'Intel x86_64'
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Chrome OS'
         OperatingSystemVersion               : '6310.68.0'
+        OperatingSystemNameVersion           : 'Chrome OS 6310.68.0'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Blink'
         LayoutEngineVersion                  : '39.0'
         LayoutEngineVersionMajor             : '39'
+        LayoutEngineNameVersion              : 'Blink 39.0'
+        LayoutEngineNameVersionMajor         : 'Blink 39'
         AgentClass                           : 'Browser'
         AgentName                            : 'Chrome'
         AgentVersion                         : '39.0.2171.96'
         AgentVersionMajor                    : '39'
-        DeviceBrand                          : 'Google'
-        DeviceCpu                            : 'Intel x86_64'
+        AgentNameVersion                     : 'Chrome 39.0.2171.96'
+        AgentNameVersionMajor                : 'Chrome 39'
 
 
   - test:
@@ -169,6 +180,7 @@ config:
       expected:
         DeviceClass                          : 'Phone'
         DeviceName                           : 'Galaxy Nexus'
+        DeviceBrand                          : 'Samsung'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Android'
         OperatingSystemVersion               : '4.0.4'
@@ -251,6 +263,10 @@ config:
         AgentVersionMajor                    : '43'
         AgentNameVersion                     : 'Chrome Webview 43.0.2357.65'
         AgentNameVersionMajor                : 'Chrome Webview 43'
+        WebviewAppName                       : 'Unknown Webview App'
+        WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+        WebviewAppVersion                    : '??'
+        WebviewAppVersionMajor               : '??'
 
   - matcher:
       extract:
@@ -282,7 +298,9 @@ config:
         AgentNameVersion                     : 'Chrome Webview 47.0.2526.100'
         AgentNameVersionMajor                : 'Chrome Webview 47'
         WebviewAppName                       : 'Google Search App'
+        WebviewAppNameVersionMajor           : 'Google Search App 1'
         WebviewAppVersion                    : '1.1'
+        WebviewAppVersionMajor               : '1'
 
 
   - test:
@@ -309,4 +327,6 @@ config:
         AgentNameVersion                     : 'Chrome Webview 39.0.0.0'
         AgentNameVersionMajor                : 'Chrome Webview 39'
         WebviewAppName                       : 'Google Search App'
+        WebviewAppNameVersionMajor           : 'Google Search App 1'
         WebviewAppVersion                    : '1.1'
+        WebviewAppVersionMajor               : '1'

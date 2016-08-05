@@ -18,11 +18,7 @@
 
 config:
 
-
   - matcher:
-#      require:
-#        - 'agent.product.(1)name="Profile"'
-#        - 'agent.product.(1)name="Configuration"'
       extract:
         - 'DeviceClass           : 301:"Mobile"'
         - 'DeviceName            : 301:agent.(1)product.(1)name%2="Linux"@#1'
@@ -30,6 +26,7 @@ config:
         - 'AgentClass            :   4:"Unknown"'
         - 'AgentName             :   4:"Unknown"'
         - 'AgentVersion          :   4:"Unknown"'
+
 
   - matcher:
       require:
@@ -42,19 +39,7 @@ config:
         - 'AgentClass            :   4:"Unknown"'
         - 'AgentName             :   4:"Unknown"'
         - 'AgentVersion          :   4:"Unknown"'
-#
-#  - matcher:
-#      require:
-#        - 'agent.product.(1)name="Profile"'
-#        - 'agent.product.(1)name="Configuration"'
-#      extract:
-#        - 'DeviceClass           :   1:"Mobile"'
-#        - 'DeviceName            : 301:agent.(1)product.(1)name'
-#        - 'DeviceVersion         : 301:agent.(1)product.(1)name^.version'
-#        - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
-#        - 'AgentClass            :   4:"Unknown"'
-#        - 'AgentName             :   4:"Unknown"'
-#        - 'AgentVersion          :   4:"Unknown"'
+
 
   - matcher:
       extract:
@@ -65,6 +50,7 @@ config:
         - 'AgentName             :   4:"Unknown"'
         - 'AgentVersion          :   4:"Unknown"'
 
+
   - matcher:
       extract:
         - 'DeviceClass           : 301:"Mobile"'
@@ -74,6 +60,7 @@ config:
         - 'AgentName             :   4:"Unknown"'
         - 'AgentVersion          :   4:"Unknown"'
 
+
   - matcher:
       extract:
         - 'DeviceClass           : 301:"Mobile"'
@@ -82,6 +69,7 @@ config:
         - 'AgentClass            :   4:"Unknown"'
         - 'AgentName             :   4:"Unknown"'
         - 'AgentVersion          :   4:"Unknown"'
+
 
   - matcher:
       require:
@@ -95,7 +83,6 @@ config:
         - 'AgentVersion          :   4:"Unknown"'
 
 
-
   - matcher:
 #      require:
 #        - 'agent.product.(1)name="Browser"'
@@ -107,6 +94,7 @@ config:
         - 'AgentClass            :   4:"Unknown"'
         - 'AgentName             :   4:"Unknown"'
         - 'AgentVersion          :   4:"Unknown"'
+
 
   - matcher:
       require:
@@ -122,17 +110,25 @@ config:
       expected:
         DeviceClass                          : 'Phone'
         DeviceName                           : 'MT6572'
-        DeviceVersion                        : 'V1'
         DeviceFirmwareVersion                : '04.23.2014'
+        DeviceVersion                        : 'V1'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Android'
         OperatingSystemVersion               : '4.2.2'
+        OperatingSystemNameVersion           : 'Android 4.2.2'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : 'AppleWebKit534.30'
+        LayoutEngineVersionMajor             : 'AppleWebKit534'
+        LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
         AgentClass                           : 'Browser'
         AgentName                            : 'Mobile Safari'
         AgentVersion                         : '534.30'
+        AgentVersionMajor                    : '534'
+        AgentNameVersion                     : 'Mobile Safari 534.30'
+        AgentNameVersionMajor                : 'Mobile Safari 534'
+
 
   - test:
       input:
@@ -140,17 +136,25 @@ config:
       expected:
         DeviceClass                          : 'Phone'
         DeviceName                           : 'Lenovo'
-        DeviceVersion                        : 'A800'
         DeviceFirmwareVersion                : '09.25.2012'
+        DeviceVersion                        : 'A800'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Android'
         OperatingSystemVersion               : '4.1.2'
+        OperatingSystemNameVersion           : 'Android 4.1.2'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : 'AppleWebKit534.30'
+        LayoutEngineVersionMajor             : 'AppleWebKit534'
+        LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
         AgentClass                           : 'Browser'
         AgentName                            : 'Mobile Safari'
         AgentVersion                         : '534.30'
+        AgentVersionMajor                    : '534'
+        AgentNameVersion                     : 'Mobile Safari 534.30'
+        AgentNameVersionMajor                : 'Mobile Safari 534'
+
 
   - test:
       input:
@@ -158,17 +162,24 @@ config:
       expected:
         DeviceClass                          : 'Phone'
         DeviceName                           : 'AT-AS40SE'
+        DeviceFirmwareVersion                : '04.10.2013'
+        DeviceVersion                        : '3.0.13'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Android'
         OperatingSystemVersion               : '4.0.4'
+        OperatingSystemNameVersion           : 'Android 4.0.4'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : 'AppleWebKit534.30'
+        LayoutEngineVersionMajor             : 'AppleWebKit534'
+        LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
         AgentClass                           : 'Browser'
         AgentName                            : 'Mobile Safari'
         AgentVersion                         : '534.30'
-        DeviceFirmwareVersion                : '04.10.2013'
-        DeviceVersion                        : '3.0.13'
+        AgentVersionMajor                    : '534'
+        AgentNameVersion                     : 'Mobile Safari 534.30'
+        AgentNameVersionMajor                : 'Mobile Safari 534'
 
 
   - matcher:
@@ -184,15 +195,27 @@ config:
         DeviceClass                          : 'Mobile'
         DeviceName                           : 'SAMSUNG-GT-S5260'
         DeviceVersion                        : 'S5260XXKD1'
+        OperatingSystemClass                 : 'Unknown'
+        OperatingSystemName                  : 'Unknown'
+        OperatingSystemVersion               : '??'
+        LayoutEngineClass                    : 'Unknown'
+        LayoutEngineName                     : 'Unknown'
+        LayoutEngineVersion                  : '??'
+        LayoutEngineVersionMajor             : '??'
         AgentClass                           : 'Browser'
         AgentName                            : 'Dolfin'
         AgentVersion                         : '2.0'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Dolfin 2.0'
+        AgentNameVersionMajor                : 'Dolfin 2'
+
 
   - matcher:
       extract:
         - 'AgentClass            :   100:"Testclient"'
         - 'AgentName             :   100:"Jasmine"'
         - 'AgentVersion          :   100:agent.product.name="Jasmine"^.version'
+
 
   - test:
       input:
@@ -201,9 +224,20 @@ config:
         DeviceClass                          : 'Mobile'
         DeviceName                           : 'SAMSUNG-S8000'
         DeviceVersion                        : 'S800MCEIK1'
+        OperatingSystemClass                 : 'Unknown'
+        OperatingSystemName                  : 'Unknown'
+        OperatingSystemVersion               : '??'
+        LayoutEngineClass                    : 'Unknown'
+        LayoutEngineName                     : 'Unknown'
+        LayoutEngineVersion                  : '??'
+        LayoutEngineVersionMajor             : '??'
         AgentClass                           : 'Testclient'
         AgentName                            : 'Jasmine'
         AgentVersion                         : '1.0'
+        AgentVersionMajor                    : '1'
+        AgentNameVersion                     : 'Jasmine 1.0'
+        AgentNameVersionMajor                : 'Jasmine 1'
+
 
   - test:
       input:
@@ -214,13 +248,22 @@ config:
         DeviceVersion                        : '5.0'
         OperatingSystemClass                 : 'Unknown'
         OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : 'Unknown'
+        OperatingSystemVersion               : '??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'UCBrowser'
         LayoutEngineVersion                  : '9.5.0.449'
+        LayoutEngineVersionMajor             : '9'
+        LayoutEngineNameVersion              : 'UCBrowser 9.5.0.449'
+        LayoutEngineNameVersionMajor         : 'UCBrowser 9'
         AgentClass                           : 'Browser'
         AgentName                            : 'UCBrowser'
         AgentVersion                         : '9.5.0.449'
+        AgentVersionMajor                    : '9'
+        AgentNameVersion                     : 'UCBrowser 9.5.0.449'
+        AgentNameVersionMajor                : 'UCBrowser 9'
+        AgentLanguage                        : 'English (United States)'
+        AgentLanguageCode                    : 'en-us'
+
 
   - test:
       input:
@@ -231,13 +274,18 @@ config:
         DeviceVersion                        : '2.0'
         OperatingSystemClass                 : 'Unknown'
         OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : 'Unknown'
+        OperatingSystemVersion               : '??'
         LayoutEngineClass                    : 'Unknown'
         LayoutEngineName                     : 'Unknown'
-        LayoutEngineVersion                  : 'Unknown'
+        LayoutEngineVersion                  : '??'
+        LayoutEngineVersionMajor             : '??'
         AgentClass                           : 'Special'
         AgentName                            : 'Nokia2320c-2b'
         AgentVersion                         : '2.0'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Nokia2320c-2b 2.0'
+        AgentNameVersionMajor                : 'Nokia2320c-2b 2'
+
 
   - test:
       input:
@@ -248,13 +296,17 @@ config:
         DeviceVersion                        : '5.0.0.716'
         OperatingSystemClass                 : 'Unknown'
         OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : 'Unknown'
+        OperatingSystemVersion               : '??'
         LayoutEngineClass                    : 'Unknown'
         LayoutEngineName                     : 'Unknown'
-        LayoutEngineVersion                  : 'Unknown'
+        LayoutEngineVersion                  : '??'
+        LayoutEngineVersionMajor             : '??'
         AgentClass                           : 'Special'
         AgentName                            : 'BlackBerry9300'
         AgentVersion                         : '5.0.0.716'
+        AgentVersionMajor                    : '5'
+        AgentNameVersion                     : 'BlackBerry9300 5.0.0.716'
+        AgentNameVersionMajor                : 'BlackBerry9300 5'
 
   - test:
       input:
@@ -262,17 +314,24 @@ config:
       expected:
         DeviceClass                          : 'Phone'
         DeviceName                           : 'AT-AS45SE'
-        DeviceVersion                        : '3.0.13'
         DeviceFirmwareVersion                : '09.28.2012'
+        DeviceVersion                        : '3.0.13'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Android'
         OperatingSystemVersion               : '4.0.4'
+        OperatingSystemNameVersion           : 'Android 4.0.4'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : 'AppleWebKit534.30'
+        LayoutEngineVersionMajor             : 'AppleWebKit534'
+        LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
         AgentClass                           : 'Browser'
         AgentName                            : 'Mobile Safari'
         AgentVersion                         : '534.30'
+        AgentVersionMajor                    : '534'
+        AgentNameVersion                     : 'Mobile Safari 534.30'
+        AgentNameVersionMajor                : 'Mobile Safari 534'
 
   - test:
       input:
@@ -280,17 +339,24 @@ config:
       expected:
         DeviceClass                          : 'Phone'
         DeviceName                           : 'Athens15_TD'
-        DeviceVersion                        : 'V2'
         DeviceFirmwareVersion                : '02.15.2012'
+        DeviceVersion                        : 'V2'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Android'
         OperatingSystemVersion               : '4.0'
+        OperatingSystemNameVersion           : 'Android 4.0'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : 'AppleWebKit534.30'
+        LayoutEngineVersionMajor             : 'AppleWebKit534'
+        LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
         AgentClass                           : 'Browser'
         AgentName                            : 'Mobile Safari'
         AgentVersion                         : '534.30'
+        AgentVersionMajor                    : '534'
+        AgentNameVersion                     : 'Mobile Safari 534.30'
+        AgentNameVersionMajor                : 'Mobile Safari 534'
 
 
   - matcher:
@@ -525,17 +591,24 @@ config:
       expected:
         DeviceClass                          : 'Mobile'
         DeviceName                           : 'Nokia203'
+        DeviceVersion                        : '20.37'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Java'
         OperatingSystemVersion               : '??'
+        OperatingSystemNameVersion           : 'Java ??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'UCBrowser'
         LayoutEngineVersion                  : '8.7.0.218'
+        LayoutEngineVersionMajor             : '8'
+        LayoutEngineNameVersion              : 'UCBrowser 8.7.0.218'
+        LayoutEngineNameVersionMajor         : 'UCBrowser 8'
         AgentClass                           : 'Browser'
         AgentName                            : 'UCBrowser'
         AgentVersion                         : '8.7.0.218'
+        AgentVersionMajor                    : '8'
+        AgentNameVersion                     : 'UCBrowser 8.7.0.218'
+        AgentNameVersionMajor                : 'UCBrowser 8'
         AgentSecurity                        : 'Strong security'
-        DeviceVersion                        : '20.37'
 
 
 
@@ -545,17 +618,26 @@ config:
       expected:
         DeviceClass                          : 'Mobile'
         DeviceName                           : '9300'
+        DeviceBrand                          : 'BlackBerry'
         DeviceVersion                        : '6.6.0.236'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'RIM OS'
         OperatingSystemVersion               : 'RIM OS'
+        OperatingSystemNameVersion           : 'RIM OS'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'UCBrowser'
         LayoutEngineVersion                  : '8.1.0.216'
+        LayoutEngineVersionMajor             : '8'
+        LayoutEngineNameVersion              : 'UCBrowser 8.1.0.216'
+        LayoutEngineNameVersionMajor         : 'UCBrowser 8'
         AgentClass                           : 'Browser'
         AgentName                            : 'UCBrowser'
         AgentVersion                         : '8.1.0.216'
+        AgentVersionMajor                    : '8'
+        AgentNameVersion                     : 'UCBrowser 8.1.0.216'
+        AgentNameVersionMajor                : 'UCBrowser 8'
         AgentLanguage                        : 'English (United States)'
+        AgentLanguageCode                    : 'en-us'
         AgentSecurity                        : 'Strong security'
 
 
@@ -570,13 +652,21 @@ config:
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows'
         OperatingSystemVersion               : '??'
+        OperatingSystemNameVersion           : 'Windows ??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'UCBrowser'
         LayoutEngineVersion                  : '4.2.1.541'
+        LayoutEngineVersionMajor             : '4'
+        LayoutEngineNameVersion              : 'UCBrowser 4.2.1.541'
+        LayoutEngineNameVersionMajor         : 'UCBrowser 4'
         AgentClass                           : 'Browser'
         AgentName                            : 'UCBrowser'
         AgentVersion                         : '4.2.1.541'
+        AgentVersionMajor                    : '4'
+        AgentNameVersion                     : 'UCBrowser 4.2.1.541'
+        AgentNameVersionMajor                : 'UCBrowser 4'
         AgentLanguage                        : 'Portuguese (Brazil)'
+        AgentLanguageCode                    : 'pt-br'
         AgentSecurity                        : 'Strong security'
 
 
@@ -590,14 +680,23 @@ config:
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Android'
         OperatingSystemVersion               : '4.1.2'
+        OperatingSystemNameVersion           : 'Android 4.1.2'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'UCBrowser'
         LayoutEngineVersion                  : '9.5.0.360'
+        LayoutEngineVersionMajor             : '9'
+        LayoutEngineNameVersion              : 'UCBrowser 9.5.0.360'
+        LayoutEngineNameVersionMajor         : 'UCBrowser 9'
         AgentClass                           : 'Browser'
         AgentName                            : 'UCBrowser'
         AgentVersion                         : '9.5.0.360'
+        AgentVersionMajor                    : '9'
+        AgentNameVersion                     : 'UCBrowser 9.5.0.360'
+        AgentNameVersionMajor                : 'UCBrowser 9'
         AgentLanguage                        : 'Chinese (S)'
+        AgentLanguageCode                    : 'zh-cn'
         AgentSecurity                        : 'Strong security'
+
 
   - test:
       input:

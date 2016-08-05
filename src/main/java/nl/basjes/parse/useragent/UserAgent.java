@@ -30,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collections;
 import java.util.HashMap;
@@ -218,6 +219,8 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         }
     }
 
+
+
     private void init() {
         // Device : Family - Brand - Model
         allFields.put(DEVICE_CLASS,                  new AgentField("Unknown")); // Hacker / Cloud / Server / Desktop / Tablet / Phone / Watch
@@ -227,19 +230,19 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         // Operating system
         allFields.put(OPERATING_SYSTEM_CLASS,        new AgentField("Unknown")); // Cloud, Desktop, Mobile, Embedded
         allFields.put(OPERATING_SYSTEM_NAME,         new AgentField("Unknown")); // ( Linux / Android / Windows ...)
-        allFields.put(OPERATING_SYSTEM_VERSION,      new AgentField("Unknown")); // 1.2 / 43 / ...
+        allFields.put(OPERATING_SYSTEM_VERSION,      new AgentField("??")); // 1.2 / 43 / ...
 
         // Engine : Class (=None/Hacker/Robot/Browser) - Name - Version
         allFields.put(LAYOUT_ENGINE_CLASS,           new AgentField("Unknown")); // None / Hacker / Robot / Browser /
         allFields.put(LAYOUT_ENGINE_NAME,            new AgentField("Unknown")); // ( GoogleBot / Bing / ...) / (Trident / Gecko / ...)
-        allFields.put(LAYOUT_ENGINE_VERSION,         new AgentField("Unknown")); // 1.2 / 43 / ...
-        allFields.put(LAYOUT_ENGINE_VERSION_MAJOR,   new AgentField("Unknown")); // 1 / 43 / ...
+        allFields.put(LAYOUT_ENGINE_VERSION,         new AgentField("??")); // 1.2 / 43 / ...
+        allFields.put(LAYOUT_ENGINE_VERSION_MAJOR,   new AgentField("??")); // 1 / 43 / ...
 
         // Agent: Class (=Hacker/Robot/Browser) - Name - Version
         allFields.put(AGENT_CLASS,                   new AgentField("Unknown")); // Hacker / Robot / Browser /
         allFields.put(AGENT_NAME,                    new AgentField("Unknown")); // ( GoogleBot / Bing / ...) / ( Firefox / Chrome / ... )
-        allFields.put(AGENT_VERSION,                 new AgentField("Unknown")); // 1.2 / 43 / ...
-        allFields.put(AGENT_VERSION_MAJOR,           new AgentField("Unknown")); // 1 / 43 / ...
+        allFields.put(AGENT_VERSION,                 new AgentField("??")); // 1.2 / 43 / ...
+        allFields.put(AGENT_VERSION_MAJOR,           new AgentField("??")); // 1 / 43 / ...
     }
 
     public void setUserAgentString(String newUserAgentString) {
@@ -318,17 +321,17 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         sb.append("#        - 'init'\n");
         sb.append("#        - 'only'\n");
         sb.append("      input:\n");
-        sb.append("#        name: 'You can give the test case a name'\n");
+//        sb.append("#        name: 'You can give the test case a name'\n");
         sb.append("        user_agent_string: '").append(userAgentString).append("'\n");
         sb.append("      expected:\n");
 
         List<String> fieldNames = getAvailableFieldNamesSorted();
 
-        int maxNameLength = 0;
+        int maxNameLength = 30;
         int maxValueLength = 0;
-        for (String fieldName : allFields.keySet()) {
-            maxNameLength = Math.max(maxNameLength, fieldName.length());
-        }
+//        for (String fieldName : allFields.keySet()) {
+//            maxNameLength = Math.max(maxNameLength, fieldName.length());
+//        }
         for (String fieldName : fieldNames) {
             maxValueLength = Math.max(maxValueLength, get(fieldName).getValue().length());
         }
@@ -340,10 +343,10 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
             }
             String value = get(fieldName).getValue();
             sb.append(": '").append(value).append('\'');
-            for (int l = value.length(); l < maxValueLength + 5; l++) {
-                sb.append(' ');
-            }
-            sb.append("# ").append(get(fieldName).confidence);
+//            for (int l = value.length(); l < maxValueLength + 5; l++) {
+//                sb.append(' ');
+//            }
+//            sb.append("# ").append(get(fieldName).confidence);
             sb.append('\n');
         }
         sb.append("\n");
@@ -426,11 +429,14 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
     }
 
     public List<String> getAvailableFieldNames() {
-        List<String> resultSet = new ArrayList<>(allFields.size());
+        List<String> resultSet = new ArrayList<>(allFields.size()+10);
+        resultSet.addAll(Arrays.asList(STANDARD_FIELDS));
         for (String fieldName : allFields.keySet()) {
-            AgentField field = allFields.get(fieldName);
-            if (field != null && field.confidence >= 0 && field.getValue() != null) {
-                resultSet.add(fieldName);
+            if (!resultSet.contains(fieldName)){
+                AgentField field = allFields.get(fieldName);
+                if (field != null && field.confidence >= 0 && field.getValue() != null) {
+                    resultSet.add(fieldName);
+                }
             }
         }
         return resultSet;

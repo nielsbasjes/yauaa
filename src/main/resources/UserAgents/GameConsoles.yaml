@@ -113,22 +113,30 @@ config:
         - 'OperatingSystemVersion       :   99:agent.(1)product.(1)comments.entry.text="Xbox"^>'
         - 'OperatingSystemNameVersion   :   99:agent.(1)product.(1)comments.entry.text="Xbox"^>'
 
+
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Nintendo WiiU) AppleWebKit/536.28 (KHTML, like Gecko) NX/3.0.3.12.15 NintendoBrowser/4.1.1.9601.EU'
       expected:
         DeviceClass                          : 'Game Console'
-        DeviceBrand                          : 'Nintendo'
         DeviceName                           : 'Nintendo WiiU'
+        DeviceBrand                          : 'Nintendo'
         OperatingSystemClass                 : 'Game Console'
         OperatingSystemName                  : 'Nintendo NX'
         OperatingSystemVersion               : '3.0.3.12.15'
+        OperatingSystemNameVersion           : 'Nintendo NX 3.0.3.12.15'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : '536.28'
+        LayoutEngineVersionMajor             : '536'
+        LayoutEngineNameVersion              : 'AppleWebKit 536.28'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
         AgentClass                           : 'Browser'
         AgentName                            : 'NintendoBrowser'
         AgentVersion                         : '4.1.1.9601.EU'
+        AgentVersionMajor                    : '4'
+        AgentNameVersion                     : 'NintendoBrowser 4.1.1.9601.EU'
+        AgentNameVersionMajor                : 'NintendoBrowser 4'
 
 
   - test:
@@ -136,17 +144,24 @@ config:
         user_agent_string: 'Mozilla/5.0 (PlayStation 4 2.03) AppleWebKit/537.73 (KHTML, like Gecko)'
       expected:
         DeviceClass                          : 'Game Console'
-        DeviceBrand                          : 'Sony'
         DeviceName                           : 'PlayStation 4'
+        DeviceBrand                          : 'Sony'
         OperatingSystemClass                 : 'Game Console'
         OperatingSystemName                  : 'PlayStation 4'
         OperatingSystemVersion               : '2.03'
+        OperatingSystemNameVersion           : 'PlayStation 4 2.03'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : '537.73'
+        LayoutEngineVersionMajor             : '537'
+        LayoutEngineNameVersion              : 'AppleWebKit 537.73'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
         AgentClass                           : 'Browser'
         AgentName                            : 'AppleWebKit'
         AgentVersion                         : '537.73'
+        AgentVersionMajor                    : '537'
+        AgentNameVersion                     : 'AppleWebKit 537.73'
+        AgentNameVersionMajor                : 'AppleWebKit 537'
 
 
   - test:
@@ -154,37 +169,54 @@ config:
         user_agent_string: 'Mozilla/5.0 (PlayStation Vita 3.36) AppleWebKit/537.73 (KHTML, like Gecko) Silk/3.2'
       expected:
         DeviceClass                          : 'Game Console'
-        DeviceBrand                          : 'Sony'
         DeviceName                           : 'PlayStation Vita'
+        DeviceBrand                          : 'Sony'
         DeviceVersion                        : '3.36'
         OperatingSystemClass                 : 'Game Console'
         OperatingSystemName                  : 'PlayStation Vita'
         OperatingSystemVersion               : '3.36'
+        OperatingSystemNameVersion           : 'PlayStation Vita 3.36'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : '537.73'
+        LayoutEngineVersionMajor             : '537'
+        LayoutEngineNameVersion              : 'AppleWebKit 537.73'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
         AgentClass                           : 'Browser'
         AgentName                            : 'Silk'
         AgentVersion                         : '3.2'
+        AgentVersionMajor                    : '3'
+        AgentNameVersion                     : 'Silk 3.2'
+        AgentNameVersionMajor                : 'Silk 3'
+
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Nintendo 3DS; U; ; nl) Version/1.7567.EU'
       expected:
         DeviceClass                          : 'Game Console'
-        DeviceBrand                          : 'Nintendo'
         DeviceName                           : 'Nintendo 3DS'
+        DeviceBrand                          : 'Nintendo'
         OperatingSystemClass                 : 'Game Console'
         OperatingSystemName                  : 'Nintendo'
         OperatingSystemVersion               : 'Nintendo 3DS'
+        OperatingSystemNameVersion           : 'Nintendo Nintendo 3DS'
         LayoutEngineClass                    : 'Game Console'
         LayoutEngineName                     : 'Nintendo'
         LayoutEngineVersion                  : '1.7567.EU'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Nintendo 1.7567.EU'
+        LayoutEngineNameVersionMajor         : 'Nintendo 1'
         AgentClass                           : 'Game Console'
         AgentName                            : 'Nintendo'
         AgentVersion                         : '1.7567.EU'
+        AgentVersionMajor                    : '1'
+        AgentNameVersion                     : 'Nintendo 1.7567.EU'
+        AgentNameVersionMajor                : 'Nintendo 1'
         AgentLanguage                        : 'Dutch'
+        AgentLanguageCode                    : 'nl'
         AgentSecurity                        : 'Strong security'
+
 
   - test:
       input:
@@ -199,6 +231,7 @@ config:
         OperatingSystemName                  : 'Windows NT'
         OperatingSystemVersion               : 'Windows 10.0'
         OperatingSystemNameVersion           : 'Windows 10.0'
+        OperatingSystemVersionBuild          : '10553'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'EdgeHTML'
         LayoutEngineVersion                  : '13'
@@ -211,6 +244,7 @@ config:
         AgentVersionMajor                    : '13'
         AgentNameVersion                     : 'Edge 13'
         AgentNameVersionMajor                : 'Edge 13'
+
 
   - test:
       input:
@@ -243,18 +277,26 @@ config:
         user_agent_string: 'Opera/9.30 (Nintendo Wii; U; ; 2047-7; nl)'
       expected:
         DeviceClass                          : 'Game Console'
-        DeviceBrand                          : 'Nintendo'
         DeviceName                           : 'Nintendo Wii'
+        DeviceBrand                          : 'Nintendo'
         OperatingSystemClass                 : 'Game Console'
         OperatingSystemName                  : 'Nintendo'
         OperatingSystemVersion               : 'Nintendo Wii'
+        OperatingSystemNameVersion           : 'Nintendo Nintendo Wii'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '1'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Presto 1'
+        LayoutEngineNameVersionMajor         : 'Presto 1'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '9.30'
+        AgentVersionMajor                    : '9'
+        AgentNameVersion                     : 'Opera 9.30'
+        AgentNameVersionMajor                : 'Opera 9'
         AgentLanguage                        : 'Dutch'
+        AgentLanguageCode                    : 'nl'
         AgentSecurity                        : 'Strong security'
 
 

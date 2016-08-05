@@ -32,6 +32,7 @@ config:
         - 'OperatingSystemName   :   5:"Linux"'
         - 'OperatingSystemVersion:   5:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linux"^.version]'
 
+
   - matcher:
       extract:
         - 'DeviceClass           :   5:"Desktop"'
@@ -49,6 +50,7 @@ config:
         - 'OperatingSystemName   :   5:"Linux"'
         - 'OperatingSystemVersion:   4:agent.(1)product.(1)comments.entry.product.name="Linux"^.version'
 
+
   - matcher:
       require:
         - 'agent.(1)product.(1)comments.entry.text%1="Linux"'
@@ -59,15 +61,6 @@ config:
         - 'OperatingSystemName   :   5:"Linux"'
         - 'OperatingSystemVersion:   0:"??"'
 
-#  - matcher:
-#      extract:
-#        - 'DeviceCpu             :   10:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.text#1="Linux"@%2]'
-#        - 'OperatingSystemVersion:   6:"??"'
-
-#  - matcher:
-#      extract:
-#        - 'DeviceCpu             :   10:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linux"^.(1)version]'
-#        - 'OperatingSystemVersion:   6:"??"'
 
   - matcher:
       require:
@@ -88,118 +81,183 @@ config:
       input:
         user_agent_string: 'Links (2.1pre15; Linux 2.4.26 i686; 128x48)'
       expected:
-        AgentClass                           : 'Special'
-        AgentName                            : 'Links'
-        AgentVersion                         : '2.1pre15'
         DeviceClass                          : 'Desktop'
-        DeviceCpu                            : 'Intel i686'
         DeviceName                           : 'Linux Desktop'
+        DeviceCpu                            : 'Intel i686'
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : '2.4.26'
+        OperatingSystemNameVersion           : 'Linux 2.4.26'
+        LayoutEngineClass                    : 'Unknown'
+        LayoutEngineName                     : 'Unknown'
+        LayoutEngineVersion                  : '??'
+        LayoutEngineVersionMajor             : '??'
+        AgentClass                           : 'Special'
+        AgentName                            : 'Links'
+        AgentVersion                         : '2.1pre15'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Links 2.1pre15'
+        AgentNameVersionMajor                : 'Links 2'
+
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; rv:1.7.3) Gecko/20040919 Firefox/0.10'
       expected:
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Firefox'
-        AgentVersion                         : '0.10'
-        AgentSecurity                        : 'Strong security'
         DeviceClass                          : 'Desktop'
         DeviceName                           : 'Linux Desktop'
         DeviceCpu                            : 'Intel i686'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Gecko'
-        LayoutEngineVersion                  : '1.7.3'
-        LayoutEngineBuild                    : '20040919'
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'Intel i686'
+        OperatingSystemNameVersion           : 'Linux Intel i686'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Gecko'
+        LayoutEngineVersion                  : '1.7.3'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Gecko 1.7.3'
+        LayoutEngineNameVersionMajor         : 'Gecko 1'
+        LayoutEngineBuild                    : '20040919'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Firefox'
+        AgentVersion                         : '0.10'
+        AgentVersionMajor                    : '0'
+        AgentNameVersion                     : 'Firefox 0.10'
+        AgentNameVersionMajor                : 'Firefox 0'
+        AgentSecurity                        : 'Strong security'
+
 
   - test:
       input:
         user_agent_string: 'Opera/7.54 (Linux 2.4.18-xfs i686; U)  [en]'
       expected:
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '7.54'
         DeviceClass                          : 'Desktop'
-        DeviceCpu                            : 'Intel i686'
         DeviceName                           : 'Linux Desktop'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '1'
+        DeviceCpu                            : 'Intel i686'
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : '2.4.18-xfs'
+        OperatingSystemNameVersion           : 'Linux 2.4.18-xfs'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Presto'
+        LayoutEngineVersion                  : '1'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Presto 1'
+        LayoutEngineNameVersionMajor         : 'Presto 1'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Opera'
+        AgentVersion                         : '7.54'
+        AgentVersionMajor                    : '7'
+        AgentNameVersion                     : 'Opera 7.54'
+        AgentNameVersionMajor                : 'Opera 7'
+        AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
+        AgentSecurity                        : 'Strong security'
+
 
   - test:
       input:
         user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; X11; Linux ppc; en) Opera 8.0'
       expected:
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '8.0'
         DeviceClass                          : 'Desktop'
-        DeviceCpu                            : 'PowerPC'
         DeviceName                           : 'Linux Desktop'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '1'
+        DeviceCpu                            : 'PowerPC'
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'PowerPC'
+        OperatingSystemNameVersion           : 'Linux PowerPC'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Presto'
+        LayoutEngineVersion                  : '1'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Presto 1'
+        LayoutEngineNameVersionMajor         : 'Presto 1'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Opera'
+        AgentVersion                         : '8.0'
+        AgentVersionMajor                    : '8'
+        AgentNameVersion                     : 'Opera 8.0'
+        AgentNameVersionMajor                : 'Opera 8'
+        AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
+
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; U) Opera 7.54  [en]'
       expected:
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '7.54'
         DeviceClass                          : 'Desktop'
         DeviceName                           : 'Linux Desktop'
         DeviceCpu                            : 'Intel x86_64'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '1'
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'Intel x86_64'
+        OperatingSystemNameVersion           : 'Linux Intel x86_64'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Presto'
+        LayoutEngineVersion                  : '1'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Presto 1'
+        LayoutEngineNameVersionMajor         : 'Presto 1'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Opera'
+        AgentVersion                         : '7.54'
+        AgentVersionMajor                    : '7'
+        AgentNameVersion                     : 'Opera 7.54'
+        AgentNameVersionMajor                : 'Opera 7'
+        AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
+        AgentSecurity                        : 'Strong security'
+
 
   - test:
       input:
         user_agent_string: 'Links (2.1pre17; Linux 2.4.18-rmk7-pxa3-embedix armv5tel; 73x33)'
       expected:
-        AgentClass                           : 'Special'
-        AgentName                            : 'Links'
-        AgentVersion                         : '2.1pre17'
         DeviceClass                          : 'Desktop'
         DeviceName                           : 'Linux Desktop'
         DeviceCpu                            : 'ARMv5tel'
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : '2.4.18-rmk7-pxa3-embedix'
+        OperatingSystemNameVersion           : 'Linux 2.4.18-rmk7-pxa3-embedix'
+        LayoutEngineClass                    : 'Unknown'
+        LayoutEngineName                     : 'Unknown'
+        LayoutEngineVersion                  : '??'
+        LayoutEngineVersionMajor             : '??'
+        AgentClass                           : 'Special'
+        AgentName                            : 'Links'
+        AgentVersion                         : '2.1pre17'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Links 2.1pre17'
+        AgentNameVersionMajor                : 'Links 2'
 
 
   - test:
       input:
         user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Qt embedded; Linux armv5tel; 640x480) Opera 7.30  [en]'
       expected:
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '7.30'
         DeviceClass                          : 'Desktop'
-        DeviceCpu                            : 'ARMv5tel'
         DeviceName                           : 'Linux Desktop'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '1'
+        DeviceCpu                            : 'ARMv5tel'
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'ARMv5tel'
-
+        OperatingSystemNameVersion           : 'Linux ARMv5tel'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Presto'
+        LayoutEngineVersion                  : '1'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Presto 1'
+        LayoutEngineNameVersionMajor         : 'Presto 1'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Opera'
+        AgentVersion                         : '7.30'
+        AgentVersionMajor                    : '7'
+        AgentNameVersion                     : 'Opera 7.30'
+        AgentNameVersionMajor                : 'Opera 7'
+        AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
 
 
   - test:
@@ -212,13 +270,20 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Ubuntu'
         OperatingSystemVersion               : '??'
+        OperatingSystemNameVersion           : 'Ubuntu ??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Gecko'
         LayoutEngineVersion                  : '35.0'
+        LayoutEngineVersionMajor             : '35'
+        LayoutEngineNameVersion              : 'Gecko 35.0'
+        LayoutEngineNameVersionMajor         : 'Gecko 35'
         LayoutEngineBuild                    : '20100101'
         AgentClass                           : 'Browser'
         AgentName                            : 'Firefox'
         AgentVersion                         : '35.0'
+        AgentVersionMajor                    : '35'
+        AgentNameVersion                     : 'Firefox 35.0'
+        AgentNameVersionMajor                : 'Firefox 35'
 
 
   - test:
@@ -231,12 +296,19 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Ubuntu'
         OperatingSystemVersion               : '??'
+        OperatingSystemNameVersion           : 'Ubuntu ??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Blink'
         LayoutEngineVersion                  : '39.0'
+        LayoutEngineVersionMajor             : '39'
+        LayoutEngineNameVersion              : 'Blink 39.0'
+        LayoutEngineNameVersionMajor         : 'Blink 39'
         AgentClass                           : 'Browser'
         AgentName                            : 'Chrome'
         AgentVersion                         : '39.0.2171.65'
+        AgentVersionMajor                    : '39'
+        AgentNameVersion                     : 'Chrome 39.0.2171.65'
+        AgentNameVersionMajor                : 'Chrome 39'
 
 
   - test:
@@ -249,12 +321,20 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Ubuntu'
         OperatingSystemVersion               : '14.10'
+        OperatingSystemNameVersion           : 'Ubuntu 14.10'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : '538.15'
+        LayoutEngineVersionMajor             : '538'
+        LayoutEngineNameVersion              : 'AppleWebKit 538.15'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
         AgentClass                           : 'Browser'
         AgentName                            : 'Safari'
         AgentVersion                         : '8.0'
+        AgentVersionMajor                    : '8'
+        AgentNameVersion                     : 'Safari 8.0'
+        AgentNameVersionMajor                : 'Safari 8'
+
 
   - test:
       input:
@@ -266,14 +346,20 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'FreeBSD'
         OperatingSystemVersion               : '9.1-RELEASE-p7'
+        OperatingSystemNameVersion           : 'FreeBSD 9.1-RELEASE-p7'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.12.388'
         LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Presto 2.12.388'
+        LayoutEngineNameVersionMajor         : 'Presto 2'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '12.16'
         AgentVersionMajor                    : '12'
+        AgentNameVersion                     : 'Opera 12.16'
+        AgentNameVersionMajor                : 'Opera 12'
+
 
   - test:
       input:
@@ -285,13 +371,20 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'OpenBSD'
         OperatingSystemVersion               : 'i386'
+        OperatingSystemNameVersion           : 'OpenBSD i386'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Gecko'
         LayoutEngineVersion                  : '34.0'
+        LayoutEngineVersionMajor             : '34'
+        LayoutEngineNameVersion              : 'Gecko 34.0'
+        LayoutEngineNameVersionMajor         : 'Gecko 34'
         LayoutEngineBuild                    : '20100101'
         AgentClass                           : 'Browser'
         AgentName                            : 'Firefox'
         AgentVersion                         : '34.0'
+        AgentVersionMajor                    : '34'
+        AgentNameVersion                     : 'Firefox 34.0'
+        AgentNameVersionMajor                : 'Firefox 34'
 
 
   - test:
@@ -304,13 +397,20 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'NetBSD'
         OperatingSystemVersion               : 'i386'
+        OperatingSystemNameVersion           : 'NetBSD i386'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Gecko'
         LayoutEngineVersion                  : '17.0'
+        LayoutEngineVersionMajor             : '17'
+        LayoutEngineNameVersion              : 'Gecko 17.0'
+        LayoutEngineNameVersionMajor         : 'Gecko 17'
         LayoutEngineBuild                    : '20121224'
         AgentClass                           : 'Browser'
         AgentName                            : 'Firefox'
         AgentVersion                         : '17.0'
+        AgentVersionMajor                    : '17'
+        AgentNameVersion                     : 'Firefox 17.0'
+        AgentNameVersionMajor                : 'Firefox 17'
 
 
   - matcher:
@@ -331,13 +431,21 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'FreeBSD'
         OperatingSystemVersion               : '5.2.1'
+        OperatingSystemNameVersion           : 'FreeBSD 5.2.1'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Mozilla'
         LayoutEngineVersion                  : '1.7.2'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Mozilla 1.7.2'
+        LayoutEngineNameVersionMajor         : 'Mozilla 1'
         AgentClass                           : 'Browser'
         AgentName                            : 'Netscape'
         AgentVersion                         : '1.7.2'
+        AgentVersionMajor                    : '1'
+        AgentNameVersion                     : 'Netscape 1.7.2'
+        AgentNameVersionMajor                : 'Netscape 1'
         AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
 
 # Joli
   - test:
@@ -355,14 +463,15 @@ config:
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : '537.6'
         LayoutEngineVersionMajor             : '537'
+        LayoutEngineNameVersion              : 'AppleWebKit 537.6'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
         AgentClass                           : 'Browser'
         AgentName                            : 'Chrome'
         AgentVersion                         : '23.0.1240.0'
         AgentVersionMajor                    : '23'
         AgentNameVersion                     : 'Chrome 23.0.1240.0'
         AgentNameVersionMajor                : 'Chrome 23'
-        LayoutEngineNameVersion              : 'AppleWebKit 537.6'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+
 
 # Linux Mint
   - test:
@@ -404,16 +513,17 @@ config:
         LayoutEngineName                     : 'Gecko'
         LayoutEngineVersion                  : '1.9.1.3'
         LayoutEngineVersionMajor             : '1'
-        LayoutEngineBuild                    : '20091020'
         LayoutEngineNameVersion              : 'Gecko 1.9.1.3'
         LayoutEngineNameVersionMajor         : 'Gecko 1'
+        LayoutEngineBuild                    : '20091020'
         AgentClass                           : 'Browser'
         AgentName                            : 'Firefox'
         AgentVersion                         : '3.5.3'
         AgentVersionMajor                    : '3'
-        AgentLanguage                        : 'English (United States)'
         AgentNameVersion                     : 'Firefox 3.5.3'
         AgentNameVersionMajor                : 'Firefox 3'
+        AgentLanguage                        : 'English (United States)'
+        AgentLanguageCode                    : 'en-us'
         AgentSecurity                        : 'Strong security'
 
 #7       16      Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.10) Gecko/20100922 Linux Mint/10 (Julia) Firefox/3.6.10
@@ -468,13 +578,21 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Fedora'
         OperatingSystemVersion               : '??'
+        OperatingSystemNameVersion           : 'Fedora ??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Gecko'
         LayoutEngineVersion                  : '36.0'
+        LayoutEngineVersionMajor             : '36'
+        LayoutEngineNameVersion              : 'Gecko 36.0'
+        LayoutEngineNameVersionMajor         : 'Gecko 36'
         LayoutEngineBuild                    : '20100101'
         AgentClass                           : 'Browser'
         AgentName                            : 'Firefox'
         AgentVersion                         : '36.0'
+        AgentVersionMajor                    : '36'
+        AgentNameVersion                     : 'Firefox 36.0'
+        AgentNameVersionMajor                : 'Firefox 36'
+
 
   - test:
       input:
@@ -485,13 +603,21 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Fedora'
         OperatingSystemVersion               : '20'
+        OperatingSystemNameVersion           : 'Fedora 20'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Gecko'
         LayoutEngineVersion                  : '31.0'
+        LayoutEngineVersionMajor             : '31'
+        LayoutEngineNameVersion              : 'Gecko 31.0'
+        LayoutEngineNameVersionMajor         : 'Gecko 31'
         LayoutEngineBuild                    : '31.0'
         AgentClass                           : 'Browser'
         AgentName                            : 'Firefox'
         AgentVersion                         : '31.0'
+        AgentVersionMajor                    : '31'
+        AgentNameVersion                     : 'Firefox 31.0'
+        AgentNameVersionMajor                : 'Firefox 31'
+
 
   - test:
       input:
@@ -503,15 +629,24 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Fedora'
         OperatingSystemVersion               : '3.6.17-1.fc13'
+        OperatingSystemNameVersion           : 'Fedora 3.6.17-1.fc13'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Gecko'
         LayoutEngineVersion                  : '1.9.2.17'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Gecko 1.9.2.17'
+        LayoutEngineNameVersionMajor         : 'Gecko 1'
         LayoutEngineBuild                    : '20110428'
         AgentClass                           : 'Browser'
         AgentName                            : 'Firefox'
         AgentVersion                         : '3.6.17'
+        AgentVersionMajor                    : '3'
+        AgentNameVersion                     : 'Firefox 3.6.17'
+        AgentNameVersionMajor                : 'Firefox 3'
         AgentLanguage                        : 'English (United States)'
+        AgentLanguageCode                    : 'en-us'
         AgentSecurity                        : 'Strong security'
+
 
 
 
@@ -531,17 +666,19 @@ config:
         LayoutEngineName                     : 'Gecko'
         LayoutEngineVersion                  : '1.9.2.15'
         LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Gecko 1.9.2.15'
+        LayoutEngineNameVersionMajor         : 'Gecko 1'
+        LayoutEngineBuild                    : '20110330'
         AgentClass                           : 'Browser'
         AgentName                            : 'Firefox'
         AgentVersion                         : '3.6.15'
         AgentVersionMajor                    : '3'
-        AgentLanguage                        : 'English (United States)'
         AgentNameVersion                     : 'Firefox 3.6.15'
         AgentNameVersionMajor                : 'Firefox 3'
+        AgentLanguage                        : 'English (United States)'
+        AgentLanguageCode                    : 'en-us'
         AgentSecurity                        : 'Strong security'
-        LayoutEngineBuild                    : '20110330'
-        LayoutEngineNameVersion              : 'Gecko 1.9.2.15'
-        LayoutEngineNameVersionMajor         : 'Gecko 1'
+
 
 #Suse
   - test:
@@ -559,17 +696,19 @@ config:
         LayoutEngineName                     : 'Gecko'
         LayoutEngineVersion                  : '1.9.2.3'
         LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Gecko 1.9.2.3'
+        LayoutEngineNameVersionMajor         : 'Gecko 1'
+        LayoutEngineBuild                    : '20100401'
         AgentClass                           : 'Browser'
         AgentName                            : 'Firefox'
         AgentVersion                         : '3.6.3'
         AgentVersionMajor                    : '3'
-        AgentLanguage                        : 'Dutch'
         AgentNameVersion                     : 'Firefox 3.6.3'
         AgentNameVersionMajor                : 'Firefox 3'
+        AgentLanguage                        : 'Dutch'
+        AgentLanguageCode                    : 'nl'
         AgentSecurity                        : 'Strong security'
-        LayoutEngineBuild                    : '20100401'
-        LayoutEngineNameVersion              : 'Gecko 1.9.2.3'
-        LayoutEngineNameVersionMajor         : 'Gecko 1'
+
 
 #26	63	Mozilla/5.0 (X11; U; Linux i686; nl; rv:1.9.0.4) Gecko/2008103100 SUSE/3.0.4-4.6 Firefox/3.0.4
 #21	149	Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.4) Gecko/20091016 SUSE/3.5.4-1.1.2 Firefox/3.5.4

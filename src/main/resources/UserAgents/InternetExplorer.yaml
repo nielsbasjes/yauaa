@@ -165,7 +165,7 @@ config:
         - 'AgentName             :   2015:agent.product.name="Edge"'
         - 'AgentVersion          :   2015:agent.product.name="Edge"^.version#1'
 
-# If it is not '0' then the second part of the Edge version is the Windows 10 BUILD number
+# If it is not '??' then the second part of the Edge version is the Windows 10 BUILD number
   - matcher:
       require:
         - 'agent.product.name="Edge"^.version%2!="0"'
@@ -183,12 +183,19 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Windows 9x'
         OperatingSystemVersion               : 'Windows 95'
+        OperatingSystemNameVersion           : 'Windows 95'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Internet Explorer'
         LayoutEngineVersion                  : '2.0'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Internet Explorer 2.0'
+        LayoutEngineNameVersionMajor         : 'Internet Explorer 2'
         AgentClass                           : 'Browser'
         AgentName                            : 'Internet Explorer'
         AgentVersion                         : '2.0'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Internet Explorer 2.0'
+        AgentNameVersionMajor                : 'Internet Explorer 2'
 
 # IE 8.0:
   - test:
@@ -200,12 +207,19 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Windows NT'
         OperatingSystemVersion               : 'Windows Vista'
+        OperatingSystemNameVersion           : 'Windows Vista'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '4.0'
+        LayoutEngineVersionMajor             : '4'
+        LayoutEngineNameVersion              : 'Trident 4.0'
+        LayoutEngineNameVersionMajor         : 'Trident 4'
         AgentClass                           : 'Browser'
         AgentName                            : 'Internet Explorer'
         AgentVersion                         : '8.0'
+        AgentVersionMajor                    : '8'
+        AgentNameVersion                     : 'Internet Explorer 8.0'
+        AgentNameVersionMajor                : 'Internet Explorer 8'
 
 # IE 11
   - test:
@@ -217,12 +231,19 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Windows NT'
         OperatingSystemVersion               : 'Windows 7'
+        OperatingSystemNameVersion           : 'Windows 7'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '7.0'
+        LayoutEngineVersionMajor             : '7'
+        LayoutEngineNameVersion              : 'Trident 7.0'
+        LayoutEngineNameVersionMajor         : 'Trident 7'
         AgentClass                           : 'Browser'
         AgentName                            : 'Internet Explorer'
         AgentVersion                         : '11.0'
+        AgentVersionMajor                    : '11'
+        AgentNameVersion                     : 'Internet Explorer 11.0'
+        AgentNameVersionMajor                : 'Internet Explorer 11'
 
 
 # Edge (IE >= 12):
@@ -573,7 +594,7 @@ config:
         - 'AgentName             : 10000:"Edge Webview"'
         - 'AgentVersion          :  2500:agent.(1)product.(1)comments.entry.product.name="MSAppHost"^.version'
         - 'WebviewAppName    :    0:"Unknown Webview App"'
-        - 'WebviewAppVersion :    0:"0"'
+        - 'WebviewAppVersion :    0:"??"'
 
   - matcher:
       require:
@@ -583,7 +604,7 @@ config:
         - 'AgentName             : 10000:"Edge Webview"'
         - 'AgentVersion          :  2500:agent.product.(1)name="MSAppHost"^.version'
         - 'WebviewAppName    :    0:"Unknown Webview App"'
-        - 'WebviewAppVersion :    0:"0"'
+        - 'WebviewAppVersion :    0:"??"'
 
   - matcher:
       require:
@@ -593,7 +614,7 @@ config:
         - 'AgentName             : 10000:"Internet Explorer Webview"'
         - 'AgentVersion          :  2500:agent.(1)product.(1)comments.entry.product.name="MSAppHost"^.version'
         - 'WebviewAppName    :    0:"Unknown Webview App"'
-        - 'WebviewAppVersion :    0:"0"'
+        - 'WebviewAppVersion :    0:"??"'
 
   - matcher:
       require:
@@ -603,7 +624,7 @@ config:
         - 'AgentName             : 10000:"Internet Explorer Webview"'
         - 'AgentVersion          :  2500:agent.product.(1)name="MSAppHost"^.version'
         - 'WebviewAppName    :    0:"Unknown Webview App"'
-        - 'WebviewAppVersion :    0:"0"'
+        - 'WebviewAppVersion :    0:"??"'
 
 
 # MSAppHost means webview
@@ -631,6 +652,10 @@ config:
         AgentVersionMajor                    : '3'
         AgentNameVersion                     : 'Edge Webview 3.0'
         AgentNameVersionMajor                : 'Edge Webview 3'
+        WebviewAppName                       : 'Unknown Webview App'
+        WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+        WebviewAppVersion                    : '??'
+        WebviewAppVersionMajor               : '??'
 
 
   - test:
@@ -656,6 +681,10 @@ config:
         AgentVersionMajor                    : '2'
         AgentNameVersion                     : 'Internet Explorer Webview 2.0'
         AgentNameVersionMajor                : 'Internet Explorer Webview 2'
+        WebviewAppName                       : 'Unknown Webview App'
+        WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+        WebviewAppVersion                    : '??'
+        WebviewAppVersionMajor               : '??'
 
 
   - test:
@@ -667,12 +696,19 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Windows NT'
         OperatingSystemVersion               : 'Windows Vista'
+        OperatingSystemNameVersion           : 'Windows Vista'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Internet Explorer'
         LayoutEngineVersion                  : '7.0b'
+        LayoutEngineVersionMajor             : '7'
+        LayoutEngineNameVersion              : 'Internet Explorer 7.0b'
+        LayoutEngineNameVersionMajor         : 'Internet Explorer 7'
         AgentClass                           : 'Browser'
         AgentName                            : 'Internet Explorer'
         AgentVersion                         : '7.0b'
+        AgentVersionMajor                    : '7'
+        AgentNameVersion                     : 'Internet Explorer 7.0b'
+        AgentNameVersionMajor                : 'Internet Explorer 7'
 
   - test:
       input:
@@ -683,10 +719,17 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Windows NT'
         OperatingSystemVersion               : 'Windows NT 4.1'
+        OperatingSystemNameVersion           : 'Windows NT 4.1'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '5.0'
+        LayoutEngineVersionMajor             : '5'
+        LayoutEngineNameVersion              : 'Trident 5.0'
+        LayoutEngineNameVersionMajor         : 'Trident 5'
         AgentClass                           : 'Browser'
         AgentName                            : 'Chrome'
         AgentVersion                         : '31.0.1229.79'
+        AgentVersionMajor                    : '31'
+        AgentNameVersion                     : 'Chrome 31.0.1229.79'
+        AgentNameVersionMajor                : 'Chrome 31'
 

@@ -823,18 +823,6 @@ config:
 #  - test:
 #      input:
 #        user_agent_string: 'Java1.0.21.0'
-#      expected:
-#        DeviceClass                        : 'Unknown'
-#        DeviceName                         : 'Unknown'
-#        OperatingSystemClass               : 'Unknown'
-#        OperatingSystemName                : 'Unknown'
-#        OperatingSystemVersion             : 'Unknown'
-#        LayoutEngineClass                  : 'Unknown'
-#        LayoutEngineName                   : 'Unknown'
-#        LayoutEngineVersion                : 'Unknown'
-#        AgentClass                         : 'Special'
-#        AgentName                          : 'Java1.0.21.0'
-#        AgentVersion                       : 'Unknown'
 
   - test:
       input:
@@ -844,10 +832,11 @@ config:
         DeviceName                           : 'Unknown'
         OperatingSystemClass                 : 'Unknown'
         OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : 'Unknown'
+        OperatingSystemVersion               : '??'
         LayoutEngineClass                    : 'Unknown'
         LayoutEngineName                     : 'Unknown'
-        LayoutEngineVersion                  : 'Unknown'
+        LayoutEngineVersion                  : '??'
+        LayoutEngineVersionMajor             : '??'
         AgentClass                           : 'Special'
         AgentName                            : 'WordPress'
         AgentVersion                         : '3.5'
@@ -864,15 +853,17 @@ config:
         DeviceName                           : 'Unknown'
         OperatingSystemClass                 : 'Unknown'
         OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : 'Unknown'
+        OperatingSystemVersion               : '??'
         LayoutEngineClass                    : 'Unknown'
         LayoutEngineName                     : 'Unknown'
-        LayoutEngineVersion                  : 'Unknown'
+        LayoutEngineVersion                  : '??'
+        LayoutEngineVersionMajor             : '??'
         AgentClass                           : 'Special'
         AgentName                            : 'WordPress.com'
-        AgentVersion                         : 'Unknown'
-        AgentNameVersion                     : 'WordPress.com Unknown'
-        AgentNameVersionMajor                : 'WordPress.com Unknown'
+        AgentVersion                         : '??'
+        AgentVersionMajor                    : '??'
+        AgentNameVersion                     : 'WordPress.com ??'
+        AgentNameVersionMajor                : 'WordPress.com ??'
         AgentInformationUrl                  : 'http://momspiration.nl'
 
   - test:
@@ -936,7 +927,7 @@ config:
         DeviceName                           : 'Unknown'
         OperatingSystemClass                 : 'Unknown'
         OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : 'Unknown'
+        OperatingSystemVersion               : '??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Mozilla'
         LayoutEngineVersion                  : '5.0'
@@ -1352,6 +1343,11 @@ config:
       input:
         user_agent_string: 'Mozilla/4.0 (compatible;)'
       expected:
+        DeviceClass                          : 'Unknown'
+        DeviceName                           : 'Unknown'
+        OperatingSystemClass                 : 'Unknown'
+        OperatingSystemName                  : 'Unknown'
+        OperatingSystemVersion               : '??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Mozilla'
         LayoutEngineVersion                  : '4.0'
@@ -1393,6 +1389,8 @@ config:
       input:
          user_agent_string: 'Mozilla/5.0 (Mac; rv:44.0) Gecko/20100101 Firefox/44.0'
       expected:
+        DeviceClass                          : 'Unknown'
+        DeviceName                           : 'Unknown'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Firefox OS'
         OperatingSystemVersion               : '2.5'
