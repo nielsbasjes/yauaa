@@ -66,44 +66,44 @@ config:
       input:
         user_agent_string: 'Mozilla/4.0 (http://example.nl)'
       expected:
-        AgentInformationUrl                : 'http://example.nl'
+        AgentInformationUrl                  : 'http://example.nl'
 
   - test:
       input:
         user_agent_string: 'Mozilla/4.0 (URL=http://example.nl)'
       expected:
-        AgentInformationUrl                : 'http://example.nl'
+        AgentInformationUrl                  : 'http://example.nl'
 
   - test:
       input:
         user_agent_string: 'Mozilla/4.0 (URL:http://example.nl)'
       expected:
-        AgentInformationUrl                : 'http://example.nl'
+        AgentInformationUrl                  : 'http://example.nl'
 
   - test:
       input:
         user_agent_string: 'Mozilla/4.0 (info@example.nl)'
       expected:
-        AgentInformationEmail              : 'info@example.nl'
+        AgentInformationEmail                : 'info@example.nl'
 
   - test:
       input:
         user_agent_string: 'Mozilla/4.0 (URL=info@example.nl)'
       expected:
-        AgentInformationEmail              : 'info@example.nl'
+        AgentInformationEmail                : 'info@example.nl'
 
   - test:
       input:
         user_agent_string: 'Mozilla/4.0 (URL:info@example.nl)'
       expected:
-        AgentInformationEmail              : 'info@example.nl'
+        AgentInformationEmail                : 'info@example.nl'
 
   - test:
       input:
         user_agent_string: 'Twikle/1.0 , http://twikle.com , contact@twikle.com'
       expected:
-        AgentClass                         : 'Special'
-        AgentName                          : 'Twikle'
-        AgentVersion                       : '1.0'
-        AgentInformationEmail              : 'contact@twikle.com'
-        AgentInformationUrl                : 'http://twikle.com'
+        AgentClass                           : 'Special'
+        AgentName                            : 'Twikle'
+        AgentVersion                         : '1.0'
+        AgentInformationEmail                : 'contact@twikle.com'
+        AgentInformationUrl                  : 'http://twikle.com'
