@@ -243,6 +243,35 @@ config:
         AgentVersion                       : '5.0'
         DeviceCpu                          : 'Intel i686'
 
+  - matcher:
+      extract:
+        - 'OperatingSystemName       : 501 :"Tizen"'
+        - 'OperatingSystemVersion    : 501 :agent.(1)product.(1)comments.entry.product.name="Tizen"^.version'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (SMART-TV; Linux; Tizen 2.3) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.0 TV Safari/538.1'
+      expected:
+        DeviceClass                          : 'TV'
+        DeviceName                           : 'Smart TV'
+        DeviceBrand                          : 'Samsung'
+        OperatingSystemClass                 : 'Embedded'
+        OperatingSystemName                  : 'Tizen'
+        OperatingSystemVersion               : '2.3'
+        OperatingSystemNameVersion           : 'Tizen 2.3'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '538.1'
+        LayoutEngineVersionMajor             : '538'
+        LayoutEngineNameVersion              : 'AppleWebKit 538.1'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'SamsungBrowser'
+        AgentVersion                         : '1.0'
+        AgentVersionMajor                    : '1'
+        AgentNameVersion                     : 'SamsungBrowser 1.0'
+        AgentNameVersionMajor                : 'SamsungBrowser 1'
 
 #TODO
 #12	29	Opera/9.80 (Linux sh4; U; HbbTV/1.1.1 (+PVR; Loewe; SL150; LOH/3.10;;) CE-HTML/1.0 Config(L:nld,CC:NLD); en) Presto/2.10.250 Version/11.60
