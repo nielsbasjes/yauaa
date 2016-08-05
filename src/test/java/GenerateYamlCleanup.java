@@ -50,9 +50,9 @@ public class GenerateYamlCleanup {
             sb.append("sed -i 's@^  *")
                 .append(fieldName)
                 .append(" *: *@")
-                .append(indent4)
+                .append("        ")
                 .append(fieldName);
-            for (int l = fieldName.length(); l < maxNameLength + 5; l++) {
+            for (int l = fieldName.length(); l < maxNameLength + 7; l++) {
                 sb.append(' ');
             }
             sb.append(": @' *.yaml\n");
