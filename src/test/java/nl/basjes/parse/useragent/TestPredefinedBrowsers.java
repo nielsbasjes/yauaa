@@ -20,7 +20,6 @@
 package nl.basjes.parse.useragent;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestPredefinedBrowsers {
@@ -31,11 +30,5 @@ public class TestPredefinedBrowsers {
         Assert.assertTrue(uaa.runTests(false, false));
     }
 
-    @Ignore
-    @Test
-    public void validateAllPredefinedBrowsersPerformance() {
-        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
-        Assert.assertTrue(uaa.runTests(false, false, true));
-    }
 
 }

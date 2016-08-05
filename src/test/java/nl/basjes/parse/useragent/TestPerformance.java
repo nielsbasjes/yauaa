@@ -19,6 +19,8 @@
 
 package nl.basjes.parse.useragent;
 
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +28,20 @@ import org.slf4j.LoggerFactory;
 public class TestPerformance {
     private static final Logger LOG = LoggerFactory.getLogger(TestPerformance.class);
 
+    @Ignore
+    @Test
+    public void validateAllPredefinedBrowsersPerformance() {
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
+        Assert.assertTrue(uaa.runTests(false, false, true));
+    }
+
+    @Ignore
     @Test
     public void performanceTestNoCache() {
         runPerformanceTest(false,   10000);
     }
 
+    @Ignore
     @Test
     public void performanceTestCached() {
         runPerformanceTest(true, 1000000);
