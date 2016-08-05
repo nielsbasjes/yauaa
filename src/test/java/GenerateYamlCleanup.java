@@ -25,6 +25,11 @@ import java.util.List;
 
 public class GenerateYamlCleanup {
 
+    private static final String indent1 = "";
+    private static final String indent2 = "  ";
+    private static final String indent3 = "    ";
+    private static final String indent4 = "      ";
+
     @Test
     @Ignore
     public void generateYamlCleanupScript() {
@@ -33,6 +38,8 @@ public class GenerateYamlCleanup {
 //        sed -i 's@^  *AgentBuild  *: *@        AgentClass                         : @' ../main/resources/UserAgents/*.yaml
 
         StringBuilder sb = new StringBuilder(2048);
+        sb.append("\n");
+        sb.append("\n");
 
         int maxNameLength = 0;
         for (String fieldName : fieldNames) {
@@ -40,19 +47,50 @@ public class GenerateYamlCleanup {
         }
 
         for (String fieldName : fieldNames) {
-            sb  .append("sed -i 's@^  *")
+            sb.append("sed -i 's@^  *")
                 .append(fieldName)
                 .append(" *: *@")
-                .append("        ")
+                .append(indent4)
                 .append(fieldName);
             for (int l = fieldName.length(); l < maxNameLength + 5; l++) {
                 sb.append(' ');
             }
             sb.append(": @' *.yaml\n");
+
+////            - 'DeviceClass            :  2014:"Desktop"'
+//            sb.append("sed -i 's@")
+//                .append("^  *\"\\([a-zA-Z]+\\) +:\\( *[0-9]+\\) *:\\(.*\\)$")
+//                .append("@")
+//                .append(indent4).append("\"\\1");
+//            for (int l = fieldName.length(); l < maxNameLength + 5; l++) {
+//                sb.append(' ');
+//            }
+//            sb.append(":  \\2:\\3");
+//            sb.append("@' *.yaml\n");
+
         }
+        sb.append("sed -i \"s@^  *- '@").append(indent3).append("- '@\" *.yaml\n");
+        addEntry(sb, "- test:", indent1);
+        addEntry(sb, "input:", indent3);
+        addEntry(sb, "user_agent_string:", indent4);
+        addEntry(sb, "expected:", indent3);
+        addEntry(sb, "name:", indent4);
+        addEntry(sb, "- options:", indent3);
+        addEntry(sb, "- matcher:", indent1);
+        addEntry(sb, "options:", indent3);
+        addEntry(sb, "require:", indent3);
+        addEntry(sb, "extract:", indent3);
+        addEntry(sb, "- lookup:", indent1);
+        addEntry(sb, "map:", indent4);
+        sb.append("sed -i 's@^  *- \"@").append(indent3).append("- \"@' *.yaml\n");
         sb.append("\n");
         sb.append("\n");
 
         System.out.println(sb);
     }
+
+    private void addEntry(StringBuilder sb, String name, String indent) {
+        sb.append("sed -i 's@^  *").append(name).append("@").append(indent).append(name).append("@' *.yaml\n");
+    }
+
 }
