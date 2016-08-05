@@ -95,6 +95,9 @@ public final class VersionSplitter {
     }
 
     public static String getSingleVersion(String value, int word) {
+        if (value == null) {
+            return null;
+        }
         char[] characters = value.toCharArray();
         int start = VersionSplitter.findVersionStart(characters, word);
         if (start == -1) {
@@ -105,6 +108,9 @@ public final class VersionSplitter {
     }
 
     public static String getFirstVersions(String value, int word) {
+        if (value == null) {
+            return null;
+        }
         char[] characters = value.toCharArray();
         int start = VersionSplitter.findVersionStart(characters, word);
         if (start == -1) {

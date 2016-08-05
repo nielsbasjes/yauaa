@@ -27,6 +27,7 @@ import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.collections4.map.LRUMap;
+import org.apache.commons.configuration.SystemConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -489,9 +490,11 @@ config:
         // TODO: Perhaps this should be more generic. Like a "Post processor"  (Generic: Create fields from fields)?
         addMajorVersionField(userAgent, AGENT_VERSION, AGENT_VERSION_MAJOR);
         addMajorVersionField(userAgent, LAYOUT_ENGINE_VERSION, LAYOUT_ENGINE_VERSION_MAJOR);
+        addMajorVersionField(userAgent, "WebviewAppVersion", "WebviewAppVersionMajor");
 
         concatFieldValuesNONDuplicated(userAgent, "AgentNameVersion",               AGENT_NAME,             AGENT_VERSION);
         concatFieldValuesNONDuplicated(userAgent, "AgentNameVersionMajor",          AGENT_NAME,             AGENT_VERSION_MAJOR);
+        concatFieldValuesNONDuplicated(userAgent, "WebviewAppNameVersionMajor",     "WebviewAppName",       "WebviewAppVersionMajor");
         concatFieldValuesNONDuplicated(userAgent, "LayoutEngineNameVersion",        LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION);
         concatFieldValuesNONDuplicated(userAgent, "LayoutEngineNameVersionMajor",   LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION_MAJOR);
         concatFieldValuesNONDuplicated(userAgent, "OperatingSystemNameVersion",     OPERATING_SYSTEM_NAME,  OPERATING_SYSTEM_VERSION);
@@ -503,21 +506,42 @@ config:
     private void concatFieldValuesNONDuplicated(UserAgent userAgent, String targetName, String firstName, String secondName) {
         UserAgent.AgentField firstField = userAgent.get(firstName);
         UserAgent.AgentField secondField = userAgent.get(secondName);
-        if (firstField.confidence < 0 || secondField.confidence < 0) {
-            if (firstField.confidence >= 0) {
-                userAgent.set(targetName, firstField.getValue(), firstField.confidence);
-                return; // No usefull input
-            }
-            if (secondField.confidence >= 0) {
-                userAgent.set(targetName, secondField.getValue(), secondField.confidence);
-                return; // No usefull input
-            }
-            return; // No usefull input
+
+        String first = null;
+        long firstConfidence = -1;
+        String second = null;
+        long secondConfidence = -1;
+
+        if (firstField != null) {
+            first = firstField.getValue();
+            firstConfidence = firstField.confidence;
+        }
+        if (secondField != null) {
+            second = secondField.getValue();
+            secondConfidence = secondField.confidence;
         }
 
-        String first = userAgent.getValue(firstName);
-        String second = userAgent.getValue(secondName);
-        if (firstField.getValue().equals(second)) {
+        if (first == null && second == null) {
+            return; // Nothing to do
+        }
+
+        if (second == null) {
+            if (firstConfidence >= 0){
+                userAgent.set(targetName, first, firstConfidence);
+                return;
+            }
+            return; // Nothing to do
+        } else {
+            if (first == null) {
+                if (secondConfidence >= 0) {
+                    userAgent.set(targetName, second, secondConfidence);
+                    return;
+                }
+                return;
+            }
+        }
+
+        if (first.equals(second)) {
             userAgent.set(targetName, first, firstField.confidence);
         } else {
             userAgent.set(targetName, first + " " + second, Math.max(firstField.confidence, secondField.confidence));
@@ -529,10 +553,12 @@ config:
         UserAgent.AgentField agentVersionMajor = userAgent.get(majorVersionName);
         if (agentVersionMajor == null || agentVersionMajor.confidence == -1) {
             UserAgent.AgentField agentVersion = userAgent.get(versionName);
-            userAgent.set(
-                majorVersionName,
-                VersionSplitter.getSingleVersion(agentVersion.getValue(), 1),
-                agentVersion.confidence);
+            if (agentVersion != null) {
+                userAgent.set(
+                    majorVersionName,
+                    VersionSplitter.getSingleVersion(agentVersion.getValue(), 1),
+                    agentVersion.confidence);
+            }
         }
     }
 

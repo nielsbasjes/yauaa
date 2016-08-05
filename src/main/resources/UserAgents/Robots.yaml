@@ -959,8 +959,25 @@ config:
 #      input:
 #         user_agent_string: 'Mozilla/5.0 (compatible; Google-Structured-Data-Testing-Tool +http://developers.google.com/structured-data/testing-tool/)'
 
+  - matcher:
+      extract:
+        - 'AgentClass            :   10:"Robot"'
+        - 'AgentName             :   10:"Google Search Appliance"'
+        - 'GSAInstallationID     :   10:agent.(1)product.(1)comments.(2)entry.(1)text#1="GID"@'
 
-#Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Applebot/0.3; +http://www.apple.com/
+  - test:
+      input:
+        user_agent_string: 'gsa-crawler (Enterprise; GID-01422; jplastiras@google.com)'
+      expected:
+        AgentClass                           : 'Robot'                                  # 10
+        AgentName                            : 'Google Search Appliance'                # 10
+        AgentVersion                         : 'Enterprise'                             # 5
+        AgentVersionMajor                    : 'Enterprise'                             # 5
+        AgentNameVersion                     : 'Google Search Appliance Enterprise'     # 10
+        AgentNameVersionMajor                : 'Google Search Appliance Enterprise'     # 10
+        AgentInformationEmail                : 'jplastiras@google.com'                  # 1
+        GSAInstallationID                    : 'GID-01422'                              # 10
+
 
 #we follow your robots.txt settings before crawling, you can slow down the bot by change the Crawl-Delay parameter in the settings.if you have an enquiry, please email
 #WeCrawlForThePeace - We are not Evil
