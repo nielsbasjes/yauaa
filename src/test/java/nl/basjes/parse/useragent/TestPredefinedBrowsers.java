@@ -27,14 +27,14 @@ public class TestPredefinedBrowsers {
 
     @Test
     public void validateAllPredefinedBrowsers() {
-        UserAgentAnalyzer uaa = new UserAgentAnalyzer();
-        Assert.assertTrue(uaa.runTests(false, false));
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
+        Assert.assertTrue(uaa.runTests(false, true));
     }
 
     @Ignore
     @Test
     public void validateAllPredefinedBrowsersPerformance() {
-        UserAgentAnalyzer uaa = new UserAgentAnalyzer();
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
         Assert.assertTrue(uaa.runTests(false, false, true));
     }
 

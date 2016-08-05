@@ -29,37 +29,37 @@ public class TestMatcherExpressions {
 
 //    @Test
 //    public void runSingleMatcherFile() {
-//        UserAgentAnalyzer uaa = new UserAgentAnalyzer("classpath*:**/Linux.yaml");
+//        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:**/Linux.yaml");
 //        Assert.assertTrue(uaa.runTests(true, false));
 //    }
 
     @Test
     public void runMatcherTests() {
-        UserAgentAnalyzer uaa = new UserAgentAnalyzer("classpath*:Matcher-tests.yaml");
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:Matcher-tests.yaml");
         Assert.assertTrue(uaa.runTests(false, false));
     }
 
     @Test
     public void runLookupTests() {
-        UserAgentAnalyzer uaa = new UserAgentAnalyzer("classpath*:Lookup-tests.yaml");
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:Lookup-tests.yaml");
         Assert.assertTrue(uaa.runTests(false, true));
     }
 
     @Test
     public void runPositionalTests() {
-        UserAgentAnalyzer uaa = new UserAgentAnalyzer("classpath*:Positional-tests.yaml");
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:Positional-tests.yaml");
         Assert.assertTrue(uaa.runTests(false, true));
     }
 
     @Test
     public void runWalkingTests() {
-        UserAgentAnalyzer uaa = new UserAgentAnalyzer("classpath*:Walking-tests.yaml");
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:Walking-tests.yaml");
         Assert.assertTrue(uaa.runTests(false, false));
     }
 
     @Test
     public void runAllFieldsTests() {
-        UserAgentAnalyzer uaa = new UserAgentAnalyzer("classpath*:AllFields-tests.yaml");
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:AllFields-tests.yaml");
         Assert.assertTrue(uaa.runTests(false, true));
     }
 }
