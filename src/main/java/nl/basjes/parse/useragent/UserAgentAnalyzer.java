@@ -27,7 +27,6 @@ import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.collections4.map.LRUMap;
-import org.apache.commons.configuration.SystemConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
