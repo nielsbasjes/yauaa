@@ -166,6 +166,7 @@ config:
   - matcher:
       extract:
         - 'FacebookCarrier: 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBCR"^.version'
+        - 'Carrier        : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBCR"^.version'
 
   - matcher:
       extract:
@@ -248,7 +249,7 @@ config:
         FacebookOperatingSystemVersion       : '8.1.1'
         WebviewAppName                       : 'Facebook App for iOS'
         WebviewAppVersion                    : '26.0.0.11.13'
-
+        Carrier                              : 'TelfortNL'
 
 
   - test:
@@ -429,6 +430,7 @@ config:
         AgentNameVersionMajor                : 'UIWebView 601'
         AgentBuild                           : '31011105'
         AgentLanguage                        : 'Dutch (Netherlands)'
+        Carrier                              : 'OrangeB'
         FacebookCarrier                      : 'OrangeB'
         FacebookDeviceClass                  : 'phone'
         FacebookDeviceName                   : 'iPhone'
@@ -439,5 +441,3 @@ config:
         FacebookOperatingSystemVersion       : '9.3.2'
         WebviewAppName                       : 'Facebook Messenger for iOS'
         WebviewAppVersion                    : '73.0.0.33.71'
-
-

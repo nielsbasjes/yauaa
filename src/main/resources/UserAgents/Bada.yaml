@@ -1,21 +1,34 @@
 config:
 
+# Standard matcher for Bada devices
   - matcher:
       require:
         - 'agent.(1)product.(1)comments.(1)entry="SAMSUNG"'
         - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name#1="SAMSUNG"'
-#        - 'agent.(4)product="Mobile WVGA SMM-MMS/1.2.0"'
-#        - 'agent.(4)product.(1)name="Mobile WVGA SMM-MMS"'
-#        - 'agent.(4)product.(1)version="1.2.0"'
       extract:
-        - 'DeviceClass           :   1:"Mobile"'
-        - 'DeviceBrand           :   1:"Samsung"'
-        - 'DeviceName            :   1:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name'
-        - 'DeviceVersion         :   1:agent.(1)product.(1)comments.(2)entry.(1)product.(1)version'
-        - 'OperatingSystemClass  :   1:"Mobile"'
-        - 'OperatingSystemName   :   1:"Bada"'
-        - 'OperatingSystemVersion:   1:agent.(1)product.(1)comments.entry.(1)product.(1)name="Bada"^.version'
+        - 'DeviceClass           :  500:"Mobile"'
+        - 'DeviceBrand           :  500:"Samsung"'
+        - 'DeviceName            :  500:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name'
+        - 'DeviceVersion         :  500:agent.(1)product.(1)comments.(2)entry.(1)product.(1)version'
+        - 'OperatingSystemClass  :  500:"Mobile"'
+        - 'OperatingSystemName   :  500:"Bada"'
+        - 'OperatingSystemVersion:  500:agent.(1)product.(1)comments.entry.(1)product.(1)name="Bada"^.version'
 
+# Standard matcher for Bada devices that contain the carrier in the product name
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.(1)entry="SAMSUNG"'
+        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name#1="SAMSUNG"'
+        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name%4'
+      extract:
+        - 'DeviceClass           :  501:"Mobile"'
+        - 'DeviceBrand           :  501:"Samsung"'
+        - 'DeviceName            :  501:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name#3'
+        - 'Carrier               :  501:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name%4'
+        - 'DeviceVersion         :  501:agent.(1)product.(1)comments.(2)entry.(1)product.(1)version'
+        - 'OperatingSystemClass  :  501:"Mobile"'
+        - 'OperatingSystemName   :  501:"Bada"'
+        - 'OperatingSystemVersion:  501:agent.(1)product.(1)comments.entry.(1)product.(1)name="Bada"^.version'
 
 
   - test:
@@ -46,22 +59,158 @@ config:
         AgentLanguageCode                  : 'de-de'
         AgentSecurity                      : 'Strong security'
 
-# TODO: Get the rest of Bada right
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (SAMSUNG; SAMSUNG-GT-S5330/S5330XEJI6; U; Bada/1.0; es-es) AppleWebKit/533.1 (KHTML, like Gecko) Dolfin/2.0 Mobile WQVGA SMM-MMS/1.2.0 NexPlayer/3.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B'
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (SAMSUNG; SAMSUNG-GT-S8500/S8500XXLA1; U; Bada/2.0; nl-nl) AppleWebKit/534.20 (KHTML, like Gecko) Dolfin/3.0 Mobile WVGA SMM-MMS/1.2.0 OPN-B'
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (SAMSUNG; SAMSUNG-GT-S5330/S5330XEJI6; U; Bada/1.0; es-es) AppleWebKit/533.1 (KHTML, like Gecko) Dolfin/2.0 Mobile WQVGA SMM-MMS/1.2.0 NexPlayer/3.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B'
+      expected:
+        DeviceClass                          : 'Mobile'
+        DeviceName                           : 'SAMSUNG-GT-S5330'
+        DeviceBrand                          : 'Samsung'
+        DeviceVersion                        : 'S5330XEJI6'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Bada'
+        OperatingSystemVersion               : '1.0'
+        OperatingSystemNameVersion           : 'Bada 1.0'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '533.1'
+        LayoutEngineVersionMajor             : '533'
+        LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Dolfin'
+        AgentVersion                         : '2.0'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Dolfin 2.0'
+        AgentNameVersionMajor                : 'Dolfin 2'
+        AgentLanguage                        : 'Spanish (Spain)'
+        AgentLanguageCode                    : 'es-es'
+        AgentSecurity                        : 'Strong security'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (SAMSUNG; SAMSUNG-GT-S8500/S8500XXLA1; U; Bada/2.0; nl-nl) AppleWebKit/534.20 (KHTML, like Gecko) Dolfin/3.0 Mobile WVGA SMM-MMS/1.2.0 OPN-B'
+      expected:
+        DeviceClass                          : 'Mobile'
+        DeviceName                           : 'SAMSUNG-GT-S8500'
+        DeviceBrand                          : 'Samsung'
+        DeviceVersion                        : 'S8500XXLA1'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Bada'
+        OperatingSystemVersion               : '2.0'
+        OperatingSystemNameVersion           : 'Bada 2.0'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '534.20'
+        LayoutEngineVersionMajor             : '534'
+        LayoutEngineNameVersion              : 'AppleWebKit 534.20'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Dolfin'
+        AgentVersion                         : '3.0'
+        AgentVersionMajor                    : '3'
+        AgentNameVersion                     : 'Dolfin 3.0'
+        AgentNameVersionMajor                : 'Dolfin 3'
+        AgentLanguage                        : 'Dutch (Netherlands)'
+        AgentLanguageCode                    : 'nl-nl'
+        AgentSecurity                        : 'Strong security'
 
 
 # The last part of the device name is the name of the mobile operator
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (SAMSUNG; SAMSUNG-GT-S8500-VODAFONE/S8500BUJF1; U; Bada/1.0; nl-nl) AppleWebKit/533.1 (KHTML, like Gecko) Dolfin/2.0 Mobile WVGA SMM-MMS/1.2.0 NexPlayer/3.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B'
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (SAMSUNG; SAMSUNG-GT-S8530-BOUYGUES/S8530AGKC1; U; Bada/1.2; fr-fr) AppleWebKit/533.1 (KHTML, like Gecko) Dolfin/2.2 Mobile WVGA SMM-MMS/1.2.0 NexPlayer/3.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B'
-#  - test:
-#      input:
-#        user_agent_string: 'Opera/9.80 (Bada; Opera Mini/6.5/37.7549; U; hu) Presto/2.12.423 Version/12.16'
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (SAMSUNG; SAMSUNG-GT-S8500-VODAFONE/S8500BUJF1; U; Bada/1.0; nl-nl) AppleWebKit/533.1 (KHTML, like Gecko) Dolfin/2.0 Mobile WVGA SMM-MMS/1.2.0 NexPlayer/3.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B'
+      expected:
+        DeviceClass                          : 'Mobile'
+        DeviceName                           : 'SAMSUNG-GT-S8500'
+        DeviceBrand                          : 'Samsung'
+        DeviceVersion                        : 'S8500BUJF1'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Bada'
+        OperatingSystemVersion               : '1.0'
+        OperatingSystemNameVersion           : 'Bada 1.0'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '533.1'
+        LayoutEngineVersionMajor             : '533'
+        LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Dolfin'
+        AgentVersion                         : '2.0'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Dolfin 2.0'
+        AgentNameVersionMajor                : 'Dolfin 2'
+        AgentLanguage                        : 'Dutch (Netherlands)'
+        AgentLanguageCode                    : 'nl-nl'
+        AgentSecurity                        : 'Strong security'
+        Carrier                              : 'VODAFONE'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (SAMSUNG; SAMSUNG-GT-S8530-BOUYGUES/S8530AGKC1; U; Bada/1.2; fr-fr) AppleWebKit/533.1 (KHTML, like Gecko) Dolfin/2.2 Mobile WVGA SMM-MMS/1.2.0 NexPlayer/3.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B'
+      expected:
+        DeviceClass                          : 'Mobile'
+        DeviceName                           : 'SAMSUNG-GT-S8530'
+        DeviceBrand                          : 'Samsung'
+        DeviceVersion                        : 'S8530AGKC1'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Bada'
+        OperatingSystemVersion               : '1.2'
+        OperatingSystemNameVersion           : 'Bada 1.2'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '533.1'
+        LayoutEngineVersionMajor             : '533'
+        LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Dolfin'
+        AgentVersion                         : '2.2'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Dolfin 2.2'
+        AgentNameVersionMajor                : 'Dolfin 2'
+        AgentLanguage                        : 'French (France)'
+        AgentLanguageCode                    : 'fr-fr'
+        AgentSecurity                        : 'Strong security'
+        Carrier                              : 'BOUYGUES'
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.text="Bada"'
+      extract:
+        - 'DeviceClass           :    1:"Mobile"'
+        - 'DeviceBrand           :    1:"Samsung"'
+        - 'DeviceName            :    1:"Unknown"'
+        - 'OperatingSystemClass  :    1:"Mobile"'
+        - 'OperatingSystemName   :    1:"Bada"'
+        - 'OperatingSystemVersion:    1:"??"'
+
+  - test:
+      input:
+        user_agent_string: 'Opera/9.80 (Bada; Opera Mini/6.5/37.7549; U; hu) Presto/2.12.423 Version/12.16'
+      expected:
+        DeviceClass                          : 'Mobile'
+        DeviceName                           : 'Unknown'
+        DeviceBrand                          : 'Samsung'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Bada'
+        OperatingSystemVersion               : '??'
+        OperatingSystemNameVersion           : 'Bada ??'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Presto'
+        LayoutEngineVersion                  : '2.12.423'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Presto 2.12.423'
+        LayoutEngineNameVersionMajor         : 'Presto 2'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Opera Mini'
+        AgentVersion                         : '6.5'
+        AgentVersionMajor                    : '6'
+        AgentNameVersion                     : 'Opera Mini 6.5'
+        AgentNameVersionMajor                : 'Opera Mini 6'
+        AgentLanguage                        : 'Hungarian'
+        AgentLanguageCode                    : 'hu'
+        AgentSecurity                        : 'Strong security'
