@@ -665,31 +665,6 @@ config:
         AgentVersion                       : '600.1.4'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; KFFOWI Build/LMY47O) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/41.51020.2250.0246 Mobile Safari/537.36 cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0'
-      # FIXME: cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0
-      expected:
-        DeviceClass                        : 'Phone'
-        DeviceName                         : 'KFFOWI'
-        OperatingSystemClass               : 'Mobile'
-        OperatingSystemName                : 'Android'
-        OperatingSystemVersion             : '5.1.1'
-        OperatingSystemNameVersion         : 'Android 5.1.1'
-        OperatingSystemVersionBuild        : 'LMY47O'
-        LayoutEngineClass                  : 'Browser'
-        LayoutEngineName                   : 'Blink'
-        LayoutEngineVersion                : '41.51020'
-        LayoutEngineVersionMajor           : '41'
-        LayoutEngineNameVersion            : 'Blink 41.51020'
-        LayoutEngineNameVersionMajor       : 'Blink 41'
-        AgentClass                         : 'Browser Webview'
-        AgentName                          : 'Chrome Webview'
-        AgentVersion                       : '41.51020.2250.0246'
-        AgentVersionMajor                  : '41'
-        AgentNameVersion                   : 'Chrome Webview 41.51020.2250.0246'
-        AgentNameVersionMajor              : 'Chrome Webview 41'
-
 #  - test:
 #      input:
 #        user_agent_string: 'Java1.0.21.0'
@@ -1005,30 +980,11 @@ config:
         AgentLanguageCode                    : 'en-us'
         AgentSecurity                        : 'Strong security'
 
-### Lots of ; and not comment block
+### TODO: (Low prio) Lots of ; and not comment block
+# This would required extra rules
 #  - test:
 #      input:
 #        user_agent_string: 'Mozilla/5.0; iPhone; CPU iPhone OS 8_1_2 like Mac OS X; AppleWebKit/600.1.4; KHTML, like Gecko; Version/8.0 Mobile/12B440 Safari/600.1.4'
-#      expected:
-#        DeviceClass                      : 'Phone'
-#        DeviceName                       : 'iPhone'
-#        DeviceBrand                      : 'Apple'
-#        DeviceVersion                    : 'iPhone'
-#        OperatingSystemClass             : 'Unknown'                 # FIXME: iPhone OS at root level
-#        OperatingSystemName              : 'Unknown'                 # FIXME: iPhone OS at root level
-#        OperatingSystemVersion           : 'Unknown'                 # FIXME: iPhone OS at root level
-#        LayoutEngineClass                : 'Browser'
-#        LayoutEngineName                 : 'AppleWebKit'
-#        LayoutEngineVersion              : '600.1.4'
-#        LayoutEngineVersionMajor         : '600'
-#        LayoutEngineNameVersion          : 'AppleWebKit 600.1.4'
-#        LayoutEngineNameVersionMajor     : 'AppleWebKit 600'
-#        AgentClass                       : 'Browser'
-#        AgentName                        : 'Safari'
-#        AgentVersion                     : '8.0'
-#        AgentVersionMajor                : '8'
-#        AgentNameVersion                 : 'Safari 8.0'
-#        AgentNameVersionMajor            : 'Safari 8'
 
 # Parse errors due to the "{...}" parts
   - test:

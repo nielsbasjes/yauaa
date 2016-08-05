@@ -1,0 +1,299 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+config:
+# =========================================================================================================
+# https://developer.amazon.com/public/solutions/devices/fire-tv/docs/user-agent-strings
+# User Agent Strings for Fire TV
+
+  - matcher:
+      require:
+        - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="AFTB Build"'
+      extract:
+        - 'DeviceClass           :   1001:"Set-top box"'
+        - 'DeviceBrand           :   1001:"Amazon"'
+        - 'DeviceName            :   1001:"Amazon Fire TV"'
+
+
+  - matcher:
+      require:
+        - 'agent.product.(1)name="AmazonWebAppPlatform"'
+      extract:
+        - 'DeviceClass           :   1001:"Set-top box"'
+        - 'DeviceBrand           :   1001:"Amazon"'
+        - 'DeviceName            :   1001:"Amazon Fire TV"'
+        - 'WebviewAppName        :      1:"Amazon Web App Platform"'
+        - 'WebviewAppVersion     :      1:agent.product.(1)name="cordova-amazon-fireos"^.version'
+
+# Android WebView (android.webkit.WebView)
+# Mozilla/5.0 (Linux; U; Android <android>; <locale>; <device> Build/<build>) AppleWebKit/<webkit> (KHTML, like Gecko) Version/4.0 Mobile Safari/<safari>
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; en-us; AFTB Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
+      expected:
+        DeviceClass                          : 'Set-top box'
+        DeviceName                           : 'Amazon Fire TV'
+        DeviceBrand                          : 'Amazon'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Android'
+        OperatingSystemVersion               : '4.2.2'
+        OperatingSystemNameVersion           : 'Android 4.2.2'
+        OperatingSystemVersionBuild          : 'JDQ39'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '534.30'
+        LayoutEngineVersionMajor             : '534'
+        LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Stock Android Browser'
+        AgentVersion                         : '4.0'
+        AgentVersionMajor                    : '4'
+        AgentNameVersion                     : 'Stock Android Browser 4.0'
+        AgentNameVersionMajor                : 'Stock Android Browser 4'
+        AgentLanguage                        : 'English (United States)'
+        AgentLanguageCode                    : 'en-us'
+        AgentSecurity                        : 'Strong security'
+
+
+# Amazon WebView (com.amazon.android.webkit.AmazonWebView)
+# Mozilla/5.0 (Linux; Android <android>; <device> Build/<build>) AppleWebKit/<webkit> (KHTML, like Gecko) Chrome/<chrome> Mobile Safari/<safari>
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.2; AFTB Build/JDQ39) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.173 Mobile Safari/537.22'
+      expected:
+        DeviceClass                          : 'Set-top box'
+        DeviceName                           : 'Amazon Fire TV'
+        DeviceBrand                          : 'Amazon'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Android'
+        OperatingSystemVersion               : '4.2.2'
+        OperatingSystemNameVersion           : 'Android 4.2.2'
+        OperatingSystemVersionBuild          : 'JDQ39'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '537.22'
+        LayoutEngineVersionMajor             : '537'
+        LayoutEngineNameVersion              : 'AppleWebKit 537.22'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Chrome'
+        AgentVersion                         : '25.0.1364.173'
+        AgentVersionMajor                    : '25'
+        AgentNameVersion                     : 'Chrome 25.0.1364.173'
+        AgentNameVersionMajor                : 'Chrome 25'
+
+
+#Amazon Web App Platform
+#Mozilla/5.0 (Linux; Android <android>; <device> Build/<build>) AppleWebKit/<webkit> (KHTML, like Gecko) Chrome/<chrome> Mobile Safari/<safari> cordova-amazon-fireos/<amazon> AmazonWebAppPlatform/<amazon>
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.2; AFTB Build/JDQ39) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.173 Mobile Safari/537.22 cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0'
+      expected:
+        DeviceClass                          : 'Set-top box'
+        DeviceName                           : 'Amazon Fire TV'
+        DeviceBrand                          : 'Amazon'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Android'
+        OperatingSystemVersion               : '4.2.2'
+        OperatingSystemNameVersion           : 'Android 4.2.2'
+        OperatingSystemVersionBuild          : 'JDQ39'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '537.22'
+        LayoutEngineVersionMajor             : '537'
+        LayoutEngineNameVersion              : 'AppleWebKit 537.22'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Chrome'
+        AgentVersion                         : '25.0.1364.173'
+        AgentVersionMajor                    : '25'
+        AgentNameVersion                     : 'Chrome 25.0.1364.173'
+        AgentNameVersionMajor                : 'Chrome 25'
+
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; KFFOWI Build/LMY47O) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/41.51020.2250.0246 Mobile Safari/537.36 cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0'
+      expected:
+        DeviceClass                          : 'Set-top box'
+        DeviceName                           : 'Amazon Fire TV'
+        DeviceBrand                          : 'Amazon'
+        OperatingSystemClass                 : 'Mobile'
+        OperatingSystemName                  : 'Android'
+        OperatingSystemVersion               : '5.1.1'
+        OperatingSystemNameVersion           : 'Android 5.1.1'
+        OperatingSystemVersionBuild          : 'LMY47O'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Blink'
+        LayoutEngineVersion                  : '41.51020'
+        LayoutEngineVersionMajor             : '41'
+        LayoutEngineNameVersion              : 'Blink 41.51020'
+        LayoutEngineNameVersionMajor         : 'Blink 41'
+        AgentClass                           : 'Browser Webview'
+        AgentName                            : 'Chrome Webview'
+        AgentVersion                         : '41.51020.2250.0246'
+        AgentVersionMajor                    : '41'
+        AgentNameVersion                     : 'Chrome Webview 41.51020.2250.0246'
+        AgentNameVersionMajor                : 'Chrome Webview 41'
+        WebviewAppName                       : 'Amazon Web App Platform'
+        WebviewAppNameVersionMajor           : 'Amazon Web App Platform 3'
+        WebviewAppVersion                    : '3.4.0'
+        WebviewAppVersionMajor               : '3'
+
+# =========================================================================================================
+# Google chromecast
+# Look for 'CrKey'
+
+  - matcher:
+      extract:
+        - 'DeviceClass           :   1001:"Set-top box"'
+        - 'DeviceBrand           :   1001:"Google"'
+        - 'DeviceName            :   1001:"Chromecast"'
+        - 'DeviceVersion         :   1001:agent.(1)product.(1)comments.entry.(1)product.(1)name#1="CrKey"^.(1)version'
+
+  - matcher:
+      extract:
+        - 'DeviceClass           :   1002:"Set-top box"'
+        - 'DeviceBrand           :   1002:"Google"'
+        - 'DeviceName            :   1002:"Chromecast"'
+        - 'DeviceVersion         :   1002:agent.(1)product.(1)comments.entry.(1)product.(1)name#1="CrKey"^.(2)version'
+
+  - matcher:
+      extract:
+        - 'DeviceClass           :   1003:"Set-top box"'
+        - 'DeviceBrand           :   1003:"Google"'
+        - 'DeviceName            :   1003:"Chromecast"'
+        - 'DeviceVersion         :   1003:agent.product.(1)name="CrKey"^.version'
+
+  - matcher:
+#      options:
+#        - 'verbose'
+      require:
+#        - '__SyntaxError__="false"'
+#        - 'agent="Mozilla/5.0 (CrKey - 0.9.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1573.2 Safari/537.36"'
+#        - 'agent.(1)product="Mozilla/5.0 (CrKey - 0.9.3)"'
+#        - 'agent.(1)product.(1)name="Mozilla"'
+#        - 'agent.(1)product.(1)name#1="Mozilla"'
+#        - 'agent.(1)product.(1)name%1="Mozilla"'
+#        - 'agent.(1)product.(1)version="5.0"'
+#        - 'agent.(1)product.(1)version#1="5"'
+#        - 'agent.(1)product.(1)version%1="5"'
+#        - 'agent.(1)product.(1)version#2="5.0"'
+#        - 'agent.(1)product.(1)version%2="0"'
+#        - 'agent.(1)product.(1)comments="(CrKey - 0.9.3)"'
+#        - 'agent.(1)product.(1)comments.(1)entry="CrKey - 0.9.3"'
+#        - 'agent.(1)product.(1)comments.(1)entry#1="CrKey"'
+#        - 'agent.(1)product.(1)comments.(1)entry%1="CrKey"'
+#        - 'agent.(1)product.(1)comments.(1)entry#2="CrKey - 0"'
+#        - 'agent.(1)product.(1)comments.(1)entry%2="0"'
+#        - 'agent.(1)product.(1)comments.(1)entry#3="CrKey - 0.9"'
+#        - 'agent.(1)product.(1)comments.(1)entry%3="9"'
+#        - 'agent.(1)product.(1)comments.(1)entry#4="CrKey - 0.9.3"'
+#        - 'agent.(1)product.(1)comments.(1)entry%4="3"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product="CrKey - 0.9.3"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name="CrKey - "'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name#1="CrKey"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name%1="CrKey"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version="0.9.3"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version#1="0"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version%1="0"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version#2="0.9"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version%2="9"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version#3="0.9.3"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version%3="3"'
+
+
+
+# Example found here: https://twitter.com/Robbie/status/360553521000624128
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (CrKey armv7l 0.7.12072) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.0 Safari/537.31'
+      expected:
+        DeviceClass                          : 'Set-top box'
+        DeviceName                           : 'Chromecast'
+        DeviceBrand                          : 'Google'
+        DeviceCpu                            : 'ARMv7l'
+        DeviceVersion                        : '0.7.12072'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '537.31'
+        LayoutEngineVersionMajor             : '537'
+        LayoutEngineNameVersion              : 'AppleWebKit 537.31'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Chrome'
+        AgentVersion                         : '26.0.1410.0'
+        AgentVersionMajor                    : '26'
+        AgentNameVersion                     : 'Chrome 26.0.1410.0'
+        AgentNameVersionMajor                : 'Chrome 26'
+
+# Example from own logfiles
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36 CrKey/1.19a.63621'
+      expected:
+        DeviceClass                          : 'Set-top box'
+        DeviceName                           : 'Chromecast'
+        DeviceBrand                          : 'Google'
+        DeviceCpu                            : 'ARMv7l'
+        DeviceVersion                        : '1.19a.63621'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Linux'
+        OperatingSystemVersion               : 'ARMv7l'
+        OperatingSystemNameVersion           : 'Linux ARMv7l'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Blink'
+        LayoutEngineVersion                  : '49.0'
+        LayoutEngineVersionMajor             : '49'
+        LayoutEngineNameVersion              : 'Blink 49.0'
+        LayoutEngineNameVersionMajor         : 'Blink 49'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Chrome'
+        AgentVersion                         : '49.0.2623.87'
+        AgentVersionMajor                    : '49'
+        AgentNameVersion                     : 'Chrome 49.0.2623.87'
+        AgentNameVersionMajor                : 'Chrome 49'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (CrKey - 0.9.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1573.2 Safari/537.36'
+      expected:
+        DeviceClass                          : 'Set-top box'
+        DeviceName                           : 'Chromecast'
+        DeviceBrand                          : 'Google'
+        DeviceVersion                        : '0.9.3'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Blink'
+        LayoutEngineVersion                  : '30.0'
+        LayoutEngineVersionMajor             : '30'
+        LayoutEngineNameVersion              : 'Blink 30.0'
+        LayoutEngineNameVersionMajor         : 'Blink 30'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Chrome'
+        AgentVersion                         : '30.0.1573.2'
+        AgentVersionMajor                    : '30'
+        AgentNameVersion                     : 'Chrome 30.0.1573.2'
+        AgentNameVersionMajor                : 'Chrome 30'
+
+# =========================================================================================================
+
+
+
