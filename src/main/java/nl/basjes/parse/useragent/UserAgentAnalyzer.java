@@ -246,7 +246,13 @@ config:
 */
 
     private void loadResource(InputStream yamlStream, String filename) {
-        Object loadedYaml = yaml.load(yamlStream);
+        Object loadedYaml;
+        try {
+            loadedYaml = yaml.load(yamlStream);
+        } catch (Exception e) {
+            LOG.error("Caught exception during parse of file {}", filename);
+            throw e;
+        }
         if (loadedYaml == null) {
             return;
         }
@@ -458,6 +464,8 @@ config:
         HARD_CODED_GENERATED_FIELDS.add("LayoutEngineNameVersion");
         HARD_CODED_GENERATED_FIELDS.add("LayoutEngineNameVersionMajor");
         HARD_CODED_GENERATED_FIELDS.add("OperatingSystemNameVersion");
+        HARD_CODED_GENERATED_FIELDS.add("WebviewAppVersionMajor");
+        HARD_CODED_GENERATED_FIELDS.add("WebviewAppNameVersionMajor");
     }
 
     private UserAgent hardCodedPostProcessing(UserAgent userAgent){
