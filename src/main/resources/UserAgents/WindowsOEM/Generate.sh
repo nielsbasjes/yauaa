@@ -20,31 +20,37 @@
 echo "# ============================================="
 echo "# THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY"
 echo "# ============================================="
-echo "config:"
-echo "  - matcher:"
-echo "      extract:"
-echo "        - 'DeviceBrand :  200:LookUp[WindowsOEMCodes;agent.(1)product.comments.entry.text]'"
 
-echo "  - lookup:"
-echo "      name: 'WindowsOEMCodes'"
-echo "      map:"
+echo "# Yet Another UserAgent Analyzer"
+echo "# Copyright (C) 2013-2016 Niels Basjes"
+echo "#"
+echo "# This program is free software: you can redistribute it and/or modify"
+echo "# it under the terms of the GNU General Public License as published by"
+echo "# the Free Software Foundation, either version 3 of the License, or"
+echo "# (at your option) any later version."
+echo "#"
+echo "# This program is distributed in the hope that it will be useful,"
+echo "# but WITHOUT ANY WARRANTY; without even the implied warranty of"
+echo "# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the"
+echo "# GNU General Public License for more details."
+echo "#"
+echo "# You should have received a copy of the GNU General Public License"
+echo "# along with this program.  If not, see <http://www.gnu.org/licenses/>."
+
+
+echo "config:"
+echo "- matcher:"
+echo "    extract:"
+echo "    - 'DeviceBrand :  200:LookUp[WindowsOEMCodes;agent.(1)product.comments.entry.text]'"
+
+echo "- lookup:"
+echo "    name: 'WindowsOEMCodes'"
+echo "    map:"
 cat "WindowsOEMCodes.csv" | grep . | fgrep -v '#' | while read line ; \
 do
     code=$(echo ${line} | cut -d' ' -f1)
     value=$(echo ${line} | cut -d' ' -f2- | sed 's/^ *//')
-    echo "       \"${code}\" : \"${value}\""
+    echo "      \"${code}\" : \"${value}\""
 done
-
-#cat "WindowsOEMCodes.csv" | grep . | while read line ; \
-#do
-#    code=$(echo ${line} | cut -d' ' -f1)
-#    value=$(echo ${line} | cut -d' ' -f2- | sed 's/^ *//')
-#    echo "  - matcher:"
-#    echo "      require:"
-#    echo "        - 'agent.(1)product.comments.entry.text=\"${code}\"'"
-#    echo "      extract:"
-#    echo "        - 'DeviceBrand :  200:\"${value}\"'"
-#    echo ""
-#done
 
 ) > ../WindowsOEMCodes.yaml
