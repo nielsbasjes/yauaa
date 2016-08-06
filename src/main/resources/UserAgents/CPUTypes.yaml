@@ -3,55 +3,55 @@
 # =============================================
 config:
 
-  - matcher:
-      extract:
-        - 'DeviceCpu : 105:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%1]'
-  - matcher:
-      extract:
-        - 'DeviceCpu : 104:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%2]'
-  - matcher:
-      extract:
-        - 'DeviceCpu : 103:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%3]'
-  - matcher:
-      extract:
-        - 'DeviceCpu : 102:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%4]'
-  - matcher:
-      extract:
-        - 'DeviceCpu : 101:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%5]'
-  - matcher:
-      extract:
-        - 'DeviceCpu : 101:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry.product.version]'
+- matcher:
+    extract:
+    - 'DeviceCpu : 105:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%1]'
+- matcher:
+    extract:
+    - 'DeviceCpu : 104:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%2]'
+- matcher:
+    extract:
+    - 'DeviceCpu : 103:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%3]'
+- matcher:
+    extract:
+    - 'DeviceCpu : 102:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%4]'
+- matcher:
+    extract:
+    - 'DeviceCpu : 101:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry%5]'
+- matcher:
+    extract:
+    - 'DeviceCpu : 101:LookUp[CPUArchitectures;agent.([1-3])product.(1)comments.entry.product.version]'
 
-  - lookup:
-      name: 'CPUArchitectures'
-      map:
-       "i386" : "Intel i386"
-       "i486" : "Intel i486"
-       "i586" : "Intel i586"
-       "i686" : "Intel i686"
-       "i786" : "Intel i786"
-       "x86_64" : "Intel x86_64"
-       "amd64" : "AMD64"
-       "x86" : "x86"
-       "x64" : "x64"
-       "i86pc" : "i86pc"
-       "arm" : "ARM"
-       "armv5tejl" : "ARMv5tejl"
-       "armv6tejl" : "ARMv6tejl"
-       "armv7tejl" : "ARMv7tejl"
-       "armv5tel" : "ARMv5tel"
-       "armv6tel" : "ARMv6tel"
-       "armv7tel" : "ARMv7tel"
-       "armv5l" : "ARMv5l"
-       "armv6l" : "ARMv6l"
-       "armv7l" : "ARMv7l"
-       "arm64" : "ARM64"
-       "sparc" : "Sparc"
-       "sparc64" : "Sparc 64"
-       "powerpc" : "PowerPC"
-       "ppc" : "PowerPC"
-       "ppc64" : "PowerPC 64"
-       "alpha" : "Alpha"
-       "mips" : "Mips"
-       "sh4" : "SH4"
-       "ti8148" : "Ti8148"
+- lookup:
+    name: 'CPUArchitectures'
+    map:
+      "i386" : "Intel i386"
+      "i486" : "Intel i486"
+      "i586" : "Intel i586"
+      "i686" : "Intel i686"
+      "i786" : "Intel i786"
+      "x86_64" : "Intel x86_64"
+      "amd64" : "AMD64"
+      "x86" : "x86"
+      "x64" : "x64"
+      "i86pc" : "i86pc"
+      "arm" : "ARM"
+      "armv5tejl" : "ARMv5tejl"
+      "armv6tejl" : "ARMv6tejl"
+      "armv7tejl" : "ARMv7tejl"
+      "armv5tel" : "ARMv5tel"
+      "armv6tel" : "ARMv6tel"
+      "armv7tel" : "ARMv7tel"
+      "armv5l" : "ARMv5l"
+      "armv6l" : "ARMv6l"
+      "armv7l" : "ARMv7l"
+      "arm64" : "ARM64"
+      "sparc" : "Sparc"
+      "sparc64" : "Sparc 64"
+      "powerpc" : "PowerPC"
+      "ppc" : "PowerPC"
+      "ppc64" : "PowerPC 64"
+      "alpha" : "Alpha"
+      "mips" : "Mips"
+      "sh4" : "SH4"
+      "ti8148" : "Ti8148"

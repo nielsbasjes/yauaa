@@ -26,9 +26,9 @@ config:
 
 #========================================
 
-  - lookup:
-      name: 'FaceBookAppNames'
-      map:
+- lookup:
+    name: 'FaceBookAppNames'
+    map:
         'FB4A'             : 'Facebook App for Android'
         'FBIOS'            : 'Facebook App for iOS'
         'FBForIPhone'      : 'Facebook App for iOS'
@@ -39,9 +39,9 @@ config:
         'AtWorkForiOS'     : 'Facebook at Work for iOS'
         'FBBlack'          : 'FBBlack'                   # Unknown, perhaps hacked useragent string?
 
-  - lookup:
-      name: 'FaceBookWebviewNames'
-      map:
+- lookup:
+    name: 'FaceBookWebviewNames'
+    map:
         'FB4A'             : 'Chrome Webview'
         'FBIOS'            : 'UIWebView'
         'FBForIPhone'      : 'UIWebView'
@@ -49,411 +49,411 @@ config:
         'GroupsForiOS'     : 'UIWebView'
         'AtWorkForiOS'     : 'UIWebView'
 
-  - matcher:
-      extract:
-        - 'AgentClass        : 1001:"Browser Webview"'
-        - 'AgentName         : 1001:LookUp[FaceBookWebviewNames;agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version]'
-        - 'AgentVersion      :   10:"??"'
-        - 'WebviewAppName    : 1001:LookUp[FaceBookAppNames;agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version]'
-        - 'WebviewAppVersion : 1001:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+- matcher:
+    extract:
+    - 'AgentClass        : 1001:"Browser Webview"'
+    - 'AgentName         : 1001:LookUp[FaceBookWebviewNames;agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version]'
+    - 'AgentVersion      :   10:"??"'
+    - 'WebviewAppName    : 1001:LookUp[FaceBookAppNames;agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version]'
+    - 'WebviewAppVersion : 1001:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
 
-  - matcher:
-      extract:
-        - 'AgentClass        : 1000:"Mobile App"'
-        - 'AgentName         : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version'
-        - 'AgentVersion      :    5:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
-        - 'WebviewAppName    : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version'
-        - 'WebviewAppVersion : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+- matcher:
+    extract:
+    - 'AgentClass        : 1000:"Mobile App"'
+    - 'AgentName         : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version'
+    - 'AgentVersion      :    5:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+    - 'WebviewAppName    : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"^.version'
+    - 'WebviewAppVersion : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
 
-  - matcher:
-      extract:
-        - 'AgentClass        : 1001:"Browser Webview"'
-        - 'AgentName         : 1001:LookUp[FaceBookWebviewNames;agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"^.version]'
-        - 'AgentVersion      : 1001:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
-        - 'WebviewAppName    : 1001:LookUp[FaceBookAppNames;agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"^.version]'
-        - 'WebviewAppVersion : 1001:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+- matcher:
+    extract:
+    - 'AgentClass        : 1001:"Browser Webview"'
+    - 'AgentName         : 1001:LookUp[FaceBookWebviewNames;agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"^.version]'
+    - 'AgentVersion      : 1001:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+    - 'WebviewAppName    : 1001:LookUp[FaceBookAppNames;agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"^.version]'
+    - 'WebviewAppVersion : 1001:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
 
-  - matcher:
-      extract:
-        - 'AgentClass        : 1000:"Mobile App"'
-        - 'AgentName         : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"^.version'
-        - 'AgentVersion      :    5:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
-        - 'WebviewAppName    : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"^.version'
-        - 'WebviewAppVersion : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+- matcher:
+    extract:
+    - 'AgentClass        : 1000:"Mobile App"'
+    - 'AgentName         : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"^.version'
+    - 'AgentVersion      :    5:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
+    - 'WebviewAppName    : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"^.version'
+    - 'WebviewAppVersion : 1000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBAV"^.version'
 
-  - matcher:
-      require:
-        - 'agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"'
-      extract:
-        - 'AgentBuild   : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBBV"^.version'
+- matcher:
+    require:
+    - 'agent.product.([1-2])comments.entry.(1)product.(1)name="FBAN"'
+    extract:
+    - 'AgentBuild   : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBBV"^.version'
 
-  - matcher:
-      require:
-        - 'agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"'
-      extract:
-        - 'AgentBuild   : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBBV"^.version'
+- matcher:
+    require:
+    - 'agent.product.([1-2])comments.entry.(1)product.(1)name="FB_IAB"'
+    extract:
+    - 'AgentBuild   : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBBV"^.version'
 
 #========================================
 
-  - matcher:
-      extract:
-        - 'FacebookDeviceClass:   3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBID"^.version'
-        - 'FacebookDeviceName:    3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBMD"^.version'
-        - 'FacebookDeviceVersion: 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBDV"^.version'
+- matcher:
+    extract:
+    - 'FacebookDeviceClass:   3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBID"^.version'
+    - 'FacebookDeviceName:    3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBMD"^.version'
+    - 'FacebookDeviceVersion: 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBDV"^.version'
 
-  - matcher:
-      require:
-        - 'agent.product.([1-2])comments.entry.(1)product="FBID/tablet"'
-      extract:
-        - 'DeviceClass:       200:"Tablet"'
+- matcher:
+    require:
+    - 'agent.product.([1-2])comments.entry.(1)product="FBID/tablet"'
+    extract:
+    - 'DeviceClass:       200:"Tablet"'
 
-  - matcher:
-      require:
-        - 'agent.product.([1-2])comments.entry.(1)product="FBID/phone"'
-      extract:
-        - 'DeviceClass:       200:"Phone"'
+- matcher:
+    require:
+    - 'agent.product.([1-2])comments.entry.(1)product="FBID/phone"'
+    extract:
+    - 'DeviceClass:       200:"Phone"'
 
-  - matcher:
-      extract:
-        - 'DeviceName:        200:agent.product.([1-2])comments.entry.(1)product.(1)name="FBMD"^.version'
-        - 'DeviceVersion:     200:agent.product.([1-2])comments.entry.(1)product.(1)name="FBDV"^.version'
+- matcher:
+    extract:
+    - 'DeviceName:        200:agent.product.([1-2])comments.entry.(1)product.(1)name="FBMD"^.version'
+    - 'DeviceVersion:     200:agent.product.([1-2])comments.entry.(1)product.(1)name="FBDV"^.version'
 
-  - matcher:
-      extract:
-        - 'DeviceName:        201:LookUp[AppleDeviceName;agent.product.([1-2])comments.entry.(1)product.(1)name="FBMD"^.version]'
-        - 'DeviceVersion:     201:LookUp[AppleDeviceVersion;agent.product.([1-2])comments.entry.(1)product.(1)name="FBDV"^.version]'
+- matcher:
+    extract:
+    - 'DeviceName:        201:LookUp[AppleDeviceName;agent.product.([1-2])comments.entry.(1)product.(1)name="FBMD"^.version]'
+    - 'DeviceVersion:     201:LookUp[AppleDeviceVersion;agent.product.([1-2])comments.entry.(1)product.(1)name="FBDV"^.version]'
 
-  - matcher:
-      extract:
-        - 'FacebookOperatingSystemName:     3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSN"^.version'
-        - 'FacebookOperatingSystemVersion:  3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSV"^.version'
-        - 'FacebookFBSS:                    3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSS"^.version'
+- matcher:
+    extract:
+    - 'FacebookOperatingSystemName:     3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSN"^.version'
+    - 'FacebookOperatingSystemVersion:  3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSV"^.version'
+    - 'FacebookFBSS:                    3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSS"^.version'
 
-  - matcher:
-      extract:
-        - 'OperatingSystemClass:    199:"Mobile"'
-        - 'OperatingSystemName:     199:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSN"^.version'
-        - 'OperatingSystemVersion:  199:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSV"^.version'
+- matcher:
+    extract:
+    - 'OperatingSystemClass:    199:"Mobile"'
+    - 'OperatingSystemName:     199:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSN"^.version'
+    - 'OperatingSystemVersion:  199:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSV"^.version'
 
-  - lookup:
-      name: 'OSNameCleanup'
-      map:
-       "iPhone"     : "iOS"
-       "iPhone OS"  : "iOS"
-       "iPhoneOS"   : "iOS"
-       "iPad"       : "iOS"
-       "iPad OS"    : "iOS"
-       "iPadOS"     : "iOS"
-       "iPod"       : "iOS"
-       "iPod OS"    : "iOS"
-       "iPodOS"     : "iOS"
+- lookup:
+    name: 'OSNameCleanup'
+    map:
+      "iPhone"     : "iOS"
+      "iPhone OS"  : "iOS"
+      "iPhoneOS"   : "iOS"
+      "iPad"       : "iOS"
+      "iPad OS"    : "iOS"
+      "iPadOS"     : "iOS"
+      "iPod"       : "iOS"
+      "iPod OS"    : "iOS"
+      "iPodOS"     : "iOS"
 
-  - matcher:
-      extract:
-        - 'OperatingSystemClass:    200:"Mobile"'
-        - 'OperatingSystemName:     200:LookUp[OSNameCleanup;agent.product.([1-2])comments.entry.(1)product.(1)name="FBSN"^.version]'
-        - 'OperatingSystemVersion:  200:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSV"^.version'
+- matcher:
+    extract:
+    - 'OperatingSystemClass:    200:"Mobile"'
+    - 'OperatingSystemName:     200:LookUp[OSNameCleanup;agent.product.([1-2])comments.entry.(1)product.(1)name="FBSN"^.version]'
+    - 'OperatingSystemVersion:  200:agent.product.([1-2])comments.entry.(1)product.(1)name="FBSV"^.version'
 
-  - matcher:
-      extract:
-        - 'AgentLanguage: 3001:LookUp[ISOLanguageCodesName;agent.product.([1-2])comments.entry.(1)product.(1)name="FBLC"^.version]'
+- matcher:
+    extract:
+    - 'AgentLanguage: 3001:LookUp[ISOLanguageCodesName;agent.product.([1-2])comments.entry.(1)product.(1)name="FBLC"^.version]'
 
-  - matcher:
-      extract:
-        - 'AgentLanguage: 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBLC"^.version'
-
-
-  - matcher:
-      extract:
-        - 'FacebookCarrier: 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBCR"^.version'
-        - 'Carrier        : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBCR"^.version'
-
-  - matcher:
-      extract:
-        - 'FacebookFBOP: 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBOP"^.version'
+- matcher:
+    extract:
+    - 'AgentLanguage: 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBLC"^.version'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12D508 [FBAN/FBIOS;FBAV/27.0.0.10.12;FBBV/8291884;FBDV/iPad4,1;FBMD/iPad;FBSN/iPhone OS;FBSV/8.2;FBSS/2; FBCR/;FBID/tablet;FBLC/nl_NL;FBOP/1]'
-      expected:
-        DeviceClass                          : 'Tablet'
-        DeviceName                           : 'iPad'
-        DeviceBrand                          : 'Apple'
-        DeviceFirmwareVersion                : '12D508'
-        DeviceVersion                        : 'iPad Air (Wi-Fi)'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'iOS'
-        OperatingSystemVersion               : '8.2'
-        OperatingSystemNameVersion           : 'iOS 8.2'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '600.1.4'
-        LayoutEngineVersionMajor             : '600'
-        LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
-        AgentClass                           : 'Browser Webview'
-        AgentName                            : 'UIWebView'
-        AgentVersion                         : '600.1.4'
-        AgentVersionMajor                    : '600'
-        AgentNameVersion                     : 'UIWebView 600.1.4'
-        AgentNameVersionMajor                : 'UIWebView 600'
-        AgentBuild                           : '8291884'
-        AgentLanguage                        : 'Dutch (Netherlands)'
-        FacebookDeviceClass                  : 'tablet'
-        FacebookDeviceName                   : 'iPad'
-        FacebookDeviceVersion                : 'iPad4,1'
-        FacebookFBOP                         : '1'
-        FacebookFBSS                         : '2'
-        FacebookOperatingSystemName          : 'iPhone OS'
-        FacebookOperatingSystemVersion       : '8.2'
-        WebviewAppName                       : 'Facebook App for iOS'
-        WebviewAppNameVersionMajor           : 'Facebook App for iOS 27'
-        WebviewAppVersion                    : '27.0.0.10.12'
-        WebviewAppVersionMajor               : '27'
+- matcher:
+    extract:
+    - 'FacebookCarrier: 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBCR"^.version'
+    - 'Carrier        : 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBCR"^.version'
+
+- matcher:
+    extract:
+    - 'FacebookFBOP: 3000:agent.product.([1-2])comments.entry.(1)product.(1)name="FBOP"^.version'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12D508 [FBAN/FBIOS;FBAV/27.0.0.10.12;FBBV/8291884;FBDV/iPad4,1;FBMD/iPad;FBSN/iPhone OS;FBSV/8.2;FBSS/2; FBCR/;FBID/tablet;FBLC/nl_NL;FBOP/1]'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '12D508'
+      DeviceVersion                        : 'iPad Air (Wi-Fi)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '8.2'
+      OperatingSystemNameVersion           : 'iOS 8.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '600.1.4'
+      LayoutEngineVersionMajor             : '600'
+      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '600.1.4'
+      AgentVersionMajor                    : '600'
+      AgentNameVersion                     : 'UIWebView 600.1.4'
+      AgentNameVersionMajor                : 'UIWebView 600'
+      AgentBuild                           : '8291884'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      FacebookDeviceClass                  : 'tablet'
+      FacebookDeviceName                   : 'iPad'
+      FacebookDeviceVersion                : 'iPad4,1'
+      FacebookFBOP                         : '1'
+      FacebookFBSS                         : '2'
+      FacebookOperatingSystemName          : 'iPhone OS'
+      FacebookOperatingSystemVersion       : '8.2'
+      WebviewAppName                       : 'Facebook App for iOS'
+      WebviewAppNameVersionMajor           : 'Facebook App for iOS 27'
+      WebviewAppVersion                    : '27.0.0.10.12'
+      WebviewAppVersionMajor               : '27'
 
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 8_1_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12B435 [FBAN/FBIOS;FBAV/26.0.0.11.13;FBBV/7806348;FBDV/iPad4,2;FBMD/iPad;FBSN/iPhone OS;FBSV/8.1.1;FBSS/2; FBCR/TelfortNL;FBID/tablet;FBLC/nl_NL;FBOP/1]'
-      expected:
-        DeviceClass                          : 'Tablet'
-        DeviceName                           : 'iPad'
-        DeviceBrand                          : 'Apple'
-        DeviceFirmwareVersion                : '12B435'
-        DeviceVersion                        : 'iPad Air (Wi-Fi+LTE)'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'iOS'
-        OperatingSystemVersion               : '8.1.1'
-        OperatingSystemNameVersion           : 'iOS 8.1.1'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '600.1.4'
-        LayoutEngineVersionMajor             : '600'
-        LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
-        AgentClass                           : 'Browser Webview'
-        AgentName                            : 'UIWebView'
-        AgentVersion                         : '600.1.4'
-        AgentVersionMajor                    : '600'
-        AgentNameVersion                     : 'UIWebView 600.1.4'
-        AgentNameVersionMajor                : 'UIWebView 600'
-        AgentBuild                           : '7806348'
-        AgentLanguage                        : 'Dutch (Netherlands)'
-        FacebookCarrier                      : 'TelfortNL'
-        FacebookDeviceClass                  : 'tablet'
-        FacebookDeviceName                   : 'iPad'
-        FacebookDeviceVersion                : 'iPad4,2'
-        FacebookFBOP                         : '1'
-        FacebookFBSS                         : '2'
-        FacebookOperatingSystemName          : 'iPhone OS'
-        FacebookOperatingSystemVersion       : '8.1.1'
-        Carrier                              : 'TelfortNL'
-        WebviewAppName                       : 'Facebook App for iOS'
-        WebviewAppNameVersionMajor           : 'Facebook App for iOS 26'
-        WebviewAppVersion                    : '26.0.0.11.13'
-        WebviewAppVersionMajor               : '26'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 8_1_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12B435 [FBAN/FBIOS;FBAV/26.0.0.11.13;FBBV/7806348;FBDV/iPad4,2;FBMD/iPad;FBSN/iPhone OS;FBSV/8.1.1;FBSS/2; FBCR/TelfortNL;FBID/tablet;FBLC/nl_NL;FBOP/1]'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '12B435'
+      DeviceVersion                        : 'iPad Air (Wi-Fi+LTE)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '8.1.1'
+      OperatingSystemNameVersion           : 'iOS 8.1.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '600.1.4'
+      LayoutEngineVersionMajor             : '600'
+      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '600.1.4'
+      AgentVersionMajor                    : '600'
+      AgentNameVersion                     : 'UIWebView 600.1.4'
+      AgentNameVersionMajor                : 'UIWebView 600'
+      AgentBuild                           : '7806348'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      FacebookCarrier                      : 'TelfortNL'
+      FacebookDeviceClass                  : 'tablet'
+      FacebookDeviceName                   : 'iPad'
+      FacebookDeviceVersion                : 'iPad4,2'
+      FacebookFBOP                         : '1'
+      FacebookFBSS                         : '2'
+      FacebookOperatingSystemName          : 'iPhone OS'
+      FacebookOperatingSystemVersion       : '8.1.1'
+      Carrier                              : 'TelfortNL'
+      WebviewAppName                       : 'Facebook App for iOS'
+      WebviewAppNameVersionMajor           : 'Facebook App for iOS 26'
+      WebviewAppVersion                    : '26.0.0.11.13'
+      WebviewAppVersionMajor               : '26'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; SM-T520 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Safari/537.36 [FBAN/FB4A;FBAV/22.0.0.15.13;]'
-      expected:
-        DeviceClass                          : 'Tablet'
-        DeviceName                           : 'SM-T520'
-        DeviceBrand                          : 'Samsung'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'Android'
-        OperatingSystemVersion               : '4.4.2'
-        OperatingSystemNameVersion           : 'Android 4.4.2'
-        OperatingSystemVersionBuild          : 'KOT49H'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Blink'
-        LayoutEngineVersion                  : '30.0'
-        LayoutEngineVersionMajor             : '30'
-        LayoutEngineNameVersion              : 'Blink 30.0'
-        LayoutEngineNameVersionMajor         : 'Blink 30'
-        AgentClass                           : 'Browser Webview'
-        AgentName                            : 'Chrome Webview'
-        AgentVersion                         : '30.0.0.0'
-        AgentVersionMajor                    : '30'
-        AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
-        AgentNameVersionMajor                : 'Chrome Webview 30'
-        WebviewAppName                       : 'Facebook App for Android'
-        WebviewAppNameVersionMajor           : 'Facebook App for Android 22'
-        WebviewAppVersion                    : '22.0.0.15.13'
-        WebviewAppVersionMajor               : '22'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; SM-T520 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Safari/537.36 [FBAN/FB4A;FBAV/22.0.0.15.13;]'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'SM-T520'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KOT49H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Facebook App for Android'
+      WebviewAppNameVersionMajor           : 'Facebook App for Android 22'
+      WebviewAppVersion                    : '22.0.0.15.13'
+      WebviewAppVersionMajor               : '22'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; nl-nl; GT-P5110 Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30 [FB_IAB/FB4A;FBAV/30.0.0.19.17;]'
-      expected:
-        DeviceClass                          : 'Tablet'
-        DeviceName                           : 'GT-P5110'
-        DeviceBrand                          : 'Samsung'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'Android'
-        OperatingSystemVersion               : '4.2.2'
-        OperatingSystemNameVersion           : 'Android 4.2.2'
-        OperatingSystemVersionBuild          : 'JDQ39'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '534.30'
-        LayoutEngineVersionMajor             : '534'
-        LayoutEngineNameVersion              : 'AppleWebKit 534.30'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
-        AgentClass                           : 'Browser Webview'
-        AgentName                            : 'Chrome Webview'
-        AgentVersion                         : '30.0.0.19.17'
-        AgentVersionMajor                    : '30'
-        AgentNameVersion                     : 'Chrome Webview 30.0.0.19.17'
-        AgentNameVersionMajor                : 'Chrome Webview 30'
-        AgentLanguage                        : 'Dutch (Netherlands)'
-        AgentLanguageCode                    : 'nl-nl'
-        AgentSecurity                        : 'Strong security'
-        WebviewAppName                       : 'Facebook App for Android'
-        WebviewAppNameVersionMajor           : 'Facebook App for Android 30'
-        WebviewAppVersion                    : '30.0.0.19.17'
-        WebviewAppVersionMajor               : '30'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; nl-nl; GT-P5110 Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30 [FB_IAB/FB4A;FBAV/30.0.0.19.17;]'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'GT-P5110'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.2.2'
+      OperatingSystemNameVersion           : 'Android 4.2.2'
+      OperatingSystemVersionBuild          : 'JDQ39'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.19.17'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.19.17'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentSecurity                        : 'Strong security'
+      WebviewAppName                       : 'Facebook App for Android'
+      WebviewAppNameVersionMajor           : 'Facebook App for Android 30'
+      WebviewAppVersion                    : '30.0.0.19.17'
+      WebviewAppVersionMajor               : '30'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/28.0.0.20.16;]'
-      expected:
-        DeviceClass                          : 'Phone'
-        DeviceName                           : 'GT-I9505'
-        DeviceBrand                          : 'Samsung'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'Android'
-        OperatingSystemVersion               : '4.4.2'
-        OperatingSystemNameVersion           : 'Android 4.4.2'
-        OperatingSystemVersionBuild          : 'KOT49H'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Blink'
-        LayoutEngineVersion                  : '30.0'
-        LayoutEngineVersionMajor             : '30'
-        LayoutEngineNameVersion              : 'Blink 30.0'
-        LayoutEngineNameVersionMajor         : 'Blink 30'
-        AgentClass                           : 'Browser Webview'
-        AgentName                            : 'Chrome Webview'
-        AgentVersion                         : '30.0.0.0'
-        AgentVersionMajor                    : '30'
-        AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
-        AgentNameVersionMajor                : 'Chrome Webview 30'
-        WebviewAppName                       : 'Facebook App for Android'
-        WebviewAppNameVersionMajor           : 'Facebook App for Android 28'
-        WebviewAppVersion                    : '28.0.0.20.16'
-        WebviewAppVersionMajor               : '28'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/28.0.0.20.16;]'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'GT-I9505'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KOT49H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Facebook App for Android'
+      WebviewAppNameVersionMajor           : 'Facebook App for Android 28'
+      WebviewAppVersion                    : '28.0.0.20.16'
+      WebviewAppVersionMajor               : '28'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; SM-G901F Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36 [FBAN/FB4A;FBAV/20.0.0.25.15;]'
-      expected:
-        DeviceClass                          : 'Phone'
-        DeviceName                           : 'SM-G901F'
-        DeviceBrand                          : 'Samsung'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'Android'
-        OperatingSystemVersion               : '4.4.4'
-        OperatingSystemNameVersion           : 'Android 4.4.4'
-        OperatingSystemVersionBuild          : 'KTU84P'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Blink'
-        LayoutEngineVersion                  : '33.0'
-        LayoutEngineVersionMajor             : '33'
-        LayoutEngineNameVersion              : 'Blink 33.0'
-        LayoutEngineNameVersionMajor         : 'Blink 33'
-        AgentClass                           : 'Browser Webview'
-        AgentName                            : 'Chrome Webview'
-        AgentVersion                         : '33.0.0.0'
-        AgentVersionMajor                    : '33'
-        AgentNameVersion                     : 'Chrome Webview 33.0.0.0'
-        AgentNameVersionMajor                : 'Chrome Webview 33'
-        WebviewAppName                       : 'Facebook App for Android'
-        WebviewAppNameVersionMajor           : 'Facebook App for Android 20'
-        WebviewAppVersion                    : '20.0.0.25.15'
-        WebviewAppVersionMajor               : '20'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; SM-G901F Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36 [FBAN/FB4A;FBAV/20.0.0.25.15;]'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'SM-G901F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.4'
+      OperatingSystemNameVersion           : 'Android 4.4.4'
+      OperatingSystemVersionBuild          : 'KTU84P'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '33.0'
+      LayoutEngineVersionMajor             : '33'
+      LayoutEngineNameVersion              : 'Blink 33.0'
+      LayoutEngineNameVersionMajor         : 'Blink 33'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '33.0.0.0'
+      AgentVersionMajor                    : '33'
+      AgentNameVersion                     : 'Chrome Webview 33.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 33'
+      WebviewAppName                       : 'Facebook App for Android'
+      WebviewAppNameVersionMajor           : 'Facebook App for Android 20'
+      WebviewAppVersion                    : '20.0.0.25.15'
+      WebviewAppVersionMajor               : '20'
 
 
-  - test:
-      input:
-        user_agent_string: '(null) [FBAN/FBIOS;FBAV/50.0.0.47.191;FBBV/23973043;FBDV/iPad4,4;FBMD/iPad;FBSN/iPhone OS;FBSV/8.0.2;FBSS/2; FBCR/;FBID/tablet;FBLC/nl_NL;FBOP/1]'
-      expected:
-        DeviceClass                          : 'Tablet'
-        DeviceName                           : 'iPad'
-        DeviceVersion                        : 'iPad mini 2 (Wi-Fi)'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'iOS'
-        OperatingSystemVersion               : '8.0.2'
-        OperatingSystemNameVersion           : 'iOS 8.0.2'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Mozilla'
-        LayoutEngineVersion                  : '5.0'
-        LayoutEngineVersionMajor             : '5'
-        LayoutEngineNameVersion              : 'Mozilla 5.0'
-        LayoutEngineNameVersionMajor         : 'Mozilla 5'
-        AgentClass                           : 'Browser Webview'
-        AgentName                            : 'UIWebView'
-        AgentVersion                         : '??'
-        AgentVersionMajor                    : '??'
-        AgentNameVersion                     : 'UIWebView ??'
-        AgentNameVersionMajor                : 'UIWebView ??'
-        AgentBuild                           : '23973043'
-        AgentLanguage                        : 'Dutch (Netherlands)'
-        FacebookDeviceClass                  : 'tablet'
-        FacebookDeviceName                   : 'iPad'
-        FacebookDeviceVersion                : 'iPad4,4'
-        FacebookFBOP                         : '1'
-        FacebookFBSS                         : '2'
-        FacebookOperatingSystemName          : 'iPhone OS'
-        FacebookOperatingSystemVersion       : '8.0.2'
-        WebviewAppName                       : 'Facebook App for iOS'
-        WebviewAppNameVersionMajor           : 'Facebook App for iOS 50'
-        WebviewAppVersion                    : '50.0.0.47.191'
-        WebviewAppVersionMajor               : '50'
+- test:
+    input:
+      user_agent_string: '(null) [FBAN/FBIOS;FBAV/50.0.0.47.191;FBBV/23973043;FBDV/iPad4,4;FBMD/iPad;FBSN/iPhone OS;FBSV/8.0.2;FBSS/2; FBCR/;FBID/tablet;FBLC/nl_NL;FBOP/1]'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'iPad'
+      DeviceVersion                        : 'iPad mini 2 (Wi-Fi)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '8.0.2'
+      OperatingSystemNameVersion           : 'iOS 8.0.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'UIWebView ??'
+      AgentNameVersionMajor                : 'UIWebView ??'
+      AgentBuild                           : '23973043'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      FacebookDeviceClass                  : 'tablet'
+      FacebookDeviceName                   : 'iPad'
+      FacebookDeviceVersion                : 'iPad4,4'
+      FacebookFBOP                         : '1'
+      FacebookFBSS                         : '2'
+      FacebookOperatingSystemName          : 'iPhone OS'
+      FacebookOperatingSystemVersion       : '8.0.2'
+      WebviewAppName                       : 'Facebook App for iOS'
+      WebviewAppNameVersionMajor           : 'Facebook App for iOS 50'
+      WebviewAppVersion                    : '50.0.0.47.191'
+      WebviewAppVersionMajor               : '50'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13F69 [FBAN/MessengerForiOS;FBAV/73.0.0.33.71;FBBV/31011105;FBRV/0;FBDV/iPhone7,2;FBMD/iPhone;FBSN/iPhone OS;FBSV/9.3.2;FBSS/2;FBCR/OrangeB;FBID/phone;FBLC/nl_NL;FBOP/5]'
-      expected:
-        DeviceClass                          : 'Phone'
-        DeviceName                           : 'iPhone'
-        DeviceBrand                          : 'Apple'
-        DeviceFirmwareVersion                : '13F69'
-        DeviceVersion                        : 'iPhone 6'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'iOS'
-        OperatingSystemVersion               : '9.3.2'
-        OperatingSystemNameVersion           : 'iOS 9.3.2'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '601.1.46'
-        LayoutEngineVersionMajor             : '601'
-        LayoutEngineNameVersion              : 'AppleWebKit 601.1.46'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 601'
-        AgentClass                           : 'Browser Webview'
-        AgentName                            : 'UIWebView'
-        AgentVersion                         : '601.1.46'
-        AgentVersionMajor                    : '601'
-        AgentNameVersion                     : 'UIWebView 601.1.46'
-        AgentNameVersionMajor                : 'UIWebView 601'
-        AgentBuild                           : '31011105'
-        AgentLanguage                        : 'Dutch (Netherlands)'
-        FacebookCarrier                      : 'OrangeB'
-        FacebookDeviceClass                  : 'phone'
-        FacebookDeviceName                   : 'iPhone'
-        FacebookDeviceVersion                : 'iPhone7,2'
-        FacebookFBOP                         : '5'
-        FacebookFBSS                         : '2'
-        FacebookOperatingSystemName          : 'iPhone OS'
-        FacebookOperatingSystemVersion       : '9.3.2'
-        Carrier                              : 'OrangeB'
-        WebviewAppName                       : 'Facebook Messenger for iOS'
-        WebviewAppNameVersionMajor           : 'Facebook Messenger for iOS 73'
-        WebviewAppVersion                    : '73.0.0.33.71'
-        WebviewAppVersionMajor               : '73'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13F69 [FBAN/MessengerForiOS;FBAV/73.0.0.33.71;FBBV/31011105;FBRV/0;FBDV/iPhone7,2;FBMD/iPhone;FBSN/iPhone OS;FBSV/9.3.2;FBSS/2;FBCR/OrangeB;FBID/phone;FBLC/nl_NL;FBOP/5]'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '13F69'
+      DeviceVersion                        : 'iPhone 6'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '9.3.2'
+      OperatingSystemNameVersion           : 'iOS 9.3.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '601.1.46'
+      LayoutEngineVersionMajor             : '601'
+      LayoutEngineNameVersion              : 'AppleWebKit 601.1.46'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 601'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '601.1.46'
+      AgentVersionMajor                    : '601'
+      AgentNameVersion                     : 'UIWebView 601.1.46'
+      AgentNameVersionMajor                : 'UIWebView 601'
+      AgentBuild                           : '31011105'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      FacebookCarrier                      : 'OrangeB'
+      FacebookDeviceClass                  : 'phone'
+      FacebookDeviceName                   : 'iPhone'
+      FacebookDeviceVersion                : 'iPhone7,2'
+      FacebookFBOP                         : '5'
+      FacebookFBSS                         : '2'
+      FacebookOperatingSystemName          : 'iPhone OS'
+      FacebookOperatingSystemVersion       : '9.3.2'
+      Carrier                              : 'OrangeB'
+      WebviewAppName                       : 'Facebook Messenger for iOS'
+      WebviewAppNameVersionMajor           : 'Facebook Messenger for iOS 73'
+      WebviewAppVersion                    : '73.0.0.33.71'
+      WebviewAppVersionMajor               : '73'

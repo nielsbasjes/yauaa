@@ -20,250 +20,250 @@
 config:
 
 
-  - matcher:
-      extract:
-        - 'DeviceClass               : 100:"Desktop"'
-        - 'DeviceName                : 100:"Desktop"'
-        - 'OperatingSystemClass      : 100:"Desktop"'
-        - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.(1)product.comments.entry.product]'
-        - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
-        - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
+- matcher:
+    extract:
+    - 'DeviceClass               : 100:"Desktop"'
+    - 'DeviceName                : 100:"Desktop"'
+    - 'OperatingSystemClass      : 100:"Desktop"'
+    - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.(1)product.comments.entry.product]'
+    - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
+    - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
 
 
-  - matcher:
-      extract:
-        - 'DeviceClass               : 100:"Desktop"'
-        - 'DeviceName                : 100:"Desktop"'
-        - 'OperatingSystemClass      : 100:"Desktop"'
-        - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.(1)product.comments.entry.product]'
-        - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
-        - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
+- matcher:
+    extract:
+    - 'DeviceClass               : 100:"Desktop"'
+    - 'DeviceName                : 100:"Desktop"'
+    - 'OperatingSystemClass      : 100:"Desktop"'
+    - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.(1)product.comments.entry.product]'
+    - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
+    - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
 
-  - matcher:
-      extract:
-        - 'DeviceClass               :  50:"Desktop"'
-        - 'DeviceName                :  50:"Desktop"'
-        - 'OperatingSystemClass      :  50:"Desktop"'
-        - 'OperatingSystemName       :   5:"Windows NT"'
-        - 'OperatingSystemVersion    :   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
-        - 'OperatingSystemNameVersion:   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
+- matcher:
+    extract:
+    - 'DeviceClass               :  50:"Desktop"'
+    - 'DeviceName                :  50:"Desktop"'
+    - 'OperatingSystemClass      :  50:"Desktop"'
+    - 'OperatingSystemName       :   5:"Windows NT"'
+    - 'OperatingSystemVersion    :   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
+    - 'OperatingSystemNameVersion:   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
 
-  - matcher:
-      extract:
-        - 'DeviceClass               : 100:"Desktop"'
-        - 'DeviceName                : 100:"Desktop"'
-        - 'OperatingSystemClass      : 100:"Desktop"'
-        - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.(1)product.comments.entry.text]'
-        - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.text]'
-        - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.text]'
-
-
-
-  - matcher:
-      extract:
-        - 'DeviceClass               : 100:"Desktop"'
-        - 'DeviceName                : 100:"Desktop"'
-        - 'OperatingSystemClass      : 100:"Desktop"'
-        - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product]'
-        - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product]'
-        - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product]'
+- matcher:
+    extract:
+    - 'DeviceClass               : 100:"Desktop"'
+    - 'DeviceName                : 100:"Desktop"'
+    - 'OperatingSystemClass      : 100:"Desktop"'
+    - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.(1)product.comments.entry.text]'
+    - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.text]'
+    - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.text]'
 
 
-  - matcher:
-      extract:
-        - 'DeviceClass               : 100:"Desktop"'
-        - 'DeviceName                : 100:"Desktop"'
-        - 'OperatingSystemClass      : 100:"Desktop"'
-        - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product]'
-        - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product]'
-        - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product]'
 
-  - matcher:
-      extract:
-        - 'DeviceClass               :  50:"Desktop"'
-        - 'DeviceName                :  50:"Desktop"'
-        - 'OperatingSystemClass      :  50:"Desktop"'
-        - 'OperatingSystemName       :   5:"Windows NT"'
-        - 'OperatingSystemVersion    :   5:agent.product.name="Windows NT"^'
-        - 'OperatingSystemNameVersion:   5:agent.product.name="Windows NT"^'
-
-  - matcher:
-      extract:
-        - 'DeviceClass               : 100:"Desktop"'
-        - 'DeviceName                : 100:"Desktop"'
-        - 'OperatingSystemClass      : 100:"Desktop"'
-        - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product.text]'
-        - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product.text]'
-        - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product.text]'
+- matcher:
+    extract:
+    - 'DeviceClass               : 100:"Desktop"'
+    - 'DeviceName                : 100:"Desktop"'
+    - 'OperatingSystemClass      : 100:"Desktop"'
+    - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product]'
+    - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product]'
+    - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product]'
 
 
-  - test:
-      input:
-        user_agent_string:  'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Desktop'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Windows NT'
-        OperatingSystemVersion               : 'Windows 7'
-        OperatingSystemNameVersion           : 'Windows 7'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Trident'
-        LayoutEngineVersion                  : '7.0'
-        LayoutEngineVersionMajor             : '7'
-        LayoutEngineNameVersion              : 'Trident 7.0'
-        LayoutEngineNameVersionMajor         : 'Trident 7'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Internet Explorer'
-        AgentVersion                         : '11.0'
-        AgentVersionMajor                    : '11'
-        AgentNameVersion                     : 'Internet Explorer 11.0'
-        AgentNameVersionMajor                : 'Internet Explorer 11'
+- matcher:
+    extract:
+    - 'DeviceClass               : 100:"Desktop"'
+    - 'DeviceName                : 100:"Desktop"'
+    - 'OperatingSystemClass      : 100:"Desktop"'
+    - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product]'
+    - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product]'
+    - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product]'
 
-  - test:
-      input:
-        user_agent_string:  'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Desktop'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Windows NT'
-        OperatingSystemVersion               : 'Windows 7'
-        OperatingSystemNameVersion           : 'Windows 7'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Trident'
-        LayoutEngineVersion                  : '7.0'
-        LayoutEngineVersionMajor             : '7'
-        LayoutEngineNameVersion              : 'Trident 7.0'
-        LayoutEngineNameVersionMajor         : 'Trident 7'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Internet Explorer'
-        AgentVersion                         : '11.0'
-        AgentVersionMajor                    : '11'
-        AgentNameVersion                     : 'Internet Explorer 11.0'
-        AgentNameVersionMajor                : 'Internet Explorer 11'
+- matcher:
+    extract:
+    - 'DeviceClass               :  50:"Desktop"'
+    - 'DeviceName                :  50:"Desktop"'
+    - 'OperatingSystemClass      :  50:"Desktop"'
+    - 'OperatingSystemName       :   5:"Windows NT"'
+    - 'OperatingSystemVersion    :   5:agent.product.name="Windows NT"^'
+    - 'OperatingSystemNameVersion:   5:agent.product.name="Windows NT"^'
 
-  - test:
-      input:
-        user_agent_string:  'Mozilla/5.0 (Win 9x 4.90; WOW64; Trident/7.0; rv:11.0) like Gecko'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Desktop'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Windows 9x'
-        OperatingSystemVersion               : 'Windows Millennium Edition'
-        OperatingSystemNameVersion           : 'Windows Millennium Edition'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Trident'
-        LayoutEngineVersion                  : '7.0'
-        LayoutEngineVersionMajor             : '7'
-        LayoutEngineNameVersion              : 'Trident 7.0'
-        LayoutEngineNameVersionMajor         : 'Trident 7'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Internet Explorer'
-        AgentVersion                         : '11.0'
-        AgentVersionMajor                    : '11'
-        AgentNameVersion                     : 'Internet Explorer 11.0'
-        AgentNameVersionMajor                : 'Internet Explorer 11'
+- matcher:
+    extract:
+    - 'DeviceClass               : 100:"Desktop"'
+    - 'DeviceName                : 100:"Desktop"'
+    - 'OperatingSystemClass      : 100:"Desktop"'
+    - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product.text]'
+    - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product.text]'
+    - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product.text]'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Windows NT 6.4; WOW64; Trident/7.0; rv:11.0) like Gecko'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Desktop'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Windows NT'
-        OperatingSystemVersion               : 'Windows 10 Preview'
-        OperatingSystemNameVersion           : 'Windows 10 Preview'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Trident'
-        LayoutEngineVersion                  : '7.0'
-        LayoutEngineVersionMajor             : '7'
-        LayoutEngineNameVersion              : 'Trident 7.0'
-        LayoutEngineNameVersionMajor         : 'Trident 7'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Internet Explorer'
-        AgentVersion                         : '11.0'
-        AgentVersionMajor                    : '11'
-        AgentNameVersion                     : 'Internet Explorer 11.0'
-        AgentNameVersionMajor                : 'Internet Explorer 11'
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Win 9x 4.90; WOW64; Trident/7.0; rv:11.0) like Gecko'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows 9x'
+      OperatingSystemVersion               : 'Windows Millennium Edition'
+      OperatingSystemNameVersion           : 'Windows Millennium Edition'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Windows 8.1; Trident/7.0; rv:11.0) like Gecko'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Desktop'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Windows NT'
-        OperatingSystemVersion               : 'Windows 8.1'
-        OperatingSystemNameVersion           : 'Windows 8.1'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Trident'
-        LayoutEngineVersion                  : '7.0'
-        LayoutEngineVersionMajor             : '7'
-        LayoutEngineNameVersion              : 'Trident 7.0'
-        LayoutEngineNameVersionMajor         : 'Trident 7'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Internet Explorer'
-        AgentVersion                         : '11.0'
-        AgentVersionMajor                    : '11'
-        AgentNameVersion                     : 'Internet Explorer 11.0'
-        AgentNameVersionMajor                : 'Internet Explorer 11'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.4; WOW64; Trident/7.0; rv:11.0) like Gecko'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 10 Preview'
+      OperatingSystemNameVersion           : 'Windows 10 Preview'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Windows; U; MSIE 9.0; Windows NT 9.0; en-US)'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Desktop'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Windows NT'
-        OperatingSystemVersion               : 'Windows NT 9.0'
-        OperatingSystemNameVersion           : 'Windows NT 9.0'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Trident'
-        LayoutEngineVersion                  : '5.0'
-        LayoutEngineVersionMajor             : '5'
-        LayoutEngineNameVersion              : 'Trident 5.0'
-        LayoutEngineNameVersionMajor         : 'Trident 5'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Internet Explorer'
-        AgentVersion                         : '9.0'
-        AgentVersionMajor                    : '9'
-        AgentNameVersion                     : 'Internet Explorer 9.0'
-        AgentNameVersionMajor                : 'Internet Explorer 9'
-        AgentLanguage                        : 'English (United States)'
-        AgentLanguageCode                    : 'en-us'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows 8.1; Trident/7.0; rv:11.0) like Gecko'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 8.1'
+      OperatingSystemNameVersion           : 'Windows 8.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Windows NT 4.10; rv:34.0) Gecko/20100101 Firefox/34.0'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Desktop'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Windows NT'
-        OperatingSystemVersion               : 'Windows NT 4.10'
-        OperatingSystemNameVersion           : 'Windows NT 4.10'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Gecko'
-        LayoutEngineVersion                  : '34.0'
-        LayoutEngineVersionMajor             : '34'
-        LayoutEngineNameVersion              : 'Gecko 34.0'
-        LayoutEngineNameVersionMajor         : 'Gecko 34'
-        LayoutEngineBuild                    : '20100101'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Firefox'
-        AgentVersion                         : '34.0'
-        AgentVersionMajor                    : '34'
-        AgentNameVersion                     : 'Firefox 34.0'
-        AgentNameVersionMajor                : 'Firefox 34'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; MSIE 9.0; Windows NT 9.0; en-US)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows NT 9.0'
+      OperatingSystemNameVersion           : 'Windows NT 9.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Trident 5.0'
+      LayoutEngineNameVersionMajor         : 'Trident 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '9.0'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Internet Explorer 9.0'
+      AgentNameVersionMajor                : 'Internet Explorer 9'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 4.10; rv:34.0) Gecko/20100101 Firefox/34.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows NT 4.10'
+      OperatingSystemNameVersion           : 'Windows NT 4.10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '34.0'
+      LayoutEngineVersionMajor             : '34'
+      LayoutEngineNameVersion              : 'Gecko 34.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 34'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '34.0'
+      AgentVersionMajor                    : '34'
+      AgentNameVersion                     : 'Firefox 34.0'
+      AgentNameVersionMajor                : 'Firefox 34'
 
 

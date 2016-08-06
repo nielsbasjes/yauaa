@@ -18,289 +18,289 @@
 
 config:
 
-  - matcher:
-      extract:
-        - 'LayoutEngineClass     :   11:"Browser"'
-        - 'LayoutEngineName      :   11:"AppleWebKit"'
-        - 'LayoutEngineVersion   :   11:agent.product.(1)name="AppleWebKit"^.version'
+- matcher:
+    extract:
+    - 'LayoutEngineClass     :   11:"Browser"'
+    - 'LayoutEngineName      :   11:"AppleWebKit"'
+    - 'LayoutEngineVersion   :   11:agent.product.(1)name="AppleWebKit"^.version'
 
-  - matcher:
-      extract:
-        - 'AgentClass            :   11:"Browser"'
-        - 'AgentName             :   11:"AppleWebKit"'
-        - 'AgentVersion          :   11:agent.product.(1)name="AppleWebKit"^.version'
+- matcher:
+    extract:
+    - 'AgentClass            :   11:"Browser"'
+    - 'AgentName             :   11:"AppleWebKit"'
+    - 'AgentVersion          :   11:agent.product.(1)name="AppleWebKit"^.version'
 
-  - matcher:
-      extract:
-        - 'AgentClass            :   13:"Browser"'
-        - 'AgentName             :   13:agent.product.(1)name="AppleWebKit"^>.name!="Mobile"'
-        - 'AgentVersion          :   13:agent.product.(1)name="AppleWebKit"^>.version'
+- matcher:
+    extract:
+    - 'AgentClass            :   13:"Browser"'
+    - 'AgentName             :   13:agent.product.(1)name="AppleWebKit"^>.name!="Mobile"'
+    - 'AgentVersion          :   13:agent.product.(1)name="AppleWebKit"^>.version'
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="Mozilla"'
-        - 'agent.(1)product.(1)version="5.0"'
-      extract:
-        - 'AgentClass             :  10:"Browser"'
-        - 'AgentName              :  10:agent.(1)product.(1)comments.entry.(1)product.(1)name'
-        - 'AgentVersion           :  10:agent.(1)product.(1)comments.entry.(1)product.(1)version'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Mozilla"'
+    - 'agent.(1)product.(1)version="5.0"'
+    extract:
+    - 'AgentClass             :  10:"Browser"'
+    - 'AgentName              :  10:agent.(1)product.(1)comments.entry.(1)product.(1)name'
+    - 'AgentVersion           :  10:agent.(1)product.(1)comments.entry.(1)product.(1)version'
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="Mozilla"'
-        - 'agent.(1)product.(1)version="5.0"'
-        - 'IsNull[agent.(2)product.(1)name="AppleWebKit"]'
-        - 'IsNull[agent.(2)product.(1)name="Mobile"]'
-        - 'IsNull[agent.(2)product.(1)name="Version"]'
-      extract:
-        - 'AgentClass             :  16:"Browser"'
-        - 'AgentName              :  16:agent.(2)product.(1)name!="AppleWebKit"'
-        - 'AgentVersion           :  16:agent.(2)product.(1)version'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Mozilla"'
+    - 'agent.(1)product.(1)version="5.0"'
+    - 'IsNull[agent.(2)product.(1)name="AppleWebKit"]'
+    - 'IsNull[agent.(2)product.(1)name="Mobile"]'
+    - 'IsNull[agent.(2)product.(1)name="Version"]'
+    extract:
+    - 'AgentClass             :  16:"Browser"'
+    - 'AgentName              :  16:agent.(2)product.(1)name!="AppleWebKit"'
+    - 'AgentVersion           :  16:agent.(2)product.(1)version'
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="Mozilla"'
-        - 'agent.(1)product.(1)version="5.0"'
-        - 'IsNull[agent.(3)product.(1)name="AppleWebKit"]'
-        - 'IsNull[agent.(3)product.(1)name="Mobile"]'
-        - 'IsNull[agent.(3)product.(1)name="Version"]'
-      extract:
-        - 'AgentClass             :  15:"Browser"'
-        - 'AgentName              :  15:agent.(3)product.(1)name'
-        - 'AgentVersion           :  15:agent.(3)product.(1)version'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Mozilla"'
+    - 'agent.(1)product.(1)version="5.0"'
+    - 'IsNull[agent.(3)product.(1)name="AppleWebKit"]'
+    - 'IsNull[agent.(3)product.(1)name="Mobile"]'
+    - 'IsNull[agent.(3)product.(1)name="Version"]'
+    extract:
+    - 'AgentClass             :  15:"Browser"'
+    - 'AgentName              :  15:agent.(3)product.(1)name'
+    - 'AgentVersion           :  15:agent.(3)product.(1)version'
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="Mozilla"'
-        - 'agent.(1)product.(1)version="5.0"'
-        - 'IsNull[agent.(4)product.(1)name="AppleWebKit"]'
-        - 'IsNull[agent.(4)product.(1)name="Mobile"]'
-        - 'IsNull[agent.(4)product.(1)name="Version"]'
-      extract:
-        - 'AgentClass             :  14:"Browser"'
-        - 'AgentName              :  14:agent.(4)product.(1)name'
-        - 'AgentVersion           :  14:agent.(4)product.(1)version'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Mozilla"'
+    - 'agent.(1)product.(1)version="5.0"'
+    - 'IsNull[agent.(4)product.(1)name="AppleWebKit"]'
+    - 'IsNull[agent.(4)product.(1)name="Mobile"]'
+    - 'IsNull[agent.(4)product.(1)name="Version"]'
+    extract:
+    - 'AgentClass             :  14:"Browser"'
+    - 'AgentName              :  14:agent.(4)product.(1)name'
+    - 'AgentVersion           :  14:agent.(4)product.(1)version'
 
-  - matcher:
-      require:
-        - 'agent.product.(1)name="AppleWebKit"'
-        - 'agent.product.(1)name="Safari"'
-      extract:
-        - 'AgentClass            :   20:"Browser"'
-        - 'AgentName             :   20:"Safari"'
-        - 'AgentVersion          :   18:agent.product.(1)name="Safari"^.version'
+- matcher:
+    require:
+    - 'agent.product.(1)name="AppleWebKit"'
+    - 'agent.product.(1)name="Safari"'
+    extract:
+    - 'AgentClass            :   20:"Browser"'
+    - 'AgentName             :   20:"Safari"'
+    - 'AgentVersion          :   18:agent.product.(1)name="Safari"^.version'
 
-  - matcher:
-      require:
-        - 'agent.product.(1)name="Mobile Safari"'
-      extract:
-        - 'AgentClass            :   20:"Browser"'
-        - 'AgentName             :   20:"Mobile Safari"'
-        - 'AgentVersion          :   18:agent.product.(1)name="Mobile Safari"^.version'
+- matcher:
+    require:
+    - 'agent.product.(1)name="Mobile Safari"'
+    extract:
+    - 'AgentClass            :   20:"Browser"'
+    - 'AgentName             :   20:"Mobile Safari"'
+    - 'AgentVersion          :   18:agent.product.(1)name="Mobile Safari"^.version'
 
-  - matcher:
-      require:
-        - 'agent.product.(1)name="Mobile Safari"'
-      extract:
-        - 'AgentClass            :   25:"Browser"'
-        - 'AgentName             :   25:"Mobile Safari"'
-        - 'AgentVersion          :   25:agent.product.(1)name="Version"^.version'
+- matcher:
+    require:
+    - 'agent.product.(1)name="Mobile Safari"'
+    extract:
+    - 'AgentClass            :   25:"Browser"'
+    - 'AgentName             :   25:"Mobile Safari"'
+    - 'AgentVersion          :   25:agent.product.(1)name="Version"^.version'
 
-  - matcher:
-      require:
-        - 'agent.product.(1)name="Safari"'
-      extract:
-        - 'AgentClass            :   25:"Browser"'
-        - 'AgentName             :   25:"Safari"'
-        - 'AgentVersion          :   25:agent.product.(1)name="Version"^.version'
+- matcher:
+    require:
+    - 'agent.product.(1)name="Safari"'
+    extract:
+    - 'AgentClass            :   25:"Browser"'
+    - 'AgentName             :   25:"Safari"'
+    - 'AgentVersion          :   25:agent.product.(1)name="Version"^.version'
 
 
 #Safari:
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; de-de) AppleWebKit/85.7 (KHTML, like Gecko) Safari/85.5'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Macintosh'
-        DeviceBrand                          : 'Apple'
-        DeviceCpu                            : 'PowerPC'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Mac OS X'
-        OperatingSystemVersion               : '10.?'
-        OperatingSystemNameVersion           : 'Mac OS X 10.?'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '85.7'
-        LayoutEngineVersionMajor             : '85'
-        LayoutEngineNameVersion              : 'AppleWebKit 85.7'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 85'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Safari'
-        AgentVersion                         : '85.5'
-        AgentVersionMajor                    : '85'
-        AgentNameVersion                     : 'Safari 85.5'
-        AgentNameVersionMajor                : 'Safari 85'
-        AgentLanguage                        : 'German (Germany)'
-        AgentLanguageCode                    : 'de-de'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; de-de) AppleWebKit/85.7 (KHTML, like Gecko) Safari/85.5'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'PowerPC'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.?'
+      OperatingSystemNameVersion           : 'Mac OS X 10.?'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '85.7'
+      LayoutEngineVersionMajor             : '85'
+      LayoutEngineNameVersion              : 'AppleWebKit 85.7'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 85'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '85.5'
+      AgentVersionMajor                    : '85'
+      AgentNameVersion                     : 'Safari 85.5'
+      AgentNameVersionMajor                : 'Safari 85'
+      AgentLanguage                        : 'German (Germany)'
+      AgentLanguageCode                    : 'de-de'
+      AgentSecurity                        : 'Strong security'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/ERD62) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17'
-      expected:
-        DeviceClass                          : 'Phone'
-        DeviceName                           : 'Nexus One'
-        DeviceBrand                          : 'Google'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'Android'
-        OperatingSystemVersion               : '2.2'
-        OperatingSystemNameVersion           : 'Android 2.2'
-        OperatingSystemVersionBuild          : 'ERD62'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '530.17'
-        LayoutEngineVersionMajor             : '530'
-        LayoutEngineNameVersion              : 'AppleWebKit 530.17'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 530'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Stock Android Browser'
-        AgentVersion                         : '4.0'
-        AgentVersionMajor                    : '4'
-        AgentNameVersion                     : 'Stock Android Browser 4.0'
-        AgentNameVersionMajor                : 'Stock Android Browser 4'
-        AgentLanguage                        : 'English (United States)'
-        AgentLanguageCode                    : 'en-us'
-        AgentSecurity                        : 'Strong security'
-
-
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/600.7.12 (KHTML, like Gecko) Version/7.1.7 Safari/537.85.16'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Macintosh'
-        DeviceBrand                          : 'Apple'
-        DeviceCpu                            : 'Intel'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Mac OS X'
-        OperatingSystemVersion               : '10.9.5'
-        OperatingSystemNameVersion           : 'Mac OS X 10.9.5'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '600.7.12'
-        LayoutEngineVersionMajor             : '600'
-        LayoutEngineNameVersion              : 'AppleWebKit 600.7.12'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Safari'
-        AgentVersion                         : '7.1.7'
-        AgentVersionMajor                    : '7'
-        AgentNameVersion                     : 'Safari 7.1.7'
-        AgentNameVersionMajor                : 'Safari 7'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/ERD62) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nexus One'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '2.2'
+      OperatingSystemNameVersion           : 'Android 2.2'
+      OperatingSystemVersionBuild          : 'ERD62'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '530.17'
+      LayoutEngineVersionMajor             : '530'
+      LayoutEngineNameVersion              : 'AppleWebKit 530.17'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 530'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Macintosh'
-        DeviceBrand                          : 'Apple'
-        DeviceCpu                            : 'Intel'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Mac OS X'
-        OperatingSystemVersion               : '10.10.1'
-        OperatingSystemNameVersion           : 'Mac OS X 10.10.1'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Blink'
-        LayoutEngineVersion                  : '41.0'
-        LayoutEngineVersionMajor             : '41'
-        LayoutEngineNameVersion              : 'Blink 41.0'
-        LayoutEngineNameVersionMajor         : 'Blink 41'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Chrome'
-        AgentVersion                         : '41.0.2227.1'
-        AgentVersionMajor                    : '41'
-        AgentNameVersion                     : 'Chrome 41.0.2227.1'
-        AgentNameVersionMajor                : 'Chrome 41'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/600.7.12 (KHTML, like Gecko) Version/7.1.7 Safari/537.85.16'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.9.5'
+      OperatingSystemNameVersion           : 'Mac OS X 10.9.5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '600.7.12'
+      LayoutEngineVersionMajor             : '600'
+      LayoutEngineNameVersion              : 'AppleWebKit 600.7.12'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '7.1.7'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Safari 7.1.7'
+      AgentNameVersionMajor                : 'Safari 7'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_7; en) AppleWebKit/530.19.2 (KHTML, like Gecko) Version/4.0.2 Safari/530.19.2'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Macintosh'
-        DeviceBrand                          : 'Apple'
-        DeviceCpu                            : 'Intel'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Mac OS X'
-        OperatingSystemVersion               : '10.5.7'
-        OperatingSystemNameVersion           : 'Mac OS X 10.5.7'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '530.19.2'
-        LayoutEngineVersionMajor             : '530'
-        LayoutEngineNameVersion              : 'AppleWebKit 530.19.2'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 530'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Safari'
-        AgentVersion                         : '4.0.2'
-        AgentVersionMajor                    : '4'
-        AgentNameVersion                     : 'Safari 4.0.2'
-        AgentNameVersionMajor                : 'Safari 4'
-        AgentLanguage                        : 'English'
-        AgentLanguageCode                    : 'en'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.10.1'
+      OperatingSystemNameVersion           : 'Mac OS X 10.10.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '41.0'
+      LayoutEngineVersionMajor             : '41'
+      LayoutEngineNameVersion              : 'Blink 41.0'
+      LayoutEngineNameVersionMajor         : 'Blink 41'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '41.0.2227.1'
+      AgentVersionMajor                    : '41'
+      AgentNameVersion                     : 'Chrome 41.0.2227.1'
+      AgentNameVersionMajor                : 'Chrome 41'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_7; en) AppleWebKit/530.19.2 (KHTML, like Gecko) Version/4.0.2 Safari/530.19.2'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.5.7'
+      OperatingSystemNameVersion           : 'Mac OS X 10.5.7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '530.19.2'
+      LayoutEngineVersionMajor             : '530'
+      LayoutEngineNameVersion              : 'AppleWebKit 530.19.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 530'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '4.0.2'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Safari 4.0.2'
+      AgentNameVersionMajor                : 'Safari 4'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
 
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36 OPR/36.0.2130.32'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Macintosh'
-        DeviceBrand                          : 'Apple'
-        DeviceCpu                            : 'Intel'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Mac OS X'
-        OperatingSystemVersion               : '10.7.5'
-        OperatingSystemNameVersion           : 'Mac OS X 10.7.5'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Blink'
-        LayoutEngineVersion                  : '49.0.2623.75'
-        LayoutEngineVersionMajor             : '49'
-        LayoutEngineNameVersion              : 'Blink 49.0.2623.75'
-        LayoutEngineNameVersionMajor         : 'Blink 49'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '36.0.2130.32'
-        AgentVersionMajor                    : '36'
-        AgentNameVersion                     : 'Opera 36.0.2130.32'
-        AgentNameVersionMajor                : 'Opera 36'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36 OPR/36.0.2130.32'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.7.5'
+      OperatingSystemNameVersion           : 'Mac OS X 10.7.5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0.2623.75'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0.2623.75'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '36.0.2130.32'
+      AgentVersionMajor                    : '36'
+      AgentNameVersion                     : 'Opera 36.0.2130.32'
+      AgentNameVersionMajor                : 'Opera 36'
 
-  - test:
-      input:
-        user_agent_string: 'MacOutlook/0.0.0.160212 (Intel Mac OS X Version 10.11.4 (Build 15E65))'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Macintosh'
-        DeviceBrand                          : 'Apple'
-        DeviceCpu                            : 'Intel'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Mac OS X'
-        OperatingSystemVersion               : '10.11.4'
-        OperatingSystemNameVersion           : 'Mac OS X 10.11.4'
-        LayoutEngineClass                    : 'Unknown'
-        LayoutEngineName                     : 'Unknown'
-        LayoutEngineVersion                  : '??'
-        LayoutEngineVersionMajor             : '??'
-        AgentClass                           : 'Special'
-        AgentName                            : 'MacOutlook'
-        AgentVersion                         : '0.0.0.160212'
-        AgentVersionMajor                    : '0'
-        AgentNameVersion                     : 'MacOutlook 0.0.0.160212'
-        AgentNameVersionMajor                : 'MacOutlook 0'
+- test:
+    input:
+      user_agent_string: 'MacOutlook/0.0.0.160212 (Intel Mac OS X Version 10.11.4 (Build 15E65))'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.11.4'
+      OperatingSystemNameVersion           : 'Mac OS X 10.11.4'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'MacOutlook'
+      AgentVersion                         : '0.0.0.160212'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'MacOutlook 0.0.0.160212'
+      AgentNameVersionMajor                : 'MacOutlook 0'
 
 

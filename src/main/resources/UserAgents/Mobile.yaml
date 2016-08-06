@@ -18,709 +18,709 @@
 
 config:
 
-  - matcher:
-      extract:
-        - 'DeviceClass           : 301:"Mobile"'
-        - 'DeviceName            : 301:agent.(1)product.(1)name%2="Linux"@#1'
-        - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
-        - 'AgentClass            :   4:"Unknown"'
-        - 'AgentName             :   4:"Unknown"'
-        - 'AgentVersion          :   4:"Unknown"'
+- matcher:
+    extract:
+    - 'DeviceClass           : 301:"Mobile"'
+    - 'DeviceName            : 301:agent.(1)product.(1)name%2="Linux"@#1'
+    - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
+    - 'AgentClass            :   4:"Unknown"'
+    - 'AgentName             :   4:"Unknown"'
+    - 'AgentVersion          :   4:"Unknown"'
 
 
-  - matcher:
-      require:
-        - 'agent.product.(1)name="Profile"'
-        - 'agent.product.(1)name="Configuration"'
-      extract:
-        - 'DeviceClass           : 300:"Mobile"'
-        - 'DeviceName            : 300:agent.(1)product.(1)name'
-        - 'DeviceVersion         : 300:agent.(1)product.(1)name^.version'
-        - 'AgentClass            :   4:"Unknown"'
-        - 'AgentName             :   4:"Unknown"'
-        - 'AgentVersion          :   4:"Unknown"'
+- matcher:
+    require:
+    - 'agent.product.(1)name="Profile"'
+    - 'agent.product.(1)name="Configuration"'
+    extract:
+    - 'DeviceClass           : 300:"Mobile"'
+    - 'DeviceName            : 300:agent.(1)product.(1)name'
+    - 'DeviceVersion         : 300:agent.(1)product.(1)name^.version'
+    - 'AgentClass            :   4:"Unknown"'
+    - 'AgentName             :   4:"Unknown"'
+    - 'AgentVersion          :   4:"Unknown"'
 
 
-  - matcher:
-      extract:
-        - 'DeviceClass           : 301:"Mobile"'
-        - 'DeviceName            : 301:agent.(1)product.(1)name%2="Linux"@#1'
-        - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
-        - 'AgentClass            :   4:"Unknown"'
-        - 'AgentName             :   4:"Unknown"'
-        - 'AgentVersion          :   4:"Unknown"'
+- matcher:
+    extract:
+    - 'DeviceClass           : 301:"Mobile"'
+    - 'DeviceName            : 301:agent.(1)product.(1)name%2="Linux"@#1'
+    - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
+    - 'AgentClass            :   4:"Unknown"'
+    - 'AgentName             :   4:"Unknown"'
+    - 'AgentVersion          :   4:"Unknown"'
 
 
-  - matcher:
-      extract:
-        - 'DeviceClass           : 301:"Mobile"'
-        - 'DeviceName            : 301:agent.(1)product.(1)name%3="Linux"@#2'
-        - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
-        - 'AgentClass            :   4:"Unknown"'
-        - 'AgentName             :   4:"Unknown"'
-        - 'AgentVersion          :   4:"Unknown"'
+- matcher:
+    extract:
+    - 'DeviceClass           : 301:"Mobile"'
+    - 'DeviceName            : 301:agent.(1)product.(1)name%3="Linux"@#2'
+    - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
+    - 'AgentClass            :   4:"Unknown"'
+    - 'AgentName             :   4:"Unknown"'
+    - 'AgentVersion          :   4:"Unknown"'
 
 
-  - matcher:
-      extract:
-        - 'DeviceClass           : 301:"Mobile"'
-        - 'DeviceName            : 301:agent.(1)product.(1)name%4="Linux"@#3'
-        - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
-        - 'AgentClass            :   4:"Unknown"'
-        - 'AgentName             :   4:"Unknown"'
-        - 'AgentVersion          :   4:"Unknown"'
+- matcher:
+    extract:
+    - 'DeviceClass           : 301:"Mobile"'
+    - 'DeviceName            : 301:agent.(1)product.(1)name%4="Linux"@#3'
+    - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
+    - 'AgentClass            :   4:"Unknown"'
+    - 'AgentName             :   4:"Unknown"'
+    - 'AgentVersion          :   4:"Unknown"'
 
 
-  - matcher:
-      require:
-        - 'agent.product.(1)name="Browser"'
-      extract:
-        - 'DeviceClass           : 301:"Mobile"'
-        - 'DeviceName            : 300:agent.(1)product.(1)name'
-        - 'DeviceVersion         : 300:agent.(1)product.(1)name^.version'
-        - 'AgentClass            :   4:"Unknown"'
-        - 'AgentName             :   4:"Unknown"'
-        - 'AgentVersion          :   4:"Unknown"'
+- matcher:
+    require:
+    - 'agent.product.(1)name="Browser"'
+    extract:
+    - 'DeviceClass           : 301:"Mobile"'
+    - 'DeviceName            : 300:agent.(1)product.(1)name'
+    - 'DeviceVersion         : 300:agent.(1)product.(1)name^.version'
+    - 'AgentClass            :   4:"Unknown"'
+    - 'AgentName             :   4:"Unknown"'
+    - 'AgentVersion          :   4:"Unknown"'
 
 
-  - matcher:
+- matcher:
 #      require:
 #        - 'agent.product.(1)name="Browser"'
-      extract:
-        - 'DeviceClass           : 301:"Mobile"'
-        - 'DeviceName            : 301:agent.(1)product.(1)name'
-        - 'DeviceVersion         : 301:agent.(1)product.(1)name^.version'
-        - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
-        - 'AgentClass            :   4:"Unknown"'
-        - 'AgentName             :   4:"Unknown"'
-        - 'AgentVersion          :   4:"Unknown"'
+    extract:
+    - 'DeviceClass           : 301:"Mobile"'
+    - 'DeviceName            : 301:agent.(1)product.(1)name'
+    - 'DeviceVersion         : 301:agent.(1)product.(1)name^.version'
+    - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
+    - 'AgentClass            :   4:"Unknown"'
+    - 'AgentName             :   4:"Unknown"'
+    - 'AgentVersion          :   4:"Unknown"'
 
 
-  - matcher:
-      require:
-        - 'agent.product.(1)name="Browser"^.version{"AppleWebKit"'
-      extract:
-        - 'LayoutEngineClass     :   1:"Browser"'
-        - 'LayoutEngineName      :   1:"AppleWebKit"'
-        - 'LayoutEngineVersion   :   1:agent.product.(1)name="Browser"^.version'
+- matcher:
+    require:
+    - 'agent.product.(1)name="Browser"^.version{"AppleWebKit"'
+    extract:
+    - 'LayoutEngineClass     :   1:"Browser"'
+    - 'LayoutEngineName      :   1:"AppleWebKit"'
+    - 'LayoutEngineVersion   :   1:agent.product.(1)name="Browser"^.version'
 
-  - test:
-      input:
-        user_agent_string: 'MT6572/V1 Linux/3.4.5 Android/4.2.2 Release/04.23.2014 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.2.2;'
-      expected:
-        DeviceClass                          : 'Phone'
-        DeviceName                           : 'MT6572'
-        DeviceFirmwareVersion                : '04.23.2014'
-        DeviceVersion                        : 'V1'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'Android'
-        OperatingSystemVersion               : '4.2.2'
-        OperatingSystemNameVersion           : 'Android 4.2.2'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : 'AppleWebKit534.30'
-        LayoutEngineVersionMajor             : 'AppleWebKit534'
-        LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Mobile Safari'
-        AgentVersion                         : '534.30'
-        AgentVersionMajor                    : '534'
-        AgentNameVersion                     : 'Mobile Safari 534.30'
-        AgentNameVersionMajor                : 'Mobile Safari 534'
-
-
-  - test:
-      input:
-        user_agent_string: 'Lenovo A800 Linux/3.0.13 Android/4.1.2 Release/09.25.2012 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.0.1;'
-      expected:
-        DeviceClass                          : 'Phone'
-        DeviceName                           : 'Lenovo'
-        DeviceFirmwareVersion                : '09.25.2012'
-        DeviceVersion                        : 'A800'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'Android'
-        OperatingSystemVersion               : '4.1.2'
-        OperatingSystemNameVersion           : 'Android 4.1.2'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : 'AppleWebKit534.30'
-        LayoutEngineVersionMajor             : 'AppleWebKit534'
-        LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Mobile Safari'
-        AgentVersion                         : '534.30'
-        AgentVersionMajor                    : '534'
-        AgentNameVersion                     : 'Mobile Safari 534.30'
-        AgentNameVersionMajor                : 'Mobile Safari 534'
+- test:
+    input:
+      user_agent_string: 'MT6572/V1 Linux/3.4.5 Android/4.2.2 Release/04.23.2014 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.2.2;'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'MT6572'
+      DeviceFirmwareVersion                : '04.23.2014'
+      DeviceVersion                        : 'V1'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.2.2'
+      OperatingSystemNameVersion           : 'Android 4.2.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : 'AppleWebKit534.30'
+      LayoutEngineVersionMajor             : 'AppleWebKit534'
+      LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Mobile Safari'
+      AgentVersion                         : '534.30'
+      AgentVersionMajor                    : '534'
+      AgentNameVersion                     : 'Mobile Safari 534.30'
+      AgentNameVersionMajor                : 'Mobile Safari 534'
 
 
-  - test:
-      input:
-        user_agent_string: 'AT-AS40SE Linux/3.0.13 Android/4.0.4 Release/04.10.2013 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.0.1;'
-      expected:
-        DeviceClass                          : 'Phone'
-        DeviceName                           : 'AT-AS40SE'
-        DeviceFirmwareVersion                : '04.10.2013'
-        DeviceVersion                        : '3.0.13'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'Android'
-        OperatingSystemVersion               : '4.0.4'
-        OperatingSystemNameVersion           : 'Android 4.0.4'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : 'AppleWebKit534.30'
-        LayoutEngineVersionMajor             : 'AppleWebKit534'
-        LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Mobile Safari'
-        AgentVersion                         : '534.30'
-        AgentVersionMajor                    : '534'
-        AgentNameVersion                     : 'Mobile Safari 534.30'
-        AgentNameVersionMajor                : 'Mobile Safari 534'
+- test:
+    input:
+      user_agent_string: 'Lenovo A800 Linux/3.0.13 Android/4.1.2 Release/09.25.2012 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.0.1;'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Lenovo'
+      DeviceFirmwareVersion                : '09.25.2012'
+      DeviceVersion                        : 'A800'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.1.2'
+      OperatingSystemNameVersion           : 'Android 4.1.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : 'AppleWebKit534.30'
+      LayoutEngineVersionMajor             : 'AppleWebKit534'
+      LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Mobile Safari'
+      AgentVersion                         : '534.30'
+      AgentVersionMajor                    : '534'
+      AgentNameVersion                     : 'Mobile Safari 534.30'
+      AgentNameVersionMajor                : 'Mobile Safari 534'
 
 
-  - matcher:
-      extract:
-        - 'AgentClass            :   100:"Browser"'
-        - 'AgentName             :   100:"Dolfin"'
-        - 'AgentVersion          :   100:agent.product.name="Dolfin"^.version'
-
-  - test:
-      input:
-        user_agent_string: 'SAMSUNG-GT-S5260/S5260XXKD1 SHP/VPP/R5 Dolfin/2.0 NexPlayer/3.0 SMM-MMS/1.2.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B'
-      expected:
-        DeviceClass                          : 'Mobile'
-        DeviceName                           : 'SAMSUNG-GT-S5260'
-        DeviceVersion                        : 'S5260XXKD1'
-        OperatingSystemClass                 : 'Unknown'
-        OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : '??'
-        LayoutEngineClass                    : 'Unknown'
-        LayoutEngineName                     : 'Unknown'
-        LayoutEngineVersion                  : '??'
-        LayoutEngineVersionMajor             : '??'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Dolfin'
-        AgentVersion                         : '2.0'
-        AgentVersionMajor                    : '2'
-        AgentNameVersion                     : 'Dolfin 2.0'
-        AgentNameVersionMajor                : 'Dolfin 2'
+- test:
+    input:
+      user_agent_string: 'AT-AS40SE Linux/3.0.13 Android/4.0.4 Release/04.10.2013 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.0.1;'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'AT-AS40SE'
+      DeviceFirmwareVersion                : '04.10.2013'
+      DeviceVersion                        : '3.0.13'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.0.4'
+      OperatingSystemNameVersion           : 'Android 4.0.4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : 'AppleWebKit534.30'
+      LayoutEngineVersionMajor             : 'AppleWebKit534'
+      LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Mobile Safari'
+      AgentVersion                         : '534.30'
+      AgentVersionMajor                    : '534'
+      AgentNameVersion                     : 'Mobile Safari 534.30'
+      AgentNameVersionMajor                : 'Mobile Safari 534'
 
 
-  - matcher:
-      extract:
-        - 'AgentClass            :   100:"Testclient"'
-        - 'AgentName             :   100:"Jasmine"'
-        - 'AgentVersion          :   100:agent.product.name="Jasmine"^.version'
+- matcher:
+    extract:
+    - 'AgentClass            :   100:"Browser"'
+    - 'AgentName             :   100:"Dolfin"'
+    - 'AgentVersion          :   100:agent.product.name="Dolfin"^.version'
+
+- test:
+    input:
+      user_agent_string: 'SAMSUNG-GT-S5260/S5260XXKD1 SHP/VPP/R5 Dolfin/2.0 NexPlayer/3.0 SMM-MMS/1.2.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'SAMSUNG-GT-S5260'
+      DeviceVersion                        : 'S5260XXKD1'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Dolfin'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Dolfin 2.0'
+      AgentNameVersionMajor                : 'Dolfin 2'
 
 
-  - test:
-      input:
-        user_agent_string: 'SAMSUNG-S8000/S800MCEIK1 SHP/VPP/R5 Jasmine/1.0 Nextreaming SMM-MMS/1.2.0 profile/MIDP-2.1 configuration/CLDC-1.1 SS-Widget/S8000-FM'
-      expected:
-        DeviceClass                          : 'Mobile'
-        DeviceName                           : 'SAMSUNG-S8000'
-        DeviceVersion                        : 'S800MCEIK1'
-        OperatingSystemClass                 : 'Unknown'
-        OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : '??'
-        LayoutEngineClass                    : 'Unknown'
-        LayoutEngineName                     : 'Unknown'
-        LayoutEngineVersion                  : '??'
-        LayoutEngineVersionMajor             : '??'
-        AgentClass                           : 'Testclient'
-        AgentName                            : 'Jasmine'
-        AgentVersion                         : '1.0'
-        AgentVersionMajor                    : '1'
-        AgentNameVersion                     : 'Jasmine 1.0'
-        AgentNameVersionMajor                : 'Jasmine 1'
+- matcher:
+    extract:
+    - 'AgentClass            :   100:"Testclient"'
+    - 'AgentName             :   100:"Jasmine"'
+    - 'AgentVersion          :   100:agent.product.name="Jasmine"^.version'
 
 
-  - test:
-      input:
-        user_agent_string: 'NokiaC3-00/5.0 (08.71) Profile/MIDP-2.1 Configuration/CLDC-1.1 UCWEB/2.0 (Java; U; MIDP-2.0; en-US; NokiaC3-00) U2/1.0.0 UCBrowser/9.5.0.449 U2/1.0.0 Mobile'
-      expected:
-        DeviceClass                          : 'Mobile'
-        DeviceName                           : 'NokiaC3-00'
-        DeviceVersion                        : '5.0'
-        OperatingSystemClass                 : 'Unknown'
-        OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : '??'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'UCBrowser'
-        LayoutEngineVersion                  : '9.5.0.449'
-        LayoutEngineVersionMajor             : '9'
-        LayoutEngineNameVersion              : 'UCBrowser 9.5.0.449'
-        LayoutEngineNameVersionMajor         : 'UCBrowser 9'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'UCBrowser'
-        AgentVersion                         : '9.5.0.449'
-        AgentVersionMajor                    : '9'
-        AgentNameVersion                     : 'UCBrowser 9.5.0.449'
-        AgentNameVersionMajor                : 'UCBrowser 9'
-        AgentLanguage                        : 'English (United States)'
-        AgentLanguageCode                    : 'en-us'
+- test:
+    input:
+      user_agent_string: 'SAMSUNG-S8000/S800MCEIK1 SHP/VPP/R5 Jasmine/1.0 Nextreaming SMM-MMS/1.2.0 profile/MIDP-2.1 configuration/CLDC-1.1 SS-Widget/S8000-FM'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'SAMSUNG-S8000'
+      DeviceVersion                        : 'S800MCEIK1'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Testclient'
+      AgentName                            : 'Jasmine'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Jasmine 1.0'
+      AgentNameVersionMajor                : 'Jasmine 1'
 
 
-  - test:
-      input:
-        user_agent_string: 'Nokia2320c-2b/2.0(ATT.11.10) Profile/MIDP-2.1 Configuration/CLDC-1.1'
-      expected:
-        DeviceClass                          : 'Mobile'
-        DeviceName                           : 'Nokia2320c-2b'
-        DeviceVersion                        : '2.0'
-        OperatingSystemClass                 : 'Unknown'
-        OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : '??'
-        LayoutEngineClass                    : 'Unknown'
-        LayoutEngineName                     : 'Unknown'
-        LayoutEngineVersion                  : '??'
-        LayoutEngineVersionMajor             : '??'
-        AgentClass                           : 'Special'
-        AgentName                            : 'Nokia2320c-2b'
-        AgentVersion                         : '2.0'
-        AgentVersionMajor                    : '2'
-        AgentNameVersion                     : 'Nokia2320c-2b 2.0'
-        AgentNameVersionMajor                : 'Nokia2320c-2b 2'
+- test:
+    input:
+      user_agent_string: 'NokiaC3-00/5.0 (08.71) Profile/MIDP-2.1 Configuration/CLDC-1.1 UCWEB/2.0 (Java; U; MIDP-2.0; en-US; NokiaC3-00) U2/1.0.0 UCBrowser/9.5.0.449 U2/1.0.0 Mobile'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'NokiaC3-00'
+      DeviceVersion                        : '5.0'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'UCBrowser'
+      LayoutEngineVersion                  : '9.5.0.449'
+      LayoutEngineVersionMajor             : '9'
+      LayoutEngineNameVersion              : 'UCBrowser 9.5.0.449'
+      LayoutEngineNameVersionMajor         : 'UCBrowser 9'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'UCBrowser'
+      AgentVersion                         : '9.5.0.449'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'UCBrowser 9.5.0.449'
+      AgentNameVersionMajor                : 'UCBrowser 9'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
 
 
-  - test:
-      input:
-        user_agent_string: 'BlackBerry9300/5.0.0.716 Profile/MIDP-2.1 Configuration/CLDC-1.1 VendorID/603'
-      expected:
-        DeviceClass                          : 'Mobile'
-        DeviceName                           : 'BlackBerry9300'
-        DeviceVersion                        : '5.0.0.716'
-        OperatingSystemClass                 : 'Unknown'
-        OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : '??'
-        LayoutEngineClass                    : 'Unknown'
-        LayoutEngineName                     : 'Unknown'
-        LayoutEngineVersion                  : '??'
-        LayoutEngineVersionMajor             : '??'
-        AgentClass                           : 'Special'
-        AgentName                            : 'BlackBerry9300'
-        AgentVersion                         : '5.0.0.716'
-        AgentVersionMajor                    : '5'
-        AgentNameVersion                     : 'BlackBerry9300 5.0.0.716'
-        AgentNameVersionMajor                : 'BlackBerry9300 5'
-
-  - test:
-      input:
-        user_agent_string: 'AT-AS45SE Linux/3.0.13 Android/4.0.4 Release/09.28.2012 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.0.1;'
-      expected:
-        DeviceClass                          : 'Phone'
-        DeviceName                           : 'AT-AS45SE'
-        DeviceFirmwareVersion                : '09.28.2012'
-        DeviceVersion                        : '3.0.13'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'Android'
-        OperatingSystemVersion               : '4.0.4'
-        OperatingSystemNameVersion           : 'Android 4.0.4'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : 'AppleWebKit534.30'
-        LayoutEngineVersionMajor             : 'AppleWebKit534'
-        LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Mobile Safari'
-        AgentVersion                         : '534.30'
-        AgentVersionMajor                    : '534'
-        AgentNameVersion                     : 'Mobile Safari 534.30'
-        AgentNameVersionMajor                : 'Mobile Safari 534'
-
-  - test:
-      input:
-        user_agent_string: 'Athens15_TD/V2 Linux/3.0.13 Android/4.0 Release/02.15.2012 Browser/AppleWebKit534.30 Mobile Safari/534.30 MBBMS/2.2 System/Android 4.0.1;'
-      expected:
-        DeviceClass                          : 'Phone'
-        DeviceName                           : 'Athens15_TD'
-        DeviceFirmwareVersion                : '02.15.2012'
-        DeviceVersion                        : 'V2'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'Android'
-        OperatingSystemVersion               : '4.0'
-        OperatingSystemNameVersion           : 'Android 4.0'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : 'AppleWebKit534.30'
-        LayoutEngineVersionMajor             : 'AppleWebKit534'
-        LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Mobile Safari'
-        AgentVersion                         : '534.30'
-        AgentVersionMajor                    : '534'
-        AgentNameVersion                     : 'Mobile Safari 534.30'
-        AgentNameVersionMajor                : 'Mobile Safari 534'
+- test:
+    input:
+      user_agent_string: 'Nokia2320c-2b/2.0(ATT.11.10) Profile/MIDP-2.1 Configuration/CLDC-1.1'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia2320c-2b'
+      DeviceVersion                        : '2.0'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Nokia2320c-2b'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Nokia2320c-2b 2.0'
+      AgentNameVersionMajor                : 'Nokia2320c-2b 2'
 
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   110:"Mobile"'
-        - 'DeviceName            :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)name'
-        - 'DeviceVersion         :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)version'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-        - 'OperatingSystemVersion   :   10:"??"'
+- test:
+    input:
+      user_agent_string: 'BlackBerry9300/5.0.0.716 Profile/MIDP-2.1 Configuration/CLDC-1.1 VendorID/603'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'BlackBerry9300'
+      DeviceVersion                        : '5.0.0.716'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'BlackBerry9300'
+      AgentVersion                         : '5.0.0.716'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'BlackBerry9300 5.0.0.716'
+      AgentNameVersionMajor                : 'BlackBerry9300 5'
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   109:"Mobile"'
-        - 'DeviceName            :   109:agent.(1)product.(1)comments.(7)entry.text'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-        - 'OperatingSystemVersion   :   10:"??"'
+- test:
+    input:
+      user_agent_string: 'AT-AS45SE Linux/3.0.13 Android/4.0.4 Release/09.28.2012 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.0.1;'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'AT-AS45SE'
+      DeviceFirmwareVersion                : '09.28.2012'
+      DeviceVersion                        : '3.0.13'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.0.4'
+      OperatingSystemNameVersion           : 'Android 4.0.4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : 'AppleWebKit534.30'
+      LayoutEngineVersionMajor             : 'AppleWebKit534'
+      LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Mobile Safari'
+      AgentVersion                         : '534.30'
+      AgentVersionMajor                    : '534'
+      AgentNameVersion                     : 'Mobile Safari 534.30'
+      AgentNameVersionMajor                : 'Mobile Safari 534'
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   108:"Mobile"'
-        - 'DeviceName            :   108:agent.(1)product.(1)comments.(6)entry.(1)product.(1)name'
-        - 'DeviceVersion         :   108:agent.(1)product.(1)comments.(6)entry.(1)product.(1)version'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-        - 'OperatingSystemVersion   :   10:"??"'
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   107:"Mobile"'
-        - 'DeviceName            :   107:agent.(1)product.(1)comments.(6)entry.text'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-        - 'OperatingSystemVersion   :   10:"??"'
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   106:"Mobile"'
-        - 'DeviceName            :   106:agent.(1)product.(1)comments.(5)entry.(1)product.(1)name'
-        - 'DeviceVersion         :   106:agent.(1)product.(1)comments.(5)entry.(1)product.(1)version'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-        - 'OperatingSystemVersion   :   10:"??"'
-
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   105:"Mobile"'
-        - 'DeviceName            :   105:agent.(1)product.(1)comments.(5)entry.text'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-        - 'OperatingSystemVersion   :   10:"??"'
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   104:"Mobile"'
-        - 'DeviceName            :   104:agent.(1)product.(1)comments.(4)entry.(1)product.(1)name'
-        - 'DeviceVersion         :   104:agent.(1)product.(1)comments.(4)entry.(1)product.(1)version'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-        - 'OperatingSystemVersion   :   10:"??"'
+- test:
+    input:
+      user_agent_string: 'Athens15_TD/V2 Linux/3.0.13 Android/4.0 Release/02.15.2012 Browser/AppleWebKit534.30 Mobile Safari/534.30 MBBMS/2.2 System/Android 4.0.1;'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Athens15_TD'
+      DeviceFirmwareVersion                : '02.15.2012'
+      DeviceVersion                        : 'V2'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.0'
+      OperatingSystemNameVersion           : 'Android 4.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : 'AppleWebKit534.30'
+      LayoutEngineVersionMajor             : 'AppleWebKit534'
+      LayoutEngineNameVersion              : 'AppleWebKit AppleWebKit534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit AppleWebKit534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Mobile Safari'
+      AgentVersion                         : '534.30'
+      AgentVersionMajor                    : '534'
+      AgentNameVersion                     : 'Mobile Safari 534.30'
+      AgentNameVersionMajor                : 'Mobile Safari 534'
 
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   103:"Mobile"'
-        - 'DeviceName            :   103:agent.(1)product.(1)comments.(4)entry.text'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-        - 'OperatingSystemVersion   :   10:"??"'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   110:"Mobile"'
+    - 'DeviceName            :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)name'
+    - 'DeviceVersion         :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)version'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion   :   10:"??"'
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass              :   102:"Mobile"'
-        - 'DeviceName               :   102:agent.(1)product.(1)comments.(3)entry.(1)product.(1)name'
-        - 'DeviceVersion            :   102:agent.(1)product.(1)comments.(3)entry.(1)product.(1)version'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-        - 'OperatingSystemVersion   :   10:"??"'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   109:"Mobile"'
+    - 'DeviceName            :   109:agent.(1)product.(1)comments.(7)entry.text'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion   :   10:"??"'
 
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   108:"Mobile"'
+    - 'DeviceName            :   108:agent.(1)product.(1)comments.(6)entry.(1)product.(1)name'
+    - 'DeviceVersion         :   108:agent.(1)product.(1)comments.(6)entry.(1)product.(1)version'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion   :   10:"??"'
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   101:"Mobile"'
-        - 'DeviceName            :   101:agent.(1)product.(1)comments.(3)entry.text'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-        - 'OperatingSystemVersion   :   10:"??"'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   107:"Mobile"'
+    - 'DeviceName            :   107:agent.(1)product.(1)comments.(6)entry.text'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion   :   10:"??"'
 
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   110:"Mobile"'
-        - 'DeviceName            :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)name'
-        - 'DeviceVersion         :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)version'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-        - 'OperatingSystemVersion   :   10:"??"'
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   109:"Mobile"'
-        - 'DeviceName            :   109:agent.(1)product.(1)comments.(7)entry.text'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-        - 'OperatingSystemVersion   :   10:"??"'
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   108:"Mobile"'
-        - 'DeviceName            :   108:agent.(1)product.(1)comments.(6)entry.(1)product.(1)name'
-        - 'DeviceVersion         :   108:agent.(1)product.(1)comments.(6)entry.(1)product.(1)version'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-        - 'OperatingSystemVersion   :   10:"??"'
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   107:"Mobile"'
-        - 'DeviceName            :   107:agent.(1)product.(1)comments.(6)entry.text'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-        - 'OperatingSystemVersion   :   10:"??"'
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   106:"Mobile"'
-        - 'DeviceName            :   106:agent.(1)product.(1)comments.(5)entry.(1)product.(1)name'
-        - 'DeviceVersion         :   106:agent.(1)product.(1)comments.(5)entry.(1)product.(1)version'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-        - 'OperatingSystemVersion   :   10:"??"'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   106:"Mobile"'
+    - 'DeviceName            :   106:agent.(1)product.(1)comments.(5)entry.(1)product.(1)name'
+    - 'DeviceVersion         :   106:agent.(1)product.(1)comments.(5)entry.(1)product.(1)version'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion   :   10:"??"'
 
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   105:"Mobile"'
-        - 'DeviceName            :   105:agent.(1)product.(1)comments.(5)entry.text'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-        - 'OperatingSystemVersion   :   10:"??"'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   105:"Mobile"'
+    - 'DeviceName            :   105:agent.(1)product.(1)comments.(5)entry.text'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion   :   10:"??"'
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   104:"Mobile"'
-        - 'DeviceName            :   104:agent.(1)product.(1)comments.(4)entry.(1)product.(1)name'
-        - 'DeviceVersion         :   104:agent.(1)product.(1)comments.(4)entry.(1)product.(1)version'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-        - 'OperatingSystemVersion   :   10:"??"'
-
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   103:"Mobile"'
-        - 'DeviceName            :   103:agent.(1)product.(1)comments.(4)entry.text'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-        - 'OperatingSystemVersion   :   10:"??"'
-
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass              :   102:"Mobile"'
-        - 'DeviceName               :   102:agent.(1)product.(1)comments.(3)entry.(1)product.(1)name'
-        - 'DeviceVersion            :   102:agent.(1)product.(1)comments.(3)entry.(1)product.(1)version'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-        - 'OperatingSystemVersion   :   10:"??"'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   104:"Mobile"'
+    - 'DeviceName            :   104:agent.(1)product.(1)comments.(4)entry.(1)product.(1)name'
+    - 'DeviceVersion         :   104:agent.(1)product.(1)comments.(4)entry.(1)product.(1)version'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion   :   10:"??"'
 
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="UCWEB"'
-      extract:
-        - 'DeviceClass           :   101:"Mobile"'
-        - 'DeviceName            :   101:agent.(1)product.(1)comments.(3)entry.text'
-        - 'OperatingSystemClass     :   10:"Mobile"'
-        - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-        - 'OperatingSystemVersion   :   10:"??"'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   103:"Mobile"'
+    - 'DeviceName            :   103:agent.(1)product.(1)comments.(4)entry.text'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion   :   10:"??"'
 
-  - matcher:
-      extract:
-        - 'LayoutEngineClass     :  101:"Browser"'
-        - 'LayoutEngineName      :  101:"UCBrowser"'
-        - 'LayoutEngineVersion   :  101:agent.product.name="UCBrowser"^.version'
-        - 'AgentClass            :  101:"Browser"'
-        - 'AgentName             :  101:"UCBrowser"'
-        - 'AgentVersion          :  101:agent.product.name="UCBrowser"^.version'
-
-  - test:
-      input:
-        user_agent_string: 'UCWEB/2.0 (Java; U; MIDP-2.0; Nokia203/20.37) U2/1.0.0 UCBrowser/8.7.0.218 U2/1.0.0 Mobile'
-      expected:
-        DeviceClass                          : 'Mobile'
-        DeviceName                           : 'Nokia203'
-        DeviceVersion                        : '20.37'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'Java'
-        OperatingSystemVersion               : '??'
-        OperatingSystemNameVersion           : 'Java ??'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'UCBrowser'
-        LayoutEngineVersion                  : '8.7.0.218'
-        LayoutEngineVersionMajor             : '8'
-        LayoutEngineNameVersion              : 'UCBrowser 8.7.0.218'
-        LayoutEngineNameVersionMajor         : 'UCBrowser 8'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'UCBrowser'
-        AgentVersion                         : '8.7.0.218'
-        AgentVersionMajor                    : '8'
-        AgentNameVersion                     : 'UCBrowser 8.7.0.218'
-        AgentNameVersionMajor                : 'UCBrowser 8'
-        AgentSecurity                        : 'Strong security'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass              :   102:"Mobile"'
+    - 'DeviceName               :   102:agent.(1)product.(1)comments.(3)entry.(1)product.(1)name'
+    - 'DeviceVersion            :   102:agent.(1)product.(1)comments.(3)entry.(1)product.(1)version'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion   :   10:"??"'
 
 
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   101:"Mobile"'
+    - 'DeviceName            :   101:agent.(1)product.(1)comments.(3)entry.text'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion   :   10:"??"'
 
-  - test:
-      input:
-        user_agent_string: 'UCWEB/2.0(BlackBerry; U; 6.6.0.236; en-us; 9300/6.6.0.236) U2/1.0.0 UCBrowser/8.1.0.216 U2/1.0.0 Mobile'
-      expected:
-        DeviceClass                          : 'Mobile'
-        DeviceName                           : '9300'
-        DeviceBrand                          : 'BlackBerry'
-        DeviceVersion                        : '6.6.0.236'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'RIM OS'
-        OperatingSystemVersion               : 'RIM OS'
-        OperatingSystemNameVersion           : 'RIM OS'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'UCBrowser'
-        LayoutEngineVersion                  : '8.1.0.216'
-        LayoutEngineVersionMajor             : '8'
-        LayoutEngineNameVersion              : 'UCBrowser 8.1.0.216'
-        LayoutEngineNameVersionMajor         : 'UCBrowser 8'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'UCBrowser'
-        AgentVersion                         : '8.1.0.216'
-        AgentVersionMajor                    : '8'
-        AgentNameVersion                     : 'UCBrowser 8.1.0.216'
-        AgentNameVersionMajor                : 'UCBrowser 8'
-        AgentLanguage                        : 'English (United States)'
-        AgentLanguageCode                    : 'en-us'
-        AgentSecurity                        : 'Strong security'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   110:"Mobile"'
+    - 'DeviceName            :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)name'
+    - 'DeviceVersion         :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)version'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion   :   10:"??"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   109:"Mobile"'
+    - 'DeviceName            :   109:agent.(1)product.(1)comments.(7)entry.text'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion   :   10:"??"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   108:"Mobile"'
+    - 'DeviceName            :   108:agent.(1)product.(1)comments.(6)entry.(1)product.(1)name'
+    - 'DeviceVersion         :   108:agent.(1)product.(1)comments.(6)entry.(1)product.(1)version'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion   :   10:"??"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   107:"Mobile"'
+    - 'DeviceName            :   107:agent.(1)product.(1)comments.(6)entry.text'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion   :   10:"??"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   106:"Mobile"'
+    - 'DeviceName            :   106:agent.(1)product.(1)comments.(5)entry.(1)product.(1)name'
+    - 'DeviceVersion         :   106:agent.(1)product.(1)comments.(5)entry.(1)product.(1)version'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion   :   10:"??"'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   105:"Mobile"'
+    - 'DeviceName            :   105:agent.(1)product.(1)comments.(5)entry.text'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion   :   10:"??"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   104:"Mobile"'
+    - 'DeviceName            :   104:agent.(1)product.(1)comments.(4)entry.(1)product.(1)name'
+    - 'DeviceVersion         :   104:agent.(1)product.(1)comments.(4)entry.(1)product.(1)version'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion   :   10:"??"'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   103:"Mobile"'
+    - 'DeviceName            :   103:agent.(1)product.(1)comments.(4)entry.text'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion   :   10:"??"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass              :   102:"Mobile"'
+    - 'DeviceName               :   102:agent.(1)product.(1)comments.(3)entry.(1)product.(1)name'
+    - 'DeviceVersion            :   102:agent.(1)product.(1)comments.(3)entry.(1)product.(1)version'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion   :   10:"??"'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="UCWEB"'
+    extract:
+    - 'DeviceClass           :   101:"Mobile"'
+    - 'DeviceName            :   101:agent.(1)product.(1)comments.(3)entry.text'
+    - 'OperatingSystemClass     :   10:"Mobile"'
+    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion   :   10:"??"'
+
+- matcher:
+    extract:
+    - 'LayoutEngineClass     :  101:"Browser"'
+    - 'LayoutEngineName      :  101:"UCBrowser"'
+    - 'LayoutEngineVersion   :  101:agent.product.name="UCBrowser"^.version'
+    - 'AgentClass            :  101:"Browser"'
+    - 'AgentName             :  101:"UCBrowser"'
+    - 'AgentVersion          :  101:agent.product.name="UCBrowser"^.version'
+
+- test:
+    input:
+      user_agent_string: 'UCWEB/2.0 (Java; U; MIDP-2.0; Nokia203/20.37) U2/1.0.0 UCBrowser/8.7.0.218 U2/1.0.0 Mobile'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia203'
+      DeviceVersion                        : '20.37'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Java'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Java ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'UCBrowser'
+      LayoutEngineVersion                  : '8.7.0.218'
+      LayoutEngineVersionMajor             : '8'
+      LayoutEngineNameVersion              : 'UCBrowser 8.7.0.218'
+      LayoutEngineNameVersionMajor         : 'UCBrowser 8'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'UCBrowser'
+      AgentVersion                         : '8.7.0.218'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'UCBrowser 8.7.0.218'
+      AgentNameVersionMajor                : 'UCBrowser 8'
+      AgentSecurity                        : 'Strong security'
 
 
 
-  - test:
-      input:
-        user_agent_string: 'UCWEB/2.0 (Windows; U; wds 8.10; pt-BR; NOKIA; RM-979_1004) U2/1.0.0 UCBrowser/4.2.1.541 U2/1.0.0 Mobile'
-      expected:
-        DeviceClass                          : 'Mobile'
-        DeviceName                           : 'RM-979_1004'
-        DeviceVersion                        : '8.10'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'Windows'
-        OperatingSystemVersion               : '??'
-        OperatingSystemNameVersion           : 'Windows ??'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'UCBrowser'
-        LayoutEngineVersion                  : '4.2.1.541'
-        LayoutEngineVersionMajor             : '4'
-        LayoutEngineNameVersion              : 'UCBrowser 4.2.1.541'
-        LayoutEngineNameVersionMajor         : 'UCBrowser 4'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'UCBrowser'
-        AgentVersion                         : '4.2.1.541'
-        AgentVersionMajor                    : '4'
-        AgentNameVersion                     : 'UCBrowser 4.2.1.541'
-        AgentNameVersionMajor                : 'UCBrowser 4'
-        AgentLanguage                        : 'Portuguese (Brazil)'
-        AgentLanguageCode                    : 'pt-br'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'UCWEB/2.0(BlackBerry; U; 6.6.0.236; en-us; 9300/6.6.0.236) U2/1.0.0 UCBrowser/8.1.0.216 U2/1.0.0 Mobile'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : '9300'
+      DeviceBrand                          : 'BlackBerry'
+      DeviceVersion                        : '6.6.0.236'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'RIM OS'
+      OperatingSystemVersion               : 'RIM OS'
+      OperatingSystemNameVersion           : 'RIM OS'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'UCBrowser'
+      LayoutEngineVersion                  : '8.1.0.216'
+      LayoutEngineVersionMajor             : '8'
+      LayoutEngineNameVersion              : 'UCBrowser 8.1.0.216'
+      LayoutEngineNameVersionMajor         : 'UCBrowser 8'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'UCBrowser'
+      AgentVersion                         : '8.1.0.216'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'UCBrowser 8.1.0.216'
+      AgentNameVersionMajor                : 'UCBrowser 8'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
 
 
-  - test:
-      input:
-        user_agent_string: 'UCWEB/2.0 (Linux; U; Adr 4.1.2; zh-CN; GT-N7100) U2/1.0.0 UCBrowser/9.5.0.360 U2/1.0.0 Mobile'
-      expected:
-        DeviceClass                          : 'Mobile'
-        DeviceName                           : 'GT-N7100'
-        DeviceVersion                        : '4.1.2'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'Android'
-        OperatingSystemVersion               : '4.1.2'
-        OperatingSystemNameVersion           : 'Android 4.1.2'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'UCBrowser'
-        LayoutEngineVersion                  : '9.5.0.360'
-        LayoutEngineVersionMajor             : '9'
-        LayoutEngineNameVersion              : 'UCBrowser 9.5.0.360'
-        LayoutEngineNameVersionMajor         : 'UCBrowser 9'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'UCBrowser'
-        AgentVersion                         : '9.5.0.360'
-        AgentVersionMajor                    : '9'
-        AgentNameVersion                     : 'UCBrowser 9.5.0.360'
-        AgentNameVersionMajor                : 'UCBrowser 9'
-        AgentLanguage                        : 'Chinese (S)'
-        AgentLanguageCode                    : 'zh-cn'
-        AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'UCWEB/2.0 (Windows; U; wds 8.10; pt-BR; NOKIA; RM-979_1004) U2/1.0.0 UCBrowser/4.2.1.541 U2/1.0.0 Mobile'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'RM-979_1004'
+      DeviceVersion                        : '8.10'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Windows ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'UCBrowser'
+      LayoutEngineVersion                  : '4.2.1.541'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'UCBrowser 4.2.1.541'
+      LayoutEngineNameVersionMajor         : 'UCBrowser 4'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'UCBrowser'
+      AgentVersion                         : '4.2.1.541'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'UCBrowser 4.2.1.541'
+      AgentNameVersionMajor                : 'UCBrowser 4'
+      AgentLanguage                        : 'Portuguese (Brazil)'
+      AgentLanguageCode                    : 'pt-br'
+      AgentSecurity                        : 'Strong security'
 
 
-  - test:
-      input:
-        user_agent_string: 'UCWEB/8.8 (iPhone; CPU OS_6; en-US)AppleWebKit/534.1 U3/3.0.0 Mobile'
-      expected:
-        DeviceClass                          : 'Mobile'
-        DeviceName                           : 'en-US'
-        DeviceBrand                          : 'Apple'
-        DeviceVersion                        : 'iPhone'
-        OperatingSystemClass                 : 'Mobile'
-        OperatingSystemName                  : 'iOS'
-        OperatingSystemVersion               : '??'
-        OperatingSystemNameVersion           : 'iOS ??'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '534.1'
-        LayoutEngineVersionMajor             : '534'
-        LayoutEngineNameVersion              : 'AppleWebKit 534.1'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'U3'
-        AgentVersion                         : '3.0.0'
-        AgentVersionMajor                    : '3'
-        AgentNameVersion                     : 'U3 3.0.0'
-        AgentNameVersionMajor                : 'U3 3'
-        AgentLanguage                        : 'English (United States)'
-        AgentLanguageCode                    : 'en-us'
+- test:
+    input:
+      user_agent_string: 'UCWEB/2.0 (Linux; U; Adr 4.1.2; zh-CN; GT-N7100) U2/1.0.0 UCBrowser/9.5.0.360 U2/1.0.0 Mobile'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'GT-N7100'
+      DeviceVersion                        : '4.1.2'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.1.2'
+      OperatingSystemNameVersion           : 'Android 4.1.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'UCBrowser'
+      LayoutEngineVersion                  : '9.5.0.360'
+      LayoutEngineVersionMajor             : '9'
+      LayoutEngineNameVersion              : 'UCBrowser 9.5.0.360'
+      LayoutEngineNameVersionMajor         : 'UCBrowser 9'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'UCBrowser'
+      AgentVersion                         : '9.5.0.360'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'UCBrowser 9.5.0.360'
+      AgentNameVersionMajor                : 'UCBrowser 9'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'UCWEB/8.8 (iPhone; CPU OS_6; en-US)AppleWebKit/534.1 U3/3.0.0 Mobile'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'en-US'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.1'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'U3'
+      AgentVersion                         : '3.0.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'U3 3.0.0'
+      AgentNameVersionMajor                : 'U3 3'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'

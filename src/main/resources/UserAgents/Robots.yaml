@@ -20,346 +20,346 @@
 
 config:
 
-  - matcher:
-      require:
-        - 'agent.(1)product.name~"spider"'
-      extract:
-        - 'DeviceClass           :  100:"Robot"'
-        - 'DeviceBrand           :  100:"Robot"'
-        - 'DeviceName            :  100:agent.(1)product.name'
-        - 'OperatingSystemClass  :  100:"Cloud"'
-        - 'OperatingSystemName   :  100:"Cloud"'
-        - 'OperatingSystemVersion:  100:"Cloud"'
-        - 'LayoutEngineClass     :  100:"Robot"'
-        - 'LayoutEngineName      :  100:agent.(1)product.name'
-        - 'LayoutEngineVersion   :  100:agent.(1)product.(1)version'
-        - 'AgentClass            :  100:"Robot"'
-        - 'AgentName             :  100:agent.(1)product.name'
-        - 'AgentVersion          :  100:agent.(1)product.(1)version'
+- matcher:
+    require:
+    - 'agent.(1)product.name~"spider"'
+    extract:
+    - 'DeviceClass           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceName            :  100:agent.(1)product.name'
+    - 'OperatingSystemClass  :  100:"Cloud"'
+    - 'OperatingSystemName   :  100:"Cloud"'
+    - 'OperatingSystemVersion:  100:"Cloud"'
+    - 'LayoutEngineClass     :  100:"Robot"'
+    - 'LayoutEngineName      :  100:agent.(1)product.name'
+    - 'LayoutEngineVersion   :  100:agent.(1)product.(1)version'
+    - 'AgentClass            :  100:"Robot"'
+    - 'AgentName             :  100:agent.(1)product.name'
+    - 'AgentVersion          :  100:agent.(1)product.(1)version'
 
-  - matcher:
-      require:
-        - 'agent.(1)product.name~"crawl"'
-      extract:
-        - 'DeviceClass           :  100:"Robot"'
-        - 'DeviceBrand           :  100:"Robot"'
-        - 'DeviceName            :  100:agent.(1)product.name'
-        - 'OperatingSystemClass  :  100:"Cloud"'
-        - 'OperatingSystemName   :  100:"Cloud"'
-        - 'OperatingSystemVersion:  100:"Cloud"'
-        - 'LayoutEngineClass     :  100:"Robot"'
-        - 'LayoutEngineName      :  100:agent.(1)product.name'
-        - 'LayoutEngineVersion   :  100:agent.(1)product.(1)version'
-        - 'AgentClass            :  100:"Robot"'
-        - 'AgentName             :  100:agent.(1)product.name'
-        - 'AgentVersion          :  100:agent.(1)product.(1)version'
+- matcher:
+    require:
+    - 'agent.(1)product.name~"crawl"'
+    extract:
+    - 'DeviceClass           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceName            :  100:agent.(1)product.name'
+    - 'OperatingSystemClass  :  100:"Cloud"'
+    - 'OperatingSystemName   :  100:"Cloud"'
+    - 'OperatingSystemVersion:  100:"Cloud"'
+    - 'LayoutEngineClass     :  100:"Robot"'
+    - 'LayoutEngineName      :  100:agent.(1)product.name'
+    - 'LayoutEngineVersion   :  100:agent.(1)product.(1)version'
+    - 'AgentClass            :  100:"Robot"'
+    - 'AgentName             :  100:agent.(1)product.name'
+    - 'AgentVersion          :  100:agent.(1)product.(1)version'
 
-  - matcher:
-      require:
-        - 'agent.(1)product.name~"bot"'
-      extract:
-        - 'DeviceClass           :  100:"Robot"'
-        - 'DeviceBrand           :  100:"Robot"'
-        - 'DeviceName            :  100:agent.(1)product.name'
-        - 'OperatingSystemClass  :  100:"Cloud"'
-        - 'OperatingSystemName   :  100:"Cloud"'
-        - 'OperatingSystemVersion:  100:"Cloud"'
-        - 'LayoutEngineClass     :  100:"Robot"'
-        - 'LayoutEngineName      :  100:agent.(1)product.name'
-        - 'LayoutEngineVersion   :  100:agent.(1)product.(1)version'
-        - 'AgentClass            :  100:"Robot"'
-        - 'AgentName             :  100:agent.(1)product.name'
-        - 'AgentVersion          :  100:agent.(1)product.(1)version'
-
-
-  - matcher:
-      require:
-        - 'agent.(1)product.comments.entry.product.name~"spider"'
-      extract:
-        - 'DeviceClass           :  100:"Robot"'
-        - 'DeviceBrand           :  100:"Robot"'
-        - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"spider"'
-        - 'OperatingSystemClass  :  100:"Cloud"'
-        - 'OperatingSystemName   :  100:"Cloud"'
-        - 'OperatingSystemVersion:  100:"Cloud"'
-        - 'LayoutEngineClass     :  100:"Robot"'
-        - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.product.name~"spider"'
-        - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.product.name~"spider"^.version'
-        - 'AgentClass            :  100:"Robot"'
-        - 'AgentName             :  100:agent.(1)product.comments.entry.product.name~"spider"'
-        - 'AgentVersion          :  100:agent.(1)product.comments.entry.product.name~"spider"^.version'
-
-  - matcher:
-      require:
-        - 'agent.(1)product.comments.entry.product.name~"crawl"'
-      extract:
-        - 'DeviceClass           :  100:"Robot"'
-        - 'DeviceBrand           :  100:"Robot"'
-        - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"crawl"'
-        - 'OperatingSystemClass  :  100:"Cloud"'
-        - 'OperatingSystemName   :  100:"Cloud"'
-        - 'OperatingSystemVersion:  100:"Cloud"'
-        - 'LayoutEngineClass     :  100:"Robot"'
-        - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.product.name~"crawl"'
-        - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.product.name~"crawl"^.version'
-        - 'AgentClass            :  100:"Robot"'
-        - 'AgentName             :  100:agent.(1)product.comments.entry.product.name~"crawl"'
-        - 'AgentVersion          :  100:agent.(1)product.comments.entry.product.name~"crawl"^.version'
-
-  - matcher:
-      require:
-        - 'agent.(1)product.comments.entry.product.name~"bot"'
-      extract:
-        - 'DeviceClass           :  100:"Robot"'
-        - 'DeviceBrand           :  100:"Robot"'
-        - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"bot"'
-        - 'OperatingSystemClass  :  100:"Cloud"'
-        - 'OperatingSystemName   :  100:"Cloud"'
-        - 'OperatingSystemVersion:  100:"Cloud"'
-        - 'LayoutEngineClass     :  100:"Robot"'
-        - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.product.name~"bot"'
-        - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.product.name~"bot"^.version'
-        - 'AgentClass            :  100:"Robot"'
-        - 'AgentName             :  100:agent.(1)product.comments.entry.product.name~"bot"'
-        - 'AgentVersion          :  100:agent.(1)product.comments.entry.product.name~"bot"^.version'
+- matcher:
+    require:
+    - 'agent.(1)product.name~"bot"'
+    extract:
+    - 'DeviceClass           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceName            :  100:agent.(1)product.name'
+    - 'OperatingSystemClass  :  100:"Cloud"'
+    - 'OperatingSystemName   :  100:"Cloud"'
+    - 'OperatingSystemVersion:  100:"Cloud"'
+    - 'LayoutEngineClass     :  100:"Robot"'
+    - 'LayoutEngineName      :  100:agent.(1)product.name'
+    - 'LayoutEngineVersion   :  100:agent.(1)product.(1)version'
+    - 'AgentClass            :  100:"Robot"'
+    - 'AgentName             :  100:agent.(1)product.name'
+    - 'AgentVersion          :  100:agent.(1)product.(1)version'
 
 
-  - matcher:
-      require:
-        - 'agent.(1)product.comments.entry.text~"spider"'
-      extract:
-        - 'DeviceClass           :  100:"Robot"'
-        - 'DeviceBrand           :  100:"Robot"'
-        - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"spider"'
-        - 'OperatingSystemClass  :  100:"Cloud"'
-        - 'OperatingSystemName   :  100:"Cloud"'
-        - 'OperatingSystemVersion:  100:"Cloud"'
-        - 'LayoutEngineClass     :  100:"Robot"'
-        - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.text~"spider"'
-        - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.text~"spider"'
-        - 'AgentClass            :  100:"Robot"'
-        - 'AgentName             :  100:agent.(1)product.comments.entry.text~"spider"'
-        - 'AgentVersion          :  100:agent.(1)product.comments.entry.text~"spider"'
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry.product.name~"spider"'
+    extract:
+    - 'DeviceClass           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"spider"'
+    - 'OperatingSystemClass  :  100:"Cloud"'
+    - 'OperatingSystemName   :  100:"Cloud"'
+    - 'OperatingSystemVersion:  100:"Cloud"'
+    - 'LayoutEngineClass     :  100:"Robot"'
+    - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.product.name~"spider"'
+    - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.product.name~"spider"^.version'
+    - 'AgentClass            :  100:"Robot"'
+    - 'AgentName             :  100:agent.(1)product.comments.entry.product.name~"spider"'
+    - 'AgentVersion          :  100:agent.(1)product.comments.entry.product.name~"spider"^.version'
 
-  - matcher:
-      require:
-        - 'agent.(1)product.comments.entry.text~"crawl"'
-      extract:
-        - 'DeviceClass           :  100:"Robot"'
-        - 'DeviceBrand           :  100:"Robot"'
-        - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"crawl"'
-        - 'OperatingSystemClass  :  100:"Cloud"'
-        - 'OperatingSystemName   :  100:"Cloud"'
-        - 'OperatingSystemVersion:  100:"Cloud"'
-        - 'LayoutEngineClass     :  100:"Robot"'
-        - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.text~"crawl"'
-        - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.text~"crawl"'
-        - 'AgentClass            :  100:"Robot"'
-        - 'AgentName             :  100:agent.(1)product.comments.entry.text~"crawl"'
-        - 'AgentVersion          :  100:agent.(1)product.comments.entry.text~"crawl"'
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry.product.name~"crawl"'
+    extract:
+    - 'DeviceClass           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"crawl"'
+    - 'OperatingSystemClass  :  100:"Cloud"'
+    - 'OperatingSystemName   :  100:"Cloud"'
+    - 'OperatingSystemVersion:  100:"Cloud"'
+    - 'LayoutEngineClass     :  100:"Robot"'
+    - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.product.name~"crawl"'
+    - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.product.name~"crawl"^.version'
+    - 'AgentClass            :  100:"Robot"'
+    - 'AgentName             :  100:agent.(1)product.comments.entry.product.name~"crawl"'
+    - 'AgentVersion          :  100:agent.(1)product.comments.entry.product.name~"crawl"^.version'
 
-  - matcher:
-      require:
-        - 'agent.(1)product.comments.entry.text~"bot"'
-      extract:
-        - 'DeviceClass           :  100:"Robot"'
-        - 'DeviceBrand           :  100:"Robot"'
-        - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"bot"'
-        - 'OperatingSystemClass  :  100:"Cloud"'
-        - 'OperatingSystemName   :  100:"Cloud"'
-        - 'OperatingSystemVersion:  100:"Cloud"'
-        - 'LayoutEngineClass     :  100:"Robot"'
-        - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.text~"bot"'
-        - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.text~"bot"'
-        - 'AgentClass            :  100:"Robot"'
-        - 'AgentName             :  100:agent.(1)product.comments.entry.text~"bot"'
-        - 'AgentVersion          :  100:agent.(1)product.comments.entry.text~"bot"'
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry.product.name~"bot"'
+    extract:
+    - 'DeviceClass           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"bot"'
+    - 'OperatingSystemClass  :  100:"Cloud"'
+    - 'OperatingSystemName   :  100:"Cloud"'
+    - 'OperatingSystemVersion:  100:"Cloud"'
+    - 'LayoutEngineClass     :  100:"Robot"'
+    - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.product.name~"bot"'
+    - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.product.name~"bot"^.version'
+    - 'AgentClass            :  100:"Robot"'
+    - 'AgentName             :  100:agent.(1)product.comments.entry.product.name~"bot"'
+    - 'AgentVersion          :  100:agent.(1)product.comments.entry.product.name~"bot"^.version'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry.text~"spider"'
+    extract:
+    - 'DeviceClass           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"spider"'
+    - 'OperatingSystemClass  :  100:"Cloud"'
+    - 'OperatingSystemName   :  100:"Cloud"'
+    - 'OperatingSystemVersion:  100:"Cloud"'
+    - 'LayoutEngineClass     :  100:"Robot"'
+    - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.text~"spider"'
+    - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.text~"spider"'
+    - 'AgentClass            :  100:"Robot"'
+    - 'AgentName             :  100:agent.(1)product.comments.entry.text~"spider"'
+    - 'AgentVersion          :  100:agent.(1)product.comments.entry.text~"spider"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry.text~"crawl"'
+    extract:
+    - 'DeviceClass           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"crawl"'
+    - 'OperatingSystemClass  :  100:"Cloud"'
+    - 'OperatingSystemName   :  100:"Cloud"'
+    - 'OperatingSystemVersion:  100:"Cloud"'
+    - 'LayoutEngineClass     :  100:"Robot"'
+    - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.text~"crawl"'
+    - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.text~"crawl"'
+    - 'AgentClass            :  100:"Robot"'
+    - 'AgentName             :  100:agent.(1)product.comments.entry.text~"crawl"'
+    - 'AgentVersion          :  100:agent.(1)product.comments.entry.text~"crawl"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry.text~"bot"'
+    extract:
+    - 'DeviceClass           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"bot"'
+    - 'OperatingSystemClass  :  100:"Cloud"'
+    - 'OperatingSystemName   :  100:"Cloud"'
+    - 'OperatingSystemVersion:  100:"Cloud"'
+    - 'LayoutEngineClass     :  100:"Robot"'
+    - 'LayoutEngineName      :  100:agent.(1)product.comments.entry.text~"bot"'
+    - 'LayoutEngineVersion   :  100:agent.(1)product.comments.entry.text~"bot"'
+    - 'AgentClass            :  100:"Robot"'
+    - 'AgentName             :  100:agent.(1)product.comments.entry.text~"bot"'
+    - 'AgentVersion          :  100:agent.(1)product.comments.entry.text~"bot"'
 
 
 
-  - matcher:
-      require:
-        - 'agent.product.comments.entry.url="http://www.google.com/bot.html"'
-      extract:
-        - 'DeviceClass           :  3000:"Robot"'
-        - 'DeviceBrand           :  3000:"Google"'
-        - 'DeviceName            :  3000:"Google"'
-        - 'OperatingSystemClass  :  3000:"Cloud"'
-        - 'OperatingSystemName   :  3000:"Google"'
-        - 'OperatingSystemVersion:  3000:"Google"'
-        - 'LayoutEngineClass     :  3000:"Robot"'
-        - 'LayoutEngineName      :  3000:"Googlebot"'
-        - 'LayoutEngineVersion   :  3000:"Googlebot"'
-        - 'AgentClass            :  3000:"Robot"'
-        - 'AgentName             :  3000:agent.product.comments.entry.product.name{"Googlebot"@'
-        - 'AgentVersion          :  3000:agent.product.comments.entry.product.name{"Googlebot"^.version'
+- matcher:
+    require:
+    - 'agent.product.comments.entry.url="http://www.google.com/bot.html"'
+    extract:
+    - 'DeviceClass           :  3000:"Robot"'
+    - 'DeviceBrand           :  3000:"Google"'
+    - 'DeviceName            :  3000:"Google"'
+    - 'OperatingSystemClass  :  3000:"Cloud"'
+    - 'OperatingSystemName   :  3000:"Google"'
+    - 'OperatingSystemVersion:  3000:"Google"'
+    - 'LayoutEngineClass     :  3000:"Robot"'
+    - 'LayoutEngineName      :  3000:"Googlebot"'
+    - 'LayoutEngineVersion   :  3000:"Googlebot"'
+    - 'AgentClass            :  3000:"Robot"'
+    - 'AgentName             :  3000:agent.product.comments.entry.product.name{"Googlebot"@'
+    - 'AgentVersion          :  3000:agent.product.comments.entry.product.name{"Googlebot"^.version'
 
-  - matcher:
-      extract:
-        - 'DeviceClass           :  3010:"Robot"'
-        - 'DeviceBrand           :  3010:"Google"'
-        - 'DeviceName            :  3010:"Google"'
-        - 'OperatingSystemClass  :  3010:"Cloud"'
-        - 'OperatingSystemName   :  3010:"Google"'
-        - 'OperatingSystemVersion:  3010:"Google"'
-        - 'LayoutEngineClass     :  3010:"Robot"'
-        - 'LayoutEngineName      :  3010:"Googlebot"'
-        - 'LayoutEngineVersion   :  3010:"Googlebot"'
-        - 'AgentClass            :  3010:"Robot"'
-        - 'AgentName             :  3010:agent.(1)product.name{"Googlebot"@'
-        - 'AgentVersion          :  3010:agent.(1)product.name{"Googlebot"^.version'
+- matcher:
+    extract:
+    - 'DeviceClass           :  3010:"Robot"'
+    - 'DeviceBrand           :  3010:"Google"'
+    - 'DeviceName            :  3010:"Google"'
+    - 'OperatingSystemClass  :  3010:"Cloud"'
+    - 'OperatingSystemName   :  3010:"Google"'
+    - 'OperatingSystemVersion:  3010:"Google"'
+    - 'LayoutEngineClass     :  3010:"Robot"'
+    - 'LayoutEngineName      :  3010:"Googlebot"'
+    - 'LayoutEngineVersion   :  3010:"Googlebot"'
+    - 'AgentClass            :  3010:"Robot"'
+    - 'AgentName             :  3010:agent.(1)product.name{"Googlebot"@'
+    - 'AgentVersion          :  3010:agent.(1)product.name{"Googlebot"^.version'
 
-  - matcher:
-      extract:
-        - 'DeviceClass           : 1000:"Robot"'
-        - 'DeviceBrand           : 1000:"PhantomJS"'
-        - 'DeviceName            : 1000:"PhantomJS"'
-        - 'LayoutEngineClass     : 1000:"Robot"'
-        - 'LayoutEngineName      : 1000:"PhantomJS"'
-        - 'LayoutEngineVersion   : 1000:agent.product.name="PhantomJS"^.version'
-        - 'AgentClass            : 1000:"Robot"'
-        - 'AgentName             : 1000:"PhantomJS"'
-        - 'AgentVersion          : 1000:agent.product.name="PhantomJS"^.version'
+- matcher:
+    extract:
+    - 'DeviceClass           : 1000:"Robot"'
+    - 'DeviceBrand           : 1000:"PhantomJS"'
+    - 'DeviceName            : 1000:"PhantomJS"'
+    - 'LayoutEngineClass     : 1000:"Robot"'
+    - 'LayoutEngineName      : 1000:"PhantomJS"'
+    - 'LayoutEngineVersion   : 1000:agent.product.name="PhantomJS"^.version'
+    - 'AgentClass            : 1000:"Robot"'
+    - 'AgentName             : 1000:"PhantomJS"'
+    - 'AgentVersion          : 1000:agent.product.name="PhantomJS"^.version'
 
 
 # ------------------------------------------------------------
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)name="AdsBot-Google"'
-      extract:
-        - 'DeviceClass           :  3020:"Robot"'
-        - 'DeviceBrand           :  3020:"Google"'
-        - 'DeviceName            :  3020:"Google"'
-        - 'OperatingSystemClass  :  3020:"Cloud"'
-        - 'OperatingSystemName   :  3020:"Google"'
-        - 'OperatingSystemVersion:  3020:"Google"'
-        - 'LayoutEngineClass     :  3020:"Robot"'
-        - 'LayoutEngineName      :  3020:"Googlebot"'
-        - 'LayoutEngineVersion   :  3020:"Googlebot"'
-        - 'AgentClass            :  3020:"Robot"'
-        - 'AgentName             :  3020:"Googlebot"'
-        - 'AgentVersion          :  3020:"AdsBot-Google"'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="AdsBot-Google"'
+    extract:
+    - 'DeviceClass           :  3020:"Robot"'
+    - 'DeviceBrand           :  3020:"Google"'
+    - 'DeviceName            :  3020:"Google"'
+    - 'OperatingSystemClass  :  3020:"Cloud"'
+    - 'OperatingSystemName   :  3020:"Google"'
+    - 'OperatingSystemVersion:  3020:"Google"'
+    - 'LayoutEngineClass     :  3020:"Robot"'
+    - 'LayoutEngineName      :  3020:"Googlebot"'
+    - 'LayoutEngineVersion   :  3020:"Googlebot"'
+    - 'AgentClass            :  3020:"Robot"'
+    - 'AgentName             :  3020:"Googlebot"'
+    - 'AgentVersion          :  3020:"AdsBot-Google"'
 
-  - matcher:
-      extract:
-        - 'DeviceClass           : 3000:"Robot"'
-        - 'DeviceBrand           : 3000:"Microsoft"'
-        - 'DeviceName            : 3000:"BingBot"'
-        - 'OperatingSystemClass  : 3000:"Cloud"'
-        - 'OperatingSystemName   : 3000:"Microsoft Cloud"'
-        - 'OperatingSystemVersion: 3000:"Microsoft Azure"'
-        - 'OperatingSystemNameVersion: 3000:"Microsoft Azure"'
-        - 'LayoutEngineClass     : 3000:"Robot"'
-        - 'LayoutEngineName      : 3000:"Bingbot"'
-        - 'LayoutEngineVersion   : 3000:agent.(1)product.(1)comments.entry.product.(1)name="bingbot"^.version'
-        - 'AgentClass            : 3000:"Robot"'
-        - 'AgentName             : 3000:"Bingbot"'
-        - 'AgentVersion          : 3000:agent.(1)product.(1)comments.entry.product.(1)name="bingbot"^.version'
+- matcher:
+    extract:
+    - 'DeviceClass           : 3000:"Robot"'
+    - 'DeviceBrand           : 3000:"Microsoft"'
+    - 'DeviceName            : 3000:"BingBot"'
+    - 'OperatingSystemClass  : 3000:"Cloud"'
+    - 'OperatingSystemName   : 3000:"Microsoft Cloud"'
+    - 'OperatingSystemVersion: 3000:"Microsoft Azure"'
+    - 'OperatingSystemNameVersion: 3000:"Microsoft Azure"'
+    - 'LayoutEngineClass     : 3000:"Robot"'
+    - 'LayoutEngineName      : 3000:"Bingbot"'
+    - 'LayoutEngineVersion   : 3000:agent.(1)product.(1)comments.entry.product.(1)name="bingbot"^.version'
+    - 'AgentClass            : 3000:"Robot"'
+    - 'AgentName             : 3000:"Bingbot"'
+    - 'AgentVersion          : 3000:agent.(1)product.(1)comments.entry.product.(1)name="bingbot"^.version'
 
 # https://support.google.com/webmasters/answer/1061943?hl=en
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'Google'
-        DeviceBrand                          : 'Google'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Google'
-        OperatingSystemVersion               : 'Google'
-        OperatingSystemNameVersion           : 'Google'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Googlebot'
-        LayoutEngineVersion                  : 'Googlebot'
-        LayoutEngineVersionMajor             : 'Googlebot'
-        LayoutEngineNameVersion              : 'Googlebot'
-        LayoutEngineNameVersionMajor         : 'Googlebot'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Googlebot'
-        AgentVersion                         : '2.1'
-        AgentVersionMajor                    : '2'
-        AgentNameVersion                     : 'Googlebot 2.1'
-        AgentNameVersionMajor                : 'Googlebot 2'
-        AgentInformationUrl                  : 'http://www.google.com/bot.html'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
 # ------------------------------------------------------------
-  - test:
-      input:
-        user_agent_string: 'Googlebot/2.1 (+http://www.google.com/bot.html)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'Google'
-        DeviceBrand                          : 'Google'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Google'
-        OperatingSystemVersion               : 'Google'
-        OperatingSystemNameVersion           : 'Google'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Googlebot'
-        LayoutEngineVersion                  : 'Googlebot'
-        LayoutEngineVersionMajor             : 'Googlebot'
-        LayoutEngineNameVersion              : 'Googlebot'
-        LayoutEngineNameVersionMajor         : 'Googlebot'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Googlebot'
-        AgentVersion                         : '2.1'
-        AgentVersionMajor                    : '2'
-        AgentNameVersion                     : 'Googlebot 2.1'
-        AgentNameVersionMajor                : 'Googlebot 2'
-        AgentInformationUrl                  : 'http://www.google.com/bot.html'
+- test:
+    input:
+      user_agent_string: 'Googlebot/2.1 (+http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
 # ------------------------------------------------------------
 
-  - test:
-      input:
-        user_agent_string: 'Googlebot-Image/1.0'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'Google'
-        DeviceBrand                          : 'Google'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Google'
-        OperatingSystemVersion               : 'Google'
-        OperatingSystemNameVersion           : 'Google'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Googlebot'
-        LayoutEngineVersion                  : 'Googlebot'
-        LayoutEngineVersionMajor             : 'Googlebot'
-        LayoutEngineNameVersion              : 'Googlebot'
-        LayoutEngineNameVersionMajor         : 'Googlebot'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Googlebot-Image'
-        AgentVersion                         : '1.0'
-        AgentVersionMajor                    : '1'
-        AgentNameVersion                     : 'Googlebot-Image 1.0'
-        AgentNameVersionMajor                : 'Googlebot-Image 1'
+- test:
+    input:
+      user_agent_string: 'Googlebot-Image/1.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot-Image'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Googlebot-Image 1.0'
+      AgentNameVersionMajor                : 'Googlebot-Image 1'
 
 # ------------------------------------------------------------
-  - test:
-      input:
-        user_agent_string: 'Googlebot-Video/1.0'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'Google'
-        DeviceBrand                          : 'Google'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Google'
-        OperatingSystemVersion               : 'Google'
-        OperatingSystemNameVersion           : 'Google'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Googlebot'
-        LayoutEngineVersion                  : 'Googlebot'
-        LayoutEngineVersionMajor             : 'Googlebot'
-        LayoutEngineNameVersion              : 'Googlebot'
-        LayoutEngineNameVersionMajor         : 'Googlebot'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Googlebot-Video'
-        AgentVersion                         : '1.0'
-        AgentVersionMajor                    : '1'
-        AgentNameVersion                     : 'Googlebot-Video 1.0'
-        AgentNameVersionMajor                : 'Googlebot-Video 1'
+- test:
+    input:
+      user_agent_string: 'Googlebot-Video/1.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot-Video'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Googlebot-Video 1.0'
+      AgentNameVersionMajor                : 'Googlebot-Video 1'
 
 # ------------------------------------------------------------
 #Googlebot-Mobile
@@ -367,28 +367,28 @@ config:
 # Mobile google bots
 
 
-  - matcher:
-      require:
-        - 'agent.product.comments.entry.(1)product.(1)name="Googlebot"'
-        - 'agent.product.name="Mobile"'
-      extract:
-        - 'AgentClass            :   10000:"Robot Mobile"'
-        - 'DeviceClass           :   10000:"Robot Mobile"'
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)product.(1)name="Googlebot"'
+    - 'agent.product.name="Mobile"'
+    extract:
+    - 'AgentClass            :   10000:"Robot Mobile"'
+    - 'DeviceClass           :   10000:"Robot Mobile"'
 
-  - matcher:
-      require:
-        - 'agent.product.comments.entry.(1)product.(1)name="Googlebot"'
-        - 'agent.product.name="Mobile Safari"'
-      extract:
-        - 'AgentClass            :   10000:"Robot Mobile"'
-        - 'DeviceClass           :   10000:"Robot Mobile"'
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)product.(1)name="Googlebot"'
+    - 'agent.product.name="Mobile Safari"'
+    extract:
+    - 'AgentClass            :   10000:"Robot Mobile"'
+    - 'DeviceClass           :   10000:"Robot Mobile"'
 
-  - matcher:
-      require:
-        - 'agent.product.comments.entry.(1)product.(1)name="Googlebot-Mobile"'
-      extract:
-        - 'AgentClass            :   10000:"Robot Mobile"'
-        - 'DeviceClass           :   10000:"Robot Mobile"'
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)product.(1)name="Googlebot-Mobile"'
+    extract:
+    - 'AgentClass            :   10000:"Robot Mobile"'
+    - 'DeviceClass           :   10000:"Robot Mobile"'
 
 #  - matcher:
 #      require:
@@ -401,163 +401,163 @@ config:
 #        - 'OperatingSystemName   :   1:"Cloud"'
 #        - 'OperatingSystemVersion:   1:"Cloud"'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-      expected:
-        DeviceClass                          : 'Robot Mobile'
-        DeviceName                           : 'Google'
-        DeviceBrand                          : 'Google'
-        DeviceFirmwareVersion                : '10A5376e'
-        DeviceVersion                        : 'iPhone'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Google'
-        OperatingSystemVersion               : 'Google'
-        OperatingSystemNameVersion           : 'Google'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Googlebot'
-        LayoutEngineVersion                  : 'Googlebot'
-        LayoutEngineVersionMajor             : 'Googlebot'
-        LayoutEngineNameVersion              : 'Googlebot'
-        LayoutEngineNameVersionMajor         : 'Googlebot'
-        AgentClass                           : 'Robot Mobile'
-        AgentName                            : 'Googlebot'
-        AgentVersion                         : '2.1'
-        AgentVersionMajor                    : '2'
-        AgentNameVersion                     : 'Googlebot 2.1'
-        AgentNameVersionMajor                : 'Googlebot 2'
-        AgentInformationUrl                  : 'http://www.google.com/bot.html'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      DeviceFirmwareVersion                : '10A5376e'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-      expected:
-        DeviceClass                          : 'Robot Mobile'
-        DeviceName                           : 'Google'
-        DeviceBrand                          : 'Google'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Google'
-        OperatingSystemVersion               : 'Google'
-        OperatingSystemNameVersion           : 'Google'
-        OperatingSystemVersionBuild          : 'IMM76B'  # FIXME: Improve this
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Googlebot'
-        LayoutEngineVersion                  : 'Googlebot'
-        LayoutEngineVersionMajor             : 'Googlebot'
-        LayoutEngineNameVersion              : 'Googlebot'
-        LayoutEngineNameVersionMajor         : 'Googlebot'
-        AgentClass                           : 'Robot Mobile'
-        AgentName                            : 'Googlebot'
-        AgentVersion                         : '2.1'
-        AgentVersionMajor                    : '2'
-        AgentNameVersion                     : 'Googlebot 2.1'
-        AgentNameVersionMajor                : 'Googlebot 2'
-        AgentInformationUrl                  : 'http://www.google.com/bot.html'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemVersionBuild          : 'IMM76B'  # FIXME: Improve this
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'Google'
-        DeviceBrand                          : 'Google'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Google'
-        OperatingSystemVersion               : 'Google'
-        OperatingSystemNameVersion           : 'Google'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Googlebot'
-        LayoutEngineVersion                  : 'Googlebot'
-        LayoutEngineVersionMajor             : 'Googlebot'
-        LayoutEngineNameVersion              : 'Googlebot'
-        LayoutEngineNameVersionMajor         : 'Googlebot'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Googlebot'
-        AgentVersion                         : '2.1'
-        AgentVersionMajor                    : '2'
-        AgentNameVersion                     : 'Googlebot 2.1'
-        AgentNameVersionMajor                : 'Googlebot 2'
-        AgentInformationUrl                  : 'http://www.google.com/bot.html'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
-  - test:
-      input:
-        user_agent_string: 'SAMSUNG-SGH-E250/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Browser/6.2.3.3.c.1.101 (GUI) MMP/2.0 (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
-      expected:
-        DeviceClass                          : 'Robot Mobile'
-        DeviceName                           : 'Google'
-        DeviceBrand                          : 'Google'
-        DeviceVersion                        : '1.0'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Google'
-        OperatingSystemVersion               : 'Google'
-        OperatingSystemNameVersion           : 'Google'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Googlebot'
-        LayoutEngineVersion                  : 'Googlebot'
-        LayoutEngineVersionMajor             : 'Googlebot'
-        LayoutEngineNameVersion              : 'Googlebot'
-        LayoutEngineNameVersionMajor         : 'Googlebot'
-        AgentClass                           : 'Robot Mobile'
-        AgentName                            : 'Googlebot-Mobile'
-        AgentVersion                         : '2.1'
-        AgentVersionMajor                    : '2'
-        AgentNameVersion                     : 'Googlebot-Mobile 2.1'
-        AgentNameVersionMajor                : 'Googlebot-Mobile 2'
-        AgentInformationUrl                  : 'http://www.google.com/bot.html'
-
-# ------------------------------------------------------------
-  - test:
-      input:
-        user_agent_string: 'DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
-      expected:
-        DeviceClass                          : 'Robot Mobile'
-        DeviceName                           : 'Google'
-        DeviceBrand                          : 'Google'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Google'
-        OperatingSystemVersion               : 'Google'
-        OperatingSystemNameVersion           : 'Google'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Googlebot'
-        LayoutEngineVersion                  : 'Googlebot'
-        LayoutEngineVersionMajor             : 'Googlebot'
-        LayoutEngineNameVersion              : 'Googlebot'
-        LayoutEngineNameVersionMajor         : 'Googlebot'
-        AgentClass                           : 'Robot Mobile'
-        AgentName                            : 'Googlebot-Mobile'
-        AgentVersion                         : '2.1'
-        AgentVersionMajor                    : '2'
-        AgentNameVersion                     : 'Googlebot-Mobile 2.1'
-        AgentNameVersionMajor                : 'Googlebot-Mobile 2'
-        AgentInformationUrl                  : 'http://www.google.com/bot.html'
+- test:
+    input:
+      user_agent_string: 'SAMSUNG-SGH-E250/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Browser/6.2.3.3.c.1.101 (GUI) MMP/2.0 (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      DeviceVersion                        : '1.0'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Googlebot-Mobile'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot-Mobile 2.1'
+      AgentNameVersionMajor                : 'Googlebot-Mobile 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
 # ------------------------------------------------------------
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-      expected:
-        DeviceClass                          : 'Robot Mobile'
-        DeviceName                           : 'Google'
-        DeviceBrand                          : 'Google'
-        DeviceFirmwareVersion                : '12F70' # FIXME: Improve this
-        DeviceVersion                        : 'iPhone'# FIXME: Improve this
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Google'
-        OperatingSystemVersion               : 'Google'
-        OperatingSystemNameVersion           : 'Google'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Googlebot'
-        LayoutEngineVersion                  : 'Googlebot'
-        LayoutEngineVersionMajor             : 'Googlebot'
-        LayoutEngineNameVersion              : 'Googlebot'
-        LayoutEngineNameVersionMajor         : 'Googlebot'
-        AgentClass                           : 'Robot Mobile'
-        AgentName                            : 'Googlebot'
-        AgentVersion                         : '2.1'
-        AgentVersionMajor                    : '2'
-        AgentNameVersion                     : 'Googlebot 2.1'
-        AgentNameVersionMajor                : 'Googlebot 2'
-        AgentInformationUrl                  : 'http://www.google.com/bot.html'
+- test:
+    input:
+      user_agent_string: 'DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Googlebot-Mobile'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot-Mobile 2.1'
+      AgentNameVersionMajor                : 'Googlebot-Mobile 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+# ------------------------------------------------------------
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      DeviceFirmwareVersion                : '12F70' # FIXME: Improve this
+      DeviceVersion                        : 'iPhone'# FIXME: Improve this
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
 
 
@@ -576,109 +576,109 @@ config:
 #(Googlebot)	Mediapartners-Google
 #Kwaliteitscontrole voor Google AdsBot-bestemmingspagina	AdsBot-Google
 
-  - test:
-      input:
-        user_agent_string: 'AdsBot-Google (+http://www.google.com/adsbot.html)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'Google'
-        DeviceBrand                          : 'Google'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Google'
-        OperatingSystemVersion               : 'Google'
-        OperatingSystemNameVersion           : 'Google'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Googlebot'
-        LayoutEngineVersion                  : 'Googlebot'
-        LayoutEngineVersionMajor             : 'Googlebot'
-        LayoutEngineNameVersion              : 'Googlebot'
-        LayoutEngineNameVersionMajor         : 'Googlebot'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Googlebot'
-        AgentVersion                         : 'AdsBot-Google'
-        AgentVersionMajor                    : 'AdsBot-Google'
-        AgentNameVersion                     : 'Googlebot AdsBot-Google'
-        AgentNameVersionMajor                : 'Googlebot AdsBot-Google'
-        AgentInformationUrl                  : 'http://www.google.com/adsbot.html'
+- test:
+    input:
+      user_agent_string: 'AdsBot-Google (+http://www.google.com/adsbot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : 'AdsBot-Google'
+      AgentVersionMajor                    : 'AdsBot-Google'
+      AgentNameVersion                     : 'Googlebot AdsBot-Google'
+      AgentNameVersionMajor                : 'Googlebot AdsBot-Google'
+      AgentInformationUrl                  : 'http://www.google.com/adsbot.html'
 
 
 # ------------------------------------------------------------
 
-  - test:
-      input:
-        user_agent_string: 'Sogou web spider/4.0(+http://www.sogou.com/docs/help/webmasters.htm#07)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'Sogou web spider'
-        DeviceBrand                          : 'Robot'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Cloud'
-        OperatingSystemVersion               : 'Cloud'
-        OperatingSystemNameVersion           : 'Cloud'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Sogou web spider'
-        LayoutEngineVersion                  : '4.0'
-        LayoutEngineVersionMajor             : '4'
-        LayoutEngineNameVersion              : 'Sogou web spider 4.0'
-        LayoutEngineNameVersionMajor         : 'Sogou web spider 4'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Sogou web spider'
-        AgentVersion                         : '4.0'
-        AgentVersionMajor                    : '4'
-        AgentNameVersion                     : 'Sogou web spider 4.0'
-        AgentNameVersionMajor                : 'Sogou web spider 4'
-        AgentInformationUrl                  : 'http://www.sogou.com/docs/help/webmasters.htm#07'
+- test:
+    input:
+      user_agent_string: 'Sogou web spider/4.0(+http://www.sogou.com/docs/help/webmasters.htm#07)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Sogou web spider'
+      DeviceBrand                          : 'Robot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Sogou web spider'
+      LayoutEngineVersion                  : '4.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Sogou web spider 4.0'
+      LayoutEngineNameVersionMajor         : 'Sogou web spider 4'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Sogou web spider'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Sogou web spider 4.0'
+      AgentNameVersionMajor                : 'Sogou web spider 4'
+      AgentInformationUrl                  : 'http://www.sogou.com/docs/help/webmasters.htm#07'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'PhantomJS'
-        DeviceBrand                          : 'PhantomJS'
-        DeviceCpu                            : 'Intel x86_64'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Linux'
-        OperatingSystemVersion               : 'Intel x86_64'
-        OperatingSystemNameVersion           : 'Linux Intel x86_64'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'PhantomJS'
-        LayoutEngineVersion                  : '1.9.8'
-        LayoutEngineVersionMajor             : '1'
-        LayoutEngineNameVersion              : 'PhantomJS 1.9.8'
-        LayoutEngineNameVersionMajor         : 'PhantomJS 1'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'PhantomJS'
-        AgentVersion                         : '1.9.8'
-        AgentVersionMajor                    : '1'
-        AgentNameVersion                     : 'PhantomJS 1.9.8'
-        AgentNameVersionMajor                : 'PhantomJS 1'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'PhantomJS'
+      DeviceBrand                          : 'PhantomJS'
+      DeviceCpu                            : 'Intel x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'PhantomJS'
+      LayoutEngineVersion                  : '1.9.8'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'PhantomJS 1.9.8'
+      LayoutEngineNameVersionMajor         : 'PhantomJS 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'PhantomJS'
+      AgentVersion                         : '1.9.8'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'PhantomJS 1.9.8'
+      AgentNameVersionMajor                : 'PhantomJS 1'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'BingBot'
-        DeviceBrand                          : 'Microsoft'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Microsoft Cloud'
-        OperatingSystemVersion               : 'Microsoft Azure'
-        OperatingSystemNameVersion           : 'Microsoft Azure'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Bingbot'
-        LayoutEngineVersion                  : '2.0'
-        LayoutEngineVersionMajor             : '2'
-        LayoutEngineNameVersion              : 'Bingbot 2.0'
-        LayoutEngineNameVersionMajor         : 'Bingbot 2'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Bingbot'
-        AgentVersion                         : '2.0'
-        AgentVersionMajor                    : '2'
-        AgentNameVersion                     : 'Bingbot 2.0'
-        AgentNameVersionMajor                : 'Bingbot 2'
-        AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'BingBot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bingbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Bingbot 2.0'
+      LayoutEngineNameVersionMajor         : 'Bingbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bingbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Bingbot 2.0'
+      AgentNameVersionMajor                : 'Bingbot 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
 
 
 #TODO:
@@ -692,334 +692,334 @@ config:
 #      input:
 #        user_agent_string: 'Mozilla/5.0 (compatible; archive.org_bot; Wayback Machine Live Record; +http://archive.org/details/archive.org_bot)'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'Baiduspider'
-        DeviceBrand                          : 'Robot'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Cloud'
-        OperatingSystemVersion               : 'Cloud'
-        OperatingSystemNameVersion           : 'Cloud'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Baiduspider'
-        LayoutEngineVersion                  : '2.0'
-        LayoutEngineVersionMajor             : '2'
-        LayoutEngineNameVersion              : 'Baiduspider 2.0'
-        LayoutEngineNameVersionMajor         : 'Baiduspider 2'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Baiduspider'
-        AgentVersion                         : '2.0'
-        AgentVersionMajor                    : '2'
-        AgentNameVersion                     : 'Baiduspider 2.0'
-        AgentNameVersionMajor                : 'Baiduspider 2'
-        AgentInformationUrl                  : 'http://www.baidu.com/search/spider.html'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Baiduspider'
+      DeviceBrand                          : 'Robot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Baiduspider'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Baiduspider 2.0'
+      LayoutEngineNameVersionMajor         : 'Baiduspider 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Baiduspider'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Baiduspider 2.0'
+      AgentNameVersionMajor                : 'Baiduspider 2'
+      AgentInformationUrl                  : 'http://www.baidu.com/search/spider.html'
 
 
 
 #Yahoo
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)comments.entry.text="Yahoo! Slurp"'
-      extract:
-        - 'DeviceClass           :  3020:"Robot"'
-        - 'DeviceBrand           :  3020:"Yahoo"'
-        - 'DeviceName            :  3020:"Yahoo"'
-        - 'OperatingSystemClass  :  3020:"Cloud"'
-        - 'OperatingSystemName   :  3020:"Yahoo"'
-        - 'OperatingSystemVersion:  3020:"Yahoo"'
-        - 'LayoutEngineClass     :  3020:"Robot"'
-        - 'LayoutEngineName      :  3020:"Yahoo! Slurp"'
-        - 'LayoutEngineVersion   :  3020:"Yahoo! Slurp"'
-        - 'AgentClass            :  3020:"Robot"'
-        - 'AgentName             :  3020:"Yahoo! Slurp"'
-        - 'AgentVersion          :  3020:"Yahoo! Slurp"'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.text="Yahoo! Slurp"'
+    extract:
+    - 'DeviceClass           :  3020:"Robot"'
+    - 'DeviceBrand           :  3020:"Yahoo"'
+    - 'DeviceName            :  3020:"Yahoo"'
+    - 'OperatingSystemClass  :  3020:"Cloud"'
+    - 'OperatingSystemName   :  3020:"Yahoo"'
+    - 'OperatingSystemVersion:  3020:"Yahoo"'
+    - 'LayoutEngineClass     :  3020:"Robot"'
+    - 'LayoutEngineName      :  3020:"Yahoo! Slurp"'
+    - 'LayoutEngineVersion   :  3020:"Yahoo! Slurp"'
+    - 'AgentClass            :  3020:"Robot"'
+    - 'AgentName             :  3020:"Yahoo! Slurp"'
+    - 'AgentVersion          :  3020:"Yahoo! Slurp"'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'Yahoo'
-        DeviceBrand                          : 'Yahoo'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Yahoo'
-        OperatingSystemVersion               : 'Yahoo'
-        OperatingSystemNameVersion           : 'Yahoo'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Yahoo! Slurp'
-        LayoutEngineVersion                  : 'Yahoo! Slurp'
-        LayoutEngineVersionMajor             : 'Yahoo! Slurp'
-        LayoutEngineNameVersion              : 'Yahoo! Slurp'
-        LayoutEngineNameVersionMajor         : 'Yahoo! Slurp'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Yahoo! Slurp'
-        AgentVersion                         : 'Yahoo! Slurp'
-        AgentVersionMajor                    : 'Yahoo! Slurp'
-        AgentNameVersion                     : 'Yahoo! Slurp'
-        AgentNameVersionMajor                : 'Yahoo! Slurp'
-        AgentInformationUrl                  : 'http://help.yahoo.com/help/us/ysearch/slurp'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yahoo'
+      DeviceBrand                          : 'Yahoo'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Yahoo'
+      OperatingSystemVersion               : 'Yahoo'
+      OperatingSystemNameVersion           : 'Yahoo'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Yahoo! Slurp'
+      LayoutEngineVersion                  : 'Yahoo! Slurp'
+      LayoutEngineVersionMajor             : 'Yahoo! Slurp'
+      LayoutEngineNameVersion              : 'Yahoo! Slurp'
+      LayoutEngineNameVersionMajor         : 'Yahoo! Slurp'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Yahoo! Slurp'
+      AgentVersion                         : 'Yahoo! Slurp'
+      AgentVersionMajor                    : 'Yahoo! Slurp'
+      AgentNameVersion                     : 'Yahoo! Slurp'
+      AgentNameVersionMajor                : 'Yahoo! Slurp'
+      AgentInformationUrl                  : 'http://help.yahoo.com/help/us/ysearch/slurp'
 
 # Archive.org_bot
-  - test:
-      input:
-         user_agent_string: 'Mozilla/5.0 (compatible; archive.org_bot; Wayback Machine Live Record; +http://archive.org/details/archive.org_bot)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'archive.org_bot'
-        DeviceBrand                          : 'Robot'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Cloud'
-        OperatingSystemVersion               : 'Cloud'
-        OperatingSystemNameVersion           : 'Cloud'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'archive.org_bot'
-        LayoutEngineVersion                  : 'archive.org_bot'
-        LayoutEngineVersionMajor             : 'archive'
-        LayoutEngineNameVersion              : 'archive.org_bot'
-        LayoutEngineNameVersionMajor         : 'archive.org_bot archive'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'archive.org_bot'
-        AgentVersion                         : 'archive.org_bot'
-        AgentVersionMajor                    : 'archive'
-        AgentNameVersion                     : 'archive.org_bot'
-        AgentNameVersionMajor                : 'archive.org_bot archive'
-        AgentInformationUrl                  : 'http://archive.org/details/archive.org_bot'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; archive.org_bot; Wayback Machine Live Record; +http://archive.org/details/archive.org_bot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'archive.org_bot'
+      DeviceBrand                          : 'Robot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'archive.org_bot'
+      LayoutEngineVersion                  : 'archive.org_bot'
+      LayoutEngineVersionMajor             : 'archive'
+      LayoutEngineNameVersion              : 'archive.org_bot'
+      LayoutEngineNameVersionMajor         : 'archive.org_bot archive'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'archive.org_bot'
+      AgentVersion                         : 'archive.org_bot'
+      AgentVersionMajor                    : 'archive'
+      AgentNameVersion                     : 'archive.org_bot'
+      AgentNameVersionMajor                : 'archive.org_bot archive'
+      AgentInformationUrl                  : 'http://archive.org/details/archive.org_bot'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (compatible; Charlotte/1.1; http://www.searchme.com/support/)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'Robot'
-        DeviceBrand                          : 'Robot'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Cloud'
-        OperatingSystemVersion               : 'Cloud'
-        OperatingSystemNameVersion           : 'Cloud'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Mozilla'
-        LayoutEngineVersion                  : '5.0'
-        LayoutEngineVersionMajor             : '5'
-        LayoutEngineNameVersion              : 'Mozilla 5.0'
-        LayoutEngineNameVersionMajor         : 'Mozilla 5'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Charlotte'
-        AgentVersion                         : '1.1'
-        AgentVersionMajor                    : '1'
-        AgentNameVersion                     : 'Charlotte 1.1'
-        AgentNameVersionMajor                : 'Charlotte 1'
-        AgentInformationUrl                  : 'http://www.searchme.com/support/'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Charlotte/1.1; http://www.searchme.com/support/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Robot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Charlotte'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Charlotte 1.1'
+      AgentNameVersionMajor                : 'Charlotte 1'
+      AgentInformationUrl                  : 'http://www.searchme.com/support/'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (compatible; SputnikBot/2.3; +http://corp.sputnik.ru/webmaster)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'SputnikBot'
-        DeviceBrand                          : 'Robot'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Cloud'
-        OperatingSystemVersion               : 'Cloud'
-        OperatingSystemNameVersion           : 'Cloud'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'SputnikBot'
-        LayoutEngineVersion                  : '2.3'
-        LayoutEngineVersionMajor             : '2'
-        LayoutEngineNameVersion              : 'SputnikBot 2.3'
-        LayoutEngineNameVersionMajor         : 'SputnikBot 2'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'SputnikBot'
-        AgentVersion                         : '2.3'
-        AgentVersionMajor                    : '2'
-        AgentNameVersion                     : 'SputnikBot 2.3'
-        AgentNameVersionMajor                : 'SputnikBot 2'
-        AgentInformationUrl                  : 'http://corp.sputnik.ru/webmaster'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; SputnikBot/2.3; +http://corp.sputnik.ru/webmaster)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'SputnikBot'
+      DeviceBrand                          : 'Robot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SputnikBot'
+      LayoutEngineVersion                  : '2.3'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'SputnikBot 2.3'
+      LayoutEngineNameVersionMajor         : 'SputnikBot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SputnikBot'
+      AgentVersion                         : '2.3'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'SputnikBot 2.3'
+      AgentNameVersionMajor                : 'SputnikBot 2'
+      AgentInformationUrl                  : 'http://corp.sputnik.ru/webmaster'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (compatible; Applebot/0.3; +http://www.apple.com/go/applebot)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'Applebot'
-        DeviceBrand                          : 'Apple'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Cloud'
-        OperatingSystemVersion               : 'Cloud'
-        OperatingSystemNameVersion           : 'Cloud'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Applebot'
-        LayoutEngineVersion                  : '0.3'
-        LayoutEngineVersionMajor             : '0'
-        LayoutEngineNameVersion              : 'Applebot 0.3'
-        LayoutEngineNameVersionMajor         : 'Applebot 0'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Applebot'
-        AgentVersion                         : '0.3'
-        AgentVersionMajor                    : '0'
-        AgentNameVersion                     : 'Applebot 0.3'
-        AgentNameVersionMajor                : 'Applebot 0'
-        AgentInformationUrl                  : 'http://www.apple.com/go/applebot'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Applebot/0.3; +http://www.apple.com/go/applebot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Applebot'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Applebot'
+      LayoutEngineVersion                  : '0.3'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'Applebot 0.3'
+      LayoutEngineNameVersionMajor         : 'Applebot 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Applebot'
+      AgentVersion                         : '0.3'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Applebot 0.3'
+      AgentNameVersionMajor                : 'Applebot 0'
+      AgentInformationUrl                  : 'http://www.apple.com/go/applebot'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (compatible; ltbot/0.3.6 +http://www.kdsl.tu-darmstadt.de/de/kdsl/research-program/crawling-and-semantic-structuring/)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'ltbot'
-        DeviceBrand                          : 'Robot'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Cloud'
-        OperatingSystemVersion               : 'Cloud'
-        OperatingSystemNameVersion           : 'Cloud'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'ltbot'
-        LayoutEngineVersion                  : '0.3.6'
-        LayoutEngineVersionMajor             : '0'
-        LayoutEngineNameVersion              : 'ltbot 0.3.6'
-        LayoutEngineNameVersionMajor         : 'ltbot 0'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'ltbot'
-        AgentVersion                         : '0.3.6'
-        AgentVersionMajor                    : '0'
-        AgentNameVersion                     : 'ltbot 0.3.6'
-        AgentNameVersionMajor                : 'ltbot 0'
-        AgentInformationUrl                  : 'http://www.kdsl.tu-darmstadt.de/de/kdsl/research-program/crawling-and-semantic-structuring/'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; ltbot/0.3.6 +http://www.kdsl.tu-darmstadt.de/de/kdsl/research-program/crawling-and-semantic-structuring/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'ltbot'
+      DeviceBrand                          : 'Robot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'ltbot'
+      LayoutEngineVersion                  : '0.3.6'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'ltbot 0.3.6'
+      LayoutEngineNameVersionMajor         : 'ltbot 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'ltbot'
+      AgentVersion                         : '0.3.6'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'ltbot 0.3.6'
+      AgentNameVersionMajor                : 'ltbot 0'
+      AgentInformationUrl                  : 'http://www.kdsl.tu-darmstadt.de/de/kdsl/research-program/crawling-and-semantic-structuring/'
 
-  - test:
-      input:
-        user_agent_string: 'NeumobBot/0.2.16 (+http://www.neumob.com/bot)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'NeumobBot'
-        DeviceBrand                          : 'Robot'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Cloud'
-        OperatingSystemVersion               : 'Cloud'
-        OperatingSystemNameVersion           : 'Cloud'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'NeumobBot'
-        LayoutEngineVersion                  : '0.2.16'
-        LayoutEngineVersionMajor             : '0'
-        LayoutEngineNameVersion              : 'NeumobBot 0.2.16'
-        LayoutEngineNameVersionMajor         : 'NeumobBot 0'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'NeumobBot'
-        AgentVersion                         : '0.2.16'
-        AgentVersionMajor                    : '0'
-        AgentNameVersion                     : 'NeumobBot 0.2.16'
-        AgentNameVersionMajor                : 'NeumobBot 0'
-        AgentInformationUrl                  : 'http://www.neumob.com/bot'
+- test:
+    input:
+      user_agent_string: 'NeumobBot/0.2.16 (+http://www.neumob.com/bot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'NeumobBot'
+      DeviceBrand                          : 'Robot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'NeumobBot'
+      LayoutEngineVersion                  : '0.2.16'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'NeumobBot 0.2.16'
+      LayoutEngineNameVersionMajor         : 'NeumobBot 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'NeumobBot'
+      AgentVersion                         : '0.2.16'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'NeumobBot 0.2.16'
+      AgentNameVersionMajor                : 'NeumobBot 0'
+      AgentInformationUrl                  : 'http://www.neumob.com/bot'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (compatible; MojeekBot/0.6; +https://www.mojeek.com/bot.html)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'MojeekBot'
-        DeviceBrand                          : 'Robot'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Cloud'
-        OperatingSystemVersion               : 'Cloud'
-        OperatingSystemNameVersion           : 'Cloud'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'MojeekBot'
-        LayoutEngineVersion                  : '0.6'
-        LayoutEngineVersionMajor             : '0'
-        LayoutEngineNameVersion              : 'MojeekBot 0.6'
-        LayoutEngineNameVersionMajor         : 'MojeekBot 0'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'MojeekBot'
-        AgentVersion                         : '0.6'
-        AgentVersionMajor                    : '0'
-        AgentNameVersion                     : 'MojeekBot 0.6'
-        AgentNameVersionMajor                : 'MojeekBot 0'
-        AgentInformationUrl                  : 'https://www.mojeek.com/bot.html'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MojeekBot/0.6; +https://www.mojeek.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'MojeekBot'
+      DeviceBrand                          : 'Robot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'MojeekBot'
+      LayoutEngineVersion                  : '0.6'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'MojeekBot 0.6'
+      LayoutEngineNameVersionMajor         : 'MojeekBot 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'MojeekBot'
+      AgentVersion                         : '0.6'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'MojeekBot 0.6'
+      AgentNameVersionMajor                : 'MojeekBot 0'
+      AgentInformationUrl                  : 'https://www.mojeek.com/bot.html'
 
-  - matcher:
-      require:
-        - 'agent.product.(1)comments.entry.(1)product.(1)name="FlipboardProxy"'
-      extract:
-        - 'DeviceClass            :   5000:"Robot"'
-        - 'DeviceName             :   5000:"FlipboardProxy"'
-        - 'DeviceBrand            :   5000:"Flipboard"'
-        - 'OperatingSystemClass   :   5000:"Cloud"'
-        - 'OperatingSystemName    :   5000:"Cloud"'
-        - 'OperatingSystemVersion :   5000:"Cloud"'
-        - 'AgentClass             :   5000:"Robot"'
-        - 'AgentName              :   5000:"FlipboardProxy"'
-        - 'AgentVersion           :   5000:agent.product.(1)comments.entry.(1)product.(1)name="FlipboardProxy"^.version'
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.(1)product.(1)name="FlipboardProxy"'
+    extract:
+    - 'DeviceClass            :   5000:"Robot"'
+    - 'DeviceName             :   5000:"FlipboardProxy"'
+    - 'DeviceBrand            :   5000:"Flipboard"'
+    - 'OperatingSystemClass   :   5000:"Cloud"'
+    - 'OperatingSystemName    :   5000:"Cloud"'
+    - 'OperatingSystemVersion :   5000:"Cloud"'
+    - 'AgentClass             :   5000:"Robot"'
+    - 'AgentName              :   5000:"FlipboardProxy"'
+    - 'AgentVersion           :   5000:agent.product.(1)comments.entry.(1)product.(1)name="FlipboardProxy"^.version'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:28.0) Gecko/20100101 Firefox/28.0 (FlipboardProxy/1.1; +http://flipboard.com/browserproxy)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'FlipboardProxy'
-        DeviceBrand                          : 'Flipboard'
-        DeviceCpu                            : 'Intel'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Cloud'
-        OperatingSystemVersion               : 'Cloud'
-        OperatingSystemNameVersion           : 'Cloud'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Gecko'
-        LayoutEngineVersion                  : '28.0'
-        LayoutEngineVersionMajor             : '28'
-        LayoutEngineNameVersion              : 'Gecko 28.0'
-        LayoutEngineNameVersionMajor         : 'Gecko 28'
-        LayoutEngineBuild                    : '20100101'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'FlipboardProxy'
-        AgentVersion                         : '1.1'
-        AgentVersionMajor                    : '1'
-        AgentNameVersion                     : 'FlipboardProxy 1.1'
-        AgentNameVersionMajor                : 'FlipboardProxy 1'
-        AgentInformationUrl                  : 'http://flipboard.com/browserproxy'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:28.0) Gecko/20100101 Firefox/28.0 (FlipboardProxy/1.1; +http://flipboard.com/browserproxy)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'FlipboardProxy'
+      DeviceBrand                          : 'Flipboard'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '28.0'
+      LayoutEngineVersionMajor             : '28'
+      LayoutEngineNameVersion              : 'Gecko 28.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 28'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'FlipboardProxy'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'FlipboardProxy 1.1'
+      AgentNameVersionMajor                : 'FlipboardProxy 1'
+      AgentInformationUrl                  : 'http://flipboard.com/browserproxy'
 
-  - matcher:
-      require:
-        - 'agent.product.(1)comments.entry.(1)product.(1)name="Applebot"'
-      extract:
-        - 'DeviceClass            :   5000:"Robot"'
-        - 'DeviceName             :   5000:"Applebot"'
-        - 'DeviceBrand            :   5000:"Apple"'
-        - 'OperatingSystemClass   :   5000:"Cloud"'
-        - 'OperatingSystemName    :   5000:"Cloud"'
-        - 'OperatingSystemVersion :   5000:"Cloud"'
-        - 'AgentClass             :   5000:"Robot"'
-        - 'AgentName              :   5000:"Applebot"'
-        - 'AgentVersion           :   5000:agent.product.(1)comments.entry.(1)product.(1)name="Applebot"^.version'
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.(1)product.(1)name="Applebot"'
+    extract:
+    - 'DeviceClass            :   5000:"Robot"'
+    - 'DeviceName             :   5000:"Applebot"'
+    - 'DeviceBrand            :   5000:"Apple"'
+    - 'OperatingSystemClass   :   5000:"Cloud"'
+    - 'OperatingSystemName    :   5000:"Cloud"'
+    - 'OperatingSystemVersion :   5000:"Cloud"'
+    - 'AgentClass             :   5000:"Robot"'
+    - 'AgentName              :   5000:"Applebot"'
+    - 'AgentVersion           :   5000:agent.product.(1)comments.entry.(1)product.(1)name="Applebot"^.version'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/600.2.5 (KHTML, like Gecko) Version/8.0.2 Safari/600.2.5 (Applebot/0.1; +http://www.apple.com/go/applebot)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'Applebot'
-        DeviceBrand                          : 'Apple'
-        DeviceCpu                            : 'Intel'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Cloud'
-        OperatingSystemVersion               : 'Cloud'
-        OperatingSystemNameVersion           : 'Cloud'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '600.2.5'
-        LayoutEngineVersionMajor             : '600'
-        LayoutEngineNameVersion              : 'AppleWebKit 600.2.5'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Applebot'
-        AgentVersion                         : '0.1'
-        AgentVersionMajor                    : '0'
-        AgentNameVersion                     : 'Applebot 0.1'
-        AgentNameVersionMajor                : 'Applebot 0'
-        AgentInformationUrl                  : 'http://www.apple.com/go/applebot'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/600.2.5 (KHTML, like Gecko) Version/8.0.2 Safari/600.2.5 (Applebot/0.1; +http://www.apple.com/go/applebot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Applebot'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '600.2.5'
+      LayoutEngineVersionMajor             : '600'
+      LayoutEngineNameVersion              : 'AppleWebKit 600.2.5'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Applebot'
+      AgentVersion                         : '0.1'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Applebot 0.1'
+      AgentNameVersionMajor                : 'Applebot 0'
+      AgentInformationUrl                  : 'http://www.apple.com/go/applebot'
 
 
 
@@ -1029,34 +1029,34 @@ config:
 #      input:
 #         user_agent_string: 'Mozilla/5.0 (compatible; Google-Structured-Data-Testing-Tool +http://developers.google.com/structured-data/testing-tool/)'
 
-  - matcher:
-      extract:
-        - 'AgentClass            :   10:"Robot"'
-        - 'AgentName             :   10:"Google Search Appliance"'
-        - 'GSAInstallationID     :   10:agent.(1)product.(1)comments.(2)entry.(1)text#1="GID"@'
+- matcher:
+    extract:
+    - 'AgentClass            :   10:"Robot"'
+    - 'AgentName             :   10:"Google Search Appliance"'
+    - 'GSAInstallationID     :   10:agent.(1)product.(1)comments.(2)entry.(1)text#1="GID"@'
 
-  - test:
-      input:
-        user_agent_string: 'gsa-crawler (Enterprise; GID-01422; jplastiras@google.com)'
-      expected:
-        DeviceClass                          : 'Robot'
-        DeviceName                           : 'Robot'
-        OperatingSystemClass                 : 'Cloud'
-        OperatingSystemName                  : 'Cloud'
-        OperatingSystemVersion               : 'Cloud'
-        OperatingSystemNameVersion           : 'Cloud'
-        LayoutEngineClass                    : 'Unknown'
-        LayoutEngineName                     : 'Unknown'
-        LayoutEngineVersion                  : '??'
-        LayoutEngineVersionMajor             : '??'
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Google Search Appliance'
-        AgentVersion                         : 'Enterprise'
-        AgentVersionMajor                    : 'Enterprise'
-        AgentNameVersion                     : 'Google Search Appliance Enterprise'
-        AgentNameVersionMajor                : 'Google Search Appliance Enterprise'
-        AgentInformationEmail                : 'jplastiras@google.com'
-        GSAInstallationID                    : 'GID-01422'
+- test:
+    input:
+      user_agent_string: 'gsa-crawler (Enterprise; GID-01422; jplastiras@google.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Search Appliance'
+      AgentVersion                         : 'Enterprise'
+      AgentVersionMajor                    : 'Enterprise'
+      AgentNameVersion                     : 'Google Search Appliance Enterprise'
+      AgentNameVersionMajor                : 'Google Search Appliance Enterprise'
+      AgentInformationEmail                : 'jplastiras@google.com'
+      GSAInstallationID                    : 'GID-01422'
 
 
 #we follow your robots.txt settings before crawling, you can slow down the bot by change the Crawl-Delay parameter in the settings.if you have an enquiry, please email

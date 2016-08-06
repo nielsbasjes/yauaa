@@ -18,158 +18,158 @@
 config:
 
 
-  - matcher:
-      extract:
-        - 'LayoutEngineClass    :  2000:"Browser"'
-        - 'LayoutEngineName     :  2000:"Gecko"'
-        - 'LayoutEngineVersion  :  2000:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
-        - 'LayoutEngineBuild    :  2000:agent.([2-5])product.name="Gecko"^.version'
-        - 'AgentClass           :  1995:"Browser"'
-        - 'AgentName            :  1995:"Gecko"'
-        - 'AgentVersion         :  1995:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
+- matcher:
+    extract:
+    - 'LayoutEngineClass    :  2000:"Browser"'
+    - 'LayoutEngineName     :  2000:"Gecko"'
+    - 'LayoutEngineVersion  :  2000:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
+    - 'LayoutEngineBuild    :  2000:agent.([2-5])product.name="Gecko"^.version'
+    - 'AgentClass           :  1995:"Browser"'
+    - 'AgentName            :  1995:"Gecko"'
+    - 'AgentVersion         :  1995:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
 
-  - matcher:
-      extract:
-        - 'AgentClass           :  2000:"Browser"'
-        - 'AgentName            :  2000:agent.([2-5])product.name="Gecko"^>.name'
-        - 'AgentVersion         :  2000:agent.([2-5])product.name="Gecko"^>.version'
+- matcher:
+    extract:
+    - 'AgentClass           :  2000:"Browser"'
+    - 'AgentName            :  2000:agent.([2-5])product.name="Gecko"^>.name'
+    - 'AgentVersion         :  2000:agent.([2-5])product.name="Gecko"^>.version'
 
-  - matcher:
-      extract:
-        - 'AgentClass           :  2001:"Browser"'
-        - 'AgentName            :  2001:agent.([2-5])product.name="Gecko"^>>.name#1!="anonymized"@'
-        - 'AgentVersion         :  2001:agent.([2-5])product.name="Gecko"^>>.version'
+- matcher:
+    extract:
+    - 'AgentClass           :  2001:"Browser"'
+    - 'AgentName            :  2001:agent.([2-5])product.name="Gecko"^>>.name#1!="anonymized"@'
+    - 'AgentVersion         :  2001:agent.([2-5])product.name="Gecko"^>>.version'
 
 
     # In some obscure cases we have a parse problem that sends everything inside a comment block
-  - matcher:
-      extract:
-        - 'LayoutEngineClass    :  1900:"Browser"'
-        - 'LayoutEngineName     :  1900:"Gecko"'
-        - 'LayoutEngineVersion  :  1900:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
-        - 'LayoutEngineBuild    :  1900:agent.product.comments.entry.product.name="Gecko"^.version'
-        - 'AgentClass           :  1895:"Browser"'
-        - 'AgentName            :  1895:"Gecko"'
-        - 'AgentVersion         :  1895:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
+- matcher:
+    extract:
+    - 'LayoutEngineClass    :  1900:"Browser"'
+    - 'LayoutEngineName     :  1900:"Gecko"'
+    - 'LayoutEngineVersion  :  1900:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
+    - 'LayoutEngineBuild    :  1900:agent.product.comments.entry.product.name="Gecko"^.version'
+    - 'AgentClass           :  1895:"Browser"'
+    - 'AgentName            :  1895:"Gecko"'
+    - 'AgentVersion         :  1895:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
 
-  - matcher:
-      extract:
-        - 'AgentClass           :  1900:"Browser"'
-        - 'AgentName            :  1900:agent.product.comments.entry.product.name="Gecko"^>.name'
-        - 'AgentVersion         :  1900:agent.product.comments.entry.product.name="Gecko"^>.version'
+- matcher:
+    extract:
+    - 'AgentClass           :  1900:"Browser"'
+    - 'AgentName            :  1900:agent.product.comments.entry.product.name="Gecko"^>.name'
+    - 'AgentVersion         :  1900:agent.product.comments.entry.product.name="Gecko"^>.version'
 
 
 #
 #Gecko:
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.1) Gecko/20020826'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Desktop'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Windows NT'
-        OperatingSystemVersion               : 'Windows 2000'
-        OperatingSystemNameVersion           : 'Windows 2000'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Gecko'
-        LayoutEngineVersion                  : '1.1'
-        LayoutEngineVersionMajor             : '1'
-        LayoutEngineNameVersion              : 'Gecko 1.1'
-        LayoutEngineNameVersionMajor         : 'Gecko 1'
-        LayoutEngineBuild                    : '20020826'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Gecko'
-        AgentVersion                         : '1.1'
-        AgentVersionMajor                    : '1'
-        AgentNameVersion                     : 'Gecko 1.1'
-        AgentNameVersionMajor                : 'Gecko 1'
-        AgentLanguage                        : 'English (United States)'
-        AgentLanguageCode                    : 'en-us'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.1) Gecko/20020826'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 2000'
+      OperatingSystemNameVersion           : 'Windows 2000'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.1'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20020826'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Gecko'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Gecko 1.1'
+      AgentNameVersionMajor                : 'Gecko 1'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
 
 #Firefox:
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; sv-SE; rv:1.7.5) Gecko/20041108 Firefox/1.0'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Desktop'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Windows NT'
-        OperatingSystemVersion               : 'Windows XP'
-        OperatingSystemNameVersion           : 'Windows XP'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Gecko'
-        LayoutEngineVersion                  : '1.7.5'
-        LayoutEngineVersionMajor             : '1'
-        LayoutEngineNameVersion              : 'Gecko 1.7.5'
-        LayoutEngineNameVersionMajor         : 'Gecko 1'
-        LayoutEngineBuild                    : '20041108'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Firefox'
-        AgentVersion                         : '1.0'
-        AgentVersionMajor                    : '1'
-        AgentNameVersion                     : 'Firefox 1.0'
-        AgentNameVersionMajor                : 'Firefox 1'
-        AgentLanguage                        : 'Swedish (Sweden)'
-        AgentLanguageCode                    : 'sv-se'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; sv-SE; rv:1.7.5) Gecko/20041108 Firefox/1.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.7.5'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.7.5'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20041108'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Firefox 1.0'
+      AgentNameVersionMajor                : 'Firefox 1'
+      AgentLanguage                        : 'Swedish (Sweden)'
+      AgentLanguageCode                    : 'sv-se'
+      AgentSecurity                        : 'Strong security'
 
 #Camino:
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.2) Gecko/20040825 Camino/0.8.1'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Macintosh'
-        DeviceBrand                          : 'Apple'
-        DeviceCpu                            : 'PowerPC'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Mac OS X'
-        OperatingSystemVersion               : '10.?'
-        OperatingSystemNameVersion           : 'Mac OS X 10.?'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Gecko'
-        LayoutEngineVersion                  : '1.7.2'
-        LayoutEngineVersionMajor             : '1'
-        LayoutEngineNameVersion              : 'Gecko 1.7.2'
-        LayoutEngineNameVersionMajor         : 'Gecko 1'
-        LayoutEngineBuild                    : '20040825'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Camino'
-        AgentVersion                         : '0.8.1'
-        AgentVersionMajor                    : '0'
-        AgentNameVersion                     : 'Camino 0.8.1'
-        AgentNameVersionMajor                : 'Camino 0'
-        AgentLanguage                        : 'English (United States)'
-        AgentLanguageCode                    : 'en-us'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.2) Gecko/20040825 Camino/0.8.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'PowerPC'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.?'
+      OperatingSystemNameVersion           : 'Mac OS X 10.?'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.7.2'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.7.2'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20040825'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Camino'
+      AgentVersion                         : '0.8.1'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Camino 0.8.1'
+      AgentNameVersionMajor                : 'Camino 0'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
 
 #SeaMonkey:
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.8.1.8) Gecko/20071008 SeaMonkey/1.0'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Desktop'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Windows NT'
-        OperatingSystemVersion               : 'Windows XP'
-        OperatingSystemNameVersion           : 'Windows XP'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Gecko'
-        LayoutEngineVersion                  : '1.8.1.8'
-        LayoutEngineVersionMajor             : '1'
-        LayoutEngineNameVersion              : 'Gecko 1.8.1.8'
-        LayoutEngineNameVersionMajor         : 'Gecko 1'
-        LayoutEngineBuild                    : '20071008'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'SeaMonkey'
-        AgentVersion                         : '1.0'
-        AgentVersionMajor                    : '1'
-        AgentNameVersion                     : 'SeaMonkey 1.0'
-        AgentNameVersionMajor                : 'SeaMonkey 1'
-        AgentLanguage                        : 'German'
-        AgentLanguageCode                    : 'de'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.8.1.8) Gecko/20071008 SeaMonkey/1.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1.8'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1.8'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20071008'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SeaMonkey'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SeaMonkey 1.0'
+      AgentNameVersionMajor                : 'SeaMonkey 1'
+      AgentLanguage                        : 'German'
+      AgentLanguageCode                    : 'de'
+      AgentSecurity                        : 'Strong security'

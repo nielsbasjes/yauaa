@@ -17,287 +17,287 @@
 #
 config:
 
-  - matcher:
-      extract:
-        - 'DeviceClass                  : 2014:"Game Console"'
-        - 'DeviceBrand                  : 2014:"Nintendo"'
-        - 'DeviceName                   : 2014:agent.(1)product.(1)comments.(1)entry.text%1="Nintendo"@'
-        - 'OperatingSystemClass         :  100:"Game Console"'
-        - 'OperatingSystemName          :  100:"Nintendo"'
-        - 'OperatingSystemVersion       :  100:agent.(1)product.(1)comments.(1)entry.text%1="Nintendo"@'
+- matcher:
+    extract:
+    - 'DeviceClass                  : 2014:"Game Console"'
+    - 'DeviceBrand                  : 2014:"Nintendo"'
+    - 'DeviceName                   : 2014:agent.(1)product.(1)comments.(1)entry.text%1="Nintendo"@'
+    - 'OperatingSystemClass         :  100:"Game Console"'
+    - 'OperatingSystemName          :  100:"Nintendo"'
+    - 'OperatingSystemVersion       :  100:agent.(1)product.(1)comments.(1)entry.text%1="Nintendo"@'
 
-  - matcher:
-      extract:
-        - 'OperatingSystemClass         : 2014:"Game Console"'
-        - 'OperatingSystemName          : 2014:"Nintendo NX"'
-        - 'OperatingSystemVersion       : 2014:agent.(3)product.(1)name="NX"^.version'
+- matcher:
+    extract:
+    - 'OperatingSystemClass         : 2014:"Game Console"'
+    - 'OperatingSystemName          : 2014:"Nintendo NX"'
+    - 'OperatingSystemVersion       : 2014:agent.(3)product.(1)name="NX"^.version'
 
-  - matcher:
-      extract:
-        - 'AgentClass                   : 2014:"Browser"'
-        - 'AgentName                    : 2014:"NintendoBrowser"'
-        - 'AgentVersion                 : 2014:agent.(4)product.(1)name="NintendoBrowser"^.version'
+- matcher:
+    extract:
+    - 'AgentClass                   : 2014:"Browser"'
+    - 'AgentName                    : 2014:"NintendoBrowser"'
+    - 'AgentVersion                 : 2014:agent.(4)product.(1)name="NintendoBrowser"^.version'
 
-  - matcher:
-      extract:
-        - 'DeviceClass                  : 2014:"Game Console"'
-        - 'DeviceBrand                  : 2014:"Sony"'
-        - 'DeviceName                   : 2014:"PlayStation 4"'
-        - 'OperatingSystemClass         : 2014:"Game Console"'
-        - 'OperatingSystemName          : 2014:"PlayStation 4"'
-        - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.product.name%1="PlayStation"^.(2)version'
+- matcher:
+    extract:
+    - 'DeviceClass                  : 2014:"Game Console"'
+    - 'DeviceBrand                  : 2014:"Sony"'
+    - 'DeviceName                   : 2014:"PlayStation 4"'
+    - 'OperatingSystemClass         : 2014:"Game Console"'
+    - 'OperatingSystemName          : 2014:"PlayStation 4"'
+    - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.product.name%1="PlayStation"^.(2)version'
 
-  - matcher:
-      extract:
-        - 'DeviceClass                  : 2014:"Game Console"'
-        - 'DeviceBrand                  : 2014:"Sony"'
-        - 'DeviceName                   : 2014:"PlayStation Vita"'
-        - 'DeviceVersion                : 2014:agent.(1)product.(1)comments.entry.product.name="PlayStation Vita"^.version'
-        - 'OperatingSystemClass         : 2014:"Game Console"'
-        - 'OperatingSystemName          : 2014:"PlayStation Vita"'
-        - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.product.name="PlayStation Vita"^.version'
-
-
-  - matcher:
-      extract:
-        - 'DeviceClass                  : 2014:"Game Console"'
-        - 'DeviceBrand                  : 2014:"Nintendo"'
-        - 'DeviceName                   : 2014:agent.(1)product.(1)comments.entry.product.name%1="Nintendo"^'
-        - 'OperatingSystemClass         : 2014:"Game Console"'
-        - 'OperatingSystemName          : 2014:"Nintendo"'
-        - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.product.name%1="Nintendo"^'
-        - 'LayoutEngineClass            : 2014:"Game Console"'
-        - 'LayoutEngineName             : 2014:"Nintendo"'
-        - 'LayoutEngineVersion          : 2014:agent.product.(1)name="Version"^.version'
-        - 'AgentClass                   : 2014:"Game Console"'
-        - 'AgentName                    : 2014:"Nintendo"'
-        - 'AgentVersion                 : 2014:agent.product.(1)name="Version"^.version'
-
-  - matcher:
-      extract:
-        - 'DeviceClass                  : 2014:"Game Console"'
-        - 'DeviceBrand                  : 2014:"Nintendo"'
-        - 'DeviceName                   : 2014:agent.(1)product.(1)comments.entry.text%1="Nintendo"@'
-        - 'OperatingSystemClass         : 2014:"Game Console"'
-        - 'OperatingSystemName          : 2014:"Nintendo"'
-        - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.text%1="Nintendo"@'
-        - 'LayoutEngineClass            : 2014:"Game Console"'
-        - 'LayoutEngineName             : 2014:"Nintendo"'
-        - 'LayoutEngineVersion          : 2014:agent.product.(1)name="Version"^.version'
-        - 'AgentClass                   : 2014:"Game Console"'
-        - 'AgentName                    : 2014:"Nintendo"'
-        - 'AgentVersion                 : 2014:agent.product.(1)name="Version"^.version'
+- matcher:
+    extract:
+    - 'DeviceClass                  : 2014:"Game Console"'
+    - 'DeviceBrand                  : 2014:"Sony"'
+    - 'DeviceName                   : 2014:"PlayStation Vita"'
+    - 'DeviceVersion                : 2014:agent.(1)product.(1)comments.entry.product.name="PlayStation Vita"^.version'
+    - 'OperatingSystemClass         : 2014:"Game Console"'
+    - 'OperatingSystemName          : 2014:"PlayStation Vita"'
+    - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.product.name="PlayStation Vita"^.version'
 
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)comments.entry.text="Xbox"'
-      extract:
-        - 'DeviceClass                  : 2010:"Game Console"'
-        - 'DeviceBrand                  : 2010:"Microsoft"'
-        - 'DeviceName                   : 2010:"Xbox"'
-        - 'DeviceVersion                : 2010:"Xbox 360">'
-        - 'OperatingSystemClass         :  101:"Game Console"'
-        - 'OperatingSystemName          :   98:"Xbox"'
-        - 'OperatingSystemVersion       :   98:"Xbox 360"'
-        - 'OperatingSystemNameVersion   :   98:"Xbox 360"'
+- matcher:
+    extract:
+    - 'DeviceClass                  : 2014:"Game Console"'
+    - 'DeviceBrand                  : 2014:"Nintendo"'
+    - 'DeviceName                   : 2014:agent.(1)product.(1)comments.entry.product.name%1="Nintendo"^'
+    - 'OperatingSystemClass         : 2014:"Game Console"'
+    - 'OperatingSystemName          : 2014:"Nintendo"'
+    - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.product.name%1="Nintendo"^'
+    - 'LayoutEngineClass            : 2014:"Game Console"'
+    - 'LayoutEngineName             : 2014:"Nintendo"'
+    - 'LayoutEngineVersion          : 2014:agent.product.(1)name="Version"^.version'
+    - 'AgentClass                   : 2014:"Game Console"'
+    - 'AgentName                    : 2014:"Nintendo"'
+    - 'AgentVersion                 : 2014:agent.product.(1)name="Version"^.version'
 
-  - matcher:
-      extract:
-        - 'DeviceClass                  : 2014:"Game Console"'
-        - 'DeviceBrand                  : 2014:"Microsoft"'
-        - 'DeviceName                   : 2014:"Xbox"'
-        - 'DeviceVersion                : 2014:agent.(1)product.(1)comments.entry.text="Xbox"^>'
-        - 'OperatingSystemClass         :  101:"Game Console"'
-        - 'OperatingSystemName          :   99:"Xbox"'
-        - 'OperatingSystemVersion       :   99:agent.(1)product.(1)comments.entry.text="Xbox"^>'
-        - 'OperatingSystemNameVersion   :   99:agent.(1)product.(1)comments.entry.text="Xbox"^>'
-
-
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Nintendo WiiU) AppleWebKit/536.28 (KHTML, like Gecko) NX/3.0.3.12.15 NintendoBrowser/4.1.1.9601.EU'
-      expected:
-        DeviceClass                          : 'Game Console'
-        DeviceName                           : 'Nintendo WiiU'
-        DeviceBrand                          : 'Nintendo'
-        OperatingSystemClass                 : 'Game Console'
-        OperatingSystemName                  : 'Nintendo NX'
-        OperatingSystemVersion               : '3.0.3.12.15'
-        OperatingSystemNameVersion           : 'Nintendo NX 3.0.3.12.15'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '536.28'
-        LayoutEngineVersionMajor             : '536'
-        LayoutEngineNameVersion              : 'AppleWebKit 536.28'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'NintendoBrowser'
-        AgentVersion                         : '4.1.1.9601.EU'
-        AgentVersionMajor                    : '4'
-        AgentNameVersion                     : 'NintendoBrowser 4.1.1.9601.EU'
-        AgentNameVersionMajor                : 'NintendoBrowser 4'
+- matcher:
+    extract:
+    - 'DeviceClass                  : 2014:"Game Console"'
+    - 'DeviceBrand                  : 2014:"Nintendo"'
+    - 'DeviceName                   : 2014:agent.(1)product.(1)comments.entry.text%1="Nintendo"@'
+    - 'OperatingSystemClass         : 2014:"Game Console"'
+    - 'OperatingSystemName          : 2014:"Nintendo"'
+    - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.text%1="Nintendo"@'
+    - 'LayoutEngineClass            : 2014:"Game Console"'
+    - 'LayoutEngineName             : 2014:"Nintendo"'
+    - 'LayoutEngineVersion          : 2014:agent.product.(1)name="Version"^.version'
+    - 'AgentClass                   : 2014:"Game Console"'
+    - 'AgentName                    : 2014:"Nintendo"'
+    - 'AgentVersion                 : 2014:agent.product.(1)name="Version"^.version'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (PlayStation 4 2.03) AppleWebKit/537.73 (KHTML, like Gecko)'
-      expected:
-        DeviceClass                          : 'Game Console'
-        DeviceName                           : 'PlayStation 4'
-        DeviceBrand                          : 'Sony'
-        OperatingSystemClass                 : 'Game Console'
-        OperatingSystemName                  : 'PlayStation 4'
-        OperatingSystemVersion               : '2.03'
-        OperatingSystemNameVersion           : 'PlayStation 4 2.03'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '537.73'
-        LayoutEngineVersionMajor             : '537'
-        LayoutEngineNameVersion              : 'AppleWebKit 537.73'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'AppleWebKit'
-        AgentVersion                         : '537.73'
-        AgentVersionMajor                    : '537'
-        AgentNameVersion                     : 'AppleWebKit 537.73'
-        AgentNameVersionMajor                : 'AppleWebKit 537'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.text="Xbox"'
+    extract:
+    - 'DeviceClass                  : 2010:"Game Console"'
+    - 'DeviceBrand                  : 2010:"Microsoft"'
+    - 'DeviceName                   : 2010:"Xbox"'
+    - 'DeviceVersion                : 2010:"Xbox 360">'
+    - 'OperatingSystemClass         :  101:"Game Console"'
+    - 'OperatingSystemName          :   98:"Xbox"'
+    - 'OperatingSystemVersion       :   98:"Xbox 360"'
+    - 'OperatingSystemNameVersion   :   98:"Xbox 360"'
+
+- matcher:
+    extract:
+    - 'DeviceClass                  : 2014:"Game Console"'
+    - 'DeviceBrand                  : 2014:"Microsoft"'
+    - 'DeviceName                   : 2014:"Xbox"'
+    - 'DeviceVersion                : 2014:agent.(1)product.(1)comments.entry.text="Xbox"^>'
+    - 'OperatingSystemClass         :  101:"Game Console"'
+    - 'OperatingSystemName          :   99:"Xbox"'
+    - 'OperatingSystemVersion       :   99:agent.(1)product.(1)comments.entry.text="Xbox"^>'
+    - 'OperatingSystemNameVersion   :   99:agent.(1)product.(1)comments.entry.text="Xbox"^>'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (PlayStation Vita 3.36) AppleWebKit/537.73 (KHTML, like Gecko) Silk/3.2'
-      expected:
-        DeviceClass                          : 'Game Console'
-        DeviceName                           : 'PlayStation Vita'
-        DeviceBrand                          : 'Sony'
-        DeviceVersion                        : '3.36'
-        OperatingSystemClass                 : 'Game Console'
-        OperatingSystemName                  : 'PlayStation Vita'
-        OperatingSystemVersion               : '3.36'
-        OperatingSystemNameVersion           : 'PlayStation Vita 3.36'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '537.73'
-        LayoutEngineVersionMajor             : '537'
-        LayoutEngineNameVersion              : 'AppleWebKit 537.73'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Silk'
-        AgentVersion                         : '3.2'
-        AgentVersionMajor                    : '3'
-        AgentNameVersion                     : 'Silk 3.2'
-        AgentNameVersionMajor                : 'Silk 3'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Nintendo WiiU) AppleWebKit/536.28 (KHTML, like Gecko) NX/3.0.3.12.15 NintendoBrowser/4.1.1.9601.EU'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Nintendo WiiU'
+      DeviceBrand                          : 'Nintendo'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'Nintendo NX'
+      OperatingSystemVersion               : '3.0.3.12.15'
+      OperatingSystemNameVersion           : 'Nintendo NX 3.0.3.12.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '536.28'
+      LayoutEngineVersionMajor             : '536'
+      LayoutEngineNameVersion              : 'AppleWebKit 536.28'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'NintendoBrowser'
+      AgentVersion                         : '4.1.1.9601.EU'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'NintendoBrowser 4.1.1.9601.EU'
+      AgentNameVersionMajor                : 'NintendoBrowser 4'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Nintendo 3DS; U; ; nl) Version/1.7567.EU'
-      expected:
-        DeviceClass                          : 'Game Console'
-        DeviceName                           : 'Nintendo 3DS'
-        DeviceBrand                          : 'Nintendo'
-        OperatingSystemClass                 : 'Game Console'
-        OperatingSystemName                  : 'Nintendo'
-        OperatingSystemVersion               : 'Nintendo 3DS'
-        OperatingSystemNameVersion           : 'Nintendo Nintendo 3DS'
-        LayoutEngineClass                    : 'Game Console'
-        LayoutEngineName                     : 'Nintendo'
-        LayoutEngineVersion                  : '1.7567.EU'
-        LayoutEngineVersionMajor             : '1'
-        LayoutEngineNameVersion              : 'Nintendo 1.7567.EU'
-        LayoutEngineNameVersionMajor         : 'Nintendo 1'
-        AgentClass                           : 'Game Console'
-        AgentName                            : 'Nintendo'
-        AgentVersion                         : '1.7567.EU'
-        AgentVersionMajor                    : '1'
-        AgentNameVersion                     : 'Nintendo 1.7567.EU'
-        AgentNameVersionMajor                : 'Nintendo 1'
-        AgentLanguage                        : 'Dutch'
-        AgentLanguageCode                    : 'nl'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (PlayStation 4 2.03) AppleWebKit/537.73 (KHTML, like Gecko)'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'PlayStation 4'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'PlayStation 4'
+      OperatingSystemVersion               : '2.03'
+      OperatingSystemNameVersion           : 'PlayStation 4 2.03'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.73'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.73'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AppleWebKit'
+      AgentVersion                         : '537.73'
+      AgentVersionMajor                    : '537'
+      AgentNameVersion                     : 'AppleWebKit 537.73'
+      AgentNameVersionMajor                : 'AppleWebKit 537'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10553'
-      expected:
-        DeviceClass                          : 'Game Console'
-        DeviceName                           : 'Xbox'
-        DeviceBrand                          : 'Microsoft'
-        DeviceCpu                            : 'x64'
-        DeviceVersion                        : 'Xbox One'
-        OperatingSystemClass                 : 'Game Console'
-        OperatingSystemName                  : 'Windows NT'
-        OperatingSystemVersion               : 'Windows 10.0'
-        OperatingSystemNameVersion           : 'Windows 10.0'
-        OperatingSystemVersionBuild          : '10553'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'EdgeHTML'
-        LayoutEngineVersion                  : '13'
-        LayoutEngineVersionMajor             : '13'
-        LayoutEngineNameVersion              : 'EdgeHTML 13'
-        LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Edge'
-        AgentVersion                         : '13'
-        AgentVersionMajor                    : '13'
-        AgentNameVersion                     : 'Edge 13'
-        AgentNameVersionMajor                : 'Edge 13'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (PlayStation Vita 3.36) AppleWebKit/537.73 (KHTML, like Gecko) Silk/3.2'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'PlayStation Vita'
+      DeviceBrand                          : 'Sony'
+      DeviceVersion                        : '3.36'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'PlayStation Vita'
+      OperatingSystemVersion               : '3.36'
+      OperatingSystemNameVersion           : 'PlayStation Vita 3.36'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.73'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.73'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Silk'
+      AgentVersion                         : '3.2'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Silk 3.2'
+      AgentNameVersionMajor                : 'Silk 3'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)'
-      expected:
-        DeviceClass                          : 'Game Console'
-        DeviceName                           : 'Xbox'
-        DeviceBrand                          : 'Microsoft'
-        DeviceVersion                        : 'Xbox 360'
-        OperatingSystemClass                 : 'Game Console'
-        OperatingSystemName                  : 'Windows NT'
-        OperatingSystemVersion               : 'Windows 7'
-        OperatingSystemNameVersion           : 'Windows 7'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Trident'
-        LayoutEngineVersion                  : '5.0'
-        LayoutEngineVersionMajor             : '5'
-        LayoutEngineNameVersion              : 'Trident 5.0'
-        LayoutEngineNameVersionMajor         : 'Trident 5'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Internet Explorer'
-        AgentVersion                         : '9.0'
-        AgentVersionMajor                    : '9'
-        AgentNameVersion                     : 'Internet Explorer 9.0'
-        AgentNameVersionMajor                : 'Internet Explorer 9'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Nintendo 3DS; U; ; nl) Version/1.7567.EU'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Nintendo 3DS'
+      DeviceBrand                          : 'Nintendo'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'Nintendo'
+      OperatingSystemVersion               : 'Nintendo 3DS'
+      OperatingSystemNameVersion           : 'Nintendo Nintendo 3DS'
+      LayoutEngineClass                    : 'Game Console'
+      LayoutEngineName                     : 'Nintendo'
+      LayoutEngineVersion                  : '1.7567.EU'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Nintendo 1.7567.EU'
+      LayoutEngineNameVersionMajor         : 'Nintendo 1'
+      AgentClass                           : 'Game Console'
+      AgentName                            : 'Nintendo'
+      AgentVersion                         : '1.7567.EU'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Nintendo 1.7567.EU'
+      AgentNameVersionMajor                : 'Nintendo 1'
+      AgentLanguage                        : 'Dutch'
+      AgentLanguageCode                    : 'nl'
+      AgentSecurity                        : 'Strong security'
 
 
-  - test:
-      input:
-        user_agent_string: 'Opera/9.30 (Nintendo Wii; U; ; 2047-7; nl)'
-      expected:
-        DeviceClass                          : 'Game Console'
-        DeviceName                           : 'Nintendo Wii'
-        DeviceBrand                          : 'Nintendo'
-        OperatingSystemClass                 : 'Game Console'
-        OperatingSystemName                  : 'Nintendo'
-        OperatingSystemVersion               : 'Nintendo Wii'
-        OperatingSystemNameVersion           : 'Nintendo Nintendo Wii'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '1'
-        LayoutEngineVersionMajor             : '1'
-        LayoutEngineNameVersion              : 'Presto 1'
-        LayoutEngineNameVersionMajor         : 'Presto 1'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '9.30'
-        AgentVersionMajor                    : '9'
-        AgentNameVersion                     : 'Opera 9.30'
-        AgentNameVersionMajor                : 'Opera 9'
-        AgentLanguage                        : 'Dutch'
-        AgentLanguageCode                    : 'nl'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10553'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Xbox'
+      DeviceBrand                          : 'Microsoft'
+      DeviceCpu                            : 'x64'
+      DeviceVersion                        : 'Xbox One'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemVersionBuild          : '10553'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'EdgeHTML'
+      LayoutEngineVersion                  : '13'
+      LayoutEngineVersionMajor             : '13'
+      LayoutEngineNameVersion              : 'EdgeHTML 13'
+      LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '13'
+      AgentVersionMajor                    : '13'
+      AgentNameVersion                     : 'Edge 13'
+      AgentNameVersionMajor                : 'Edge 13'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Xbox'
+      DeviceBrand                          : 'Microsoft'
+      DeviceVersion                        : 'Xbox 360'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Trident 5.0'
+      LayoutEngineNameVersionMajor         : 'Trident 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '9.0'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Internet Explorer 9.0'
+      AgentNameVersionMajor                : 'Internet Explorer 9'
+
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.30 (Nintendo Wii; U; ; 2047-7; nl)'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Nintendo Wii'
+      DeviceBrand                          : 'Nintendo'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'Nintendo'
+      OperatingSystemVersion               : 'Nintendo Wii'
+      OperatingSystemNameVersion           : 'Nintendo Nintendo Wii'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Presto 1'
+      LayoutEngineNameVersionMajor         : 'Presto 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '9.30'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Opera 9.30'
+      AgentNameVersionMajor                : 'Opera 9'
+      AgentLanguage                        : 'Dutch'
+      AgentLanguageCode                    : 'nl'
+      AgentSecurity                        : 'Strong security'
 
 
 #TODO
@@ -310,44 +310,44 @@ config:
 #        user_agent_string: 'Mozilla/5.0 (%s; U; %s; en-US; Valve Source Client; %s) AppleWebKit/532.1 (KHTML, like Gecko) Chrome/3.0.195.24 Safari/532.1'
 
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)comments.(1)entry="New Nintendo 3DS like iPhone"'
-      extract:
-        - 'DeviceClass                  : 2014:"Game Console"'
-        - 'DeviceBrand                  : 2014:"Nintendo"'
-        - 'DeviceName                   : 2014:"New Nintendo 3DS"'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry="New Nintendo 3DS like iPhone"'
+    extract:
+    - 'DeviceClass                  : 2014:"Game Console"'
+    - 'DeviceBrand                  : 2014:"Nintendo"'
+    - 'DeviceName                   : 2014:"New Nintendo 3DS"'
 
-  - matcher:
-      require:
-        - 'agent.(4)product.(1)name="Mobile NintendoBrowser"'
-        - 'agent.(4)product.(1)version="1.6.10147.EU"'
-      extract:
-        - 'AgentClass            :   20:"Browser"'
-        - 'AgentName             :   20:"NintendoBrowser"'
-        - 'AgentVersion          :   20:agent.(4)product.(1)name="Mobile NintendoBrowser"^.version'
+- matcher:
+    require:
+    - 'agent.(4)product.(1)name="Mobile NintendoBrowser"'
+    - 'agent.(4)product.(1)version="1.6.10147.EU"'
+    extract:
+    - 'AgentClass            :   20:"Browser"'
+    - 'AgentName             :   20:"NintendoBrowser"'
+    - 'AgentVersion          :   20:agent.(4)product.(1)name="Mobile NintendoBrowser"^.version'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (New Nintendo 3DS like iPhone) AppleWebKit/536.30 (KHTML, like Gecko) NX/3.0.0.5.19 Mobile NintendoBrowser/1.6.10147.EU'
-      expected:
-        DeviceClass                          : 'Game Console'
-        DeviceName                           : 'New Nintendo 3DS'
-        DeviceBrand                          : 'Nintendo'
-        OperatingSystemClass                 : 'Game Console'
-        OperatingSystemName                  : 'Nintendo NX'
-        OperatingSystemVersion               : '3.0.0.5.19'
-        OperatingSystemNameVersion           : 'Nintendo NX 3.0.0.5.19'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '536.30'
-        LayoutEngineVersionMajor             : '536'
-        LayoutEngineNameVersion              : 'AppleWebKit 536.30'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'NintendoBrowser'
-        AgentVersion                         : '1.6.10147.EU'
-        AgentVersionMajor                    : '1'
-        AgentNameVersion                     : 'NintendoBrowser 1.6.10147.EU'
-        AgentNameVersionMajor                : 'NintendoBrowser 1'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (New Nintendo 3DS like iPhone) AppleWebKit/536.30 (KHTML, like Gecko) NX/3.0.0.5.19 Mobile NintendoBrowser/1.6.10147.EU'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'New Nintendo 3DS'
+      DeviceBrand                          : 'Nintendo'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'Nintendo NX'
+      OperatingSystemVersion               : '3.0.0.5.19'
+      OperatingSystemNameVersion           : 'Nintendo NX 3.0.0.5.19'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '536.30'
+      LayoutEngineVersionMajor             : '536'
+      LayoutEngineNameVersion              : 'AppleWebKit 536.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'NintendoBrowser'
+      AgentVersion                         : '1.6.10147.EU'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'NintendoBrowser 1.6.10147.EU'
+      AgentNameVersionMajor                : 'NintendoBrowser 1'

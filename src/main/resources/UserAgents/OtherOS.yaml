@@ -27,121 +27,121 @@ config:
 #        - 'OperatingSystemName   :   10:agent.(1)product.(1)comments.entry.(1)product.(1)name="SunOS"'
 #        - 'OperatingSystemVersion:   10:agent.(1)product.(1)comments.entry.(1)product.(1)name="SunOS"^.version'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (X11; SunOS i86pc; rv:31.0) Gecko/20100101 Firefox/31.0'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Sun Desktop'
-        DeviceCpu                            : 'i86pc'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'SunOS'
-        OperatingSystemVersion               : 'i86pc'
-        OperatingSystemNameVersion           : 'SunOS i86pc'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Gecko'
-        LayoutEngineVersion                  : '31.0'
-        LayoutEngineVersionMajor             : '31'
-        LayoutEngineNameVersion              : 'Gecko 31.0'
-        LayoutEngineNameVersionMajor         : 'Gecko 31'
-        LayoutEngineBuild                    : '20100101'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Firefox'
-        AgentVersion                         : '31.0'
-        AgentVersionMajor                    : '31'
-        AgentNameVersion                     : 'Firefox 31.0'
-        AgentNameVersionMajor                : 'Firefox 31'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; SunOS i86pc; rv:31.0) Gecko/20100101 Firefox/31.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Sun Desktop'
+      DeviceCpu                            : 'i86pc'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'SunOS'
+      OperatingSystemVersion               : 'i86pc'
+      OperatingSystemNameVersion           : 'SunOS i86pc'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '31.0'
+      LayoutEngineVersionMajor             : '31'
+      LayoutEngineNameVersion              : 'Gecko 31.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 31'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '31.0'
+      AgentVersionMajor                    : '31'
+      AgentNameVersion                     : 'Firefox 31.0'
+      AgentNameVersionMajor                : 'Firefox 31'
 
 
-  - matcher:
-      extract:
-        - 'DeviceClass           :   10:"Desktop"'
-        - 'DeviceName            :   10:"Desktop"'
-        - 'OperatingSystemClass  :   10:"Desktop"'
-        - 'OperatingSystemName   :   10:agent.product.comments.entry="OS/2"'
-        - 'OperatingSystemVersion:   10:"2.x"'
+- matcher:
+    extract:
+    - 'DeviceClass           :   10:"Desktop"'
+    - 'DeviceName            :   10:"Desktop"'
+    - 'OperatingSystemClass  :   10:"Desktop"'
+    - 'OperatingSystemName   :   10:agent.product.comments.entry="OS/2"'
+    - 'OperatingSystemVersion:   10:"2.x"'
 
-  - matcher:
-      extract:
-        - 'DeviceClass           :   20:"Desktop"'
-        - 'DeviceName            :   20:"Desktop"'
-        - 'OperatingSystemClass  :   20:"Desktop"'
-        - 'OperatingSystemName   :   20:agent.product.comments.entry="OS/2"'
-        - 'OperatingSystemVersion:   20:agent.product.comments.entry.product.name="Warp"^'
+- matcher:
+    extract:
+    - 'DeviceClass           :   20:"Desktop"'
+    - 'DeviceName            :   20:"Desktop"'
+    - 'OperatingSystemClass  :   20:"Desktop"'
+    - 'OperatingSystemName   :   20:agent.product.comments.entry="OS/2"'
+    - 'OperatingSystemVersion:   20:agent.product.comments.entry.product.name="Warp"^'
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (OS/2; Warp 4.5; rv:24.0) Gecko/20100101 Firefox/24.0'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Desktop'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'OS/2'
-        OperatingSystemVersion               : 'Warp 4.5'
-        OperatingSystemNameVersion           : 'OS/2 Warp 4.5'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Gecko'
-        LayoutEngineVersion                  : '24.0'
-        LayoutEngineVersionMajor             : '24'
-        LayoutEngineNameVersion              : 'Gecko 24.0'
-        LayoutEngineNameVersionMajor         : 'Gecko 24'
-        LayoutEngineBuild                    : '20100101'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Firefox'
-        AgentVersion                         : '24.0'
-        AgentVersionMajor                    : '24'
-        AgentNameVersion                     : 'Firefox 24.0'
-        AgentNameVersionMajor                : 'Firefox 24'
-
-
-  - test:
-      input:
-        user_agent_string: 'Mozilla/4.61 [de] (OS/2; U)'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Desktop'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'OS/2'
-        OperatingSystemVersion               : '2.x'
-        OperatingSystemNameVersion           : 'OS/2 2.x'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Mozilla'
-        LayoutEngineVersion                  : '4.61'
-        LayoutEngineVersionMajor             : '4'
-        LayoutEngineNameVersion              : 'Mozilla 4.61'
-        LayoutEngineNameVersionMajor         : 'Mozilla 4'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Netscape'
-        AgentVersion                         : '4.61'
-        AgentVersionMajor                    : '4'
-        AgentNameVersion                     : 'Netscape 4.61'
-        AgentNameVersionMajor                : 'Netscape 4'
-        AgentLanguage                        : 'German'
-        AgentLanguageCode                    : 'de'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (OS/2; Warp 4.5; rv:24.0) Gecko/20100101 Firefox/24.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'OS/2'
+      OperatingSystemVersion               : 'Warp 4.5'
+      OperatingSystemNameVersion           : 'OS/2 Warp 4.5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '24.0'
+      LayoutEngineVersionMajor             : '24'
+      LayoutEngineNameVersion              : 'Gecko 24.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 24'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '24.0'
+      AgentVersionMajor                    : '24'
+      AgentNameVersion                     : 'Firefox 24.0'
+      AgentNameVersionMajor                : 'Firefox 24'
 
 
-  - test:
-      input:
-         user_agent_string: 'NokiaC6-00/10.0.021 (SymbianOS/9.4; Series60/5.0 Mozilla/5.0; Profile/MIDP-2.1 Configuration/CLDC-1.1) AppleWebkit/525 (KHTML, like Gecko) BrowserNG/7.2.6 UNTRUSTED/1.0 3gpp-gba 88XI4n5O'
-      expected:
-        DeviceClass                          : 'Phone'
-        DeviceName                           : 'SymbianOS Phone'     # FIXME: Should be "NokiaC6"
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'SymbianOS'
-        OperatingSystemVersion               : '9.4'
-        OperatingSystemNameVersion           : 'SymbianOS 9.4'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '525'
-        LayoutEngineVersionMajor             : '525'
-        LayoutEngineNameVersion              : 'AppleWebKit 525'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 525'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'BrowserNG'
-        AgentVersion                         : '7.2.6'
-        AgentVersionMajor                    : '7'
-        AgentNameVersion                     : 'BrowserNG 7.2.6'
-        AgentNameVersionMajor                : 'BrowserNG 7'
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.61 [de] (OS/2; U)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'OS/2'
+      OperatingSystemVersion               : '2.x'
+      OperatingSystemNameVersion           : 'OS/2 2.x'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '4.61'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Mozilla 4.61'
+      LayoutEngineNameVersionMajor         : 'Mozilla 4'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '4.61'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Netscape 4.61'
+      AgentNameVersionMajor                : 'Netscape 4'
+      AgentLanguage                        : 'German'
+      AgentLanguageCode                    : 'de'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'NokiaC6-00/10.0.021 (SymbianOS/9.4; Series60/5.0 Mozilla/5.0; Profile/MIDP-2.1 Configuration/CLDC-1.1) AppleWebkit/525 (KHTML, like Gecko) BrowserNG/7.2.6 UNTRUSTED/1.0 3gpp-gba 88XI4n5O'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'SymbianOS Phone'     # FIXME: Should be "NokiaC6"
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'SymbianOS'
+      OperatingSystemVersion               : '9.4'
+      OperatingSystemNameVersion           : 'SymbianOS 9.4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '525'
+      LayoutEngineVersionMajor             : '525'
+      LayoutEngineNameVersion              : 'AppleWebKit 525'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 525'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'BrowserNG'
+      AgentVersion                         : '7.2.6'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'BrowserNG 7.2.6'
+      AgentNameVersionMajor                : 'BrowserNG 7'
 
 

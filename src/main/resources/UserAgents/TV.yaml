@@ -50,295 +50,295 @@ config:
 #"+PVR" Support for PVR feature
 #"+RTSP" Support for RTSP streaming feature
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"'
-      extract:
-        - 'DeviceClass           : 1000:"TV"'
-        - 'DeviceBrand           :  100:"Unspecified TV"'
-        - 'DeviceName            :  100:"Unspecified TV"'
-        - 'OperatingSystemClass  : 1000:"Embedded"'
-        - 'OperatingSystemName   :    1:"Proprietary"'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"'
+    extract:
+    - 'DeviceClass           : 1000:"TV"'
+    - 'DeviceBrand           :  100:"Unspecified TV"'
+    - 'DeviceName            :  100:"Unspecified TV"'
+    - 'OperatingSystemClass  : 1000:"Embedded"'
+    - 'OperatingSystemName   :    1:"Proprietary"'
 
-  - matcher:
-      extract:
-        - 'DeviceBrand           : 1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"^.(1)comments.(2)entry!=""'
+- matcher:
+    extract:
+    - 'DeviceBrand           : 1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"^.(1)comments.(2)entry!=""'
 
-  - matcher:
-      extract:
-        - 'DeviceName            : 1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"^.(1)comments.(3)entry!=""'
+- matcher:
+    extract:
+    - 'DeviceName            : 1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"^.(1)comments.(3)entry!=""'
 
-  - matcher:
-      extract:
-        - 'OperatingSystemVersion: 1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"^.(1)comments.(4)entry!=""'
+- matcher:
+    extract:
+    - 'OperatingSystemVersion: 1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"^.(1)comments.(4)entry!=""'
 
-  - matcher:
-      extract:
-        - 'OperatingSystemName   : 1001:agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"^.(1)comments.(4)entry.product.name'
-        - 'OperatingSystemVersion: 1001:agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"^.(1)comments.(4)entry.product.version'
-
-
-  - test:
-      input:
-        user_agent_string: 'Opera/9.80 (Linux mips; U; HbbTV/1.1.1 (; Philips; ; ; ; ) CE-HTML/1.0 NETTV/4.0.2; en) Presto/2.10.250 Version/11.60'
-      expected:
-        DeviceClass                          : 'TV'
-        DeviceName                           : 'Unspecified TV'
-        DeviceBrand                          : 'Philips'
-        DeviceCpu                            : 'Mips'
-        OperatingSystemClass                 : 'Embedded'
-        OperatingSystemName                  : 'Linux'
-        OperatingSystemVersion               : 'Mips'
-        OperatingSystemNameVersion           : 'Linux Mips'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '2.10.250'
-        LayoutEngineVersionMajor             : '2'
-        LayoutEngineNameVersion              : 'Presto 2.10.250'
-        LayoutEngineNameVersionMajor         : 'Presto 2'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '11.60'
-        AgentVersionMajor                    : '11'
-        AgentNameVersion                     : 'Opera 11.60'
-        AgentNameVersionMajor                : 'Opera 11'
-        AgentLanguage                        : 'English'
-        AgentLanguageCode                    : 'en'
-        AgentSecurity                        : 'Strong security'
-
-  - test:
-      input:
-        user_agent_string: 'Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50'
-      expected:
-        DeviceClass                          : 'TV'
-        DeviceName                           : '47PFT560912'
-        DeviceBrand                          : 'Philips'
-        DeviceCpu                            : 'ARMv7l'
-        OperatingSystemClass                 : 'Embedded'
-        OperatingSystemName                  : 'Linux'
-        OperatingSystemVersion               : 'ARMv7l'
-        OperatingSystemNameVersion           : 'Linux ARMv7l'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '2.12.407'
-        LayoutEngineVersionMajor             : '2'
-        LayoutEngineNameVersion              : 'Presto 2.12.407'
-        LayoutEngineNameVersionMajor         : 'Presto 2'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '12.50'
-        AgentVersionMajor                    : '12'
-        AgentNameVersion                     : 'Opera 12.50'
-        AgentNameVersionMajor                : 'Opera 12'
+- matcher:
+    extract:
+    - 'OperatingSystemName   : 1001:agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"^.(1)comments.(4)entry.product.name'
+    - 'OperatingSystemVersion: 1001:agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"^.(1)comments.(4)entry.product.version'
 
 
-  - test:
-      input:
-        user_agent_string: 'Opera/9.80 (Linux sh4; U; HbbTV/1.1.1 (+PVR; Loewe; SL150; LOH/3.10;;) CE-HTML/1.0 Config(L:nld,CC:NLD); en) Presto/2.10.250 Version/11.60'
-      expected:
-        DeviceClass                          : 'TV'
-        DeviceName                           : 'SL150'
-        DeviceBrand                          : 'Loewe'
-        DeviceCpu                            : 'SH4'
-        OperatingSystemClass                 : 'Embedded'
-        OperatingSystemName                  : 'LOH'
-        OperatingSystemVersion               : '3.10'
-        OperatingSystemNameVersion           : 'LOH 3.10'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '2.10.250'
-        LayoutEngineVersionMajor             : '2'
-        LayoutEngineNameVersion              : 'Presto 2.10.250'
-        LayoutEngineNameVersionMajor         : 'Presto 2'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '11.60'
-        AgentVersionMajor                    : '11'
-        AgentNameVersion                     : 'Opera 11.60'
-        AgentNameVersionMajor                : 'Opera 11'
-        AgentLanguage                        : 'English'
-        AgentLanguageCode                    : 'en'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Linux mips; U; HbbTV/1.1.1 (; Philips; ; ; ; ) CE-HTML/1.0 NETTV/4.0.2; en) Presto/2.10.250 Version/11.60'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Unspecified TV'
+      DeviceBrand                          : 'Philips'
+      DeviceCpu                            : 'Mips'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Mips'
+      OperatingSystemNameVersion           : 'Linux Mips'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.10.250'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.10.250'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '11.60'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Opera 11.60'
+      AgentNameVersionMajor                : 'Opera 11'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : '47PFT560912'
+      DeviceBrand                          : 'Philips'
+      DeviceCpu                            : 'ARMv7l'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'ARMv7l'
+      OperatingSystemNameVersion           : 'Linux ARMv7l'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.407'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.407'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.50'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.50'
+      AgentNameVersionMajor                : 'Opera 12'
 
 
-  - test:
-      input:
-        user_agent_string: 'Opera/9.80 (Linux mips; U; HbbTV/1.1.1 (; TechniSat; TechniCorder ISIO STC; ; ; ); CE-HTML/1.0 (); TechniSat TechniCorder ISIO STC BCM1 STB; de) Presto/2.9.167 Version/11.50'
-      expected:
-        DeviceClass                          : 'TV'
-        DeviceName                           : 'TechniCorder ISIO STC'
-        DeviceBrand                          : 'TechniSat'
-        DeviceCpu                            : 'Mips'
-        OperatingSystemClass                 : 'Embedded'
-        OperatingSystemName                  : 'Linux'
-        OperatingSystemVersion               : 'Mips'
-        OperatingSystemNameVersion           : 'Linux Mips'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '2.9.167'
-        LayoutEngineVersionMajor             : '2'
-        LayoutEngineNameVersion              : 'Presto 2.9.167'
-        LayoutEngineNameVersionMajor         : 'Presto 2'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '11.50'
-        AgentVersionMajor                    : '11'
-        AgentNameVersion                     : 'Opera 11.50'
-        AgentNameVersionMajor                : 'Opera 11'
-        AgentLanguage                        : 'German'
-        AgentLanguageCode                    : 'de'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Linux sh4; U; HbbTV/1.1.1 (+PVR; Loewe; SL150; LOH/3.10;;) CE-HTML/1.0 Config(L:nld,CC:NLD); en) Presto/2.10.250 Version/11.60'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'SL150'
+      DeviceBrand                          : 'Loewe'
+      DeviceCpu                            : 'SH4'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'LOH'
+      OperatingSystemVersion               : '3.10'
+      OperatingSystemNameVersion           : 'LOH 3.10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.10.250'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.10.250'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '11.60'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Opera 11.60'
+      AgentNameVersionMajor                : 'Opera 11'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
 
 
-  - test:
-      input:
-        user_agent_string: 'Opera/9.80 (Linux i686; HbbTV/1.1.1 (+PVR+DRM; BANGOLUFSEN; A3; ; ; ) CE-HTML/1.0 NETTV/4.3.9) Presto/2.12.407 Version/12.50 A3/1.0.8.36666 (BANGOLUFSEN, A3, wireless)'
-      expected:
-        DeviceClass                          : 'TV'
-        DeviceName                           : 'A3'
-        DeviceBrand                          : 'BANGOLUFSEN'
-        DeviceCpu                            : 'Intel i686'
-        OperatingSystemClass                 : 'Embedded'
-        OperatingSystemName                  : 'Linux'
-        OperatingSystemVersion               : 'Intel i686'
-        OperatingSystemNameVersion           : 'Linux Intel i686'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '2.12.407'
-        LayoutEngineVersionMajor             : '2'
-        LayoutEngineNameVersion              : 'Presto 2.12.407'
-        LayoutEngineNameVersionMajor         : 'Presto 2'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '12.50'
-        AgentVersionMajor                    : '12'
-        AgentNameVersion                     : 'Opera 12.50'
-        AgentNameVersionMajor                : 'Opera 12'
-
-  - test:
-      input:
-        user_agent_string: 'Opera/9.80 (Linux sh4; U; HbbTV/1.1.1(;;;;;); CE-HTML; TechniSat DIGIT ISIO S; en) Presto/2.8.115 Version/11.10'
-      expected:
-        DeviceClass                          : 'TV'
-        DeviceName                           : 'Unspecified TV'
-        DeviceBrand                          : 'Unspecified TV'
-        DeviceCpu                            : 'SH4'
-        OperatingSystemClass                 : 'Embedded'
-        OperatingSystemName                  : 'Linux'
-        OperatingSystemVersion               : 'SH4'
-        OperatingSystemNameVersion           : 'Linux SH4'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '2.8.115'
-        LayoutEngineVersionMajor             : '2'
-        LayoutEngineNameVersion              : 'Presto 2.8.115'
-        LayoutEngineNameVersionMajor         : 'Presto 2'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '11.10'
-        AgentVersionMajor                    : '11'
-        AgentNameVersion                     : 'Opera 11.10'
-        AgentNameVersionMajor                : 'Opera 11'
-        AgentLanguage                        : 'English'
-        AgentLanguageCode                    : 'en'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Linux mips; U; HbbTV/1.1.1 (; TechniSat; TechniCorder ISIO STC; ; ; ); CE-HTML/1.0 (); TechniSat TechniCorder ISIO STC BCM1 STB; de) Presto/2.9.167 Version/11.50'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'TechniCorder ISIO STC'
+      DeviceBrand                          : 'TechniSat'
+      DeviceCpu                            : 'Mips'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Mips'
+      OperatingSystemNameVersion           : 'Linux Mips'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.9.167'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.9.167'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '11.50'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Opera 11.50'
+      AgentNameVersionMajor                : 'Opera 11'
+      AgentLanguage                        : 'German'
+      AgentLanguageCode                    : 'de'
+      AgentSecurity                        : 'Strong security'
 
 
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)comments.entry="SMART-TV"'
-      extract:
-        - 'DeviceClass               : 500 :"TV"'
-        - 'DeviceBrand               : 500 :"Samsung"'
-        - 'DeviceName                : 500 :"Smart TV"'
-        - 'OperatingSystemClass      : 500 :"Embedded"'
-        - 'OperatingSystemName       : 500 :"Linux"'
-        - 'OperatingSystemVersion    : 500 :"SmartTV"'
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Linux i686; HbbTV/1.1.1 (+PVR+DRM; BANGOLUFSEN; A3; ; ; ) CE-HTML/1.0 NETTV/4.3.9) Presto/2.12.407 Version/12.50 A3/1.0.8.36666 (BANGOLUFSEN, A3, wireless)'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'A3'
+      DeviceBrand                          : 'BANGOLUFSEN'
+      DeviceCpu                            : 'Intel i686'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel i686'
+      OperatingSystemNameVersion           : 'Linux Intel i686'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.407'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.407'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.50'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.50'
+      AgentNameVersionMajor                : 'Opera 12'
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Linux sh4; U; HbbTV/1.1.1(;;;;;); CE-HTML; TechniSat DIGIT ISIO S; en) Presto/2.8.115 Version/11.10'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Unspecified TV'
+      DeviceBrand                          : 'Unspecified TV'
+      DeviceCpu                            : 'SH4'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'SH4'
+      OperatingSystemNameVersion           : 'Linux SH4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.8.115'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.8.115'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '11.10'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Opera 11.10'
+      AgentNameVersionMajor                : 'Opera 11'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry="SMART-TV"'
+    extract:
+    - 'DeviceClass               : 500 :"TV"'
+    - 'DeviceBrand               : 500 :"Samsung"'
+    - 'DeviceName                : 500 :"Smart TV"'
+    - 'OperatingSystemClass      : 500 :"Embedded"'
+    - 'OperatingSystemName       : 500 :"Linux"'
+    - 'OperatingSystemVersion    : 500 :"SmartTV"'
 
 
 #My TV
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (SmartHub; SMART-TV; U; Linux/SmartTV) AppleWebKit/531.2+ (KHTML, like Gecko) WebBrowser/1.0 SmartTV Safari/531.2+'
-      expected:
-        DeviceClass                          : 'TV'
-        DeviceName                           : 'Smart TV'
-        DeviceBrand                          : 'Samsung'
-        OperatingSystemClass                 : 'Embedded'
-        OperatingSystemName                  : 'Linux'
-        OperatingSystemVersion               : 'SmartTV'
-        OperatingSystemNameVersion           : 'Linux SmartTV'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '531.2'
-        LayoutEngineVersionMajor             : '531'
-        LayoutEngineNameVersion              : 'AppleWebKit 531.2'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 531'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'WebBrowser'
-        AgentVersion                         : '1.0'
-        AgentVersionMajor                    : '1'
-        AgentNameVersion                     : 'WebBrowser 1.0'
-        AgentNameVersionMajor                : 'WebBrowser 1'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (SmartHub; SMART-TV; U; Linux/SmartTV) AppleWebKit/531.2+ (KHTML, like Gecko) WebBrowser/1.0 SmartTV Safari/531.2+'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Smart TV'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'SmartTV'
+      OperatingSystemNameVersion           : 'Linux SmartTV'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '531.2'
+      LayoutEngineVersionMajor             : '531'
+      LayoutEngineNameVersion              : 'AppleWebKit 531.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 531'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'WebBrowser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'WebBrowser 1.0'
+      AgentNameVersionMajor                : 'WebBrowser 1'
+      AgentSecurity                        : 'Strong security'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (SMART-TV; X11; Linux i686) AppleWebKit/535.20+ (KHTML, like Gecko) Version/5.0 Safari/535.20+'
-      expected:
-        DeviceClass                          : 'TV'
-        DeviceName                           : 'Smart TV'
-        DeviceBrand                          : 'Samsung'
-        DeviceCpu                            : 'Intel i686'
-        OperatingSystemClass                 : 'Embedded'
-        OperatingSystemName                  : 'Linux'
-        OperatingSystemVersion               : 'SmartTV'
-        OperatingSystemNameVersion           : 'Linux SmartTV'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '535.20'
-        LayoutEngineVersionMajor             : '535'
-        LayoutEngineNameVersion              : 'AppleWebKit 535.20'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Safari'
-        AgentVersion                         : '5.0'
-        AgentVersionMajor                    : '5'
-        AgentNameVersion                     : 'Safari 5.0'
-        AgentNameVersionMajor                : 'Safari 5'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (SMART-TV; X11; Linux i686) AppleWebKit/535.20+ (KHTML, like Gecko) Version/5.0 Safari/535.20+'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Smart TV'
+      DeviceBrand                          : 'Samsung'
+      DeviceCpu                            : 'Intel i686'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'SmartTV'
+      OperatingSystemNameVersion           : 'Linux SmartTV'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '535.20'
+      LayoutEngineVersionMajor             : '535'
+      LayoutEngineNameVersion              : 'AppleWebKit 535.20'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '5.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Safari 5.0'
+      AgentNameVersionMajor                : 'Safari 5'
 
 
-  - matcher:
-      extract:
-        - 'OperatingSystemName       : 501 :"Tizen"'
-        - 'OperatingSystemVersion    : 501 :agent.(1)product.(1)comments.entry.product.name="Tizen"^.version'
+- matcher:
+    extract:
+    - 'OperatingSystemName       : 501 :"Tizen"'
+    - 'OperatingSystemVersion    : 501 :agent.(1)product.(1)comments.entry.product.name="Tizen"^.version'
 
 
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (SMART-TV; Linux; Tizen 2.3) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.0 TV Safari/538.1'
-      expected:
-        DeviceClass                          : 'TV'
-        DeviceName                           : 'Smart TV'
-        DeviceBrand                          : 'Samsung'
-        OperatingSystemClass                 : 'Embedded'
-        OperatingSystemName                  : 'Tizen'
-        OperatingSystemVersion               : '2.3'
-        OperatingSystemNameVersion           : 'Tizen 2.3'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'AppleWebKit'
-        LayoutEngineVersion                  : '538.1'
-        LayoutEngineVersionMajor             : '538'
-        LayoutEngineNameVersion              : 'AppleWebKit 538.1'
-        LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'SamsungBrowser'
-        AgentVersion                         : '1.0'
-        AgentVersionMajor                    : '1'
-        AgentNameVersion                     : 'SamsungBrowser 1.0'
-        AgentNameVersionMajor                : 'SamsungBrowser 1'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (SMART-TV; Linux; Tizen 2.3) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.0 TV Safari/538.1'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Smart TV'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Tizen'
+      OperatingSystemVersion               : '2.3'
+      OperatingSystemNameVersion           : 'Tizen 2.3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '538.1'
+      LayoutEngineVersionMajor             : '538'
+      LayoutEngineNameVersion              : 'AppleWebKit 538.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SamsungBrowser 1.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 1'
 
 #TODO
 #12	29	Opera/9.80 (Linux sh4; U; HbbTV/1.1.1 (+PVR; Loewe; SL150; LOH/3.10;;) CE-HTML/1.0 Config(L:nld,CC:NLD); en) Presto/2.10.250 Version/11.60
@@ -363,30 +363,30 @@ config:
 
 #TODO: Extract Philips TV type & firmware !!
 
-  - test:
-      input:
-        user_agent_string: 'Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50'
-      expected:
-        DeviceClass                          : 'TV'
-        DeviceName                           : '47PFT560912'
-        DeviceBrand                          : 'Philips'
-        DeviceCpu                            : 'ARMv7l'
-        OperatingSystemClass                 : 'Embedded'
-        OperatingSystemName                  : 'Linux'
-        OperatingSystemVersion               : 'ARMv7l'
-        OperatingSystemNameVersion           : 'Linux ARMv7l'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '2.12.407'
-        LayoutEngineVersionMajor             : '2'
-        LayoutEngineNameVersion              : 'Presto 2.12.407'
-        LayoutEngineNameVersionMajor         : 'Presto 2'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '12.50'
-        AgentVersionMajor                    : '12'
-        AgentNameVersion                     : 'Opera 12.50'
-        AgentNameVersionMajor                : 'Opera 12'
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : '47PFT560912'
+      DeviceBrand                          : 'Philips'
+      DeviceCpu                            : 'ARMv7l'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'ARMv7l'
+      OperatingSystemNameVersion           : 'Linux ARMv7l'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.407'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.407'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.50'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.50'
+      AgentNameVersionMajor                : 'Opera 12'
 
 
 
@@ -399,73 +399,73 @@ config:
 # Mozilla/5.0 (SMART-TV; Linux; Tizen 2.3) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.0 TV Safari/538.1
 # Mozilla/5.0 (Linux; Tizen 2.3; SAMSUNG SM-Z130H) AppleWebKit/537.3 (KHTML, like Gecko) SamsungBrowser/1.0 Mobile Safari/537.3
 
-  - matcher:
-      require:
-      extract:
-        - 'OperatingSystemClass  :  100:"Embedded"'
-        - 'DeviceClass           :  100:"TV"'
-        - 'DeviceBrand           :  100:"Philips"'
-        - 'DeviceName            :  100:"Net TV"'
-        - 'DeviceVersion         :  100:agent.(1)product.(1)comments.(3)entry.(2)product.(1)name="NETTV"^.version'
+- matcher:
+    require:
+    extract:
+    - 'OperatingSystemClass  :  100:"Embedded"'
+    - 'DeviceClass           :  100:"TV"'
+    - 'DeviceBrand           :  100:"Philips"'
+    - 'DeviceName            :  100:"Net TV"'
+    - 'DeviceVersion         :  100:agent.(1)product.(1)comments.(3)entry.(2)product.(1)name="NETTV"^.version'
 
-  - test:
-      input:
-        user_agent_string: 'Opera/9.80 (Linux armv7l; U;  CE-HTML/1.0 NETTV/4.1.1; en) Presto/2.10.287 Version/12.00'
-      expected:
-        DeviceClass                          : 'TV'
-        DeviceName                           : 'Net TV'
-        DeviceBrand                          : 'Philips'
-        DeviceCpu                            : 'ARMv7l'
-        DeviceVersion                        : '4.1.1'
-        OperatingSystemClass                 : 'Embedded'
-        OperatingSystemName                  : 'Linux'
-        OperatingSystemVersion               : 'ARMv7l'
-        OperatingSystemNameVersion           : 'Linux ARMv7l'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '2.10.287'
-        LayoutEngineVersionMajor             : '2'
-        LayoutEngineNameVersion              : 'Presto 2.10.287'
-        LayoutEngineNameVersionMajor         : 'Presto 2'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '12.00'
-        AgentVersionMajor                    : '12'
-        AgentNameVersion                     : 'Opera 12.00'
-        AgentNameVersionMajor                : 'Opera 12'
-        AgentLanguage                        : 'English'
-        AgentLanguageCode                    : 'en'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Linux armv7l; U;  CE-HTML/1.0 NETTV/4.1.1; en) Presto/2.10.287 Version/12.00'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Net TV'
+      DeviceBrand                          : 'Philips'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceVersion                        : '4.1.1'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'ARMv7l'
+      OperatingSystemNameVersion           : 'Linux ARMv7l'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.10.287'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.10.287'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.00'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.00'
+      AgentNameVersionMajor                : 'Opera 12'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
 
 
-  - test:
-      input:
-        user_agent_string: 'Opera/9.70 (Linux armv6l ; U; CE-HTML/1.0 NETTV/2.0.2; en) Presto/2.2.1'
-      expected:
-        DeviceClass                          : 'TV'
-        DeviceName                           : 'Net TV'
-        DeviceBrand                          : 'Philips'
-        DeviceCpu                            : 'ARMv6l'
-        DeviceVersion                        : '2.0.2'
-        OperatingSystemClass                 : 'Embedded'
-        OperatingSystemName                  : 'Linux'
-        OperatingSystemVersion               : 'ARMv6l'
-        OperatingSystemNameVersion           : 'Linux ARMv6l'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Presto'
-        LayoutEngineVersion                  : '1'
-        LayoutEngineVersionMajor             : '1'
-        LayoutEngineNameVersion              : 'Presto 1'
-        LayoutEngineNameVersionMajor         : 'Presto 1'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Opera'
-        AgentVersion                         : '9.70'
-        AgentVersionMajor                    : '9'
-        AgentNameVersion                     : 'Opera 9.70'
-        AgentNameVersionMajor                : 'Opera 9'
-        AgentLanguage                        : 'English'
-        AgentLanguageCode                    : 'en'
-        AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Opera/9.70 (Linux armv6l ; U; CE-HTML/1.0 NETTV/2.0.2; en) Presto/2.2.1'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Net TV'
+      DeviceBrand                          : 'Philips'
+      DeviceCpu                            : 'ARMv6l'
+      DeviceVersion                        : '2.0.2'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'ARMv6l'
+      OperatingSystemNameVersion           : 'Linux ARMv6l'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Presto 1'
+      LayoutEngineNameVersionMajor         : 'Presto 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '9.70'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Opera 9.70'
+      AgentNameVersionMajor                : 'Opera 9'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
 
 
 # Opera/9.80 WebKit/1.6.3 (CE-HTML/1.0 NETTV 3.3.0 PHILIPS-AVM-2012) PhilipsWebKit/535.4
