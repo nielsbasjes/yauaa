@@ -315,15 +315,15 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
     public String toYamlTestCase() {
         StringBuilder sb = new StringBuilder(10240);
         sb.append("\n");
-        sb.append("  - test:\n");
-        sb.append("#      options:\n");
-        sb.append("#        - 'verbose'\n");
-        sb.append("#        - 'init'\n");
-        sb.append("#        - 'only'\n");
-        sb.append("      input:\n");
-//        sb.append("#        name: 'You can give the test case a name'\n");
-        sb.append("        user_agent_string: '").append(userAgentString).append("'\n");
-        sb.append("      expected:\n");
+        sb.append("- test:\n");
+        sb.append("#    options:\n");
+        sb.append("#    - 'verbose'\n");
+        sb.append("#    - 'init'\n");
+        sb.append("#    - 'only'\n");
+        sb.append("    input:\n");
+//        sb.append("#      name: 'You can give the test case a name'\n");
+        sb.append("      user_agent_string: '").append(userAgentString).append("'\n");
+        sb.append("    expected:\n");
 
         List<String> fieldNames = getAvailableFieldNamesSorted();
 
@@ -337,7 +337,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         }
 
         for (String fieldName : fieldNames) {
-            sb.append("        ").append(fieldName);
+            sb.append("      ").append(fieldName);
             for (int l = fieldName.length(); l < maxNameLength + 7; l++) {
                 sb.append(' ');
             }
