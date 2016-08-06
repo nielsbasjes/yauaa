@@ -125,6 +125,10 @@ config:
         AgentVersionMajor                    : '25'
         AgentNameVersion                     : 'Chrome 25.0.1364.173'
         AgentNameVersionMajor                : 'Chrome 25'
+        WebviewAppName                       : 'Amazon Web App Platform'
+        WebviewAppNameVersionMajor           : 'Amazon Web App Platform 3'
+        WebviewAppVersion                    : '3.4.0'
+        WebviewAppVersionMajor               : '3'
 
 
 
@@ -182,44 +186,6 @@ config:
         - 'DeviceName            :   1003:"Chromecast"'
         - 'DeviceVersion         :   1003:agent.product.(1)name="CrKey"^.version'
 
-  - matcher:
-#      options:
-#        - 'verbose'
-      require:
-#        - '__SyntaxError__="false"'
-#        - 'agent="Mozilla/5.0 (CrKey - 0.9.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1573.2 Safari/537.36"'
-#        - 'agent.(1)product="Mozilla/5.0 (CrKey - 0.9.3)"'
-#        - 'agent.(1)product.(1)name="Mozilla"'
-#        - 'agent.(1)product.(1)name#1="Mozilla"'
-#        - 'agent.(1)product.(1)name%1="Mozilla"'
-#        - 'agent.(1)product.(1)version="5.0"'
-#        - 'agent.(1)product.(1)version#1="5"'
-#        - 'agent.(1)product.(1)version%1="5"'
-#        - 'agent.(1)product.(1)version#2="5.0"'
-#        - 'agent.(1)product.(1)version%2="0"'
-#        - 'agent.(1)product.(1)comments="(CrKey - 0.9.3)"'
-#        - 'agent.(1)product.(1)comments.(1)entry="CrKey - 0.9.3"'
-#        - 'agent.(1)product.(1)comments.(1)entry#1="CrKey"'
-#        - 'agent.(1)product.(1)comments.(1)entry%1="CrKey"'
-#        - 'agent.(1)product.(1)comments.(1)entry#2="CrKey - 0"'
-#        - 'agent.(1)product.(1)comments.(1)entry%2="0"'
-#        - 'agent.(1)product.(1)comments.(1)entry#3="CrKey - 0.9"'
-#        - 'agent.(1)product.(1)comments.(1)entry%3="9"'
-#        - 'agent.(1)product.(1)comments.(1)entry#4="CrKey - 0.9.3"'
-#        - 'agent.(1)product.(1)comments.(1)entry%4="3"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product="CrKey - 0.9.3"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name="CrKey - "'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name#1="CrKey"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name%1="CrKey"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version="0.9.3"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version#1="0"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version%1="0"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version#2="0.9"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version%2="9"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version#3="0.9.3"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version%3="3"'
-
-
 
 # Example found here: https://twitter.com/Robbie/status/360553521000624128
   - test:
@@ -231,6 +197,9 @@ config:
         DeviceBrand                          : 'Google'
         DeviceCpu                            : 'ARMv7l'
         DeviceVersion                        : '0.7.12072'
+        OperatingSystemClass                 : 'Unknown'
+        OperatingSystemName                  : 'Unknown'
+        OperatingSystemVersion               : '??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : '537.31'
@@ -243,6 +212,7 @@ config:
         AgentVersionMajor                    : '26'
         AgentNameVersion                     : 'Chrome 26.0.1410.0'
         AgentNameVersionMajor                : 'Chrome 26'
+
 
 # Example from own logfiles
   - test:
@@ -280,6 +250,9 @@ config:
         DeviceName                           : 'Chromecast'
         DeviceBrand                          : 'Google'
         DeviceVersion                        : '0.9.3'
+        OperatingSystemClass                 : 'Unknown'
+        OperatingSystemName                  : 'Unknown'
+        OperatingSystemVersion               : '??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Blink'
         LayoutEngineVersion                  : '30.0'

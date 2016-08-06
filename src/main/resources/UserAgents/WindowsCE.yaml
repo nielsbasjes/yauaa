@@ -73,12 +73,19 @@ config:
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows CE'
         OperatingSystemVersion               : 'Windows CE'
+        OperatingSystemNameVersion           : 'Windows CE'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Internet Explorer Mobile'
         LayoutEngineVersion                  : '6.0'
+        LayoutEngineVersionMajor             : '6'
+        LayoutEngineNameVersion              : 'Internet Explorer Mobile 6.0'
+        LayoutEngineNameVersionMajor         : 'Internet Explorer Mobile 6'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '8.12'
+        AgentVersionMajor                    : '8'
+        AgentNameVersion                     : 'IE Mobile 8.12'
+        AgentNameVersionMajor                : 'IE Mobile 8'
 
   - test:
       input:
@@ -90,12 +97,19 @@ config:
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows CE'
         OperatingSystemVersion               : 'Windows CE'
+        OperatingSystemNameVersion           : 'Windows CE'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Internet Explorer Mobile'
         LayoutEngineVersion                  : '6.5'
+        LayoutEngineVersionMajor             : '6'
+        LayoutEngineNameVersion              : 'Internet Explorer Mobile 6.5'
+        LayoutEngineNameVersionMajor         : 'Internet Explorer Mobile 6'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '8.12'
+        AgentVersionMajor                    : '8'
+        AgentNameVersion                     : 'IE Mobile 8.12'
+        AgentNameVersionMajor                : 'IE Mobile 8'
 
 
   - test:
@@ -108,12 +122,20 @@ config:
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows CE'
         OperatingSystemVersion               : 'Windows CE'
+        OperatingSystemNameVersion           : 'Windows CE'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Internet Explorer Mobile'
         LayoutEngineVersion                  : '6.5'
+        LayoutEngineVersionMajor             : '6'
+        LayoutEngineNameVersion              : 'Internet Explorer Mobile 6.5'
+        LayoutEngineNameVersionMajor         : 'Internet Explorer Mobile 6'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '8.12'
+        AgentVersionMajor                    : '8'
+        AgentNameVersion                     : 'IE Mobile 8.12'
+        AgentNameVersionMajor                : 'IE Mobile 8'
+
 
   - test:
       input:
@@ -121,27 +143,30 @@ config:
       expected:
         DeviceClass                          : 'Mobile'
         DeviceName                           : 'HTC_P3450'
+        DeviceVersion                        : '1.0'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows CE'
         OperatingSystemVersion               : 'Windows CE'
+        OperatingSystemNameVersion           : 'Windows CE'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Internet Explorer'
         LayoutEngineVersion                  : '6.0'
+        LayoutEngineVersionMajor             : '6'
+        LayoutEngineNameVersion              : 'Internet Explorer 6.0'
+        LayoutEngineNameVersionMajor         : 'Internet Explorer 6'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '7.6'
-        DeviceVersion                        : '1.0'
+        AgentVersionMajor                    : '7'
+        AgentNameVersion                     : 'IE Mobile 7.6'
+        AgentNameVersionMajor                : 'IE Mobile 7'
 
 
-
-
-#
 ## Must be IEMobile on HTP_P33300 device. Almost all values are wrong.
 ## The PPC and 240x320 parts caused parse errors in earlier versions.
   - test:
       input:
         user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 6.12) PPC; 240x320; HTC_P3300/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1'
-      expected:
       expected:
         DeviceClass                          : 'Mobile'
         DeviceName                           : 'HTC_P3300'
@@ -149,20 +174,17 @@ config:
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows CE'
         OperatingSystemVersion               : 'Windows CE'
+        OperatingSystemNameVersion           : 'Windows CE'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Internet Explorer'
         LayoutEngineVersion                  : '6.0'
+        LayoutEngineVersionMajor             : '6'
+        LayoutEngineNameVersion              : 'Internet Explorer 6.0'
+        LayoutEngineNameVersionMajor         : 'Internet Explorer 6'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '6.12'
-
-
-
-
-
-
-
-
-
-
+        AgentVersionMajor                    : '6'
+        AgentNameVersion                     : 'IE Mobile 6.12'
+        AgentNameVersionMajor                : 'IE Mobile 6'
 

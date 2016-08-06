@@ -75,7 +75,6 @@ config:
         AgentLanguageCode                    : 'en'
 
 
-
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows NT 6.0; U; en; rv:1.8.1) Gecko/20061208 Firefox/2.0.0 Opera 9.51'
@@ -85,13 +84,24 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Windows NT'
         OperatingSystemVersion               : 'Windows Vista'
+        OperatingSystemNameVersion           : 'Windows Vista'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '1'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Presto 1'
+        LayoutEngineNameVersionMajor         : 'Presto 1'
         LayoutEngineBuild                    : '20061208'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '9.51'
+        AgentVersionMajor                    : '9'
+        AgentNameVersion                     : 'Opera 9.51'
+        AgentNameVersionMajor                : 'Opera 9'
+        AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
+        AgentSecurity                        : 'Strong security'
+
 
   - test:
       input:
@@ -102,13 +112,22 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Windows NT'
         OperatingSystemVersion               : 'Windows XP'
+        OperatingSystemNameVersion           : 'Windows XP'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '1'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Presto 1'
+        LayoutEngineNameVersionMajor         : 'Presto 1'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '9.51'
-
+        AgentVersionMajor                    : '9'
+        AgentNameVersion                     : 'Opera 9.51'
+        AgentNameVersionMajor                : 'Opera 9'
+        AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
+        AgentSecurity                        : 'Strong security'
 
 
   - test:
@@ -117,16 +136,24 @@ config:
       expected:
         DeviceClass                          : 'Desktop'
         DeviceName                           : 'Desktop'
+        DeviceCpu                            : 'x64'
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Windows NT'
         OperatingSystemVersion               : 'Windows 7'
+        OperatingSystemNameVersion           : 'Windows 7'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.12.388'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Presto 2.12.388'
+        LayoutEngineNameVersionMajor         : 'Presto 2'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '12.16'
-        DeviceCpu                            : 'x64'
+        AgentVersionMajor                    : '12'
+        AgentNameVersion                     : 'Opera 12.16'
+        AgentNameVersionMajor                : 'Opera 12'
+
 
   - matcher:
       extract:
@@ -134,6 +161,7 @@ config:
         - 'AgentName             :   2012:"Opera Mini"'
         - 'AgentVersion          :   2012:agent.product.comments.entry.product.(1)name="Opera Mini"^.version'
         - 'DeviceClass           :      1:"Mobile"'
+
 
   - test:
       input:
@@ -144,20 +172,30 @@ config:
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Android'
         OperatingSystemVersion               : '??'
+        OperatingSystemNameVersion           : 'Android ??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.12.423'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Presto 2.12.423'
+        LayoutEngineNameVersionMajor         : 'Presto 2'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera Mini'
         AgentVersion                         : '7.6.40234'
+        AgentVersionMajor                    : '7'
+        AgentNameVersion                     : 'Opera Mini 7.6.40234'
+        AgentNameVersionMajor                : 'Opera Mini 7'
         AgentLanguage                        : 'Dutch'
+        AgentLanguageCode                    : 'nl'
         AgentSecurity                        : 'Strong security'
+
 
   - matcher:
       extract:
         - 'AgentClass            :   2012:"Browser"'
         - 'AgentName             :   2012:"Opera Tablet"'
         - 'AgentVersion          :   2012:agent.product.comments.entry.product.name="Opera Tablet"^.version'
+
 
   - test:
       input:
@@ -168,22 +206,31 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Windows NT'
         OperatingSystemVersion               : 'Windows 7'
+        OperatingSystemNameVersion           : 'Windows 7'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.8.149'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Presto 2.8.149'
+        LayoutEngineNameVersionMajor         : 'Presto 2'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera Tablet'
         AgentVersion                         : '15165'
+        AgentVersionMajor                    : '15165'
+        AgentNameVersion                     : 'Opera Tablet 15165'
+        AgentNameVersionMajor                : 'Opera Tablet 15165'
         AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
         AgentSecurity                        : 'Strong security'
 
 
-  # Chrome on iOS
+  # Opera on iOS
   - matcher:
       extract:
         - 'AgentClass            :   2014:"Browser"'
         - 'AgentName             :   2014:"Opera"'
         - 'AgentVersion          :   2014:agent.product.(1)name="OPiOS"^.version'
+
 
   - test:
       input:
@@ -214,10 +261,13 @@ config:
 
   - test:
       input:
-      # TODO: Extract J2ME/MIDP
          user_agent_string: 'Opera/9.80 (J2ME/MIDP; Opera Mini/4.2.16402/37.7936; U; en) Presto/2.12.423 Version/12.16'
       expected:
         DeviceClass                          : 'Mobile'
+        DeviceName                           : 'Unknown'
+        OperatingSystemClass                 : 'Unknown' # TODO: Extract J2ME/MIDP
+        OperatingSystemName                  : 'Unknown'
+        OperatingSystemVersion               : '??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.12.423'
@@ -237,10 +287,13 @@ config:
 
   - test:
       input:
-      # TODO: Extract MAUI Runtime
          user_agent_string: 'Opera/9.80 (MAUI Runtime; Opera Mini/4.4.39010/37.7936; U; nl) Presto/2.12.423 Version/12.16'
       expected:
         DeviceClass                          : 'Mobile'
+        DeviceName                           : 'Unknown'
+        OperatingSystemClass                 : 'Unknown' # TODO: Extract MAUI Runtime
+        OperatingSystemName                  : 'Unknown'
+        OperatingSystemVersion               : '??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.12.423'
@@ -264,6 +317,10 @@ config:
          user_agent_string: 'Opera/9.80 (SpreadTrum; Opera Mini/4.4.31492/37.7936; U; en) Presto/2.12.423 Version/12.16'
       expected:
         DeviceClass                          : 'Mobile'
+        DeviceName                           : 'Unknown'
+        OperatingSystemClass                 : 'Unknown'
+        OperatingSystemName                  : 'Unknown'
+        OperatingSystemVersion               : '??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.12.423'
@@ -279,6 +336,7 @@ config:
         AgentLanguage                        : 'English'
         AgentLanguageCode                    : 'en'
         AgentSecurity                        : 'Strong security'
+
 
   - test:
       input:

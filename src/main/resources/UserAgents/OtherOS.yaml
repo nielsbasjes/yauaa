@@ -33,18 +33,25 @@ config:
       expected:
         DeviceClass                          : 'Desktop'
         DeviceName                           : 'Sun Desktop'
-        DeviceBrand                          : 'Sun'
         DeviceCpu                            : 'i86pc'
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'SunOS'
         OperatingSystemVersion               : 'i86pc'
+        OperatingSystemNameVersion           : 'SunOS i86pc'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Gecko'
         LayoutEngineVersion                  : '31.0'
+        LayoutEngineVersionMajor             : '31'
+        LayoutEngineNameVersion              : 'Gecko 31.0'
+        LayoutEngineNameVersionMajor         : 'Gecko 31'
         LayoutEngineBuild                    : '20100101'
         AgentClass                           : 'Browser'
         AgentName                            : 'Firefox'
         AgentVersion                         : '31.0'
+        AgentVersionMajor                    : '31'
+        AgentNameVersion                     : 'Firefox 31.0'
+        AgentNameVersionMajor                : 'Firefox 31'
+
 
   - matcher:
       extract:
@@ -71,13 +78,20 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'OS/2'
         OperatingSystemVersion               : 'Warp 4.5'
+        OperatingSystemNameVersion           : 'OS/2 Warp 4.5'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Gecko'
         LayoutEngineVersion                  : '24.0'
+        LayoutEngineVersionMajor             : '24'
+        LayoutEngineNameVersion              : 'Gecko 24.0'
+        LayoutEngineNameVersionMajor         : 'Gecko 24'
         LayoutEngineBuild                    : '20100101'
         AgentClass                           : 'Browser'
         AgentName                            : 'Firefox'
         AgentVersion                         : '24.0'
+        AgentVersionMajor                    : '24'
+        AgentNameVersion                     : 'Firefox 24.0'
+        AgentNameVersionMajor                : 'Firefox 24'
 
 
   - test:
@@ -89,14 +103,23 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'OS/2'
         OperatingSystemVersion               : '2.x'
+        OperatingSystemNameVersion           : 'OS/2 2.x'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Mozilla'
         LayoutEngineVersion                  : '4.61'
+        LayoutEngineVersionMajor             : '4'
+        LayoutEngineNameVersion              : 'Mozilla 4.61'
+        LayoutEngineNameVersionMajor         : 'Mozilla 4'
         AgentClass                           : 'Browser'
         AgentName                            : 'Netscape'
         AgentVersion                         : '4.61'
+        AgentVersionMajor                    : '4'
+        AgentNameVersion                     : 'Netscape 4.61'
+        AgentNameVersionMajor                : 'Netscape 4'
         AgentLanguage                        : 'German'
+        AgentLanguageCode                    : 'de'
         AgentSecurity                        : 'Strong security'
+
 
   - test:
       input:

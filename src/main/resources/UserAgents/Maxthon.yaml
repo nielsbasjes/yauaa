@@ -1,3 +1,20 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
 config:
 
   - matcher:
@@ -5,6 +22,31 @@ config:
         - 'AgentClass            :   2015:"Browser"'
         - 'AgentName             :   2015:"Maxthon"'
         - 'AgentVersion          :   2015:agent.product.(1)name="Maxthon"^.version'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (Windows NT 6.0) AppleWebKit/537.36 (KHTML, like Gecko) Maxthon/4.4.3.1000 Chrome/30.0.1599.101 Safari/537.36'
+      expected:
+        DeviceClass                          : 'Desktop'
+        DeviceName                           : 'Desktop'
+        OperatingSystemClass                 : 'Desktop'
+        OperatingSystemName                  : 'Windows NT'
+        OperatingSystemVersion               : 'Windows Vista'
+        OperatingSystemNameVersion           : 'Windows Vista'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Blink'
+        LayoutEngineVersion                  : '30.0'
+        LayoutEngineVersionMajor             : '30'
+        LayoutEngineNameVersion              : 'Blink 30.0'
+        LayoutEngineNameVersionMajor         : 'Blink 30'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Maxthon'
+        AgentVersion                         : '4.4.3.1000'
+        AgentVersionMajor                    : '4'
+        AgentNameVersion                     : 'Maxthon 4.4.3.1000'
+        AgentNameVersionMajor                : 'Maxthon 4'
+
 
   - test:
       input:

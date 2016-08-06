@@ -83,19 +83,27 @@ config:
         user_agent_string: 'Opera/9.80 (Linux mips; U; HbbTV/1.1.1 (; Philips; ; ; ; ) CE-HTML/1.0 NETTV/4.0.2; en) Presto/2.10.250 Version/11.60'
       expected:
         DeviceClass                          : 'TV'
-        DeviceBrand                          : 'Philips'
         DeviceName                           : 'Unspecified TV'
+        DeviceBrand                          : 'Philips'
         DeviceCpu                            : 'Mips'
         OperatingSystemClass                 : 'Embedded'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'Mips'
+        OperatingSystemNameVersion           : 'Linux Mips'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.10.250'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Presto 2.10.250'
+        LayoutEngineNameVersionMajor         : 'Presto 2'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '11.60'
+        AgentVersionMajor                    : '11'
+        AgentNameVersion                     : 'Opera 11.60'
+        AgentNameVersionMajor                : 'Opera 11'
         AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
         AgentSecurity                        : 'Strong security'
 
   - test:
@@ -103,76 +111,109 @@ config:
         user_agent_string: 'Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50'
       expected:
         DeviceClass                          : 'TV'
-        DeviceBrand                          : 'Philips'
         DeviceName                           : '47PFT560912'
+        DeviceBrand                          : 'Philips'
         DeviceCpu                            : 'ARMv7l'
         OperatingSystemClass                 : 'Embedded'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'ARMv7l'
+        OperatingSystemNameVersion           : 'Linux ARMv7l'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.12.407'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Presto 2.12.407'
+        LayoutEngineNameVersionMajor         : 'Presto 2'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '12.50'
+        AgentVersionMajor                    : '12'
+        AgentNameVersion                     : 'Opera 12.50'
+        AgentNameVersionMajor                : 'Opera 12'
+
 
   - test:
       input:
         user_agent_string: 'Opera/9.80 (Linux sh4; U; HbbTV/1.1.1 (+PVR; Loewe; SL150; LOH/3.10;;) CE-HTML/1.0 Config(L:nld,CC:NLD); en) Presto/2.10.250 Version/11.60'
       expected:
         DeviceClass                          : 'TV'
-        DeviceBrand                          : 'Loewe'
         DeviceName                           : 'SL150'
+        DeviceBrand                          : 'Loewe'
         DeviceCpu                            : 'SH4'
         OperatingSystemClass                 : 'Embedded'
         OperatingSystemName                  : 'LOH'
         OperatingSystemVersion               : '3.10'
+        OperatingSystemNameVersion           : 'LOH 3.10'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.10.250'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Presto 2.10.250'
+        LayoutEngineNameVersionMajor         : 'Presto 2'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '11.60'
+        AgentVersionMajor                    : '11'
+        AgentNameVersion                     : 'Opera 11.60'
+        AgentNameVersionMajor                : 'Opera 11'
         AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
         AgentSecurity                        : 'Strong security'
+
 
   - test:
       input:
         user_agent_string: 'Opera/9.80 (Linux mips; U; HbbTV/1.1.1 (; TechniSat; TechniCorder ISIO STC; ; ; ); CE-HTML/1.0 (); TechniSat TechniCorder ISIO STC BCM1 STB; de) Presto/2.9.167 Version/11.50'
       expected:
         DeviceClass                          : 'TV'
-        DeviceBrand                          : 'TechniSat'
         DeviceName                           : 'TechniCorder ISIO STC'
+        DeviceBrand                          : 'TechniSat'
         DeviceCpu                            : 'Mips'
         OperatingSystemClass                 : 'Embedded'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'Mips'
+        OperatingSystemNameVersion           : 'Linux Mips'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.9.167'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Presto 2.9.167'
+        LayoutEngineNameVersionMajor         : 'Presto 2'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '11.50'
+        AgentVersionMajor                    : '11'
+        AgentNameVersion                     : 'Opera 11.50'
+        AgentNameVersionMajor                : 'Opera 11'
         AgentLanguage                        : 'German'
+        AgentLanguageCode                    : 'de'
         AgentSecurity                        : 'Strong security'
+
 
   - test:
       input:
         user_agent_string: 'Opera/9.80 (Linux i686; HbbTV/1.1.1 (+PVR+DRM; BANGOLUFSEN; A3; ; ; ) CE-HTML/1.0 NETTV/4.3.9) Presto/2.12.407 Version/12.50 A3/1.0.8.36666 (BANGOLUFSEN, A3, wireless)'
       expected:
         DeviceClass                          : 'TV'
-        DeviceBrand                          : 'BANGOLUFSEN'
         DeviceName                           : 'A3'
+        DeviceBrand                          : 'BANGOLUFSEN'
         DeviceCpu                            : 'Intel i686'
         OperatingSystemClass                 : 'Embedded'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'Intel i686'
+        OperatingSystemNameVersion           : 'Linux Intel i686'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.12.407'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Presto 2.12.407'
+        LayoutEngineNameVersionMajor         : 'Presto 2'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '12.50'
+        AgentVersionMajor                    : '12'
+        AgentNameVersion                     : 'Opera 12.50'
+        AgentNameVersionMajor                : 'Opera 12'
 
   - test:
       input:
@@ -180,18 +221,28 @@ config:
       expected:
         DeviceClass                          : 'TV'
         DeviceName                           : 'Unspecified TV'
+        DeviceBrand                          : 'Unspecified TV'
+        DeviceCpu                            : 'SH4'
         OperatingSystemClass                 : 'Embedded'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'SH4'
+        OperatingSystemNameVersion           : 'Linux SH4'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.8.115'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Presto 2.8.115'
+        LayoutEngineNameVersionMajor         : 'Presto 2'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '11.10'
+        AgentVersionMajor                    : '11'
+        AgentNameVersion                     : 'Opera 11.10'
+        AgentNameVersionMajor                : 'Opera 11'
         AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
         AgentSecurity                        : 'Strong security'
-        DeviceCpu                            : 'SH4'
+
 
   - matcher:
       require:
@@ -212,36 +263,52 @@ config:
         user_agent_string: 'Mozilla/5.0 (SmartHub; SMART-TV; U; Linux/SmartTV) AppleWebKit/531.2+ (KHTML, like Gecko) WebBrowser/1.0 SmartTV Safari/531.2+'
       expected:
         DeviceClass                          : 'TV'
-        DeviceBrand                          : 'Samsung'
         DeviceName                           : 'Smart TV'
+        DeviceBrand                          : 'Samsung'
         OperatingSystemClass                 : 'Embedded'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'SmartTV'
+        OperatingSystemNameVersion           : 'Linux SmartTV'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : '531.2'
+        LayoutEngineVersionMajor             : '531'
+        LayoutEngineNameVersion              : 'AppleWebKit 531.2'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 531'
         AgentClass                           : 'Browser'
         AgentName                            : 'WebBrowser'
         AgentVersion                         : '1.0'
+        AgentVersionMajor                    : '1'
+        AgentNameVersion                     : 'WebBrowser 1.0'
+        AgentNameVersionMajor                : 'WebBrowser 1'
         AgentSecurity                        : 'Strong security'
+
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (SMART-TV; X11; Linux i686) AppleWebKit/535.20+ (KHTML, like Gecko) Version/5.0 Safari/535.20+'
       expected:
         DeviceClass                          : 'TV'
-        DeviceBrand                          : 'Samsung'
         DeviceName                           : 'Smart TV'
+        DeviceBrand                          : 'Samsung'
+        DeviceCpu                            : 'Intel i686'
         OperatingSystemClass                 : 'Embedded'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'SmartTV'
+        OperatingSystemNameVersion           : 'Linux SmartTV'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : '535.20'
+        LayoutEngineVersionMajor             : '535'
+        LayoutEngineNameVersion              : 'AppleWebKit 535.20'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
         AgentClass                           : 'Browser'
         AgentName                            : 'Safari'
         AgentVersion                         : '5.0'
-        DeviceCpu                            : 'Intel i686'
+        AgentVersionMajor                    : '5'
+        AgentNameVersion                     : 'Safari 5.0'
+        AgentNameVersionMajor                : 'Safari 5'
+
 
   - matcher:
       extract:
@@ -296,174 +363,41 @@ config:
 
 #TODO: Extract Philips TV type & firmware !!
 
-  - matcher:
-#      options:
-#        - 'verbose'
-      require:
-#        - 'agent="Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50"'
-#        - 'agent.(1)product="Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en) )"'
-#        - 'agent.(1)product.(1)name="Opera"'
-#        - 'agent.(1)product.(1)name#1="Opera"'
-#        - 'agent.(1)product.(1)name%1="Opera"'
-#        - 'agent.(1)product.(1)version="9.80"'
-#        - 'agent.(1)product.(1)comments="(Linux armv7l; HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en) )"'
-#        - 'agent.(1)product.(1)comments.(1)entry="Linux armv7l"'
-#        - 'agent.(1)product.(1)comments.(1)entry#1="Linux"'
-#        - 'agent.(1)product.(1)comments.(1)entry%1="Linux"'
-#        - 'agent.(1)product.(1)comments.(1)entry#2="Linux armv7l"'
-#        - 'agent.(1)product.(1)comments.(1)entry%2="armv7l"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product="Linux armv7l"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name="Linux"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name#1="Linux"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name%1="Linux"'
-#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version="armv7l"'
-#        - 'agent.(1)product.(1)comments.(2)entry="HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en)"'
-#        - 'agent.(1)product.(1)comments.(2)entry#1="HbbTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry%1="HbbTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry#2="HbbTV/1.2.1"'
-#        - 'agent.(1)product.(1)comments.(2)entry%2="1.2.1"'
-#        - 'agent.(1)product.(1)comments.(2)entry#3="HbbTV/1.2.1 (; Philips"'
-#        - 'agent.(1)product.(1)comments.(2)entry%3="Philips"'
-#        - 'agent.(1)product.(1)comments.(2)entry#4="HbbTV/1.2.1 (; Philips; 47PFT560912"'
-#        - 'agent.(1)product.(1)comments.(2)entry%4="47PFT560912"'
-#        - 'agent.(1)product.(1)comments.(2)entry#5="HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry%5="PHILIPSTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry#6="HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML"'
-#        - 'agent.(1)product.(1)comments.(2)entry%6="CE-HTML"'
-#        - 'agent.(1)product.(1)comments.(2)entry#7="HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0"'
-#        - 'agent.(1)product.(1)comments.(2)entry%7="1.0"'
-#        - 'agent.(1)product.(1)comments.(2)entry#8="HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry%8="NETTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry#9="HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1"'
-#        - 'agent.(1)product.(1)comments.(2)entry%9="4.4.1"'
-#        - 'agent.(1)product.(1)comments.(2)entry#10="HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA"'
-#        - 'agent.(1)product.(1)comments.(2)entry%10="SmartTvA"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product="HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en)"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name="HbbTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name#1="HbbTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name%1="HbbTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)version="1.2.1"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments="(; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en)"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(1)entry=""'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(1)entry.(1)text=""'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(2)entry="Philips"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(2)entry#1="Philips"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(2)entry%1="Philips"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(2)entry.(1)text="Philips"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(2)entry.(1)text#1="Philips"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(2)entry.(1)text%1="Philips"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(3)entry="47PFT560912"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(3)entry#1="47PFT560912"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(3)entry%1="47PFT560912"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(3)entry.(1)text="47PFT560912"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(3)entry.(1)text#1="47PFT560912"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(3)entry.(1)text%1="47PFT560912"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(4)entry=""'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(4)entry.(1)text=""'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(5)entry="PHILIPSTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(5)entry#1="PHILIPSTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(5)entry%1="PHILIPSTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(5)entry.(1)text="PHILIPSTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(5)entry.(1)text#1="PHILIPSTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(5)entry.(1)text%1="PHILIPSTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry="CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry#1="CE-HTML"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry%1="CE-HTML"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry#2="CE-HTML/1.0"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry%2="1.0"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry#3="CE-HTML/1.0 NETTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry%3="NETTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry#4="CE-HTML/1.0 NETTV/4.4.1"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry%4="4.4.1"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry#5="CE-HTML/1.0 NETTV/4.4.1 SmartTvA"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry%5="SmartTvA"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry#6="CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry%6="3.0.0"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry#7="CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry%7="Firmware"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry#8="CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry%8="010.003.002.128"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry#9="CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV,"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry%9="PhilipsTV,"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry#10="CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry%10="3.1.1,"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(1)product="CE-HTML/1.0"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(1)product.(1)name="CE-HTML"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(1)product.(1)name#1="CE-HTML"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(1)product.(1)name%1="CE-HTML"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(1)product.(1)version="1.0"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(2)product="NETTV/4.4.1"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(2)product.(1)name="NETTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(2)product.(1)name#1="NETTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(2)product.(1)name%1="NETTV"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(2)product.(1)version="4.4.1"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(3)product="SmartTvA/3.0.0"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(3)product.(1)name="SmartTvA"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(3)product.(1)name#1="SmartTvA"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(3)product.(1)name%1="SmartTvA"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(3)product.(1)version="3.0.0"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product="Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)name="Firmware"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)name#1="Firmware"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)name%1="Firmware"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)version="010.003.002.128"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)comments="(PhilipsTV, 3.1.1,)"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)comments.(1)entry="PhilipsTV, 3.1.1,"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)comments.(1)entry#1="PhilipsTV,"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)comments.(1)entry%1="PhilipsTV,"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)comments.(1)entry#2="PhilipsTV, 3.1.1,"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)comments.(1)entry%2="3.1.1,"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)comments.(1)entry.(1)product="PhilipsTV, 3.1.1,"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)comments.(1)entry.(1)product.(1)name="PhilipsTV,"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)comments.(1)entry.(1)product.(1)name#1="PhilipsTV,"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)comments.(1)entry.(1)product.(1)name%1="PhilipsTV,"'
-#        - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)comments.(6)entry.(4)product.(1)comments.(1)entry.(1)product.(1)version="3.1.1,"'
-      extract:
-#        - 'DeviceClass           :   1:'
-#        - 'DeviceBrand           :   1:'
-#        - 'DeviceName            :   1:'
-#        - 'OperatingSystemClass  :   1:' # Cloud, Desktop, Mobile, Embedded
-#        - 'OperatingSystemName   :   1:'
-#        - 'OperatingSystemVersion:   1:'
-#        - 'LayoutEngineClass     :   1:'
-#        - 'LayoutEngineName      :   1:'
-#        - 'LayoutEngineVersion   :   1:'
-#        - 'AgentClass            :   1:'
-#        - 'AgentName             :   1:'
-#        - 'AgentVersion          :   1:'
-
-
   - test:
       input:
         user_agent_string: 'Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50'
       expected:
         DeviceClass                          : 'TV'
         DeviceName                           : '47PFT560912'
+        DeviceBrand                          : 'Philips'
+        DeviceCpu                            : 'ARMv7l'
         OperatingSystemClass                 : 'Embedded'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'ARMv7l'
+        OperatingSystemNameVersion           : 'Linux ARMv7l'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.12.407'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Presto 2.12.407'
+        LayoutEngineNameVersionMajor         : 'Presto 2'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '12.50'
-        DeviceBrand                          : 'Philips'
-        DeviceCpu                            : 'ARMv7l'
+        AgentVersionMajor                    : '12'
+        AgentNameVersion                     : 'Opera 12.50'
+        AgentNameVersionMajor                : 'Opera 12'
 
 
 
-#148	2660	Mozilla/5.0 (Linux; GoogleTV 3.2; NSZ-GS7/GX70 Build/MASTER) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Safari/534.24
-#2	5	Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Large Screen Safari/534.24 GoogleTV/092811
-#2	5	Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Large Screen Safari/534.24 GoogleTV/092754
-#2	2	Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Large Screen Safari/534.24 GoogleTV/b70199
-#1	5	Mozilla/5.0 (Linux; GoogleTV 3.2; hisense_gx1200v Build/MASTER) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Safari/534.24
-#1	1	Mozilla/5.0 (Linux; GoogleTV 3.2; GTV100 Build/MASTER) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Safari/534.24
-#
-#7	12	Mozilla/5.0 (SMART-TV; Linux; Tizen 2.3) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.0 TV Safari/538.1
-#1	1	Mozilla/5.0 (Linux; Tizen 2.3; SAMSUNG SM-Z130H) AppleWebKit/537.3 (KHTML, like Gecko) SamsungBrowser/1.0 Mobile Safari/537.3
-
-
+# Mozilla/5.0 (Linux; GoogleTV 3.2; NSZ-GS7/GX70 Build/MASTER) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Safari/534.24
+# Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Large Screen Safari/534.24 GoogleTV/092811
+# Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Large Screen Safari/534.24 GoogleTV/092754
+# Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Large Screen Safari/534.24 GoogleTV/b70199
+# Mozilla/5.0 (Linux; GoogleTV 3.2; hisense_gx1200v Build/MASTER) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Safari/534.24
+# Mozilla/5.0 (Linux; GoogleTV 3.2; GTV100 Build/MASTER) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Safari/534.24
+# Mozilla/5.0 (SMART-TV; Linux; Tizen 2.3) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.0 TV Safari/538.1
+# Mozilla/5.0 (Linux; Tizen 2.3; SAMSUNG SM-Z130H) AppleWebKit/537.3 (KHTML, like Gecko) SamsungBrowser/1.0 Mobile Safari/537.3
 
   - matcher:
       require:
@@ -480,20 +414,29 @@ config:
       expected:
         DeviceClass                          : 'TV'
         DeviceName                           : 'Net TV'
-        DeviceVersion                        : '4.1.1'
         DeviceBrand                          : 'Philips'
         DeviceCpu                            : 'ARMv7l'
+        DeviceVersion                        : '4.1.1'
         OperatingSystemClass                 : 'Embedded'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'ARMv7l'
+        OperatingSystemNameVersion           : 'Linux ARMv7l'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '2.10.287'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Presto 2.10.287'
+        LayoutEngineNameVersionMajor         : 'Presto 2'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '12.00'
+        AgentVersionMajor                    : '12'
+        AgentNameVersion                     : 'Opera 12.00'
+        AgentNameVersionMajor                : 'Opera 12'
         AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
         AgentSecurity                        : 'Strong security'
+
 
   - test:
       input:
@@ -501,45 +444,53 @@ config:
       expected:
         DeviceClass                          : 'TV'
         DeviceName                           : 'Net TV'
-        DeviceVersion                        : '2.0.2'
         DeviceBrand                          : 'Philips'
         DeviceCpu                            : 'ARMv6l'
+        DeviceVersion                        : '2.0.2'
         OperatingSystemClass                 : 'Embedded'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'ARMv6l'
+        OperatingSystemNameVersion           : 'Linux ARMv6l'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Presto'
         LayoutEngineVersion                  : '1'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Presto 1'
+        LayoutEngineNameVersionMajor         : 'Presto 1'
         AgentClass                           : 'Browser'
         AgentName                            : 'Opera'
         AgentVersion                         : '9.70'
+        AgentVersionMajor                    : '9'
+        AgentNameVersion                     : 'Opera 9.70'
+        AgentNameVersionMajor                : 'Opera 9'
         AgentLanguage                        : 'English'
+        AgentLanguageCode                    : 'en'
         AgentSecurity                        : 'Strong security'
 
 
-#1	5	Opera/9.80 WebKit/1.6.3 (CE-HTML/1.0 NETTV 3.3.0 PHILIPS-AVM-2012) PhilipsWebKit/535.4
-#1	3	WebKit/4.2.5, (CE-HTML/1.0 NETTV/3.3.0 NewB) PHILIPS-AVM-2013/1.35 (Philips, BDP5700, wireless)
-#1	1	WebKit/4.1.9, (CE-HTML/1.0 NETTV/3.3.0 NewB) PHILIPS-AVM-2013/1.16 (Philips, HTB5260G, wireless)
-#1	1	WebKit/3.9.4, (CE-HTML/1.0 NETTV/3.3.0 NewB) PHILIPS-AVM-2013/1.30 (Philips, BDP7750, wireless)
+# Opera/9.80 WebKit/1.6.3 (CE-HTML/1.0 NETTV 3.3.0 PHILIPS-AVM-2012) PhilipsWebKit/535.4
+# WebKit/4.2.5, (CE-HTML/1.0 NETTV/3.3.0 NewB) PHILIPS-AVM-2013/1.35 (Philips, BDP5700, wireless)
+# WebKit/4.1.9, (CE-HTML/1.0 NETTV/3.3.0 NewB) PHILIPS-AVM-2013/1.16 (Philips, HTB5260G, wireless)
+# WebKit/3.9.4, (CE-HTML/1.0 NETTV/3.3.0 NewB) PHILIPS-AVM-2013/1.30 (Philips, BDP7750, wireless)
 #
 #
-#510     3162    Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.33 Safari/537.31 SmartTV/5.0
-#277     1292    Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.79 Safari/537.4 SmartTV/4.6
+# Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.33 Safari/537.31 SmartTV/5.0
+# Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.79 Safari/537.4 SmartTV/4.6
 
 #
-#Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 32PFK550912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.002.016.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50
-#Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 32PFK550912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.002.036.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50
+# Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 32PFK550912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.002.016.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50
+# Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 32PFK550912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.002.036.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50
 #
-#Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV115;0002;0100) KD55X9005A; CC/BEL) Presto/2.12.362 Version/12.11
-#Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV115;0002;0100) KDL32W605A; CC/BRA) Presto/2.12.362 Version/12.11
+# Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV115;0002;0100) KD55X9005A; CC/BEL) Presto/2.12.362 Version/12.11
+# Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV115;0002;0100) KDL32W605A; CC/BRA) Presto/2.12.362 Version/12.11
 #
 #
-#Opera/9.80 (Linux armv7l; LOEWE-SL32x/1.1.6.27 HbbTV/1.1.1 (; LOEWE; SL32x; LOH/1.1.6.27;;) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH) Presto/2.12.407 Version/12.51
-#Opera/9.80 (Linux armv7l; LOEWE-SL32x/1.1.6.27 HbbTV/1.1.1 (; LOEWE; SL32x; LOH/1.1.6.27;;) CE-HTML/1.0 Config(L:nld,CC:NLD) NETRANGEMMH) Presto/2.12.407 Version/12.51
-#Opera/9.80 (Linux armv7l ; U; CE-HTML/1.0 NETTV/3.2.2; en) Presto/2.6.33 Version/10.60
-#Opera/9.80 (Linux armv7l; U; CE-HTML/1.0 NETTV/3.3.0; PHILIPS-AVM-2012; en) Presto/2.9.167 Version/11.50
+# Opera/9.80 (Linux armv7l; LOEWE-SL32x/1.1.6.27 HbbTV/1.1.1 (; LOEWE; SL32x; LOH/1.1.6.27;;) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH) Presto/2.12.407 Version/12.51
+# Opera/9.80 (Linux armv7l; LOEWE-SL32x/1.1.6.27 HbbTV/1.1.1 (; LOEWE; SL32x; LOH/1.1.6.27;;) CE-HTML/1.0 Config(L:nld,CC:NLD) NETRANGEMMH) Presto/2.12.407 Version/12.51
+# Opera/9.80 (Linux armv7l ; U; CE-HTML/1.0 NETTV/3.2.2; en) Presto/2.6.33 Version/10.60
+# Opera/9.80 (Linux armv7l; U; CE-HTML/1.0 NETTV/3.3.0; PHILIPS-AVM-2012; en) Presto/2.9.167 Version/11.50
 #
-#Opera/9.80 (Linux i686; HbbTV/1.1.1 (+PVR+DRM; BANGOLUFSEN; A3; ; ; ) CE-HTML/1.0 NETTV/4.3.9) Presto/2.12.407 Version/12.50 A3/1.0.8.36666 (BANGOLUFSEN, A3, wired)
-#Opera/9.80 (Linux mips ; U; HbbTV/1.1.1 (; Philips; ; ; ; ) CE-HTML/1.0 NETTV/3.1.0; en) Presto/2.6.33 Version/10.70
-#Opera/9.80 (Linux sh4; HbbTV/1.2.1 (+PVR; Loewe; SL210; LOH/10.2.3.25;;) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH) Presto/2.12.362 Version/12.10
+# Opera/9.80 (Linux i686; HbbTV/1.1.1 (+PVR+DRM; BANGOLUFSEN; A3; ; ; ) CE-HTML/1.0 NETTV/4.3.9) Presto/2.12.407 Version/12.50 A3/1.0.8.36666 (BANGOLUFSEN, A3, wired)
+# Opera/9.80 (Linux mips ; U; HbbTV/1.1.1 (; Philips; ; ; ; ) CE-HTML/1.0 NETTV/3.1.0; en) Presto/2.6.33 Version/10.70
+# Opera/9.80 (Linux sh4; HbbTV/1.2.1 (+PVR; Loewe; SL210; LOH/10.2.3.25;;) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH) Presto/2.12.362 Version/12.10
 

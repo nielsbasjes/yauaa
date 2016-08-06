@@ -249,6 +249,7 @@ config:
         - 'OperatingSystemClass  : 3000:"Cloud"'
         - 'OperatingSystemName   : 3000:"Microsoft Cloud"'
         - 'OperatingSystemVersion: 3000:"Microsoft Azure"'
+        - 'OperatingSystemNameVersion: 3000:"Microsoft Azure"'
         - 'LayoutEngineClass     : 3000:"Robot"'
         - 'LayoutEngineName      : 3000:"Bingbot"'
         - 'LayoutEngineVersion   : 3000:agent.(1)product.(1)comments.entry.product.(1)name="bingbot"^.version'
@@ -263,17 +264,24 @@ config:
         user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
       expected:
         DeviceClass                          : 'Robot'
-        DeviceBrand                          : 'Google'
         DeviceName                           : 'Google'
+        DeviceBrand                          : 'Google'
         OperatingSystemClass                 : 'Cloud'
         OperatingSystemName                  : 'Google'
         OperatingSystemVersion               : 'Google'
+        OperatingSystemNameVersion           : 'Google'
         LayoutEngineClass                    : 'Robot'
         LayoutEngineName                     : 'Googlebot'
         LayoutEngineVersion                  : 'Googlebot'
+        LayoutEngineVersionMajor             : 'Googlebot'
+        LayoutEngineNameVersion              : 'Googlebot'
+        LayoutEngineNameVersionMajor         : 'Googlebot'
         AgentClass                           : 'Robot'
         AgentName                            : 'Googlebot'
         AgentVersion                         : '2.1'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Googlebot 2.1'
+        AgentNameVersionMajor                : 'Googlebot 2'
         AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
 # ------------------------------------------------------------
@@ -282,17 +290,24 @@ config:
         user_agent_string: 'Googlebot/2.1 (+http://www.google.com/bot.html)'
       expected:
         DeviceClass                          : 'Robot'
-        DeviceBrand                          : 'Google'
         DeviceName                           : 'Google'
+        DeviceBrand                          : 'Google'
         OperatingSystemClass                 : 'Cloud'
         OperatingSystemName                  : 'Google'
         OperatingSystemVersion               : 'Google'
+        OperatingSystemNameVersion           : 'Google'
         LayoutEngineClass                    : 'Robot'
         LayoutEngineName                     : 'Googlebot'
         LayoutEngineVersion                  : 'Googlebot'
+        LayoutEngineVersionMajor             : 'Googlebot'
+        LayoutEngineNameVersion              : 'Googlebot'
+        LayoutEngineNameVersionMajor         : 'Googlebot'
         AgentClass                           : 'Robot'
         AgentName                            : 'Googlebot'
         AgentVersion                         : '2.1'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Googlebot 2.1'
+        AgentNameVersionMajor                : 'Googlebot 2'
         AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
 # ------------------------------------------------------------
@@ -302,17 +317,24 @@ config:
         user_agent_string: 'Googlebot-Image/1.0'
       expected:
         DeviceClass                          : 'Robot'
-        DeviceBrand                          : 'Google'
         DeviceName                           : 'Google'
+        DeviceBrand                          : 'Google'
         OperatingSystemClass                 : 'Cloud'
         OperatingSystemName                  : 'Google'
         OperatingSystemVersion               : 'Google'
+        OperatingSystemNameVersion           : 'Google'
         LayoutEngineClass                    : 'Robot'
         LayoutEngineName                     : 'Googlebot'
         LayoutEngineVersion                  : 'Googlebot'
+        LayoutEngineVersionMajor             : 'Googlebot'
+        LayoutEngineNameVersion              : 'Googlebot'
+        LayoutEngineNameVersionMajor         : 'Googlebot'
         AgentClass                           : 'Robot'
         AgentName                            : 'Googlebot-Image'
         AgentVersion                         : '1.0'
+        AgentVersionMajor                    : '1'
+        AgentNameVersion                     : 'Googlebot-Image 1.0'
+        AgentNameVersionMajor                : 'Googlebot-Image 1'
 
 # ------------------------------------------------------------
   - test:
@@ -320,17 +342,24 @@ config:
         user_agent_string: 'Googlebot-Video/1.0'
       expected:
         DeviceClass                          : 'Robot'
-        DeviceBrand                          : 'Google'
         DeviceName                           : 'Google'
+        DeviceBrand                          : 'Google'
         OperatingSystemClass                 : 'Cloud'
         OperatingSystemName                  : 'Google'
         OperatingSystemVersion               : 'Google'
+        OperatingSystemNameVersion           : 'Google'
         LayoutEngineClass                    : 'Robot'
         LayoutEngineName                     : 'Googlebot'
         LayoutEngineVersion                  : 'Googlebot'
+        LayoutEngineVersionMajor             : 'Googlebot'
+        LayoutEngineNameVersion              : 'Googlebot'
+        LayoutEngineNameVersionMajor         : 'Googlebot'
         AgentClass                           : 'Robot'
         AgentName                            : 'Googlebot-Video'
         AgentVersion                         : '1.0'
+        AgentVersionMajor                    : '1'
+        AgentNameVersion                     : 'Googlebot-Video 1.0'
+        AgentNameVersionMajor                : 'Googlebot-Video 1'
 
 # ------------------------------------------------------------
 #Googlebot-Mobile
@@ -361,17 +390,16 @@ config:
         - 'AgentClass            :   10000:"Robot Mobile"'
         - 'DeviceClass           :   10000:"Robot Mobile"'
 
-# In almost all cases the precense of a URL indicates that it is a Robot/Spider with an information URL
-  - matcher:
-      require:
-        - 'agent.(1)product.(1)comments.entry.url'
-      extract:
-        - 'DeviceClass           :   1:"Robot"' # Hacker / Cloud / Server / Desktop / Tablet / Phone / Watch
-        - 'DeviceBrand           :   1:"Robot"' # (Google/AWS/Asure) / Samsung / Apple / ...
-        - 'DeviceName            :   1:"Robot"' # (Google/AWS/Asure) / Samsung Galaxy SII / ...
-        - 'OperatingSystemClass  :   1:"Cloud"' # Cloud, Desktop, Mobile, Embedded
-        - 'OperatingSystemName   :   1:"Cloud"' # ( Linux / Android / Windows ...)
-        - 'OperatingSystemVersion:   1:"Cloud"' # 1.2 / 43 / ...
+#  - matcher:
+#      require:
+#        - 'agent.(1)product.(1)comments.entry.url'
+#      extract:
+#        - 'DeviceClass           :   1:"Robot"'
+#        - 'DeviceBrand           :   1:"Robot"'
+#        - 'DeviceName            :   1:"Robot"'
+#        - 'OperatingSystemClass  :   1:"Cloud"'
+#        - 'OperatingSystemName   :   1:"Cloud"'
+#        - 'OperatingSystemVersion:   1:"Cloud"'
 
   - test:
       input:
@@ -411,7 +439,7 @@ config:
         OperatingSystemName                  : 'Google'
         OperatingSystemVersion               : 'Google'
         OperatingSystemNameVersion           : 'Google'
-        OperatingSystemVersionBuild          : 'IMM76B'
+        OperatingSystemVersionBuild          : 'IMM76B'  # FIXME: Improve this
         LayoutEngineClass                    : 'Robot'
         LayoutEngineName                     : 'Googlebot'
         LayoutEngineVersion                  : 'Googlebot'
@@ -509,17 +537,26 @@ config:
         user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
       expected:
         DeviceClass                          : 'Robot Mobile'
-        DeviceBrand                          : 'Google'
         DeviceName                           : 'Google'
+        DeviceBrand                          : 'Google'
+        DeviceFirmwareVersion                : '12F70' # FIXME: Improve this
+        DeviceVersion                        : 'iPhone'# FIXME: Improve this
         OperatingSystemClass                 : 'Cloud'
         OperatingSystemName                  : 'Google'
         OperatingSystemVersion               : 'Google'
+        OperatingSystemNameVersion           : 'Google'
         LayoutEngineClass                    : 'Robot'
         LayoutEngineName                     : 'Googlebot'
         LayoutEngineVersion                  : 'Googlebot'
+        LayoutEngineVersionMajor             : 'Googlebot'
+        LayoutEngineNameVersion              : 'Googlebot'
+        LayoutEngineNameVersionMajor         : 'Googlebot'
         AgentClass                           : 'Robot Mobile'
         AgentName                            : 'Googlebot'
         AgentVersion                         : '2.1'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Googlebot 2.1'
+        AgentNameVersionMajor                : 'Googlebot 2'
         AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
 
@@ -544,17 +581,24 @@ config:
         user_agent_string: 'AdsBot-Google (+http://www.google.com/adsbot.html)'
       expected:
         DeviceClass                          : 'Robot'
-        DeviceBrand                          : 'Google'
         DeviceName                           : 'Google'
+        DeviceBrand                          : 'Google'
         OperatingSystemClass                 : 'Cloud'
         OperatingSystemName                  : 'Google'
         OperatingSystemVersion               : 'Google'
+        OperatingSystemNameVersion           : 'Google'
         LayoutEngineClass                    : 'Robot'
         LayoutEngineName                     : 'Googlebot'
         LayoutEngineVersion                  : 'Googlebot'
+        LayoutEngineVersionMajor             : 'Googlebot'
+        LayoutEngineNameVersion              : 'Googlebot'
+        LayoutEngineNameVersionMajor         : 'Googlebot'
         AgentClass                           : 'Robot'
         AgentName                            : 'Googlebot'
         AgentVersion                         : 'AdsBot-Google'
+        AgentVersionMajor                    : 'AdsBot-Google'
+        AgentNameVersion                     : 'Googlebot AdsBot-Google'
+        AgentNameVersionMajor                : 'Googlebot AdsBot-Google'
         AgentInformationUrl                  : 'http://www.google.com/adsbot.html'
 
 
@@ -564,19 +608,26 @@ config:
       input:
         user_agent_string: 'Sogou web spider/4.0(+http://www.sogou.com/docs/help/webmasters.htm#07)'
       expected:
-        AgentClass                           : 'Robot'
-        AgentName                            : 'Sogou web spider'
-        AgentVersion                         : '4.0'
-        AgentInformationUrl                  : 'http://www.sogou.com/docs/help/webmasters.htm#07'
-        DeviceBrand                          : 'Robot'
         DeviceClass                          : 'Robot'
         DeviceName                           : 'Sogou web spider'
-        LayoutEngineClass                    : 'Robot'
-        LayoutEngineName                     : 'Sogou web spider'
-        LayoutEngineVersion                  : '4.0'
+        DeviceBrand                          : 'Robot'
         OperatingSystemClass                 : 'Cloud'
         OperatingSystemName                  : 'Cloud'
         OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
+        LayoutEngineClass                    : 'Robot'
+        LayoutEngineName                     : 'Sogou web spider'
+        LayoutEngineVersion                  : '4.0'
+        LayoutEngineVersionMajor             : '4'
+        LayoutEngineNameVersion              : 'Sogou web spider 4.0'
+        LayoutEngineNameVersionMajor         : 'Sogou web spider 4'
+        AgentClass                           : 'Robot'
+        AgentName                            : 'Sogou web spider'
+        AgentVersion                         : '4.0'
+        AgentVersionMajor                    : '4'
+        AgentNameVersion                     : 'Sogou web spider 4.0'
+        AgentNameVersionMajor                : 'Sogou web spider 4'
+        AgentInformationUrl                  : 'http://www.sogou.com/docs/help/webmasters.htm#07'
 
 
   - test:
@@ -584,35 +635,49 @@ config:
         user_agent_string: 'Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34'
       expected:
         DeviceClass                          : 'Robot'
-        DeviceBrand                          : 'PhantomJS'
         DeviceName                           : 'PhantomJS'
+        DeviceBrand                          : 'PhantomJS'
         DeviceCpu                            : 'Intel x86_64'
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'Intel x86_64'
+        OperatingSystemNameVersion           : 'Linux Intel x86_64'
         LayoutEngineClass                    : 'Robot'
         LayoutEngineName                     : 'PhantomJS'
         LayoutEngineVersion                  : '1.9.8'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'PhantomJS 1.9.8'
+        LayoutEngineNameVersionMajor         : 'PhantomJS 1'
         AgentClass                           : 'Robot'
         AgentName                            : 'PhantomJS'
         AgentVersion                         : '1.9.8'
+        AgentVersionMajor                    : '1'
+        AgentNameVersion                     : 'PhantomJS 1.9.8'
+        AgentNameVersionMajor                : 'PhantomJS 1'
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
       expected:
         DeviceClass                          : 'Robot'
-        DeviceBrand                          : 'Microsoft'
         DeviceName                           : 'BingBot'
+        DeviceBrand                          : 'Microsoft'
         OperatingSystemClass                 : 'Cloud'
         OperatingSystemName                  : 'Microsoft Cloud'
         OperatingSystemVersion               : 'Microsoft Azure'
+        OperatingSystemNameVersion           : 'Microsoft Azure'
         LayoutEngineClass                    : 'Robot'
         LayoutEngineName                     : 'Bingbot'
         LayoutEngineVersion                  : '2.0'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Bingbot 2.0'
+        LayoutEngineNameVersionMajor         : 'Bingbot 2'
         AgentClass                           : 'Robot'
         AgentName                            : 'Bingbot'
         AgentVersion                         : '2.0'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Bingbot 2.0'
+        AgentNameVersionMajor                : 'Bingbot 2'
         AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
 
 
@@ -632,17 +697,24 @@ config:
         user_agent_string: 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)'
       expected:
         DeviceClass                          : 'Robot'
-        DeviceBrand                          : 'Robot'
         DeviceName                           : 'Baiduspider'
+        DeviceBrand                          : 'Robot'
         OperatingSystemClass                 : 'Cloud'
         OperatingSystemName                  : 'Cloud'
         OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
         LayoutEngineClass                    : 'Robot'
         LayoutEngineName                     : 'Baiduspider'
         LayoutEngineVersion                  : '2.0'
+        LayoutEngineVersionMajor             : '2'
+        LayoutEngineNameVersion              : 'Baiduspider 2.0'
+        LayoutEngineNameVersionMajor         : 'Baiduspider 2'
         AgentClass                           : 'Robot'
         AgentName                            : 'Baiduspider'
         AgentVersion                         : '2.0'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Baiduspider 2.0'
+        AgentNameVersionMajor                : 'Baiduspider 2'
         AgentInformationUrl                  : 'http://www.baidu.com/search/spider.html'
 
 
@@ -717,8 +789,6 @@ config:
         AgentInformationUrl                  : 'http://archive.org/details/archive.org_bot'
 
 
-
-# TODO
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (compatible; Charlotte/1.1; http://www.searchme.com/support/)'
@@ -969,6 +1039,16 @@ config:
       input:
         user_agent_string: 'gsa-crawler (Enterprise; GID-01422; jplastiras@google.com)'
       expected:
+        DeviceClass                          : 'Robot'
+        DeviceName                           : 'Robot'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Cloud'
+        OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
+        LayoutEngineClass                    : 'Unknown'
+        LayoutEngineName                     : 'Unknown'
+        LayoutEngineVersion                  : '??'
+        LayoutEngineVersionMajor             : '??'
         AgentClass                           : 'Robot'
         AgentName                            : 'Google Search Appliance'
         AgentVersion                         : 'Enterprise'
@@ -976,7 +1056,7 @@ config:
         AgentNameVersion                     : 'Google Search Appliance Enterprise'
         AgentNameVersionMajor                : 'Google Search Appliance Enterprise'
         AgentInformationEmail                : 'jplastiras@google.com'
-        GSAInstallationID                    : 'GID-01422'                              
+        GSAInstallationID                    : 'GID-01422'
 
 
 #we follow your robots.txt settings before crawling, you can slow down the bot by change the Crawl-Delay parameter in the settings.if you have an enquiry, please email

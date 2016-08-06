@@ -27,7 +27,7 @@ public class TestPredefinedBrowsers {
     @Test
     public void validateAllPredefinedBrowsers() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
-        Assert.assertTrue(uaa.runTests(false, false));
+        Assert.assertTrue(uaa.runTests(false, true));
     }
 
 

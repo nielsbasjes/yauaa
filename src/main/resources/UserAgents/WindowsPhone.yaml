@@ -93,54 +93,75 @@ config:
         user_agent_string: 'Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.0; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 520) like iPhone OS 7_0_3 Mac OS X AppleWebKit/537 (KHTML, like Gecko) Mobile Safari/537'
       expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'Nokia'
         DeviceName                           : 'Lumia 520'
+        DeviceBrand                          : 'Nokia'
+        DeviceCpu                            : 'ARM'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '8.1'
+        OperatingSystemNameVersion           : 'Windows Phone 8.1'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '7.0'
+        LayoutEngineVersionMajor             : '7'
+        LayoutEngineNameVersion              : 'Trident 7.0'
+        LayoutEngineNameVersionMajor         : 'Trident 7'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '11.0'
+        AgentVersionMajor                    : '11'
+        AgentNameVersion                     : 'IE Mobile 11.0'
+        AgentNameVersionMajor                : 'IE Mobile 11'
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; NOKIA; Lumia 800)'
       expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'Nokia'
         DeviceName                           : 'Lumia 800'
+        DeviceBrand                          : 'Nokia'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '7.5'
+        OperatingSystemNameVersion           : 'Windows Phone 7.5'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '5.0'
+        LayoutEngineVersionMajor             : '5'
+        LayoutEngineNameVersion              : 'Trident 5.0'
+        LayoutEngineNameVersionMajor         : 'Trident 5'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '9.0'
+        AgentVersionMajor                    : '9'
+        AgentNameVersion                     : 'IE Mobile 9.0'
+        AgentNameVersionMajor                : 'IE Mobile 9'
 
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 920) like Gecko'
       expected:
-      expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'Nokia'
         DeviceName                           : 'Lumia 920'
+        DeviceBrand                          : 'Nokia'
         DeviceCpu                            : 'ARM'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '8.1'
+        OperatingSystemNameVersion           : 'Windows Phone 8.1'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '7.0'
+        LayoutEngineVersionMajor             : '7'
+        LayoutEngineNameVersion              : 'Trident 7.0'
+        LayoutEngineNameVersionMajor         : 'Trident 7'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '11.0'
+        AgentVersionMajor                    : '11'
+        AgentNameVersion                     : 'IE Mobile 11.0'
+        AgentNameVersionMajor                : 'IE Mobile 11'
 
 
   - test:
@@ -148,18 +169,25 @@ config:
         user_agent_string: 'Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.0; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 930; Vodafone) like iPhone OS 7_0_3 Mac OS X AppleWebKit/537 (KHTML, like Gecko) Mobile Safari/537'
       expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'Nokia'
         DeviceName                           : 'Lumia 930'
+        DeviceBrand                          : 'Nokia'
+        DeviceCpu                            : 'ARM'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '8.1'
+        OperatingSystemNameVersion           : 'Windows Phone 8.1'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '7.0'
+        LayoutEngineVersionMajor             : '7'
+        LayoutEngineNameVersion              : 'Trident 7.0'
+        LayoutEngineNameVersionMajor         : 'Trident 7'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '11.0'
-
+        AgentVersionMajor                    : '11'
+        AgentNameVersion                     : 'IE Mobile 11.0'
+        AgentNameVersionMajor                : 'IE Mobile 11'
 
 
   - test:
@@ -167,17 +195,24 @@ config:
         user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; NOKIA; Lumia 520)'
       expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'Nokia'
         DeviceName                           : 'Lumia 520'
+        DeviceBrand                          : 'Nokia'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '7.5'
+        OperatingSystemNameVersion           : 'Windows Phone 7.5'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '5.0'
+        LayoutEngineVersionMajor             : '5'
+        LayoutEngineNameVersion              : 'Trident 5.0'
+        LayoutEngineNameVersionMajor         : 'Trident 5'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '9.0'
+        AgentVersionMajor                    : '9'
+        AgentNameVersion                     : 'IE Mobile 9.0'
+        AgentNameVersionMajor                : 'IE Mobile 9'
 
 
   - test:
@@ -185,18 +220,24 @@ config:
         user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; Acer; Allegro)'
       expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'Acer'
         DeviceName                           : 'Allegro'
+        DeviceBrand                          : 'Acer'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '7.5'
+        OperatingSystemNameVersion           : 'Windows Phone 7.5'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '5.0'
+        LayoutEngineVersionMajor             : '5'
+        LayoutEngineNameVersion              : 'Trident 5.0'
+        LayoutEngineNameVersionMajor         : 'Trident 5'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '9.0'
-
+        AgentVersionMajor                    : '9'
+        AgentNameVersion                     : 'IE Mobile 9.0'
+        AgentNameVersionMajor                : 'IE Mobile 9'
 
 
   - test:
@@ -204,18 +245,25 @@ config:
         user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; HTC; Windows Phone 8S by HTC)'
       expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'HTC'
         DeviceName                           : 'Windows Phone 8S by HTC'
+        DeviceBrand                          : 'HTC'
+        DeviceCpu                            : 'ARM'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '8.0'
+        OperatingSystemNameVersion           : 'Windows Phone 8.0'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '6.0'
+        LayoutEngineVersionMajor             : '6'
+        LayoutEngineNameVersion              : 'Trident 6.0'
+        LayoutEngineNameVersionMajor         : 'Trident 6'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '10.0'
-
+        AgentVersionMajor                    : '10'
+        AgentNameVersion                     : 'IE Mobile 10.0'
+        AgentNameVersionMajor                : 'IE Mobile 10'
 
 
   - test:
@@ -223,20 +271,25 @@ config:
         user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; HTC; Windows Phone 8S by HTC; 1.04.172.01)'
       expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'HTC'
         DeviceName                           : 'Windows Phone 8S by HTC'
+        DeviceBrand                          : 'HTC'
+        DeviceCpu                            : 'ARM'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '8.0'
+        OperatingSystemNameVersion           : 'Windows Phone 8.0'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '6.0'
+        LayoutEngineVersionMajor             : '6'
+        LayoutEngineNameVersion              : 'Trident 6.0'
+        LayoutEngineNameVersionMajor         : 'Trident 6'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '10.0'
-
-
-
+        AgentVersionMajor                    : '10'
+        AgentNameVersion                     : 'IE Mobile 10.0'
+        AgentNameVersionMajor                : 'IE Mobile 10'
 
 
   - test:
@@ -244,18 +297,24 @@ config:
         user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; Acer; Allegro)'
       expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'Acer'
         DeviceName                           : 'Allegro'
+        DeviceBrand                          : 'Acer'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '7.5'
+        OperatingSystemNameVersion           : 'Windows Phone 7.5'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '5.0'
+        LayoutEngineVersionMajor             : '5'
+        LayoutEngineNameVersion              : 'Trident 5.0'
+        LayoutEngineNameVersionMajor         : 'Trident 5'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '9.0'
-
+        AgentVersionMajor                    : '9'
+        AgentNameVersion                     : 'IE Mobile 9.0'
+        AgentNameVersionMajor                : 'IE Mobile 9'
 
 
   - test:
@@ -263,18 +322,25 @@ config:
         user_agent_string: 'Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.0; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 930; vodafone NL) like iPhone OS 7_0_3 Mac OS X AppleWebKit/537 (KHTML, like Gecko) Mobile Safari/537'
       expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'Nokia'
         DeviceName                           : 'Lumia 930'
+        DeviceBrand                          : 'Nokia'
+        DeviceCpu                            : 'ARM'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '8.1'
+        OperatingSystemNameVersion           : 'Windows Phone 8.1'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '7.0'
+        LayoutEngineVersionMajor             : '7'
+        LayoutEngineNameVersion              : 'Trident 7.0'
+        LayoutEngineNameVersionMajor         : 'Trident 7'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '11.0'
-
+        AgentVersionMajor                    : '11'
+        AgentNameVersion                     : 'IE Mobile 11.0'
+        AgentNameVersionMajor                : 'IE Mobile 11'
 
 
   - test:
@@ -306,34 +372,51 @@ config:
         user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 520)'
       expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'Nokia'
         DeviceName                           : 'Lumia 520'
+        DeviceBrand                          : 'Nokia'
+        DeviceCpu                            : 'ARM'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '8.0'
+        OperatingSystemNameVersion           : 'Windows Phone 8.0'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '6.0'
+        LayoutEngineVersionMajor             : '6'
+        LayoutEngineNameVersion              : 'Trident 6.0'
+        LayoutEngineNameVersionMajor         : 'Trident 6'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '10.0'
+        AgentVersionMajor                    : '10'
+        AgentNameVersion                     : 'IE Mobile 10.0'
+        AgentNameVersionMajor                : 'IE Mobile 10'
+
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.0; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 930) like iPhone OS 7_0_3 Mac OS X AppleWebKit/537 (KHTML, like Gecko) Mobile Safari/537'
       expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'Nokia'
         DeviceName                           : 'Lumia 930'
+        DeviceBrand                          : 'Nokia'
+        DeviceCpu                            : 'ARM'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '8.1'
+        OperatingSystemNameVersion           : 'Windows Phone 8.1'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '7.0'
+        LayoutEngineVersionMajor             : '7'
+        LayoutEngineNameVersion              : 'Trident 7.0'
+        LayoutEngineNameVersionMajor         : 'Trident 7'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '11.0'
+        AgentVersionMajor                    : '11'
+        AgentNameVersion                     : 'IE Mobile 11.0'
+        AgentNameVersionMajor                : 'IE Mobile 11'
 
 
   - test:
@@ -341,19 +424,25 @@ config:
         user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; HUAWEI; W1-U00)'
       expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'Huawei'
         DeviceName                           : 'W1-U00'
+        DeviceBrand                          : 'Huawei'
         DeviceCpu                            : 'ARM'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '8.0'
+        OperatingSystemNameVersion           : 'Windows Phone 8.0'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '6.0'
+        LayoutEngineVersionMajor             : '6'
+        LayoutEngineNameVersion              : 'Trident 6.0'
+        LayoutEngineNameVersionMajor         : 'Trident 6'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '10.0'
-
+        AgentVersionMajor                    : '10'
+        AgentNameVersion                     : 'IE Mobile 10.0'
+        AgentNameVersionMajor                : 'IE Mobile 10'
 
 
   - test:
@@ -361,18 +450,26 @@ config:
         user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; SAMSUNG; GT-I8750)'
       expected:
         DeviceClass                          : 'Phone'
-        DeviceBrand                          : 'Samsung'
         DeviceName                           : 'GT-I8750'
+        DeviceBrand                          : 'Samsung'
         DeviceCpu                            : 'ARM'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '8.0'
+        OperatingSystemNameVersion           : 'Windows Phone 8.0'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '6.0'
+        LayoutEngineVersionMajor             : '6'
+        LayoutEngineNameVersion              : 'Trident 6.0'
+        LayoutEngineNameVersionMajor         : 'Trident 6'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '10.0'
+        AgentVersionMajor                    : '10'
+        AgentNameVersion                     : 'IE Mobile 10.0'
+        AgentNameVersionMajor                : 'IE Mobile 10'
+
 
   - test:
       input:
@@ -385,10 +482,17 @@ config:
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Windows Phone'
         OperatingSystemVersion               : '8.1'
+        OperatingSystemNameVersion           : 'Windows Phone 8.1'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Trident'
         LayoutEngineVersion                  : '7.0'
+        LayoutEngineVersionMajor             : '7'
+        LayoutEngineNameVersion              : 'Trident 7.0'
+        LayoutEngineNameVersionMajor         : 'Trident 7'
         AgentClass                           : 'Browser'
         AgentName                            : 'IE Mobile'
         AgentVersion                         : '11.0'
+        AgentVersionMajor                    : '11'
+        AgentNameVersion                     : 'IE Mobile 11.0'
+        AgentNameVersionMajor                : 'IE Mobile 11'
 

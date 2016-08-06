@@ -71,33 +71,50 @@ config:
       input:
         user_agent_string: 'Links (2.1pre15; Linux 2.4.26 i686; 128x48)'
       expected:
-        AgentClass                           : 'Special'
-        AgentName                            : 'Links'
-        AgentVersion                         : '2.1pre15'
         DeviceClass                          : 'Desktop'
         DeviceName                           : 'Linux Desktop'
         DeviceCpu                            : 'Intel i686'
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : '2.4.26'
+        OperatingSystemNameVersion           : 'Linux 2.4.26'
+        LayoutEngineClass                    : 'Unknown'
+        LayoutEngineName                     : 'Unknown'
+        LayoutEngineVersion                  : '??'
+        LayoutEngineVersionMajor             : '??'
+        AgentClass                           : 'Special'
+        AgentName                            : 'Links'
+        AgentVersion                         : '2.1pre15'
+        AgentVersionMajor                    : '2'
+        AgentNameVersion                     : 'Links 2.1pre15'
+        AgentNameVersionMajor                : 'Links 2'
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; rv:1.7.3) Gecko/20040919 Firefox/0.10'
       expected:
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Firefox'
-        AgentVersion                         : '0.10'
         DeviceClass                          : 'Desktop'
-        DeviceCpu                            : 'Intel i686'
         DeviceName                           : 'Linux Desktop'
-        LayoutEngineBuild                    : '20040919'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Gecko'
-        LayoutEngineVersion                  : '1.7.3'
+        DeviceCpu                            : 'Intel i686'
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Linux'
         OperatingSystemVersion               : 'Intel i686'
+        OperatingSystemNameVersion           : 'Linux Intel i686'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'Gecko'
+        LayoutEngineVersion                  : '1.7.3'
+        LayoutEngineVersionMajor             : '1'
+        LayoutEngineNameVersion              : 'Gecko 1.7.3'
+        LayoutEngineNameVersionMajor         : 'Gecko 1'
+        LayoutEngineBuild                    : '20040919'
+        AgentClass                           : 'Browser'
+        AgentName                            : 'Firefox'
+        AgentVersion                         : '0.10'
+        AgentVersionMajor                    : '0'
+        AgentNameVersion                     : 'Firefox 0.10'
+        AgentNameVersionMajor                : 'Firefox 0'
+        AgentSecurity                        : 'Strong security'
+
 
   - test:
       input:
@@ -108,12 +125,19 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'Windows NT'
         OperatingSystemVersion               : 'Windows 2000'
+        OperatingSystemNameVersion           : 'Windows 2000'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'Internet Explorer'
         LayoutEngineVersion                  : '6.0'
+        LayoutEngineVersionMajor             : '6'
+        LayoutEngineNameVersion              : 'Internet Explorer 6.0'
+        LayoutEngineNameVersionMajor         : 'Internet Explorer 6'
         AgentClass                           : 'Browser'
         AgentName                            : 'Crazy Browser'
         AgentVersion                         : '1.0.5'
+        AgentVersionMajor                    : '1'
+        AgentNameVersion                     : 'Crazy Browser 1.0.5'
+        AgentNameVersionMajor                : 'Crazy Browser 1'
 
 
   - test:
@@ -125,60 +149,50 @@ config:
         OperatingSystemClass                 : 'Desktop'
         OperatingSystemName                  : 'FreeBSD'
         OperatingSystemVersion               : '??'
+        OperatingSystemNameVersion           : 'FreeBSD ??'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : '537.11'
+        LayoutEngineVersionMajor             : '537'
+        LayoutEngineNameVersion              : 'AppleWebKit 537.11'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
         AgentClass                           : 'Browser'
         AgentName                            : 'Viera'
         AgentVersion                         : '3.10.14'
+        AgentVersionMajor                    : '3'
+        AgentNameVersion                     : 'Viera 3.10.14'
+        AgentNameVersionMajor                : 'Viera 3'
         AgentLanguage                        : 'Dutch (Netherlands)'
+        AgentLanguageCode                    : 'nl-nl'
         AgentSecurity                        : 'Strong security'
 
 
-
-  - matcher:
-#      options:
-#        - 'verbose'
-      require:
-#        - ''
-#        - 'agent.(3)product.(1)version="4.4.3.1000"'
-      extract:
-        - 'AgentClass            :   2015:"Browser"'
-        - 'AgentName             :   2015:"Maxthon"'
-        - 'AgentVersion          :   2015:agent.(3)product.(1)name="Maxthon"^.version'
-
-  - test:
-      input:
-        user_agent_string: 'Mozilla/5.0 (Windows NT 6.0) AppleWebKit/537.36 (KHTML, like Gecko) Maxthon/4.4.3.1000 Chrome/30.0.1599.101 Safari/537.36'
-      expected:
-        DeviceClass                          : 'Desktop'
-        DeviceName                           : 'Desktop'
-        OperatingSystemClass                 : 'Desktop'
-        OperatingSystemName                  : 'Windows NT'
-        OperatingSystemVersion               : 'Windows Vista'
-        LayoutEngineClass                    : 'Browser'
-        LayoutEngineName                     : 'Blink'
-        LayoutEngineVersion                  : '30.0'
-        AgentClass                           : 'Browser'
-        AgentName                            : 'Maxthon'
-        AgentVersion                         : '4.4.3.1000'
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 8.1.2 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) 1Password/5.1.2 (like Version/12B440 Mobile/8.1.2 Safari/8536.25)'
       expected:
         DeviceClass                          : 'Tablet'
-        DeviceBrand                          : 'Apple'
         DeviceName                           : 'iPad'
+        DeviceBrand                          : 'Apple'
+        DeviceVersion                        : 'iPad'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'iOS'
         OperatingSystemVersion               : '8.1.2'
+        OperatingSystemNameVersion           : 'iOS 8.1.2'
         LayoutEngineClass                    : 'Browser'
         LayoutEngineName                     : 'AppleWebKit'
         LayoutEngineVersion                  : '536.26'
+        LayoutEngineVersionMajor             : '536'
+        LayoutEngineNameVersion              : 'AppleWebKit 536.26'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
         AgentClass                           : 'Browser'
         AgentName                            : '1Password'
         AgentVersion                         : '5.1.2'
+        AgentVersionMajor                    : '5'
+        AgentNameVersion                     : '1Password 5.1.2'
+        AgentNameVersionMajor                : '1Password 5'
+
 
 
 # If the BASE64 minimal size gets too smal this becomes a parse error
@@ -188,16 +202,22 @@ config:
       expected:
         DeviceClass                          : 'Mobile'
         DeviceName                           : 'HUAWEI GRA-L09'
+        DeviceBrand                          : 'Huawei'
         OperatingSystemClass                 : 'Mobile'
         OperatingSystemName                  : 'Android'
         OperatingSystemVersion               : '5.0.1'
+        OperatingSystemNameVersion           : 'Android 5.0.1'
         OperatingSystemVersionBuild          : 'HUAWEIGRA-L09'
         LayoutEngineClass                    : 'Unknown'
         LayoutEngineName                     : 'Unknown'
         LayoutEngineVersion                  : '??'
+        LayoutEngineVersionMajor             : '??'
         AgentClass                           : 'Special'
         AgentName                            : 'AndroidDownloadManager'
         AgentVersion                         : '5.0.1'
+        AgentVersionMajor                    : '5'
+        AgentNameVersion                     : 'AndroidDownloadManager 5.0.1'
+        AgentNameVersionMajor                : 'AndroidDownloadManager 5'
         AgentSecurity                        : 'Strong security'
 
 
@@ -209,20 +229,60 @@ config:
       input:
         user_agent_string: 'http://Anonymouse.org/ (Unix)'
       expected:
+        DeviceClass                          : 'Robot'
+        DeviceName                           : 'Robot'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Cloud'
+        OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
+        LayoutEngineClass                    : 'Unknown'
+        LayoutEngineName                     : 'Unknown'
+        LayoutEngineVersion                  : '??'
+        LayoutEngineVersionMajor             : '??'
         AgentClass                           : 'Special'
         AgentName                            : 'http://Anonymouse.org/'
         AgentVersion                         : 'Unix'
+        AgentVersionMajor                    : 'Unix'
+        AgentNameVersion                     : 'http://Anonymouse.org/ Unix'
+        AgentNameVersionMajor                : 'http://Anonymouse.org/ Unix'
+        AgentInformationUrl                  : 'http://Anonymouse.org/'
 
-#TODO
-#
-#  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (compatible; CloudFlare-AlwaysOnline/1.0; +http://www.cloudflare.com/always-online) AppleWebKit/534.34'
-#
+
+  - matcher:
+      extract:
+        - 'DeviceClass           :   100:"Robot"'
+        - 'DeviceBrand           :   100:"CloudFlare"'
+        - 'DeviceName            :   100:"CloudFlare AlwaysOnline"'
+        - 'AgentClass            :   100:"Robot"'
+        - 'AgentName             :   100:"CloudFlare AlwaysOnline"'
+        - 'AgentVersion          :   100:agent.(1)product.(1)comments.entry.(1)product.(1)name="CloudFlare-AlwaysOnline"^.version'
+
+
+  - test:
+      input:
+        user_agent_string: 'Mozilla/5.0 (compatible; CloudFlare-AlwaysOnline/1.0; +http://www.cloudflare.com/always-online) AppleWebKit/534.34'
+      expected:
+        DeviceClass                          : 'Robot'
+        DeviceName                           : 'CloudFlare AlwaysOnline'
+        DeviceBrand                          : 'CloudFlare'
+        OperatingSystemClass                 : 'Cloud'
+        OperatingSystemName                  : 'Cloud'
+        OperatingSystemVersion               : 'Cloud'
+        OperatingSystemNameVersion           : 'Cloud'
+        LayoutEngineClass                    : 'Browser'
+        LayoutEngineName                     : 'AppleWebKit'
+        LayoutEngineVersion                  : '534.34'
+        LayoutEngineVersionMajor             : '534'
+        LayoutEngineNameVersion              : 'AppleWebKit 534.34'
+        LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+        AgentClass                           : 'Robot'
+        AgentName                            : 'CloudFlare AlwaysOnline'
+        AgentVersion                         : '1.0'
+        AgentVersionMajor                    : '1'
+        AgentNameVersion                     : 'CloudFlare AlwaysOnline 1.0'
+        AgentNameVersionMajor                : 'CloudFlare AlwaysOnline 1'
+        AgentInformationUrl                  : 'http://www.cloudflare.com/always-online'
+
   - test:
       input:
         user_agent_string: 'Mobitest 1.8 (iPhone; iPhone OS 7.1.2; nl_NL)'
@@ -235,6 +295,10 @@ config:
         OperatingSystemName                  : 'iOS'
         OperatingSystemVersion               : '7.1.2'
         OperatingSystemNameVersion           : 'iOS 7.1.2'
+        LayoutEngineClass                    : 'Unknown'
+        LayoutEngineName                     : 'Unknown'
+        LayoutEngineVersion                  : '??'
+        LayoutEngineVersionMajor             : '??'
         AgentClass                           : 'Special'
         AgentName                            : 'Mobitest'
         AgentVersion                         : '1.8'
