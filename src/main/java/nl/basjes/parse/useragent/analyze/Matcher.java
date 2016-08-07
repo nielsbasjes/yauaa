@@ -85,6 +85,11 @@ public class Matcher {
                     LOG.info("EXTRACT: {}", extractConfig);
                 }
                 String[] configParts = extractConfig.split(":", 3);
+
+                if (configParts.length != 3) {
+                    throw new InvalidParserConfigurationException("Invalid extract config line: "+ extractConfig);
+                }
+
                 String attribute = configParts[0].trim();
                 String confidence = configParts[1].trim();
                 String config = configParts[2].trim();
