@@ -1052,13 +1052,64 @@ config:
       AgentInformationUrl                  : 'http://www.haosou.com/help/help_3_2.html'
 
 
-# Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.5 (like Gecko) (Exabot-Thumbnails)
+- matcher:
+    extract:
+    - 'DeviceClass            :  2100:"Robot"'
+    - 'DeviceName             :  2100:agent.product.comments.entry.text="Exabot-Thumbnails"'
+    - 'DeviceBrand            :  2100:"ExaLead"'
+    - 'AgentClass             :  2100:"Robot"'
+    - 'AgentName              :  2100:agent.product.comments.entry.text="Exabot-Thumbnails"'
+    - 'AgentVersion           :  2100:"??"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.5 (like Gecko) (Exabot-Thumbnails)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Exabot-Thumbnails'
+      DeviceBrand                          : 'ExaLead'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'KHTML'
+      LayoutEngineVersion                  : '3.5'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'KHTML 3.5'
+      LayoutEngineNameVersionMajor         : 'KHTML 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Exabot-Thumbnails'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Exabot-Thumbnails ??'
+      AgentNameVersionMajor                : 'Exabot-Thumbnails ??'
 
 
-#TODO: Google developer testing tool
-#  - test:
-#      input:
-#         user_agent_string: 'Mozilla/5.0 (compatible; Google-Structured-Data-Testing-Tool +http://developers.google.com/structured-data/testing-tool/)'
+# Google developer testing tool
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Google-Structured-Data-Testing-Tool +http://developers.google.com/structured-data/testing-tool/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Google-Structured-Data-Testing-Tool'
+      AgentVersion                         : 'http://developers.google.com/structured-data/testing-tool/'
+      AgentVersionMajor                    : 'http://developers'
+      AgentNameVersion                     : 'Google-Structured-Data-Testing-Tool http://developers.google.com/structured-data/testing-tool/'
+      AgentNameVersionMajor                : 'Google-Structured-Data-Testing-Tool http://developers'
+      AgentInformationUrl                  : 'http://developers.google.com/structured-data/testing-tool/'
 
 - matcher:
     extract:
