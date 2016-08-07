@@ -57,8 +57,8 @@ BACKTOFULL      : '@'           ;
 // LookUp[TridentName;agent.(1)product.([2-4])comments.(*)product.name#1="Trident"^.(*)version%1="7.";"DefaultValue"]
 
 matcher         : matcherLookup                                                 #matcherNextLookup
-                | 'Concat' BLOCKOPEN VALUE SEMICOLON matcherLookup BLOCKCLOSE   #matcherConcat1
-                | 'Concat' BLOCKOPEN matcherLookup SEMICOLON VALUE BLOCKCLOSE   #matcherConcat2
+//                | 'Concat' BLOCKOPEN VALUE SEMICOLON matcherLookup BLOCKCLOSE   #matcherConcat1
+//                | 'Concat' BLOCKOPEN matcherLookup SEMICOLON VALUE BLOCKCLOSE   #matcherConcat2
                 | 'CleanVersion' BLOCKOPEN matcherLookup BLOCKCLOSE             #matcherCleanVersion
                 | 'IsNull' BLOCKOPEN matcherLookup BLOCKCLOSE                   #matcherPathIsNull
                 ;
