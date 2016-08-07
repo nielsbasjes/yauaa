@@ -253,6 +253,11 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                     maxActualLength = Math.max(maxActualLength, result.actual.length());
                     maxExpectedLength = Math.max(maxExpectedLength, result.expected.length());
                 }
+
+                if (!((DebugUserAgent)agent).analyzeMatchersResult()) {
+                    pass = false;
+                    allPass = false;
+                }
             }
 
             if (!init && pass && !showAll) {

@@ -54,10 +54,10 @@ config:
     - 'agent.(1)product.comments.entry.text="Android"'
     extract:
     - 'DeviceClass                 :  2:"Mobile"'
-    - 'DeviceName                  :  3:"Android Mobile"'
-    - 'OperatingSystemClass        :  3:"Mobile"'
-    - 'OperatingSystemName         :  3:"Android"'
-    - 'OperatingSystemVersion      :  3:"??"'
+    - 'DeviceName                  :  4:"Android Mobile"'
+    - 'OperatingSystemClass        :  4:"Mobile"'
+    - 'OperatingSystemName         :  4:"Android"'
+    - 'OperatingSystemVersion      :  4:"??"'
 
 - matcher:
     require:
@@ -202,13 +202,13 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass            :  2014:"Desktop"'
-    - 'DeviceBrand            :  2014:"Google"'
-    - 'DeviceName             :  2014:"Chromebook"'
-    - 'DeviceCpu              :  2014:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^.(1)version]'
-    - 'OperatingSystemClass   :  2014:"Desktop"'
-    - 'OperatingSystemName    :  2014:"Chrome OS"'
-    - 'OperatingSystemVersion :  2014:agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^.(2)version'
+    - 'DeviceClass            :  2015:"Desktop"'
+    - 'DeviceBrand            :  2015:"Google"'
+    - 'DeviceName             :  2015:"Chromebook"'
+    - 'DeviceCpu              :  2015:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^.(1)version]'
+    - 'OperatingSystemClass   :  2015:"Desktop"'
+    - 'OperatingSystemName    :  2015:"Chrome OS"'
+    - 'OperatingSystemVersion :  2015:agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^.(2)version'
 
 - matcher:
     extract:

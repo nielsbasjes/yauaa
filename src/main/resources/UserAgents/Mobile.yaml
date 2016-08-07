@@ -19,16 +19,6 @@
 config:
 
 - matcher:
-    extract:
-    - 'DeviceClass           : 301:"Mobile"'
-    - 'DeviceName            : 301:agent.(1)product.(1)name%2="Linux"@#1'
-    - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
-    - 'AgentClass            :   4:"Unknown"'
-    - 'AgentName             :   4:"Unknown"'
-    - 'AgentVersion          :   4:"Unknown"'
-
-
-- matcher:
     require:
     - 'agent.product.(1)name="Profile"'
     - 'agent.product.(1)name="Configuration"'
@@ -43,9 +33,9 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           : 301:"Mobile"'
-    - 'DeviceName            : 301:agent.(1)product.(1)name%2="Linux"@#1'
-    - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
+    - 'DeviceClass           : 302:"Mobile"'
+    - 'DeviceName            : 302:agent.(1)product.(1)name%2="Linux"@#1'
+    - 'DeviceFirmwareVersion : 302:agent.product.(1)name="Release"^.version'
     - 'AgentClass            :   4:"Unknown"'
     - 'AgentName             :   4:"Unknown"'
     - 'AgentVersion          :   4:"Unknown"'
@@ -53,9 +43,9 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           : 301:"Mobile"'
-    - 'DeviceName            : 301:agent.(1)product.(1)name%3="Linux"@#2'
-    - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
+    - 'DeviceClass           : 302:"Mobile"'
+    - 'DeviceName            : 302:agent.(1)product.(1)name%3="Linux"@#2'
+    - 'DeviceFirmwareVersion : 302:agent.product.(1)name="Release"^.version'
     - 'AgentClass            :   4:"Unknown"'
     - 'AgentName             :   4:"Unknown"'
     - 'AgentVersion          :   4:"Unknown"'
@@ -63,9 +53,9 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           : 301:"Mobile"'
-    - 'DeviceName            : 301:agent.(1)product.(1)name%4="Linux"@#3'
-    - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
+    - 'DeviceClass           : 302:"Mobile"'
+    - 'DeviceName            : 302:agent.(1)product.(1)name%4="Linux"@#3'
+    - 'DeviceFirmwareVersion : 302:agent.product.(1)name="Release"^.version'
     - 'AgentClass            :   4:"Unknown"'
     - 'AgentName             :   4:"Unknown"'
     - 'AgentVersion          :   4:"Unknown"'

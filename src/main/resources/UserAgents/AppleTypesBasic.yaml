@@ -1,0 +1,127 @@
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+config:
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="iPhone"'
+    extract:
+    - 'DeviceBrand   : 100:"Apple"'
+    - 'DeviceClass   : 100:"Phone"'
+    - 'DeviceName    : 100:"iPhone"'
+    - 'DeviceVersion : 100:"iPhone"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="iPhone"'
+    extract:
+    - 'DeviceBrand   : 101:"Apple"'
+    - 'DeviceClass   : 101:"Phone"'
+    - 'DeviceName    : 101:"iPhone"'
+    - 'DeviceVersion : 101:"iPhone"'
+
+- matcher:
+    require:
+    - 'agent.text="iPhone"'
+    extract:
+    - 'DeviceBrand   : 101:"Apple"'
+    - 'DeviceClass   : 101:"Phone"'
+    - 'DeviceName    : 101:"iPhone"'
+    - 'DeviceVersion : 101:"iPhone"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="iPad"'
+    extract:
+    - 'DeviceBrand   : 100:"Apple"'
+    - 'DeviceClass   : 100:"Tablet"'
+    - 'DeviceName    : 100:"iPad"'
+    - 'DeviceVersion : 100:"iPad"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="iPad"'
+    extract:
+    - 'DeviceBrand   : 101:"Apple"'
+    - 'DeviceClass   : 101:"Tablet"'
+    - 'DeviceName    : 101:"iPad"'
+    - 'DeviceVersion : 101:"iPad"'
+
+- matcher:
+    require:
+    - 'agent.text="iPad"'
+    extract:
+    - 'DeviceBrand   : 101:"Apple"'
+    - 'DeviceClass   : 101:"Tablet"'
+    - 'DeviceName    : 101:"iPad"'
+    - 'DeviceVersion : 101:"iPad"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="iPod"'
+    extract:
+    - 'DeviceBrand   : 100:"Apple"'
+    - 'DeviceClass   : 100:"Tablet"'
+    - 'DeviceName    : 100:"iPod"'
+    - 'DeviceVersion : 100:"iPod"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="iPod"'
+    extract:
+    - 'DeviceBrand   : 101:"Apple"'
+    - 'DeviceClass   : 101:"Tablet"'
+    - 'DeviceName    : 101:"iPod"'
+    - 'DeviceVersion : 101:"iPod"'
+
+- matcher:
+    require:
+    - 'agent.text="iPod"'
+    extract:
+    - 'DeviceBrand   : 101:"Apple"'
+    - 'DeviceClass   : 101:"Tablet"'
+    - 'DeviceName    : 101:"iPod"'
+    - 'DeviceVersion : 101:"iPod"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="iPod touch"'
+    extract:
+    - 'DeviceBrand   : 100:"Apple"'
+    - 'DeviceClass   : 100:"Tablet"'
+    - 'DeviceName    : 100:"iPod touch"'
+    - 'DeviceVersion : 100:"iPod touch"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="iPod touch"'
+    extract:
+    - 'DeviceBrand   : 101:"Apple"'
+    - 'DeviceClass   : 101:"Tablet"'
+    - 'DeviceName    : 101:"iPod touch"'
+    - 'DeviceVersion : 101:"iPod touch"'
+
+- matcher:
+    require:
+    - 'agent.text="iPod touch"'
+    extract:
+    - 'DeviceBrand   : 101:"Apple"'
+    - 'DeviceClass   : 101:"Tablet"'
+    - 'DeviceName    : 101:"iPod touch"'
+    - 'DeviceVersion : 101:"iPod touch"'
+

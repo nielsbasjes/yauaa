@@ -48,56 +48,55 @@ echo "
     require:
     - 'agent.(1)product.(1)comments.entry.text=\"${osname}\"'
     extract:
-    - 'DeviceClass           :   10:\"${devclass}\"'
-    - 'DeviceName            :   10:\"${devname}\"'
+    - 'DeviceClass           :   11:\"${devclass}\"'
+    - 'DeviceName            :   11:\"${devname}\"'
     - 'OperatingSystemClass  :   50:\"Desktop\"'
     - 'OperatingSystemName   :   50:\"${osname}\"'
-    - 'OperatingSystemVersion:   50:\"??\"'
+    - 'OperatingSystemVersion:   49:\"??\"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   10:\"${devclass}\"'
-    - 'DeviceName            :   10:\"${devname}\"'
+    - 'DeviceClass           :   11:\"${devclass}\"'
+    - 'DeviceName            :   11:\"${devname}\"'
     - 'OperatingSystemClass  :   50:\"Desktop\"'
     - 'OperatingSystemName   :   50:\"${osname}\"'
     - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   10:\"${devclass}\"'
-    - 'DeviceName            :   10:\"${devname}\"'
+    - 'DeviceClass           :   11:\"${devclass}\"'
+    - 'DeviceName            :   11:\"${devname}\"'
     - 'OperatingSystemClass  :   50:\"Desktop\"'
     - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text=\"${osname}\"'
-    - 'OperatingSystemVersion:   50:\"??\"'
+    - 'OperatingSystemVersion:   49:\"??\"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   10:\"${devclass}\"'
-    - 'DeviceName            :   10:\"${devname}\"'
+    - 'DeviceClass           :   11:\"${devclass}\"'
+    - 'DeviceName            :   11:\"${devname}\"'
     - 'OperatingSystemClass  :   50:\"Desktop\"'
     - 'OperatingSystemName   :   50:\"${osname}\"'
     - 'OperatingSystemVersion:   50:agent.product.name=\"${osname}\"^.version'
-
 
 - matcher:
     require:
     - 'agent.product.name#1=\"${osname}\"'
     extract:
-    - 'DeviceClass           :   10:\"${devclass}\"'
-    - 'DeviceName            :   10:\"${devname}\"'
+    - 'DeviceClass           :   11:\"${devclass}\"'
+    - 'DeviceName            :   11:\"${devname}\"'
     - 'OperatingSystemClass  :   50:\"Desktop\"'
     - 'OperatingSystemName   :   50:\"${osname}\"'
-    - 'OperatingSystemVersion:   50:\"??\"'
+    - 'OperatingSystemVersion:   49:\"??\"'
 
 - matcher:
     require:
     - 'agent.product.name#2=\"${osname}\"'
     extract:
-    - 'DeviceClass           :   10:\"${devclass}\"'
-    - 'DeviceName            :   10:\"${devname}\"'
+    - 'DeviceClass           :   11:\"${devclass}\"'
+    - 'DeviceName            :   11:\"${devname}\"'
     - 'OperatingSystemClass  :   50:\"Desktop\"'
     - 'OperatingSystemName   :   50:\"${osname}\"'
-    - 'OperatingSystemVersion:   50:\"??\"'
+    - 'OperatingSystemVersion:   49:\"??\"'
 
 "
 done

@@ -41,6 +41,11 @@ echo "config:"
 echo "- lookup:"
 echo "    name: 'AppleDeviceClass'"
 echo "    map:"
+echo "      \"iPhone\"     : \"Phone\""
+echo "      \"iPad\"       : \"Tablet\""
+echo "      \"iPod\"       : \"Tablet\""
+echo "      \"iPod touch\" : \"Tablet\""
+
 cat "AppleTypes.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
 do
     key=$(echo ${line} | cut -d'|' -f1)
@@ -54,6 +59,10 @@ echo ""
 echo "- lookup:"
 echo "    name: 'AppleDeviceName'"
 echo "    map:"
+echo "      \"iPhone\"     : \"iPhone\""
+echo "      \"iPad\"       : \"iPad\""
+echo "      \"iPod\"       : \"iPod\""
+echo "      \"iPod touch\" : \"iPod touch\""
 cat "AppleTypes.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
 do
     key=$(echo ${line} | cut -d'|' -f1)
@@ -67,6 +76,10 @@ echo ""
 echo "- lookup:"
 echo "    name: 'AppleDeviceVersion'"
 echo "    map:"
+echo "      \"iPhone\"     : \"iPhone\""
+echo "      \"iPad\"       : \"iPad\""
+echo "      \"iPod\"       : \"iPod\""
+echo "      \"iPod touch\" : \"iPod touch\""
 cat "AppleTypes.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
 do
     key=$(echo ${line} | cut -d'|' -f1)
@@ -87,28 +100,28 @@ echo "
     require:
     - 'agent.product.comments.entry.(1)text=\"${key}\"'
     extract:
-    - 'DeviceBrand   : 100:\"Apple\"'
-    - 'DeviceClass   : 100:\"${deviceClass}\"'
-    - 'DeviceName    : 100:\"${deviceName}\"'
-    - 'DeviceVersion : 100:\"${deviceVersion}\"'
+    - 'DeviceBrand   : 110:\"Apple\"'
+    - 'DeviceClass   : 110:\"${deviceClass}\"'
+    - 'DeviceName    : 110:\"${deviceName}\"'
+    - 'DeviceVersion : 110:\"${deviceVersion}\"'
 
 - matcher:
     require:
     - 'agent.product.(1)name=\"${key}\"'
     extract:
-    - 'DeviceBrand   : 101:\"Apple\"'
-    - 'DeviceClass   : 101:\"${deviceClass}\"'
-    - 'DeviceName    : 101:\"${deviceName}\"'
-    - 'DeviceVersion : 101:\"${deviceVersion}\"'
+    - 'DeviceBrand   : 111:\"Apple\"'
+    - 'DeviceClass   : 111:\"${deviceClass}\"'
+    - 'DeviceName    : 111:\"${deviceName}\"'
+    - 'DeviceVersion : 111:\"${deviceVersion}\"'
 
 - matcher:
     require:
     - 'agent.text=\"${key}\"'
     extract:
-    - 'DeviceBrand   : 101:\"Apple\"'
-    - 'DeviceClass   : 101:\"${deviceClass}\"'
-    - 'DeviceName    : 101:\"${deviceName}\"'
-    - 'DeviceVersion : 101:\"${deviceVersion}\"'
+    - 'DeviceBrand   : 111:\"Apple\"'
+    - 'DeviceClass   : 111:\"${deviceClass}\"'
+    - 'DeviceName    : 111:\"${deviceName}\"'
+    - 'DeviceVersion : 111:\"${deviceVersion}\"'
 "
 done
 ) > ../AppleTypes.yaml
