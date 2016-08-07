@@ -125,25 +125,109 @@ config:
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
 
-# TODO: Bookeen cybook
-#  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (mobile; CPU ARM Linux 2.6.21;en-us) AppleWebKit/525.1 (bookeen/cybook) Orizon/1.0 (screen 600x800)'
+
+# Bookeen cybook
+- matcher:
+    require:
+    - 'agent.product.(1)comments.(1)entry.(1)product.(1)name="bookeen"'
+    - 'agent.product.(1)name="Orizon"'
+    extract:
+    - 'DeviceClass           :   1:"eReader"'
+    - 'DeviceBrand           :   1:"Bookeen"'
+    - 'DeviceName            :   1:"Cybook Orizon"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (mobile; CPU ARM Linux 2.6.21;en-us) AppleWebKit/525.1 (bookeen/cybook) Orizon/1.0 (screen 600x800)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Cybook Orizon'
+      DeviceBrand                          : 'Bookeen'
+      DeviceCpu                            : 'ARM'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '525.1'
+      LayoutEngineVersionMajor             : '525'
+      LayoutEngineNameVersion              : 'AppleWebKit 525.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 525'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Orizon'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Orizon 1.0'
+      AgentNameVersionMajor                : 'Orizon 1'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
 
 
-#TODO: BeBook
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.2.1; nl-be; BEBOOK070I00 Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
-#
-#
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.3.4; nl-nl; Bebook Build/GRJ22) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
+# BeBook
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(5)entry.(1)product.(1)name{"BEBOOK"'
+    extract:
+    - 'DeviceClass           :   100:"eReader"'
+    - 'DeviceBrand           :   100:"BeBook"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.2.1; nl-be; BEBOOK070I00 Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'BEBOOK070I00'
+      DeviceBrand                          : 'BeBook'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '2.2.1'
+      OperatingSystemNameVersion           : 'Android 2.2.1'
+      OperatingSystemVersionBuild          : 'FRF91'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.1'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'Dutch (Belgium)'
+      AgentLanguageCode                    : 'nl-be'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.3.4; nl-nl; Bebook Build/GRJ22) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Bebook'
+      DeviceBrand                          : 'BeBook'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '2.3.4'
+      OperatingSystemNameVersion           : 'Android 2.3.4'
+      OperatingSystemVersionBuild          : 'GRJ22'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.1'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentSecurity                        : 'Strong security'
 
 #TODO: Robot that converts websites into ebooks
 #Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; eBook Maestro [ebookmaestro.com]; .NET CLR 2.0.50727)

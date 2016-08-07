@@ -665,7 +665,7 @@ config:
     expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Chromebook'
-      DeviceBrand                          : 'Google'            # TODO: Revalidate if this "Best guess" is good.
+      DeviceBrand                          : 'Google'            # This is a "Best guess".
       DeviceCpu                            : 'Intel x86_64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Chrome OS'
@@ -931,17 +931,94 @@ config:
       AgentNameVersion                     : 'Opera 27.0.1698.88647'
       AgentNameVersionMajor                : 'Opera 27'
 
-# TODO: Android-Mail
-#Android-Mail/6.5.122794288.release
-#Android-Mail/6.5.123664905.release
 
-#  - test:
-#      input:
-#        user_agent_string: 'Android-SAMSUNG-GT-I9060C/101.40404'
-#Android-SAMSUNG-GT-I9500/101.50001
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name~"Android"'
+    extract:
+    - 'DeviceClass           :   1:"Mobile"'
+    - 'OperatingSystemClass  :   1:"Mobile"'
+    - 'OperatingSystemName   :   1:"Android"'
+    - 'OperatingSystemVersion:   1:"??"'
 
-# TODO: AndroidDownloadManager
-#AndroidDownloadManager/5.1 (Linux; U; Android 5.1; XT1039 Build/LPB23.13-17.6)
+# Android-Mail
+- test:
+    input:
+      user_agent_string: 'Android-Mail/6.5.122794288.release'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Android-Mail'
+      AgentVersion                         : '6.5.122794288.release'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Android-Mail 6.5.122794288.release'
+      AgentNameVersionMajor                : 'Android-Mail 6'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name#2="Android-SAMSUNG"'
+    extract:
+    - 'DeviceClass           :   1:"Mobile"'
+    - 'DeviceBrand           :   1:"Samsung"'
+    - 'DeviceName            :   1:agent.(1)product.(1)name'
+
+- test:
+    input:
+      user_agent_string: 'Android-SAMSUNG-GT-I9060C/101.40404'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android-SAMSUNG-GT-I9060C'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Android-SAMSUNG-GT-I9060C'
+      AgentVersion                         : '101.40404'
+      AgentVersionMajor                    : '101'
+      AgentNameVersion                     : 'Android-SAMSUNG-GT-I9060C 101.40404'
+      AgentNameVersionMajor                : 'Android-SAMSUNG-GT-I9060C 101'
+
+
+# AndroidDownloadManager
+- test:
+    input:
+      user_agent_string: 'AndroidDownloadManager/5.1 (Linux; U; Android 5.1; XT1039 Build/LPB23.13-17.6)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'XT1039'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1'
+      OperatingSystemNameVersion           : 'Android 5.1'
+      OperatingSystemVersionBuild          : 'LPB23.13-17.6'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'AndroidDownloadManager'
+      AgentVersion                         : '5.1'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'AndroidDownloadManager 5.1'
+      AgentNameVersionMajor                : 'AndroidDownloadManager 5'
+      AgentSecurity                        : 'Strong security'
+
 #AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; A0001 Build/MMB29X)
 #AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; D5803 Build/23.5.A.0.575)
 #AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; MI 4W Build/MMB29M)

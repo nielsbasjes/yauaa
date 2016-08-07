@@ -268,28 +268,28 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                 sb.setLength(0);
                 sb.append("\n");
                 sb.append("\n");
-                sb.append("  - matcher:\n");
-                sb.append("#      options:\n");
-                sb.append("#        - 'verbose'\n");
-                sb.append("      require:\n");
+                sb.append("- matcher:\n");
+                sb.append("#    options:\n");
+                sb.append("#    - 'verbose'\n");
+                sb.append("    require:\n");
                 for (String path : getAllPathsAnalyzer(userAgentString).getValues()) {
                     if (path.contains("=\"")) {
-                        sb.append("#        - '").append(path).append("'\n");
+                        sb.append("#    - '").append(path).append("'\n");
                     }
                 }
-                sb.append("      extract:\n");
-                sb.append("#        - 'DeviceClass           :   1:' \n");
-                sb.append("#        - 'DeviceBrand           :   1:' \n");
-                sb.append("#        - 'DeviceName            :   1:' \n");
-                sb.append("#        - 'OperatingSystemClass  :   1:' \n");
-                sb.append("#        - 'OperatingSystemName   :   1:' \n");
-                sb.append("#        - 'OperatingSystemVersion:   1:' \n");
-                sb.append("#        - 'LayoutEngineClass     :   1:' \n");
-                sb.append("#        - 'LayoutEngineName      :   1:' \n");
-                sb.append("#        - 'LayoutEngineVersion   :   1:' \n");
-                sb.append("#        - 'AgentClass            :   1:' \n");
-                sb.append("#        - 'AgentName             :   1:' \n");
-                sb.append("#        - 'AgentVersion          :   1:' \n");
+                sb.append("    extract:\n");
+                sb.append("#    - 'DeviceClass           :   1:' \n");
+                sb.append("#    - 'DeviceBrand           :   1:' \n");
+                sb.append("#    - 'DeviceName            :   1:' \n");
+                sb.append("#    - 'OperatingSystemClass  :   1:' \n");
+                sb.append("#    - 'OperatingSystemName   :   1:' \n");
+                sb.append("#    - 'OperatingSystemVersion:   1:' \n");
+                sb.append("#    - 'LayoutEngineClass     :   1:' \n");
+                sb.append("#    - 'LayoutEngineName      :   1:' \n");
+                sb.append("#    - 'LayoutEngineVersion   :   1:' \n");
+                sb.append("#    - 'AgentClass            :   1:' \n");
+                sb.append("#    - 'AgentName             :   1:' \n");
+                sb.append("#    - 'AgentVersion          :   1:' \n");
                 sb.append("\n");
                 sb.append("\n");
                 LOG.info(sb.toString());
