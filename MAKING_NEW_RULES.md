@@ -155,7 +155,7 @@ Down to specific child range | .([2-3])version | agent.(1)product.([2-3])version
 Comparing values in the tree
 
 Operation | Symbol | Example | Result value (if applicable) | Explain
-:--- |:--- |:---|:---
+:--- |:--- |:--- |:---|:---
 Equals | = | agent.(1)product.version="2.3" | agent.(1)product.(2)version | The second version is "2.3"
 Not equals | != | agent.(1)product.version!="1.0" | agent.(1)product.(2)version | The second version is the first one when backtracking that is not "1.0"
 Contains | ~ | agent.product.name~"ar" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that contains "ar"
@@ -166,10 +166,10 @@ Extracting substrings
 
 Note this fact *agent.(1)product.(1)comments.(2)entry.(1)text="two three four"*
 
-Operation | Symbol | Example
+Operation | Symbol | Example | Value
 :--- |:--- |:---|:---
-First N Words | # | agent.(1)product.(1)comments.(2)entry.(1)text#2="two three"
-Single Word at position N | % | agent.(1)product.(1)comments.(2)entry.(1)text%2="three"
+First N Words | # | agent.(1)product.(1)comments.(2)entry.(1)text#2 | two three
+Single Word at position N | % | agent.(1)product.(1)comments.(2)entry.(1)text%2 | three
 Backto full value | @ | agent.(1)product.(1)comments.(2)entry.(1)text%2="three"@ | two three four
 
 Special operations
