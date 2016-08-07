@@ -36,7 +36,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"ASPLinux"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="ASPLinux"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="ASPLinux"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="ASPLinux"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"ASPLinux"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="ASPLinux"^.(2)version'
 
 - matcher:
     extract:
@@ -54,7 +66,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"ASPLinux"'
-    - 'OperatingSystemVersion:  150:agent.product.name="ASPLinux"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="ASPLinux"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="ASPLinux"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"ASPLinux"'
+    - 'OperatingSystemVersion:  151:agent.product.name="ASPLinux"^.(2)version'
 
 - matcher:
     require:
@@ -98,7 +122,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"CentOS"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="CentOS"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="CentOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="CentOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"CentOS"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="CentOS"^.(2)version'
 
 - matcher:
     extract:
@@ -116,7 +152,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"CentOS"'
-    - 'OperatingSystemVersion:  150:agent.product.name="CentOS"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="CentOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="CentOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"CentOS"'
+    - 'OperatingSystemVersion:  151:agent.product.name="CentOS"^.(2)version'
 
 - matcher:
     require:
@@ -160,7 +208,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Debian"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Debian"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Debian"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Debian"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Debian"^.(2)version'
 
 - matcher:
     extract:
@@ -178,7 +238,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Debian"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Debian"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Debian"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Debian"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Debian"^.(2)version'
 
 - matcher:
     require:
@@ -222,7 +294,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Debian GNU"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Debian GNU"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Debian GNU"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Debian GNU"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian GNU"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Debian GNU"^.(2)version'
 
 - matcher:
     extract:
@@ -240,7 +324,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Debian GNU"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Debian GNU"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Debian GNU"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Debian GNU"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian GNU"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Debian GNU"^.(2)version'
 
 - matcher:
     require:
@@ -284,7 +380,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Fedora"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Fedora"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Fedora"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Fedora"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Fedora"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Fedora"^.(2)version'
 
 - matcher:
     extract:
@@ -302,7 +410,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Fedora"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Fedora"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Fedora"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Fedora"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Fedora"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Fedora"^.(2)version'
 
 - matcher:
     require:
@@ -346,7 +466,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"FoxOS"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="FoxOS"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="FoxOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="FoxOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FoxOS"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="FoxOS"^.(2)version'
 
 - matcher:
     extract:
@@ -364,7 +496,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"FoxOS"'
-    - 'OperatingSystemVersion:  150:agent.product.name="FoxOS"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="FoxOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="FoxOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FoxOS"'
+    - 'OperatingSystemVersion:  151:agent.product.name="FoxOS"^.(2)version'
 
 - matcher:
     require:
@@ -408,7 +552,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Joli OS"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Joli OS"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Joli OS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Joli OS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Joli OS"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Joli OS"^.(2)version'
 
 - matcher:
     extract:
@@ -426,7 +582,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Joli OS"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Joli OS"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Joli OS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Joli OS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Joli OS"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Joli OS"^.(2)version'
 
 - matcher:
     require:
@@ -470,7 +638,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"JoliCloud"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="JoliCloud"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="JoliCloud"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="JoliCloud"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"JoliCloud"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="JoliCloud"^.(2)version'
 
 - matcher:
     extract:
@@ -488,7 +668,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"JoliCloud"'
-    - 'OperatingSystemVersion:  150:agent.product.name="JoliCloud"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="JoliCloud"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="JoliCloud"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"JoliCloud"'
+    - 'OperatingSystemVersion:  151:agent.product.name="JoliCloud"^.(2)version'
 
 - matcher:
     require:
@@ -532,7 +724,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Linpus"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Linpus"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Linpus"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linpus"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linpus"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Linpus"^.(2)version'
 
 - matcher:
     extract:
@@ -550,7 +754,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Linpus"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Linpus"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Linpus"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Linpus"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linpus"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Linpus"^.(2)version'
 
 - matcher:
     require:
@@ -594,7 +810,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Linspire"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Linspire"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Linspire"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linspire"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linspire"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Linspire"^.(2)version'
 
 - matcher:
     extract:
@@ -612,7 +840,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Linspire"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Linspire"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Linspire"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Linspire"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linspire"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Linspire"^.(2)version'
 
 - matcher:
     require:
@@ -656,7 +896,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Mandriva"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Mandriva"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Mandriva"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Mandriva"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mandriva"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Mandriva"^.(2)version'
 
 - matcher:
     extract:
@@ -674,7 +926,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Mandriva"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Mandriva"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Mandriva"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Mandriva"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mandriva"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Mandriva"^.(2)version'
 
 - matcher:
     require:
@@ -718,7 +982,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Mint"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Mint"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Mint"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Mint"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mint"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Mint"^.(2)version'
 
 - matcher:
     extract:
@@ -736,7 +1012,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Mint"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Mint"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Mint"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Mint"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mint"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Mint"^.(2)version'
 
 - matcher:
     require:
@@ -780,7 +1068,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Linux Mint"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Linux Mint"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Linux Mint"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linux Mint"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linux Mint"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Linux Mint"^.(2)version'
 
 - matcher:
     extract:
@@ -798,7 +1098,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Linux Mint"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Linux Mint"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Linux Mint"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Linux Mint"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linux Mint"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Linux Mint"^.(2)version'
 
 - matcher:
     require:
@@ -842,7 +1154,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Edition Linux Mint"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Edition Linux Mint"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Edition Linux Mint"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Edition Linux Mint"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Edition Linux Mint"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Edition Linux Mint"^.(2)version'
 
 - matcher:
     extract:
@@ -860,7 +1184,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Edition Linux Mint"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Edition Linux Mint"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Edition Linux Mint"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Edition Linux Mint"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Edition Linux Mint"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Edition Linux Mint"^.(2)version'
 
 - matcher:
     require:
@@ -904,7 +1240,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Moblin"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Moblin"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Moblin"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Moblin"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Moblin"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Moblin"^.(2)version'
 
 - matcher:
     extract:
@@ -922,7 +1270,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Moblin"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Moblin"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Moblin"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Moblin"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Moblin"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Moblin"^.(2)version'
 
 - matcher:
     require:
@@ -966,7 +1326,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Namoroka"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Namoroka"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Namoroka"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Namoroka"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Namoroka"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Namoroka"^.(2)version'
 
 - matcher:
     extract:
@@ -984,7 +1356,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Namoroka"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Namoroka"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Namoroka"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Namoroka"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Namoroka"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Namoroka"^.(2)version'
 
 - matcher:
     require:
@@ -1028,7 +1412,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"NaverBot"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="NaverBot"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="NaverBot"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="NaverBot"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NaverBot"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="NaverBot"^.(2)version'
 
 - matcher:
     extract:
@@ -1046,7 +1442,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"NaverBot"'
-    - 'OperatingSystemVersion:  150:agent.product.name="NaverBot"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="NaverBot"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="NaverBot"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NaverBot"'
+    - 'OperatingSystemVersion:  151:agent.product.name="NaverBot"^.(2)version'
 
 - matcher:
     require:
@@ -1090,7 +1498,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"PCLinuxOS"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="PCLinuxOS"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="PCLinuxOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="PCLinuxOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PCLinuxOS"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="PCLinuxOS"^.(2)version'
 
 - matcher:
     extract:
@@ -1108,7 +1528,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"PCLinuxOS"'
-    - 'OperatingSystemVersion:  150:agent.product.name="PCLinuxOS"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="PCLinuxOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="PCLinuxOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PCLinuxOS"'
+    - 'OperatingSystemVersion:  151:agent.product.name="PCLinuxOS"^.(2)version'
 
 - matcher:
     require:
@@ -1152,7 +1584,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Slackware"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Slackware"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Slackware"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Slackware"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Slackware"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Slackware"^.(2)version'
 
 - matcher:
     extract:
@@ -1170,7 +1614,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Slackware"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Slackware"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Slackware"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Slackware"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Slackware"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Slackware"^.(2)version'
 
 - matcher:
     require:
@@ -1214,7 +1670,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"SUSE"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="SUSE"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="SUSE"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="SUSE"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SUSE"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="SUSE"^.(2)version'
 
 - matcher:
     extract:
@@ -1232,7 +1700,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"SUSE"'
-    - 'OperatingSystemVersion:  150:agent.product.name="SUSE"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="SUSE"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="SUSE"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SUSE"'
+    - 'OperatingSystemVersion:  151:agent.product.name="SUSE"^.(2)version'
 
 - matcher:
     require:
@@ -1276,7 +1756,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Ubuntu"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Ubuntu"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Ubuntu"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Ubuntu"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Ubuntu"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Ubuntu"^.(2)version'
 
 - matcher:
     extract:
@@ -1294,7 +1786,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Ubuntu"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Ubuntu"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Ubuntu"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Ubuntu"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Ubuntu"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Ubuntu"^.(2)version'
 
 - matcher:
     require:
@@ -1338,7 +1842,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Kubuntu"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Kubuntu"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Kubuntu"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Kubuntu"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Kubuntu"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Kubuntu"^.(2)version'
 
 - matcher:
     extract:
@@ -1356,7 +1872,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Kubuntu"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Kubuntu"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Kubuntu"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Kubuntu"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Kubuntu"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Kubuntu"^.(2)version'
 
 - matcher:
     require:
@@ -1400,7 +1928,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Xubuntu"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Xubuntu"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Xubuntu"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Xubuntu"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Xubuntu"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Xubuntu"^.(2)version'
 
 - matcher:
     extract:
@@ -1418,7 +1958,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Xubuntu"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Xubuntu"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Xubuntu"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Xubuntu"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Xubuntu"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Xubuntu"^.(2)version'
 
 - matcher:
     require:
@@ -1462,7 +2014,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Yoper"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Yoper"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Yoper"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Yoper"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Yoper"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Yoper"^.(2)version'
 
 - matcher:
     extract:
@@ -1480,7 +2044,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Yoper"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Yoper"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Yoper"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Yoper"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Yoper"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Yoper"^.(2)version'
 
 - matcher:
     require:
@@ -1524,7 +2100,19 @@ config:
     - 'DeviceBrand           :  111:"Sun Microsystems"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"SunOS"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="SunOS"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="SunOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="SunOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Sun Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SunOS"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="SunOS"^.(2)version'
 
 - matcher:
     extract:
@@ -1542,7 +2130,19 @@ config:
     - 'DeviceBrand           :  111:"Sun Microsystems"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"SunOS"'
-    - 'OperatingSystemVersion:  150:agent.product.name="SunOS"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="SunOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="SunOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Sun Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SunOS"'
+    - 'OperatingSystemVersion:  151:agent.product.name="SunOS"^.(2)version'
 
 - matcher:
     require:
@@ -1586,7 +2186,19 @@ config:
     - 'DeviceBrand           :  111:"Sun Microsystems"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Solaris"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Solaris"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Solaris"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Solaris"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Solaris"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Solaris"^.(2)version'
 
 - matcher:
     extract:
@@ -1604,7 +2216,19 @@ config:
     - 'DeviceBrand           :  111:"Sun Microsystems"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"Solaris"'
-    - 'OperatingSystemVersion:  150:agent.product.name="Solaris"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="Solaris"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Solaris"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Solaris"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Solaris"^.(2)version'
 
 - matcher:
     require:
@@ -1648,7 +2272,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"illumOS"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="illumOS"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="illumOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="illumOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenSolaris Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"illumOS"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="illumOS"^.(2)version'
 
 - matcher:
     extract:
@@ -1666,7 +2302,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"illumOS"'
-    - 'OperatingSystemVersion:  150:agent.product.name="illumOS"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="illumOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="illumOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenSolaris Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"illumOS"'
+    - 'OperatingSystemVersion:  151:agent.product.name="illumOS"^.(2)version'
 
 - matcher:
     require:
@@ -1710,7 +2358,19 @@ config:
     - 'DeviceBrand           :  111:"Nokia"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"MeeGo"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="MeeGo"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="MeeGo"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="MeeGo"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"MeeGo Device"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"MeeGo"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="MeeGo"^.(2)version'
 
 - matcher:
     extract:
@@ -1728,7 +2388,19 @@ config:
     - 'DeviceBrand           :  111:"Nokia"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"MeeGo"'
-    - 'OperatingSystemVersion:  150:agent.product.name="MeeGo"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="MeeGo"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="MeeGo"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"MeeGo Device"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"MeeGo"'
+    - 'OperatingSystemVersion:  151:agent.product.name="MeeGo"^.(2)version'
 
 - matcher:
     require:
@@ -1772,7 +2444,19 @@ config:
     - 'DeviceBrand           :  111:"Palm"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"PalmSource"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="PalmSource"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="PalmSource"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="PalmSource"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"PalmOS PDA"'
+    - 'DeviceBrand           :  111:"Palm"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PalmSource"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="PalmSource"^.(2)version'
 
 - matcher:
     extract:
@@ -1790,7 +2474,19 @@ config:
     - 'DeviceBrand           :  111:"Palm"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"PalmSource"'
-    - 'OperatingSystemVersion:  150:agent.product.name="PalmSource"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="PalmSource"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="PalmSource"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"PalmOS PDA"'
+    - 'DeviceBrand           :  111:"Palm"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PalmSource"'
+    - 'OperatingSystemVersion:  151:agent.product.name="PalmSource"^.(2)version'
 
 - matcher:
     require:
@@ -1834,7 +2530,19 @@ config:
     - 'DeviceBrand           :  111:"Nokia"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"SymbianOS"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"SymbianOS Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SymbianOS"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.(2)version'
 
 - matcher:
     extract:
@@ -1852,7 +2560,19 @@ config:
     - 'DeviceBrand           :  111:"Nokia"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"SymbianOS"'
-    - 'OperatingSystemVersion:  150:agent.product.name="SymbianOS"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="SymbianOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="SymbianOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"SymbianOS Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SymbianOS"'
+    - 'OperatingSystemVersion:  151:agent.product.name="SymbianOS"^.(2)version'
 
 - matcher:
     require:
@@ -1896,7 +2616,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"FreeBSD"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="FreeBSD"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="FreeBSD"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="FreeBSD"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"FreeBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FreeBSD"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="FreeBSD"^.(2)version'
 
 - matcher:
     extract:
@@ -1914,7 +2646,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"FreeBSD"'
-    - 'OperatingSystemVersion:  150:agent.product.name="FreeBSD"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="FreeBSD"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="FreeBSD"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"FreeBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FreeBSD"'
+    - 'OperatingSystemVersion:  151:agent.product.name="FreeBSD"^.(2)version'
 
 - matcher:
     require:
@@ -1958,7 +2702,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"NetBSD"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="NetBSD"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="NetBSD"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="NetBSD"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"NetBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NetBSD"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="NetBSD"^.(2)version'
 
 - matcher:
     extract:
@@ -1976,7 +2732,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"NetBSD"'
-    - 'OperatingSystemVersion:  150:agent.product.name="NetBSD"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="NetBSD"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="NetBSD"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"NetBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NetBSD"'
+    - 'OperatingSystemVersion:  151:agent.product.name="NetBSD"^.(2)version'
 
 - matcher:
     require:
@@ -2020,7 +2788,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"OpenBSD"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="OpenBSD"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="OpenBSD"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="OpenBSD"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"OpenBSD"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="OpenBSD"^.(2)version'
 
 - matcher:
     extract:
@@ -2038,7 +2818,19 @@ config:
     - 'DeviceBrand           :  111:"Unknown"'
     - 'OperatingSystemClass  :  150:"Desktop"'
     - 'OperatingSystemName   :  150:"OpenBSD"'
-    - 'OperatingSystemVersion:  150:agent.product.name="OpenBSD"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name="OpenBSD"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="OpenBSD"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"OpenBSD"'
+    - 'OperatingSystemVersion:  151:agent.product.name="OpenBSD"^.(2)version'
 
 - matcher:
     require:

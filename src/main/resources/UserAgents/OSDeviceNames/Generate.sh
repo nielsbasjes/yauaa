@@ -63,7 +63,19 @@ echo "
     - 'DeviceBrand           :  111:\"${devbrand}\"'
     - 'OperatingSystemClass  :  150:\"Desktop\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.version'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:\"${devclass}\"'
+    - 'DeviceName            :  111:\"${devname}\"'
+    - 'DeviceBrand           :  111:\"${devbrand}\"'
+    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemName   :  150:\"${osname}\"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.(2)version'
 
 - matcher:
     extract:
@@ -81,7 +93,19 @@ echo "
     - 'DeviceBrand           :  111:\"${devbrand}\"'
     - 'OperatingSystemClass  :  150:\"Desktop\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
-    - 'OperatingSystemVersion:  150:agent.product.name=\"${osname}\"^.version'
+    - 'OperatingSystemVersion:  150:agent.product.name=\"${osname}\"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name=\"${osname}\"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:\"${devclass}\"'
+    - 'DeviceName            :  111:\"${devname}\"'
+    - 'DeviceBrand           :  111:\"${devbrand}\"'
+    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemName   :  150:\"${osname}\"'
+    - 'OperatingSystemVersion:  151:agent.product.name=\"${osname}\"^.(2)version'
 
 - matcher:
     require:
