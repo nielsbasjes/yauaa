@@ -32,15 +32,138 @@ field to a different value then better make sure they have different weights.
 
 Useragent parse tree model
 ==========================
-**TODO**
+According to RFC-2616 a useragent consists of set of products. Each with an (optional) version and an (optional) comment block.
+
+https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.8
+https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43
+
+After much analysis the model that this parser uses it as follows:
+
+
+
+The whole string (the 'agent') is mostly cut into 'product' and 'text' parts.
+Each child node in the tree is numbered (1,2,3,...) within the context of the parent.
+A product has zero or more 'version' fields and zero or more 'comments' fields.
+Each comments' has one or more 'entry':
+In a comment block like this 'foo/1.0 (one; two three; four)' we will have 3 entries (they are ; separated).
+
+From there the system recurses down within limitations.
 
 Flattened form of the tree
 ==========================
-**TODO**
+
+If we take this useragent as an example the tree is flattened into a set of 'breadcrumb' type paths.
+
+I put some spaces in vairous places so you can see what happens with those (in most places they are trimmed):
+
+    foo/1.0 (one; two three; four) bar/2.0 (five; six seven)
+
+will result in these paths (with their textual value)
+
+    agent="foo/1.0 ( one  ; two three; four  ) bar/2.0 (five;six seven)"
+    agent.(1)product="foo/1.0 ( one  ; two three; four  )"
+    agent.(1)product.(1)name="foo"
+    agent.(1)product.(1)name#1="foo"
+    agent.(1)product.(1)name%1="foo"
+    agent.(1)product.(1)version="1.0"
+    agent.(1)product.(1)version#1="1"
+    agent.(1)product.(1)version%1="1"
+    agent.(1)product.(1)version#2="1.0"
+    agent.(1)product.(1)version%2="0"
+    agent.(1)product.(1)comments="( one  ; two three; four  )"
+    agent.(1)product.(1)comments.(1)entry="one"
+    agent.(1)product.(1)comments.(1)entry#1="one"
+    agent.(1)product.(1)comments.(1)entry%1="one"
+    agent.(1)product.(1)comments.(1)entry.(1)text="one"
+    agent.(1)product.(1)comments.(1)entry.(1)text#1="one"
+    agent.(1)product.(1)comments.(1)entry.(1)text%1="one"
+    agent.(1)product.(1)comments.(2)entry="two three"
+    agent.(1)product.(1)comments.(2)entry#1="two"
+    agent.(1)product.(1)comments.(2)entry%1="two"
+    agent.(1)product.(1)comments.(2)entry#2="two three"
+    agent.(1)product.(1)comments.(2)entry%2="three"
+    agent.(1)product.(1)comments.(2)entry.(1)text="two three"
+    agent.(1)product.(1)comments.(2)entry.(1)text#1="two"
+    agent.(1)product.(1)comments.(2)entry.(1)text%1="two"
+    agent.(1)product.(1)comments.(2)entry.(1)text#2="two three"
+    agent.(1)product.(1)comments.(2)entry.(1)text%2="three"
+    agent.(1)product.(1)comments.(3)entry="four"
+    agent.(1)product.(1)comments.(3)entry#1="four"
+    agent.(1)product.(1)comments.(3)entry%1="four"
+    agent.(1)product.(1)comments.(3)entry.(1)text="four"
+    agent.(1)product.(1)comments.(3)entry.(1)text#1="four"
+    agent.(1)product.(1)comments.(3)entry.(1)text%1="four"
+    agent.(2)product="bar/2.0 (five;six seven)"
+    agent.(2)product.(1)name="bar"
+    agent.(2)product.(1)name#1="bar"
+    agent.(2)product.(1)name%1="bar"
+    agent.(2)product.(1)version="2.0"
+    agent.(2)product.(1)version#1="2"
+    agent.(2)product.(1)version%1="2"
+    agent.(2)product.(1)version#2="2.0"
+    agent.(2)product.(1)version%2="0"
+    agent.(2)product.(1)comments="(five;six seven)"
+    agent.(2)product.(1)comments.(1)entry="five"
+    agent.(2)product.(1)comments.(1)entry#1="five"
+    agent.(2)product.(1)comments.(1)entry%1="five"
+    agent.(2)product.(1)comments.(1)entry.(1)text="five"
+    agent.(2)product.(1)comments.(1)entry.(1)text#1="five"
+    agent.(2)product.(1)comments.(1)entry.(1)text%1="five"
+    agent.(2)product.(1)comments.(2)entry="six seven"
+    agent.(2)product.(1)comments.(2)entry#1="six"
+    agent.(2)product.(1)comments.(2)entry%1="six"
+    agent.(2)product.(1)comments.(2)entry#2="six seven"
+    agent.(2)product.(1)comments.(2)entry%2="seven"
+    agent.(2)product.(1)comments.(2)entry.(1)text="six seven"
+    agent.(2)product.(1)comments.(2)entry.(1)text#1="six"
+    agent.(2)product.(1)comments.(2)entry.(1)text%1="six"
+    agent.(2)product.(1)comments.(2)entry.(1)text#2="six seven"
+    agent.(2)product.(1)comments.(2)entry.(1)text%2="seven"
+
+As you can see ther are afew special operators '=', '#' and '%' that allow extracting specific words.
 
 Walking around the tree
 ==========================
+In many cases we want to get the version of the product with a specific name.
+This means we should look to the product with that name and from there go 'up' to the product and from there select the 'version'.
+
+For this purpose a special language has been created that allows walking through a tree from the point where a match was found and do additional
+compare and string manipulation actions to obtain the value we are looking for.
+
+This language also supports lookups (hashmaps) that do a case INsensitive lookup.
+
+Available operators:
+
 **TODO**
+
+UP              : '^'           ;
+NEXT            : '>'           ;
+PREV            : '<'           ;
+DOT             : '.'           ;
+MINUS           : '-'           ;
+STAR            : '*'           ;
+
+NUMBER          : [0-9]+        ;
+BLOCKOPEN       : '['           ;
+BLOCKCLOSE      : ']'           ;
+BRACEOPEN       : '('           ;
+BRACECLOSE      : ')'           ;
+DOUBLEQUOTE     : '"'           ;
+COLON           : ':'           ;
+SEMICOLON       : ';'           ;
+
+SPACE           : (' '|'\t')+   ;
+NOTEQUALS       : '!='          ;
+EQUALS          : '='           ;
+CONTAINS        : '~'           ;
+STARTSWITH      : '{'           ;
+ENDSWITH        : '}'           ;
+
+FIRSTWORDS      : '#'           ;
+SINGLEWORD      : '%'           ;
+BACKTOFULL      : '@'           ;
+
+
 
 Creating a new rule
 ===================
