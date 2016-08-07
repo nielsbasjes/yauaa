@@ -547,11 +547,14 @@ config:
         }
 
         if (first.equals(second)) {
-            userAgent.set(targetName, first, firstField.confidence);
+            userAgent.set(targetName, first, firstConfidence);
         } else {
-            userAgent.set(targetName, first + " " + second, Math.max(firstField.confidence, secondField.confidence));
+            if (second.startsWith(first)) {
+                userAgent.set(targetName, second, secondConfidence);
+            } else {
+                userAgent.set(targetName, first + " " + second, Math.max(firstField.confidence, secondField.confidence));
+            }
         }
-
     }
 
     private void addMajorVersionField(UserAgent userAgent, String versionName, String majorVersionName) {
