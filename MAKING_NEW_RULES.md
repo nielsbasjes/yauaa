@@ -410,6 +410,11 @@ This would also show as test output:
 
 As you can see the system will fail on missing fields, unexpected fields and wrong values.
 
+Performance considerations
+==========================
+**Todo**
+Explain hashmap and = is fast, lookup and walking is slow.
+
 Where the rules are located
 ===========================
 Under the main resources there is a folder called *UserAgents* .
