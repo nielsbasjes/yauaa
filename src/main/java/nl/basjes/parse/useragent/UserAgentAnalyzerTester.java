@@ -199,6 +199,12 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
             if (expected != null) {
                 List<String> fieldNames = agent.getAvailableFieldNamesSorted();
+                for (String newFieldName: expected.keySet()) {
+                    if (!fieldNames.contains(newFieldName)) {
+                        fieldNames.add(newFieldName);
+                    }
+                }
+
                 for (String fieldName : fieldNames) {
 
                     TestResult result = new TestResult();
