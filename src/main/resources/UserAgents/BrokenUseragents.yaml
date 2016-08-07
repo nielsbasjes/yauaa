@@ -641,57 +641,6 @@ config:
 
 - test:
     input:
-      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows 98; PalmSource/hspr-H102; Blazer/4.0) 16;320x320'
-    expected:
-      # FIXME: Should be PalmSource
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows 9x'
-      OperatingSystemVersion               : 'Windows 98'
-      OperatingSystemNameVersion           : 'Windows 98'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Internet Explorer'
-      LayoutEngineVersion                  : '6.0'
-      LayoutEngineVersionMajor             : '6'
-      LayoutEngineNameVersion              : 'Internet Explorer 6.0'
-      LayoutEngineNameVersionMajor         : 'Internet Explorer 6'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Internet Explorer'
-      AgentVersion                         : '6.0'
-      AgentVersionMajor                    : '6'
-      AgentNameVersion                     : 'Internet Explorer 6.0'
-      AgentNameVersionMajor                : 'Internet Explorer 6'
-
-
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0); 360Spider(compatible; HaosouSpider; http://www.haosou.com/help/help_3_2.html)'
-    expected:
-      # FIXME: Should be HaosouSpider
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows 7'
-      OperatingSystemNameVersion           : 'Windows 7'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Trident'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Trident 5.0'
-      LayoutEngineNameVersionMajor         : 'Trident 5'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Internet Explorer'
-      AgentVersion                         : '9.0'
-      AgentVersionMajor                    : '9'
-      AgentNameVersion                     : 'Internet Explorer 9.0'
-      AgentNameVersionMajor                : 'Internet Explorer 9'
-      AgentInformationUrl                  : 'http://www.haosou.com/help/help_3_2.html'
-
-- test:
-    input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; MI NOTE LTE Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36; leidianbrowser (100.0.2)'
     expected:
       DeviceClass                          : 'Phone'
@@ -1370,6 +1319,7 @@ config:
     expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'OpenSolaris Desktop'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'illumOS'
       OperatingSystemVersion               : '??'
@@ -1394,6 +1344,7 @@ config:
     expected:
       DeviceClass                          : 'Unknown'
       DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Firefox OS'
       OperatingSystemVersion               : '2.5'
@@ -1420,6 +1371,7 @@ config:
     expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Sun Desktop'
+      DeviceBrand                          : 'Sun Microsystems'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'SunOS'
       OperatingSystemVersion               : '??'

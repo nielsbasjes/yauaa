@@ -22,55 +22,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="ASPLinux"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"ASPLinux"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"ASPLinux"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"ASPLinux"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="ASPLinux"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"ASPLinux"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="ASPLinux"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="ASPLinux"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="ASPLinux"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"ASPLinux"'
-    - 'OperatingSystemVersion:   50:agent.product.name="ASPLinux"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"ASPLinux"'
+    - 'OperatingSystemVersion:  150:agent.product.name="ASPLinux"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="ASPLinux"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"ASPLinux"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"ASPLinux"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="ASPLinux"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"ASPLinux"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"ASPLinux"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -78,55 +84,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="CentOS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"CentOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"CentOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"CentOS"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="CentOS"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"CentOS"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="CentOS"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="CentOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="CentOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"CentOS"'
-    - 'OperatingSystemVersion:   50:agent.product.name="CentOS"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"CentOS"'
+    - 'OperatingSystemVersion:  150:agent.product.name="CentOS"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="CentOS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"CentOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"CentOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="CentOS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"CentOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"CentOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -134,55 +146,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Debian"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Debian"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Debian"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Debian"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Debian"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Debian"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Debian"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Debian"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Debian"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Debian"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Debian"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Debian"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Debian"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Debian"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -190,55 +208,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Debian GNU"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Debian GNU"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian GNU"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Debian GNU"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Debian GNU"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian GNU"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Debian GNU"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Debian GNU"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Debian GNU"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Debian GNU"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Debian GNU"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian GNU"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Debian GNU"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Debian GNU"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Debian GNU"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian GNU"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Debian GNU"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Debian GNU"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Debian GNU"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -246,55 +270,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Fedora"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Fedora"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Fedora"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Fedora"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Fedora"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Fedora"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Fedora"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Fedora"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Fedora"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Fedora"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Fedora"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Fedora"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Fedora"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Fedora"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Fedora"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Fedora"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Fedora"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Fedora"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Fedora"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -302,55 +332,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="FoxOS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"FoxOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FoxOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"FoxOS"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="FoxOS"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FoxOS"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="FoxOS"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="FoxOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="FoxOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"FoxOS"'
-    - 'OperatingSystemVersion:   50:agent.product.name="FoxOS"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FoxOS"'
+    - 'OperatingSystemVersion:  150:agent.product.name="FoxOS"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="FoxOS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"FoxOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FoxOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="FoxOS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"FoxOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FoxOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -358,55 +394,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Joli OS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Joli OS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Joli OS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Joli OS"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Joli OS"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Joli OS"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Joli OS"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Joli OS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Joli OS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Joli OS"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Joli OS"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Joli OS"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Joli OS"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Joli OS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Joli OS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Joli OS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Joli OS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Joli OS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Joli OS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -414,55 +456,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="JoliCloud"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"JoliCloud"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"JoliCloud"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"JoliCloud"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="JoliCloud"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"JoliCloud"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="JoliCloud"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="JoliCloud"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="JoliCloud"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"JoliCloud"'
-    - 'OperatingSystemVersion:   50:agent.product.name="JoliCloud"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"JoliCloud"'
+    - 'OperatingSystemVersion:  150:agent.product.name="JoliCloud"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="JoliCloud"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"JoliCloud"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"JoliCloud"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="JoliCloud"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"JoliCloud"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"JoliCloud"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -470,55 +518,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Linpus"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linpus"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linpus"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linpus"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Linpus"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linpus"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Linpus"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Linpus"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Linpus"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linpus"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Linpus"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linpus"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Linpus"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Linpus"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linpus"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linpus"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Linpus"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linpus"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linpus"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -526,55 +580,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Linspire"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linspire"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linspire"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linspire"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Linspire"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linspire"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Linspire"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Linspire"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Linspire"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linspire"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Linspire"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linspire"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Linspire"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Linspire"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linspire"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linspire"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Linspire"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linspire"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linspire"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -582,55 +642,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Mandriva"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Mandriva"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mandriva"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Mandriva"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Mandriva"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mandriva"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Mandriva"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Mandriva"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Mandriva"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Mandriva"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Mandriva"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mandriva"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Mandriva"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Mandriva"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Mandriva"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mandriva"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Mandriva"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Mandriva"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mandriva"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -638,55 +704,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Mint"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Mint"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mint"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Mint"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Mint"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mint"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Mint"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Mint"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Mint"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Mint"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Mint"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mint"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Mint"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Mint"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Mint"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mint"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Mint"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Mint"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Mint"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -694,55 +766,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Linux Mint"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linux Mint"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linux Mint"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linux Mint"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Linux Mint"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linux Mint"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Linux Mint"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Linux Mint"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Linux Mint"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linux Mint"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Linux Mint"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linux Mint"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Linux Mint"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Linux Mint"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linux Mint"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linux Mint"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Linux Mint"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Linux Mint"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Linux Mint"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -750,55 +828,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Edition Linux Mint"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Edition Linux Mint"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Edition Linux Mint"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Edition Linux Mint"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Edition Linux Mint"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Edition Linux Mint"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Edition Linux Mint"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Edition Linux Mint"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Edition Linux Mint"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Edition Linux Mint"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Edition Linux Mint"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Edition Linux Mint"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Edition Linux Mint"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Edition Linux Mint"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Edition Linux Mint"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Edition Linux Mint"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Edition Linux Mint"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Edition Linux Mint"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Edition Linux Mint"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -806,55 +890,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Moblin"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Moblin"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Moblin"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Moblin"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Moblin"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Moblin"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Moblin"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Moblin"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Moblin"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Moblin"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Moblin"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Moblin"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Moblin"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Moblin"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Moblin"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Moblin"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Moblin"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Moblin"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Moblin"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -862,55 +952,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Namoroka"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Namoroka"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Namoroka"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Namoroka"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Namoroka"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Namoroka"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Namoroka"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Namoroka"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Namoroka"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Namoroka"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Namoroka"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Namoroka"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Namoroka"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Namoroka"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Namoroka"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Namoroka"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Namoroka"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Namoroka"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Namoroka"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -918,55 +1014,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="NaverBot"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"NaverBot"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NaverBot"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"NaverBot"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="NaverBot"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NaverBot"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="NaverBot"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="NaverBot"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="NaverBot"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"NaverBot"'
-    - 'OperatingSystemVersion:   50:agent.product.name="NaverBot"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NaverBot"'
+    - 'OperatingSystemVersion:  150:agent.product.name="NaverBot"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="NaverBot"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"NaverBot"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NaverBot"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="NaverBot"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"NaverBot"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NaverBot"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -974,55 +1076,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="PCLinuxOS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"PCLinuxOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PCLinuxOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"PCLinuxOS"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="PCLinuxOS"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PCLinuxOS"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="PCLinuxOS"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="PCLinuxOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="PCLinuxOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"PCLinuxOS"'
-    - 'OperatingSystemVersion:   50:agent.product.name="PCLinuxOS"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PCLinuxOS"'
+    - 'OperatingSystemVersion:  150:agent.product.name="PCLinuxOS"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="PCLinuxOS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"PCLinuxOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PCLinuxOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="PCLinuxOS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"PCLinuxOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PCLinuxOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -1030,111 +1138,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Slackware"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Slackware"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Slackware"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Slackware"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Slackware"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Slackware"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Slackware"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Slackware"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Slackware"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Slackware"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Slackware"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Slackware"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Slackware"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Slackware"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Slackware"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Slackware"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Slackware"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Slackware"'
-    - 'OperatingSystemVersion:   49:"??"'
-
-
-
-- matcher:
-    require:
-    - 'agent.(1)product.(1)comments.entry.text="Solaris"'
-    extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Solaris"'
-    - 'OperatingSystemVersion:   49:"??"'
-
-- matcher:
-    extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Solaris"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Solaris"^.version'
-
-- matcher:
-    extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Solaris"'
-    - 'OperatingSystemVersion:   49:"??"'
-
-- matcher:
-    extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Solaris"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Solaris"^.version'
-
-- matcher:
-    require:
-    - 'agent.product.name#1="Solaris"'
-    extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Solaris"'
-    - 'OperatingSystemVersion:   49:"??"'
-
-- matcher:
-    require:
-    - 'agent.product.name#2="Solaris"'
-    extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Solaris"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Slackware"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -1142,55 +1200,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="SUSE"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SUSE"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SUSE"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SUSE"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="SUSE"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SUSE"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="SUSE"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="SUSE"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="SUSE"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SUSE"'
-    - 'OperatingSystemVersion:   50:agent.product.name="SUSE"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SUSE"'
+    - 'OperatingSystemVersion:  150:agent.product.name="SUSE"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="SUSE"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SUSE"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SUSE"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="SUSE"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SUSE"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SUSE"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -1198,55 +1262,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Ubuntu"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Ubuntu"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Ubuntu"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Ubuntu"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Ubuntu"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Ubuntu"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Ubuntu"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Ubuntu"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Ubuntu"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Ubuntu"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Ubuntu"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Ubuntu"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Ubuntu"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Ubuntu"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Ubuntu"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Ubuntu"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Ubuntu"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Ubuntu"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Ubuntu"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -1254,55 +1324,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Kubuntu"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Kubuntu"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Kubuntu"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Kubuntu"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Kubuntu"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Kubuntu"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Kubuntu"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Kubuntu"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Kubuntu"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Kubuntu"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Kubuntu"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Kubuntu"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Kubuntu"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Kubuntu"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Kubuntu"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Kubuntu"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Kubuntu"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Kubuntu"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Kubuntu"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -1310,55 +1386,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Xubuntu"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Xubuntu"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Xubuntu"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Xubuntu"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Xubuntu"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Xubuntu"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Xubuntu"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Xubuntu"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Xubuntu"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Xubuntu"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Xubuntu"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Xubuntu"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Xubuntu"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Xubuntu"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Xubuntu"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Xubuntu"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Xubuntu"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Xubuntu"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Xubuntu"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -1366,111 +1448,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Yoper"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Yoper"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Yoper"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Yoper"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="Yoper"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Yoper"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Yoper"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="Yoper"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Yoper"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Yoper"'
-    - 'OperatingSystemVersion:   50:agent.product.name="Yoper"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Yoper"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Yoper"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="Yoper"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Yoper"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Yoper"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="Yoper"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Linux Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"Yoper"'
-    - 'OperatingSystemVersion:   49:"??"'
-
-
-
-- matcher:
-    require:
-    - 'agent.(1)product.(1)comments.entry.text="illumOS"'
-    extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"OpenSolaris Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"illumOS"'
-    - 'OperatingSystemVersion:   49:"??"'
-
-- matcher:
-    extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"OpenSolaris Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"illumOS"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="illumOS"^.version'
-
-- matcher:
-    extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"OpenSolaris Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="illumOS"'
-    - 'OperatingSystemVersion:   49:"??"'
-
-- matcher:
-    extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"OpenSolaris Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"illumOS"'
-    - 'OperatingSystemVersion:   50:agent.product.name="illumOS"^.version'
-
-- matcher:
-    require:
-    - 'agent.product.name#1="illumOS"'
-    extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"OpenSolaris Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"illumOS"'
-    - 'OperatingSystemVersion:   49:"??"'
-
-- matcher:
-    require:
-    - 'agent.product.name#2="illumOS"'
-    extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"OpenSolaris Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"illumOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Yoper"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -1478,55 +1510,309 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="SunOS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Sun Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SunOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Sun Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SunOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Sun Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SunOS"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="SunOS"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Sun Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SunOS"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="SunOS"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Sun Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="SunOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Sun Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="SunOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Sun Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SunOS"'
-    - 'OperatingSystemVersion:   50:agent.product.name="SunOS"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Sun Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SunOS"'
+    - 'OperatingSystemVersion:  150:agent.product.name="SunOS"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="SunOS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Sun Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SunOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Sun Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SunOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="SunOS"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"Sun Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SunOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Sun Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SunOS"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.text="Solaris"'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Solaris"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Solaris"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Solaris"^.version'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Solaris"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Solaris"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Solaris"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.name#1="Solaris"'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Solaris"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name#2="Solaris"'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Sun Microsystems"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"Solaris"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.text="illumOS"'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenSolaris Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"illumOS"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenSolaris Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"illumOS"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="illumOS"^.version'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenSolaris Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="illumOS"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenSolaris Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"illumOS"'
+    - 'OperatingSystemVersion:  150:agent.product.name="illumOS"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.name#1="illumOS"'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenSolaris Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"illumOS"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name#2="illumOS"'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenSolaris Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"illumOS"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.text="MeeGo"'
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"MeeGo Device"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"MeeGo"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"MeeGo Device"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"MeeGo"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="MeeGo"^.version'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"MeeGo Device"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="MeeGo"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"MeeGo Device"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"MeeGo"'
+    - 'OperatingSystemVersion:  150:agent.product.name="MeeGo"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.name#1="MeeGo"'
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"MeeGo Device"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"MeeGo"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name#2="MeeGo"'
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"MeeGo Device"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"MeeGo"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.text="PalmSource"'
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"PalmOS PDA"'
+    - 'DeviceBrand           :  111:"Palm"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PalmSource"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"PalmOS PDA"'
+    - 'DeviceBrand           :  111:"Palm"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PalmSource"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="PalmSource"^.version'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"PalmOS PDA"'
+    - 'DeviceBrand           :  111:"Palm"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="PalmSource"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"PalmOS PDA"'
+    - 'DeviceBrand           :  111:"Palm"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PalmSource"'
+    - 'OperatingSystemVersion:  150:agent.product.name="PalmSource"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.name#1="PalmSource"'
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"PalmOS PDA"'
+    - 'DeviceBrand           :  111:"Palm"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PalmSource"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name#2="PalmSource"'
+    extract:
+    - 'DeviceClass           :  111:"Mobile"'
+    - 'DeviceName            :  111:"PalmOS PDA"'
+    - 'DeviceBrand           :  111:"Palm"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"PalmSource"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -1534,55 +1820,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="SymbianOS"'
     extract:
-    - 'DeviceClass           :   11:"Phone"'
-    - 'DeviceName            :   11:"SymbianOS Phone"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SymbianOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"SymbianOS Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SymbianOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Phone"'
-    - 'DeviceName            :   11:"SymbianOS Phone"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SymbianOS"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.version'
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"SymbianOS Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SymbianOS"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Phone"'
-    - 'DeviceName            :   11:"SymbianOS Phone"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="SymbianOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"SymbianOS Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="SymbianOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Phone"'
-    - 'DeviceName            :   11:"SymbianOS Phone"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SymbianOS"'
-    - 'OperatingSystemVersion:   50:agent.product.name="SymbianOS"^.version'
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"SymbianOS Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SymbianOS"'
+    - 'OperatingSystemVersion:  150:agent.product.name="SymbianOS"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="SymbianOS"'
     extract:
-    - 'DeviceClass           :   11:"Phone"'
-    - 'DeviceName            :   11:"SymbianOS Phone"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SymbianOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"SymbianOS Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SymbianOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="SymbianOS"'
     extract:
-    - 'DeviceClass           :   11:"Phone"'
-    - 'DeviceName            :   11:"SymbianOS Phone"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"SymbianOS"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"SymbianOS Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SymbianOS"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -1590,55 +1882,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="FreeBSD"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"FreeBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"FreeBSD"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"FreeBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FreeBSD"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"FreeBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"FreeBSD"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="FreeBSD"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"FreeBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FreeBSD"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="FreeBSD"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"FreeBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="FreeBSD"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"FreeBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="FreeBSD"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"FreeBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"FreeBSD"'
-    - 'OperatingSystemVersion:   50:agent.product.name="FreeBSD"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"FreeBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FreeBSD"'
+    - 'OperatingSystemVersion:  150:agent.product.name="FreeBSD"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="FreeBSD"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"FreeBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"FreeBSD"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"FreeBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FreeBSD"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="FreeBSD"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"FreeBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"FreeBSD"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"FreeBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"FreeBSD"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -1646,55 +1944,61 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="NetBSD"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"NetBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"NetBSD"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"NetBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NetBSD"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"NetBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"NetBSD"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="NetBSD"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"NetBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NetBSD"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="NetBSD"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"NetBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="NetBSD"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"NetBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="NetBSD"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"NetBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"NetBSD"'
-    - 'OperatingSystemVersion:   50:agent.product.name="NetBSD"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"NetBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NetBSD"'
+    - 'OperatingSystemVersion:  150:agent.product.name="NetBSD"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="NetBSD"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"NetBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"NetBSD"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"NetBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NetBSD"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="NetBSD"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"NetBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"NetBSD"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"NetBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"NetBSD"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 
 
@@ -1702,54 +2006,60 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="OpenBSD"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"OpenBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"OpenBSD"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"OpenBSD"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"OpenBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"OpenBSD"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name="OpenBSD"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"OpenBSD"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="OpenBSD"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"OpenBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text="OpenBSD"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="OpenBSD"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"OpenBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"OpenBSD"'
-    - 'OperatingSystemVersion:   50:agent.product.name="OpenBSD"^.version'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"OpenBSD"'
+    - 'OperatingSystemVersion:  150:agent.product.name="OpenBSD"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1="OpenBSD"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"OpenBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"OpenBSD"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"OpenBSD"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 - matcher:
     require:
     - 'agent.product.name#2="OpenBSD"'
     extract:
-    - 'DeviceClass           :   11:"Desktop"'
-    - 'DeviceName            :   11:"OpenBSD Desktop"'
-    - 'OperatingSystemClass  :   50:"Desktop"'
-    - 'OperatingSystemName   :   50:"OpenBSD"'
-    - 'OperatingSystemVersion:   49:"??"'
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"OpenBSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"OpenBSD"'
+    - 'OperatingSystemVersion:  149:"??"'
 
 

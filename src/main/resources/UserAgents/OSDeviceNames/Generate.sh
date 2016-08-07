@@ -43,60 +43,67 @@ do
     osname=$(   echo ${line} | cut -d'|' -f1)
     devclass=$( echo ${line} | cut -d'|' -f2)
     devname=$(  echo ${line} | cut -d'|' -f3)
+    devbrand=$(  echo ${line} | cut -d'|' -f4)
 echo "
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.text=\"${osname}\"'
     extract:
-    - 'DeviceClass           :   11:\"${devclass}\"'
-    - 'DeviceName            :   11:\"${devname}\"'
-    - 'OperatingSystemClass  :   50:\"Desktop\"'
-    - 'OperatingSystemName   :   50:\"${osname}\"'
-    - 'OperatingSystemVersion:   49:\"??\"'
+    - 'DeviceClass           :  111:\"${devclass}\"'
+    - 'DeviceName            :  111:\"${devname}\"'
+    - 'DeviceBrand           :  111:\"${devbrand}\"'
+    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemName   :  150:\"${osname}\"'
+    - 'OperatingSystemVersion:  149:\"??\"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:\"${devclass}\"'
-    - 'DeviceName            :   11:\"${devname}\"'
-    - 'OperatingSystemClass  :   50:\"Desktop\"'
-    - 'OperatingSystemName   :   50:\"${osname}\"'
-    - 'OperatingSystemVersion:   50:agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.version'
+    - 'DeviceClass           :  111:\"${devclass}\"'
+    - 'DeviceName            :  111:\"${devname}\"'
+    - 'DeviceBrand           :  111:\"${devbrand}\"'
+    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemName   :  150:\"${osname}\"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:\"${devclass}\"'
-    - 'DeviceName            :   11:\"${devname}\"'
-    - 'OperatingSystemClass  :   50:\"Desktop\"'
-    - 'OperatingSystemName   :   50:agent.product.(1)comments.entry.text=\"${osname}\"'
-    - 'OperatingSystemVersion:   49:\"??\"'
+    - 'DeviceClass           :  111:\"${devclass}\"'
+    - 'DeviceName            :  111:\"${devname}\"'
+    - 'DeviceBrand           :  111:\"${devbrand}\"'
+    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text=\"${osname}\"'
+    - 'OperatingSystemVersion:  149:\"??\"'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:\"${devclass}\"'
-    - 'DeviceName            :   11:\"${devname}\"'
-    - 'OperatingSystemClass  :   50:\"Desktop\"'
-    - 'OperatingSystemName   :   50:\"${osname}\"'
-    - 'OperatingSystemVersion:   50:agent.product.name=\"${osname}\"^.version'
+    - 'DeviceClass           :  111:\"${devclass}\"'
+    - 'DeviceName            :  111:\"${devname}\"'
+    - 'DeviceBrand           :  111:\"${devbrand}\"'
+    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemName   :  150:\"${osname}\"'
+    - 'OperatingSystemVersion:  150:agent.product.name=\"${osname}\"^.version'
 
 - matcher:
     require:
     - 'agent.product.name#1=\"${osname}\"'
     extract:
-    - 'DeviceClass           :   11:\"${devclass}\"'
-    - 'DeviceName            :   11:\"${devname}\"'
-    - 'OperatingSystemClass  :   50:\"Desktop\"'
-    - 'OperatingSystemName   :   50:\"${osname}\"'
-    - 'OperatingSystemVersion:   49:\"??\"'
+    - 'DeviceClass           :  111:\"${devclass}\"'
+    - 'DeviceName            :  111:\"${devname}\"'
+    - 'DeviceBrand           :  111:\"${devbrand}\"'
+    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemName   :  150:\"${osname}\"'
+    - 'OperatingSystemVersion:  149:\"??\"'
 
 - matcher:
     require:
     - 'agent.product.name#2=\"${osname}\"'
     extract:
-    - 'DeviceClass           :   11:\"${devclass}\"'
-    - 'DeviceName            :   11:\"${devname}\"'
-    - 'OperatingSystemClass  :   50:\"Desktop\"'
-    - 'OperatingSystemName   :   50:\"${osname}\"'
-    - 'OperatingSystemVersion:   49:\"??\"'
+    - 'DeviceClass           :  111:\"${devclass}\"'
+    - 'DeviceName            :  111:\"${devname}\"'
+    - 'DeviceBrand           :  111:\"${devbrand}\"'
+    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemName   :  150:\"${osname}\"'
+    - 'OperatingSystemVersion:  149:\"??\"'
 
 "
 done

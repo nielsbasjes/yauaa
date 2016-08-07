@@ -33,6 +33,7 @@ config:
     expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Sun Desktop'
+      DeviceBrand                          : 'Sun Microsystems'
       DeviceCpu                            : 'i86pc'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'SunOS'
@@ -75,6 +76,7 @@ config:
     expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'OS/2'
       OperatingSystemVersion               : 'Warp 4.5'
@@ -100,6 +102,7 @@ config:
     expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'OS/2'
       OperatingSystemVersion               : '2.x'
@@ -127,6 +130,7 @@ config:
     expected:
       DeviceClass                          : 'Phone'
       DeviceName                           : 'SymbianOS Phone'     # FIXME: Should be "NokiaC6"
+      DeviceBrand                          : 'Nokia'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'SymbianOS'
       OperatingSystemVersion               : '9.4'
@@ -144,4 +148,27 @@ config:
       AgentNameVersion                     : 'BrowserNG 7.2.6'
       AgentNameVersionMajor                : 'BrowserNG 7'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows 98; PalmSource/hspr-H102; Blazer/4.0) 16;320x320'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'PalmOS PDA'
+      DeviceBrand                          : 'Palm'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'PalmSource'
+      OperatingSystemVersion               : 'hspr-H102'
+      OperatingSystemNameVersion           : 'PalmSource hspr-H102'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Internet Explorer'
+      LayoutEngineVersion                  : '6.0'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Internet Explorer 6.0'
+      LayoutEngineNameVersionMajor         : 'Internet Explorer 6'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '6.0'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Internet Explorer 6.0'
+      AgentNameVersionMajor                : 'Internet Explorer 6'
 

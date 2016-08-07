@@ -21,60 +21,67 @@
 config:
 
 - matcher:
-    require:
-    - 'agent.(1)product.name~"spider"'
     extract:
-    - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Robot"'
-    - 'DeviceName            :  100:agent.(1)product.name'
-    - 'OperatingSystemClass  :  100:"Cloud"'
-    - 'OperatingSystemName   :  100:"Cloud"'
-    - 'OperatingSystemVersion:  100:"Cloud"'
-    - 'LayoutEngineClass     :  100:"Robot"'
-    - 'LayoutEngineName      :  100:agent.(1)product.name'
-    - 'LayoutEngineVersion   :  100:agent.(1)product.(1)version'
-    - 'AgentClass            :  100:"Robot"'
-    - 'AgentName             :  100:agent.(1)product.name'
-    - 'AgentVersion          :  100:agent.(1)product.(1)version'
+    - 'DeviceClass           :  101:"Robot"'
+    - 'DeviceBrand           :  101:"Robot"'
+    - 'DeviceName            :  101:agent.product.name~"spider"'
+    - 'OperatingSystemClass  :  101:"Cloud"'
+    - 'OperatingSystemName   :  101:"Cloud"'
+    - 'OperatingSystemVersion:  101:"Cloud"'
+    - 'LayoutEngineClass     :  101:"Robot"'
+    - 'LayoutEngineName      :  101:agent.product.name~"spider"'
+    - 'LayoutEngineVersion   :  101:"??"'
+    - 'AgentClass            :  101:"Robot"'
+    - 'AgentName             :  101:agent.product.name~"spider"'
+    - 'AgentVersion          :  101:"??"'
 
 - matcher:
-    require:
-    - 'agent.(1)product.name~"crawl"'
     extract:
-    - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Robot"'
-    - 'DeviceName            :  100:agent.(1)product.name'
-    - 'OperatingSystemClass  :  100:"Cloud"'
-    - 'OperatingSystemName   :  100:"Cloud"'
-    - 'OperatingSystemVersion:  100:"Cloud"'
-    - 'LayoutEngineClass     :  100:"Robot"'
-    - 'LayoutEngineName      :  100:agent.(1)product.name'
-    - 'LayoutEngineVersion   :  100:agent.(1)product.(1)version'
-    - 'AgentClass            :  100:"Robot"'
-    - 'AgentName             :  100:agent.(1)product.name'
-    - 'AgentVersion          :  100:agent.(1)product.(1)version'
+    - 'LayoutEngineVersion   :  102:agent.product.name~"spider"^.(1)version'
+    - 'AgentVersion          :  102:agent.product.name~"spider"^.(1)version'
 
 - matcher:
-    require:
-    - 'agent.(1)product.name~"bot"'
     extract:
-    - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Robot"'
-    - 'DeviceName            :  100:agent.(1)product.name'
-    - 'OperatingSystemClass  :  100:"Cloud"'
-    - 'OperatingSystemName   :  100:"Cloud"'
-    - 'OperatingSystemVersion:  100:"Cloud"'
-    - 'LayoutEngineClass     :  100:"Robot"'
-    - 'LayoutEngineName      :  100:agent.(1)product.name'
-    - 'LayoutEngineVersion   :  100:agent.(1)product.(1)version'
-    - 'AgentClass            :  100:"Robot"'
-    - 'AgentName             :  100:agent.(1)product.name'
-    - 'AgentVersion          :  100:agent.(1)product.(1)version'
+    - 'DeviceClass           :  101:"Robot"'
+    - 'DeviceBrand           :  101:"Robot"'
+    - 'DeviceName            :  101:agent.product.name~"crawl"'
+    - 'OperatingSystemClass  :  101:"Cloud"'
+    - 'OperatingSystemName   :  101:"Cloud"'
+    - 'OperatingSystemVersion:  101:"Cloud"'
+    - 'LayoutEngineClass     :  101:"Robot"'
+    - 'LayoutEngineName      :  101:agent.product.name~"crawl"'
+    - 'LayoutEngineVersion   :  101:"??"'
+    - 'AgentClass            :  101:"Robot"'
+    - 'AgentName             :  101:agent.product.name~"crawl"'
+    - 'AgentVersion          :  101:"??"'
+
+- matcher:
+    extract:
+    - 'LayoutEngineVersion   :  102:agent.product.name~"crawl"^.(1)version'
+    - 'AgentVersion          :  102:agent.product.name~"crawl"^.(1)version'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  101:"Robot"'
+    - 'DeviceBrand           :  101:"Robot"'
+    - 'DeviceName            :  101:agent.product.name~"bot"'
+    - 'OperatingSystemClass  :  101:"Cloud"'
+    - 'OperatingSystemName   :  101:"Cloud"'
+    - 'OperatingSystemVersion:  101:"Cloud"'
+    - 'LayoutEngineClass     :  101:"Robot"'
+    - 'LayoutEngineName      :  101:agent.product.name~"bot"'
+    - 'LayoutEngineVersion   :  101:"??"'
+    - 'AgentClass            :  101:"Robot"'
+    - 'AgentName             :  101:agent.product.name~"bot"'
+    - 'AgentVersion          :  101:"??"'
+
+- matcher:
+    extract:
+    - 'LayoutEngineVersion   :  102:agent.product.name~"bot"^.(1)version'
+    - 'AgentVersion          :  102:agent.product.name~"bot"^.(1)version'
 
 
 - matcher:
-    require:
-    - 'agent.(1)product.comments.entry.product.name~"spider"'
     extract:
     - 'DeviceClass           :  100:"Robot"'
     - 'DeviceBrand           :  100:"Robot"'
@@ -90,8 +97,6 @@ config:
     - 'AgentVersion          :  100:agent.(1)product.comments.entry.product.name~"spider"^.version'
 
 - matcher:
-    require:
-    - 'agent.(1)product.comments.entry.product.name~"crawl"'
     extract:
     - 'DeviceClass           :  100:"Robot"'
     - 'DeviceBrand           :  100:"Robot"'
@@ -107,8 +112,6 @@ config:
     - 'AgentVersion          :  100:agent.(1)product.comments.entry.product.name~"crawl"^.version'
 
 - matcher:
-    require:
-    - 'agent.(1)product.comments.entry.product.name~"bot"'
     extract:
     - 'DeviceClass           :  100:"Robot"'
     - 'DeviceBrand           :  100:"Robot"'
@@ -1023,6 +1026,33 @@ config:
       AgentInformationUrl                  : 'http://www.apple.com/go/applebot'
 
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0); 360Spider(compatible; HaosouSpider; http://www.haosou.com/help/help_3_2.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : '360Spider'
+      DeviceBrand                          : 'Robot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Trident 5.0'
+      LayoutEngineNameVersionMajor         : 'Trident 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '9.0'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Internet Explorer 9.0'
+      AgentNameVersionMajor                : 'Internet Explorer 9'
+      AgentInformationUrl                  : 'http://www.haosou.com/help/help_3_2.html'
+
+
+# Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.5 (like Gecko) (Exabot-Thumbnails)
 
 
 #TODO: Google developer testing tool
@@ -1032,30 +1062,36 @@ config:
 
 - matcher:
     extract:
-    - 'AgentClass            :   10:"Robot"'
-    - 'AgentName             :   10:"Google Search Appliance"'
-    - 'GSAInstallationID     :   10:agent.(1)product.(1)comments.(2)entry.(1)text#1="GID"@'
+    - 'DeviceClass            :   110:"Robot"'
+    - 'DeviceName             :   110:"Google Search Appliance"'
+    - 'DeviceBrand            :   110:"Google"'
+    - 'AgentClass             :   110:"Robot"'
+    - 'AgentName              :   110:"Google Search Appliance"'
+    - 'GSAInstallationID      :   110:agent.(1)product.(1)comments.(2)entry.(1)text#1="GID"@'
 
 - test:
     input:
       user_agent_string: 'gsa-crawler (Enterprise; GID-01422; jplastiras@google.com)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Robot'
+      DeviceName                           : 'Google Search Appliance'
+      DeviceBrand                          : 'Google'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
       OperatingSystemNameVersion           : 'Cloud'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'gsa-crawler'
       LayoutEngineVersion                  : '??'
       LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'gsa-crawler ??'
+      LayoutEngineNameVersionMajor         : 'gsa-crawler ??'
       AgentClass                           : 'Robot'
       AgentName                            : 'Google Search Appliance'
-      AgentVersion                         : 'Enterprise'
-      AgentVersionMajor                    : 'Enterprise'
-      AgentNameVersion                     : 'Google Search Appliance Enterprise'
-      AgentNameVersionMajor                : 'Google Search Appliance Enterprise'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Search Appliance ??'
+      AgentNameVersionMajor                : 'Google Search Appliance ??'
       AgentInformationEmail                : 'jplastiras@google.com'
       GSAInstallationID                    : 'GID-01422'
 

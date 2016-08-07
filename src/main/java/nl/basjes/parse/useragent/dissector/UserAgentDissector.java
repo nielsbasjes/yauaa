@@ -64,7 +64,7 @@ public class UserAgentDissector extends Dissector {
         String userAgentString = agentField.getValue().getString();
 
         if (userAgentString == null) {
-            return;  // TODO: Figure out why this happens (because it does)
+            return;  // Weird, but it happens
         }
 
         UserAgent agent = userAgentAnalyzer.parse(userAgentString);
