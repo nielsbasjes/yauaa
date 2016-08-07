@@ -132,38 +132,73 @@ compare and string manipulation actions to obtain the value we are looking for.
 
 This language also supports lookups (hashmaps) that do a case INsensitive lookup.
 
+Note that for finding a matching pattern the system will recurse through the parse tree from left to right.
+The FIRST matching pattern is used for the end result.
+
+For demonstrating the operators I'm using this user agent to explain the effects:
+
+    foo faa/1.0 2.3 (one; two three four) bar baz/2.0 3.0 (five; six seven)
+
 Available operators:
 
-**TODO**
+Walking around the tree
 
-UP              : '^'           ;
-NEXT            : '>'           ;
-PREV            : '<'           ;
-DOT             : '.'           ;
-MINUS           : '-'           ;
-STAR            : '*'           ;
+Operation | Symbol | Example | Result value (if applicable)
+:--- |:--- |:---|:---
+Up to parent | ^ | agent.(1)product.name^ | agent.(1)product
+Next Sibling | > | agent.(1)product> | agent.(2)product
+Previous Sibling | < | agent.(2)product< | agent.(1)product
+Down to child | .name | agent.(1)product.version |
+Down to specific child | .(2)version | agent.(1)product.(2)version |
+Down to specific child range | .([2-3])version | agent.(1)product.([2-3])version |
 
-NUMBER          : [0-9]+        ;
-BLOCKOPEN       : '['           ;
-BLOCKCLOSE      : ']'           ;
-BRACEOPEN       : '('           ;
-BRACECLOSE      : ')'           ;
-DOUBLEQUOTE     : '"'           ;
-COLON           : ':'           ;
-SEMICOLON       : ';'           ;
+Comparing values in the tree
 
-SPACE           : (' '|'\t')+   ;
-NOTEQUALS       : '!='          ;
-EQUALS          : '='           ;
-CONTAINS        : '~'           ;
-STARTSWITH      : '{'           ;
-ENDSWITH        : '}'           ;
+Operation | Symbol | Example | Result value (if applicable) | Explain
+:--- |:--- |:---|:---
+Equals | = | agent.(1)product.version="2.3" | agent.(1)product.(2)version | The second version is "2.3"
+Not equals | != | agent.(1)product.version!="1.0" | agent.(1)product.(2)version | The second version is the first one when backtracking that is not "1.0"
+Contains | ~ | agent.product.name~"ar" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that contains "ar"
+Starts with | { | agent.product.name{"b" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that starts with "b"
+Ends with | }| agent.product.name}"z" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that ends with "z"
 
-FIRSTWORDS      : '#'           ;
-SINGLEWORD      : '%'           ;
-BACKTOFULL      : '@'           ;
+Extracting substrings
 
+Note this fact *agent.(1)product.(1)comments.(2)entry.(1)text="two three four"*
 
+Operation | Symbol | Example
+:--- |:--- |:---|:---
+First N Words | # | agent.(1)product.(1)comments.(2)entry.(1)text#2="two three"
+Single Word at position N | % | agent.(1)product.(1)comments.(2)entry.(1)text%2="three"
+Backto full value | @ | agent.(1)product.(1)comments.(2)entry.(1)text%2="three"@ | two three four
+
+Special operations
+
+Operation | Symbol | Example | Result value (if applicable)
+:--- |:--- |:---|:---
+Check if the expresssion resulted in a null 'no match' value. | IsNull[expression] | IsNull[agent.(1)product.(3)name] | true
+Cleanup the version from an _ separated to a . separated string| CleanVersion[expression] | CleanVersion["1_2_3"] | 1.2.3
+LookUp the value against a lookup table | LookUp[lookupname;expression] | LookUp[OSNames;agent.product.entry.text]
+LookUp the value against a lookup table with fallback | LookUp[lookupname;expression;defaultvalue] | LookUp[OSNames;agent.product.entry.text;"Unknown"]
+
+The anatomy of a matcher
+========================
+A matcher consists of 3 parts
+require
+extract
+options
+
+The "require" part holds the patterns that must all result in a non-null value. The IsNull operator is intended to check that a specific value actually IS null.
+The "extract" part is to send either a fixed string or an extracted pattern into a field with a certain numerical confidence.
+
+There are a few possible option flags
+
+init    This means the init output for this matcher must be shown. This is the same effect when running it without any extract values
+verbose This means that a LOT of debug output will be shown in the output.
+only    This means that ONLY this test must be run. No others.
+
+Only IFF all require AND all extract patterns yielded a non-null value then will all of the extracted values be added to the end result.
+In general a field will receive a value from multiple matchers; the value with the highest confidence value will be in the output.
 
 Creating a new rule
 ===================
