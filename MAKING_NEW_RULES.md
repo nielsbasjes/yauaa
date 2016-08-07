@@ -30,6 +30,79 @@ Because of the system with the weights the order of the matchers is not
 checked or guaranteed in any way. So if the two matchers may set the same
 field to a different value then better make sure they have different weights.
 
+The anatomy of a matcher
+========================
+A matcher consists of 3 parts
+require
+extract
+options
+
+The "require" part holds the patterns that must all result in a non-null value. The IsNull operator is intended to check that a specific value actually IS null.
+The "extract" part is to send either a fixed string or an extracted pattern into a field with a certain numerical confidence.
+
+There are a few possible option flags:
+
+init    This means the init output for this matcher must be shown. This is the same effect when running it without any extract values
+verbose This means that a LOT of debug output will be shown in the output.
+only    This means that ONLY this test must be run. No others.
+
+Only IFF all require AND all extract patterns yielded a non-null value then will all of the extracted values be added to the end result.
+In general a field will receive a value from multiple matchers; the value with the highest confidence value will be in the output.
+
+
+The overall structure is this:
+
+
+    config:
+    - lookup:
+        name: 'lookupname'
+        map:
+          "From1" : "To1"
+          "From2" : "To2"
+          "From3" : "To3"
+
+    - matcher:
+        options:
+        - 'verbose'
+        require:
+        - 'Require pattern'
+        - 'Require pattern'
+        extract:
+        - 'FieldName : Confidence : Extract pattern'
+        - 'FieldName : Confidence : Extract pattern'
+
+    - test:
+        options:
+        - 'verbose'
+        - 'init'
+        input:
+          user_agent_string: 'Useragent'
+        expected:
+          FieldName     : 'ExpectedValue'
+          FieldName     : 'ExpectedValue'
+          FieldName     : 'ExpectedValue'
+
+
+A require pattern must simply yield a non-null value.
+The IsNull operator only makes sensce in the context of a require as with this you can check that a pattern may not exist.
+
+For example to do checks like "The last product in the list must be named foo" you can write this
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.name="foo"^>]'
+
+An extract pattern is either a fixed string "foo" or a path expression as explained later in this document.
+
+
+Where the rules are located
+===========================
+Under the main resources there is a folder called *UserAgents* .
+In the folder a collection of yaml files are located.
+Each of those files contains matchers, lookups, tests or any combination of them
+in any order. This means that in many cases you'll find a relevant test case close
+to the rules.
+
 Useragent parse tree model
 ==========================
 According to RFC-2616 a useragent consists of set of products. Each with an (optional) version and an (optional) comment block.
@@ -38,8 +111,6 @@ https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.8
 https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43
 
 After much analysis the model that this parser uses it as follows:
-
-
 
 The whole string (the 'agent') is mostly cut into 'product' and 'text' parts.
 Each child node in the tree is numbered (1,2,3,...) within the context of the parent.
@@ -181,24 +252,31 @@ Cleanup the version from an _ separated to a . separated string| CleanVersion[ex
 LookUp the value against a lookup table | LookUp[lookupname;expression] | LookUp[OSNames;agent.product.entry.text]
 LookUp the value against a lookup table with fallback | LookUp[lookupname;expression;defaultvalue] | LookUp[OSNames;agent.product.entry.text;"Unknown"]
 
-The anatomy of a matcher
-========================
-A matcher consists of 3 parts
-require
-extract
-options
+Chaining operators
+==================
+An extensive example of walking around to get the right value.
 
-The "require" part holds the patterns that must all result in a non-null value. The IsNull operator is intended to check that a specific value actually IS null.
-The "extract" part is to send either a fixed string or an extracted pattern into a field with a certain numerical confidence.
+    foo faa/1.0/2.3 (one; two three four) bar baz/2.0/3.0 (five; six seven)
 
-There are a few possible option flags
+Expression | Current path | Value
+:--- |:--- |:---
+| agent.product.(1)comments.entry.(1)text%2="seven"                                                         | agent.(2)product.(1)comments.(2)entry%2 | seven
+| agent.product.(1)comments.entry.(1)text%2="seven"^                                                        | agent.(2)product.(1)comments.(2)entry          | six seven
+| agent.product.(1)comments.entry.(1)text%2="seven"^^                                                       | agent.(2)product.(1)comments | (five; six seven)
+| agent.product.(1)comments.entry.(1)text%2="seven"^^^                                                      | agent.(2)product | bar baz/2.0/3.0 (five; six seven)
+| agent.product.(1)comments.entry.(1)text%2="seven"^^^<                                                     | agent.(1)product | foo faa/1.0/2.3 (one; two three four)
+| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name                                                | agent.(1)product.(1)name  | foo faa
+| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"                                      | agent.(1)product.(1)name | foo faa
+| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"^                                     | agent.(1)product | foo faa/1.0/2.3 (one; two three four)
+| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"^.comments                            | agent.(1)product.(1)comments | (one; two three four)
+| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"^.comments.entry                      | agent.(1)product.(1)comments.entry | one
+| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"^.comments.entry.text%2="three"       | agent.(1)product.(1)comments.entry%2 | two three four
+| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"^.comments.entry.text%2="three"@      | agent.(1)product.(1)comments.entry | two three four
+| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"^.comments.entry.text%2="three"@#1    | agent.(1)product.(1)comments.entry#1 | two
 
-init    This means the init output for this matcher must be shown. This is the same effect when running it without any extract values
-verbose This means that a LOT of debug output will be shown in the output.
-only    This means that ONLY this test must be run. No others.
+Note that the first possible match is returned.
+If a child sibling or check fails the backtracking continues until the entire parse tree has been examined.
 
-Only IFF all require AND all extract patterns yielded a non-null value then will all of the extracted values be added to the end result.
-In general a field will receive a value from multiple matchers; the value with the highest confidence value will be in the output.
 
 Creating a new rule
 ===================
@@ -431,46 +509,6 @@ Performance considerations
 ==========================
 **Todo**
 Explain hashmap and = is fast, lookup and walking is slow.
-
-Where the rules are located
-===========================
-Under the main resources there is a folder called *UserAgents* .
-In the folder a collection of yaml files are located.
-Each of those files contains matchers, lookups, tests or any combination of them
-in any order. This means that in many cases you'll find a relevant test case close
-to the rules.
-
-The overall structure is this:
-
-    config:
-    - lookup:
-      name: 'lookupname'
-      map:
-        "From1" : "To1"
-        "From2" : "To2"
-        "From3" : "To3"
-
-    - matcher:
-        options:
-        - 'verbose'
-        require:
-        - 'Require pattern'
-        - 'Require pattern'
-        extract:
-        - 'Extract pattern'
-        - 'Extract pattern'
-
-    - test:
-        options:
-        - 'verbose'
-        - 'init'
-        input:
-          user_agent_string: 'Useragent'
-          name: 'The name of the test'
-        expected:
-          FieldName     : 'ExpectedValue'
-          FieldName     : 'ExpectedValue'
-          FieldName     : 'ExpectedValue'
 
 
 
