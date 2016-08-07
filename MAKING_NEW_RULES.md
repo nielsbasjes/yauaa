@@ -197,9 +197,60 @@ Now if we run the unit test again we will see this:
 
 As you can see this clearly shows that a new field has been added with the value we wanted.
 
+If you want to change or add more rules then simply iterate over the steps until you have the
+end result you think is good.
+Then simply copy the end 'test' into the yaml file and save.
 
-**TODO**
+If you are detecting a new field or a new value for an existing field
+then be aware that this may also apply to tests that are already present
+in the system. For all tests to pass these must be updated also.
 
+You can choose to use this in a more "Test Driven Development" model also.
+Simply run the unit test, copy the 'raw testcase' into the yaml file and
+edit the values to what they should be and work from there.
+
+If you run it this way your will get a 'failed test' which yields a bit
+of extra output.
+For the sake of demo if I simply put this testcase in the yaml file
+
+    - test:
+        input:
+          user_agent_string: 'Mozilla/5.0 (compatible; Foo/3.1; Bar)'
+        expected:
+          AgentClass                           : 'Browser'
+          AgentName                            : 'Foo'
+          AgentVersion                         : '3.1'
+          AgentVersionMajor                    : '3'
+          AgentNameVersion                     : 'Foo 3.1'
+          AgentNameVersionMajor                : 'Foo 3'
+          MinorFooVersion                      : '1'
+
+This would also show as test output:
+
+    INFO  UserAgentAnalyzerTester:320 - +--------+------------------------------+-------------+------------+------------+
+    INFO  UserAgentAnalyzerTester:337 - | Result | Field                        | Actual      | Confidence | Expected   |
+    INFO  UserAgentAnalyzerTester:339 - +--------+------------------------------+-------------+------------+------------+
+    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | DeviceClass                  | Unknown     |         -1 | <<absent>> |
+    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | DeviceName                   | Unknown     |         -1 | <<absent>> |
+    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | OperatingSystemClass         | Unknown     |         -1 | <<absent>> |
+    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | OperatingSystemName          | Unknown     |         -1 | <<absent>> |
+    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | OperatingSystemVersion       | ??          |         -1 | <<absent>> |
+    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineClass            | Browser     |          3 | <<absent>> |
+    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineName             | Mozilla     |          3 | <<absent>> |
+    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineVersion          | 5.0         |          3 | <<absent>> |
+    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineVersionMajor     | 5           |          3 | <<absent>> |
+    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineNameVersion      | Mozilla 5.0 |          3 | <<absent>> |
+    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineNameVersionMajor | Mozilla 5   |          3 | <<absent>> |
+    INFO  UserAgentAnalyzerTester:371 - |        | AgentClass                   | Browser     |         10 |            |
+    INFO  UserAgentAnalyzerTester:371 - |        | AgentName                    | Foo         |         10 |            |
+    INFO  UserAgentAnalyzerTester:371 - |        | AgentVersion                 | 3.1         |         10 |            |
+    INFO  UserAgentAnalyzerTester:371 - |        | AgentVersionMajor            | 3           |         10 |            |
+    INFO  UserAgentAnalyzerTester:371 - |        | AgentNameVersion             | Foo 3.1     |         10 |            |
+    INFO  UserAgentAnalyzerTester:371 - |        | AgentNameVersionMajor        | Foo 3       |         10 |            |
+    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | MinorFooVersion              | <<<null>>>  |          0 | 1          |
+    INFO  UserAgentAnalyzerTester:386 - +--------+------------------------------+-------------+------------+------------+
+
+As you can see the system will fail on missing fields, unexpected fields and wrong values.
 
 Where the rules are located
 ===========================
