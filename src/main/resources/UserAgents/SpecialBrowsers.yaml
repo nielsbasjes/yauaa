@@ -311,7 +311,7 @@ config:
 
 
 
-## FIXME:
+# TODO: A lot of special browsers
 #  - matcher:
 #      require:
 #        - 'agent.product="Profile/MIDP-2.1"'
@@ -331,44 +331,16 @@ config:
 #        - 'AgentName             :   1000:agent.product.(1)name="Browser"^.(1)version'
 #        - 'AgentVersion          :   1000:agent.product.(1)name="Browser"^.(2)version'
 #
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/4.0 SonyEricssonW910iv/R1FA Browser/NetFront/3.4 Profile/MIDP-2.1 Configuration/CLDC-1.1'
-#      expected:
-#        DeviceClass                        : 'Mobile'
-#        DeviceName                         : 'SonyEricssonW910iv'
-#        DeviceBrand                        : 'SonyEricssonW910iv'
-#        DeviceVersion                      : 'R1FA'
-#        OperatingSystemClass               : 'Mobile'
-#        OperatingSystemName                : 'Unknown'
-#        OperatingSystemVersion             : '??'
-#        LayoutEngineClass                  : 'Browser'
-#        LayoutEngineName                   : 'NetFront'
-#        LayoutEngineVersion                : '3.4'
-#        LayoutEngineVersionMajor           : '3'
-#        AgentClass                         : 'Browser'
-#        AgentName                          : 'NetFront'
-#        AgentVersion                       : '3.4'
-#        AgentVersionMajor                  : '3'
-#        AgentNameVersion                   : 'NetFront 3.4'
-#        AgentNameVersionMajor              : 'NetFront 3'
-#        LayoutEngineNameVersion            : 'NetFront 3.4'
-#        LayoutEngineNameVersionMajor       : 'NetFront 3'
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/4.0 SonyEricssonW910iv/R1FA Browser/NetFront/3.4 Profile/MIDP-2.1 Configuration/CLDC-1.1'
 
 
 #  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
 #      input:
 #        user_agent_string: 'python-requests/2.1.0 CPython/2.7.3 Linux/3.2.0-4-amd64'
 #
 #  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
 #      input:
 #        user_agent_string: 'Mozilla/5.0 compatible; MSIE 9.0; Windows NT 4.1 Chrome/31.0.1229.79'
 #      expected:
