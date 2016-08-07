@@ -410,6 +410,23 @@ This would also show as test output:
 
 As you can see the system will fail on missing fields, unexpected fields and wrong values.
 
+If you create rules that in one of the test cases produce for the same field different values with the same confidence
+then the test will fail with messages like this:
+
+     - ***********************************************************
+     - ***        REALLY IMPORTANT ERRORS IN THE RULESET       ***
+     - *** YOU MUST CHANGE THE CONFIDENCE LEVELS OF YOUR RULES ***
+     - ***********************************************************
+     - Found different value for "OperatingSystemName" with SAME confidence 10: "RIM OS" and "BlackBerry"
+     - Found different value for "OperatingSystemName" with SAME confidence 10: "RIM OS" and "BlackBerry"
+     - Found different value for "OperatingSystemName" with SAME confidence 10: "RIM OS" and "BlackBerry"
+     - Found different value for "OperatingSystemVersion" with SAME confidence 10: "RIM OS" and "??"
+     - Found different value for "OperatingSystemVersion" with SAME confidence 10: "RIM OS" and "??"
+     - Found different value for "OperatingSystemVersion" with SAME confidence 10: "RIM OS" and "??"
+
+Note that these do not need to be the 'winning' value.
+The existence of the ambiguity is enough to fail.
+
 Performance considerations
 ==========================
 **Todo**
