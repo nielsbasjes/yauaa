@@ -507,9 +507,25 @@ The existence of the ambiguity is enough to fail.
 
 Performance considerations
 ==========================
-**Todo**
-Explain hashmap and = is fast, lookup and walking is slow.
+Note that in order to optimize the performance the paths that lead directly to a point in the tree are placed in a
+hashmap for very fast lookup.
 
+Only if all 'direct paths' in a matcher are found only then the walking of those rules is attempted.
 
+So one of the rules looks like this
 
+    - matcher:
+        require:
+        - 'agent.product.(1)name="Chrome"'
+        - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="Chrome"^.version#1]'
+        - 'agent.product.(1)name="AppleWebKit"^.version#1="537"'
+        - 'agent.product.(1)version#1="537"' # This is a matching speedup trick
+        extract:
+        - 'LayoutEngineClass     :   1000:"Browser"'
+        - 'LayoutEngineName      :   1000:"AppleWebKit"'
+        - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
+
+The agent.product.(1)version#1="537" is found immediately while walking through the parsed tree.
+So if this one is not present then the other check "Is the version of AppleWebKit equals to 537"
+and the lookup are not even attempted. These kinds of tricks will speedup parsing.
 
