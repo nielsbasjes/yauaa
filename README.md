@@ -62,7 +62,7 @@ This has been published to maven central so that should work in almost any envir
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
       <version>0.4</version>
-    <dependency>
+    </dependency>
 
 and in your application you can use it as simple as this
 
@@ -174,6 +174,18 @@ a UDF which are both part of this project.
 -------
 
 ## Apache Pig
+
+### Getting the UDF
+You can get the prebuild UDF from maven central.
+If you use a maven based project simply add this dependency
+
+    <dependency>
+      <groupId>nl.basjes.parse.useragent</groupId>
+      <artifactId>yauaa</artifactId>
+      <classifier>udf</classifier>
+      <version>0.4</version>
+    </dependency>
+
 ### Building
 Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:
 
@@ -199,6 +211,21 @@ Simply install the normal build tools for a Java project (i.e. maven and jdk) an
 -------
 
 ## Platfora
+### Getting the UDF
+You can get the prebuild UDF from maven central.
+If you use a maven based project simply add this dependency
+
+    <dependency>
+      <groupId>nl.basjes.parse.useragent</groupId>
+      <artifactId>yauaa</artifactId>
+      <classifier>udf</classifier>
+      <version>0.4</version>
+    </dependency>
+
+Or simply download it via this URL:
+http://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa/
+Then go the the right version and download the file named yauaa-*version*-udf.jar
+
 ### Example usage
 Once installed you will see two new functions that can be used in computed fields:
 
