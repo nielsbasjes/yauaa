@@ -1,6 +1,6 @@
 Introduction
 ============
-This is a library that tries to analyze the useragent string and extract as many relevant attributes as possible.
+This is a library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.
 There are as little as possible lookup tables included the system really tries to analyze the useragent and extract values from it.
 
 The resulting output fields can be classified into several categories:
@@ -49,6 +49,32 @@ is converted into this set of fields:
 |  **Agent**NameVersion                 | 'Chrome 51.0.2704.81'  |
 |  **Agent**NameVersionMajor            | 'Chrome 51'            |
 
+
+Using the analyzer
+==================
+In addition to the UDFs for Apache Pig and Platfora (see below) this analyzer
+can also be used in Java based applications.
+
+First add the library as a dependency to your application.
+This has been published to maven central so that should work in almost any environment.
+
+    <dependency>
+      <groupId>nl.basjes.parse.useragent</groupId>
+      <artifactId>yauaa</artifactId>
+      <version>0.4</version>
+    <dependency>
+
+and in your application you can use it as simple as this
+
+        UserAgentAnalyzer uaa = new UserAgentAnalyzer();
+
+        UserAgent agent = uaa.parse("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11");
+
+        for (String fieldName: agent.getAvailableFieldNamesSorted()) {
+            System.out.println(fieldName + " = " + agent.getValue(fieldName));
+        }
+
+Note that not all fields are available after every parse. So be prepared to receive a 'null' if you extract a specific name.
 
 Parsing Useragents
 ==================
