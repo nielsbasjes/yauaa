@@ -1143,6 +1143,32 @@ config:
       AgentInformationEmail                : 'jplastiras@google.com'
       GSAInstallationID                    : 'GID-01422'
 
+- test:
+    input:
+      user_agent_string: 'yacybot%20(freeworld/global;%20amd64%20Linux%203.1.0-1.2-desktop;%20java%201.6.0_22;%20Europe/de)%20http://yacy.net/bot.html'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'yacybot'
+      DeviceBrand                          : 'Robot'
+      DeviceCpu                            : 'AMD64'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'yacybot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'yacybot ??'
+      LayoutEngineNameVersionMajor         : 'yacybot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'yacybot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'yacybot ??'
+      AgentNameVersionMajor                : 'yacybot ??'
+      AgentInformationUrl                  : 'http://yacy.net/bot.html'
+
 
 #WeCrawlForThePeace - We are not Evil
 #yacy - this is a proxy access through YaCy from a browser, not a robot

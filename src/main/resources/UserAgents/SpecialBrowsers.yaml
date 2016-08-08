@@ -309,6 +309,52 @@ config:
       AgentLanguage                        : 'Dutch (Netherlands)'
       AgentLanguageCode                    : 'nl_nl'
 
+- test:
+    input:
+      user_agent_string: 'Airmail%202.0.3%20rv:286%20(Macintosh;%20Mac%20OS%20X%2010.9.5;%20ja_JP)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Macintosh'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.9.5'
+      OperatingSystemNameVersion           : 'Mac OS X 10.9.5'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Airmail'
+      AgentVersion                         : '2.0.3'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Airmail 2.0.3'
+      AgentNameVersionMajor                : 'Airmail 2'
+      AgentLanguage                        : 'Japanese (Japan)'
+      AgentLanguageCode                    : 'ja_jp'
+
+
+- test:
+    input:
+      user_agent_string: 'curl/7.19.4%20(i386-redhat-linux-gnu)%20libcurl/7.19.4%20NSS/3.12.2.0%20zlib/1.2.3%20libidn/0.6.14%20libssh2/0.18'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceCpu                            : 'Intel i386'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'curl'
+      AgentVersion                         : '7.19.4'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'curl 7.19.4'
+      AgentNameVersionMajor                : 'curl 7'
+
 
 
 # TODO: A lot of special browsers
