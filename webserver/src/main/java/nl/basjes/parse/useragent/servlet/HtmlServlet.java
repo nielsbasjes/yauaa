@@ -19,6 +19,7 @@
 
 package nl.basjes.parse.useragent.servlet;
 
+import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 
 import javax.servlet.ServletException;
@@ -28,15 +29,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
+
 public class HtmlServlet extends HttpServlet {
 
-    private String message;
     private UserAgentAnalyzer uua;
 
     public void init() throws ServletException {
         uua = new UserAgentAnalyzer();
-        // Do required initialization
-        message = "Niels Basjes";
     }
 
     public void doGet(HttpServletRequest request,
@@ -47,20 +47,27 @@ public class HtmlServlet extends HttpServlet {
             String userAgentString = request.getHeader("User-Agent");
 
             // Actual logic goes here.
-            out.println("<h1>" + message + "</h1>");
-            out.println("<b>" + System.currentTimeMillis() + "</b>");
+            out.println("<h1>Analyzing your useragent string</h1>");
 
             if (userAgentString == null) {
                 out.println("The useragent header was absent");
                 return;
             }
 
-            // FIXME: This is totally unsafe proof of concept (i.e. (java)script injection WILL work).
-            out.println(uua.parse(userAgentString).toYamlTestCase().replaceAll("\n", "<br/>\n").replaceAll(" ", "&nbsp;"));
+            UserAgent userAgent = uua.parse(userAgentString);
+
+            System.out.println("Useragent: " + userAgentString);
+            out.println("Received useragent header:" + escapeHtml4(userAgent.getUserAgentString()));
+            out.println("<table border=1>");
+            out.println("<tr><th>Field</th><th>Value</th></tr>");
+            for (String fieldname : userAgent.getAvailableFieldNamesSorted()) {
+                out.println("<tr><td>"+escapeHtml4(fieldname)+"</td><td>"+escapeHtml4(userAgent.getValue(fieldname))+"</td></tr>");
+            }
+            out.println("</table>");
+
         } finally {
             // Set response content type
             response.setContentType("text/html");
-
             out.close();
         }
     }
