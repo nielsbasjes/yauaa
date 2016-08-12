@@ -3,5 +3,14 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>Yet Another Useragent Analyzer</display-name>
+  <servlet>
+    <servlet-name>HtmlServlet</servlet-name>
+    <servlet-class>nl.basjes.parse.useragent.servlet.HtmlServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>HtmlServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
 </web-app>
