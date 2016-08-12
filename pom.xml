@@ -24,11 +24,12 @@
   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>yauaa</artifactId>
+  <artifactId>yauaa-parent</artifactId>
+  <packaging>pom</packaging>
   <groupId>nl.basjes.parse.useragent</groupId>
   <version>0.5-SNAPSHOT</version>
 
-  <name>Yet Another UserAgent Analyzer (yauaa)</name>
+  <name>YaUAa : Yet Another UserAgent Analyzer (parent-project)</name>
   <description>A parsing an analyzing library to get information from a useragent string.</description>
 
   <url>http://github.com/nielsbasjes/yauaa</url>
@@ -36,7 +37,6 @@
   <properties>
     <jdkLevel>1.7</jdkLevel>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <mainClass>nl.basjes.parse.useragent.Main</mainClass>
 
     <antlr.version>4.5.3</antlr.version>
     <hadoop.version>2.7.2</hadoop.version>
@@ -44,227 +44,8 @@
     <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.antlr</groupId>
-      <artifactId>antlr4-runtime</artifactId>
-      <version>${antlr.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>args4j</groupId>
-      <artifactId>args4j</artifactId>
-        <version>2.33</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>4.3.1.RELEASE</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.4</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-collections4</artifactId>
-      <version>4.1</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.7.21</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.yaml</groupId>
-      <artifactId>snakeyaml</artifactId>
-      <version>1.10</version>
-    </dependency>
-
-    <dependency>
-      <groupId>nl.basjes.parse</groupId>
-      <artifactId>parser-core</artifactId>
-      <version>2.5</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.pig</groupId>
-      <artifactId>pig</artifactId>
-      <version>${pig.version}</version>
-      <classifier>h2</classifier>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.hadoop</groupId>
-      <artifactId>hadoop-client</artifactId>
-      <version>${hadoop.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
-  </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
-        <configuration>
-          <source>${jdkLevel}</source>
-          <target>${jdkLevel}</target>
-          <excludes>
-            <exclude>**/platfora/*.java</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.6</version>
-        <executions>
-          <execution>
-            <id>make-super-jar</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <descriptors>
-                <descriptor>src/main/assembly/udf.xml</descriptor>
-              </descriptors>
-              <archive>
-                <addMavenDescriptor>true</addMavenDescriptor>
-                <manifest>
-                  <mainClass>${mainClass}</mainClass>
-                </manifest>
-              </archive>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.antlr</groupId>
-        <artifactId>antlr4-maven-plugin</artifactId>
-        <version>${antlr.version}</version>
-        <executions>
-          <execution>
-            <id>antlr</id>
-            <goals>
-              <goal>antlr4</goal>
-            </goals>
-            <configuration>
-              <visitor>true</visitor>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${checkstyle-plugin.version}</version>
-        <configuration>
-          <consoleOutput>true</consoleOutput>
-          <configLocation>src/test/resources/checkstyle/checkstyle.xml</configLocation>
-          <suppressionsLocation>src/test/resources/checkstyle/suppressions.xml</suppressionsLocation>
-        </configuration>
-        <!-- Runs by default in the verify phase  (mvn verify or later in the build cycle)
-             the 'check' goal will fail the build if it does not pass.  "mvn checkstyle:check"
-             will do this alone, or "mvn checkstyle:checkstyle" will report but not break  -->
-        <executions>
-          <execution>
-            <id>checkstyle-check</id>
-            <phase>test</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-
-    </plugins>
-  </build>
 
   <profiles>
-    <profile>
-      <id>platfora</id>
-      <activation>
-        <property>
-          <name>platfora</name>
-        </property>
-      </activation>
-      <dependencies>
-        <!--
-        In order to build the Platfora UDF the platfora-udf.jar is needed that is currently only
-        distributed by Platfora as a file that is part of their installation.
-        This file is normally installed at ${PLATFORA_HOME}/tools/udf/platfora-udf.jar
-
-        At the time of writing we were running Platfora 5.2.0 so we chose these values to deploy it:
-        group:  com.platfora.udf
-        artifact: platfora-udf
-        version: 5.2.0-LOCAL
-
-        By deliberately appending 'LOCAL' to the version we aim to avoid naming conflicts in case Platfora decides to put
-        this jar into a public repo like Maven central.
-
-        Installing it locally on your development system can be simply done like this:
-        ( See https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html )
-
-        mvn install:install-file \
-         -Dfile=platfora-udf.jar \
-         -DgroupId=com.platfora.udf \
-         -DartifactId=platfora-udf \
-         -Dversion=5.2.0-LOCAL \
-         -Dpackaging=jar
-
-        Installing it in your corporate maven repo will make things a lot easier for all developers:
-        https://maven.apache.org/guides/mini/guide-3rd-party-jars-remote.html
-        -->
-        <dependency>
-          <groupId>com.platfora.udf</groupId>
-          <artifactId>platfora-udf</artifactId>
-          <version>5.2.0-LOCAL</version>
-          <scope>provided</scope>
-        </dependency>
-      </dependencies>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.5.1</version>
-            <configuration>
-              <source>${jdkLevel}</source>
-              <target>${jdkLevel}</target>
-              <excludes>
-                <exclude>bla</exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-
-        </plugins>
-      </build>
-
-    </profile>
-
     <profile>
       <id>release</id>
       <build>
@@ -333,6 +114,48 @@
       </build>
     </profile>
   </profiles>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>${checkstyle-plugin.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>nl.basjes.parse.useragent</groupId>
+              <artifactId>devtools</artifactId>
+              <version>${project.version}</version>
+            </dependency>
+          </dependencies>
+          <configuration>
+            <consoleOutput>true</consoleOutput>
+            <configLocation>checkstyle/checkstyle.xml</configLocation>
+            <suppressionsLocation>checkstyle/suppressions.xml</suppressionsLocation>
+          </configuration>
+          <!-- Runs by default in the verify phase  (mvn verify or later in the build cycle)
+               the 'check' goal will fail the build if it does not pass.  "mvn checkstyle:check"
+               will do this alone, or "mvn checkstyle:checkstyle" will report but not break  -->
+          <executions>
+            <execution>
+              <id>checkstyle-check</id>
+              <phase>test</phase>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <modules>
+    <module>devtools</module>
+    <module>analyzer</module>
+    <module>webserver</module>
+  </modules>
 
   <licenses>
     <license>
