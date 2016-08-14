@@ -75,17 +75,4 @@ public class TestPerformance {
         LOG.info("Did {} in {} ns ({} sec)--> {}/sec", count, stop-start, (stop-start)/1000000000 , (1000000000*count)/(stop-start));
     }
 
-    @Test
-    public void ss() {
-        UserAgentAnalyzer uaa = new UserAgentAnalyzer();
-
-        UserAgent agent = uaa.parse("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11");
-
-        for (String fieldName: agent.getAvailableFieldNamesSorted()) {
-            System.out.println(fieldName + " = " + agent.getValue(fieldName));
-        }
-
-
-    }
-
 }

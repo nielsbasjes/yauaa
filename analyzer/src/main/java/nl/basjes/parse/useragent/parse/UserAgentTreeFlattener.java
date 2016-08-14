@@ -365,16 +365,6 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
         informSubstrings(ctx, "entry");
     }
 
-//    @Override
-//    public void enterNestedCommentBlock(UserAgentParser.NestedCommentBlockContext ctx) {
-//        inform(ctx, "comments");
-//    }
-//
-//    @Override
-//    public void enterNestedCommentEntry(NestedCommentEntryContext ctx) {
-//        informSubstrings(ctx, "entry");
-//    }
-
     private void informSubstrings(ParserRuleContext ctx, String name) {
         informSubstrings(ctx, name, 10);
     }
