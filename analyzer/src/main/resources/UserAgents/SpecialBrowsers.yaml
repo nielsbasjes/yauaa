@@ -355,7 +355,25 @@ config:
       AgentNameVersion                     : 'curl 7.19.4'
       AgentNameVersionMajor                : 'curl 7'
 
-
+- test:
+    input:
+      user_agent_string: 'IntelliJ IDEA/162.1447.26'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'IntelliJ IDEA'
+      AgentVersion                         : '162.1447.26'
+      AgentVersionMajor                    : '162'
+      AgentNameVersion                     : 'IntelliJ IDEA 162.1447.26'
+      AgentNameVersionMajor                : 'IntelliJ IDEA 162'
 
 # TODO: A lot of special browsers
 #  - matcher:
