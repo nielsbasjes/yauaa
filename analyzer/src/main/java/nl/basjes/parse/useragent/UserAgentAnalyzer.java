@@ -111,6 +111,9 @@ public class UserAgentAnalyzer extends Analyzer {
         doingOnlyASingleTest = false;
         int maxFilenameLength = 0;
 
+        if (resources.isEmpty()) {
+            throw new InvalidParserConfigurationException("Unable to find ANY config files");
+        }
 
         for (Map.Entry<String, Resource> resourceEntry : resources.entrySet()) {
             try {

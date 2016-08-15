@@ -92,11 +92,6 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             sb.append("|S|AA| --> S=Syntax Error, AA=Number of ambiguities during parse");
         }
 
-
-
-
-
-        // Really silly ... the next line is line 100 so the output will look better (all line numbers are 3 digits)...
         LOG.info("+===========================================================================================");
         LOG.info(sb.toString());
         LOG.info("+-------------------------------------------------------------------------------------------");

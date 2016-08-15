@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+
 <!--
   ~ Yet Another UserAgent Analyzer
   ~ Copyright (C) 2013-2016 Niels Basjes
@@ -24,13 +25,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <artifactId>yauaa-parent</artifactId>
+    <artifactId>yauaa-udf-parent</artifactId>
     <groupId>nl.basjes.parse.useragent</groupId>
     <version>0.5-SNAPSHOT</version>
   </parent>
-  <artifactId>yauaa</artifactId>
+  <artifactId>yauaa-pig</artifactId>
 
-  <name>YaUAa : - Analyzer</name>
+  <name>YaUAa : - - UDF Apache Pig</name>
   <description>A parsing an analyzing library to get information from a useragent string.</description>
 
   <url>http://github.com/nielsbasjes/yauaa</url>
@@ -47,33 +48,16 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.antlr</groupId>
-      <artifactId>antlr4-runtime</artifactId>
-      <version>${antlr.version}</version>
+      <groupId>nl.basjes.parse.useragent</groupId>
+      <artifactId>yauaa-rules</artifactId>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>args4j</groupId>
-      <artifactId>args4j</artifactId>
-        <version>2.33</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>4.3.2.RELEASE</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.4</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-collections4</artifactId>
-      <version>4.1</version>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -83,24 +67,20 @@
     </dependency>
 
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>1.7.21</version>
-      <scope>test</scope>
+      <groupId>org.apache.pig</groupId>
+      <artifactId>pig</artifactId>
+      <version>${pig.version}</version>
+      <classifier>h2</classifier>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.yaml</groupId>
-      <artifactId>snakeyaml</artifactId>
-      <version>1.10</version>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-client</artifactId>
+      <version>${hadoop.version}</version>
+      <scope>provided</scope>
     </dependency>
 
-    <dependency>
-      <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>devtools</artifactId>
-      <version>${project.version}</version>
-      <scope>test</scope>
-    </dependency>
 
   </dependencies>
 
@@ -113,6 +93,9 @@
         <configuration>
           <source>${jdkLevel}</source>
           <target>${jdkLevel}</target>
+          <excludes>
+            <exclude>**/platfora/*.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
 
