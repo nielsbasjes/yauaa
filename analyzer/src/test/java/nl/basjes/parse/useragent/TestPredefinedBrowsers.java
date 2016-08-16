@@ -19,6 +19,7 @@
 
 package nl.basjes.parse.useragent;
 
+import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.junit.Assert;
 import org.junit.Test;
 

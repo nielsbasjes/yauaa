@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+
+<!--
+  ~ Yet Another UserAgent Analyzer
+  ~ Copyright (C) 2013-2016 Niels Basjes
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>yauaa-udf-parent</artifactId>
+    <groupId>nl.basjes.parse.useragent</groupId>
+    <version>0.5-SNAPSHOT</version>
+  </parent>
+  <artifactId>yauaa-platfora</artifactId>
+
+  <name>YaUAa : - - UDF Platfora</name>
+  <description>A parsing an analyzing library to get information from a useragent string.</description>
+
+  <url>http://github.com/nielsbasjes/yauaa</url>
+
+  <properties>
+    <jdkLevel>1.7</jdkLevel>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <mainClass>nl.basjes.parse.useragent.Main</mainClass>
+
+    <antlr.version>4.5.3</antlr.version>
+    <hadoop.version>2.7.2</hadoop.version>
+    <pig.version>0.16.0</pig.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>nl.basjes.parse.useragent</groupId>
+      <artifactId>yauaa</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <!--
+    In order to build the Platfora UDF the platfora-udf.jar is needed that is currently only
+    distributed by Platfora as a file that is part of their installation.
+    This file is normally installed at ${PLATFORA_HOME}/tools/udf/platfora-udf.jar
+
+    At the time of writing we were running Platfora 5.2.0 so we chose these values to deploy it:
+    group:  com.platfora.udf
+    artifact: platfora-udf
+    version: 5.2.0-LOCAL
+
+    By deliberately appending 'LOCAL' to the version we aim to avoid naming conflicts in case Platfora decides to put
+    this jar into a public repo like Maven central.
+
+    Installing it locally on your development system can be simply done like this:
+    ( See https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html )
+
+    mvn install:install-file \
+     -Dfile=platfora-udf.jar \
+     -DgroupId=com.platfora.udf \
+     -DartifactId=platfora-udf \
+     -Dversion=5.2.0-LOCAL \
+     -Dpackaging=jar
+
+    Installing it in your corporate maven repo will make things a lot easier for all developers:
+    https://maven.apache.org/guides/mini/guide-3rd-party-jars-remote.html
+    -->
+    <dependency>
+      <groupId>com.platfora.udf</groupId>
+      <artifactId>platfora-udf</artifactId>
+      <version>5.2.0-LOCAL</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <licenses>
+    <license>
+      <name>GNU General Public License, Version 3</name>
+      <url>http://www.gnu.org/licenses/gpl-3.0.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Niels Basjes</name>
+      <email>niels@basjes.nl</email>
+      <roles>
+        <role>Architect</role>
+        <role>Developer</role>
+      </roles>
+      <timezone>Europe/Amsterdam</timezone>
+    </developer>
+  </developers>
+
+  <scm>
+    <developerConnection>scm:git:.</developerConnection>
+    <connection>https://github.com/nielsbasjes/yauaa.git</connection>
+    <url>https://github.com/nielsbasjes/yauaa</url>
+  </scm>
+
+</project>

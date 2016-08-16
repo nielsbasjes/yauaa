@@ -66,7 +66,7 @@ import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 
 public class UserAgentAnalyzer extends Analyzer {
 
-    private static final int INFORM_ACTIONS_HASHMAP_SIZE = 1000000;
+    private static final int INFORM_ACTIONS_HASHMAP_SIZE = 200000;
     private static final int PARSE_CACHE_SIZE = 10000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
@@ -111,6 +111,9 @@ public class UserAgentAnalyzer extends Analyzer {
         doingOnlyASingleTest = false;
         int maxFilenameLength = 0;
 
+        if (resources.isEmpty()) {
+            throw new InvalidParserConfigurationException("Unable to find ANY config files");
+        }
 
         for (Map.Entry<String, Resource> resourceEntry : resources.entrySet()) {
             try {
@@ -631,7 +634,7 @@ config:
 
     // ===============================================================================================================
 
-    static class GetAllPathsAnalyzer extends Analyzer {
+    public static class GetAllPathsAnalyzer extends Analyzer {
         List<String> values = new ArrayList<>(128);
         UserAgentTreeFlattener flattener;
 

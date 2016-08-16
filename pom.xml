@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <!--
   ~ Yet Another UserAgent Analyzer
   ~ Copyright (C) 2013-2016 Niels Basjes
@@ -29,7 +28,7 @@
   <groupId>nl.basjes.parse.useragent</groupId>
   <version>0.5-SNAPSHOT</version>
 
-  <name>YaUAa : Yet Another UserAgent Analyzer (parent-project)</name>
+  <name>YaUAa : Parent project</name>
   <description>A parsing an analyzing library to get information from a useragent string.</description>
 
   <url>http://github.com/nielsbasjes/yauaa</url>
@@ -44,6 +43,14 @@
     <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
   </properties>
 
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
   <profiles>
     <profile>
@@ -116,6 +123,18 @@
   </profiles>
 
   <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source>${jdkLevel}</source>
+          <target>${jdkLevel}</target>
+        </configuration>
+      </plugin>
+    </plugins>
+
     <pluginManagement>
       <plugins>
         <plugin>
@@ -154,7 +173,8 @@
   <modules>
     <module>devtools</module>
     <module>analyzer</module>
-    <module>webserver</module>
+    <module>udfs</module>
+    <module>webapp</module>
   </modules>
 
   <licenses>

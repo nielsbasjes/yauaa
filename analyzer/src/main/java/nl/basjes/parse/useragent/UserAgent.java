@@ -157,9 +157,10 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         this.debug = newDebug;
     }
 
-    class AgentField {
+    public class AgentField {
         String defaultValue;
         String value;
+
         long confidence;
 
         AgentField(String defaultValue) {
@@ -174,6 +175,10 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
 
         public String getValue() {
             return value;
+        }
+
+        public long getConfidence() {
+            return confidence;
         }
 
         public boolean setValue(AgentField field) {
@@ -304,12 +309,12 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         return field.getValue();
     }
 
-    public String getConfidence(String fieldName) {
+    public Long getConfidence(String fieldName) {
         AgentField field = allFields.get(fieldName);
         if (field == null) {
             return null;
         }
-        return field.getValue();
+        return field.getConfidence();
     }
 
     public String toYamlTestCase() {
