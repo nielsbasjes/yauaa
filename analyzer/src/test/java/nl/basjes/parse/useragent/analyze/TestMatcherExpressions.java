@@ -17,8 +17,9 @@
  *
  */
 
-package nl.basjes.parse.useragent;
+package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;

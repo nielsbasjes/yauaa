@@ -17,8 +17,10 @@
  *
  */
 
-package nl.basjes.parse.useragent;
+package nl.basjes.parse.useragent.debug;
 
+import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -219,8 +221,8 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                     // Actual value
                     UserAgent.AgentField agentField = agent.get(result.field);
                     if (agentField != null) {
-                        result.actual = agentField.value;
-                        result.confidence = agentField.confidence;
+                        result.actual = agentField.getValue();
+                        result.confidence = agentField.getConfidence();
                     }
                     if (result.actual == null) {
                         result.actual = "<<<null>>>";

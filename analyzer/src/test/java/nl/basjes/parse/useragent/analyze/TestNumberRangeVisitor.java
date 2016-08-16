@@ -17,7 +17,7 @@
  *
  */
 
-package nl.basjes.parse.useragent;
+package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.analyze.NumberRangeList;
 import org.junit.Test;

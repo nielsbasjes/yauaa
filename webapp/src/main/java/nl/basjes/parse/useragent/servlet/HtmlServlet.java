@@ -74,9 +74,7 @@ public class HtmlServlet extends HttpServlet {
                 out.println("<tr><td>"+escapeHtml4(fieldname)+"</td><td>"+escapeHtml4(userAgent.getValue(fieldname))+"</td></tr>");
             }
             out.println("</table>");
-
         } finally {
-
             long stop = System.nanoTime();
             double milliseconds = (stop-start)/1000000.0;
 
