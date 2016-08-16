@@ -5,23 +5,23 @@
 <web-app>
   <display-name>Yet Another Useragent Analyzer</display-name>
 
-  <filter>
-    <filter-name>DoSFilter</filter-name>
-    <filter-class>org.eclipse.jetty.servlets.DoSFilter</filter-class>
-    <init-param>
-      <param-name>maxRequestsPerSec</param-name>
-      <param-value>5</param-value>
-    </init-param>
-    <init-param>
-      <param-name>delayMs</param-name>
-      <param-value>100</param-value>
-    </init-param>
-  </filter>
+  <!--<filter>-->
+    <!--<filter-name>DoSFilter</filter-name>-->
+    <!--<filter-class>org.eclipse.jetty.servlets.DoSFilter</filter-class>-->
+    <!--<init-param>-->
+      <!--<param-name>maxRequestsPerSec</param-name>-->
+      <!--<param-value>5</param-value>-->
+    <!--</init-param>-->
+    <!--<init-param>-->
+      <!--<param-name>delayMs</param-name>-->
+      <!--<param-value>100</param-value>-->
+    <!--</init-param>-->
+  <!--</filter>-->
 
-  <filter-mapping>
-    <filter-name>DoSFilter</filter-name>
-    <servlet-name>HtmlServlet</servlet-name>
-  </filter-mapping>
+  <!--<filter-mapping>-->
+    <!--<filter-name>DoSFilter</filter-name>-->
+    <!--<servlet-name>HtmlServlet</servlet-name>-->
+  <!--</filter-mapping>-->
 
   <servlet>
     <servlet-name>HtmlServlet</servlet-name>
