@@ -42,7 +42,7 @@ public class HtmlServlet extends HttpServlet {
     }
 
     public synchronized void doGet(HttpServletRequest request,
-                      HttpServletResponse response)
+                                   HttpServletResponse response)
         throws ServletException, IOException {
         long start = System.nanoTime();
 
@@ -60,29 +60,39 @@ public class HtmlServlet extends HttpServlet {
 
             String userAgentString = request.getHeader("User-Agent");
             if (userAgentString == null) {
-                out.println("<b>The User-Agent header is missing</b>");
+                out.println("<b><u>The User-Agent header is missing</u></b>");
                 return;
             }
 
             UserAgent userAgent = uua.parse(userAgentString); // This class is NOT threadsafe/reentrant !
 
-            System.out.println("Useragent: " + userAgentString);
-            out.println("Received useragent header:" + escapeHtml4(userAgent.getUserAgentString()));
+//            System.out.println("Useragent: " + userAgentString);
+            out.println("Received useragent header: <h2>" + escapeHtml4(userAgent.getUserAgentString()) + "</h2>");
             out.println("<table border=1>");
             out.println("<tr><th>Field</th><th>Value</th></tr>");
             for (String fieldname : userAgent.getAvailableFieldNamesSorted()) {
-                out.println("<tr><td>"+escapeHtml4(fieldname)+"</td><td>"+escapeHtml4(userAgent.getValue(fieldname))+"</td></tr>");
+                out.println("<tr><td>" + camelStretcher(escapeHtml4(fieldname)) + "</td><td>" + escapeHtml4(userAgent.getValue(fieldname)) + "</td></tr>");
             }
             out.println("</table>");
         } finally {
             long stop = System.nanoTime();
-            double milliseconds = (stop-start)/1000000.0;
+            double milliseconds = (stop - start) / 1000000.0;
 
-            out.println("<u>Building this page took "+String.format(Locale.ENGLISH, "%3.3f", milliseconds)+" ms.</u><br/>");
+            out.println("<br/>");
+            out.println("<u>Building this page took " + String.format(Locale.ENGLISH, "%3.3f", milliseconds) + " ms.</u><br/>");
             out.println("</body>");
             out.println("</html>");
             out.close();
         }
     }
 
+    private String camelStretcher(String input) {
+        String result = input.replaceAll("([A-Z])"," $1");
+        result = result.replaceAll("Device","<b><u>Device</u></b>");
+        result = result.replaceAll("Operating System","<b><u>Operating System</u></b>");
+        result = result.replaceAll("Layout Engine","<b><u>Layout Engine</u></b>");
+        result = result.replaceAll("Agent","<b><u>Agent</u></b>");
+        return result;
+    }
+    
 }
