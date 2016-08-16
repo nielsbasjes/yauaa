@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Locale;
 
 import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
@@ -40,9 +41,11 @@ public class HtmlServlet extends HttpServlet {
         uua = new UserAgentAnalyzer();
     }
 
-    public void doGet(HttpServletRequest request,
+    public synchronized void doGet(HttpServletRequest request,
                       HttpServletResponse response)
         throws ServletException, IOException {
+        long start = System.nanoTime();
+
         PrintWriter out = response.getWriter();
         try {
             response.setContentType(MediaType.TEXT_HTML);
@@ -61,8 +64,7 @@ public class HtmlServlet extends HttpServlet {
                 return;
             }
 
-
-            UserAgent userAgent = parseSynchronized(userAgentString);
+            UserAgent userAgent = uua.parse(userAgentString); // This class is NOT threadsafe/reentrant !
 
             System.out.println("Useragent: " + userAgentString);
             out.println("Received useragent header:" + escapeHtml4(userAgent.getUserAgentString()));
@@ -74,18 +76,15 @@ public class HtmlServlet extends HttpServlet {
             out.println("</table>");
 
         } finally {
+
+            long stop = System.nanoTime();
+            double milliseconds = (stop-start)/1000000.0;
+
+            out.println("<u>Building this page took "+String.format(Locale.ENGLISH, "%3.3f", milliseconds)+" ms.</u><br/>");
             out.println("</body>");
             out.println("</html>");
             out.close();
         }
     }
 
-    private synchronized UserAgent parseSynchronized(String userAgentString) {
-        return uua.parse(userAgentString); // This class is NOT reentrant !
-    }
-
-
-    public void destroy() {
-        // do nothing.
-    }
 }
