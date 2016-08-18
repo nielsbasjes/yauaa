@@ -87,12 +87,12 @@ public class HtmlServlet extends HttpServlet {
     }
 
     private String camelStretcher(String input) {
-        String result = input.replaceAll("([A-Z])"," $1");
-        result = result.replaceAll("Device","<b><u>Device</u></b>");
-        result = result.replaceAll("Operating System","<b><u>Operating System</u></b>");
-        result = result.replaceAll("Layout Engine","<b><u>Layout Engine</u></b>");
-        result = result.replaceAll("Agent","<b><u>Agent</u></b>");
+        String result = input.replaceAll("([A-Z])", " $1");
+        result = result.replaceAll("Device", "<b><u>Device</u></b>");
+        result = result.replaceAll("Operating System", "<b><u>Operating System</u></b>");
+        result = result.replaceAll("Layout Engine", "<b><u>Layout Engine</u></b>");
+        result = result.replaceAll("Agent", "<b><u>Agent</u></b>");
         return result;
     }
-    
+
 }
