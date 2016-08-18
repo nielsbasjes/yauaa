@@ -49,6 +49,14 @@ is converted into this set of fields:
 |  **Agent**NameVersion                 | 'Chrome 51.0.2704.81'  |
 |  **Agent**NameVersionMajor            | 'Chrome 51'            |
 
+Performance
+===========
+On my i7 system I see a speed ranging from 500 to 4000 useragents per second (depending on the length and ambiguities in the useragent).
+On average the speed is above 1000 per second or <1ms each.
+A LRU cache is in place that does over 1M per second if they are in the cache.
+
+In the canonical usecase of analysing clickstream data you will see a <1ms hit per visitor (or better: per new non-cached useragent)
+and for all the other clicks the values are retrieved from this cache at close to 0 time.
 
 Using the analyzer
 ==================
@@ -75,6 +83,20 @@ and in your application you can use it as simple as this
         }
 
 Note that not all fields are available after every parse. So be prepared to receive a 'null' if you extract a specific name.
+
+**IMPORTANT: This library is NOT threadsafe/reentrant!**
+So if you need it in a multi threaded situation you either need to synchronize using it or create a separate instance per thread.
+
+# User Defined Functions
+Several external computation systems support the concept of a User Defined Function (UDF).
+A UDF is simply a way of making functionality (in this can the calculation of the Financial reporting periods
+available in such a system.
+
+For two such systems Apache Pig and Platfora (both are used within bol.com (where I work)) we have written such
+a UDF which are both part of this project.
+
+* [Apache Pig](README-Pig.md)
+* [Platfora](README-Platfora.md)
 
 Parsing Useragents
 ==================
@@ -151,148 +173,7 @@ points to all the applicable matcher actions. As a consequence
   - the startup is "slow"
   - the memory footprint is pretty big due to the number of matchers, the size of the hashmap and the cache of the parsed useragents.
 
-Performance
-===========
-On my i7 system I see a speed ranging from 500 to 4000 useragents per second (depending on the length and ambiguities in the useragent).
-On average the speed is above 1000 per second or <1ms each.
-A LRU cache is in place that does over 1M per second if they are in the cache.
-
-In the canonical usecase of analysing clickstream data you will see a <1ms hit per visitor (or better: per new non-cached useragent)
-and for all the other clicks the values are retrieved from this cache at close to 0 time.
-
 -------
-
-# User Defined Functions
-## Introduction
-Several external computation systems support the concept of a User Defined Function (UDF).
-A UDF is simply a way of making functionality (in this can the calculation of the Financial reporting periods
-available in such a system.
-
-For two such systems Apache Pig and Platfora (both are used within bol.com (where I work)) we have written such
-a UDF which are both part of this project.
-
--------
-
-## Apache Pig
-
-### Getting the UDF
-You can get the prebuild UDF from maven central.
-If you use a maven based project simply add this dependency
-
-    <dependency>
-      <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa</artifactId>
-      <classifier>udf</classifier>
-      <version>0.4</version>
-    </dependency>
-
-### Building
-Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:
-
-    mvn clean package
-
-### Example usage
-    -- Import the UDF jar file so this script can use it
-    REGISTER ../target/*-udf.jar;
-
-    -- Define a more readable name for the UDF
-    DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent;
-
-    rawData =
-        LOAD 'testcases.txt'
-        USING PigStorage()
-        AS  ( useragent: chararray );
-
-    UaData =
-        FOREACH  rawData
-        GENERATE useragent,
-                 -- Do NOT specify a type for this field as the UDF provides the definitions
-                 ParseUserAgent(useragent) AS parsedAgent;
--------
-
-## Platfora
-### Getting the UDF
-You can get the prebuild UDF from maven central.
-If you use a maven based project simply add this dependency
-
-    <dependency>
-      <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa</artifactId>
-      <classifier>udf</classifier>
-      <version>0.4</version>
-    </dependency>
-
-Or simply download it via this URL:
-http://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa/
-Then go the the right version and download the file named yauaa-*version*-udf.jar
-
-### Example usage
-Once installed you will see two new functions that can be used in computed fields:
-
-To get all fields from the analysis as a Json:
-
-    ANALYZE_USERAGENT_JSON( useragent )
-
-To get a single specific field from the analysis:
-
-    ANALYZE_USERAGENT( useragent , "AgentName" )
-
-Note that due to caching in the parser itself the performance of the latter is expected (not tested yet) to be slightly faster.
-
-### Building
-In order to build the Platfora UDF the platfora-udf.jar is needed that is currently only distributed by Platfora as
-a file that is part of their installation. This file is normally installed at ${PLATFORA_HOME}/tools/udf/platfora-udf.jar
-
-So to build this UDF you need the platfora-udf.jar in a place where maven can find it.
-
-At the time of writing we were running Platfora 5.2.0 so we chose these values to deploy it as:
-
-    group:    com.platfora.udf
-    artifact: platfora-udf
-    version:  5.2.0-LOCAL
-
-By deliberately appending 'LOCAL' to the version we aim to avoid naming conflicts in case Platfora decides to put
-this jar into a public repo like Maven central.
-
-Installing it locally on your development system can be simply done like this:
-( See https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html )
-
-    mvn install:install-file \
-        -Dfile=platfora-udf.jar \
-        -DgroupId=com.platfora.udf \
-        -DartifactId=platfora-udf \
-        -Dversion=5.2.0-LOCAL \
-        -Dpackaging=jar
-
-Installing it in your corporate maven repo will make things a lot easier for all developers:
-https://maven.apache.org/guides/mini/guide-3rd-party-jars-remote.html
-
-Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:
-
-    mvn clean package -Pplatfora
-
-The ./target/yauaa-<version>-udf.jar file will now include the both the Apache Pig and Platfora udfs and also
-the file udf-classes.txt to aid in installing it in Platfora.
-
-### Installing
-See http://documentation.platfora.com/webdocs/#reference/expression_language/udf/install_udf_class.html
-
-So your IT operations needs a list of all classes that must be registered with Platfora as a UDF
-As part of the build a file called udf-classes.txt is generated that contains these classnames.
-
-So with even multiple UDFs installed (that follow this pattern!!) your IT-operations can now do:
-
-    CLASS_LIST=$(
-        for UDF_JAR in ${PLATFORA_DATA_DIR}/extlib/*jar ; \
-        do \
-            unzip -p ${UDF_JAR} udf-classes.txt ;\
-        done | sort -u | \
-        while read class ; do echo -n "${class}," ; done | sed 's/,$//'
-        )
-
-    ${PLATFORA_HOME}/bin/platfora-config set --key platfora.udf.class.names --value ${CLASS_LIST}
-
-    ${PLATFORA_HOME}/bin/platfora-services restart
 
 
 License
