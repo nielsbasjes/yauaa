@@ -71,7 +71,10 @@ public class HtmlServlet extends HttpServlet {
             out.println("<table border=1>");
             out.println("<tr><th>Field</th><th>Value</th></tr>");
             for (String fieldname : userAgent.getAvailableFieldNamesSorted()) {
-                out.println("<tr><td>" + camelStretcher(escapeHtml4(fieldname)) + "</td><td>" + escapeHtml4(userAgent.getValue(fieldname)) + "</td></tr>");
+                out.println("<tr>" +
+                    "<td>" + camelStretcher(escapeHtml4(fieldname)) + "</td>" +
+                    "<td>" + escapeHtml4(userAgent.getValue(fieldname)) + "</td>" +
+                    "</tr>");
             }
             out.println("</table>");
         } finally {
