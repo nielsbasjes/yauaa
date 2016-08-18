@@ -1,7 +1,7 @@
 -- This is a very simple demo Pig script that has only one purpose: Show how you can use the provided UDF.
 
 -- Import the UDF jar file so this script can use it
-REGISTER ../target/*-udf.jar;
+REGISTER ../../target/udfs/pig/*-udf.jar;
 
 -- Define a more readable name for the UDF
 DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent;
