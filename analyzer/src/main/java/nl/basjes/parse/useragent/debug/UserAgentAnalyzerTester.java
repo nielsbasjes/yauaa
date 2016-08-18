@@ -89,7 +89,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             sb.append(' ');
         }
         if (measureSpeed) {
-            sb.append("|S|AA|  PPS| --> S=Syntax Error, AA=Number of ambiguities during parse, PPS=parses/sec");
+            sb.append("|S|AA|  PPS| msPP|--> S=Syntax Error, AA=Number of ambiguities during parse, PPS=parses/sec, msPP=milliseconds per parse");
         } else {
             sb.append("|S|AA| --> S=Syntax Error, AA=Number of ambiguities during parse");
         }
@@ -170,6 +170,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
             if (measureSpeed) {
                 sb.append('|').append(String.format("%5d", measuredSpeed));
+                sb.append('|').append(String.format("%5.2f", 1000.0/measuredSpeed));
             }
 
             sb.append("| ").append(testName);
