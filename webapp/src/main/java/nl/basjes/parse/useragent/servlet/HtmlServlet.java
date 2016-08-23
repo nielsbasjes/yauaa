@@ -35,7 +35,7 @@ import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
 public class HtmlServlet extends HttpServlet {
 
-    private UserAgentAnalyzer uua;
+    protected static UserAgentAnalyzer uua;
 
     public void init() throws ServletException {
         uua = new UserAgentAnalyzer();
