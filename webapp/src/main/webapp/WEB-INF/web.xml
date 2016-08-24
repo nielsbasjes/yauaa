@@ -6,23 +6,17 @@
   <display-name>Yet Another Useragent Analyzer</display-name>
 
   <servlet>
-    <servlet-name>HtmlServlet</servlet-name>
-    <servlet-class>nl.basjes.parse.useragent.servlet.HtmlServlet</servlet-class>
+    <servlet-name>jersey-serlvet</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>com.sun.jersey.config.property.packages</param-name>
+      <param-value>nl.basjes.parse.useragent.servlet</param-value>
+    </init-param>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>HtmlServlet</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>JSonServlet</servlet-name>
-    <servlet-class>nl.basjes.parse.useragent.servlet.JSonServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>JSonServlet</servlet-name>
-    <url-pattern>/json</url-pattern>
+    <servlet-name>jersey-serlvet</servlet-name>
+    <url-pattern>/*</url-pattern>
   </servlet-mapping>
 
 </web-app>
