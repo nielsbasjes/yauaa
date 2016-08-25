@@ -64,8 +64,8 @@ import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
 public class UserAgentTreeFlattener extends UserAgentBaseListener {
-    private ParseTreeWalker walker;
-    private Analyzer analyzer;
+    private final ParseTreeWalker walker;
+    private final Analyzer analyzer;
 
     enum PathType {
         CHILD,
@@ -77,7 +77,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
         long child = 0;
         long version = 0;
         long comment = 0;
-        String name;
+        final String name;
         String path;
         ParseTree ctx = null;
 

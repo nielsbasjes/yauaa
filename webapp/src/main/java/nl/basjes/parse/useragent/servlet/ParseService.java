@@ -39,10 +39,10 @@ import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 @Path("/")
 public class ParseService {
 
-    private static UserAgentAnalyzer uua = new UserAgentAnalyzer();
+    private static final UserAgentAnalyzer USER_AGENT_ANALYZER = new UserAgentAnalyzer();
 
     protected synchronized UserAgent parse(String userAgentString) {
-        return uua.parse(userAgentString); // This class and method are NOT threadsafe/reentrant !
+        return USER_AGENT_ANALYZER.parse(userAgentString); // This class and method are NOT threadsafe/reentrant !
     }
 
     @GET
@@ -65,7 +65,7 @@ public class ParseService {
     @Produces(MediaType.TEXT_HTML)
     public Response getHtmlPath(@Context UriInfo uriInfo) {
         // PathParams go wrong with ';' and '/' in it. So we just get the entire Path and extract the stuff ourselves
-        String userAgentString = uriInfo.getPath().replaceAll("^parse/","");
+        String userAgentString = uriInfo.getPath().replaceAll("^parse/", "");
         return doHTML(userAgentString);
     }
 
@@ -89,7 +89,7 @@ public class ParseService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJSonPath(@Context UriInfo uriInfo) {
         // PathParams go wrong with ';' and '/' in it. So we just get the entire Path and extract the stuff ourselves
-        String userAgentString = uriInfo.getPath().replaceAll("^json/parse/","");
+        String userAgentString = uriInfo.getPath().replaceAll("^json/parse/", "");
         return doJSon(userAgentString);
     }
 
@@ -120,13 +120,13 @@ public class ParseService {
             UserAgent userAgent = parse(userAgentString);
 
 //            System.sb.append("Useragent: " + userAgentString);
-            sb.append("Received useragent header: <h2>" ).append( escapeHtml4(userAgent.getUserAgentString()) ).append( "</h2>");
+            sb.append("Received useragent header: <h2>").append(escapeHtml4(userAgent.getUserAgentString())).append("</h2>");
             sb.append("<table border=1>");
             sb.append("<tr><th>Field</th><th>Value</th></tr>");
             for (String fieldname : userAgent.getAvailableFieldNamesSorted()) {
-                sb.append("<tr>" ).append(
-                    "<td>" ).append( camelStretcher(escapeHtml4(fieldname)) ).append( "</td>" ).append(
-                    "<td>" ).append( escapeHtml4(userAgent.getValue(fieldname)) ).append( "</td>" ).append(
+                sb.append("<tr>").append(
+                    "<td>").append(camelStretcher(escapeHtml4(fieldname))).append("</td>").append(
+                    "<td>").append(escapeHtml4(userAgent.getValue(fieldname))).append("</td>").append(
                     "</tr>");
             }
             sb.append("</table>");

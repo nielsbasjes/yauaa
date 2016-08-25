@@ -69,8 +69,8 @@ import java.util.Map;
 public class WalkList {
     private static final Logger LOG = LoggerFactory.getLogger(WalkList.class);
 
-    private Map<String, Map<String, String>> lookups;
-    private List<Step> steps = new ArrayList<>();
+    private final Map<String, Map<String, String>> lookups;
+    private final List<Step> steps = new ArrayList<>();
 
     private boolean verbose;
 
@@ -146,8 +146,6 @@ public class WalkList {
     }
 
     private class WalkListBuilder extends UserAgentTreeWalkerBaseVisitor<Void> {
-
-        private static final boolean COMPARE_CASE_INSENSITIVE = false;
 
         // Because we are jumping in 'mid way' we need to skip creating steps until that point.
         boolean foundHashEntryPoint = false;

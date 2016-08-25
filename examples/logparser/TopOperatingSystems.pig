@@ -22,7 +22,7 @@ CountsPerOSName =
 SumsPerOSName =
     FOREACH  CountsPerOSName
     GENERATE SUM(OSNameCount.clicks) AS clicks,
-             group                       AS useragent;
+             group                   AS useragent;
 
 DUMP SumsPerOSName;
 

@@ -85,7 +85,7 @@ public final class EvilManualUseragentStringHacks {
         //startIdx and idxSearchFor delimit various chunks of input; these
         //chunks always end where searchFor begins
         int startIdx = 0;
-        int idxSearchFor = 0;
+        int idxSearchFor;
         while ((idxSearchFor = input.indexOf(searchFor, startIdx)) >= 0) {
             //grab a part of input which does not include searchFor
             result.append(input.substring(startIdx, idxSearchFor));

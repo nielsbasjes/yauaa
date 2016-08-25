@@ -22,8 +22,8 @@ package nl.basjes.parse.useragent.analyze;
 import java.util.AbstractList;
 
 public class NumberRangeList extends AbstractList<Integer> {
-    private int start;
-    private int end;
+    private final int start;
+    private final int end;
 
     public NumberRangeList(int start, int end) {
         this.start = start;

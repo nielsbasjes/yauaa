@@ -29,7 +29,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepFirstWords extends Step {
 
-    private int numberOfWords;
+    private final int numberOfWords;
 
     public StepFirstWords(Token numberOfWords) {
         this.numberOfWords = tokenToInteger(numberOfWords);

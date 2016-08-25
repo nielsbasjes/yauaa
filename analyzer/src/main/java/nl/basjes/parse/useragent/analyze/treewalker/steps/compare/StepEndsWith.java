@@ -24,7 +24,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepEndsWith extends Step {
 
-    private String desiredValue;
+    private final String desiredValue;
 
     public StepEndsWith(String desiredValue) {
         this.desiredValue = desiredValue.toLowerCase();

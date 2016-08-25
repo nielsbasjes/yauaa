@@ -24,7 +24,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepFixedString extends Step {
 
-    private String fixedString;
+    private final String fixedString;
 
     public StepFixedString(String fixedString) {
         this.fixedString = fixedString;

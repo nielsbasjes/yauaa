@@ -24,7 +24,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepNotEquals extends Step {
 
-    private String desiredValue;
+    private final String desiredValue;
 
     public StepNotEquals(String desiredValue) {
         this.desiredValue = desiredValue.toLowerCase();

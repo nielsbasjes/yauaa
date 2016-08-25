@@ -22,7 +22,6 @@ package nl.basjes.parse.useragent.dissector;
 import nl.basjes.parse.core.Dissector;
 import nl.basjes.parse.core.Field;
 import nl.basjes.parse.core.Parser;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -31,11 +30,6 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 public class TestDissectUserAgent {
-    @Before
-    public void setUp() throws Exception {
-
-    }
-
     public class TestRecordUserAgent {
 
         private final Map<String, String> results = new HashMap<>(32);

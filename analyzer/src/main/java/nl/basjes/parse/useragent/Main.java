@@ -223,39 +223,39 @@ public final class Main {
         System.exit(returnValue);
     }
 
-    @SuppressWarnings({"PMD.ImmutableField"})
+    @SuppressWarnings({"PMD.ImmutableField", "CanBeFinal"})
     private static class CommandOptions {
-        @Option(name = "-ua", usage = "A single useragent string", required = false, forbids = {"-in"})
+        @Option(name = "-ua", usage = "A single useragent string", forbids = {"-in"})
         private String useragent = null;
 
-        @Option(name = "-in", usage = "Location of input file", required = false, forbids = {"-ue"})
+        @Option(name = "-in", usage = "Location of input file", forbids = {"-ue"})
         private String inFile = null;
 
 //        @Option(name = "-testAll", usage = "Run the tests against all built in testcases", required = false)
 //        private boolean testAll = false;
 
-        @Option(name = "-yaml", usage = "Output in yaml testcase format", required = false, forbids = {"-csv", "-json"})
+        @Option(name = "-yaml", usage = "Output in yaml testcase format", forbids = {"-csv", "-json"})
         private boolean yamlFormat = false;
 
-        @Option(name = "-csv", usage = "Output in csv format", required = false, forbids = {"-yaml", "-json"})
+        @Option(name = "-csv", usage = "Output in csv format", forbids = {"-yaml", "-json"})
         private boolean csvFormat = false;
 
-        @Option(name = "-json", usage = "Output in json format", required = false, forbids = {"-yaml", "-csv"})
+        @Option(name = "-json", usage = "Output in json format", forbids = {"-yaml", "-csv"})
         private boolean jsonFormat = false;
 
-        @Option(name = "-bad", usage = "Output only cases that have a problem", required = false)
+        @Option(name = "-bad", usage = "Output only cases that have a problem")
         private boolean outputOnlyBadResults = false;
 
-        @Option(name = "-debug", usage = "Set to enable debugging.", required = false)
+        @Option(name = "-debug", usage = "Set to enable debugging.")
         private boolean debug = false;
 //
 //        @Option(name = "-stats", usage = "Set to enable statistics.", required = false)
 //        private boolean stats = false;
 
-        @Option(name = "-fullFlatten", usage = "Set to flatten each parsed agent string.", required = false)
+        @Option(name = "-fullFlatten", usage = "Set to flatten each parsed agent string.")
         private boolean fullFlatten = false;
 
-        @Option(name = "-matchedFlatten", usage = "Set to get the flattened values that were relevant for the Matchers.", required = false)
+        @Option(name = "-matchedFlatten", usage = "Set to get the flattened values that were relevant for the Matchers.")
         private boolean matchedFlatten = false;
 
     }

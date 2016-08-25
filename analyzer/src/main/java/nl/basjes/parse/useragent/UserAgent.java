@@ -158,7 +158,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
     }
 
     public class AgentField {
-        String defaultValue;
+        final String defaultValue;
         String value;
 
         long confidence;
@@ -200,7 +200,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         }
     }
 
-    private Map<String, AgentField> allFields = new HashMap<>(32);
+    private final Map<String, AgentField> allFields = new HashMap<>(32);
 
 
     public UserAgent() {

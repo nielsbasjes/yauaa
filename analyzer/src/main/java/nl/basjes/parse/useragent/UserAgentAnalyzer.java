@@ -72,19 +72,19 @@ public class UserAgentAnalyzer extends Analyzer {
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
     private List<Matcher> allMatchers;
     private Map<String, Set<MatcherAction>> informMatcherActions;
-    private Map<String, List<Map<String, List<String>>>> matcherConfigs = new HashMap<>(64);
+    private final Map<String, List<Map<String, List<String>>>> matcherConfigs = new HashMap<>(64);
 
     private boolean doingOnlyASingleTest = false;
 
 
-    protected List<Map<String, Map<String, String>>> testCases          = new ArrayList<>(2048);
+    protected final List<Map<String, Map<String, String>>> testCases          = new ArrayList<>(2048);
     private Map<String, Map<String, String>> lookups                    = new HashMap<>(128);
 
     private UserAgentTreeFlattener flattener;
 
     private Yaml yaml;
 
-    private LRUMap<String, UserAgent> parseCache = new LRUMap<>(PARSE_CACHE_SIZE);
+    private final LRUMap<String, UserAgent> parseCache = new LRUMap<>(PARSE_CACHE_SIZE);
 
     public UserAgentAnalyzer() {
         this("classpath*:UserAgents/**/*.yaml");
@@ -446,7 +446,7 @@ config:
             matcher.reset(setVerboseTemporarily);
         }
 
-        flattener.parse(userAgent);
+        userAgent = flattener.parse(userAgent);
 
         // Fire all Analyzers
         for (Matcher matcher : allMatchers) {
@@ -635,10 +635,10 @@ config:
     // ===============================================================================================================
 
     public static class GetAllPathsAnalyzer extends Analyzer {
-        List<String> values = new ArrayList<>(128);
-        UserAgentTreeFlattener flattener;
+        final List<String> values = new ArrayList<>(128);
+        final UserAgentTreeFlattener flattener;
 
-        private UserAgent result;
+        private final UserAgent result;
 
         GetAllPathsAnalyzer(String useragent) {
             flattener = new UserAgentTreeFlattener(this);

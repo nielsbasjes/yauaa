@@ -13,7 +13,7 @@ public class DebugUserAgent extends UserAgent {
 
     private static final Logger LOG = LoggerFactory.getLogger(DebugUserAgent.class);
 
-    List<UserAgent> appliedMatcherResults = new ArrayList<>(32);
+    final List<UserAgent> appliedMatcherResults = new ArrayList<>(32);
 
     @Override
     public void set(UserAgent newValuesUserAgent) {
@@ -25,11 +25,6 @@ public class DebugUserAgent extends UserAgent {
     public void reset() {
         appliedMatcherResults.clear();
         super.reset();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 
     public String toMatchTrace() {

@@ -72,7 +72,7 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
 
     @Override
     public List<FuncSpec> getArgToFuncMapping() throws FrontendException {
-        List<FuncSpec> funcList = new ArrayList<FuncSpec>();
+        List<FuncSpec> funcList = new ArrayList<>();
         Schema s = new Schema();
         s.add(new Schema.FieldSchema(null, DataType.CHARARRAY));
         funcList.add(new FuncSpec(this.getClass().getName(), s));

@@ -65,10 +65,10 @@ import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.NumberRangeCon
 
 public class StepDown extends Step {
 
-    private int start;
-    private int end;
-    private String name;
-    private UserAgentGetChildrenVisitor userAgentGetChildrenVisitor = new UserAgentGetChildrenVisitor();
+    private final int start;
+    private final int end;
+    private final String name;
+    private final UserAgentGetChildrenVisitor userAgentGetChildrenVisitor = new UserAgentGetChildrenVisitor();
 
     public StepDown(NumberRangeContext numberRange, String name) {
         this(NumberRangeVisitor.getList(numberRange), name);

@@ -32,7 +32,7 @@ import static org.junit.Assert.fail;
 
 public class TestUserAgentFlattening {
 
-    private Logger LOG = LoggerFactory.getLogger(TestUserAgentFlattening.class);
+    private final Logger LOG = LoggerFactory.getLogger(TestUserAgentFlattening.class);
 
     @Test
     public void testFlatteningProduct() throws Exception {

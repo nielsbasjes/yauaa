@@ -26,11 +26,11 @@ import org.slf4j.LoggerFactory;
 public class MatcherExtractAction extends MatcherAction {
     private static final Logger LOG = LoggerFactory.getLogger(MatcherExtractAction.class);
 
-    private String attribute;
-    private long confidence;
+    private final String attribute;
+    private final long confidence;
     private String foundValue = null;
     private String fixedValue = null;
-    private String expression;
+    private final String expression;
 
     public MatcherExtractAction(String attribute, long confidence, String config, Matcher matcher) {
         this.attribute = attribute;
@@ -62,7 +62,7 @@ public class MatcherExtractAction extends MatcherAction {
             LOG.info("INFO  : EXTRACT ({}): {}", attribute, key);
             LOG.info("NEED  : EXTRACT ({}): {}", attribute, getMatchExpression());
         }
-        /**
+        /*
          * We know the tree is parsed from left to right.
          * This is also the priority in the fields.
          * So we always use the first value we find.

@@ -26,8 +26,8 @@ import java.util.Map;
 
 public class StepLookup extends Step {
 
-    private String lookupName;
-    private Map<String, String> lookup;
+    private final String lookupName;
+    private final Map<String, String> lookup;
 
     public StepLookup(String lookupName, Map<String, String> lookup) {
         this.lookupName = lookupName;

@@ -67,7 +67,7 @@ public abstract class MatcherAction {
 
     private String matchExpression;
     private MatcherContext requiredPattern;
-    private NumberRangeVisitor numberRangeVisitor = new NumberRangeVisitor();
+    private final NumberRangeVisitor numberRangeVisitor = new NumberRangeVisitor();
     private TreeExpressionEvaluator evaluator;
 
     TreeExpressionEvaluator getEvaluatorForUnitTesting() {
@@ -77,9 +77,9 @@ public abstract class MatcherAction {
     private static final Logger LOG = LoggerFactory.getLogger(MatcherAction.class);
 
     public class Match {
-        String key;
-        String value;
-        ParseTree result;
+        final String key;
+        final String value;
+        final ParseTree result;
 
         public Match(String key, String value, ParseTree result) {
             this.key = key;

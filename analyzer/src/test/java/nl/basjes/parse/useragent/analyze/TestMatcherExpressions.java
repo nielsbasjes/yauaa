@@ -22,12 +22,8 @@ package nl.basjes.parse.useragent.analyze;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.junit.Assert;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class TestMatcherExpressions {
-    private static final Logger LOG = LoggerFactory.getLogger(TestMatcherExpressions.class);
-
 //    @Test
 //    public void runSingleMatcherFile() {
 //        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:**/Linux.yaml");

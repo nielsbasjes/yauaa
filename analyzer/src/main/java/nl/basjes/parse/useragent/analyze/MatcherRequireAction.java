@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 public class MatcherRequireAction extends MatcherAction {
     private static final Logger LOG = LoggerFactory.getLogger(MatcherRequireAction.class);
-    private String expression;
+    private final String expression;
 
     public MatcherRequireAction(String config, Matcher matcher) {
         expression = config;

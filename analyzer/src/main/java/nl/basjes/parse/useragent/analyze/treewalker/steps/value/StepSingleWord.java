@@ -28,7 +28,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepSingleWord extends Step {
 
-    private int wordNumber;
+    private final int wordNumber;
 
     public StepSingleWord(Token wordNumber) {
         this.wordNumber = tokenToInteger(wordNumber);

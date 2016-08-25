@@ -32,8 +32,6 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSingleWord;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -213,9 +211,7 @@ public class TestTreewalkerParsing {
 
 
     private static class TestMatcher extends Matcher {
-        private static final Logger LOG = LoggerFactory.getLogger(TestMatcher.class);
-
-        List<String> reveicedValues = new ArrayList<>(128);
+        final List<String> reveicedValues = new ArrayList<>(128);
 
         TestMatcher(Analyzer analyzer, Map<String, Map<String, String>> lookups) {
             super(analyzer, lookups);
@@ -228,17 +224,7 @@ public class TestTreewalkerParsing {
 
         @Override
         public void analyze(UserAgent userAgent) {
-            return; // Don't
-        }
-
-        @Override
-        public boolean getVerbose() {
-            return super.getVerbose();
-        }
-
-        @Override
-        public void reset(boolean setVerboseTemporarily) {
-            super.reset(setVerboseTemporarily);
+            // Do nothing
         }
     }
  }

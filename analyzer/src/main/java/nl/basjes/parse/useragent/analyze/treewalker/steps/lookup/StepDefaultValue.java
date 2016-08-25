@@ -24,7 +24,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepDefaultValue extends Step {
 
-    private String defaultValue;
+    private final String defaultValue;
 
     public StepDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;

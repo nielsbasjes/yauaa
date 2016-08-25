@@ -19,7 +19,6 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.analyze.NumberRangeList;
 import org.junit.Test;
 
 import java.util.List;
@@ -28,6 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
 public class TestNumberRangeVisitor {
     @Test
     public void rangeSingleValue() {

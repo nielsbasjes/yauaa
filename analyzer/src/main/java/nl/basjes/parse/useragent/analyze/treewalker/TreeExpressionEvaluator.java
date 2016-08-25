@@ -41,10 +41,10 @@ public class TreeExpressionEvaluator {
     private static final Logger LOG = LoggerFactory.getLogger(TreeExpressionEvaluator.class);
 
     private boolean verbose = false;
-    private MatcherContext requiredPattern;
-    private Map<String, Map<String, String>> lookups;
+    private final MatcherContext requiredPattern;
+    private final Map<String, Map<String, String>> lookups;
 
-    private WalkList walkList;
+    private final WalkList walkList;
 
     public TreeExpressionEvaluator(MatcherContext requiredPattern, Map<String, Map<String, String>> lookups) {
         this.requiredPattern = requiredPattern;

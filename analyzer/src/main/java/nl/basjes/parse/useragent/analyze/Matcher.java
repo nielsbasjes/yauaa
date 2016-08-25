@@ -32,10 +32,10 @@ import java.util.TreeSet;
 public class Matcher {
     private static final Logger LOG = LoggerFactory.getLogger(Matcher.class);
 
-    private Analyzer analyzer;
-    private List<MatcherAction> dynamicActions;
-    private List<MatcherAction> fixedStringActions;
-    Map<String, Map<String, String>> lookups;
+    private final Analyzer analyzer;
+    private final List<MatcherAction> dynamicActions;
+    private final List<MatcherAction> fixedStringActions;
+    final Map<String, Map<String, String>> lookups;
     private boolean verbose;
 
     // Package private constructor for testing purposes only
@@ -133,7 +133,7 @@ public class Matcher {
         analyzer.informMeAbout(matcherAction, keyPattern);
     }
 
-    private UserAgent newValuesUserAgent = new UserAgent("dummy");
+    private final UserAgent newValuesUserAgent = new UserAgent("dummy");
 
     /**
      * Fires all matcher actions.
