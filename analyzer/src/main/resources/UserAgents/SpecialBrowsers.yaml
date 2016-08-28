@@ -375,6 +375,178 @@ config:
       AgentNameVersion                     : 'IntelliJ IDEA 162.1447.26'
       AgentNameVersionMajor                : 'IntelliJ IDEA 162'
 
+
+# It turns out that only in very few cases the value after "Safari" is the name of the 'real browser'
+# In most scenarios it is a plugin, toolbar or the name of the oeprating system that appears there.
+- matcher:
+    extract:
+    - 'AgentClass            : 2019:"Browser"'
+    - 'AgentName             : 2019:"Puffin"'
+    - 'AgentVersion          : 2019:agent.product.(1)name="Puffin"^.version'
+
+- matcher:
+    extract:
+    - 'AgentClass            : 2019:"Browser"'
+    - 'AgentName             : 2019:"AvantBrowser"'
+    - 'AgentVersion          : 2019:agent.product.(1)name="AvantBrowser"^.version'
+
+- matcher:
+    extract:
+    - 'AgentClass            : 2019:"Browser"'
+    - 'AgentName             : 2019:"CoolNovo"'
+    - 'AgentVersion          : 2019:agent.product.(1)name="CoolNovo"^.version'
+
+# Puffin on an Android 6 phone is incorrectly reported as a Linux desktop
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux x86_64; en-gb) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.114 Safari/537.36 Puffin/4.8.0.2790AP'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceCpu                            : 'Intel x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Puffin'
+      AgentVersion                         : '4.8.0.2790AP'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Puffin 4.8.0.2790AP'
+      AgentNameVersionMajor                : 'Puffin 4'
+      AgentLanguage                        : 'English (United Kingdom)'
+      AgentLanguageCode                    : 'en-gb'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.83 Safari/537.1 AvantBrowser/Tri-Core'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.1'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AvantBrowser'
+      AgentVersion                         : 'Tri-Core'
+      AgentVersionMajor                    : 'Tri-Core'
+      AgentNameVersion                     : 'AvantBrowser Tri-Core'
+      AgentNameVersionMajor                : 'AvantBrowser Tri-Core'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.152 Safari/535.19 CoolNovo/2.0.3.55'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '535.19'
+      LayoutEngineVersionMajor             : '535'
+      LayoutEngineNameVersion              : 'AppleWebKit 535.19'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'CoolNovo'
+      AgentVersion                         : '2.0.3.55'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'CoolNovo 2.0.3.55'
+      AgentNameVersionMajor                : 'CoolNovo 2'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.94 Safari/537.4 AlexaToolbar/alxg-3.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.8.2'
+      OperatingSystemNameVersion           : 'Mac OS X 10.8.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.4'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '22.0.1229.94'
+      AgentVersionMajor                    : '22'
+      AgentNameVersion                     : 'Chrome 22.0.1229.94'
+      AgentNameVersionMajor                : 'Chrome 22'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.7 (KHTML, like Gecko) Chrome/22.0.1229.94 Safari/534.7 ZemanaAID/FFFF0089'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.7'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.7'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '22.0.1229.94'
+      AgentVersionMajor                    : '22'
+      AgentNameVersion                     : 'Chrome 22.0.1229.94'
+      AgentNameVersionMajor                : 'Chrome 22'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.13 (KHTML, like Gecko) Chrome/24.0.1290.0 Safari/537.13 SUSE/24.0.1290.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'SUSE'
+      OperatingSystemVersion               : '24.0.1290.0'
+      OperatingSystemNameVersion           : 'SUSE 24.0.1290.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.13'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.13'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '24.0.1290.0'
+      AgentVersionMajor                    : '24'
+      AgentNameVersion                     : 'Chrome 24.0.1290.0'
+      AgentNameVersionMajor                : 'Chrome 24'
+
+
 # TODO: A lot of special browsers
 #  - matcher:
 #      require:
