@@ -67,24 +67,28 @@ config:
     extract:
     - 'DeviceClass           : 301:"Mobile"'
     - 'DeviceName            : 300:agent.(1)product.(1)name'
-    - 'DeviceVersion         : 300:agent.(1)product.(1)name^.version'
+    - 'DeviceVersion         : 300:agent.(1)product.(1)version'
     - 'AgentClass            :   4:"Unknown"'
     - 'AgentName             :   4:"Unknown"'
     - 'AgentVersion          :   4:"Unknown"'
 
 
 - matcher:
-#      require:
-#        - 'agent.product.(1)name="Browser"'
     extract:
     - 'DeviceClass           : 301:"Mobile"'
     - 'DeviceName            : 301:agent.(1)product.(1)name'
-    - 'DeviceVersion         : 301:agent.(1)product.(1)name^.version'
+    - 'DeviceVersion         : 301:agent.(1)product.(1)version'
     - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
     - 'AgentClass            :   4:"Unknown"'
     - 'AgentName             :   4:"Unknown"'
     - 'AgentVersion          :   4:"Unknown"'
 
+- matcher:
+    extract:
+    - 'DeviceClass           : 302:"Mobile"'
+    - 'DeviceName            : 302:agent.(1)product#2'
+    - 'DeviceVersion         : 302:agent.(1)product.(2)version'
+    - 'DeviceFirmwareVersion : 302:agent.product.(1)name="Release"^.version'
 
 - matcher:
     require:
@@ -144,6 +148,32 @@ config:
       AgentVersionMajor                    : '534'
       AgentNameVersion                     : 'Mobile Safari 534.30'
       AgentNameVersionMajor                : 'Mobile Safari 534'
+
+- test:
+    input:
+      user_agent_string: 'Coolpad 8717/V1 Linux/3.10.65 Android/4.4.4 Release/03.03.2015 Browser/AppleWebKit537.36 Chrome/33.0.0.0 Mobile Safari/537.36 System/Android 4.4.4;'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Coolpad 8717'
+      DeviceFirmwareVersion                : '03.03.2015'
+      DeviceVersion                        : 'V1'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.4'
+      OperatingSystemNameVersion           : 'Android 4.4.4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : 'AppleWebKit537.36'
+      LayoutEngineVersionMajor             : 'AppleWebKit537'
+      LayoutEngineNameVersion              : 'AppleWebKit537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '33.0.0.0'
+      AgentVersionMajor                    : '33'
+      AgentNameVersion                     : 'Chrome 33.0.0.0'
+      AgentNameVersionMajor                : 'Chrome 33'
+
 
 
 - test:

@@ -258,17 +258,17 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
 
     @Override
     public void enterProduct(ProductContext ctx) {
-        inform(ctx, "product");
+        informSubstrings(ctx, "product", 3);
     }
 
     @Override
     public void enterCommentProduct(CommentProductContext ctx) {
-        inform(ctx, "product");
+        informSubstrings(ctx, "product", 3);
     }
 
     @Override
     public void enterProductNameNoVersion(UserAgentParser.ProductNameNoVersionContext ctx) {
-        inform(ctx, "product");
+        informSubstrings(ctx, "product", 3);
     }
 
     @Override
