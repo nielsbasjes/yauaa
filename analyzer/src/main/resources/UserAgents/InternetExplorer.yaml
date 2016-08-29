@@ -425,13 +425,13 @@ config:
       AgentNameVersion                     : 'Edge 14'
       AgentNameVersionMajor                : 'Edge 14'
 
-
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; ARM; Lumia 640 LTE) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586'
     expected:
-        #FIXME: Desktop OS on Mobile phone ?!?!?!
+      # WTF: Desktop OS on Mobile phone ?!?!?!
+      # http://www.gsmarena.com/microsoft_lumia_640_lte-7055.php
+      # OS: Microsoft Windows Phone 8.1, upgradable to Microsoft Windows 10
       DeviceClass                          : 'Phone'
       DeviceName                           : 'Lumia 640 LTE'
       DeviceBrand                          : 'Nokia'
@@ -459,7 +459,9 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; ARM; Lumia 640 LTE Dual SIM) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586'
     expected:
-        #FIXME: Desktop OS on Mobile phone ?!?!?!
+      # WTF: Desktop OS on Mobile phone ?!?!?!
+      # http://www.gsmarena.com/microsoft_lumia_640_lte-7055.php
+      # OS: Microsoft Windows Phone 8.1, upgradable to Microsoft Windows 10
       DeviceClass                          : 'Phone'
       DeviceName                           : 'Lumia 640 LTE Dual SIM'
       DeviceBrand                          : 'Nokia'
