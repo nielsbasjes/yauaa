@@ -54,6 +54,22 @@ echo "
 - matcher:
     require:
     - 'agent.(1)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1)product.(1)comments.entry.product.name%2=\"Build\"^<{\"${prefix}\"'
+    extract:
+    - 'DeviceClass                 :    1:\"Mobile\"'
+    - 'DeviceBrand                 :  105:\"${brand}\"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1)product.(1)comments.entry.product.name%3=\"Build\"^<{\"${prefix}\"'
+    extract:
+    - 'DeviceClass                 :    1:\"Mobile\"'
+    - 'DeviceBrand                 :  105:\"${brand}\"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry.product.name=\"Android\"'
     - 'agent.(1)product.(1)comments.entry.product.name%1=\"Build\"@{\"${prefix}\"'
     extract:
     - 'DeviceClass                 :    1:\"Mobile\"'

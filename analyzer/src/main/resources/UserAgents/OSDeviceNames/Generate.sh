@@ -44,6 +44,7 @@ do
     devclass=$( echo ${line} | cut -d'|' -f2)
     devname=$(  echo ${line} | cut -d'|' -f3)
     devbrand=$(  echo ${line} | cut -d'|' -f4)
+    osclass=$(  echo ${line} | cut -d'|' -f5)
 echo "
 - matcher:
     require:
@@ -52,7 +53,7 @@ echo "
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
     - 'OperatingSystemVersion:  149:\"??\"'
 
@@ -61,7 +62,7 @@ echo "
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
     - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.(1)version'
 
@@ -73,7 +74,7 @@ echo "
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
     - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.(2)version'
 
@@ -82,7 +83,7 @@ echo "
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text=\"${osname}\"'
     - 'OperatingSystemVersion:  149:\"??\"'
 
@@ -91,7 +92,7 @@ echo "
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
     - 'OperatingSystemVersion:  150:agent.product.name=\"${osname}\"^.(1)version'
 
@@ -103,7 +104,7 @@ echo "
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
     - 'OperatingSystemVersion:  151:agent.product.name=\"${osname}\"^.(2)version'
 
@@ -114,7 +115,7 @@ echo "
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
     - 'OperatingSystemVersion:  149:\"??\"'
 
@@ -125,7 +126,7 @@ echo "
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  150:\"Desktop\"'
+    - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
     - 'OperatingSystemVersion:  149:\"??\"'
 
