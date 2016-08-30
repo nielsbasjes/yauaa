@@ -38,7 +38,21 @@ echo "# along with this program.  If not, see <http://www.gnu.org/licenses/>."
 
 echo "config:"
 
-cat "AndroidBrands.csv" | fgrep -v '#' | grep . | while read line ; \
+
+echo "- lookup:"
+echo "    name: 'MobileBrands'"
+echo "    map:"
+
+cat "MobileBrands.csv" | fgrep -v '#' | grep . | while read line ; \
+do
+    prefix=$(echo ${line} | cut -d'|' -f1)
+    brand=$(echo ${line} | cut -d'|' -f2)
+    echo "      \"${prefix}\" : \"${brand}\""
+done
+
+echo ""
+
+cat "MobileBrands.csv" | fgrep -v '#' | grep . | while read line ; \
 do
     prefix=$(echo ${line} | cut -d'|' -f1)
     brand=$(echo ${line} | cut -d'|' -f2)
@@ -114,6 +128,28 @@ echo "
     extract:
     - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  110:\"${brand}\"'
+
+- matcher:
+    require:
+    - 'agent.product.name{\"${prefix}\"'
+    extract:
+    - 'DeviceClass                 :    1:\"Mobile\"'
+    - 'DeviceBrand                 :    3:\"${brand}\"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.product.name{\"${prefix}\"'
+    extract:
+    - 'DeviceClass                 :    1:\"Mobile\"'
+    - 'DeviceBrand                 :    2:\"${brand}\"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.text{\"${prefix}\"'
+    extract:
+    - 'DeviceClass                 :    1:\"Mobile\"'
+    - 'DeviceBrand                 :    1:\"${brand}\"'
+
 "
 done
-) > ../AndroidBrands.yaml
+) > ../MobileBrands.yaml
