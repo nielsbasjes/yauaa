@@ -1084,6 +1084,12 @@ config:
 
 
 # Google developer testing tool
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"testing"'
+    extract:
+    - 'AgentClass            :   1000:"Testclient"'
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; Google-Structured-Data-Testing-Tool +http://developers.google.com/structured-data/testing-tool/)'
@@ -1100,7 +1106,7 @@ config:
       LayoutEngineVersionMajor             : '5'
       LayoutEngineNameVersion              : 'Mozilla 5.0'
       LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Browser'
+      AgentClass                           : 'Testclient'
       AgentName                            : 'Google-Structured-Data-Testing-Tool'
       AgentVersion                         : 'http://developers.google.com/structured-data/testing-tool/'
       AgentVersionMajor                    : 'http://developers'
