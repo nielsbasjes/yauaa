@@ -35,12 +35,25 @@
   <modules>
     <module>logparser</module>
     <module>pig</module>
-    <module>platfora</module>
 
     <!--TODO: Hive and Drill-->
     <!--<module>hive</module>-->
     <!--<module>drill</module>-->
   </modules>
+
+  <profiles>
+    <profile>
+      <id>platfora</id>
+      <activation>
+        <property>
+          <name>platfora</name>
+        </property>
+      </activation>
+      <modules>
+        <module>platfora</module>
+      </modules>
+    </profile>
+  </profiles>
 
   <build>
     <plugins>
