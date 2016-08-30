@@ -59,7 +59,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
 
     public static final String[] STANDARD_FIELDS = {
         DEVICE_CLASS,
-//        DEVICE_BRAND,
+        DEVICE_BRAND,
         DEVICE_NAME,
         OPERATING_SYSTEM_CLASS,
         OPERATING_SYSTEM_NAME,
