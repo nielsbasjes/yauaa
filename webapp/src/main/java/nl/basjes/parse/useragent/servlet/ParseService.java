@@ -32,7 +32,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
+import java.util.Properties;
 
 import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
@@ -40,6 +43,55 @@ import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 public class ParseService {
 
     private static final UserAgentAnalyzer USER_AGENT_ANALYZER = new UserAgentAnalyzer();
+
+    private static String version   = "Unable to read version";
+    private static String buildtime = "Unable to read version";
+
+    static {
+        Properties prop = new Properties();
+        InputStream input = null;
+
+        try {
+
+            String filename = "git.properties";
+            input = ParseService.class.getClassLoader().getResourceAsStream(filename);
+            if (input == null) {
+                System.out.println("Sorry, unable to find " + filename);
+            }
+
+            //load a properties file from class path, inside static method
+            prop.load(input);
+
+            //get the property value and print it out
+            String gitVersion = prop.getProperty("git.commit.id.describe");
+            if (gitVersion == null) {
+                ParseService.version = "Undefined";
+            } else {
+                ParseService.version = gitVersion;
+            }
+
+            String gitBuildTime = prop.getProperty("git.build.time");
+            if (gitBuildTime == null) {
+                ParseService.buildtime = "Undefined";
+            } else {
+                ParseService.buildtime = gitBuildTime;
+            }
+
+
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
 
     protected synchronized UserAgent parse(String userAgentString) {
         return USER_AGENT_ANALYZER.parse(userAgentString); // This class and method are NOT threadsafe/reentrant !
@@ -114,12 +166,13 @@ public class ParseService {
             sb.append("<title>Analyzing the useragent</title></head>");
             sb.append("<body>");
 
-            // Actual logic goes here.
             sb.append("<h1>Analyzing your useragent string</h1>");
+
+            sb.append("Version    : ").append(version).append("<br/>");
+            sb.append("Build time : ").append(buildtime).append("<br/>");
 
             UserAgent userAgent = parse(userAgentString);
 
-//            System.sb.append("Useragent: " + userAgentString);
             sb.append("Received useragent header: <h2>").append(escapeHtml4(userAgent.getUserAgentString())).append("</h2>");
             sb.append("<table border=1>");
             sb.append("<tr><th>Field</th><th>Value</th></tr>");

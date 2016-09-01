@@ -68,6 +68,28 @@
     <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory>
     <plugins>
       <plugin>
+        <!-- Description: https://github.com/ktoso/maven-git-commit-id-plugin -->
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>revision</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
+          <generateGitPropertiesFile>true</generateGitPropertiesFile>
+          <failOnNoGitDirectory>false</failOnNoGitDirectory>
+          <skipPoms>false</skipPoms>
+          <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+          <dateFormat>yyyy-MM-dd '@' HH:mm:ss z</dateFormat>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
       </plugin>
