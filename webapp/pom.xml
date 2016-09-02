@@ -68,6 +68,30 @@
   <build>
     <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory>
     <plugins>
+
+      <!--Workaround for https://github.com/ktoso/maven-git-commit-id-plugin/issues/260-->
+      <!--Simply delete the git.properties file on every build-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <tasks>
+            <delete>
+              <fileset file="${project.build.outputDirectory}/git.properties" />
+            </delete>
+          </tasks>
+        </configuration>
+      </plugin>
+
       <plugin>
         <!-- Description: https://github.com/ktoso/maven-git-commit-id-plugin -->
         <groupId>pl.project13.maven</groupId>
@@ -82,11 +106,7 @@
           </execution>
         </executions>
         <configuration>
-          <verbose>true</verbose>
-          <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
           <generateGitPropertiesFile>true</generateGitPropertiesFile>
-          <failOnNoGitDirectory>false</failOnNoGitDirectory>
-          <skipPoms>false</skipPoms>
           <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
           <dateFormat>yyyy-MM-dd '@' HH:mm:ss z</dateFormat>
           <includeOnlyProperties>
