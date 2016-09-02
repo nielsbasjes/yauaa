@@ -98,14 +98,12 @@ public class ParseService {
     }
 
     @GET
-    @Path("/")
     @Produces(MediaType.TEXT_HTML)
     public Response getHtml(@HeaderParam("User-Agent") String userAgentString) {
         return doHTML(userAgentString);
     }
 
     @POST
-    @Path("/")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHtmlPOST(String userAgentString) {
