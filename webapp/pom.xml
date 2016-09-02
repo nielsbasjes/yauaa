@@ -75,18 +75,26 @@
         <version>2.2.1</version>
         <executions>
           <execution>
+            <phase>prepare-package</phase>
             <goals>
               <goal>revision</goal>
             </goals>
           </execution>
         </executions>
         <configuration>
+          <verbose>true</verbose>
           <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
           <generateGitPropertiesFile>true</generateGitPropertiesFile>
           <failOnNoGitDirectory>false</failOnNoGitDirectory>
           <skipPoms>false</skipPoms>
           <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
           <dateFormat>yyyy-MM-dd '@' HH:mm:ss z</dateFormat>
+          <includeOnlyProperties>
+            <includeOnlyProperty>git.build.host</includeOnlyProperty>
+            <includeOnlyProperty>git.build.time</includeOnlyProperty>
+            <includeOnlyProperty>git.build.version</includeOnlyProperty>
+            <includeOnlyProperty>git.commit.id*</includeOnlyProperty>
+          </includeOnlyProperties>
         </configuration>
       </plugin>
 

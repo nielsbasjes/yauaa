@@ -63,7 +63,7 @@ public class ParseService {
             prop.load(input);
 
             //get the property value and print it out
-            String gitVersion = prop.getProperty("git.commit.id.describe");
+            String gitVersion = prop.getProperty("git.commit.id.describe-short");
             if (gitVersion == null) {
                 ParseService.version = "Undefined";
             } else {
