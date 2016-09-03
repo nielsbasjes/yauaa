@@ -34,12 +34,14 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Locale;
 import java.util.Properties;
 
 import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
-@Path("/")
+@Path("parse")
 public class ParseService {
 
     private static final UserAgentAnalyzer USER_AGENT_ANALYZER = new UserAgentAnalyzer();
@@ -111,12 +113,20 @@ public class ParseService {
     }
 
     @GET
-    @Path("/parse/{UserAgent : .+}")
+    @Path("/{UserAgent : .+}")
     @Produces(MediaType.TEXT_HTML)
-    public Response getHtmlPath(@Context UriInfo uriInfo) {
-        // PathParams go wrong with ';' and '/' in it. So we just get the entire Path and extract the stuff ourselves
-        String userAgentString = uriInfo.getPath().replaceAll("^parse/", "");
-        return doHTML(userAgentString);
+    public Response getHtmlPath(@Context UriInfo uriInfo) throws UnsupportedEncodingException {
+        // PathParams go wrong with ';' and '/' in it (MatrixParam parsing). So we just get the entire Path and extract the stuff ourselves
+        return doHTML(getUseragentFromPath(uriInfo, "parse"));
+    }
+
+    private String getUseragentFromPath(UriInfo uriInfo, String pathPrefix) {
+        try {
+            return URLDecoder.decode(uriInfo.getPath().replaceAll("^"+pathPrefix+"/", ""), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            // Never happens. UTF-8 is valid and hardcoded
+            return "";
+        }
     }
 
     @GET
@@ -135,16 +145,14 @@ public class ParseService {
     }
 
     @GET
-    @Path("/json/parse/{UserAgent : .+}")
+    @Path("/json/{UserAgent : .+}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJSonPath(@Context UriInfo uriInfo) {
-        // PathParams go wrong with ';' and '/' in it. So we just get the entire Path and extract the stuff ourselves
-        String userAgentString = uriInfo.getPath().replaceAll("^json/parse/", "");
-        return doJSon(userAgentString);
+        // PathParams go wrong with ';' and '/' in it (MatrixParam parsing). So we just get the entire Path and extract the stuff ourselves
+        return doJSon(getUseragentFromPath(uriInfo, "parse/json"));
     }
 
     private Response doHTML(String userAgentString) {
-
         long start = System.nanoTime();
 
         if (userAgentString == null) {
@@ -159,7 +167,8 @@ public class ParseService {
         StringBuilder sb = new StringBuilder(4096);
         try {
             sb.append("<!DOCTYPE html>");
-            sb.append("<html><head>");
+            sb.append("<html><head profile=\"http://www.w3.org/2005/10/profile\">");
+            sb.append("<link rel=\"icon\" type=\"image/ico\" href=\"/static/favicon.ico\" />\n");
             sb.append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
             sb.append("<title>Analyzing the useragent</title></head>");
             sb.append("<body>");
@@ -184,9 +193,9 @@ public class ParseService {
 
             sb.append("<ul>");
             sb.append("<li><a href=\"/\">HTML (from header)</a></li>");
-            sb.append("<li><a href=\"/parse/").append(escapeHtml4(userAgentString)).append("\">HTML (from url)</a></li>");
+            sb.append("<li><a href=\"/").append(escapeHtml4(userAgentString)).append("\">HTML (from url)</a></li>");
             sb.append("<li><a href=\"/json\">Json (from header)</a></li>");
-            sb.append("<li><a href=\"/json/parse/").append(escapeHtml4(userAgentString)).append("\">Json (from url)</a></li>");
+            sb.append("<li><a href=\"/json/").append(escapeHtml4(userAgentString)).append("\">Json (from url)</a></li>");
             sb.append("</ul>");
 
         } finally {
