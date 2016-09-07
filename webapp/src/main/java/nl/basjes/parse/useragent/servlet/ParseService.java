@@ -29,16 +29,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -49,7 +45,7 @@ public class ParseService {
 
     private static final UserAgentAnalyzer USER_AGENT_ANALYZER = new UserAgentAnalyzer();
 
-    private static String version   = "Unable to read version";
+    private static String version = "Unable to read version";
     private static String buildtime = "Unable to read version";
 
     static {
@@ -81,7 +77,6 @@ public class ParseService {
             } else {
                 ParseService.buildtime = gitBuildTime;
             }
-
 
 
         } catch (IOException ex) {
