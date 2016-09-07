@@ -35,7 +35,7 @@ public class StepStartsWith extends Step {
         String actualValue = getActualValue(tree, value);
 
         if (actualValue.toLowerCase().startsWith(desiredValue)) {
-            return walkNextStep(tree, null);
+            return walkNextStep(tree, value);
         }
         return null;
     }

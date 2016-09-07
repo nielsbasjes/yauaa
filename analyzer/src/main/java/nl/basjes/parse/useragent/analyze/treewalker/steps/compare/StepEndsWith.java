@@ -35,7 +35,7 @@ public class StepEndsWith extends Step {
         String actualValue = getActualValue(tree, value);
 
         if (actualValue.toLowerCase().endsWith(desiredValue)) {
-            return walkNextStep(tree, null);
+            return walkNextStep(tree, value);
         }
         return null;
     }

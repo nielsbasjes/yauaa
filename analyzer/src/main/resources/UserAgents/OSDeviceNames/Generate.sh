@@ -115,19 +115,19 @@ echo "
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  150:\"${osclass}\"'
-    - 'OperatingSystemName   :  150:\"${osname}\"'
+    - 'OperatingSystemClass  :  151:\"${osclass}\"'
+    - 'OperatingSystemName   :  151:\"${osname}\"'
     - 'OperatingSystemVersion:  149:\"??\"'
 
 - matcher:
     require:
     - 'agent.product.name#2=\"${osname}\"'
     extract:
-    - 'DeviceClass           :  111:\"${devclass}\"'
-    - 'DeviceName            :  111:\"${devname}\"'
-    - 'DeviceBrand           :  111:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  150:\"${osclass}\"'
-    - 'OperatingSystemName   :  150:\"${osname}\"'
+    - 'DeviceClass           :  112:\"${devclass}\"'
+    - 'DeviceName            :  112:\"${devname}\"'
+    - 'DeviceBrand           :  112:\"${devbrand}\"'
+    - 'OperatingSystemClass  :  152:\"${osclass}\"'
+    - 'OperatingSystemName   :  152:\"${osname}\"'
     - 'OperatingSystemVersion:  149:\"??\"'
 
 "

@@ -35,7 +35,7 @@ public class StepNotEquals extends Step {
         String actualValue = getActualValue(tree, value);
 
         if (!actualValue.toLowerCase().equals(desiredValue)) {
-            return walkNextStep(tree, null);
+            return walkNextStep(tree, value);
         }
         return null;
     }

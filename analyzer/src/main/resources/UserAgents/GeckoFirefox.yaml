@@ -40,6 +40,37 @@ config:
     - 'AgentName            :  2001:agent.([2-5])product.name="Gecko"^>>.name#1!="anonymized"@'
     - 'AgentVersion         :  2001:agent.([2-5])product.name="Gecko"^>>.version'
 
+- matcher:
+    require:
+    - 'agent.([3-6])product.name%2="Firefox"' # Performance trick
+    extract:
+    - 'AgentClass           :  2002:"Browser"'
+    - 'AgentName            :  2002:agent.([2-5])product.name="Gecko"^>.name%2="Firefox"'
+    - 'AgentVersion         :  2002:agent.([2-5])product.name="Gecko"^>.version'
+
+- matcher:
+    require:
+    - 'agent.([3-6])product.name%3="Firefox"' # Performance trick
+    extract:
+    - 'AgentClass           :  2002:"Browser"'
+    - 'AgentName            :  2002:agent.([2-5])product.name="Gecko"^>.name%3="Firefox"'
+    - 'AgentVersion         :  2002:agent.([2-5])product.name="Gecko"^>.version'
+
+- matcher:
+    require:
+    - 'agent.([4-7])product.name%2="Firefox"' # Performance trick
+    extract:
+    - 'AgentClass           :  2003:"Browser"'
+    - 'AgentName            :  2003:agent.([2-5])product.name="Gecko"^>>.name%2="Firefox"'
+    - 'AgentVersion         :  2003:agent.([2-5])product.name="Gecko"^>>.version'
+
+- matcher:
+    require:
+    - 'agent.([4-7])product.name%3="Firefox"' # Performance trick
+    extract:
+    - 'AgentClass           :  2003:"Browser"'
+    - 'AgentName            :  2003:agent.([2-5])product.name="Gecko"^>>.name%3="Firefox"'
+    - 'AgentVersion         :  2003:agent.([2-5])product.name="Gecko"^>>.version'
 
     # In some obscure cases we have a parse problem that sends everything inside a comment block
 - matcher:
@@ -176,3 +207,409 @@ config:
       AgentLanguage                        : 'German'
       AgentLanguageCode                    : 'de'
       AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.17) Gecko/20110429 Mandriva Linux/1.9.2.17-0.1mdv2010.0 (2010.0) Firefox/3.6.17'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mandriva Linux'
+      OperatingSystemVersion               : '1.9.2.17-0.1mdv2010.0'
+      OperatingSystemNameVersion           : 'Mandriva Linux 1.9.2.17-0.1mdv2010.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.2.17'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.2.17'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20110429'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.6.17'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.6.17'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.8) Gecko/20060802 Mandriva/1.5.0.8-1.1mdv2007.0 (2007.0) Firefox/1.5.0.8'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mandriva'
+      OperatingSystemVersion               : '1.5.0.8-1.1mdv2007.0'
+      OperatingSystemNameVersion           : 'Mandriva 1.5.0.8-1.1mdv2007.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.0.8'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.0.8'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20060802'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '1.5.0.8'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Firefox 1.5.0.8'
+      AgentNameVersionMajor                : 'Firefox 1'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.20) Gecko/20110805 Ubuntu/10.04 (lucid) Firefox/3.6.20'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '10.04'
+      OperatingSystemNameVersion           : 'Ubuntu 10.04'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.2.20'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.2.20'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20110805'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.6.20'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.6.20'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.0.19; WUID=724b88e9e000a171f829c431c37c7fe1; WTB=2937) Gecko/2010031422 Ant.com Toolbar 1.5 Firefox/3.0.19 (.NET CLR 3.5.30729)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows Vista'
+      OperatingSystemNameVersion           : 'Windows Vista'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.0.19'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.0.19'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '2010031422'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.0.19'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.0.19'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; nl; rv:1.9.1.3) Gecko/20091022 Moblin/3.5.1-3.15.18.moblin2 Firefox/3.5.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Moblin'
+      OperatingSystemVersion               : '3.5.1-3.15.18.moblin2'
+      OperatingSystemNameVersion           : 'Moblin 3.5.1-3.15.18.moblin2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.1.3'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.1.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20091022'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.5.1'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.5.1'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'Dutch'
+      AgentLanguageCode                    : 'nl'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.7; nl; rv:1.9.2.28) Gecko/20120308 Camino/2.1.2 (MultiLang) (like Firefox/3.6.28)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.7'
+      OperatingSystemNameVersion           : 'Mac OS X 10.7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.2.28'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.2.28'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20120308'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Camino'
+      AgentVersion                         : '2.1.2'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Camino 2.1.2'
+      AgentNameVersionMajor                : 'Camino 2'
+      AgentLanguage                        : 'Dutch'
+      AgentLanguageCode                    : 'nl'
+      AgentSecurity                        : 'Strong security'
+
+
+# Problem case: The part between Gecko and Firefox is just a VERSION
+- test:
+#    options:
+#    - 'verbose'
+#    - 'only'
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 6.0; nl; rv:1.9.0.5) Gecko/2008120122 BTRS28059 Firefox/3.0.5 GTB7.1 (.NET CLR 3.5.30729)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows Vista'
+      OperatingSystemNameVersion           : 'Windows Vista'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.0.5'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.0.5'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '2008120122'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.0.5'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.0.5'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'Dutch'
+      AgentLanguageCode                    : 'nl'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.3) Gecko/20100401 BTRS35926 (CK-Belgo) Firefox/3.6.3'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.2.3'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.2.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20100401'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.6.3'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.6.3'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.3) Gecko/20100401 YFF35 Firefox/3.6.3'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.2.3'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.2.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20100401'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.6.3'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.6.3'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.2.12) Gecko/20101026 Ant.com Toolbar 2.0.1 Firefox/3.5.7;MEGAUPLOAD 1.0 ( .NET CLR 3.5.30729; .NET4.0E)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.2.12'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.2.12'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20101026'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.5.7'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.5.7'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'Russian'
+      AgentLanguageCode                    : 'ru'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 5.1; rv:26.0) Gecko/20100101 (255BE2C9-4B6B-CC64-3D5B-D9465588F9EC) Firefox/26.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '26.0'
+      LayoutEngineVersionMajor             : '26'
+      LayoutEngineNameVersion              : 'Gecko 26.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 26'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '26.0'
+      AgentVersionMajor                    : '26'
+      AgentNameVersion                     : 'Firefox 26.0'
+      AgentNameVersionMajor                : 'Firefox 26'
+      AgentUuid                            : '255BE2C9-4B6B-CC64-3D5B-D9465588F9EC'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Ultimate Edition; X11; Linux x86; rv:8.0) Gecko/20131031 Ultimate Edition / 3.8 Firefox/25.01'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'x86'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'x86'
+      OperatingSystemNameVersion           : 'Linux x86'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '8.0'
+      LayoutEngineVersionMajor             : '8'
+      LayoutEngineNameVersion              : 'Gecko 8.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 8'
+      LayoutEngineBuild                    : '20131031'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '25.01'
+      AgentVersionMajor                    : '25'
+      AgentNameVersion                     : 'Firefox 25.01'
+      AgentNameVersionMajor                : 'Firefox 25'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0.5) Gecko/20100101 sb11itkr20130429 Firefox/17.0.5esr'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '17.0.5'
+      LayoutEngineVersionMajor             : '17'
+      LayoutEngineNameVersion              : 'Gecko 17.0.5'
+      LayoutEngineNameVersionMajor         : 'Gecko 17'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '17.0.5esr'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Firefox 17.0.5esr'
+      AgentNameVersionMajor                : 'Firefox 17'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; it; rv:1.9.0.4) Gecko/2008111217 Red Hat Firefox/3.0.4'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Red Hat'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Red Hat ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.0.4'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.0.4'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '2008111217'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.0.4'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.0.4'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'Italian'
+      AgentLanguageCode                    : 'it'
+      AgentSecurity                        : 'Strong security'
+
+
