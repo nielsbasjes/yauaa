@@ -27,6 +27,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -36,6 +37,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -113,20 +116,10 @@ public class ParseService {
     }
 
     @GET
-    @Path("/{UserAgent : .+}")
+    @Path("/{UserAgent}")
     @Produces(MediaType.TEXT_HTML)
-    public Response getHtmlPath(@Context UriInfo uriInfo) throws UnsupportedEncodingException {
-        // PathParams go wrong with ';' and '/' in it (MatrixParam parsing). So we just get the entire Path and extract the stuff ourselves
-        return doHTML(getUseragentFromPath(uriInfo, "parse"));
-    }
-
-    private String getUseragentFromPath(UriInfo uriInfo, String pathPrefix) {
-        try {
-            return URLDecoder.decode(uriInfo.getPath().replaceAll("^"+pathPrefix+"/", ""), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            // Never happens. UTF-8 is valid and hardcoded
-            return "";
-        }
+    public Response getHtmlPath(@PathParam("UserAgent") String userAgent) {
+        return doHTML(userAgent);
     }
 
     @GET
@@ -145,11 +138,10 @@ public class ParseService {
     }
 
     @GET
-    @Path("/json/{UserAgent : .+}")
+    @Path("/json/{UserAgent}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJSonPath(@Context UriInfo uriInfo) {
-        // PathParams go wrong with ';' and '/' in it (MatrixParam parsing). So we just get the entire Path and extract the stuff ourselves
-        return doJSon(getUseragentFromPath(uriInfo, "parse/json"));
+    public Response getJSonPath(@PathParam("UserAgent") String userAgent) {
+        return doJSon(userAgent);
     }
 
     private Response doHTML(String userAgentString) {
@@ -193,9 +185,17 @@ public class ParseService {
 
             sb.append("<ul>");
             sb.append("<li><a href=\"/\">HTML (from header)</a></li>");
-            sb.append("<li><a href=\"/").append(escapeHtml4(userAgentString)).append("\">HTML (from url)</a></li>");
             sb.append("<li><a href=\"/json\">Json (from header)</a></li>");
-            sb.append("<li><a href=\"/json/").append(escapeHtml4(userAgentString)).append("\">Json (from url)</a></li>");
+
+            String urlEncodedUserAgent = "";
+            try {
+                urlEncodedUserAgent = URLEncoder.encode(userAgentString, "utf-8");
+                urlEncodedUserAgent = urlEncodedUserAgent.replace("+", "%20");
+                sb.append("<li><a href=\"/").append(urlEncodedUserAgent).append("\">HTML (from url)</a></li>");
+                sb.append("<li><a href=\"/json/").append(urlEncodedUserAgent).append("\">Json (from url)</a></li>");
+            } catch (UnsupportedEncodingException e) {
+                // Do nothing
+            }
             sb.append("</ul>");
 
         } finally {
