@@ -39,9 +39,7 @@
   <properties>
     <jdkLevel>1.7</jdkLevel>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <mainClass>nl.basjes.parse.useragent.Main</mainClass>
 
-    <antlr.version>4.5.3</antlr.version>
     <hadoop.version>2.7.2</hadoop.version>
     <pig.version>0.16.0</pig.version>
   </properties>
@@ -81,23 +79,10 @@
       <scope>provided</scope>
     </dependency>
 
-
   </dependencies>
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
-        <configuration>
-          <source>${jdkLevel}</source>
-          <target>${jdkLevel}</target>
-          <excludes>
-            <exclude>**/platfora/*.java</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
 
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -115,27 +100,7 @@
               </descriptors>
               <archive>
                 <addMavenDescriptor>true</addMavenDescriptor>
-                <manifest>
-                  <mainClass>${mainClass}</mainClass>
-                </manifest>
               </archive>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.antlr</groupId>
-        <artifactId>antlr4-maven-plugin</artifactId>
-        <version>${antlr.version}</version>
-        <executions>
-          <execution>
-            <id>antlr</id>
-            <goals>
-              <goal>antlr4</goal>
-            </goals>
-            <configuration>
-              <visitor>true</visitor>
             </configuration>
           </execution>
         </executions>
@@ -148,138 +113,6 @@
 
     </plugins>
   </build>
-
-  <profiles>
-    <profile>
-      <id>platfora</id>
-      <activation>
-        <property>
-          <name>platfora</name>
-        </property>
-      </activation>
-      <dependencies>
-        <!--
-        In order to build the Platfora UDF the platfora-udf.jar is needed that is currently only
-        distributed by Platfora as a file that is part of their installation.
-        This file is normally installed at ${PLATFORA_HOME}/tools/udf/platfora-udf.jar
-
-        At the time of writing we were running Platfora 5.2.0 so we chose these values to deploy it:
-        group:  com.platfora.udf
-        artifact: platfora-udf
-        version: 5.2.0-LOCAL
-
-        By deliberately appending 'LOCAL' to the version we aim to avoid naming conflicts in case Platfora decides to put
-        this jar into a public repo like Maven central.
-
-        Installing it locally on your development system can be simply done like this:
-        ( See https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html )
-
-        mvn install:install-file \
-         -Dfile=platfora-udf.jar \
-         -DgroupId=com.platfora.udf \
-         -DartifactId=platfora-udf \
-         -Dversion=5.2.0-LOCAL \
-         -Dpackaging=jar
-
-        Installing it in your corporate maven repo will make things a lot easier for all developers:
-        https://maven.apache.org/guides/mini/guide-3rd-party-jars-remote.html
-        -->
-        <dependency>
-          <groupId>com.platfora.udf</groupId>
-          <artifactId>platfora-udf</artifactId>
-          <version>5.2.0-LOCAL</version>
-          <scope>provided</scope>
-        </dependency>
-      </dependencies>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.5.1</version>
-            <configuration>
-              <source>${jdkLevel}</source>
-              <target>${jdkLevel}</target>
-              <excludes>
-                <exclude>bla</exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-
-        </plugins>
-      </build>
-
-    </profile>
-
-    <profile>
-      <id>release</id>
-      <build>
-        <plugins>
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.6</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>2.2.1</version>
-            <executions>
-              <execution>
-                <id>attach-sources</id>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.10.4</version>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <!-- explicitly define maven-deploy-plugin after other to force exec order -->
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.8.2</version>
-            <executions>
-              <execution>
-                <id>deploy</id>
-                <phase>deploy</phase>
-                <goals>
-                  <goal>deploy</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 
   <licenses>
     <license>
