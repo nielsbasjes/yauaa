@@ -253,7 +253,9 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
 
     @Override
     public void enterUserAgent(UserAgentContext ctx) {
-        inform(ctx, "agent");
+        // In case of a parse error the 'parsed' version of agent can be incomplete
+        String input = ctx.start.getTokenSource().getInputStream().toString();
+        inform(ctx, "agent", input);
     }
 
     @Override
