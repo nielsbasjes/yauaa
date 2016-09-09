@@ -302,8 +302,29 @@ config:
 
 - test:
     input:
-      user_agent_string: "-7928') AS oPZe WHERE 1230=1230 OR MAKE_SET(2577=2472,2472)--"
+      user_agent_string: '-7928'') AS oPZe WHERE 1230=1230 OR MAKE_SET(2577=2472,2472)--'
     expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: '-8434))) OR 9695 IN ((CHAR(113)+CHAR(107)+CHAR(106)+CHAR(118)+CHAR(113)+(SELECT (CASE WHEN (9695=9695) THEN CHAR(49) ELSE CHAR(48) END))+CHAR(113)+CHAR(122)+CHAR(118)+CHAR(118)+CHAR(113))) AND (((4283=4283'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: '"-8250\"" OR 8313=5806#"'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: '-1 OR 2+933-933-1=0+0+0+1'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: '-1'' OR 2+845-845-1=0+0+0+1 or ''WW2E86AF''='''
+    expected: *isSQLInjection
+
 
 # For reference:
 #-8067)) AS trzU WHERE 3801=3801 OR MAKE_SET(7172=7172,6095)--
