@@ -1195,3 +1195,28 @@ config:
 #Mozilla/5.0 (Windows NT 6.1; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0,gzip(gfe) (via shopping.google.com)
 # https://support.google.com/webmasters/answer/1061943?hl=en
 # http://stackoverflow.com/questions/2862874/what-is-gzipgfe
+
+
+- test:
+    input:
+      user_agent_string: 'NetLyzer FastProbe (See http://netlyzer.com/report/www.bol.com for info)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'NetLyzer FastProbe'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'NetLyzer FastProbe ??'
+      AgentNameVersionMajor                : 'NetLyzer FastProbe ??'
+      AgentInformationUrl                  : 'http://netlyzer.com/report/www.bol.com'
+
