@@ -704,3 +704,89 @@ config:
 #471     8       SSL Labs (https://www.ssllabs.com/about/assessment.html); on behalf of 85.17.131.202
 #AlienBlue/2.9.10.0.2 CFNetwork/758.4.3 Darwin/15.6.0
 #AlienBlue/2.9.5 CFNetwork/758.3.15 Darwin/15.4.0
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1) ;  Embedded Web Browser from: http://bsalsa.com/)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Internet Explorer'
+      LayoutEngineVersion                  : '6.0'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Internet Explorer 6.0'
+      LayoutEngineNameVersionMajor         : 'Internet Explorer 6'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '6.0'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Internet Explorer 6.0'
+      AgentNameVersionMajor                : 'Internet Explorer 6'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; BTRS31753; Mozilla/4.0(Compatible EmbeddedWB 14.52 from: http://www.bsalsa.com/EmbeddedWB- 14.57  from: http://bsalsa.com/ ; .NET CLR 2.0.50727; OfficeLiveConnector.1.3; OfficeLivePatch.0.0; AskTbGOM2/5.11.3.15590; Windows Live Messenger 14.0.8117.0416)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Internet Explorer'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Internet Explorer 7.0'
+      LayoutEngineNameVersionMajor         : 'Internet Explorer 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '7.0'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Internet Explorer 7.0'
+      AgentNameVersionMajor                : 'Internet Explorer 7'
+
+
+#TODO: Communicators
+#- test:
+#    input:
+#      user_agent_string: 'OC/15.0.4711.1002 (Skype for Business)'
+#
+#- test:
+#    input:
+#      user_agent_string: 'MC/14.0.0321.8 (Microsoft Lync for Mac 2011)'
+
+- test:
+    input:
+      user_agent_string: 'Tor Browser/8.12 (Ubuntu 3.9; nl_BE;)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '3.9'
+      OperatingSystemNameVersion           : 'Ubuntu 3.9'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Tor Browser'
+      AgentVersion                         : '8.12'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Tor Browser 8.12'
+      AgentNameVersionMajor                : 'Tor Browser 8'
+      AgentLanguage                        : 'Dutch (Belgium)'
+      AgentLanguageCode                    : 'nl_be'
+
+
