@@ -80,6 +80,26 @@ config:
     - 'LayoutEngineVersion   :  102:agent.product.name~"bot"^.(1)version'
     - 'AgentVersion          :  102:agent.product.name~"bot"^.(1)version'
 
+- matcher:
+    extract:
+    - 'DeviceClass           :  101:"Robot"'
+    - 'DeviceBrand           :  101:"Robot"'
+    - 'DeviceName            :  101:agent.product.name~"scan"'
+    - 'OperatingSystemClass  :  101:"Cloud"'
+    - 'OperatingSystemName   :  101:"Cloud"'
+    - 'OperatingSystemVersion:  101:"Cloud"'
+    - 'LayoutEngineClass     :  101:"Robot"'
+    - 'LayoutEngineName      :  101:agent.product.name~"scan"'
+    - 'LayoutEngineVersion   :  101:"??"'
+    - 'AgentClass            :  101:"Robot"'
+    - 'AgentName             :  101:agent.product.name~"scan"'
+    - 'AgentVersion          :  101:"??"'
+
+- matcher:
+    extract:
+    - 'LayoutEngineVersion   :  102:agent.product.name~"scan"^.(1)version'
+    - 'AgentVersion          :  102:agent.product.name~"scan"^.(1)version'
+
 
 - matcher:
     extract:
@@ -1220,3 +1240,29 @@ config:
       AgentNameVersionMajor                : 'NetLyzer FastProbe ??'
       AgentInformationUrl                  : 'http://netlyzer.com/report/www.bol.com'
 
+
+- test:
+    input:
+      user_agent_string: '0xSCANNER-INURL_blog.inurl.com.br-K-Meleon/19.4 (Redhat Linux 2.6; en_NZ;)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : '0xSCANNER-INURL_blog.inurl.com.br-K-Meleon'
+      DeviceBrand                          : 'Robot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : '0xSCANNER-INURL_blog.inurl.com.br-K-Meleon'
+      LayoutEngineVersion                  : '19.4'
+      LayoutEngineVersionMajor             : '19'
+      LayoutEngineNameVersion              : '0xSCANNER-INURL_blog.inurl.com.br-K-Meleon 19.4'
+      LayoutEngineNameVersionMajor         : '0xSCANNER-INURL_blog.inurl.com.br-K-Meleon 19'
+      AgentClass                           : 'Robot'
+      AgentName                            : '0xSCANNER-INURL_blog.inurl.com.br-K-Meleon'
+      AgentVersion                         : '19.4'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : '0xSCANNER-INURL_blog.inurl.com.br-K-Meleon 19.4'
+      AgentNameVersionMajor                : '0xSCANNER-INURL_blog.inurl.com.br-K-Meleon 19'
+      AgentLanguage                        : 'English (New Zealand)'
+      AgentLanguageCode                    : 'en_nz'
