@@ -238,9 +238,12 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                             allPass = false;
                         } else {
                             if (failOnUnexpected) {
-                                result.warn=false;
-                                pass = false;
-                                allPass = false;
+                                // We ignore this special field
+                                if (!"__SyntaxError__".equals(result.field)) {
+                                    result.warn = false;
+                                    pass = false;
+                                    allPass = false;
+                                }
                             }
                         }
                     }
