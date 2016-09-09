@@ -1,0 +1,338 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+
+setSQLInjection: &setSQLInjection
+    - 'DeviceClass                   : 10000:"Hacker"'
+    - 'DeviceName                    : 10000:"Hacker"'
+    - 'DeviceBrand                   : 10000:"Hacker"'
+    - 'DeviceCpu                     : 10000:"Hacker"'
+    - 'DeviceVersion                 : 10000:"Hacker"'
+    - 'OperatingSystemClass          : 10000:"Hacker"'
+    - 'OperatingSystemName           : 10000:"Hacker"'
+    - 'OperatingSystemVersion        : 10000:"Hacker"'
+    - 'OperatingSystemNameVersion    : 10000:"Hacker"'
+    - 'LayoutEngineClass             : 10000:"Hacker"'
+    - 'LayoutEngineName              : 10000:"Hacker"'
+    - 'LayoutEngineVersion           : 10000:"Hacker"'
+    - 'LayoutEngineVersionMajor      : 10000:"Hacker"'
+    - 'LayoutEngineNameVersion       : 10000:"Hacker"'
+    - 'LayoutEngineNameVersionMajor  : 10000:"Hacker"'
+    - 'LayoutEngineBuild             : 10000:"Hacker"'
+    - 'AgentClass                    : 10000:"Hacker"'
+    - 'AgentName                     : 10000:"Hacker"'
+    - 'AgentVersion                  : 10000:"Hacker"'
+    - 'AgentVersionMajor             : 10000:"Hacker"'
+    - 'AgentNameVersion              : 10000:"Hacker"'
+    - 'AgentNameVersionMajor         : 10000:"Hacker"'
+    - 'AgentLanguage                 : 10000:"Hacker"'
+    - 'AgentLanguageCode             : 10000:"Hacker"'
+    - 'AgentSecurity                 : 10000:"Hacker"'
+    - 'HackerAttackVector            : 10000:"SQL Injection"'
+    - 'HackerToolkit                 : 10000:"Unknown"'
+
+
+isSQLInjection: &isSQLInjection
+    DeviceClass                          : 'Hacker'
+    DeviceName                           : 'Hacker'
+    DeviceBrand                          : 'Hacker'
+    DeviceCpu                            : 'Hacker'
+    DeviceVersion                        : 'Hacker'
+    OperatingSystemClass                 : 'Hacker'
+    OperatingSystemName                  : 'Hacker'
+    OperatingSystemVersion               : 'Hacker'
+    OperatingSystemNameVersion           : 'Hacker'
+    LayoutEngineClass                    : 'Hacker'
+    LayoutEngineName                     : 'Hacker'
+    LayoutEngineVersion                  : 'Hacker'
+    LayoutEngineVersionMajor             : 'Hacker'
+    LayoutEngineNameVersion              : 'Hacker'
+    LayoutEngineNameVersionMajor         : 'Hacker'
+    LayoutEngineBuild                    : 'Hacker'
+    AgentClass                           : 'Hacker'
+    AgentName                            : 'Hacker'
+    AgentVersion                         : 'Hacker'
+    AgentVersionMajor                    : 'Hacker'
+    AgentNameVersion                     : 'Hacker'
+    AgentNameVersionMajor                : 'Hacker'
+    AgentLanguage                        : 'Hacker'
+    AgentLanguageCode                    : 'Hacker'
+    AgentSecurity                        : 'Hacker'
+    HackerAttackVector                   : 'SQL Injection'
+    HackerToolkit                        : 'Unknown'
+
+
+config:
+
+# Sqlmap hacker
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="sqlmap"'
+    extract:
+    - 'DeviceClass                        : 10010:"Hacker"'
+    - 'DeviceName                         : 10010:"Hacker"'
+    - 'DeviceBrand                        : 10010:"Hacker"'
+    - 'DeviceVersion                      : 10010:"Hacker"'
+    - 'OperatingSystemClass               : 10010:"Hacker"'
+    - 'OperatingSystemName                : 10010:"Hacker"'
+    - 'OperatingSystemVersion             : 10010:"Hacker"'
+    - 'OperatingSystemNameVersion         : 10010:"Hacker"'
+    - 'LayoutEngineClass                  : 10010:"Hacker"'
+    - 'LayoutEngineName                   : 10010:"Hacker"'
+    - 'LayoutEngineVersion                : 10010:"Hacker"'
+    - 'LayoutEngineVersionMajor           : 10010:"Hacker"'
+    - 'AgentClass                         : 10010:"Hacker"'
+    - 'AgentName                          : 10010:"Hacker"'
+    - 'AgentVersion                       : 10010:"Hacker"'
+    - 'AgentVersionMajor                  : 10010:"Hacker"'
+    - 'HackerAttackVector                 : 10010:"SQL Injection"'
+    - 'HackerToolkit                      : 10010:"Sqlmap"'
+    - 'AgentNameVersion                   : 10010:"Hacker"'
+    - 'AgentNameVersionMajor              : 10010:"Hacker"'
+
+- test:
+    input:
+      user_agent_string: '"sqlmap/1.0-dev-nongit-20150909 (http://sqlmap.org)\"") WHERE 6150=6150 RLIKE SLEEP(5)--"'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      AgentInformationUrl                  : 'http://sqlmap.org'
+      HackerAttackVector                   : 'SQL Injection'
+      HackerToolkit                        : 'Sqlmap'
+      __SyntaxError__                      : 'true'
+
+#- test:
+#    input:
+#      user_agent_string: '"-3563\"" OR ELT(6900=6900,1436)"'
+#
+
+- matcher:
+    require:
+    - 'agent~"SELECT "'
+    extract: *setSQLInjection
+
+- matcher:
+    require:
+    - 'agent~"SELECT("'
+    extract: *setSQLInjection
+
+- matcher:
+    require:
+    - 'agent~"CASE WHEN"'
+    extract: *setSQLInjection
+
+- matcher:
+    require:
+    - 'agent~"UNION ALL"'
+    extract: *setSQLInjection
+
+- matcher:
+    require:
+    - 'agent~"OR NOT"'
+    extract: *setSQLInjection
+
+- matcher:
+    require:
+    - 'agent~" OR "'
+    extract: *setSQLInjection
+
+- matcher:
+    require:
+    - 'agent{"OR "'
+    extract: *setSQLInjection
+
+- matcher:
+    require:
+    - 'agent~"waitfor "'
+    extract: *setSQLInjection
+
+- matcher:
+    require:
+    - 'agent~"1=1"'
+    extract: *setSQLInjection
+
+- test:
+    input:
+      user_agent_string: '(select convert(int,CHAR(65)))'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: '(UPDATEXML(2046,CONCAT(0x2e,0x716b6a7671,(SELECT (ELT(2046=2046,1))),0x717a767671),5014))'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: '"-9929%\"" UNION ALL SELECT 2175,2175,2175,2175,2175,2175,2175,2175,2175-- nMgE"'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: '"-9937\"" OR 5496=UTL_INADDR.GET_HOST_ADDRESS(CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113)||(SELECT (CASE WHEN (5496=5496) THEN 1 ELSE 0 END) FROM DUAL)||CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113))"'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: '(SELECT * FROM GENERATE_SERIES(3440,3440,CASE WHEN (3440=3121) THEN 1 ELSE 0 END) LIMIT 1)'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'SELECT ''qkjvq''||(CASE 5935 WHEN 5935 THEN 1 ELSE 0 END)||''qzvvq'' FROM RDB$DATABASE'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: '"(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % izjvh SYSTEM \""http://u61vg2dwm0t6imbnq61n556eh5nygq4tsofe33.burpcollab''||''orator.net/\"">%izjvh;]>''),''/l'') from dual)"'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: '"(select(0)from(select(sleep(3)))v)/*''+(select(0)from(select(sleep(3)))v)+''\""+(select(0)from(select(sleep(3)))v)+\""*/"'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: '(CASE WHEN 8578=7618 THEN 8578 ELSE NULL END)'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'or 1=1--'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: ''' or 1=1--'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.0'')waitfor delay''0:0:20''--'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.0'' waitfor delay''0:0:20''--'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.028425714'' or 6457=6458--'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.028425714'' or ''6457''=''6458'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.028425714'' or 6457=6457--'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.028425714'' or ''6457''=''6457'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.0'',0)waitfor delay''0:0:20''--'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7) WHERE 9307=9307 OR NOT 1515=2173-- pJBA'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7` WHERE 9265=9265 OR NOT 1412=6831-- yPtW'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7'' WHERE 8348=8348 OR NOT 7373=6149-- QoIW'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7%''))) OR NOT 9785=9785 AND (((''%''='''
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7'') AS GMQU WHERE 3635=3635 OR NOT 9785=9785-- RlPe'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: "-7928') AS oPZe WHERE 1230=1230 OR MAKE_SET(2577=2472,2472)--"
+    expected: *isSQLInjection
+
+# For reference:
+#-8067)) AS trzU WHERE 3801=3801 OR MAKE_SET(7172=7172,6095)--
+#-2734')) AS YnXr WHERE 1760=1760 OR MAKE_SET(7172=7172,6095)--
+#-3358'))) OR MAKE_SET(9429=7340,7340) AND ((('QIPX' LIKE 'QIPX
+#-3596'))) OR MAKE_SET(7172=7172,6095) AND ((('CIqS' LIKE 'CIqS
+#-8939')) AS nIoD WHERE 8404=8404 OR MAKE_SET(6157=2589,2589)--
+#-9639'))) OR 4729=(SELECT UPPER(XMLType(CHR(60)||CHR(58)||CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113)||(SELECT (CASE WHEN (4729=4729) THEN 1 ELSE 0 END) FROM DUAL)||CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)||CHR(62))) FROM DUAL) AND ((('jLCJ' LIKE 'jLCJ
+#-1 OR 2+347-347-1=0+0+0+1
+#-1 OR 2+150-150-1=0+0+0+1 --
+
+#-9987%' OR 5271=5271 AND '%'='
+#-9992' OR 8054=CTXSYS.DRITHSX.SN(8054,(CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113)||(SELECT (CASE WHEN (8054=8054) THEN 1 ELSE 0 END) FROM DUAL)||CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113))) AND 'YmZM
+#"-9998\"" OR 5520=('qkjvq'||(SELECT CASE 5520 WHEN 5520 THEN 1 ELSE 0 END FROM RDB$DATABASE)||'qzvvq') AND \""frsm\"" LIKE \""frsm"
+#9Sc35aAu'));select pg_sleep(9); --
+#8JInzfdL'; waitfor delay '0:0:6' --
+#8KMHl9gr';select pg_sleep(3); --
+#"-8881\"" OR MAKE_SET(7172=7172,6095) AND \""HpsH\""=\""HpsH"
+#-8652 OR 4729=(SELECT UPPER(XMLType(CHR(60)||CHR(58)||CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113)||(SELECT (CASE WHEN (4729=4729) THEN 1 ELSE 0 END) FROM DUAL)||CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(1
+#(CASE WHEN 6209=6209 THEN 6209 ELSE NULL END)
+#(CASE WHEN 8578=7618 THEN 8578 ELSE NULL END)
+#(CAST((CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT (CASE WHEN (1300=1300) THEN 1 ELSE 0 END))::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)) AS NUMERIC))
+#(CAST((CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT 1 FROM GENERATE_SERIES(9085,9085,CASE WHEN (9085=9085) THEN 1 ELSE 0 END) LIMIT 1)::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)) AS NUMERIC))
+#(CONVERT(INT,(SELECT CHAR(113)+CHAR(107)+CHAR(106)+CHAR(118)+CHAR(113)+(SELECT (CASE WHEN (3384=3384) THEN CHAR(49) ELSE CHAR(48) END))+CHAR(113)+CHAR(122)+CHAR(118)+CHAR(118)+CHAR(113))))
+#(EXTRACTVALUE(6481,CONCAT(0x5c,0x716b6a7671,(SELECT (ELT(6481=6481,1))),0x717a767671)))
+
+#(SELECT (CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT (CASE WHEN (9479=9479) THEN 1 ELSE 0 END))::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)))
+#(SELECT (CASE WHEN (9814=1041) THEN CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(47)+CHAR(49)+CHAR(46)+CHAR(48)+CHAR(45)+CHAR(100)+CHAR(101)+CHAR(118)+CHAR(45)+CHAR(110)+CHAR(111)+CHAR(110)+CHAR(103)+CHAR(105)+CHAR(116)+CHAR(45)+CHAR(50)+CHAR(48)+CHAR(49)+CHAR(53)+CHAR(48)+CHAR(57)+CHAR(48)+CHAR(57)+CHAR(32)+CHAR(40)+CHAR(104)+CHAR(116)+CHAR(116)+CHAR(112)+CHAR(58)+CHAR(47)+CHAR(47)+CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(46)+CHAR(111)+CHAR(114)+CHAR(103)+CHAR(41) ELSE 9814*(SELECT 9814 FROM master..sysdatabases) END))
+#(select convert(int,CHAR(65)))
+
+
+
