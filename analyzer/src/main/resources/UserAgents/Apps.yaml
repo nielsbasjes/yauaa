@@ -207,25 +207,26 @@ config:
       AgentNameVersionMajor                : 'com.ddeville.llwebkit.linkchecker 1'
 
 
-# FIXME: The OS and Device are not detected correctly
-#- test:
-#    input:
-#      user_agent_string: 'Callpod Keeper for Android 1.0 (10.3.0/245) Dalvik/2.1.0 (Linux; U; Android 6.0; MotoG3 Build/MPI24.65-33)'
-#    expected:
-#      DeviceClass                          : 'Mobile'
-#      DeviceName                           : 'Unknown'
-#      DeviceBrand                          : 'Unknown'
-#      OperatingSystemClass                 : 'Mobile'
-#      OperatingSystemName                  : 'Android'
-#      OperatingSystemVersion               : '??'
-#      OperatingSystemNameVersion           : 'Android ??'
-#      LayoutEngineClass                    : 'Unknown'
-#      LayoutEngineName                     : 'Unknown'
-#      LayoutEngineVersion                  : '??'
-#      LayoutEngineVersionMajor             : '??'
-#      AgentClass                           : 'Special'
-#      AgentName                            : 'Callpod Keeper for Android'
-#      AgentVersion                         : '1.0'
-#      AgentVersionMajor                    : '1'
-#      AgentNameVersion                     : 'Callpod Keeper for Android 1.0'
-#      AgentNameVersionMajor                : 'Callpod Keeper for Android 1'
+- test:
+    input:
+      user_agent_string: 'Callpod Keeper for Android 1.0 (10.3.0/245) Dalvik/2.1.0 (Linux; U; Android 6.0; MotoG3 Build/MPI24.65-33)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'MotoG3'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemVersionBuild          : 'MPI24.65-33'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Callpod Keeper for Android'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Callpod Keeper for Android 1.0'
+      AgentNameVersionMajor                : 'Callpod Keeper for Android 1'
+
