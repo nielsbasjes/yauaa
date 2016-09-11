@@ -36,6 +36,7 @@ public final class WordSplitter {
             case '-':
             case '<':
             case '>':
+            case '~':
             case '(': // EndOfString marker
             case ')': // EndOfString marker
                 return true;

@@ -441,7 +441,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
 
     @Override
     public void enterKeyValueVersionName(KeyValueVersionNameContext ctx) {
-        informSubstrings(ctx, "value");
+        informSubstrings(ctx, "version");
     }
 
     @Override

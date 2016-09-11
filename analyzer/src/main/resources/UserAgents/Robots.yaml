@@ -431,8 +431,8 @@ config:
       DeviceClass                          : 'Robot Mobile'
       DeviceName                           : 'Google'
       DeviceBrand                          : 'Google'
-      DeviceFirmwareVersion                : '10A5376e'
-      DeviceVersion                        : 'iPhone'
+      DeviceFirmwareVersion                : '10A5376e' # FIXME
+      DeviceVersion                        : 'iPhone'   # FIXME
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Google'
       OperatingSystemVersion               : 'Google'
@@ -509,7 +509,7 @@ config:
       DeviceClass                          : 'Robot Mobile'
       DeviceName                           : 'Google'
       DeviceBrand                          : 'Google'
-      DeviceVersion                        : '1.0'
+      DeviceVersion                        : '1.0' # FIXME
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Google'
       OperatingSystemVersion               : 'Google'
@@ -1198,18 +1198,186 @@ config:
       AgentInformationUrl                  : 'http://yacy.net/bot.html'
 
 
-#WeCrawlForThePeace - We are not Evil
-#yacy - this is a proxy access through YaCy from a browser, not a robot
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="AppEngine-Google"'
+    - 'agent.(1)product.(1)comments.(1)entry.(1)url="http://code.google.com/appengine"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)keyvalue.(1)key="appid"'
+    extract:
+    - 'DeviceClass            :   100:"Robot"'
+    - 'DeviceName             :   100:"Google AppEngine"'
+    - 'DeviceBrand            :   100:"Google"'
+    - 'AgentClass             :   100:"Cloud Application"'
+    - 'AgentName              :   100:agent.(1)product.(1)comments.(2)entry.(1)keyvalue.(1)version%1="s"@%2'
+    - 'AgentVersion           :   100:"??"'
 
-#TODO: Google AppEngine apps
-#AppEngine-Google; (+http://code.google.com/appengine; appid: s~king4proxy)
-#AppEngine-Google; (+http://code.google.com/appengine; appid: s~linkqualityaag)
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="AppEngine-Google"'
+    - 'agent.(1)product.(1)comments.(1)entry.(1)url="http://code.google.com/appengine"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)keyvalue.(1)key="appid"'
+    extract:
+    - 'DeviceClass            :   100:"Robot"'
+    - 'DeviceName             :   100:"Google AppEngine"'
+    - 'DeviceBrand            :   100:"Google"'
+    - 'AgentClass             :   100:"Cloud Application"'
+    - 'AgentName              :   100:agent.(1)product.(1)comments.(2)entry.(1)keyvalue.(2)text%1="s"@%2'
+    - 'AgentVersion           :   100:"??"'
+
+
+#Google AppEngine apps
+- test:
+    input:
+      user_agent_string: 'AppEngine-Google; (+http://code.google.com/appengine; appid: s~king4proxy)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google AppEngine'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'king4proxy'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'king4proxy ??'
+      AgentNameVersionMajor                : 'king4proxy ??'
+      AgentInformationUrl                  : 'http://code.google.com/appengine'
+
+- test:
+    input:
+      user_agent_string: 'AppEngine-Google; (+http://code.google.com/appengine; appid: s~linkqualityaag)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google AppEngine'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'linkqualityaag'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'linkqualityaag ??'
+      AgentNameVersionMajor                : 'linkqualityaag ??'
+      AgentInformationUrl                  : 'http://code.google.com/appengine'
+
 #AppEngine-Google; (+http://code.google.com/appengine; appid: s~loa10167767606076078)
 #AppEngine-Google; (+http://code.google.com/appengine; appid: s~magicscrollreader234)
 #AppEngine-Google; (+http://code.google.com/appengine; appid: s~misterhac)
 
-#TODO: Google shopping quality checks
-#Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Google-Shopping-Quality +http://www.google.com/merchants/tos/extend/BE/tos.html)
+
+
+
+# Google shopping quality checks
+
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.(1)product.name="Google-Shopping-Quality"'
+    - 'agent.product.name="Mobile"'
+    extract:
+    - 'DeviceClass                          : 10000:"Robot Mobile"'
+    - 'DeviceName                           : 10000:"Google"'
+    - 'DeviceBrand                          : 10000:"Google"'
+    - 'DeviceVersion                        : 10000:"Google-Shopping-Quality"'
+    - 'DeviceFirmwareVersion                : 10000:"Google"'
+    - 'OperatingSystemClass                 : 10000:"Cloud"'
+    - 'OperatingSystemName                  : 10000:"Google"'
+    - 'OperatingSystemVersion               : 10000:"Google"'
+    - 'OperatingSystemNameVersion           : 10000:"Google"'
+    - 'LayoutEngineClass                    : 10000:"Robot"'
+    - 'LayoutEngineName                     : 10000:"Googlebot"'
+    - 'LayoutEngineVersion                  : 10000:"Googlebot"'
+    - 'AgentClass                           : 10000:"Robot Mobile"'
+    - 'AgentName                            : 10000:"Google-Shopping-Quality"'
+    - 'AgentVersion                         : 10000:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.(1)product.name="Google-Shopping-Quality"'
+    - 'IsNull[agent.product.name="Mobile"]'
+    extract:
+    - 'DeviceClass                          : 10000:"Robot"'
+    - 'DeviceName                           : 10000:"Google"'
+    - 'DeviceBrand                          : 10000:"Google"'
+    - 'DeviceVersion                        : 10000:"Google-Shopping-Quality"'
+    - 'DeviceFirmwareVersion                : 10000:"Google"'
+    - 'OperatingSystemClass                 : 10000:"Cloud"'
+    - 'OperatingSystemName                  : 10000:"Google"'
+    - 'OperatingSystemVersion               : 10000:"Google"'
+    - 'OperatingSystemNameVersion           : 10000:"Google"'
+    - 'LayoutEngineClass                    : 10000:"Robot"'
+    - 'LayoutEngineName                     : 10000:"Googlebot"'
+    - 'LayoutEngineVersion                  : 10000:"Googlebot"'
+    - 'AgentClass                           : 10000:"Robot"'
+    - 'AgentName                            : 10000:"Google-Shopping-Quality"'
+    - 'AgentVersion                         : 10000:"??"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Google-Shopping-Quality +http://www.google.com/merchants/tos/extend/BE/tos.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      DeviceVersion                        : 'Google-Shopping-Quality'
+      DeviceFirmwareVersion                : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Google-Shopping-Quality'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google-Shopping-Quality ??'
+      AgentNameVersionMajor                : 'Google-Shopping-Quality ??'
+      AgentInformationUrl                  : 'http://www.google.com/merchants/tos/extend/BE/tos.html'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453 Safari/537.36 (compatible; Google-Shopping-Quality +http://www.google.com/merchants/tos/extend/NL/tos.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      DeviceFirmwareVersion                : 'Google'
+      DeviceVersion                        : 'Google-Shopping-Quality'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google-Shopping-Quality'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google-Shopping-Quality ??'
+      AgentNameVersionMajor                : 'Google-Shopping-Quality ??'
+      AgentInformationUrl                  : 'http://www.google.com/merchants/tos/extend/NL/tos.html'
+
 
 #TODO: gfe means the Google Front End
 #Mozilla/5.0 (Windows NT 6.1; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0,gzip(gfe) (via shopping.google.com)
