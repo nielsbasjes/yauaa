@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
+
 public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzerTester.class);
 
@@ -209,21 +211,24 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                     result.field = fieldName;
                     boolean expectedSomething;
 
-                    // Expected value
-                    String expectedValue = expected.get(fieldName);
-                    if (expectedValue == null) {
-                        expectedSomething = false;
-                        result.expected = "<<absent>>";
-                    } else {
-                        expectedSomething = true;
-                        result.expected = expectedValue;
-                    }
-
                     // Actual value
                     result.actual = agent.getValue(result.field);
                     result.confidence = agent.getConfidence(result.field);
                     if (result.actual == null) {
-                        result.actual = "<<<null>>>";
+                        result.actual = NULL_VALUE;
+                    }
+
+                    // Expected value
+                    String expectedValue = expected.get(fieldName);
+                    if (expectedValue == null) {
+                        expectedSomething = false;
+                        if (result.confidence < 0) {
+                            continue; // A negative value really means 'absent'
+                        }
+                        result.expected = "<<absent>>";
+                    } else {
+                        expectedSomething = true;
+                        result.expected = expectedValue;
                     }
 
                     result.pass = result.actual.equals(result.expected);

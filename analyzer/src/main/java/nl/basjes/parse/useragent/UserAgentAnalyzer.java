@@ -458,6 +458,7 @@ config:
             matcher.analyze(userAgent);
         }
 
+        userAgent.processSetAll();
         return hardCodedPostProcessing(userAgent);
     }
 
@@ -478,10 +479,9 @@ config:
     private UserAgent hardCodedPostProcessing(UserAgent userAgent){
         // If it is really really bad ... then it is a Hacker.
         if ("true".equals(userAgent.getValue(SYNTAX_ERROR))) {
-//            userAgent.get(AGENT_CLASS).confidence == -1 &&
-            if (userAgent.get(DEVICE_CLASS).confidence == -1 &&
-                userAgent.get(OPERATING_SYSTEM_CLASS).confidence == -1 &&
-                userAgent.get(LAYOUT_ENGINE_CLASS).confidence == -1)  {
+            if (userAgent.get(DEVICE_CLASS).getConfidence() == -1 &&
+                userAgent.get(OPERATING_SYSTEM_CLASS).getConfidence() == -1 &&
+                userAgent.get(LAYOUT_ENGINE_CLASS).getConfidence() == -1)  {
 
                 userAgent.set(DEVICE_CLASS, "Hacker", 10);
                 userAgent.set(DEVICE_BRAND, "Hacker", 10);
@@ -527,11 +527,11 @@ config:
 
         if (firstField != null) {
             first = firstField.getValue();
-            firstConfidence = firstField.confidence;
+            firstConfidence = firstField.getConfidence();
         }
         if (secondField != null) {
             second = secondField.getValue();
-            secondConfidence = secondField.confidence;
+            secondConfidence = secondField.getConfidence();
         }
 
         if (first == null && second == null) {
@@ -560,20 +560,20 @@ config:
             if (second.startsWith(first)) {
                 userAgent.set(targetName, second, secondConfidence);
             } else {
-                userAgent.set(targetName, first + " " + second, Math.max(firstField.confidence, secondField.confidence));
+                userAgent.set(targetName, first + " " + second, Math.max(firstField.getConfidence(), secondField.getConfidence()));
             }
         }
     }
 
     private void addMajorVersionField(UserAgent userAgent, String versionName, String majorVersionName) {
         UserAgent.AgentField agentVersionMajor = userAgent.get(majorVersionName);
-        if (agentVersionMajor == null || agentVersionMajor.confidence == -1) {
+        if (agentVersionMajor == null || agentVersionMajor.getConfidence() == -1) {
             UserAgent.AgentField agentVersion = userAgent.get(versionName);
             if (agentVersion != null) {
                 userAgent.set(
                     majorVersionName,
                     VersionSplitter.getSingleVersion(agentVersion.getValue(), 1),
-                    agentVersion.confidence);
+                    agentVersion.getConfidence());
             }
         }
     }

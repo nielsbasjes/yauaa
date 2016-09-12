@@ -402,6 +402,10 @@ config:
         FixedValueLookupDefaultBad:  'Two'
 
   - matcher:
+      extract:
+      - 'MultipleIsNullRequirements : 0:"Unmatched"'
+
+  - matcher:
       require:
       - 'IsNull[agent~"a"]'
       - 'IsNull[agent~"e"]'
@@ -409,51 +413,89 @@ config:
       - 'IsNull[agent~"u"]'
       - 'IsNull[agent~"i"]'
       extract:
-      - 'MultipleIsNullRequirements : 1:"Ok"'
+      - 'MultipleIsNullRequirements : 1:"Matched"'
 
   - test:
       input:
         name: 'Validating IsNull (Hacker 1)'
         user_agent_string: '!(()&&!|*|*|'
       expected:
-        MultipleIsNullRequirements: 'Ok'
+        MultipleIsNullRequirements: 'Matched'
 
   - test:
       input:
         name: 'Validating IsNull (Hacker 2)'
         user_agent_string: '!*&%^*&%&*%(()&&!|*|*|'
       expected:
-        MultipleIsNullRequirements: 'Ok'
+        MultipleIsNullRequirements: 'Matched'
 
   - test:
       input:
         name: 'Validating IsNull (Normal)'
         user_agent_string: 'Mozilla/1.0 (Blurp)'
       expected:
-        MultipleIsNullRequirements: 'Unknown'
+        MultipleIsNullRequirements: 'Unmatched'
 
 
   - matcher:
       require:
       - 'agent="Setting NULL Value"'
       extract:
-      - 'TheNullValue : 1:"Normal"'
-      - 'OperatingSystemVersion : 1:"Normal"'
+      - '__Set_ALL_Fields__     : 10:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+      - 'TheNullValue           : 11:"Normal"'
+      - 'OperatingSystemVersion : 11:"Normal"'
 
   - matcher:
       require:
       - 'agent="Setting NULL Value"'
       extract:
-      - 'TheNullValue           : 2:"<<<null>>>"'
-      - 'OperatingSystemVersion : 2:"<<<null>>>"'
+      - '__Set_ALL_Fields__     : 10:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+      - 'TheNullValue           : 12:"<<<null>>>"'
+      - 'OperatingSystemVersion : 12:"<<<null>>>"'
+
 
   - test:
       input:
         name: 'Validating setting a value to NULL'
         user_agent_string: 'Setting NULL Value'
       expected:
-        TheNullValue           : 'Unknown'  # The default for non-builtin fields
+        TheNullValue           : '<<<null>>>'  # The default for non-builtin fields
         OperatingSystemVersion : '??'       # This is the build in default value
+
+  - matcher:
+      require:
+      - 'agent="Set NULL Value"'
+      extract:
+      - '__Set_ALL_Fields__     : 2:"<<<null>>>"'
+      - 'A                      : 10:"One"'
+      - 'A                      : 20:"<<<null>>>"'
+      - 'A                      : 30:"Three"'
+      - 'B                      : 10:"One"'
+      - 'B                      : 20:"<<<null>>>"'
+
+  - test:
+      input:
+        name: 'Setting NULL value'
+        user_agent_string: 'Set NULL Value'
+      expected:
+        A : 'Three'
+        B : '<<<null>>>'
+
+  - matcher:
+      require:
+      - 'agent="Wiping Value"'
+      extract:
+      - '__Set_ALL_Fields__     : 2:"Wiped"'
+      - 'A                      : 1:"One"'
+      - 'B                      : 3:"Three"'
+
+  - test:
+      input:
+        name: 'Validating value wiping'
+        user_agent_string: 'Wiping Value'
+      expected:
+        A : 'Wiped'
+        B : 'Three'
 
 
 #  - test:

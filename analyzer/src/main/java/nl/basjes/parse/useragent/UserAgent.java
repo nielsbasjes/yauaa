@@ -57,6 +57,11 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
 
     public static final String SYNTAX_ERROR = "__SyntaxError__";
 
+    public static final String SET_ALL_FIELDS = "__Set_ALL_Fields__";
+    public static final String NULL_VALUE = "<<<null>>>";
+    public static final String UNKNOWN_VALUE = "Unknown";
+    public static final String UNKNOWN_VERSION = "??";
+
     public static final String[] STANDARD_FIELDS = {
         DEVICE_CLASS,
         DEVICE_BRAND,
@@ -158,10 +163,10 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
     }
 
     public class AgentField {
-        final String defaultValue;
-        String value;
+        private final String defaultValue;
+        private String value;
 
-        long confidence;
+        private long confidence;
 
         AgentField(String defaultValue) {
             this.defaultValue = defaultValue;
@@ -175,12 +180,15 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
 
         public String getValue() {
             if (value == null) {
-                return "Unknown";
+                return defaultValue;
             }
             return value;
         }
 
         public long getConfidence() {
+            if (value == null) {
+                return -1; // Lie in case the value was wiped.
+            }
             return confidence;
         }
 
@@ -193,7 +201,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
             if (newConfidence > this.confidence) {
                 this.confidence = newConfidence;
 
-                if ("<<<null>>>".equals(newValue)) {
+                if (NULL_VALUE.equals(newValue)) {
                     this.value = defaultValue;
                 } else {
                     this.value = newValue;
@@ -233,30 +241,28 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         }
     }
 
-
-
     private void init() {
         // Device : Family - Brand - Model
-        allFields.put(DEVICE_CLASS,                  new AgentField("Unknown")); // Hacker / Cloud / Server / Desktop / Tablet / Phone / Watch
-        allFields.put(DEVICE_BRAND,                  new AgentField("Unknown")); // (Google/AWS/Asure) / ????
-        allFields.put(DEVICE_NAME,                   new AgentField("Unknown")); // (Google/AWS/Asure) / ????
+        allFields.put(DEVICE_CLASS,                  new AgentField(UNKNOWN_VALUE)); // Hacker / Cloud / Server / Desktop / Tablet / Phone / Watch
+        allFields.put(DEVICE_BRAND,                  new AgentField(UNKNOWN_VALUE)); // (Google/AWS/Asure) / ????
+        allFields.put(DEVICE_NAME,                   new AgentField(UNKNOWN_VALUE)); // (Google/AWS/Asure) / ????
 
         // Operating system
-        allFields.put(OPERATING_SYSTEM_CLASS,        new AgentField("Unknown")); // Cloud, Desktop, Mobile, Embedded
-        allFields.put(OPERATING_SYSTEM_NAME,         new AgentField("Unknown")); // ( Linux / Android / Windows ...)
-        allFields.put(OPERATING_SYSTEM_VERSION,      new AgentField("??")); // 1.2 / 43 / ...
+        allFields.put(OPERATING_SYSTEM_CLASS,        new AgentField(UNKNOWN_VALUE)); // Cloud, Desktop, Mobile, Embedded
+        allFields.put(OPERATING_SYSTEM_NAME,         new AgentField(UNKNOWN_VALUE)); // ( Linux / Android / Windows ...)
+        allFields.put(OPERATING_SYSTEM_VERSION,      new AgentField(UNKNOWN_VERSION)); // 1.2 / 43 / ...
 
         // Engine : Class (=None/Hacker/Robot/Browser) - Name - Version
-        allFields.put(LAYOUT_ENGINE_CLASS,           new AgentField("Unknown")); // None / Hacker / Robot / Browser /
-        allFields.put(LAYOUT_ENGINE_NAME,            new AgentField("Unknown")); // ( GoogleBot / Bing / ...) / (Trident / Gecko / ...)
-        allFields.put(LAYOUT_ENGINE_VERSION,         new AgentField("??")); // 1.2 / 43 / ...
-        allFields.put(LAYOUT_ENGINE_VERSION_MAJOR,   new AgentField("??")); // 1 / 43 / ...
+        allFields.put(LAYOUT_ENGINE_CLASS,           new AgentField(UNKNOWN_VALUE)); // None / Hacker / Robot / Browser /
+        allFields.put(LAYOUT_ENGINE_NAME,            new AgentField(UNKNOWN_VALUE)); // ( GoogleBot / Bing / ...) / (Trident / Gecko / ...)
+        allFields.put(LAYOUT_ENGINE_VERSION,         new AgentField(UNKNOWN_VERSION)); // 1.2 / 43 / ...
+        allFields.put(LAYOUT_ENGINE_VERSION_MAJOR,   new AgentField(UNKNOWN_VERSION)); // 1 / 43 / ...
 
         // Agent: Class (=Hacker/Robot/Browser) - Name - Version
-        allFields.put(AGENT_CLASS,                   new AgentField("Unknown")); // Hacker / Robot / Browser /
-        allFields.put(AGENT_NAME,                    new AgentField("Unknown")); // ( GoogleBot / Bing / ...) / ( Firefox / Chrome / ... )
-        allFields.put(AGENT_VERSION,                 new AgentField("??")); // 1.2 / 43 / ...
-        allFields.put(AGENT_VERSION_MAJOR,           new AgentField("??")); // 1 / 43 / ...
+        allFields.put(AGENT_CLASS,                   new AgentField(UNKNOWN_VALUE)); // Hacker / Robot / Browser /
+        allFields.put(AGENT_NAME,                    new AgentField(UNKNOWN_VALUE)); // ( GoogleBot / Bing / ...) / ( Firefox / Chrome / ... )
+        allFields.put(AGENT_VERSION,                 new AgentField(UNKNOWN_VERSION)); // 1.2 / 43 / ...
+        allFields.put(AGENT_VERSION_MAJOR,           new AgentField(UNKNOWN_VERSION)); // 1 / 43 / ...
     }
 
     public void setUserAgentString(String newUserAgentString) {
@@ -275,6 +281,25 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
 
         for (AgentField field : allFields.values()) {
             field.reset();
+        }
+    }
+
+    private boolean isSystemField(String fieldname) {
+        return  SET_ALL_FIELDS.equals(fieldname) ||
+                SYNTAX_ERROR.equals(fieldname);
+    }
+
+    public void processSetAll() {
+        AgentField setAllField = allFields.get(SET_ALL_FIELDS);
+        if (setAllField == null) {
+            return;
+        }
+        String value = setAllField.getValue();
+        Long confidence = setAllField.confidence;
+        for (Map.Entry<String, AgentField> fieldEntry : allFields.entrySet()) {
+            if (!isSystemField(fieldEntry.getKey())) {
+                fieldEntry.getValue().setValue(value, confidence);
+            }
         }
     }
 
@@ -313,7 +338,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
     public String getValue(String fieldName) {
         AgentField field = allFields.get(fieldName);
         if (field == null) {
-            return "Unknown";
+            return UNKNOWN_VALUE;
         }
         return field.getValue();
     }

@@ -103,6 +103,7 @@ config:
 
 - matcher:
     extract:
+    - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
     - 'DeviceBrand           :  100:"Robot"'
     - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"spider"'
@@ -118,6 +119,7 @@ config:
 
 - matcher:
     extract:
+    - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
     - 'DeviceBrand           :  100:"Robot"'
     - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"crawl"'
@@ -133,6 +135,7 @@ config:
 
 - matcher:
     extract:
+    - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
     - 'DeviceBrand           :  100:"Robot"'
     - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"bot"'
@@ -151,6 +154,7 @@ config:
     require:
     - 'agent.(1)product.comments.entry.text~"spider"'
     extract:
+    - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
     - 'DeviceBrand           :  100:"Robot"'
     - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"spider"'
@@ -168,6 +172,7 @@ config:
     require:
     - 'agent.(1)product.comments.entry.text~"crawl"'
     extract:
+    - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
     - 'DeviceBrand           :  100:"Robot"'
     - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"crawl"'
@@ -185,6 +190,7 @@ config:
     require:
     - 'agent.(1)product.comments.entry.text~"bot"'
     extract:
+    - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
     - 'DeviceBrand           :  100:"Robot"'
     - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"bot"'
@@ -204,6 +210,7 @@ config:
     require:
     - 'agent.product.comments.entry.url="http://www.google.com/bot.html"'
     extract:
+    - '__Set_ALL_Fields__    :  2999:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  3000:"Robot"'
     - 'DeviceBrand           :  3000:"Google"'
     - 'DeviceName            :  3000:"Google"'
@@ -219,6 +226,7 @@ config:
 
 - matcher:
     extract:
+    - '__Set_ALL_Fields__    :  3009:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  3010:"Robot"'
     - 'DeviceBrand           :  3010:"Google"'
     - 'DeviceName            :  3010:"Google"'
@@ -251,6 +259,7 @@ config:
     require:
     - 'agent.(1)product.(1)name="AdsBot-Google"'
     extract:
+    - '__Set_ALL_Fields__    :  3019:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  3020:"Robot"'
     - 'DeviceBrand           :  3020:"Google"'
     - 'DeviceName            :  3020:"Google"'
@@ -266,6 +275,7 @@ config:
 
 - matcher:
     extract:
+    - '__Set_ALL_Fields__    : 2999:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           : 3000:"Robot"'
     - 'DeviceBrand           : 3000:"Microsoft"'
     - 'DeviceName            : 3000:"BingBot"'
@@ -431,8 +441,6 @@ config:
       DeviceClass                          : 'Robot Mobile'
       DeviceName                           : 'Google'
       DeviceBrand                          : 'Google'
-      DeviceFirmwareVersion                : '10A5376e' # FIXME
-      DeviceVersion                        : 'iPhone'   # FIXME
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Google'
       OperatingSystemVersion               : 'Google'
@@ -462,7 +470,6 @@ config:
       OperatingSystemName                  : 'Google'
       OperatingSystemVersion               : 'Google'
       OperatingSystemNameVersion           : 'Google'
-      OperatingSystemVersionBuild          : 'IMM76B'  # FIXME: Improve this in case of bot
       LayoutEngineClass                    : 'Robot'
       LayoutEngineName                     : 'Googlebot'
       LayoutEngineVersion                  : 'Googlebot'
@@ -509,7 +516,6 @@ config:
       DeviceClass                          : 'Robot Mobile'
       DeviceName                           : 'Google'
       DeviceBrand                          : 'Google'
-      DeviceVersion                        : '1.0' # FIXME
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Google'
       OperatingSystemVersion               : 'Google'
@@ -562,8 +568,6 @@ config:
       DeviceClass                          : 'Robot Mobile'
       DeviceName                           : 'Google'
       DeviceBrand                          : 'Google'
-      DeviceFirmwareVersion                : '12F70'  # FIXME: Improve this in case of bot
-      DeviceVersion                        : 'iPhone' # FIXME: Improve this in case of bot
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Google'
       OperatingSystemVersion               : 'Google'

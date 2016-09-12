@@ -505,6 +505,24 @@ then the test will fail with messages like this:
 Note that these do not need to be the 'winning' value.
 The existence of the ambiguity is enough to fail.
 
+Wiping values
+=============
+In some cases a previously defined value needs to be erased with a higher confidence.
+To achieve this simply set the value to `<<<null>>>`
+
+In addtion there is a way to set all variables to a certain value by setting the special value `__Set_ALL_Fields__`
+
+Because the ordering is defined by the confidence numbers you must make sure the confidence of the new values are
+at least 1 higher than the confidence of the `__Set_ALL_Fields__`.
+
+Both of these can be combined into
+
+    extract:
+       - '__Set_ALL_Fields__    :   99:"<<<null>>>"'
+
+Note that ALL fields with a confidence below 99 will be wiped. So the field values you set in this matcher
+must all be 1 higher than this or it will wipe itself too.
+
 Performance considerations
 ==========================
 Note that in order to optimize the performance the paths that lead directly to a point in the tree are placed in a
