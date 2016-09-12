@@ -177,7 +177,12 @@ config:
 
 - matcher:
     require:
-    - 'agent~"waitfor "'
+    - 'agent~"WAITFOR "'
+    extract: *setSQLInjection
+
+- matcher:
+    require:
+    - 'agent~"ORDER BY"'
     extract: *setSQLInjection
 
 - matcher:
@@ -198,6 +203,16 @@ config:
 - test:
     input:
       user_agent_string: '"-9929%\"" UNION ALL SELECT 2175,2175,2175,2175,2175,2175,2175,2175,2175-- nMgE"'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: '"-4871%\"") ORDER BY 9174-- kbLJ"'
+    expected: *isSQLInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7) ORDER BY 1-- WiRj'
     expected: *isSQLInjection
 
 - test:
