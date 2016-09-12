@@ -7,8 +7,12 @@ So we do it manually.
 mvn clean package -Pplatfora
 mvn clean
 
+
+# Prepare the versions for the release
+RELEASEVERSION=0.6
+NEXTVERSION=0.7
+
 # Creating and publishing the new Tagging
-RELEASEVERSION=2.0
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION}
 
 # Update the version number in all of the examples in the README*md files
@@ -18,7 +22,6 @@ git status
 git commit -m"Version ${RELEASEVERSION}" -a
 git tag -a v${RELEASEVERSION} -m"Tag Version ${RELEASEVERSION}"
 
-NEXTVERSION=2.1
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${NEXTVERSION}-SNAPSHOT
 git commit -m"Start development for ${NEXTVERSION}" -a
 
