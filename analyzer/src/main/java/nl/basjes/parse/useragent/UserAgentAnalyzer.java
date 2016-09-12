@@ -368,11 +368,16 @@ config:
 
                         @SuppressWarnings("unchecked")
                         List<String> options = (List<String>) testCase.get("options");
+                        Map<String, String> expected = testCase.get("expected");
                         if (options != null) {
                             if (options.contains("only")) {
                                 doingOnlyASingleTest = true;
                                 testCases.clear();
                             }
+                        }
+                        if (expected == null || expected.isEmpty()) {
+                            doingOnlyASingleTest = true;
+                            testCases.clear();
                         }
 
                         testCases.add(testCase);
