@@ -38,7 +38,7 @@ public class StepEquals extends Step {
             if (verbose) {
                 LOG.info("{} Equals: {} == {} --> TRUE", logprefix, actualValue, desiredValue);
             }
-            return walkNextStep(tree, value);
+            return walkNextStep(tree, actualValue);
         }
 
         if (verbose) {

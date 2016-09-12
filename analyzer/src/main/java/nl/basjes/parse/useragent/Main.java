@@ -122,7 +122,7 @@ public final class Main {
 
                 boolean hasBad = false;
                 for (String field : UserAgent.STANDARD_FIELDS) {
-                    if (agent.get(field).confidence < 0) {
+                    if (agent.getConfidence(field) < 0) {
                         hasBad = true;
                         break;
                     }

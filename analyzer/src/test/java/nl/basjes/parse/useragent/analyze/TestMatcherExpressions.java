@@ -39,7 +39,7 @@ public class TestMatcherExpressions {
     @Test
     public void runLookupTests() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:Lookup-tests.yaml");
-        Assert.assertTrue(uaa.runTests(false, true));
+        Assert.assertTrue(uaa.runTests(false, false));
     }
 
     @Test

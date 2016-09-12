@@ -153,6 +153,7 @@ public class Matcher {
             for (MatcherAction action : dynamicActions) {
                 if (!action.canPossiblyBeValid()) {
                     LOG.error("CANNOT BE VALID : {}", action.getMatchExpression());
+                    good = false;
                 }
             }
             for (MatcherAction action : dynamicActions) {

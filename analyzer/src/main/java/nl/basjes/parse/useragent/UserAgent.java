@@ -174,12 +174,16 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         }
 
         public String getValue() {
+            if (value == null) {
+                return "Unknown";
+            }
             return value;
         }
 
         public long getConfidence() {
             return confidence;
         }
+
 
         public boolean setValue(AgentField field) {
             return setValue(field.value, field.confidence);
@@ -188,7 +192,12 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         public boolean setValue(String newValue, long newConfidence) {
             if (newConfidence > this.confidence) {
                 this.confidence = newConfidence;
-                this.value = newValue;
+
+                if ("<<<null>>>".equals(newValue)) {
+                    this.value = defaultValue;
+                } else {
+                    this.value = newValue;
+                }
                 return true;
             }
             return false;
@@ -304,7 +313,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
     public String getValue(String fieldName) {
         AgentField field = allFields.get(fieldName);
         if (field == null) {
-            return null;
+            return "Unknown";
         }
         return field.getValue();
     }
@@ -312,7 +321,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
     public Long getConfidence(String fieldName) {
         AgentField field = allFields.get(fieldName);
         if (field == null) {
-            return null;
+            return -1L;
         }
         return field.getConfidence();
     }

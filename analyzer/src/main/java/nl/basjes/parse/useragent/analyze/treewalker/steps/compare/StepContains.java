@@ -35,7 +35,7 @@ public class StepContains extends Step {
         String actualValue = getActualValue(tree, value);
 
         if (actualValue.toLowerCase().contains(desiredValue)) {
-            return walkNextStep(tree, value);
+            return walkNextStep(tree, actualValue);
         }
         return null;
     }

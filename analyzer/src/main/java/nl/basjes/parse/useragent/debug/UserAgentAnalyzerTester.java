@@ -220,11 +220,8 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                     }
 
                     // Actual value
-                    UserAgent.AgentField agentField = agent.get(result.field);
-                    if (agentField != null) {
-                        result.actual = agentField.getValue();
-                        result.confidence = agentField.getConfidence();
-                    }
+                    result.actual = agent.getValue(result.field);
+                    result.confidence = agent.getConfidence(result.field);
                     if (result.actual == null) {
                         result.actual = "<<<null>>>";
                     }

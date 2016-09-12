@@ -32,7 +32,7 @@ public class StepDefaultValue extends Step {
 
     @Override
     public String walk(ParseTree tree, String value) {
-        String result = walkNextStep(tree, null);
+        String result = walkNextStep(tree, value);
         if (result == null) {
             result = defaultValue;
         }
