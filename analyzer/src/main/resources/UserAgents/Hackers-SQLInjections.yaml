@@ -187,6 +187,11 @@ config:
 
 - matcher:
     require:
+    - 'agent~"FROM DUAL"'
+    extract: *setSQLInjection
+
+- matcher:
+    require:
     - 'agent~"1=1"'
     extract: *setSQLInjection
 
