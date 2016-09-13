@@ -337,11 +337,11 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceFirmwareVersion : 1000:agent.(1)product.(1)comments.entry.product.(1)comments.entry.product.(1)name="Firmware"^.version'
+    - 'DeviceFirmwareVersion : 1000:agent.(1)product.(1)comments.([1-9])entry.product.(1)comments.([1-9])entry.product.(1)name="Firmware"^.version'
 
 - matcher:
     extract:
-    - 'DeviceFirmwareVersion : 1000:agent.(1)product.(1)comments.entry.product.(1)name="Firmware"^.version'
+    - 'DeviceFirmwareVersion : 1000:agent.(1)product.(1)comments.([1-9])entry.product.(1)name="Firmware"^.version'
 
 - matcher:
     extract:
@@ -350,7 +350,7 @@ config:
     - 'DeviceName                           :   10 :"Unspecified TV"'
     - 'OperatingSystemClass                 : 1000:"Embedded"'
     - 'OperatingSystemName                  : 1000:"NETTV"'
-    - 'OperatingSystemVersion               : 1000:agent.([1-3])product.(1)comments.entry.product.(1)comments.entry.product.(1)name="NETTV"^.version'
+    - 'OperatingSystemVersion               : 1000:agent.([1-3])product.(1)comments.([1-4])entry.product.(1)comments.([1-9])entry.product.(1)name="NETTV"^.version'
 
 - matcher:
     extract:
@@ -359,7 +359,7 @@ config:
     - 'DeviceName                           :   10:"Unspecified TV"'
     - 'OperatingSystemClass                 : 1000:"Embedded"'
     - 'OperatingSystemName                  : 1000:"NETTV"'
-    - 'OperatingSystemVersion               : 1000:agent.([1-3])product.(1)comments.entry.product.(1)name="NETTV"^.version'
+    - 'OperatingSystemVersion               : 1000:agent.([1-3])product.(1)comments.([1-9])entry.product.(1)name="NETTV"^.version'
 
 - matcher:
     require:
