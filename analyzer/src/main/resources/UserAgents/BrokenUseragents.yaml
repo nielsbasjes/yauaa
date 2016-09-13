@@ -1423,6 +1423,57 @@ config:
       AgentLanguageCode                    : 'gu'
       AgentSecurity                        : 'Strong security'
 
+- test:
+    input:
+      user_agent_string: '(Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'x64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemVersionBuild          : '10240'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'EdgeHTML'
+      LayoutEngineVersion                  : '12'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'EdgeHTML 12'
+      LayoutEngineNameVersionMajor         : 'EdgeHTML 12'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '12'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Edge 12'
+      AgentNameVersionMajor                : 'Edge 12'
+
+- test:
+    input:
+      user_agent_string: '(Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '17.0'
+      LayoutEngineVersionMajor             : '17'
+      LayoutEngineNameVersion              : 'Gecko 17.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 17'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '17.0'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Firefox 17.0'
+      AgentNameVersionMajor                : 'Firefox 17'
+
 # Manipulated to make it look like Windows 7
 #  - test:
 #      input:
@@ -1431,3 +1482,5 @@ config:
 #- test:
 #    input:
 #      user_agent_string: 'device_id={763835ca-1b38-48ef-9693-ad6bef1c60b6}&brand=bebook&model=neo&access=wlan'
+
+

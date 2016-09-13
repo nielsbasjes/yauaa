@@ -44,7 +44,8 @@ public final class EvilManualUseragentStringHacks {
         }
 
         // This happens in a broken version of the Facebook app a lot
-        if (result.startsWith("(null")){
+        if (result.startsWith("(null") ||
+            result.startsWith("(Windows")){
             // We simply prefix a fake product name to continue parsing.
             result = "Mozilla/5.0 " + result;
         } else {
