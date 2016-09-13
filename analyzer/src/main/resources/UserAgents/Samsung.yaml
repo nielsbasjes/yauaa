@@ -30,7 +30,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-G920F/G920FXXEinterim Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/44.0.2403.133 Mobile Safari/537.36'
     expected:
       DeviceClass                          : 'Phone'
-      DeviceName                           : 'SAMSUNG SM-G920F/G920FXXEinterim'
+      DeviceName                           : 'SM-G920F'
       DeviceBrand                          : 'Samsung'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
@@ -55,7 +55,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-G920F Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/3.0 Chrome/38.0.2125.102 Mobile VR Safari/537.36'
     expected:
       DeviceClass                          : 'Mobile'
-      DeviceName                           : 'SAMSUNG SM-G920F'
+      DeviceName                           : 'SM-G920F'
       DeviceBrand                          : 'Samsung'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
@@ -113,3 +113,33 @@ config:
       AgentNameVersionMajor                : 'Opera Mini 7'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   100:"Mobile"'
+    - 'DeviceBrand           :   100:"Samsung"'
+    - 'DeviceName            :   100:agent.(1)product.(1)comments.entry.(1)product.(1)name="SAMSUNG"^.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Tizen 2.3; SAMSUNG SM-Z130H) AppleWebKit/537.3 (KHTML, like Gecko) SamsungBrowser/1.0 Mobile Safari/537.3'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'SM-Z130H'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Tizen'
+      OperatingSystemVersion               : '2.3'
+      OperatingSystemNameVersion           : 'Tizen 2.3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.3'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.3'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SamsungBrowser 1.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 1'
