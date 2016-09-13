@@ -54,7 +54,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-G920F Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/3.0 Chrome/38.0.2125.102 Mobile VR Safari/537.36'
     expected:
-      DeviceClass                          : 'Mobile'
+      DeviceClass                          : 'Virtual Reality'
       DeviceName                           : 'SM-G920F'
       DeviceBrand                          : 'Samsung'
       OperatingSystemClass                 : 'Mobile'
@@ -143,3 +143,38 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'SamsungBrowser 1.0'
       AgentNameVersionMajor                : 'SamsungBrowser 1'
+
+
+- matcher:
+    require:
+    - 'agent.product.(1)name#2="Mobile VR"'
+    extract:
+    - 'DeviceClass           :   500:"Virtual Reality"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.2; SAMSUNG SM-G925K Build/LRX22G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/44.0.2403.133 Mobile VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'SM-G925K'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemVersionBuild          : 'LRX22G'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '44.0'
+      LayoutEngineVersionMajor             : '44'
+      LayoutEngineNameVersion              : 'Blink 44.0'
+      LayoutEngineNameVersionMajor         : 'Blink 44'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'SamsungBrowser 4.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 4'
+
+
+
