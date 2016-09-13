@@ -162,6 +162,7 @@ public class ParseService {
 
             sb.append("<h1>Analyzing your useragent string</h1>");
 
+            sb.append("Build using <a href=\"https://github.com/nielsbasjes/yauaa\">YaUAa (Yet another UserAgent analyzer)</a>.<br/>");
             sb.append("Version    : ").append(version).append("<br/>");
             sb.append("Build time : ").append(buildtime).append("<br/>");
 
