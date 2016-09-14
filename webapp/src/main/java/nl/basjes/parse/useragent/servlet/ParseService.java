@@ -23,6 +23,7 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -104,10 +105,10 @@ public class ParseService {
     }
 
     @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getHtmlPOST(String userAgentString) {
-        return doJSon(userAgentString);
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_HTML)
+    public Response getHtmlPOST(@FormParam("useragent") String userAgentString) {
+        return doHTML(userAgentString);
     }
 
     @GET
@@ -126,9 +127,9 @@ public class ParseService {
 
     @POST
     @Path("/json")
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJSonPOST(String userAgentString) {
+    public Response getJSonPOST(@FormParam("useragent") String userAgentString) {
         return doJSon(userAgentString);
     }
 
@@ -168,7 +169,7 @@ public class ParseService {
 
             UserAgent userAgent = parse(userAgentString);
 
-            sb.append("Received useragent header: <h2>").append(escapeHtml4(userAgent.getUserAgentString())).append("</h2>");
+            sb.append("Received useragent: <B>").append(escapeHtml4(userAgent.getUserAgentString())).append("</B>");
             sb.append("<table border=1>");
             sb.append("<tr><th>Field</th><th>Value</th></tr>");
             for (String fieldname : userAgent.getAvailableFieldNamesSorted()) {
@@ -194,6 +195,17 @@ public class ParseService {
             }
             sb.append("</ul>");
 
+            sb.append("<form action=\"/\" method=\"post\">");
+            sb.append("Manual testing of a useragent:<br>");
+            sb.append("<input type=\"text\" name=\"useragent\"  size=\"100\" value=\"").append(escapeHtml4(userAgentString)).append("\">");
+            sb.append("<input type=\"submit\" value=\"Analyze\">");
+            sb.append("</form>");
+
+            sb.append("<form action=\"/json\" method=\"post\">");
+            sb.append("Manual testing of a useragent (JSON):<br>");
+            sb.append("<input type=\"text\" name=\"useragent\"  size=\"100\" value=\"").append(escapeHtml4(userAgentString)).append("\">");
+            sb.append("<input type=\"submit\" value=\"Analyze to JSon\">");
+            sb.append("</form>");
         } finally {
             long stop = System.nanoTime();
             double milliseconds = (stop - start) / 1000000.0;
