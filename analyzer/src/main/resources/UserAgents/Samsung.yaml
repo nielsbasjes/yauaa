@@ -17,6 +17,11 @@
 #
 config:
 
+# Based partially upon these specifications:
+# https://www.samsungdforum.com/SamsungDForum/NewsView?newsID=70
+# http://developer.samsung.com/technical-doc/view.do?v=T000000202
+# http://developer.samsung.com/technical-doc/view.do?v=T000000203
+
 # SamsungBrowser
 - matcher:
     extract:
@@ -113,6 +118,31 @@ config:
       AgentNameVersionMajor                : 'Opera Mini 7'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (SmartHub; SMART-TV; U; Linux/SmartTV) AppleWebKit/531.2+ (KHTML, like Gecko) WebBrowser/1.0 SmartTV Safari/531.2+'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Smart TV'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'SmartTV'
+      OperatingSystemNameVersion           : 'Linux SmartTV'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '531.2'
+      LayoutEngineVersionMajor             : '531'
+      LayoutEngineNameVersion              : 'AppleWebKit 531.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 531'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'WebBrowser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'WebBrowser 1.0'
+      AgentNameVersionMajor                : 'WebBrowser 1'
+      AgentSecurity                        : 'Strong security'
 
 - matcher:
     extract:
