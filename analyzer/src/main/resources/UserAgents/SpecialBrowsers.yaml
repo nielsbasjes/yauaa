@@ -556,33 +556,67 @@ config:
 
 
 # TODO: A lot of special browsers
-#  - matcher:
-#      require:
-#        - 'agent.product="Profile/MIDP-2.1"'
-#        - 'agent.product.(1)name="Browser"'
-#      extract:
-#        - 'DeviceClass           :   1000:"Mobile"'
-#        - 'DeviceBrand           :   1000:agent.(2)product.(1)name'
-#        - 'DeviceName            :   1000:agent.(2)product.(1)name'
-#        - 'DeviceVersion         :   1000:agent.(2)product.(1)version'
-#        - 'OperatingSystemClass  :   1000:"Mobile"'
-##        - 'OperatingSystemName   :   1:' # ( Linux / Android / Windows ...)
-##        - 'OperatingSystemVersion:   1:' # 1.2 / 43 / ...
-#        - 'LayoutEngineClass     :    100:"Browser"'
-#        - 'LayoutEngineName      :    100:agent.product.(1)name="Browser"^.(1)version'
-#        - 'LayoutEngineVersion   :    100:agent.product.(1)name="Browser"^.(2)version'
-#        - 'AgentClass            :   1000:"Browser"'
-#        - 'AgentName             :   1000:agent.product.(1)name="Browser"^.(1)version'
-#        - 'AgentVersion          :   1000:agent.product.(1)name="Browser"^.(2)version'
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/4.0 SonyEricssonW910iv/R1FA Browser/NetFront/3.4 Profile/MIDP-2.1 Configuration/CLDC-1.1'
+
+- matcher:
+    require:
+    - 'agent.product="Profile/MIDP-2.1"'
+    - 'agent.product.(1)name="Browser"'
+    extract:
+    - 'LayoutEngineClass     :     10:"Browser"'
+    - 'LayoutEngineName      :     10:agent.product.(1)name="Browser"^.(1)version'
+    - 'LayoutEngineVersion   :     10:agent.product.(1)name="Browser"^.(2)version'
+    - 'AgentClass            :   1000:"Browser"'
+    - 'AgentName             :   1000:agent.product.(1)name="Browser"^.(1)version'
+    - 'AgentVersion          :   1000:agent.product.(1)name="Browser"^.(2)version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 SonyEricssonW910iv/R1FA Browser/NetFront/3.4 Profile/MIDP-2.1 Configuration/CLDC-1.1'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Mozilla'
+      DeviceBrand                          : 'SonyEricsson'
+      DeviceVersion                        : '4.0'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'NetFront'
+      LayoutEngineVersion                  : '3.4'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'NetFront 3.4'
+      LayoutEngineNameVersionMajor         : 'NetFront 3'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'NetFront'
+      AgentVersion                         : '3.4'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'NetFront 3.4'
+      AgentNameVersionMajor                : 'NetFront 3'
 
 
-#  - test:
-#      input:
-#        user_agent_string: 'python-requests/2.1.0 CPython/2.7.3 Linux/3.2.0-4-amd64'
+- test:
+    input:
+      user_agent_string: 'python-requests/2.1.0 CPython/2.7.3 Linux/3.2.0-4-amd64'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '3.2.0-4-amd64'
+      OperatingSystemNameVersion           : 'Linux 3.2.0-4-amd64'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'python-requests'
+      AgentVersion                         : '2.1.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'python-requests 2.1.0'
+      AgentNameVersionMajor                : 'python-requests 2'
+
+
 #
 #  - test:
 #      input:
@@ -632,11 +666,6 @@ config:
 #MT6572_TD/V1 Linux/3.4.5 Android/4.2.2 Release/03.26.2013 Browser/AppleWebKit534.30 Mobile Safari/534.30 MBBMS/2.2;
 #MT6572/V1 Linux/3.4.5 Android/4.2.2_OS Release/03.04.2014 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.2.2_OS;
 #
-#Nokia110/2.0 (03.51) Profile/MIDP-2.1 Configuration/CLDC-1.1  UNTRUSTED/1.0
-#Nokia112/2.0 (03.26) Profile/MIDP-2.1 Configuration/CLDC-1.1 UCWEB/2.0 (Java; U; MIDP-2.0; en-US; Nokia112) U2/1.0.0 UCBrowser/9.3.0.326 U2/1.0.0 Mobile
-#
-#Nokia2320c-2b/2.0(ATT.11.10) Profile/MIDP-2.1 Configuration/CLDC-1.1
-#Nokia2690/2.0 (10.10) Profile/MIDP-2.1 Configuration/CLDC-1.1 UCWEB/2.0 (Java; U; MIDP-2.0; en-US; Nokia2690) U2/1.0.0 UCBrowser/9.4.1.377 U2/1.0.0 Mobile
 #
 #OneBrowser/4.2.0/Adr(Linux; U; Android 2.3.5; nl-nl; GT-I9100 Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Mobile Safari/533.1
 #

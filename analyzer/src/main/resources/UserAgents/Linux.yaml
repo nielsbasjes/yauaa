@@ -50,6 +50,13 @@ config:
     - 'OperatingSystemName   :   5:"Linux"'
     - 'OperatingSystemVersion:   4:agent.(1)product.(1)comments.entry.product.name="Linux"^.version'
 
+- matcher:
+    extract:
+    - 'DeviceClass           :   5:"Desktop"'
+    - 'DeviceName            :   5:"Linux Desktop"'
+    - 'OperatingSystemClass  :   5:"Desktop"'
+    - 'OperatingSystemName   :   5:"Linux"'
+    - 'OperatingSystemVersion:   3:agent.product.(1)name="Linux"^.version'
 
 - matcher:
     require:

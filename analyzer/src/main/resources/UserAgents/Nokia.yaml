@@ -406,3 +406,104 @@ config:
     - 'OperatingSystemClass  :   310:"Mobile"'
     - 'OperatingSystemName   :   310:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="SymbianOS"'
     - 'OperatingSystemVersion:   310:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="SymbianOS"^.version'
+
+
+- test:
+    input:
+      user_agent_string: 'Nokia110/2.0 (03.51) Profile/MIDP-2.1 Configuration/CLDC-1.1  UNTRUSTED/1.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia110'
+      DeviceBrand                          : 'Nokia'
+      DeviceVersion                        : '2.0'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Nokia110'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Nokia110 2.0'
+      AgentNameVersionMajor                : 'Nokia110 2'
+
+
+- test:
+    input:
+      user_agent_string: 'Nokia112/2.0 (03.26) Profile/MIDP-2.1 Configuration/CLDC-1.1 UCWEB/2.0 (Java; U; MIDP-2.0; en-US; Nokia112) U2/1.0.0 UCBrowser/9.3.0.326 U2/1.0.0 Mobile'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia112'
+      DeviceBrand                          : 'Nokia'
+      DeviceVersion                        : '2.0'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'UCBrowser'
+      LayoutEngineVersion                  : '9.3.0.326'
+      LayoutEngineVersionMajor             : '9'
+      LayoutEngineNameVersion              : 'UCBrowser 9.3.0.326'
+      LayoutEngineNameVersionMajor         : 'UCBrowser 9'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'UCBrowser'
+      AgentVersion                         : '9.3.0.326'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'UCBrowser 9.3.0.326'
+      AgentNameVersionMajor                : 'UCBrowser 9'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+
+
+- test:
+    input:
+      user_agent_string: 'Nokia2320c-2b/2.0(ATT.11.10) Profile/MIDP-2.1 Configuration/CLDC-1.1'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia2320c-2b'
+      DeviceBrand                          : 'Nokia'
+      DeviceVersion                        : '2.0'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Nokia2320c-2b'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Nokia2320c-2b 2.0'
+      AgentNameVersionMajor                : 'Nokia2320c-2b 2'
+
+
+- test:
+    input:
+      user_agent_string: 'Nokia2690/2.0 (10.10) Profile/MIDP-2.1 Configuration/CLDC-1.1 UCWEB/2.0 (Java; U; MIDP-2.0; en-US; Nokia2690) U2/1.0.0 UCBrowser/9.4.1.377 U2/1.0.0 Mobile'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia2690'
+      DeviceBrand                          : 'Nokia'
+      DeviceVersion                        : '2.0'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'UCBrowser'
+      LayoutEngineVersion                  : '9.4.1.377'
+      LayoutEngineVersionMajor             : '9'
+      LayoutEngineNameVersion              : 'UCBrowser 9.4.1.377'
+      LayoutEngineNameVersionMajor         : 'UCBrowser 9'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'UCBrowser'
+      AgentVersion                         : '9.4.1.377'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'UCBrowser 9.4.1.377'
+      AgentNameVersionMajor                : 'UCBrowser 9'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+
