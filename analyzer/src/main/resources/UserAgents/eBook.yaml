@@ -229,10 +229,7 @@ config:
       AgentLanguageCode                    : 'nl-nl'
       AgentSecurity                        : 'Strong security'
 
-#TODO: Robot that converts websites into ebooks
-#Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; eBook Maestro [ebookmaestro.com]; .NET CLR 2.0.50727)
-#Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; eBook Maestro [ebookmaestro.com]; InfoPath.2; .NET CLR 2.0.50727)
-
+#A robot that converts websites into ebooks
 - matcher:
     extract:
     - 'AgentClass            :   3000:"Special"'
@@ -242,7 +239,6 @@ config:
 - test:
     input:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; eBook Maestro [ebookmaestro.com]; .NET CLR 2.0.50727)'
-    expected:
     expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
@@ -257,6 +253,30 @@ config:
       LayoutEngineVersionMajor             : '6'
       LayoutEngineNameVersion              : 'Internet Explorer 6.0'
       LayoutEngineNameVersionMajor         : 'Internet Explorer 6'
+      AgentClass                           : 'Special'
+      AgentName                            : 'eBook Maestro'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'eBook Maestro ??'
+      AgentNameVersionMajor                : 'eBook Maestro ??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; eBook Maestro [ebookmaestro.com]; InfoPath.2; .NET CLR 2.0.50727)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Internet Explorer'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Internet Explorer 7.0'
+      LayoutEngineNameVersionMajor         : 'Internet Explorer 7'
       AgentClass                           : 'Special'
       AgentName                            : 'eBook Maestro'
       AgentVersion                         : '??'
