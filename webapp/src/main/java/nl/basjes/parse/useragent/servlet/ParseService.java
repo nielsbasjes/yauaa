@@ -34,8 +34,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -166,6 +164,7 @@ public class ParseService {
             sb.append("Build using <a href=\"https://github.com/nielsbasjes/yauaa\">YaUAa (Yet another UserAgent analyzer)</a>.<br/>");
             sb.append("Version    : ").append(version).append("<br/>");
             sb.append("Build time : ").append(buildtime).append("<br/>");
+            sb.append("<hr/>");
 
             UserAgent userAgent = parse(userAgentString);
 
@@ -180,32 +179,37 @@ public class ParseService {
             }
             sb.append("</table>");
 
-            sb.append("<ul>");
-            sb.append("<li><a href=\"/\">HTML (from header)</a></li>");
-            sb.append("<li><a href=\"/json\">Json (from header)</a></li>");
+//            sb.append("<ul>");
+//            sb.append("<li><a href=\"/\">HTML (from header)</a></li>");
+//            sb.append("<li><a href=\"/json\">Json (from header)</a></li>");
+//
+//            String urlEncodedUserAgent = "";
+//            try {
+//                urlEncodedUserAgent = URLEncoder.encode(userAgentString, "utf-8");
+//                urlEncodedUserAgent = urlEncodedUserAgent.replace("+", "%20");
+//                sb.append("<li><a href=\"/").append(urlEncodedUserAgent).append("\">HTML (from url)</a></li>");
+//                sb.append("<li><a href=\"/json/").append(urlEncodedUserAgent).append("\">Json (from url)</a></li>");
+//            } catch (UnsupportedEncodingException e) {
+//                // Do nothing
+//            }
+//            sb.append("</ul>");
 
-            String urlEncodedUserAgent = "";
-            try {
-                urlEncodedUserAgent = URLEncoder.encode(userAgentString, "utf-8");
-                urlEncodedUserAgent = urlEncodedUserAgent.replace("+", "%20");
-                sb.append("<li><a href=\"/").append(urlEncodedUserAgent).append("\">HTML (from url)</a></li>");
-                sb.append("<li><a href=\"/json/").append(urlEncodedUserAgent).append("\">Json (from url)</a></li>");
-            } catch (UnsupportedEncodingException e) {
-                // Do nothing
-            }
-            sb.append("</ul>");
-
+            sb.append("<br/>");
+            sb.append("<hr/>");
             sb.append("<form action=\"/\" method=\"post\">");
             sb.append("Manual testing of a useragent:<br>");
             sb.append("<input type=\"text\" name=\"useragent\"  size=\"100\" value=\"").append(escapeHtml4(userAgentString)).append("\">");
             sb.append("<input type=\"submit\" value=\"Analyze\">");
             sb.append("</form>");
+            sb.append("<br/>");
 
-            sb.append("<form action=\"/json\" method=\"post\">");
-            sb.append("Manual testing of a useragent (JSON):<br>");
-            sb.append("<input type=\"text\" name=\"useragent\"  size=\"100\" value=\"").append(escapeHtml4(userAgentString)).append("\">");
-            sb.append("<input type=\"submit\" value=\"Analyze to JSon\">");
-            sb.append("</form>");
+//            sb.append("<form action=\"/json\" method=\"post\">");
+//            sb.append("Manual testing of a useragent (JSON):<br>");
+//            sb.append("<input type=\"text\" name=\"useragent\"  size=\"100\" value=\"").append(escapeHtml4(userAgentString)).append("\">");
+//            sb.append("<input type=\"submit\" value=\"Analyze to JSon\">");
+//            sb.append("</form>");
+
+            sb.append("<hr/>");
         } finally {
             long stop = System.nanoTime();
             double milliseconds = (stop - start) / 1000000.0;
