@@ -22,7 +22,6 @@ config:
     require:
     - 'IsNull[agent.(1)product.(1)name="Mozilla"]'
     extract:
-#
     - 'AgentClass            :   5:"Special"'
     - 'AgentName             :   5:agent.(1)product.name'
 
@@ -30,7 +29,6 @@ config:
     require:
     - 'IsNull[agent.(1)product.(1)name="Mozilla"]'
     extract:
-#
     - 'AgentClass            :   5:"Special"'
     - 'AgentName             :   5:agent.(1)product.url'
 
@@ -756,14 +754,117 @@ config:
       AgentNameVersionMajor                : 'Internet Explorer 7'
 
 
-#TODO: Communicators
-#- test:
-#    input:
-#      user_agent_string: 'OC/15.0.4711.1002 (Skype for Business)'
-#
-#- test:
-#    input:
-#      user_agent_string: 'MC/14.0.0321.8 (Microsoft Lync for Mac 2011)'
+# Communicators
+- matcher:
+    extract:
+    - 'WebviewAppName        :   150:agent.(1)product.(1)name="Kik"'
+    - 'WebviewAppVersion     :   150:agent.(1)product.(1)version'
+
+- test:
+    input:
+      user_agent_string: 'Kik/9.4.0.4292 (Android 5.0.2) Mozilla/5.0 (Linux; Android 5.0.2; SM-G850F Build/LRX22G; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/47.0.2526.100 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'SM-G850F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemVersionBuild          : 'LRX22G'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '47.0'
+      LayoutEngineVersionMajor             : '47'
+      LayoutEngineNameVersion              : 'Blink 47.0'
+      LayoutEngineNameVersionMajor         : 'Blink 47'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '47.0.2526.100'
+      AgentVersionMajor                    : '47'
+      AgentNameVersion                     : 'Chrome Webview 47.0.2526.100'
+      AgentNameVersionMajor                : 'Chrome Webview 47'
+      WebviewAppName                       : 'Kik'
+      WebviewAppNameVersionMajor           : 'Kik 9'
+      WebviewAppVersion                    : '9.4.0.4292'
+      WebviewAppVersionMajor               : '9'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="OC"'
+    extract:
+    - 'DeviceClass                      :   100: "Desktop"'
+    - 'DeviceName                       :   100: "Desktop"'
+    - 'DeviceBrand                      :   100: "Unknown"'
+    - 'OperatingSystemClass             :   100: "Desktop"'
+    - 'OperatingSystemName              :   100: "Windows NT"'
+    - 'OperatingSystemVersion           :   100: "Windows NT"'
+    - 'OperatingSystemNameVersion       :   100: "Windows NT"'
+    - 'AgentClass                       :   100: "Special"'
+    - 'AgentName                        :   100: "Microsoft Lync (Skype)"'
+    - 'AgentVersion                     :   100: agent.(1)product.(1)version'
+
+- test:
+    input:
+      user_agent_string: 'OC/15.0.4711.1002 (Skype for Business)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows NT'
+      OperatingSystemNameVersion           : 'Windows NT'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Lync (Skype)'
+      AgentVersion                         : '15.0.4711.1002'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft Lync (Skype) 15.0.4711.1002'
+      AgentNameVersionMajor                : 'Microsoft Lync (Skype) 15'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="MC"'
+    - 'agent.(1)product.(1)comments.(1)entry.product.name="Microsoft Lync for Mac"'
+    extract:
+    - 'DeviceClass                      :   100:"Desktop"'
+    - 'DeviceName                       :   100:"Macintosh"'
+    - 'DeviceBrand                      :   100:"Apple"'
+    - 'DeviceCpu                        :   100:"Intel"'
+    - 'OperatingSystemClass             :   100:"Desktop"'
+    - 'OperatingSystemName              :   100:"Mac OS X"'
+    - 'OperatingSystemVersion           :   100:"10.??"'
+    - 'AgentClass                       :   100: "Special"'
+    - 'AgentName                        :   100: "Microsoft Lync (Skype)"'
+    - 'AgentVersion                     :   100: agent.(1)product.(1)version'
+
+- test:
+    input:
+      user_agent_string: 'MC/14.0.0321.8 (Microsoft Lync for Mac 2011)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.??'
+      OperatingSystemNameVersion           : 'Mac OS X 10.??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Lync (Skype)'
+      AgentVersion                         : '14.0.0321.8'
+      AgentVersionMajor                    : '14'
+      AgentNameVersion                     : 'Microsoft Lync (Skype) 14.0.0321.8'
+      AgentNameVersionMajor                : 'Microsoft Lync (Skype) 14'
 
 - test:
     input:
