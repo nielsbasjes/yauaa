@@ -49,8 +49,10 @@ public class UserAgentDissector extends Dissector {
     public boolean initializeFromSettingsParameter(String s) {
         if (userAgentAnalyzer == null) {
             userAgentAnalyzer = new UserAgentAnalyzer();
+            if (s != null && !(s.trim().isEmpty())) {
+                userAgentAnalyzer.loadResources(s);
+            }
         }
-        // TODO: Allow for the path of extra yaml files
         return true;
     }
 

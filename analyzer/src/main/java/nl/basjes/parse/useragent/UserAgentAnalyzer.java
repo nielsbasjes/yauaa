@@ -87,10 +87,14 @@ public class UserAgentAnalyzer extends Analyzer {
     private final LRUMap<String, UserAgent> parseCache = new LRUMap<>(PARSE_CACHE_SIZE);
 
     public UserAgentAnalyzer() {
-        this("classpath*:UserAgents/**/*.yaml");
+        loadResources("classpath*:UserAgents/**/*.yaml");
     }
 
     public UserAgentAnalyzer(String resourceString) {
+        loadResources(resourceString);
+    }
+
+    public void loadResources(String resourceString) {
         LOG.info("Loading from: \"{}\"", resourceString);
         informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
         allMatchers = new ArrayList<>();
@@ -464,7 +468,7 @@ config:
 
     private static final List<String> HARD_CODED_GENERATED_FIELDS = new ArrayList<>();
     static {
-        HARD_CODED_GENERATED_FIELDS.add(SYNTAX_ERROR); // FIXME: Find better place for this one
+        HARD_CODED_GENERATED_FIELDS.add(SYNTAX_ERROR);
         HARD_CODED_GENERATED_FIELDS.add(AGENT_VERSION_MAJOR);
         HARD_CODED_GENERATED_FIELDS.add(LAYOUT_ENGINE_VERSION_MAJOR);
         HARD_CODED_GENERATED_FIELDS.add("AgentNameVersion");
