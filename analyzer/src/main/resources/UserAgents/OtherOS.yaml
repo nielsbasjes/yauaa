@@ -123,31 +123,6 @@ config:
       AgentLanguageCode                    : 'de'
       AgentSecurity                        : 'Strong security'
 
-
-- test:
-    input:
-      user_agent_string: 'NokiaC6-00/10.0.021 (SymbianOS/9.4; Series60/5.0 Mozilla/5.0; Profile/MIDP-2.1 Configuration/CLDC-1.1) AppleWebkit/525 (KHTML, like Gecko) BrowserNG/7.2.6 UNTRUSTED/1.0 3gpp-gba 88XI4n5O'
-    expected:
-      DeviceClass                          : 'Phone'
-      DeviceName                           : 'SymbianOS Phone'     # FIXME: Should be "NokiaC6"
-      DeviceBrand                          : 'Nokia'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'SymbianOS'
-      OperatingSystemVersion               : '9.4'
-      OperatingSystemNameVersion           : 'SymbianOS 9.4'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '525'
-      LayoutEngineVersionMajor             : '525'
-      LayoutEngineNameVersion              : 'AppleWebKit 525'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 525'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'BrowserNG'
-      AgentVersion                         : '7.2.6'
-      AgentVersionMajor                    : '7'
-      AgentNameVersion                     : 'BrowserNG 7.2.6'
-      AgentNameVersionMajor                : 'BrowserNG 7'
-
 - test:
     input:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows 98; PalmSource/hspr-H102; Blazer/4.0) 16;320x320'

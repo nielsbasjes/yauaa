@@ -113,19 +113,19 @@ config:
 
 - matcher:
     require:
-    - 'agent.([1-2])product.(1)comments.entry.(1)product.(1)name="Android"'
+#    - 'agent.([1-2])product.(1)comments.entry.(1)product.(1)name="Android"'
     - 'agent.product.(1)name="Mobile Safari"'
     extract:
     - 'DeviceClass                 :   1000:"Phone"'
     - 'OperatingSystemClass        :   1000:"Mobile"'
 
-- matcher:
-    require:
-    - 'agent.product.(1)name="Android"'
-    - 'agent.product.(1)name="Mobile Safari"'
-    extract:
-    - 'DeviceClass                 :   1000:"Phone"'
-    - 'OperatingSystemClass        :   1000:"Mobile"'
+#- matcher:
+#    require:
+#    - 'agent.product.(1)name="Android"'
+#    - 'agent.product.(1)name="Mobile Safari"'
+#    extract:
+#    - 'DeviceClass                 :   1000:"Phone"'
+#    - 'OperatingSystemClass        :   1000:"Mobile"'
 
 - matcher:
     require:
@@ -1045,18 +1045,18 @@ config:
     - 'agent.product.(1)name="Mobile Safari"'
     - 'agent.(1)product.comments.entry.product.(1)name="Android"'
     extract:
-    - 'AgentClass            :   26:"Browser"'
-    - 'AgentName             :   26:"Stock Android Browser"'
-    - 'AgentVersion          :   26:agent.product.(1)name="Version"^.version'
+    - 'AgentClass            :   56:"Browser"'
+    - 'AgentName             :   56:"Stock Android Browser"'
+    - 'AgentVersion          :   56:agent.product.(1)name="Version"^.version'
 
 - matcher:
     require:
     - 'agent.product.(1)name="Safari"'
     - 'agent.(1)product.comments.entry.product.(1)name="Android"'
     extract:
-    - 'AgentClass            :   26:"Browser"'
-    - 'AgentName             :   26:"Stock Android Browser"'
-    - 'AgentVersion          :   26:agent.product.(1)name="Version"^.version'
+    - 'AgentClass            :   56:"Browser"'
+    - 'AgentName             :   56:"Stock Android Browser"'
+    - 'AgentVersion          :   56:agent.product.(1)name="Version"^.version'
 
 
 - test:

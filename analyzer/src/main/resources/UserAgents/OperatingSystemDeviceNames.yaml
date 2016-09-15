@@ -2600,6 +2600,178 @@ config:
 
 - matcher:
     require:
+    - 'agent.(1)product.(1)comments.entry.text="Symbian"'
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"Symbian"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"Symbian"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="Symbian"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Symbian"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"Symbian"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="Symbian"^.(2)version'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="Symbian"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"Symbian"'
+    - 'OperatingSystemVersion:  150:agent.product.name="Symbian"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="Symbian"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"Symbian"'
+    - 'OperatingSystemVersion:  151:agent.product.name="Symbian"^.(2)version'
+
+- matcher:
+    require:
+    - 'agent.product.name#1="Symbian"'
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  151:"Mobile"'
+    - 'OperatingSystemName   :  151:"Symbian"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name#2="Symbian"'
+    extract:
+    - 'DeviceClass           :  112:"Phone"'
+    - 'DeviceName            :  112:"Symbian Phone"'
+    - 'DeviceBrand           :  112:"Nokia"'
+    - 'OperatingSystemClass  :  152:"Mobile"'
+    - 'OperatingSystemName   :  152:"Symbian"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.text="SymbianOS"'
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"SymbianOS"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"SymbianOS"'
+    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"SymbianOS"'
+    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.(2)version'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="SymbianOS"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"SymbianOS"'
+    - 'OperatingSystemVersion:  150:agent.product.name="SymbianOS"^.(1)version'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="SymbianOS"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"SymbianOS"'
+    - 'OperatingSystemVersion:  151:agent.product.name="SymbianOS"^.(2)version'
+
+- matcher:
+    require:
+    - 'agent.product.name#1="SymbianOS"'
+    extract:
+    - 'DeviceClass           :  111:"Phone"'
+    - 'DeviceName            :  111:"Symbian Phone"'
+    - 'DeviceBrand           :  111:"Nokia"'
+    - 'OperatingSystemClass  :  151:"Mobile"'
+    - 'OperatingSystemName   :  151:"SymbianOS"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name#2="SymbianOS"'
+    extract:
+    - 'DeviceClass           :  112:"Phone"'
+    - 'DeviceName            :  112:"Symbian Phone"'
+    - 'DeviceBrand           :  112:"Nokia"'
+    - 'OperatingSystemClass  :  152:"Mobile"'
+    - 'OperatingSystemName   :  152:"SymbianOS"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+
+
+- matcher:
+    require:
     - 'agent.(1)product.(1)comments.entry.text="PalmSource"'
     extract:
     - 'DeviceClass           :  111:"Mobile"'
@@ -2680,92 +2852,6 @@ config:
     - 'DeviceBrand           :  112:"Palm"'
     - 'OperatingSystemClass  :  152:"Mobile"'
     - 'OperatingSystemName   :  152:"PalmSource"'
-    - 'OperatingSystemVersion:  149:"??"'
-
-
-
-- matcher:
-    require:
-    - 'agent.(1)product.(1)comments.entry.text="SymbianOS"'
-    extract:
-    - 'DeviceClass           :  111:"Phone"'
-    - 'DeviceName            :  111:"SymbianOS Phone"'
-    - 'DeviceBrand           :  111:"Nokia"'
-    - 'OperatingSystemClass  :  150:"Mobile"'
-    - 'OperatingSystemName   :  150:"SymbianOS"'
-    - 'OperatingSystemVersion:  149:"??"'
-
-- matcher:
-    extract:
-    - 'DeviceClass           :  111:"Phone"'
-    - 'DeviceName            :  111:"SymbianOS Phone"'
-    - 'DeviceBrand           :  111:"Nokia"'
-    - 'OperatingSystemClass  :  150:"Mobile"'
-    - 'OperatingSystemName   :  150:"SymbianOS"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.(1)version'
-
-# Only if the second version field is NOT a type of CPU.
-- matcher:
-    require:
-    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.(2)version]]'
-    extract:
-    - 'DeviceClass           :  111:"Phone"'
-    - 'DeviceName            :  111:"SymbianOS Phone"'
-    - 'DeviceBrand           :  111:"Nokia"'
-    - 'OperatingSystemClass  :  150:"Mobile"'
-    - 'OperatingSystemName   :  150:"SymbianOS"'
-    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.(2)version'
-
-- matcher:
-    extract:
-    - 'DeviceClass           :  111:"Phone"'
-    - 'DeviceName            :  111:"SymbianOS Phone"'
-    - 'DeviceBrand           :  111:"Nokia"'
-    - 'OperatingSystemClass  :  150:"Mobile"'
-    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text="SymbianOS"'
-    - 'OperatingSystemVersion:  149:"??"'
-
-- matcher:
-    extract:
-    - 'DeviceClass           :  111:"Phone"'
-    - 'DeviceName            :  111:"SymbianOS Phone"'
-    - 'DeviceBrand           :  111:"Nokia"'
-    - 'OperatingSystemClass  :  150:"Mobile"'
-    - 'OperatingSystemName   :  150:"SymbianOS"'
-    - 'OperatingSystemVersion:  150:agent.product.name="SymbianOS"^.(1)version'
-
-# Only if the second version field is NOT a type of CPU.
-- matcher:
-    require:
-    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="SymbianOS"^.(2)version]]'
-    extract:
-    - 'DeviceClass           :  111:"Phone"'
-    - 'DeviceName            :  111:"SymbianOS Phone"'
-    - 'DeviceBrand           :  111:"Nokia"'
-    - 'OperatingSystemClass  :  150:"Mobile"'
-    - 'OperatingSystemName   :  150:"SymbianOS"'
-    - 'OperatingSystemVersion:  151:agent.product.name="SymbianOS"^.(2)version'
-
-- matcher:
-    require:
-    - 'agent.product.name#1="SymbianOS"'
-    extract:
-    - 'DeviceClass           :  111:"Phone"'
-    - 'DeviceName            :  111:"SymbianOS Phone"'
-    - 'DeviceBrand           :  111:"Nokia"'
-    - 'OperatingSystemClass  :  151:"Mobile"'
-    - 'OperatingSystemName   :  151:"SymbianOS"'
-    - 'OperatingSystemVersion:  149:"??"'
-
-- matcher:
-    require:
-    - 'agent.product.name#2="SymbianOS"'
-    extract:
-    - 'DeviceClass           :  112:"Phone"'
-    - 'DeviceName            :  112:"SymbianOS Phone"'
-    - 'DeviceBrand           :  112:"Nokia"'
-    - 'OperatingSystemClass  :  152:"Mobile"'
-    - 'OperatingSystemName   :  152:"SymbianOS"'
     - 'OperatingSystemVersion:  149:"??"'
 
 

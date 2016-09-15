@@ -53,9 +53,9 @@ config:
     - 'IsNull[agent.(2)product.(1)name="Mobile"]'
     - 'IsNull[agent.(2)product.(1)name="Version"]'
     extract:
-    - 'AgentClass             :  17:"Browser"'
-    - 'AgentName              :  17:agent.(2)product.(1)name!="AppleWebKit"'
-    - 'AgentVersion           :  17:agent.(2)product.(1)version'
+    - 'AgentClass             :  37:"Browser"'
+    - 'AgentName              :  37:agent.(2)product.(1)name!="AppleWebKit"'
+    - 'AgentVersion           :  37:agent.(2)product.(1)version'
 
 - matcher:
     require:
@@ -65,9 +65,9 @@ config:
     - 'IsNull[agent.(3)product.(1)name="Mobile"]'
     - 'IsNull[agent.(3)product.(1)name="Version"]'
     extract:
-    - 'AgentClass             :  16:"Browser"'
-    - 'AgentName              :  16:agent.(3)product.(1)name'
-    - 'AgentVersion           :  16:agent.(3)product.(1)version'
+    - 'AgentClass             :  36:"Browser"'
+    - 'AgentName              :  36:agent.(3)product.(1)name'
+    - 'AgentVersion           :  36:agent.(3)product.(1)version'
 
 - matcher:
     require:
@@ -77,9 +77,9 @@ config:
     - 'IsNull[agent.(4)product.(1)name="Mobile"]'
     - 'IsNull[agent.(4)product.(1)name="Version"]'
     extract:
-    - 'AgentClass             :  15:"Browser"'
-    - 'AgentName              :  15:agent.(4)product.(1)name'
-    - 'AgentVersion           :  15:agent.(4)product.(1)version'
+    - 'AgentClass             :  35:"Browser"'
+    - 'AgentName              :  35:agent.(4)product.(1)name'
+    - 'AgentVersion           :  35:agent.(4)product.(1)version'
 
 - matcher:
     require:
@@ -102,17 +102,17 @@ config:
     require:
     - 'agent.product.(1)name="Mobile Safari"'
     extract:
-    - 'AgentClass            :   25:"Browser"'
-    - 'AgentName             :   25:"Mobile Safari"'
-    - 'AgentVersion          :   25:agent.product.(1)name="Version"^.version'
+    - 'AgentClass            :   55:"Browser"'
+    - 'AgentName             :   55:"Mobile Safari"'
+    - 'AgentVersion          :   55:agent.product.(1)name="Version"^.version'
 
 - matcher:
     require:
     - 'agent.product.(1)name="Safari"'
     extract:
-    - 'AgentClass            :   25:"Browser"'
-    - 'AgentName             :   25:"Safari"'
-    - 'AgentVersion          :   25:agent.product.(1)name="Version"^.version'
+    - 'AgentClass            :   55:"Browser"'
+    - 'AgentName             :   55:"Safari"'
+    - 'AgentVersion          :   55:agent.product.(1)name="Version"^.version'
 
 
 #Safari:

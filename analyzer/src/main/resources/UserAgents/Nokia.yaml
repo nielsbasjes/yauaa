@@ -16,71 +16,393 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-#config:
+config:
 
-#TODO All Older Nokia devices
-#  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (MeeGo; NokiaN9) AppleWebKit/534.13 (KHTML, like Gecko) NokiaBrowser/8.5.0 Mobile Safari/534.13'
-#
-#  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (Series30Plus; Nokia225/20.10.11; Profile/Series30Plus Configuration/Series30Plus) Gecko/20100401 S40OviBrowser/3.8.1.2.0612'
+# Older Nokia devices
 
-#
-#
-#  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (Symbian/3; Series60/5.3 NokiaN8-00/111.040.1511; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/535.1 (KHTML, like Gecko) NokiaBrowser/8.3.1.4 Mobile Safari/535.1 3gpp-gba'
-#
-#  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (Series40; Nokia200/11.81; Profile/MIDP-2.1 Configuration/CLDC-1.1) Gecko/20100401 S40OviBrowser/1.0.2.26.11'
-#      expected:
-#
-#
-#  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (Symbian/3; Series60/5.3 NokiaE7-00/111.040.1511; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/535.1 (KHTML, like Gecko) NokiaBrowser/8.3.1.4 Mobile Safari/535.1 3gpp-gba'
-#      expected:
-#
-#
-#
-#  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (Series40; Nokia501s/14.0.4/java_runtime_version=Nokia_Asha_1_2; Profile/MIDP-2.1 Configuration/CLDC-1.1) Gecko/20100401 S40OviBrowser/5.0.0.0.30'
-#      expected:
-#
-#
-#  - test:
-##      options:
-##        - 'verbose'
-##        - 'init'
-##        - 'only'
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (LG-T385 AppleWebkit/531 Browser/Phantom/V2.0 Widget/LGMW/3.0 MMS/LG-MMS-V1.0/1.2 Java/ASVM/1.1 Profile/MIDP-2.1 Configuration/CLDC-1.1)'
-#      expected:
+- matcher:
+    extract:
+    - 'DeviceClass           :   300:"Phone"'
+    - 'DeviceBrand           :   300:"Nokia"'
+    - 'DeviceName            :   300:agent.(1)product.(1)comments.([1-2])entry="MeeGo">.text'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   300:"Phone"'
+    - 'DeviceBrand           :   300:"Nokia"'
+    - 'DeviceName            :   300:agent.(1)product.(1)comments.([1-2])entry="MeeGo">.product.name'
+    - 'DeviceVersion         :   300:agent.(1)product.(1)comments.([1-2])entry="MeeGo">.product.version'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"MeeGo"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+# Series30Plus
+- matcher:
+    extract:
+    - 'DeviceClass           :   315:"Phone"'
+    - 'DeviceBrand           :   315:"Nokia"'
+    - 'DeviceName            :   315:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series30Plus">.text'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   315:"Phone"'
+    - 'DeviceBrand           :   315:"Nokia"'
+    - 'DeviceName            :   315:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series30Plus">.product.name'
+    - 'DeviceVersion         :   315:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series30Plus">.product.version'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   310:"Phone"'
+    - 'DeviceBrand           :   310:"Nokia"'
+    - 'DeviceName            :   310:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series30Plus"^>.product.name'
+    - 'DeviceVersion         :   310:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series30Plus"^>.product.version'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   315:"Phone"'
+    - 'DeviceBrand           :   315:"Nokia"'
+    - 'DeviceName            :   315:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series30Plus">.text'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   315:"Phone"'
+    - 'DeviceBrand           :   315:"Nokia"'
+    - 'DeviceName            :   315:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series30Plus">.product.name'
+    - 'DeviceVersion         :   315:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series30Plus">.product.version'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   310:"Phone"'
+    - 'DeviceBrand           :   310:"Nokia"'
+    - 'DeviceName            :   310:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series30Plus"^>.product.name'
+    - 'DeviceVersion         :   310:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series30Plus"^>.product.version'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+# Series40
+- matcher:
+    extract:
+    - 'DeviceClass           :   315:"Phone"'
+    - 'DeviceBrand           :   315:"Nokia"'
+    - 'DeviceName            :   315:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series40">.text'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   315:"Phone"'
+    - 'DeviceBrand           :   315:"Nokia"'
+    - 'DeviceName            :   315:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series40">.name'
+    - 'DeviceVersion         :   315:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series40">.version'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   310:"Phone"'
+    - 'DeviceBrand           :   310:"Nokia"'
+    - 'DeviceName            :   310:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series40"^>.product.name'
+    - 'DeviceVersion         :   310:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series40"^>.product.version'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   315:"Phone"'
+    - 'DeviceBrand           :   315:"Nokia"'
+    - 'DeviceName            :   315:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series40">.text'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   315:"Phone"'
+    - 'DeviceBrand           :   315:"Nokia"'
+    - 'DeviceName            :   315:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series40"^>.name'
+    - 'DeviceVersion         :   315:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series40"^>.version'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   310:"Phone"'
+    - 'DeviceBrand           :   310:"Nokia"'
+    - 'DeviceName            :   310:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series40"^^>.product.name'
+    - 'DeviceVersion         :   310:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series40"^^>.product.version'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+# Series60
+- matcher:
+    extract:
+    - 'DeviceClass           :   315:"Phone"'
+    - 'DeviceBrand           :   315:"Nokia"'
+    - 'DeviceName            :   315:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series60">.text'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   315:"Phone"'
+    - 'DeviceBrand           :   315:"Nokia"'
+    - 'DeviceName            :   315:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series60"^>.name'
+    - 'DeviceVersion         :   315:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series60"^>.version'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   310:"Phone"'
+    - 'DeviceBrand           :   310:"Nokia"'
+    - 'DeviceName            :   310:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series60"^^>.product.name'
+    - 'DeviceVersion         :   310:agent.(1)product.(1)comments.([1-2])entry.(1)text="Series60"^^>.product.version'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   315:"Phone"'
+    - 'DeviceBrand           :   315:"Nokia"'
+    - 'DeviceName            :   315:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series60"^>.text'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   315:"Phone"'
+    - 'DeviceBrand           :   315:"Nokia"'
+    - 'DeviceName            :   315:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series60"^>.name'
+    - 'DeviceVersion         :   315:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series60"^>.version'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   310:"Phone"'
+    - 'DeviceBrand           :   310:"Nokia"'
+    - 'DeviceName            :   310:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series60"^^>.product.name'
+    - 'DeviceVersion         :   310:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Series60"^^>.product.version'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'OperatingSystemName   :    10:"Symbian"'
+    - 'OperatingSystemVersion:    10:"??"'
+
+
+
+#      user_agent_string: 'Mozilla/5.0 (Series30Plus; Nokia225/20.10.11; Profile/Series30Plus Configuration/Series30Plus) Gecko/20100401 S40OviBrowser/3.8.1.2.0612'
+#      user_agent_string: 'Mozilla/5.0 (Symbian/3; Series60/5.3 NokiaN8-00/111.040.1511; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/535.1 (KHTML, like Gecko) NokiaBrowser/8.3.1.4 Mobile Safari/535.1 3gpp-gba'
+#      user_agent_string: 'Mozilla/5.0 (Series40; Nokia200/11.81; Profile/MIDP-2.1 Configuration/CLDC-1.1) Gecko/20100401 S40OviBrowser/1.0.2.26.11'
+#      user_agent_string: 'Mozilla/5.0 (Symbian/3; Series60/5.3 NokiaE7-00/111.040.1511; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/535.1 (KHTML, like Gecko) NokiaBrowser/8.3.1.4 Mobile Safari/535.1 3gpp-gba'
+#      user_agent_string: 'Mozilla/5.0 (Series40; Nokia501s/14.0.4/java_runtime_version=Nokia_Asha_1_2; Profile/MIDP-2.1 Configuration/CLDC-1.1) Gecko/20100401 S40OviBrowser/5.0.0.0.30'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (MeeGo; NokiaN9) AppleWebKit/534.13 (KHTML, like Gecko) NokiaBrowser/8.5.0 Mobile Safari/534.13'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'NokiaN9'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'MeeGo'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'MeeGo ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.13'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.13'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'NokiaBrowser'
+      AgentVersion                         : '8.5.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'NokiaBrowser 8.5.0'
+      AgentNameVersionMajor                : 'NokiaBrowser 8'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Series30Plus; Nokia225/20.10.11; Profile/Series30Plus Configuration/Series30Plus) Gecko/20100401 S40OviBrowser/3.8.1.2.0612'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia225'
+      DeviceBrand                          : 'Nokia'
+      DeviceVersion                        : '20.10.11'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Symbian'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Symbian ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'S40OviBrowser'
+      AgentVersion                         : '3.8.1.2.0612'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'S40OviBrowser 3.8.1.2.0612'
+      AgentNameVersionMajor                : 'S40OviBrowser 3'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Symbian/3; Series60/5.3 NokiaN8-00/111.040.1511; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/535.1 (KHTML, like Gecko) NokiaBrowser/8.3.1.4 Mobile Safari/535.1 3gpp-gba'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'NokiaN8-00'
+      DeviceVersion                        : '111.040.1511'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Symbian'
+      OperatingSystemVersion               : '3'
+      OperatingSystemNameVersion           : 'Symbian 3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '535.1'
+      LayoutEngineVersionMajor             : '535'
+      LayoutEngineNameVersion              : 'AppleWebKit 535.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'NokiaBrowser'
+      AgentVersion                         : '8.3.1.4'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'NokiaBrowser 8.3.1.4'
+      AgentNameVersionMajor                : 'NokiaBrowser 8'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Symbian/3; Series60/5.3 NokiaE7-00/111.040.1511; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/535.1 (KHTML, like Gecko) NokiaBrowser/8.3.1.4 Mobile Safari/535.1 3gpp-gba'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'NokiaE7-00'
+      DeviceVersion                        : '111.040.1511'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Symbian'
+      OperatingSystemVersion               : '3'
+      OperatingSystemNameVersion           : 'Symbian 3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '535.1'
+      LayoutEngineVersionMajor             : '535'
+      LayoutEngineNameVersion              : 'AppleWebKit 535.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'NokiaBrowser'
+      AgentVersion                         : '8.3.1.4'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'NokiaBrowser 8.3.1.4'
+      AgentNameVersionMajor                : 'NokiaBrowser 8'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Series40; Nokia200/11.81; Profile/MIDP-2.1 Configuration/CLDC-1.1) Gecko/20100401 S40OviBrowser/1.0.2.26.11'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia200'
+      DeviceBrand                          : 'Nokia'
+      DeviceVersion                        : '11.81'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Symbian'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Symbian ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'S40OviBrowser'
+      AgentVersion                         : '1.0.2.26.11'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'S40OviBrowser 1.0.2.26.11'
+      AgentNameVersionMajor                : 'S40OviBrowser 1'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Series40; Nokia501s/14.0.4/java_runtime_version=Nokia_Asha_1_2; Profile/MIDP-2.1 Configuration/CLDC-1.1) Gecko/20100401 S40OviBrowser/5.0.0.0.30'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia501s'
+      DeviceBrand                          : 'Nokia'
+      DeviceVersion                        : '14.0.4'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Symbian'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Symbian ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'S40OviBrowser'
+      AgentVersion                         : '5.0.0.0.30'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'S40OviBrowser 5.0.0.0.30'
+      AgentNameVersionMajor                : 'S40OviBrowser 5'
+
+- test:
+    input:
+      user_agent_string: 'NokiaC6-00/10.0.021 (SymbianOS/9.4; Series60/5.0 Mozilla/5.0; Profile/MIDP-2.1 Configuration/CLDC-1.1) AppleWebkit/525 (KHTML, like Gecko) BrowserNG/7.2.6 UNTRUSTED/1.0 3gpp-gba 88XI4n5O'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'NokiaC6-00'
+      DeviceBrand                          : 'Nokia'
+      DeviceVersion                        : '10.0.021'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'SymbianOS'
+      OperatingSystemVersion               : '9.4'
+      OperatingSystemNameVersion           : 'SymbianOS 9.4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '525'
+      LayoutEngineVersionMajor             : '525'
+      LayoutEngineNameVersion              : 'AppleWebKit 525'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 525'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'BrowserNG'
+      AgentVersion                         : '7.2.6'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'BrowserNG 7.2.6'
+      AgentNameVersionMajor                : 'BrowserNG 7'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   320:"Phone"'
+    - 'DeviceBrand           :   320:"Nokia"'
+    - 'DeviceName            :   320:agent.(1)product.(1)name!="Mozilla"'
+    - 'DeviceVersion         :   320:agent.(1)product.(1)version'
+    - 'OperatingSystemClass  :   310:"Mobile"'
+    - 'OperatingSystemName   :   310:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Symbian"'
+    - 'OperatingSystemVersion:   310:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="Symbian"^.version'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   320:"Phone"'
+    - 'DeviceBrand           :   320:"Nokia"'
+    - 'DeviceName            :   320:agent.(1)product.(1)name!="Mozilla"'
+    - 'DeviceVersion         :   320:agent.(1)product.(1)version'
+    - 'OperatingSystemClass  :   310:"Mobile"'
+    - 'OperatingSystemName   :   310:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="SymbianOS"'
+    - 'OperatingSystemVersion:   310:agent.(1)product.(1)comments.([1-2])entry.(1)product.name="SymbianOS"^.version'

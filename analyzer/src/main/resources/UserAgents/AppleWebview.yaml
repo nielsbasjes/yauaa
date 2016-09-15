@@ -52,9 +52,9 @@ config:
     - 'IsNull[agent.product.(1)name="Mobile"^>]'
     - 'IsNull[agent.product.(1)name="Safari"]'
     extract:
-    - 'AgentClass            :   20:"Browser Webview"'
-    - 'AgentName             :   20:"UIWebView"'
-    - 'AgentVersion          :   20:agent.product.(1)name="AppleWebKit"^.version'
+    - 'AgentClass            :   50:"Browser Webview"'
+    - 'AgentName             :   50:"UIWebView"'
+    - 'AgentVersion          :   50:agent.product.(1)name="AppleWebKit"^.version'
     - 'WebviewAppName        :    1:"Unknown Webview App"'
     - 'WebviewAppVersion     :    1:"??"'
 
@@ -306,9 +306,9 @@ config:
     - 'agent.product.(1)name="AppleWebKit"'
     - 'agent.product.(1)name="Mobile"'
     extract:
-    - 'AgentClass            :   21:"Browser Webview"'
-    - 'AgentName             :   21:"UIWebView"'
-    - 'AgentVersion          :   21:agent.product.(1)name="AppleWebKit"^.version'
+    - 'AgentClass            :   41:"Browser Webview"'
+    - 'AgentName             :   41:"UIWebView"'
+    - 'AgentVersion          :   41:agent.product.(1)name="AppleWebKit"^.version'
     - 'WebviewAppName        :    1:"Google Search App"'
     - 'WebviewAppVersion     :    1:agent.product.(1)name="GSA"^.version'
 

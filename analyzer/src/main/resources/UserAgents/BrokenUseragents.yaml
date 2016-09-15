@@ -331,9 +331,9 @@ config:
 # Silk browser
 - matcher:
     extract:
-    - 'AgentClass            :  50:"Browser"'
-    - 'AgentName             :  50:"Silk"'
-    - 'AgentVersion          :  50:agent.(1)product.(1)comments.entry.(1)product.(1)name="Silk"^.version'
+    - 'AgentClass            :  100:"Browser"'
+    - 'AgentName             :  100:"Silk"'
+    - 'AgentVersion          :  100:agent.(1)product.(1)comments.entry.(1)product.(1)name="Silk"^.version'
 
 - test:
     input:
@@ -368,9 +368,9 @@ config:
 # Is really SogouMSE,SogouMobileBrowser/4.0.0
 - matcher:
     extract:
-    - 'AgentClass            :  50:"Browser"'
-    - 'AgentName             :  50:"SogouMobileBrowser"'
-    - 'AgentVersion          :  50:agent.product.(1)name="SogouMSE,SogouMobileBrowser"^.version'
+    - 'AgentClass            :  100:"Browser"'
+    - 'AgentName             :  100:"SogouMobileBrowser"'
+    - 'AgentVersion          :  100:agent.product.(1)name="SogouMSE,SogouMobileBrowser"^.version'
 
 - test:
     input:
@@ -1483,4 +1483,7 @@ config:
 #    input:
 #      user_agent_string: 'device_id={763835ca-1b38-48ef-9693-ad6bef1c60b6}&brand=bebook&model=neo&access=wlan'
 
-
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (LG-T385 AppleWebkit/531 Browser/Phantom/V2.0 Widget/LGMW/3.0 MMS/LG-MMS-V1.0/1.2 Java/ASVM/1.1 Profile/MIDP-2.1 Configuration/CLDC-1.1)'
+#
