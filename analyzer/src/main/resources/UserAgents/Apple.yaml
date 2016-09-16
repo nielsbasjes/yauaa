@@ -37,11 +37,11 @@ config:
     - 'DeviceName            :  20:"Macintosh"'
     - 'OperatingSystemClass  :  20:"Desktop"'
     - 'OperatingSystemName   :  20:"Mac OS X"'
-    - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name#3="Mac OS X"^.version]'
+    - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name[-3]="Mac OS X"^.version]'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.text#3="Mac OS X"'
+    - 'agent.(1)product.(1)comments.entry.text[-3]="Mac OS X"'
     - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
     extract:
     - 'DeviceClass           :  19:"Desktop"'
@@ -62,11 +62,11 @@ config:
     - 'DeviceCpu             :  20:"Intel"'
     - 'OperatingSystemClass  :  20:"Desktop"'
     - 'OperatingSystemName   :  20:"Mac OS X"'
-    - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name#4="Intel Mac OS X"^.version]'
+    - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name[-4]="Intel Mac OS X"^.version]'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.text#4="Intel Mac OS X"'
+    - 'agent.(1)product.(1)comments.entry.text[-4]="Intel Mac OS X"'
     - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
     extract:
     - 'DeviceClass           :  19:"Desktop"'
@@ -79,7 +79,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.text#4="PPC Mac OS X"'
+    - 'agent.(1)product.(1)comments.entry.text[-4]="PPC Mac OS X"'
     - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
     extract:
     - 'DeviceClass           :  19:"Desktop"'
@@ -100,11 +100,11 @@ config:
     - 'DeviceCpu             :  20:"PowerPC"'
     - 'OperatingSystemClass  :  20:"Desktop"'
     - 'OperatingSystemName   :  20:"Mac OS X"'
-    - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name#4="PPC Mac OS X"^.version]'
+    - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name[-4]="PPC Mac OS X"^.version]'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.text#4="PowerPC Mac OS X"'
+    - 'agent.(1)product.(1)comments.entry.text[-4]="PowerPC Mac OS X"'
     - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
     extract:
     - 'DeviceClass           :  19:"Desktop"'
@@ -125,11 +125,11 @@ config:
     - 'DeviceCpu             :  20:"PowerPC"'
     - 'OperatingSystemClass  :  20:"Desktop"'
     - 'OperatingSystemName   :  20:"Mac OS X"'
-    - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name#4="PowerPC Mac OS X"^.version]'
+    - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name[-4]="PowerPC Mac OS X"^.version]'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.text#4="PowerPC Mac OS X"'
+    - 'agent.(1)product.(1)comments.entry.text[-4]="PowerPC Mac OS X"'
     - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
     extract:
     - 'DeviceClass           :  19:"Desktop"'
@@ -142,7 +142,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name#4="ARM Mac OS X"'
+    - 'agent.(1)product.(1)comments.entry.product.name[-4]="ARM Mac OS X"'
     - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
     extract:
     - 'DeviceClass           :  20:"Desktop"'
@@ -155,7 +155,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.text#4="ARM Mac OS X"'
+    - 'agent.(1)product.(1)comments.entry.text[-4]="ARM Mac OS X"'
     - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
     extract:
     - 'DeviceClass           :  19:"Desktop"'

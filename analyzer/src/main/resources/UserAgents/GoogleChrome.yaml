@@ -50,9 +50,9 @@ config:
 - matcher:
     require:
     - 'agent.product.(1)name="Chrome"'
-    - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="Chrome"^.version#1]'
-    - 'agent.product.(1)name="AppleWebKit"^.version#1="537"'
-    - 'agent.product.(1)version#1="537"' # This is a matching speedup trick
+    - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="Chrome"^.version[-1]]'
+    - 'agent.product.(1)name="AppleWebKit"^.version[-1]="537"'
+    - 'agent.product.(1)version[-1]="537"' # This is a matching speedup trick
     extract:
     - 'LayoutEngineClass     :   1000:"Browser"'
     - 'LayoutEngineName      :   1000:"AppleWebKit"'
@@ -61,9 +61,9 @@ config:
 - matcher:
     require:
     - 'agent.product.(1)name="CriOS"'
-    - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="CriOS"^.version#1]'
-    - 'agent.product.(1)name="AppleWebKit"^.version#1="537"'
-    - 'agent.product.(1)version#1="537"' # This is a matching speedup trick
+    - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="CriOS"^.version[-1]]'
+    - 'agent.product.(1)name="AppleWebKit"^.version[-1]="537"'
+    - 'agent.product.(1)version[-1]="537"' # This is a matching speedup trick
     extract:
     - 'LayoutEngineClass     :   1000:"Browser"'
     - 'LayoutEngineName      :   1000:"AppleWebKit"'
@@ -72,22 +72,22 @@ config:
 - matcher:
     require:
     - 'agent.product.(1)name="Chrome"'
-    - 'agent.product.(1)name="AppleWebKit"^.version#1="537"'
-    - 'agent.product.(1)version#1="537"' # This is a matching speedup trick
+    - 'agent.product.(1)name="AppleWebKit"^.version[-1]="537"'
+    - 'agent.product.(1)version[-1]="537"' # This is a matching speedup trick
     extract:
     - 'LayoutEngineClass     :    999:"Browser"'
     - 'LayoutEngineName      :    999:"Blink"'
-    - 'LayoutEngineVersion   :    999:agent.product.(1)name="Chrome"^.version#2'
+    - 'LayoutEngineVersion   :    999:agent.product.(1)name="Chrome"^.version[-2]'
 
 - matcher:
     require:
     - 'agent.product.(1)name="CriOS"'
-    - 'agent.product.(1)name="AppleWebKit"^.version#1="537"'
-    - 'agent.product.(1)version#1="537"' # This is a matching speedup trick
+    - 'agent.product.(1)name="AppleWebKit"^.version[-1]="537"'
+    - 'agent.product.(1)version[-1]="537"' # This is a matching speedup trick
     extract:
     - 'LayoutEngineClass     :    999:"Browser"'
     - 'LayoutEngineName      :    999:"Blink"'
-    - 'LayoutEngineVersion   :    999:agent.product.(1)name="CriOS"^.version#2'
+    - 'LayoutEngineVersion   :    999:agent.product.(1)name="CriOS"^.version[-2]'
 
 
 - lookup:

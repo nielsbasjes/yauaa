@@ -174,31 +174,31 @@ config:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
     extract:
-    - 'DeviceName                  :  75:agent.(1-2)product.(1)comments.entry[2]="Build"@#1'
+    - 'DeviceName                  :  75:agent.(1-2)product.(1)comments.entry[2]="Build"@[-1]'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
     extract:
-    - 'DeviceName                  :  76:agent.(1-2)product.(1)comments.entry[3]="Build"@#2'
+    - 'DeviceName                  :  76:agent.(1-2)product.(1)comments.entry[3]="Build"@[-2]'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
     extract:
-    - 'DeviceName                  :  77:agent.(1-2)product.(1)comments.entry[4]="Build"@#3'
+    - 'DeviceName                  :  77:agent.(1-2)product.(1)comments.entry[4]="Build"@[-3]'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
     extract:
-    - 'DeviceName                  :  78:agent.(1-2)product.(1)comments.entry[5]="Build"@#4'
+    - 'DeviceName                  :  78:agent.(1-2)product.(1)comments.entry[5]="Build"@[-4]'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
     extract:
-    - 'DeviceName                  :  79:agent.(1-2)product.(1)comments.entry[6]="Build"@#5'
+    - 'DeviceName                  :  79:agent.(1-2)product.(1)comments.entry[6]="Build"@[-5]'
 
 - matcher:
     extract:
@@ -971,7 +971,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)name#2="Android-SAMSUNG"'
+    - 'agent.(1)product.(1)name[-2]="Android-SAMSUNG"'
     extract:
     - 'DeviceClass           :   1:"Mobile"'
     - 'DeviceBrand           :   1:"Samsung"'

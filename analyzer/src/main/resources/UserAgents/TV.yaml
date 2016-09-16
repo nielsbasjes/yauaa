@@ -534,8 +534,8 @@ config:
     extract:
     - 'DeviceClass           :   500:"TV"' # Well, it is really a video playback device...
     - 'DeviceBrand           :   500:"Philips"'
-    - 'DeviceName            :   500:agent.product.(1)name#2="PHILIPS-AVM"^.comments.(2)entry.text'
-    - 'DeviceVersion         :   500:agent.product.(1)name#2="PHILIPS-AVM"^.version'
+    - 'DeviceName            :   500:agent.product.(1)name[-2]="PHILIPS-AVM"^.comments.(2)entry.text'
+    - 'DeviceVersion         :   500:agent.product.(1)name[-2]="PHILIPS-AVM"^.version'
 
 - test:
     input:

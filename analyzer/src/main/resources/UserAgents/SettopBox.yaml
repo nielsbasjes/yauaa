@@ -170,14 +170,14 @@ config:
     - 'DeviceClass           :   1001:"Set-top box"'
     - 'DeviceBrand           :   1001:"Google"'
     - 'DeviceName            :   1001:"Chromecast"'
-    - 'DeviceVersion         :   1001:agent.(1)product.(1)comments.entry.(1)product.(1)name#1="CrKey"^.(1)version'
+    - 'DeviceVersion         :   1001:agent.(1)product.(1)comments.entry.(1)product.(1)name[-1]="CrKey"^.(1)version'
 
 - matcher:
     extract:
     - 'DeviceClass           :   1002:"Set-top box"'
     - 'DeviceBrand           :   1002:"Google"'
     - 'DeviceName            :   1002:"Chromecast"'
-    - 'DeviceVersion         :   1002:agent.(1)product.(1)comments.entry.(1)product.(1)name#1="CrKey"^.(2)version'
+    - 'DeviceVersion         :   1002:agent.(1)product.(1)comments.entry.(1)product.(1)name[-1]="CrKey"^.(2)version'
 
 - matcher:
     extract:

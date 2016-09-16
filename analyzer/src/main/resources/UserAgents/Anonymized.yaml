@@ -78,7 +78,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.name#1="anonymized"'
+    - 'agent.product.name[-1]="anonymized"'
     extract:
     - 'Anonymized            :   1:"Anonymized"'
     - 'DeviceClass           :  10:"Anonymized"'
@@ -89,7 +89,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name#1="anonymized"'
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[-1]="anonymized"'
     extract:
     - 'Anonymized            :   1:"Anonymized"'
 

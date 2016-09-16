@@ -34,7 +34,7 @@ config:
 - matcher:
     extract:
     - 'DeviceClass           : 302:"Mobile"'
-    - 'DeviceName            : 302:agent.(1)product.(1)name[2]="Linux"@#1'
+    - 'DeviceName            : 302:agent.(1)product.(1)name[2]="Linux"@[-1]'
     - 'DeviceFirmwareVersion : 302:agent.product.(1)name="Release"^.version'
     - 'AgentClass            :   4:"Unknown"'
     - 'AgentName             :   4:"Unknown"'
@@ -44,7 +44,7 @@ config:
 - matcher:
     extract:
     - 'DeviceClass           : 302:"Mobile"'
-    - 'DeviceName            : 302:agent.(1)product.(1)name[3]="Linux"@#2'
+    - 'DeviceName            : 302:agent.(1)product.(1)name[3]="Linux"@[-2]'
     - 'DeviceFirmwareVersion : 302:agent.product.(1)name="Release"^.version'
     - 'AgentClass            :   4:"Unknown"'
     - 'AgentName             :   4:"Unknown"'
@@ -54,7 +54,7 @@ config:
 - matcher:
     extract:
     - 'DeviceClass           : 302:"Mobile"'
-    - 'DeviceName            : 302:agent.(1)product.(1)name[4]="Linux"@#3'
+    - 'DeviceName            : 302:agent.(1)product.(1)name[4]="Linux"@[-3]'
     - 'DeviceFirmwareVersion : 302:agent.product.(1)name="Release"^.version'
     - 'AgentClass            :   4:"Unknown"'
     - 'AgentName             :   4:"Unknown"'
@@ -86,7 +86,7 @@ config:
 - matcher:
     extract:
     - 'DeviceClass           : 302:"Mobile"'
-    - 'DeviceName            : 302:agent.(1)product#2'
+    - 'DeviceName            : 302:agent.(1)product[-2]'
     - 'DeviceVersion         : 302:agent.(1)product.(2)version'
     - 'DeviceFirmwareVersion : 302:agent.product.(1)name="Release"^.version'
 

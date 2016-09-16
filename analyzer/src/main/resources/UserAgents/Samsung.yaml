@@ -230,7 +230,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)name#2="Mobile VR"'
+    - 'agent.product.(1)name[-2]="Mobile VR"'
     extract:
     - 'DeviceClass           :   500:"Virtual Reality"'
 

@@ -110,7 +110,7 @@ echo "
 
 - matcher:
     require:
-    - 'agent.product.name#1=\"${osname}\"'
+    - 'agent.product.name[-1]=\"${osname}\"'
     extract:
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
@@ -121,7 +121,7 @@ echo "
 
 - matcher:
     require:
-    - 'agent.product.name#2=\"${osname}\"'
+    - 'agent.product.name[-2]=\"${osname}\"'
     extract:
     - 'DeviceClass           :  112:\"${devclass}\"'
     - 'DeviceName            :  112:\"${devname}\"'

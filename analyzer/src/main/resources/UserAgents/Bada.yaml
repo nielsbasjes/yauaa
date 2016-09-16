@@ -21,7 +21,7 @@ config:
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.(1)entry="SAMSUNG"'
-    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name#1="SAMSUNG"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[-1]="SAMSUNG"'
     extract:
     - 'DeviceClass           :  500:"Mobile"'
     - 'DeviceBrand           :  500:"Samsung"'
@@ -35,12 +35,12 @@ config:
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.(1)entry="SAMSUNG"'
-    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name#1="SAMSUNG"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[-1]="SAMSUNG"'
     - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[4]'
     extract:
     - 'DeviceClass           :  501:"Mobile"'
     - 'DeviceBrand           :  501:"Samsung"'
-    - 'DeviceName            :  501:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name#3'
+    - 'DeviceName            :  501:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[-3]'
     - 'Carrier               :  501:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[4]'
     - 'DeviceVersion         :  501:agent.(1)product.(1)comments.(2)entry.(1)product.(1)version'
     - 'OperatingSystemClass  :  501:"Mobile"'

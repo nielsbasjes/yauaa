@@ -158,11 +158,11 @@ config:
     extract:
     - 'LayoutEngineClass     :   2015:"Browser"'
     - 'LayoutEngineName      :   2015:"EdgeHTML"'
-    - 'LayoutEngineVersion   :   2015:agent.product.name="Edge"^.version#1'
+    - 'LayoutEngineVersion   :   2015:agent.product.name="Edge"^.version[-1]'
 
     - 'AgentClass            :   2015:"Browser"'
     - 'AgentName             :   2015:agent.product.name="Edge"'
-    - 'AgentVersion          :   2015:agent.product.name="Edge"^.version#1'
+    - 'AgentVersion          :   2015:agent.product.name="Edge"^.version[-1]'
 
 # If it is not '??' then the second part of the Edge version is the Windows 10 BUILD number
 - matcher:

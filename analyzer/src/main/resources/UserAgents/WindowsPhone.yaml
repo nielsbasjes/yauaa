@@ -24,11 +24,11 @@ config:
     - 'DeviceName            : 100:"Generic Windows Phone"'
     - 'OperatingSystemClass  : 600:"Mobile"'
     - 'OperatingSystemName   : 600:"Windows Phone"'
-    - 'OperatingSystemVersion: 600:agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"^.version'
+    - 'OperatingSystemVersion: 600:agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"^.version'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+    - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"Microsoft"'
@@ -36,7 +36,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+    - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"Nokia"'
@@ -44,7 +44,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+    - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"Acer"'
@@ -52,7 +52,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+    - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"HTC"'
@@ -60,7 +60,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+    - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"Huawei"'
@@ -68,7 +68,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+    - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"Samsung"'
@@ -76,7 +76,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name#2="Windows Phone"'
+    - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"Archos"'
@@ -86,7 +86,7 @@ config:
     extract:
     - 'DeviceClass           : 199:"Phone"'
     - 'DeviceBrand           : 199:"Nokia"'
-    - 'DeviceName            : 199:agent.(1)product.(1)comments.entry#1="Lumia"@'
+    - 'DeviceName            : 199:agent.(1)product.(1)comments.entry[-1]="Lumia"@'
 
 - test:
     input:
