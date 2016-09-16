@@ -39,7 +39,7 @@ public class TestTreewalkerParsing {
 
     @Test
     public void validateWalkPathParsing() {
-        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.([2-4])comments.(*)product.name#1=\"Trident\"[2-3]~\"Foo\"^.(*)version%2{\"7.\";\"DefaultValue\"]]";
+        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name#1=\"Trident\"[2-3]~\"Foo\"^.(*)version%2{\"7.\";\"DefaultValue\"]]";
 
         String[] expectedHashEntries = {
             "agent.(1)product.(2)comments.(1)product.(1)name#1=\"Trident\"",
@@ -91,7 +91,7 @@ public class TestTreewalkerParsing {
 
     @Test
     public void validateWalkPathParsingRange() {
-        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.([2-4])comments.(*)product.name[1]=\"Trident\"[2-3]~\"Foo\"^.(*)version[2]{\"7.\";\"DefaultValue\"]]";
+        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1]=\"Trident\"[2-3]~\"Foo\"^.(*)version[2]{\"7.\";\"DefaultValue\"]]";
 
         String[] expectedHashEntries = {
             "agent.(1)product.(2)comments.(1)product.(1)name[1]=\"Trident\"",
@@ -157,13 +157,15 @@ public class TestTreewalkerParsing {
 
     @Test
     public void validateWalkPathSimpleNameEquals() {
-        String path = "agent.(1)product.(1)name=\"Foo\"";
+        String path = "agent.(1)product.(1)name=\"Foo\"^.(1-3)version";
 
         String[] expectedHashEntries = {
             "agent.(1)product.(1)name=\"Foo\"",
         };
 
         String[] expectedWalkList = {
+            "Up()",
+            "Down([1:3]version)"
         };
 
         checkPath(path, expectedHashEntries, expectedWalkList);
@@ -171,14 +173,15 @@ public class TestTreewalkerParsing {
 
     @Test
     public void validateWalkPathNameSubstring() {
-        String path = "agent.(1)product.(1)name[1-2]";
+        String path = "agent.(1)product.(1)name[1-2]=\"Foo\"^.(1-3)version";
 
         String[] expectedHashEntries = {
-            "agent.(1)product.(1)name[-2]",
+            "agent.(1)product.(1)name[-2]=\"Foo\"",
         };
 
         String[] expectedWalkList = {
-            "WordRange(1-2)",
+            "Up()",
+            "Down([1:3]version)"
         };
 
         checkPath(path, expectedHashEntries, expectedWalkList);
@@ -186,7 +189,7 @@ public class TestTreewalkerParsing {
 
     @Test
     public void validateWalkPathNameSubstring2() {
-        String path = "agent.(1)product.(1)name[3-5]";
+        String path = "agent.(1)product.(1)name[3-5]=\"Foo\"^.(1-3)version";
 
         String[] expectedHashEntries = {
             "agent.(1)product.(1)name",
@@ -194,16 +197,51 @@ public class TestTreewalkerParsing {
 
         String[] expectedWalkList = {
             "WordRange(3-5)",
+            "Equals(foo)",
+            "Up()",
+            "Down([1:3]version)"
         };
 
         checkPath(path, expectedHashEntries, expectedWalkList);
     }
 
+    @Test
+    public void validateWalkAroundTheWorld() {
+        String path = "agent.(2-4)product.(1)comments.(5-6)entry.(1)text%2=\"seven\"^^^<.name=\"foo faa\"^.comments.entry.text%2=\"three\"@#1";
+
+        String[] expectedHashEntries = {
+            "agent.(2)product.(1)comments.(5)entry.(1)text%2=\"seven\"" ,
+            "agent.(2)product.(1)comments.(6)entry.(1)text%2=\"seven\"" ,
+            "agent.(3)product.(1)comments.(5)entry.(1)text%2=\"seven\"" ,
+            "agent.(3)product.(1)comments.(6)entry.(1)text%2=\"seven\"" ,
+            "agent.(4)product.(1)comments.(5)entry.(1)text%2=\"seven\"" ,
+            "agent.(4)product.(1)comments.(6)entry.(1)text%2=\"seven\"" ,
+        };
+
+        String[] expectedWalkList = {
+            "Up()",
+            "Up()",
+            "Up()",
+            "Prev()",
+            "Down([1:1]name)",
+            "Equals(foo faa)",
+            "Up()",
+            "Down([1:2]comments)",
+            "Down([1:20]entry)",
+            "Down([1:8]text)",
+            "FirstWords(2)",
+            "Equals(three)",
+            "BackToFull()",
+            "FirstWords(1)",
+        };
+
+        checkPath(path, expectedHashEntries, expectedWalkList);
+    }
 
     @Test
     public void validateWalkPathParsingCleanVersion() {
 
-        String path = "CleanVersion[LookUp[TridentVersions;agent.(1)product.([2-4])comments.(*)product.name#1=\"Trident\"^.(*)version%2{\"7.\";\"DefaultValue\"]]";
+        String path = "CleanVersion[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name#1=\"Trident\"^.(*)version%2{\"7.\";\"DefaultValue\"]]";
 
         String[] expectedHashEntries = {
             "agent.(1)product.(2)comments.(1)product.(1)name#1=\"Trident\"",

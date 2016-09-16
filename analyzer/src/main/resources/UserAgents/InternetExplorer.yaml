@@ -167,9 +167,9 @@ config:
 # If it is not '??' then the second part of the Edge version is the Windows 10 BUILD number
 - matcher:
     require:
-    - 'agent.product.name="Edge"^.version%2!="0"'
+    - 'agent.product.name="Edge"^.version[2]!="0"'
     extract:
-    - 'OperatingSystemVersionBuild :  100:agent.product.name="Edge"^.version%2'
+    - 'OperatingSystemVersionBuild :  100:agent.product.name="Edge"^.version[2]'
 
 
 # IE 2.0:

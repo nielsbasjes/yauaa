@@ -53,8 +53,8 @@ BACKTOFULL      : '@'           ;
 
 // ===============================================================
 
-// TridentName[agent.(1)product.([2-4])comments.(*)product.name="Trident"^.(*)version~"7.";"DefaultValue"]
-// LookUp[TridentName;agent.(1)product.([2-4])comments.(*)product.name#1="Trident"^.(*)version%1="7.";"DefaultValue"]
+// TridentName[agent.(1)product.(2-4)comments.(*)product.name="Trident"^.(*)version~"7.";"DefaultValue"]
+// LookUp[TridentName;agent.(1)product.(2-4)comments.(*)product.name#1="Trident"^.(*)version%1="7.";"DefaultValue"]
 
 matcher         : matcherLookup                                                 #matcherNextLookup
 //                | 'Concat' BLOCKOPEN VALUE SEMICOLON matcherLookup BLOCKCLOSE   #matcherConcat1
@@ -87,14 +87,14 @@ path            : DOT numberRange name=VALUENAME  (nextStep=path)?  #stepDown
                 | BACKTOFULL                      (nextStep=path)?  #stepBackToFull
                 ;
 
-numberRange     : ( BRACEOPEN BLOCKOPEN rangeStart=NUMBER MINUS rangeEnd=NUMBER BLOCKCLOSE BRACECLOSE ) #numberRangeStartToEnd
-                | ( BRACEOPEN count=NUMBER BRACECLOSE )                                                 #numberRangeSingleValue
-                | ( BRACEOPEN STAR BRACECLOSE )                                                         #numberRangeAll
-                | (  )                                                                                  #numberRangeEmpty
+numberRange     : ( BRACEOPEN rangeStart=NUMBER MINUS rangeEnd=NUMBER BRACECLOSE ) #numberRangeStartToEnd
+                | ( BRACEOPEN count=NUMBER BRACECLOSE )                            #numberRangeSingleValue
+                | ( BRACEOPEN STAR BRACECLOSE )                                    #numberRangeAll
+                | (  )                                                             #numberRangeEmpty
                 ;
 
-wordRange       : ( BLOCKOPEN firstWord=NUMBER MINUS lastWord=NUMBER BLOCKCLOSE )                       #wordRangeStartToEnd
-                | ( BLOCKOPEN                  MINUS lastWord=NUMBER BLOCKCLOSE )                       #wordRangeFirstWords
-                | ( BLOCKOPEN firstWord=NUMBER MINUS                 BLOCKCLOSE )                       #wordRangeLastWords
-                | ( BLOCKOPEN singleWord=NUMBER                      BLOCKCLOSE )                       #wordRangeSingleWord
+wordRange       : ( BLOCKOPEN firstWord=NUMBER MINUS lastWord=NUMBER BLOCKCLOSE )  #wordRangeStartToEnd
+                | ( BLOCKOPEN                  MINUS lastWord=NUMBER BLOCKCLOSE )  #wordRangeFirstWords
+                | ( BLOCKOPEN firstWord=NUMBER MINUS                 BLOCKCLOSE )  #wordRangeLastWords
+                | ( BLOCKOPEN singleWord=NUMBER                      BLOCKCLOSE )  #wordRangeSingleWord
                 ;

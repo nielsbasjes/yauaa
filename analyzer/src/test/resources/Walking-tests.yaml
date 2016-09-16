@@ -167,7 +167,7 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'WordMatchFlipFlop: 1:agent.(1)product.(1)comments.entry.(1)text#1="One"@%3="Three"@%2'
+        - 'WordMatchFlipFlop: 1:agent.(1)product.(1)comments.entry.(1)text#1="One"@[3]="Three"@[2]'
 
   - test:
       <<: *TEST_OPTIONS

@@ -21,10 +21,10 @@ config:
     extract:
     - 'DeviceClass                  : 2014:"Game Console"'
     - 'DeviceBrand                  : 2014:"Nintendo"'
-    - 'DeviceName                   : 2014:agent.(1)product.(1)comments.(1)entry.text%1="Nintendo"@'
+    - 'DeviceName                   : 2014:agent.(1)product.(1)comments.(1)entry.text[1]="Nintendo"@'
     - 'OperatingSystemClass         :  100:"Game Console"'
     - 'OperatingSystemName          :  100:"Nintendo"'
-    - 'OperatingSystemVersion       :  100:agent.(1)product.(1)comments.(1)entry.text%1="Nintendo"@'
+    - 'OperatingSystemVersion       :  100:agent.(1)product.(1)comments.(1)entry.text[1]="Nintendo"@'
 
 - matcher:
     extract:
@@ -45,7 +45,7 @@ config:
     - 'DeviceName                   : 2014:"PlayStation 4"'
     - 'OperatingSystemClass         : 2014:"Game Console"'
     - 'OperatingSystemName          : 2014:"PlayStation 4"'
-    - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.product.name%1="PlayStation"^.(2)version'
+    - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.product.name[1]="PlayStation"^.(2)version'
 
 - matcher:
     extract:
@@ -62,10 +62,10 @@ config:
     extract:
     - 'DeviceClass                  : 2014:"Game Console"'
     - 'DeviceBrand                  : 2014:"Nintendo"'
-    - 'DeviceName                   : 2014:agent.(1)product.(1)comments.entry.product.name%1="Nintendo"^'
+    - 'DeviceName                   : 2014:agent.(1)product.(1)comments.entry.product.name[1]="Nintendo"^'
     - 'OperatingSystemClass         : 2014:"Game Console"'
     - 'OperatingSystemName          : 2014:"Nintendo"'
-    - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.product.name%1="Nintendo"^'
+    - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.product.name[1]="Nintendo"^'
     - 'LayoutEngineClass            : 2014:"Game Console"'
     - 'LayoutEngineName             : 2014:"Nintendo"'
     - 'LayoutEngineVersion          : 2014:agent.product.(1)name="Version"^.version'
@@ -77,10 +77,10 @@ config:
     extract:
     - 'DeviceClass                  : 2014:"Game Console"'
     - 'DeviceBrand                  : 2014:"Nintendo"'
-    - 'DeviceName                   : 2014:agent.(1)product.(1)comments.entry.text%1="Nintendo"@'
+    - 'DeviceName                   : 2014:agent.(1)product.(1)comments.entry.text[1]="Nintendo"@'
     - 'OperatingSystemClass         : 2014:"Game Console"'
     - 'OperatingSystemName          : 2014:"Nintendo"'
-    - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.text%1="Nintendo"@'
+    - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.text[1]="Nintendo"@'
     - 'LayoutEngineClass            : 2014:"Game Console"'
     - 'LayoutEngineName             : 2014:"Nintendo"'
     - 'LayoutEngineVersion          : 2014:agent.product.(1)name="Version"^.version'

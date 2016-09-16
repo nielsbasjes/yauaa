@@ -16,12 +16,12 @@
 
 MATCH_OPTIONS: &MATCH_OPTIONS
   options:
-    - 'verbose'
+#    - 'verbose'
 
 TEST_OPTIONS: &TEST_OPTIONS
   options:
-    - 'verbose'
-    - 'init'
+#    - 'verbose'
+#    - 'init'
 
 config:
 
@@ -48,27 +48,27 @@ config:
 #  - matcher:
 #      <<: *MATCH_OPTIONS
 #      extract:
-#        - 'NameWord1:     1:agent.product.name%1'
+#        - 'NameWord1:     1:agent.product.name[1]'
 #
 #  - matcher:
 #      <<: *MATCH_OPTIONS
 #      extract:
-#        - 'NameWord2:     1:agent.([1-2])product.name%2'
+#        - 'NameWord2:     1:agent.(1-2)product.name[2]'
 #
 #  - matcher:
 #      <<: *MATCH_OPTIONS
 #      extract:
-#        - 'NameWord2a:     1:agent.(1)product.(1)name%2="two"@'
+#        - 'NameWord2a:     1:agent.(1)product.(1)name[2]="two"@'
 #
 #  - matcher:
 #      <<: *MATCH_OPTIONS
 #      extract:
-#        - 'NameWord3:     1:agent.product.name%3'
+#        - 'NameWord3:     1:agent.product.name[3]'
 #
 #  - matcher:
 #      <<: *MATCH_OPTIONS
 #      extract:
-#        - 'NameWord4:     1:agent.product.name%4'
+#        - 'NameWord4:     1:agent.product.name[4]'
 #
 #  - matcher:
 #      <<: *MATCH_OPTIONS
@@ -93,22 +93,22 @@ config:
 #  - matcher:
 #      <<: *MATCH_OPTIONS
 #      extract:
-#        - 'CommentWord1: 1:agent.product.comments.entry.text%1'
+#        - 'CommentWord1: 1:agent.product.comments.entry.text[1]'
 #
 #  - matcher:
 #      <<: *MATCH_OPTIONS
 #      extract:
-#        - 'CommentWord2: 1:agent.product.comments.entry.text%2'
+#        - 'CommentWord2: 1:agent.product.comments.entry.text[2]'
 #
 #  - matcher:
 #      <<: *MATCH_OPTIONS
 #      extract:
-#        - 'CommentWord3: 1:agent.product.comments.entry.text%3'
+#        - 'CommentWord3: 1:agent.product.comments.entry.text[3]'
 #
 #  - matcher:
 #      <<: *MATCH_OPTIONS
 #      extract:
-#        - 'CommentWord4: 1:agent.product.comments.entry.text%4'
+#        - 'CommentWord4: 1:agent.product.comments.entry.text[4]'
 
   - matcher:
       <<: *MATCH_OPTIONS
@@ -161,16 +161,12 @@ config:
         - 'CommentWordSplitTwo1: 1:agent.product.comments.entry.text[1-2]'
 
   - matcher:
-      options:
-      - 'verbose'
-#      <<: *MATCH_OPTIONS
+      <<: *MATCH_OPTIONS
       extract:
         - 'CommentWordSplitTwo2: 1:agent.product.comments.entry.text[2-3]'
 
   - matcher:
-      options:
-      - 'verbose'
-#      <<: *MATCH_OPTIONS
+      <<: *MATCH_OPTIONS
       extract:
         - 'CommentWordSplitTwo3: 1:agent.product.comments.entry.text[3-4]'
 

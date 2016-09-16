@@ -368,7 +368,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     private void informSubstrings(ParserRuleContext ctx, String name) {
-        informSubstrings(ctx, name, 10);
+        informSubstrings(ctx, name, 6);
     }
 
     private void informSubstrings(ParserRuleContext ctx, String name, int maxSubStrings) {

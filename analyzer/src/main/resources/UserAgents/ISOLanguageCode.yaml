@@ -20,18 +20,18 @@
 config:
 - matcher:
     extract:
-    - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.(1)product.(1)comments.entry.([1-2])text]'
-    - 'AgentLanguage :  5:LookUp[ISOLanguageCodesName;agent.(1)product.(1)comments.entry.([1-2])text]'
+    - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.(1)product.(1)comments.entry.(1-2)text]'
+    - 'AgentLanguage :  5:LookUp[ISOLanguageCodesName;agent.(1)product.(1)comments.entry.(1-2)text]'
 
 - matcher:
     extract:
-    - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.([2-4])product.(1)comments.([1-5])entry.([1-2])text]'
-    - 'AgentLanguage :  5:LookUp[ISOLanguageCodesName;agent.([2-4])product.(1)comments.([1-5])entry.([1-2])text]'
+    - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'
+    - 'AgentLanguage :  5:LookUp[ISOLanguageCodesName;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'
 
 - matcher:
     extract:
-    - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.([1-2])product.(2)comments.([1-5])entry.([1-2])text]'
-    - 'AgentLanguage :  5:LookUp[ISOLanguageCodesName;agent.([1-2])product.(2)comments.([1-5])entry.([1-2])text]'
+    - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'
+    - 'AgentLanguage :  5:LookUp[ISOLanguageCodesName;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'
 
 - lookup:
     name: 'ISOLanguageCodes'

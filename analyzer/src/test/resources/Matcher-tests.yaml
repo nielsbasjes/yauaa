@@ -142,7 +142,7 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'Path:1:agent.(1)product.comments.([2-10])entry.product.name'                          #path
+        - 'Path:1:agent.(1)product.comments.(2-10)entry.product.name'                          #path
 
   - matcher:
       <<: *MATCH_OPTIONS
@@ -162,7 +162,7 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'PathSteps:1:agent.(1)product.(*)comments.([2-10])entry.product.name^.version'                 #path+steps
+        - 'PathSteps:1:agent.(1)product.(*)comments.(2-10)entry.product.name^.version'                 #path+steps
 
   - matcher:
       <<: *MATCH_OPTIONS
@@ -222,7 +222,7 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'SIMBAR:1:agent.([1-2])product.(*)comments.entry.([1-20])keyvalue.key="SIMBAR"^.uuid'
+        - 'SIMBAR:1:agent.(1-2)product.(*)comments.entry.(1-20)keyvalue.key="SIMBAR"^.uuid'
 
   - matcher:
       <<: *MATCH_OPTIONS
@@ -257,27 +257,27 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'NameWord1:     1:agent.product.name%1'
+        - 'NameWord1:     1:agent.product.name[1]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'NameWord2:     1:agent.([1-2])product.name%2'
+        - 'NameWord2:     1:agent.(1-2)product.name[2]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'NameWord2a:     1:agent.(1)product.(1)name%2="two"@'
+        - 'NameWord2a:     1:agent.(1)product.(1)name[2]="two"@'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'NameWord3:     1:agent.product.name%3'
+        - 'NameWord3:     1:agent.product.name[3]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'NameWord4:     1:agent.product.name%4'
+        - 'NameWord4:     1:agent.product.name[4]'
 
   - matcher:
       <<: *MATCH_OPTIONS
@@ -302,32 +302,30 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'CommentWord1: 1:agent.product.comments.entry.text%1'
+        - 'CommentWord1: 1:agent.product.comments.entry.text[1]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'CommentWord2: 1:agent.product.comments.entry.text%2'
+        - 'CommentWord2: 1:agent.product.comments.entry.text[2]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'CommentWord3: 1:agent.product.comments.entry.text%3'
+        - 'CommentWord3: 1:agent.product.comments.entry.text[3]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'CommentWord4: 1:agent.product.comments.entry.text%4'
+        - 'CommentWord4: 1:agent.product.comments.entry.text[4]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'CommentWord5: 1:LookUp[TridentVersions;agent.(1)product.([2-4])comments.entry.(*)product.name#1="Trident"^.(*)version%2{"7.";"DefaultValue"]'
+        - 'CommentWord5: 1:LookUp[TridentVersions;agent.(1)product.(2-4)comments.entry.(*)product.name#1="Trident"^.(*)version[2]{"7.";"DefaultValue"]'
 
   - test:
-      options:
-      - 'only'
-#      <<: *TEST_OPTIONS
+      <<: *TEST_OPTIONS
       input:
         name: 'Picking a word'
         user_agent_string:          'One two three /1.0(One two three)'

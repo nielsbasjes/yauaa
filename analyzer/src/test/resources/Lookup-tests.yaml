@@ -81,87 +81,87 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'LookupDirectTestA:1:LookUp[FullA;agent.([1-4])product.(*)comments.([1-4])entry.product]'
+        - 'LookupDirectTestA:1:LookUp[FullA;agent.(1-4)product.(*)comments.(1-4)entry.product]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'LookupDirectTestB:1:LookUp[FullB;agent.([1-4])product.(*)comments.([1-4])entry.product]'
+        - 'LookupDirectTestB:1:LookUp[FullB;agent.(1-4)product.(*)comments.(1-4)entry.product]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'LookupDirectTestC:1:LookUp[FullC;agent.([1-4])product.(*)comments.([1-4])entry.product]'
+        - 'LookupDirectTestC:1:LookUp[FullC;agent.(1-4)product.(*)comments.(1-4)entry.product]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'LookupStepsTestA1:1:LookUp[VersionA;agent.([1-4])product.(*)comments.([1-4])entry.product.version]'
+        - 'LookupStepsTestA1:1:LookUp[VersionA;agent.(1-4)product.(*)comments.(1-4)entry.product.version]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'LookupStepsTestB1:1:LookUp[VersionB;agent.([1-4])product.(*)comments.([1-4])entry.product.version]'
+        - 'LookupStepsTestB1:1:LookUp[VersionB;agent.(1-4)product.(*)comments.(1-4)entry.product.version]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'LookupStepsTestC1:1:LookUp[VersionC;agent.([1-4])product.(*)comments.([1-4])entry.product.version]'
+        - 'LookupStepsTestC1:1:LookUp[VersionC;agent.(1-4)product.(*)comments.(1-4)entry.product.version]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'LookupStepsTestA2:1:LookUp[VersionA;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^.version]'
+        - 'LookupStepsTestA2:1:LookUp[VersionA;agent.(1-4)product.(*)comments.(1-4)entry.product.(1)name="Lookup"^.version]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'LookupStepsTestB2:1:LookUp[VersionB;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^.version]'
+        - 'LookupStepsTestB2:1:LookUp[VersionB;agent.(1-4)product.(*)comments.(1-4)entry.product.(1)name="Lookup"^.version]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'LookupStepsTestC2:1:LookUp[VersionC;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^.version]'
+        - 'LookupStepsTestC2:1:LookUp[VersionC;agent.(1-4)product.(*)comments.(1-4)entry.product.(1)name="Lookup"^.version]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'LookupStepsTestA3:1:LookUp[FullA;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^]'
+        - 'LookupStepsTestA3:1:LookUp[FullA;agent.(1-4)product.(*)comments.(1-4)entry.product.(1)name="Lookup"^]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'LookupStepsTestB3:1:LookUp[FullB;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^]'
+        - 'LookupStepsTestB3:1:LookUp[FullB;agent.(1-4)product.(*)comments.(1-4)entry.product.(1)name="Lookup"^]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'LookupStepsTestC3:1:LookUp[FullC;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^]'
+        - 'LookupStepsTestC3:1:LookUp[FullC;agent.(1-4)product.(*)comments.(1-4)entry.product.(1)name="Lookup"^]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'LookupStepsTestA3Default:1:LookUp[EmptyLookup;agent.([1-4])product.(*)comments.([1-4])entry.product.(1)name="Lookup"^.version;"Default"]'
+        - 'LookupStepsTestA3Default:1:LookUp[EmptyLookup;agent.(1-4)product.(*)comments.(1-4)entry.product.(1)name="Lookup"^.version;"Default"]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'Equals:     1:  agent.(1)product.(1)comments.([1-5])entry.product.(1)name="Three"^.version'
+        - 'Equals:     1:  agent.(1)product.(1)comments.(1-5)entry.product.(1)name="Three"^.version'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'StartsTh:   1:  agent.(1)product.(1)comments.([1-5])entry.product.(1)name{"Th"^.version'
+        - 'StartsTh:   1:  agent.(1)product.(1)comments.(1-5)entry.product.(1)name{"Th"^.version'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'EndsWo:     1:  agent.(1)product.(1)comments.([1-5])entry.product.(1)name}"wo"^.version'
+        - 'EndsWo:     1:  agent.(1)product.(1)comments.(1-5)entry.product.(1)name}"wo"^.version'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'ContainsOU: 1:  agent.(1)product.(1)comments.([1-5])entry.product.(1)name~"ou"^.version'
+        - 'ContainsOU: 1:  agent.(1)product.(1)comments.(1-5)entry.product.(1)name~"ou"^.version'
 
   - matcher:
       <<: *MATCH_OPTIONS

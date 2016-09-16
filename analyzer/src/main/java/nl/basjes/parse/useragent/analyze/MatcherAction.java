@@ -433,7 +433,8 @@ public abstract class MatcherAction {
                 calculateInformPath(treeName + "[-" + range.last + "]", tree.nextStep);
             }
         } else {
-            calculateInformPath(treeName, tree.nextStep);
+            matcher.informMeAbout(this, treeName);
+//            calculateInformPath(treeName, tree.nextStep);
         }
     }
 
