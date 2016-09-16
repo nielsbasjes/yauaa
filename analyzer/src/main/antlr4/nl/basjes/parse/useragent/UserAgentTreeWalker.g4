@@ -63,7 +63,7 @@ matcher         : matcherLookup                                                 
                 | 'IsNull' BLOCKOPEN matcherLookup BLOCKCLOSE                   #matcherPathIsNull
                 ;
 
-matcherLookup   : basePath                                                                                           #matcherPath
+matcherLookup   : basePath                                                                                                #matcherPath
                 | 'LookUp' BLOCKOPEN lookup=VALUENAME SEMICOLON matcherLookup (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookup
                 ;
 
@@ -83,6 +83,7 @@ path            : DOT numberRange name=VALUENAME  (nextStep=path)?  #stepDown
                 | CONTAINS   value=VALUE          (nextStep=path)?  #stepContainsValue
                 | FIRSTWORDS NUMBER               (nextStep=path)?  #stepFirstWords
                 | SINGLEWORD NUMBER               (nextStep=path)?  #stepSingleWord
+                | wordRange                       (nextStep=path)?  #stepWordRange
                 | BACKTOFULL                      (nextStep=path)?  #stepBackToFull
                 ;
 
@@ -90,4 +91,10 @@ numberRange     : ( BRACEOPEN BLOCKOPEN rangeStart=NUMBER MINUS rangeEnd=NUMBER 
                 | ( BRACEOPEN count=NUMBER BRACECLOSE )                                                 #numberRangeSingleValue
                 | ( BRACEOPEN STAR BRACECLOSE )                                                         #numberRangeAll
                 | (  )                                                                                  #numberRangeEmpty
+                ;
+
+wordRange       : ( BLOCKOPEN firstWord=NUMBER MINUS lastWord=NUMBER BLOCKCLOSE )                       #wordRangeStartToEnd
+                | ( BLOCKOPEN                  MINUS lastWord=NUMBER BLOCKCLOSE )                       #wordRangeFirstWords
+                | ( BLOCKOPEN firstWord=NUMBER MINUS                 BLOCKCLOSE )                       #wordRangeLastWords
+                | ( BLOCKOPEN singleWord=NUMBER                      BLOCKCLOSE )                       #wordRangeSingleWord
                 ;

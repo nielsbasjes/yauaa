@@ -24,6 +24,7 @@ import nl.basjes.parse.useragent.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerLexer;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepContainsValueContext;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepWordRangeContext;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import org.antlr.v4.runtime.ANTLRErrorListener;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -392,6 +393,10 @@ public abstract class MatcherAction {
                 calculateInformPath(treeName, (StepSingleWordContext) tree);
                 return;
             }
+            if (tree instanceof StepWordRangeContext) {
+                calculateInformPath(treeName, (StepWordRangeContext) tree);
+                return;
+            }
         }
         matcher.informMeAbout(this, treeName);
     }
@@ -417,6 +422,17 @@ public abstract class MatcherAction {
 
     private void calculateInformPath(String treeName, StepSingleWordContext tree) {
         calculateInformPath(treeName + tree.SINGLEWORD() + tree.NUMBER(), tree.nextStep);
+    }
+
+    private void calculateInformPath(String treeName, StepWordRangeContext tree) {
+        WordRangeVisitor.Range range = WordRangeVisitor.getRange(tree.wordRange());
+        if (range.isRangeInHashMap()) {
+            if (range.first == range.last) {
+                calculateInformPath(treeName + "[" + range.first + "]", tree.nextStep);
+            } else if (range.first == 1 && range.last != -1) {
+                calculateInformPath(treeName + "[-" + range.last + "]", tree.nextStep);
+            }
+        }
     }
 
     // ============================================================================================================

@@ -322,7 +322,79 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'CommentWord4: 1:LookUp[TridentVersions;agent.(1)product.([2-4])comments.entry.(*)product.name#1="Trident"^.(*)version%2{"7.";"DefaultValue"]'
+        - 'CommentWord5: 1:LookUp[TridentVersions;agent.(1)product.([2-4])comments.entry.(*)product.name#1="Trident"^.(*)version%2{"7.";"DefaultValue"]'
+
+  - matcher:
+      options:
+      - 'verbose'
+#      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitSingle1: 1:agent.product.comments.entry.text[1]'
+
+  - matcher:
+      options:
+      - 'verbose'
+#      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitSingle2: 1:agent.product.comments.entry.text[2]'
+
+  - matcher:
+      options:
+      - 'verbose'
+#      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitSingle3: 1:agent.product.comments.entry.text[3]'
+
+  - matcher:
+      options:
+      - 'verbose'
+#      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitFirst1: 1:agent.product.comments.entry.text[-1]'
+
+  - matcher:
+      options:
+      - 'verbose'
+#      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitFirst2: 1:agent.product.comments.entry.text[-2]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitFirst3: 1:agent.product.comments.entry.text[-3]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitLast1: 1:agent.product.comments.entry.text[1-]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitLast2: 1:agent.product.comments.entry.text[2-]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitLast3: 1:agent.product.comments.entry.text[3-]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitTwo1: 1:agent.product.comments.entry.text[1-2]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitTwo2: 1:agent.product.comments.entry.text[2-3]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitTwo3: 1:agent.product.comments.entry.text[3-4]'
+
+
 
   - test:
       <<: *TEST_OPTIONS
@@ -370,7 +442,9 @@ config:
 
 
   - test:
-      <<: *TEST_OPTIONS
+      options:
+      - 'only'
+#      <<: *TEST_OPTIONS
       input:
         name: 'Picking a word'
         user_agent_string:          'One two three /1.0(One two three)'
@@ -396,6 +470,19 @@ config:
         CommentWords2:              'One two'
         CommentWords3:              'One two three'
         CommentWords4:              'Unknown'
+
+        CommentWordSplitFirst1      : 'One'
+        CommentWordSplitFirst2      : 'One two'
+        CommentWordSplitFirst3      : 'One two three'
+        CommentWordSplitLast1       : 'One two three'
+        CommentWordSplitLast2       : 'two three'
+        CommentWordSplitLast3       : 'three'
+        CommentWordSplitSingle1     : 'One'
+        CommentWordSplitSingle2     : 'two'
+        CommentWordSplitSingle3     : 'three'
+        CommentWordSplitTwo1        : 'One two'
+        CommentWordSplitTwo2        : 'two three'
+        CommentWordSplitTwo3        : 'Unknown'
 
         FixedValueLookupOk:          'One'
         FixedValueLookupDefaultOk:   'One'
@@ -505,3 +592,5 @@ config:
 #      input:
 #        name: 'Showing init output'
 #        user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; Name = MASB; rv:11.0; Nokia501.2/11.1.3/java_runtime_version=Nokia_Asha_1_1_1; SIMBAR={A43F3165-FAC1-11E1-8828-00123F6EDBB1}; ;http://bla.bla.com/page.html ; bla=11111111-2222-3333-4444-555555555555; email:aap@noot.nl) like Gecko'
+
+

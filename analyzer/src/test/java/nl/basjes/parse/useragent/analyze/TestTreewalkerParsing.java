@@ -24,11 +24,13 @@ import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepCleanVersion;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepDefaultValue;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSingleWord;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import org.junit.Test;
@@ -47,7 +49,7 @@ public class TestTreewalkerParsing {
 
     @Test
     public void validateWalkPathParsing() {
-        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.([2-4])comments.(*)product.name#1=\"Trident\"^.(*)version%2{\"7.\";\"DefaultValue\"]]";
+        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.([2-4])comments.(*)product.name#1=\"Trident\"[2-3]~\"Foo\"^.(*)version%2{\"7.\";\"DefaultValue\"]]";
 
 
         Map<String, Map<String, String>> lookups = new HashMap<>();
@@ -63,12 +65,20 @@ public class TestTreewalkerParsing {
 
 //                String path = "TridentVersions[agent.(1)product.([2-4])comments.(*)product.name#1=\"Trident\"^.(*)version%2{\"7.\";\"DefaultValue\"]";
 
+        System.out.println(walkList.toString());
+
         Step step = walkList.getFirstStep();
         assertTrue(step instanceof StepIsNull);
         assertEquals("IsNull()" , step.toString());
         step = step.getNextStep();
         assertTrue(step instanceof StepDefaultValue);
         assertEquals("DefaultValue(DefaultValue)" , step.toString());
+        step = step.getNextStep();
+        assertTrue(step instanceof StepWordRange);
+        assertEquals("WordRange(2-3)"             , step.toString());
+        step = step.getNextStep();
+        assertTrue(step instanceof StepContains);
+        assertEquals("Contains(foo)"              , step.toString());
         step = step.getNextStep();
         assertTrue(step instanceof StepUp);
         assertEquals("Up()"                       , step.toString());
@@ -124,8 +134,8 @@ public class TestTreewalkerParsing {
 
         for (String expect: expectedHashEntries){
             assertTrue("Missing:" + expect, matcher.reveicedValues.contains(expect));
-        }
-
+         }
+        assertTrue("Found wrong number of entries", expectedHashEntries.length == matcher.reveicedValues.size());
     }
 
     @Test
@@ -206,6 +216,7 @@ public class TestTreewalkerParsing {
         for (String expect: expectedHashEntries){
             assertTrue("Missing:" + expect, matcher.reveicedValues.contains(expect));
         }
+        assertTrue("Found wrong number of entries", expectedHashEntries.length == matcher.reveicedValues.size());
 
     }
 

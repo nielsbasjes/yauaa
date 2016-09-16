@@ -384,7 +384,10 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
         String firstWords;
         while((firstWords = WordSplitter.getFirstWords(text, count))!=null) {
             inform(ctx, ctx, name + "#" + count, firstWords, true);
-            inform(ctx, ctx, name + "%" + count, firstWords.substring(startOffsetPrevious), true);
+            inform(ctx, ctx, name + "[-" + count + "]", firstWords, true);
+            String thisWord = firstWords.substring(startOffsetPrevious);
+            inform(ctx, ctx, name + "%" + count, thisWord, true);
+            inform(ctx, ctx, name + "[" + count  + "]", thisWord, true);
             count++;
             if (count > maxSubStrings) {
                 return;
@@ -411,6 +414,10 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
         while((firstVersions = VersionSplitter.getFirstVersions(text, count))!=null) {
             inform(ctx, ctx, name + "#" + count, firstVersions, true);
             inform(ctx, ctx, name + "%" + count, firstVersions.substring(startOffsetPrevious), true);
+            inform(ctx, ctx, name + "[-" + count + "]", firstVersions, true);
+            String thisVersion = firstVersions.substring(startOffsetPrevious);
+            inform(ctx, ctx, name + "%" + count, thisVersion, true);
+            inform(ctx, ctx, name + "[" + count  + "]", thisVersion, true);
             count++;
             if (count > maxSubStrings) {
                 return;

@@ -59,6 +59,9 @@ public final class VersionSplitter {
      * @return The offset or -1 if it does not exist
      */
     public static int findVersionStart(char[] chars, int version) {
+        if (version <= 0) {
+            return -1;
+        }
         // We expect the chars to start with a version.
 
         int charNr = 0;
@@ -118,6 +121,35 @@ public final class VersionSplitter {
         }
         int end = VersionSplitter.findVersionEnd(characters, start);
         return value.substring(0, end);
+    }
+
+    public static String getVersionRange(String value, int firstVersion, int lastVersion) {
+        if (value == null || (lastVersion >0 && lastVersion < firstVersion)) {
+            return null;
+        }
+        char[] characters = value.toCharArray();
+        int firstCharOfFirstVersion = findVersionStart(characters, firstVersion);
+        if (firstCharOfFirstVersion == -1) {
+            return null;
+        }
+
+        if (lastVersion == -1) {
+            return value.substring(firstCharOfFirstVersion, characters.length);
+        }
+        int firstCharOfLastWord = firstCharOfFirstVersion;
+        if (lastVersion != firstVersion) {
+            firstCharOfLastWord = findVersionStart(characters, lastVersion);
+            if (firstCharOfLastWord == -1) {
+                return null;
+            }
+        }
+
+        int lastCharOfLastVersion = findVersionEnd(characters, firstCharOfLastWord);
+        if (lastCharOfLastVersion == -1) {
+            return null;
+        }
+
+        return value.substring(firstCharOfFirstVersion, lastCharOfLastVersion);
     }
 
 }

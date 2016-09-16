@@ -20,6 +20,7 @@
 package nl.basjes.parse.useragent.analyze.treewalker.steps;
 
 import nl.basjes.parse.useragent.UserAgentTreeWalkerBaseVisitor;
+import nl.basjes.parse.useragent.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherContext;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherPathContext;
@@ -41,6 +42,7 @@ import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepSingleWordContext
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepStartsWithValueContext;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepUpContext;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
+import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepCleanVersion;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEndsWith;
@@ -54,6 +56,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepBackToFull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepFirstWords;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepFixedString;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSingleWord;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNext;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
@@ -299,12 +302,22 @@ public class WalkList {
         }
 
         @Override
+        public Void visitStepWordRange(UserAgentTreeWalkerParser.StepWordRangeContext ctx) {
+            WordRangeVisitor.Range range = WordRangeVisitor.getRange(ctx.wordRange());
+            if (range.isRangeInHashMap()) {
+                foundHashEntryPoint = true;
+            }
+            add(new StepWordRange(range));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
         public Void visitStepBackToFull(StepBackToFullContext ctx) {
             add(new StepBackToFull());
             visitNext(ctx.nextStep);
             return null; // Void
         }
-
 
     }
 }

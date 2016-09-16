@@ -97,6 +97,47 @@ public class TestWordSplitter {
     }
 
     @Test
+    public void versionSplitterRanges() {
+        String value = "1.2.3.4.5";
+
+        // Single version
+        assertEquals(null          , VersionSplitter.getVersionRange(value, 0, 0));
+        assertEquals("1"           , VersionSplitter.getVersionRange(value, 1, 1));
+        assertEquals("2"           , VersionSplitter.getVersionRange(value, 2, 2));
+        assertEquals("3"           , VersionSplitter.getVersionRange(value, 3, 3));
+        assertEquals("4"           , VersionSplitter.getVersionRange(value, 4, 4));
+        assertEquals("5"           , VersionSplitter.getVersionRange(value, 5, 5));
+        assertEquals(null          , VersionSplitter.getVersionRange(value, 6, 6));
+
+        // First versions
+        assertEquals(null          , VersionSplitter.getVersionRange(value, 1, 0));
+        assertEquals("1"           , VersionSplitter.getVersionRange(value, 1, 1));
+        assertEquals("1.2"         , VersionSplitter.getVersionRange(value, 1, 2));
+        assertEquals("1.2.3"       , VersionSplitter.getVersionRange(value, 1, 3));
+        assertEquals("1.2.3.4"     , VersionSplitter.getVersionRange(value, 1, 4));
+        assertEquals("1.2.3.4.5"   , VersionSplitter.getVersionRange(value, 1, 5));
+        assertEquals(null          , VersionSplitter.getVersionRange(value, 1, 6));
+
+        // Last versions
+        assertEquals(null           , VersionSplitter.getVersionRange(value, 0, -1));
+        assertEquals("1.2.3.4.5"    , VersionSplitter.getVersionRange(value, 1, -1));
+        assertEquals("2.3.4.5"      , VersionSplitter.getVersionRange(value, 2, -1));
+        assertEquals("3.4.5"        , VersionSplitter.getVersionRange(value, 3, -1));
+        assertEquals("4.5"          , VersionSplitter.getVersionRange(value, 4, -1));
+        assertEquals("5"            , VersionSplitter.getVersionRange(value, 5, -1));
+        assertEquals(null           , VersionSplitter.getVersionRange(value, 6, -1));
+
+        // 2 version slice
+        assertEquals(null           , VersionSplitter.getVersionRange(value, 0, 1));
+        assertEquals("1.2"          , VersionSplitter.getVersionRange(value, 1, 2));
+        assertEquals("2.3"          , VersionSplitter.getVersionRange(value, 2, 3));
+        assertEquals("3.4"          , VersionSplitter.getVersionRange(value, 3, 4));
+        assertEquals("4.5"          , VersionSplitter.getVersionRange(value, 4, 5));
+        assertEquals(null           , VersionSplitter.getVersionRange(value, 5, 6));
+    }
+
+
+    @Test
     public void wordSplitter() {
         String value = "one two/3 four-4 five(some more)";
 
@@ -117,6 +158,62 @@ public class TestWordSplitter {
         assertEquals("one two/3 four-4"      , WordSplitter.getFirstWords(value,5));
         assertEquals("one two/3 four-4 five" , WordSplitter.getFirstWords(value,6));
         assertEquals(null                    , WordSplitter.getFirstWords(value,7));
+    }
+
+    @Test
+    public void wordSplitterRange() {
+        String value = "one two/3 four-4 five(some more)";
+        // The '(' is one of the string terminators for this string splitter
+
+        // Single word
+        assertEquals(null                    , WordSplitter.getWordRange(value, 0, 0));
+        assertEquals("one"                   , WordSplitter.getWordRange(value, 1, 1));
+        assertEquals("two"                   , WordSplitter.getWordRange(value, 2, 2));
+        assertEquals("3"                     , WordSplitter.getWordRange(value, 3, 3));
+        assertEquals("four"                  , WordSplitter.getWordRange(value, 4, 4));
+        assertEquals("4"                     , WordSplitter.getWordRange(value, 5, 5));
+        assertEquals("five"                  , WordSplitter.getWordRange(value, 6, 6));
+        assertEquals(null                    , WordSplitter.getWordRange(value, 7, 7));
+
+        // First words
+        assertEquals("one"                   , WordSplitter.getWordRange(value, 1, 1));
+        assertEquals("one two"               , WordSplitter.getWordRange(value, 1, 2));
+        assertEquals("one two/3"             , WordSplitter.getWordRange(value, 1, 3));
+        assertEquals("one two/3 four"        , WordSplitter.getWordRange(value, 1, 4));
+        assertEquals("one two/3 four-4"      , WordSplitter.getWordRange(value, 1, 5));
+        assertEquals("one two/3 four-4 five" , WordSplitter.getWordRange(value, 1, 6));
+        assertEquals(null                    , WordSplitter.getWordRange(value, 1, 7));
+
+        // Last words
+        assertEquals("one two/3 four-4 five" , WordSplitter.getWordRange(value, 1, -1));
+        assertEquals("two/3 four-4 five"     , WordSplitter.getWordRange(value, 2, -1));
+        assertEquals("3 four-4 five"         , WordSplitter.getWordRange(value, 3, -1));
+        assertEquals("four-4 five"           , WordSplitter.getWordRange(value, 4, -1));
+        assertEquals("4 five"                , WordSplitter.getWordRange(value, 5, -1));
+        assertEquals("five"                  , WordSplitter.getWordRange(value, 6, -1));
+        assertEquals(null                    , WordSplitter.getWordRange(value, 7, -1));
+
+        // 2 word slices
+        assertEquals(null                    , WordSplitter.getWordRange(value, 0, 1));
+        assertEquals("one two"               , WordSplitter.getWordRange(value, 1, 2));
+        assertEquals("two/3"                 , WordSplitter.getWordRange(value, 2, 3));
+        assertEquals("3 four"                , WordSplitter.getWordRange(value, 3, 4));
+        assertEquals("four-4"                , WordSplitter.getWordRange(value, 4, 5));
+        assertEquals("4 five"                , WordSplitter.getWordRange(value, 5, 6));
+        assertEquals(null                    , WordSplitter.getWordRange(value, 6, 7));
+
+        // 3 word slices
+        assertEquals(null                    , WordSplitter.getWordRange(value, 0, 2));
+        assertEquals("one two/3"             , WordSplitter.getWordRange(value, 1, 3));
+        assertEquals("two/3 four"            , WordSplitter.getWordRange(value, 2, 4));
+        assertEquals("3 four-4"              , WordSplitter.getWordRange(value, 3, 5));
+        assertEquals("four-4 five"           , WordSplitter.getWordRange(value, 4, 6));
+        assertEquals(null                    , WordSplitter.getWordRange(value, 5, 7));
+
+        // Edge cases
+        assertEquals(null                    , WordSplitter.getWordRange(value, 0,  0));
+        assertEquals(null                    , WordSplitter.getWordRange(value, 0, -1));
+        assertEquals(null                    , WordSplitter.getWordRange(value,-1, -1));
     }
 
 
