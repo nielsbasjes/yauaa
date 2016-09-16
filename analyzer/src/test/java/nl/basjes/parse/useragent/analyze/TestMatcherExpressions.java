@@ -37,6 +37,12 @@ public class TestMatcherExpressions {
     }
 
     @Test
+    public void runSubstringTests() {
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:SubString-tests.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
+
+    @Test
     public void runLookupTests() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:Lookup-tests.yaml");
         Assert.assertTrue(uaa.runTests(false, false));

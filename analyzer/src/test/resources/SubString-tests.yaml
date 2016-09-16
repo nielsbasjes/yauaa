@@ -1,0 +1,220 @@
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+MATCH_OPTIONS: &MATCH_OPTIONS
+  options:
+    - 'verbose'
+
+TEST_OPTIONS: &TEST_OPTIONS
+  options:
+    - 'verbose'
+    - 'init'
+
+config:
+
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'NameWords1:    1:agent.product.name#1'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'NameWords2:    1:agent.product.name#2'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'NameWords3:    1:agent.product.name#3'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'NameWords4:    1:agent.product.name#4'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'NameWord1:     1:agent.product.name%1'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'NameWord2:     1:agent.([1-2])product.name%2'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'NameWord2a:     1:agent.(1)product.(1)name%2="two"@'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'NameWord3:     1:agent.product.name%3'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'NameWord4:     1:agent.product.name%4'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'CommentWords1:  1:agent.product.comments.entry.text#1'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'CommentWords2:  1:agent.product.comments.entry.text#2'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'CommentWords3:  1:agent.product.comments.entry.text#3'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'CommentWords4:  1:agent.product.comments.entry.text#4'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'CommentWord1: 1:agent.product.comments.entry.text%1'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'CommentWord2: 1:agent.product.comments.entry.text%2'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'CommentWord3: 1:agent.product.comments.entry.text%3'
+#
+#  - matcher:
+#      <<: *MATCH_OPTIONS
+#      extract:
+#        - 'CommentWord4: 1:agent.product.comments.entry.text%4'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitSingle1: 1:agent.product.comments.entry.text[1]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitSingle2: 1:agent.product.comments.entry.text[2]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitSingle3: 1:agent.product.comments.entry.text[3]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitFirst1: 1:agent.product.comments.entry.text[-1]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitFirst2: 1:agent.product.comments.entry.text[-2]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitFirst3: 1:agent.product.comments.entry.text[-3]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitLast1: 1:agent.product.comments.entry.text[1-]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitLast2: 1:agent.product.comments.entry.text[2-]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitLast3: 1:agent.product.comments.entry.text[3-]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitTwo1: 1:agent.product.comments.entry.text[1-2]'
+
+  - matcher:
+      options:
+      - 'verbose'
+#      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitTwo2: 1:agent.product.comments.entry.text[2-3]'
+
+  - matcher:
+      options:
+      - 'verbose'
+#      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWordSplitTwo3: 1:agent.product.comments.entry.text[3-4]'
+
+  - test:
+      options:
+      - 'only'
+      - 'verbose'
+#      <<: *TEST_OPTIONS
+      input:
+        name: 'Picking a word'
+        user_agent_string:          'One two three /1.0(One two three)'
+      expected:
+#        FixedValue:                 'Foo bar'
+#        NameWord1:                  'One'
+#        NameWord2:                  'two'
+#        NameWord2a:                 'One two three'
+#        NameWord3:                  'three'
+#        NameWord4:                  'Unknown'
+#
+#        NameWords1:                 'One'
+#        NameWords2:                 'One two'
+#        NameWords3:                 'One two three'
+#        NameWords4:                 'Unknown'
+#
+#        CommentWord1:               'One'
+#        CommentWord2:               'two'
+#        CommentWord3:               'three'
+#        CommentWord4:               'Unknown'
+#
+#        CommentWords1:              'One'
+#        CommentWords2:              'One two'
+#        CommentWords3:              'One two three'
+#        CommentWords4:              'Unknown'
+#
+        CommentWordSplitFirst1      : 'One'
+        CommentWordSplitFirst2      : 'One two'
+        CommentWordSplitFirst3      : 'One two three'
+        CommentWordSplitLast1       : 'One two three'
+        CommentWordSplitLast2       : 'two three'
+        CommentWordSplitLast3       : 'three'
+        CommentWordSplitSingle1     : 'One'
+        CommentWordSplitSingle2     : 'two'
+        CommentWordSplitSingle3     : 'three'
+        CommentWordSplitTwo1        : 'One two'
+        CommentWordSplitTwo2        : 'two three'
+        CommentWordSplitTwo3        : 'Unknown'
+

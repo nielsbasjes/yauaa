@@ -304,7 +304,7 @@ public class WalkList {
         @Override
         public Void visitStepWordRange(UserAgentTreeWalkerParser.StepWordRangeContext ctx) {
             WordRangeVisitor.Range range = WordRangeVisitor.getRange(ctx.wordRange());
-            if (range.isRangeInHashMap()) {
+            if (!range.isRangeInHashMap()) {
                 foundHashEntryPoint = true;
             }
             add(new StepWordRange(range));

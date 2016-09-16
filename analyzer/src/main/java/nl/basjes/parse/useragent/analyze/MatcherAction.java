@@ -432,6 +432,8 @@ public abstract class MatcherAction {
             } else if (range.first == 1 && range.last != -1) {
                 calculateInformPath(treeName + "[-" + range.last + "]", tree.nextStep);
             }
+        } else {
+            calculateInformPath(treeName, tree.nextStep);
         }
     }
 

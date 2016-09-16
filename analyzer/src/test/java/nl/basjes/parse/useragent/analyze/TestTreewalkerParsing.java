@@ -23,16 +23,6 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepCleanVersion;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepContains;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepDefaultValue;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSingleWord;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -41,144 +31,15 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class TestTreewalkerParsing {
 
-
     @Test
     public void validateWalkPathParsing() {
         String path = "IsNull[LookUp[TridentVersions;agent.(1)product.([2-4])comments.(*)product.name#1=\"Trident\"[2-3]~\"Foo\"^.(*)version%2{\"7.\";\"DefaultValue\"]]";
-
-
-        Map<String, Map<String, String>> lookups = new HashMap<>();
-        lookups.put("TridentVersions", new HashMap<String, String>());
-
-        TestMatcher matcher =  new TestMatcher(null,lookups);
-        MatcherRequireAction action = new MatcherRequireAction(path, matcher);
-
-        // Validate the expected walk list entries (i.e. the dynamic part of the path)
-
-        TreeExpressionEvaluator evaluator = action.getEvaluatorForUnitTesting();
-        WalkList walkList = evaluator.getWalkListForUnitTesting();
-
-//                String path = "TridentVersions[agent.(1)product.([2-4])comments.(*)product.name#1=\"Trident\"^.(*)version%2{\"7.\";\"DefaultValue\"]";
-
-        System.out.println(walkList.toString());
-
-        Step step = walkList.getFirstStep();
-        assertTrue(step instanceof StepIsNull);
-        assertEquals("IsNull()" , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepDefaultValue);
-        assertEquals("DefaultValue(DefaultValue)" , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepWordRange);
-        assertEquals("WordRange(2-3)"             , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepContains);
-        assertEquals("Contains(foo)"              , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepUp);
-        assertEquals("Up()"                       , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepDown);
-        assertEquals("Down([1:5]version)"         , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepSingleWord);
-        assertEquals("FirstWords(2)"              , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepStartsWith);
-        assertEquals("StartsWith(7.)"             , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepLookup);
-        assertEquals("Lookup(TridentVersions)"    , step.toString());
-        step = step.getNextStep();
-        assertNull(step);
-
-        // Validate the expected hash entries (i.e. the first part of the path)
-
-        String[] expectedHashEntries = {
-                "agent.(1)product.(2)comments.(1)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(2)comments.(2)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(2)comments.(3)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(2)comments.(4)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(2)comments.(5)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(2)comments.(6)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(2)comments.(7)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(2)comments.(8)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(2)comments.(9)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(2)comments.(10)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(3)comments.(1)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(3)comments.(2)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(3)comments.(3)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(3)comments.(4)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(3)comments.(5)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(3)comments.(6)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(3)comments.(7)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(3)comments.(8)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(3)comments.(9)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(3)comments.(10)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(4)comments.(1)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(4)comments.(2)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(4)comments.(3)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(4)comments.(4)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(4)comments.(5)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(4)comments.(6)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(4)comments.(7)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(4)comments.(8)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(4)comments.(9)product.(1)name#1=\"Trident\"",
-                "agent.(1)product.(4)comments.(10)product.(1)name#1=\"Trident\"",
-        };
-
-        for (String expect: expectedHashEntries){
-            assertTrue("Missing:" + expect, matcher.reveicedValues.contains(expect));
-         }
-        assertTrue("Found wrong number of entries", expectedHashEntries.length == matcher.reveicedValues.size());
-    }
-
-    @Test
-    public void validateWalkPathParsingCleanVersion() {
-        String path = "CleanVersion[LookUp[TridentVersions;agent.(1)product.([2-4])comments.(*)product.name#1=\"Trident\"^.(*)version%2{\"7.\";\"DefaultValue\"]]";
-
-
-        Map<String, Map<String, String>> lookups = new HashMap<>();
-        lookups.put("TridentVersions", new HashMap<String, String>());
-
-        TestMatcher matcher =  new TestMatcher(null,lookups);
-        MatcherRequireAction action = new MatcherRequireAction(path, matcher);
-
-        // Validate the expected walk list entries (i.e. the dynamic part of the path)
-
-        TreeExpressionEvaluator evaluator = action.getEvaluatorForUnitTesting();
-        WalkList walkList = evaluator.getWalkListForUnitTesting();
-
-        Step step = walkList.getFirstStep();
-        assertTrue(step instanceof StepDefaultValue);
-        assertEquals("DefaultValue(DefaultValue)" , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepUp);
-        assertEquals("Up()"                       , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepDown);
-        assertEquals("Down([1:5]version)"         , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepSingleWord);
-        assertEquals("FirstWords(2)"              , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepStartsWith);
-        assertEquals("StartsWith(7.)"             , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepLookup);
-        assertEquals("Lookup(TridentVersions)"    , step.toString());
-        step = step.getNextStep();
-        assertTrue(step instanceof StepCleanVersion);
-        assertEquals("CleanVersion()" , step.toString());
-        step = step.getNextStep();
-        assertNull(step);
-
-        // Validate the expected hash entries (i.e. the first part of the path)
 
         String[] expectedHashEntries = {
             "agent.(1)product.(2)comments.(1)product.(1)name#1=\"Trident\"",
@@ -213,13 +74,214 @@ public class TestTreewalkerParsing {
             "agent.(1)product.(4)comments.(10)product.(1)name#1=\"Trident\"",
         };
 
-        for (String expect: expectedHashEntries){
-            assertTrue("Missing:" + expect, matcher.reveicedValues.contains(expect));
+        String[] expectedWalkList = {
+            "IsNull()",
+            "DefaultValue(DefaultValue)",
+            "WordRange(2-3)",
+            "Contains(foo)",
+            "Up()",
+            "Down([1:5]version)",
+            "FirstWords(2)",
+            "StartsWith(7.)",
+            "Lookup(TridentVersions)",
+        };
+
+        checkPath(path, expectedHashEntries, expectedWalkList);
+    }
+
+    @Test
+    public void validateWalkPathParsingRange() {
+        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.([2-4])comments.(*)product.name[1]=\"Trident\"[2-3]~\"Foo\"^.(*)version[2]{\"7.\";\"DefaultValue\"]]";
+
+        String[] expectedHashEntries = {
+            "agent.(1)product.(2)comments.(1)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(2)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(3)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(4)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(5)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(6)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(7)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(8)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(9)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(10)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(1)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(2)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(3)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(4)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(5)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(6)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(7)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(8)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(9)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(10)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(1)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(2)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(3)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(4)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(5)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(6)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(7)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(8)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(9)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(10)product.(1)name[1]=\"Trident\"",
+        };
+
+        String[] expectedWalkList = {
+            "IsNull()",
+            "DefaultValue(DefaultValue)",
+            "WordRange(2-3)",
+            "Contains(foo)",
+            "Up()",
+            "Down([1:5]version)",
+            "WordRange(2-2)",
+            "StartsWith(7.)",
+            "Lookup(TridentVersions)",
+        };
+
+        checkPath(path, expectedHashEntries, expectedWalkList);
+    }
+
+    @Test
+    public void validateWalkPathSimpleName() {
+        String path = "agent.(1)product.(1)name";
+
+        String[] expectedHashEntries = {
+            "agent.(1)product.(1)name",
+        };
+
+        String[] expectedWalkList = {
+        };
+
+        checkPath(path, expectedHashEntries, expectedWalkList);
+    }
+
+    @Test
+    public void validateWalkPathSimpleNameEquals() {
+        String path = "agent.(1)product.(1)name=\"Foo\"";
+
+        String[] expectedHashEntries = {
+            "agent.(1)product.(1)name=\"Foo\"",
+        };
+
+        String[] expectedWalkList = {
+        };
+
+        checkPath(path, expectedHashEntries, expectedWalkList);
+    }
+
+    @Test
+    public void validateWalkPathNameSubstring() {
+        String path = "agent.(1)product.(1)name[1-2]";
+
+        String[] expectedHashEntries = {
+            "agent.(1)product.(1)name[-2]",
+        };
+
+        String[] expectedWalkList = {
+            "WordRange(1-2)",
+        };
+
+        checkPath(path, expectedHashEntries, expectedWalkList);
+    }
+
+    @Test
+    public void validateWalkPathNameSubstring2() {
+        String path = "agent.(1)product.(1)name[3-5]";
+
+        String[] expectedHashEntries = {
+            "agent.(1)product.(1)name",
+        };
+
+        String[] expectedWalkList = {
+            "WordRange(3-5)",
+        };
+
+        checkPath(path, expectedHashEntries, expectedWalkList);
+    }
+
+
+    @Test
+    public void validateWalkPathParsingCleanVersion() {
+
+        String path = "CleanVersion[LookUp[TridentVersions;agent.(1)product.([2-4])comments.(*)product.name#1=\"Trident\"^.(*)version%2{\"7.\";\"DefaultValue\"]]";
+
+        String[] expectedHashEntries = {
+            "agent.(1)product.(2)comments.(1)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(2)comments.(2)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(2)comments.(3)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(2)comments.(4)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(2)comments.(5)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(2)comments.(6)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(2)comments.(7)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(2)comments.(8)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(2)comments.(9)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(2)comments.(10)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(3)comments.(1)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(3)comments.(2)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(3)comments.(3)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(3)comments.(4)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(3)comments.(5)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(3)comments.(6)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(3)comments.(7)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(3)comments.(8)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(3)comments.(9)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(3)comments.(10)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(4)comments.(1)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(4)comments.(2)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(4)comments.(3)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(4)comments.(4)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(4)comments.(5)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(4)comments.(6)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(4)comments.(7)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(4)comments.(8)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(4)comments.(9)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(4)comments.(10)product.(1)name#1=\"Trident\"",
+        };
+
+        String[] expectedWalkList = {
+            "DefaultValue(DefaultValue)",
+            "Up()",
+            "Down([1:5]version)",
+            "FirstWords(2)",
+            "StartsWith(7.)",
+            "Lookup(TridentVersions)",
+            "CleanVersion()"
+        };
+
+        checkPath(path, expectedHashEntries, expectedWalkList);
+    }
+
+    private void checkPath(String path, String[] expectedHashEntries, String[] expectedWalkList) {
+        Map<String, Map<String, String>> lookups = new HashMap<>();
+        lookups.put("TridentVersions", new HashMap<String, String>());
+
+        TestMatcher matcher = new TestMatcher(null, lookups);
+        MatcherRequireAction action = new MatcherRequireAction(path, matcher);
+
+        StringBuilder sb = new StringBuilder("\n---------------------------\nActual list (").append(matcher.reveicedValues.size()).append(" entries):\n");
+        for (String actual : matcher.reveicedValues) {
+            sb.append(actual).append('\n');
+        }
+        sb.append("---------------------------\n");
+
+        // Validate the expected hash entries (i.e. the first part of the path)
+        for (String expect : expectedHashEntries) {
+            assertTrue("\nMissing:\n" + expect + sb.toString(), matcher.reveicedValues.contains(expect));
         }
         assertTrue("Found wrong number of entries", expectedHashEntries.length == matcher.reveicedValues.size());
 
-    }
+        // Validate the expected walk list entries (i.e. the dynamic part of the path)
+        TreeExpressionEvaluator evaluator = action.getEvaluatorForUnitTesting();
+        WalkList walkList = evaluator.getWalkListForUnitTesting();
 
+        Step step = walkList.getFirstStep();
+        for (String walkStep : expectedWalkList) {
+            assertNotNull("Missing step:" + walkStep, step);
+            assertEquals("Wrong step (" + step.toString() + " should be " + walkStep + ")", walkStep, step.toString());
+            step = step.getNextStep();
+        }
+        assertNull(step);
+    }
 
     private static class TestMatcher extends Matcher {
         final List<String> reveicedValues = new ArrayList<>(128);
@@ -238,4 +300,4 @@ public class TestTreewalkerParsing {
             // Do nothing
         }
     }
- }
+}
