@@ -39,39 +39,39 @@ public class TestTreewalkerParsing {
 
     @Test
     public void validateWalkPathParsing() {
-        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name#1=\"Trident\"[2-3]~\"Foo\"^.(*)version%2{\"7.\";\"DefaultValue\"]]";
+        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1]=\"Trident\"[2-3]~\"Foo\"^.(*)version[-2]{\"7.\";\"DefaultValue\"]]";
 
         String[] expectedHashEntries = {
-            "agent.(1)product.(2)comments.(1)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(2)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(3)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(4)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(5)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(6)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(7)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(8)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(9)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(10)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(1)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(2)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(3)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(4)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(5)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(6)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(7)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(8)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(9)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(10)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(1)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(2)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(3)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(4)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(5)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(6)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(7)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(8)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(9)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(10)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(2)comments.(1)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(2)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(3)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(4)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(5)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(6)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(7)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(8)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(9)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(10)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(1)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(2)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(3)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(4)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(5)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(6)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(7)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(8)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(9)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(10)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(1)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(2)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(3)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(4)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(5)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(6)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(7)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(8)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(9)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(10)product.(1)name[1-1]=\"Trident\"",
         };
 
         String[] expectedWalkList = {
@@ -81,7 +81,7 @@ public class TestTreewalkerParsing {
             "Contains(foo)",
             "Up()",
             "Down([1:5]version)",
-            "FirstWords(2)",
+            "WordRange(1-2)",
             "StartsWith(7.)",
             "Lookup(TridentVersions)",
         };
@@ -94,36 +94,36 @@ public class TestTreewalkerParsing {
         String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1]=\"Trident\"[2-3]~\"Foo\"^.(*)version[2]{\"7.\";\"DefaultValue\"]]";
 
         String[] expectedHashEntries = {
-            "agent.(1)product.(2)comments.(1)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(2)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(3)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(4)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(5)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(6)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(7)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(8)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(9)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(10)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(1)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(2)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(3)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(4)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(5)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(6)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(7)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(8)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(9)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(10)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(1)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(2)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(3)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(4)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(5)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(6)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(7)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(8)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(9)product.(1)name[1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(10)product.(1)name[1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(1)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(2)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(3)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(4)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(5)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(6)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(7)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(8)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(9)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(10)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(1)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(2)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(3)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(4)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(5)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(6)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(7)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(8)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(9)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(10)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(1)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(2)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(3)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(4)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(5)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(6)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(7)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(8)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(9)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(10)product.(1)name[1-1]=\"Trident\"",
         };
 
         String[] expectedWalkList = {
@@ -176,7 +176,7 @@ public class TestTreewalkerParsing {
         String path = "agent.(1)product.(1)name[1-2]=\"Foo\"^.(1-3)version";
 
         String[] expectedHashEntries = {
-            "agent.(1)product.(1)name[-2]=\"Foo\"",
+            "agent.(1)product.(1)name[1-2]=\"Foo\"",
         };
 
         String[] expectedWalkList = {
@@ -207,15 +207,15 @@ public class TestTreewalkerParsing {
 
     @Test
     public void validateWalkAroundTheWorld() {
-        String path = "agent.(2-4)product.(1)comments.(5-6)entry.(1)text%2=\"seven\"^^^<.name=\"foo faa\"^.comments.entry.text%2=\"three\"@#1";
+        String path = "agent.(2-4)product.(1)comments.(5-6)entry.(1)text[2]=\"seven\"^^^<.name=\"foo faa\"^.comments.entry.text[-2]=\"three\"@[1-1]";
 
         String[] expectedHashEntries = {
-            "agent.(2)product.(1)comments.(5)entry.(1)text%2=\"seven\"" ,
-            "agent.(2)product.(1)comments.(6)entry.(1)text%2=\"seven\"" ,
-            "agent.(3)product.(1)comments.(5)entry.(1)text%2=\"seven\"" ,
-            "agent.(3)product.(1)comments.(6)entry.(1)text%2=\"seven\"" ,
-            "agent.(4)product.(1)comments.(5)entry.(1)text%2=\"seven\"" ,
-            "agent.(4)product.(1)comments.(6)entry.(1)text%2=\"seven\"" ,
+            "agent.(2)product.(1)comments.(5)entry.(1)text[2-2]=\"seven\"" ,
+            "agent.(2)product.(1)comments.(6)entry.(1)text[2-2]=\"seven\"" ,
+            "agent.(3)product.(1)comments.(5)entry.(1)text[2-2]=\"seven\"" ,
+            "agent.(3)product.(1)comments.(6)entry.(1)text[2-2]=\"seven\"" ,
+            "agent.(4)product.(1)comments.(5)entry.(1)text[2-2]=\"seven\"" ,
+            "agent.(4)product.(1)comments.(6)entry.(1)text[2-2]=\"seven\"" ,
         };
 
         String[] expectedWalkList = {
@@ -229,10 +229,10 @@ public class TestTreewalkerParsing {
             "Down([1:2]comments)",
             "Down([1:20]entry)",
             "Down([1:8]text)",
-            "FirstWords(2)",
+            "WordRange(1-2)",
             "Equals(three)",
             "BackToFull()",
-            "FirstWords(1)",
+            "WordRange(1-1)",
         };
 
         checkPath(path, expectedHashEntries, expectedWalkList);
@@ -241,46 +241,46 @@ public class TestTreewalkerParsing {
     @Test
     public void validateWalkPathParsingCleanVersion() {
 
-        String path = "CleanVersion[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name#1=\"Trident\"^.(*)version%2{\"7.\";\"DefaultValue\"]]";
+        String path = "CleanVersion[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1-1]=\"Trident\"^.(*)version[-2]{\"7.\";\"DefaultValue\"]]";
 
         String[] expectedHashEntries = {
-            "agent.(1)product.(2)comments.(1)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(2)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(3)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(4)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(5)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(6)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(7)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(8)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(9)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(2)comments.(10)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(1)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(2)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(3)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(4)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(5)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(6)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(7)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(8)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(9)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(3)comments.(10)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(1)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(2)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(3)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(4)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(5)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(6)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(7)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(8)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(9)product.(1)name#1=\"Trident\"",
-            "agent.(1)product.(4)comments.(10)product.(1)name#1=\"Trident\"",
+            "agent.(1)product.(2)comments.(1)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(2)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(3)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(4)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(5)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(6)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(7)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(8)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(9)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(2)comments.(10)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(1)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(2)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(3)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(4)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(5)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(6)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(7)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(8)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(9)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(3)comments.(10)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(1)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(2)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(3)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(4)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(5)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(6)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(7)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(8)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(9)product.(1)name[1-1]=\"Trident\"",
+            "agent.(1)product.(4)comments.(10)product.(1)name[1-1]=\"Trident\"",
         };
 
         String[] expectedWalkList = {
             "DefaultValue(DefaultValue)",
             "Up()",
             "Down([1:5]version)",
-            "FirstWords(2)",
+            "WordRange(1-2)",
             "StartsWith(7.)",
             "Lookup(TridentVersions)",
             "CleanVersion()"

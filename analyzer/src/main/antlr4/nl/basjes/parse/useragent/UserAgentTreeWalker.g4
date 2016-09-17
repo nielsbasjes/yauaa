@@ -47,8 +47,6 @@ CONTAINS        : '~'           ;
 STARTSWITH      : '{'           ;
 ENDSWITH        : '}'           ;
 
-FIRSTWORDS      : '#'           ;
-SINGLEWORD      : '%'           ;
 BACKTOFULL      : '@'           ;
 
 // ===============================================================
@@ -81,8 +79,6 @@ path            : DOT numberRange name=VALUENAME  (nextStep=path)?  #stepDown
                 | STARTSWITH value=VALUE          (nextStep=path)?  #stepStartsWithValue
                 | ENDSWITH   value=VALUE          (nextStep=path)?  #stepEndsWithValue
                 | CONTAINS   value=VALUE          (nextStep=path)?  #stepContainsValue
-                | FIRSTWORDS NUMBER               (nextStep=path)?  #stepFirstWords
-                | SINGLEWORD NUMBER               (nextStep=path)?  #stepSingleWord
                 | wordRange                       (nextStep=path)?  #stepWordRange
                 | BACKTOFULL                      (nextStep=path)?  #stepBackToFull
                 ;

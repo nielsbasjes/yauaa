@@ -34,11 +34,9 @@ import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepContainsValueCont
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepDownContext;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepEndsWithValueContext;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepEqualsValueContext;
-import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepFirstWordsContext;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepNextContext;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepNotEqualsValueContext;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepPrevContext;
-import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepSingleWordContext;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepStartsWithValueContext;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepUpContext;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
@@ -53,9 +51,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepDefaultValue;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepBackToFull;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepFirstWords;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepFixedString;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSingleWord;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNext;
@@ -283,20 +279,6 @@ public class WalkList {
         public Void visitStepContainsValue(StepContainsValueContext ctx) {
             foundHashEntryPoint = true;
             add(new StepContains(ctx.value.getText()));
-            visitNext(ctx.nextStep);
-            return null; // Void
-        }
-
-        @Override
-        public Void visitStepFirstWords(StepFirstWordsContext ctx) {
-            add(new StepFirstWords(ctx.NUMBER().getSymbol()));
-            visitNext(ctx.nextStep);
-            return null; // Void
-        }
-
-        @Override
-        public Void visitStepSingleWord(StepSingleWordContext ctx) {
-            add(new StepSingleWord(ctx.NUMBER().getSymbol()));
             visitNext(ctx.nextStep);
             return null; // Void
         }

@@ -25,90 +25,90 @@ TEST_OPTIONS: &TEST_OPTIONS
 
 config:
 
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'NameWords1:    1:agent.product.name[-1]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'NameWords2:    1:agent.product.name[-2]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'NameWords3:    1:agent.product.name[-3]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'NameWords4:    1:agent.product.name[-4]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'NameWord1:     1:agent.product.name[1]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'NameWord2:     1:agent.(1-2)product.name[2]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'NameWord2a:     1:agent.(1)product.(1)name[2]="two"@'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'NameWord3:     1:agent.product.name[3]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'NameWord4:     1:agent.product.name[4]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'CommentWords1:  1:agent.product.comments.entry.text[-1]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'CommentWords2:  1:agent.product.comments.entry.text[-2]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'CommentWords3:  1:agent.product.comments.entry.text[-3]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'CommentWords4:  1:agent.product.comments.entry.text[-4]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'CommentWord1: 1:agent.product.comments.entry.text[1]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'CommentWord2: 1:agent.product.comments.entry.text[2]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'CommentWord3: 1:agent.product.comments.entry.text[3]'
-#
-#  - matcher:
-#      <<: *MATCH_OPTIONS
-#      extract:
-#        - 'CommentWord4: 1:agent.product.comments.entry.text[4]'
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWords1:    1:agent.product.name[-1]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWords2:    1:agent.product.name[-2]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWords3:    1:agent.product.name[-3]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWords4:    1:agent.product.name[-4]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWord1:     1:agent.product.name[1]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWord2:     1:agent.(1-2)product.name[2]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWord2a:     1:agent.(1)product.(1)name[2]="two"@'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWord3:     1:agent.product.name[3]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NameWord4:     1:agent.product.name[4]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWords1:  1:agent.product.comments.entry.text[-1]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWords2:  1:agent.product.comments.entry.text[-2]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWords3:  1:agent.product.comments.entry.text[-3]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWords4:  1:agent.product.comments.entry.text[-4]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWord1: 1:agent.product.comments.entry.text[1]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWord2: 1:agent.product.comments.entry.text[2]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWord3: 1:agent.product.comments.entry.text[3]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWord4: 1:agent.product.comments.entry.text[4]'
 
   - matcher:
       <<: *MATCH_OPTIONS
@@ -171,36 +171,32 @@ config:
         - 'CommentWordSplitTwo3: 1:agent.product.comments.entry.text[3-4]'
 
   - test:
-      options:
-      - 'only'
-      - 'verbose'
-#      <<: *TEST_OPTIONS
+      <<: *TEST_OPTIONS
       input:
         name: 'Picking a word'
         user_agent_string:          'One two three /1.0(One two three)'
       expected:
-#        FixedValue:                 'Foo bar'
-#        NameWord1:                  'One'
-#        NameWord2:                  'two'
-#        NameWord2a:                 'One two three'
-#        NameWord3:                  'three'
-#        NameWord4:                  'Unknown'
-#
-#        NameWords1:                 'One'
-#        NameWords2:                 'One two'
-#        NameWords3:                 'One two three'
-#        NameWords4:                 'Unknown'
-#
-#        CommentWord1:               'One'
-#        CommentWord2:               'two'
-#        CommentWord3:               'three'
-#        CommentWord4:               'Unknown'
-#
-#        CommentWords1:              'One'
-#        CommentWords2:              'One two'
-#        CommentWords3:              'One two three'
-#        CommentWords4:              'Unknown'
-#
+        NameWord1:                  'One'
+        NameWord2:                  'two'
+        NameWord2a:                 'One two three'
+        NameWord3:                  'three'
+        NameWord4:                  'Unknown'
+
+        NameWords1:                 'One'
+        NameWords2:                 'One two'
+        NameWords3:                 'One two three'
+        NameWords4:                 'Unknown'
+
+        CommentWord1:               'One'
+        CommentWord2:               'two'
+        CommentWord3:               'three'
+        CommentWord4:               'Unknown'
+
+        CommentWords1:              'One'
+        CommentWords2:              'One two'
+        CommentWords3:              'One two three'
+        CommentWords4:              'Unknown'
+
         CommentWordSplitFirst1      : 'One'
         CommentWordSplitFirst2      : 'One two'
         CommentWordSplitFirst3      : 'One two three'

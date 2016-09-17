@@ -43,8 +43,8 @@ public class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordRangeVi
         int last;
 
         public boolean isRangeInHashMap(){
-            // First == 1 , Last = N --> Same as #N
-            // First == N , Last = N --> Same as %N
+            // First == 1 , Last = N
+            // First == N , Last = N
             return ((first == 1 && last != -1) || first == last);
         }
 

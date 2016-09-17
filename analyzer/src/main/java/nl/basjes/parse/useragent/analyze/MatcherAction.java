@@ -59,9 +59,7 @@ import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.PathWalkContex
 import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepDownContext;
 import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepEndsWithValueContext;
 import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepEqualsValueContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepFirstWordsContext;
 import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepNotEqualsValueContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepSingleWordContext;
 import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepStartsWithValueContext;
 
 public abstract class MatcherAction {
@@ -385,14 +383,6 @@ public abstract class MatcherAction {
                 calculateInformPath(treeName, (StepEqualsValueContext) tree);
                 return;
             }
-            if (tree instanceof StepFirstWordsContext){
-                calculateInformPath(treeName, (StepFirstWordsContext) tree);
-                return;
-            }
-            if (tree instanceof StepSingleWordContext){
-                calculateInformPath(treeName, (StepSingleWordContext) tree);
-                return;
-            }
             if (tree instanceof StepWordRangeContext) {
                 calculateInformPath(treeName, (StepWordRangeContext) tree);
                 return;
@@ -416,22 +406,10 @@ public abstract class MatcherAction {
         matcher.informMeAbout(this, treeName + "=\"" + tree.value.getText() + "\"");
     }
 
-    private void calculateInformPath(String treeName, StepFirstWordsContext tree) {
-        calculateInformPath(treeName + tree.FIRSTWORDS() + tree.NUMBER(), tree.nextStep);
-    }
-
-    private void calculateInformPath(String treeName, StepSingleWordContext tree) {
-        calculateInformPath(treeName + tree.SINGLEWORD() + tree.NUMBER(), tree.nextStep);
-    }
-
     private void calculateInformPath(String treeName, StepWordRangeContext tree) {
         WordRangeVisitor.Range range = WordRangeVisitor.getRange(tree.wordRange());
         if (range.isRangeInHashMap()) {
-            if (range.first == range.last) {
-                calculateInformPath(treeName + "[" + range.first + "]", tree.nextStep);
-            } else if (range.first == 1 && range.last != -1) {
-                calculateInformPath(treeName + "[-" + range.last + "]", tree.nextStep);
-            }
+            calculateInformPath(treeName + "[" + range.first + "-" + range.last + "]", tree.nextStep);
         } else {
             matcher.informMeAbout(this, treeName);
 //            calculateInformPath(treeName, tree.nextStep);

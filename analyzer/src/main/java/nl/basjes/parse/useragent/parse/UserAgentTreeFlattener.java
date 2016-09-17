@@ -383,11 +383,10 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
         char[] chars = text.toCharArray();
         String firstWords;
         while((firstWords = WordSplitter.getFirstWords(text, count))!=null) {
-            inform(ctx, ctx, name + "#" + count, firstWords, true);
-            inform(ctx, ctx, name + "[-" + count + "]", firstWords, true);
-            String thisWord = firstWords.substring(startOffsetPrevious);
-            inform(ctx, ctx, name + "%" + count, thisWord, true);
-            inform(ctx, ctx, name + "[" + count  + "]", thisWord, true);
+            inform(ctx, ctx, name + "[1-" + count + "]", firstWords, true);
+            if (count>1) {
+                inform(ctx, ctx, name + "[" + count + "-" + count + "]", firstWords.substring(startOffsetPrevious), true);
+            }
             count++;
             if (count > maxSubStrings) {
                 return;
@@ -412,12 +411,10 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
         char[] chars = text.toCharArray();
         String firstVersions;
         while((firstVersions = VersionSplitter.getFirstVersions(text, count))!=null) {
-            inform(ctx, ctx, name + "#" + count, firstVersions, true);
-            inform(ctx, ctx, name + "%" + count, firstVersions.substring(startOffsetPrevious), true);
-            inform(ctx, ctx, name + "[-" + count + "]", firstVersions, true);
-            String thisVersion = firstVersions.substring(startOffsetPrevious);
-            inform(ctx, ctx, name + "%" + count, thisVersion, true);
-            inform(ctx, ctx, name + "[" + count  + "]", thisVersion, true);
+            inform(ctx, ctx, name + "[1-" + count + "]", firstVersions, true);
+            if (count>1) {
+                inform(ctx, ctx, name + "[" + count + "-" + count + "]", firstVersions.substring(startOffsetPrevious), true);
+            }
             count++;
             if (count > maxSubStrings) {
                 return;
