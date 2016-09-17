@@ -61,6 +61,7 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
+import static nl.basjes.parse.useragent.analyze.WordRangeVisitor.MAX_RANGE_IN_HASHMAP;
 import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
 public class UserAgentTreeFlattener extends UserAgentBaseListener {
@@ -368,7 +369,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     private void informSubstrings(ParserRuleContext ctx, String name) {
-        informSubstrings(ctx, name, 6);
+        informSubstrings(ctx, name, MAX_RANGE_IN_HASHMAP);
     }
 
     private void informSubstrings(ParserRuleContext ctx, String name, int maxSubStrings) {

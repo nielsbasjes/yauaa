@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static nl.basjes.parse.useragent.analyze.WordRangeVisitor.MAX_RANGE_IN_HASHMAP;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -156,6 +157,29 @@ public class TestTreewalkerParsing {
     }
 
     @Test
+    public void checkHashEntryDepth() {
+        // We only put the lower (common) values in the hashmapx
+        int i = 1;
+        while (i <= MAX_RANGE_IN_HASHMAP) {
+            String path = "agent.(1)product.(1)name[" + i + "]";
+            String[] expectedHashEntries = {
+                "agent.(1)product.(1)name[" + i + "-" + i + "]"
+            };
+            String[] expectedWalkList = {};
+            checkPath(path, expectedHashEntries, expectedWalkList);
+            i++;
+        }
+        while (i < 20) {
+            String path = "agent.(1)product.(1)name[" + i + "]";
+            String[] expectedHashEntries = {"agent.(1)product.(1)name"};
+            String[] expectedWalkList = {"WordRange(" + i + "-" + i + ")",};
+            checkPath(path, expectedHashEntries, expectedWalkList);
+            i++;
+        }
+    }
+
+
+    @Test
     public void validateWalkPathSimpleNameEquals() {
         String path = "agent.(1)product.(1)name=\"Foo\"^.(1-3)version";
 
@@ -210,12 +234,12 @@ public class TestTreewalkerParsing {
         String path = "agent.(2-4)product.(1)comments.(5-6)entry.(1)text[2]=\"seven\"^^^<.name=\"foo faa\"^.comments.entry.text[-2]=\"three\"@[1-1]";
 
         String[] expectedHashEntries = {
-            "agent.(2)product.(1)comments.(5)entry.(1)text[2-2]=\"seven\"" ,
-            "agent.(2)product.(1)comments.(6)entry.(1)text[2-2]=\"seven\"" ,
-            "agent.(3)product.(1)comments.(5)entry.(1)text[2-2]=\"seven\"" ,
-            "agent.(3)product.(1)comments.(6)entry.(1)text[2-2]=\"seven\"" ,
-            "agent.(4)product.(1)comments.(5)entry.(1)text[2-2]=\"seven\"" ,
-            "agent.(4)product.(1)comments.(6)entry.(1)text[2-2]=\"seven\"" ,
+            "agent.(2)product.(1)comments.(5)entry.(1)text[2-2]=\"seven\"",
+            "agent.(2)product.(1)comments.(6)entry.(1)text[2-2]=\"seven\"",
+            "agent.(3)product.(1)comments.(5)entry.(1)text[2-2]=\"seven\"",
+            "agent.(3)product.(1)comments.(6)entry.(1)text[2-2]=\"seven\"",
+            "agent.(4)product.(1)comments.(5)entry.(1)text[2-2]=\"seven\"",
+            "agent.(4)product.(1)comments.(6)entry.(1)text[2-2]=\"seven\"",
         };
 
         String[] expectedWalkList = {

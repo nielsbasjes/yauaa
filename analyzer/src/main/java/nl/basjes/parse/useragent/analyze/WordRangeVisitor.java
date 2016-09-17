@@ -24,8 +24,10 @@ import nl.basjes.parse.useragent.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.WordRangeContext;
 
 public class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordRangeVisitor.Range> {
+    public static final int MAX_RANGE_IN_HASHMAP = 3;
 
-    public class Range {
+    public static class Range {
+
         public Range(int first, int last) {
             this.first = first;
             this.last = last;
@@ -43,6 +45,9 @@ public class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordRangeVi
         int last;
 
         public boolean isRangeInHashMap(){
+            if (last > MAX_RANGE_IN_HASHMAP) {
+                return false;
+            }
             // First == 1 , Last = N
             // First == N , Last = N
             return ((first == 1 && last != -1) || first == last);

@@ -25,6 +25,7 @@ import nl.basjes.parse.useragent.UserAgentTreeWalkerLexer;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepContainsValueContext;
 import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepWordRangeContext;
+import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import org.antlr.v4.runtime.ANTLRErrorListener;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -407,7 +408,7 @@ public abstract class MatcherAction {
     }
 
     private void calculateInformPath(String treeName, StepWordRangeContext tree) {
-        WordRangeVisitor.Range range = WordRangeVisitor.getRange(tree.wordRange());
+        Range range = WordRangeVisitor.getRange(tree.wordRange());
         if (range.isRangeInHashMap()) {
             calculateInformPath(treeName + "[" + range.first + "-" + range.last + "]", tree.nextStep);
         } else {
