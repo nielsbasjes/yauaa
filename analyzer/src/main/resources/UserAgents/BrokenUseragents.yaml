@@ -191,7 +191,6 @@ config:
       AgentNameVersion                     : 'Waterfox 26.0'
       AgentNameVersionMajor                : 'Waterfox 26'
 
-
 # Notive the SLASHES !!! Must make sure the javacode actually sees them this way !!!
 - test:
     input:
@@ -220,7 +219,6 @@ config:
       AgentNameVersionMajor                : 'Safari 7'
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
-
 
 # Those { } gave a parse error that hid the rest.
 - test:
@@ -274,7 +272,6 @@ config:
       AgentNameVersion                     : 'AppleWebKit 601.1.46'
       AgentNameVersionMajor                : 'AppleWebKit 601'
 
-
 # The random text in the comment caused problems
 - test:
     input:
@@ -327,7 +324,6 @@ config:
       AgentNameVersionMajor                : 'Stock Android Browser 4'
       AgentSecurity                        : 'Strong security'
 
-
 # Silk browser
 - matcher:
     extract:
@@ -362,8 +358,6 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-
-
 
 # Is really SogouMSE,SogouMobileBrowser/4.0.0
 - matcher:
@@ -529,7 +523,6 @@ config:
       AgentNameVersionMajor                : 'Internet Explorer 11'
       AgentInformationUrl                  : 'www.Noldus.com'
 
-
 # Too many spaces
 - test:
     input:
@@ -585,7 +578,6 @@ config:
       AgentLanguageCode                    : 'en-zw'
       AgentInformationUrl                  : 'http://www.QtWeb.net'
       AgentSecurity                        : 'Strong security'
-
 
 - matcher:
     extract:
@@ -649,7 +641,6 @@ config:
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
       WebviewAppVersion                    : '??'
       WebviewAppVersionMajor               : '??'
-
 
 - test:
     input:
@@ -783,7 +774,6 @@ config:
       AgentNameVersion                     : 'AppleWebKit 600.1.4'
       AgentNameVersionMajor                : 'AppleWebKit 600'
 
-
 #  - test:
 #      input:
 #        user_agent_string: 'Java1.0.21.0'
@@ -859,7 +849,6 @@ config:
       AgentNameVersion                     : 'Stock Android Browser 4.0'
       AgentNameVersionMajor                : 'Stock Android Browser 4'
       AgentSecurity                        : 'Strong security'
-
 
 # TODO (Low prio): iOSWebview --> Perhaps this is a webview ...
 - test:
@@ -946,7 +935,6 @@ config:
       AgentInformationUrl                  : 'http://www.abonti.com'
       AgentSecurity                        : 'Strong security'
 
-
 # Contains __ that breaks the parser
 - test:
     input:
@@ -1003,7 +991,6 @@ config:
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
       WebviewAppVersion                    : '??'
       WebviewAppVersionMajor               : '??'
-
 
 # Parse errors due to missing version values
 - test:
@@ -1085,7 +1072,6 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-
 
 # Parse error due to value that looks like a BASE64
 - test:
@@ -1261,7 +1247,6 @@ config:
       AgentLanguageCode                    : 'de-de'
       AgentSecurity                        : 'Strong security'
 
-
 ## TODO (Low prio): Json wrapped useragent
 #  - test:
 #      input:
@@ -1270,7 +1255,6 @@ config:
 #  - test:
 #       input:
 #         user_agent_string: "{u'User-Agent': u'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'}"
-
 
 - test:
     input:
@@ -1393,7 +1377,6 @@ config:
       AgentVersionMajor                    : '44'
       AgentNameVersion                     : 'Firefox 44.0'
       AgentNameVersionMajor                : 'Firefox 44'
-
 
 # Both mac and sunos ... i.e. manually modified.
 - test:

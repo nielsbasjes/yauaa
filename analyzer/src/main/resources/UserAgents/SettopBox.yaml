@@ -28,7 +28,6 @@ config:
     - 'DeviceBrand           :   1001:"Amazon"'
     - 'DeviceName            :   1001:"Amazon Fire TV"'
 
-
 - matcher:
     require:
     - 'agent.product.(1)name="AmazonWebAppPlatform"'
@@ -69,7 +68,6 @@ config:
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
 
-
 # Amazon WebView (com.amazon.android.webkit.AmazonWebView)
 # Mozilla/5.0 (Linux; Android <android>; <device> Build/<build>) AppleWebKit/<webkit> (KHTML, like Gecko) Chrome/<chrome> Mobile Safari/<safari>
 
@@ -97,7 +95,6 @@ config:
       AgentVersionMajor                    : '25'
       AgentNameVersion                     : 'Chrome 25.0.1364.173'
       AgentNameVersionMajor                : 'Chrome 25'
-
 
 #Amazon Web App Platform
 #Mozilla/5.0 (Linux; Android <android>; <device> Build/<build>) AppleWebKit/<webkit> (KHTML, like Gecko) Chrome/<chrome> Mobile Safari/<safari> cordova-amazon-fireos/<amazon> AmazonWebAppPlatform/<amazon>
@@ -129,8 +126,6 @@ config:
       WebviewAppNameVersionMajor           : 'Amazon Web App Platform 3'
       WebviewAppVersion                    : '3.4.0'
       WebviewAppVersionMajor               : '3'
-
-
 
 - test:
     input:
@@ -186,7 +181,6 @@ config:
     - 'DeviceName            :   1003:"Chromecast"'
     - 'DeviceVersion         :   1003:agent.product.(1)name="CrKey"^.version'
 
-
 # Example found here: https://twitter.com/Robbie/status/360553521000624128
 - test:
     input:
@@ -212,7 +206,6 @@ config:
       AgentVersionMajor                    : '26'
       AgentNameVersion                     : 'Chrome 26.0.1410.0'
       AgentNameVersionMajor                : 'Chrome 26'
-
 
 # Example from own logfiles
 - test:
@@ -241,7 +234,6 @@ config:
       AgentNameVersion                     : 'Chrome 49.0.2623.87'
       AgentNameVersionMajor                : 'Chrome 49'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (CrKey - 0.9.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1573.2 Safari/537.36'
@@ -267,6 +259,4 @@ config:
       AgentNameVersionMajor                : 'Chrome 30'
 
 # =========================================================================================================
-
-
 

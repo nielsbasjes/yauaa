@@ -16,7 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-
 setSQLInjection: &setSQLInjection
     - 'DeviceClass                   : 10000:"Hacker"'
     - 'DeviceName                    : 10000:"Hacker"'
@@ -46,7 +45,6 @@ setSQLInjection: &setSQLInjection
     - 'HackerAttackVector            : 10000:"SQL Injection"'
     - 'HackerToolkit                 : 10000:"Unknown"'
 
-
 isSQLInjection: &isSQLInjection
     DeviceClass                          : 'Hacker'
     DeviceName                           : 'Hacker'
@@ -75,7 +73,6 @@ isSQLInjection: &isSQLInjection
     AgentSecurity                        : 'Hacker'
     HackerAttackVector                   : 'SQL Injection'
     HackerToolkit                        : 'Unknown'
-
 
 config:
 
@@ -345,7 +342,6 @@ config:
       user_agent_string: '-1'' OR 2+845-845-1=0+0+0+1 or ''WW2E86AF''='''
     expected: *isSQLInjection
 
-
 # For reference:
 #-8067)) AS trzU WHERE 3801=3801 OR MAKE_SET(7172=7172,6095)--
 #-2734')) AS YnXr WHERE 1760=1760 OR MAKE_SET(7172=7172,6095)--
@@ -374,6 +370,4 @@ config:
 #(SELECT (CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT (CASE WHEN (9479=9479) THEN 1 ELSE 0 END))::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)))
 #(SELECT (CASE WHEN (9814=1041) THEN CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(47)+CHAR(49)+CHAR(46)+CHAR(48)+CHAR(45)+CHAR(100)+CHAR(101)+CHAR(118)+CHAR(45)+CHAR(110)+CHAR(111)+CHAR(110)+CHAR(103)+CHAR(105)+CHAR(116)+CHAR(45)+CHAR(50)+CHAR(48)+CHAR(49)+CHAR(53)+CHAR(48)+CHAR(57)+CHAR(48)+CHAR(57)+CHAR(32)+CHAR(40)+CHAR(104)+CHAR(116)+CHAR(116)+CHAR(112)+CHAR(58)+CHAR(47)+CHAR(47)+CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(46)+CHAR(111)+CHAR(114)+CHAR(103)+CHAR(41) ELSE 9814*(SELECT 9814 FROM master..sysdatabases) END))
 #(select convert(int,CHAR(65)))
-
-
 

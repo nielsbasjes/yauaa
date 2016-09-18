@@ -67,7 +67,6 @@ config:
     - 'DeviceName                  :  51:agent.(1-2)product.(1)comments.entry.product.name="Build"^<'
     - 'OperatingSystemVersionBuild :  51:agent.(1-2)product.(1)comments.entry.product.name="Build"^.version'
 
-
 # ===========================
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Gecko_user_agent_string_reference
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox
@@ -144,7 +143,6 @@ config:
     - 'OperatingSystemClass        :   1000:"Mobile"'
 
 # ===========================
-
 
 - matcher:
     require:
@@ -229,7 +227,6 @@ config:
     - 'OperatingSystemName    :  2014:"Chrome OS"'
     - 'OperatingSystemVersion :  2014:agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^.(1)version'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36'
@@ -254,7 +251,6 @@ config:
       AgentVersionMajor                    : '46'
       AgentNameVersion                     : 'Chrome 46.0.2490.76'
       AgentNameVersionMajor                : 'Chrome 46'
-
 
 - test:
     input:
@@ -281,7 +277,6 @@ config:
       AgentNameVersion                     : 'Chrome 33.0.1750.70'
       AgentNameVersionMajor                : 'Chrome 33'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; SM-G901F Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.57 Mobile Safari/537.36'
@@ -306,7 +301,6 @@ config:
       AgentVersionMajor                    : '41'
       AgentNameVersion                     : 'Chrome 41.0.2272.57'
       AgentNameVersionMajor                : 'Chrome 41'
-
 
 - test:
     input:
@@ -333,7 +327,6 @@ config:
       AgentNameVersion                     : 'Chrome 40.0.2214.109'
       AgentNameVersionMajor                : 'Chrome 40'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; Xoom 3G Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Safari/537.36'
@@ -358,7 +351,6 @@ config:
       AgentVersionMajor                    : '41'
       AgentNameVersion                     : 'Chrome 41.0.2272.96'
       AgentNameVersionMajor                : 'Chrome 41'
-
 
 - test:
     input:
@@ -392,8 +384,6 @@ config:
       WebviewAppVersion                    : '??'
       WebviewAppVersionMajor               : '??'
 
-
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android 5.0; en-gb; LG-D855/V20e Build/LRX21R.A1417847022) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/34.0.1847.118 Mobile Safari/537.36'
@@ -425,7 +415,6 @@ config:
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
       WebviewAppVersion                    : '??'
       WebviewAppVersionMajor               : '??'
-
 
 - test:
     input:
@@ -459,7 +448,6 @@ config:
       WebviewAppVersion                    : '??'
       WebviewAppVersionMajor               : '??'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.1; Nexus 4 Build/JOP40D) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.89 Mobile Safari/537.36'
@@ -484,7 +472,6 @@ config:
       AgentVersionMajor                    : '40'
       AgentNameVersion                     : 'Chrome 40.0.2214.89'
       AgentNameVersionMajor                : 'Chrome 40'
-
 
 - test:
     input:
@@ -511,7 +498,6 @@ config:
       AgentNameVersion                     : 'Chrome 42.0.2311.108'
       AgentNameVersionMajor                : 'Chrome 42'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.3; HP SlateBook 10 x2 PC Build/4.3-17r20-03-23) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Safari/537.36'
@@ -536,7 +522,6 @@ config:
       AgentVersionMajor                    : '31'
       AgentNameVersion                     : 'Chrome 31.0.1650.59'
       AgentNameVersionMajor                : 'Chrome 31'
-
 
 - test:
     input:
@@ -563,7 +548,6 @@ config:
       AgentNameVersion                     : 'Chrome 42.0.2311.108'
       AgentNameVersionMajor                : 'Chrome 42'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.3; HTC Sensation XE with Beats Audio Z715e Build/IML74K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.89 Mobile Safari/537.36 OPR/27.0.1698.88647'
@@ -588,7 +572,6 @@ config:
       AgentVersionMajor                    : '27'
       AgentNameVersion                     : 'Opera 27.0.1698.88647'
       AgentNameVersionMajor                : 'Opera 27'
-
 
 - test:
     input:
@@ -618,7 +601,6 @@ config:
       AgentLanguageCode                    : 'el-gr'
       AgentSecurity                        : 'Strong security'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; CrOS x86_64 6310.68.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.96 Safari/537.36'
@@ -643,7 +625,6 @@ config:
       AgentVersionMajor                    : '39'
       AgentNameVersion                     : 'Chrome 39.0.2171.96'
       AgentNameVersionMajor                : 'Chrome 39'
-
 
 - test:
     input:
@@ -670,7 +651,6 @@ config:
       AgentNameVersion                     : 'Chrome 41.0.2272.118'
       AgentNameVersionMajor                : 'Chrome 41'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; CrOS x86_64 6680.78.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.102 Safari/537.36'
@@ -695,7 +675,6 @@ config:
       AgentVersionMajor                    : '41'
       AgentNameVersion                     : 'Chrome 41.0.2272.102'
       AgentNameVersionMajor                : 'Chrome 41'
-
 
 - test:
     input:
@@ -725,7 +704,6 @@ config:
       AgentLanguageCode                    : 'nl-nl'
       AgentSecurity                        : 'Strong security'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Android; Tablet; rv:34.0) Gecko/34.0 Firefox/34.0'
@@ -750,7 +728,6 @@ config:
       AgentVersionMajor                    : '34'
       AgentNameVersion                     : 'Firefox 34.0'
       AgentNameVersionMajor                : 'Firefox 34'
-
 
 - test:
     input:
@@ -779,7 +756,6 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-
 
 - test:
     input:
@@ -810,7 +786,6 @@ config:
       WebviewAppVersion                    : '??'
       WebviewAppVersionMajor               : '??'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.1; nl-nl; ASUS Transformer Pad TF300T Build/JOP40D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
@@ -838,7 +813,6 @@ config:
       AgentLanguage                        : 'Dutch (Netherlands)'
       AgentLanguageCode                    : 'nl-nl'
       AgentSecurity                        : 'Strong security'
-
 
 - test:
     input:
@@ -868,7 +842,6 @@ config:
       AgentLanguageCode                    : 'nl-nl'
       AgentSecurity                        : 'Strong security'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.1; ASUS Transformer Pad TF300T Build/JOP40D) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.109 Safari/537.36'
@@ -893,7 +866,6 @@ config:
       AgentVersionMajor                    : '40'
       AgentNameVersion                     : 'Chrome 40.0.2214.109'
       AgentNameVersionMajor                : 'Chrome 40'
-
 
 - test:
     input:
@@ -920,7 +892,6 @@ config:
       AgentNameVersion                     : 'Chrome 39.0.2171.93'
       AgentNameVersionMajor                : 'Chrome 39'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; HP Pavilion dv6500 Notebook PC     Build/KVT49L) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.89 Safari/537.36 OPR/27.0.1698.88647'
@@ -945,7 +916,6 @@ config:
       AgentVersionMajor                    : '27'
       AgentNameVersion                     : 'Opera 27.0.1698.88647'
       AgentNameVersionMajor                : 'Opera 27'
-
 
 - matcher:
     require:
@@ -1009,7 +979,6 @@ config:
       AgentNameVersion                     : 'Android-SAMSUNG-GT-I9060C 101.40404'
       AgentNameVersionMajor                : 'Android-SAMSUNG-GT-I9060C 101'
 
-
 # AndroidDownloadManager
 - test:
     input:
@@ -1041,7 +1010,6 @@ config:
 #AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; MI NOTE LTE Build/MMB29M)
 #AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; Nexus 6P Build/MMB29M)
 
-
 #Stock android browser
 #http://stackoverflow.com/questions/14403766/how-to-detect-the-stock-android-browser
 # The stock Android browser never went above 534, and Chrome is 537 or higher.
@@ -1068,7 +1036,6 @@ config:
     - 'AgentName             :   56:"Stock Android Browser"'
     - 'AgentVersion          :   56:agent.product.(1)name="Version"^.version'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android 1.6; ar-us; SonyEricssonX10i Build/R2BA026) AppleWebKit/528.5+ (KHTML, like Gecko) Version/3.1.2 Mobile Safari/525.20.1'
@@ -1094,7 +1061,6 @@ config:
       AgentNameVersion                     : 'Stock Android Browser 3.1.2'
       AgentNameVersionMajor                : 'Stock Android Browser 3'
       AgentSecurity                        : 'Strong security'
-
 
 #Mozilla/5.0 (Linux; U; Android 2.1-update1; es-mx; SonyEricssonE10a Build/2.0.A.0.504) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17
 #Mozilla/5.0 (Linux; U; Android 2.2.1; de-de; HTC_Wildfire_A3333 Build/FRG83D) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1

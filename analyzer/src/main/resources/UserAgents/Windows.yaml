@@ -19,7 +19,6 @@
 ---
 config:
 
-
 - matcher:
     extract:
     - 'DeviceClass               : 100:"Desktop"'
@@ -28,7 +27,6 @@ config:
     - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.(1)product.comments.entry.product]'
     - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
     - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
-
 
 - matcher:
     extract:
@@ -57,8 +55,6 @@ config:
     - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.text]'
     - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.text]'
 
-
-
 - matcher:
     extract:
     - 'DeviceClass               : 100:"Desktop"'
@@ -67,7 +63,6 @@ config:
     - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product]'
     - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product]'
     - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product]'
-
 
 - matcher:
     extract:
@@ -95,7 +90,6 @@ config:
     - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product.text]'
     - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product.text]'
     - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product.text]'
-
 
 - test:
     input:
@@ -169,7 +163,6 @@ config:
       AgentNameVersion                     : 'Internet Explorer 11.0'
       AgentNameVersionMajor                : 'Internet Explorer 11'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 6.4; WOW64; Trident/7.0; rv:11.0) like Gecko'
@@ -194,7 +187,6 @@ config:
       AgentNameVersion                     : 'Internet Explorer 11.0'
       AgentNameVersionMajor                : 'Internet Explorer 11'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows 8.1; Trident/7.0; rv:11.0) like Gecko'
@@ -218,7 +210,6 @@ config:
       AgentVersionMajor                    : '11'
       AgentNameVersion                     : 'Internet Explorer 11.0'
       AgentNameVersionMajor                : 'Internet Explorer 11'
-
 
 - test:
     input:
@@ -247,7 +238,6 @@ config:
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 4.10; rv:34.0) Gecko/20100101 Firefox/34.0'
@@ -272,5 +262,4 @@ config:
       AgentVersionMajor                    : '34'
       AgentNameVersion                     : 'Firefox 34.0'
       AgentNameVersionMajor                : 'Firefox 34'
-
 

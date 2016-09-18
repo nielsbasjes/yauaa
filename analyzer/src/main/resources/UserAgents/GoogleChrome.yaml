@@ -89,7 +89,6 @@ config:
     - 'LayoutEngineName      :    999:"Blink"'
     - 'LayoutEngineVersion   :    999:agent.product.(1)name="CriOS"^.version[-2]'
 
-
 - lookup:
     name: 'ChromeLayoutEngineName'
     map:
@@ -174,7 +173,6 @@ config:
       AgentNameVersion                     : 'Chrome 39.0.2171.96'
       AgentNameVersionMajor                : 'Chrome 39'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19'
@@ -200,8 +198,6 @@ config:
       AgentNameVersion                     : 'Chrome 18.0.1025.133'
       AgentNameVersionMajor                : 'Chrome 18'
 
-
-
 # Webview
 # https://developer.chrome.com/multidevice/user-agent
 
@@ -221,7 +217,6 @@ config:
     - 'AgentVersion    :   2500:agent.product.(1)name="Chrome"^.version'
     - 'WebviewAppName    :    0:"Unknown Webview App"'
     - 'WebviewAppVersion :    0:"??"'
-
 
 # WebView UA in Lollipop and Above
 # In the newer versions of WebView, you can differentiate the WebView by looking for the wv field
@@ -302,7 +297,6 @@ config:
       WebviewAppNameVersionMajor           : 'Google Search App 1'
       WebviewAppVersion                    : '1.1'
       WebviewAppVersionMajor               : '1'
-
 
 - test:
     input:

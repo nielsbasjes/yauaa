@@ -125,7 +125,6 @@ config:
       AgentNameVersion                     : 'Firefox for iOS 1.0'
       AgentNameVersionMajor                : 'Firefox for iOS 1'
 
-
 - matcher:
     extract:
     - 'LayoutEngineClass     :   1000:"Browser"'
@@ -134,7 +133,6 @@ config:
     - 'AgentClass            :   1000:"Browser"'
     - 'AgentName             :   1000:"Firefox for iOS"'
     - 'AgentVersion          :   1000:agent.product.(1)name="FxiOS"^.version'
-
 
 #====================================================================================
 # Firefox OS
@@ -177,7 +175,6 @@ config:
       "44.0" : "2.5"
       "44"   : "2.5"
 
-
 - matcher:
     extract:
     - 'OperatingSystemClass  :   2:"Mobile"' # Cloud, Desktop, Mobile, Embedded
@@ -189,7 +186,6 @@ config:
     - 'OperatingSystemClass  :   3:"Mobile"' # Cloud, Desktop, Mobile, Embedded
     - 'OperatingSystemName   :   3:"Firefox OS"' # ( Linux / Android / Windows ...)
     - 'OperatingSystemVersion:   3:LookUp[GeckoToFirefoxOSVersion;agent.product.(1)name="Firefox"^.version]'
-
 
 #Form factor"              "Gecko user agent string
 #Phone"              "Mozilla/5.0 (Mobile; rv:26.0) Gecko/26.0 Firefox/26.0
@@ -225,7 +221,6 @@ config:
 #====================================================================================
 #Testcases documented on https://wiki.mozilla.org/Compatibility/UADetectionLibraries
 #UA strings to test with:
-
 
 #Firefox Mobile for Android:
 
@@ -305,7 +300,6 @@ config:
       LayoutEngineBuild                    : '29.0'
       LayoutEngineNameVersion              : 'Gecko 29.0'
       LayoutEngineNameVersionMajor         : 'Gecko 29'
-
 
 # With Firefox OS we see that if there are exactly 3 entries in the comment the middle one is the name of the device.
 - matcher:

@@ -57,7 +57,6 @@ config:
     - 'OperatingSystemName          : 2014:"PlayStation Vita"'
     - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.product.name="PlayStation Vita"^.version'
 
-
 - matcher:
     extract:
     - 'DeviceClass                  : 2014:"Game Console"'
@@ -88,7 +87,6 @@ config:
     - 'AgentName                    : 2014:"Nintendo"'
     - 'AgentVersion                 : 2014:agent.product.(1)name="Version"^.version'
 
-
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Xbox"'
@@ -112,7 +110,6 @@ config:
     - 'OperatingSystemName          :   99:"Xbox"'
     - 'OperatingSystemVersion       :   99:agent.(1)product.(1)comments.entry.text="Xbox"^>'
     - 'OperatingSystemNameVersion   :   99:agent.(1)product.(1)comments.entry.text="Xbox"^>'
-
 
 - test:
     input:
@@ -138,7 +135,6 @@ config:
       AgentNameVersion                     : 'NintendoBrowser 4.1.1.9601.EU'
       AgentNameVersionMajor                : 'NintendoBrowser 4'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (PlayStation 4 2.03) AppleWebKit/537.73 (KHTML, like Gecko)'
@@ -162,7 +158,6 @@ config:
       AgentVersionMajor                    : '537'
       AgentNameVersion                     : 'AppleWebKit 537.73'
       AgentNameVersionMajor                : 'AppleWebKit 537'
-
 
 - test:
     input:
@@ -188,7 +183,6 @@ config:
       AgentVersionMajor                    : '3'
       AgentNameVersion                     : 'Silk 3.2'
       AgentNameVersionMajor                : 'Silk 3'
-
 
 - test:
     input:
@@ -217,7 +211,6 @@ config:
       AgentLanguageCode                    : 'nl'
       AgentSecurity                        : 'Strong security'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10553'
@@ -245,7 +238,6 @@ config:
       AgentNameVersion                     : 'Edge 13'
       AgentNameVersionMajor                : 'Edge 13'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)'
@@ -270,7 +262,6 @@ config:
       AgentVersionMajor                    : '9'
       AgentNameVersion                     : 'Internet Explorer 9.0'
       AgentNameVersionMajor                : 'Internet Explorer 9'
-
 
 - test:
     input:
@@ -299,7 +290,6 @@ config:
       AgentLanguageCode                    : 'nl'
       AgentSecurity                        : 'Strong security'
 
-
 # Seems to be a one of bug situation: https://github.com/Facepunch/garrysmod-issues/issues/2005
 #  - test:
 ##      options:
@@ -308,7 +298,6 @@ config:
 ##        - 'only'
 #      input:
 #        user_agent_string: 'Mozilla/5.0 (%s; U; %s; en-US; Valve Source Client; %s) AppleWebKit/532.1 (KHTML, like Gecko) Chrome/3.0.195.24 Safari/532.1'
-
 
 - matcher:
     require:
@@ -326,7 +315,6 @@ config:
     - 'AgentClass            :   40:"Browser"'
     - 'AgentName             :   40:"NintendoBrowser"'
     - 'AgentVersion          :   40:agent.(4)product.(1)name="Mobile NintendoBrowser"^.version'
-
 
 - test:
     input:

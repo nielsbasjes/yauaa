@@ -75,7 +75,6 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 6.0; U; en; rv:1.8.1) Gecko/20061208 Firefox/2.0.0 Opera 9.51'
@@ -104,7 +103,6 @@ config:
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
 
-
 - test:
     input:
       user_agent_string: 'Opera/9.51 (Windows NT 5.1; U; en)'
@@ -132,7 +130,6 @@ config:
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
 
-
 - test:
     input:
       user_agent_string: 'Opera/9.80 (Windows NT 6.1; Win64; x64) Presto/2.12.388 Version/12.16'
@@ -158,14 +155,12 @@ config:
       AgentNameVersion                     : 'Opera 12.16'
       AgentNameVersionMajor                : 'Opera 12'
 
-
 - matcher:
     extract:
     - 'AgentClass            :   2012:"Browser"'
     - 'AgentName             :   2012:"Opera Mini"'
     - 'AgentVersion          :   2012:agent.product.comments.entry.product.(1)name="Opera Mini"^.version'
     - 'DeviceClass           :      1:"Mobile"'
-
 
 - test:
     input:
@@ -194,13 +189,11 @@ config:
       AgentLanguageCode                    : 'nl'
       AgentSecurity                        : 'Strong security'
 
-
 - matcher:
     extract:
     - 'AgentClass            :   2012:"Browser"'
     - 'AgentName             :   2012:"Opera Tablet"'
     - 'AgentVersion          :   2012:agent.product.comments.entry.product.name="Opera Tablet"^.version'
-
 
 - test:
     input:
@@ -229,14 +222,12 @@ config:
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
 
-
   # Opera on iOS
 - matcher:
     extract:
     - 'AgentClass            :   2014:"Browser"'
     - 'AgentName             :   2014:"Opera"'
     - 'AgentVersion          :   2014:agent.product.(1)name="OPiOS"^.version'
-
 
 - test:
     input:
@@ -264,7 +255,6 @@ config:
       AgentNameVersion                     : 'Opera 13.0.1.100754'
       AgentNameVersionMajor                : 'Opera 13'
 
-
 - test:
     input:
       user_agent_string: 'Opera/9.80 (J2ME/MIDP; Opera Mini/4.2.16402/37.7936; U; en) Presto/2.12.423 Version/12.16'
@@ -290,7 +280,6 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
-
 
 - test:
     input:
@@ -318,7 +307,6 @@ config:
       AgentLanguageCode                    : 'nl'
       AgentSecurity                        : 'Strong security'
 
-
 - test:
     input:
       # TODO: Extract SpreadTrum
@@ -345,7 +333,6 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
-
 
 - test:
     input:

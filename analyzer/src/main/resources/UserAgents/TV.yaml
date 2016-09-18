@@ -23,7 +23,6 @@ config:
 #According to HbbTV specification http://www.etsi.org/deliver/etsi_ts/102700_102799/102796/01.01.01_60/ts_102796v010101p.pdf the User-Agent shall include:
 #HbbTV/1.1.1 (&lt;capabilities&gt;; [&lt;vendorName&gt;]; [&lt;modelName&gt;]; [&lt;softwareVersion&gt;]; [&lt;hardwareVersion&gt;]; &lt;reserved&gt;)
 
-
 #7.3.2.4 HTTP User-Agent header
 #All outgoing HTTP requests made on behalf of an Hybrid Broadcast Broadband TV application shall include a
 #User-Agent header using the syntax described in this clause.
@@ -77,7 +76,6 @@ config:
     - 'OperatingSystemName   : 1001:agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"^.(1)comments.(4)entry.product.name'
     - 'OperatingSystemVersion: 1001:agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"^.(1)comments.(4)entry.product.version'
 
-
 - test:
     input:
       user_agent_string: 'Opera/9.80 (Linux mips; U; HbbTV/1.1.1 (; Philips; ; ; ; ) CE-HTML/1.0 NETTV/4.0.2; en) Presto/2.10.250 Version/11.60'
@@ -105,7 +103,6 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
-
 
 - test:
     input:
@@ -135,7 +132,6 @@ config:
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
 
-
 - test:
     input:
       user_agent_string: 'Opera/9.80 (Linux mips; U; HbbTV/1.1.1 (; TechniSat; TechniCorder ISIO STC; ; ; ); CE-HTML/1.0 (); TechniSat TechniCorder ISIO STC BCM1 STB; de) Presto/2.9.167 Version/11.50'
@@ -163,7 +159,6 @@ config:
       AgentLanguage                        : 'German'
       AgentLanguageCode                    : 'de'
       AgentSecurity                        : 'Strong security'
-
 
 - test:
     input:
@@ -218,7 +213,6 @@ config:
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
 
-
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry="SMART-TV"'
@@ -229,7 +223,6 @@ config:
     - 'OperatingSystemClass      : 500 :"Embedded"'
     - 'OperatingSystemName       : 500 :"Linux"'
     - 'OperatingSystemVersion    : 500 :"SmartTV"'
-
 
 #My TV
 
@@ -258,7 +251,6 @@ config:
       AgentNameVersionMajor                : 'WebBrowser 1'
       AgentSecurity                        : 'Strong security'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (SMART-TV; X11; Linux i686) AppleWebKit/535.20+ (KHTML, like Gecko) Version/5.0 Safari/535.20+'
@@ -284,13 +276,11 @@ config:
       AgentNameVersion                     : 'Safari 5.0'
       AgentNameVersionMajor                : 'Safari 5'
 
-
 - matcher:
     extract:
     - 'OperatingSystemClass      : 501 :"Embedded"'
     - 'OperatingSystemName       : 501 :"Tizen"'
     - 'OperatingSystemVersion    : 501 :agent.(1)product.(1)comments.entry.product.name="Tizen"^.version'
-
 
 - test:
     input:
@@ -379,8 +369,6 @@ config:
     - 'DeviceClass                          :   20:"TV"'
     - 'DeviceBrand                          :   20:"Philips"'
 
-
-
 - test:
     input:
       user_agent_string: 'Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 47PFT560912; ; PHILIPSTV;  CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/010.003.002.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50'
@@ -406,8 +394,6 @@ config:
       AgentVersionMajor                    : '12'
       AgentNameVersion                     : 'Opera 12.50'
       AgentNameVersionMajor                : 'Opera 12'
-
-
 
 # Mozilla/5.0 (Linux; GoogleTV 3.2; NSZ-GS7/GX70 Build/MASTER) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Safari/534.24
 # Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Large Screen Safari/534.24 GoogleTV/092811
@@ -438,7 +424,6 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'SamsungBrowser 1.0'
       AgentNameVersionMajor                : 'SamsungBrowser 1'
-
 
 - matcher:
     require:
@@ -476,7 +461,6 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
-
 
 - test:
     input:
@@ -560,10 +544,8 @@ config:
       AgentNameVersion                     : 'WebKit 4.2.5,'
       AgentNameVersionMajor                : 'WebKit 4'
 
-
 # WebKit/4.1.9, (CE-HTML/1.0 NETTV/3.3.0 NewB) PHILIPS-AVM-2013/1.16 (Philips, HTB5260G, wireless)
 # WebKit/3.9.4, (CE-HTML/1.0 NETTV/3.3.0 NewB) PHILIPS-AVM-2013/1.30 (Philips, BDP7750, wireless)
-#
 #
 # Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.33 Safari/537.31 SmartTV/5.0
 # Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.79 Safari/537.4 SmartTV/4.6
@@ -574,7 +556,6 @@ config:
 #
 # Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV115;0002;0100) KD55X9005A; CC/BEL) Presto/2.12.362 Version/12.11
 # Opera/9.80 (Linux armv7l; InettvBrowser/2.2 (00014A;SonyDTV115;0002;0100) KDL32W605A; CC/BRA) Presto/2.12.362 Version/12.11
-#
 #
 # Opera/9.80 (Linux armv7l; LOEWE-SL32x/1.1.6.27 HbbTV/1.1.1 (; LOEWE; SL32x; LOH/1.1.6.27;;) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH) Presto/2.12.407 Version/12.51
 # Opera/9.80 (Linux armv7l; LOEWE-SL32x/1.1.6.27 HbbTV/1.1.1 (; LOEWE; SL32x; LOH/1.1.6.27;;) CE-HTML/1.0 Config(L:nld,CC:NLD) NETRANGEMMH) Presto/2.12.407 Version/12.51

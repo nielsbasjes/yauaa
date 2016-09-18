@@ -23,7 +23,6 @@ config:
 # Linux <cpu>
 # Linux <version> <cpu>
 
-
 - matcher:
     extract:
     - 'DeviceClass           :   5:"Desktop"'
@@ -32,7 +31,6 @@ config:
     - 'OperatingSystemName   :   5:"Linux"'
     - 'OperatingSystemVersion:   6:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linux"^.version]'
 
-
 - matcher:
     extract:
     - 'DeviceClass           :   5:"Desktop"'
@@ -40,7 +38,6 @@ config:
     - 'OperatingSystemClass  :   5:"Desktop"'
     - 'OperatingSystemName   :   5:"Linux"'
     - 'OperatingSystemVersion:   6:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.text[1]="Linux"@[2]]'
-
 
 - matcher:
     extract:
@@ -68,14 +65,12 @@ config:
     - 'OperatingSystemName   :   5:"Linux"'
     - 'OperatingSystemVersion:   1:"??"'
 
-
 - matcher:
     require:
     - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linux"^.(1)version]]'
     extract:
 #        - 'DeviceCpu             :   1:"??"'
     - 'OperatingSystemVersion:   5:agent.(1)product.(1)comments.entry.product.name="Linux"^.(1)version'
-
 
 - matcher:
     require:
@@ -107,7 +102,6 @@ config:
       AgentNameVersion                     : 'Links 2.1pre15'
       AgentNameVersionMajor                : 'Links 2'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; rv:1.7.3) Gecko/20040919 Firefox/0.10'
@@ -134,7 +128,6 @@ config:
       AgentNameVersion                     : 'Firefox 0.10'
       AgentNameVersionMajor                : 'Firefox 0'
       AgentSecurity                        : 'Strong security'
-
 
 - test:
     input:
@@ -164,7 +157,6 @@ config:
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; X11; Linux ppc; en) Opera 8.0'
@@ -191,7 +183,6 @@ config:
       AgentNameVersionMajor                : 'Opera 8'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
-
 
 - test:
     input:
@@ -221,7 +212,6 @@ config:
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
 
-
 - test:
     input:
       user_agent_string: 'Links (2.1pre17; Linux 2.4.18-rmk7-pxa3-embedix armv5tel; 73x33)'
@@ -244,7 +234,6 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'Links 2.1pre17'
       AgentNameVersionMajor                : 'Links 2'
-
 
 - test:
     input:
@@ -273,7 +262,6 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:35.0) Gecko/20100101 Firefox/35.0'
@@ -300,7 +288,6 @@ config:
       AgentNameVersion                     : 'Firefox 35.0'
       AgentNameVersionMajor                : 'Firefox 35'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/39.0.2171.65 Chrome/39.0.2171.65 Safari/537.36'
@@ -325,7 +312,6 @@ config:
       AgentVersionMajor                    : '39'
       AgentNameVersion                     : 'Chrome 39.0.2171.65'
       AgentNameVersionMajor                : 'Chrome 39'
-
 
 - test:
     input:
@@ -352,7 +338,6 @@ config:
       AgentNameVersion                     : 'Safari 8.0'
       AgentNameVersionMajor                : 'Safari 8'
 
-
 - test:
     input:
       user_agent_string: 'Opera/9.80 (X11; FreeBSD 9.1-RELEASE-p7 amd64) Presto/2.12.388 Version/12.16'
@@ -377,7 +362,6 @@ config:
       AgentVersionMajor                    : '12'
       AgentNameVersion                     : 'Opera 12.16'
       AgentNameVersionMajor                : 'Opera 12'
-
 
 - test:
     input:
@@ -405,7 +389,6 @@ config:
       AgentNameVersion                     : 'Firefox 34.0'
       AgentNameVersionMajor                : 'Firefox 34'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; NetBSD i386; rv:17.0) Gecko/20121224 Firefox/17.0'
@@ -431,7 +414,6 @@ config:
       AgentVersionMajor                    : '17'
       AgentNameVersion                     : 'Firefox 17.0'
       AgentNameVersionMajor                : 'Firefox 17'
-
 
 - matcher:
     extract:
@@ -494,7 +476,6 @@ config:
       AgentNameVersion                     : 'Chrome 23.0.1240.0'
       AgentNameVersionMajor                : 'Chrome 23'
 
-
 # Linux Mint
 - test:
     input:
@@ -549,7 +530,6 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-
 
 - test:
     input:
@@ -646,7 +626,6 @@ config:
       AgentNameVersion                     : 'Firefox 36.0'
       AgentNameVersionMajor                : 'Firefox 36'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Fedora 20; rv:31.0) Gecko/31.0 Firefox/31.0'
@@ -671,7 +650,6 @@ config:
       AgentVersionMajor                    : '31'
       AgentNameVersion                     : 'Firefox 31.0'
       AgentNameVersionMajor                : 'Firefox 31'
-
 
 - test:
     input:
@@ -701,9 +679,6 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-
-
-
 
 #Centos
 - test:
@@ -735,7 +710,6 @@ config:
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
 
-
 #Suse
 - test:
     input:
@@ -765,7 +739,6 @@ config:
       AgentLanguage                        : 'Dutch'
       AgentLanguageCode                    : 'nl'
       AgentSecurity                        : 'Strong security'
-
 
 #26	63	Mozilla/5.0 (X11; U; Linux i686; nl; rv:1.9.0.4) Gecko/2008103100 SUSE/3.0.4-4.6 Firefox/3.0.4
 #21	149	Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.4) Gecko/20091016 SUSE/3.5.4-1.1.2 Firefox/3.5.4

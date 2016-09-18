@@ -100,7 +100,6 @@ config:
     - 'LayoutEngineVersion   :  102:agent.product.name~"scan"^.(1)version'
     - 'AgentVersion          :  102:agent.product.name~"scan"^.(1)version'
 
-
 - matcher:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
@@ -148,7 +147,6 @@ config:
     - 'AgentClass            :  100:"Robot"'
     - 'AgentName             :  100:agent.(1)product.comments.entry.product.name~"bot"'
     - 'AgentVersion          :  100:agent.(1)product.comments.entry.product.name~"bot"^.version'
-
 
 - matcher:
     require:
@@ -204,8 +202,6 @@ config:
     - 'AgentName             :  100:agent.(1)product.comments.entry.text~"bot"'
     - 'AgentVersion          :  100:agent.(1)product.comments.entry.text~"bot"'
 
-
-
 - matcher:
     require:
     - 'agent.product.comments.entry.url="http://www.google.com/bot.html"'
@@ -251,7 +247,6 @@ config:
     - 'AgentClass            : 1000:"Robot"'
     - 'AgentName             : 1000:"PhantomJS"'
     - 'AgentVersion          : 1000:agent.product.name="PhantomJS"^.version'
-
 
 # ------------------------------------------------------------
 
@@ -398,7 +393,6 @@ config:
 #Googlebot-Mobile
 
 # Mobile google bots
-
 
 - matcher:
     require:
@@ -586,11 +580,7 @@ config:
       AgentNameVersionMajor                : 'Googlebot 2'
       AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
-
-
-
 # ------------------------------------------------------------
-
 
 #Google Mobile AdSense	Mediapartners-Google
 #
@@ -628,7 +618,6 @@ config:
       AgentNameVersionMajor                : 'Googlebot AdsBot-Google'
       AgentInformationUrl                  : 'http://www.google.com/adsbot.html'
 
-
 # ------------------------------------------------------------
 
 - test:
@@ -655,7 +644,6 @@ config:
       AgentNameVersion                     : 'Sogou web spider 4.0'
       AgentNameVersionMajor                : 'Sogou web spider 4'
       AgentInformationUrl                  : 'http://www.sogou.com/docs/help/webmasters.htm#07'
-
 
 - test:
     input:
@@ -707,14 +695,12 @@ config:
       AgentNameVersionMajor                : 'Bingbot 2'
       AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
 
-
 #TODO: DejaClick
 #Mozilla/5.0 (X11; Linux i686; rv:10.0.2) Gecko/20100101 Firefox/10.0.2 DejaClick/2.4.1.6
 
 #  - test:
 #      input:
 #        user_agent_string: 'Mozilla/5.0 (compatible; Seznam screenshot-generator 2.1; +http://fulltext.sblog.cz/screenshot/)'
-
 
 - test:
     input:
@@ -740,8 +726,6 @@ config:
       AgentNameVersion                     : 'Baiduspider 2.0'
       AgentNameVersionMajor                : 'Baiduspider 2'
       AgentInformationUrl                  : 'http://www.baidu.com/search/spider.html'
-
-
 
 #Yahoo
 - matcher:
@@ -812,7 +796,6 @@ config:
       AgentNameVersionMajor                : 'archive.org_bot archive'
       AgentInformationUrl                  : 'http://archive.org/details/archive.org_bot'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; Charlotte/1.1; http://www.searchme.com/support/)'
@@ -837,7 +820,6 @@ config:
       AgentNameVersion                     : 'Charlotte 1.1'
       AgentNameVersionMajor                : 'Charlotte 1'
       AgentInformationUrl                  : 'http://www.searchme.com/support/'
-
 
 - test:
     input:
@@ -864,7 +846,6 @@ config:
       AgentNameVersionMajor                : 'SputnikBot 2'
       AgentInformationUrl                  : 'http://corp.sputnik.ru/webmaster'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; Applebot/0.3; +http://www.apple.com/go/applebot)'
@@ -889,7 +870,6 @@ config:
       AgentNameVersion                     : 'Applebot 0.3'
       AgentNameVersionMajor                : 'Applebot 0'
       AgentInformationUrl                  : 'http://www.apple.com/go/applebot'
-
 
 - test:
     input:
@@ -1047,7 +1027,6 @@ config:
       AgentNameVersionMajor                : 'Applebot 0'
       AgentInformationUrl                  : 'http://www.apple.com/go/applebot'
 
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0); 360Spider(compatible; HaosouSpider; http://www.haosou.com/help/help_3_2.html)'
@@ -1072,7 +1051,6 @@ config:
       AgentNameVersion                     : 'Internet Explorer 9.0'
       AgentNameVersionMajor                : 'Internet Explorer 9'
       AgentInformationUrl                  : 'http://www.haosou.com/help/help_3_2.html'
-
 
 - matcher:
     extract:
@@ -1106,7 +1084,6 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'Exabot-Thumbnails ??'
       AgentNameVersionMajor                : 'Exabot-Thumbnails ??'
-
 
 # Google developer testing tool
 - matcher:
@@ -1201,7 +1178,6 @@ config:
       AgentNameVersionMajor                : 'yacybot ??'
       AgentInformationUrl                  : 'http://yacy.net/bot.html'
 
-
 - matcher:
     require:
     - 'agent.(1)product.(1)name="AppEngine-Google"'
@@ -1227,7 +1203,6 @@ config:
     - 'AgentClass             :   100:"Cloud Application"'
     - 'AgentName              :   100:agent.(1)product.(1)comments.(2)entry.(1)keyvalue.(2)text[1]="s"@[2]'
     - 'AgentVersion           :   100:"??"'
-
 
 #Google AppEngine apps
 - test:
@@ -1280,11 +1255,7 @@ config:
 #AppEngine-Google; (+http://code.google.com/appengine; appid: s~magicscrollreader234)
 #AppEngine-Google; (+http://code.google.com/appengine; appid: s~misterhac)
 
-
-
-
 # Google shopping quality checks
-
 
 - matcher:
     require:
@@ -1382,12 +1353,10 @@ config:
       AgentNameVersionMajor                : 'Google-Shopping-Quality ??'
       AgentInformationUrl                  : 'http://www.google.com/merchants/tos/extend/NL/tos.html'
 
-
 #TODO: gfe means the Google Front End
 #Mozilla/5.0 (Windows NT 6.1; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0,gzip(gfe) (via shopping.google.com)
 # https://support.google.com/webmasters/answer/1061943?hl=en
 # http://stackoverflow.com/questions/2862874/what-is-gzipgfe
-
 
 - test:
     input:
@@ -1411,7 +1380,6 @@ config:
       AgentNameVersion                     : 'NetLyzer FastProbe ??'
       AgentNameVersionMajor                : 'NetLyzer FastProbe ??'
       AgentInformationUrl                  : 'http://netlyzer.com/report/www.bol.com'
-
 
 - test:
     input:

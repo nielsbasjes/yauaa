@@ -30,7 +30,6 @@ config:
     - 'AgentName             :   4:"Unknown"'
     - 'AgentVersion          :   4:"Unknown"'
 
-
 - matcher:
     extract:
     - 'DeviceClass           : 302:"Mobile"'
@@ -39,7 +38,6 @@ config:
     - 'AgentClass            :   4:"Unknown"'
     - 'AgentName             :   4:"Unknown"'
     - 'AgentVersion          :   4:"Unknown"'
-
 
 - matcher:
     extract:
@@ -50,7 +48,6 @@ config:
     - 'AgentName             :   4:"Unknown"'
     - 'AgentVersion          :   4:"Unknown"'
 
-
 - matcher:
     extract:
     - 'DeviceClass           : 302:"Mobile"'
@@ -59,7 +56,6 @@ config:
     - 'AgentClass            :   4:"Unknown"'
     - 'AgentName             :   4:"Unknown"'
     - 'AgentVersion          :   4:"Unknown"'
-
 
 - matcher:
     require:
@@ -71,7 +67,6 @@ config:
     - 'AgentClass            :   4:"Unknown"'
     - 'AgentName             :   4:"Unknown"'
     - 'AgentVersion          :   4:"Unknown"'
-
 
 - matcher:
     extract:
@@ -123,7 +118,6 @@ config:
       AgentVersionMajor                    : '534'
       AgentNameVersion                     : 'Mobile Safari 534.30'
       AgentNameVersionMajor                : 'Mobile Safari 534'
-
 
 - test:
     input:
@@ -177,8 +171,6 @@ config:
       AgentNameVersion                     : 'Chrome 33.0.0.0'
       AgentNameVersionMajor                : 'Chrome 33'
 
-
-
 - test:
     input:
       user_agent_string: 'AT-AS40SE Linux/3.0.13 Android/4.0.4 Release/04.10.2013 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.0.1;'
@@ -204,7 +196,6 @@ config:
       AgentVersionMajor                    : '534'
       AgentNameVersion                     : 'Mobile Safari 534.30'
       AgentNameVersionMajor                : 'Mobile Safari 534'
-
 
 - matcher:
     extract:
@@ -234,13 +225,11 @@ config:
       AgentNameVersion                     : 'Dolfin 2.0'
       AgentNameVersionMajor                : 'Dolfin 2'
 
-
 - matcher:
     extract:
     - 'AgentClass            :   100:"Testclient"'
     - 'AgentName             :   100:"Jasmine"'
     - 'AgentVersion          :   100:agent.product.name="Jasmine"^.version'
-
 
 - test:
     input:
@@ -263,7 +252,6 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'Jasmine 1.0'
       AgentNameVersionMajor                : 'Jasmine 1'
-
 
 - test:
     input:
@@ -291,7 +279,6 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
 
-
 - test:
     input:
       user_agent_string: 'Nokia2320c-2b/2.0(ATT.11.10) Profile/MIDP-2.1 Configuration/CLDC-1.1'
@@ -313,7 +300,6 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'Nokia2320c-2b 2.0'
       AgentNameVersionMajor                : 'Nokia2320c-2b 2'
-
 
 - test:
     input:
@@ -389,7 +375,6 @@ config:
       AgentNameVersion                     : 'Mobile Safari 534.30'
       AgentNameVersionMajor                : 'Mobile Safari 534'
 
-
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
@@ -443,7 +428,6 @@ config:
     - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
     - 'OperatingSystemVersion   :   10:"??"'
 
-
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
@@ -465,7 +449,6 @@ config:
     - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
     - 'OperatingSystemVersion   :   10:"??"'
 
-
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
@@ -486,7 +469,6 @@ config:
     - 'OperatingSystemClass     :   10:"Mobile"'
     - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
     - 'OperatingSystemVersion   :   10:"??"'
-
 
 - matcher:
     require:
@@ -498,7 +480,6 @@ config:
     - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
     - 'OperatingSystemVersion   :   10:"??"'
 
-
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
@@ -552,7 +533,6 @@ config:
     - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
     - 'OperatingSystemVersion   :   10:"??"'
 
-
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
@@ -574,7 +554,6 @@ config:
     - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
     - 'OperatingSystemVersion   :   10:"??"'
 
-
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
@@ -595,7 +574,6 @@ config:
     - 'OperatingSystemClass     :   10:"Mobile"'
     - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
     - 'OperatingSystemVersion   :   10:"??"'
-
 
 - matcher:
     require:
@@ -642,8 +620,6 @@ config:
       AgentNameVersionMajor                : 'UCBrowser 8'
       AgentSecurity                        : 'Strong security'
 
-
-
 - test:
     input:
       user_agent_string: 'UCWEB/2.0(BlackBerry; U; 6.6.0.236; en-us; 9300/6.6.0.236) U2/1.0.0 UCBrowser/8.1.0.216 U2/1.0.0 Mobile'
@@ -671,8 +647,6 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-
-
 
 - test:
     input:
@@ -702,7 +676,6 @@ config:
       AgentLanguageCode                    : 'pt-br'
       AgentSecurity                        : 'Strong security'
 
-
 - test:
     input:
       user_agent_string: 'UCWEB/2.0 (Linux; U; Adr 4.1.2; zh-CN; GT-N7100) U2/1.0.0 UCBrowser/9.5.0.360 U2/1.0.0 Mobile'
@@ -730,7 +703,6 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-
 
 - test:
     input:
