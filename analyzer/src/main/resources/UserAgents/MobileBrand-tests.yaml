@@ -18,6 +18,53 @@
 
 config:
 
+# Base rule if we do not know the brand pattern
+- matcher:
+#    require:
+#    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :   91:agent.(1-2)product.(1)comments.entry.product.name="Build"^<[1]'
+    - 'DeviceName                  :   91:agent.(1-2)product.(1)comments.entry.product.name="Build"^<'
+
+- matcher:
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :   91:"Unknown"'
+    - 'DeviceName                  :   91:agent.(1-2)product.(1)comments.entry.text[2]="Build"@[1]'
+
+- matcher:
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :   91:agent.(1-2)product.(1)comments.entry.text[3]="Build"@[1]'
+    - 'DeviceName                  :   91:agent.(1-2)product.(1)comments.entry.text[3]="Build"@[1-2]'
+
+- matcher:
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :   91:agent.(1-2)product.(1)comments.entry.text[4]="Build"@[1]'
+    - 'DeviceName                  :   91:agent.(1-2)product.(1)comments.entry.text[4]="Build"@[1-3]'
+
+- matcher:
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :   91:agent.(1-2)product.(1)comments.entry.text[5]="Build"@[1]'
+    - 'DeviceName                  :   91:agent.(1-2)product.(1)comments.entry.text[5]="Build"@[1-4]'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :   91:agent.(1-2)product.(1)comments.entry.text[5]="Build"@[1]'
+    - 'DeviceName                  :   91:agent.(1-2)product.(1)comments.entry.text[5]="Build"@[1-4]'
+
+- matcher:
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :   91:agent.(1-2)product.(1)comments.entry.text[6]="Build"@[1]'
+    - 'DeviceName                  :   91:agent.(1-2)product.(1)comments.entry.text[6]="Build"@[1-5]'
+
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.1; LG-H440n/V10e Build/LRX21Y) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/38.0.2125.102 Mobile Safari/537.36'
@@ -76,4 +123,29 @@ config:
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
       WebviewAppVersion                    : '??'
       WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; Doro 8030/8031/8028 Build/EU_RET_01.01.01) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.81 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Doro 8030/8031/8028'
+      DeviceBrand                          : 'Doro'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'EU_RET_01.01.01'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '51.0'
+      LayoutEngineVersionMajor             : '51'
+      LayoutEngineNameVersion              : 'Blink 51.0'
+      LayoutEngineNameVersionMajor         : 'Blink 51'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '51.0.2704.81'
+      AgentVersionMajor                    : '51'
+      AgentNameVersion                     : 'Chrome 51.0.2704.81'
+      AgentNameVersionMajor                : 'Chrome 51'
 

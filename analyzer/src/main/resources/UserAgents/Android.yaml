@@ -187,18 +187,28 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
     extract:
     - 'DeviceName                  :  77:agent.(1-2)product.(1)comments.entry[4]="Build"@[-3]'
+    - 'DeviceBrand                 :   1:agent.(1-2)product.(1)comments.entry[4]="Build"@[1]'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
     extract:
     - 'DeviceName                  :  78:agent.(1-2)product.(1)comments.entry[5]="Build"@[-4]'
+    - 'DeviceBrand                 :   1:agent.(1-2)product.(1)comments.entry[5]="Build"@[1]'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
     extract:
     - 'DeviceName                  :  79:agent.(1-2)product.(1)comments.entry[6]="Build"@[-5]'
+    - 'DeviceBrand                 :   1:agent.(1-2)product.(1)comments.entry[6]="Build"@[1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceName                  :  79:agent.(1-2)product.(1)comments.entry[7]="Build"@[-6]'
+    - 'DeviceBrand                 :   1:agent.(1-2)product.(1)comments.entry[7]="Build"@[1]'
 
 - matcher:
     extract:
@@ -1084,6 +1094,7 @@ config:
       AgentNameVersion                     : 'Stock Android Browser 3.1.2'
       AgentNameVersionMajor                : 'Stock Android Browser 3'
       AgentSecurity                        : 'Strong security'
+
 
 #Mozilla/5.0 (Linux; U; Android 2.1-update1; es-mx; SonyEricssonE10a Build/2.0.A.0.504) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17
 #Mozilla/5.0 (Linux; U; Android 2.2.1; de-de; HTC_Wildfire_A3333 Build/FRG83D) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
