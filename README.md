@@ -1,7 +1,6 @@
 Introduction
 ============
 This is a library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.
-There are as little as possible lookup tables included the system really tries to analyze the useragent and extract values from it.
 
 The resulting output fields can be classified into several categories:
 
@@ -18,6 +17,10 @@ In some cases we have additional fields to describe the agent. These fields are 
 and fields to describe deliberate useragent manipulation situations (Anonymization, Hackers, etc.)
 
 Note that **not all fields are always available**. So if you look at a specific field you will in general find null values and "Unknown" in there aswell.
+
+There are as little as possible lookup tables included the system really tries to analyze the useragent and extract values from it.
+The aim of this approach is to have a system that can classify as much traffic as possible yet require as little as possible maintenance
+because all versions and in many places also the names of the used components are extracted without knowing them beforehand.
 
 Example output
 ==============
