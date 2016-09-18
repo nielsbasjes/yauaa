@@ -65,11 +65,11 @@ config:
     - 'OperatingSystemClass         : 2014:"Game Console"'
     - 'OperatingSystemName          : 2014:"Nintendo"'
     - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.product.name[1]="Nintendo"^'
-    - 'LayoutEngineClass            : 2014:"Game Console"'
-    - 'LayoutEngineName             : 2014:"Nintendo"'
+    - 'LayoutEngineClass            : 2014:"Browser"'
+    - 'LayoutEngineName             : 2014:"Netfront"'
     - 'LayoutEngineVersion          : 2014:agent.product.(1)name="Version"^.version'
-    - 'AgentClass                   : 2014:"Game Console"'
-    - 'AgentName                    : 2014:"Nintendo"'
+    - 'AgentClass                   : 2014:"Browser"'
+    - 'AgentName                    : 2014:"Netfront"'
     - 'AgentVersion                 : 2014:agent.product.(1)name="Version"^.version'
 
 - matcher:
@@ -80,11 +80,11 @@ config:
     - 'OperatingSystemClass         : 2014:"Game Console"'
     - 'OperatingSystemName          : 2014:"Nintendo"'
     - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.text[1]="Nintendo"@'
-    - 'LayoutEngineClass            : 2014:"Game Console"'
-    - 'LayoutEngineName             : 2014:"Nintendo"'
+    - 'LayoutEngineClass            : 2014:"Browser"'
+    - 'LayoutEngineName             : 2014:"Netfront"'
     - 'LayoutEngineVersion          : 2014:agent.product.(1)name="Version"^.version'
-    - 'AgentClass                   : 2014:"Game Console"'
-    - 'AgentName                    : 2014:"Nintendo"'
+    - 'AgentClass                   : 2014:"Browser"'
+    - 'AgentName                    : 2014:"Netfront"'
     - 'AgentVersion                 : 2014:agent.product.(1)name="Version"^.version'
 
 - matcher:
@@ -186,6 +186,7 @@ config:
 
 - test:
     input:
+      # https://www.nintendo.com/3ds/internetbrowser/specs/
       user_agent_string: 'Mozilla/5.0 (Nintendo 3DS; U; ; nl) Version/1.7567.EU'
     expected:
       DeviceClass                          : 'Game Console'
@@ -195,18 +196,18 @@ config:
       OperatingSystemName                  : 'Nintendo'
       OperatingSystemVersion               : 'Nintendo 3DS'
       OperatingSystemNameVersion           : 'Nintendo 3DS'
-      LayoutEngineClass                    : 'Game Console'
-      LayoutEngineName                     : 'Nintendo'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Netfront'
       LayoutEngineVersion                  : '1.7567.EU'
       LayoutEngineVersionMajor             : '1'
-      LayoutEngineNameVersion              : 'Nintendo 1.7567.EU'
-      LayoutEngineNameVersionMajor         : 'Nintendo 1'
-      AgentClass                           : 'Game Console'
-      AgentName                            : 'Nintendo'
+      LayoutEngineNameVersion              : 'Netfront 1.7567.EU'
+      LayoutEngineNameVersionMajor         : 'Netfront 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netfront'
       AgentVersion                         : '1.7567.EU'
       AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'Nintendo 1.7567.EU'
-      AgentNameVersionMajor                : 'Nintendo 1'
+      AgentNameVersion                     : 'Netfront 1.7567.EU'
+      AgentNameVersionMajor                : 'Netfront 1'
       AgentLanguage                        : 'Dutch'
       AgentLanguageCode                    : 'nl'
       AgentSecurity                        : 'Strong security'
