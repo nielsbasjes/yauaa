@@ -57,6 +57,8 @@ config:
     - 'OperatingSystemName          : 2014:"PlayStation Vita"'
     - 'OperatingSystemVersion       : 2014:agent.(1)product.(1)comments.entry.product.name="PlayStation Vita"^.version'
 
+# https://www.nintendo.com/3ds/internetbrowser/specs/
+# https://www.3dbrew.org/wiki/Internet_Browser
 - matcher:
     extract:
     - 'DeviceClass                  : 2014:"Game Console"'
@@ -186,7 +188,6 @@ config:
 
 - test:
     input:
-      # https://www.nintendo.com/3ds/internetbrowser/specs/
       user_agent_string: 'Mozilla/5.0 (Nintendo 3DS; U; ; nl) Version/1.7567.EU'
     expected:
       DeviceClass                          : 'Game Console'
