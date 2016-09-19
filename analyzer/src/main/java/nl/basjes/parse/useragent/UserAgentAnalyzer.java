@@ -24,10 +24,10 @@ import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
+import nl.basjes.parse.useragent.utils.Normalize;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.collections4.map.LRUMap;
-import org.apache.commons.lang3.text.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -517,22 +517,14 @@ config:
         concatFieldValuesNONDuplicated(userAgent, "LayoutEngineNameVersionMajor",   LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION_MAJOR);
         concatFieldValuesNONDuplicated(userAgent, "OperatingSystemNameVersion",     OPERATING_SYSTEM_NAME,  OPERATING_SYSTEM_VERSION);
 
-        normalizeDeviceBrand(userAgent);
+        // The device brand field is a mess.
+        UserAgent.AgentField deviceBrand = userAgent.get(DEVICE_BRAND);
+        userAgent.set(
+            DEVICE_BRAND,
+            Normalize.brand(deviceBrand.getValue()),
+            deviceBrand.getConfidence() + 1);
 
         return userAgent;
-    }
-
-    // The device brand field is a mess.
-    private void normalizeDeviceBrand(UserAgent userAgent) {
-        UserAgent.AgentField deviceBrand = userAgent.get(DEVICE_BRAND);
-        String deviceBrandValue = deviceBrand.getValue();
-
-        if (deviceBrandValue.length() <= 3) {
-            deviceBrandValue = deviceBrandValue.toUpperCase(Locale.ENGLISH);
-        } else {
-            deviceBrandValue = WordUtils.capitalize(deviceBrandValue);
-        }
-        userAgent.set(DEVICE_BRAND, deviceBrandValue, deviceBrand.getConfidence() + 1);
     }
 
     private void concatFieldValuesNONDuplicated(UserAgent userAgent, String targetName, String firstName, String secondName) {
