@@ -203,11 +203,14 @@ public class ParseService {
             sb.append("</form>");
             sb.append("<br/>");
 
-//            sb.append("<form action=\"/json\" method=\"post\">");
-//            sb.append("Manual testing of a useragent (JSON):<br>");
-//            sb.append("<input type=\"text\" name=\"useragent\"  size=\"100\" value=\"").append(escapeHtml4(userAgentString)).append("\">");
-//            sb.append("<input type=\"submit\" value=\"Analyze to JSon\">");
-//            sb.append("</form>");
+            sb.append("<hr/>");
+            userAgentString = "Mozilla/5.0 (Linux; Android 7.8.9; nl-nl ; Niels Ultimate 42 demo phone Build/42 ; nl-nl; " +
+                "https://github.com/nielsbasjes/yauaa ) AppleWebKit/8.4.7.2 (KHTML, like Gecko) Yet another browser/3.1415926 Mobile Safari/6.6.6";
+            sb.append("<form action=\"/\" method=\"post\">");
+            sb.append("Try this demo: ");
+            sb.append("<input type=\"hidden\" name=\"useragent\"  size=\"100\" value=\"").append(escapeHtml4(userAgentString)).append("\">");
+            sb.append("<input type=\"submit\" value=\"Analyze Demo\">");
+            sb.append("</form>");
 
             sb.append("<hr/>");
         } finally {
