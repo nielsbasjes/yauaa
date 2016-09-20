@@ -58,9 +58,13 @@ public class TestNormalize {
 
     @Test
     public void checkBrandNormalizationExamples() {
+        // At least 3 lowercase
         assertEquals("NielsBasjes", Normalize.brand("NielsBasjes"));
         assertEquals("NielsBasjes", Normalize.brand("NIelsBasJES"));
         assertEquals("BlackBerry", Normalize.brand("BlackBerry"));
+
+        // Less than 3 lowercase
+        assertEquals("Nielsbasjes", Normalize.brand("NIelSBasJES"));
         assertEquals("Blackberry", Normalize.brand("BLACKBERRY"));
     }
 
