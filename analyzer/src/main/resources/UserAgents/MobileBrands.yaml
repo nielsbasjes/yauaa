@@ -31,6 +31,7 @@ config:
       "HUAWEI" : "Huawei"
       "ALE-" : "Huawei"
       "Ascend" : "Huawei"
+      "G7" : "Huawei"
       "HP" : "HP"
       "AG " : "AG Mobile"
       "AKAI" : "AKAI"
@@ -1104,6 +1105,101 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.text{"Ascend"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :    1:"Huawei"'
+
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"G7"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  105:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"G7"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  105:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"G7"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  105:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"G7"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  104:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"G7"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  103:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"G7"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  102:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"G7"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  101:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"G7"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  100:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.name{"G7"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  110:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.product.name{"G7"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :    3:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"G7"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :    2:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.text{"G7"'
     extract:
     - 'DeviceClass                 :    1:"Mobile"'
     - 'DeviceBrand                 :    1:"Huawei"'
