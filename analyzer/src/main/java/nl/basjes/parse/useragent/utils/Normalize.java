@@ -21,7 +21,7 @@ package nl.basjes.parse.useragent.utils;
 
 import java.util.Locale;
 
-public class Normalize {
+public final class Normalize {
     private Normalize() {
     }
 
@@ -33,19 +33,19 @@ public class Normalize {
         StringBuilder sb = new StringBuilder(brand.length());
         char[] brandChars = brand.toCharArray();
 
-        int lowerChars =0;
+        int lowerChars = 0;
         sb.append(Character.toUpperCase(brandChars[0]));
-        for (int i = 1 ; i < brandChars.length ; i++) {
+        for (int i = 1; i < brandChars.length; i++) {
             char thisChar = brandChars[i];
 
             boolean isUpperCase = Character.isUpperCase(thisChar);
             if (isUpperCase) {
-                if (lowerChars>=3 ) {
+                if (lowerChars >= 3) {
                     sb.append(thisChar);
                 } else {
                     sb.append(Character.toLowerCase(thisChar));
                 }
-                lowerChars=0;
+                lowerChars = 0;
             } else {
                 sb.append(Character.toLowerCase(thisChar));
                 lowerChars++;
