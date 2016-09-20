@@ -21,6 +21,9 @@ package nl.basjes.parse.useragent.servlet;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -34,7 +37,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
 
 import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
@@ -170,12 +177,36 @@ public class ParseService {
 
             sb.append("Received useragent: <B>").append(escapeHtml4(userAgent.getUserAgentString())).append("</B>");
             sb.append("<table border=1>");
-            sb.append("<tr><th>Field</th><th>Value</th></tr>");
+            sb.append("<tr><th colspan=2>Field</th><th>Value</th></tr>");
+
+            Map<String, Integer> fieldGroupCounts = new HashMap<>();
+            List<Pair<String, Pair<String, String>>> fields = new ArrayList<>(32);
             for (String fieldname : userAgent.getAvailableFieldNamesSorted()) {
-                sb.append("<tr>").append(
-                    "<td>").append(camelStretcher(escapeHtml4(fieldname))).append("</td>").append(
-                    "<td>").append(escapeHtml4(userAgent.getValue(fieldname))).append("</td>").append(
-                    "</tr>");
+                Pair<String, String> split = prefixSplitter(fieldname);
+                fields.add(new ImmutablePair<>(fieldname, split));
+                Integer count = fieldGroupCounts.get(split.getLeft());
+                if (count == null) {
+                    count = 1;
+                } else {
+                    count++;
+                }
+                fieldGroupCounts.put(split.getLeft(), count);
+            }
+
+            String currentGroup = "";
+            for (Pair<String, Pair<String, String>> field : fields) {
+                String fieldname = field.getLeft();
+                String groupName = field.getRight().getLeft();
+                String fieldLabel = field.getRight().getRight();
+                sb.append("<tr>");
+                if (!currentGroup.equals(groupName)) {
+                    currentGroup = groupName;
+                    sb.append("<td rowspan=").append(fieldGroupCounts.get(currentGroup)).append("><b><u>")
+                        .append(escapeHtml4(currentGroup)).append("</u></b></td>");
+                }
+                sb.append("<td>").append(camelStretcher(escapeHtml4(fieldLabel))).append("</td>")
+                    .append("<td>").append(escapeHtml4(userAgent.getValue(fieldname))).append("</td>")
+                    .append("</tr>");
             }
             sb.append("</table>");
 
@@ -223,6 +254,24 @@ public class ParseService {
             sb.append("</html>");
         }
         return responseBuilder.entity(sb.toString()).build();
+    }
+
+    private Pair<String, String> prefixSplitter(String input) {
+        MutablePair<String, String> result = new MutablePair<>("", input);
+        if (input.startsWith("Device")) {
+            result.setLeft("Device");
+            result.setRight(input.replaceFirst("Device", ""));
+        } else if (input.startsWith("OperatingSystem")) {
+            result.setLeft("Operating System");
+            result.setRight(input.replaceFirst("OperatingSystem", ""));
+        } else if (input.startsWith("LayoutEngine")) {
+            result.setLeft("Layout Engine");
+            result.setRight(input.replaceFirst("LayoutEngine", ""));
+        } else if (input.startsWith("Agent")) {
+            result.setLeft("Agent");
+            result.setRight(input.replaceFirst("Agent", ""));
+        }
+        return result;
     }
 
     private String camelStretcher(String input) {
