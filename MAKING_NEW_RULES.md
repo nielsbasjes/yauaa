@@ -127,71 +127,67 @@ If we take this useragent as an example the tree is flattened into a set of 'bre
 
 I put some spaces in vairous places so you can see what happens with those (in most places they are trimmed):
 
-    foo/1.0 (one; two three; four) bar/2.0 (five; six seven)
+    foo/1.0 ( one  ; two three; four  ) bar/2.0 (five;six seven)
 
 will result in these paths (with their textual value)
 
     agent="foo/1.0 ( one  ; two three; four  ) bar/2.0 (five;six seven)"
     agent.(1)product="foo/1.0 ( one  ; two three; four  )"
+    agent.(1)product[1-1]="foo"
+    agent.(1)product[1-2]="foo/1"
+    agent.(1)product[2-2]="1"
+    agent.(1)product[1-3]="foo/1.0"
+    agent.(1)product[3-3]="0"
     agent.(1)product.(1)name="foo"
-    agent.(1)product.(1)name#1="foo"
-    agent.(1)product.(1)name%1="foo"
+    agent.(1)product.(1)name[1-1]="foo"
     agent.(1)product.(1)version="1.0"
-    agent.(1)product.(1)version#1="1"
-    agent.(1)product.(1)version%1="1"
-    agent.(1)product.(1)version#2="1.0"
-    agent.(1)product.(1)version%2="0"
+    agent.(1)product.(1)version[1-1]="1"
+    agent.(1)product.(1)version[1-2]="1.0"
+    agent.(1)product.(1)version[2-2]="0"
     agent.(1)product.(1)comments="( one  ; two three; four  )"
     agent.(1)product.(1)comments.(1)entry="one"
-    agent.(1)product.(1)comments.(1)entry#1="one"
-    agent.(1)product.(1)comments.(1)entry%1="one"
+    agent.(1)product.(1)comments.(1)entry[1-1]="one"
     agent.(1)product.(1)comments.(1)entry.(1)text="one"
-    agent.(1)product.(1)comments.(1)entry.(1)text#1="one"
-    agent.(1)product.(1)comments.(1)entry.(1)text%1="one"
+    agent.(1)product.(1)comments.(1)entry.(1)text[1-1]="one"
     agent.(1)product.(1)comments.(2)entry="two three"
-    agent.(1)product.(1)comments.(2)entry#1="two"
-    agent.(1)product.(1)comments.(2)entry%1="two"
-    agent.(1)product.(1)comments.(2)entry#2="two three"
-    agent.(1)product.(1)comments.(2)entry%2="three"
+    agent.(1)product.(1)comments.(2)entry[1-1]="two"
+    agent.(1)product.(1)comments.(2)entry[1-2]="two three"
+    agent.(1)product.(1)comments.(2)entry[2-2]="three"
     agent.(1)product.(1)comments.(2)entry.(1)text="two three"
-    agent.(1)product.(1)comments.(2)entry.(1)text#1="two"
-    agent.(1)product.(1)comments.(2)entry.(1)text%1="two"
-    agent.(1)product.(1)comments.(2)entry.(1)text#2="two three"
-    agent.(1)product.(1)comments.(2)entry.(1)text%2="three"
+    agent.(1)product.(1)comments.(2)entry.(1)text[1-1]="two"
+    agent.(1)product.(1)comments.(2)entry.(1)text[1-2]="two three"
+    agent.(1)product.(1)comments.(2)entry.(1)text[2-2]="three"
     agent.(1)product.(1)comments.(3)entry="four"
-    agent.(1)product.(1)comments.(3)entry#1="four"
-    agent.(1)product.(1)comments.(3)entry%1="four"
+    agent.(1)product.(1)comments.(3)entry[1-1]="four"
     agent.(1)product.(1)comments.(3)entry.(1)text="four"
-    agent.(1)product.(1)comments.(3)entry.(1)text#1="four"
-    agent.(1)product.(1)comments.(3)entry.(1)text%1="four"
+    agent.(1)product.(1)comments.(3)entry.(1)text[1-1]="four"
     agent.(2)product="bar/2.0 (five;six seven)"
+    agent.(2)product[1-1]="bar"
+    agent.(2)product[1-2]="bar/2"
+    agent.(2)product[2-2]="2"
+    agent.(2)product[1-3]="bar/2.0"
+    agent.(2)product[3-3]="0"
     agent.(2)product.(1)name="bar"
-    agent.(2)product.(1)name#1="bar"
-    agent.(2)product.(1)name%1="bar"
+    agent.(2)product.(1)name[1-1]="bar"
     agent.(2)product.(1)version="2.0"
-    agent.(2)product.(1)version#1="2"
-    agent.(2)product.(1)version%1="2"
-    agent.(2)product.(1)version#2="2.0"
-    agent.(2)product.(1)version%2="0"
+    agent.(2)product.(1)version[1-1]="2"
+    agent.(2)product.(1)version[1-2]="2.0"
+    agent.(2)product.(1)version[2-2]="0"
     agent.(2)product.(1)comments="(five;six seven)"
     agent.(2)product.(1)comments.(1)entry="five"
-    agent.(2)product.(1)comments.(1)entry#1="five"
-    agent.(2)product.(1)comments.(1)entry%1="five"
+    agent.(2)product.(1)comments.(1)entry[1-1]="five"
     agent.(2)product.(1)comments.(1)entry.(1)text="five"
-    agent.(2)product.(1)comments.(1)entry.(1)text#1="five"
-    agent.(2)product.(1)comments.(1)entry.(1)text%1="five"
+    agent.(2)product.(1)comments.(1)entry.(1)text[1-1]="five"
     agent.(2)product.(1)comments.(2)entry="six seven"
-    agent.(2)product.(1)comments.(2)entry#1="six"
-    agent.(2)product.(1)comments.(2)entry%1="six"
-    agent.(2)product.(1)comments.(2)entry#2="six seven"
-    agent.(2)product.(1)comments.(2)entry%2="seven"
+    agent.(2)product.(1)comments.(2)entry[1-1]="six"
+    agent.(2)product.(1)comments.(2)entry[1-2]="six seven"
+    agent.(2)product.(1)comments.(2)entry[2-2]="seven"
     agent.(2)product.(1)comments.(2)entry.(1)text="six seven"
-    agent.(2)product.(1)comments.(2)entry.(1)text#1="six"
-    agent.(2)product.(1)comments.(2)entry.(1)text%1="six"
-    agent.(2)product.(1)comments.(2)entry.(1)text#2="six seven"
-    agent.(2)product.(1)comments.(2)entry.(1)text%2="seven"
+    agent.(2)product.(1)comments.(2)entry.(1)text[1-1]="six"
+    agent.(2)product.(1)comments.(2)entry.(1)text[1-2]="six seven"
+    agent.(2)product.(1)comments.(2)entry.(1)text[2-2]="seven"
 
-As you can see ther are afew special operators '=', '#' and '%' that allow extracting specific words.
+As you can see there are a few special operators that allow comparing and extracting specific words.
 
 Walking around the tree
 ==========================
@@ -235,13 +231,15 @@ Ends with | }| agent.product.name}"z" | agent.(2)product.(1)name="bar baz" | The
 
 Extracting substrings
 
-Note this fact *agent.(1)product.(1)comments.(2)entry.(1)text="two three four"*
+Note this fact *agent.(1)product.(1)comments.(2)entry.(1)text="one two three four five"*
 
 Operation | Symbol | Example | Value
 :--- |:--- |:---|:---
-First N Words | # | agent.(1)product.(1)comments.(2)entry.(1)text#2 | two three
-Single Word at position N | % | agent.(1)product.(1)comments.(2)entry.(1)text%2 | three
-Backto full value | @ | agent.(1)product.(1)comments.(2)entry.(1)text%2="three"@ | two three four
+First N Words | [-N] | agent.(1)product.(1)comments.(2)entry.(1)text[-3] | one two three
+Single Word at position N | [N] | agent.(1)product.(1)comments.(2)entry.(1)text[3] | three
+A range of words N-M | [N-M] | agent.(1)product.(1)comments.(2)entry.(1)text[2-4] | two three four
+All words to the end strating at N | [N-] | agent.(1)product.(1)comments.(2)entry.(1)text[3-] | three four five
+Backto full value | @ | agent.(1)product.(1)comments.(2)entry.(1)text[2]="three" <br/> agent.(1)product.(1)comments.(2)entry.(1)text[2]="three"@ | three <br/> one two three four five
 
 Special operations
 
@@ -260,19 +258,19 @@ An extensive example of walking around to get the right value.
 
 Expression | Current path | Value
 :--- |:--- |:---
-| agent.product.(1)comments.entry.(1)text%2="seven"                                                         | agent.(2)product.(1)comments.(2)entry%2 | seven
-| agent.product.(1)comments.entry.(1)text%2="seven"^                                                        | agent.(2)product.(1)comments.(2)entry          | six seven
-| agent.product.(1)comments.entry.(1)text%2="seven"^^                                                       | agent.(2)product.(1)comments | (five; six seven)
-| agent.product.(1)comments.entry.(1)text%2="seven"^^^                                                      | agent.(2)product | bar baz/2.0/3.0 (five; six seven)
-| agent.product.(1)comments.entry.(1)text%2="seven"^^^<                                                     | agent.(1)product | foo faa/1.0/2.3 (one; two three four)
-| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name                                                | agent.(1)product.(1)name  | foo faa
-| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"                                      | agent.(1)product.(1)name | foo faa
-| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"^                                     | agent.(1)product | foo faa/1.0/2.3 (one; two three four)
-| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"^.comments                            | agent.(1)product.(1)comments | (one; two three four)
-| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"^.comments.entry                      | agent.(1)product.(1)comments.entry | one
-| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"^.comments.entry.text%2="three"       | agent.(1)product.(1)comments.entry%2 | two three four
-| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"^.comments.entry.text%2="three"@      | agent.(1)product.(1)comments.entry | two three four
-| agent.product.(1)comments.entry.(1)text%2="seven"^^^<.name="foo faa"^.comments.entry.text%2="three"@#1    | agent.(1)product.(1)comments.entry#1 | two
+| agent.product.(1)comments.entry.(1)text[2]="seven"                                                         | agent.(2)product.(1)comments.(2)entry.(1)text[2] | seven
+| agent.product.(1)comments.entry.(1)text[2]="seven"^                                                        | agent.(2)product.(1)comments.(2)entry          | six seven
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^                                                       | agent.(2)product.(1)comments | (five; six seven)
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^                                                      | agent.(2)product | bar baz/2.0/3.0 (five; six seven)
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<                                                     | agent.(1)product | foo faa/1.0/2.3 (one; two three four)
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name                                                | agent.(1)product.(1)name  | foo faa
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"                                      | agent.(1)product.(1)name | foo faa
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^                                     | agent.(1)product | foo faa/1.0/2.3 (one; two three four)
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments                            | agent.(1)product.(1)comments | (one; two three four)
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry                      | agent.(1)product.(1)comments.(1)entry | one
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"      | agent.(1)product.(1)comments.(2)entry[2] | three
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@     | agent.(1)product.(1)comments.(2)entry | two three four
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@[1]  | agent.(1)product.(1)comments.(2)entry[1] | two
 
 Note that the first possible match is returned.
 If a child sibling or check fails the backtracking continues until the entire parse tree has been examined.
@@ -329,7 +327,7 @@ In this case is looks something like this:
           AgentNameVersion                     : 'Foo 3.1'
           AgentNameVersionMajor                : 'Foo 3'
 
-The output also contains all hard checked paths in the tree in thr rough form
+The output also contains all hard checked paths in the tree in the rough form
 of a matcher.
 
     - matcher:
@@ -339,43 +337,44 @@ of a matcher.
     #    - '__SyntaxError__="false"'
     #    - 'agent="Mozilla/5.0 (compatible; Foo/3.1; Bar)"'
     #    - 'agent.(1)product="Mozilla/5.0 (compatible; Foo/3.1; Bar)"'
+    #    - 'agent.(1)product[1-1]="Mozilla"'
+    #    - 'agent.(1)product[1-2]="Mozilla/5"'
+    #    - 'agent.(1)product[2-2]="5"'
+    #    - 'agent.(1)product[1-3]="Mozilla/5.0"'
+    #    - 'agent.(1)product[3-3]="0"'
     #    - 'agent.(1)product.(1)name="Mozilla"'
-    #    - 'agent.(1)product.(1)name#1="Mozilla"'
-    #    - 'agent.(1)product.(1)name%1="Mozilla"'
+    #    - 'agent.(1)product.(1)name[1-1]="Mozilla"'
     #    - 'agent.(1)product.(1)version="5.0"'
-    #    - 'agent.(1)product.(1)version#1="5"'
-    #    - 'agent.(1)product.(1)version%1="5"'
-    #    - 'agent.(1)product.(1)version#2="5.0"'
-    #    - 'agent.(1)product.(1)version%2="0"'
+    #    - 'agent.(1)product.(1)version[1-1]="5"'
+    #    - 'agent.(1)product.(1)version[1-2]="5.0"'
+    #    - 'agent.(1)product.(1)version[2-2]="0"'
     #    - 'agent.(1)product.(1)comments="(compatible; Foo/3.1; Bar)"'
     #    - 'agent.(1)product.(1)comments.(1)entry="compatible"'
-    #    - 'agent.(1)product.(1)comments.(1)entry#1="compatible"'
-    #    - 'agent.(1)product.(1)comments.(1)entry%1="compatible"'
+    #    - 'agent.(1)product.(1)comments.(1)entry[1-1]="compatible"'
     #    - 'agent.(1)product.(1)comments.(1)entry.(1)text="compatible"'
-    #    - 'agent.(1)product.(1)comments.(1)entry.(1)text#1="compatible"'
-    #    - 'agent.(1)product.(1)comments.(1)entry.(1)text%1="compatible"'
+    #    - 'agent.(1)product.(1)comments.(1)entry.(1)text[1-1]="compatible"'
     #    - 'agent.(1)product.(1)comments.(2)entry="Foo/3.1"'
-    #    - 'agent.(1)product.(1)comments.(2)entry#1="Foo"'
-    #    - 'agent.(1)product.(1)comments.(2)entry%1="Foo"'
-    #    - 'agent.(1)product.(1)comments.(2)entry#2="Foo/3"'
-    #    - 'agent.(1)product.(1)comments.(2)entry%2="3"'
-    #    - 'agent.(1)product.(1)comments.(2)entry#3="Foo/3.1"'
-    #    - 'agent.(1)product.(1)comments.(2)entry%3="1"'
+    #    - 'agent.(1)product.(1)comments.(2)entry[1-1]="Foo"'
+    #    - 'agent.(1)product.(1)comments.(2)entry[1-2]="Foo/3"'
+    #    - 'agent.(1)product.(1)comments.(2)entry[2-2]="3"'
+    #    - 'agent.(1)product.(1)comments.(2)entry[1-3]="Foo/3.1"'
+    #    - 'agent.(1)product.(1)comments.(2)entry[3-3]="1"'
     #    - 'agent.(1)product.(1)comments.(2)entry.(1)product="Foo/3.1"'
+    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product[1-1]="Foo"'
+    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product[1-2]="Foo/3"'
+    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product[2-2]="3"'
+    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product[1-3]="Foo/3.1"'
+    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product[3-3]="1"'
     #    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name="Foo"'
-    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name#1="Foo"'
-    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name%1="Foo"'
+    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[1-1]="Foo"'
     #    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)version="3.1"'
-    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)version#1="3"'
-    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)version%1="3"'
-    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)version#2="3.1"'
-    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)version%2="1"'
+    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)version[1-1]="3"'
+    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)version[1-2]="3.1"'
+    #    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)version[2-2]="1"'
     #    - 'agent.(1)product.(1)comments.(3)entry="Bar"'
-    #    - 'agent.(1)product.(1)comments.(3)entry#1="Bar"'
-    #    - 'agent.(1)product.(1)comments.(3)entry%1="Bar"'
+    #    - 'agent.(1)product.(1)comments.(3)entry[1-1]="Bar"'
     #    - 'agent.(1)product.(1)comments.(3)entry.(1)text="Bar"'
-    #    - 'agent.(1)product.(1)comments.(3)entry.(1)text#1="Bar"'
-    #    - 'agent.(1)product.(1)comments.(3)entry.(1)text%1="Bar"'
+    #    - 'agent.(1)product.(1)comments.(3)entry.(1)text[1-1]="Bar"'
         extract:
     #    - 'DeviceClass           :   1:'
     #    - 'DeviceBrand           :   1:'
@@ -396,7 +395,7 @@ So we copy this and make it like this:
 
     - matcher:
         extract:
-        - 'MinorFooVersion :   1:agent.(1)product.(1)comments.entry.(1)product.(1)name="Foo"^.version%2'
+        - 'MinorFooVersion :   1:agent.(1)product.(1)comments.entry.(1)product.(1)name="Foo"^.version[2]'
 
 What this does is that in the first product, in the first set of comments there is at any position an entry
 that contains as the first element a product who's name is "Foo" that we go up in the tree and then down
@@ -535,15 +534,15 @@ So one of the rules looks like this
     - matcher:
         require:
         - 'agent.product.(1)name="Chrome"'
-        - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="Chrome"^.version#1]'
-        - 'agent.product.(1)name="AppleWebKit"^.version#1="537"'
-        - 'agent.product.(1)version#1="537"' # This is a matching speedup trick
+        - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="Chrome"^.version[1]]'
+        - 'agent.product.(1)name="AppleWebKit"^.version[1]="537"'
+        - 'agent.product.(1)version[1]="537"' # This is a matching speedup trick
         extract:
         - 'LayoutEngineClass     :   1000:"Browser"'
         - 'LayoutEngineName      :   1000:"AppleWebKit"'
         - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
 
-The agent.product.(1)version#1="537" is found immediately while walking through the parsed tree.
+The agent.product.(1)version[1]="537" is found immediately while walking through the parsed tree.
 So if this one is not present then the other check "Is the version of AppleWebKit equals to 537"
 and the lookup are not even attempted. These kinds of tricks will speedup parsing.
 
