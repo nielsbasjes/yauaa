@@ -509,7 +509,7 @@ Wiping values
 In some cases a previously defined value needs to be erased with a higher confidence.
 To achieve this simply set the value to `<<<null>>>`
 
-In addtion there is a way to set all variables to a certain value by setting the special value `__Set_ALL_Fields__`
+In addition there is a way to set all variables to a certain value by setting the special value `__Set_ALL_Fields__`
 
 Because the ordering is defined by the confidence numbers you must make sure the confidence of the new values are
 at least 1 higher than the confidence of the `__Set_ALL_Fields__`.
