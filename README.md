@@ -1,3 +1,7 @@
+Status
+======
+![Travis Build status](https://api.travis-ci.org/nielsbasjes/yauaa.svg?branch=master)
+
 Introduction
 ============
 This is a library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.
