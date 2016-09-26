@@ -1,4 +1,4 @@
-YaUAA: Yet Another UserAgent Analyzer [![Travis Build status](https://api.travis-ci.org/nielsbasjes/yauaa.png)](https://api.travis-ci.org/nielsbasjes/yauaa)
+YaUAA: Yet Another UserAgent Analyzer [![Travis Build status](https://api.travis-ci.org/nielsbasjes/yauaa.png)](https://travis-ci.org/nielsbasjes/yauaa)
 ====================================
 This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.
 
