@@ -27,6 +27,7 @@ config:
       "SM-" : "Samsung"
       "SM -" : "Samsung"
       "LG-" : "LG"
+      "G Watch" : "LG"
       "HTC" : "HTC"
       "Desire" : "HTC"
       "HUAWEI" : "Huawei"
@@ -56,6 +57,7 @@ config:
       "Xperia" : "Sony"
       "D5" : "Sony"
       "C6" : "Sony"
+      "SmartWatch" : "Sony"
       "A0001" : "OnePlus"
       "One" : "OnePlus"
       "OnePlus" : "OnePlus"
@@ -727,6 +729,101 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.text{"LG-"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :    1:"LG"'
+
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"G Watch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  105:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"G Watch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  105:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"G Watch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  105:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"G Watch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  104:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"G Watch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  103:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"G Watch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  102:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"G Watch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  101:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"G Watch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  100:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.name{"G Watch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  110:"LG"'
+
+- matcher:
+    require:
+    - 'agent.product.name{"G Watch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :    3:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"G Watch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :    2:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.text{"G Watch"'
     extract:
     - 'DeviceClass                 :    1:"Mobile"'
     - 'DeviceBrand                 :    1:"LG"'
@@ -3482,6 +3579,101 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.text{"C6"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :    1:"Sony"'
+
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"SmartWatch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  105:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"SmartWatch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  105:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"SmartWatch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  105:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SmartWatch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  104:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"SmartWatch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  103:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"SmartWatch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  102:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"SmartWatch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  101:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"SmartWatch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  100:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.name{"SmartWatch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :  110:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.product.name{"SmartWatch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :    3:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"SmartWatch"'
+    extract:
+    - 'DeviceClass                 :    1:"Mobile"'
+    - 'DeviceBrand                 :    2:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.text{"SmartWatch"'
     extract:
     - 'DeviceClass                 :    1:"Mobile"'
     - 'DeviceBrand                 :    1:"Sony"'

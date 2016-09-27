@@ -1,0 +1,427 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+config:
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"watch"'
+    extract:
+    - 'DeviceClass:   2000:"Watch"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.1; G Watch R Build/LWX48P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/19.77.34.5 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'G Watch R'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.1'
+      OperatingSystemNameVersion           : 'Android 5.0.1'
+      OperatingSystemVersionBuild          : 'LWX48P'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '19.77.34.5'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : 'Chrome 19.77.34.5'
+      AgentNameVersionMajor                : 'Chrome 19'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.1; G Watch R Build/LWX48P) AppleWebKit/537.36 (KHTML, like Gecko) WIB/0.9.8 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'G Watch R'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.1'
+      OperatingSystemNameVersion           : 'Android 5.0.1'
+      OperatingSystemVersionBuild          : 'LWX48P'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'WIB'
+      AgentVersion                         : '0.9.8'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'WIB 0.9.8'
+      AgentNameVersionMajor                : 'WIB 0'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.2; G Watch Build/LWX49K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/19.77.34.5 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'G Watch'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemVersionBuild          : 'LWX49K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '19.77.34.5'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : 'Chrome 19.77.34.5'
+      AgentNameVersionMajor                : 'Chrome 19'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.2; G Watch R Build/LWX49K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/19.77.34.5 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'G Watch R'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemVersionBuild          : 'LWX49K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '19.77.34.5'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : 'Chrome 19.77.34.5'
+      AgentNameVersionMajor                : 'Chrome 19'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.2; SmartWatch 3 Build/LWX49K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/19.77.34.5 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'SmartWatch 3'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemVersionBuild          : 'LWX49K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '19.77.34.5'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : 'Chrome 19.77.34.5'
+      AgentNameVersionMajor                : 'Chrome 19'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; ASUS ZenWatch 2 Build/LCA49B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/19.77.34.5 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'ASUS ZenWatch 2'
+      DeviceBrand                          : 'Asus'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'LCA49B'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '19.77.34.5'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : 'Chrome 19.77.34.5'
+      AgentNameVersionMajor                : 'Chrome 19'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; G Watch Build/LDZ22D) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/19.77.34.5 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'G Watch'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'LDZ22D'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '19.77.34.5'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : 'Chrome 19.77.34.5'
+      AgentNameVersionMajor                : 'Chrome 19'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; G Watch R Build/LCA44B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/19.77.34.5 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'G Watch R'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'LCA44B'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '19.77.34.5'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : 'Chrome 19.77.34.5'
+      AgentNameVersionMajor                : 'Chrome 19'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; G Watch R Build/LDZ22D) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/19.77.34.5 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'G Watch R'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'LDZ22D'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '19.77.34.5'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : 'Chrome 19.77.34.5'
+      AgentNameVersionMajor                : 'Chrome 19'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; LG Watch Urbane Build/LCA44B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/19.77.34.5 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'LG Watch Urbane'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'LCA44B'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '19.77.34.5'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : 'Chrome 19.77.34.5'
+      AgentNameVersionMajor                : 'Chrome 19'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; SmartWatch 3 Build/LCA43) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/19.77.34.5 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'SmartWatch 3'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'LCA43'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '19.77.34.5'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : 'Chrome 19.77.34.5'
+      AgentNameVersionMajor                : 'Chrome 19'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; nl-nl; K8 Watch Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'K8 Watch'
+      DeviceBrand                          : 'K8'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.2.2'
+      OperatingSystemNameVersion           : 'Android 4.2.2'
+      OperatingSystemVersionBuild          : 'JDQ39'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentSecurity                        : 'Strong security'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   1100:"Watch"'
+    - 'DeviceBrand           :   1100:agent.product.(1)name="SmartWatch"^.(1)comments.(1)entry.text'
+    - 'DeviceName            :   1100:agent.product.(1)name="SmartWatch"^.(1)comments.(2)entry.text'
+    - 'WebviewAppName        :   1100:"Android Wear Smartwatch"'
+    - 'WebviewAppVersion     :   1100:"??"'
+
+
+# Android Wear Smartwatch as an add-on to a regular Android device. We report the WATCH (not the phone)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; SM-N7505 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 SmartWatch(Sony;SW2;660x800)'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'SW2'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KOT49H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Android Wear Smartwatch'
+      WebviewAppNameVersionMajor           : 'Android Wear Smartwatch ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; C6903 Build/14.4.A.0.157) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36 SmartWatch(Sony;SW2;990x800)'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'SW2'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.4'
+      OperatingSystemNameVersion           : 'Android 4.4.4'
+      OperatingSystemVersionBuild          : '14.4.A.0.157'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '33.0'
+      LayoutEngineVersionMajor             : '33'
+      LayoutEngineNameVersion              : 'Blink 33.0'
+      LayoutEngineNameVersionMajor         : 'Blink 33'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '33.0.0.0'
+      AgentVersionMajor                    : '33'
+      AgentNameVersion                     : 'Chrome Webview 33.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 33'
+      WebviewAppName                       : 'Android Wear Smartwatch'
+      WebviewAppNameVersionMajor           : 'Android Wear Smartwatch ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; Micromax AQ4501 Build/KPW53) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36 SmartWatch(Sony;SW2;495x800)'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'SW2'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.4'
+      OperatingSystemNameVersion           : 'Android 4.4.4'
+      OperatingSystemVersionBuild          : 'KPW53'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '33.0'
+      LayoutEngineVersionMajor             : '33'
+      LayoutEngineNameVersion              : 'Blink 33.0'
+      LayoutEngineNameVersionMajor         : 'Blink 33'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '33.0.0.0'
+      AgentVersionMajor                    : '33'
+      AgentNameVersion                     : 'Chrome Webview 33.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 33'
+      WebviewAppName                       : 'Android Wear Smartwatch'
+      WebviewAppNameVersionMajor           : 'Android Wear Smartwatch ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
