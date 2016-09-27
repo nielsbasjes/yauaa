@@ -26,6 +26,10 @@ config:
       "iPod touch" : "Tablet"
       "Watch1,1" : "Watch"
       "Watch1,2" : "Watch"
+      "Watch2,6" : "Watch"
+      "Watch2,7" : "Watch"
+      "Watch2,3" : "Watch"
+      "Watch2,4" : "Watch"
       "iPhone1,1" : "Phone"
       "iPhone1,2" : "Phone"
       "iPhone2,1" : "Phone"
@@ -44,6 +48,10 @@ config:
       "iPhone8,1" : "Phone"
       "iPhone8,2" : "Phone"
       "iPhone8,4" : "Phone"
+      "iPhone9,1" : "Phone"
+      "iPhone9,3" : "Phone"
+      "iPhone9,2" : "Phone"
+      "iPhone9,4" : "Phone"
       "iPad1,1" : "Tablet"
       "iPad2,1" : "Tablet"
       "iPad2,2" : "Tablet"
@@ -91,6 +99,10 @@ config:
       "iPod touch" : "iPod touch"
       "Watch1,1" : "Apple Watch"
       "Watch1,2" : "Apple Watch"
+      "Watch2,6" : "Apple Watch"
+      "Watch2,7" : "Apple Watch"
+      "Watch2,3" : "Apple Watch"
+      "Watch2,4" : "Apple Watch"
       "iPhone1,1" : "iPhone"
       "iPhone1,2" : "iPhone"
       "iPhone2,1" : "iPhone"
@@ -109,6 +121,10 @@ config:
       "iPhone8,1" : "iPhone"
       "iPhone8,2" : "iPhone"
       "iPhone8,4" : "iPhone"
+      "iPhone9,1" : "iPhone"
+      "iPhone9,3" : "iPhone"
+      "iPhone9,2" : "iPhone"
+      "iPhone9,4" : "iPhone"
       "iPad1,1" : "iPad"
       "iPad2,1" : "iPad"
       "iPad2,2" : "iPad"
@@ -156,6 +172,10 @@ config:
       "iPod touch" : "iPod touch"
       "Watch1,1" : "Apple Watch"
       "Watch1,2" : "Apple Watch"
+      "Watch2,6" : "Apple Watch Series 1"
+      "Watch2,7" : "Apple Watch Series 1"
+      "Watch2,3" : "Apple Watch Series 2"
+      "Watch2,4" : "Apple Watch Series 2"
       "iPhone1,1" : "iPhone"
       "iPhone1,2" : "iPhone 3G"
       "iPhone2,1" : "iPhone 3GS"
@@ -174,6 +194,10 @@ config:
       "iPhone8,1" : "iPhone 6s"
       "iPhone8,2" : "iPhone 6s Plus"
       "iPhone8,4" : "iPhone SE"
+      "iPhone9,1" : "iPhone 7"
+      "iPhone9,3" : "iPhone 7"
+      "iPhone9,2" : "iPhone 7 Plus"
+      "iPhone9,4" : "iPhone 7 Plus"
       "iPad1,1" : "iPad"
       "iPad2,1" : "iPad 2 (Wi-Fi)"
       "iPad2,2" : "iPad 2 (GSM)"
@@ -266,6 +290,118 @@ config:
     - 'DeviceClass   : 111:"Watch"'
     - 'DeviceName    : 111:"Apple Watch"'
     - 'DeviceVersion : 111:"Apple Watch"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="Watch2,6"'
+    extract:
+    - 'DeviceBrand   : 110:"Apple"'
+    - 'DeviceClass   : 110:"Watch"'
+    - 'DeviceName    : 110:"Apple Watch"'
+    - 'DeviceVersion : 110:"Apple Watch Series 1"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Watch2,6"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Watch"'
+    - 'DeviceName    : 111:"Apple Watch"'
+    - 'DeviceVersion : 111:"Apple Watch Series 1"'
+
+- matcher:
+    require:
+    - 'agent.text="Watch2,6"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Watch"'
+    - 'DeviceName    : 111:"Apple Watch"'
+    - 'DeviceVersion : 111:"Apple Watch Series 1"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="Watch2,7"'
+    extract:
+    - 'DeviceBrand   : 110:"Apple"'
+    - 'DeviceClass   : 110:"Watch"'
+    - 'DeviceName    : 110:"Apple Watch"'
+    - 'DeviceVersion : 110:"Apple Watch Series 1"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Watch2,7"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Watch"'
+    - 'DeviceName    : 111:"Apple Watch"'
+    - 'DeviceVersion : 111:"Apple Watch Series 1"'
+
+- matcher:
+    require:
+    - 'agent.text="Watch2,7"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Watch"'
+    - 'DeviceName    : 111:"Apple Watch"'
+    - 'DeviceVersion : 111:"Apple Watch Series 1"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="Watch2,3"'
+    extract:
+    - 'DeviceBrand   : 110:"Apple"'
+    - 'DeviceClass   : 110:"Watch"'
+    - 'DeviceName    : 110:"Apple Watch"'
+    - 'DeviceVersion : 110:"Apple Watch Series 2"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Watch2,3"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Watch"'
+    - 'DeviceName    : 111:"Apple Watch"'
+    - 'DeviceVersion : 111:"Apple Watch Series 2"'
+
+- matcher:
+    require:
+    - 'agent.text="Watch2,3"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Watch"'
+    - 'DeviceName    : 111:"Apple Watch"'
+    - 'DeviceVersion : 111:"Apple Watch Series 2"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="Watch2,4"'
+    extract:
+    - 'DeviceBrand   : 110:"Apple"'
+    - 'DeviceClass   : 110:"Watch"'
+    - 'DeviceName    : 110:"Apple Watch"'
+    - 'DeviceVersion : 110:"Apple Watch Series 2"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Watch2,4"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Watch"'
+    - 'DeviceName    : 111:"Apple Watch"'
+    - 'DeviceVersion : 111:"Apple Watch Series 2"'
+
+- matcher:
+    require:
+    - 'agent.text="Watch2,4"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Watch"'
+    - 'DeviceName    : 111:"Apple Watch"'
+    - 'DeviceVersion : 111:"Apple Watch Series 2"'
 
 
 - matcher:
@@ -770,6 +906,118 @@ config:
     - 'DeviceClass   : 111:"Phone"'
     - 'DeviceName    : 111:"iPhone"'
     - 'DeviceVersion : 111:"iPhone SE"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="iPhone9,1"'
+    extract:
+    - 'DeviceBrand   : 110:"Apple"'
+    - 'DeviceClass   : 110:"Phone"'
+    - 'DeviceName    : 110:"iPhone"'
+    - 'DeviceVersion : 110:"iPhone 7"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="iPhone9,1"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Phone"'
+    - 'DeviceName    : 111:"iPhone"'
+    - 'DeviceVersion : 111:"iPhone 7"'
+
+- matcher:
+    require:
+    - 'agent.text="iPhone9,1"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Phone"'
+    - 'DeviceName    : 111:"iPhone"'
+    - 'DeviceVersion : 111:"iPhone 7"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="iPhone9,3"'
+    extract:
+    - 'DeviceBrand   : 110:"Apple"'
+    - 'DeviceClass   : 110:"Phone"'
+    - 'DeviceName    : 110:"iPhone"'
+    - 'DeviceVersion : 110:"iPhone 7"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="iPhone9,3"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Phone"'
+    - 'DeviceName    : 111:"iPhone"'
+    - 'DeviceVersion : 111:"iPhone 7"'
+
+- matcher:
+    require:
+    - 'agent.text="iPhone9,3"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Phone"'
+    - 'DeviceName    : 111:"iPhone"'
+    - 'DeviceVersion : 111:"iPhone 7"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="iPhone9,2"'
+    extract:
+    - 'DeviceBrand   : 110:"Apple"'
+    - 'DeviceClass   : 110:"Phone"'
+    - 'DeviceName    : 110:"iPhone"'
+    - 'DeviceVersion : 110:"iPhone 7 Plus"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="iPhone9,2"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Phone"'
+    - 'DeviceName    : 111:"iPhone"'
+    - 'DeviceVersion : 111:"iPhone 7 Plus"'
+
+- matcher:
+    require:
+    - 'agent.text="iPhone9,2"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Phone"'
+    - 'DeviceName    : 111:"iPhone"'
+    - 'DeviceVersion : 111:"iPhone 7 Plus"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="iPhone9,4"'
+    extract:
+    - 'DeviceBrand   : 110:"Apple"'
+    - 'DeviceClass   : 110:"Phone"'
+    - 'DeviceName    : 110:"iPhone"'
+    - 'DeviceVersion : 110:"iPhone 7 Plus"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="iPhone9,4"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Phone"'
+    - 'DeviceName    : 111:"iPhone"'
+    - 'DeviceVersion : 111:"iPhone 7 Plus"'
+
+- matcher:
+    require:
+    - 'agent.text="iPhone9,4"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Phone"'
+    - 'DeviceName    : 111:"iPhone"'
+    - 'DeviceVersion : 111:"iPhone 7 Plus"'
 
 
 - matcher:
