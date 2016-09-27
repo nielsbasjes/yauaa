@@ -68,10 +68,37 @@ SPACE :       (' '|'\t'|'+') -> skip;
 USERAGENT1   : '-'*[Uu][Ss][Ee][Rr]'-'*[Aa][Gg][Ee][Nn][Tt]' '*(COLON|EQUALS|CURLYBRACEOPEN)' '* -> skip;
 USERAGENT2   : '\''[Uu][Ss][Ee][Rr]'-'*[Aa][Gg][Ee][Nn][Tt]'\'' COLON -> skip;
 
-EMAIL       :        [a-zA-Z0-9]+
-                       ('@' | ' '+ 'at'  ' '+ | ' '* '[' 'at'  ']' ' '*) [a-zA-Z0-9\-]+
-                     ( ('.' | ' '+ 'dot' ' '+ | ' '* '[' 'dot' ']' ' '*) [a-zA-Z0-9]+   )*
-                     ( ('.' | ' '+ 'dot' ' '+ | ' '* '[' 'dot' ']' ' '*) [a-zA-Z]+      ); // No tld has numbers in it
+fragment EMailLetter
+    : [a-zA-Z0-9\-\+\_]
+    ;
+
+fragment EMailWord
+    : ( EMailLetter +
+        | ' dash '
+      )+
+    ;
+
+fragment EMailAT
+    : '@'
+    | ' '+ 'at' ' '+
+    | ' '* '[at]' ' '*
+    | '\\\\at' '\\\\'?
+    | '[\\xc3\\xa07]' // BuiBui-Bot/1.0 (3m4il: buibui[dot]bot[\xc3\xa07]moquadv[dot]com)
+    ;
+
+fragment EMailDOT
+    : '.'
+    | ' '+ 'dot' ' '+
+    | ' '* '[dot]' ' '*
+    | '\\\\dot' '\\\\'?
+    ;
+
+fragment EMailTLD
+    :  [a-zA-Z]+  // No tld has numbers in it
+    ;
+
+EMAIL       :        (EMailWord EMailDOT?)+ EMailAT EMailWord ( EMailDOT EMailWord )* EMailDOT EMailTLD;
+
 CURLYBRACEOPEN :     '{'                 ;
 CURLYBRACECLOSE:     '}'                 ;
 BRACEOPEN   :        '('                 ;
@@ -338,11 +365,10 @@ commentEntry
 productNameKeyValue
     :  key=keyName
        (
-         (
-           (COLON|EQUALS)+
-           ( uuId | siteUrl | emailAddress | multipleWords | base64 | keyValueProductVersionName )
-         )+
-       );
+         (COLON|EQUALS)+
+         ( uuId | siteUrl | emailAddress | multipleWords | base64 | keyValueProductVersionName )
+       )+
+    ;
 
 productNameNoVersion
     :  productName SLASH
@@ -357,13 +383,9 @@ keyValueProductVersionName
 keyValue
     : key=keyName
       (
-        (
-          (
-            (COLON|EQUALS)+
-            ( uuId | siteUrl | emailAddress | multipleWords | base64 | keyValueVersionName )
-          )+
-        )
-      )
+        (COLON|EQUALS)+
+        ( uuId | siteUrl | emailAddress | multipleWords | base64 | keyValueVersionName )
+      )+
     ;
 
 keyWithoutValue

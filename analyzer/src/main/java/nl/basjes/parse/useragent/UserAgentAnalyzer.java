@@ -524,6 +524,15 @@ config:
             Normalize.brand(deviceBrand.getValue()),
             deviceBrand.getConfidence() + 1);
 
+        // The email address is a mess
+        UserAgent.AgentField email = userAgent.get("AgentInformationEmail");
+        if (email != null && email.getConfidence() >= 0) {
+            userAgent.set(
+                "AgentInformationEmail",
+                Normalize.email(email.getValue()),
+                email.getConfidence() + 1);
+        }
+
         return userAgent;
     }
 
