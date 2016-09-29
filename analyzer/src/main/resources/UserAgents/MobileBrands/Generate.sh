@@ -50,7 +50,9 @@ do
     echo "      \"${prefix}\" : \"${brand}\""
 done
 
-echo ""
+echo "
+# ===================================================================================================
+"
 
 cat "MobileBrands.csv" | fgrep -v '#' | grep . | while read line ; \
 do
@@ -149,6 +151,38 @@ echo "
     extract:
     - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :    1:\"${brand}\"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]=\"Build\"^.version{\"${brand}\"'
+    extract:
+    - 'DeviceBrand                 :   94:\"${brand}\"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]=\"Build\"^.version{\"${brand}\"'
+    extract:
+    - 'DeviceBrand                 :   93:\"${brand}\"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]=\"Build\"^.version{\"${brand}\"'
+    extract:
+    - 'DeviceBrand                 :   92:\"${brand}\"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]=\"Build\"^.version{\"${brand}\"'
+    extract:
+    - 'DeviceBrand                 :   91:\"${brand}\"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]=\"Build\"^.version{\"${brand}\"'
+    extract:
+    - 'DeviceBrand                 :   90:\"${brand}\"'
+
+# ===================================================================================================
 
 "
 done
