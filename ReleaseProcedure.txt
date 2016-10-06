@@ -16,6 +16,7 @@ NEXTVERSION=0.7
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION}
 
 # Update the version number in all of the examples in the README*md files
+sed -i "s@<version>[0-9\.]*</version>@<version>${RELEASEVERSION}</version>@g" *md
 vim README*.md
 
 git status

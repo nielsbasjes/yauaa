@@ -8,7 +8,7 @@ If you use a maven based project simply add this dependency
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
       <classifier>udf</classifier>
-      <version>0.7</version>
+      <version>0.8</version>
     </dependency>
 
 ## Building
