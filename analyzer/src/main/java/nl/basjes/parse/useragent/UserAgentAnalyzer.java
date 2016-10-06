@@ -68,7 +68,7 @@ import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 public class UserAgentAnalyzer extends Analyzer {
 
     private static final int INFORM_ACTIONS_HASHMAP_SIZE = 200000;
-    private static final int PARSE_CACHE_SIZE = 10000;
+    private static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
     private List<Matcher> allMatchers;
@@ -85,7 +85,7 @@ public class UserAgentAnalyzer extends Analyzer {
 
     private Yaml yaml;
 
-    private final LRUMap<String, UserAgent> parseCache = new LRUMap<>(PARSE_CACHE_SIZE);
+    private LRUMap<String, UserAgent> parseCache = new LRUMap<>(DEFAULT_PARSE_CACHE_SIZE);
 
     public UserAgentAnalyzer() {
         loadResources("classpath*:UserAgents/**/*.yaml");
@@ -423,14 +423,33 @@ config:
         return cachedParse(userAgent);
     }
 
-    private boolean cachingEnabled = true;
-
     public void disableCaching() {
-        cachingEnabled = false;
+        setCacheSize(0);
+
+    }
+
+    /**
+     * Sets the new size of the parsing cache.
+     * Note that this will also wipe the existing cache.
+     * @param newCacheSize The size of the new LRU cache. As size of 0 will disable caching.
+     */
+    public void setCacheSize(int newCacheSize) {
+        if (newCacheSize >= 1) {
+            parseCache = new LRUMap<>(newCacheSize);
+        } else {
+            parseCache = null;
+        }
+    }
+
+    public int getCacheSize() {
+        if (parseCache == null) {
+            return 0;
+        }
+        return parseCache.maxSize();
     }
 
     private UserAgent cachedParse(UserAgent userAgent) {
-        if (!cachingEnabled) {
+        if (parseCache == null) {
             return nonCachedParse(userAgent);
         }
 
