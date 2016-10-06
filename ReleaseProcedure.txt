@@ -26,16 +26,18 @@ git tag -a v${RELEASEVERSION} -m"Tag Version ${RELEASEVERSION}"
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${NEXTVERSION}-SNAPSHOT
 git commit -m"Start development for ${NEXTVERSION}" -a
 
-git push
-git push origin v${RELEASEVERSION}
-
-
 # These two profiles are defined in ~/.m2/settings.xml
 git checkout v${RELEASEVERSION}
-mvn clean deploy -Pplatfora -Prelease -Pdeploy-local
 
-VERIFY If this all looks good
+
+#mvn clean deploy -Pplatfora -Prelease -Pdeploy-local
+#VERIFY If this all looks good
 
 mvn clean deploy -Pplatfora -Prelease -Pdeploy-sonatype
 
 git checkout master
+
+
+git push
+git push origin v${RELEASEVERSION}
+
