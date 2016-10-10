@@ -43,8 +43,8 @@ echo "    name: 'AppleDeviceClass'"
 echo "    map:"
 echo "      \"iPhone\"     : \"Phone\""
 echo "      \"iPad\"       : \"Tablet\""
-echo "      \"iPod\"       : \"Tablet\""
-echo "      \"iPod touch\" : \"Tablet\""
+echo "      \"iPod\"       : \"Phone\""
+echo "      \"iPod touch\" : \"Phone\""
 
 cat "AppleTypes.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
 do
