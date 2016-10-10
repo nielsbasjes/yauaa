@@ -186,11 +186,17 @@ config:
       AgentNameVersion                     : 'Silk 3.2'
       AgentNameVersionMajor                : 'Silk 3'
 
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry[1-2]="Nintendo 3DS"'
+    extract:
+    - 'DeviceClass           :   2100:"Handheld Game Console"'
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Nintendo 3DS; U; ; nl) Version/1.7567.EU'
     expected:
-      DeviceClass                          : 'Game Console'
+      DeviceClass                          : 'Handheld Game Console'
       DeviceName                           : 'Nintendo 3DS'
       DeviceBrand                          : 'Nintendo'
       OperatingSystemClass                 : 'Game Console'
@@ -305,7 +311,7 @@ config:
     require:
     - 'agent.(1)product.(1)comments.(1)entry="New Nintendo 3DS like iPhone"'
     extract:
-    - 'DeviceClass                  : 2014:"Game Console"'
+    - 'DeviceClass                  : 2014:"Handheld Game Console"'
     - 'DeviceBrand                  : 2014:"Nintendo"'
     - 'DeviceName                   : 2014:"New Nintendo 3DS"'
 
@@ -322,7 +328,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (New Nintendo 3DS like iPhone) AppleWebKit/536.30 (KHTML, like Gecko) NX/3.0.0.5.19 Mobile NintendoBrowser/1.6.10147.EU'
     expected:
-      DeviceClass                          : 'Game Console'
+      DeviceClass                          : 'Handheld Game Console'
       DeviceName                           : 'New Nintendo 3DS'
       DeviceBrand                          : 'Nintendo'
       OperatingSystemClass                 : 'Game Console'
