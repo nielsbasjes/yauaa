@@ -37,67 +37,48 @@ config:
       "Trident/7.0": "11.0"
 
 - lookup:
-    name: 'TridentLayoutEngineName'
-    map:
-      "Trident/4.0": "Trident"
-      "Trident/5.0": "Trident"
-      "Trident/6.0": "Trident"
-      "Trident/7.0": "Trident"
-
-- lookup:
-    name: 'TridentLayoutEngineVersion'
-    map:
-      "Trident/4.0": "4.0"
-      "Trident/5.0": "5.0"
-      "Trident/6.0": "6.0"
-      "Trident/7.0": "7.0"
-
-- lookup:
     name: 'MSIELayoutEngineName'
     map:
-      "MSIE 1.0": "Internet Explorer"
-      "MSIE 2.0": "Internet Explorer"
-      "MSIE 3.0": "Internet Explorer"
-      "MSIE 4.0": "Internet Explorer"
-      "MSIE 5.0": "Internet Explorer"
-      "MSIE 6.0": "Internet Explorer"
-      "MSIE 7.0": "Internet Explorer"
-      "MSIE 7.0b": "Internet Explorer"
-      "MSIE 8.0": "Trident"
-      "MSIE 9.0": "Trident"
-      "MSIE 10.0": "Trident"
-      "MSIE 11.0": "Trident"
+      "8": "Trident"
+      "9": "Trident"
+      "10": "Trident"
+      "11": "Trident"
 
 - lookup:
     name: 'MSIELayoutEngineVersion'
     map:
-      "MSIE 1.0" : "1.0"
-      "MSIE 2.0" : "2.0"
-      "MSIE 3.0" : "3.0"
-      "MSIE 4.0" : "4.0"
-      "MSIE 5.0" : "5.0"
-      "MSIE 6.0" : "6.0"
-      "MSIE 7.0" : "7.0"
-      "MSIE 7.0b": "7.0b"
-      "MSIE 8.0" : "4.0"
-      "MSIE 9.0" : "5.0"
-      "MSIE 10.0": "6.0"
-      "MSIE 11.0": "7.0"
+      "8" : "4.0"
+      "9" : "5.0"
+      "10": "6.0"
+      "11": "7.0"
 
 - matcher:
     require:
     - 'agent.product.comments.entry.product.name="MSIEMobile"'
     extract:
-    - 'LayoutEngineClass     :   2011:"Browser"'
-    - 'LayoutEngineName      :   2011:"Internet Explorer Mobile"'
-    - 'LayoutEngineVersion   :   2011:agent.product.comments.entry.product.name="MSIEMobile"^.version'
+    - 'LayoutEngineClass         : 2011:"Browser"'
+    - 'LayoutEngineName          : 2011:"Internet Explorer Mobile"'
+    - 'LayoutEngineVersion       : 2011:agent.product.comments.entry.product.name="MSIEMobile"^.version'
+    - 'AgentClass                : 2003:"Browser"'
+    - 'AgentName                 : 2003:"Internet Explorer"'
+    - 'AgentVersion              : 2003:agent.product.comments.entry.product.name="MSIEMobile"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.product.name="MSIE"'
+    extract:
+    - 'LayoutEngineClass         : 2002:"Browser"'
+    - 'LayoutEngineName          : 2002:"Internet Explorer"'
+    - 'LayoutEngineVersion       : 2002:agent.product.comments.entry.product.name="MSIE"^.version'
+    - 'AgentClass                : 2002:"Browser"'
+    - 'AgentName                 : 2002:"Internet Explorer"'
+    - 'AgentVersion              : 2002:agent.product.comments.entry.product.name="MSIE"^.version'
 
 - matcher:
     extract:
-
     - 'LayoutEngineClass     :   2009:"Browser"'
-    - 'LayoutEngineName      :   2009:LookUp[MSIELayoutEngineName;agent.product.comments.entry.product.name="MSIE"^]'
-    - 'LayoutEngineVersion   :   2009:LookUp[MSIELayoutEngineVersion;agent.product.comments.entry.product.name="MSIE"^]'
+    - 'LayoutEngineName      :   2009:LookUp[MSIELayoutEngineName;agent.product.comments.entry.product.name="MSIE"^.version[1]]'
+    - 'LayoutEngineVersion   :   2009:LookUp[MSIELayoutEngineVersion;agent.product.comments.entry.product.name="MSIE"^.version[1]]'
 
     - 'AgentClass            :   2009:"Browser"'
     - 'AgentName             :   2009:"Internet Explorer"'
@@ -105,10 +86,9 @@ config:
 
 - matcher:
     extract:
-
     - 'LayoutEngineClass     :   2010:"Browser"'
-    - 'LayoutEngineName      :   2010:LookUp[TridentLayoutEngineName;agent.product.comments.entry.product.name="Trident"^]'
-    - 'LayoutEngineVersion   :   2010:LookUp[TridentLayoutEngineVersion;agent.product.comments.entry.product.name="Trident"^]'
+    - 'LayoutEngineName      :   2010:"Trident"'
+    - 'LayoutEngineVersion   :   2010:agent.product.comments.entry.product.name="Trident"^.version'
 
     - 'AgentClass            :   2010:"Browser"'
     - 'AgentName             :   2010:LookUp[TridentAgentName;agent.product.comments.entry.product.name="Trident"^]'
@@ -116,10 +96,9 @@ config:
 
 - matcher:
     extract:
-
     - 'LayoutEngineClass     :   2009:"Browser"'
-    - 'LayoutEngineName      :   2009:LookUp[MSIELayoutEngineName;agent.product.name="MSIE"^]'
-    - 'LayoutEngineVersion   :   2009:LookUp[MSIELayoutEngineVersion;agent.product.name="MSIE"^]'
+    - 'LayoutEngineName      :   2009:LookUp[MSIELayoutEngineName;agent.product.name="MSIE"^.version[1]]'
+    - 'LayoutEngineVersion   :   2009:LookUp[MSIELayoutEngineVersion;agent.product.name="MSIE"^.version[1]]'
 
     - 'AgentClass            :   2009:"Browser"'
     - 'AgentName             :   2009:"Internet Explorer"'
@@ -127,10 +106,9 @@ config:
 
 - matcher:
     extract:
-
     - 'LayoutEngineClass     :   2010:"Browser"'
-    - 'LayoutEngineName      :   2010:LookUp[TridentLayoutEngineName;agent.product.name="Trident"^]'
-    - 'LayoutEngineVersion   :   2010:LookUp[TridentLayoutEngineVersion;agent.product.name="Trident"^]'
+    - 'LayoutEngineName      :   2010:"Trident"'
+    - 'LayoutEngineVersion   :   2010:agent.product.name="Trident"^.version'
 
     - 'AgentClass            :   2010:"Browser"'
     - 'AgentName             :   2010:LookUp[TridentAgentName;agent.product.name="Trident"^]'

@@ -934,3 +934,108 @@ config:
       AgentNameVersion                     : 'Safari 7.1'
       AgentNameVersionMajor                : 'Safari 7'
 
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)text="Mac_68K"'
+    extract:
+    - 'DeviceClass                          : 100:"Desktop"'
+    - 'DeviceName                           : 100:"Mac"'
+    - 'DeviceBrand                          : 100:"Apple"'
+    - 'DeviceCpu                            : 100:"Motorola 68000"'
+    - 'OperatingSystemClass                 : 100:"Desktop"'
+    - 'OperatingSystemName                  : 100:"Mac OS"'
+    - 'OperatingSystemVersion               : 100:"before 10"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)text="Mac_PowerPC"'
+    extract:
+    - 'DeviceClass                          : 100:"Desktop"'
+    - 'DeviceName                           : 100:"Mac"'
+    - 'DeviceBrand                          : 100:"Apple"'
+    - 'DeviceCpu                            : 100:"PowerPC"'
+    - 'OperatingSystemClass                 : 100:"Desktop"'
+    - 'OperatingSystemName                  : 100:"Mac OS"'
+    - 'OperatingSystemVersion               : 100:"before 10"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.23; Mac_PowerPC)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Mac'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'PowerPC'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : 'before 10'
+      OperatingSystemNameVersion           : 'Mac OS before 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Internet Explorer'
+      LayoutEngineVersion                  : '5.23'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Internet Explorer 5.23'
+      LayoutEngineNameVersionMajor         : 'Internet Explorer 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '5.23'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Internet Explorer 5.23'
+      AgentNameVersionMajor                : 'Internet Explorer 5'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 4.01; AOL 4.0; Mac_68K)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Mac'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Motorola 68000'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : 'before 10'
+      OperatingSystemNameVersion           : 'Mac OS before 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Internet Explorer'
+      LayoutEngineVersion                  : '4.01'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Internet Explorer 4.01'
+      LayoutEngineNameVersionMajor         : 'Internet Explorer 4'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '4.01'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Internet Explorer 4.01'
+      AgentNameVersionMajor                : 'Internet Explorer 4'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.0; Mac_PowerPC) Opera 5.12  [en]'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Mac'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'PowerPC'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : 'before 10'
+      OperatingSystemNameVersion           : 'Mac OS before 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Presto 1'
+      LayoutEngineNameVersionMajor         : 'Presto 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '5.12'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Opera 5.12'
+      AgentNameVersionMajor                : 'Opera 5'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
