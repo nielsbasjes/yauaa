@@ -36,6 +36,12 @@ config:
     - 'AgentVersion          :  101:"??"'
 
 - matcher:
+    require:
+    - 'agent.product.name~"spider"@~"mobile"'
+    extract:
+    - 'DeviceClass           :  102:"Robot Mobile"'
+
+- matcher:
     extract:
     - 'LayoutEngineVersion   :  102:agent.product.name~"spider"^.(1)version'
     - 'AgentVersion          :  102:agent.product.name~"spider"^.(1)version'
@@ -54,6 +60,12 @@ config:
     - 'AgentClass            :  101:"Robot"'
     - 'AgentName             :  101:agent.product.name~"crawl"'
     - 'AgentVersion          :  101:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name~"spider"@~"mobile"'
+    extract:
+    - 'DeviceClass           :  102:"Robot Mobile"'
 
 - matcher:
     extract:
@@ -76,6 +88,12 @@ config:
     - 'AgentVersion          :  101:"??"'
 
 - matcher:
+    require:
+    - 'agent.product.name~"bot"@~"mobile"'
+    extract:
+    - 'DeviceClass           :  102:"Robot Mobile"'
+
+- matcher:
     extract:
     - 'LayoutEngineVersion   :  102:agent.product.name~"bot"^.(1)version'
     - 'AgentVersion          :  102:agent.product.name~"bot"^.(1)version'
@@ -94,6 +112,12 @@ config:
     - 'AgentClass            :  101:"Robot"'
     - 'AgentName             :  101:agent.product.name~"scan"'
     - 'AgentVersion          :  101:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name~"scan"@~"mobile"'
+    extract:
+    - 'DeviceClass           :  102:"Robot Mobile"'
 
 - matcher:
     extract:
@@ -1204,6 +1228,13 @@ config:
     - 'AgentName              :   100:agent.(1)product.(1)comments.(2)entry.(1)keyvalue.(2)text[1]="s"@[2]'
     - 'AgentVersion           :   100:"??"'
 
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name~"bot"'
+    - 'agent.(1)product.(1)name~"Google"'
+    extract:
+    - 'DeviceBrand            :   200:"Google"'
+
 #Google AppEngine apps
 - test:
     input:
@@ -1507,3 +1538,28 @@ config:
       AgentNameVersion                     : 'Yahoo-MMAudVid 1.0'
       AgentNameVersionMajor                : 'Yahoo-MMAudVid 1'
       AgentInformationEmail                : 'mms-mmaudvidcrawler-support@yahoo-inc.com'
+
+- test:
+    input:
+      user_agent_string: 'AdsBot-Google-Mobile-Apps (compatible; Mediapartners-Google/2.1;+http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'AdsBot-Google-Mobile-Apps'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'AdsBot-Google-Mobile-Apps'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AdsBot-Google-Mobile-Apps ??'
+      LayoutEngineNameVersionMajor         : 'AdsBot-Google-Mobile-Apps ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'AdsBot-Google-Mobile-Apps'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'AdsBot-Google-Mobile-Apps ??'
+      AgentNameVersionMajor                : 'AdsBot-Google-Mobile-Apps ??'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
