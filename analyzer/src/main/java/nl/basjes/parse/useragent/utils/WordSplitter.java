@@ -34,6 +34,7 @@ public final class WordSplitter {
             case '\\':
             case '+':
             case '-':
+            case '_':
             case '<':
             case '>':
             case '~':

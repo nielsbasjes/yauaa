@@ -172,6 +172,18 @@ config:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
     extract:
+    - 'OperatingSystemVersionBuild :  77:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    extract:
+    - 'OperatingSystemVersionBuild :  77:agent.(1-2)product.(1)comments.entry.product.name[6]="Build"^.version'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    extract:
     - 'DeviceName                  :  75:agent.(1-2)product.(1)comments.entry[2]="Build"@[-1]'
 
 - matcher:

@@ -347,3 +347,40 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'NintendoBrowser 1.6.10147.EU'
       AgentNameVersionMajor                : 'NintendoBrowser 1'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name="PSP"'
+    - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)comments.(1)entry.(1)text="PlayStation Portable"'
+    extract:
+    - 'DeviceClass           :   100:"Handheld Game Console"'
+    - 'DeviceBrand           :   100:"Sony"'
+    - 'DeviceName            :   100:"PlayStation Portable"'
+
+#http://console.maban.co.uk/
+#Sony PSP-Go
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (PSP (PlayStation Portable); 2.00)'
+    expected:
+      DeviceClass                          : 'Handheld Game Console'
+      DeviceName                           : 'PlayStation Portable'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '4.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Mozilla 4.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 4'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Netscape 4.0'
+      AgentNameVersionMajor                : 'Netscape 4'
+
+
+

@@ -41,6 +41,22 @@ echo "config:"
 echo "
 - matcher:
     extract:
+    - 'DeviceCpu : 115:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[1-2]]'
+- matcher:
+    extract:
+    - 'DeviceCpu : 114:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[2-3]]'
+- matcher:
+    extract:
+    - 'DeviceCpu : 113:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[3-4]]'
+- matcher:
+    extract:
+    - 'DeviceCpu : 112:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[4-5]]'
+- matcher:
+    extract:
+    - 'DeviceCpu : 111:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[5-6]]'
+
+- matcher:
+    extract:
     - 'DeviceCpu : 105:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[1]]'
 - matcher:
     extract:
@@ -56,7 +72,7 @@ echo "
     - 'DeviceCpu : 101:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[5]]'
 - matcher:
     extract:
-    - 'DeviceCpu : 101:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry.product.version]'
+    - 'DeviceCpu : 106:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry.product.version]'
 "
 
 echo "- lookup:"

@@ -259,4 +259,127 @@ config:
       AgentNameVersionMajor                : 'Chrome 30'
 
 # =========================================================================================================
+# GoogleTV
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   100:"Set-top box"'
+    - 'OperatingSystemClass  :   100:"Embedded"'
+    - 'OperatingSystemName   :   100:agent.(1)product.(1)comments.entry.(1)product.(1)name="GoogleTV"'
+    - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.(1)product.(1)name="GoogleTV"^.version'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; GoogleTV 3.2; hisense_gx1200v Build/MASTER) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Safari/534.24'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'hisense_gx1200v'
+      DeviceBrand                          : 'Hisense'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'GoogleTV'
+      OperatingSystemVersion               : '3.2'
+      OperatingSystemNameVersion           : 'GoogleTV 3.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.24'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.24'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '11.0.696.77'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Chrome 11.0.696.77'
+      AgentNameVersionMajor                : 'Chrome 11'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; GoogleTV 3.2; GTV100 Build/MASTER) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Safari/534.24'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'GTV100'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'GoogleTV'
+      OperatingSystemVersion               : '3.2'
+      OperatingSystemNameVersion           : 'GoogleTV 3.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.24'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.24'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '11.0.696.77'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Chrome 11.0.696.77'
+      AgentNameVersionMajor                : 'Chrome 11'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; GoogleTV 3.2; NSZ-GS7/GX70 Build/MASTER) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Safari/534.24'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'NSZ-GS7/GX70'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'GoogleTV'
+      OperatingSystemVersion               : '3.2'
+      OperatingSystemNameVersion           : 'GoogleTV 3.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.24'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.24'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '11.0.696.77'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Chrome 11.0.696.77'
+      AgentNameVersionMajor                : 'Chrome 11'
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :   100:"Set-top box"'
+    - 'DeviceBrand                         :    10:"Unknown"'
+    - 'DeviceName                          :    10:"Unknown"'
+    - 'OperatingSystemClass                :   100:"Embedded"'
+    - 'OperatingSystemName                 :   100:agent.product.(1)name="GoogleTV"'
+    - 'OperatingSystemVersion              :   100:"??"'
+    - 'OperatingSystemVersionBuild         :   100:agent.product.(1)name="GoogleTV"^.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.127 Large Screen Safari/533.4 GoogleTV/163491'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'GoogleTV'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'GoogleTV ??'
+      OperatingSystemVersionBuild          : '163491'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.4'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '5.0.375.127'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Chrome 5.0.375.127'
+      AgentNameVersionMajor                : 'Chrome 5'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
 

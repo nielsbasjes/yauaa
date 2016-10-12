@@ -136,21 +136,21 @@ echo "
     - 'agent.product.name{\"${prefix}\"'
     extract:
     - 'DeviceClass                 :    1:\"Mobile\"'
-    - 'DeviceBrand                 :    3:\"${brand}\"'
+    - 'DeviceBrand                 :  103:\"${brand}\"'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"'
     extract:
     - 'DeviceClass                 :    1:\"Mobile\"'
-    - 'DeviceBrand                 :    2:\"${brand}\"'
+    - 'DeviceBrand                 :  102:\"${brand}\"'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.text{\"${prefix}\"'
     extract:
     - 'DeviceClass                 :    1:\"Mobile\"'
-    - 'DeviceBrand                 :    1:\"${brand}\"'
+    - 'DeviceBrand                 :  101:\"${brand}\"'
 
 - matcher:
     require:
