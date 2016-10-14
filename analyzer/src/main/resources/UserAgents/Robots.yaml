@@ -293,6 +293,61 @@ config:
     - 'AgentVersion          :  3020:"AdsBot-Google"'
 
 - matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="AdsBot-Google"'
+    extract:
+    - '__Set_ALL_Fields__    :  3019:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass           :  3020:"Robot"'
+    - 'DeviceBrand           :  3020:"Google"'
+    - 'DeviceName            :  3020:"Google"'
+    - 'OperatingSystemClass  :  3020:"Cloud"'
+    - 'OperatingSystemName   :  3020:"Google"'
+    - 'OperatingSystemVersion:  3020:"Google"'
+    - 'LayoutEngineClass     :  3020:"Robot"'
+    - 'LayoutEngineName      :  3020:"Googlebot"'
+    - 'LayoutEngineVersion   :  3020:"Googlebot"'
+    - 'AgentClass            :  3020:"Robot"'
+    - 'AgentName             :  3020:"Googlebot"'
+    - 'AgentVersion          :  3020:"AdsBot-Google"'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="AdsBot-Google-Mobile"'
+    extract:
+    - '__Set_ALL_Fields__    :  3019:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass           :  3020:"Robot Mobile"'
+    - 'DeviceBrand           :  3020:"Google"'
+    - 'DeviceName            :  3020:"Google"'
+    - 'OperatingSystemClass  :  3020:"Cloud"'
+    - 'OperatingSystemName   :  3020:"Google"'
+    - 'OperatingSystemVersion:  3020:"Google"'
+    - 'LayoutEngineClass     :  3020:"Robot"'
+    - 'LayoutEngineName      :  3020:"Googlebot"'
+    - 'LayoutEngineVersion   :  3020:"Googlebot"'
+    - 'AgentClass            :  3020:"Robot"'
+    - 'AgentName             :  3020:"Googlebot"'
+    - 'AgentVersion          :  3020:"AdsBot-Google-Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="AdsBot-Google-Mobile"'
+    extract:
+    - '__Set_ALL_Fields__    :  3019:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass           :  3020:"Robot Mobile"'
+    - 'DeviceBrand           :  3020:"Google"'
+    - 'DeviceName            :  3020:"Google"'
+    - 'OperatingSystemClass  :  3020:"Cloud"'
+    - 'OperatingSystemName   :  3020:"Google"'
+    - 'OperatingSystemVersion:  3020:"Google"'
+    - 'LayoutEngineClass     :  3020:"Robot"'
+    - 'LayoutEngineName      :  3020:"Googlebot"'
+    - 'LayoutEngineVersion   :  3020:"Googlebot"'
+    - 'AgentClass            :  3020:"Robot"'
+    - 'AgentName             :  3020:"Googlebot"'
+    - 'AgentVersion          :  3020:"AdsBot-Google-Mobile"'
+
+- matcher:
     extract:
     - '__Set_ALL_Fields__    : 2999:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           : 3000:"Robot"'
@@ -604,6 +659,31 @@ config:
       AgentNameVersionMajor                : 'Googlebot 2'
       AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
 # ------------------------------------------------------------
 
 #Google Mobile AdSense	Mediapartners-Google
@@ -641,6 +721,62 @@ config:
       AgentNameVersion                     : 'Googlebot AdsBot-Google'
       AgentNameVersionMajor                : 'Googlebot AdsBot-Google'
       AgentInformationUrl                  : 'http://www.google.com/adsbot.html'
+
+# https://support.google.com/adwords/answer/2404197
+# Quote:  Currently, we use two HTTP User-Agent header to identify AdWords mobile visits:
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0; SM-G920A) AppleWebKit (KHTML, like Gecko) Chrome Mobile Safari (compatible; AdsBot-Google-Mobile; +http://www.google.com/mobile/adsbot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : 'AdsBot-Google-Mobile'
+      AgentVersionMajor                    : 'AdsBot-Google-Mobile'
+      AgentNameVersion                     : 'Googlebot AdsBot-Google-Mobile'
+      AgentNameVersionMajor                : 'Googlebot AdsBot-Google-Mobile'
+      AgentInformationUrl                  : 'http://www.google.com/mobile/adsbot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 (compatible; AdsBot-Google-Mobile; +http://www.google.com/mobile/adsbot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : 'AdsBot-Google-Mobile'
+      AgentVersionMajor                    : 'AdsBot-Google-Mobile'
+      AgentNameVersion                     : 'Googlebot AdsBot-Google-Mobile'
+      AgentNameVersionMajor                : 'Googlebot AdsBot-Google-Mobile'
+      AgentInformationUrl                  : 'http://www.google.com/mobile/adsbot.html'
+
+
 
 # ------------------------------------------------------------
 
