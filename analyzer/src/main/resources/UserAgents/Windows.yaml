@@ -117,30 +117,6 @@ config:
 
 - test:
     input:
-      user_agent_string:  'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows 7'
-      OperatingSystemNameVersion           : 'Windows 7'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Trident'
-      LayoutEngineVersion                  : '7.0'
-      LayoutEngineVersionMajor             : '7'
-      LayoutEngineNameVersion              : 'Trident 7.0'
-      LayoutEngineNameVersionMajor         : 'Trident 7'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Internet Explorer'
-      AgentVersion                         : '11.0'
-      AgentVersionMajor                    : '11'
-      AgentNameVersion                     : 'Internet Explorer 11.0'
-      AgentNameVersionMajor                : 'Internet Explorer 11'
-
-- test:
-    input:
       user_agent_string:  'Mozilla/5.0 (Win 9x 4.90; WOW64; Trident/7.0; rv:11.0) like Gecko'
     expected:
       DeviceClass                          : 'Desktop'

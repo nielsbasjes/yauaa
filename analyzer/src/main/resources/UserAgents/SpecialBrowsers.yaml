@@ -89,33 +89,6 @@ config:
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; rv:1.7.3) Gecko/20040919 Firefox/0.10'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Linux Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel i686'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Linux'
-      OperatingSystemVersion               : 'Intel i686'
-      OperatingSystemNameVersion           : 'Linux Intel i686'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '1.7.3'
-      LayoutEngineVersionMajor             : '1'
-      LayoutEngineNameVersion              : 'Gecko 1.7.3'
-      LayoutEngineNameVersionMajor         : 'Gecko 1'
-      LayoutEngineBuild                    : '20040919'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '0.10'
-      AgentVersionMajor                    : '0'
-      AgentNameVersion                     : 'Firefox 0.10'
-      AgentNameVersionMajor                : 'Firefox 0'
-      AgentSecurity                        : 'Strong security'
-
-- test:
-    input:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; brip1; RainBird 1.01/HT; Crazy Browser 1.0.5; .NET CLR 1.1.4322)'
     expected:
       DeviceClass                          : 'Desktop'
@@ -601,12 +574,6 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'python-requests 2.1.0'
       AgentNameVersionMajor                : 'python-requests 2'
-
-#
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 compatible; MSIE 9.0; Windows NT 4.1 Chrome/31.0.1229.79'
-#      expected:
 
 #DoCoMo	1.0	DoCoMo/1.0/D503iS/c10
 #DoCoMo	1.0	DoCoMo/1.0/P502i/c10 (Google CHTML Proxy/1.0)

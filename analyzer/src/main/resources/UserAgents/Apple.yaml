@@ -714,35 +714,6 @@ config:
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.2) Gecko/20040825 Camino/0.8.1'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Macintosh'
-      DeviceBrand                          : 'Apple'
-      DeviceCpu                            : 'PowerPC'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Mac OS X'
-      OperatingSystemVersion               : '10.?'
-      OperatingSystemNameVersion           : 'Mac OS X 10.?'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '1.7.2'
-      LayoutEngineVersionMajor             : '1'
-      LayoutEngineNameVersion              : 'Gecko 1.7.2'
-      LayoutEngineNameVersionMajor         : 'Gecko 1'
-      LayoutEngineBuild                    : '20040825'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Camino'
-      AgentVersion                         : '0.8.1'
-      AgentVersionMajor                    : '0'
-      AgentNameVersion                     : 'Camino 0.8.1'
-      AgentNameVersionMajor                : 'Camino 0'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      AgentSecurity                        : 'Strong security'
-
-- test:
-    input:
       user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 8_1_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko)'
     expected:
       DeviceClass                          : 'Tablet'

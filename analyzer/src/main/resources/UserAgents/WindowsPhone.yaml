@@ -287,30 +287,6 @@ config:
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; Acer; Allegro)'
-    expected:
-      DeviceClass                          : 'Phone'
-      DeviceName                           : 'Allegro'
-      DeviceBrand                          : 'Acer'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Windows Phone'
-      OperatingSystemVersion               : '7.5'
-      OperatingSystemNameVersion           : 'Windows Phone 7.5'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Trident'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Trident 5.0'
-      LayoutEngineNameVersionMajor         : 'Trident 5'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'IE Mobile'
-      AgentVersion                         : '9.0'
-      AgentVersionMajor                    : '9'
-      AgentNameVersion                     : 'IE Mobile 9.0'
-      AgentNameVersionMajor                : 'IE Mobile 9'
-
-- test:
-    input:
       user_agent_string: 'Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.0; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 930; vodafone NL) like iPhone OS 7_0_3 Mac OS X AppleWebKit/537 (KHTML, like Gecko) Mobile Safari/537'
     expected:
       DeviceClass                          : 'Phone'
