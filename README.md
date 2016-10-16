@@ -16,7 +16,7 @@ The actual "Browser" that was used.
 In some cases we have additional fields to describe the agent. These fields are among others specific fields for the Facebook and Kobo apps,
 and fields to describe deliberate useragent manipulation situations (Anonymization, Hackers, etc.)
 
-Note that **not all fields are always available**. So if you look at a specific field you will in general find null values and "Unknown" in there aswell.
+Note that **not all fields are always available**. So if you look at a specific field you will in general find null values and "Unknown" in there as well.
 
 There are as little as possible lookup tables included the system really tries to analyze the useragent and extract values from it.
 The aim of this approach is to have a system that can classify as much traffic as possible yet require as little as possible maintenance
@@ -92,7 +92,7 @@ So if you need it in a multi threaded situation you either need to synchronize u
 
 # User Defined Functions
 Several external computation systems support the concept of a User Defined Function (UDF).
-A UDF is simply a way of making functionality (in this can the calculation of the Financial reporting periods
+A UDF is simply a way of making functionality (in this case the analysis of useragents)
 available in such a system.
 
 For two such systems Apache Pig and Platfora (both are used within bol.com (where I work)) we have written such
@@ -100,6 +100,33 @@ a UDF which are both part of this project.
 
 * [Apache Pig](README-Pig.md)
 * [Platfora](README-Platfora.md)
+
+
+Values explained
+================
+
+DeviceClass
+-----------
+
+| Value | Meaning |
+| --- | --- |
+| Desktop               | The device is assessed as a Desktop/Laptop class device |
+| Anonymized            | In some cases the useragent has been altered by anonimization software |
+| Mobile                | A device that is mobile yet we do not know if it is a eReader/Tablet/Phone or Watch |
+| Tablet                | A mobile device with a rather large screen (common > 7") |
+| Phone                 | A mobile device with a small screen (common < 7") |
+| Watch                 | A mobile device with a tiny screen (common < 2"). Normally these are an additional screen for a phone/tablet type device. |
+| Virtual Reality       | A mobile device with a VR capabilities |
+| eReader               | Similar to a Tablet yet in most cases with an eInk screen |
+| Set-top box           | A connected device that allows interacting via a TV sized screen |
+| TV                    | Similar to Set-top box yet here this is built into the TV |
+| Game Console          | 'Fixed' game systems like the PlayStation and XBox |
+| Handheld Game Console | 'Mobile' game systems like the 3DS |
+| Robot                 | Robots that visit the site |
+| Robot Mobile          | Robots that visit the site indicating they want to be seen as a Mobile visitor |
+| Spy                   | Robots that visit the site pretending they are robots like google, but they are not |
+| Hacker                | In case scripting is detected in the useragent string, also fallback in really broken situations |
+| Unknown               | We really don't know |
 
 Parsing Useragents
 ==================
