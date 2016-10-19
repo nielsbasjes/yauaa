@@ -26,7 +26,7 @@ Example output
 ==============
 As an example the useragent of my phone:
 
-    Mozilla/5.0 (Linux; Android 6.0.1; Nexus 6 Build/MOB30M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.81 Mobile Safari/537.36
+    Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
 
 is converted into this set of fields:
 
@@ -36,21 +36,21 @@ is converted into this set of fields:
 |  **Device**Name                       | 'Nexus 6'              |
 |  **OperatingSystem**Class             | 'Mobile'               |
 |  **OperatingSystem**Name              | 'Android'              |
-|  **OperatingSystem**Version           | '6.0.1'                |
-|  **OperatingSystem**NameVersion       | 'Android 6.0.1'        |
-|  **OperatingSystem**VersionBuild      | 'MOB30M'               |
+|  **OperatingSystem**Version           | '7.0'                  |
+|  **OperatingSystem**NameVersion       | 'Android 7.0'          |
+|  **OperatingSystem**VersionBuild      | 'NBD90Z'               |
 |  **LayoutEngine**Class                | 'Browser'              |
 |  **LayoutEngine**Name                 | 'Blink'                |
-|  **LayoutEngine**Version              | '51.0'                 |
-|  **LayoutEngine**VersionMajor         | '51'                   |
-|  **LayoutEngine**NameVersion          | 'Blink 51.0'           |
-|  **LayoutEngine**NameVersionMajor     | 'Blink 51'             |
+|  **LayoutEngine**Version              | '53.0'                 |
+|  **LayoutEngine**VersionMajor         | '53'                   |
+|  **LayoutEngine**NameVersion          | 'Blink 53.0'           |
+|  **LayoutEngine**NameVersionMajor     | 'Blink 53'             |
 |  **Agent**Class                       | 'Browser'              |
 |  **Agent**Name                        | 'Chrome'               |
-|  **Agent**Version                     | '51.0.2704.81'         |
-|  **Agent**VersionMajor                | '51'                   |
-|  **Agent**NameVersion                 | 'Chrome 51.0.2704.81'  |
-|  **Agent**NameVersionMajor            | 'Chrome 51'            |
+|  **Agent**Version                     | '53.0.2785.124'        |
+|  **Agent**VersionMajor                | '53'                   |
+|  **Agent**NameVersion                 | 'Chrome 53.0.2785.124' |
+|  **Agent**NameVersionMajor            | 'Chrome 53'            |
 
 Performance
 ===========
