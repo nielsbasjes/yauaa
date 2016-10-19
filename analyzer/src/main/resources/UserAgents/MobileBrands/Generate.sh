@@ -151,6 +151,12 @@ echo "
     extract:
     - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  101:\"${brand}\"'
+"
+done
+
+cat "MobileBrands.csv" | fgrep -v '#' | grep . | cut -d'|' -f2 | sort -u | while read brand;
+do
+echo "
 
 - matcher:
     require:
