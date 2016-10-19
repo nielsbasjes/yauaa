@@ -266,6 +266,56 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 6 Build/MOB30M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.81 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : 'MOB30M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '51.0'
+      LayoutEngineVersionMajor             : '51'
+      LayoutEngineNameVersion              : 'Blink 51.0'
+      LayoutEngineNameVersionMajor         : 'Blink 51'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '51.0.2704.81'
+      AgentVersionMajor                    : '51'
+      AgentNameVersion                     : 'Chrome 51.0.2704.81'
+      AgentNameVersionMajor                : 'Chrome 51'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NBD90Z'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '53.0.2785.124'
+      AgentVersionMajor                    : '53'
+      AgentNameVersion                     : 'Chrome 53.0.2785.124'
+      AgentNameVersionMajor                : 'Chrome 53'
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; SM-N9005 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.70 Mobile Safari/537.36'
     expected:
       DeviceClass                          : 'Phone'
