@@ -27,6 +27,10 @@ public class DebugUserAgent extends UserAgent {
         super.reset();
     }
 
+    public int getNumberOfAppliedMatches() {
+        return appliedMatcherResults.size();
+    }
+
     public String toMatchTrace() {
         StringBuilder sb = new StringBuilder(4096);
         sb.append("+==========================================\n");

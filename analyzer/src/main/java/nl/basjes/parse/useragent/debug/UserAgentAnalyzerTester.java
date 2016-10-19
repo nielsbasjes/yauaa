@@ -19,7 +19,6 @@
 
 package nl.basjes.parse.useragent.debug;
 
-import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +68,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         if (testCases == null) {
             return allPass;
         }
-        UserAgent agent = new DebugUserAgent();
+        DebugUserAgent agent = new DebugUserAgent();
 
         List<TestResult> results = new ArrayList<>(32);
 
@@ -90,10 +89,14 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         for (int i = filenameHeaderLength; i < maxFilenameLength; i++) {
             sb.append(' ');
         }
+
+        sb.append("|S|AA|MF|");
         if (measureSpeed) {
-            sb.append("|S|AA|  PPS| msPP|--> S=Syntax Error, AA=Number of ambiguities during parse, PPS=parses/sec, msPP=milliseconds per parse");
-        } else {
-            sb.append("|S|AA| --> S=Syntax Error, AA=Number of ambiguities during parse");
+            sb.append("  PPS| msPP|");
+        }
+        sb.append("--> S=Syntax Error, AA=Number of ambiguities during parse, MF=Matches Found");
+        if (measureSpeed) {
+            sb.append(", PPS=parses/sec, msPP=milliseconds per parse");
         }
 
         LOG.info("+===========================================================================================");
@@ -146,16 +149,16 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                 disableCaching();
                 // Preheat
                 for (int i = 0; i < 100; i++) {
-                    agent = parse(agent);
+                    parse(agent);
                 }
                 long startTime = System.nanoTime();
                 for (int i = 0; i < 1000; i++) {
-                    agent = parse(agent);
+                    parse(agent);
                 }
                 long stopTime = System.nanoTime();
                 measuredSpeed = (1000000000L*(1000))/(stopTime-startTime);
             } else {
-                agent = parse(agent);
+                parse(agent);
             }
 
             sb.append('|');
@@ -169,6 +172,8 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             } else {
                 sb.append("|  ");
             }
+
+            sb.append(String.format("|%2d", agent.getNumberOfAppliedMatches()));
 
             if (measureSpeed) {
                 sb.append('|').append(String.format("%5d", measuredSpeed));
