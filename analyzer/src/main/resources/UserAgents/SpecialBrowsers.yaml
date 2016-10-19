@@ -859,3 +859,25 @@ config:
       AgentLanguage                        : 'Dutch (Belgium)'
       AgentLanguageCode                    : 'nl_be'
 
+- test:
+    input:
+      user_agent_string: 'Iframely/0.8.5 (+http://iframely.com/;)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Iframely'
+      AgentVersion                         : '0.8.5'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Iframely 0.8.5'
+      AgentNameVersionMajor                : 'Iframely 0'
+      AgentInformationUrl                  : 'http://iframely.com/'
