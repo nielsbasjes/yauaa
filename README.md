@@ -58,6 +58,26 @@ On my i7 system I see a speed ranging from 500 to 4000 useragents per second (de
 On average the speed is above 1000 per second or <1ms each.
 A LRU cache is in place that does over 1M per second if they are in the cache.
 
+Output from the benchmark ( [using this code](benchmarks/src/main/java/nl/basjes/parse/useragent/benchmarks/AnalyzerBenchmarks.java) ):
+
+| Benchmark                                 | Mode | Cnt | Score |   | Error | Units |
+| ---                                       | ---  | --- | ---  | --- | ---  | ---   |
+| AnalyzerBenchmarks.android6Chrome46       | avgt |  10 | 1.410 | ± | 0.756 | ms/op |
+| AnalyzerBenchmarks.androidPhone           | avgt |  10 | 1.707 | ± | 1.118 | ms/op |
+| AnalyzerBenchmarks.googleAdsBot           | avgt |  10 | 0.485 | ± | 0.012 | ms/op |
+| AnalyzerBenchmarks.googleAdsBotMobile     | avgt |  10 | 1.208 | ± | 0.580 | ms/op |
+| AnalyzerBenchmarks.googleBotMobileAndroid | avgt |  10 | 1.431 | ± | 0.435 | ms/op |
+| AnalyzerBenchmarks.googlebot              | avgt |  10 | 0.647 | ± | 0.097 | ms/op |
+| AnalyzerBenchmarks.hackerSQL              | avgt |  10 | 0.546 | ± | 0.085 | ms/op |
+| AnalyzerBenchmarks.hackerShellShock       | avgt |  10 | 0.473 | ± | 0.106 | ms/op |
+| AnalyzerBenchmarks.iPad                   | avgt |  10 | 0.974 | ± | 0.609 | ms/op |
+| AnalyzerBenchmarks.iPhone                 | avgt |  10 | 0.936 | ± | 0.253 | ms/op |
+| AnalyzerBenchmarks.iPhoneFacebookApp      | avgt |  10 | 1.742 | ± | 0.990 | ms/op |
+| AnalyzerBenchmarks.win10Chrome51          | avgt |  10 | 0.945 | ± | 0.320 | ms/op |
+| AnalyzerBenchmarks.win10Edge13            | avgt |  10 | 1.003 | ± | 0.583 | ms/op |
+| AnalyzerBenchmarks.win10IE11              | avgt |  10 | 0.938 | ± | 0.647 | ms/op |
+| AnalyzerBenchmarks.win7ie11               | avgt |  10 | 0.906 | ± | 0.627 | ms/op |
+
 In the canonical usecase of analysing clickstream data you will see a <1ms hit per visitor (or better: per new non-cached useragent)
 and for all the other clicks the values are retrieved from this cache at close to 0 time.
 
