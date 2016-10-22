@@ -17,18 +17,10 @@
  *
  */
 
-package nl.basjes.parse.useragent;
+package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
-import org.junit.Assert;
-import org.junit.Test;
-
-public class TestPredefinedBrowsers {
-
-    @Test
-    public void validateAllPredefinedBrowsers() {
-        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
-        Assert.assertTrue(uaa.runTests(false, true));
+public class UselessMatcherException extends Exception {
+    public UselessMatcherException(String message) {
+        super(message);
     }
-
 }

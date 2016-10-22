@@ -55,7 +55,7 @@ is converted into this set of fields:
 Performance
 ===========
 On my i7 system I see a speed ranging from 500 to 4000 useragents per second (depending on the length and ambiguities in the useragent).
-On average the speed is above 1000 per second or <1ms each.
+On average the speed is around 1000 per second or ~1ms each.
 A LRU cache is in place that does over 1M per second if they are in the cache.
 
 Output from the benchmark ( [using this code](benchmarks/src/main/java/nl/basjes/parse/useragent/benchmarks/AnalyzerBenchmarks.java) ):
@@ -110,6 +110,22 @@ Note that not all fields are available after every parse. So be prepared to rece
 **IMPORTANT: This library is NOT threadsafe/reentrant!**
 So if you need it in a multi threaded situation you either need to synchronize using it or create a separate instance per thread.
 
+# Limiting to only certain fields
+In some scenarios you only want a specific field and all others are unwanted.
+This can be achieved by creating the analyzer in Java like this:
+
+    UserAgentAnalyzer uaa;
+    public ThreadState() {
+        uaa = UserAgentAnalyzer
+                .newBuilder()
+                .withoutCache()
+                .withField("DeviceClass")
+                .withField("AgentNameVersionMajor")
+                .build();
+
+One important effect is that this speeds up the system because it will kick any rules that do not help in getting the desired fields.
+The above example showed an approximate 40% speed increase (i.e. times dropped from ~1ms to ~0.6ms).
+
 # User Defined Functions
 Several external computation systems support the concept of a User Defined Function (UDF).
 A UDF is simply a way of making functionality (in this case the analysis of useragents)
@@ -132,6 +148,7 @@ DeviceClass
 | --- | --- |
 | Desktop               | The device is assessed as a Desktop/Laptop class device |
 | Anonymized            | In some cases the useragent has been altered by anonimization software |
+| Unknown               | We really don't know, these are usually useragents that look normal yet contain almost no information about the device |
 | Mobile                | A device that is mobile yet we do not know if it is a eReader/Tablet/Phone or Watch |
 | Tablet                | A mobile device with a rather large screen (common > 7") |
 | Phone                 | A mobile device with a small screen (common < 7") |
@@ -146,7 +163,6 @@ DeviceClass
 | Robot Mobile          | Robots that visit the site indicating they want to be seen as a Mobile visitor |
 | Spy                   | Robots that visit the site pretending they are robots like google, but they are not |
 | Hacker                | In case scripting is detected in the useragent string, also fallback in really broken situations |
-| Unknown               | We really don't know |
 
 Parsing Useragents
 ==================

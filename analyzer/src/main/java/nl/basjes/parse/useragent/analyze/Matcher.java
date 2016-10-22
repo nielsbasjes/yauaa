@@ -46,7 +46,10 @@ public class Matcher {
         this.dynamicActions = new ArrayList<>();
     }
 
-    public Matcher(Analyzer analyzer, Map<String, Map<String, String>> lookups, Map<String, List<String>> matcherConfig) {
+    public Matcher(Analyzer analyzer,
+                   Map<String, Map<String, String>> lookups,
+                   Set<String> wantedFieldNames,
+                   Map<String, List<String>> matcherConfig) throws UselessMatcherException {
         this.lookups = lookups;
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
@@ -67,6 +70,34 @@ public class Matcher {
             LOG.info("- MATCHER -");
         }
 
+        List<String> extractConfigs = matcherConfig.get("extract");
+
+        if (extractConfigs == null) {
+            throw new InvalidParserConfigurationException("Matcher does not extract anything");
+        }
+
+        // If we have a restriction on the wanted fields we check if this one is needed at all
+        if (wantedFieldNames != null) {
+            boolean keep = false;
+
+            for (String extractConfig : extractConfigs) {
+                String[] configParts = extractConfig.split(":", 3);
+
+                if (configParts.length != 3) {
+                    throw new InvalidParserConfigurationException("Invalid extract config line: " + extractConfig);
+                }
+
+                String attribute = configParts[0].trim();
+                if (wantedFieldNames.contains(attribute)) {
+                    keep=true;
+                    break;
+                }
+            }
+            if (!keep) {
+                throw new UselessMatcherException("Does not extract any wanted fields");
+            }
+        }
+
         // First the requires because they are meant to fail faster
         List<String> requireConfigs = matcherConfig.get("require");
         if (requireConfigs != null) {
@@ -78,29 +109,41 @@ public class Matcher {
             }
         }
 
-        List<String> extractConfigs = matcherConfig.get("extract");
-        if (extractConfigs != null) {
-            for (String extractConfig : extractConfigs) {
-                if (verbose) {
-                    LOG.info("EXTRACT: {}", extractConfig);
-                }
-                String[] configParts = extractConfig.split(":", 3);
+        for (String extractConfig : extractConfigs) {
+            if (verbose) {
+                LOG.info("EXTRACT: {}", extractConfig);
+            }
+            String[] configParts = extractConfig.split(":", 3);
 
-                if (configParts.length != 3) {
-                    throw new InvalidParserConfigurationException("Invalid extract config line: "+ extractConfig);
-                }
+            if (configParts.length != 3) {
+                throw new InvalidParserConfigurationException("Invalid extract config line: "+ extractConfig);
+            }
 
-                String attribute = configParts[0].trim();
-                String confidence = configParts[1].trim();
-                String config = configParts[2].trim();
+            String attribute = configParts[0].trim();
+            String confidence = configParts[1].trim();
+            String config = configParts[2].trim();
+
+            boolean wantThisAttribute = true;
+            if (wantedFieldNames != null && !wantedFieldNames.contains(attribute)) {
+                wantThisAttribute = false;
+            }
+
+            if (wantThisAttribute) {
                 MatcherExtractAction action = new MatcherExtractAction(attribute, Long.parseLong(confidence), config, this);
                 if (action.isFixedValue()) {
                     fixedStringActions.add(action);
                 } else {
                     dynamicActions.add(action);
                 }
+            } else {
+                try {
+                    dynamicActions.add(new MatcherRequireAction(config, this));
+                } catch (InvalidParserConfigurationException e) {
+                    // Ignore fixed values in require
+                }
             }
         }
+
         if (verbose) {
             LOG.info("---------------------------");
         }

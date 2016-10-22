@@ -23,6 +23,7 @@ import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
+import nl.basjes.parse.useragent.analyze.UselessMatcherException;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
 import nl.basjes.parse.useragent.utils.Normalize;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
@@ -77,6 +78,8 @@ public class UserAgentAnalyzer extends Analyzer {
 
     private boolean doingOnlyASingleTest = false;
 
+    // If we want ALL fields this is null. If we only want specific fields this is a list of names.
+    private Set<String> wantedFieldNames = null;
 
     protected final List<Map<String, Map<String, String>>> testCases          = new ArrayList<>(2048);
     private Map<String, Map<String, String>> lookups                    = new HashMap<>(128);
@@ -88,6 +91,16 @@ public class UserAgentAnalyzer extends Analyzer {
     private LRUMap<String, UserAgent> parseCache = new LRUMap<>(DEFAULT_PARSE_CACHE_SIZE);
 
     public UserAgentAnalyzer() {
+        this(true);
+    }
+
+    protected UserAgentAnalyzer(boolean initialize) {
+        if (initialize) {
+            initialize();
+        }
+    }
+
+    protected void initialize() {
         loadResources("classpath*:UserAgents/**/*.yaml");
     }
 
@@ -147,6 +160,7 @@ public class UserAgentAnalyzer extends Analyzer {
 
         LOG.info("Building all matchers");
         int totalNumberOfMatchers = 0;
+        int skippedMatchers = 0;
         if (matcherConfigs != null) {
             long fullStart = System.nanoTime();
             for (Map.Entry<String, Resource> resourceEntry : resources.entrySet()) {
@@ -160,8 +174,12 @@ public class UserAgentAnalyzer extends Analyzer {
                 long start = System.nanoTime();
                 int startSize = informMatcherActions.size();
                 for (Map<String, List<String>> map : matcherConfig) {
-                    allMatchers.add(new Matcher(this, lookups, map));
-                    totalNumberOfMatchers++;
+                    try {
+                        allMatchers.add(new Matcher(this, lookups, wantedFieldNames, map));
+                        totalNumberOfMatchers++;
+                    } catch (UselessMatcherException ume) {
+                        skippedMatchers++;
+                    }
                 }
                 long stop = System.nanoTime();
                 int stopSize = informMatcherActions.size();
@@ -425,7 +443,6 @@ config:
 
     public void disableCaching() {
         setCacheSize(0);
-
     }
 
     /**
@@ -524,6 +541,9 @@ config:
                 userAgent.set("HackerAttackVector", "Unknown", 10);
             }
         }
+
+        // !!!!!!!!!! NOTE !!!!!!!!!!!!
+        // IF YOU ADD ANY EXTRA FIELDS YOU MUST ADD THEM TO THE BUILDER TOO !!!!
         // TODO: Perhaps this should be more generic. Like a "Post processor"  (Generic: Create fields from fields)?
         addMajorVersionField(userAgent, AGENT_VERSION, AGENT_VERSION_MAJOR);
         addMajorVersionField(userAgent, LAYOUT_ENGINE_VERSION, LAYOUT_ENGINE_VERSION_MAJOR);
@@ -538,10 +558,12 @@ config:
 
         // The device brand field is a mess.
         UserAgent.AgentField deviceBrand = userAgent.get(DEVICE_BRAND);
-        userAgent.set(
-            DEVICE_BRAND,
-            Normalize.brand(deviceBrand.getValue()),
-            deviceBrand.getConfidence() + 1);
+        if (deviceBrand.getConfidence() >= 0) {
+            userAgent.set(
+                DEVICE_BRAND,
+                Normalize.brand(deviceBrand.getValue()),
+                deviceBrand.getConfidence() + 1);
+        }
 
         // The email address is a mess
         UserAgent.AgentField email = userAgent.get("AgentInformationEmail");
@@ -717,4 +739,58 @@ config:
 
     // ===============================================================================================================
 
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private UserAgentAnalyzer uaa = new UserAgentAnalyzer(false);
+
+        public Builder withCache(int cacheSize) {
+            uaa.setCacheSize(cacheSize);
+            return this;
+        }
+
+        public Builder withoutCache() {
+            uaa.setCacheSize(0);
+            return this;
+        }
+
+        public Builder withField(String fieldName) {
+            if (uaa.wantedFieldNames == null) {
+                uaa.wantedFieldNames = new HashSet<>(32);
+            }
+            uaa.wantedFieldNames.add(fieldName);
+            return this;
+        }
+
+        public Builder withAllFields() {
+            uaa.wantedFieldNames = null;
+            return this;
+        }
+
+        private void addGeneratedFields(String result, String... dependencies) {
+            if (uaa.wantedFieldNames.contains(result)) {
+                Collections.addAll(uaa.wantedFieldNames, dependencies);
+            }
+        }
+
+        public UserAgentAnalyzer build() {
+
+            addGeneratedFields("AgentNameVersion",               AGENT_NAME,             AGENT_VERSION);
+            addGeneratedFields("AgentNameVersionMajor",          AGENT_NAME,             AGENT_VERSION_MAJOR);
+            addGeneratedFields("WebviewAppNameVersionMajor",     "WebviewAppName",       "WebviewAppVersionMajor");
+            addGeneratedFields("LayoutEngineNameVersion",        LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION);
+            addGeneratedFields("LayoutEngineNameVersionMajor",   LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION_MAJOR);
+            addGeneratedFields("OperatingSystemNameVersion",     OPERATING_SYSTEM_NAME,  OPERATING_SYSTEM_VERSION);
+
+            addGeneratedFields(AGENT_VERSION_MAJOR,             AGENT_VERSION);
+            addGeneratedFields(LAYOUT_ENGINE_VERSION_MAJOR,     LAYOUT_ENGINE_VERSION);
+            addGeneratedFields("WebviewAppVersionMajor",        "WebviewAppVersion");
+
+            uaa.initialize();
+            return uaa;
+        }
+
+    }
 }

@@ -33,11 +33,15 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzerTester.class);
 
     public UserAgentAnalyzerTester() {
-        super();
+        super(false);
     }
 
     public UserAgentAnalyzerTester(String resourceString) {
         super(resourceString);
+    }
+
+    public void initialize() {
+        super.initialize();
     }
 
     class TestResult {

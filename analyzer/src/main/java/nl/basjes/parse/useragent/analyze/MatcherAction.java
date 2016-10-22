@@ -267,7 +267,6 @@ public abstract class MatcherAction {
         }
     }
 
-
     protected abstract void setFixedValue(String newFixedValue);
 
     /**
