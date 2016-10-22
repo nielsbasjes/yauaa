@@ -36,42 +36,4 @@ public class TestPerformance {
         Assert.assertTrue(uaa.runTests(false, false, true));
     }
 
-    @Ignore
-    @Test
-    public void performanceTestNoCache() {
-        runPerformanceTest(false,   10000);
-    }
-
-    @Ignore
-    @Test
-    public void performanceTestCached() {
-        runPerformanceTest(true, 1000000);
-    }
-
-    private void runPerformanceTest(boolean cached, long count) {
-        UserAgentAnalyzer uaa = new UserAgentAnalyzer();
-        if (!cached) {
-            uaa.disableCaching();
-        }
-
-        UserAgent agent = new UserAgent("Mozilla/5.0 (Linux; Android 6.0; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36");
-
-        // Preheat the jit compiler.
-        for (int i = 0; i < 500; i++) {
-            agent.reset();
-            uaa.parse(agent);
-        }
-
-        long start = System.nanoTime();
-        LOG.info("Start @ {}", start);
-        // Try to repeatedly parse a 'normal' agent without any caching.
-        for (int i = 0; i < count; i++) {
-            agent.reset();
-            uaa.parse(agent);
-        }
-        long stop = System.nanoTime();
-        LOG.info("Stop  @ {}", stop);
-        LOG.info("Did {} in {} ns ({} sec)--> {}/sec", count, stop-start, (stop-start)/1000000000 , (1000000000*count)/(stop-start));
-    }
-
 }
