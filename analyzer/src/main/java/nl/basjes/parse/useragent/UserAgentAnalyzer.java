@@ -796,20 +796,21 @@ config:
         }
 
         public UserAgentAnalyzer build() {
+            if (uaa.wantedFieldNames != null) {
+                addGeneratedFields("AgentNameVersion", AGENT_NAME, AGENT_VERSION);
+                addGeneratedFields("AgentNameVersionMajor", AGENT_NAME, AGENT_VERSION_MAJOR);
+                addGeneratedFields("WebviewAppNameVersionMajor", "WebviewAppName", "WebviewAppVersionMajor");
+                addGeneratedFields("LayoutEngineNameVersion", LAYOUT_ENGINE_NAME, LAYOUT_ENGINE_VERSION);
+                addGeneratedFields("LayoutEngineNameVersionMajor", LAYOUT_ENGINE_NAME, LAYOUT_ENGINE_VERSION_MAJOR);
+                addGeneratedFields("OperatingSystemNameVersion", OPERATING_SYSTEM_NAME, OPERATING_SYSTEM_VERSION);
 
-            addGeneratedFields("AgentNameVersion",               AGENT_NAME,             AGENT_VERSION);
-            addGeneratedFields("AgentNameVersionMajor",          AGENT_NAME,             AGENT_VERSION_MAJOR);
-            addGeneratedFields("WebviewAppNameVersionMajor",     "WebviewAppName",       "WebviewAppVersionMajor");
-            addGeneratedFields("LayoutEngineNameVersion",        LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION);
-            addGeneratedFields("LayoutEngineNameVersionMajor",   LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION_MAJOR);
-            addGeneratedFields("OperatingSystemNameVersion",     OPERATING_SYSTEM_NAME,  OPERATING_SYSTEM_VERSION);
+                addGeneratedFields(AGENT_VERSION_MAJOR, AGENT_VERSION);
+                addGeneratedFields(LAYOUT_ENGINE_VERSION_MAJOR, LAYOUT_ENGINE_VERSION);
+                addGeneratedFields("WebviewAppVersionMajor", "WebviewAppVersion");
 
-            addGeneratedFields(AGENT_VERSION_MAJOR,             AGENT_VERSION);
-            addGeneratedFields(LAYOUT_ENGINE_VERSION_MAJOR,     LAYOUT_ENGINE_VERSION);
-            addGeneratedFields("WebviewAppVersionMajor",        "WebviewAppVersion");
-
-            // Special field that affects ALL fields.
-            uaa.wantedFieldNames.add("__Set_ALL_Fields__");
+                // Special field that affects ALL fields.
+                uaa.wantedFieldNames.add("__Set_ALL_Fields__");
+            }
             uaa.initialize();
             return uaa;
         }
