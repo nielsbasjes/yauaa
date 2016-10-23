@@ -19,7 +19,7 @@
 echo "# ============================================="
 echo "# THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY"
 echo "# ============================================="
-
+echo ""
 echo "# Yet Another UserAgent Analyzer"
 echo "# Copyright (C) 2013-2016 Niels Basjes"
 echo "#"
@@ -64,7 +64,6 @@ echo "
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name=\"Build\"^<{\"${prefix}\"'
     extract:
-    - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  105:\"${brand}\"'
 
 - matcher:
@@ -72,7 +71,6 @@ echo "
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[2]=\"Build\"^<{\"${prefix}\"'
     extract:
-    - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  105:\"${brand}\"'
 
 - matcher:
@@ -80,7 +78,6 @@ echo "
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[3]=\"Build\"^<{\"${prefix}\"'
     extract:
-    - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  105:\"${brand}\"'
 
 - matcher:
@@ -88,7 +85,6 @@ echo "
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]=\"Build\"@{\"${prefix}\"'
     extract:
-    - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  104:\"${brand}\"'
 
 - matcher:
@@ -96,7 +92,6 @@ echo "
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[2]=\"Build\"@{\"${prefix}\"'
     extract:
-    - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  103:\"${brand}\"'
 
 - matcher:
@@ -104,7 +99,6 @@ echo "
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[3]=\"Build\"@{\"${prefix}\"'
     extract:
-    - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  102:\"${brand}\"'
 
 - matcher:
@@ -112,7 +106,6 @@ echo "
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[4]=\"Build\"@{\"${prefix}\"'
     extract:
-    - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  101:\"${brand}\"'
 
 - matcher:
@@ -120,7 +113,6 @@ echo "
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[5]=\"Build\"@{\"${prefix}\"'
     extract:
-    - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  100:\"${brand}\"'
 
 - matcher:
@@ -128,28 +120,24 @@ echo "
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
     - 'agent.(1-2)product.name{\"${prefix}\"'
     extract:
-    - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  110:\"${brand}\"'
 
 - matcher:
     require:
     - 'agent.product.name{\"${prefix}\"'
     extract:
-    - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  103:\"${brand}\"'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"'
     extract:
-    - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  102:\"${brand}\"'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.text{\"${prefix}\"'
     extract:
-    - 'DeviceClass                 :    1:\"Mobile\"'
     - 'DeviceBrand                 :  101:\"${brand}\"'
 "
 done
