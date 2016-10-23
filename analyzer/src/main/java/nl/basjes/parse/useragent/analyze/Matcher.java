@@ -168,7 +168,6 @@ public class Matcher {
         return results;
     }
 
-
     public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
         if (verbose) {
             LOG.info("Requested: {}", keyPattern);
@@ -186,8 +185,6 @@ public class Matcher {
      */
     public void analyze(UserAgent userAgent) {
 
-        newValuesUserAgent.reset();
-
         if (verbose) {
             LOG.info("");
             LOG.info("--- Matcher ------------------------");
@@ -199,6 +196,7 @@ public class Matcher {
                     good = false;
                 }
             }
+            newValuesUserAgent.reset();
             for (MatcherAction action : dynamicActions) {
                 if (!action.obtainResult(newValuesUserAgent)) {
                     LOG.error("FAILED : {}", action.getMatchExpression());
@@ -217,11 +215,15 @@ public class Matcher {
             }
             LOG.info("COMPLETE ----------------------------");
         } else {
+            if (!possiblyValid) {
+                return;
+            }
             for (MatcherAction action : dynamicActions) {
                 if (!action.canPossiblyBeValid()) {
                     return; // If one of them is bad we skip the rest
                 }
             }
+            newValuesUserAgent.reset();
             for (MatcherAction action : dynamicActions) {
                 if (!action.obtainResult(newValuesUserAgent)) {
                     return; // If one of them is bad we skip the rest
@@ -246,7 +248,8 @@ public class Matcher {
     }
 
     public void reset(boolean setVerboseTemporarily) {
-        possiblyValid = false;
+        // If there are no dynamic actions we have fixed strings only
+        possiblyValid = dynamicActions.isEmpty();
         for (MatcherAction action : dynamicActions) {
             action.reset();
             if (setVerboseTemporarily) {
@@ -268,10 +271,8 @@ public class Matcher {
 
     public List<MatcherAction.Match> getUsedMatches() {
         List<MatcherAction.Match> allMatches = new ArrayList<>(128);
-        if (dynamicActions.size() > 0) {
-            if (!possiblyValid) {
-                return new ArrayList<>(); // There is NO way one of them is valid
-            }
+        if (!possiblyValid) {
+            return new ArrayList<>(); // There is NO way one of them is valid
         }
         for (MatcherAction action : dynamicActions) {
             if (!action.canPossiblyBeValid()) {
@@ -287,6 +288,5 @@ public class Matcher {
         }
         return allMatches;
     }
-
 
 }
