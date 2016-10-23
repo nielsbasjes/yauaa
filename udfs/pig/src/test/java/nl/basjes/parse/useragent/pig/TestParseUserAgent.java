@@ -66,6 +66,7 @@ public class TestParseUserAgent {
         checkResult(data, schema, "AgentVersion",                     "48.0.2564.82"          );
         checkResult(data, schema, "AgentVersionMajor",                "48"                    );
         checkResult(data, schema, "AgentNameVersion",                 "Chrome 48.0.2564.82"   );
+        checkResult(data, schema, "AgentNameVersionMajor",            "Chrome 48"             );
         checkResult(data, schema, "AgentBuild",                       "Unknown"               );
         checkResult(data, schema, "AgentInformationEmail",            "Unknown"               );
         checkResult(data, schema, "AgentInformationUrl",              "Unknown"               );
@@ -75,6 +76,69 @@ public class TestParseUserAgent {
         checkResult(data, schema, "Anonymized",                       "Unknown"               );
         checkResult(data, schema, "DeviceBrand",                      "Unknown"               );
         checkResult(data, schema, "DeviceCpu",                        "Intel x86_64"          );
+        checkResult(data, schema, "DeviceFirmwareVersion",            "Unknown"               );
+        checkResult(data, schema, "DeviceVersion",                    "Unknown"               );
+        checkResult(data, schema, "FacebookCarrier",                  "Unknown"               );
+        checkResult(data, schema, "FacebookDeviceClass",              "Unknown"               );
+        checkResult(data, schema, "FacebookDeviceName",               "Unknown"               );
+        checkResult(data, schema, "FacebookDeviceVersion",            "Unknown"               );
+        checkResult(data, schema, "FacebookFBOP",                     "Unknown"               );
+        checkResult(data, schema, "FacebookFBSS",                     "Unknown"               );
+        checkResult(data, schema, "FacebookOperatingSystemName",      "Unknown"               );
+        checkResult(data, schema, "FacebookOperatingSystemVersion",   "Unknown"               );
+        checkResult(data, schema, "HackerAttackVector",               "Unknown"               );
+        checkResult(data, schema, "HackerToolkit",                    "Unknown"               );
+        checkResult(data, schema, "KoboAffiliate",                    "Unknown"               );
+        checkResult(data, schema, "KoboPlatformId",                   "Unknown"               );
+        checkResult(data, schema, "LayoutEngineBuild",                "Unknown"               );
+        checkResult(data, schema, "OperatingSystemVersionBuild",      "Unknown"               );
+    }
+
+    @Test
+    public void testParseUserAgentPigUDF_Limited_Fields() throws Exception {
+        PigServer pigServer = new PigServer(ExecType.LOCAL);
+        Storage.Data storageData = resetData(pigServer);
+
+        storageData.set("agents", "agent:chararray",
+            tuple("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36")
+        );
+
+        pigServer.registerQuery("define ParseUserAgent nl.basjes.parse.useragent.pig.ParseUserAgent('5','DeviceClass','AgentNameVersionMajor');");
+        pigServer.registerQuery("A = LOAD 'agents' USING mock.Storage();");
+        pigServer.registerQuery("B = FOREACH A GENERATE ParseUserAgent(agent);");
+        pigServer.registerQuery("STORE B INTO 'parsedAgents' USING mock.Storage();");
+
+        Tuple data     = (Tuple)storageData.get("parsedAgents").get(0).get(0);
+        Schema schema  = storageData.getSchema("parsedAgents").getField(0).schema;
+
+        // The ones we requested
+        checkResult(data, schema, "DeviceClass",                      "Desktop"               );
+        checkResult(data, schema, "AgentNameVersionMajor",            "Chrome 48"             );
+
+        // These are used to build the requested fields.
+        checkResult(data, schema, "AgentName",                        "Chrome"                );
+        checkResult(data, schema, "AgentVersion",                     "48.0.2564.82"          );
+        checkResult(data, schema, "AgentVersionMajor",                "48"                    );
+        checkResult(data, schema, "AgentNameVersion",                 "Chrome 48.0.2564.82"   );
+
+        // The rest is 'Unknown'
+        checkResult(data, schema, "DeviceName",                       "Unknown"               );
+        checkResult(data, schema, "OperatingSystemClass",             "Unknown"               );
+        checkResult(data, schema, "OperatingSystemName",              "Unknown"               );
+        checkResult(data, schema, "OperatingSystemVersion",           "??"                    );
+        checkResult(data, schema, "LayoutEngineClass",                "Unknown"               );
+        checkResult(data, schema, "LayoutEngineName",                 "Unknown"               );
+        checkResult(data, schema, "LayoutEngineVersion",              "??"                    );
+        checkResult(data, schema, "AgentClass",                       "Unknown"               );
+        checkResult(data, schema, "AgentBuild",                       "Unknown"               );
+        checkResult(data, schema, "AgentInformationEmail",            "Unknown"               );
+        checkResult(data, schema, "AgentInformationUrl",              "Unknown"               );
+        checkResult(data, schema, "AgentLanguage",                    "Unknown"               );
+        checkResult(data, schema, "AgentSecurity",                    "Unknown"               );
+        checkResult(data, schema, "AgentUuid",                        "Unknown"               );
+        checkResult(data, schema, "Anonymized",                       "Unknown"               );
+        checkResult(data, schema, "DeviceBrand",                      "Unknown"               );
+        checkResult(data, schema, "DeviceCpu",                        "Unknown"               );
         checkResult(data, schema, "DeviceFirmwareVersion",            "Unknown"               );
         checkResult(data, schema, "DeviceVersion",                    "Unknown"               );
         checkResult(data, schema, "FacebookCarrier",                  "Unknown"               );
@@ -129,31 +193,8 @@ public class TestParseUserAgent {
         checkResult(data, schema, "AgentClass",                     "Hacker"  );
         checkResult(data, schema, "AgentName",                      "Hacker"  );
         checkResult(data, schema, "AgentVersion",                   "Hacker"  );
-        checkResult(data, schema, "AgentBuild",                     "Unknown"  );
-        checkResult(data, schema, "AgentInformationEmail",          "Unknown"  );
-        checkResult(data, schema, "AgentInformationUrl",            "Unknown"  );
-        checkResult(data, schema, "AgentLanguage",                  "Unknown"  );
-        checkResult(data, schema, "AgentSecurity",                  "Unknown"  );
-        checkResult(data, schema, "AgentUuid",                      "Unknown"  );
-        checkResult(data, schema, "Anonymized",                     "Unknown"  );
-        checkResult(data, schema, "DeviceBrand",                    "Hacker"   );
-        checkResult(data, schema, "DeviceCpu",                      "Unknown"  );
-        checkResult(data, schema, "DeviceFirmwareVersion",          "Unknown"  );
-        checkResult(data, schema, "DeviceVersion",                  "Hacker"   );
-        checkResult(data, schema, "FacebookCarrier",                "Unknown"  );
-        checkResult(data, schema, "FacebookDeviceClass",            "Unknown"  );
-        checkResult(data, schema, "FacebookDeviceName",             "Unknown"  );
-        checkResult(data, schema, "FacebookDeviceVersion",          "Unknown"  );
-        checkResult(data, schema, "FacebookFBOP",                   "Unknown"  );
-        checkResult(data, schema, "FacebookFBSS",                   "Unknown"  );
-        checkResult(data, schema, "FacebookOperatingSystemName",    "Unknown"  );
-        checkResult(data, schema, "FacebookOperatingSystemVersion", "Unknown"  );
         checkResult(data, schema, "HackerAttackVector",             "Unknown"  );
         checkResult(data, schema, "HackerToolkit",                  "Unknown"  );
-        checkResult(data, schema, "KoboAffiliate",                  "Unknown"  );
-        checkResult(data, schema, "KoboPlatformId",                 "Unknown"  );
-        checkResult(data, schema, "LayoutEngineBuild",              "Unknown"  );
-        checkResult(data, schema, "OperatingSystemVersionBuild",    "Unknown"  );
     }
 
 

@@ -35,21 +35,39 @@ import java.util.List;
 public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
 
     private static final TupleFactory TUPLE_FACTORY = TupleFactory.getInstance();
-    private static final UserAgentAnalyzer USER_AGENT_ANALYZER = new UserAgentAnalyzer();
+    private UserAgentAnalyzer analyzer = new UserAgentAnalyzer();
     private static List<String> allFieldNames = null;
 
-    private static List<String> getAllFieldNamesSorted() {
+    private List<String> getAllFieldNamesSorted() {
         if (allFieldNames == null) {
-            allFieldNames = USER_AGENT_ANALYZER.getAllPossibleFieldNamesSorted();
+            allFieldNames = analyzer.getAllPossibleFieldNamesSorted();
         }
         return allFieldNames;
+    }
+
+    public ParseUserAgent() {
+        analyzer = new UserAgentAnalyzer();
+    }
+
+    public ParseUserAgent(String ... parameters) {
+        UserAgentAnalyzer.Builder analyzerBuilder = UserAgentAnalyzer.newBuilder();
+        boolean firstParam = true;
+        for (String parameter: parameters) {
+            if (firstParam) {
+                firstParam = false;
+                analyzerBuilder.withCache(Integer.parseInt(parameter));
+            } else {
+                analyzerBuilder.withField(parameter);
+            }
+        }
+        analyzer = analyzerBuilder.build();
     }
 
     @Override
     public Tuple exec(Tuple tuple) throws IOException {
         String userAgentString = (String) tuple.get(0);
 
-        UserAgent agent = USER_AGENT_ANALYZER.parse(userAgentString);
+        UserAgent agent = analyzer.parse(userAgentString);
         Tuple result = TUPLE_FACTORY.newTuple();
         for (String fieldName: getAllFieldNamesSorted()) {
             result.append(agent.getValue(fieldName));
