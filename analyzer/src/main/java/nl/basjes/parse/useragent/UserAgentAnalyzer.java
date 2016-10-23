@@ -38,6 +38,7 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -79,7 +80,7 @@ public class UserAgentAnalyzer extends Analyzer {
     private boolean doingOnlyASingleTest = false;
 
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
-    private Set<String> wantedFieldNames = null;
+    protected Set<String> wantedFieldNames = null;
 
     protected final List<Map<String, Map<String, String>>> testCases          = new ArrayList<>(2048);
     private Map<String, Map<String, String>> lookups                    = new HashMap<>(128);
@@ -195,8 +196,9 @@ public class UserAgentAnalyzer extends Analyzer {
             long fullStop = System.nanoTime();
 
             Formatter msg = new Formatter(Locale.ENGLISH);
-            msg.format("Building %4d matchers from %4d files took %5d msec resulted in %8d hashmap entries",
+            msg.format("Building %4d (dropped %4d) matchers from %4d files took %5d msec resulted in %8d hashmap entries",
                 totalNumberOfMatchers,
+                skippedMatchers,
                 matcherConfigs.size(),
                 (fullStop-fullStart)/1000000,
                 informMatcherActions.size());
@@ -205,7 +207,7 @@ public class UserAgentAnalyzer extends Analyzer {
         }
         LOG.info("Analyzer stats");
         LOG.info("Lookups      : {}", (lookups == null) ? 0 : lookups.size());
-        LOG.info("Matchers     : {}", allMatchers.size());
+        LOG.info("Matchers     : {} (total:{} ; dropped: {})", allMatchers.size(), totalNumberOfMatchers, skippedMatchers);
         LOG.info("Hashmap size : {}", informMatcherActions.size());
         LOG.info("Testcases    : {}", testCases .size());
 //        LOG.info("All possible field names:");
@@ -744,7 +746,15 @@ config:
     }
 
     public static class Builder {
-        private UserAgentAnalyzer uaa = new UserAgentAnalyzer(false);
+        private UserAgentAnalyzer uaa;
+
+        protected Builder() {
+            this.uaa = new UserAgentAnalyzer(false);
+        }
+
+        protected Builder(UserAgentAnalyzer forceAnalyzer) {
+            this.uaa = forceAnalyzer;
+        }
 
         public Builder withCache(int cacheSize) {
             uaa.setCacheSize(cacheSize);
@@ -761,6 +771,16 @@ config:
                 uaa.wantedFieldNames = new HashSet<>(32);
             }
             uaa.wantedFieldNames.add(fieldName);
+            return this;
+        }
+
+        public Builder withFields(Collection<String> fieldNames) {
+            if (fieldNames == null) {
+                return this;
+            }
+            for (String fieldName: fieldNames) {
+                withField(fieldName);
+            }
             return this;
         }
 
@@ -788,6 +808,8 @@ config:
             addGeneratedFields(LAYOUT_ENGINE_VERSION_MAJOR,     LAYOUT_ENGINE_VERSION);
             addGeneratedFields("WebviewAppVersionMajor",        "WebviewAppVersion");
 
+            // Special field that affects ALL fields.
+            uaa.wantedFieldNames.add("__Set_ALL_Fields__");
             uaa.initialize();
             return uaa;
         }

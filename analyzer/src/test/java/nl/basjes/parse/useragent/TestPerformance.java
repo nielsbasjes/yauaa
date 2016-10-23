@@ -33,7 +33,7 @@ public class TestPerformance {
     @Test
     public void validateAllPredefinedBrowsersPerformance() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
-        Assert.assertTrue(uaa.runTests(false, false, true));
+        Assert.assertTrue(uaa.runTests(false, false, null, true));
     }
 
 }

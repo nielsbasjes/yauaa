@@ -28,7 +28,6 @@ import static org.junit.Assert.assertEquals;
 
 public class TestBuilder {
 
-
     @Test
     public void testLimitedFields() {
         UserAgentAnalyzer userAgentAnalyzer =

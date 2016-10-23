@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -64,10 +65,10 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     }
 
     public boolean runTests(boolean showAll, boolean failOnUnexpected) {
-        return runTests(showAll, failOnUnexpected, false);
+        return runTests(showAll, failOnUnexpected, null, false);
     }
 
-    public boolean runTests(boolean showAll, boolean failOnUnexpected, boolean measureSpeed) {
+    public boolean runTests(boolean showAll, boolean failOnUnexpected, Collection<String> onlyValidateFieldNames, boolean measureSpeed) {
         boolean allPass = true;
         if (testCases == null) {
             return allPass;
@@ -208,6 +209,14 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
             if (expected != null) {
                 List<String> fieldNames = agent.getAvailableFieldNamesSorted();
+
+                if (onlyValidateFieldNames != null && onlyValidateFieldNames.isEmpty()) {
+                    onlyValidateFieldNames = null;
+                } else if (onlyValidateFieldNames != null) {
+                    fieldNames.clear();
+                    fieldNames.addAll(onlyValidateFieldNames);
+                }
+
                 for (String newFieldName: expected.keySet()) {
                     if (!fieldNames.contains(newFieldName)) {
                         fieldNames.add(newFieldName);
@@ -215,6 +224,11 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                 }
 
                 for (String fieldName : fieldNames) {
+                    // Only check the desired fieldnames
+                    if (onlyValidateFieldNames != null &&
+                        !onlyValidateFieldNames.contains(fieldName)) {
+                        continue;
+                    }
 
                     TestResult result = new TestResult();
                     result.field = fieldName;
@@ -418,4 +432,16 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         LOG.info("+===========================================================================================");
         return allPass;
     }
+
+    public static UserAgentAnalyzer.Builder newBuilder() {
+        return new UserAgentAnalyzerTester.Builder();
+    }
+
+    public static class Builder extends UserAgentAnalyzer.Builder {
+        public Builder() {
+            super(new UserAgentAnalyzerTester());
+        }
+    }
+
+
 }
