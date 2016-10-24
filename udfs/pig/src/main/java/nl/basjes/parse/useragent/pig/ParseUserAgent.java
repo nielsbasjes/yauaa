@@ -30,41 +30,65 @@ import org.apache.pig.impl.logicalLayer.schema.Schema;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
 
     private static final TupleFactory TUPLE_FACTORY = TupleFactory.getInstance();
-    private UserAgentAnalyzer analyzer = new UserAgentAnalyzer();
+    private UserAgentAnalyzer analyzer = null;
     private static List<String> allFieldNames = null;
 
-    private List<String> getAllFieldNamesSorted() {
-        if (allFieldNames == null) {
+    private int cacheSize = -1;
+    private Set<String> requestedFields = null;
+
+    private boolean initialized = false;
+    private void initialize() {
+        if (!initialized) {
+            UserAgentAnalyzer.Builder analyzerBuilder = UserAgentAnalyzer.newBuilder();
+
+            analyzerBuilder.hideMatcherLoadStats();
+
+            if (cacheSize >= 0) {
+                analyzerBuilder.withCache(cacheSize);
+            }
+            if (requestedFields != null) {
+                for (String requestedField : requestedFields) {
+                    analyzerBuilder.withField(requestedField);
+                }
+            }
+            analyzer = analyzerBuilder.build();
             allFieldNames = analyzer.getAllPossibleFieldNamesSorted();
         }
+    }
+
+    private List<String> getAllFieldNamesSorted() {
+        initialize();
         return allFieldNames;
     }
 
     public ParseUserAgent() {
-        analyzer = new UserAgentAnalyzer();
     }
 
     public ParseUserAgent(String ... parameters) {
-        UserAgentAnalyzer.Builder analyzerBuilder = UserAgentAnalyzer.newBuilder();
         boolean firstParam = true;
         for (String parameter: parameters) {
             if (firstParam) {
                 firstParam = false;
-                analyzerBuilder.withCache(Integer.parseInt(parameter));
+                cacheSize = Integer.parseInt(parameter);
             } else {
-                analyzerBuilder.withField(parameter);
+                if (requestedFields == null) {
+                    requestedFields = new HashSet<>(32);
+                }
+                requestedFields.add(parameter);
             }
         }
-        analyzer = analyzerBuilder.build();
     }
 
     @Override
     public Tuple exec(Tuple tuple) throws IOException {
+        initialize();
         String userAgentString = (String) tuple.get(0);
 
         UserAgent agent = analyzer.parse(userAgentString);

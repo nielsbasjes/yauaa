@@ -97,19 +97,19 @@ public class UserAgentAnalyzer extends Analyzer {
 
     protected UserAgentAnalyzer(boolean initialize) {
         if (initialize) {
-            initialize();
+            initialize(true);
         }
     }
 
-    protected void initialize() {
-        loadResources("classpath*:UserAgents/**/*.yaml");
+    protected void initialize(boolean showMatcherStats) {
+        loadResources("classpath*:UserAgents/**/*.yaml", showMatcherStats);
     }
 
     public UserAgentAnalyzer(String resourceString) {
-        loadResources(resourceString);
+        loadResources(resourceString, true);
     }
 
-    public void loadResources(String resourceString) {
+    public void loadResources(String resourceString, boolean showMatcherStats) {
         LOG.info("Loading from: \"{}\"", resourceString);
         informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
         allMatchers = new ArrayList<>();
@@ -185,13 +185,15 @@ public class UserAgentAnalyzer extends Analyzer {
                 long stop = System.nanoTime();
                 int stopSize = informMatcherActions.size();
 
-                Formatter msg = new Formatter(Locale.ENGLISH);
-                msg.format("Building %4d matchers from %-"+maxFilenameLength+"s took %5d msec resulted in %8d extra hashmap entries",
-                    matcherConfig.size(),
-                    configFilename,
-                    (stop-start)/1000000,
-                    stopSize-startSize);
-                LOG.info(msg.toString());
+                if (showMatcherStats) {
+                    Formatter msg = new Formatter(Locale.ENGLISH);
+                    msg.format("Building %4d matchers from %-" + maxFilenameLength + "s took %5d msec resulted in %8d extra hashmap entries",
+                        matcherConfig.size(),
+                        configFilename,
+                        (stop - start) / 1000000,
+                        stopSize - startSize);
+                    LOG.info(msg.toString());
+                }
             }
             long fullStop = System.nanoTime();
 
@@ -789,6 +791,17 @@ config:
             return this;
         }
 
+        boolean showMatcherLoadStats = true;
+        public Builder showMatcherLoadStats() {
+            showMatcherLoadStats = true;
+            return this;
+        }
+
+        public Builder hideMatcherLoadStats() {
+            showMatcherLoadStats = false;
+            return this;
+        }
+
         private void addGeneratedFields(String result, String... dependencies) {
             if (uaa.wantedFieldNames.contains(result)) {
                 Collections.addAll(uaa.wantedFieldNames, dependencies);
@@ -811,7 +824,7 @@ config:
                 // Special field that affects ALL fields.
                 uaa.wantedFieldNames.add("__Set_ALL_Fields__");
             }
-            uaa.initialize();
+            uaa.initialize(showMatcherLoadStats);
             return uaa;
         }
 

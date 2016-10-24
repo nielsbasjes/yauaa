@@ -41,8 +41,8 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         super(resourceString);
     }
 
-    public void initialize() {
-        super.initialize();
+    public void initialize(boolean showMatcherLoadStats) {
+        super.initialize(showMatcherLoadStats);
     }
 
     class TestResult {
@@ -65,10 +65,14 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     }
 
     public boolean runTests(boolean showAll, boolean failOnUnexpected) {
-        return runTests(showAll, failOnUnexpected, null, false);
+        return runTests(showAll, failOnUnexpected, null, false, true);
     }
 
-    public boolean runTests(boolean showAll, boolean failOnUnexpected, Collection<String> onlyValidateFieldNames, boolean measureSpeed) {
+    public boolean runTests(boolean showAll,
+                            boolean failOnUnexpected,
+                            Collection<String> onlyValidateFieldNames,
+                            boolean measureSpeed,
+                            boolean showPassedTests) {
         boolean allPass = true;
         if (testCases == null) {
             return allPass;
@@ -104,9 +108,11 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             sb.append(", PPS=parses/sec, msPP=milliseconds per parse");
         }
 
-        LOG.info("+===========================================================================================");
-        LOG.info(sb.toString());
-        LOG.info("+-------------------------------------------------------------------------------------------");
+        if (showPassedTests) {
+            LOG.info("+===========================================================================================");
+            LOG.info(sb.toString());
+            LOG.info("+-------------------------------------------------------------------------------------------");
+        }
 
         for (Map<String, Map<String, String>> test : testCases) {
 
@@ -186,19 +192,24 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             }
 
             sb.append("| ").append(testName);
-            LOG.info(sb.toString());
+
+            // We create the log line but we keep it untill we know it actually must be output to the screen
+            String testLogLine = sb.toString();
+
             sb.setLength(0);
 
             boolean pass = true;
             results.clear();
 
             if (init) {
+                LOG.info(testLogLine);
                 sb.append(agent.toYamlTestCase());
                 LOG.info(sb.toString());
 //                return allPass;
             } else {
                 if (expected == null) {
-                    LOG.info("| - No expectations ... ");
+                    LOG.info(testLogLine);
+                    LOG.warn("| - No expectations ... ");
                     continue;
                 }
             }
@@ -287,10 +298,14 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             }
 
             if (!init && pass && !showAll) {
+                if (showPassedTests) {
+                    LOG.info(testLogLine);
+                }
                 continue;
             }
 
             if (!pass) {
+                LOG.info(testLogLine);
                 LOG.error("| TEST FAILED !");
             }
 
@@ -429,7 +444,9 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             }
         }
 
-        LOG.info("+===========================================================================================");
+        if (showPassedTests) {
+            LOG.info("+===========================================================================================");
+        }
         return allPass;
     }
 

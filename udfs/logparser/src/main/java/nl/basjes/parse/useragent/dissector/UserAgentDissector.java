@@ -50,7 +50,7 @@ public class UserAgentDissector extends Dissector {
         if (userAgentAnalyzer == null) {
             userAgentAnalyzer = new UserAgentAnalyzer();
             if (s != null && !(s.trim().isEmpty())) {
-                userAgentAnalyzer.loadResources(s);
+                userAgentAnalyzer.loadResources(s, true);
             }
         }
         return true;

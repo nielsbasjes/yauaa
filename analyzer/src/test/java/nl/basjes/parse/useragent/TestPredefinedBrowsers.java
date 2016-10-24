@@ -42,7 +42,7 @@ public class TestPredefinedBrowsers {
     @BeforeClass
     public static void getListOfAllFields() {
         uaa = new UserAgentAnalyzerTester();
-        uaa.initialize();
+        uaa.initialize(false);
         allFields = uaa.getAllPossibleFieldNamesSorted();
     }
 
@@ -66,12 +66,13 @@ public class TestPredefinedBrowsers {
                     .newBuilder()
                     .withoutCache()
                     .withField(fieldName)
+                    .hideMatcherLoadStats()
                     .build();
 
             singleFieldList.clear();
             singleFieldList.add(fieldName);
             assertTrue(userAgentAnalyzer instanceof UserAgentAnalyzerTester);
-            assertTrue(((UserAgentAnalyzerTester) userAgentAnalyzer).runTests(false, true, singleFieldList, false));
+            assertTrue(((UserAgentAnalyzerTester) userAgentAnalyzer).runTests(false, true, singleFieldList, false, false));
         }
     }
 
@@ -84,10 +85,11 @@ public class TestPredefinedBrowsers {
                 .newBuilder()
                 .withoutCache()
                 .withFields(fields)
+                .hideMatcherLoadStats()
                 .build();
 
         assertTrue(userAgentAnalyzer instanceof UserAgentAnalyzerTester);
-        assertTrue(((UserAgentAnalyzerTester) userAgentAnalyzer).runTests(false, true, fields, false));
+        assertTrue(((UserAgentAnalyzerTester) userAgentAnalyzer).runTests(false, true, fields, false, false));
     }
 
     @Test

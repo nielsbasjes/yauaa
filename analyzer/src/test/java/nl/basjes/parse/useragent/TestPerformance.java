@@ -27,13 +27,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TestPerformance {
-    private static final Logger LOG = LoggerFactory.getLogger(TestPerformance.class);
-
     @Ignore
     @Test
     public void validateAllPredefinedBrowsersPerformance() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
-        Assert.assertTrue(uaa.runTests(false, false, null, true));
+        uaa.initialize(true);
+        Assert.assertTrue(uaa.runTests(false, false, null, true, true));
     }
 
 }
