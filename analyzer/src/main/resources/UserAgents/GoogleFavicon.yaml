@@ -1,0 +1,127 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# http://webmasters.stackexchange.com/questions/100434/where-does-google-favicon-useragent-come-from
+
+# FIXME: This is a RESEARCH config file to figure out the pattern
+
+config:
+
+- matcher:
+    require:
+    - 'agent.product.name="Chrome"'
+    - 'agent.text="Google Favicon"'
+    extract:
+    - 'AgentName             :   10000:"Google Favicon (Chrome)"'
+
+- matcher:
+    require:
+    - 'agent.product.name="Firefox"'
+    - 'agent.text="Google Favicon"'
+    extract:
+    - 'AgentName             :   10000:"Google Favicon (Firefox)"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36 Google Favicon'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Google Favicon (Chrome)'
+      AgentVersion                         : '49.0.2623.75'
+      AgentVersionMajor                    : '49'
+      AgentNameVersion                     : 'Google Favicon (Chrome) 49.0.2623.75'
+      AgentNameVersionMajor                : 'Google Favicon (Chrome) 49'
+
+
+- matcher:
+    require:
+    - 'agent.(1)text="Google Favicon"'
+    extract:
+    - 'DeviceClass            :     100:"Robot"'
+    - 'DeviceName             :     100:"Google"'
+    - 'DeviceBrand            :     100:"Google"'
+    - 'AgentClass             :     100:"Cloud Application"'
+    - 'AgentName              :   20000:"Google Favicon (Bare)"'
+    - 'AgentVersion           :     100:"??"'
+
+- test:
+    input:
+      user_agent_string: 'Google favicon'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'Google Favicon (Bare)'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Google Favicon (Bare) ??'
+      AgentNameVersionMajor                : 'Google Favicon (Bare) Hacker'
+      HackerAttackVector                   : 'Unknown'
+      HackerToolkit                        : 'Unknown'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; rv:6.0) Gecko/20110814 Firefox/6.0 Google Favicon'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '6.0'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Gecko 6.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 6'
+      LayoutEngineBuild                    : '20110814'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Google Favicon (Firefox)'
+      AgentVersion                         : '6.0'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Google Favicon (Firefox) 6.0'
+      AgentNameVersionMajor                : 'Google Favicon (Firefox) 6'
+
