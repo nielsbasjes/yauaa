@@ -60,6 +60,7 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
             }
             analyzer = analyzerBuilder.build();
             allFieldNames = analyzer.getAllPossibleFieldNamesSorted();
+            initialized = true;
         }
     }
 
