@@ -469,7 +469,7 @@ config:
         return parseCache.maxSize();
     }
 
-    private UserAgent cachedParse(UserAgent userAgent) {
+    private synchronized UserAgent cachedParse(UserAgent userAgent) {
         if (parseCache == null) {
             return nonCachedParse(userAgent);
         }
