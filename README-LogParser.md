@@ -8,7 +8,7 @@ If you use a maven based project simply add this dependency
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa-logparser</artifactId>
       <classifier>udf</classifier>
-      <version>0.9</version>
+      <version>0.10</version>
     </dependency>
 
 ## Building
