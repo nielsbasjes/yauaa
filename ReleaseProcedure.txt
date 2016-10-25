@@ -9,7 +9,7 @@ mvn clean
 
 
 # Prepare the versions for the release
-RELEASEVERSION=0.10
+RELEASEVERSION=0.10.1
 NEXTVERSION=0.11
 
 # Creating and publishing the new Tagging
@@ -30,10 +30,10 @@ git commit -m"Start development for ${NEXTVERSION}" -a
 git checkout v${RELEASEVERSION}
 
 
-#mvn clean deploy -Pplatfora -Pdeploy-local
+#mvn clean deploy -Pplatfora -Prelease -Pdeploy-local
 #VERIFY If this all looks good
 
-mvn clean deploy -Pplatfora -Pdeploy-sonatype
+mvn clean deploy -Pplatfora -Prelease -Pdeploy-sonatype
 
 git checkout master
 
