@@ -35,6 +35,7 @@ public class Matcher {
     private final List<MatcherAction> fixedStringActions;
     final Map<String, Map<String, String>> lookups;
     private boolean verbose;
+    private boolean permanentVerbose;
 
     // Package private constructor for testing purposes only
     Matcher(Analyzer analyzer, Map<String, Map<String, String>> lookups) {
@@ -62,6 +63,7 @@ public class Matcher {
         if (options != null) {
             verbose = options.contains("verbose");
         }
+        permanentVerbose = verbose;
 
         if (verbose) {
             LOG.info("---------------------------");
@@ -254,7 +256,7 @@ public class Matcher {
                 verbose = true;
                 action.setVerbose(true, true);
             } else {
-                verbose = false;
+                verbose = permanentVerbose;
             }
         }
     }
