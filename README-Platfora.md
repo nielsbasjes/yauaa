@@ -5,14 +5,14 @@ If you use a maven based project simply add this dependency
 
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa</artifactId>
+      <artifactId>yauaa-platfora</artifactId>
       <classifier>udf</classifier>
       <version>0.10.1</version>
     </dependency>
 
 Or simply download it via this URL:
-http://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa/
-Then go the the right version and download the file named yauaa-*version*-udf.jar
+http://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-platfora/
+Then go the the right version and download the file named yauaa-platfora-*version*-udf.jar
 
 ## Example usage
 Once installed you will see two new functions that can be used in computed fields:
