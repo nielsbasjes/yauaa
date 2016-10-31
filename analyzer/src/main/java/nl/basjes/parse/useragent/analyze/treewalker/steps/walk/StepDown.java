@@ -198,7 +198,6 @@ public class StepDown extends Step {
                                                     ProductVersionSingleWordContext.class);
                 case "comments":
                     return getChildren(ctx, true,   CommentBlockContext.class);
-                //, NestedCommentBlockContext.class);
                 default:
                     return Collections.emptyList();
             }
@@ -265,10 +264,7 @@ public class StepDown extends Step {
                     }
                     return children;
                 case "comments":
-                    return getChildren(ctx, true, CommentBlockContext.class
-//                        ,
-//                                                  NestedCommentBlockContext.class
-                    );
+                    return getChildren(ctx, true, CommentBlockContext.class);
                 default:
                     return Collections.emptyList();
             }
