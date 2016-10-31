@@ -855,3 +855,28 @@ config:
       AgentNameVersion                     : 'Yahoo-MMAudVid 1.0'
       AgentNameVersionMajor                : 'Yahoo-MMAudVid 1'
       AgentInformationEmail                : 'mms-mmaudvidcrawler-support@yahoo-inc.com'
+
+- test:
+    input:
+      user_agent_string: 'DuckDuckBot/1.0; (+http://duckduckgo.com/duckduckbot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'DuckDuckBot'
+      DeviceBrand                          : 'Robot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'DuckDuckBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'DuckDuckBot 1.0'
+      LayoutEngineNameVersionMajor         : 'DuckDuckBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'DuckDuckBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'DuckDuckBot 1.0'
+      AgentNameVersionMajor                : 'DuckDuckBot 1'
+      AgentInformationUrl                  : 'http://duckduckgo.com/duckduckbot.html'
