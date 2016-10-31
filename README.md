@@ -1,5 +1,5 @@
-YaUAA: Yet Another UserAgent Analyzer [![Travis Build status](https://api.travis-ci.org/nielsbasjes/yauaa.png)](https://travis-ci.org/nielsbasjes/yauaa)
-====================================
+YaUAA: Yet Another UserAgent Analyzer [![Travis Build status](https://api.travis-ci.org/nielsbasjes/yauaa.png)](https://travis-ci.org/nielsbasjes/yauaa) [![Coverage Status](https://coveralls.io/repos/github/nielsbasjes/yauaa/badge.svg?branch=master)](https://coveralls.io/github/nielsbasjes/yauaa?branch=master)
+=======================================================================================================================================================================================================================================================================================================================
 This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.
 
 The resulting output fields can be classified into several categories:
