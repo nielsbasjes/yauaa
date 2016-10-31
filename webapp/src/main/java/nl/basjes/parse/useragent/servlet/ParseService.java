@@ -35,6 +35,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -208,6 +210,8 @@ public class ParseService {
             }
             sb.append("</table>");
 
+
+            addBugReportButton(sb, userAgent);
 //            sb.append("<ul>");
 //            sb.append("<li><a href=\"/\">HTML (from header)</a></li>");
 //            sb.append("<li><a href=\"/json\">Json (from header)</a></li>");
@@ -293,5 +297,21 @@ public class ParseService {
         return responseBuilder.entity(userAgent.toJson()).build();
     }
 
-
+    private StringBuilder addBugReportButton(StringBuilder sb, UserAgent userAgent) {
+        // https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=bar
+        sb.append("If you find a problem with this result then please " +
+            "report a bug here: <a href=\"https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=");
+        String report =  "I found a problem with this useragent.\n" +
+            "[Please update the output below to match what you expect it should be]\n" +
+            "\n```\n" +
+            userAgent.toYamlTestCase() +
+            "\n```\n";
+        try {
+            sb.append(URLEncoder.encode(report, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            // Never happens.
+        }
+        sb.append("\">Yauaa issue report</a>");
+        return sb;
+    }
 }
