@@ -18,22 +18,7 @@
 package nl.basjes.parse.useragent.analyze;
 
 public class InvalidParserConfigurationException extends RuntimeException {
-    public InvalidParserConfigurationException() {
-    }
-
     public InvalidParserConfigurationException(String message) {
         super(message);
-    }
-
-    public InvalidParserConfigurationException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public InvalidParserConfigurationException(Throwable cause) {
-        super(cause);
-    }
-
-    public InvalidParserConfigurationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
     }
 }

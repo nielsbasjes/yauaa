@@ -22,7 +22,6 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.KeyWithoutValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameNoVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionSingleWordContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWithCommasContext;
-import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.NumberRangeList;
 import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
@@ -107,24 +106,16 @@ public class StepDown extends Step {
      */
     @SafeVarargs
     private final List<ParserRuleContext> getChildren(
-            ParseTree tree,
+            ParserRuleContext tree,
             Class<? extends ParserRuleContext>... childClasses) {
         return getChildren(tree, false, childClasses);
     }
 
     @SafeVarargs
     private final List<ParserRuleContext> getChildren(
-            ParseTree tree,
+            ParserRuleContext treeContext,
             boolean privateNumberRange,
             Class<? extends ParserRuleContext>... childClasses) {
-        if (!(tree instanceof ParserRuleContext)) {
-            return Collections.emptyList(); // Only contexts can have children
-        }
-        if (childClasses.length == 0) {
-            throw new InvalidParserConfigurationException("WTF");
-        }
-
-        ParserRuleContext treeContext = (ParserRuleContext) tree;
         if (treeContext.children == null) {
             return Collections.emptyList();
         }
