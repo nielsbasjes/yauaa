@@ -18,7 +18,6 @@
 package nl.basjes.parse.useragent.debug;
 
 import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
@@ -47,7 +46,7 @@ public final class Main {
         try {
             parser.parseArgument(args);
 
-            UserAgentAnalyzer uaa = new UserAgentAnalyzer();
+            UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
             UserAgentTreeFlattener flattenPrinter = new UserAgentTreeFlattener(new FlattenPrinter());
             uaa.setVerbose(commandlineOptions.debug);
 

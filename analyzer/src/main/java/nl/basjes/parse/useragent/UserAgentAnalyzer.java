@@ -72,7 +72,7 @@ public class UserAgentAnalyzer extends Analyzer {
     private static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
-    private List<Matcher> allMatchers;
+    protected List<Matcher> allMatchers;
     private Map<String, Set<MatcherAction>> informMatcherActions;
     private final Map<String, List<Map<String, List<String>>>> matcherConfigs = new HashMap<>(64);
 
@@ -84,7 +84,7 @@ public class UserAgentAnalyzer extends Analyzer {
     protected final List<Map<String, Map<String, String>>> testCases          = new ArrayList<>(2048);
     private Map<String, Map<String, String>> lookups                    = new HashMap<>(128);
 
-    private UserAgentTreeFlattener flattener;
+    protected UserAgentTreeFlattener flattener;
 
     private Yaml yaml;
 
@@ -280,9 +280,6 @@ config:
         } catch (Exception e) {
             LOG.error("Caught exception during parse of file {}", filename);
             throw e;
-        }
-        if (loadedYaml == null) {
-            return;
         }
 
         if (!(loadedYaml instanceof Map)) {
@@ -660,7 +657,6 @@ config:
                     LOG.info("+++ -------> ({}): {}", count, action.toString());
                     count++;
                 }
-
             }
         }
 
@@ -669,36 +665,6 @@ config:
                 matcherAction.inform(key, value, ctx);
             }
         }
-    }
-
-    // ===============================================================================================================
-
-    /**
-     * This function is used only for analyzing which patterns that could possibly be relevant
-     * were actually relevant for the matcher actions
-     */
-    @SuppressWarnings({"unused"})
-    public List<MatcherAction.Match> getMatches() {
-        List<MatcherAction.Match> allMatches = new ArrayList<>(128);
-        for (Matcher matcher: allMatchers) {
-            allMatches.addAll(matcher.getMatches());
-        }
-        return allMatches;
-    }
-
-    public List<MatcherAction.Match> getUsedMatches(UserAgent userAgent) {
-        // Reset all Matchers
-        for (Matcher matcher : allMatchers) {
-            matcher.reset(false);
-        }
-
-        flattener.parse(userAgent);
-
-        List<MatcherAction.Match> allMatches = new ArrayList<>(128);
-        for (Matcher matcher: allMatchers) {
-            allMatches.addAll(matcher.getUsedMatches());
-        }
-        return allMatches;
     }
 
     // ===============================================================================================================
