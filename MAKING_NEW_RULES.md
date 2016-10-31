@@ -84,7 +84,7 @@ The overall structure is this:
 
 
 A require pattern must simply yield a non-null value.
-The IsNull operator only makes sensce in the context of a require as with this you can check that a pattern may not exist.
+The IsNull operator only makes sense in the context of a require as with this you can check that a pattern may not exist.
 
 For example to do checks like "The last product in the list must be named foo" you can write this
 
