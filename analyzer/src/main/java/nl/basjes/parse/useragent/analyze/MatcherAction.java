@@ -18,11 +18,11 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgentTreeWalkerBaseVisitor;
-import nl.basjes.parse.useragent.UserAgentTreeWalkerLexer;
-import nl.basjes.parse.useragent.UserAgentTreeWalkerParser;
-import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepContainsValueContext;
-import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepWordRangeContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerLexer;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import org.antlr.v4.runtime.ANTLRErrorListener;
@@ -43,23 +43,23 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.BasePathContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherLookupContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherNextLookupContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherPathContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherPathLookupContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.PathContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.PathFixedValueContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.PathNoWalkContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.PathWalkContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepDownContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepEndsWithValueContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepEqualsValueContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepNotEqualsValueContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepStartsWithValueContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.BasePathContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherLookupContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNextLookupContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathFixedValueContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathNoWalkContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathWalkContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEndsWithValueContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEqualsValueContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotEqualsValueContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepStartsWithValueContext;
 
 public abstract class MatcherAction {
 

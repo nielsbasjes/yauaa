@@ -15,8 +15,10 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent;
+package nl.basjes.parse.useragent.debug;
 
+import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;

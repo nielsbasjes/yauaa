@@ -17,9 +17,9 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.UserAgentTreeWalkerBaseVisitor;
-import nl.basjes.parse.useragent.UserAgentTreeWalkerParser;
-import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.WordRangeContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeContext;
 
 public class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordRangeVisitor.Range> {
     public static final int MAX_RANGE_IN_HASHMAP = 3;

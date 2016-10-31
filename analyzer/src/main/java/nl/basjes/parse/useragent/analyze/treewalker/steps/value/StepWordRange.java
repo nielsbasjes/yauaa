@@ -17,8 +17,8 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps.value;
 
-import nl.basjes.parse.useragent.UserAgentParser.SingleVersionContext;
-import nl.basjes.parse.useragent.UserAgentParser.SingleVersionWithCommasContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionWithCommasContext;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.utils.VersionSplitter;

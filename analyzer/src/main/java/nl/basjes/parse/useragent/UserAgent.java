@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent;
 
+import nl.basjes.parse.useragent.parser.UserAgentBaseListener;
 import org.antlr.v4.runtime.ANTLRErrorListener;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;

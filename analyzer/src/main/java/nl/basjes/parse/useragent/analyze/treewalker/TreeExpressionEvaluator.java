@@ -17,10 +17,10 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker;
 
-import nl.basjes.parse.useragent.UserAgentTreeWalkerBaseVisitor;
-import nl.basjes.parse.useragent.UserAgentTreeWalkerParser;
-import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherContext;
-import nl.basjes.parse.useragent.UserAgentTreeWalkerParser.MatcherPathLookupContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;

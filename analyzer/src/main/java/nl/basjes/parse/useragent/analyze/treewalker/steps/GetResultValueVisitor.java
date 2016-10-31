@@ -17,8 +17,8 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps;
 
-import nl.basjes.parse.useragent.UserAgentBaseVisitor;
-import nl.basjes.parse.useragent.UserAgentParser;
+import nl.basjes.parse.useragent.parser.UserAgentBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 

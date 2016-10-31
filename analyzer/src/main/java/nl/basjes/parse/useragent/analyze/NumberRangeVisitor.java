@@ -17,18 +17,18 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.UserAgentTreeWalkerBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.NumberRangeAllContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.NumberRangeContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.NumberRangeEmptyContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.NumberRangeSingleValueContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.NumberRangeStartToEndContext;
-import static nl.basjes.parse.useragent.UserAgentTreeWalkerParser.StepDownContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeAllContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeEmptyContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeSingleValueContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeStartToEndContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
 
 public class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<NumberRangeList> {
 
