@@ -1,2 +1,4 @@
 language: java
 
+after_success:
+  - mvn clean -PReportCoverage cobertura:cobertura coveralls:report
