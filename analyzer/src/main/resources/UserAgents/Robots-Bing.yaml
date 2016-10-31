@@ -1,0 +1,630 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# Bing crawlers as documented on these pages:
+# https://www.bing.com/webmaster/help/which-crawlers-does-bing-use-8c184ec0
+# http://blogs.bing.com/webmaster/2014/11/03/meet-our-mobile-bots/
+
+
+isBingPreview: &isBingPreview
+    DeviceClass                          : 'Robot'
+    DeviceName                           : 'BingPreview'
+    DeviceBrand                          : 'Microsoft'
+    OperatingSystemClass                 : 'Cloud'
+    OperatingSystemName                  : 'Microsoft Cloud'
+    OperatingSystemVersion               : 'Microsoft Azure'
+    OperatingSystemNameVersion           : 'Microsoft Azure'
+    LayoutEngineClass                    : 'Robot'
+    LayoutEngineName                     : 'BingPreview'
+    LayoutEngineVersion                  : '1.0b'
+    LayoutEngineVersionMajor             : '1'
+    LayoutEngineNameVersion              : 'BingPreview 1.0b'
+    LayoutEngineNameVersionMajor         : 'BingPreview 1'
+    AgentClass                           : 'Robot'
+    AgentName                            : 'BingPreview'
+    AgentVersion                         : '1.0b'
+    AgentVersionMajor                    : '1'
+    AgentNameVersion                     : 'BingPreview 1.0b'
+    AgentNameVersionMajor                : 'BingPreview 1'
+
+isBingPreviewMobile: &isBingPreviewMobile
+    DeviceClass                          : 'Robot Mobile'
+    DeviceName                           : 'BingPreview'
+    DeviceBrand                          : 'Microsoft'
+    OperatingSystemClass                 : 'Cloud'
+    OperatingSystemName                  : 'Microsoft Cloud'
+    OperatingSystemVersion               : 'Microsoft Azure'
+    OperatingSystemNameVersion           : 'Microsoft Azure'
+    LayoutEngineClass                    : 'Robot'
+    LayoutEngineName                     : 'BingPreview'
+    LayoutEngineVersion                  : '1.0b'
+    LayoutEngineVersionMajor             : '1'
+    LayoutEngineNameVersion              : 'BingPreview 1.0b'
+    LayoutEngineNameVersionMajor         : 'BingPreview 1'
+    AgentClass                           : 'Robot'
+    AgentName                            : 'BingPreview'
+    AgentVersion                         : '1.0b'
+    AgentVersionMajor                    : '1'
+    AgentNameVersion                     : 'BingPreview 1.0b'
+    AgentNameVersionMajor                : 'BingPreview 1'
+
+
+config:
+
+- matcher:
+    extract:
+    - '__Set_ALL_Fields__    : 2999:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass           : 3000:"Robot"'
+    - 'DeviceBrand           : 3000:"Microsoft"'
+    - 'DeviceName            : 3000:"BingBot"'
+    - 'OperatingSystemClass  : 3000:"Cloud"'
+    - 'OperatingSystemName   : 3000:"Microsoft Cloud"'
+    - 'OperatingSystemVersion: 3000:"Microsoft Azure"'
+    - 'OperatingSystemNameVersion: 3000:"Microsoft Azure"'
+    - 'LayoutEngineClass     : 3000:"Robot"'
+    - 'LayoutEngineName      : 3000:"Bingbot"'
+    - 'LayoutEngineVersion   : 3000:agent.product.(1)name="bingbot"^.version'
+    - 'AgentClass            : 3000:"Robot"'
+    - 'AgentName             : 3000:"Bingbot"'
+    - 'AgentVersion          : 3000:agent.product.(1)name="bingbot"^.version'
+
+- matcher:
+    extract:
+    - '__Set_ALL_Fields__    : 2999:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass           : 3000:"Robot"'
+    - 'DeviceBrand           : 3000:"Microsoft"'
+    - 'DeviceName            : 3000:"BingBot"'
+    - 'OperatingSystemClass  : 3000:"Cloud"'
+    - 'OperatingSystemName   : 3000:"Microsoft Cloud"'
+    - 'OperatingSystemVersion: 3000:"Microsoft Azure"'
+    - 'OperatingSystemNameVersion: 3000:"Microsoft Azure"'
+    - 'LayoutEngineClass     : 3000:"Robot"'
+    - 'LayoutEngineName      : 3000:"Bingbot"'
+    - 'LayoutEngineVersion   : 3000:agent.product.(1)comments.entry.product.(1)name="bingbot"^.version'
+    - 'AgentClass            : 3000:"Robot"'
+    - 'AgentName             : 3000:"Bingbot"'
+    - 'AgentVersion          : 3000:agent.product.(1)comments.entry.product.(1)name="bingbot"^.version'
+
+
+- matcher:
+    extract:
+    - '__Set_ALL_Fields__    : 2999:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass           : 3000:"Robot"'
+    - 'DeviceBrand           : 3000:"Microsoft"'
+    - 'DeviceName            : 3000:"MsnBot"'
+    - 'OperatingSystemClass  : 3000:"Cloud"'
+    - 'OperatingSystemName   : 3000:"Microsoft Cloud"'
+    - 'OperatingSystemVersion: 3000:"Microsoft Azure"'
+    - 'OperatingSystemNameVersion: 3000:"Microsoft Azure"'
+    - 'LayoutEngineClass     : 3000:"Robot"'
+    - 'LayoutEngineName      : 3000:agent.product.(1)name[1]="msnbot"@'
+    - 'LayoutEngineVersion   : 3000:agent.product.(1)name[1]="msnbot"^.version'
+    - 'AgentClass            : 3000:"Robot"'
+    - 'AgentName             : 3000:agent.product.(1)name[1]="msnbot"@'
+    - 'AgentVersion          : 3000:agent.product.(1)name[1]="msnbot"^.version'
+
+- matcher:
+    extract:
+    - '__Set_ALL_Fields__    : 2999:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass           : 3000:"Robot"'
+    - 'DeviceBrand           : 3000:"Microsoft"'
+    - 'DeviceName            : 3000:"MsnBot"'
+    - 'OperatingSystemClass  : 3000:"Cloud"'
+    - 'OperatingSystemName   : 3000:"Microsoft Cloud"'
+    - 'OperatingSystemVersion: 3000:"Microsoft Azure"'
+    - 'OperatingSystemNameVersion: 3000:"Microsoft Azure"'
+    - 'LayoutEngineClass     : 3000:"Robot"'
+    - 'LayoutEngineName      : 3000:agent.product.(1)comments.entry.product.(1)name[1]="msnbot"@'
+    - 'LayoutEngineVersion   : 3000:agent.product.(1)comments.entry.product.(1)name[1]="msnbot"^.version'
+    - 'AgentClass            : 3000:"Robot"'
+    - 'AgentName             : 3000:agent.product.(1)comments.entry.product.(1)name[1]="msnbot"@'
+    - 'AgentVersion          : 3000:agent.product.(1)comments.entry.product.(1)name[1]="msnbot"^.version'
+
+
+- matcher:
+    extract:
+    - '__Set_ALL_Fields__    : 2999:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass           : 3000:"Robot"'
+    - 'DeviceBrand           : 3000:"Microsoft"'
+    - 'DeviceName            : 3000:"Adidxbot"'
+    - 'OperatingSystemClass  : 3000:"Cloud"'
+    - 'OperatingSystemName   : 3000:"Microsoft Cloud"'
+    - 'OperatingSystemVersion: 3000:"Microsoft Azure"'
+    - 'OperatingSystemNameVersion: 3000:"Microsoft Azure"'
+    - 'LayoutEngineClass     : 3000:"Robot"'
+    - 'LayoutEngineName      : 3000:agent.product.(1)name[1]="adidxbot"@'
+    - 'LayoutEngineVersion   : 3000:agent.product.(1)name[1]="adidxbot"^.version'
+    - 'AgentClass            : 3000:"Robot"'
+    - 'AgentName             : 3000:agent.product.(1)name[1]="adidxbot"@'
+    - 'AgentVersion          : 3000:agent.product.(1)name[1]="adidxbot"^.version'
+
+- matcher:
+    extract:
+    - '__Set_ALL_Fields__    : 2999:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass           : 3000:"Robot"'
+    - 'DeviceBrand           : 3000:"Microsoft"'
+    - 'DeviceName            : 3000:"Adidxbot"'
+    - 'OperatingSystemClass  : 3000:"Cloud"'
+    - 'OperatingSystemName   : 3000:"Microsoft Cloud"'
+    - 'OperatingSystemVersion: 3000:"Microsoft Azure"'
+    - 'OperatingSystemNameVersion: 3000:"Microsoft Azure"'
+    - 'LayoutEngineClass     : 3000:"Robot"'
+    - 'LayoutEngineName      : 3000:agent.product.(1)comments.entry.product.(1)name[1]="adidxbot"@'
+    - 'LayoutEngineVersion   : 3000:agent.product.(1)comments.entry.product.(1)name[1]="adidxbot"^.version'
+    - 'AgentClass            : 3000:"Robot"'
+    - 'AgentName             : 3000:agent.product.(1)comments.entry.product.(1)name[1]="adidxbot"@'
+    - 'AgentVersion          : 3000:agent.product.(1)comments.entry.product.(1)name[1]="adidxbot"^.version'
+
+- matcher:
+    extract:
+    - '__Set_ALL_Fields__    : 2999:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass           : 3000:"Robot"'
+    - 'DeviceBrand           : 3000:"Microsoft"'
+    - 'DeviceName            : 3000:"BingPreview"'
+    - 'OperatingSystemClass  : 3000:"Cloud"'
+    - 'OperatingSystemName   : 3000:"Microsoft Cloud"'
+    - 'OperatingSystemVersion: 3000:"Microsoft Azure"'
+    - 'OperatingSystemNameVersion: 3000:"Microsoft Azure"'
+    - 'LayoutEngineClass     : 3000:"Robot"'
+    - 'LayoutEngineName      : 3000:"BingPreview"'
+    - 'LayoutEngineVersion   : 3000:agent.product.(1)name="BingPreview"^.version'
+    - 'AgentClass            : 3000:"Robot"'
+    - 'AgentName             : 3000:"BingPreview"'
+    - 'AgentVersion          : 3000:agent.product.(1)name="BingPreview"^.version'
+
+
+# There are cases where the 'bingpreview' is preceeded by 'like gecko'
+- matcher:
+    extract:
+    - '__Set_ALL_Fields__    : 2999:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass           : 3000:"Robot"'
+    - 'DeviceBrand           : 3000:"Microsoft"'
+    - 'DeviceName            : 3000:"BingPreview"'
+    - 'OperatingSystemClass  : 3000:"Cloud"'
+    - 'OperatingSystemName   : 3000:"Microsoft Cloud"'
+    - 'OperatingSystemVersion: 3000:"Microsoft Azure"'
+    - 'OperatingSystemNameVersion: 3000:"Microsoft Azure"'
+    - 'LayoutEngineClass     : 3000:"Robot"'
+    - 'LayoutEngineName      : 3000:"BingPreview"'
+    - 'LayoutEngineVersion   : 3000:agent.product.(1)name[3]="BingPreview"^.version'
+    - 'AgentClass            : 3000:"Robot"'
+    - 'AgentName             : 3000:"BingPreview"'
+    - 'AgentVersion          : 3000:agent.product.(1)name[3]="BingPreview"^.version'
+
+- matcher:
+    extract:
+    - '__Set_ALL_Fields__    : 2999:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass           : 3000:"Robot"'
+    - 'DeviceBrand           : 3000:"Microsoft"'
+    - 'DeviceName            : 3000:"BingPreview"'
+    - 'OperatingSystemClass  : 3000:"Cloud"'
+    - 'OperatingSystemName   : 3000:"Microsoft Cloud"'
+    - 'OperatingSystemVersion: 3000:"Microsoft Azure"'
+    - 'OperatingSystemNameVersion: 3000:"Microsoft Azure"'
+    - 'LayoutEngineClass     : 3000:"Robot"'
+    - 'LayoutEngineName      : 3000:"BingPreview"'
+    - 'LayoutEngineVersion   : 3000:agent.product.(1)comments.entry.product.(1)name="BingPreview"^.version'
+    - 'AgentClass            : 3000:"Robot"'
+    - 'AgentName             : 3000:"BingPreview"'
+    - 'AgentVersion          : 3000:agent.product.(1)comments.entry.product.(1)name="BingPreview"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.product.(1)name="bingbot"'
+    - 'agent.product.(1)comments.entry.(1)product.name="Windows Phone"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.product.(1)name="bingbot"'
+    - 'agent.product.(1)comments.entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.product.(1)name="bingbot"'
+    - 'agent.product.(1)comments.entry.(1)text="iPhone"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.product.(1)name="bingpreview"'
+    - 'agent.product.(1)comments.entry.(1)text="iPhone"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.product.(1)name="bingpreview"'
+    - 'agent.product.(1)comments.entry.(1)product.name="Windows Phone"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.product.(1)name="bingpreview"'
+    - 'agent.product.(1)comments.entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="bingpreview"'
+    - 'agent.product.(1)comments.entry.(1)text="iPhone"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="bingpreview"'
+    - 'agent.product.(1)comments.entry.(1)product.name="Windows Phone"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="bingpreview"'
+    - 'agent.product.(1)comments.entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name[3]="bingpreview"'
+    - 'agent.product.(1)comments.entry.(1)text="iPhone"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name[3]="bingpreview"'
+    - 'agent.product.(1)comments.entry.(1)product.name="Windows Phone"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name[3]="bingpreview"'
+    - 'agent.product.(1)comments.entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.product.(1)name="Adidxbot"'
+    - 'agent.product.(1)comments.entry.(1)text="iPhone"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.product.(1)name="Adidxbot"'
+    - 'agent.product.(1)comments.entry.(1)product.name="Windows Phone"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.product.(1)name="Adidxbot"'
+    - 'agent.product.(1)comments.entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceClass           : 3001:"Robot Mobile"'
+
+
+# Bingbot is our standard crawler and handles most of our crawling needs each day.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'BingBot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bingbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Bingbot 2.0'
+      LayoutEngineNameVersionMajor         : 'Bingbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bingbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Bingbot 2.0'
+      AgentNameVersionMajor                : 'Bingbot 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'BingBot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bingbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Bingbot 2.0'
+      LayoutEngineNameVersionMajor         : 'Bingbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bingbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Bingbot 2.0'
+      AgentNameVersionMajor                : 'Bingbot 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 530) like Gecko (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'BingBot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bingbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Bingbot 2.0'
+      LayoutEngineNameVersionMajor         : 'Bingbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bingbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Bingbot 2.0'
+      AgentNameVersionMajor                : 'Bingbot 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+# MSNBot used to be our standard crawler before the advent of Bingbot and still handles some of our crawling duties.
+- test:
+    input:
+      user_agent_string: 'msnbot/2.0b (+http://search.msn.com/msnbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'MsnBot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'msnbot'
+      LayoutEngineVersion                  : '2.0b'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'msnbot 2.0b'
+      LayoutEngineNameVersionMajor         : 'msnbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'msnbot'
+      AgentVersion                         : '2.0b'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'msnbot 2.0b'
+      AgentNameVersionMajor                : 'msnbot 2'
+      AgentInformationUrl                  : 'http://search.msn.com/msnbot.htm'
+
+# MSNBot-Media is our crawler for images and video.
+- test:
+    input:
+      user_agent_string: 'msnbot-media/1.1 (+http://search.msn.com/msnbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'MsnBot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'msnbot-media'
+      LayoutEngineVersion                  : '1.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'msnbot-media 1.1'
+      LayoutEngineNameVersionMajor         : 'msnbot-media 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'msnbot-media'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'msnbot-media 1.1'
+      AgentNameVersionMajor                : 'msnbot-media 1'
+      AgentInformationUrl                  : 'http://search.msn.com/msnbot.htm'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; adidxbot/2.0; +http://www.bing.com/bingbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Adidxbot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'adidxbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'adidxbot 2.0'
+      LayoutEngineNameVersionMajor         : 'adidxbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'adidxbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'adidxbot 2.0'
+      AgentNameVersionMajor                : 'adidxbot 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+# AdIdxBot is the crawler used by Bing Ads. AdIdxBot is responsible for crawling ads and following through to websites from those ads for quality control purposes.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53 (compatible; adidxbot/2.0; +http://www.bing.com/bingbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Adidxbot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'adidxbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'adidxbot 2.0'
+      LayoutEngineNameVersionMajor         : 'adidxbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'adidxbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'adidxbot 2.0'
+      AgentNameVersionMajor                : 'adidxbot 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 530) like Gecko (compatible; adidxbot/2.0; +http://www.bing.com/bingbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Adidxbot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'adidxbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'adidxbot 2.0'
+      LayoutEngineNameVersionMajor         : 'adidxbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'adidxbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'adidxbot 2.0'
+      AgentNameVersionMajor                : 'adidxbot 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 530) like Gecko (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'BingBot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bingbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Bingbot 2.0'
+      LayoutEngineNameVersionMajor         : 'Bingbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bingbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Bingbot 2.0'
+      AgentNameVersionMajor                : 'Bingbot 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+# BingPreview is used to generate page snapshots.
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) BingPreview/1.0b'
+    expected: *isBingPreview
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 530) like Gecko BingPreview/1.0b'
+    expected: *isBingPreviewMobile
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53 BingPreview/1.0b'
+    expected: *isBingPreviewMobile
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 530) like Gecko BingPreview/1.0b'
+    expected: *isBingPreviewMobile
+
+
+# ====================================================================================
+# Additional test cases
+
+- test:
+    input:
+      user_agent_string: 'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36 Edge/12.0 BingPreview/1.0b'
+    expected: *isBingPreview
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10561 BingPreview/1.0b'
+    expected: *isBingPreview
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.11067 BingPreview/1.0b'
+    expected: *isBingPreview
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) BingPreview/1.0b'
+    expected: *isBingPreview
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) BingPreview/1.0b,gzip(gfe)'
+    expected: *isBingPreview
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0; BingPreview/1.0b) like Gecko'
+    expected: *isBingPreview
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; Nokia; Lumia 520) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Mobile Safari/537.36 Edge/12.0 BingPreview/1.0b'
+    expected: *isBingPreviewMobile
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; NOKIA; Nokia) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Mobile Safari/537.36 Edge/12.0 BingPreview/1.0b'
+    expected: *isBingPreviewMobile
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Nokia) like Gecko BingPreview/1.0b'
+    expected: *isBingPreviewMobile
