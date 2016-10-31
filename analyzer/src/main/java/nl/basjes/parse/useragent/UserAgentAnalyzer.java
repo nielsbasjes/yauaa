@@ -63,6 +63,7 @@ import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.PRE_SORTED_FIELDS_LIST;
+import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 
 public class UserAgentAnalyzer extends Analyzer {
@@ -820,7 +821,7 @@ config:
                 addGeneratedFields("WebviewAppVersionMajor", "WebviewAppVersion");
 
                 // Special field that affects ALL fields.
-                uaa.wantedFieldNames.add("__Set_ALL_Fields__");
+                uaa.wantedFieldNames.add(SET_ALL_FIELDS);
             }
             uaa.initialize(showMatcherLoadStats);
             return uaa;

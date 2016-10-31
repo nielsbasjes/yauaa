@@ -477,6 +477,9 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
                 }
             }
         }
+
+        // This is not a field; this is a special operator.
+        resultSet.remove(SET_ALL_FIELDS);
         return resultSet;
     }
 

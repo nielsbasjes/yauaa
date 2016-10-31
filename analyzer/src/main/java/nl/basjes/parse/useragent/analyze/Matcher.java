@@ -27,6 +27,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
+
 public class Matcher {
     private static final Logger LOG = LoggerFactory.getLogger(Matcher.class);
 
@@ -154,6 +156,7 @@ public class Matcher {
         Set<String> results = new TreeSet<>();
         results.addAll(getAllPossibleFieldNames(dynamicActions));
         results.addAll(getAllPossibleFieldNames(fixedStringActions));
+        results.remove(SET_ALL_FIELDS);
         return results;
     }
 
