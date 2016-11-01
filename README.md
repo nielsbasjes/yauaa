@@ -94,7 +94,7 @@ This has been published to maven central so that should work in almost any envir
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
-      <version>0.10.1</version>
+      <version>0.11</version>
     </dependency>
 
 and in your application you can use it as simple as this
