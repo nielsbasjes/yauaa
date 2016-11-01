@@ -139,6 +139,10 @@ a UDF which are both part of this project.
 * [Apache Pig](README-Pig.md)
 * [Platfora](README-Platfora.md)
 
+UDFs written by other people:
+
+* Apache Drill [https://github.com/cgivre/drill-useragent-function](https://github.com/cgivre/drill-useragent-function)
+
 
 Values explained
 ================
