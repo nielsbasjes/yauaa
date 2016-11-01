@@ -60,25 +60,25 @@ On my i7 system I see a speed ranging from 500 to 4000 useragents per second (de
 On average the speed is around 2000 per second or ~0.5ms each.
 A LRU cache is in place that does over 1M per second if they are in the cache.
 
-Output from the benchmark ( [using this code](benchmarks/src/main/java/nl/basjes/parse/useragent/benchmarks/AnalyzerBenchmarks.java) ):
+Output from the benchmark ( [using this code](benchmarks/src/main/java/nl/basjes/parse/useragent/benchmarks/AnalyzerBenchmarks.java) ) on a Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz:
 
 | Benchmark                                 | Mode | Cnt | Score |   | Error | Units |
 | ---                                       | ---  | --- | ---  | --- | ---  | ---   |
-| AnalyzerBenchmarks.android6Chrome46       | avgt |  10 | 0.662 | ± | 0.081 | ms/op |
-| AnalyzerBenchmarks.androidPhone           | avgt |  10 | 0.941 | ± | 0.601 | ms/op |
-| AnalyzerBenchmarks.googleAdsBot           | avgt |  10 | 0.134 | ± | 0.075 | ms/op |
-| AnalyzerBenchmarks.googleAdsBotMobile     | avgt |  10 | 0.423 | ± | 0.019 | ms/op |
-| AnalyzerBenchmarks.googleBotMobileAndroid | avgt |  10 | 0.812 | ± | 0.518 | ms/op |
-| AnalyzerBenchmarks.googlebot              | avgt |  10 | 0.265 | ± | 0.172 | ms/op |
-| AnalyzerBenchmarks.hackerSQL              | avgt |  10 | 0.108 | ± | 0.061 | ms/op |
-| AnalyzerBenchmarks.hackerShellShock       | avgt |  10 | 0.097 | ± | 0.055 | ms/op |
-| AnalyzerBenchmarks.iPad                   | avgt |  10 | 0.424 | ± | 0.244 | ms/op |
-| AnalyzerBenchmarks.iPhone                 | avgt |  10 | 0.471 | ± | 0.156 | ms/op |
-| AnalyzerBenchmarks.iPhoneFacebookApp      | avgt |  10 | 0.890 | ± | 0.420 | ms/op |
-| AnalyzerBenchmarks.win10Chrome51          | avgt |  10 | 0.409 | ± | 0.233 | ms/op |
-| AnalyzerBenchmarks.win10Edge13            | avgt |  10 | 0.416 | ± | 0.128 | ms/op |
-| AnalyzerBenchmarks.win10IE11              | avgt |  10 | 0.395 | ± | 0.356 | ms/op |
-| AnalyzerBenchmarks.win7ie11               | avgt |  10 | 0.378 | ± | 0.263 | ms/op |
+| AnalyzerBenchmarks.android6Chrome46       | avgt |  10 | 0.538 | ± | 0.021 | ms/op |
+| AnalyzerBenchmarks.androidPhone           | avgt |  10 | 0.688 | ± | 0.025 | ms/op |
+| AnalyzerBenchmarks.googleAdsBot           | avgt |  10 | 0.111 | ± | 0.002 | ms/op |
+| AnalyzerBenchmarks.googleAdsBotMobile     | avgt |  10 | 0.385 | ± | 0.021 | ms/op |
+| AnalyzerBenchmarks.googleBotMobileAndroid | avgt |  10 | 0.575 | ± | 0.021 | ms/op |
+| AnalyzerBenchmarks.googlebot              | avgt |  10 | 0.199 | ± | 0.004 | ms/op |
+| AnalyzerBenchmarks.hackerSQL              | avgt |  10 | 0.096 | ± | 0.003 | ms/op |
+| AnalyzerBenchmarks.hackerShellShock       | avgt |  10 | 0.084 | ± | 0.002 | ms/op |
+| AnalyzerBenchmarks.iPad                   | avgt |  10 | 0.344 | ± | 0.011 | ms/op |
+| AnalyzerBenchmarks.iPhone                 | avgt |  10 | 0.341 | ± | 0.006 | ms/op |
+| AnalyzerBenchmarks.iPhoneFacebookApp      | avgt |  10 | 0.695 | ± | 0.026 | ms/op |
+| AnalyzerBenchmarks.win10Chrome51          | avgt |  10 | 0.307 | ± | 0.011 | ms/op |
+| AnalyzerBenchmarks.win10Edge13            | avgt |  10 | 0.336 | ± | 0.013 | ms/op |
+| AnalyzerBenchmarks.win10IE11              | avgt |  10 | 0.282 | ± | 0.008 | ms/op |
+| AnalyzerBenchmarks.win7ie11               | avgt |  10 | 0.279 | ± | 0.007 | ms/op |
 
 In the canonical usecase of analysing clickstream data you will see a <1ms hit per visitor (or better: per new non-cached useragent)
 and for all the other clicks the values are retrieved from this cache at close to 0 time.
