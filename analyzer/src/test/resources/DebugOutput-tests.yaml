@@ -27,9 +27,32 @@ config:
     require:
     - 'LookUp[Dummy;agent.(1)product.(1)name;"Fake"]'
     - 'IsNull[agent.(1)product.(1)name^.name="Word"!="Other"^.name[1]@{"Start"}"End"@@[-1][2-3][3-]<><]'
-    - 'IsNull[agent.(1)product.(1)name^.name="Bla"]'
     extract:
     - 'WordMatchFlipFlop: 1:agent.(1)product.(1)comments.(1-3)entry.(1)text[-1]="One"@[3]="Three"@[2]'
+
+- matcher:
+    options:
+    - 'verbose'
+    extract:
+    - 'WordMatchFlipFlop: 2:CleanVersion[LookUp[Dummy;agent.(1)product.(1)name^.name="Bla"]]'
+
+- matcher:
+    options:
+    - 'verbose'
+    require:
+    - 'CleanVersion[LookUp[Dummy;agent.(1)product.(1)name^.name="Word"]]'
+    extract:
+    - 'Foo: 1:"Bar"'
+
+- matcher:
+    options:
+    - 'verbose'
+    require:
+    - 'agent.(1)product.(1)name^^^^^'
+    - 'agent.(1)product.(1)name>>>>>'
+    - 'agent.(1)product.(1)name<<<<<'
+    extract:
+    - 'Foo: 1:"Bar"'
 
 - test:
     options:
