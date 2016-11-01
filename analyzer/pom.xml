@@ -163,6 +163,10 @@
         <configuration>
           <instrumentation>
             <ignoreTrivial>true</ignoreTrivial>
+            <ignores>
+              <ignore>nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException</ignore>
+              <ignore>org.slf4j.*</ignore>
+            </ignores>
             <excludes>
               <exclude>nl/basjes/parse/useragent/parser/*.class</exclude>
               <exclude>nl/basjes/parse/useragent/debug/*.class</exclude>
