@@ -1,0 +1,174 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2016 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+MATCH_OPTIONS: &MATCH_OPTIONS
+  options:
+#    - 'verbose'
+
+TEST_OPTIONS: &TEST_OPTIONS
+  options:
+#    - 'verbose'
+#    - 'init'
+
+config:
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitSingle1: 1:agent.product.version[1]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitSingle2: 1:agent.product.version[2]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitSingle3: 1:agent.product.version[3]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitSingle4: 1:agent.product.version[4]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitSingle5: 1:agent.product.version[5]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitSingle6: 1:agent.product.version[6]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitFirst1: 1:agent.product.version[-1]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitFirst2: 1:agent.product.version[-2]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitFirst3: 1:agent.product.version[-3]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitFirst4: 1:agent.product.version[-4]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitFirst5: 1:agent.product.version[-5]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitFirst6: 1:agent.product.version[-6]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitLast1: 1:agent.product.version[1-]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitLast2: 1:agent.product.version[2-]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitLast3: 1:agent.product.version[3-]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitLast4: 1:agent.product.version[4-]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitLast5: 1:agent.product.version[5-]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitLast6: 1:agent.product.version[6-]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitTwo1: 1:agent.product.version[1-2]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitTwo2: 1:agent.product.version[2-3]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitTwo3: 1:agent.product.version[3-4]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitTwo4: 1:agent.product.version[4-5]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'VersionSplitTwo5: 1:agent.product.version[5-6]'
+
+  - test:
+      <<: *TEST_OPTIONS
+      input:
+        name: 'Extracting a substring of a version'
+        user_agent_string           : 'one two three four five/1.2.3.4.5 (comment)'
+      expected:
+        VersionSplitSingle1            : '1'
+        VersionSplitSingle2            : '2'
+        VersionSplitSingle3            : '3'
+        VersionSplitSingle4            : '4'
+        VersionSplitSingle5            : '5'
+        VersionSplitSingle6            : 'Unknown'
+
+        VersionSplitFirst1             : '1'
+        VersionSplitFirst2             : '1.2'
+        VersionSplitFirst3             : '1.2.3'
+        VersionSplitFirst4             : '1.2.3.4'
+        VersionSplitFirst5             : '1.2.3.4.5'
+        VersionSplitFirst6             : 'Unknown'
+
+        VersionSplitLast1              : '1.2.3.4.5'
+        VersionSplitLast2              : '2.3.4.5'
+        VersionSplitLast3              : '3.4.5'
+        VersionSplitLast4              : '4.5'
+        VersionSplitLast5              : '5'
+        VersionSplitLast6              : 'Unknown'
+
+        VersionSplitTwo1               : '1.2'
+        VersionSplitTwo2               : '2.3'
+        VersionSplitTwo3               : '3.4'
+        VersionSplitTwo4               : '4.5'
+        VersionSplitTwo5               : 'Unknown'
