@@ -17,14 +17,14 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps.walk;
 
+import nl.basjes.parse.useragent.analyze.NumberRangeList;
+import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.parser.UserAgentBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentParser.KeyWithoutValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameNoVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionSingleWordContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWithCommasContext;
-import nl.basjes.parse.useragent.analyze.NumberRangeList;
-import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 

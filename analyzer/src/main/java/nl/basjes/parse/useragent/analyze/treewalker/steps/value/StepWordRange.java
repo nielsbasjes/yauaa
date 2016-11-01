@@ -17,10 +17,10 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps.value;
 
-import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionContext;
-import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionWithCommasContext;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
+import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionWithCommasContext;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
 import org.antlr.v4.runtime.tree.ParseTree;

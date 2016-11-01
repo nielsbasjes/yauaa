@@ -35,9 +35,6 @@ public class MatcherExtractAction extends MatcherAction {
         this.confidence = confidence;
         expression = config;
         init(config, matcher);
-//        if (verbose) {
-//            LOG.info("-- construct ({} , {} , {})", attribute, confidence, config);
-//        }
     }
 
     public boolean isFixedValue() {

@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.parse;
 
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.parser.UserAgentBaseListener;
 import nl.basjes.parse.useragent.parser.UserAgentLexer;
 import nl.basjes.parse.useragent.parser.UserAgentParser;
@@ -48,7 +49,6 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.SiteUrlContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UserAgentContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UuIdContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.VersionWordsContext;
-import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
 import org.antlr.v4.runtime.ANTLRInputStream;
