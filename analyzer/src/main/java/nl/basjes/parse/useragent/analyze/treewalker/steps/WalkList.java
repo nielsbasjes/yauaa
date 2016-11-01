@@ -71,15 +71,9 @@ public class WalkList {
 
     private boolean verbose;
 
-    public void setVerbose(boolean newVerbose) {
-        this.verbose = newVerbose;
-        for (Step step : steps) {
-            step.setVerbose(newVerbose);
-        }
-    }
-
-    public WalkList(MatcherContext requiredPattern, Map<String, Map<String, String>> lookups) {
+    public WalkList(MatcherContext requiredPattern, Map<String, Map<String, String>> lookups, boolean verbose) {
         this.lookups = lookups;
+        this.verbose = verbose;
         // Generate the walkList from the requiredPattern
         new WalkListBuilder().visit(requiredPattern);
 //        steps.add(new FinalStep());

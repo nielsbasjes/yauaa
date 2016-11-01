@@ -199,8 +199,7 @@ public abstract class MatcherAction {
         new UnQuoteValues().visit(requiredPattern);
 
         // Now we create an evaluator instance
-        evaluator = new TreeExpressionEvaluator(requiredPattern, newMatcher.lookups);
-        evaluator.setVerbose(verbose);
+        evaluator = new TreeExpressionEvaluator(requiredPattern, newMatcher.lookups, verbose);
 
         // Is a fixed value (i.e. no events will ever be fired)?
         String fixedValue = evaluator.getFixedValue();

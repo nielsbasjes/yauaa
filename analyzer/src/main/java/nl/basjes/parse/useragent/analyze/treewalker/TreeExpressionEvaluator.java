@@ -44,16 +44,11 @@ public class TreeExpressionEvaluator {
 
     private final WalkList walkList;
 
-    public TreeExpressionEvaluator(MatcherContext requiredPattern, Map<String, Map<String, String>> lookups) {
+    public TreeExpressionEvaluator(MatcherContext requiredPattern, Map<String, Map<String, String>> lookups, boolean verbose) {
         this.requiredPattern = requiredPattern;
         this.lookups = lookups;
-
-        walkList = new WalkList(requiredPattern, lookups);
-    }
-
-    public void setVerbose(boolean newVerbose) {
-        this.verbose = newVerbose;
-        walkList.setVerbose(newVerbose);
+        this.verbose = verbose;
+        walkList = new WalkList(requiredPattern, lookups, verbose);
     }
 
     /**
