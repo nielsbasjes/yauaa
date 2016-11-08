@@ -570,6 +570,45 @@ config:
       AgentNameVersion                     : 'python-requests 2.1.0'
       AgentNameVersionMajor                : 'python-requests 2'
 
+
+# Sometimes the name of the agent is BETWEEN the "Chrome" and "(Mobile) Safari" products.
+- matcher:
+    extract:
+      - 'AgentClass    :  2050:"Browser"'
+      - 'AgentName     :  2050:agent.product.(1)name="Chrome"^>>.name="Safari"^<.name'
+      - 'AgentVersion  :  2050:agent.product.(1)name="Chrome"^>>.name="Safari"^<.version'
+
+- matcher:
+    extract:
+      - 'AgentClass    :  2050:"Browser"'
+      - 'AgentName     :  2050:agent.product.(1)name="Chrome"^>>.name="Mobile Safari"^<.name'
+      - 'AgentVersion  :  2050:agent.product.(1)name="Chrome"^>>.name="Mobile Safari"^<.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; SM-G355HN Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.0 MobileIron/1.9.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'SM-G355HN'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KOT49H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '47.0'
+      LayoutEngineVersionMajor             : '47'
+      LayoutEngineNameVersion              : 'Blink 47.0'
+      LayoutEngineNameVersionMajor         : 'Blink 47'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'MobileIron'
+      AgentVersion                         : '1.9.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'MobileIron 1.9.0'
+      AgentNameVersionMajor                : 'MobileIron 1'
+
 #DoCoMo	1.0	DoCoMo/1.0/D503iS/c10
 #DoCoMo	1.0	DoCoMo/1.0/P502i/c10 (Google CHTML Proxy/1.0)
 #DoCoMo	2.0	DoCoMo/2.0 F900i(c100;TB;W22H12),gzip(gfe) (via translate.google.com)
