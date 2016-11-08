@@ -351,6 +351,10 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
     }
 
     public String toYamlTestCase() {
+        return toYamlTestCase(false);
+    }
+
+    public String toYamlTestCase(boolean showConfidence) {
         StringBuilder sb = new StringBuilder(10240);
         sb.append("\n");
         sb.append("- test:\n");
@@ -367,9 +371,9 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
 
         int maxNameLength = 30;
         int maxValueLength = 0;
-//        for (String fieldName : allFields.keySet()) {
-//            maxNameLength = Math.max(maxNameLength, fieldName.length());
-//        }
+        for (String fieldName : allFields.keySet()) {
+            maxNameLength = Math.max(maxNameLength, fieldName.length());
+        }
         for (String fieldName : fieldNames) {
             maxValueLength = Math.max(maxValueLength, get(fieldName).getValue().length());
         }
@@ -381,10 +385,12 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
             }
             String value = get(fieldName).getValue();
             sb.append(": '").append(value).append('\'');
-//            for (int l = value.length(); l < maxValueLength + 5; l++) {
-//                sb.append(' ');
-//            }
-//            sb.append("# ").append(get(fieldName).confidence);
+            if (showConfidence) {
+                for (int l = value.length(); l < maxValueLength + 5; l++) {
+                    sb.append(' ');
+                }
+                sb.append("# ").append(get(fieldName).confidence);
+            }
             sb.append('\n');
         }
         sb.append("\n");
