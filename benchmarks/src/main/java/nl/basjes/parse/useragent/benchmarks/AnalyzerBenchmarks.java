@@ -34,7 +34,7 @@ public class AnalyzerBenchmarks {
 
     @State(Scope.Benchmark)
     public static class ThreadState {
-        UserAgentAnalyzer uaa;
+        final UserAgentAnalyzer uaa;
         public ThreadState() {
             uaa = UserAgentAnalyzer
                     .newBuilder()
