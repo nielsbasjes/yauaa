@@ -19,7 +19,6 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps;
 
 import nl.basjes.parse.useragent.parser.UserAgentParser;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentSeparatorContext;
-import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.slf4j.Logger;
@@ -91,7 +90,6 @@ public abstract class Step {
 
     protected final boolean treeIsSeparator(ParseTree tree) {
         return tree instanceof CommentSeparatorContext
-//            || tree instanceof NestedCommentSeparatorContext
             || tree instanceof TerminalNode;
     }
 
@@ -100,18 +98,6 @@ public abstract class Step {
             return getSourceText(tree);
         }
         return value;
-    }
-
-    protected Integer tokenToInteger(Token token) {
-        if (token == null) {
-            return null;
-        }
-
-        try {
-            return Integer.parseInt(token.getText());
-        } catch (NumberFormatException nfe) {
-            return null;
-        }
     }
 
     /**

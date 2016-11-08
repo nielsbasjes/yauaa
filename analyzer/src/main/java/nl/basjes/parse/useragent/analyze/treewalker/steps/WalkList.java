@@ -69,7 +69,7 @@ public class WalkList {
     private final Map<String, Map<String, String>> lookups;
     private final List<Step> steps = new ArrayList<>();
 
-    private boolean verbose;
+    private final boolean verbose;
 
     public WalkList(MatcherContext requiredPattern, Map<String, Map<String, String>> lookups, boolean verbose) {
         this.lookups = lookups;
@@ -84,7 +84,7 @@ public class WalkList {
             LOG.info("------------------------------------");
             LOG.info("Required: " + requiredPattern.getText());
             for (Step step : steps) {
-                step.setVerbose(verbose);
+                step.setVerbose(true);
                 LOG.info("{}: {}", i++, step);
             }
         }

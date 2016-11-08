@@ -22,8 +22,6 @@ import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
 public class TestBuilder {
 
     @Test

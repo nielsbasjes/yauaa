@@ -713,7 +713,7 @@ config:
     }
 
     public static class Builder {
-        private UserAgentAnalyzer uaa;
+        private final UserAgentAnalyzer uaa;
 
         protected Builder() {
             this.uaa = new UserAgentAnalyzer(false);
