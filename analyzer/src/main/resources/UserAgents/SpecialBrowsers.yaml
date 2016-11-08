@@ -642,6 +642,48 @@ config:
       AgentNameVersion                     : 'MobileIron 1.7.1'
       AgentNameVersionMajor                : 'MobileIron 1'
 
+# Sometimes the name of the agent is BETWEEN the "Mobile" and "(Mobile) Safari" products.
+- matcher:
+    extract:
+      - 'AgentClass    :  2049:"Browser"'
+      - 'AgentName     :  2049:agent.product.(1)name="Mobile"^>>.name="Safari"^<.name'
+      - 'AgentVersion  :  2049:agent.product.(1)name="Mobile"^>>.name="Safari"^<.version'
+
+- matcher:
+    extract:
+      - 'AgentClass    :  2049:"Browser"'
+      - 'AgentName     :  2049:agent.product.(1)name="Mobile"^>>.name="Mobile Safari"^<.name'
+      - 'AgentVersion  :  2049:agent.product.(1)name="Mobile"^>>.name="Mobile Safari"^<.version'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPod; U; CPU iPhone OS 8_1_3 like Mac OS X; nl-nl) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8C134 NetNanny Mobile/1.0 Safari/6533.18.5'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'iPod'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '8C134'
+      DeviceVersion                        : 'iPod'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '8.1.3'
+      OperatingSystemNameVersion           : 'iOS 8.1.3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.17.9'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.17.9'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'NetNanny Mobile'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'NetNanny Mobile 1.0'
+      AgentNameVersionMajor                : 'NetNanny Mobile 1'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentSecurity                        : 'Strong security'
 
 #DoCoMo	1.0	DoCoMo/1.0/D503iS/c10
 #DoCoMo	1.0	DoCoMo/1.0/P502i/c10 (Google CHTML Proxy/1.0)
