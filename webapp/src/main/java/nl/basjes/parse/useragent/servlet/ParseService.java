@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.servlet;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.Version;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -33,8 +34,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -42,7 +41,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
 
 import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
@@ -51,53 +49,8 @@ public class ParseService {
 
     private static final UserAgentAnalyzer USER_AGENT_ANALYZER = new UserAgentAnalyzer();
 
-    private static String version = "Unable to read version";
-    private static String buildtime = "Unable to read version";
-
-    static {
-        Properties prop = new Properties();
-        InputStream input = null;
-
-        try {
-
-            String filename = "git.properties";
-            input = ParseService.class.getClassLoader().getResourceAsStream(filename);
-            if (input == null) {
-                System.out.println("Sorry, unable to find " + filename);
-            }
-
-            //load a properties file from class path, inside static method
-            prop.load(input);
-
-            //get the property value and print it out
-            String gitVersion = prop.getProperty("git.commit.id.describe-short");
-            if (gitVersion == null) {
-                ParseService.version = "Undefined";
-            } else {
-                ParseService.version = gitVersion;
-            }
-
-            String gitBuildTime = prop.getProperty("git.build.time");
-            if (gitBuildTime == null) {
-                ParseService.buildtime = "Undefined";
-            } else {
-                ParseService.buildtime = gitBuildTime;
-            }
-
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-    }
+    private static String version = Version.getGitCommitIdDescribeShort();
+    private static String buildtime = Version.getBuildTimestamp();
 
     protected synchronized UserAgent parse(String userAgentString) {
         return USER_AGENT_ANALYZER.parse(userAgentString); // This class and method are NOT threadsafe/reentrant !
