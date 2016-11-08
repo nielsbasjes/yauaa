@@ -435,7 +435,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
             LOG.info(((DebugUserAgent)agent).toMatchTrace());
 
-            LOG.info("\n\nconfig:\n"+agent.toYamlTestCase());
+            LOG.info("\n\nconfig:\n"+agent.toYamlTestCase(!init));
             if (!pass && !showAll) {
 //                LOG.info("+===========================================================================================");
                 return false;
