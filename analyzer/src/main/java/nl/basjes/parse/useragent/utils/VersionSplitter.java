@@ -112,6 +112,11 @@ public final class VersionSplitter {
         if (value == null) {
             return null;
         }
+
+        // FIXME: Simple quick and dirty way to avoid splitting email and web addresses
+        if (value.startsWith("www.") || value.startsWith("http") || value.contains("@")) {
+            return value;
+        }
         char[] characters = value.toCharArray();
         int start = VersionSplitter.findVersionStart(characters, word);
         if (start == -1) {

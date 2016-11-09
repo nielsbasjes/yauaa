@@ -19,7 +19,15 @@ config:
 
 - matcher:
     extract:
+    - 'AgentUuid:1:agent.(1)product.(1)comments.entry.(1)product.name.(1)uuid'
+
+- matcher:
+    extract:
     - 'AgentUuid:1:agent.(1)product.(1)comments.entry.(1)product.version.(1)uuid'
+
+- matcher:
+    extract:
+    - 'AgentUuid:1:agent.(1)product.(1)comments.entry.(1)product.(1)uuid'
 
 - matcher:
     extract:
@@ -35,11 +43,15 @@ config:
 
 - matcher:
     extract:
-    - 'AgentUuid:5:agent.product.uuid'
+    - 'AgentUuid:5:agent.product.version.uuid'
 
 - matcher:
     extract:
-    - 'AgentUuid:6:agent.uuid'
+    - 'AgentUuid:6:agent.product.uuid'
+
+- matcher:
+    extract:
+    - 'AgentUuid:7:agent.uuid'
 
 - test:
     input:

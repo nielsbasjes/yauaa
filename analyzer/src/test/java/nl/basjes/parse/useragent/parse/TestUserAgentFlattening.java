@@ -722,7 +722,6 @@ public class TestUserAgentFlattening {
                 ,"agent.(1)product.(1)version=\"4.0\""
                 ,"agent.(1)product.(1)comments=\"(+http://www.sogou.com/docs/help/webmasters.htm#07)\""
                 ,"agent.(1)product.(1)comments.(1)entry.(1)url=\"http://www.sogou.com/docs/help/webmasters.htm#07\""
-
         );
         validateUserAgent("LWP::Simple/6.00 libwww-perl/6.05"
                 ,"agent=\"LWP::Simple/6.00 libwww-perl/6.05\""
