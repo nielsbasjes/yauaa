@@ -20,8 +20,10 @@ config:
 # In almost all cases the precense of a URL indicates that it is a Robot/Spider with an information URL
 
 - matcher:
+#    options:
+#    - 'verbose'
     extract:
-    - 'AgentInformationUrl          :     5001:agent.(1-5)product.(1-2)comments.entry.(1-3)url'
+    - 'AgentInformationUrl          :     5001:agent.(1-5)product.(1-2)comments.(1-5)entry.(1)product.(1)comments.(1-2)entry.(1-3)url'
     - 'DeviceClass                  :        0:"Robot"'
     - 'DeviceName                   :        0:"Robot"'
     - 'OperatingSystemClass         :        0:"Cloud"'
@@ -30,7 +32,7 @@ config:
     - 'OperatingSystemNameVersion   :        0:"Cloud"'
 - matcher:
     extract:
-    - 'AgentInformationUrl          :     5002:agent.(1-5)product.(1-2)comments.entry.(1-3)product.version.url'
+    - 'AgentInformationUrl          :     5002:agent.(1-5)product.(1-2)comments.(1-5)entry.(1)product.(1)comments.(1-2)entry.(1-3)product.version.url'
     - 'DeviceClass                  :        0:"Robot"'
     - 'DeviceName                   :        0:"Robot"'
     - 'OperatingSystemClass         :        0:"Cloud"'
@@ -39,7 +41,35 @@ config:
     - 'OperatingSystemNameVersion   :        0:"Cloud"'
 - matcher:
     extract:
-    - 'AgentInformationUrl          :     5003:agent.(1-5)product.(1-2)comments.entry.(1-3)keyvalue.url'
+    - 'AgentInformationUrl          :     5003:agent.(1-5)product.(1-2)comments.(1-5)entry.(1)product.(1)comments.(1-2)entry.(1-3)keyvalue.url'
+    - 'DeviceClass                  :        0:"Robot"'
+    - 'DeviceName                   :        0:"Robot"'
+    - 'OperatingSystemClass         :        0:"Cloud"'
+    - 'OperatingSystemName          :        0:"Cloud"'
+    - 'OperatingSystemVersion       :        0:"Cloud"'
+    - 'OperatingSystemNameVersion   :        0:"Cloud"'
+
+- matcher:
+    extract:
+    - 'AgentInformationUrl          :     5001:agent.(1-5)product.(1-2)comments.(1-5)entry.(1-3)url'
+    - 'DeviceClass                  :        0:"Robot"'
+    - 'DeviceName                   :        0:"Robot"'
+    - 'OperatingSystemClass         :        0:"Cloud"'
+    - 'OperatingSystemName          :        0:"Cloud"'
+    - 'OperatingSystemVersion       :        0:"Cloud"'
+    - 'OperatingSystemNameVersion   :        0:"Cloud"'
+- matcher:
+    extract:
+    - 'AgentInformationUrl          :     5002:agent.(1-5)product.(1-2)comments.(1-5)entry.(1-3)product.version.url'
+    - 'DeviceClass                  :        0:"Robot"'
+    - 'DeviceName                   :        0:"Robot"'
+    - 'OperatingSystemClass         :        0:"Cloud"'
+    - 'OperatingSystemName          :        0:"Cloud"'
+    - 'OperatingSystemVersion       :        0:"Cloud"'
+    - 'OperatingSystemNameVersion   :        0:"Cloud"'
+- matcher:
+    extract:
+    - 'AgentInformationUrl          :     5003:agent.(1-5)product.(1-2)comments.(1-5)entry.(1-3)keyvalue.url'
     - 'DeviceClass                  :        0:"Robot"'
     - 'DeviceName                   :        0:"Robot"'
     - 'OperatingSystemClass         :        0:"Cloud"'
@@ -64,9 +94,11 @@ config:
     - 'OperatingSystemName          :        0:"Cloud"'
     - 'OperatingSystemVersion       :        0:"Cloud"'
     - 'OperatingSystemNameVersion   :        0:"Cloud"'
+
+
 - matcher:
     extract:
-    - 'AgentInformationEmail        :     5001:agent.(1-5)product.(1-2)comments.entry.(1-3)email'
+    - 'AgentInformationEmail        :     5001:agent.(1-5)product.(1-2)comments.(1-5)entry.(1-3)email'
     - 'DeviceClass                  :        0:"Robot"'
     - 'DeviceName                   :        0:"Robot"'
     - 'OperatingSystemClass         :        0:"Cloud"'
@@ -74,7 +106,7 @@ config:
     - 'OperatingSystemVersion       :        0:"Cloud"'
 - matcher:
     extract:
-    - 'AgentInformationEmail        :     5002:agent.(1-5)product.(1-2)comments.entry.(1-3)product.version.email'
+    - 'AgentInformationEmail        :     5002:agent.(1-5)product.(1-2)comments.(1-5)entry.(1-3)product.version.email'
     - 'DeviceClass                  :        0:"Robot"'
     - 'DeviceName                   :        0:"Robot"'
     - 'OperatingSystemClass         :        0:"Cloud"'
@@ -82,7 +114,7 @@ config:
     - 'OperatingSystemVersion       :        0:"Cloud"'
 - matcher:
     extract:
-    - 'AgentInformationEmail        :     5003:agent.(1-5)product.(1-2)comments.entry.(1-3)keyvalue.email'
+    - 'AgentInformationEmail        :     5003:agent.(1-5)product.(1-2)comments.(1-5)entry.(1-3)keyvalue.email'
     - 'DeviceClass                  :        0:"Robot"'
     - 'DeviceName                   :        0:"Robot"'
     - 'OperatingSystemClass         :        0:"Cloud"'
@@ -106,6 +138,7 @@ config:
     - 'OperatingSystemName          :        0:"Cloud"'
     - 'OperatingSystemVersion       :        0:"Cloud"'
     - 'OperatingSystemNameVersion   :        0:"Cloud"'
+
 
 - test:
     input:
@@ -131,6 +164,56 @@ config:
       AgentNameVersion                     : 'Netscape 4.0'
       AgentNameVersionMajor                : 'Netscape 4'
       AgentInformationUrl                  : 'http://example.nl'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (www.example.nl)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '4.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Mozilla 4.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 4'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Netscape 4.0'
+      AgentNameVersionMajor                : 'Netscape 4'
+      AgentInformationUrl                  : 'www.example.nl'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 ( Foo ( www.example.nl) )'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '4.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Mozilla 4.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 4'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Netscape 4.0'
+      AgentNameVersionMajor                : 'Netscape 4'
+      AgentInformationUrl                  : 'www.example.nl'
 
 - test:
     input:
