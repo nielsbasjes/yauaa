@@ -95,10 +95,20 @@ public final class VersionSplitter {
         return chars.length; // == The end of the string
     }
 
+    private static boolean looksLikeEmailOrWebaddress(String value) {
+        // FIXME: Simple quick and dirty way to avoid splitting email and web addresses
+        return (value.startsWith("www.") || value.startsWith("http") || (value.contains("@") && value.contains(".")));
+    }
+
     public static String getSingleVersion(String value, int word) {
         if (value == null) {
             return null;
         }
+
+        if (looksLikeEmailOrWebaddress(value)) {
+            return (word == 1) ? value : null;
+        }
+
         char[] characters = value.toCharArray();
         int start = VersionSplitter.findVersionStart(characters, word);
         if (start == -1) {
@@ -113,10 +123,10 @@ public final class VersionSplitter {
             return null;
         }
 
-        // FIXME: Simple quick and dirty way to avoid splitting email and web addresses
-        if (value.startsWith("www.") || value.startsWith("http") || value.contains("@")) {
-            return value;
+        if (looksLikeEmailOrWebaddress(value)) {
+            return (word == 1) ? value : null;
         }
+
         char[] characters = value.toCharArray();
         int start = VersionSplitter.findVersionStart(characters, word);
         if (start == -1) {
