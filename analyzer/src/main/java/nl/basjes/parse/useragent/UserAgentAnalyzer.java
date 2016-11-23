@@ -81,7 +81,7 @@ public class UserAgentAnalyzer extends Analyzer {
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
     protected Set<String> wantedFieldNames = null;
 
-    protected final List<Map<String, Map<String, String>>> testCases          = new ArrayList<>(2048);
+    protected final List<Map<String, Map<String, String>>> testCases    = new ArrayList<>(2048);
     private Map<String, Map<String, String>> lookups                    = new HashMap<>(128);
 
     protected UserAgentTreeFlattener flattener;

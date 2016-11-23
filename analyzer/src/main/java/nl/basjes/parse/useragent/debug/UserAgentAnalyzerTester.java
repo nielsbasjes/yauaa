@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
+import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 
 public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzerTester.class);
@@ -276,7 +277,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                         } else {
                             if (failOnUnexpected) {
                                 // We ignore this special field
-                                if (!"__SyntaxError__".equals(result.field)) {
+                                if (!SYNTAX_ERROR.equals(result.field)) {
                                     result.warn = false;
                                     pass = false;
                                     allPass = false;
@@ -292,7 +293,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                     maxExpectedLength = Math.max(maxExpectedLength, result.expected.length());
                 }
 
-                if (!((DebugUserAgent)agent).analyzeMatchersResult()) {
+                if (!agent.analyzeMatchersResult()) {
                     pass = false;
                     allPass = false;
                 }
@@ -433,7 +434,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             LOG.info(separator);
             LOG.info("");
 
-            LOG.info(((DebugUserAgent)agent).toMatchTrace());
+            LOG.info(agent.toMatchTrace());
 
             LOG.info("\n\nconfig:\n"+agent.toYamlTestCase(!init));
             if (!pass && !showAll) {

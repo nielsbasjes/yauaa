@@ -180,9 +180,9 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
         state.put(userAgentContext, rootState);
 
         if (userAgent.hasSyntaxError()) {
-            inform(null, "__SyntaxError__", "true");
+            inform(null, SYNTAX_ERROR, "true");
         } else {
-            inform(null, "__SyntaxError__", "false");
+            inform(null, SYNTAX_ERROR, "false");
         }
 
         walker.walk(this, userAgentContext);
