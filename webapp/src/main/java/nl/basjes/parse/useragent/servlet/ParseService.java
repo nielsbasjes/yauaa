@@ -19,7 +19,6 @@ package nl.basjes.parse.useragent.servlet;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import nl.basjes.parse.useragent.Version;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -48,10 +47,7 @@ import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 public class ParseService {
 
     private static final UserAgentAnalyzer USER_AGENT_ANALYZER = new UserAgentAnalyzer();
-
-    private static String gittag = Version.getGitCommitIdDescribeShort();
-    private static String version = Version.getProjectVersion();
-    private static String buildtime = Version.getBuildTimestamp();
+    private static final String ANALYZER_VERSION = UserAgentAnalyzer.getVersion();
 
     protected synchronized UserAgent parse(String userAgentString) {
         return USER_AGENT_ANALYZER.parse(userAgentString); // This class and method are NOT threadsafe/reentrant !
@@ -123,9 +119,7 @@ public class ParseService {
             sb.append("<h1>Analyzing your useragent string</h1>");
 
             sb.append("Build using <a href=\"https://github.com/nielsbasjes/yauaa\">Yauaa (Yet another UserAgent analyzer)</a>.<br/>");
-            sb.append("Version    : ").append(version).append("<br/>");
-            sb.append("Git tag    : ").append(gittag).append("<br/>");
-            sb.append("Build time : ").append(buildtime).append("<br/>");
+            sb.append(ANALYZER_VERSION).append("<br/>");
             sb.append("<hr/>");
 
             UserAgent userAgent = parse(userAgentString);

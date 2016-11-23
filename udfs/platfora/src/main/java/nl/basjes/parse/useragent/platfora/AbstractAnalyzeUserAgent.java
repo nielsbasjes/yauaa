@@ -42,6 +42,10 @@ public abstract class AbstractAnalyzeUserAgent implements UserDefinedFunction {
         return allPossibleFieldNamesSorted;
     }
 
+    protected String getAnalyzerVersion() {
+        return UserAgentAnalyzer.getVersion();
+    }
+
     public String getReturnType() {
         return "STRING";
     }

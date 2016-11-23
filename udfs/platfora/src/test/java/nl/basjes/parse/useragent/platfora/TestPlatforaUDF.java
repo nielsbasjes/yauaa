@@ -44,7 +44,7 @@ public class TestPlatforaUDF {
         List<String> arguments = new ArrayList<>();
         arguments.add(useragent);
         arguments.add("__version__");
-        assertTrue(udf.compute(arguments).contains(" build at "));
+        assertTrue(udf.compute(arguments).startsWith("Yauaa"));
     }
 
 }

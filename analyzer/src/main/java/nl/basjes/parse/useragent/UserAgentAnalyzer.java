@@ -108,6 +108,10 @@ public class UserAgentAnalyzer extends Analyzer {
         loadResources(resourceString, true);
     }
 
+    public static String getVersion() {
+        return "Yauaa " + Version.getProjectVersion() + " (" + Version.getGitCommitIdDescribeShort() + " @ " + Version.getBuildTimestamp() + ")";
+    }
+
     public void loadResources(String resourceString, boolean showMatcherStats) {
         LOG.info("Loading from: \"{}\"", resourceString);
         informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);

@@ -18,7 +18,6 @@
 package nl.basjes.parse.useragent.platfora;
 
 import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.Version;
 
 import java.util.List;
 
@@ -61,11 +60,11 @@ public class AnalyzeUserAgent extends AbstractAnalyzeUserAgent {
             String attribute = (String) arguments.get(1);
 
             if ("__version__".equals(attribute)) {
-                return "Yauaa " + Version.getBuildTimestamp() + " was build at " + Version.getBuildTimestamp();
+                return getAnalyzerVersion();
             }
 
             if (!getAllPossibleFieldNamesSorted().contains(attribute)){
-                return "[[ERROR: The fieldname \""+attribute+"\" does not exist]]";
+                return "[[ERROR: The fieldname \"" + attribute + "\" does not exist]]";
             }
 
             UserAgent parsedUserAgent = parseUserAgent(useragent);
