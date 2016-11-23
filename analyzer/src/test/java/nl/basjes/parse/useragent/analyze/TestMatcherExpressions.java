@@ -76,4 +76,10 @@ public class TestMatcherExpressions {
         Assert.assertTrue(uaa.runTests(false, true));
     }
 
+    @Test
+    public void runEdgecasesTest() {
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:Edgecases-tests.yaml");
+        Assert.assertTrue(uaa.runTests(false, true));
+    }
+
 }

@@ -67,7 +67,9 @@ public final class EvilManualUseragentStringHacks {
         if (result.contains("%20")) {
             try {
                 result = URLDecoder.decode(result, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
+            } catch (UnsupportedEncodingException | IllegalArgumentException e) {
+                // UnsupportedEncodingException: Can't happen because the UTF-8 is hardcoded here.
+                // IllegalArgumentException: Probably bad % encoding in there somewhere.
                 // Ignore and continue.
             }
         }
