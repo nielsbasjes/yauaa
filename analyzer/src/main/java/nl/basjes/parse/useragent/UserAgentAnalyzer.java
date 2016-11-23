@@ -101,6 +101,7 @@ public class UserAgentAnalyzer extends Analyzer {
     }
 
     protected void initialize(boolean showMatcherStats) {
+        LOG.info("Initializing {}", getVersion());
         loadResources("classpath*:UserAgents/**/*.yaml", showMatcherStats);
     }
 
