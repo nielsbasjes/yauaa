@@ -7,7 +7,7 @@ If you use a maven based project simply add this dependency
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa-platfora</artifactId>
       <classifier>udf</classifier>
-      <version>0.11</version>
+      <version>0.12</version>
     </dependency>
 
 Or simply download it via this URL:
