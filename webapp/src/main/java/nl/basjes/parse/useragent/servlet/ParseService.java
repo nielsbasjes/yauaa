@@ -248,19 +248,23 @@ public class ParseService {
 
     private StringBuilder addBugReportButton(StringBuilder sb, UserAgent userAgent) {
         // https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=bar
-        sb.append("If you find a problem with this result then please " +
-            "report a bug here: <a href=\"https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=");
+
+        String githubUrl = "";
+        StringBuilder reportUrl = new StringBuilder("https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=");
+
         String report =  "I found a problem with this useragent.\n" +
             "[Please update the output below to match what you expect it should be]\n" +
             "\n```\n" +
-            userAgent.toYamlTestCase() +
+            userAgent.toYamlTestCase().replaceAll("  *:", "  :") +
             "\n```\n";
         try {
-            sb.append(URLEncoder.encode(report, "UTF-8"));
+            reportUrl.append(URLEncoder.encode(report, "UTF-8"));
+            githubUrl = "https://github.com/login?return_to=" + URLEncoder.encode(reportUrl.toString(), "UTF-8");
+            sb.append("If you find a problem with this result then please report a bug here: " +
+                "<a href=\"").append(githubUrl).append("\">Yauaa issue report</a>");
         } catch (UnsupportedEncodingException e) {
             // Never happens.
         }
-        sb.append("\">Yauaa issue report</a>");
         return sb;
     }
 }
