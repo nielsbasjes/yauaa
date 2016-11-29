@@ -6,7 +6,7 @@ If you use a maven based project simply add this dependency
 
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa</artifactId>
+      <artifactId>yauaa-pig</artifactId>
       <classifier>udf</classifier>
       <version>0.12</version>
     </dependency>
