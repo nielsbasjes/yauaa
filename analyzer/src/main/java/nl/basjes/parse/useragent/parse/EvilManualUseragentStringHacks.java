@@ -19,10 +19,13 @@ package nl.basjes.parse.useragent.parse;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.regex.Pattern;
 
 public final class EvilManualUseragentStringHacks {
     private EvilManualUseragentStringHacks() {
     }
+
+    static Pattern missingProductAtStart = Pattern.compile("^\\(( |;|null|compatible|windows|android).*", Pattern.CASE_INSENSITIVE);
 
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
@@ -41,9 +44,8 @@ public final class EvilManualUseragentStringHacks {
             result = replaceString(result, " (Macintosh); ", " (Macintosh; ");
         }
 
-        // This happens in a broken version of the Facebook app a lot
-        if (result.startsWith("(null") ||
-            result.startsWith("(Windows")){
+        // Repair certain cases of broken useragents (like we see for the Facebook app a lot)
+        if (missingProductAtStart.matcher(result).matches()){
             // We simply prefix a fake product name to continue parsing.
             result = "Mozilla/5.0 " + result;
         } else {
