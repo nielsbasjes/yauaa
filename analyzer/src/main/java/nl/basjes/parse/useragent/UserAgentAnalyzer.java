@@ -101,13 +101,50 @@ public class UserAgentAnalyzer extends Analyzer {
     }
 
     protected void initialize(boolean showMatcherStats) {
-        LOG.info("Initializing {}", getVersion());
+        logVersion();
         loadResources("classpath*:UserAgents/**/*.yaml", showMatcherStats);
     }
 
     public UserAgentAnalyzer(String resourceString) {
         loadResources(resourceString, true);
     }
+
+    public static void logVersion(){
+        String[] lines = {
+            "For more information: https://github.com/nielsbasjes/yauaa",
+            "Copyright (C) 2013-2017 Niels Basjes - License Apache 2.0"
+        };
+        String version = getVersion();
+        int width = version.length();
+        for (String line: lines) {
+            width = Math.max(width, line.length());
+        }
+
+        LOG.info("");
+        LOG.info("/-{}-\\", padding('-', width));
+        logLine(version, width);
+        LOG.info("+-{}-+", padding('-', width));
+        for (String line: lines) {
+            logLine(line, width);
+        }
+        LOG.info("\\-{}-/", padding('-', width));
+        LOG.info("");
+    }
+
+    private static String padding(char letter, int count) {
+        StringBuilder sb = new StringBuilder(128);
+        for (int i=0; i <count; i++) {
+            sb.append(letter);
+        }
+        return sb.toString();
+    }
+
+    private static void logLine(String line, int width) {
+        LOG.info("| {}{} |", line, padding(' ', width - line.length()));
+    }
+
+    // --------------------------------------------
+
 
     public static String getVersion() {
         return "Yauaa " + Version.getProjectVersion() + " (" + Version.getGitCommitIdDescribeShort() + " @ " + Version.getBuildTimestamp() + ")";
