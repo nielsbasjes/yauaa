@@ -710,7 +710,28 @@ public class TestUserAgentFlattening {
         );
 
         // Special Test cases
-
+        validateUserAgent(
+                "Name/www@basjes.nl(www.example.nl)"
+                ,"agent=\"Name/www@basjes.nl(www.example.nl)\""
+                ,"agent.(1)product=\"Name/www@basjes.nl(www.example.nl)\""
+                ,"agent.(1)product[1-1]=\"Name\""
+                ,"agent.(1)product[1-2]=\"Name/www@basjes\""
+                ,"agent.(1)product[2-2]=\"www@basjes\""
+                ,"agent.(1)product[1-3]=\"Name/www@basjes.nl\""
+                ,"agent.(1)product[3-3]=\"nl\""
+                ,"agent.(1)product.(1)name=\"Name\""
+                ,"agent.(1)product.(1)name[1-1]=\"Name\""
+                ,"agent.(1)product.(1)version=\"www@basjes.nl\""
+                ,"agent.(1)product.(1)version.(1)email=\"www@basjes.nl\""
+                ,"agent.(1)product.(1)comments=\"(www.example.nl)\""
+                ,"agent.(1)product.(1)comments.(1)entry=\"www.example.nl\""
+                ,"agent.(1)product.(1)comments.(1)entry[1-1]=\"www\""
+                ,"agent.(1)product.(1)comments.(1)entry[1-2]=\"www.example\""
+                ,"agent.(1)product.(1)comments.(1)entry[2-2]=\"example\""
+                ,"agent.(1)product.(1)comments.(1)entry[1-3]=\"www.example.nl\""
+                ,"agent.(1)product.(1)comments.(1)entry[3-3]=\"nl\""
+                ,"agent.(1)product.(1)comments.(1)entry.(1)url=\"www.example.nl\""
+        );
         validateUserAgent(
                 "Sogou web spider/4.0(+http://www.sogou.com/docs/help/webmasters.htm#07)"
                 ,"agent=\"Sogou web spider/4.0(+http://www.sogou.com/docs/help/webmasters.htm#07)\""
