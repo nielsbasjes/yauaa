@@ -259,6 +259,13 @@ public class UserAgentAnalyzer extends Analyzer {
 //        }
     }
 
+    /**
+     * Used by some unit tests to get rid of all the standard tests and focus on the experiment at hand.
+     */
+    public void eraseTestCases() {
+        testCases.clear();
+    }
+
     public Set<String> getAllPossibleFieldNames() {
         Set<String> results = new TreeSet<>();
         results.addAll(HARD_CODED_GENERATED_FIELDS);
