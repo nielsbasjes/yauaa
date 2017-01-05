@@ -766,12 +766,16 @@ config:
       LayoutEngineVersionMajor             : '600'
       LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'AppleWebKit'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
       AgentVersion                         : '600.1.4'
       AgentVersionMajor                    : '600'
-      AgentNameVersion                     : 'AppleWebKit 600.1.4'
-      AgentNameVersionMajor                : 'AppleWebKit 600'
+      AgentNameVersion                     : 'UIWebView 600.1.4'
+      AgentNameVersionMajor                : 'UIWebView 600'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
 
 #  - test:
 #      input:
@@ -849,7 +853,7 @@ config:
       AgentNameVersionMajor                : 'Stock Android Browser 4'
       AgentSecurity                        : 'Strong security'
 
-# TODO (Low prio): iOSWebview --> Perhaps this is a webview ...
+# iOSWebview --> We classify this as a webview
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D201 - iOSWebview'
@@ -869,12 +873,16 @@ config:
       LayoutEngineVersionMajor             : '537'
       LayoutEngineNameVersion              : 'AppleWebKit 537.51.2'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'AppleWebKit'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
       AgentVersion                         : '537.51.2'
       AgentVersionMajor                    : '537'
-      AgentNameVersion                     : 'AppleWebKit 537.51.2'
-      AgentNameVersionMajor                : 'AppleWebKit 537'
+      AgentNameVersion                     : 'UIWebView 537.51.2'
+      AgentNameVersionMajor                : 'UIWebView 537'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
 
 - test:
     input:
@@ -933,6 +941,10 @@ config:
       AgentNameVersionMajor                : 'Abonti 0'
       AgentInformationUrl                  : 'http://www.abonti.com'
       AgentSecurity                        : 'Strong security'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
 
 # Contains __ that breaks the parser
 - test:

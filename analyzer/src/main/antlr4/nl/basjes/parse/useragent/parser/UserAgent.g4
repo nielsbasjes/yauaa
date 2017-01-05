@@ -186,24 +186,24 @@ Not everyone uses the / as the version separator
 And then there are messy edge cases like "foo 1.0 rv:23 (bar)"
 */
 product
-    : productName   (                            productVersion )+
-                    (  COLON? SLASH+ EQUALS?     (productVersionWithCommas|productVersionSingleWord) )*
-                    (  SLASH? (SEMICOLON|MINUS)? commentBlock
-                       ( SLASH+  EQUALS?         (productVersionWithCommas|productVersionSingleWord) )* )*
+    : productName   (                                   productVersion )+
+                    (  COLON? (SLASH+|' - ') EQUALS?    (productVersionWithCommas|productVersionSingleWord) )*
+                    (  SLASH? (SEMICOLON|MINUS)?        commentBlock
+                       ( SLASH+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) )* )*
                     (SLASH EOF)?
 
-    | productName   (  SLASH? (SEMICOLON|MINUS)? commentBlock
-                       ( SLASH+  EQUALS?         (productVersionWithCommas|productVersionSingleWord) )* )+
+    | productName   (  SLASH? (SEMICOLON|MINUS)?        commentBlock
+                       ( SLASH+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) )* )+
                     (SLASH EOF)?
 
-    | productName   (  COLON? SLASH productVersionWords
+    | productName   (  COLON? (SLASH+|' - ') productVersionWords
                         ( SLASH* productVersionWithCommas )*
-                        SLASH? (SEMICOLON|MINUS)?      commentBlock ?    )+
+                        SLASH? (SEMICOLON|MINUS)?       commentBlock ?    )+
                     (SLASH EOF)?
 
-    | productName   (  COLON? SLASH+ EQUALS?    (productVersionWithCommas|productVersionSingleWord) )+
-                    (  SLASH? (SEMICOLON|MINUS)?       commentBlock
-                       ( SLASH+  EQUALS?        (productVersionWithCommas|productVersionSingleWord) )* )*
+    | productName   (  COLON? (SLASH+|' - ') EQUALS?    (productVersionWithCommas|productVersionSingleWord) )+
+                    (  SLASH? (SEMICOLON|MINUS)?        commentBlock
+                       ( SLASH+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) )* )*
                     (SLASH EOF)?
 
     | productName   (SLASH EOF)
@@ -218,12 +218,12 @@ commentProduct
     | productName   (   SLASH? MINUS?       commentBlock
                         ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) )* )+
 
-    | productName   (   COLON? SLASH productVersionWords
+    | productName   (   COLON? (SLASH+|' - ') productVersionWords
                         ( SLASH* productVersionWithCommas )*            )+
                     (   MINUS?              commentBlock
                         ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) )* )*
 
-    | productName   (   SLASH+  EQUALS?     (productVersionWithCommas) )+
+    | productName   (   (SLASH+|' - ')  EQUALS?     (productVersionWithCommas) )+
                     (   MINUS?              commentBlock
                         ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) )* )*
     ;
