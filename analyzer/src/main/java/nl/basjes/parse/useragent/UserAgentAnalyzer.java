@@ -72,8 +72,8 @@ public class UserAgentAnalyzer extends Analyzer {
     private static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
-    protected List<Matcher> allMatchers;
-    private Map<String, Set<MatcherAction>> informMatcherActions;
+    protected List<Matcher>                     allMatchers             = new ArrayList<>();
+    private Map<String, Set<MatcherAction>>     informMatcherActions    = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
     private final Map<String, List<Map<String, List<String>>>> matcherConfigs = new HashMap<>(64);
 
     private boolean doingOnlyASingleTest = false;
@@ -152,8 +152,7 @@ public class UserAgentAnalyzer extends Analyzer {
 
     public void loadResources(String resourceString, boolean showMatcherStats) {
         LOG.info("Loading from: \"{}\"", resourceString);
-        informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
-        allMatchers = new ArrayList<>();
+
         flattener = new UserAgentTreeFlattener(this);
         yaml = new Yaml();
 
