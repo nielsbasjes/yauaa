@@ -222,7 +222,7 @@ Tests have shown that it will parse >99% of all useragents on a large website wh
 
 Now the ones that it is not able to parse are the ones that have been set manually to a invalid value.
 So if that happens we assume you are a hacker.
-In all other cases we have matchers that are triggered if a sepcific value is found by the parser.
+In all other cases we have matchers that are triggered if a specific value is found by the parser.
 Such a matcher then tells this class is has found a match for a certain attribute with a certain confidence level (0-10000).
 In the end the matcher that has found a match with the highest confidence for a value 'wins'.
 
