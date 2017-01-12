@@ -991,3 +991,32 @@ config:
       AgentNameVersion                     : 'Iframely 0.8.5'
       AgentNameVersionMajor                : 'Iframely 0'
       AgentInformationUrl                  : 'http://iframely.com/'
+
+# The demonstration case in the web servlet
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.8.9; nl-nl ; Niels Ultimate 42 demo phone Build/42 ; nl-nl; https://github.com/nielsbasjes/yauaa ) AppleWebKit/8.4.7.2 (KHTML, like Gecko) Yet another browser/3.1415926 Mobile Safari/6.6.6'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Niels Ultimate 42 demo phone'
+      DeviceBrand                          : 'Niels'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.8.9'
+      OperatingSystemNameVersion           : 'Android 7.8.9'
+      OperatingSystemVersionBuild          : '42'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '8.4.7.2'
+      LayoutEngineVersionMajor             : '8'
+      LayoutEngineNameVersion              : 'AppleWebKit 8.4.7.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 8'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Yet another browser'
+      AgentVersion                         : '3.1415926'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Yet another browser 3.1415926'
+      AgentNameVersionMajor                : 'Yet another browser 3'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentInformationUrl                  : 'https://github.com/nielsbasjes/yauaa'
