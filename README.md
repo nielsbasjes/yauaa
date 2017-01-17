@@ -54,6 +54,14 @@ is converted into this set of fields:
 |  **Agent**NameVersion                 | 'Chrome 53.0.2785.124' |
 |  **Agent**NameVersionMajor            | 'Chrome 53'            |
 
+You can try it online with your own browser here: [https://analyze-useragent.appspot.com/](https://analyze-useragent.appspot.com/).
+
+**NOTES**
+
+1. This runs under a "Free quota" on Google AppEngine. If this quote is exceeded then it will simply become unavailable for that day.
+2. After a while of inactivity the instance is terminated so the first page may take 15-30 seconds to load.
+3. If you really like this then run it on your local systems. It's much faster that way.
+
 Performance
 ===========
 On my i7 system I see a speed ranging from 500 to 4000 useragents per second (depending on the length and ambiguities in the useragent).
