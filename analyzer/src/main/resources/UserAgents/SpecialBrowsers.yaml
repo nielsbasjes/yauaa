@@ -1020,3 +1020,158 @@ config:
       AgentLanguage                        : 'Dutch (Netherlands)'
       AgentLanguageCode                    : 'nl-nl'
       AgentInformationUrl                  : 'https://github.com/nielsbasjes/yauaa'
+
+
+# =======================================================================================
+# https://justworks.ca/blog/ios-and
+# Exchange ActiveSync iOS and Android User Agent Strings
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name[1-1]="Apple"'
+    - 'IsNull[agent.(2)product]'
+    - 'IsNull[agent.(2)text]'
+    extract:
+    - 'DeviceClass                 : 202:LookUp[AppleDeviceClass;agent.(1)product.(1)name[2-2]]'
+    - 'DeviceBrand                 : 202:"Apple"'
+    - 'DeviceName                  : 202:LookUp[AppleDeviceName;agent.(1)product.(1)name[2-2]]'
+    - 'DeviceVersion               : 202:LookUp[AppleDeviceVersion;agent.(1)product.(1)name[2-2]]'
+    - 'OperatingSystemClass        :  20:"Mobile"'
+    - 'OperatingSystemName         :  20:"iOS"'
+    - 'OperatingSystemVersion      :  20:"??"'
+    - 'AgentClass                  :  56:"Special"'
+    - 'AgentName                   :  56:"Exchange ActiveSync"'
+    - 'AgentVersion                :  56:agent.(1)product.(1)version'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name[1-1]="Samsung"'
+    - 'IsNull[agent.(2)product]'
+    - 'IsNull[agent.(2)text]'
+    extract:
+    - 'DeviceClass                 : 202:"Mobile"'
+    - 'DeviceBrand                 : 202:"Samsung"'
+    - 'DeviceName                  : 202:agent.(1)product.(1)name[2-]'
+    - 'DeviceVersion               : 202:"??"'
+    - 'OperatingSystemClass        :  20:"Mobile"'
+    - 'OperatingSystemName         :  20:"Android"'
+    - 'OperatingSystemVersion      :  20:"??"'
+    - 'AgentClass                  :  56:"Special"'
+    - 'AgentName                   :  56:"Exchange ActiveSync"'
+    - 'AgentVersion                :  56:agent.(1)product.(1)version'
+
+- test:
+    input:
+      user_agent_string: 'Apple-iPad2C2/1305.238'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad 2 (GSM)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Exchange ActiveSync'
+      AgentVersion                         : '1305.238'
+      AgentVersionMajor                    : '1305'
+      AgentNameVersion                     : 'Exchange ActiveSync 1305.238'
+      AgentNameVersionMajor                : 'Exchange ActiveSync 1305'
+
+- test:
+    input:
+      user_agent_string: 'Apple-iPhone3C1/1104.257'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 4 (GSM)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Exchange ActiveSync'
+      AgentVersion                         : '1104.257'
+      AgentVersionMajor                    : '1104'
+      AgentNameVersion                     : 'Exchange ActiveSync 1104.257'
+      AgentNameVersionMajor                : 'Exchange ActiveSync 1104'
+
+- test:
+    input:
+      user_agent_string: 'Apple-iPhone/705.18'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Exchange ActiveSync'
+      AgentVersion                         : '705.18'
+      AgentVersionMajor                    : '705'
+      AgentNameVersion                     : 'Exchange ActiveSync 705.18'
+      AgentNameVersionMajor                : 'Exchange ActiveSync 705'
+
+
+- test:
+    input:
+      user_agent_string: 'Apple-iPod4C1/1002.500'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'iPod touch'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPod touch (4th gen)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Exchange ActiveSync'
+      AgentVersion                         : '1002.500'
+      AgentVersionMajor                    : '1002'
+      AgentNameVersion                     : 'Exchange ActiveSync 1002.500'
+      AgentNameVersionMajor                : 'Exchange ActiveSync 1002'
+
+- test:
+    input:
+      user_agent_string: 'SAMSUNG-SGH-I337M/101.403'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'SGH-I337M'
+      DeviceBrand                          : 'Samsung'
+      DeviceVersion                        : '??'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Exchange ActiveSync'
+      AgentVersion                         : '101.403'
+      AgentVersionMajor                    : '101'
+      AgentNameVersion                     : 'Exchange ActiveSync 101.403'
+      AgentNameVersionMajor                : 'Exchange ActiveSync 101'
