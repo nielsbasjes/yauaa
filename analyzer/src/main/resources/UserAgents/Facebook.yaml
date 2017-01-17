@@ -118,6 +118,7 @@ config:
 
 - matcher:
     extract:
+    - 'DeviceClass:       198:LookUp[AppleDeviceClass;agent.product.(1-2)comments.entry.(1)product.(1)name="FBMD"^.version]'
     - 'DeviceName:        201:LookUp[AppleDeviceName;agent.product.(1-2)comments.entry.(1)product.(1)name="FBMD"^.version]'
     - 'DeviceVersion:     201:LookUp[AppleDeviceVersion;agent.product.(1-2)comments.entry.(1)product.(1)name="FBDV"^.version]'
     - 'DeviceBrand:       201:"Apple"'
