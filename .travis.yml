@@ -2,3 +2,7 @@ language: java
 
 after_success:
   - mvn clean -PReportCoverage cobertura:cobertura coveralls:report
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
