@@ -14,6 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+INPUT=OperatingSystemNames.csv
+OUTPUT=../OperatingSystemNames.yaml
+
+if [ "Generate.sh" -ot "${OUTPUT}" ]; then
+    if [ "${INPUT}" -ot "${OUTPUT}" ]; then
+        echo "${OUTPUT} is up to date";
+        exit;
+    fi
+fi
+
+echo "Generating ${OUTPUT}";
+
 (
 echo "# ============================================="
 echo "# THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY"
@@ -58,4 +70,4 @@ do
     echo "      \"${tag}\" : \"${osversion}\""
 done
 
-) > ../OperatingSystemNames.yaml
+) > ${OUTPUT}
