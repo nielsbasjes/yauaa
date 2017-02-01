@@ -67,7 +67,7 @@ USERAGENT1   : '-'*[Uu][Ss][Ee][Rr]'-'*[Aa][Gg][Ee][Nn][Tt]' '*(COLON|EQUALS|CUR
 USERAGENT2   : '\''[Uu][Ss][Ee][Rr]'-'*[Aa][Gg][Ee][Nn][Tt]'\'' COLON -> skip;
 
 fragment EMailLetter
-    : [a-zA-Z0-9\-\+\_]
+    : [a-zA-Z0-9-+_]
     ;
 
 fragment EMailWord
@@ -118,7 +118,7 @@ UUID        :        // 550e8400-e29b-41d4-a716-446655440000
                      HexWord HexWord '-' HexWord '-' HexWord '-' HexWord '-' HexWord HexWord HexWord;
 
 fragment BareHostname:  [a-zA-Z0-9\-_]+ ('.'[a-zA-Z0-9\-_]+)*;
-fragment UrlPath     :  [a-zA-Z0-9\-_\~\=\?\&\%\+\.\:\/\#]*;
+fragment UrlPath     :  [a-zA-Z0-9\-_~=?&%+.:/#]*;
 fragment BasicURL    :  ('http'|'ftp') 's'? '://' BareHostname UrlPath ;
 fragment HTMLURL     :  '<a href="' BasicURL '">'~[<]+'</a>';
 URL         :        ( '<'? ('www.'BareHostname UrlPath|BasicURL) '>'? |HTMLURL | 'index.htm' UrlPath);
@@ -127,11 +127,11 @@ GIBBERISH   : '@'(~[ ;])*;
 
 // A version is a WORD with at least 1 number in it (and that can contain a '-').
 VERSION
-    : (~[0-9\+\;\{\}\(\)\/\ \t\:\=\[\]\"])*[0-9]+(~[\+\;\{\}\(\)\/\ \t\:\=\[\]\"])*
+    : (~[0-9+;{}()\\/ \t:=[\]\"])*[0-9]+(~[+;{}()\\/ \t:=[\]\"])*
     ;
 
 fragment WORDLetter
-    : (~[0-9\+\;\{\}\(\)\/\ \t\:\=\[\]\"\-,])  // Normal letters
+    : (~[0-9+;,{}()\\/ \t:=[\]\"-])  // Normal letters
     | '\\x'[0-9a-f][0-9a-f]                    // Hex encoded letters \xab\x12
     ;
 WORD
@@ -145,8 +145,8 @@ WORD
 // So I came up with some silly (and incorrect) boundaries between "base64" and "not base64":
 // - It may not start with a special character (like '/' )
 fragment B64LetterBase      : [a-zA-Z0-9];
-fragment B64LetterSpecial   : [\+\?_/];
-fragment B64Letter          : [a-zA-Z0-9\+\?_/];
+fragment B64LetterSpecial   : [+?_/];
+fragment B64Letter          : [a-zA-Z0-9+?_/];
 fragment B64FirstChunk
     : B64LetterBase B64Letter B64Letter B64Letter
     ;
