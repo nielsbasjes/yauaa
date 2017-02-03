@@ -200,6 +200,7 @@ config:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
       OperatingSystemVersion               : 'Windows 7'
@@ -225,6 +226,7 @@ config:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
       OperatingSystemVersion               : 'Windows 10.0'
@@ -485,7 +487,7 @@ config:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'x64'
+      DeviceCpu                            : 'AMD x86_64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
       OperatingSystemVersion               : 'Windows 10.0'
@@ -510,7 +512,7 @@ config:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'x64'
+      DeviceCpu                            : 'AMD x86_64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
       OperatingSystemVersion               : 'Windows 10.0'
@@ -536,7 +538,7 @@ config:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'x64'
+      DeviceCpu                            : 'AMD x86_64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
       OperatingSystemVersion               : 'Windows 10.0'
@@ -633,7 +635,7 @@ config:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'x64'
+      DeviceCpu                            : 'AMD x86_64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
       OperatingSystemVersion               : 'Windows 8.1'
@@ -703,3 +705,105 @@ config:
       AgentNameVersion                     : 'Chrome 31.0.1229.79'
       AgentNameVersionMajor                : 'Chrome 31'
 
+# Internet Explorer CPU Type
+# See: https://msdn.microsoft.com/library/ms537503.aspx
+#   Win64; IA64     System has a 64-bit processor (Intel).
+#   Win64; x64      System has a 64-bit processor (AMD).
+#   WOW64           A 32-bit version of Internet Explorer is running on a 64-bit processor.
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)text="Win64"'
+    - 'agent.(1)product.(1)comments.entry.(1)text="IA64"'
+    extract:
+    - 'DeviceCpu :   200:"Intel x86_64"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)text="Win64"'
+    - 'agent.(1)product.(1)comments.entry.(1)text="x64"'
+    extract:
+    - 'DeviceCpu :   200:"AMD x86_64"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)text="WOW64"'
+    extract:
+    - 'DeviceCpu :   200:"Intel x86_64"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; WOW64; Trident/7.0; SLCC2)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; Win64; x64; Trident/6.0; .NET4.0E; .NET4.0C)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'AMD x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '6.0'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Trident 6.0'
+      LayoutEngineNameVersionMajor         : 'Trident 6'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Internet Explorer 10.0'
+      AgentNameVersionMajor                : 'Internet Explorer 10'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; Win64; IA64; Trident/6.0; .NET4.0E; .NET4.0C)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '6.0'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Trident 6.0'
+      LayoutEngineNameVersionMajor         : 'Trident 6'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Internet Explorer 10.0'
+      AgentNameVersionMajor                : 'Internet Explorer 10'
