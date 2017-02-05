@@ -731,6 +731,60 @@ config:
     extract:
     - 'DeviceCpu :   200:"Intel x86_64"'
 
+# Internet Explorer Compatibility mode.
+# ------------------------------------------
+# When in Compatibility mode IE will lie about it's real version.
+# If it does then it still shows the correct Trident version of the real version.
+# See: https://msdn.microsoft.com/library/ms537503.aspx#tritoken
+#     When the F12 developer tools are used to change the browser mode of Internet Explorer,
+#     the version token of the user-agent string is modified to appear so that the browser
+#     appears to be an earlier version.
+#     ...
+#     When this happens, a Trident token is added to the user-agent string.
+#     This token includes a version number that enables you to identify the version of the browser, regardless of
+#     the current browser mode.
+# In the table of versions on this page it says:
+# Version token  Description
+# MSIE 10.0      Internet Explorer 10
+# MSIE 9.0       Internet Explorer 9
+# MSIE 8.0       Internet Explorer 8            or IE8 Compatibility View/Browser Mode
+# MSIE 7.0       Windows Internet Explorer 7    or IE7 Compatibility View/Browser Mode
+# MSIE 6.0       Microsoft Internet Explorer 6
+#
+# So only IE 7 and 8 are possible 'compatibility' version.
+# And only IE 9 and up have a compatibility option
+- lookup:
+    name: 'CompatibilityTridentAgentVersion'
+    map:
+      "Trident/5.0": "9.0"
+      "Trident/6.0": "10.0"
+      "Trident/7.0": "11.0"
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product="MSIE 7.0"'
+    - 'agent.(1)product.(1)comments.(1)entry.(1)text="compatible"'
+    - 'agent.(1)product.(1)comments.entry.(1)product[1-2]="Windows NT"'
+    - 'LookUp[CompatibilityTridentAgentVersion;agent.product.comments.entry.product.name="Trident"^]'
+    extract:
+    - 'IECompatibilityVersion           : 1 :"7.0"'
+    - 'IECompatibilityVersionMajor      : 1 :"7"'
+    - 'IECompatibilityNameVersion       : 1 :"Internet Explorer 7.0"'
+    - 'IECompatibilityNameVersionMajor  : 1 :"Internet Explorer 7"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product="MSIE 8.0"'
+    - 'agent.(1)product.(1)comments.(1)entry.(1)text="compatible"'
+    - 'agent.(1)product.(1)comments.entry.(1)product[1-2]="Windows NT"'
+    - 'LookUp[CompatibilityTridentAgentVersion;agent.product.comments.entry.product.name="Trident"^]'
+    extract:
+    extract:
+    - 'IECompatibilityVersion           : 1 :"8.0"'
+    - 'IECompatibilityVersionMajor      : 1 :"8"'
+    - 'IECompatibilityNameVersion       : 1 :"Internet Explorer 8.0"'
+    - 'IECompatibilityNameVersionMajor  : 1 :"Internet Explorer 8"'
+
 - test:
     input:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; WOW64; Trident/7.0; SLCC2)'
@@ -755,7 +809,10 @@ config:
       AgentVersionMajor                    : '11'
       AgentNameVersion                     : 'Internet Explorer 11.0'
       AgentNameVersionMajor                : 'Internet Explorer 11'
-
+      IECompatibilityVersion               : '7.0'
+      IECompatibilityVersionMajor          : '7'
+      IECompatibilityNameVersion           : 'Internet Explorer 7.0'
+      IECompatibilityNameVersionMajor      : 'Internet Explorer 7'
 
 - test:
     input:
@@ -781,6 +838,10 @@ config:
       AgentVersionMajor                    : '10'
       AgentNameVersion                     : 'Internet Explorer 10.0'
       AgentNameVersionMajor                : 'Internet Explorer 10'
+      IECompatibilityVersion               : '7.0'
+      IECompatibilityVersionMajor          : '7'
+      IECompatibilityNameVersion           : 'Internet Explorer 7.0'
+      IECompatibilityNameVersionMajor      : 'Internet Explorer 7'
 
 
 - test:
@@ -807,3 +868,63 @@ config:
       AgentVersionMajor                    : '10'
       AgentNameVersion                     : 'Internet Explorer 10.0'
       AgentNameVersionMajor                : 'Internet Explorer 10'
+      IECompatibilityVersion               : '7.0'
+      IECompatibilityVersionMajor          : '7'
+      IECompatibilityNameVersion           : 'Internet Explorer 7.0'
+      IECompatibilityNameVersionMajor      : 'Internet Explorer 7'
+
+# IE 11 in normal mode
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; Trident/7.0; rv:11.0) like Gecko'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'AMD x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
+
+# IE 11 in Compatibility mode
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Win64; x64; Trident/7.0; .NET CLR 2.0.50727; SLCC2; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; InfoPath.3; .NET4.0E)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'AMD x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
+      IECompatibilityVersion               : '7.0'
+      IECompatibilityVersionMajor          : '7'
+      IECompatibilityNameVersion           : 'Internet Explorer 7.0'
+      IECompatibilityNameVersionMajor      : 'Internet Explorer 7'

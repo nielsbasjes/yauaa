@@ -546,6 +546,11 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         PRE_SORTED_FIELDS_LIST.add("KoboAffiliate");
         PRE_SORTED_FIELDS_LIST.add("KoboPlatformId");
 
+        PRE_SORTED_FIELDS_LIST.add("IECompatibilityVersion");
+        PRE_SORTED_FIELDS_LIST.add("IECompatibilityVersionMajor");
+        PRE_SORTED_FIELDS_LIST.add("IECompatibilityNameVersion");
+        PRE_SORTED_FIELDS_LIST.add("IECompatibilityNameVersionMajor");
+
         PRE_SORTED_FIELDS_LIST.add(SYNTAX_ERROR);
     }
 
