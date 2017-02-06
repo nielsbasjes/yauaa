@@ -14,11 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-INPUT=ISOLanguageCodes.csv
+INPUT1=ISOLanguageCodes.csv
+INPUT2=iso-639-3.tab
 OUTPUT=../ISOLanguageCode.yaml
 
 if [ "Generate.sh" -ot "${OUTPUT}" ]; then
-    if [ "${INPUT}" -ot "${OUTPUT}" ]; then
+    if [ "${INPUT1}" -ot "${OUTPUT}" ] && [ "${INPUT2}" -ot "${OUTPUT}" ] ; then
         echo "${OUTPUT} is up to date";
         exit;
     fi
@@ -50,38 +51,82 @@ echo "#"
 echo ""
 echo "config:"
 
+echo "# Match the 2 and 2-2 letter variants:"
 echo "- matcher:"
 echo "    extract:"
 echo "    - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.(1)product.(1)comments.entry.(1-2)text]'"
-echo "    - 'AgentLanguage :  5:LookUp[ISOLanguageCodesName;agent.(1)product.(1)comments.entry.(1-2)text]'"
+echo "    - 'AgentLanguage     :  5:LookUp[ISOLanguageCodesName;agent.(1)product.(1)comments.entry.(1-2)text]'"
 echo ""
 
 echo "- matcher:"
 echo "    extract:"
 echo "    - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'"
-echo "    - 'AgentLanguage :  5:LookUp[ISOLanguageCodesName;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'"
+echo "    - 'AgentLanguage     :  5:LookUp[ISOLanguageCodesName;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'"
 echo ""
 
 echo "- matcher:"
 echo "    extract:"
 echo "    - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
-echo "    - 'AgentLanguage :  5:LookUp[ISOLanguageCodesName;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
+echo "    - 'AgentLanguage     :  5:LookUp[ISOLanguageCodesName;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
 echo ""
 
+echo "# Match the 3 variants:"
+echo "- matcher:"
+echo "    extract:"
+echo "    - 'AgentLanguageCode :  4:LookUp[ISOLanguageCodes3;agent.(1)product.(1)comments.entry.(1-2)text]'"
+echo "    - 'AgentLanguage     :  4:LookUp[ISOLanguageCodes3Name;agent.(1)product.(1)comments.entry.(1-2)text]'"
+echo ""
+
+echo "- matcher:"
+echo "    extract:"
+echo "    - 'AgentLanguageCode :  4:LookUp[ISOLanguageCodes3;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'"
+echo "    - 'AgentLanguage     :  4:LookUp[ISOLanguageCodes3Name;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'"
+echo ""
+
+echo "- matcher:"
+echo "    extract:"
+echo "    - 'AgentLanguageCode :  4:LookUp[ISOLanguageCodes3;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
+echo "    - 'AgentLanguage     :  4:LookUp[ISOLanguageCodes3Name;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
+echo ""
+
+echo "# -----------------------------------------------------------------------------"
 echo "- lookup:"
 echo "    name: 'ISOLanguageCodes'"
 echo "    map:"
-cat "ISOLanguageCodes.csv" | while read line ; \
+cat "${INPUT1}" | while read line ; \
 do
     echo "      \"$(echo ${line} | cut -d' ' -f1)\" : \"$(echo ${line} | cut -d' ' -f1)\""
 done
 
+echo "# -----------------------------------------------------------------------------"
 echo "- lookup:"
 echo "    name: 'ISOLanguageCodesName'"
 echo "    map:"
-cat "ISOLanguageCodes.csv" | while read line ; \
+cat "${INPUT1}" | while read line ; \
 do
     echo "      \"$(echo ${line} | cut -d' ' -f1)\" : \"$(echo ${line} | cut -d' ' -f2-)\""
 done
+
+echo "# -----------------------------------------------------------------------------"
+echo "- lookup:"
+echo "    name: 'ISOLanguageCodes3'"
+echo "    map:"
+cat "${INPUT2}" | fgrep -v 'Language_Type' | egrep -v '(kbd)' | while read line ; \
+do
+    CODE=$(echo "${line}" | cut -d'	' -f1)
+    echo "      \"${CODE}\" : \"${CODE}\""
+done
+
+echo "# -----------------------------------------------------------------------------"
+echo "- lookup:"
+echo "    name: 'ISOLanguageCodes3Name'"
+echo "    map:"
+cat "${INPUT2}" | fgrep -v 'Language_Type' | egrep -v '(kbd)' | while read line ; \
+do
+    CODE=$(echo "${line}" | cut -d'	' -f1)
+    NAME=$(echo "${line}" | cut -d'	' -f7)
+    echo "      \"${CODE}\" : \"${NAME}\""
+done
+echo "# -----------------------------------------------------------------------------"
 
 ) > ${OUTPUT}
