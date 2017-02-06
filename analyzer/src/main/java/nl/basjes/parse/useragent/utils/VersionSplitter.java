@@ -96,7 +96,7 @@ public final class VersionSplitter {
     }
 
     private static boolean looksLikeEmailOrWebaddress(String value) {
-        // FIXME: Simple quick and dirty way to avoid splitting email and web addresses
+        // Simple quick and dirty way to avoid splitting email and web addresses
         return (value.startsWith("www.") || value.startsWith("http") || (value.contains("@") && value.contains(".")));
     }
 
