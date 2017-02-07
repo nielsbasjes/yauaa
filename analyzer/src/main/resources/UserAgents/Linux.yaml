@@ -537,6 +537,18 @@ config:
       AgentSecurity                        : 'Strong security'
 
 #TODO All Ubuntu variants (Kubuntu)
+# https://wiki.ubuntu.com/UbuntuFlavors
+# - Ubuntu
+# - Kubuntu
+# - Edubuntu
+# - Xubuntu
+# - Mythbuntu
+# - UbuntuStudio
+# - Lubuntu
+# - Ubuntu GNOME
+# - Ubuntu Kylin
+# - Ubuntu MATE
+
 #- test:
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.9 (like Gecko) (Kubuntu)'
@@ -716,11 +728,168 @@ config:
       AgentLanguageCode                    : 'nl'
       AgentSecurity                        : 'Strong security'
 
-#26	63	Mozilla/5.0 (X11; U; Linux i686; nl; rv:1.9.0.4) Gecko/2008103100 SUSE/3.0.4-4.6 Firefox/3.0.4
-#21	149	Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.4) Gecko/20091016 SUSE/3.5.4-1.1.2 Firefox/3.5.4
-#18	593	Mozilla/5.0 (X11; U; Linux i686; nl; rv:1.9.2.24) Gecko/20111101 SUSE/3.6.24-0.2.1 Firefox/3.6.24
-#12	87	Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.32 (KHTML, like Gecko) Chrome/27.0.1425.0 Safari/537.32 SUSE/27.0.1425.0
-#Opera/9.80 (X11; Linux x86_64; Suse) Presto/2.12.388 Version/12.16
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; nl; rv:1.9.0.4) Gecko/2008103100 SUSE/3.0.4-4.6 Firefox/3.0.4'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'SUSE'
+      OperatingSystemVersion               : '3.0.4-4.6'
+      OperatingSystemNameVersion           : 'SUSE 3.0.4-4.6'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.0.4'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.0.4'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '2008103100'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.0.4'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.0.4'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'Dutch'
+      AgentLanguageCode                    : 'nl'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.4) Gecko/20091016 SUSE/3.5.4-1.1.2 Firefox/3.5.4'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'SUSE'
+      OperatingSystemVersion               : '3.5.4-1.1.2'
+      OperatingSystemNameVersion           : 'SUSE 3.5.4-1.1.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.1.4'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.1.4'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20091016'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.5.4'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.5.4'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; nl; rv:1.9.2.24) Gecko/20111101 SUSE/3.6.24-0.2.1 Firefox/3.6.24'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'SUSE'
+      OperatingSystemVersion               : '3.6.24-0.2.1'
+      OperatingSystemNameVersion           : 'SUSE 3.6.24-0.2.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.2.24'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.2.24'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20111101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.6.24'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.6.24'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'Dutch'
+      AgentLanguageCode                    : 'nl'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.32 (KHTML, like Gecko) Chrome/27.0.1425.0 Safari/537.32 SUSE/27.0.1425.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'SUSE'
+      OperatingSystemVersion               : '27.0.1425.0'
+      OperatingSystemNameVersion           : 'SUSE 27.0.1425.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.32'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.32'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '27.0.1425.0'
+      AgentVersionMajor                    : '27'
+      AgentNameVersion                     : 'Chrome 27.0.1425.0'
+      AgentNameVersionMajor                : 'Chrome 27'
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (X11; Linux x86_64; Suse) Presto/2.12.388 Version/12.16'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'SUSE'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'SUSE ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.388'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.388'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.16'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.16'
+      AgentNameVersionMajor                : 'Opera 12'
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (X11; Linux x86_64; CenToS) Presto/2.12.388 Version/12.16'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'CentOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'CentOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.388'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.388'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.16'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.16'
+      AgentNameVersionMajor                : 'Opera 12'
+
 
 - test:
     input:
