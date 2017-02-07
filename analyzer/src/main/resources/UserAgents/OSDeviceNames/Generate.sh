@@ -53,7 +53,7 @@ do
     osname=$(   echo ${line} | cut -d'|' -f1)
     devclass=$( echo ${line} | cut -d'|' -f2)
     devname=$(  echo ${line} | cut -d'|' -f3)
-    devbrand=$(  echo ${line} | cut -d'|' -f4)
+    devbrand=$( echo ${line} | cut -d'|' -f4)
     osclass=$(  echo ${line} | cut -d'|' -f5)
 echo "
 - matcher:
@@ -74,7 +74,7 @@ echo "
     - 'DeviceBrand           :  111:\"${devbrand}\"'
     - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
-    - 'OperatingSystemVersion:  150:agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.(1)version'
+    - 'OperatingSystemVersion:  150:CleanVersion[agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.(1)version]'
 
 # Only if the second version field is NOT a type of CPU.
 - matcher:
@@ -86,15 +86,17 @@ echo "
     - 'DeviceBrand           :  111:\"${devbrand}\"'
     - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
-    - 'OperatingSystemVersion:  151:agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.(2)version'
+    - 'OperatingSystemVersion:  151:CleanVersion[agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.(2)version]'
 
 - matcher:
+    require:
+    - 'agent.product.(1)comments.entry.text=\"${osname}\"'
     extract:
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
     - 'OperatingSystemClass  :  150:\"${osclass}\"'
-    - 'OperatingSystemName   :  150:agent.product.(1)comments.entry.text=\"${osname}\"'
+    - 'OperatingSystemName   :  150:\"${osname}\"'
     - 'OperatingSystemVersion:  149:\"??\"'
 
 - matcher:
@@ -104,7 +106,7 @@ echo "
     - 'DeviceBrand           :  111:\"${devbrand}\"'
     - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
-    - 'OperatingSystemVersion:  150:agent.product.name=\"${osname}\"^.(1)version'
+    - 'OperatingSystemVersion:  150:CleanVersion[agent.product.name=\"${osname}\"^.(1)version]'
 
 # Only if the second version field is NOT a type of CPU.
 - matcher:
@@ -116,7 +118,7 @@ echo "
     - 'DeviceBrand           :  111:\"${devbrand}\"'
     - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
-    - 'OperatingSystemVersion:  151:agent.product.name=\"${osname}\"^.(2)version'
+    - 'OperatingSystemVersion:  151:CleanVersion[agent.product.name=\"${osname}\"^.(2)version]'
 
 - matcher:
     require:
