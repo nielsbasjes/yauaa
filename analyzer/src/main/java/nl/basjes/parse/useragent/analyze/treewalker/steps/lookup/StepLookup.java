@@ -38,20 +38,6 @@ public class StepLookup extends Step {
     public String walk(ParseTree tree, String value) {
         String input = getActualValue(tree, value);
 
-        if (input == null) {
-            if (defaultValue == null) {
-                if (verbose) {
-                    LOG.info("{} Lookup: {}[{}] => Input null", logprefix, lookupName, input);
-                }
-                return null;
-            } else {
-                if (verbose) {
-                    LOG.info("{} Lookup: {}[{}] => Input null --> USE DEFAULT:{}", logprefix, lookupName, input, defaultValue);
-                }
-                return walkNextStep(tree, defaultValue);
-            }
-        }
-
         String result = lookup.get(input.toLowerCase());
 
         if (result == null) {

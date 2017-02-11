@@ -27,9 +27,6 @@ public class StepCleanVersion extends Step {
     public String walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
 
-        if (actualValue == null) {
-            return "<<<Null Value>>>";
-        }
         String cleanedValue = EvilManualUseragentStringHacks.replaceString(actualValue, "_", ".");
         return walkNextStep(tree, cleanedValue);
     }
