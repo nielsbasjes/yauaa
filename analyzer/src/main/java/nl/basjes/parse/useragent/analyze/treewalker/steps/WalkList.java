@@ -161,6 +161,10 @@ public class WalkList {
         // Because we are jumping in 'mid way' we need to skip creating steps until that point.
         boolean foundHashEntryPoint = false;
 
+        private void fromHereItCannotBeInHashMapAnymore() {
+            foundHashEntryPoint = true;
+        }
+
         private void add(Step step) {
             if (foundHashEntryPoint) {
                 steps.add(step);
@@ -182,6 +186,9 @@ public class WalkList {
         @Override
         public Void visitMatcherPathLookup(MatcherPathLookupContext ctx) {
             visit(ctx.matcher());
+
+            fromHereItCannotBeInHashMapAnymore();
+
             String lookupName = ctx.lookup.getText();
             Map<String, String> lookup = lookups.get(lookupName);
             if (lookup == null) {
@@ -193,39 +200,37 @@ public class WalkList {
                 defaultValue = ctx.defaultValue.getText();
             }
 
-            // Always add this one
-            steps.add(new StepLookup(lookupName, lookup, defaultValue));
+            add(new StepLookup(lookupName, lookup, defaultValue));
             return null; // Void
         }
 
         @Override
         public Void visitMatcherCleanVersion(MatcherCleanVersionContext ctx) {
             visit(ctx.matcher());
-//            foundHashEntryPoint = true;
-            steps.add(new StepCleanVersion());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepCleanVersion());
             return null; // Void
         }
 
         @Override
         public Void visitMatcherNormalizeBrand(MatcherNormalizeBrandContext ctx) {
             visit(ctx.matcher());
-//            foundHashEntryPoint = true;
-            steps.add(new StepNormalizeBrand());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepNormalizeBrand());
             return null; // Void
         }
 
         @Override
         public Void visitMatcherWordRange(MatcherWordRangeContext ctx) {
             visit(ctx.matcher());
-//            foundHashEntryPoint = true;
-            WordRangeVisitor.Range range = WordRangeVisitor.getRange(ctx.wordRange());
-            add(new StepWordRange(range));
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepWordRange(WordRangeVisitor.getRange(ctx.wordRange())));
             return null; // Void
         }
 
         @Override
         public Void visitMatcherPathIsNull(MatcherPathIsNullContext ctx) {
-            // Always add this one
+            // Always add this one, it's special
             steps.add(new StepIsNull());
             visit(ctx.matcher());
             return null; // Void
@@ -252,7 +257,7 @@ public class WalkList {
 
         @Override
         public Void visitStepUp(StepUpContext ctx) {
-            foundHashEntryPoint = true;
+            fromHereItCannotBeInHashMapAnymore();
             add(new StepUp());
             visitNext(ctx.nextStep);
             return null; // Void
@@ -260,7 +265,7 @@ public class WalkList {
 
         @Override
         public Void visitStepNext(StepNextContext ctx) {
-            foundHashEntryPoint = true;
+            fromHereItCannotBeInHashMapAnymore();
             add(new StepNext());
             visitNext(ctx.nextStep);
             return null; // Void
@@ -268,7 +273,7 @@ public class WalkList {
 
         @Override
         public Void visitStepPrev(StepPrevContext ctx) {
-            foundHashEntryPoint = true;
+            fromHereItCannotBeInHashMapAnymore();
             add(new StepPrev());
             visitNext(ctx.nextStep);
             return null; // Void
@@ -277,14 +282,14 @@ public class WalkList {
         @Override
         public Void visitStepEqualsValue(StepEqualsValueContext ctx) {
             add(new StepEquals(ctx.value.getText()));
-            foundHashEntryPoint = true;
+            fromHereItCannotBeInHashMapAnymore();
             visitNext(ctx.nextStep);
             return null; // Void
         }
 
         @Override
         public Void visitStepNotEqualsValue(StepNotEqualsValueContext ctx) {
-            foundHashEntryPoint = true;
+            fromHereItCannotBeInHashMapAnymore();
             add(new StepNotEquals(ctx.value.getText()));
             visitNext(ctx.nextStep);
             return null; // Void
@@ -292,7 +297,7 @@ public class WalkList {
 
         @Override
         public Void visitStepStartsWithValue(StepStartsWithValueContext ctx) {
-            foundHashEntryPoint = true;
+            fromHereItCannotBeInHashMapAnymore();
             add(new StepStartsWith(ctx.value.getText()));
             visitNext(ctx.nextStep);
             return null; // Void
@@ -300,7 +305,7 @@ public class WalkList {
 
         @Override
         public Void visitStepEndsWithValue(StepEndsWithValueContext ctx) {
-            foundHashEntryPoint = true;
+            fromHereItCannotBeInHashMapAnymore();
             add(new StepEndsWith(ctx.value.getText()));
             visitNext(ctx.nextStep);
             return null; // Void
@@ -308,7 +313,7 @@ public class WalkList {
 
         @Override
         public Void visitStepContainsValue(StepContainsValueContext ctx) {
-            foundHashEntryPoint = true;
+            fromHereItCannotBeInHashMapAnymore();
             add(new StepContains(ctx.value.getText()));
             visitNext(ctx.nextStep);
             return null; // Void
@@ -318,7 +323,7 @@ public class WalkList {
         public Void visitStepWordRange(StepWordRangeContext ctx) {
             WordRangeVisitor.Range range = WordRangeVisitor.getRange(ctx.wordRange());
             if (!range.isRangeInHashMap()) {
-                foundHashEntryPoint = true;
+                fromHereItCannotBeInHashMapAnymore();
             }
             add(new StepWordRange(range));
             visitNext(ctx.nextStep);
