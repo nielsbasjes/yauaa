@@ -35,6 +35,10 @@ public class Matcher {
     private final Analyzer analyzer;
     private final List<MatcherAction> dynamicActions;
     private final List<MatcherAction> fixedStringActions;
+
+    // Set this to true if there is a reason not to trust the 'can possibly be valid'
+    // One reason is if there is an IsNull check used somewhere.
+    private boolean forceEvaluation = false;
     final Map<String, Map<String, String>> lookups;
     private boolean verbose;
     private boolean permanentVerbose;
@@ -146,6 +150,15 @@ public class Matcher {
             }
         }
 
+        for (MatcherAction action : dynamicActions) {
+            // If an action exists which without any data can be valid, then we must force the evaluation
+            action.reset();
+            if (action.canPossiblyBeValid()) {
+                forceEvaluation = true;
+                break;
+            }
+        }
+
         if (verbose) {
             LOG.info("---------------------------");
         }
@@ -206,20 +219,23 @@ public class Matcher {
                     good = false;
                 }
             }
-            if (good) {
-                for (MatcherAction action : fixedStringActions) {
-                    if (!action.obtainResult(newValuesUserAgent)) {
-                        LOG.error("FAILED : {}", action.getMatchExpression());
-                    }
+            for (MatcherAction action : fixedStringActions) {
+                if (!action.obtainResult(newValuesUserAgent)) {
+                    LOG.error("FAILED : {}", action.getMatchExpression());
+                    good = false;
                 }
+            }
+            if (good) {
+                LOG.info("COMPLETE ----------------------------");
             } else  {
                 LOG.info("INCOMPLETE ----------------------------");
                 return;
             }
-            LOG.info("COMPLETE ----------------------------");
         } else {
-            if (!possiblyValid) {
-                return;
+            if (!forceEvaluation) {
+                if (!possiblyValid) {
+                    return;
+                }
             }
             for (MatcherAction action : dynamicActions) {
                 if (!action.canPossiblyBeValid()) {
@@ -255,6 +271,10 @@ public class Matcher {
         possiblyValid = dynamicActions.isEmpty();
         for (MatcherAction action : dynamicActions) {
             action.reset();
+            // In some cases even a action without data can be valid
+            if (action.canPossiblyBeValid()) {
+                possiblyValid = true;
+            }
             if (setVerboseTemporarily) {
                 verbose = true;
                 action.setVerbose(true, true);
