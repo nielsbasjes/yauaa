@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.analyze.treewalker.steps.compare;
+package nl.basjes.parse.useragent.analyze.treewalker.steps.value;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.parse.EvilManualUseragentStringHacks;
@@ -30,7 +30,8 @@ public class StepCleanVersion extends Step {
         if (actualValue == null) {
             return "<<<Null Value>>>";
         }
-        return EvilManualUseragentStringHacks.replaceString(actualValue, "_", ".");
+        String cleanedValue = EvilManualUseragentStringHacks.replaceString(actualValue, "_", ".");
+        return walkNextStep(tree, cleanedValue);
     }
 
     @Override

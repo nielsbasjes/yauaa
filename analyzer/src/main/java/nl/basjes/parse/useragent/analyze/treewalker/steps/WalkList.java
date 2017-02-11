@@ -19,26 +19,26 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps;
 
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepCleanVersion;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEndsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepDefaultValue;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepBackToFull;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepFixedString;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNext;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
@@ -63,6 +63,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
+
 public class WalkList {
     private static final Logger LOG = LoggerFactory.getLogger(WalkList.class);
 
@@ -76,7 +79,6 @@ public class WalkList {
         this.verbose = verbose;
         // Generate the walkList from the requiredPattern
         new WalkListBuilder().visit(requiredPattern);
-//        steps.add(new FinalStep());
         linkSteps();
 
         int i = 1;
@@ -124,6 +126,24 @@ public class WalkList {
         return steps.get(0);
     }
 
+    Boolean usesIsNull = null;
+    public boolean usesIsNull() {
+        if (usesIsNull != null) {
+            return usesIsNull;
+        }
+
+        Step step = getFirstStep();
+        while (step != null) {
+            if (step instanceof StepIsNull) {
+                usesIsNull = true;
+                return true;
+            }
+            step = step.getNextStep();
+        }
+        usesIsNull = false;
+        return false;
+    }
+
     @Override
     public String toString() {
         if (steps.size() == 0) {
@@ -161,26 +181,45 @@ public class WalkList {
 
         @Override
         public Void visitMatcherPathLookup(MatcherPathLookupContext ctx) {
-            if (ctx.defaultValue != null) {
-                // Always add this one
-                steps.add(new StepDefaultValue(ctx.defaultValue.getText()));
-            }
-            visit(ctx.matcherLookup());
+            visit(ctx.matcher());
             String lookupName = ctx.lookup.getText();
             Map<String, String> lookup = lookups.get(lookupName);
             if (lookup == null) {
                 throw new InvalidParserConfigurationException("Missing lookup \"" + ctx.lookup.getText() + "\" ");
             }
+
+            String defaultValue = null;
+            if (ctx.defaultValue != null) {
+                defaultValue = ctx.defaultValue.getText();
+            }
+
             // Always add this one
-            steps.add(new StepLookup(lookupName, lookup));
+            steps.add(new StepLookup(lookupName, lookup, defaultValue));
             return null; // Void
         }
 
         @Override
         public Void visitMatcherCleanVersion(MatcherCleanVersionContext ctx) {
-            // Always add this one
-            visit(ctx.matcherLookup());
+            visit(ctx.matcher());
+//            foundHashEntryPoint = true;
             steps.add(new StepCleanVersion());
+            return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherNormalizeBrand(MatcherNormalizeBrandContext ctx) {
+            visit(ctx.matcher());
+//            foundHashEntryPoint = true;
+            steps.add(new StepNormalizeBrand());
+            return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherWordRange(MatcherWordRangeContext ctx) {
+            visit(ctx.matcher());
+//            foundHashEntryPoint = true;
+            WordRangeVisitor.Range range = WordRangeVisitor.getRange(ctx.wordRange());
+            add(new StepWordRange(range));
             return null; // Void
         }
 
@@ -188,7 +227,7 @@ public class WalkList {
         public Void visitMatcherPathIsNull(MatcherPathIsNullContext ctx) {
             // Always add this one
             steps.add(new StepIsNull());
-            visit(ctx.matcherLookup());
+            visit(ctx.matcher());
             return null; // Void
         }
 
@@ -276,7 +315,7 @@ public class WalkList {
         }
 
         @Override
-        public Void visitStepWordRange(UserAgentTreeWalkerParser.StepWordRangeContext ctx) {
+        public Void visitStepWordRange(StepWordRangeContext ctx) {
             WordRangeVisitor.Range range = WordRangeVisitor.getRange(ctx.wordRange());
             if (!range.isRangeInHashMap()) {
                 foundHashEntryPoint = true;

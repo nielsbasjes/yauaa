@@ -16,15 +16,44 @@
 #
 config:
 # ========================================================================
-  - matcher:
-      extract:
-        - 'Test:1:"Ok"'
+- matcher:
+    extract:
+      - 'Test:1:"Ok"'
 
-  - test:
-      input:
-        # Invalid URL encoding must not fail.
-        user_agent_string:  'Mozilla/5.0 (%20 %)'
-      expected:
-        Test: "Ok"
+- test:
+    input:
+      # Invalid URL encoding must not fail.
+      user_agent_string:  'Mozilla/5.0 (%20 %)'
+    expected:
+      Test: "Ok"
 
 # ========================================================================
+
+- matcher:
+    options:
+    - 'verbose'
+    require:
+    - 'IsNull[agent.product]'
+    - 'IsNull[agent.url]'
+    extract:
+    - 'IsNullCheck : 10:"No Product"'
+
+
+- matcher:
+    options:
+    - 'verbose'
+    require:
+    - 'IsNull[agent~"a"]'
+    - 'IsNull[agent~"e"]'
+    - 'IsNull[agent~"o"]'
+    - 'IsNull[agent~"u"]'
+    - 'IsNull[agent~"i"]'
+    extract:
+    - 'IsNullCheck : 9:"No Letters"'
+
+- test:
+    input:
+      user_agent_string: '' # Yes, Empty
+    expected:
+      IsNullCheck : "No Product"
+      Test: "Ok"

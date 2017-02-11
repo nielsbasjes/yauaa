@@ -55,6 +55,7 @@ import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION;
@@ -574,6 +575,7 @@ config:
                 userAgent.set(DEVICE_CLASS, "Hacker", 10);
                 userAgent.set(DEVICE_BRAND, "Hacker", 10);
                 userAgent.set(DEVICE_NAME, "Hacker", 10);
+                userAgent.set(DEVICE_VERSION, "Hacker", 10);
                 userAgent.set(OPERATING_SYSTEM_CLASS, "Hacker", 10);
                 userAgent.set(OPERATING_SYSTEM_NAME, "Hacker", 10);
                 userAgent.set(OPERATING_SYSTEM_VERSION, "Hacker", 10);

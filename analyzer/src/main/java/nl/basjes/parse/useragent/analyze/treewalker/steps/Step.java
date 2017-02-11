@@ -66,7 +66,8 @@ public abstract class Step {
         }
         String result = nextStep.walk(tree, value);
         if (verbose) {
-            LOG.info("{} Leave step ({}): {}", logprefix, result == null ? "-" : "+", nextStep);
+            LOG.info("{} Result: >>>{}<<<", logprefix, result);
+            LOG.info("{} Leave step({}): {}", logprefix, result == null ? "-" : "+", nextStep);
         }
         return result;
     }

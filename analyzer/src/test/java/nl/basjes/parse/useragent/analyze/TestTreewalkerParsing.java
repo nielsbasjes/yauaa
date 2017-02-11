@@ -75,14 +75,13 @@ public class TestTreewalkerParsing {
 
         String[] expectedWalkList = {
             "IsNull()",
-            "DefaultValue(DefaultValue)",
-            "WordRange(2-3)",
+            "WordRange([2:3])",
             "Contains(foo)",
             "Up()",
             "Down([1:5]version)",
-            "WordRange(1-2)",
+            "WordRange([1:2])",
             "StartsWith(7.)",
-            "Lookup(TridentVersions)",
+            "Lookup(@TridentVersions ; default=DefaultValue)",
         };
 
         checkPath(path, expectedHashEntries, expectedWalkList);
@@ -127,14 +126,13 @@ public class TestTreewalkerParsing {
 
         String[] expectedWalkList = {
             "IsNull()",
-            "DefaultValue(DefaultValue)",
-            "WordRange(2-3)",
+            "WordRange([2:3])",
             "Contains(foo)",
             "Up()",
             "Down([1:5]version)",
-            "WordRange(2-2)",
+            "WordRange([2:2])",
             "StartsWith(7.)",
-            "Lookup(TridentVersions)",
+            "Lookup(@TridentVersions ; default=DefaultValue)",
         };
 
         checkPath(path, expectedHashEntries, expectedWalkList);
@@ -170,7 +168,7 @@ public class TestTreewalkerParsing {
         while (i < 20) {
             String path = "agent.(1)product.(1)name[" + i + "]";
             String[] expectedHashEntries = {"agent.(1)product.(1)name"};
-            String[] expectedWalkList = {"WordRange(" + i + "-" + i + ")",};
+            String[] expectedWalkList = {"WordRange([" + i + ":" + i + "])",};
             checkPath(path, expectedHashEntries, expectedWalkList);
             i++;
         }
@@ -218,7 +216,7 @@ public class TestTreewalkerParsing {
         };
 
         String[] expectedWalkList = {
-            "WordRange(3-5)",
+            "WordRange([3:5])",
             "Equals(foo)",
             "Up()",
             "Down([1:3]version)"
@@ -251,10 +249,10 @@ public class TestTreewalkerParsing {
             "Down([1:2]comments)",
             "Down([1:20]entry)",
             "Down([1:8]text)",
-            "WordRange(1-2)",
+            "WordRange([1:2])",
             "Equals(three)",
             "BackToFull()",
-            "WordRange(1-1)",
+            "WordRange([1:1])",
         };
 
         checkPath(path, expectedHashEntries, expectedWalkList);
@@ -299,12 +297,11 @@ public class TestTreewalkerParsing {
         };
 
         String[] expectedWalkList = {
-            "DefaultValue(DefaultValue)",
             "Up()",
             "Down([1:5]version)",
-            "WordRange(1-2)",
+            "WordRange([1:2])",
             "StartsWith(7.)",
-            "Lookup(TridentVersions)",
+            "Lookup(@TridentVersions ; default=DefaultValue)",
             "CleanVersion()"
         };
 

@@ -35,6 +35,18 @@ public class TestMatcherExpressions {
     }
 
     @Test
+    public void runMatcherNestedFunctionsTests() {
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:Matcher-nested-functions.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
+
+    @Test
+    public void runMatcherIsNullTests() {
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:Matcher-IsNull-tests.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
+
+    @Test
     public void runSubstringTests() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:SubString-tests.yaml");
         Assert.assertTrue(uaa.runTests(false, false));

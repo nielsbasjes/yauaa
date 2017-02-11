@@ -26,25 +26,57 @@ public class StepLookup extends Step {
 
     private final String lookupName;
     private final Map<String, String> lookup;
+    private final String defaultValue;
 
-    public StepLookup(String lookupName, Map<String, String> lookup) {
+    public StepLookup(String lookupName, Map<String, String> lookup, String defaultValue) {
         this.lookupName = lookupName;
         this.lookup = lookup;
+        this.defaultValue = defaultValue;
     }
 
     @Override
     public String walk(ParseTree tree, String value) {
         String input = getActualValue(tree, value);
-        String result = lookup.get(getActualValue(tree, value).toLowerCase());
-        if (verbose) {
-            LOG.info("{} Lookup: {}[{}] => {}", logprefix, lookupName, input, result);
+
+        if (input == null) {
+            if (defaultValue == null) {
+                if (verbose) {
+                    LOG.info("{} Lookup: {}[{}] => Input null", logprefix, lookupName, input);
+                }
+                return null;
+            } else {
+                if (verbose) {
+                    LOG.info("{} Lookup: {}[{}] => Input null --> USE DEFAULT:{}", logprefix, lookupName, input, defaultValue);
+                }
+                return walkNextStep(tree, defaultValue);
+            }
         }
-        return result;
+
+        String result = lookup.get(input.toLowerCase());
+
+        if (result == null) {
+            if (defaultValue == null) {
+                if (verbose) {
+                    LOG.info("{} Lookup: {}[{}] => null", logprefix, lookupName, input);
+                }
+                return null;
+            } else {
+                if (verbose) {
+                    LOG.info("{} Lookup: {}[{}] => USE DEFAULT:{}", logprefix, lookupName, input, defaultValue);
+                }
+                return walkNextStep(tree, defaultValue);
+            }
+        }
+
+        if (verbose) {
+            LOG.info("{} Lookup: {}[{}] => Lookup:{}", logprefix, lookupName, input, result);
+        }
+        return walkNextStep(tree, result);
     }
 
     @Override
     public String toString() {
-        return "Lookup(" + lookupName + ")";
+        return "Lookup(@" + lookupName + " ; default="+defaultValue+")";
     }
 
 }

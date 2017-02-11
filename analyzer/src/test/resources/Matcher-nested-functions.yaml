@@ -1,0 +1,87 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2017 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+MATCH_OPTIONS: &MATCH_OPTIONS
+  options:
+    - 'verbose'
+
+TEST_OPTIONS: &TEST_OPTIONS
+  options:
+    - 'verbose'
+    - 'init'
+
+config:
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'A:1:LookUp[ Versions ; CleanVersion [ agent.(1)product.(1)version ] ; "Ugly" ]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'B:1:LookUp [ Versions ; CleanVersion[agent.(1)product.(1)version="1_2.3"] ; "Ugly" ]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'C:1:LookUp [ Versions ; CleanVersion[agent.(1)product.(1)version="1_2.3123" ] ; "Ugly"]'
+
+  - lookup:
+      name: 'Versions'
+      map:
+        "1_2.3": "Bad"
+        "1.2.3": "Good"
+
+  - test:
+      input:
+        user_agent_string: 'MoZillA/1_2.3'
+      expected:
+        A : 'Good'
+        B : 'Good'
+        C : 'Unknown'
+
+  - test:
+      input:
+        user_agent_string: 'MoZillA/1_2.3123'
+      expected:
+        A : 'Ugly'
+        B : '<<<null>>>'
+        C : 'Ugly'
+
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'D:1:LookUp [ Two ; LookUp [ One ;  agent.(1)text="Aap Noot Mies"[2] ; "One"] [2-] ; "Two"]'
+
+  - lookup:
+      name: 'One'
+      map:
+        "Noot": "Wim Zus Jet"
+
+  - lookup:
+      name: 'Two'
+      map:
+        "Zus Jet": "Good"
+
+  - test:
+      <<: *TEST_OPTIONS
+      input:
+        user_agent_string: 'Aap Noot Mies'
+      expected:
+        D : 'Good'
+

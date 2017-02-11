@@ -23,6 +23,8 @@ import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerLexer;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
 import org.antlr.v4.runtime.ANTLRErrorListener;
@@ -46,14 +48,11 @@ import java.util.List;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.BasePathContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherContext;
-import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherLookupContext;
-import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNextLookupContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathFixedValueContext;
-import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathNoWalkContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathWalkContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEndsWithValueContext;
@@ -332,27 +331,28 @@ public abstract class MatcherAction {
     // -----
 
     private void calculateInformPath(String treeName, MatcherContext tree) {
-        if (tree instanceof MatcherNextLookupContext) {
-            calculateInformPath(treeName, ((MatcherNextLookupContext) tree).matcherLookup());
-            return;
-        }
-        if (tree instanceof MatcherCleanVersionContext){
-            calculateInformPath(treeName, ((MatcherCleanVersionContext) tree).matcherLookup());
-            return;
-        }
-        if (tree instanceof MatcherPathIsNullContext){
-            calculateInformPath(treeName, ((MatcherPathIsNullContext) tree).matcherLookup());
-        }
-    }
-
-
-    private void calculateInformPath(String treeName, MatcherLookupContext tree) {
         if (tree instanceof MatcherPathContext) {
             calculateInformPath(treeName, ((MatcherPathContext) tree).basePath());
             return;
         }
+        if (tree instanceof MatcherCleanVersionContext){
+            calculateInformPath(treeName, ((MatcherCleanVersionContext) tree).matcher());
+            return;
+        }
+        if (tree instanceof MatcherNormalizeBrandContext){
+            calculateInformPath(treeName, ((MatcherNormalizeBrandContext) tree).matcher());
+            return;
+        }
+        if (tree instanceof MatcherPathIsNullContext){
+            calculateInformPath(treeName, ((MatcherPathIsNullContext) tree).matcher());
+            return;
+        }
         if (tree instanceof MatcherPathLookupContext){
-            calculateInformPath(treeName, ((MatcherPathLookupContext) tree).matcherLookup());
+            calculateInformPath(treeName, ((MatcherPathLookupContext) tree).matcher());
+            return;
+        }
+        if (tree instanceof MatcherWordRangeContext){
+            calculateInformPath(treeName, ((MatcherWordRangeContext) tree).matcher());
         }
     }
 
@@ -361,10 +361,6 @@ public abstract class MatcherAction {
     private void calculateInformPath(String treeName, BasePathContext tree) {
         // Useless to register a fixed value
 //             case "PathFixedValueContext"         : calculateInformPath(treeName, (PathFixedValueContext)         tree); break;
-        if (tree instanceof PathNoWalkContext) {
-            matcher.informMeAbout(this, treeName);
-            return;
-        }
         if (tree instanceof PathWalkContext) {
             calculateInformPath(treeName, ((PathWalkContext) tree).nextStep);
         }

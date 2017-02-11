@@ -54,7 +54,7 @@ public class StepWordRange extends Step {
 
     @Override
     public String toString() {
-        return "WordRange(" + firstWord + "-" + lastWord + ")";
+        return "WordRange([" + firstWord + ":" + lastWord + "])";
     }
 
 }

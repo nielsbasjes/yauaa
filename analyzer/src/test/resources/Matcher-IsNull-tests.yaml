@@ -1,0 +1,79 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2017 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+MATCH_OPTIONS: &MATCH_OPTIONS
+  options:
+#    - 'verbose'
+
+TEST_OPTIONS: &TEST_OPTIONS
+  options:
+#    - 'verbose'
+#    - 'init'
+
+config:
+  - matcher:
+      extract:
+      - 'NoNormalLetters    : 0:"Unmatched"'
+      - 'NoProductAndNoURL  : 0:"Unmatched"'
+
+  - matcher:
+#      options:
+#      - 'verbose'
+      require:
+      - 'IsNull[agent~"a"]'
+      - 'IsNull[agent~"e"]'
+      - 'IsNull[agent~"o"]'
+      - 'IsNull[agent~"u"]'
+      - 'IsNull[agent~"i"]'
+      extract:
+      - 'NoNormalLetters : 1:"Matched"'
+
+  - matcher:
+#      options:
+#      - 'verbose'
+      require:
+      - 'IsNull[agent.product.version]'
+      - 'IsNull[agent.url]'
+      extract:
+      - 'NoProductAndNoURL : 1:"Matched"'
+
+  - test:
+#      options:
+#      - 'verbose'
+#      - 'only'
+      input:
+        name: 'Validating IsNull (Hacker 1)'
+        user_agent_string: '!(()&&!|*|*|'
+      expected:
+        NoNormalLetters   : 'Matched'
+        NoProductAndNoURL : 'Matched'
+
+  - test:
+      input:
+        name: 'Validating IsNull (Hacker 2)'
+        user_agent_string: '!*&%^*&%&*%(()&&!|*|*|'
+      expected:
+        NoNormalLetters   : 'Matched'
+        NoProductAndNoURL : 'Matched'
+
+  - test:
+      input:
+        name: 'Validating IsNull (Normal)'
+        user_agent_string: 'Mozilla/1.0 (Foo) foo@example.nl'
+      expected:
+        NoNormalLetters   : 'Unmatched'
+        NoProductAndNoURL : 'Unmatched'
+

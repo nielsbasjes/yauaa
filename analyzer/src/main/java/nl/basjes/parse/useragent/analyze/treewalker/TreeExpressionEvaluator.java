@@ -18,9 +18,7 @@
 package nl.basjes.parse.useragent.analyze.treewalker;
 
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherContext;
@@ -58,7 +56,7 @@ public class TreeExpressionEvaluator {
         return (new UserAgentTreeWalkerBaseVisitor<String>() {
             @Override
             public String visitMatcherPathLookup(MatcherPathLookupContext ctx) {
-                String value = visit(ctx.matcherLookup());
+                String value = visit(ctx.matcher());
                 if (value == null) {
                     return null;
                 }
@@ -104,8 +102,7 @@ public class TreeExpressionEvaluator {
     }
 
     public boolean usesIsNull() {
-        Step first = walkList.getFirstStep();
-        return (first instanceof StepIsNull);
+        return walkList.usesIsNull();
     }
 
     public WalkList getWalkListForUnitTesting() {

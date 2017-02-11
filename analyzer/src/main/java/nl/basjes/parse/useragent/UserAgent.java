@@ -42,6 +42,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
     public static final String DEVICE_CLASS = "DeviceClass";
     public static final String DEVICE_BRAND = "DeviceBrand";
     public static final String DEVICE_NAME = "DeviceName";
+    public static final String DEVICE_VERSION = "DeviceVersion";
     public static final String OPERATING_SYSTEM_CLASS = "OperatingSystemClass";
     public static final String OPERATING_SYSTEM_NAME = "OperatingSystemName";
     public static final String OPERATING_SYSTEM_VERSION = "OperatingSystemVersion";
