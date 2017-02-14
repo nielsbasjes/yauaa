@@ -40,14 +40,14 @@ config:
 
 # https://en.m.wikipedia.org/wiki/Presto_(layout_engine)
 # OPR Implies the BLink engine instead of Presto
-- matcher:
-    extract:
-    - 'LayoutEngineClass          : 2020:"Browser"'
-    - 'LayoutEngineName           : 2020:"Blink"'
-    - 'LayoutEngineVersion        : 2020:agent.product.name="Chrome"^.version'
-    - 'AgentClass                 : 2020:"Browser"'
-    - 'AgentName                  : 2020:"Opera"'
-    - 'AgentVersion               : 2020:agent.product.name="Opr"^.version'
+#- matcher:
+#    extract:
+#    - 'LayoutEngineClass          : 2020:"Browser"'
+#    - 'LayoutEngineName           : 2020:"Blink"'
+#    - 'LayoutEngineVersion        : 2020:agent.product.name="Chrome"^.version'
+#    - 'AgentClass                 : 2020:"Browser"'
+#    - 'AgentName                  : 2020:"Opera"'
+#    - 'AgentVersion               : 2020:agent.product.name="Opr"^.version'
 
 - test:
     input:
@@ -348,9 +348,9 @@ config:
       OperatingSystemNameVersion           : 'Windows 7'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '28.0.1500.52'
+      LayoutEngineVersion                  : '28.0'
       LayoutEngineVersionMajor             : '28'
-      LayoutEngineNameVersion              : 'Blink 28.0.1500.52'
+      LayoutEngineNameVersion              : 'Blink 28.0'
       LayoutEngineNameVersionMajor         : 'Blink 28'
       AgentClass                           : 'Browser'
       AgentName                            : 'Opera'

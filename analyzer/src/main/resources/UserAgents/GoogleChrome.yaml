@@ -375,3 +375,77 @@ config:
       WebviewAppNameVersionMajor           : 'Google Search App 1'
       WebviewAppVersion                    : '1.1'
       WebviewAppVersionMajor               : '1'
+
+
+- lookup:
+    name: 'SpecialChromeBrowserNames'
+    map:
+      "Vivaldi" : "Vivaldi"
+      "OPR"     : "Opera"
+      "MMS"     : "Opera Neon"
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Chrome"'
+    - 'agent.product.(1)name="Mobile Safari"'
+    extract:
+    - 'AgentName             :   2018: LookUp[SpecialChromeBrowserNames;agent.product.(1)name="Chrome"^>.(1)name="Mobile Safari"^>.(1)name]'
+    - 'AgentVersion          :   2018: agent.product.(1)name="Chrome"^>.(1)name="Mobile Safari"^>.(1)version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Chrome"'
+    - 'agent.product.(1)name="Safari"'
+    extract:
+    - 'AgentName             :   2018: LookUp[SpecialChromeBrowserNames;agent.product.(1)name="Chrome"^>.(1)name="Safari"^>.(1)name]'
+    - 'AgentVersion          :   2018: agent.product.(1)name="Chrome"^>.(1)name="Safari"^>.(1)version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.99 Safari/537.36 Vivaldi/1.0.321.3'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'AMD x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '45.0'
+      LayoutEngineVersionMajor             : '45'
+      LayoutEngineNameVersion              : 'Blink 45.0'
+      LayoutEngineNameVersionMajor         : 'Blink 45'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Vivaldi'
+      AgentVersion                         : '1.0.321.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Vivaldi 1.0.321.3'
+      AgentNameVersionMajor                : 'Vivaldi 1'
+
+# Opera Neon
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.21 Safari/537.36 MMS/1.0.2459.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera Neon'
+      AgentVersion                         : '1.0.2459.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Opera Neon 1.0.2459.0'
+      AgentNameVersionMajor                : 'Opera Neon 1'
