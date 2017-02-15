@@ -451,3 +451,123 @@ config:
       AgentVersionMajor                    : '25'
       AgentNameVersion                     : 'PaleMoon 25.9.4'
       AgentNameVersionMajor                : 'PaleMoon 25'
+
+#====================================================================================
+# Firefox Focus: The privacy browser
+# https://blog.mozilla.org/blog/2016/11/17/introducing-firefox-focus-a-free-fast-and-easy-to-use-private-browser-for-ios/
+# https://support.mozilla.org/t5/Get-Started/What-is-Firefox-Focus/ta-p/28527
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Focus"^>.name="Mobile"'
+    extract:
+    - 'AgentClass                 : 100 :"Browser"'
+    - 'AgentName                  : 100 :"Firefox Focus"'
+    - 'AgentVersion               : 100 :agent.product.(1)name="Focus"^.version'
+    - 'WebviewAppName             : 100 :"<<<null>>>"'
+    - 'WebviewAppVersion          : 100 :"<<<null>>>"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Focus/3.0 Mobile/14D27'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '14D27'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.2.1'
+      OperatingSystemNameVersion           : 'iOS 10.2.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.4.6'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.4.6'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox Focus'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox Focus 3.0'
+      AgentNameVersionMajor                : 'Firefox Focus 3'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Focus/3.0.1 Mobile/14D27'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '14D27'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.2.1'
+      OperatingSystemNameVersion           : 'iOS 10.2.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.4.6'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.4.6'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox Focus'
+      AgentVersion                         : '3.0.1'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox Focus 3.0.1'
+      AgentNameVersionMajor                : 'Firefox Focus 3'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Focus/2.0.1 Mobile/14D27'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '14D27'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.2.1'
+      OperatingSystemNameVersion           : 'iOS 10.2.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.4.6'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.4.6'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox Focus'
+      AgentVersion                         : '2.0.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Firefox Focus 2.0.1'
+      AgentNameVersionMajor                : 'Firefox Focus 2'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPod touch; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.20 (KHTML, like Gecko) Focus/3.0.1 Mobile/14E5230e'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'iPod touch'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '14E5230e'
+      DeviceVersion                        : 'iPod touch'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.3'
+      OperatingSystemNameVersion           : 'iOS 10.3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '603.1.20'
+      LayoutEngineVersionMajor             : '603'
+      LayoutEngineNameVersion              : 'AppleWebKit 603.1.20'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 603'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox Focus'
+      AgentVersion                         : '3.0.1'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox Focus 3.0.1'
+      AgentNameVersionMajor                : 'Firefox Focus 3'
+
