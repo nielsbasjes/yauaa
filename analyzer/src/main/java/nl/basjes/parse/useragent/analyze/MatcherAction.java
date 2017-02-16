@@ -334,7 +334,7 @@ public abstract class MatcherAction {
     }
 
     // -----
-    private void calculateInformPath(String treeName, ParserRuleContext tree) {
+    private void calculateInformPath(@SuppressWarnings("SameParameterValue") String treeName, ParserRuleContext tree) {
         if (tree instanceof MatcherRequireContext) {
             calculateInformPath(treeName, ((MatcherRequireContext) tree));
             return;
