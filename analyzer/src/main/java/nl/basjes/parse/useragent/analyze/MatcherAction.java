@@ -23,7 +23,9 @@ import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerLexer;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherBaseContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherRequireContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
@@ -32,6 +34,7 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Parser;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.Token;
@@ -63,7 +66,7 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepSta
 public abstract class MatcherAction {
 
     private String matchExpression;
-    private MatcherContext requiredPattern;
+    private ParserRuleContext requiredPattern;
     private final NumberRangeVisitor numberRangeVisitor = new NumberRangeVisitor();
     private TreeExpressionEvaluator evaluator;
 
@@ -191,7 +194,7 @@ public abstract class MatcherAction {
         parser.addErrorListener(errorListener);
 
 //        parser.setTrace(true);
-        requiredPattern = parser.matcher(); // parse
+        requiredPattern = parseWalkerExpression(parser); // parse
 
         // We couldn't ditch the double quotes around the fixed values in the parsing pase.
         // So we ditch them here. We simply walk the tree and modify some of the tokens.
@@ -210,6 +213,8 @@ public abstract class MatcherAction {
 
         registerAllPossiblyInterestingPatterns();
     }
+
+    protected abstract ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser);
 
     private static class UnQuoteValues extends UserAgentTreeWalkerBaseVisitor<Void> {
         private void unQuoteToken(Token token) {
@@ -329,6 +334,25 @@ public abstract class MatcherAction {
     }
 
     // -----
+    private void calculateInformPath(String treeName, ParserRuleContext tree) {
+        if (tree instanceof MatcherRequireContext) {
+            calculateInformPath(treeName, ((MatcherRequireContext) tree));
+            return;
+        }
+        if (tree instanceof MatcherContext){
+            calculateInformPath(treeName, ((MatcherContext) tree));
+        }
+    }
+
+    private void calculateInformPath(String treeName, MatcherRequireContext tree) {
+        if (tree instanceof MatcherBaseContext) {
+            calculateInformPath(treeName, ((MatcherBaseContext) tree).matcher());
+            return;
+        }
+        if (tree instanceof MatcherPathIsNullContext){
+            calculateInformPath(treeName, ((MatcherPathIsNullContext) tree).matcher());
+        }
+    }
 
     private void calculateInformPath(String treeName, MatcherContext tree) {
         if (tree instanceof MatcherPathContext) {
@@ -341,10 +365,6 @@ public abstract class MatcherAction {
         }
         if (tree instanceof MatcherNormalizeBrandContext){
             calculateInformPath(treeName, ((MatcherNormalizeBrandContext) tree).matcher());
-            return;
-        }
-        if (tree instanceof MatcherPathIsNullContext){
-            calculateInformPath(treeName, ((MatcherPathIsNullContext) tree).matcher());
             return;
         }
         if (tree instanceof MatcherPathLookupContext){

@@ -52,18 +52,21 @@ BACKTOFULL      : '@'           ;
 // TridentName[agent.(1)product.(2-4)comments.(*)product.name="Trident"^.(*)version~"7.";"DefaultValue"]
 // LookUp[TridentName;agent.(1)product.(2-4)comments.(*)product.name#1="Trident"^.(*)version%1="7.";"DefaultValue"]
 
+matcherRequire  : matcher                                                  #matcherBase
+//                | '__SyntaxError__' EQUALS value=VALUE                   #isSyntaxError
+                | 'IsNull'         BLOCKOPEN matcher BLOCKCLOSE            #matcherPathIsNull
+                ;
+
 matcher         : basePath                                                      #matcherPath
 //                | 'Concat' BLOCKOPEN VALUE SEMICOLON matcher BLOCKCLOSE         #matcherConcat1
 //                | 'Concat' BLOCKOPEN matcher SEMICOLON VALUE BLOCKCLOSE         #matcherConcat2
                 | 'NormalizeBrand' BLOCKOPEN matcher BLOCKCLOSE                 #matcherNormalizeBrand
                 | 'CleanVersion'   BLOCKOPEN matcher BLOCKCLOSE                 #matcherCleanVersion
-                | 'IsNull'         BLOCKOPEN matcher BLOCKCLOSE                 #matcherPathIsNull
                 | 'LookUp'         BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookup
                 | matcher wordRange                                             #matcherWordRange
                 ;
 
 basePath        : value=VALUE                           #pathFixedValue
-//                | '__SyntaxError__' EQUALS value=VALUE  #isSyntaxError
 //                | 'agent'                               #pathNoWalk
                 | 'agent' nextStep=path                 #pathWalk
                 ;

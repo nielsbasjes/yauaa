@@ -37,7 +37,6 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
@@ -55,6 +54,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotEqualsV
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrevContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepStartsWithValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepUpContext;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,7 +74,7 @@ public class WalkList {
 
     private final boolean verbose;
 
-    public WalkList(MatcherContext requiredPattern, Map<String, Map<String, String>> lookups, boolean verbose) {
+    public WalkList(ParserRuleContext requiredPattern, Map<String, Map<String, String>> lookups, boolean verbose) {
         this.lookups = lookups;
         this.verbose = verbose;
         // Generate the walkList from the requiredPattern

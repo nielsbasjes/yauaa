@@ -18,6 +18,8 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +37,10 @@ public class MatcherExtractAction extends MatcherAction {
         this.confidence = confidence;
         expression = config;
         init(config, matcher);
+    }
+
+    protected ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser) {
+        return parser.matcher();
     }
 
     public boolean isFixedValue() {

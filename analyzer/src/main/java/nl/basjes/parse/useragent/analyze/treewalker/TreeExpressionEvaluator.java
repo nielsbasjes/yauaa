@@ -21,8 +21,8 @@ import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,12 +37,12 @@ public class TreeExpressionEvaluator {
     private static final Logger LOG = LoggerFactory.getLogger(TreeExpressionEvaluator.class);
 
     private boolean verbose = false;
-    private final MatcherContext requiredPattern;
+    private final ParserRuleContext requiredPattern;
     private final Map<String, Map<String, String>> lookups;
 
     private final WalkList walkList;
 
-    public TreeExpressionEvaluator(MatcherContext requiredPattern, Map<String, Map<String, String>> lookups, boolean verbose) {
+    public TreeExpressionEvaluator(ParserRuleContext requiredPattern, Map<String, Map<String, String>> lookups, boolean verbose) {
         this.requiredPattern = requiredPattern;
         this.lookups = lookups;
         this.verbose = verbose;
