@@ -23,21 +23,14 @@ git status
 git commit -m"Version ${RELEASEVERSION}" -a
 git tag -a v${RELEASEVERSION} -m"Tag Version ${RELEASEVERSION}"
 
-mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${NEXTVERSION}-SNAPSHOT
-git commit -m"Start development for ${NEXTVERSION}" -a
-
-# These two profiles are defined in ~/.m2/settings.xml
-git checkout v${RELEASEVERSION}
-
-
 #mvn clean deploy -Pplatfora -Prelease -Pdeploy-local
 #VERIFY If this all looks good
 
+# These two profiles are defined in ~/.m2/settings.xml
 mvn clean deploy -Pplatfora -Prelease -Pdeploy-sonatype
 
-git checkout master
-
+mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${NEXTVERSION}-SNAPSHOT
+git commit -m"Start development for ${NEXTVERSION}" -a
 
 git push
 git push origin v${RELEASEVERSION}
-
