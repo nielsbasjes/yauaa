@@ -1177,3 +1177,92 @@ config:
       AgentVersionMajor                    : '101'
       AgentNameVersion                     : 'Exchange ActiveSync 101.403'
       AgentNameVersionMajor                : 'Exchange ActiveSync 101'
+
+# ----------------------------------------------------------------------------------
+# DuckDuckGo
+- matcher:
+    require:
+    - 'agent.text[1-2]="DDG-Android"'
+    extract:
+    - '__Set_ALL_Fields__    :   11:"<<<null>>>"'
+    - 'DeviceClass           :   12:"Mobile"'
+    - 'DeviceBrand           :   12:"Unknown"'
+    - 'DeviceName            :   12:"Unknown"'
+    - 'OperatingSystemClass  :   12:"Mobile"'
+    - 'OperatingSystemName   :   12:"Android"'
+    - 'OperatingSystemVersion:   12:"??"'
+    - 'LayoutEngineClass     :   12:"Unknown"'
+    - 'LayoutEngineName      :   12:"Unknown"'
+    - 'LayoutEngineVersion   :   12:"??"'
+    - 'AgentClass            :   20:"Browser"'
+    - 'AgentName             :   20:"DuckDuckGo"'
+    - 'AgentVersion          :   20:agent.text[1-2]="DDG-Android"@[3-]'
+
+- test:
+    input:
+      user_agent_string: 'DDG-Android-3.0.14'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'DuckDuckGo'
+      AgentVersion                         : '3.0.14'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'DuckDuckGo 3.0.14'
+      AgentNameVersionMajor                : 'DuckDuckGo 3'
+
+
+- matcher:
+    require:
+    - 'agent.text[-2]="DDG-iOS"'
+    extract:
+    - 'DeviceClass           :   11:"Mobile"'
+    - 'DeviceBrand           :   11:"Unknown"'
+    - 'DeviceName            :   11:"Unknown"'
+    - 'OperatingSystemClass  :   11:"Mobile"'
+    - 'OperatingSystemName   :   11:"iOS"'
+    - 'OperatingSystemVersion:   11:"??"'
+    - 'LayoutEngineClass     :   11:"Unknown"'
+    - 'LayoutEngineName      :   11:"Unknown"'
+    - 'LayoutEngineVersion   :   11:"??"'
+    - 'AgentClass            :   20:"Browser"'
+    - 'AgentName             :   20:"DuckDuckGo"'
+    - 'AgentVersion          :   20:agent.text[1-2]="DDG-iOS"@[3-]'
+
+# DuckDuckGo for iOS Version 6.0.6 (784)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_5 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13G36; DDG-iOS-784'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '13G36'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '9.3.5'
+      OperatingSystemNameVersion           : 'iOS 9.3.5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '601.1.46'
+      LayoutEngineVersionMajor             : '601'
+      LayoutEngineNameVersion              : 'AppleWebKit 601.1.46'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 601'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'DuckDuckGo'
+      AgentVersion                         : '784'
+      AgentVersionMajor                    : '784'
+      AgentNameVersion                     : 'DuckDuckGo 784'
+      AgentNameVersionMajor                : 'DuckDuckGo 784'
