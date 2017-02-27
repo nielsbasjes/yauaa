@@ -21,44 +21,43 @@ import nl.basjes.parse.useragent.analyze.NumberRangeList;
 import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.parser.UserAgentBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentParser.CommentBlockContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.CommentEntryContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.CommentProductContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.CommentSeparatorContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.EmailAddressContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.EmptyWordContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.KeyNameContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.KeyValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.KeyValueProductVersionNameContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.KeyValueVersionNameContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.KeyWithoutValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.MultipleWordsContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.ProductContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameEmailContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameKeyValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameNoVersionContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameUrlContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameUuidContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameVersionContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameWordsContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionSingleWordContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWithCommasContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWordsContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.RootTextContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.SiteUrlContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.UserAgentContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.UuIdContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.VersionWordsContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeContext;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static nl.basjes.parse.useragent.parser.UserAgentParser.CommentBlockContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.CommentEntryContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.CommentProductContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.CommentSeparatorContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.EmailAddressContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.EmptyWordContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.KeyNameContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.KeyValueContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.KeyValueProductVersionNameContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.KeyValueVersionNameContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.MultipleWordsContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.ProductContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameEmailContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameKeyValueContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameUrlContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameUuidContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameVersionContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameWordsContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWordsContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.RootTextPartContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.SiteUrlContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.UserAgentContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.UuIdContext;
-import static nl.basjes.parse.useragent.parser.UserAgentParser.VersionWordsContext;
-import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeContext;
 
 public class StepDown extends Step {
 
@@ -180,7 +179,7 @@ public class StepDown extends Step {
                 case "email":
                     return getChildren(ctx, EmailAddressContext.class);
                 case "text":
-                    return getChildren(ctx, RootTextPartContext.class);
+                    return getChildren(ctx, RootTextContext.class);
                 default:
                     return Collections.emptyList();
             }
@@ -417,7 +416,7 @@ public class StepDown extends Step {
         }
 
         @Override
-        public List<? extends ParserRuleContext> visitRootTextPart(RootTextPartContext ctx) {
+        public List<? extends ParserRuleContext> visitRootText(RootTextContext ctx) {
             return Collections.emptyList(); // Cannot walk in here at all
         }
     }

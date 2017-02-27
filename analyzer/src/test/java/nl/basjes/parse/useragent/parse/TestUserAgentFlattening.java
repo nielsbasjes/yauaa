@@ -578,7 +578,96 @@ public class TestUserAgentFlattening {
     }
 
     @Test
+    public void testRootCases() throws Exception {
+        validateUserAgent(
+            "FooBar"
+            ,"agent=\"FooBar\""
+            ,"agent.(1)text=\"FooBar\""
+            ,"agent.(1)text[1-1]=\"FooBar\""
+        );
+
+        validateUserAgent(
+            "Foo-Bar"
+            ,"agent=\"Foo-Bar\""
+            ,"agent.(1)text=\"Foo-Bar\""
+            ,"agent.(1)text[1-1]=\"Foo\""
+            ,"agent.(1)text[2-2]=\"Bar\""
+        );
+
+
+        validateUserAgent(
+            "F00 Bar"
+            ,"agent=\"F00 Bar\""
+            ,"agent.(1)text=\"F00\""
+            ,"agent.(1)text[1-1]=\"F00\""
+            ,"agent.(2)text=\"Bar\""
+            ,"agent.(2)text[1-1]=\"Bar\""
+        );
+
+        validateUserAgent(
+            "F00-Bar-1_2_3"
+            ,"agent=\"F00-Bar-1_2_3\""
+            ,"agent.(1)text=\"F00-Bar-1_2_3\""
+            ,"agent.(1)text[1-1]=\"F00\""
+            ,"agent.(1)text[1-2]=\"F00-Bar\""
+            ,"agent.(1)text[2-2]=\"Bar\""
+            ,"agent.(1)text[1-3]=\"F00-Bar-1\""
+            ,"agent.(1)text[3-3]=\"1\""
+        );
+
+        validateUserAgent(
+            "Foo=Bar"
+            ,"agent=\"Foo=Bar\""
+            ,"agent.(1)keyvalue=\"Foo=Bar\""
+            ,"agent.(1)keyvalue.(1)key=\"Foo\""
+            ,"agent.(1)keyvalue.(2)text=\"Bar\""
+            ,"agent.(1)keyvalue.(2)text[1-1]=\"Bar\""
+        );
+
+        validateUserAgent(
+            "F00=Bar"
+            ,"agent.(1)keyvalue=\"F00=Bar\""
+            ,"agent.(1)keyvalue.(1)key=\"F00\""
+            ,"agent.(1)keyvalue.(2)text=\"Bar\""
+            ,"agent.(1)keyvalue.(2)text[1-1]=\"Bar\""
+        );
+
+        validateUserAgent(
+            "F00@Bar.com"
+            ,"agent=\"F00@Bar.com\""
+            ,"agent.(1)email=\"F00@Bar.com\""
+        );
+
+        validateUserAgent(
+            "http://F00.Bar.com"
+            ,"agent=\"http://F00.Bar.com\""
+            ,"agent.(1)url=\"http://F00.Bar.com\""
+        );
+    }
+
+    @Test
     public void testFlatteningSpecialCases() throws Exception {
+        validateUserAgent(
+                "FooBar"
+        );
+
+        validateUserAgent(
+                "F00Bar"
+        );
+
+        validateUserAgent(
+            "Foo=Bar"
+        );
+        validateUserAgent(
+            "F00=Bar"
+        );
+        validateUserAgent(
+            "F00@Bar.com"
+        );
+        validateUserAgent(
+            "http://F00.Bar.com"
+        );
+
         validateUserAgent(
                 "Mozilla/5.0 (Linux; Android 4.4; Nexus 7/JSS15R) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36"
                 ,"agent=\"Mozilla/5.0 (Linux; Android 4.4; Nexus 7/JSS15R) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36\""

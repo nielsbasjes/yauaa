@@ -170,13 +170,19 @@ BASE64: B64FirstChunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64C
 
 userAgent
     : (SEMICOLON|COMMA|MINUS|'\''|'"'|'\\'|';'|'='|BRACEOPEN|BLOCKOPEN)*                // Leading garbage
-      ( (SEMICOLON|COMMA|MINUS)? ( product | emailAddress | siteUrl | rootTextPart SEMICOLON) )*
-      ( (SEMICOLON|COMMA|MINUS)? rootTextPart )*                        // Capture trailing text like "like Gecko"
+      ( (SEMICOLON|COMMA|MINUS)? ( product | rootElements ) )*
       (SEMICOLON|COMMA|MINUS|PLUS|'\''|'"'|'\\'|';'|'='|BRACECLOSE|BLOCKCLOSE)*       // Trailing garbage
     ;
 
-rootTextPart:
-            keyValue | siteUrl | emailAddress | uuId | VERSION | multipleWords ;
+rootElements:
+            keyValue | siteUrl | emailAddress | uuId | rootText ;
+
+rootText
+    : VERSION
+    | (MINUS* WORD)+ MINUS*
+    | GIBBERISH
+    | MINUS
+    ;
 
 /**
 A product has the form :  name / version (comments) /version

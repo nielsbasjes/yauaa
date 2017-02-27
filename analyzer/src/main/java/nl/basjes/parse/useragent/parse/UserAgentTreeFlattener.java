@@ -43,6 +43,7 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameWordsContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWithCommasContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWordsContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.RootTextContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionWithCommasContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.SiteUrlContext;
@@ -258,18 +259,23 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     @Override
+    public void enterRootText(RootTextContext ctx) {
+        informSubstrings(ctx, "text");
+    }
+
+    @Override
     public void enterProduct(ProductContext ctx) {
-        informSubstrings(ctx, "product", 3);
+        informSubstrings(ctx, "product");
     }
 
     @Override
     public void enterCommentProduct(CommentProductContext ctx) {
-        informSubstrings(ctx, "product", 3);
+        informSubstrings(ctx, "product");
     }
 
     @Override
     public void enterProductNameNoVersion(UserAgentParser.ProductNameNoVersionContext ctx) {
-        informSubstrings(ctx, "product", 3);
+        informSubstrings(ctx, "product");
     }
 
     @Override
@@ -367,10 +373,6 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     private void informSubstrings(ParserRuleContext ctx, String name) {
-        informSubstrings(ctx, name, MAX_RANGE_IN_HASHMAP);
-    }
-
-    private void informSubstrings(ParserRuleContext ctx, String name, int maxSubStrings) {
         String text = getSourceText(ctx);
         if (text==null) {
             return;
@@ -387,7 +389,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
                 inform(ctx, ctx, name + "[" + count + "-" + count + "]", firstWords.substring(startOffsetPrevious), true);
             }
             count++;
-            if (count > maxSubStrings) {
+            if (count > MAX_RANGE_IN_HASHMAP) {
                 return;
             }
             startOffsetPrevious = WordSplitter.findNextWordStart(chars, firstWords.length());
@@ -395,10 +397,6 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     }
 
     private void informSubVersions(ParserRuleContext ctx, String name) {
-        informSubVersions(ctx, name, 3);
-    }
-
-    private void informSubVersions(ParserRuleContext ctx, String name, int maxSubStrings) {
         String text = getSourceText(ctx);
         if (text==null) {
             return;
@@ -415,7 +413,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
                 inform(ctx, ctx, name + "[" + count + "-" + count + "]", firstVersions.substring(startOffsetPrevious), true);
             }
             count++;
-            if (count > maxSubStrings) {
+            if (count > MAX_RANGE_IN_HASHMAP) {
                 return;
             }
             startOffsetPrevious = VersionSplitter.findNextVersionStart(chars, firstVersions.length());

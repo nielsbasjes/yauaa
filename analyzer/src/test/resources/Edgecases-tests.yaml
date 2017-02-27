@@ -30,8 +30,8 @@ config:
 # ========================================================================
 
 - matcher:
-    options:
-    - 'verbose'
+#    options:
+#    - 'verbose'
     require:
     - 'IsNull[agent.product]'
     - 'IsNull[agent.url]'
@@ -40,8 +40,8 @@ config:
 
 
 - matcher:
-    options:
-    - 'verbose'
+#    options:
+#    - 'verbose'
     require:
     - 'IsNull[agent~"a"]'
     - 'IsNull[agent~"e"]'
@@ -55,5 +55,19 @@ config:
     input:
       user_agent_string: '' # Yes, Empty
     expected:
+      IsNullCheck : "No Product"
+      Test: "Ok"
+
+- matcher:
+    options:
+    - 'verbose'
+    extract:
+    - 'RootText : 1:agent.text[2]'
+
+- test:
+    input:
+      user_agent_string: 'foo-bar'
+    expected:
+      RootText : "bar"
       IsNullCheck : "No Product"
       Test: "Ok"
