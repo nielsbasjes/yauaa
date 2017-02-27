@@ -458,7 +458,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         for (String fieldName : allFields.keySet()) {
             maxLength = Math.max(maxLength, fieldName.length());
         }
-        for (String fieldName : allFields.keySet()) {
+        for (String fieldName : getAvailableFieldNamesSorted()) {
             AgentField field = allFields.get(fieldName);
             if (field.getValue() != null) {
                 sb.append("    ").append(fieldName);
