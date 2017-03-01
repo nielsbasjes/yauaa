@@ -648,27 +648,6 @@ public class TestUserAgentFlattening {
     @Test
     public void testFlatteningSpecialCases() throws Exception {
         validateUserAgent(
-                "FooBar"
-        );
-
-        validateUserAgent(
-                "F00Bar"
-        );
-
-        validateUserAgent(
-            "Foo=Bar"
-        );
-        validateUserAgent(
-            "F00=Bar"
-        );
-        validateUserAgent(
-            "F00@Bar.com"
-        );
-        validateUserAgent(
-            "http://F00.Bar.com"
-        );
-
-        validateUserAgent(
                 "Mozilla/5.0 (Linux; Android 4.4; Nexus 7/JSS15R) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36"
                 ,"agent=\"Mozilla/5.0 (Linux; Android 4.4; Nexus 7/JSS15R) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36\""
                 ,"agent.(1)product=\"Mozilla/5.0 (Linux; Android 4.4; Nexus 7/JSS15R)\""
