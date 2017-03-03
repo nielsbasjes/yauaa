@@ -28,9 +28,7 @@ import org.apache.pig.impl.logicalLayer.schema.Schema;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
 
@@ -39,7 +37,7 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
     private static List<String> allFieldNames = null;
 
     private int cacheSize = -1;
-    private Set<String> requestedFields = null;
+    private List<String> requestedFields = new ArrayList<>(32);
 
     private boolean initialized = false;
     private void initialize() {
@@ -51,20 +49,18 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
             if (cacheSize >= 0) {
                 analyzerBuilder.withCache(cacheSize);
             }
-            if (requestedFields != null) {
+            if (requestedFields.isEmpty()) {
+                requestedFields.addAll(allFieldNames);
+            } else {
                 for (String requestedField : requestedFields) {
                     analyzerBuilder.withField(requestedField);
                 }
             }
             analyzer = analyzerBuilder.build();
             allFieldNames = analyzer.getAllPossibleFieldNamesSorted();
+
             initialized = true;
         }
-    }
-
-    private List<String> getAllFieldNamesSorted() {
-        initialize();
-        return allFieldNames;
     }
 
     public ParseUserAgent() {
@@ -72,14 +68,12 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
 
     public ParseUserAgent(String ... parameters) {
         boolean firstParam = true;
-        for (String parameter: parameters) {
+        requestedFields.clear();
+        for (String parameter : parameters) {
             if (firstParam) {
                 firstParam = false;
                 cacheSize = Integer.parseInt(parameter);
             } else {
-                if (requestedFields == null) {
-                    requestedFields = new HashSet<>(32);
-                }
                 requestedFields.add(parameter);
             }
         }
@@ -92,7 +86,7 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
 
         UserAgent agent = analyzer.parse(userAgentString);
         Tuple result = TUPLE_FACTORY.newTuple();
-        for (String fieldName: getAllFieldNamesSorted()) {
+        for (String fieldName: requestedFields) {
             result.append(agent.getValue(fieldName));
         }
         return result;
@@ -100,9 +94,10 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
 
     @Override
     public Schema outputSchema(Schema input) {
+        initialize();
         try {
             Schema tupleSchema = new Schema();
-            for (String fieldName: getAllFieldNamesSorted()) {
+            for (String fieldName: requestedFields) {
                 tupleSchema.add(new Schema.FieldSchema(fieldName, DataType.CHARARRAY));
             }
             return new Schema(new Schema.FieldSchema("UserAgent", tupleSchema, DataType.TUPLE));

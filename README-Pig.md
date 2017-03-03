@@ -1,7 +1,7 @@
 # User Defined Function for Apache Pig
 
 ## Getting the UDF
-You can get the prebuild UDF from maven central.
+You can get the prebuilt UDF from maven central.
 If you use a maven based project simply add this dependency
 
     <dependency>
@@ -20,8 +20,19 @@ Simply install the normal build tools for a Java project (i.e. maven and jdk) an
     -- Import the UDF jar file so this script can use it
     REGISTER ../target/*-udf.jar;
 
-    -- Define a more readable name for the UDF
-    DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent;
+    ------------------------------------------------------------------------
+    -- Define a more readable name for the UDF and pass optional parameters
+    -- First parameter is ALWAYS the cache size (as a text string!)
+    -- The parameters after that are the requested fields.
+    ----------
+    -- If you simply want 'everything'
+    -- DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent;
+    ----------
+    -- If you just want to set the cache
+    -- DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent('10000');
+    ----------
+    -- If you want to set the cache and only retrieve the specified fields
+    DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent('10000', 'DeviceClass', 'DeviceBrand' );
 
     rawData =
         LOAD 'testcases.txt'

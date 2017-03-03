@@ -34,19 +34,36 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 
 public class TestParseUserAgent {
+
+    private String testUserAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36";
     @Test
     public void testParseUserAgentPigUDF() throws Exception {
         PigServer pigServer = new PigServer(ExecType.LOCAL);
         Storage.Data storageData = resetData(pigServer);
 
-        storageData.set("agents", "agent:chararray",
-            tuple("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36")
-        );
+        storageData.set("agents", "agent:chararray", tuple(testUserAgent));
 
         pigServer.registerQuery("A = LOAD 'agents' USING mock.Storage();");
         pigServer.registerQuery("B = FOREACH A GENERATE nl.basjes.parse.useragent.pig.ParseUserAgent(agent);");
         pigServer.registerQuery("STORE B INTO 'parsedAgents' USING mock.Storage();");
+        verifyStorageData(storageData);
+    }
 
+    @Test
+    public void testParseUserAgentPigUDF_Cache_allFields() throws Exception {
+        PigServer pigServer = new PigServer(ExecType.LOCAL);
+        Storage.Data storageData = resetData(pigServer);
+
+        storageData.set("agents", "agent:chararray", tuple(testUserAgent));
+
+        pigServer.registerQuery("define ParseUserAgent nl.basjes.parse.useragent.pig.ParseUserAgent('5');");
+        pigServer.registerQuery("A = LOAD 'agents' USING mock.Storage();");
+        pigServer.registerQuery("B = FOREACH A GENERATE ParseUserAgent(agent);");
+        pigServer.registerQuery("STORE B INTO 'parsedAgents' USING mock.Storage();");
+        verifyStorageData(storageData);
+    }
+
+    private void verifyStorageData(Storage.Data storageData) throws FrontendException, ExecException {
 
         Tuple data     = (Tuple)storageData.get("parsedAgents").get(0).get(0);
         Schema schema  = storageData.getSchema("parsedAgents").getField(0).schema;
@@ -97,9 +114,7 @@ public class TestParseUserAgent {
         PigServer pigServer = new PigServer(ExecType.LOCAL);
         Storage.Data storageData = resetData(pigServer);
 
-        storageData.set("agents", "agent:chararray",
-            tuple("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36")
-        );
+        storageData.set("agents", "agent:chararray", tuple(testUserAgent));
 
         pigServer.registerQuery("define ParseUserAgent nl.basjes.parse.useragent.pig.ParseUserAgent('5','DeviceClass','AgentNameVersionMajor');");
         pigServer.registerQuery("A = LOAD 'agents' USING mock.Storage();");
@@ -113,51 +128,51 @@ public class TestParseUserAgent {
         checkResult(data, schema, "DeviceClass",                      "Desktop"               );
         checkResult(data, schema, "AgentNameVersionMajor",            "Chrome 48"             );
 
-        // These are used to build the requested fields.
-        checkResult(data, schema, "AgentName",                        "Chrome"                );
-        checkResult(data, schema, "AgentVersion",                     "48.0.2564.82"          );
-        checkResult(data, schema, "AgentVersionMajor",                "48"                    );
-        checkResult(data, schema, "AgentNameVersion",                 "Chrome 48.0.2564.82"   );
+        // These are used to build the requested fields. But are NOT output
+        checkAbsent(schema, "AgentName"                      );
+        checkAbsent(schema, "AgentVersion"                   );
+        checkAbsent(schema, "AgentVersionMajor"              );
+        checkAbsent(schema, "AgentNameVersion"               );
 
         // The rest is 'Unknown'
-        checkResult(data, schema, "DeviceName",                       "Unknown"               );
-        checkResult(data, schema, "OperatingSystemClass",             "Unknown"               );
-        checkResult(data, schema, "OperatingSystemName",              "Unknown"               );
-        checkResult(data, schema, "OperatingSystemVersion",           "??"                    );
-        checkResult(data, schema, "LayoutEngineClass",                "Unknown"               );
-        checkResult(data, schema, "LayoutEngineName",                 "Unknown"               );
-        checkResult(data, schema, "LayoutEngineVersion",              "??"                    );
-        checkResult(data, schema, "AgentClass",                       "Unknown"               );
-        checkResult(data, schema, "AgentBuild",                       "Unknown"               );
-        checkResult(data, schema, "AgentInformationEmail",            "Unknown"               );
-        checkResult(data, schema, "AgentInformationUrl",              "Unknown"               );
-        checkResult(data, schema, "AgentLanguage",                    "Unknown"               );
-        checkResult(data, schema, "AgentSecurity",                    "Unknown"               );
-        checkResult(data, schema, "AgentUuid",                        "Unknown"               );
-        checkResult(data, schema, "Anonymized",                       "Unknown"               );
-        checkResult(data, schema, "DeviceBrand",                      "Unknown"               );
-        checkResult(data, schema, "DeviceCpu",                        "Unknown"               );
-        checkResult(data, schema, "DeviceFirmwareVersion",            "Unknown"               );
-        checkResult(data, schema, "DeviceVersion",                    "Unknown"               );
-        checkResult(data, schema, "FacebookCarrier",                  "Unknown"               );
-        checkResult(data, schema, "FacebookDeviceClass",              "Unknown"               );
-        checkResult(data, schema, "FacebookDeviceName",               "Unknown"               );
-        checkResult(data, schema, "FacebookDeviceVersion",            "Unknown"               );
-        checkResult(data, schema, "FacebookFBOP",                     "Unknown"               );
-        checkResult(data, schema, "FacebookFBSS",                     "Unknown"               );
-        checkResult(data, schema, "FacebookOperatingSystemName",      "Unknown"               );
-        checkResult(data, schema, "FacebookOperatingSystemVersion",   "Unknown"               );
-        checkResult(data, schema, "HackerAttackVector",               "Unknown"               );
-        checkResult(data, schema, "HackerToolkit",                    "Unknown"               );
-        checkResult(data, schema, "KoboAffiliate",                    "Unknown"               );
-        checkResult(data, schema, "KoboPlatformId",                   "Unknown"               );
-        checkResult(data, schema, "LayoutEngineBuild",                "Unknown"               );
-        checkResult(data, schema, "OperatingSystemVersionBuild",      "Unknown"               );
+        checkAbsent(schema, "DeviceName"                     );
+        checkAbsent(schema, "OperatingSystemClass"           );
+        checkAbsent(schema, "OperatingSystemName"            );
+        checkAbsent(schema, "OperatingSystemVersion"         );
+        checkAbsent(schema, "LayoutEngineClass"              );
+        checkAbsent(schema, "LayoutEngineName"               );
+        checkAbsent(schema, "LayoutEngineVersion"            );
+        checkAbsent(schema, "AgentClass"                     );
+        checkAbsent(schema, "AgentBuild"                     );
+        checkAbsent(schema, "AgentInformationEmail"          );
+        checkAbsent(schema, "AgentInformationUrl"            );
+        checkAbsent(schema, "AgentLanguage"                  );
+        checkAbsent(schema, "AgentSecurity"                  );
+        checkAbsent(schema, "AgentUuid"                      );
+        checkAbsent(schema, "Anonymized"                     );
+        checkAbsent(schema, "DeviceBrand"                    );
+        checkAbsent(schema, "DeviceCpu"                      );
+        checkAbsent(schema, "DeviceFirmwareVersion"          );
+        checkAbsent(schema, "DeviceVersion"                  );
+        checkAbsent(schema, "FacebookCarrier"                );
+        checkAbsent(schema, "FacebookDeviceClass"            );
+        checkAbsent(schema, "FacebookDeviceName"             );
+        checkAbsent(schema, "FacebookDeviceVersion"          );
+        checkAbsent(schema, "FacebookFBOP"                   );
+        checkAbsent(schema, "FacebookFBSS"                   );
+        checkAbsent(schema, "FacebookOperatingSystemName"    );
+        checkAbsent(schema, "FacebookOperatingSystemVersion" );
+        checkAbsent(schema, "HackerAttackVector"             );
+        checkAbsent(schema, "HackerToolkit"                  );
+        checkAbsent(schema, "KoboAffiliate"                  );
+        checkAbsent(schema, "KoboPlatformId"                 );
+        checkAbsent(schema, "LayoutEngineBuild"              );
+        checkAbsent(schema, "OperatingSystemVersionBuild"    );
     }
 
     private void checkResult(Tuple data, Schema schema, String fieldName, String value) throws FrontendException, ExecException {
 
-        assertNotEquals("Field named "+fieldName +" is missing in the schema",schema.getField(fieldName),-1);
+        assertNotEquals("Field named "+fieldName +" is missing in the schema", schema.getField(fieldName), null);
 
         int position = schema.getPosition(fieldName);
         if (position == -1 && value != null) {
@@ -167,6 +182,9 @@ public class TestParseUserAgent {
         assertEquals("Field named "+fieldName +" should be \""+value+"\".", value, data.get(position));
     }
 
+    private void checkAbsent(Schema schema, String fieldName) throws FrontendException, ExecException {
+        assertEquals("Field named "+fieldName +" is present in the schema", schema.getField(fieldName), null);
+    }
 
     @Test
     public void testParseUserAgentPigUDF_NULL() throws Exception {
