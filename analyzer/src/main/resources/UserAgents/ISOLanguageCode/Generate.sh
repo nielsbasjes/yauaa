@@ -70,6 +70,12 @@ echo "    - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.(1-2)product.(
 echo "    - 'AgentLanguage     :  5:LookUp[ISOLanguageCodesName;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
 echo ""
 
+echo "- matcher:"
+echo "    extract:"
+echo "    - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes;agent.product.name=\"Language\"^.version]'"
+echo "    - 'AgentLanguage     :  5:LookUp[ISOLanguageCodesName;agent.product.name=\"Language\"^.version]'"
+echo ""
+
 echo "# Match the 3 variants:"
 echo "- matcher:"
 echo "    extract:"
@@ -89,13 +95,19 @@ echo "    - 'AgentLanguageCode :  4:LookUp[ISOLanguageCodes3;agent.(1-2)product.
 echo "    - 'AgentLanguage     :  4:LookUp[ISOLanguageCodes3Name;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
 echo ""
 
+echo "- matcher:"
+echo "    extract:"
+echo "    - 'AgentLanguageCode :  5:LookUp[ISOLanguageCodes3;agent.product.name=\"Language\"^.version]'"
+echo "    - 'AgentLanguage     :  5:LookUp[ISOLanguageCodes3Name;agent.product.name=\"Language\"^.version]'"
+echo ""
+
 echo "# -----------------------------------------------------------------------------"
 echo "- lookup:"
 echo "    name: 'ISOLanguageCodes'"
 echo "    map:"
 cat "${INPUT1}" | while read line ; \
 do
-    echo "      \"$(echo ${line} | cut -d' ' -f1)\" : \"$(echo ${line} | cut -d' ' -f1)\""
+    echo "      \"$(echo ${line} | cut -d' ' -f1)\" : \"$(echo ${line} | cut -d' ' -f1 | sed 's/_/-/g')\""
 done
 
 echo "# -----------------------------------------------------------------------------"
