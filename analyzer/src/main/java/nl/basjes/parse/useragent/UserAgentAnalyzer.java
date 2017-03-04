@@ -624,6 +624,26 @@ config:
                 email.getConfidence() + 1);
         }
 
+        // Make sure the DeviceName always starts with the DeviceBrand
+        UserAgent.AgentField deviceName = userAgent.get(DEVICE_NAME);
+        if (deviceName.getConfidence() >= 0) {
+            deviceBrand = userAgent.get(DEVICE_BRAND);
+            String deviceNameValue = deviceName.getValue();
+            String deviceBrandValue = deviceBrand.getValue();
+            if (deviceName.getConfidence() >= 0 &&
+                deviceBrand.getConfidence() >= 0 &&
+                !deviceBrandValue.equals("Unknown")) {
+                // In some cases it does start with the brand but without a separator following the brand
+                deviceNameValue = Normalize.cleanupDeviceBrandName(deviceBrandValue, deviceNameValue);
+            } else {
+                deviceNameValue = Normalize.brand(deviceNameValue);
+            }
+
+            userAgent.set(
+                DEVICE_NAME,
+                deviceNameValue,
+                deviceName.getConfidence() + 1);
+        }
         return userAgent;
     }
 
@@ -831,7 +851,7 @@ config:
                 addGeneratedFields("LayoutEngineNameVersion", LAYOUT_ENGINE_NAME, LAYOUT_ENGINE_VERSION);
                 addGeneratedFields("LayoutEngineNameVersionMajor", LAYOUT_ENGINE_NAME, LAYOUT_ENGINE_VERSION_MAJOR);
                 addGeneratedFields("OperatingSystemNameVersion", OPERATING_SYSTEM_NAME, OPERATING_SYSTEM_VERSION);
-
+                addGeneratedFields(DEVICE_NAME, DEVICE_BRAND);
                 addGeneratedFields(AGENT_VERSION_MAJOR, AGENT_VERSION);
                 addGeneratedFields(LAYOUT_ENGINE_VERSION_MAJOR, LAYOUT_ENGINE_VERSION);
                 addGeneratedFields("WebviewAppVersionMajor", "WebviewAppVersion");

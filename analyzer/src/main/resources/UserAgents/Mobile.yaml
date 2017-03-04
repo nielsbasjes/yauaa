@@ -174,7 +174,7 @@ config:
       user_agent_string: 'AT-AS40SE Linux/3.0.13 Android/4.0.4 Release/04.10.2013 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.0.1;'
     expected:
       DeviceClass                          : 'Phone'
-      DeviceName                           : 'AT-AS40SE'
+      DeviceName                           : 'Wolfgang Mobile AT-AS40SE'
       DeviceBrand                          : 'Wolfgang Mobile'
       DeviceFirmwareVersion                : '04.10.2013'
       DeviceVersion                        : '3.0.13'
@@ -206,7 +206,7 @@ config:
       user_agent_string: 'SAMSUNG-GT-S5260/S5260XXKD1 SHP/VPP/R5 Dolfin/2.0 NexPlayer/3.0 SMM-MMS/1.2.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B'
     expected:
       DeviceClass                          : 'Mobile'
-      DeviceName                           : 'SAMSUNG-GT-S5260'
+      DeviceName                           : 'Samsung GT-S5260'
       DeviceBrand                          : 'Samsung'
       DeviceVersion                        : 'S5260XXKD1'
       OperatingSystemClass                 : 'Unknown'
@@ -234,9 +234,9 @@ config:
       user_agent_string: 'SAMSUNG-S8000/S800MCEIK1 SHP/VPP/R5 Jasmine/1.0 Nextreaming SMM-MMS/1.2.0 profile/MIDP-2.1 configuration/CLDC-1.1 SS-Widget/S8000-FM'
     expected:
       DeviceClass                          : 'Mobile'
-      DeviceName                           : 'SAMSUNG-S8000'
-      DeviceVersion                        : 'S800MCEIK1'
+      DeviceName                           : 'Samsung S8000'
       DeviceBrand                          : 'Samsung'
+      DeviceVersion                        : 'S800MCEIK1'
       OperatingSystemClass                 : 'Unknown'
       OperatingSystemName                  : 'Unknown'
       OperatingSystemVersion               : '??'
@@ -256,7 +256,7 @@ config:
       user_agent_string: 'NokiaC3-00/5.0 (08.71) Profile/MIDP-2.1 Configuration/CLDC-1.1 UCWEB/2.0 (Java; U; MIDP-2.0; en-US; NokiaC3-00) U2/1.0.0 UCBrowser/9.5.0.449 U2/1.0.0 Mobile'
     expected:
       DeviceClass                          : 'Mobile'
-      DeviceName                           : 'NokiaC3-00'
+      DeviceName                           : 'Nokia C3-00'
       DeviceBrand                          : 'Nokia'
       DeviceVersion                        : '5.0'
       OperatingSystemClass                 : 'Unknown'
@@ -282,7 +282,7 @@ config:
       user_agent_string: 'BlackBerry9300/5.0.0.716 Profile/MIDP-2.1 Configuration/CLDC-1.1 VendorID/603'
     expected:
       DeviceClass                          : 'Mobile'
-      DeviceName                           : 'BlackBerry9300'
+      DeviceName                           : 'BlackBerry 9300'
       DeviceBrand                          : 'BlackBerry'
       DeviceVersion                        : '5.0.0.716'
       OperatingSystemClass                 : 'Unknown'
@@ -304,7 +304,7 @@ config:
       user_agent_string: 'AT-AS45SE Linux/3.0.13 Android/4.0.4 Release/09.28.2012 Browser/AppleWebKit534.30 Profile/MIDP-2.0 Configuration/CLDC-1.1 Mobile Safari/534.30 Android 4.0.1;'
     expected:
       DeviceClass                          : 'Phone'
-      DeviceName                           : 'AT-AS45SE'
+      DeviceName                           : 'Wolfgang Mobile AT-AS45SE'
       DeviceBrand                          : 'Wolfgang Mobile'
       DeviceFirmwareVersion                : '09.28.2012'
       DeviceVersion                        : '3.0.13'
@@ -330,7 +330,7 @@ config:
       user_agent_string: 'Athens15_TD/V2 Linux/3.0.13 Android/4.0 Release/02.15.2012 Browser/AppleWebKit534.30 Mobile Safari/534.30 MBBMS/2.2 System/Android 4.0.1;'
     expected:
       DeviceClass                          : 'Phone'
-      DeviceName                           : 'Athens15_TD'
+      DeviceName                           : 'ATHENS15_TD'
       DeviceBrand                          : 'Unknown'
       DeviceFirmwareVersion                : '02.15.2012'
       DeviceVersion                        : 'V2'
@@ -442,30 +442,30 @@ config:
     - 'DeviceClass              :   102:"Mobile"'
     - 'DeviceName               :   102:agent.(1)product.(1)comments.(3)entry.(1)product.(1)name'
     - 'DeviceVersion            :   102:agent.(1)product.(1)comments.(3)entry.(1)product.(1)version'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'OperatingSystemClass     :    10:"Mobile"'
+    - 'OperatingSystemName      :    10:agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion   :    10:"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceClass           :   101:"Mobile"'
-    - 'DeviceName            :   101:agent.(1)product.(1)comments.(3)entry.text'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceClass              :   101:"Mobile"'
+    - 'DeviceName               :   101:agent.(1)product.(1)comments.(3)entry.text'
+    - 'OperatingSystemClass     :    10:"Mobile"'
+    - 'OperatingSystemName      :    10:agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion   :    10:"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceClass           :   110:"Mobile"'
-    - 'DeviceName            :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)name'
-    - 'DeviceVersion         :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)version'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceClass              :   110:"Mobile"'
+    - 'DeviceName               :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)name'
+    - 'DeviceVersion            :   110:agent.(1)product.(1)comments.(7)entry.(1)product.(1)version'
+    - 'OperatingSystemClass     :    10:"Mobile"'
+    - 'OperatingSystemName      :    11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion   :    10:"??"'
 
 - matcher:
     require:
@@ -575,7 +575,7 @@ config:
       user_agent_string: 'UCWEB/2.0 (Java; U; MIDP-2.0; Nokia203/20.37) U2/1.0.0 UCBrowser/8.7.0.218 U2/1.0.0 Mobile'
     expected:
       DeviceClass                          : 'Mobile'
-      DeviceName                           : 'Nokia203'
+      DeviceName                           : 'Nokia 203'
       DeviceBrand                          : 'Nokia'
       DeviceVersion                        : '20.37'
       OperatingSystemClass                 : 'Mobile'
@@ -601,7 +601,7 @@ config:
       user_agent_string: 'UCWEB/2.0(BlackBerry; U; 6.6.0.236; en-us; 9300/6.6.0.236) U2/1.0.0 UCBrowser/8.1.0.216 U2/1.0.0 Mobile'
     expected:
       DeviceClass                          : 'Mobile'
-      DeviceName                           : '9300'
+      DeviceName                           : 'BlackBerry 9300'
       DeviceBrand                          : 'BlackBerry'
       DeviceVersion                        : '6.6.0.236'
       OperatingSystemClass                 : 'Mobile'
@@ -629,7 +629,7 @@ config:
       user_agent_string: 'UCWEB/2.0 (Windows; U; wds 8.10; pt-BR; NOKIA; RM-979_1004) U2/1.0.0 UCBrowser/4.2.1.541 U2/1.0.0 Mobile'
     expected:
       DeviceClass                          : 'Mobile'
-      DeviceName                           : 'RM-979_1004'
+      DeviceName                           : 'Nokia RM-979_1004'
       DeviceBrand                          : 'Nokia'
       DeviceVersion                        : '8.10'
       OperatingSystemClass                 : 'Mobile'
@@ -657,7 +657,7 @@ config:
       user_agent_string: 'UCWEB/2.0 (Linux; U; Adr 4.1.2; zh-CN; GT-N7100) U2/1.0.0 UCBrowser/9.5.0.360 U2/1.0.0 Mobile'
     expected:
       DeviceClass                          : 'Mobile'
-      DeviceName                           : 'GT-N7100'
+      DeviceName                           : 'Samsung GT-N7100'
       DeviceBrand                          : 'Samsung'
       DeviceVersion                        : '4.1.2'
       OperatingSystemClass                 : 'Mobile'
@@ -680,12 +680,13 @@ config:
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
 
+# FIXME: This one is very broken
 - test:
     input:
       user_agent_string: 'UCWEB/8.8 (iPhone; CPU OS_6; en-US)AppleWebKit/534.1 U3/3.0.0 Mobile'
     expected:
       DeviceClass                          : 'Mobile'
-      DeviceName                           : 'en-US'
+      DeviceName                           : 'Apple EN-US'
       DeviceBrand                          : 'Apple'
       DeviceVersion                        : 'iPhone'
       OperatingSystemClass                 : 'Mobile'

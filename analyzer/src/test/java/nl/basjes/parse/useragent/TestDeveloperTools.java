@@ -58,8 +58,8 @@ public class TestDeveloperTools {
     public void validateJsonAndYamlOutput() {
         UserAgentAnalyzer uaa = new UserAgentAnalyzer();
         UserAgent useragent = uaa.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36");
-        assertTrue(useragent.toJson().contains("\"DeviceName\":\"Nexus 6\""));
-        assertTrue(useragent.toYamlTestCase(true).contains("'Nexus 6'"));
+        assertTrue(useragent.toJson().contains("\"DeviceName\":\"Google Nexus 6\""));
+        assertTrue(useragent.toYamlTestCase(true).contains("'Google Nexus 6'"));
     }
 
 }

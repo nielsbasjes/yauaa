@@ -23,7 +23,7 @@ config:
 - matcher:
     extract:
     - 'DeviceClass           :  101:"Robot"'
-    - 'DeviceBrand           :  101:"Robot"'
+    - 'DeviceBrand           :  101:"Unknown"'
     - 'DeviceName            :  101:agent.product.name~"spider"'
     - 'OperatingSystemClass  :  101:"Cloud"'
     - 'OperatingSystemName   :  101:"Cloud"'
@@ -49,7 +49,7 @@ config:
 - matcher:
     extract:
     - 'DeviceClass           :  101:"Robot"'
-    - 'DeviceBrand           :  101:"Robot"'
+    - 'DeviceBrand           :  101:"Unknown"'
     - 'DeviceName            :  101:agent.product.name~"crawl"'
     - 'OperatingSystemClass  :  101:"Cloud"'
     - 'OperatingSystemName   :  101:"Cloud"'
@@ -75,7 +75,7 @@ config:
 - matcher:
     extract:
     - 'DeviceClass           :  101:"Robot"'
-    - 'DeviceBrand           :  101:"Robot"'
+    - 'DeviceBrand           :  101:"Unknown"'
     - 'DeviceName            :  101:agent.product.name~"bot"'
     - 'OperatingSystemClass  :  101:"Cloud"'
     - 'OperatingSystemName   :  101:"Cloud"'
@@ -101,7 +101,7 @@ config:
 - matcher:
     extract:
     - 'DeviceClass           :  101:"Robot"'
-    - 'DeviceBrand           :  101:"Robot"'
+    - 'DeviceBrand           :  101:"Unknown"'
     - 'DeviceName            :  101:agent.product.name~"scan"'
     - 'OperatingSystemClass  :  101:"Cloud"'
     - 'OperatingSystemName   :  101:"Cloud"'
@@ -128,7 +128,7 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"spider"'
     - 'OperatingSystemClass  :  100:"Cloud"'
     - 'OperatingSystemName   :  100:"Cloud"'
@@ -144,7 +144,7 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"crawl"'
     - 'OperatingSystemClass  :  100:"Cloud"'
     - 'OperatingSystemName   :  100:"Cloud"'
@@ -160,7 +160,7 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:agent.(1)product.comments.entry.product.name~"bot"'
     - 'OperatingSystemClass  :  100:"Cloud"'
     - 'OperatingSystemName   :  100:"Cloud"'
@@ -178,7 +178,7 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"spider"'
     - 'OperatingSystemClass  :  100:"Cloud"'
     - 'OperatingSystemName   :  100:"Cloud"'
@@ -196,7 +196,7 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"crawl"'
     - 'OperatingSystemClass  :  100:"Cloud"'
     - 'OperatingSystemName   :  100:"Cloud"'
@@ -214,7 +214,7 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Robot"'
+    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:agent.(1)product.comments.entry.text~"bot"'
     - 'OperatingSystemClass  :  100:"Cloud"'
     - 'OperatingSystemName   :  100:"Cloud"'
@@ -245,8 +245,8 @@ config:
       user_agent_string: 'Sogou web spider/4.0(+http://www.sogou.com/docs/help/webmasters.htm#07)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Sogou web spider'
-      DeviceBrand                          : 'Robot'
+      DeviceName                           : 'Sogou WEB Spider'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -270,7 +270,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'PhantomJS'
+      DeviceName                           : 'PhantomJs'
       DeviceBrand                          : 'PhantomJs'
       DeviceCpu                            : 'Intel x86_64'
       OperatingSystemClass                 : 'Desktop'
@@ -303,7 +303,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Baiduspider'
-      DeviceBrand                          : 'Robot'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -371,8 +371,8 @@ config:
       user_agent_string: 'Mozilla/5.0 (compatible; archive.org_bot; Wayback Machine Live Record; +http://archive.org/details/archive.org_bot)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'archive.org_bot'
-      DeviceBrand                          : 'Robot'
+      DeviceName                           : 'Archive.org_BOT'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -422,7 +422,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'SputnikBot'
-      DeviceBrand                          : 'Robot'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -446,7 +446,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (compatible; Applebot/0.3; +http://www.apple.com/go/applebot)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Applebot'
+      DeviceName                           : 'Apple BOT'
       DeviceBrand                          : 'Apple'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
@@ -471,8 +471,8 @@ config:
       user_agent_string: 'Mozilla/5.0 (compatible; ltbot/0.3.6 +http://www.kdsl.tu-darmstadt.de/de/kdsl/research-program/crawling-and-semantic-structuring/)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'ltbot'
-      DeviceBrand                          : 'Robot'
+      DeviceName                           : 'Ltbot'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -497,7 +497,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'NeumobBot'
-      DeviceBrand                          : 'Robot'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -522,7 +522,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'MojeekBot'
-      DeviceBrand                          : 'Robot'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -560,7 +560,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:28.0) Gecko/20100101 Firefox/28.0 (FlipboardProxy/1.1; +http://flipboard.com/browserproxy)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'FlipboardProxy'
+      DeviceName                           : 'Flipboard Proxy'
       DeviceBrand                          : 'Flipboard'
       DeviceCpu                            : 'Intel'
       OperatingSystemClass                 : 'Cloud'
@@ -601,7 +601,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/600.2.5 (KHTML, like Gecko) Version/8.0.2 Safari/600.2.5 (Applebot/0.1; +http://www.apple.com/go/applebot)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Applebot'
+      DeviceName                           : 'Apple BOT'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
       OperatingSystemClass                 : 'Cloud'
@@ -627,8 +627,8 @@ config:
       user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0); 360Spider(compatible; HaosouSpider; http://www.haosou.com/help/help_3_2.html)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : '360Spider'
-      DeviceBrand                          : 'Robot'
+      DeviceName                           : '360SPIDER'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -661,7 +661,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.5 (like Gecko) (Exabot-Thumbnails)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Exabot-Thumbnails'
+      DeviceName                           : 'Exalead Exabot-Thumbnails'
       DeviceBrand                          : 'Exalead'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Linux'
@@ -685,8 +685,8 @@ config:
       user_agent_string: 'yacybot%20(freeworld/global;%20amd64%20Linux%203.1.0-1.2-desktop;%20java%201.6.0_22;%20Europe/de)%20http://yacy.net/bot.html'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'yacybot'
-      DeviceBrand                          : 'Robot'
+      DeviceName                           : 'Yacybot'
+      DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'AMD64'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
@@ -734,8 +734,8 @@ config:
       user_agent_string: '0xSCANNER-INURL_blog.inurl.com.br-K-Meleon/19.4 (Redhat Linux 2.6; en_NZ;)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : '0xSCANNER-INURL_blog.inurl.com.br-K-Meleon'
-      DeviceBrand                          : 'Robot'
+      DeviceName                           : '0XSCANNER-Inurl_Blog.inurl.com.br-K-Meleon'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -761,8 +761,8 @@ config:
       user_agent_string: 'rogerbot/1.1 (http://moz.com/help/guides/search-overview/crawl-diagnostics#more-help, rogerbot-crawler+pr2-crawler-05@moz.com)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'rogerbot'
-      DeviceBrand                          : 'Robot'
+      DeviceName                           : 'Rogerbot'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -787,8 +787,8 @@ config:
       user_agent_string: 'BuiBui-Bot/1.0 (3m4il: buibui[dot]bot[\xc3\xa07]moquadv[dot]com)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'BuiBui-Bot'
-      DeviceBrand                          : 'Robot'
+      DeviceName                           : 'Buibui-BOT'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -812,8 +812,8 @@ config:
       user_agent_string: 'Mozilla/5.0 (compatible; zitebot support [at] zite [dot] com +http://zite.com)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'zitebot'
-      DeviceBrand                          : 'Robot'
+      DeviceName                           : 'Zitebot'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -862,7 +862,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'DuckDuckBot'
-      DeviceBrand                          : 'Robot'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -911,8 +911,8 @@ config:
       user_agent_string: 'Mozilla/5.0 (compatible; SISTRIX Crawler; http://crawler.sistrix.net/)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'SISTRIX Crawler'
-      DeviceBrand                          : 'Robot'
+      DeviceName                           : 'Sistrix Crawler'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -937,7 +937,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'SeznamBot'
-      DeviceBrand                          : 'Robot'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -962,7 +962,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'ToutiaoSpider'
-      DeviceBrand                          : 'Robot'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -987,7 +987,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'SentiBot'
-      DeviceBrand                          : 'Robot'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'

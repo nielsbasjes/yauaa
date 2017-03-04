@@ -18,9 +18,21 @@
 package nl.basjes.parse.useragent.utils;
 
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 public final class Normalize {
     private Normalize() {
+    }
+
+    private static boolean isTokenSeparator(char letter) {
+        switch (letter) {
+            case ' ':
+            case '-':
+            case '_':
+                return true;
+            default:
+                return false;
+        }
     }
 
     public static String brand(String brand) {
@@ -29,27 +41,90 @@ public final class Normalize {
         }
 
         StringBuilder sb = new StringBuilder(brand.length());
-        char[] brandChars = brand.toCharArray();
+        char[] nameChars = brand.toCharArray();
+
+        StringBuilder wordBuilder = new StringBuilder(brand.length());
 
         int lowerChars = 0;
-        sb.append(Character.toUpperCase(brandChars[0]));
-        for (int i = 1; i < brandChars.length; i++) {
-            char thisChar = brandChars[i];
+        boolean wordHasNumbers = false;
+        for (int i = 0; i < nameChars.length; i++) {
+            char thisChar = nameChars[i];
+            if (Character.isDigit(thisChar)) {
+                wordHasNumbers = true;
+            }
 
-            boolean isUpperCase = Character.isUpperCase(thisChar);
-            if (isUpperCase) {
-                if (lowerChars >= 3) {
-                    sb.append(thisChar);
+            if (isTokenSeparator(thisChar)) {
+                if (wordBuilder.length() <= 3 || wordHasNumbers) {
+                    sb.append(wordBuilder.toString().toUpperCase(Locale.ENGLISH));
                 } else {
-                    sb.append(Character.toLowerCase(thisChar));
+                    sb.append(wordBuilder);
                 }
-                lowerChars = 0;
+                wordBuilder.setLength(0);
+                lowerChars = 0; // Next word
+                wordHasNumbers = false;
+                sb.append(thisChar);
             } else {
-                sb.append(Character.toLowerCase(thisChar));
-                lowerChars++;
+                if (wordBuilder.length() == 0) { // First letter of a word
+                    wordBuilder.append(Character.toUpperCase(thisChar));
+                } else {
+                    boolean isUpperCase = Character.isUpperCase(thisChar);
+
+                    if (isUpperCase) {
+                        if (lowerChars >= 3) {
+                            wordBuilder.append(thisChar);
+                        } else {
+                            wordBuilder.append(Character.toLowerCase(thisChar));
+                        }
+                        lowerChars = 0;
+                    } else {
+                        wordBuilder.append(Character.toLowerCase(thisChar));
+                        lowerChars++;
+                    }
+                }
+                // This was the last letter?
+                if (i == (nameChars.length-1)) {
+                    if (wordBuilder.length() <= 3 || wordHasNumbers) {
+                        sb.append(wordBuilder.toString().toUpperCase(Locale.ENGLISH));
+                    } else {
+                        sb.append(wordBuilder);
+                    }
+                    wordBuilder.setLength(0);
+                    lowerChars = 0; // Next word
+                    wordHasNumbers = false;
+                }
             }
         }
         return sb.toString();
+    }
+
+    public static String cleanupDeviceBrandName(String deviceBrand, String deviceName) {
+        String lowerDeviceBrand = deviceBrand.toLowerCase(Locale.ENGLISH);
+
+        deviceName = deviceName.replaceAll("- +", "-");
+        deviceName = deviceName.replaceAll(" +-", "-");
+        deviceName = deviceName.replaceAll(" +", " ");
+
+        String lowerDeviceName = deviceName.toLowerCase(Locale.ENGLISH);
+
+        // In some cases it does start with the brand but without a separator following the brand
+        if (lowerDeviceName.startsWith(lowerDeviceBrand)) {
+            deviceName = deviceName.replaceAll("_", " ");
+            // (?i) means: case insensitive
+            deviceName = deviceName.replaceAll("(?i)^" + Pattern.quote(deviceBrand) + "([^ ].*)$", deviceBrand+" $1");
+            deviceName = deviceName.replaceAll("( -| )+", " ");
+        } else {
+            deviceName = deviceBrand + ' ' + deviceName;
+        }
+        String result = Normalize.brand(deviceName);
+
+        if (result.contains("I")) {
+            result = result
+                .replace("Ipad", "iPad")
+                .replace("Ipod", "iPod")
+                .replace("Iphone", "iPhone")
+                .replace("IOS ", "iOS ");
+        }
+        return result;
     }
 
     public static String email(String email) {

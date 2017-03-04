@@ -72,10 +72,10 @@ echo ""
 echo "- lookup:"
 echo "    name: 'AppleDeviceName'"
 echo "    map:"
-echo "      \"iPhone\"     : \"iPhone\""
-echo "      \"iPad\"       : \"iPad\""
-echo "      \"iPod\"       : \"iPod\""
-echo "      \"iPod touch\" : \"iPod touch\""
+echo "      \"iPhone\"     : \"Apple iPhone\""
+echo "      \"iPad\"       : \"Apple iPad\""
+echo "      \"iPod\"       : \"Apple iPod\""
+echo "      \"iPod touch\" : \"Apple iPod touch\""
 cat "AppleTypes.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
 do
     key=$(echo ${line} | cut -d'|' -f1)

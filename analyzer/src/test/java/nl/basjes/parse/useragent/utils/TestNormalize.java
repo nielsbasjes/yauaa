@@ -57,13 +57,30 @@ public class TestNormalize {
     @Test
     public void checkBrandNormalizationExamples() {
         // At least 3 lowercase
-        assertEquals("NielsBasjes", Normalize.brand("NielsBasjes"));
-        assertEquals("NielsBasjes", Normalize.brand("NIelsBasJES"));
-        assertEquals("BlackBerry", Normalize.brand("BlackBerry"));
+        assertEquals("NielsBasjes",      Normalize.brand("NielsBasjes"));
+        assertEquals("NielsBasjes",      Normalize.brand("NIelsBasJES"));
+        assertEquals("BlackBerry",       Normalize.brand("BlackBerry"));
 
         // Less than 3 lowercase
-        assertEquals("Nielsbasjes", Normalize.brand("NIelSBasJES"));
-        assertEquals("Blackberry", Normalize.brand("BLACKBERRY"));
+        assertEquals("Nielsbasjes",      Normalize.brand("NIelSBasJES"));
+        assertEquals("Blackberry",       Normalize.brand("BLACKBERRY"));
+
+        // Multiple words. Short words (1,2,3 letters) go full uppercase
+        assertEquals("Niels NBA Basjes", Normalize.brand("NIels NbA BasJES"));
+        assertEquals("LG",               Normalize.brand("lG"));
+        assertEquals("HTC",              Normalize.brand("hTc"));
+        assertEquals("Sony",             Normalize.brand("sOnY"));
+        assertEquals("Asus",             Normalize.brand("aSuS"));
+    }
+
+    @Test
+    public void checkCombiningDeviceNameAndBrand() {
+        assertEquals("Asus Something T123",     Normalize.cleanupDeviceBrandName("AsUs", "something t123"));
+        assertEquals("Sony X1",                 Normalize.cleanupDeviceBrandName("Sony", "sony x1"));
+        assertEquals("Sony X1",                 Normalize.cleanupDeviceBrandName("Sony", "sony-x1"));
+        assertEquals("Sony X1",                 Normalize.cleanupDeviceBrandName("Sony", "sonyx1"));
+        assertEquals("HP SlateBook 10 X2 PC",   Normalize.cleanupDeviceBrandName("hP", "SlateBook 10 X2 PC"));
+        assertEquals("Samsung GT-1234",         Normalize.cleanupDeviceBrandName("Samsung", "GT - 1234"));
     }
 
     @Test
