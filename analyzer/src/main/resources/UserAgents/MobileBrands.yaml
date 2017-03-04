@@ -27,6 +27,10 @@ config:
       "GT -" : "Samsung"
       "SM-" : "Samsung"
       "SM -" : "Samsung"
+      "SM7" : "Smartisan"
+      "SM8" : "Smartisan"
+      "SM9" : "Smartisan"
+      "YQ6" : "Smartisan"
       "LG-" : "LG"
       "G Watch" : "LG"
       "HTC" : "HTC"
@@ -577,6 +581,334 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.text{"SM -"'
     extract:
     - 'DeviceBrand                 :  101:"Samsung"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"SM7"'
+    extract:
+    - 'DeviceBrand                 :  105:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"SM7"'
+    extract:
+    - 'DeviceBrand                 :  105:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"SM7"'
+    extract:
+    - 'DeviceBrand                 :  105:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SM7"'
+    extract:
+    - 'DeviceBrand                 :  104:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"SM7"'
+    extract:
+    - 'DeviceBrand                 :  103:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"SM7"'
+    extract:
+    - 'DeviceBrand                 :  102:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"SM7"'
+    extract:
+    - 'DeviceBrand                 :  101:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"SM7"'
+    extract:
+    - 'DeviceBrand                 :  100:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.name{"SM7"'
+    extract:
+    - 'DeviceBrand                 :  110:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.product.name{"SM7"'
+    extract:
+    - 'DeviceBrand                 :  103:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"SM7"'
+    extract:
+    - 'DeviceBrand                 :  102:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.text{"SM7"'
+    extract:
+    - 'DeviceBrand                 :  101:"Smartisan"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"SM8"'
+    extract:
+    - 'DeviceBrand                 :  105:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"SM8"'
+    extract:
+    - 'DeviceBrand                 :  105:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"SM8"'
+    extract:
+    - 'DeviceBrand                 :  105:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SM8"'
+    extract:
+    - 'DeviceBrand                 :  104:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"SM8"'
+    extract:
+    - 'DeviceBrand                 :  103:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"SM8"'
+    extract:
+    - 'DeviceBrand                 :  102:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"SM8"'
+    extract:
+    - 'DeviceBrand                 :  101:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"SM8"'
+    extract:
+    - 'DeviceBrand                 :  100:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.name{"SM8"'
+    extract:
+    - 'DeviceBrand                 :  110:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.product.name{"SM8"'
+    extract:
+    - 'DeviceBrand                 :  103:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"SM8"'
+    extract:
+    - 'DeviceBrand                 :  102:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.text{"SM8"'
+    extract:
+    - 'DeviceBrand                 :  101:"Smartisan"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"SM9"'
+    extract:
+    - 'DeviceBrand                 :  105:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"SM9"'
+    extract:
+    - 'DeviceBrand                 :  105:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"SM9"'
+    extract:
+    - 'DeviceBrand                 :  105:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SM9"'
+    extract:
+    - 'DeviceBrand                 :  104:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"SM9"'
+    extract:
+    - 'DeviceBrand                 :  103:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"SM9"'
+    extract:
+    - 'DeviceBrand                 :  102:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"SM9"'
+    extract:
+    - 'DeviceBrand                 :  101:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"SM9"'
+    extract:
+    - 'DeviceBrand                 :  100:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.name{"SM9"'
+    extract:
+    - 'DeviceBrand                 :  110:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.product.name{"SM9"'
+    extract:
+    - 'DeviceBrand                 :  103:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"SM9"'
+    extract:
+    - 'DeviceBrand                 :  102:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.text{"SM9"'
+    extract:
+    - 'DeviceBrand                 :  101:"Smartisan"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"YQ6"'
+    extract:
+    - 'DeviceBrand                 :  105:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"YQ6"'
+    extract:
+    - 'DeviceBrand                 :  105:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"YQ6"'
+    extract:
+    - 'DeviceBrand                 :  105:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"YQ6"'
+    extract:
+    - 'DeviceBrand                 :  104:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"YQ6"'
+    extract:
+    - 'DeviceBrand                 :  103:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"YQ6"'
+    extract:
+    - 'DeviceBrand                 :  102:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"YQ6"'
+    extract:
+    - 'DeviceBrand                 :  101:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"YQ6"'
+    extract:
+    - 'DeviceBrand                 :  100:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.name{"YQ6"'
+    extract:
+    - 'DeviceBrand                 :  110:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.product.name{"YQ6"'
+    extract:
+    - 'DeviceBrand                 :  103:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"YQ6"'
+    extract:
+    - 'DeviceBrand                 :  102:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.text{"YQ6"'
+    extract:
+    - 'DeviceBrand                 :  101:"Smartisan"'
 
 
 - matcher:
@@ -6041,6 +6373,41 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Samsung"'
     extract:
     - 'DeviceBrand                 :   90:"Samsung"'
+
+# ===================================================================================================
+
+
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version{"Smartisan"'
+    extract:
+    - 'DeviceBrand                 :   94:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^.version{"Smartisan"'
+    extract:
+    - 'DeviceBrand                 :   93:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^.version{"Smartisan"'
+    extract:
+    - 'DeviceBrand                 :   92:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"^.version{"Smartisan"'
+    extract:
+    - 'DeviceBrand                 :   91:"Smartisan"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Smartisan"'
+    extract:
+    - 'DeviceBrand                 :   90:"Smartisan"'
 
 # ===================================================================================================
 
