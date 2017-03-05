@@ -59,6 +59,7 @@ config:
       "Azumi" : "Azumi"
       "Lenovo" : "Lenovo"
       "Nexus" : "Google"
+      "Pixel" : "Google"
       "Panasonic" : "Panasonic"
       "Philips" : "Philips"
       "SonyEricsson" : "SonyEricsson"
@@ -3203,6 +3204,88 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.text{"Nexus"'
+    extract:
+    - 'DeviceBrand                 :  101:"Google"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"Pixel"'
+    extract:
+    - 'DeviceBrand                 :  105:"Google"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"Pixel"'
+    extract:
+    - 'DeviceBrand                 :  105:"Google"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"Pixel"'
+    extract:
+    - 'DeviceBrand                 :  105:"Google"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Pixel"'
+    extract:
+    - 'DeviceBrand                 :  104:"Google"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"Pixel"'
+    extract:
+    - 'DeviceBrand                 :  103:"Google"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"Pixel"'
+    extract:
+    - 'DeviceBrand                 :  102:"Google"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"Pixel"'
+    extract:
+    - 'DeviceBrand                 :  101:"Google"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"Pixel"'
+    extract:
+    - 'DeviceBrand                 :  100:"Google"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.name{"Pixel"'
+    extract:
+    - 'DeviceBrand                 :  110:"Google"'
+
+- matcher:
+    require:
+    - 'agent.product.name{"Pixel"'
+    extract:
+    - 'DeviceBrand                 :  103:"Google"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"Pixel"'
+    extract:
+    - 'DeviceBrand                 :  102:"Google"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.text{"Pixel"'
     extract:
     - 'DeviceBrand                 :  101:"Google"'
 
