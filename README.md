@@ -178,6 +178,57 @@ DeviceClass
 | Spy                   | Robots that visit the site pretending they are robots like google, but they are not |
 | Hacker                | In case scripting is detected in the useragent string, also fallback in really broken situations |
 
+OperatingSystemClass 
+-----------
+
+| Value | Meaning |
+| --- | --- |
+| Desktop      | The type of OS you would run on a dekstop or laptop |
+| Mobile       | The type of OS you would run on a Phone, Tablet or Watch |
+| Cloud        | Looks like a thing that runs in a cloud environment |
+| Embedded     | Apparently embedded into something like a TV |
+| Game Console | A game console like PS4, Xbox |
+| Hacker       | A hacker, so it can really be anything. |
+| Anonymized   | It was explicitly hidden |
+| Unknown      | We don't know |
+
+LayoutEngineClass
+-----------
+
+| Value | Meaning |
+| --- | --- |
+| Browser    | A regular browser |
+| Mobile App | A mobile app which probably includes a regular webbrowser |
+| Hacker     | A hacker, so it can really be anything. |
+| Robot      | A robot spidering the site |
+| Unknown    | We don't know |
+             
+AgentClass
+-----------
+
+| Value | Meaning |
+| --- | --- |
+| Browser           | A regular browser |
+| Browser Webview   | A regular browser being used as part of a mobile app |
+| Mobile App        | A mobile app |
+| Robot             | A robot that wants to be treated as a desktop device |
+| Robot Mobile      | A robot that wants to be treated as a mobile device |
+| Cloud Application | Something running in a cloud (but not a regular robot) |
+| Special           | Something special we cannot fully classify |
+| Testclient        | A website testing tool |
+| Hacker            | A hacker, so it can really be anything. |
+| Unknown           | We don't know |
+
+AgentSecurity
+-----------
+
+| Value | Meaning |
+| --- | --- |
+| Weak security   | Indicated to use deliberately weakened encryption (usually due to export restrictions or local laws). |
+| Strong security | Indicated to use strong (normal) encryption. |
+| Unknown         | It was not specified (very common) |
+| Hacker          | A hacker, so it can really be anything. |
+
 Parsing Useragents
 ==================
 Parsing useragents is considered by many to be a ridiculously hard problem.
