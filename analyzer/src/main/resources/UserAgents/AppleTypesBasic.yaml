@@ -25,6 +25,13 @@ config:
     - 'DeviceVersion : 100:"iPhone"'
 
 - matcher:
+    extract:
+    - 'DeviceBrand   : 100:"Apple"'
+    - 'DeviceClass   : 100:"Phone"'
+    - 'DeviceName    : 100:"iPhone"'
+    - 'DeviceVersion : 100:agent.product.comments.entry.(1)product.(1)name="iPhone"^.version'
+
+- matcher:
     require:
     - 'agent.product.(1)name="iPhone"'
     extract:
@@ -50,6 +57,13 @@ config:
     - 'DeviceClass   : 100:"Tablet"'
     - 'DeviceName    : 100:"iPad"'
     - 'DeviceVersion : 100:"iPad"'
+
+- matcher:
+    extract:
+    - 'DeviceBrand   : 100:"Apple"'
+    - 'DeviceClass   : 100:"Tablet"'
+    - 'DeviceName    : 100:"iPad"'
+    - 'DeviceVersion : 100:agent.product.comments.entry.(1)product.(1)name="iPad"^.version'
 
 - matcher:
     require:
@@ -79,6 +93,13 @@ config:
     - 'DeviceVersion : 100:"iPod"'
 
 - matcher:
+    extract:
+    - 'DeviceBrand   : 100:"Apple"'
+    - 'DeviceClass   : 100:"Phone"'
+    - 'DeviceName    : 100:"iPod"'
+    - 'DeviceVersion : 100:agent.product.comments.entry.(1)product.(1)name="iPod"^.version'
+
+- matcher:
     require:
     - 'agent.product.(1)name="iPod"'
     extract:
@@ -104,6 +125,13 @@ config:
     - 'DeviceClass   : 100:"Phone"'
     - 'DeviceName    : 100:"iPod touch"'
     - 'DeviceVersion : 100:"iPod touch"'
+
+- matcher:
+    extract:
+    - 'DeviceBrand   : 100:"Apple"'
+    - 'DeviceClass   : 100:"Phone"'
+    - 'DeviceName    : 100:"iPod touch"'
+    - 'DeviceVersion : 100:agent.product.comments.entry.(1)product.(1)name="iPod touch"^.version'
 
 - matcher:
     require:

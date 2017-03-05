@@ -20,6 +20,14 @@ config:
 # Quote from from https://github.com/browscap/browscap/issues/587
 #     MQQBrowser is Tencent's Cross Platform WebView Framework for WeChat & QQ inner WebView.
 
+# As indicated by https://github.com/pkptzx
+#    QQ Browser is Tencent's Browser product.
+#    so , Tencent's else product with Browser ,all base QQ Browser.
+#    if only have 'MQQBrowser' tag , then QQ Browser.
+#    if 'MicroMessenger' then WeChat App.
+#    if contain 'MQQBrowser' and 'QQ' then QQ app/windows client
+
+
 # ************************************************************
 # **** The useragent variations of this thing look like a big mess.
 # **** It looks like every system/version combination uses a different pattern in the useragent string
@@ -28,9 +36,29 @@ config:
 
 - matcher:
     extract:
-    - 'AgentClass                 :  15000:"Mobile App"'
-    - 'AgentName                  :  15000:"WeChat"'
-    - 'AgentVersion               :  15000:agent.product.(1)name="MicroMessenger"^.version'
+    - 'AgentClass                 :  15001:"Mobile App"'
+    - 'AgentName                  :  15001:"WeChat"'
+    - 'AgentVersion               :  15001:agent.product.(1)name="MicroMessenger"^.version'
+    - 'WebviewAppName             :      1:"<<<null>>>"'
+    - 'WebviewAppNameVersionMajor :      1:"<<<null>>>"'
+    - 'WebviewAppVersion          :      1:"<<<null>>>"'
+    - 'WebviewAppVersionMajor     :      1:"<<<null>>>"'
+
+- matcher:
+    extract:
+    - 'AgentClass                 :  15002:"Browser"'
+    - 'AgentName                  :  15002:"QQ Client"'
+    - 'AgentVersion               :  15002:agent.product.(1)name="QQ"^.version'
+    - 'WebviewAppName             :      1:"<<<null>>>"'
+    - 'WebviewAppNameVersionMajor :      1:"<<<null>>>"'
+    - 'WebviewAppVersion          :      1:"<<<null>>>"'
+    - 'WebviewAppVersionMajor     :      1:"<<<null>>>"'
+
+- matcher:
+    extract:
+    - 'AgentClass                 :  15000:"Browser"'
+    - 'AgentName                  :  15000:"QQ Browser"'
+    - 'AgentVersion               :  15000:agent.product.(1)name="MQQBrowser"^.version'
     - 'WebviewAppName             :      1:"<<<null>>>"'
     - 'WebviewAppNameVersionMajor :      1:"<<<null>>>"'
     - 'WebviewAppVersion          :      1:"<<<null>>>"'
@@ -450,3 +478,113 @@ config:
       AgentNameVersionMajor                : 'WeChat 6'
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_4 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13G35 QQ/6.5.3.410 V1_IPH_SQ_6.5.3_1_APP_A Pixel/750 Core/UIWebView NetType/2G Mem/117'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '13G35'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '9.3.4'
+      OperatingSystemNameVersion           : 'iOS 9.3.4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '601.1.46'
+      LayoutEngineVersionMajor             : '601'
+      LayoutEngineNameVersion              : 'AppleWebKit 601.1.46'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 601'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'QQ Client'
+      AgentVersion                         : '6.5.3.410'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'QQ Client 6.5.3.410'
+      AgentNameVersionMajor                : 'QQ Client 6'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.4.4; zh-cn; MX4 Pro Build/KTU84P) AppleWebKit/533.1 (KHTML, like Gecko)Version/4.0 MQQBrowser/5.4 TBS/025469 Mobile Safari/533.1 MicroMessenger/6.2.0.52_r1162382.561 NetType/WIFI Language/zh_CN QQ/6.6.0.2935'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'MX4 PRO'
+      DeviceBrand                          : 'MX4'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.4'
+      OperatingSystemNameVersion           : 'Android 4.4.4'
+      OperatingSystemVersionBuild          : 'KTU84P'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.1'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '6.2.0.52_r1162382.561'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'WeChat 6.2.0.52_r1162382.561'
+      AgentNameVersionMajor                : 'WeChat 6'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone 5SGLOBAL; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 MQQBrowser/7.2.1 Mobile/14A456 Safari/8536.25 MttCustomUA/2 QBWebViewType/1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : '5SGLOBAL'
+      DeviceFirmwareVersion                : '14A456'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.0.2'
+      OperatingSystemNameVersion           : 'iOS 10.0.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1.50'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1.50'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'QQ Browser'
+      AgentVersion                         : '7.2.1'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'QQ Browser 7.2.1'
+      AgentNameVersionMajor                : 'QQ Browser 7'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 6.0; zh-cn; PLK-AL10 Build/HONORPLK-AL10) AppleWebKit/537.36 (KHTML, like Gecko)Version/4.0 Chrome/37.0.0.0 MQQBrowser/6.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei PLK-AL10'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemVersionBuild          : 'HONORPLK-AL10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '37.0'
+      LayoutEngineVersionMajor             : '37'
+      LayoutEngineNameVersion              : 'Blink 37.0'
+      LayoutEngineNameVersionMajor         : 'Blink 37'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'QQ Browser'
+      AgentVersion                         : '6.0'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'QQ Browser 6.0'
+      AgentNameVersionMajor                : 'QQ Browser 6'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      AgentSecurity                        : 'Strong security'
