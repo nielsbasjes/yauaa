@@ -125,13 +125,13 @@ In some scenarios you only want a specific field and all others are unwanted.
 This can be achieved by creating the analyzer in Java like this:
 
     UserAgentAnalyzer uaa;
-    public ThreadState() {
-        uaa = UserAgentAnalyzer
-                .newBuilder()
-                .withoutCache()
-                .withField("DeviceClass")
-                .withField("AgentNameVersionMajor")
-                .build();
+
+    uaa = UserAgentAnalyzer
+            .newBuilder()
+            .withoutCache()
+            .withField("DeviceClass")
+            .withField("AgentNameVersionMajor")
+            .build();
 
 One important effect is that this speeds up the system because it will kick any rules that do not help in getting the desired fields.
 The above example showed an approximate 40% speed increase (i.e. times dropped from ~1ms to ~0.6ms).
