@@ -254,7 +254,7 @@ public class Matcher {
                 }
             }
         }
-        userAgent.set(newValuesUserAgent);
+        userAgent.set(newValuesUserAgent, this);
     }
 
     public boolean getVerbose() {
@@ -312,4 +312,25 @@ public class Matcher {
         return allMatches;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(512);
+        sb.append("MATCHER:\n");
+        sb.append("    REQUIRE:\n");
+        for (MatcherAction action : dynamicActions) {
+            if (action instanceof MatcherRequireAction) {
+                sb.append("        ").append(action.getMatchExpression()).append("\n");
+            }
+        }
+        sb.append("    EXTRACT:\n");
+        for (MatcherAction action : dynamicActions) {
+            if (action instanceof MatcherExtractAction) {
+                sb.append("        ").append(action.toString()).append("\n");
+            }
+        }
+        for (MatcherAction action : fixedStringActions) {
+            sb.append("        ").append(action.toString()).append("\n");
+        }
+        return sb.toString();
+    }
 }

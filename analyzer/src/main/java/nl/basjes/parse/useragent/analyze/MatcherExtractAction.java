@@ -110,9 +110,9 @@ public class MatcherExtractAction extends MatcherAction {
     @Override
     public String toString() {
         if (isFixedValue()) {
-            return "Extract (FIXED): (" + attribute + ", " + confidence + ") = " + fixedValue;
+            return "FIXED  : (" + attribute + ", " + confidence + ") =   \"" + fixedValue + "\"";
         } else {
-            return "Extract (DYNAM): (" + attribute + ", " + confidence + "): " + expression;
+            return "DYNAMIC: (" + attribute + ", " + confidence + "):    " + expression;
         }
     }
 }

@@ -386,6 +386,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
             LOG.info(separator);
 
+            List<String> failedFieldNames = new ArrayList<>();
             for (TestResult result : results) {
                 sb.setLength(0);
                 if (result.pass) {
@@ -395,6 +396,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                         sb.append("| ~warn~ | ");
                     } else {
                         sb.append("| -FAIL- | ");
+                        failedFieldNames.add(result.field);
                     }
                 }
                 sb.append(result.field);
@@ -434,7 +436,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             LOG.info(separator);
             LOG.info("");
 
-            LOG.info(agent.toMatchTrace());
+            LOG.info(agent.toMatchTrace(failedFieldNames));
 
             LOG.info("\n\nconfig:\n"+agent.toYamlTestCase(!init));
             if (!pass && !showAll) {

@@ -25,10 +25,8 @@ import org.slf4j.LoggerFactory;
 
 public class MatcherRequireAction extends MatcherAction {
     private static final Logger LOG = LoggerFactory.getLogger(MatcherRequireAction.class);
-    private final String expression;
 
     public MatcherRequireAction(String config, Matcher matcher) {
-        expression = config;
         init(config, matcher);
 //        if (verbose) {
 //            LOG.info("{} ({})", this.getClass().getSimpleName(), config);
@@ -73,7 +71,7 @@ public class MatcherRequireAction extends MatcherAction {
 
     @Override
     public String toString() {
-        return "Require: " + expression;
+        return "Require: " + getMatchExpression();
     }
 
 }

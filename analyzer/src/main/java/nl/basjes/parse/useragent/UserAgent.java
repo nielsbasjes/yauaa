@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent;
 
+import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.parser.UserAgentBaseListener;
 import org.antlr.v4.runtime.ANTLRErrorListener;
 import org.antlr.v4.runtime.Parser;
@@ -321,7 +322,8 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         allFields.put(attribute, field);
     }
 
-    public void set(UserAgent newValuesUserAgent) {
+    // The appliedMatcher parameter is needed for development and debugging.
+    public void set(UserAgent newValuesUserAgent, Matcher appliedMatcher) {
         for (String fieldName : newValuesUserAgent.allFields.keySet()) {
             set(fieldName, newValuesUserAgent.allFields.get(fieldName));
         }

@@ -18,6 +18,9 @@
 package nl.basjes.parse.useragent.debug;
 
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.analyze.Matcher;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,12 +33,12 @@ public class DebugUserAgent extends UserAgent {
 
     private static final Logger LOG = LoggerFactory.getLogger(DebugUserAgent.class);
 
-    final List<UserAgent> appliedMatcherResults = new ArrayList<>(32);
+    final List<Pair<UserAgent, Matcher>> appliedMatcherResults = new ArrayList<>(32);
 
     @Override
-    public void set(UserAgent newValuesUserAgent) {
-        appliedMatcherResults.add(new UserAgent(newValuesUserAgent));
-        super.set(newValuesUserAgent);
+    public void set(UserAgent newValuesUserAgent, Matcher appliedMatcher) {
+        appliedMatcherResults.add(new ImmutablePair<>(new UserAgent(newValuesUserAgent), appliedMatcher));
+        super.set(newValuesUserAgent, appliedMatcher);
     }
 
     @Override
@@ -48,21 +51,38 @@ public class DebugUserAgent extends UserAgent {
         return appliedMatcherResults.size();
     }
 
-    public String toMatchTrace() {
+    public String toMatchTrace(List<String> highlightNames) {
         StringBuilder sb = new StringBuilder(4096);
-        sb.append("+==========================================\n");
-        sb.append("| Matcher results that have been combined  \n");
+        sb.append("\n");
+        sb.append("+=========================================+\n");
+        sb.append("| Matcher results that have been combined |\n");
+        sb.append("+=========================================+\n");
+        sb.append("\n");
 
-        for (UserAgent result: appliedMatcherResults){
-            sb.append("+------------------------------------------\n");
+        for (Pair<UserAgent, Matcher> pair: appliedMatcherResults){
+            sb.append("\n");
+            sb.append("+================\n");
+            sb.append("+ Applied matched\n");
+            sb.append("+----------------\n");
+            UserAgent result = pair.getLeft();
+            Matcher matcher = pair.getRight();
+            sb.append(matcher.toString());
+            sb.append("+----------------\n");
+            sb.append("+ Results\n");
+            sb.append("+----------------\n");
             for (String fieldName : result.getAvailableFieldNamesSorted()) {
                 AgentField field = result.get(fieldName);
                 if (field.getConfidence() >= 0) {
-                    sb.append('|').append(fieldName).append('(').append(field.getConfidence()).append(") = ").append(field.getValue()).append('\n');
+                    String marker = "";
+                    if (highlightNames.contains(fieldName)) {
+                        marker = " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
+                    }
+                    sb.append("| ").append(fieldName).append('(').append(field.getConfidence()).append(") = ")
+                        .append(field.getValue()).append(marker).append('\n');
                 }
             }
+            sb.append("+================\n");
         }
-        sb.append("+==========================================\n");
         return sb.toString();
     }
 
@@ -70,7 +90,8 @@ public class DebugUserAgent extends UserAgent {
         boolean passed = true;
         for (String fieldName : getAvailableFieldNamesSorted()) {
             Map<Long, String> receivedValues = new HashMap<>(32);
-            for (UserAgent result: appliedMatcherResults) {
+            for (Pair<UserAgent, Matcher> pair: appliedMatcherResults) {
+                UserAgent result = pair.getLeft();
                 AgentField partialField = result.get(fieldName);
                 if (partialField != null && partialField.getConfidence() >= 0) {
                     String previousValue = receivedValues.get(partialField.getConfidence());
