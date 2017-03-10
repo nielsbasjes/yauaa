@@ -529,7 +529,7 @@ config:
       user_agent_string: 'Mozilla/4.0 SonyEricssonW910iv/R1FA Browser/NetFront/3.4 Profile/MIDP-2.1 Configuration/CLDC-1.1'
     expected:
       DeviceClass                          : 'Mobile'
-      DeviceName                           : 'SonyEricsson Mozilla' #FIXME: This is wrong
+      DeviceName                           : 'SonyEricsson W910IV'
       DeviceBrand                          : 'SonyEricsson'
       DeviceVersion                        : '4.0'
       OperatingSystemClass                 : 'Unknown'
@@ -547,6 +547,61 @@ config:
       AgentVersionMajor                    : '3'
       AgentNameVersion                     : 'NetFront 3.4'
       AgentNameVersionMajor                : 'NetFront 3'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.3.4; nl-nl; SonyEricssonLT15i Build/4.0.2.A.0.62) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'SonyEricsson LT15I'
+      DeviceBrand                          : 'SonyEricsson'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '2.3.4'
+      OperatingSystemNameVersion           : 'Android 2.3.4'
+      OperatingSystemVersionBuild          : '4.0.2.A.0.62'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.1'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'SonyEricssonW960i/R100 Mozilla/4.0 (compatible; MSIE 6.0; Symbian OS; 768) Opera 8.65 [en]'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'SonyEricsson W960I'
+      DeviceBrand                          : 'SonyEricsson'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'SymbianOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'SymbianOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Presto 1'
+      LayoutEngineNameVersionMajor         : 'Presto 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '8.65'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Opera 8.65'
+      AgentNameVersionMajor                : 'Opera 8'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
 
 - test:
     input:

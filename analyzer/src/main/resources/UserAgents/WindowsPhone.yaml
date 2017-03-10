@@ -30,7 +30,7 @@ config:
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"Microsoft"'
-    - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="Microsoft"^>'
+    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="Microsoft"^>'
 
 - matcher:
     require:
@@ -38,7 +38,7 @@ config:
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"Nokia"'
-    - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="Nokia"^>'
+    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="Nokia"^>'
 
 - matcher:
     require:
@@ -46,7 +46,7 @@ config:
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"Acer"'
-    - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="Acer"^>'
+    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="Acer"^>'
 
 - matcher:
     require:
@@ -54,7 +54,7 @@ config:
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"HTC"'
-    - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="HTC"^>'
+    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="HTC"^>'
 
 - matcher:
     require:
@@ -62,7 +62,7 @@ config:
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"Huawei"'
-    - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="Huawei"^>'
+    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="Huawei"^>'
 
 - matcher:
     require:
@@ -70,7 +70,7 @@ config:
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"Samsung"'
-    - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="Samsung"^>'
+    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="Samsung"^>'
 
 - matcher:
     require:
@@ -78,13 +78,13 @@ config:
     extract:
     - 'DeviceClass           : 200:"Phone"'
     - 'DeviceBrand           : 200:"Archos"'
-    - 'DeviceName            : 200:agent.(1)product.(1)comments.entry.text="Archos"^>'
+    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="Archos"^>'
 
 - matcher:
     extract:
     - 'DeviceClass           : 199:"Phone"'
     - 'DeviceBrand           : 199:"Nokia"'
-    - 'DeviceName            : 199:agent.(1)product.(1)comments.entry[-1]="Lumia"@'
+    - 'DeviceName            : 399:agent.(1)product.(1)comments.entry[-1]="Lumia"@'
 
 - test:
     input:

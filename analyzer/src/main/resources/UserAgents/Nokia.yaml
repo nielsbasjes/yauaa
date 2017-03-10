@@ -378,23 +378,27 @@ config:
       AgentNameVersionMajor                : 'BrowserNG 7'
 
 - matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1-2)entry.(1)product.name="Symbian"'
     extract:
     - 'DeviceClass           :   320:"Phone"'
     - 'DeviceBrand           :   320:"Nokia"'
     - 'DeviceName            :   320:agent.(1)product.(1)name!="Mozilla"'
     - 'DeviceVersion         :   320:agent.(1)product.(1)version'
     - 'OperatingSystemClass  :   310:"Mobile"'
-    - 'OperatingSystemName   :   310:agent.(1)product.(1)comments.(1-2)entry.(1)product.name="Symbian"'
+    - 'OperatingSystemName   :   310:"SymbianOS"'
     - 'OperatingSystemVersion:   310:agent.(1)product.(1)comments.(1-2)entry.(1)product.name="Symbian"^.version'
 
 - matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1-2)entry.(1)product.name="SymbianOS"'
     extract:
     - 'DeviceClass           :   320:"Phone"'
     - 'DeviceBrand           :   320:"Nokia"'
     - 'DeviceName            :   320:agent.(1)product.(1)name!="Mozilla"'
     - 'DeviceVersion         :   320:agent.(1)product.(1)version'
     - 'OperatingSystemClass  :   310:"Mobile"'
-    - 'OperatingSystemName   :   310:agent.(1)product.(1)comments.(1-2)entry.(1)product.name="SymbianOS"'
+    - 'OperatingSystemName   :   310:"SymbianOS"'
     - 'OperatingSystemVersion:   310:agent.(1)product.(1)comments.(1-2)entry.(1)product.name="SymbianOS"^.version'
 
 - test:

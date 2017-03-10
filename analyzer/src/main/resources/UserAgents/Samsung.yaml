@@ -34,7 +34,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-G920F/G920FXXEinterim Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/44.0.2403.133 Mobile Safari/537.36'
     expected:
       DeviceClass                          : 'Phone'
-      DeviceName                           : 'Samsung SM-G920F'
+      DeviceName                           : 'Samsung SM-G920F/G920FXXEINTERIM'
       DeviceBrand                          : 'Samsung'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
@@ -112,7 +112,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.0.4; nl-nl; SAMSUNG GT-I9300/I9300BUALF1 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
     expected:
       DeviceClass                          : 'Phone'
-      DeviceName                           : 'Samsung GT-I9300'
+      DeviceName                           : 'Samsung GT-I9300/I9300BUALF1'
       DeviceBrand                          : 'Samsung'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
@@ -167,12 +167,6 @@ config:
       AgentNameVersionMajor                : 'Opera Mini 7'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
-
-- matcher:
-    extract:
-    - 'DeviceClass           :   100:"Mobile"'
-    - 'DeviceBrand           :   100:"Samsung"'
-    - 'DeviceName            :   100:agent.(1)product.(1)comments.entry.(1)product.(1)name="SAMSUNG"^.version'
 
 - test:
     input:

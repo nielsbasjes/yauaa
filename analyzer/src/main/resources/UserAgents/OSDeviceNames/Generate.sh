@@ -50,15 +50,16 @@ echo "config:"
 
 cat "OperatingSystemDeviceNames.csv" | grep . | fgrep -v '#' | while read line ; \
 do
-    osname=$(   echo ${line} | cut -d'|' -f1)
-    devclass=$( echo ${line} | cut -d'|' -f2)
-    devname=$(  echo ${line} | cut -d'|' -f3)
-    devbrand=$( echo ${line} | cut -d'|' -f4)
-    osclass=$(  echo ${line} | cut -d'|' -f5)
+    ospattern=$(echo ${line} | cut -d'|' -f1)
+    osname=$(   echo ${line} | cut -d'|' -f2)
+    devclass=$( echo ${line} | cut -d'|' -f3)
+    devname=$(  echo ${line} | cut -d'|' -f4)
+    devbrand=$( echo ${line} | cut -d'|' -f5)
+    osclass=$(  echo ${line} | cut -d'|' -f6)
 echo "
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.text=\"${osname}\"'
+    - 'agent.(1)product.(1)comments.entry.text=\"${ospattern}\"'
     extract:
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
@@ -74,23 +75,23 @@ echo "
     - 'DeviceBrand           :  111:\"${devbrand}\"'
     - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
-    - 'OperatingSystemVersion:  150:CleanVersion[agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.(1)version]'
+    - 'OperatingSystemVersion:  150:CleanVersion[agent.(1)product.(1)comments.entry.product.name=\"${ospattern}\"^.(1)version]'
 
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     require:
-    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.(2)version]]'
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name=\"${ospattern}\"^.(2)version]]'
     extract:
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
     - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
-    - 'OperatingSystemVersion:  151:CleanVersion[agent.(1)product.(1)comments.entry.product.name=\"${osname}\"^.(2)version]'
+    - 'OperatingSystemVersion:  151:CleanVersion[agent.(1)product.(1)comments.entry.product.name=\"${ospattern}\"^.(2)version]'
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text=\"${osname}\"'
+    - 'agent.product.(1)comments.entry.text=\"${ospattern}\"'
     extract:
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
@@ -106,23 +107,23 @@ echo "
     - 'DeviceBrand           :  111:\"${devbrand}\"'
     - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
-    - 'OperatingSystemVersion:  150:CleanVersion[agent.product.name=\"${osname}\"^.(1)version]'
+    - 'OperatingSystemVersion:  150:CleanVersion[agent.product.name=\"${ospattern}\"^.(1)version]'
 
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     require:
-    - 'IsNull[LookUp[CPUArchitectures;agent.product.name=\"${osname}\"^.(2)version]]'
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name=\"${ospattern}\"^.(2)version]]'
     extract:
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
     - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
-    - 'OperatingSystemVersion:  151:CleanVersion[agent.product.name=\"${osname}\"^.(2)version]'
+    - 'OperatingSystemVersion:  151:CleanVersion[agent.product.name=\"${ospattern}\"^.(2)version]'
 
 - matcher:
     require:
-    - 'agent.product.name[-1]=\"${osname}\"'
+    - 'agent.product.name[-1]=\"${ospattern}\"'
     extract:
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
@@ -133,7 +134,7 @@ echo "
 
 - matcher:
     require:
-    - 'agent.product.name[-2]=\"${osname}\"'
+    - 'agent.product.name[-2]=\"${ospattern}\"'
     extract:
     - 'DeviceClass           :  112:\"${devclass}\"'
     - 'DeviceName            :  112:\"${devname}\"'
