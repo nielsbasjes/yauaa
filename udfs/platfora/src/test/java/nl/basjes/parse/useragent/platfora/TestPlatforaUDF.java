@@ -36,7 +36,7 @@ public class TestPlatforaUDF {
         List<String> arguments = new ArrayList<>();
         arguments.add(useragent);
         arguments.add("DeviceName");
-        assertEquals("Nexus 6", udf.compute(arguments));
+        assertEquals("Google Nexus 6", udf.compute(arguments));
     }
 
     @Test
