@@ -35,7 +35,8 @@ is converted into this set of fields:
 | Field name | Value |
 | --- | --- |
 |  **Device**Class                      | 'Phone'                |
-|  **Device**Name                       | 'Nexus 6'              |
+|  **Device**Name                       | 'Google Nexus 6'       |
+|  **Device**Brand                      | 'Google'               |
 |  **OperatingSystem**Class             | 'Mobile'               |
 |  **OperatingSystem**Name              | 'Android'              |
 |  **OperatingSystem**Version           | '7.0'                  |
