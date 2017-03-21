@@ -100,6 +100,7 @@ public final class Normalize {
     public static String cleanupDeviceBrandName(String deviceBrand, String deviceName) {
         String lowerDeviceBrand = deviceBrand.toLowerCase(Locale.ENGLISH);
 
+        deviceName = deviceName.replaceAll("_", " ");
         deviceName = deviceName.replaceAll("- +", "-");
         deviceName = deviceName.replaceAll(" +-", "-");
         deviceName = deviceName.replaceAll(" +", " ");
