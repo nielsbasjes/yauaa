@@ -34,7 +34,6 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
 
     private static final TupleFactory TUPLE_FACTORY = TupleFactory.getInstance();
     private UserAgentAnalyzer analyzer = null;
-    private static List<String> allFieldNames = null;
 
     private int cacheSize = -1;
     private List<String> requestedFields = new ArrayList<>(32);
@@ -49,15 +48,18 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
             if (cacheSize >= 0) {
                 analyzerBuilder.withCache(cacheSize);
             }
-            if (requestedFields.isEmpty()) {
-                requestedFields.addAll(allFieldNames);
-            } else {
+
+            if (!requestedFields.isEmpty()) {
                 for (String requestedField : requestedFields) {
                     analyzerBuilder.withField(requestedField);
                 }
             }
+
             analyzer = analyzerBuilder.build();
-            allFieldNames = analyzer.getAllPossibleFieldNamesSorted();
+
+            if (requestedFields.isEmpty()) {
+                requestedFields.addAll(analyzer.getAllPossibleFieldNamesSorted());
+            }
 
             initialized = true;
         }
@@ -66,7 +68,7 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
     public ParseUserAgent() {
     }
 
-    public ParseUserAgent(String ... parameters) {
+    public ParseUserAgent(String... parameters) {
         boolean firstParam = true;
         requestedFields.clear();
         for (String parameter : parameters) {

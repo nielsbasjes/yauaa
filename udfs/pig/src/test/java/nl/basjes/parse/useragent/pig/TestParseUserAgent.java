@@ -37,14 +37,15 @@ public class TestParseUserAgent {
 
     private String testUserAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36";
     @Test
-    public void testParseUserAgentPigUDF() throws Exception {
+    public void testParseUserAgentPigUDF_allFields() throws Exception {
         PigServer pigServer = new PigServer(ExecType.LOCAL);
         Storage.Data storageData = resetData(pigServer);
 
         storageData.set("agents", "agent:chararray", tuple(testUserAgent));
 
+        pigServer.registerQuery("define ParseUserAgent nl.basjes.parse.useragent.pig.ParseUserAgent();");
         pigServer.registerQuery("A = LOAD 'agents' USING mock.Storage();");
-        pigServer.registerQuery("B = FOREACH A GENERATE nl.basjes.parse.useragent.pig.ParseUserAgent(agent);");
+        pigServer.registerQuery("B = FOREACH A GENERATE ParseUserAgent(agent);");
         pigServer.registerQuery("STORE B INTO 'parsedAgents' USING mock.Storage();");
         verifyStorageData(storageData);
     }
