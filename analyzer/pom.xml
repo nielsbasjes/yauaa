@@ -53,7 +53,7 @@
     <dependency>
       <groupId>args4j</groupId>
       <artifactId>args4j</artifactId>
-        <version>2.33</version>
+      <version>2.33</version>
     </dependency>
 
     <dependency>
@@ -120,26 +120,59 @@
         </configuration>
       </plugin>
 
+      <!-- Some of the dependencies (Antlr4 and Spring) have proven to be problematic for    -->
+      <!-- downstream users who need different versions of these in the same application.    -->
+      <!-- So for only these two we include and relocate the used classes into the main jar. -->
       <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.6</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.0.0</version>
+
+        <configuration>
+          <minimizeJar>true</minimizeJar>
+          <relocations>
+            <relocation>
+              <pattern>org.springframework</pattern>
+              <shadedPattern>nl.basjes.shaded.org.springframework</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>org.antlr</pattern>
+              <shadedPattern>nl.basjes.shaded.org.antlr</shadedPattern>
+            </relocation>
+          </relocations>
+        </configuration>
+
         <executions>
           <execution>
-            <id>make-super-jar</id>
+            <id>inject-problematic-dependencies</id>
             <phase>package</phase>
             <goals>
-              <goal>single</goal>
+              <goal>shade</goal>
             </goals>
             <configuration>
-              <descriptors>
-                <descriptor>src/main/assembly/udf.xml</descriptor>
-              </descriptors>
-              <archive>
-                <addMavenDescriptor>true</addMavenDescriptor>
-                <manifest>
+              <artifactSet>
+                <includes>
+                  <include>org.antlr:antlr4-runtime</include>
+                  <include>org.springframework:spring-core</include>
+                </includes>
+              </artifactSet>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>create-command-line-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <shadedArtifactAttached>true</shadedArtifactAttached>
+              <shadedClassifierName>udf</shadedClassifierName>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <mainClass>${mainClass}</mainClass>
-                </manifest>
-              </archive>
+                </transformer>
+              </transformers>
             </configuration>
           </execution>
         </executions>
