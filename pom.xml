@@ -121,7 +121,7 @@
     </profile>
 
     <profile>
-      <id>ReportCoverage</id>
+      <id>EnableReportPlugins</id>
       <build>
         <plugins>
           <plugin>
@@ -133,6 +133,22 @@
             <artifactId>coveralls-maven-plugin</artifactId>
             <version>4.3.0</version>
           </plugin>
+
+          <plugin>
+            <groupId>com.srcclr</groupId>
+            <artifactId>srcclr-maven-plugin</artifactId>
+            <version>2.3.3</version>
+            <executions>
+              <execution>
+                <id>srcclr-scan</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>scan</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
         </plugins>
       </build>
     </profile>

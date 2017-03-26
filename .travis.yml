@@ -1,7 +1,7 @@
 language: java
 
 after_success:
-  - mvn clean -PReportCoverage cobertura:cobertura coveralls:report
+  - mvn clean -PEnableReportPlugins cobertura:cobertura coveralls:report com.srcclr:srcclr-maven-plugin:scan
 
 cache:
   directories:
