@@ -38,7 +38,8 @@
     <hadoop.version>2.7.2</hadoop.version>
     <pig.version>0.16.0</pig.version>
     <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
-    <slf4j.version>1.7.21</slf4j.version>
+    <slf4j.version>1.7.25</slf4j.version>
+    <logparser.version>3.0</logparser.version>
   </properties>
 
   <dependencies>
@@ -132,22 +133,6 @@
             <artifactId>coveralls-maven-plugin</artifactId>
             <version>4.3.0</version>
           </plugin>
-
-          <plugin>
-            <groupId>com.srcclr</groupId>
-            <artifactId>srcclr-maven-plugin</artifactId>
-            <version>2.3.3</version>
-            <executions>
-              <execution>
-                <id>srcclr-scan</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>scan</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
         </plugins>
       </build>
     </profile>
