@@ -66,6 +66,7 @@ public final class UserAgentClassifier {
     }
 
     /**
+     * @param userAgent The instance that needs to be classified.
      * @return Is this a 'normal' consumer device that can simply be bought/downloaded and used as intended.
      */
     public static boolean isNormalConsumerDevice(UserAgent userAgent) {
@@ -96,6 +97,7 @@ public final class UserAgentClassifier {
     }
 
     /**
+     * @param userAgent The instance that needs to be classified.
      * @return Is this a 'mobile' device. (includes robots that want to be treated as mobile)
      */
     public static boolean isMobile(UserAgent userAgent) {
@@ -126,6 +128,7 @@ public final class UserAgentClassifier {
     }
 
     /**
+     * @param userAgent The instance that needs to be classified.
      * @return If this is probably a human using the device.
      */
     public static boolean isHuman(UserAgent userAgent) {
@@ -156,6 +159,7 @@ public final class UserAgentClassifier {
     }
 
     /**
+     * @param userAgent The instance that needs to be classified.
      * @return Do we see this as deliberate misuse?
      */
     public static boolean isDeliberateMisuse(UserAgent userAgent) {

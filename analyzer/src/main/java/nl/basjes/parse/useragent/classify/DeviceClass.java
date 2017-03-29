@@ -31,15 +31,15 @@ public enum DeviceClass {
      */
     Mobile("Mobile"),
     /**
-     * A mobile device with a rather large screen (common > 7").
+     * A mobile device with a rather large screen (common &gt; 7").
      */
     Tablet("Tablet"),
     /**
-     * A mobile device with a small screen (common < 7").
+     * A mobile device with a small screen (common &lt; 7").
      */
     Phone("Phone"),
     /**
-     * A mobile device with a tiny screen (common < 2"). Normally these are an additional screen for a phone/tablet type device.
+     * A mobile device with a tiny screen (common &lt; 2"). Normally these are an additional screen for a phone/tablet type device.
      */
     Watch("Watch"),
     /**
