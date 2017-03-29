@@ -56,11 +56,21 @@
       <version>2.33</version>
     </dependency>
 
+    <!--========================================-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
       <version>4.3.7.RELEASE</version>
     </dependency>
+
+    <!-- Needed to define this dependency for spring-core explicitly because we shaded spring-core in -->
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.2</version>
+      <scope>compile</scope>
+    </dependency>
+    <!--========================================-->
 
     <dependency>
       <groupId>org.apache.commons</groupId>
