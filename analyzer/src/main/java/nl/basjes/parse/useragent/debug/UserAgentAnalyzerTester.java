@@ -83,7 +83,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
         List<TestResult> results = new ArrayList<>(32);
 
-        String filenameHeader = "Name of the testfile";
+        String filenameHeader = "Test number and source";
         int filenameHeaderLength = filenameHeader.length();
         int maxFilenameLength = filenameHeaderLength;
         for (Map<String, Map<String, String>> test : testCases) {
@@ -92,7 +92,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             maxFilenameLength = Math.max(maxFilenameLength, filename.length());
         }
 
-        maxFilenameLength++;
+        maxFilenameLength+=11;
 
         StringBuilder sb = new StringBuilder(1024);
 
@@ -116,8 +116,9 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             LOG.info("+-------------------------------------------------------------------------------------------");
         }
 
+        int testcount = 0;
         for (Map<String, Map<String, String>> test : testCases) {
-
+            testcount++;
             Map<String, String> input = test.get("input");
             Map<String, String> expected = test.get("expected");
 
@@ -125,6 +126,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             List<String> options = (List<String>) test.get("options");
             Map<String, String> metaData = test.get("metaData");
             String filename = metaData.get("filename");
+            String linenumber = metaData.get("fileline");
 
             boolean init = false;
 
@@ -149,8 +151,10 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             }
 
             sb.setLength(0);
-            sb.append("| ").append(filename);
-            for (int i = filename.length(); i < maxFilenameLength; i++) {
+
+            sb.append("|").append(String.format("%4d", testcount))
+              .append(".(").append(filename).append(':').append(linenumber).append(')');
+            for (int i = filename.length()+linenumber.length()+7; i < maxFilenameLength; i++) {
                 sb.append(' ');
             }
 

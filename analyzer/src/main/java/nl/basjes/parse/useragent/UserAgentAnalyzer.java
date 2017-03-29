@@ -25,6 +25,7 @@ import nl.basjes.parse.useragent.analyze.UselessMatcherException;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
 import nl.basjes.parse.useragent.utils.Normalize;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
+import nl.basjes.parse.useragent.utils.YamlUtils;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.collections4.map.LRUMap;
 import org.slf4j.Logger;
@@ -32,6 +33,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.nodes.MappingNode;
+import org.yaml.snakeyaml.nodes.Node;
+import org.yaml.snakeyaml.nodes.NodeTuple;
+import org.yaml.snakeyaml.nodes.SequenceNode;
+import org.yaml.snakeyaml.reader.UnicodeReader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -66,6 +72,12 @@ import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.PRE_SORTED_FIELDS_LIST;
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
+import static nl.basjes.parse.useragent.utils.YamlUtils.fail;
+import static nl.basjes.parse.useragent.utils.YamlUtils.getExactlyOneNodeTuple;
+import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
+import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsMappingNode;
+import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsSequenceNode;
+import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsString;
 
 public class UserAgentAnalyzer extends Analyzer {
 
@@ -75,7 +87,7 @@ public class UserAgentAnalyzer extends Analyzer {
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
     protected List<Matcher>                     allMatchers             = new ArrayList<>();
     private Map<String, Set<MatcherAction>>     informMatcherActions    = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
-    private final Map<String, List<Map<String, List<String>>>> matcherConfigs = new HashMap<>(64);
+    private final Map<String, List<MappingNode>> matcherConfigs = new HashMap<>(64);
 
     private boolean doingOnlyASingleTest = false;
 
@@ -208,16 +220,16 @@ public class UserAgentAnalyzer extends Analyzer {
             for (Map.Entry<String, Resource> resourceEntry : resources.entrySet()) {
                 Resource resource = resourceEntry.getValue();
                 String configFilename= resource.getFilename();
-                List<Map<String, List<String>>> matcherConfig = matcherConfigs.get(configFilename);
+                List<MappingNode> matcherConfig = matcherConfigs.get(configFilename);
                 if (matcherConfig== null) {
                     continue; // No matchers in this file (probably only lookups and/or tests)
                 }
 
                 long start = System.nanoTime();
                 int startSize = informMatcherActions.size();
-                for (Map<String, List<String>> map : matcherConfig) {
+                for (MappingNode map : matcherConfig) {
                     try {
-                        allMatchers.add(new Matcher(this, lookups, wantedFieldNames, map));
+                        allMatchers.add(new Matcher(this, lookups, wantedFieldNames, map, configFilename));
                         totalNumberOfMatchers++;
                     } catch (UselessMatcherException ume) {
                         skippedMatchers++;
@@ -285,9 +297,8 @@ public class UserAgentAnalyzer extends Analyzer {
             fieldNames.remove(fieldName);
             result.add(fieldName);
         }
-        for (String fieldName : fieldNames) {
-            result.add(fieldName);
-        }
+        result.addAll(fieldNames);
+
         return result;
     }
 
@@ -323,142 +334,183 @@ config:
 */
 
     private void loadResource(InputStream yamlStream, String filename) {
-        Object loadedYaml;
-        try {
-            loadedYaml = yaml.load(yamlStream);
-        } catch (Exception e) {
-            LOG.error("Caught exception during parse of file {}", filename);
-            throw e;
+        Node loadedYaml = yaml.compose(new UnicodeReader(yamlStream));
+
+        if (loadedYaml == null) {
+            LOG.error("The file {} is empty", filename);
+            return;
         }
 
-        if (!(loadedYaml instanceof Map)) {
-            throw new InvalidParserConfigurationException(
-                "Yaml config  ("+filename+"): File must be a Map");
+        // Get and check top level config
+        if (!(loadedYaml instanceof MappingNode)) {
+            fail(loadedYaml, filename, "File must be a Map");
         }
 
-        @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
-        Object rawConfig = ((Map<String, Object>) loadedYaml).get("config");
-        if (rawConfig == null) {
-            throw new InvalidParserConfigurationException(
-                "Yaml config ("+filename+"): Missing 'config' top level entry");
-        }
-        if (!(rawConfig instanceof List)) {
-            throw new InvalidParserConfigurationException(
-                "Yaml config ("+filename+"): Top level 'config' must be a Map");
-        }
+        MappingNode rootNode = (MappingNode)loadedYaml;
 
-        @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
-        List<Object> configList = (List<Object>)rawConfig;
-        int entryCount = 0;
-        for (Object configEntry: configList) {
-            entryCount++;
-            if (!(configEntry instanceof Map)) {
-                throw new InvalidParserConfigurationException(
-                    "Yaml config ("+filename+" ["+entryCount+"]): Entry must be a Map");
+        NodeTuple configNodeTuple = null;
+        for (NodeTuple tuple: rootNode.getValue()){
+            String name = getKeyAsString(tuple, filename);
+            if ("config".equals(name)) {
+                configNodeTuple = tuple;
+                break;
             }
-            @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
-            Map<String, Object> entry = (Map<String, Object>) configEntry;
-            if (entry.size() != 1) {
-                StringBuilder sb = new StringBuilder();
-                for (String key: entry.keySet()) {
-                    sb.append('"').append(key).append("\" ");
-                }
-                throw new InvalidParserConfigurationException(
-                    "Yaml config ("+filename+" ["+entryCount+"]): Entry has more than one child: "+sb.toString());
+        }
+
+        String configKeyName = getKeyAsString(configNodeTuple, filename);
+        if (!configKeyName.equals("config")) {
+            fail(loadedYaml, filename, "The top level entry MUST be 'config'.");
+        }
+
+        SequenceNode configNode = getValueAsSequenceNode(configNodeTuple, filename);
+        List<Node> configList = configNode.getValue();
+
+        for (Node configEntry: configList) {
+            if (!(configEntry instanceof MappingNode)) {
+                fail(loadedYaml, filename, "The entry MUST be a mapping");
             }
 
-            Map.Entry<String, Object> onlyEntry = entry.entrySet().iterator().next();
-            String key   = onlyEntry.getKey();
-            Object value = onlyEntry.getValue();
-            switch (key) {
-
+            NodeTuple entry = getExactlyOneNodeTuple((MappingNode)configEntry, filename);
+            MappingNode actualEntry = getValueAsMappingNode(entry, filename);
+            String entryType = getKeyAsString(entry, filename);
+            switch (entryType) {
                 case "lookup":
-                    if (!(value instanceof Map)) {
-                        throw new InvalidParserConfigurationException(
-                            "Yaml config ("+filename+" ["+entryCount+"]): Entry 'lookup' must be a Map");
-                    }
-
-                    @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
-                    Map<String, Object> newLookup = (Map<String, Object>)value;
-                    Object rawName = newLookup.get("name");
-                    if (rawName == null) {
-                        throw new InvalidParserConfigurationException(
-                            "Yaml config ("+filename+" ["+entryCount+"]): Lookup does not have 'name'");
-                    }
-                    if (!(rawName instanceof String)) {
-                        throw new InvalidParserConfigurationException(
-                            "Yaml config ("+filename+" ["+entryCount+"]): Lookup 'name' must be a String");
-                    }
-
-                    Object rawMap = newLookup.get("map");
-                    if (rawMap == null) {
-                        throw new InvalidParserConfigurationException(
-                            "Yaml config ("+filename+" ["+entryCount+"]): Lookup does not have 'map'");
-                    }
-                    if (!(rawMap instanceof Map)) {
-                        throw new InvalidParserConfigurationException(
-                            "Yaml config ("+filename+" ["+entryCount+"]): Lookup 'map' must be a Map");
-                    }
-
-                    @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
-                    Map<String, String> map = (Map<String, String>)rawMap;
-                    lookups.put((String)rawName, map);
+                    loadYamlLookup(actualEntry, filename);
                     break;
-
                 case "matcher":
-                    if (!(value instanceof Map)) {
-                        throw new InvalidParserConfigurationException(
-                            "Yaml config ("+filename+"): Entry 'matcher' must be a Map");
-                    }
-                    @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
-                    Map<String, List<String>> matcherConfig = (Map<String, List<String>>) value;
-
-                    List<Map<String, List<String>>> matcherConfigList = matcherConfigs.get(filename);
-                    if (matcherConfigList == null) {
-                        matcherConfigList = new ArrayList<>(32);
-                        matcherConfigs.put(filename, matcherConfigList);
-                    }
-                    matcherConfigList.add(matcherConfig);
+                    loadYamlMatcher(actualEntry, filename);
                     break;
-
                 case "test":
-                    if (!doingOnlyASingleTest) {
-                        if (!(value instanceof Map)) {
-                            throw new InvalidParserConfigurationException(
-                                "Yaml config (" + filename + "): Entry 'testcase' must be a Map");
-                        }
-                        @SuppressWarnings({"unchecked"}) // Ignoring the possibly wrong generic here
-                                Map<String, Map<String, String>> testCase = (Map<String, Map<String, String>>) value;
-                        Map<String, String> metaData = testCase.get("metaData");
-                        if (metaData == null) {
-                            metaData = new HashMap<>();
-                            testCase.put("metaData", metaData);
-                        }
-                        metaData.put("filename", filename);
-                        metaData.put("fileentry", String.valueOf(entryCount));
+                    loadYamlTestcase(actualEntry, filename);
+                    break;
+                default:
+                    throw new InvalidParserConfigurationException(
+                        "Yaml config.("+filename+":"+actualEntry.getStartMark().getLine()+"): " +
+                            "Found unexpected config entry: " + entryType + ", allowed are 'lookup, 'matcher' and 'test'");
+            }
+        }
+    }
 
-                        @SuppressWarnings("unchecked")
-                        List<String> options = (List<String>) testCase.get("options");
-                        Map<String, String> expected = testCase.get("expected");
+    private void loadYamlLookup(MappingNode entry, String filename) {
+//        LOG.info("Loading lookup.({}:{})", filename, entry.getStartMark().getLine());
+        String name = null;
+        Map<String, String> map = null;
+
+        for (NodeTuple tuple: entry.getValue()) {
+            switch(getKeyAsString(tuple, filename)) {
+                case "name":
+                    name = getValueAsString(tuple, filename);
+                    break;
+                case "map":
+                    if (map == null) {
+                        map = new HashMap<>();
+                    }
+                    List<NodeTuple> mappings = getValueAsMappingNode(tuple, filename).getValue();
+                    for (NodeTuple mapping: mappings) {
+                        String key   = getKeyAsString(mapping, filename);
+                        String value = getValueAsString(mapping, filename);
+                        map.put(key, value);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (name == null && map == null) {
+            fail(entry, filename, "Invalid lookup specified");
+        }
+
+        lookups.put(name, map);
+    }
+
+    private void loadYamlMatcher(MappingNode entry, String filename) {
+//        LOG.info("Loading matcher.({}:{})", filename, entry.getStartMark().getLine());
+        List<MappingNode> matcherConfigList = matcherConfigs.get(filename);
+        if (matcherConfigList == null) {
+            matcherConfigList = new ArrayList<>(32);
+            matcherConfigs.put(filename, matcherConfigList);
+        }
+        matcherConfigList.add(entry);
+    }
+
+    private void loadYamlTestcase(MappingNode entry, String filename) {
+        if (!doingOnlyASingleTest) {
+//            LOG.info("Skipping testcase.({}:{})", filename, entry.getStartMark().getLine());
+//        } else {
+//            LOG.info("Loading testcase.({}:{})", filename, entry.getStartMark().getLine());
+
+            Map<String, String> metaData = new HashMap<>();
+            metaData.put("filename", filename);
+            metaData.put("fileline", String.valueOf(entry.getStartMark().getLine()));
+
+            Map<String, String> input = null;
+            List<String> options = null;
+            Map<String, String> expected = null;
+            for (NodeTuple tuple: entry.getValue()) {
+                String name = getKeyAsString(tuple, filename);
+                switch (name) {
+                    case "options":
+                        options = YamlUtils.getStringValues(tuple.getValueNode(), filename);
                         if (options != null) {
                             if (options.contains("only")) {
                                 doingOnlyASingleTest = true;
                                 testCases.clear();
                             }
                         }
-                        if (expected == null || expected.isEmpty()) {
-                            doingOnlyASingleTest = true;
-                            testCases.clear();
+                        break;
+                    case "input":
+                        for (NodeTuple inputTuple: getValueAsMappingNode(tuple, filename).getValue()) {
+                            String inputName = getKeyAsString(inputTuple, filename);
+                            switch (inputName) {
+                                case "user_agent_string":
+                                    String inputString = getValueAsString(inputTuple, filename);
+                                    input = new HashMap<>();
+                                    input.put(inputName, inputString);
+                                    break;
+                                case "name": // FIXME: handle name
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
-
-                        testCases.add(testCase);
-                    }
-                    break;
-
-                default:
-                    throw new InvalidParserConfigurationException(
-                        "Yaml config ("+filename+"): Found unexpected config entry: " + key + ", allowed are 'lookup, 'matcher' and 'test'");
+                        break;
+                    case "expected":
+                        List<NodeTuple> mappings = getValueAsMappingNode(tuple, filename).getValue();
+                        if (mappings != null) {
+                            if (expected == null) {
+                                expected = new HashMap<>();
+                            }
+                            for (NodeTuple mapping : mappings) {
+                                String key = getKeyAsString(mapping, filename);
+                                String value = getValueAsString(mapping, filename);
+                                expected.put(key, value);
+                            }
+                        }
+                        break;
+                    default:
+//                        fail(tuple.getKeyNode(), filename, "Unexpected: " + name);
+                        break; // Skip
+                }
             }
+
+            if (input == null) {
+                fail(entry, filename, "Test is missing input");
+            }
+
+            if (expected == null || expected.isEmpty()) {
+                doingOnlyASingleTest = true;
+                testCases.clear();
+            }
+
+            Map<String, Map<String, String>> testCase = new HashMap<>();
+
+            testCase.put("input", input);
+            if (expected != null) {
+                testCase.put("expected", expected);
+            }
+            testCase.put("metaData", metaData);
+            testCases.add(testCase);
         }
 
     }

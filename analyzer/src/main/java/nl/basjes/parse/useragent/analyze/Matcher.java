@@ -18,8 +18,11 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.utils.YamlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.yaml.snakeyaml.nodes.MappingNode;
+import org.yaml.snakeyaml.nodes.NodeTuple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
+import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
 
 public class Matcher {
     private static final Logger LOG = LoggerFactory.getLogger(Matcher.class);
@@ -43,6 +47,9 @@ public class Matcher {
     private boolean verbose;
     private boolean permanentVerbose;
 
+    // Used for error reporting: The filename where the config was located.
+    private String filename;
+
     // Package private constructor for testing purposes only
     Matcher(Analyzer analyzer, Map<String, Map<String, String>> lookups) {
         this.lookups = lookups;
@@ -54,7 +61,8 @@ public class Matcher {
     public Matcher(Analyzer analyzer,
                    Map<String, Map<String, String>> lookups,
                    Set<String> wantedFieldNames,
-                   Map<String, List<String>> matcherConfig) throws UselessMatcherException {
+                   MappingNode matcherConfig,
+                   String filename) throws UselessMatcherException {
         this.lookups = lookups;
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
@@ -64,8 +72,31 @@ public class Matcher {
             throw new InvalidParserConfigurationException("Got a 'null' config setting");
         }
 
+        this.filename = filename + ':' + matcherConfig.getStartMark().getLine();
+
         verbose = false;
-        List<String> options = matcherConfig.get("options");
+
+        List<String> options = null;
+        List<String> requireConfigs = null;
+        List<String> extractConfigs = null;
+        for (NodeTuple nodeTuple: matcherConfig.getValue()) {
+            String name = getKeyAsString(nodeTuple, filename);
+            switch (name) {
+                case "options":
+                    options = YamlUtils.getStringValues(nodeTuple.getValueNode(), filename);
+                    break;
+                case "require":
+                    requireConfigs = YamlUtils.getStringValues(nodeTuple.getValueNode(), filename);
+                    break;
+                case "extract":
+                    extractConfigs = YamlUtils.getStringValues(nodeTuple.getValueNode(), filename);
+                    break;
+                default:
+                    // Ignore
+//                    fail(nodeTuple.getKeyNode(), filename, "Unexpected " + name);
+            }
+        }
+
         if (options != null) {
             verbose = options.contains("verbose");
         }
@@ -75,8 +106,6 @@ public class Matcher {
             LOG.info("---------------------------");
             LOG.info("- MATCHER -");
         }
-
-        List<String> extractConfigs = matcherConfig.get("extract");
 
         if (extractConfigs == null) {
             throw new InvalidParserConfigurationException("Matcher does not extract anything");
@@ -105,7 +134,6 @@ public class Matcher {
         }
 
         // First the requires because they are meant to fail faster
-        List<String> requireConfigs = matcherConfig.get("require");
         if (requireConfigs != null) {
             for (String requireConfig : requireConfigs) {
                 if (verbose) {
@@ -315,7 +343,7 @@ public class Matcher {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(512);
-        sb.append("MATCHER:\n");
+        sb.append("MATCHER.(").append(filename).append("):\n");
         sb.append("    REQUIRE:\n");
         for (MatcherAction action : dynamicActions) {
             if (action instanceof MatcherRequireAction) {
