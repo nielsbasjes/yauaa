@@ -130,10 +130,10 @@ public final class Normalize {
 
     public static String email(String email) {
         String cleaned = email;
-        cleaned = cleaned.replaceAll("\\[at\\]", "@");
+        cleaned = cleaned.replaceAll("\\[at]", "@");
 
-        cleaned = cleaned.replaceAll("\\[\\\\xc3\\\\xa07\\]", "@");
-        cleaned = cleaned.replaceAll("\\[dot\\]", ".");
+        cleaned = cleaned.replaceAll("\\[\\\\xc3\\\\xa07]", "@");
+        cleaned = cleaned.replaceAll("\\[dot]", ".");
         cleaned = cleaned.replaceAll("\\\\", " ");
         cleaned = cleaned.replaceAll(" at ", "@");
         cleaned = cleaned.replaceAll("dot", ".");
