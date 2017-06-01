@@ -127,11 +127,11 @@ GIBBERISH   : '@'(~[ ;])*;
 
 // A version is a WORD with at least 1 number in it (and that can contain a '-').
 VERSION
-    : (~[0-9+;{}()\\/ \t:=[\]\"])*[0-9]+(~[+;{}()\\/ \t:=[\]\"])*
+    : (~[0-9+;{}()\\/ \t:=[\]"])*[0-9]+(~[+;{}()\\/ \t:=[\]"])*
     ;
 
 fragment WORDLetter
-    : (~[0-9+;,{}()\\/ \t:=[\]\"-])  // Normal letters
+    : (~[0-9+;,{}()\\/ \t:=[\]"-])             // Normal letters
     | '\\x'[0-9a-f][0-9a-f]                    // Hex encoded letters \xab\x12
     ;
 WORD
