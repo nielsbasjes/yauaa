@@ -73,21 +73,22 @@ Output from the benchmark ( [using this code](benchmarks/src/main/java/nl/basjes
 
 | Benchmark                                 | Mode | Cnt | Score |   | Error | Units |
 | ---                                       | ---  | --- | ---  | --- | ---  | ---   |
-| AnalyzerBenchmarks.android6Chrome46       | avgt |  10 | 0.538 | ± | 0.021 | ms/op |
-| AnalyzerBenchmarks.androidPhone           | avgt |  10 | 0.688 | ± | 0.025 | ms/op |
-| AnalyzerBenchmarks.googleAdsBot           | avgt |  10 | 0.111 | ± | 0.002 | ms/op |
-| AnalyzerBenchmarks.googleAdsBotMobile     | avgt |  10 | 0.385 | ± | 0.021 | ms/op |
-| AnalyzerBenchmarks.googleBotMobileAndroid | avgt |  10 | 0.575 | ± | 0.021 | ms/op |
-| AnalyzerBenchmarks.googlebot              | avgt |  10 | 0.199 | ± | 0.004 | ms/op |
-| AnalyzerBenchmarks.hackerSQL              | avgt |  10 | 0.096 | ± | 0.003 | ms/op |
-| AnalyzerBenchmarks.hackerShellShock       | avgt |  10 | 0.084 | ± | 0.002 | ms/op |
-| AnalyzerBenchmarks.iPad                   | avgt |  10 | 0.344 | ± | 0.011 | ms/op |
-| AnalyzerBenchmarks.iPhone                 | avgt |  10 | 0.341 | ± | 0.006 | ms/op |
-| AnalyzerBenchmarks.iPhoneFacebookApp      | avgt |  10 | 0.695 | ± | 0.026 | ms/op |
-| AnalyzerBenchmarks.win10Chrome51          | avgt |  10 | 0.307 | ± | 0.011 | ms/op |
-| AnalyzerBenchmarks.win10Edge13            | avgt |  10 | 0.336 | ± | 0.013 | ms/op |
-| AnalyzerBenchmarks.win10IE11              | avgt |  10 | 0.282 | ± | 0.008 | ms/op |
-| AnalyzerBenchmarks.win7ie11               | avgt |  10 | 0.279 | ± | 0.007 | ms/op |
+| AnalyzerBenchmarks.android6Chrome46       | avgt |  10 | 0.879 | ± | 0.031 | ms/op |
+| AnalyzerBenchmarks.androidPhone           | avgt |  10 | 1.021 | ± | 0.030 | ms/op |
+| AnalyzerBenchmarks.googleAdsBot           | avgt |  10 | 0.166 | ± | 0.006 | ms/op |
+| AnalyzerBenchmarks.googleAdsBotMobile     | avgt |  10 | 0.489 | ± | 0.010 | ms/op |
+| AnalyzerBenchmarks.googleBotMobileAndroid | avgt |  10 | 0.944 | ± | 0.058 | ms/op |
+| AnalyzerBenchmarks.googlebot              | avgt |  10 | 0.288 | ± | 0.010 | ms/op |
+| AnalyzerBenchmarks.hackerSQL              | avgt |  10 | 0.191 | ± | 0.004 | ms/op |
+| AnalyzerBenchmarks.hackerShellShock       | avgt |  10 | 0.137 | ± | 0.006 | ms/op |
+| AnalyzerBenchmarks.iPad                   | avgt |  10 | 0.452 | ± | 0.009 | ms/op |
+| AnalyzerBenchmarks.iPhone                 | avgt |  10 | 0.450 | ± | 0.011 | ms/op |
+| AnalyzerBenchmarks.iPhoneFacebookApp      | avgt |  10 | 0.848 | ± | 0.057 | ms/op |
+| AnalyzerBenchmarks.win10Chrome51          | avgt |  10 | 0.411 | ± | 0.014 | ms/op |
+| AnalyzerBenchmarks.win10Edge13            | avgt |  10 | 0.447 | ± | 0.012 | ms/op |
+| AnalyzerBenchmarks.win10IE11              | avgt |  10 | 0.454 | ± | 0.010 | ms/op |
+| AnalyzerBenchmarks.win7ie11               | avgt |  10 | 0.454 | ± | 0.009 | ms/op |
+
 
 In the canonical usecase of analysing clickstream data you will see a <1ms hit per visitor (or better: per new non-cached useragent)
 and for all the other clicks the values are retrieved from this cache at close to 0 time.

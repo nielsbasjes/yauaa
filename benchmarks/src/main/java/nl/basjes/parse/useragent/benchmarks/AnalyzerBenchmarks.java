@@ -20,9 +20,14 @@ package nl.basjes.parse.useragent.benchmarks;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
@@ -30,6 +35,11 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import java.util.concurrent.TimeUnit;
 
+@Warmup(iterations = 5)
+@Measurement(iterations = 10)
+@Fork(1)
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class AnalyzerBenchmarks {
 
     @State(Scope.Benchmark)
@@ -39,6 +49,7 @@ public class AnalyzerBenchmarks {
             uaa = UserAgentAnalyzer
                     .newBuilder()
                     .withoutCache()
+                    .hideMatcherLoadStats()
 //                    .withField("DeviceClass")
 //                    .withField("AgentNameVersionMajor")
                     .build();
@@ -134,11 +145,11 @@ public class AnalyzerBenchmarks {
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
             .include(AnalyzerBenchmarks.class.getSimpleName())
-            .warmupIterations(5)
-            .measurementIterations(10)
-            .mode(Mode.AverageTime)
-            .timeUnit(TimeUnit.MILLISECONDS)
-            .forks(1)
+//            .warmupIterations(5)
+//            .measurementIterations(10)
+//            .mode(Mode.AverageTime)
+//            .timeUnit(TimeUnit.MILLISECONDS)
+//            .forks(1)
             .build();
 
         new Runner(opt).run();
