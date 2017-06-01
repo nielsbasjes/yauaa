@@ -1076,3 +1076,62 @@ config:
       AgentNameVersion                     : 'Curious George www.analyticsseo.com/crawler'
       AgentNameVersionMajor                : 'Curious George www.analyticsseo.com/crawler'
       AgentInformationUrl                  : 'www.analyticsseo.com/crawler'
+
+# When you share a link on facebook then the Facebook systems will try to create a preview of the page
+# using one of these useragents
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="facebookexternalhit"'
+    extract:
+    - 'DeviceClass                          : 10 : "Robot"'
+    - 'DeviceName                           : 10 : "Facebook Robot"'
+    - 'DeviceBrand                          : 10 : "Facebook"'
+    - 'OperatingSystemClass                 : 10 : "Cloud"'
+    - 'OperatingSystemName                  : 10 : "Cloud"'
+    - 'OperatingSystemVersion               : 10 : "Cloud"'
+    - 'OperatingSystemNameVersion           : 10 : "Cloud"'
+
+- test:
+    input:
+      user_agent_string: 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Facebook Robot'
+      DeviceBrand                          : 'Facebook'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'facebookexternalhit'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'facebookexternalhit 1.1'
+      AgentNameVersionMajor                : 'facebookexternalhit 1'
+      AgentInformationUrl                  : 'http://www.facebook.com/externalhit_uatext.php'
+
+- test:
+    input:
+      user_agent_string: 'facebookexternalhit/1.1'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Facebook Robot'
+      DeviceBrand                          : 'Facebook'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'facebookexternalhit'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'facebookexternalhit 1.1'
+      AgentNameVersionMajor                : 'facebookexternalhit 1'
