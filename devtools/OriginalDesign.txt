@@ -1,0 +1,74 @@
+Basic idea:
+Create a parser that actually builds a tree structure of a useragent.
+We then create a set of 'matchers'
+Each matcher tries to find a certain pattern in the tree.
+If this pattern is present it extracts values from the tree and assigns them to the target values with a 'confidence' value.
+
+The pattern the 'normal' browser builders are following is that they all LIE about the ancestor they are trying to improve upon.
+A good example of this is the Edge browser:
+  Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10136
+
+It is not webkit, not KHTML, not Gecko, not Chrome and not Safari.
+Yet many 'simple' agent parsers simply check if the agent string 'contains(" Chrome/")' to 'know' it should feed the client the
+website as advanced as Chrome can handle it.
+
+So that is why there is the 'confidence' value.
+The idea: we can always create a matcher that is more confident about a specific useragent at a later date.
+
+As an example we intend to have a matcher that says it is
+- Konqueror: confidence 50
+- Chrome: confidence 100
+Then Edge is created and we simply add:
+- Edge: confidence 150
+etc.
+
+
+Because of this 'endless extensibility' the unit tests for the matchers will be included in the distribution.
+This way we can allow extending 'without the source' and make sure the tests can be run 'without the source'
+ans still ensure none of the existing patterns are broken by the change that was applied.
+
+=======================================
+
+
+Need TWO languages:
+ "Match": The conditions to fire a rule.
+          <Treenode with specific value> AND <Treenode with specific value>
+ "Extract into result":
+ <Result> = <Confidence><Treenode>
+            <Confidence><specific value>
+            <Confidence><Treenode with specific value><Relative path from node>
+
+Processing concept:
+- ALL 'require' and 'extract' <Treenode with specific value> MUST be present exactly
+- ALL 'extract' nodes MUST be matched exactly AND ALL relative paths from there MUST exist
+
+The Yaml concept I want:
+- The matcher(s) and the unit tests are in ONE file
+- A user can add a new 'custom matcher' and still validate if they broke something because all the unit tests for the matchers are available.
+=============================================
+matcher:
+  - require: <Treenode with specific value>
+  - require: <Treenode with specific value>
+  - require: <Treenode with specific value>
+  - require: <Treenode with specific value>
+  - extract:<attribute>:<confidence>:<Treenode>
+  - extract:<attribute>:<confidence>:<Fixed value>
+  - extract:<attribute>:<confidence>:<Treenode with specific value><Relative path from node>
+
+test_cases:
+  - input: '<input value>'
+    <attribute>:    '<expected>'
+    <attribute>:    '<expected>'
+
+  - input: '<input value>'
+    <attribute>:    '<expected>'
+    <attribute>:    '<expected>'
+
+  - input: '<input value>'
+    <attribute>:    '<expected>'
+    <attribute>:    '<expected>'
+=============================================
+
+
+
+*/
