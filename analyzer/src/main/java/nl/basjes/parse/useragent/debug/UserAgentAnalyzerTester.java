@@ -43,8 +43,8 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         super(resourceString);
     }
 
-    public void initialize(boolean showMatcherLoadStats) {
-        super.initialize(showMatcherLoadStats);
+    public void initialize() {
+        super.initialize();
     }
 
     class TestResult {

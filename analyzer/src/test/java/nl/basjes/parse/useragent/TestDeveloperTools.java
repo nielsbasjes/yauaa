@@ -32,18 +32,22 @@ public class TestDeveloperTools {
     @Test
     public void validateErrorSituationOutput() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
-        uaa.initialize(false);
+        uaa.setShowMatcherStats(false);
+        uaa.initialize();
         uaa.eraseTestCases();
-        uaa.loadResources("classpath*:**/CheckErrorOutput.yaml", true);
+        uaa.setShowMatcherStats(true);
+        uaa.loadResources("classpath*:**/CheckErrorOutput.yaml");
         assertFalse(uaa.runTests(false, true)); // This test must return an error state
     }
 
     @Test
     public void validateNewTestcaseSituationOutput() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
-        uaa.initialize(false);
+        uaa.setShowMatcherStats(false);
+        uaa.initialize();
         uaa.eraseTestCases();
-        uaa.loadResources("classpath*:**/CheckNewTestcaseOutput.yaml", true);
+        uaa.setShowMatcherStats(true);
+        uaa.loadResources("classpath*:**/CheckNewTestcaseOutput.yaml");
         assertTrue(uaa.runTests(false, true));
     }
 

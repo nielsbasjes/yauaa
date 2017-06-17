@@ -40,7 +40,8 @@ public class TestPredefinedBrowsers {
     @BeforeClass
     public static void getListOfAllFields() {
         uaa = new UserAgentAnalyzerTester();
-        uaa.initialize(false);
+        uaa.setShowMatcherStats(false);
+        uaa.initialize();
         allFields = uaa.getAllPossibleFieldNamesSorted();
     }
 

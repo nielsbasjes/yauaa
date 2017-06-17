@@ -89,13 +89,14 @@ public class UserAgentAnalyzer extends Analyzer {
     private Map<String, Set<MatcherAction>>     informMatcherActions    = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
     private final Map<String, List<MappingNode>> matcherConfigs = new HashMap<>(64);
 
-    private boolean doingOnlyASingleTest = false;
+    private boolean                                 showMatcherStats        = false;
+    private boolean                                 doingOnlyASingleTest    = false;
 
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
     protected Set<String> wantedFieldNames = null;
 
-    protected final List<Map<String, Map<String, String>>> testCases    = new ArrayList<>(2048);
-    private Map<String, Map<String, String>> lookups                    = new HashMap<>(128);
+    protected final List<Map<String, Map<String, String>>> testCases        = new ArrayList<>(2048);
+    private Map<String, Map<String, String>> lookups                        = new HashMap<>(128);
 
     protected UserAgentTreeFlattener flattener;
 
@@ -109,17 +110,23 @@ public class UserAgentAnalyzer extends Analyzer {
 
     protected UserAgentAnalyzer(boolean initialize) {
         if (initialize) {
-            initialize(true);
+            initialize();
         }
     }
 
-    protected void initialize(boolean showMatcherStats) {
+    public UserAgentAnalyzer setShowMatcherStats(boolean newShowMatcherStats) {
+        this.showMatcherStats = newShowMatcherStats;
+        return this;
+    }
+
+    protected void initialize() {
         logVersion();
-        loadResources("classpath*:UserAgents/**/*.yaml", showMatcherStats);
+        loadResources("classpath*:UserAgents/**/*.yaml");
     }
 
     public UserAgentAnalyzer(String resourceString) {
-        loadResources(resourceString, true);
+        setShowMatcherStats(true);
+        loadResources(resourceString);
     }
 
     public static void logVersion(){
@@ -163,7 +170,7 @@ public class UserAgentAnalyzer extends Analyzer {
         return "Yauaa " + Version.getProjectVersion() + " (" + Version.getGitCommitIdDescribeShort() + " @ " + Version.getBuildTimestamp() + ")";
     }
 
-    public void loadResources(String resourceString, boolean showMatcherStats) {
+    public void loadResources(String resourceString) {
         LOG.info("Loading from: \"{}\"", resourceString);
 
         flattener = new UserAgentTreeFlattener(this);
@@ -227,6 +234,7 @@ public class UserAgentAnalyzer extends Analyzer {
 
                 long start = System.nanoTime();
                 int startSize = informMatcherActions.size();
+                int startSkipped = skippedMatchers;
                 for (MappingNode map : matcherConfig) {
                     try {
                         allMatchers.add(new Matcher(this, lookups, wantedFieldNames, map, configFilename));
@@ -237,11 +245,14 @@ public class UserAgentAnalyzer extends Analyzer {
                 }
                 long stop = System.nanoTime();
                 int stopSize = informMatcherActions.size();
+                int stopSkipped = skippedMatchers;
 
                 if (showMatcherStats) {
                     Formatter msg = new Formatter(Locale.ENGLISH);
-                    msg.format("Building %4d matchers from %-" + maxFilenameLength + "s took %5d msec resulted in %8d extra hashmap entries",
+                    msg.format("Building %4d (dropped %4d) matchers from %-" + maxFilenameLength + "s " +
+                            "took %5d msec resulted in %8d extra hashmap entries",
                         matcherConfig.size(),
+                        stopSkipped - startSkipped,
                         configFilename,
                         (stop - start) / 1000000,
                         stopSize - startSize);
@@ -445,7 +456,7 @@ config:
             metaData.put("fileline", String.valueOf(entry.getStartMark().getLine()));
 
             Map<String, String> input = null;
-            List<String> options = null;
+            List<String> options;
             Map<String, String> expected = null;
             for (NodeTuple tuple: entry.getValue()) {
                 String name = getKeyAsString(tuple, filename);
@@ -834,11 +845,13 @@ config:
         return new Builder();
     }
 
+    @SuppressWarnings({"UnusedReturnValue", "unused"})
     public static class Builder {
         private final UserAgentAnalyzer uaa;
 
         protected Builder() {
-            this.uaa = new UserAgentAnalyzer(false);
+            this.uaa = new UserAgentAnalyzer(false)
+                .setShowMatcherStats(false);
         }
 
         protected Builder(UserAgentAnalyzer forceAnalyzer) {
@@ -878,14 +891,13 @@ config:
             return this;
         }
 
-        boolean showMatcherLoadStats = true;
         public Builder showMatcherLoadStats() {
-            showMatcherLoadStats = true;
+            uaa.setShowMatcherStats(true);
             return this;
         }
 
         public Builder hideMatcherLoadStats() {
-            showMatcherLoadStats = false;
+            uaa.setShowMatcherStats(false);
             return this;
         }
 
@@ -911,7 +923,7 @@ config:
                 // Special field that affects ALL fields.
                 uaa.wantedFieldNames.add(SET_ALL_FIELDS);
             }
-            uaa.initialize(showMatcherLoadStats);
+            uaa.initialize();
             return uaa;
         }
 
