@@ -114,6 +114,22 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
         throws java.io.IOException, ClassNotFoundException {
         setDefaultFieldValues();
         stream.defaultReadObject();
+
+        List<String> lines = new ArrayList<>();
+        lines.add("This Analyzer instance was deserialized.");
+        lines.add("");
+        lines.add("Lookups      : " + ((lookups == null) ? 0 : lookups.size()));
+        lines.add("Matchers     : " + allMatchers.size());
+        lines.add("Hashmap size : " + informMatcherActions.size());
+        lines.add("Testcases    : " + testCases.size());
+//        lines.add("All possible field names:");
+//        int count = 1;
+//        for (String fieldName : getAllPossibleFieldNames()) {
+//            lines.add("- " + count++ + ": " + fieldName);
+//        }
+
+        String[] x = {};
+        logVersion(lines.toArray(x));
     }
 
     public UserAgentAnalyzer() {
@@ -143,8 +159,7 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
         loadResources("classpath*:UserAgents/**/*.yaml");
     }
 
-
-    public static void logVersion() {
+    public static void logVersion(String... extraLines) {
         String[] lines = {
             "For more information: https://github.com/nielsbasjes/yauaa",
             "Copyright (C) 2013-2017 Niels Basjes - License Apache 2.0"
@@ -152,6 +167,9 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
         String version = getVersion();
         int width = version.length();
         for (String line : lines) {
+            width = Math.max(width, line.length());
+        }
+        for (String line : extraLines) {
             width = Math.max(width, line.length());
         }
 
@@ -162,6 +180,13 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
         for (String line : lines) {
             logLine(line, width);
         }
+        if (extraLines.length > 0) {
+            LOG.info("+-{}-+", padding('-', width));
+            for (String line : extraLines) {
+                logLine(line, width);
+            }
+        }
+
         LOG.info("\\-{}-/", padding('-', width));
         LOG.info("");
     }
@@ -297,20 +322,6 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
 //            LOG.info("- {}: {}", count++, fieldName);
 //        }
     }
-
-    public void logAnalyzerStats() {
-        LOG.info("Analyzer stats");
-        LOG.info("Lookups      : {}", (lookups == null) ? 0 : lookups.size());
-        LOG.info("Matchers     : {} ", allMatchers.size());
-        LOG.info("Hashmap size : {}", informMatcherActions.size());
-        LOG.info("Testcases    : {}", testCases.size());
-        LOG.info("All possible field names:");
-        int count = 1;
-        for (String fieldName : getAllPossibleFieldNames()) {
-            LOG.info("- {}: {}", count++, fieldName);
-        }
-    }
-
 
     /**
      * Used by some unit tests to get rid of all the standard tests and focus on the experiment at hand.
