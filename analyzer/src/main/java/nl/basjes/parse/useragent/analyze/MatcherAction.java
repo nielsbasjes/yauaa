@@ -44,6 +44,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
@@ -63,12 +64,25 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEqu
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotEqualsValueContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepStartsWithValueContext;
 
-public abstract class MatcherAction {
+public abstract class MatcherAction implements Serializable {
 
     private String matchExpression;
-    private ParserRuleContext requiredPattern;
-    private final NumberRangeVisitor numberRangeVisitor = new NumberRangeVisitor();
+    private transient NumberRangeVisitor numberRangeVisitor;
     private TreeExpressionEvaluator evaluator;
+
+    private void setDefaultFieldValues() {
+        numberRangeVisitor = new NumberRangeVisitor();
+    }
+
+    private void readObject(java.io.ObjectInputStream stream)
+        throws java.io.IOException, ClassNotFoundException {
+        setDefaultFieldValues();
+        stream.defaultReadObject();
+    }
+
+    public MatcherAction() {
+        setDefaultFieldValues();
+    }
 
     TreeExpressionEvaluator getEvaluatorForUnitTesting() {
         return evaluator;
@@ -194,7 +208,11 @@ public abstract class MatcherAction {
         parser.addErrorListener(errorListener);
 
 //        parser.setTrace(true);
-        requiredPattern = parseWalkerExpression(parser); // parse
+        ParserRuleContext requiredPattern = parseWalkerExpression(parser);
+
+        if (requiredPattern == null) {
+            throw new InvalidParserConfigurationException("NO pattern ?!?!?");
+        }
 
         // We couldn't ditch the double quotes around the fixed values in the parsing pase.
         // So we ditch them here. We simply walk the tree and modify some of the tokens.
@@ -211,7 +229,7 @@ public abstract class MatcherAction {
             return; // Not interested in any patterns
         }
 
-        registerAllPossiblyInterestingPatterns();
+        calculateInformPath("agent", requiredPattern);
     }
 
     protected abstract ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser);
@@ -326,12 +344,6 @@ public abstract class MatcherAction {
 
     // ============================================================================================================
 
-    private void registerAllPossiblyInterestingPatterns() {
-        if (requiredPattern == null) {
-            throw new InvalidParserConfigurationException("NO pattern ?!?!?");
-        }
-        calculateInformPath("agent", requiredPattern);
-    }
 
     // -----
     private void calculateInformPath(@SuppressWarnings("SameParameterValue") String treeName, ParserRuleContext tree) {

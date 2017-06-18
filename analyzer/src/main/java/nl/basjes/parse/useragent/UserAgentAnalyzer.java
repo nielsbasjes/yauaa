@@ -41,6 +41,7 @@ import org.yaml.snakeyaml.reader.UnicodeReader;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -79,39 +80,68 @@ import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsMappingNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsSequenceNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsString;
 
-public class UserAgentAnalyzer extends Analyzer {
+public class UserAgentAnalyzer extends Analyzer implements Serializable {
 
     private static final int INFORM_ACTIONS_HASHMAP_SIZE = 300000;
     private static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
-    protected List<Matcher>                     allMatchers             = new ArrayList<>();
-    private Map<String, Set<MatcherAction>>     informMatcherActions    = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
-    private final Map<String, List<MappingNode>> matcherConfigs = new HashMap<>(64);
+    protected List<Matcher> allMatchers;
+    private Map<String, Set<MatcherAction>> informMatcherActions;
+    private transient Map<String, List<MappingNode>> matcherConfigs;
 
-    private boolean                                 showMatcherStats        = false;
-    private boolean                                 doingOnlyASingleTest    = false;
+    private boolean showMatcherStats;
+    private boolean doingOnlyASingleTest;
 
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
     protected Set<String> wantedFieldNames = null;
 
-    protected final List<Map<String, Map<String, String>>> testCases        = new ArrayList<>(2048);
-    private Map<String, Map<String, String>> lookups                        = new HashMap<>(128);
+    protected List<Map<String, Map<String, String>>> testCases;
+    private Map<String, Map<String, String>> lookups;
 
     protected UserAgentTreeFlattener flattener;
 
-    private Yaml yaml;
-
     private LRUMap<String, UserAgent> parseCache = new LRUMap<>(DEFAULT_PARSE_CACHE_SIZE);
+
+    private void setDefaultFieldValues() {
+        allMatchers = new ArrayList<>();
+        informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
+        matcherConfigs = new HashMap<>(64);
+
+        showMatcherStats = false;
+        doingOnlyASingleTest = false;
+
+        // If we want ALL fields this is null. If we only want specific fields this is a list of names.
+        wantedFieldNames = null;
+
+        testCases = new ArrayList<>(2048);
+        lookups = new HashMap<>(128);
+
+        parseCache = new LRUMap<>(DEFAULT_PARSE_CACHE_SIZE);
+
+    }
+
+    private void readObject(java.io.ObjectInputStream stream)
+        throws java.io.IOException, ClassNotFoundException {
+        setDefaultFieldValues();
+        stream.defaultReadObject();
+    }
 
     public UserAgentAnalyzer() {
         this(true);
     }
 
     protected UserAgentAnalyzer(boolean initialize) {
+        setDefaultFieldValues();
         if (initialize) {
             initialize();
         }
+    }
+
+    public UserAgentAnalyzer(String resourceString) {
+        setDefaultFieldValues();
+        setShowMatcherStats(true);
+        loadResources(resourceString);
     }
 
     public UserAgentAnalyzer setShowMatcherStats(boolean newShowMatcherStats) {
@@ -124,10 +154,6 @@ public class UserAgentAnalyzer extends Analyzer {
         loadResources("classpath*:UserAgents/**/*.yaml");
     }
 
-    public UserAgentAnalyzer(String resourceString) {
-        setShowMatcherStats(true);
-        loadResources(resourceString);
-    }
 
     public static void logVersion(){
         String[] lines = {
@@ -174,7 +200,7 @@ public class UserAgentAnalyzer extends Analyzer {
         LOG.info("Loading from: \"{}\"", resourceString);
 
         flattener = new UserAgentTreeFlattener(this);
-        yaml = new Yaml();
+        Yaml yaml = new Yaml();
 
         Map<String, Resource> resources = new TreeMap<>();
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
@@ -199,7 +225,7 @@ public class UserAgentAnalyzer extends Analyzer {
                 Resource resource = resourceEntry.getValue();
                 String filename = resource.getFilename();
                 maxFilenameLength = Math.max(maxFilenameLength, filename.length());
-                loadResource(resource.getInputStream(), filename);
+                loadResource(yaml, resource.getInputStream(), filename);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -283,6 +309,20 @@ public class UserAgentAnalyzer extends Analyzer {
 //        }
     }
 
+    public void logAnalyzerStats() {
+        LOG.info("Analyzer stats");
+        LOG.info("Lookups      : {}", (lookups == null) ? 0 : lookups.size());
+        LOG.info("Matchers     : {} ", allMatchers.size());
+        LOG.info("Hashmap size : {}", informMatcherActions.size());
+        LOG.info("Testcases    : {}", testCases.size());
+        LOG.info("All possible field names:");
+        int count = 1;
+        for (String fieldName : getAllPossibleFieldNames()) {
+            LOG.info("- {}: {}", count++, fieldName);
+        }
+    }
+
+
     /**
      * Used by some unit tests to get rid of all the standard tests and focus on the experiment at hand.
      */
@@ -344,7 +384,7 @@ config:
 ----------------------------
 */
 
-    private void loadResource(InputStream yamlStream, String filename) {
+    private void loadResource(Yaml yaml, InputStream yamlStream, String filename) {
         Node loadedYaml = yaml.compose(new UnicodeReader(yamlStream));
 
         if (loadedYaml == null) {

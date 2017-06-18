@@ -34,7 +34,7 @@ public class TestPredefinedBrowsers {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestPredefinedBrowsers.class);
 
-    private static UserAgentAnalyzerTester uaa;
+    protected static UserAgentAnalyzerTester uaa;
     private static List<String> allFields;
 
     @BeforeClass

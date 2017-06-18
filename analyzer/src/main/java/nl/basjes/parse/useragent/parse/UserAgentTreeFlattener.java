@@ -59,13 +59,15 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import java.io.Serializable;
+
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.analyze.WordRangeVisitor.MAX_RANGE_IN_HASHMAP;
 import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
-public class UserAgentTreeFlattener extends UserAgentBaseListener {
-    private final ParseTreeWalker walker;
-    private final Analyzer analyzer;
+public class UserAgentTreeFlattener extends UserAgentBaseListener implements Serializable {
+    private static final ParseTreeWalker WALKER = new ParseTreeWalker();
+    private Analyzer analyzer;
 
     enum PathType {
         CHILD,
@@ -138,7 +140,6 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
     private ParseTreeProperty<State> state;
 
     public UserAgentTreeFlattener(Analyzer analyzer) {
-        walker = new ParseTreeWalker();
         this.analyzer = analyzer;
     }
 
@@ -186,7 +187,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener {
             inform(null, SYNTAX_ERROR, "false");
         }
 
-        walker.walk(this, userAgentContext);
+        WALKER.walk(this, userAgentContext);
         return userAgent;
     }
 

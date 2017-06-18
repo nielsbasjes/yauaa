@@ -29,6 +29,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
@@ -37,7 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListener {
+public class UserAgent extends UserAgentBaseListener implements Serializable, ANTLRErrorListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgent.class);
     public static final String DEVICE_CLASS = "DeviceClass";
@@ -163,7 +164,7 @@ public class UserAgent extends UserAgentBaseListener implements ANTLRErrorListen
         this.debug = newDebug;
     }
 
-    public class AgentField {
+    public class AgentField implements Serializable {
         private final String defaultValue;
         private String value;
 

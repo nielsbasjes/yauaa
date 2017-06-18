@@ -27,32 +27,38 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
  * This class gets the symbol table (1 value) uses that to evaluate
  * the expression against the parsed user agent
  */
-public class TreeExpressionEvaluator {
+public class TreeExpressionEvaluator implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(TreeExpressionEvaluator.class);
-
     private boolean verbose = false;
-    private final ParserRuleContext requiredPattern;
-    private final Map<String, Map<String, String>> lookups;
 
+    private final String requiredPatternText;
+    private final Map<String, Map<String, String>> lookups;
     private final WalkList walkList;
+    private final String fixedValue;
 
     public TreeExpressionEvaluator(ParserRuleContext requiredPattern, Map<String, Map<String, String>> lookups, boolean verbose) {
-        this.requiredPattern = requiredPattern;
+        this.requiredPatternText = requiredPattern.getText();
         this.lookups = lookups;
         this.verbose = verbose;
         walkList = new WalkList(requiredPattern, lookups, verbose);
+        this.fixedValue = calculateFixedValue(requiredPattern);
     }
 
     /**
      * @return The fixed value in case of a fixed value. NULL if a dynamic value
      */
     public String getFixedValue() {
+        return fixedValue;
+    }
+
+    private String calculateFixedValue(ParserRuleContext requiredPattern) {
         return (new UserAgentTreeWalkerBaseVisitor<String>() {
             @Override
             public String visitMatcherPathLookup(MatcherPathLookupContext ctx) {
@@ -91,7 +97,7 @@ public class TreeExpressionEvaluator {
     public String evaluate(ParseTree tree, String key, String value) {
         if (verbose) {
             LOG.info("Evaluate: {} => {}", key, value);
-            LOG.info("Pattern : {}", requiredPattern.getText());
+            LOG.info("Pattern : {}", requiredPatternText);
             LOG.info("WalkList: {}", walkList.toString());
         }
         String result = walkList.walk(tree, value);

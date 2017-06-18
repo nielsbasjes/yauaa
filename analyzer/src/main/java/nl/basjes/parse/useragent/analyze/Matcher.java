@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.nodes.MappingNode;
 import org.yaml.snakeyaml.nodes.NodeTuple;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ import java.util.TreeSet;
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
 
-public class Matcher {
+public class Matcher implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(Matcher.class);
 
     private final Analyzer analyzer;

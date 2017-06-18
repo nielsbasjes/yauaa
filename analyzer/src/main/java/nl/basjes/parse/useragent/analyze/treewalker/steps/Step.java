@@ -24,9 +24,11 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
+
 import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
-public abstract class Step {
+public abstract class Step implements Serializable {
     protected static final Logger LOG = LoggerFactory.getLogger(Step.class);
     private int stepNr;
     protected String logprefix = "";

@@ -59,6 +59,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,7 @@ import java.util.Map;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
 
-public class WalkList {
+public class WalkList implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(WalkList.class);
 
     private final Map<String, Map<String, String>> lookups;

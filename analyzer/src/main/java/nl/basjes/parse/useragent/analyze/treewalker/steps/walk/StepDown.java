@@ -64,13 +64,24 @@ public class StepDown extends Step {
     private final int start;
     private final int end;
     private final String name;
-    private final UserAgentGetChildrenVisitor userAgentGetChildrenVisitor = new UserAgentGetChildrenVisitor();
+    private transient UserAgentGetChildrenVisitor userAgentGetChildrenVisitor;
+
+    private void setDefaultFieldValues() {
+        userAgentGetChildrenVisitor = new UserAgentGetChildrenVisitor();
+    }
+
+    private void readObject(java.io.ObjectInputStream stream)
+        throws java.io.IOException, ClassNotFoundException {
+        setDefaultFieldValues();
+        stream.defaultReadObject();
+    }
 
     public StepDown(NumberRangeContext numberRange, String name) {
         this(NumberRangeVisitor.getList(numberRange), name);
     }
 
     private StepDown(NumberRangeList numberRange, String name) {
+        setDefaultFieldValues();
         this.name = name;
         this.start = numberRange.getStart();
         this.end = numberRange.getEnd();
