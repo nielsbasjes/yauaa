@@ -155,14 +155,14 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
     }
 
 
-    public static void logVersion(){
+    public static void logVersion() {
         String[] lines = {
             "For more information: https://github.com/nielsbasjes/yauaa",
             "Copyright (C) 2013-2017 Niels Basjes - License Apache 2.0"
         };
         String version = getVersion();
         int width = version.length();
-        for (String line: lines) {
+        for (String line : lines) {
             width = Math.max(width, line.length());
         }
 
@@ -170,7 +170,7 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
         LOG.info("/-{}-\\", padding('-', width));
         logLine(version, width);
         LOG.info("+-{}-+", padding('-', width));
-        for (String line: lines) {
+        for (String line : lines) {
             logLine(line, width);
         }
         LOG.info("\\-{}-/", padding('-', width));
@@ -179,7 +179,7 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
 
     private static String padding(char letter, int count) {
         StringBuilder sb = new StringBuilder(128);
-        for (int i=0; i <count; i++) {
+        for (int i = 0; i < count; i++) {
             sb.append(letter);
         }
         return sb.toString();
@@ -206,7 +206,7 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
             Resource[] resourceArray = resolver.getResources(resourceString);
-            for (Resource resource:resourceArray) {
+            for (Resource resource : resourceArray) {
                 resources.put(resource.getFilename(), resource);
             }
         } catch (IOException e) {
@@ -252,9 +252,9 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
             long fullStart = System.nanoTime();
             for (Map.Entry<String, Resource> resourceEntry : resources.entrySet()) {
                 Resource resource = resourceEntry.getValue();
-                String configFilename= resource.getFilename();
+                String configFilename = resource.getFilename();
                 List<MappingNode> matcherConfig = matcherConfigs.get(configFilename);
-                if (matcherConfig== null) {
+                if (matcherConfig == null) {
                     continue; // No matchers in this file (probably only lookups and/or tests)
                 }
 
@@ -292,7 +292,7 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
                 totalNumberOfMatchers,
                 skippedMatchers,
                 matcherConfigs.size(),
-                (fullStop-fullStart)/1000000,
+                (fullStop - fullStart) / 1000000,
                 informMatcherActions.size());
             LOG.info(msg.toString());
 
@@ -301,7 +301,7 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
         LOG.info("Lookups      : {}", (lookups == null) ? 0 : lookups.size());
         LOG.info("Matchers     : {} (total:{} ; dropped: {})", allMatchers.size(), totalNumberOfMatchers, skippedMatchers);
         LOG.info("Hashmap size : {}", informMatcherActions.size());
-        LOG.info("Testcases    : {}", testCases .size());
+        LOG.info("Testcases    : {}", testCases.size());
 //        LOG.info("All possible field names:");
 //        int count = 1;
 //        for (String fieldName : getAllPossibleFieldNames()) {
@@ -333,7 +333,7 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
     public Set<String> getAllPossibleFieldNames() {
         Set<String> results = new TreeSet<>();
         results.addAll(HARD_CODED_GENERATED_FIELDS);
-        for (Matcher matcher: allMatchers) {
+        for (Matcher matcher : allMatchers) {
             results.addAll(matcher.getAllPossibleFieldNames());
         }
         return results;
@@ -397,10 +397,10 @@ config:
             fail(loadedYaml, filename, "File must be a Map");
         }
 
-        MappingNode rootNode = (MappingNode)loadedYaml;
+        MappingNode rootNode = (MappingNode) loadedYaml;
 
         NodeTuple configNodeTuple = null;
-        for (NodeTuple tuple: rootNode.getValue()){
+        for (NodeTuple tuple : rootNode.getValue()) {
             String name = getKeyAsString(tuple, filename);
             if ("config".equals(name)) {
                 configNodeTuple = tuple;
@@ -416,12 +416,12 @@ config:
         SequenceNode configNode = getValueAsSequenceNode(configNodeTuple, filename);
         List<Node> configList = configNode.getValue();
 
-        for (Node configEntry: configList) {
+        for (Node configEntry : configList) {
             if (!(configEntry instanceof MappingNode)) {
                 fail(loadedYaml, filename, "The entry MUST be a mapping");
             }
 
-            NodeTuple entry = getExactlyOneNodeTuple((MappingNode)configEntry, filename);
+            NodeTuple entry = getExactlyOneNodeTuple((MappingNode) configEntry, filename);
             MappingNode actualEntry = getValueAsMappingNode(entry, filename);
             String entryType = getKeyAsString(entry, filename);
             switch (entryType) {
@@ -436,7 +436,7 @@ config:
                     break;
                 default:
                     throw new InvalidParserConfigurationException(
-                        "Yaml config.("+filename+":"+actualEntry.getStartMark().getLine()+"): " +
+                        "Yaml config.(" + filename + ":" + actualEntry.getStartMark().getLine() + "): " +
                             "Found unexpected config entry: " + entryType + ", allowed are 'lookup, 'matcher' and 'test'");
             }
         }
@@ -447,8 +447,8 @@ config:
         String name = null;
         Map<String, String> map = null;
 
-        for (NodeTuple tuple: entry.getValue()) {
-            switch(getKeyAsString(tuple, filename)) {
+        for (NodeTuple tuple : entry.getValue()) {
+            switch (getKeyAsString(tuple, filename)) {
                 case "name":
                     name = getValueAsString(tuple, filename);
                     break;
@@ -457,8 +457,8 @@ config:
                         map = new HashMap<>();
                     }
                     List<NodeTuple> mappings = getValueAsMappingNode(tuple, filename).getValue();
-                    for (NodeTuple mapping: mappings) {
-                        String key   = getKeyAsString(mapping, filename);
+                    for (NodeTuple mapping : mappings) {
+                        String key = getKeyAsString(mapping, filename);
                         String value = getValueAsString(mapping, filename);
                         map.put(key, value);
                     }
@@ -498,7 +498,7 @@ config:
             Map<String, String> input = null;
             List<String> options;
             Map<String, String> expected = null;
-            for (NodeTuple tuple: entry.getValue()) {
+            for (NodeTuple tuple : entry.getValue()) {
                 String name = getKeyAsString(tuple, filename);
                 switch (name) {
                     case "options":
@@ -511,7 +511,7 @@ config:
                         }
                         break;
                     case "input":
-                        for (NodeTuple inputTuple: getValueAsMappingNode(tuple, filename).getValue()) {
+                        for (NodeTuple inputTuple : getValueAsMappingNode(tuple, filename).getValue()) {
                             String inputName = getKeyAsString(inputTuple, filename);
                             switch (inputName) {
                                 case "user_agent_string":
@@ -600,6 +600,7 @@ config:
     /**
      * Sets the new size of the parsing cache.
      * Note that this will also wipe the existing cache.
+     *
      * @param newCacheSize The size of the new LRU cache. As size of 0 will disable caching.
      */
     public void setCacheSize(int newCacheSize) {
@@ -655,6 +656,7 @@ config:
     }
 
     private static final List<String> HARD_CODED_GENERATED_FIELDS = new ArrayList<>();
+
     static {
         HARD_CODED_GENERATED_FIELDS.add(SYNTAX_ERROR);
         HARD_CODED_GENERATED_FIELDS.add(AGENT_VERSION_MAJOR);
@@ -668,12 +670,12 @@ config:
         HARD_CODED_GENERATED_FIELDS.add("WebviewAppNameVersionMajor");
     }
 
-    private UserAgent hardCodedPostProcessing(UserAgent userAgent){
+    private UserAgent hardCodedPostProcessing(UserAgent userAgent) {
         // If it is really really bad ... then it is a Hacker.
         if ("true".equals(userAgent.getValue(SYNTAX_ERROR))) {
             if (userAgent.get(DEVICE_CLASS).getConfidence() == -1 &&
                 userAgent.get(OPERATING_SYSTEM_CLASS).getConfidence() == -1 &&
-                userAgent.get(LAYOUT_ENGINE_CLASS).getConfidence() == -1)  {
+                userAgent.get(LAYOUT_ENGINE_CLASS).getConfidence() == -1) {
 
                 userAgent.set(DEVICE_CLASS, "Hacker", 10);
                 userAgent.set(DEVICE_BRAND, "Hacker", 10);
@@ -773,7 +775,7 @@ config:
         }
 
         if (second == null) {
-            if (firstConfidence >= 0){
+            if (firstConfidence >= 0) {
                 userAgent.set(targetName, first, firstConfidence);
                 return;
             }
@@ -826,7 +828,7 @@ config:
                 LOG.info("+++ Have ({}): {}", relevantActions.size(), match);
 
                 int count = 1;
-                for (MatcherAction action: relevantActions) {
+                for (MatcherAction action : relevantActions) {
                     LOG.info("+++ -------> ({}): {}", count, action.toString());
                     count++;
                 }
@@ -920,7 +922,7 @@ config:
             if (fieldNames == null) {
                 return this;
             }
-            for (String fieldName: fieldNames) {
+            for (String fieldName : fieldNames) {
                 withField(fieldName);
             }
             return this;
