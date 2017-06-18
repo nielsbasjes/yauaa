@@ -19,6 +19,9 @@ package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.junit.BeforeClass;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -28,10 +31,25 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
-public class TestSerialization extends TestPredefinedBrowsers {
+import static org.junit.Assert.assertTrue;
+
+public class TestSerialization {
+
+    private static final Logger LOG = LoggerFactory.getLogger(TestSerialization.class);
+
+    protected static UserAgentAnalyzerTester uaa;
 
     @BeforeClass
     public static void serializeAndDeserializeUAA() throws IOException, ClassNotFoundException {
+        LOG.info("==============================================================");
+        LOG.info("Create");
+        LOG.info("--------------------------------------------------------------");
+        uaa = new UserAgentAnalyzerTester();
+        uaa.setShowMatcherStats(false);
+        uaa.initialize();
+
+        LOG.info("--------------------------------------------------------------");
+        LOG.info("Serialize");
         byte[] bytes;
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             ObjectOutput out = new ObjectOutputStream(bos);
@@ -40,6 +58,11 @@ public class TestSerialization extends TestPredefinedBrowsers {
             bytes = bos.toByteArray();
         }
 
+        uaa = null;
+
+        LOG.info("The UserAgentAnalyzer was serialized into {} bytes", bytes.length);
+        LOG.info("--------------------------------------------------------------");
+        LOG.info("Deserialize");
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         ObjectInput in = null;
 
@@ -55,7 +78,16 @@ public class TestSerialization extends TestPredefinedBrowsers {
                 in.close();
             }
         }
-        uaa.logAnalyzerStats();
+        LOG.info("Done");
+        LOG.info("==============================================================");
+    }
+
+    @Test
+    public void validateAllPredefinedBrowsers() {
+        LOG.info("==============================================================");
+        LOG.info("Validating when getting all fields");
+        LOG.info("--------------------------------------------------------------");
+        assertTrue(uaa.runTests(false, true));
     }
 
 }
