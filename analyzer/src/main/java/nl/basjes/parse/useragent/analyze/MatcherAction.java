@@ -67,22 +67,8 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepSta
 public abstract class MatcherAction implements Serializable {
 
     private String matchExpression;
-    private transient NumberRangeVisitor numberRangeVisitor;
+    private static final NumberRangeVisitor NUMBER_RANGE_VISITOR = new NumberRangeVisitor();
     private TreeExpressionEvaluator evaluator;
-
-    private void setDefaultFieldValues() {
-        numberRangeVisitor = new NumberRangeVisitor();
-    }
-
-    private void readObject(java.io.ObjectInputStream stream)
-        throws java.io.IOException, ClassNotFoundException {
-        setDefaultFieldValues();
-        stream.defaultReadObject();
-    }
-
-    public MatcherAction() {
-        setDefaultFieldValues();
-    }
 
     TreeExpressionEvaluator getEvaluatorForUnitTesting() {
         return evaluator;
@@ -421,7 +407,7 @@ public abstract class MatcherAction implements Serializable {
         if (treeName.length() == 0) {
             calculateInformPath(treeName + '.' + tree.name.getText(), tree.nextStep);
         } else {
-            for (Integer number : numberRangeVisitor.visit(tree.numberRange())) {
+            for (Integer number : NUMBER_RANGE_VISITOR.visit(tree.numberRange())) {
                 calculateInformPath(treeName + '.' + "(" + number + ")" + tree.name.getText(), tree.nextStep);
             }
         }

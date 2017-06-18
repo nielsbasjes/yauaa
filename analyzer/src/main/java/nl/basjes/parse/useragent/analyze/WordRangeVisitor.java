@@ -53,10 +53,10 @@ public class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordRangeVi
 
     }
 
-    private static WordRangeVisitor wordRangeVisitor = new WordRangeVisitor();
+    private static final WordRangeVisitor WORD_RANGE_VISITOR = new WordRangeVisitor();
 
     public static Range getRange(WordRangeContext ctx) {
-        return wordRangeVisitor.visit(ctx);
+        return WORD_RANGE_VISITOR.visit(ctx);
     }
 
     @Override

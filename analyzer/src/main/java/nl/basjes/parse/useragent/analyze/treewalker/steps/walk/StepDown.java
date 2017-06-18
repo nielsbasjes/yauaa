@@ -66,6 +66,9 @@ public class StepDown extends Step {
     private final String name;
     private transient UserAgentGetChildrenVisitor userAgentGetChildrenVisitor;
 
+    /**
+     * Initialize the transient default values
+     */
     private void setDefaultFieldValues() {
         userAgentGetChildrenVisitor = new UserAgentGetChildrenVisitor();
     }

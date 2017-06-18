@@ -86,39 +86,28 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
     private static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
-    protected List<Matcher> allMatchers;
-    private Map<String, Set<MatcherAction>> informMatcherActions;
+    protected List<Matcher> allMatchers = new ArrayList<>();
+    private Map<String, Set<MatcherAction>> informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
     private transient Map<String, List<MappingNode>> matcherConfigs;
 
-    private boolean showMatcherStats;
-    private boolean doingOnlyASingleTest;
+    private boolean showMatcherStats = false;
+    private boolean doingOnlyASingleTest = false;
 
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
     protected Set<String> wantedFieldNames = null;
 
-    protected List<Map<String, Map<String, String>>> testCases;
-    private Map<String, Map<String, String>> lookups;
+    protected List<Map<String, Map<String, String>>> testCases = new ArrayList<>(2048);
+    private Map<String, Map<String, String>> lookups = new HashMap<>(128);
 
     protected UserAgentTreeFlattener flattener;
 
     private LRUMap<String, UserAgent> parseCache = new LRUMap<>(DEFAULT_PARSE_CACHE_SIZE);
 
+    /**
+     * Initialize the transient default values
+     */
     private void setDefaultFieldValues() {
-        allMatchers = new ArrayList<>();
-        informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
         matcherConfigs = new HashMap<>(64);
-
-        showMatcherStats = false;
-        doingOnlyASingleTest = false;
-
-        // If we want ALL fields this is null. If we only want specific fields this is a list of names.
-        wantedFieldNames = null;
-
-        testCases = new ArrayList<>(2048);
-        lookups = new HashMap<>(128);
-
-        parseCache = new LRUMap<>(DEFAULT_PARSE_CACHE_SIZE);
-
     }
 
     private void readObject(java.io.ObjectInputStream stream)
