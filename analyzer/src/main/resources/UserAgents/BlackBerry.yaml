@@ -212,3 +212,88 @@ config:
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
 
+- test:
+    input:
+      # NASTY: Mobile Safari --> Phone --> but this is a Tablet
+      user_agent_string: 'Mozilla/5.0 (PlayBook; U; Android 2.3.3; en-gb; PlayBook Build/2.1.0.147) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'BlackBerry PlayBook'
+      DeviceBrand                          : 'BlackBerry'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '2.3.3'
+      OperatingSystemNameVersion           : 'Android 2.3.3'
+      OperatingSystemVersionBuild          : '2.1.0.147'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.1'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'English (United Kingdom)'
+      AgentLanguageCode                    : 'en-gb'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (PlayBook; U; RIM Tablet OS 2.0.1; en-US) AppleWebKit/535.8+ (KHTML, like Gecko) Version'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'BlackBerry PlayBook'
+      DeviceBrand                          : 'BlackBerry'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'RIM Tablet OS'
+      OperatingSystemVersion               : '2.0.1'
+      OperatingSystemNameVersion           : 'RIM Tablet OS 2.0.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '535.8'
+      LayoutEngineVersionMajor             : '535'
+      LayoutEngineNameVersion              : 'AppleWebKit 535.8'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AppleWebKit'
+      AgentVersion                         : '535.8'
+      AgentVersionMajor                    : '535'
+      AgentNameVersion                     : 'AppleWebKit 535.8'
+      AgentNameVersionMajor                : 'AppleWebKit 535'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (PlayBook; U; RIM Tablet OS 2.1.0; en-US) AppleWebKit/536.2+ (KHTML, like Gecko) Version/7.2.1.0 Safari/536.2+'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'BlackBerry PlayBook'
+      DeviceBrand                          : 'BlackBerry'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'RIM Tablet OS'
+      OperatingSystemVersion               : '2.1.0'
+      OperatingSystemNameVersion           : 'RIM Tablet OS 2.1.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '536.2'
+      LayoutEngineVersionMajor             : '536'
+      LayoutEngineNameVersion              : 'AppleWebKit 536.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '7.2.1.0'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Safari 7.2.1.0'
+      AgentNameVersionMajor                : 'Safari 7'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+

@@ -190,10 +190,19 @@ config:
       AgentSecurity                        : 'Strong security'
 
 - matcher:
+    require:
+    - 'agent.product.comments.entry.product.name="Opera Tablet"'
     extract:
     - 'AgentClass            :   2012:"Browser"'
     - 'AgentName             :   2012:"Opera Tablet"'
-    - 'AgentVersion          :   2012:agent.product.comments.entry.product.name="Opera Tablet"^.version'
+    - 'AgentVersion          :   2012:agent.product.name="Version"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.product.name="Opera Tablet"'
+    - 'agent.product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceClass           :   2012:"Tablet"'
 
 - test:
     input:
@@ -214,13 +223,38 @@ config:
       LayoutEngineNameVersionMajor         : 'Presto 2'
       AgentClass                           : 'Browser'
       AgentName                            : 'Opera Tablet'
-      AgentVersion                         : '15165'
-      AgentVersionMajor                    : '15165'
-      AgentNameVersion                     : 'Opera Tablet 15165'
-      AgentNameVersionMajor                : 'Opera Tablet 15165'
+      AgentVersion                         : '11.1'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Opera Tablet 11.1'
+      AgentNameVersionMajor                : 'Opera Tablet 11'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Android 1.0.3; Linux; Opera Tablet/ADR-1309251104) Presto/2.11.355 Version/12.10'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '1.0.3'
+      OperatingSystemNameVersion           : 'Android 1.0.3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.11.355'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.11.355'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera Tablet'
+      AgentVersion                         : '12.10'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera Tablet 12.10'
+      AgentNameVersionMajor                : 'Opera Tablet 12'
+
 
   # Opera on iOS
 - matcher:
@@ -358,3 +392,4 @@ config:
       AgentVersionMajor                    : '15'
       AgentNameVersion                     : 'Opera 15.0.1147.100'
       AgentNameVersionMajor                : 'Opera 15'
+
