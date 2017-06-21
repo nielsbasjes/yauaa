@@ -44,6 +44,17 @@ config:
     - 'OperatingSystemNameVersion:   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
 
 - matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.product.name[1-2]="Tablet PC"'
+    extract:
+    - 'DeviceClass               : 101:"Tablet"'
+    - 'DeviceName                : 101:"Tablet PC"'
+    - 'OperatingSystemClass      :  50:"Desktop"'
+    - 'OperatingSystemName       :   5:"Windows NT"'
+    - 'OperatingSystemVersion    :   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
+    - 'OperatingSystemNameVersion:   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
+
+- matcher:
     extract:
     - 'DeviceClass               : 100:"Desktop"'
     - 'DeviceName                : 100:"Desktop"'
@@ -239,3 +250,56 @@ config:
       AgentNameVersion                     : 'Firefox 34.0'
       AgentNameVersionMajor                : 'Firefox 34'
 
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Win98; en-US; rv:x.xx) Gecko/20030423 Firebird Browser/0.6'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows 9x'
+      OperatingSystemVersion               : 'Windows 98'
+      OperatingSystemNameVersion           : 'Windows 98'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : 'x.xx'
+      LayoutEngineVersionMajor             : 'x'
+      LayoutEngineNameVersion              : 'Gecko x.xx'
+      LayoutEngineNameVersionMajor         : 'Gecko x'
+      LayoutEngineBuild                    : '20030423'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firebird Browser'
+      AgentVersion                         : '0.6'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Firebird Browser 0.6'
+      AgentNameVersionMajor                : 'Firebird Browser 0'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; InfoPath.3; Tablet PC 2.0)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Tablet PC'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Trident 5.0'
+      LayoutEngineNameVersionMajor         : 'Trident 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '9.0'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Internet Explorer 9.0'
+      AgentNameVersionMajor                : 'Internet Explorer 9'

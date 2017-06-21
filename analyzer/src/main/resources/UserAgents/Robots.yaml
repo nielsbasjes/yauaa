@@ -20,6 +20,136 @@
 
 config:
 
+# --------------------------------------------------------------------------------------
+- matcher:
+    extract:
+    - 'DeviceClass           :  102:"Robot"'
+    - 'DeviceBrand           :  102:"Unknown"'
+    - 'DeviceName            :  102:agent.product.version~"spider"^.name'
+    - 'OperatingSystemClass  :  102:"Cloud"'
+    - 'OperatingSystemName   :  102:"Cloud"'
+    - 'OperatingSystemVersion:  102:"Cloud"'
+    - 'LayoutEngineClass     :  102:"Robot"'
+    - 'LayoutEngineName      :  102:agent.product.version~"spider"^.name'
+    - 'LayoutEngineVersion   :  102:agent.product.version~"spider"^.(1)version'
+    - 'AgentClass            :  102:"Robot"'
+    - 'AgentName             :  102:agent.product.version~"spider"^.name'
+    - 'AgentVersion          :  102:agent.product.version~"spider"^.(1)version'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  102:"Robot"'
+    - 'DeviceBrand           :  102:"Unknown"'
+    - 'DeviceName            :  102:agent.product.version~"crawl"^.name'
+    - 'OperatingSystemClass  :  102:"Cloud"'
+    - 'OperatingSystemName   :  102:"Cloud"'
+    - 'OperatingSystemVersion:  102:"Cloud"'
+    - 'LayoutEngineClass     :  102:"Robot"'
+    - 'LayoutEngineName      :  102:agent.product.version~"crawl"^.name'
+    - 'LayoutEngineVersion   :  102:agent.product.version~"crawl"^.(1)version'
+    - 'AgentClass            :  102:"Robot"'
+    - 'AgentName             :  102:agent.product.version~"crawl"^.name'
+    - 'AgentVersion          :  102:agent.product.version~"crawl"^.(1)version'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  102:"Robot"'
+    - 'DeviceBrand           :  102:"Unknown"'
+    - 'DeviceName            :  102:agent.product.version~"bot"^.name'
+    - 'OperatingSystemClass  :  102:"Cloud"'
+    - 'OperatingSystemName   :  102:"Cloud"'
+    - 'OperatingSystemVersion:  102:"Cloud"'
+    - 'LayoutEngineClass     :  102:"Robot"'
+    - 'LayoutEngineName      :  102:agent.product.version~"bot"^.name'
+    - 'LayoutEngineVersion   :  102:agent.product.version~"bot"^.(1)version'
+    - 'AgentClass            :  102:"Robot"'
+    - 'AgentName             :  102:agent.product.version~"bot"^.name'
+    - 'AgentVersion          :  102:agent.product.version~"bot"^.(1)version'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  102:"Robot"'
+    - 'DeviceBrand           :  102:"Unknown"'
+    - 'DeviceName            :  102:agent.product.version~"scan"^.name'
+    - 'OperatingSystemClass  :  102:"Cloud"'
+    - 'OperatingSystemName   :  102:"Cloud"'
+    - 'OperatingSystemVersion:  102:"Cloud"'
+    - 'LayoutEngineClass     :  102:"Robot"'
+    - 'LayoutEngineName      :  102:agent.product.version~"scan"^.name'
+    - 'LayoutEngineVersion   :  102:agent.product.version~"scan"^.(1)version'
+    - 'AgentClass            :  102:"Robot"'
+    - 'AgentName             :  102:agent.product.version~"scan"^.name'
+    - 'AgentVersion          :  102:agent.product.version~"scan"^.(1)version'
+
+# --------------------------------------------------------------------------------------
+
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  101:"Robot"'
+    - 'DeviceBrand           :  101:"Unknown"'
+    - 'DeviceName            :  101:agent.text~"spider"'
+    - 'OperatingSystemClass  :  101:"Cloud"'
+    - 'OperatingSystemName   :  101:"Cloud"'
+    - 'OperatingSystemVersion:  101:"Cloud"'
+    - 'LayoutEngineClass     :  101:"Robot"'
+    - 'LayoutEngineName      :  101:agent.text~"spider"'
+    - 'LayoutEngineVersion   :  101:"??"'
+    - 'AgentClass            :  101:"Robot"'
+    - 'AgentName             :  101:agent.text~"spider"'
+    - 'AgentVersion          :  101:"??"'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  101:"Robot"'
+    - 'DeviceBrand           :  101:"Unknown"'
+    - 'DeviceName            :  101:agent.text~"crawl"'
+    - 'OperatingSystemClass  :  101:"Cloud"'
+    - 'OperatingSystemName   :  101:"Cloud"'
+    - 'OperatingSystemVersion:  101:"Cloud"'
+    - 'LayoutEngineClass     :  101:"Robot"'
+    - 'LayoutEngineName      :  101:agent.text~"crawl"'
+    - 'LayoutEngineVersion   :  101:"??"'
+    - 'AgentClass            :  101:"Robot"'
+    - 'AgentName             :  101:agent.text~"crawl"'
+    - 'AgentVersion          :  101:"??"'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  101:"Robot"'
+    - 'DeviceBrand           :  101:"Unknown"'
+    - 'DeviceName            :  101:agent.text~"bot"'
+    - 'OperatingSystemClass  :  101:"Cloud"'
+    - 'OperatingSystemName   :  101:"Cloud"'
+    - 'OperatingSystemVersion:  101:"Cloud"'
+    - 'LayoutEngineClass     :  101:"Robot"'
+    - 'LayoutEngineName      :  101:agent.text~"bot"'
+    - 'LayoutEngineVersion   :  101:"??"'
+    - 'AgentClass            :  101:"Robot"'
+    - 'AgentName             :  101:agent.text~"bot"'
+    - 'AgentVersion          :  101:"??"'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  101:"Robot"'
+    - 'DeviceBrand           :  101:"Unknown"'
+    - 'DeviceName            :  101:agent.text~"scan"'
+    - 'OperatingSystemClass  :  101:"Cloud"'
+    - 'OperatingSystemName   :  101:"Cloud"'
+    - 'OperatingSystemVersion:  101:"Cloud"'
+    - 'LayoutEngineClass     :  101:"Robot"'
+    - 'LayoutEngineName      :  101:agent.text~"scan"'
+    - 'LayoutEngineVersion   :  101:"??"'
+    - 'AgentClass            :  101:"Robot"'
+    - 'AgentName             :  101:agent.text~"scan"'
+    - 'AgentVersion          :  101:"??"'
+
+# --------------------------------------------------------------------------------------
+
 - matcher:
     extract:
     - 'DeviceClass           :  101:"Robot"'
@@ -1059,17 +1189,19 @@ config:
       user_agent_string: 'Curious George - www.analyticsseo.com/crawler'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Robot'
+      DeviceName                           : 'Curious George'
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
       OperatingSystemNameVersion           : 'Cloud'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      AgentClass                           : 'Special'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Curious George'
+      LayoutEngineVersion                  : 'www.analyticsseo.com/crawler'
+      LayoutEngineVersionMajor             : 'www.analyticsseo.com/crawler'
+      LayoutEngineNameVersion              : 'Curious George www.analyticsseo.com/crawler'
+      LayoutEngineNameVersionMajor         : 'Curious George www.analyticsseo.com/crawler'
+      AgentClass                           : 'Robot'
       AgentName                            : 'Curious George'
       AgentVersion                         : 'www.analyticsseo.com/crawler'
       AgentVersionMajor                    : 'www.analyticsseo.com/crawler'
@@ -1135,3 +1267,78 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'facebookexternalhit 1.1'
       AgentNameVersionMajor                : 'facebookexternalhit 1'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36 HubSpot Webcrawler'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Hubspot Webcrawler'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '27.0.1453.116'
+      AgentVersionMajor                    : '27'
+      AgentNameVersion                     : 'Chrome 27.0.1453.116'
+      AgentNameVersionMajor                : 'Chrome 27'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'AltaVista V2.0B crawler@evreka.com'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'AltaVista'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'AltaVista'
+      LayoutEngineVersion                  : 'V2.0B'
+      LayoutEngineVersionMajor             : 'V2'
+      LayoutEngineNameVersion              : 'AltaVista V2.0B'
+      LayoutEngineNameVersionMajor         : 'AltaVista V2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'AltaVista'
+      AgentVersion                         : 'V2.0B'
+      AgentVersionMajor                    : 'V2'
+      AgentNameVersion                     : 'AltaVista V2.0B'
+      AgentNameVersionMajor                : 'AltaVista V2'
+
+# A tool similar to curl
+- test:
+    input:
+      user_agent_string: 'Typhoeus - https://github.com/typhoeus/typhoeus'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Typhoeus'
+      AgentVersion                         : 'https://github.com/typhoeus/typhoeus'
+      AgentVersionMajor                    : 'https://github.com/typhoeus/typhoeus'
+      AgentNameVersion                     : 'Typhoeus https://github.com/typhoeus/typhoeus'
+      AgentNameVersionMajor                : 'Typhoeus https://github.com/typhoeus/typhoeus'
+      AgentInformationUrl                  : 'https://github.com/typhoeus/typhoeus'
