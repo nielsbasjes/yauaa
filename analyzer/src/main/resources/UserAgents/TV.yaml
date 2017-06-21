@@ -976,3 +976,35 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   101:"TV"'
+    - 'DeviceName            :    50:"SmartTV"'
+    - 'AgentClass            :    50:"Browser"'
+    - 'AgentName             :    50:"SmartTV"'
+    - 'AgentVersion          :    50:agent.product.name="SmartTV"^.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; NetCast) AppleWebKit/537.31 (KHTML, licke Gecko) Chrome/26.0.1410.33 Safari/537.31  SmartTV/5.0'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'SmartTv'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.31'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.31'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '26.0.1410.33'
+      AgentVersionMajor                    : '26'
+      AgentNameVersion                     : 'Chrome 26.0.1410.33'
+      AgentNameVersionMajor                : 'Chrome 26'

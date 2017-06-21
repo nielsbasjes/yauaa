@@ -345,10 +345,10 @@ config:
 - matcher:
     extract:
     - 'DeviceClass                         :   100:"Set-top box"'
-    - 'DeviceBrand                         :    10:"Unknown"'
-    - 'DeviceName                          :    10:"Unknown"'
+    - 'DeviceBrand                         :    10:"Google"'
+    - 'DeviceName                          :    10:"Google TV"'
     - 'OperatingSystemClass                :   100:"Embedded"'
-    - 'OperatingSystemName                 :   100:agent.product.(1)name="GoogleTV"'
+    - 'OperatingSystemName                 :   100:"GoogleTV"'
     - 'OperatingSystemVersion              :   100:"??"'
     - 'OperatingSystemVersionBuild         :   100:agent.product.(1)name="GoogleTV"^.version'
 
@@ -357,8 +357,8 @@ config:
       user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.127 Large Screen Safari/533.4 GoogleTV/163491'
     expected:
       DeviceClass                          : 'Set-top box'
-      DeviceName                           : 'Unknown'
-      DeviceBrand                          : 'Unknown'
+      DeviceName                           : 'Google TV'
+      DeviceBrand                          : 'Google'
       DeviceCpu                            : 'Intel i686'
       OperatingSystemClass                 : 'Embedded'
       OperatingSystemName                  : 'GoogleTV'
@@ -380,4 +380,71 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; de-DE) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.127 Large Screen Safari/533.4 GoogleTV/ 162671'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Google TV'
+      DeviceBrand                          : 'Google'
+      DeviceCpu                            : 'Intel i686'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'GoogleTV'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'GoogleTV ??'
+      OperatingSystemVersionBuild          : '162671'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.4'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '5.0.375.127'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Chrome 5.0.375.127'
+      AgentNameVersionMajor                : 'Chrome 5'
+      AgentLanguage                        : 'German (Germany)'
+      AgentLanguageCode                    : 'de-de'
+      AgentSecurity                        : 'Strong security'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   101:"Set-top box"'
+    - 'DeviceName            :     9:"Unknown Set-top box"'
+    - 'AgentClass            :   101:"Browser"'
+    - 'AgentName             :   101:agent.product.name="Large Screen Safari"^>.name'
+    - 'AgentVersion          :   101:agent.product.name="Large Screen Safari"^>.version'
+
+- matcher:
+    extract:
+    - 'DeviceBrand           :   10:LookUp[MobileBrands;agent.product.name="Large Screen Safari"^>.name[1]]'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.41 (KHTML, like Gecko) Large Screen Safari/537.41 LG Browser/7.00.00(LGE; WEBOS1; 03.00.00; 1); webOS.TV-2014; LG NetCast.TV-2013 Compatible (LGE, WEBOS1, wired)'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'LG Browser'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'SmartTV'
+      OperatingSystemNameVersion           : 'Linux SmartTV'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.41'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.41'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'LG Browser'
+      AgentVersion                         : '7.00.00'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'LG Browser 7.00.00'
+      AgentNameVersionMajor                : 'LG Browser 7'
 
