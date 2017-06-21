@@ -25,7 +25,7 @@ public final class EvilManualUseragentStringHacks {
     private EvilManualUseragentStringHacks() {
     }
 
-    static Pattern missingProductAtStart = Pattern.compile("^\\(( |;|null|compatible|windows|android).*", Pattern.CASE_INSENSITIVE);
+    static Pattern missingProductAtStart = Pattern.compile("^\\(( |;|null|compatible|windows|android|linux).*", Pattern.CASE_INSENSITIVE);
 
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
@@ -39,6 +39,11 @@ public final class EvilManualUseragentStringHacks {
             return null;
         }
         String result = useragent;
+
+        if (result.startsWith(" ")) {
+            result = result.trim();
+        }
+
         // This one is a single useragent that hold significant traffic
         if (result.contains(" (Macintosh); ")){
             result = replaceString(result, " (Macintosh); ", " (Macintosh; ");

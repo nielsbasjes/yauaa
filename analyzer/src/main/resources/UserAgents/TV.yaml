@@ -949,3 +949,30 @@ config:
 # Opera/9.80 (Linux mips ; U; HbbTV/1.1.1 (; Philips; ; ; ; ) CE-HTML/1.0 NETTV/3.1.0; en) Presto/2.6.33 Version/10.70
 # Opera/9.80 (Linux sh4; HbbTV/1.2.1 (+PVR; Loewe; SL210; LOH/10.2.3.25;;) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH) Presto/2.12.362 Version/12.10
 
+- test:
+    input:
+      user_agent_string: '(Linux armv7l ; U; HbbTV/1.1.1 (; TOSHIBA; 32SL863; 19.2.39.208; 3; ) ; ToshibaTP/1.1.1 () ; en)'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Toshiba 32SL863'
+      DeviceBrand                          : 'Toshiba'
+      DeviceCpu                            : 'ARMv7l'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '19.2.39.208'
+      OperatingSystemNameVersion           : 'Linux 19.2.39.208'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Linux'
+      AgentVersion                         : 'armv7l'
+      AgentVersionMajor                    : 'armv7l'
+      AgentNameVersion                     : 'Linux armv7l'
+      AgentNameVersionMajor                : 'Linux armv7l'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
