@@ -1,0 +1,57 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2017 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+# ========================================================================
+  - matcher:
+      options:
+        - 'verbose'
+      extract:
+      - 'Step01:1:agent.product.(1)comments.entry.(1)text[2]="seven"'
+      - 'Step02:1:agent.product.(1)comments.entry.(1)text[2]="seven"^'
+      - 'Step03:1:agent.product.(1)comments.entry.(1)text[2]="seven"^^'
+      - 'Step04:1:agent.product.(1)comments.entry.(1)text[2]="seven"^^^'
+      - 'Step05:1:agent.product.(1)comments.entry.(1)text[2]="seven"^^^<'
+      - 'Step06:1:agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name'
+      - 'Step07:1:agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"'
+      - 'Step08:1:agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^'
+      - 'Step09:1:agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments'
+      - 'Step10:1:agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry'
+      - 'Step11:1:agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"'
+      - 'Step12:1:agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@'
+      - 'Step13:1:agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@[1]'
+
+  - test:
+      options:
+        - 'verbose'
+      input:
+        name: 'Verify the example used in the documentation'
+        user_agent_string:  '    foo faa/1.0/2.3 (one; two three four) bar baz/2.0/3.0 (five; six seven)  '
+      expected:
+        Step01: 'seven'
+        Step02: 'six seven'
+        Step03: '(five; six seven)'
+        Step04: 'bar baz/2.0/3.0 (five; six seven)'
+        Step05: 'foo faa/1.0/2.3 (one; two three four)'
+        Step06: 'foo faa'
+        Step07: 'foo faa'
+        Step08: 'foo faa/1.0/2.3 (one; two three four)'
+        Step09: '(one; two three four)'
+        Step10: 'one'
+        Step11: 'three'
+        Step12: 'two three four'
+        Step13: 'two'
+
