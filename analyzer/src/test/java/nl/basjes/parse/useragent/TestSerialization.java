@@ -72,7 +72,7 @@ public class TestSerialization {
             if (!(o instanceof UserAgentAnalyzerTester)) {
                 throw new IOException("This shouldn't happen...");
             }
-            uaa = (UserAgentAnalyzerTester)o;
+            uaa = (UserAgentAnalyzerTester) o;
         } finally {
             if (in != null) {
                 in.close();
