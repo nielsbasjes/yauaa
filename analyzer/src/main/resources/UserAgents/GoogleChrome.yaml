@@ -380,25 +380,29 @@ config:
 - lookup:
     name: 'SpecialChromeBrowserNames'
     map:
-      "Vivaldi" : "Vivaldi"
-      "OPR"     : "Opera"
-      "MMS"     : "Opera Neon"
+      "Vivaldi"  : "Vivaldi"
+      "OPR"      : "Opera"
+      "MMS"      : "Opera Neon"
+      "Amigo"    : "Amigo" # https://amigo.mail.ru/
+      "MRCHROME" : "Amigo" # https://amigo.mail.ru/
+      "MRPULSE"  : "Pulse" # https://amigo.mail.ru/
+
+- matcher:
+    extract:
+    - 'AgentName             :   2018:LookUp[SpecialChromeBrowserNames;agent.product.(1)name="Chrome"^>.(1)name}"Safari"^>.(1)name]'
+    - 'AgentVersion          :   2018:agent.product.(1)name="Chrome"^>.(1)name}"Safari"^>.(1)version'
 
 - matcher:
     require:
-    - 'agent.product.(1)name="Chrome"'
-    - 'agent.product.(1)name="Mobile Safari"'
+    - 'IsNull[agent.product.(1)name="Chrome"^>.(1)name}"Safari"]'
     extract:
-    - 'AgentName             :   2018: LookUp[SpecialChromeBrowserNames;agent.product.(1)name="Chrome"^>.(1)name="Mobile Safari"^>.(1)name]'
-    - 'AgentVersion          :   2018: agent.product.(1)name="Chrome"^>.(1)name="Mobile Safari"^>.(1)version'
+    - 'AgentName             :   2018:LookUp[SpecialChromeBrowserNames;agent.product.(1)name="Chrome"^>.(1)name]'
+    - 'AgentVersion          :   2018:agent.product.(1)name="Chrome"^>.(1)version'
 
 - matcher:
-    require:
-    - 'agent.product.(1)name="Chrome"'
-    - 'agent.product.(1)name="Safari"'
     extract:
-    - 'AgentName             :   2018: LookUp[SpecialChromeBrowserNames;agent.product.(1)name="Chrome"^>.(1)name="Safari"^>.(1)name]'
-    - 'AgentVersion          :   2018: agent.product.(1)name="Chrome"^>.(1)name="Safari"^>.(1)version'
+    - 'AgentName             :   2019:LookUp[SpecialChromeBrowserNames;agent.text]'
+    - 'AgentVersion          :   2019:agent.product.(1)name="Chrome"^.version'
 
 - test:
     input:
@@ -450,3 +454,83 @@ config:
       AgentNameVersion                     : 'Opera Neon 1.0.2459.0'
       AgentNameVersionMajor                : 'Opera Neon 1'
 
+- test:
+    input:
+      # Pulse browser from https://amigo.mail.ru/
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD92G) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.105 Mobile Safari/537.36 MRPULSE v1.3.5'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NBD92G'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '55.0'
+      LayoutEngineVersionMajor             : '55'
+      LayoutEngineNameVersion              : 'Blink 55.0'
+      LayoutEngineNameVersionMajor         : 'Blink 55'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Pulse'
+      AgentVersion                         : 'v1.3.5'
+      AgentVersionMajor                    : 'v1'
+      AgentNameVersion                     : 'Pulse v1.3.5'
+      AgentNameVersionMajor                : 'Pulse v1'
+
+- test:
+    input:
+      # Several sources on the internet indicate this is a robot
+      #   https://github.com/fnando/browser/issues/205
+      #   http://www.spambotsecurity.com/forum/viewtopic.php?f=7&t=1424
+      # It is also possible MrChrome is just the internal name name of the Amigo browser
+      # (The android variant is called Pulse which shows MRPULSE)
+      # See https://amigo.mail.ru/
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1709.117 Amigo/32.0.1709.117 MRCHROME SOC Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows Vista'
+      OperatingSystemNameVersion           : 'Windows Vista'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '32.0'
+      LayoutEngineVersionMajor             : '32'
+      LayoutEngineNameVersion              : 'Blink 32.0'
+      LayoutEngineNameVersionMajor         : 'Blink 32'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Amigo'
+      AgentVersion                         : '32.0.1709.117'
+      AgentVersionMajor                    : '32'
+      AgentNameVersion                     : 'Amigo 32.0.1709.117'
+      AgentNameVersionMajor                : 'Amigo 32'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.46 Safari/535.11 MRCHROME'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '535.11'
+      LayoutEngineVersionMajor             : '535'
+      LayoutEngineNameVersion              : 'AppleWebKit 535.11'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Amigo'
+      AgentVersion                         : '17.0.963.46'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Amigo 17.0.963.46'
+      AgentNameVersionMajor                : 'Amigo 17'
