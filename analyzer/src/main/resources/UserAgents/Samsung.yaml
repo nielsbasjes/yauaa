@@ -29,6 +29,129 @@ config:
     - 'AgentName             :   2015:"SamsungBrowser"' # ( GoogleBot / Bing / Yahoo / ...) / ( Firefox / Chrome / ... )
     - 'AgentVersion          :   2015:agent.(3)product.(1)name="SamsungBrowser"^.version' # 4.0 / 43.1.2.3 / ...
 
+#From: https://en.wikipedia.org/wiki/Samsung_Galaxy#Variants
+#Variants
+#The model number of Samsung Galaxy devices will indicate the variant:
+#   GT-Nnnn0 – mainstream Note model (Old type of model number)
+#   SM-Nnn0 – mainstream Note model (New type of model number)
+#   GT-Pnn00/10 – mainstream Tab model (Old type of model number)
+#   SM-Tnn0/1 – mainstream Tab model (New type of model number)
+#   GT-Snnn0 – mainstream model
+#   GT-Snnn2/ SM-Gnnn/DS / SM-Gnnn/DD SM-Gnnn2 Dual-SIM "Duos" model
+#   GT-Snnn5/GT-Nnnn5/GT-Pnnn5/GT-Innn5/SM-NnnnF/SM-Tnn5/SM-GnnnF – 4G/LTE model
+
+# ---
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"GT-N"'
+    extract:
+    - 'DeviceClass           :   1010:"Phone"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"Samsung GT-N"'
+    extract:
+    - 'DeviceClass           :   1010:"Phone"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"GT-I"'
+    extract:
+    - 'DeviceClass           :   1010:"Phone"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"Samsung GT-I"'
+    extract:
+    - 'DeviceClass           :   1010:"Phone"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
+
+# ---
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"SM-N"'
+    extract:
+    - 'DeviceClass           :   1010:"Phone"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"Samsung SM-N"'
+    extract:
+    - 'DeviceClass           :   1010:"Phone"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
+# ---
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"GT-P"'
+    extract:
+    - 'DeviceClass           :   1010:"Tablet"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"Samsung GT-P"'
+    extract:
+    - 'DeviceClass           :   1010:"Tablet"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
+# ---
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"SM-T"'
+    extract:
+    - 'DeviceClass           :   1010:"Tablet"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"Samsung SM-T"'
+    extract:
+    - 'DeviceClass           :   1010:"Tablet"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
+
+# ---
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"GT-S"'
+    extract:
+    - 'DeviceClass           :   1010:"Phone"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"Samsung GT-S"'
+    extract:
+    - 'DeviceClass           :   1010:"Phone"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
+# ---
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"SM-P"'
+    extract:
+    - 'DeviceClass           :   1010:"Tablet"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"Samsung SM-P"'
+    extract:
+    - 'DeviceClass           :   1010:"Tablet"'
+    - 'DeviceBrand           :   1010:"Samsung"'
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-G920F/G920FXXEinterim Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/44.0.2403.133 Mobile Safari/537.36'
@@ -223,3 +346,28 @@ config:
       AgentNameVersion                     : 'SamsungBrowser 4.0'
       AgentNameVersionMajor                : 'SamsungBrowser 4'
 
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; GT-I9500 Build/KVT49L) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.170 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung GT-I9500'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KVT49L'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '33.0'
+      LayoutEngineVersionMajor             : '33'
+      LayoutEngineNameVersion              : 'Blink 33.0'
+      LayoutEngineNameVersionMajor         : 'Blink 33'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '33.0.1750.170'
+      AgentVersionMajor                    : '33'
+      AgentNameVersion                     : 'Chrome 33.0.1750.170'
+      AgentNameVersionMajor                : 'Chrome 33'
