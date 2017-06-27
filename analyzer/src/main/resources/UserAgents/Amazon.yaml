@@ -15,9 +15,37 @@
 # limitations under the License.
 #
 config:
+# https://developer.amazon.com/public/solutions/devices/kindle-fire/specifications/01-device-and-feature-specifications
 # https://developer.amazon.com/public/solutions/devices/fire-tablets/specifications/04-user-agent-strings
 # http://docs.aws.amazon.com/silk/latest/developerguide/user-agent.html
 
+#  KFTHW           | Amazon Kindle Fire (KFTHW ) | Amazon | Tablet
+#  KFAUWI          | Amazon Kindle Fire (KFAUWI) | Amazon | Tablet
+#  KFDOWI          | Amazon Kindle Fire (KFDOWI) | Amazon | Tablet
+#  KFGIWI          | Amazon Kindle Fire (KFGIWI) | Amazon | Tablet
+#  KFTBWI          | Amazon Kindle Fire (KFTBWI) | Amazon | Tablet
+#  KFFOWI          | Amazon Kindle Fire (KFFOWI) | Amazon | Tablet
+#  KFMEWI          | Amazon Kindle Fire (KFMEWI) | Amazon | Tablet
+#  KFSAWA          | Amazon Kindle Fire (KFSAWA) | Amazon | Tablet
+#  KFSAWI          | Amazon Kindle Fire (KFSAWI) | Amazon | Tablet
+#  KFARWI          | Amazon Kindle Fire (KFARWI) | Amazon | Tablet
+#  KFASWI          | Amazon Kindle Fire (KFASWI) | Amazon | Tablet
+#  KFAPWA          | Amazon Kindle Fire (KFAPWA) | Amazon | Tablet
+#  KFAPWI          | Amazon Kindle Fire (KFAPWI) | Amazon | Tablet
+#  KFAPWA          | Amazon Kindle Fire (KFAPWA) | Amazon | Tablet
+#  KFAPWI          | Amazon Kindle Fire (KFAPWI) | Amazon | Tablet
+#  KFSOWI          | Amazon Kindle Fire (KFSOWI) | Amazon | Tablet
+#  KFJWA           | Amazon Kindle Fire (KFJWA ) | Amazon | Tablet
+#  KFJWI           | Amazon Kindle Fire (KFJWI ) | Amazon | Tablet
+#  KFTT            | Amazon Kindle Fire (KFTT  ) | Amazon | Tablet
+#  KFOT            | Amazon Kindle Fire (KFOT  ) | Amazon | Tablet
+#  KFARWI          | Amazon Kindle Fire (KFARWI) | Amazon | Tablet
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   500:"Tablet"'
+    - 'DeviceBrand           :   500:"Amazon"'
+    - 'DeviceName            :   500:agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Build"@[1]{"KF"'
 
 - test:
     input:
