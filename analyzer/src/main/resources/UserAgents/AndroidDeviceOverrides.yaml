@@ -283,6 +283,26 @@ config:
     require:
     - 'IsNull[agent.product.name="Chrome"]'
     extract:
+    - 'DeviceClass                 :  1001:"Phone"'
+    - 'DeviceName                  :   100:"Lenovo-A850"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+    - 'OperatingSystemVersionBuild :    12:agent.(1)product.(1)comments.entry[1-3]="Lenovo-A850 Build"@[4]'
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
+    - 'DeviceClass                 :  1001:"Phone"'
+    - 'DeviceName                  :   100:"Lenovo-A850"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+    - 'OperatingSystemVersionBuild :    11:agent.(1)product.(1)comments.entry[1-2]="Lenovo-A850"@[3]'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
     - 'DeviceClass                 :  1001:"Tablet"'
     - 'DeviceName                  :   100:"BlackBerry PlayBook"'
     - 'DeviceBrand                 :   100:"BlackBerry"'
