@@ -159,7 +159,7 @@ config:
 
 - matcher:
     require:
-    - 'agent~"OR NOT"'
+    - 'agent~" OR NOT"'
     extract: *setSQLInjection
 
 - matcher:
@@ -487,3 +487,29 @@ config:
       user_agent_string: '(select convert(int,CHAR(65)))'
     expected: *isSQLInjection
 
+
+# Validate false positive edge case that matched the substring "OR NOT" in "honOR NOTe 8"
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.1; Honor Note 8 Build/MXC89L) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.91 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Huawei Honor Note 8'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.1'
+      OperatingSystemNameVersion           : 'Android 6.1'
+      OperatingSystemVersionBuild          : 'MXC89L'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '55.0'
+      LayoutEngineVersionMajor             : '55'
+      LayoutEngineNameVersion              : 'Blink 55.0'
+      LayoutEngineNameVersionMajor         : 'Blink 55'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '55.0.2883.91'
+      AgentVersionMajor                    : '55'
+      AgentNameVersion                     : 'Chrome 55.0.2883.91'
+      AgentNameVersionMajor                : 'Chrome 55'
