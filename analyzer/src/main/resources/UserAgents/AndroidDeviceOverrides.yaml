@@ -21,6 +21,14 @@ config:
 
 - matcher:
     require:
+    - 'agent.product.name="Lenovo A7600-H"'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo A7600-H"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+
+- matcher:
+    require:
     - 'IsNull[agent.product.name="Chrome"]'
     extract:
     - 'DeviceClass                 :  1001:"Tablet"'
@@ -41,43 +49,11 @@ config:
 
 - matcher:
     require:
-    - 'IsNull[agent.product.name="Chrome"]'
+    - 'agent.product.name="Lenovo A3500-H"'
     extract:
     - 'DeviceClass                 :  1001:"Tablet"'
     - 'DeviceName                  :   100:"Lenovo A3500-H"'
     - 'DeviceBrand                 :   100:"Lenovo"'
-    - 'OperatingSystemVersionBuild :    12:agent.(1)product.(1)comments.entry[1-4]="Lenovo A3500-H Build"@[5]'
-
-- matcher:
-    require:
-    - 'IsNull[agent.product.name="Chrome"]'
-    extract:
-    - 'DeviceClass                 :  1001:"Tablet"'
-    - 'DeviceName                  :   100:"Lenovo A3500-H"'
-    - 'DeviceBrand                 :   100:"Lenovo"'
-    - 'OperatingSystemVersionBuild :    11:agent.(1)product.(1)comments.entry[1-3]="Lenovo A3500-H"@[4]'
-
-
-
-- matcher:
-    require:
-    - 'IsNull[agent.product.name="Chrome"]'
-    extract:
-    - 'DeviceClass                 :  1001:"Tablet"'
-    - 'DeviceName                  :   100:"Lenovo A3500-FL"'
-    - 'DeviceBrand                 :   100:"Lenovo"'
-    - 'OperatingSystemVersionBuild :    12:agent.(1)product.(1)comments.entry[1-4]="Lenovo A3500-FL Build"@[5]'
-
-- matcher:
-    require:
-    - 'IsNull[agent.product.name="Chrome"]'
-    extract:
-    - 'DeviceClass                 :  1001:"Tablet"'
-    - 'DeviceName                  :   100:"Lenovo A3500-FL"'
-    - 'DeviceBrand                 :   100:"Lenovo"'
-    - 'OperatingSystemVersionBuild :    11:agent.(1)product.(1)comments.entry[1-3]="Lenovo A3500-FL"@[4]'
-
-
 
 - matcher:
     require:
@@ -101,6 +77,14 @@ config:
 
 - matcher:
     require:
+    - 'agent.product.name="Lenovo A3500-FL"'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo A3500-FL"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+
+- matcher:
+    require:
     - 'IsNull[agent.product.name="Chrome"]'
     extract:
     - 'DeviceClass                 :  1001:"Tablet"'
@@ -118,6 +102,70 @@ config:
     - 'OperatingSystemVersionBuild :    11:agent.(1)product.(1)comments.entry[1-3]="Lenovo A3500-FL"@[4]'
 
 
+
+- matcher:
+    require:
+    - 'agent.product.name="Lenovo A3500-H"'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo A3500-H"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo A3500-H"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+    - 'OperatingSystemVersionBuild :    12:agent.(1)product.(1)comments.entry[1-4]="Lenovo A3500-H Build"@[5]'
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo A3500-H"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+    - 'OperatingSystemVersionBuild :    11:agent.(1)product.(1)comments.entry[1-3]="Lenovo A3500-H"@[4]'
+
+
+
+- matcher:
+    require:
+    - 'agent.product.name="Lenovo A3500-FL"'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo A3500-FL"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo A3500-FL"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+    - 'OperatingSystemVersionBuild :    12:agent.(1)product.(1)comments.entry[1-4]="Lenovo A3500-FL Build"@[5]'
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo A3500-FL"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+    - 'OperatingSystemVersionBuild :    11:agent.(1)product.(1)comments.entry[1-3]="Lenovo A3500-FL"@[4]'
+
+
+
+- matcher:
+    require:
+    - 'agent.product.name="Lenovo A5500-F"'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo A5500-F"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
 
 - matcher:
     require:
@@ -141,6 +189,14 @@ config:
 
 - matcher:
     require:
+    - 'agent.product.name="Lenovo A7600-F"'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo A7600-F"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+
+- matcher:
+    require:
     - 'IsNull[agent.product.name="Chrome"]'
     extract:
     - 'DeviceClass                 :  1001:"Tablet"'
@@ -158,6 +214,14 @@ config:
     - 'OperatingSystemVersionBuild :    11:agent.(1)product.(1)comments.entry[1-3]="Lenovo A7600-F"@[4]'
 
 
+
+- matcher:
+    require:
+    - 'agent.product.name="Lenovo A7600-H"'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo A7600-H"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
 
 - matcher:
     require:
@@ -181,6 +245,14 @@ config:
 
 - matcher:
     require:
+    - 'agent.product.name="Lenovo B6000-F"'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo B6000-F"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+
+- matcher:
+    require:
     - 'IsNull[agent.product.name="Chrome"]'
     extract:
     - 'DeviceClass                 :  1001:"Tablet"'
@@ -198,6 +270,14 @@ config:
     - 'OperatingSystemVersionBuild :    11:agent.(1)product.(1)comments.entry[1-3]="Lenovo B6000-F"@[4]'
 
 
+
+- matcher:
+    require:
+    - 'agent.product.name="Lenovo B8000-F"'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo B8000-F"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
 
 - matcher:
     require:
@@ -221,6 +301,14 @@ config:
 
 - matcher:
     require:
+    - 'agent.product.name="Lenovo B8000-H"'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo B8000-H"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+
+- matcher:
+    require:
     - 'IsNull[agent.product.name="Chrome"]'
     extract:
     - 'DeviceClass                 :  1001:"Tablet"'
@@ -238,6 +326,14 @@ config:
     - 'OperatingSystemVersionBuild :    11:agent.(1)product.(1)comments.entry[1-3]="Lenovo B8000-H"@[4]'
 
 
+
+- matcher:
+    require:
+    - 'agent.product.name="Lenovo B8080-F"'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo B8080-F"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
 
 - matcher:
     require:
@@ -261,6 +357,14 @@ config:
 
 - matcher:
     require:
+    - 'agent.product.name="Lenovo S6000L-F"'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"Lenovo S6000L-F"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+
+- matcher:
+    require:
     - 'IsNull[agent.product.name="Chrome"]'
     extract:
     - 'DeviceClass                 :  1001:"Tablet"'
@@ -281,6 +385,14 @@ config:
 
 - matcher:
     require:
+    - 'agent.product.name="Lenovo-A850"'
+    extract:
+    - 'DeviceClass                 :  1001:"Phone"'
+    - 'DeviceName                  :   100:"Lenovo-A850"'
+    - 'DeviceBrand                 :   100:"Lenovo"'
+
+- matcher:
+    require:
     - 'IsNull[agent.product.name="Chrome"]'
     extract:
     - 'DeviceClass                 :  1001:"Phone"'
@@ -298,6 +410,14 @@ config:
     - 'OperatingSystemVersionBuild :    11:agent.(1)product.(1)comments.entry[1-2]="Lenovo-A850"@[3]'
 
 
+
+- matcher:
+    require:
+    - 'agent.product.name="PlayBook"'
+    extract:
+    - 'DeviceClass                 :  1001:"Tablet"'
+    - 'DeviceName                  :   100:"BlackBerry PlayBook"'
+    - 'DeviceBrand                 :   100:"BlackBerry"'
 
 - matcher:
     require:

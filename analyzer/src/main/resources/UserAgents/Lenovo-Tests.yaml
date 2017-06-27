@@ -193,3 +193,29 @@ config:
       AgentLanguageCode                    : 'pl-pl'
       AgentSecurity                        : 'Strong security'
 
+- test:
+    input:
+      user_agent_string: 'Lenovo-A850/S105 Linux/3.4.0 Android/4.2 Release/06.12.2013 Browser/AppleWebKit534.30 Profile/ Configuration/ Safari/534.30'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Lenovo A850'
+      DeviceBrand                          : 'Lenovo'
+      DeviceFirmwareVersion                : '06.12.2013'
+      DeviceVersion                        : 'S105'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.2'
+      OperatingSystemNameVersion           : 'Android 4.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : 'AppleWebKit534.30'
+      LayoutEngineVersionMajor             : 'AppleWebKit534'
+      LayoutEngineNameVersion              : 'AppleWebKit534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit534'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Lenovo-A850'
+      AgentVersion                         : 'S105'
+      AgentVersionMajor                    : 'S105'
+      AgentNameVersion                     : 'Lenovo-A850 S105'
+      AgentNameVersionMajor                : 'Lenovo-A850 S105'
+

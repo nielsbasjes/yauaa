@@ -61,6 +61,14 @@ do
 echo "
 - matcher:
     require:
+    - 'agent.product.name=\"${tag}\"'
+    extract:
+    - 'DeviceClass                 :  1001:\"${deviceClass}\"'
+    - 'DeviceName                  :   100:\"${deviceName}\"'
+    - 'DeviceBrand                 :   100:\"${deviceBrand}\"'
+
+- matcher:
+    require:
     - 'IsNull[agent.product.name=\"Chrome\"]'
     extract:
     - 'DeviceClass                 :  1001:\"${deviceClass}\"'
