@@ -1506,3 +1506,33 @@ config:
       AgentVersionMajor                    : '9'
       AgentNameVersion                     : 'Internet Explorer 9.0'
       AgentNameVersionMajor                : 'Internet Explorer 9'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.1; en-us; Nexus One Build/ERD62) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0Mobile Safari/530.17'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus ONE'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '2.1'
+      OperatingSystemNameVersion           : 'Android 2.1'
+      OperatingSystemVersionBuild          : 'ERD62'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '530.17'
+      LayoutEngineVersionMajor             : '530'
+      LayoutEngineNameVersion              : 'AppleWebKit 530.17'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 530'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+

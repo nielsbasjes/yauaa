@@ -26,6 +26,7 @@ public final class EvilManualUseragentStringHacks {
     }
 
     static Pattern missingProductAtStart = Pattern.compile("^\\(( |;|null|compatible|windows|android|linux).*", Pattern.CASE_INSENSITIVE);
+    static Pattern missingSpace = Pattern.compile("(/[0-9]+\\.[0-9]+)([A-Z][a-z][a-z][a-z]+ )");
 
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
@@ -42,6 +43,11 @@ public final class EvilManualUseragentStringHacks {
 
         if (result.startsWith(" ")) {
             result = result.trim();
+        }
+
+        // We have seen problems causes by " Version/4.0Mobile Safari/530.17"
+        if (missingSpace.matcher(result).find()) {
+            result = missingSpace.matcher(result).replaceAll("$1 $2");
         }
 
         // This one is a single useragent that hold significant traffic
