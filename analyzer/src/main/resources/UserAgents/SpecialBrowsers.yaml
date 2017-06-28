@@ -1321,3 +1321,88 @@ config:
       AgentVersionMajor                    : '784'
       AgentNameVersion                     : 'DuckDuckGo 784'
       AgentNameVersionMajor                : 'DuckDuckGo 784'
+
+
+# Coc Coc Browser (focuses on the Vietnamese market):  https://en.wikipedia.org/wiki/C%E1%BB%91c_C%E1%BB%91c
+- matcher:
+    extract:
+    - 'AgentClass            : 2050:"Browser"'
+    - 'AgentName             : 2050:"Coc Coc Browser"'
+    - 'AgentVersion          : 2050:agent.product.name="coc_coc_browser"^.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) coc_coc_browser/64.4.126 Chrome/58.4.3029.126 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 8.1'
+      OperatingSystemNameVersion           : 'Windows 8.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '58.4'
+      LayoutEngineVersionMajor             : '58'
+      LayoutEngineNameVersion              : 'Blink 58.4'
+      LayoutEngineNameVersionMajor         : 'Blink 58'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Coc Coc Browser'
+      AgentVersion                         : '64.4.126'
+      AgentVersionMajor                    : '64'
+      AgentNameVersion                     : 'Coc Coc Browser 64.4.126'
+      AgentNameVersionMajor                : 'Coc Coc Browser 64'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; SM-G610F Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) coc_coc_browser/64.4.128 Mobile Chrome/58.4.3029.128 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung SM-G610F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : 'MMB29K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '58.4'
+      LayoutEngineVersionMajor             : '58'
+      LayoutEngineNameVersion              : 'Blink 58.4'
+      LayoutEngineNameVersionMajor         : 'Blink 58'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Coc Coc Browser'
+      AgentVersion                         : '64.4.128'
+      AgentVersionMajor                    : '64'
+      AgentNameVersion                     : 'Coc Coc Browser 64.4.128'
+      AgentNameVersionMajor                : 'Coc Coc Browser 64'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) coc_coc_browser/64.4.130 CriOS/58.4.3029.130 Mobile/14F89 Safari/602.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '14F89'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.3.2'
+      OperatingSystemNameVersion           : 'iOS 10.3.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '58.4'
+      LayoutEngineVersionMajor             : '58'
+      LayoutEngineNameVersion              : 'Blink 58.4'
+      LayoutEngineNameVersionMajor         : 'Blink 58'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Coc Coc Browser'
+      AgentVersion                         : '64.4.130'
+      AgentVersionMajor                    : '64'
+      AgentNameVersion                     : 'Coc Coc Browser 64.4.130'
+      AgentNameVersionMajor                : 'Coc Coc Browser 64'

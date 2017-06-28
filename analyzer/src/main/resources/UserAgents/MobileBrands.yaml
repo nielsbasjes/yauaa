@@ -31,6 +31,7 @@ config:
       "SM8" : "Smartisan"
       "SM9" : "Smartisan"
       "YQ6" : "Smartisan"
+      "Coolpad" : "Coolpad"
       "LG" : "LG"
       "LG-" : "LG"
       "G Watch" : "LG"
@@ -1114,6 +1115,121 @@ config:
     extract:
     - 'DeviceBrand                 :  320:"Smartisan"'
     - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"YQ6"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Coolpad"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"Coolpad"@'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Coolpad"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"Coolpad"@'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Coolpad"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"Coolpad"@'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Coolpad"'
+    extract:
+    - 'DeviceBrand                 :  324:"Coolpad"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Coolpad"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"Coolpad"@[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Coolpad"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"Coolpad"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Coolpad"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"Coolpad"@[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Coolpad"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"Coolpad"@[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Coolpad"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"Coolpad"@'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Coolpad"'
+    - 'DeviceName                  :  313:agent.product.name{"Coolpad"@'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Coolpad"'
+    - 'DeviceName                  :  324:agent.(1)product.name="Coolpad"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Coolpad"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="Coolpad"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Coolpad"'
+    - 'DeviceName                  :  125:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"Coolpad"@'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Coolpad"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"Coolpad"@!="Coolpad"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Coolpad"'
+    - 'DeviceName                  :  124:agent.(1-2)product.(1)comments.entry.text{"Coolpad"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Coolpad"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"Coolpad"@!="Coolpad"'
 
 
 - matcher:
@@ -7456,6 +7572,41 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"BlackBerry"'
     extract:
     - 'DeviceBrand                 :   90:"BlackBerry"'
+
+# ===================================================================================================
+
+
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version{"Coolpad"'
+    extract:
+    - 'DeviceBrand                 :   94:"Coolpad"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^.version{"Coolpad"'
+    extract:
+    - 'DeviceBrand                 :   93:"Coolpad"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^.version{"Coolpad"'
+    extract:
+    - 'DeviceBrand                 :   92:"Coolpad"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"^.version{"Coolpad"'
+    extract:
+    - 'DeviceBrand                 :   91:"Coolpad"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Coolpad"'
+    extract:
+    - 'DeviceBrand                 :   90:"Coolpad"'
 
 # ===================================================================================================
 

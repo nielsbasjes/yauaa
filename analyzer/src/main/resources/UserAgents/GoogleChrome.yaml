@@ -50,19 +50,6 @@ config:
     require:
     - 'agent.product.(1)name="Chrome"'
     - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="Chrome"^.version[-1]]'
-    - 'agent.product.(1)name="AppleWebKit"^.version[-1]="537"'
-    - 'agent.product.(1)version[-1]="537"' # This is a matching speedup trick
-    extract:
-    - 'LayoutEngineClass     :   1000:"Browser"'
-    - 'LayoutEngineName      :   1000:"AppleWebKit"'
-    - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
-
-- matcher:
-    require:
-    - 'agent.product.(1)name="CriOS"'
-    - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="CriOS"^.version[-1]]'
-    - 'agent.product.(1)name="AppleWebKit"^.version[-1]="537"'
-    - 'agent.product.(1)version[-1]="537"' # This is a matching speedup trick
     extract:
     - 'LayoutEngineClass     :   1000:"Browser"'
     - 'LayoutEngineName      :   1000:"AppleWebKit"'
@@ -71,8 +58,6 @@ config:
 - matcher:
     require:
     - 'agent.product.(1)name="Chrome"'
-    - 'agent.product.(1)name="AppleWebKit"^.version[-1]="537"'
-    - 'agent.product.(1)version[-1]="537"' # This is a matching speedup trick
     extract:
     - 'LayoutEngineClass     :    999:"Browser"'
     - 'LayoutEngineName      :    999:"Blink"'
@@ -81,12 +66,40 @@ config:
 - matcher:
     require:
     - 'agent.product.(1)name="CriOS"'
-    - 'agent.product.(1)name="AppleWebKit"^.version[-1]="537"'
-    - 'agent.product.(1)version[-1]="537"' # This is a matching speedup trick
+    - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="CriOS"^.version[-1]]'
+    extract:
+    - 'LayoutEngineClass     :   1000:"Browser"'
+    - 'LayoutEngineName      :   1000:"AppleWebKit"'
+    - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="CriOS"'
     extract:
     - 'LayoutEngineClass     :    999:"Browser"'
     - 'LayoutEngineName      :    999:"Blink"'
     - 'LayoutEngineVersion   :    999:agent.product.(1)name="CriOS"^.version[-2]'
+
+# Sometimes (Coc coc does this) we do not have "Chrome" with "Mobile Safari" but instead: "Mobile Chrome" with "Safari"
+- matcher:
+    require:
+    - 'agent.product.(1)name="Mobile Chrome"'
+    - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="Mobile Chrome"^.version[-1]]'
+    extract:
+    - 'DeviceClass           :   1000:"Phone"'
+    - 'LayoutEngineClass     :   1000:"Browser"'
+    - 'LayoutEngineName      :   1000:"AppleWebKit"'
+    - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Mobile Chrome"'
+    extract:
+    - 'DeviceClass           :    999:"Phone"'
+    - 'LayoutEngineClass     :    999:"Browser"'
+    - 'LayoutEngineName      :    999:"Blink"'
+    - 'LayoutEngineVersion   :    999:agent.product.(1)name="Mobile Chrome"^.version[-2]'
+
 
 - lookup:
     name: 'ChromeLayoutEngineName'
