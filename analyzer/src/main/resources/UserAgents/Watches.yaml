@@ -331,7 +331,7 @@ config:
 - matcher:
     extract:
     - 'DeviceClass           :   1100:"Watch"'
-    - 'DeviceBrand           :   1100:agent.product.(1)name="SmartWatch"^.(1)comments.(1)entry.text'
+    - 'DeviceBrand           :   1100:NormalizeBrand[agent.product.(1)name="SmartWatch"^.(1)comments.(1)entry.text]'
     - 'DeviceName            :   1100:agent.product.(1)name="SmartWatch"^.(1)comments.(2)entry.text'
     - 'WebviewAppName        :   1100:"Android Wear Smartwatch"'
     - 'WebviewAppVersion     :   1100:"??"'

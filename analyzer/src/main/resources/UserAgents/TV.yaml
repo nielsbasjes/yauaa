@@ -61,7 +61,7 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceBrand           : 1000:agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"^.(1)comments.(2)entry!=""'
+    - 'DeviceBrand           : 1000:NormalizeBrand[agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"^.(1)comments.(2)entry!=""]'
 
 - matcher:
     extract:
@@ -89,7 +89,7 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceBrand           : 1000:agent.product.(1)name="HbbTV"^.(1)comments.(2)entry!=""'
+    - 'DeviceBrand           : 1000:NormalizeBrand[agent.product.(1)name="HbbTV"^.(1)comments.(2)entry!=""]'
 
 - matcher:
     extract:
