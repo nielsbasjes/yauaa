@@ -69,10 +69,6 @@ public class Matcher implements Serializable {
         this.fixedStringActions = new ArrayList<>();
         this.dynamicActions = new ArrayList<>();
 
-        if (matcherConfig == null) {
-            throw new InvalidParserConfigurationException("Got a 'null' config setting");
-        }
-
         this.filename = filename + ':' + matcherConfig.getStartMark().getLine();
 
         verbose = false;

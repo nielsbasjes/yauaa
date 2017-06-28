@@ -388,8 +388,7 @@ config:
         Node loadedYaml = yaml.compose(new UnicodeReader(yamlStream));
 
         if (loadedYaml == null) {
-            LOG.error("The file {} is empty", filename);
-            return;
+            throw new InvalidParserConfigurationException("The file " + filename + " is empty");
         }
 
         // Get and check top level config
@@ -408,8 +407,7 @@ config:
             }
         }
 
-        String configKeyName = getKeyAsString(configNodeTuple, filename);
-        if (!configKeyName.equals("config")) {
+        if (configNodeTuple == null) {
             fail(loadedYaml, filename, "The top level entry MUST be 'config'.");
         }
 
@@ -496,7 +494,7 @@ config:
             metaData.put("fileline", String.valueOf(entry.getStartMark().getLine()));
 
             Map<String, String> input = null;
-            List<String> options;
+            List<String> options = null;
             Map<String, String> expected = null;
             for (NodeTuple tuple : entry.getValue()) {
                 String name = getKeyAsString(tuple, filename);
@@ -560,6 +558,13 @@ config:
             if (expected != null) {
                 testCase.put("expected", expected);
             }
+            if (options != null) {
+                Map<String, String> optionsMap = new HashMap<>(options.size());
+                for (String option: options) {
+                    optionsMap.put(option, option);
+                }
+                testCase.put("options", optionsMap);
+            }
             testCase.put("metaData", metaData);
             testCases.add(testCase);
         }
@@ -589,6 +594,9 @@ config:
     }
 
     public UserAgent parse(UserAgent userAgent) {
+        if (userAgent == null) {
+            return null;
+        }
         userAgent.reset();
         return cachedParse(userAgent);
     }
@@ -790,7 +798,6 @@ config:
             if (first == null) {
                 if (secondConfidence >= 0) {
                     userAgent.set(targetName, second, secondConfidence);
-                    return;
                 }
                 return;
             }

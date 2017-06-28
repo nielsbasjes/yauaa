@@ -85,7 +85,7 @@ public class TestMatcherExpressions {
     @Test
     public void runDebugOutputTest() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:DebugOutput-tests.yaml");
-        Assert.assertTrue(uaa.runTests(false, true));
+        Assert.assertTrue(uaa.runTests(true, true));
     }
 
     @Test

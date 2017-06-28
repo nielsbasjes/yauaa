@@ -123,7 +123,11 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             Map<String, String> expected = test.get("expected");
 
             @SuppressWarnings("unchecked")
-            List<String> options = (List<String>) test.get("options");
+
+            List<String> options = null;
+            if (test.containsKey("options")) {
+                options = new ArrayList<>(test.get("options").keySet());
+            }
             Map<String, String> metaData = test.get("metaData");
             String filename = metaData.get("filename");
             String linenumber = metaData.get("fileline");

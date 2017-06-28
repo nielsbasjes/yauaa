@@ -29,7 +29,11 @@ public class TestBuilder {
         UserAgentAnalyzer userAgentAnalyzer =
             UserAgentAnalyzer
                 .newBuilder()
+                .withCache(42)
                 .withoutCache()
+                .hideMatcherLoadStats()
+                .showMatcherLoadStats()
+                .withAllFields()
                 .withField("DeviceClass")
                 .withField("AgentNameVersionMajor")
                 .build();
