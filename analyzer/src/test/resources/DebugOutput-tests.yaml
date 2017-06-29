@@ -62,3 +62,19 @@ config:
       user_agent_string: 'Word/1 ( One Two Three )'
     expected:
       WordMatchFlipFlop: 'Two'
+
+
+- matcher:
+    options:
+    - 'verbose'
+    extract:
+      - 'Name:1:NormalizeBrand [ agent.(1)product.(1)name^.name]'
+
+- test:
+    options:
+    - 'verbose'
+    - 'only'
+    input:
+      user_agent_string: 'MoZilLa/1_2.3'
+    expected:
+      Name: 'Mozilla'
