@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.debug;
 
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
@@ -33,11 +34,54 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import static nl.basjes.parse.useragent.debug.Main.OutputFormat.CSV;
+import static nl.basjes.parse.useragent.debug.Main.OutputFormat.JSON;
+import static nl.basjes.parse.useragent.debug.Main.OutputFormat.YAML;
+
 public final class Main {
     private Main() {
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+
+    enum OutputFormat {
+        CSV, JSON, YAML
+    }
+
+    private static void printHeader(OutputFormat outputFormat, UserAgentAnalyzer uaa) {
+        switch (outputFormat) {
+            case CSV:
+                for (String field : uaa.getAllPossibleFieldNamesSorted()) {
+                    System.out.print(field);
+                    System.out.print("\t");
+                }
+                System.out.println("Useragent");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private static void printAgent(OutputFormat outputFormat, UserAgentAnalyzer uaa, UserAgent agent) {
+        switch (outputFormat) {
+            case CSV:
+                for (String field : uaa.getAllPossibleFieldNamesSorted()) {
+                    String value = agent.getValue(field);
+                    if (value != null) {
+                        System.out.print(value);
+                    }
+                    System.out.print("\t");
+                }
+                System.out.println(agent.getUserAgentString());
+            case JSON:
+                System.out.println(agent.toJson());
+                break;
+            case YAML:
+                System.out.println(agent.toYamlTestCase());
+                break;
+            default:
+        }
+    }
 
     public static void main(String[] args) throws IOException {
         int returnValue = 0;
@@ -46,13 +90,30 @@ public final class Main {
         try {
             parser.parseArgument(args);
 
+            if (commandlineOptions.useragent == null && commandlineOptions.inFile == null) {
+                //noinspection deprecation
+                throw new CmdLineException(parser, "No input specified.");
+            }
+
+            OutputFormat outputFormat = YAML;
+            if (commandlineOptions.csvFormat) {
+                outputFormat = CSV;
+            } else {
+                if (commandlineOptions.jsonFormat) {
+                    outputFormat = JSON;
+                }
+            }
+
             UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
+            uaa.initialize();
             UserAgentTreeFlattener flattenPrinter = new UserAgentTreeFlattener(new FlattenPrinter());
             uaa.setVerbose(commandlineOptions.debug);
 
+            printHeader(outputFormat, uaa);
+
             if (commandlineOptions.useragent != null) {
-                UserAgent userAgent = uaa.parse(commandlineOptions.useragent);
-                System.out.println(userAgent.toYamlTestCase());
+                UserAgent agent = uaa.parse(commandlineOptions.useragent);
+                printAgent(outputFormat, uaa, agent);
                 return;
             }
 
@@ -62,26 +123,15 @@ public final class Main {
 
             String strLine;
 
-            if (commandlineOptions.csvFormat) {
-                for (String field : UserAgent.PRE_SORTED_FIELDS_LIST) {
-                    System.out.print(field);
-                    System.out.print("\t");
-                }
-                System.out.println("Useragent");
-            }
-
             long ambiguities    = 0;
             long syntaxErrors   = 0;
 
             long linesTotal   = 0;
             long hitsTotal    = 0;
-            long ipsTotal     = 0;
             long linesOk      = 0;
             long hitsOk       = 0;
-            long ipsOk        = 0;
             long linesMatched = 0;
             long hitsMatched  = 0;
-            long ipsMatched   = 0;
             long start = System.nanoTime();
             LOG.info("Start @ {}", start);
 
@@ -95,13 +145,11 @@ public final class Main {
                 }
 
                 long hits = 1;
-                long ips = 1;
                 String agentStr = strLine;
 
                 if (strLine.contains("\t")) {
-                    String[] parts = strLine.split("\t", 3);
+                    String[] parts = strLine.split("\t", 2);
                     hits = Long.parseLong(parts[0]);
-                    ips = Long.parseLong(parts[1]);
                     agentStr = parts[2];
                 }
 
@@ -129,22 +177,19 @@ public final class Main {
 
                 linesTotal++;
                 hitsTotal += hits;
-                ipsTotal  += ips;
 
                 if (agent.hasSyntaxError()) {
-                    if (commandlineOptions.yamlFormat) {
+                    if (outputFormat == YAML) {
                         System.out.println("# Syntax error: " + agentStr);
                     }
                 } else {
                     linesOk++;
                     hitsOk += hits;
-                    ipsOk += ips;
                 }
 
                 if (!hasBad) {
                     linesMatched++;
                     hitsMatched += hits;
-                    ipsMatched  += ips;
                 }
 
                 if (agent.hasAmbiguity()) {
@@ -170,22 +215,7 @@ public final class Main {
                     }
                 }
 
-                if (commandlineOptions.yamlFormat) {
-                    System.out.print(agent.toYamlTestCase());
-                }
-                if (commandlineOptions.jsonFormat) {
-                    System.out.print(agent.toJson());
-                }
-                if (commandlineOptions.csvFormat){
-                    for (String field : UserAgent.PRE_SORTED_FIELDS_LIST) {
-                        String value = agent.getValue(field);
-                        if (value!=null) {
-                            System.out.print(value);
-                        }
-                        System.out.print("\t");
-                    }
-                    System.out.println(agent.getUserAgentString());
-                }
+                printAgent(outputFormat, uaa, agent);
             }
 
             //Close the input stream
@@ -204,16 +234,13 @@ public final class Main {
             LOG.info("Parsed without error: {} (={}%)", hitsOk, 100.0*(double)hitsOk/(double)hitsTotal);
             LOG.info("Fully matched       : {} (={}%)", hitsMatched, 100.0*(double)hitsMatched/(double)hitsTotal);
             LOG.info("-------------------------------------------------------------");
-            LOG.info("Parse results of {} ips", ipsTotal);
-            LOG.info("Parsed without error: {} (={}%)", ipsOk, 100.0*(double)ipsOk/(double)ipsTotal);
-            LOG.info("Fully matched       : {} (={}%)", ipsMatched, 100.0*(double)ipsMatched/(double)ipsTotal);
-            LOG.info("-------------------------------------------------------------");
 
         } catch (final CmdLineException e) {
+            UserAgentAnalyzer.logVersion();
             LOG.error("Errors: " + e.getMessage());
             LOG.error("");
             System.err.println("Usage: java jar <jar containing this class> <options>");
-            parser.printUsage(System.out);
+            parser.printUsage(System.err);
             returnValue = 1;
         } catch (final Exception e) {
             LOG.error("IOException:" + e);
@@ -222,12 +249,12 @@ public final class Main {
         System.exit(returnValue);
     }
 
-    @SuppressWarnings({"PMD.ImmutableField", "CanBeFinal"})
+    @SuppressWarnings({"PMD.ImmutableField", "CanBeFinal", "unused"})
     private static class CommandOptions {
         @Option(name = "-ua", usage = "A single useragent string", forbids = {"-in"})
         private String useragent = null;
 
-        @Option(name = "-in", usage = "Location of input file", forbids = {"-ue"})
+        @Option(name = "-in", usage = "Location of input file", forbids = {"-ua"})
         private String inFile = null;
 
 //        @Option(name = "-testAll", usage = "Run the tests against all built in testcases", required = false)
@@ -247,7 +274,7 @@ public final class Main {
 
         @Option(name = "-debug", usage = "Set to enable debugging.")
         private boolean debug = false;
-//
+
 //        @Option(name = "-stats", usage = "Set to enable statistics.", required = false)
 //        private boolean stats = false;
 
