@@ -274,11 +274,36 @@ config:
     require:
     - 'agent.product.(1)name="Version"'
     extract:
-    - 'AgentClass      :   2500:"Browser Webview"'
-    - 'AgentName       :   2500:"Chrome Webview"'
-    - 'AgentVersion    :   2500:agent.product.(1)name="Chrome"^.version'
-    - 'WebviewAppName    :    0:"Unknown Webview App"'
-    - 'WebviewAppVersion :    0:"??"'
+    - 'AgentClass        :   2500:"Browser Webview"'
+    - 'AgentName         :   2500:"Chrome Webview"'
+    - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
+    - 'WebviewAppName    :      0:"Unknown Webview App"'
+    - 'WebviewAppVersion :      0:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Version"'
+    extract:
+    - 'AgentClass        :   2500:"Browser Webview"'
+    - 'AgentName         :   2500:"Chrome Webview"'
+    - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
+    - 'WebviewAppName    :     10:NormalizeBrand[agent.product.(1)name="Chrome"^>>.name]'
+    - 'WebviewAppVersion :     10:agent.product.(1)name="Chrome"^>>.version'
+
+- lookup:
+    name: 'KnownWebviewAppNames'
+    map:
+      'GSApp': 'Google Search App'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Version"'
+    extract:
+    - 'AgentClass        :   2500:"Browser Webview"'
+    - 'AgentName         :   2500:"Chrome Webview"'
+    - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
+    - 'WebviewAppName    :     11:LookUp[KnownWebviewAppNames;agent.product.(1)name="Chrome"^>>.name]'
+    - 'WebviewAppVersion :     11:agent.product.(1)name="Chrome"^>>.version'
 
 # WebView UA in Lollipop and Above
 # In the newer versions of WebView, you can differentiate the WebView by looking for the wv field
@@ -325,11 +350,6 @@ config:
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
       WebviewAppVersion                    : '??'
       WebviewAppVersionMajor               : '??'
-
-- matcher:
-    extract:
-    - 'WebviewAppName        :   1:"Google Search App"'
-    - 'WebviewAppVersion     :   1:agent.product.(1)name="GSApp"^.version'
 
 - test:
     input:
@@ -389,6 +409,60 @@ config:
       WebviewAppVersion                    : '1.1'
       WebviewAppVersionMajor               : '1'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0; HUAWEI MT7-L09 Build/HuaweiMT7-L09; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/58.0.3029.83 Mobile Safari/537.36 PlayStation App/4.20.5/nl-NL/nl-NL'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei MT7-L09'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemVersionBuild          : 'HuaweiMT7-L09'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '58.0'
+      LayoutEngineVersionMajor             : '58'
+      LayoutEngineNameVersion              : 'Blink 58.0'
+      LayoutEngineNameVersionMajor         : 'Blink 58'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '58.0.3029.83'
+      AgentVersionMajor                    : '58'
+      AgentNameVersion                     : 'Chrome Webview 58.0.3029.83'
+      AgentNameVersionMajor                : 'Chrome Webview 58'
+      WebviewAppName                       : 'PlayStation APP'
+      WebviewAppNameVersionMajor           : 'PlayStation APP 4'
+      WebviewAppVersion                    : '4.20.5'
+      WebviewAppVersionMajor               : '4'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_1_1 like Mac OS X) AppleWebKit/602.2.14 (KHTML, like Gecko) Mobile/14B100 PlayStation Messages App/4.0.15'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '14B100'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.1.1'
+      OperatingSystemNameVersion           : 'iOS 10.1.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.2.14'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.2.14'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'PlayStation Messages App'
+      AgentVersion                         : '4.0.15'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'PlayStation Messages App 4.0.15'
+      AgentNameVersionMajor                : 'PlayStation Messages App 4'
 
 - lookup:
     name: 'SpecialChromeBrowserNames'
