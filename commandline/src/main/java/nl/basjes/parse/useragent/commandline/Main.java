@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.debug;
+package nl.basjes.parse.useragent.commandline;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
+import nl.basjes.parse.useragent.debug.FlattenPrinter;
+import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
@@ -34,9 +34,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static nl.basjes.parse.useragent.debug.Main.OutputFormat.CSV;
-import static nl.basjes.parse.useragent.debug.Main.OutputFormat.JSON;
-import static nl.basjes.parse.useragent.debug.Main.OutputFormat.YAML;
+import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.CSV;
+import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.JSON;
+import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.YAML;
 
 public final class Main {
     private Main() {
@@ -83,6 +83,7 @@ public final class Main {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public static void main(String[] args) throws IOException {
         int returnValue = 0;
         final CommandOptions commandlineOptions = new CommandOptions();
@@ -91,7 +92,6 @@ public final class Main {
             parser.parseArgument(args);
 
             if (commandlineOptions.useragent == null && commandlineOptions.inFile == null) {
-                //noinspection deprecation
                 throw new CmdLineException(parser, "No input specified.");
             }
 
@@ -106,7 +106,7 @@ public final class Main {
 
             UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
             uaa.initialize();
-            UserAgentTreeFlattener flattenPrinter = new UserAgentTreeFlattener(new FlattenPrinter());
+            UserAgentTreeFlattener flattenPrinter = new UserAgentTreeFlattener(new FlattenPrinter(System.out));
             uaa.setVerbose(commandlineOptions.debug);
 
             printHeader(outputFormat, uaa);
@@ -286,17 +286,5 @@ public final class Main {
 
     }
 
-    public static class FlattenPrinter extends Analyzer {
-
-        @Override
-        public void inform(String path, String value, ParseTree ctx) {
-            System.out.println(path); // + " = " + value);
-        }
-
-        @Override
-        public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
-
-        }
-    }
 
 }

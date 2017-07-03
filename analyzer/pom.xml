@@ -36,7 +36,6 @@
   <properties>
     <jdkLevel>1.7</jdkLevel>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <mainClass>nl.basjes.parse.useragent.debug.Main</mainClass>
 
     <antlr.version>4.6</antlr.version>
     <hadoop.version>2.7.2</hadoop.version>
@@ -172,22 +171,6 @@
             </configuration>
           </execution>
 
-          <execution>
-            <id>create-command-line-jar</id>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <shadedArtifactAttached>true</shadedArtifactAttached>
-              <shadedClassifierName>udf</shadedClassifierName>
-              <transformers>
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>${mainClass}</mainClass>
-                </transformer>
-              </transformers>
-            </configuration>
-          </execution>
         </executions>
       </plugin>
 
