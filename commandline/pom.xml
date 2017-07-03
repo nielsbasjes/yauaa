@@ -93,6 +93,25 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
       </plugin>
 
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <configuration>
+          <check/>
+          <instrumentation>
+            <ignoreTrivial>true</ignoreTrivial>
+            <ignores>
+              <ignore>org.slf4j.*</ignore>
+            </ignores>
+            <excludes>
+              <!-- Developer debugging tools -->
+              <exclude>nl/basjes/parse/useragent/commandline/*.class</exclude>
+            </excludes>
+          </instrumentation>
+        </configuration>
+      </plugin>
+
+
     </plugins>
 
   </build>
