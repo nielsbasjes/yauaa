@@ -184,7 +184,7 @@ public final class Main {
                     String[] parts = strLine.split("\t", 2);
                     try {
                         hits = Long.parseLong(parts[0]);
-                        agentStr = parts[2];
+                        agentStr = parts[1];
                     } catch (NumberFormatException nfe) {
                         agentStr = strLine;
                     }
