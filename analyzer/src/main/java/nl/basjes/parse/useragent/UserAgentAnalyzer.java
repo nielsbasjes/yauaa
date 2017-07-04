@@ -94,7 +94,7 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
     private boolean doingOnlyASingleTest = false;
 
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
-    protected Set<String> wantedFieldNames = null;
+    protected List<String> wantedFieldNames = null;
 
     protected List<Map<String, Map<String, String>>> testCases = new ArrayList<>(2048);
     private Map<String, Map<String, String>> lookups = new HashMap<>(128);
@@ -157,7 +157,30 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
     protected void initialize() {
         logVersion();
         loadResources("classpath*:UserAgents/**/*.yaml");
+        verifyWeAreNotAskingForImpossibleFields();
     }
+
+    protected void verifyWeAreNotAskingForImpossibleFields() {
+        if (wantedFieldNames == null) {
+            return; // Nothing to check
+        }
+        List<String> impossibleFields = new ArrayList<>();
+        List<String> allPossibleFields = getAllPossibleFieldNamesSorted();
+
+        for (String wantedFieldName: wantedFieldNames) {
+            if (UserAgent.isSystemField(wantedFieldName)) {
+                continue; // These are fine
+            }
+            if (!allPossibleFields.contains(wantedFieldName)) {
+                impossibleFields.add(wantedFieldName);
+            }
+        }
+        if (impossibleFields.isEmpty()) {
+            return;
+        }
+        throw new InvalidParserConfigurationException("We cannot provide these fields:" + impossibleFields.toString());
+    }
+
 
     public static void logVersion(String... extraLines) {
         String[] lines = {
@@ -925,7 +948,7 @@ config:
 
         public Builder withField(String fieldName) {
             if (uaa.wantedFieldNames == null) {
-                uaa.wantedFieldNames = new HashSet<>(32);
+                uaa.wantedFieldNames = new ArrayList<>(32);
             }
             uaa.wantedFieldNames.add(fieldName);
             return this;

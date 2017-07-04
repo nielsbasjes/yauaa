@@ -61,7 +61,7 @@ public class Matcher implements Serializable {
 
     public Matcher(Analyzer analyzer,
                    Map<String, Map<String, String>> lookups,
-                   Set<String> wantedFieldNames,
+                   List<String> wantedFieldNames,
                    MappingNode matcherConfig,
                    String filename) throws UselessMatcherException {
         this.lookups = lookups;

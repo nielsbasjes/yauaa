@@ -20,7 +20,11 @@ package nl.basjes.parse.useragent.analyze;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import static org.junit.Assert.fail;
 
 public class TestBuilder {
 
@@ -66,6 +70,25 @@ public class TestBuilder {
         Assert.assertEquals(-1, parsedAgent.get("LayoutEngineNameVersion"      ).getConfidence()); // Blink 53.0
         Assert.assertEquals(-1, parsedAgent.get("LayoutEngineNameVersionMajor" ).getConfidence()); // Blink 53
         Assert.assertEquals(-1, parsedAgent.get("AgentClass"                   ).getConfidence()); // Browser
+    }
+
+    @Rule
+    public ExpectedException expectedEx = ExpectedException.none();
+
+    @Test
+    public void testAskingForImpossibleField() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage("We cannot provide these fields:[FirstNonexistentField, SecondNonexistentField]");
+
+        UserAgentAnalyzer userAgentAnalyzer =
+            UserAgentAnalyzer
+                .newBuilder()
+                .withoutCache()
+                .hideMatcherLoadStats()
+                .withField("FirstNonexistentField")
+                .withField("DeviceClass")
+                .withField("SecondNonexistentField")
+                .build();
     }
 
 }

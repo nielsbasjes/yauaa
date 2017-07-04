@@ -58,6 +58,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
     public static final String AGENT_VERSION_MAJOR = "AgentVersionMajor";
 
     public static final String SYNTAX_ERROR = "__SyntaxError__";
+    public static final String USERAGENT = "Useragent";
 
     public static final String SET_ALL_FIELDS = "__Set_ALL_Fields__";
     public static final String NULL_VALUE = "<<<null>>>";
@@ -286,9 +287,10 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
         }
     }
 
-    private boolean isSystemField(String fieldname) {
+    static boolean isSystemField(String fieldname) {
         return  SET_ALL_FIELDS.equals(fieldname) ||
-                SYNTAX_ERROR.equals(fieldname);
+                SYNTAX_ERROR.equals(fieldname) ||
+                USERAGENT.equals(fieldname);
     }
 
     public void processSetAll() {
@@ -335,10 +337,19 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
     }
 
     public AgentField get(String fieldName) {
-        return allFields.get(fieldName);
+        if (USERAGENT.equals(fieldName)) {
+            AgentField agentField = new AgentField(userAgentString);
+            agentField.setValue(userAgentString, 0L);
+            return agentField;
+        } else {
+            return allFields.get(fieldName);
+        }
     }
 
     public String getValue(String fieldName) {
+        if (USERAGENT.equals(fieldName)) {
+            return userAgentString;
+        }
         AgentField field = allFields.get(fieldName);
         if (field == null) {
             return UNKNOWN_VALUE;
@@ -347,6 +358,9 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
     }
 
     public Long getConfidence(String fieldName) {
+        if (USERAGENT.equals(fieldName)) {
+            return 0L;
+        }
         AgentField field = allFields.get(fieldName);
         if (field == null) {
             return -1L;
@@ -434,21 +448,27 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
         StringBuilder sb = new StringBuilder(10240);
         sb.append("{");
 
+        boolean addSeparator = false;
         for (String fieldName : fieldNames) {
+            if (addSeparator) {
+                sb.append(',');
+            } else {
+                addSeparator = true;
+            }
             if ("Useragent".equals(fieldName)) {
                 sb
                     .append("\"Useragent\"")
                     .append(':')
-                    .append('"').append(StringEscapeUtils.escapeJson(getUserAgentString())).append('"')
-                    .append(',');
+                    .append('"').append(StringEscapeUtils.escapeJson(getUserAgentString())).append('"');
             } else {
                 sb
                     .append('"').append(StringEscapeUtils.escapeJson(fieldName)).append('"')
                     .append(':')
-                    .append('"').append(StringEscapeUtils.escapeJson(getValue(fieldName))).append('"')
-                    .append(',');
+                    .append('"').append(StringEscapeUtils.escapeJson(getValue(fieldName))).append('"');
             }
         }
+
+        sb.append("}");
         return sb.toString();
     }
 

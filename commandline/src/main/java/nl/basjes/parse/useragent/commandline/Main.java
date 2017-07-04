@@ -37,6 +37,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT;
 import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.CSV;
 import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.JSON;
 import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.YAML;
@@ -50,8 +51,6 @@ public final class Main {
     enum OutputFormat {
         CSV, JSON, YAML
     }
-
-    private static final String USERAGENT = "Useragent";
 
     private static void printHeader(OutputFormat outputFormat, List<String> fields) {
         switch (outputFormat) {
@@ -82,13 +81,9 @@ public final class Main {
                     } else {
                         doSeparator = true;
                     }
-                    if (USERAGENT.equals(field)) {
-                        System.out.println(agent.getUserAgentString());
-                    } else {
-                        String value = agent.getValue(field);
-                        if (value != null) {
-                            System.out.print(value);
-                        }
+                    String value = agent.getValue(field);
+                    if (value != null) {
+                        System.out.print(value);
                     }
                 }
                 System.out.println();
@@ -325,7 +320,7 @@ public final class Main {
         private boolean jsonFormat = false;
 
         @Option(name = "-fields", handler = StringArrayOptionHandler.class,
-            usage = "A list of the desired fieldnames (use 'Useragent' if you want the input value aswell)")
+            usage = "A list of the desired fieldnames (use '"+USERAGENT+"' if you want the input value aswell)")
         private List<String> fields = null;
 
         @Option(name = "-cache", usage = "The number of elements that can be cached (LRU).")
