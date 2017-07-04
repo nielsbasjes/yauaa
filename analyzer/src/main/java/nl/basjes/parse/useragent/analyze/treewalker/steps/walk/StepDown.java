@@ -21,6 +21,7 @@ import nl.basjes.parse.useragent.analyze.NumberRangeList;
 import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.parser.UserAgentBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentParser.Base64Context;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentBlockContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentEntryContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentProductContext;
@@ -47,6 +48,8 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionSingleWord
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWithCommasContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWordsContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.RootTextContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionWithCommasContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.SiteUrlContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UserAgentContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UuIdContext;
@@ -300,13 +303,55 @@ public class StepDown extends Step {
 
         @Override
         public List<? extends ParserRuleContext> visitProductVersion(ProductVersionContext ctx) {
-            return visit(ctx);
+            switch (name) {
+                case "keyvalue":
+                    return getChildren(ctx, KeyValueContext.class,
+                                            KeyWithoutValueContext.class);
+                case "email":
+                    return getChildren(ctx, EmailAddressContext.class);
+                case "url":
+                    return getChildren(ctx, SiteUrlContext.class);
+                case "uuid":
+                    return getChildren(ctx, UuIdContext.class);
+                case "base64":
+                    return getChildren(ctx, Base64Context.class);
+                default:
+                    return getChildren(ctx, SingleVersionContext.class);
+            }
         }
-
 
         @Override
         public List<? extends ParserRuleContext> visitProductVersionWithCommas(ProductVersionWithCommasContext ctx) {
-            return visit(ctx);
+            switch (name) {
+                case "keyvalue":
+                    return getChildren(ctx, KeyValueContext.class,
+                                            KeyWithoutValueContext.class);
+                case "email":
+                    return getChildren(ctx, EmailAddressContext.class);
+                case "url":
+                    return getChildren(ctx, SiteUrlContext.class);
+                case "uuid":
+                    return getChildren(ctx, UuIdContext.class);
+                case "base64":
+                    return getChildren(ctx, Base64Context.class);
+                default:
+                    return getChildren(ctx, SingleVersionWithCommasContext.class);
+            }
+        }
+
+        @Override
+        public List<? extends ParserRuleContext> visitSingleVersion(SingleVersionContext ctx) {
+            return Collections.emptyList(); // Cannot walk in here at all
+        }
+
+        @Override
+        public List<? extends ParserRuleContext> visitSingleVersionWithCommas(SingleVersionWithCommasContext ctx) {
+            return Collections.emptyList(); // Cannot walk in here at all
+        }
+
+        @Override
+        public List<? extends ParserRuleContext> visitBase64(Base64Context ctx) {
+            return Collections.emptyList(); // Cannot walk in here at all
         }
 
         @Override
