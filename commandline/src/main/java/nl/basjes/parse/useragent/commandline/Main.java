@@ -26,13 +26,16 @@ import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
+import org.kohsuke.args4j.spi.StringArrayOptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.CSV;
 import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.JSON;
@@ -48,33 +51,50 @@ public final class Main {
         CSV, JSON, YAML
     }
 
-    private static void printHeader(OutputFormat outputFormat, UserAgentAnalyzer uaa) {
+    private static final String USERAGENT = "Useragent";
+
+    private static void printHeader(OutputFormat outputFormat, List<String> fields) {
         switch (outputFormat) {
             case CSV:
-                for (String field : uaa.getAllPossibleFieldNamesSorted()) {
+                boolean doSeparator = false;
+                for (String field : fields) {
+                    if (doSeparator) {
+                        System.out.print("\t");
+                    } else {
+                        doSeparator = true;
+                    }
                     System.out.print(field);
-                    System.out.print("\t");
                 }
-                System.out.println("Useragent");
+                System.out.println();
                 break;
             default:
                 break;
         }
     }
 
-    private static void printAgent(OutputFormat outputFormat, UserAgentAnalyzer uaa, UserAgent agent) {
+    private static void printAgent(OutputFormat outputFormat, List<String> fields, UserAgent agent) {
         switch (outputFormat) {
             case CSV:
-                for (String field : uaa.getAllPossibleFieldNamesSorted()) {
-                    String value = agent.getValue(field);
-                    if (value != null) {
-                        System.out.print(value);
+                boolean doSeparator = false;
+                for (String field : fields) {
+                    if (doSeparator) {
+                        System.out.print("\t");
+                    } else {
+                        doSeparator = true;
                     }
-                    System.out.print("\t");
+                    if (USERAGENT.equals(field)) {
+                        System.out.println(agent.getUserAgentString());
+                    } else {
+                        String value = agent.getValue(field);
+                        if (value != null) {
+                            System.out.print(value);
+                        }
+                    }
                 }
-                System.out.println(agent.getUserAgentString());
+                System.out.println();
+                break;
             case JSON:
-                System.out.println(agent.toJson());
+                System.out.println(agent.toJson(fields));
                 break;
             case YAML:
                 System.out.println(agent.toYamlTestCase());
@@ -104,22 +124,40 @@ public final class Main {
                 }
             }
 
-            UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
-            uaa.initialize();
-            UserAgentTreeFlattener flattenPrinter = new UserAgentTreeFlattener(new FlattenPrinter(System.out));
-            uaa.setVerbose(commandlineOptions.debug);
+            UserAgentAnalyzerTester.Builder builder = UserAgentAnalyzerTester.newBuilder();
+            builder.hideMatcherLoadStats();
+            builder.withCache(commandlineOptions.cacheSize);
+            if (commandlineOptions.fields != null) {
+                for (String field: commandlineOptions.fields) {
+                    builder.withField(field);
+                }
+            }
+            UserAgentAnalyzerTester uaa = builder.build();
 
-            printHeader(outputFormat, uaa);
+//            uaa.setVerbose(commandlineOptions.debug);
+            UserAgentTreeFlattener flattenPrinter = new UserAgentTreeFlattener(new FlattenPrinter(System.out));
+
+            List<String> fields;
+            if (commandlineOptions.fields == null) {
+                fields = uaa.getAllPossibleFieldNamesSorted();
+                fields.add(USERAGENT);
+            } else {
+                fields = commandlineOptions.fields;
+            }
+            printHeader(outputFormat, fields);
 
             if (commandlineOptions.useragent != null) {
                 UserAgent agent = uaa.parse(commandlineOptions.useragent);
-                printAgent(outputFormat, uaa, agent);
+                printAgent(outputFormat, fields, agent);
                 return;
             }
 
-            // Open the file
-            FileInputStream fstream = new FileInputStream(commandlineOptions.inFile);
-            BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+            // Open the file (or stdin)
+            InputStream inputStream = System.in;
+            if (!"-".equals(commandlineOptions.inFile)) {
+                inputStream = new FileInputStream(commandlineOptions.inFile);
+            }
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
 
             String strLine;
 
@@ -133,7 +171,7 @@ public final class Main {
             long linesMatched = 0;
             long hitsMatched  = 0;
             long start = System.nanoTime();
-            LOG.info("Start @ {}", start);
+//            LOG.info("Start @ {}", start);
 
             long segmentStartTime = start;
             long segmentStartLines = linesTotal;
@@ -149,8 +187,12 @@ public final class Main {
 
                 if (strLine.contains("\t")) {
                     String[] parts = strLine.split("\t", 2);
-                    hits = Long.parseLong(parts[0]);
-                    agentStr = parts[2];
+                    try {
+                        hits = Long.parseLong(parts[0]);
+                        agentStr = parts[2];
+                    } catch (NumberFormatException nfe) {
+                        agentStr = strLine;
+                    }
                 }
 
                 if (commandlineOptions.fullFlatten) {
@@ -202,7 +244,9 @@ public final class Main {
                 if (linesTotal % 1000 == 0) {
                     long nowTime = System.nanoTime();
                     long speed = (1000000000L*(linesTotal-segmentStartLines))/(nowTime-segmentStartTime);
-                    System.err.println("Lines = "+linesTotal + " (A="+ambiguities+" S="+syntaxErrors+")  Speed = " + speed + "/sec.");
+                    System.err.println(
+                        String.format("Lines = %8d (Ambiguities: %5d ; SyntaxErrors: %5d) Analyze speed = %5d/sec.",
+                        linesTotal, ambiguities, syntaxErrors, speed));
                     segmentStartTime = nowTime;
                     segmentStartLines = linesTotal;
                     ambiguities=0;
@@ -215,25 +259,36 @@ public final class Main {
                     }
                 }
 
-                printAgent(outputFormat, uaa, agent);
+                printAgent(outputFormat, fields, agent);
             }
 
             //Close the input stream
             br.close();
             long stop = System.nanoTime();
-            LOG.info("Stop  @ {}", stop);
+//            LOG.info("Stop  @ {}", stop);
 
             LOG.info("-------------------------------------------------------------");
             LOG.info("Performance: {} in {} sec --> {}/sec", linesTotal, (stop-start)/1000000000L, (1000000000L*linesTotal)/(stop-start));
             LOG.info("-------------------------------------------------------------");
             LOG.info("Parse results of {} lines", linesTotal);
-            LOG.info("Parsed without error: {} (={}%)", linesOk, 100.0*(double)linesOk/(double)linesTotal);
-            LOG.info("Fully matched       : {} (={}%)", linesMatched, 100.0*(double)linesMatched/(double)linesTotal);
-            LOG.info("-------------------------------------------------------------");
-            LOG.info("Parse results of {} hits", hitsTotal);
-            LOG.info("Parsed without error: {} (={}%)", hitsOk, 100.0*(double)hitsOk/(double)hitsTotal);
-            LOG.info("Fully matched       : {} (={}%)", hitsMatched, 100.0*(double)hitsMatched/(double)hitsTotal);
-            LOG.info("-------------------------------------------------------------");
+            LOG.info(String.format("Parsed without error: %8d (=%6.2f%%)",
+                linesOk, 100.0*(double)linesOk/(double)linesTotal));
+            LOG.info(String.format("Parsed with    error: %8d (=%6.2f%%)",
+                linesTotal-linesOk, 100.0*(double)(linesTotal-linesOk)/(double)linesTotal));
+            LOG.info(String.format("Fully matched       : %8d (=%6.2f%%)",
+                linesMatched, 100.0*(double)linesMatched/(double)linesTotal));
+
+            if (linesTotal != hitsTotal) {
+                LOG.info("-------------------------------------------------------------");
+                LOG.info("Parse results of {} hits", hitsTotal);
+                LOG.info(String.format("Parsed without error: %8d (=%6.2f%%)",
+                    hitsOk, 100.0*(double)hitsOk/(double)hitsTotal));
+                LOG.info(String.format("Parsed with    error: %8d (=%6.2f%%)",
+                    hitsTotal-hitsOk, 100.0*(double)(hitsTotal-hitsOk)/(double)hitsTotal));
+                LOG.info(String.format("Fully matched       : %8d (=%6.2f%%)",
+                    hitsMatched, 100.0*(double)hitsMatched/(double)hitsTotal));
+                LOG.info("-------------------------------------------------------------");
+            }
 
         } catch (final CmdLineException e) {
             UserAgentAnalyzer.logVersion();
@@ -268,6 +323,13 @@ public final class Main {
 
         @Option(name = "-json", usage = "Output in json format", forbids = {"-yaml", "-csv"})
         private boolean jsonFormat = false;
+
+        @Option(name = "-fields", handler = StringArrayOptionHandler.class,
+            usage = "A list of the desired fieldnames (use 'Useragent' if you want the input value aswell)")
+        private List<String> fields = null;
+
+        @Option(name = "-cache", usage = "The number of elements that can be cached (LRU).")
+        private int cacheSize = 10000;
 
         @Option(name = "-bad", usage = "Output only cases that have a problem")
         private boolean outputOnlyBadResults = false;

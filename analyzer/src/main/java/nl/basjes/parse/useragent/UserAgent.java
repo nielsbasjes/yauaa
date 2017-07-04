@@ -425,52 +425,56 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
 //    }
 
     public String toJson() {
+        List<String> fields = getAvailableFieldNames();
+        fields.add("Useragent");
+        return toJson(fields);
+    }
+
+    public String toJson(List<String> fieldNames) {
         StringBuilder sb = new StringBuilder(10240);
         sb.append("{");
 
-        List<String> fieldNames = getAvailableFieldNames();
-        Collections.sort(fieldNames);
-
-        for (String fieldName : UserAgent.STANDARD_FIELDS) {
-            fieldNames.remove(fieldName);
-            sb
-                .append('"').append(StringEscapeUtils.escapeJson(fieldName))                .append('"')
-                .append(':')
-                .append('"').append(StringEscapeUtils.escapeJson(get(fieldName).getValue())).append('"')
-                .append(',');
-        }
         for (String fieldName : fieldNames) {
-            sb
-                .append('"').append(StringEscapeUtils.escapeJson(fieldName))                .append('"')
-                .append(':')
-                .append('"').append(StringEscapeUtils.escapeJson(get(fieldName).getValue())).append('"')
-                .append(',');
+            if ("Useragent".equals(fieldName)) {
+                sb
+                    .append("\"Useragent\"")
+                    .append(':')
+                    .append('"').append(StringEscapeUtils.escapeJson(getUserAgentString())).append('"')
+                    .append(',');
+            } else {
+                sb
+                    .append('"').append(StringEscapeUtils.escapeJson(fieldName)).append('"')
+                    .append(':')
+                    .append('"').append(StringEscapeUtils.escapeJson(getValue(fieldName))).append('"')
+                    .append(',');
+            }
         }
-        sb
-            .append("\"user_agent_string\":")
-            .append('"').append(StringEscapeUtils.escapeJson(userAgentString)).append('"')
-            .append("}\n");
         return sb.toString();
     }
 
 
     @Override
     public String toString() {
+        return toString(getAvailableFieldNamesSorted());
+    }
+    public String toString(List<String> fieldNames) {
         StringBuilder sb = new StringBuilder("  - user_agent_string: '\"" + userAgentString + "\"'\n");
         int maxLength = 0;
-        for (String fieldName : allFields.keySet()) {
+        for (String fieldName : fieldNames) {
             maxLength = Math.max(maxLength, fieldName.length());
         }
-        for (String fieldName : getAvailableFieldNamesSorted()) {
-            AgentField field = allFields.get(fieldName);
-            if (field.getValue() != null) {
-                sb.append("    ").append(fieldName);
-                for (int l = fieldName.length(); l < maxLength + 2; l++) {
-                    sb.append(' ');
+        for (String fieldName : fieldNames) {
+            if (!"Useragent".equals(fieldName)) {
+                AgentField field = allFields.get(fieldName);
+                if (field.getValue() != null) {
+                    sb.append("    ").append(fieldName);
+                    for (int l = fieldName.length(); l < maxLength + 2; l++) {
+                        sb.append(' ');
+                    }
+                    sb.append(": '").append(field.getValue()).append('\'');
+                    sb.append("# ").append(field.confidence);
+                    sb.append('\n');
                 }
-                sb.append(": '").append(field.getValue()).append('\'');
-                sb.append("# ").append(field.confidence);
-                sb.append('\n');
             }
         }
         return sb.toString();

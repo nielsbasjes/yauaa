@@ -495,13 +495,19 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     }
 
 
-    public static UserAgentAnalyzer.Builder newBuilder() {
+    public static UserAgentAnalyzerTester.Builder newBuilder() {
         return new UserAgentAnalyzerTester.Builder();
     }
 
     public static class Builder extends UserAgentAnalyzer.Builder {
+
         public Builder() {
             super(new UserAgentAnalyzerTester());
+        }
+
+        @Override
+        public UserAgentAnalyzerTester build() {
+            return (UserAgentAnalyzerTester)super.build();
         }
     }
 
