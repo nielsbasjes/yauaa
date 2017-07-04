@@ -1649,44 +1649,41 @@ public class TestUserAgentFlattening {
                 ,"agent.(5)keyvalue.(1)version[1-1]=\"1511\""
         );
 
-//        // Although VERY strange we do see this in real life
-//        validateUserAgent(
-//                "MT6582_TD/V1 Linux/3.4.67 Android/4.4.2 Release/ Browser/AppleWebKit537.36 Chrome/30.0.0.0 Mobile Safari/537.36 System/Android 4.4.2"
-//                ,"agent.(1)product=\"MT6582_TD/V1\""
-//                ,"agent.(1)product.(1)name=\"MT6582_TD\""
-//                ,"agent.(1)product.(1)name[1-1]=\"MT6582_TD\""
-//                ,"agent.(1)product.(1)version=\"V1\""
-//                ,"agent.(2)product=\"Linux/3.4.67\""
-//                ,"agent.(2)product.(1)name=\"Linux\""
-//                ,"agent.(2)product.(1)name[1-1]=\"Linux\""
-//                ,"agent.(2)product.(1)version=\"3.4.67\""
-//                ,"agent.(3)product=\"Android/4.4.2\""
-//                ,"agent.(3)product.(1)name=\"Android\""
-//                ,"agent.(3)product.(1)name[1-1]=\"Android\""
-//                ,"agent.(3)product.(1)version=\"4.4.2\""
-//                ,"agent.(4)product=\"Release/\""
-//                ,"agent.(4)product.(1)name=\"Release\""
-//                ,"agent.(4)product.(1)name[1-1]=\"Release\""
-//                ,"agent.(5)product=\"Browser/AppleWebKit537.36\""
-//                ,"agent.(5)product.(1)name=\"Browser\""
-//                ,"agent.(5)product.(1)name[1-1]=\"Browser\""
-//                ,"agent.(5)product.(1)version=\"AppleWebKit537.36\""
-//                ,"agent.(6)product=\"Chrome/30.0.0.0\""
-//                ,"agent.(6)product.(1)name=\"Chrome\""
-//                ,"agent.(6)product.(1)name[1-1]=\"Chrome\""
-//                ,"agent.(6)product.(1)version=\"30.0.0.0\""
-//                ,"agent.(7)product=\"Mobile Safari/537.36\""
-//                ,"agent.(7)product.(1)name=\"Mobile Safari\""
-//                ,"agent.(7)product.(1)name[1-1]=\"Mobile\""
-//                ,"agent.(7)product.(1)name[1-2]=\"Mobile Safari\""
-//                ,"agent.(7)product.(1)name[2-2]=\"Safari\""
-//                ,"agent.(7)product.(1)version=\"537.36\""
-//                ,"agent.(8)product=\"System/Android 4.4.2\""
-//                ,"agent.(8)product.(1)name=\"System\""
-//                ,"agent.(8)product.(1)name[1-1]=\"System\""
-//                ,"agent.(8)product.(1)version=\"Android\""
-//                ,"agent.(8)product.(2)version=\"4.4.2\""
-//        );
+        // Although VERY strange we do see this in real life
+        validateUserAgent(
+            "MT6582_TD/V1 Linux/3.4.67 Android/4.4.2 Release/ Browser/AppleWebKit537.36 Chrome/30.0.0.0 Mobile Safari/537.36 System/Android 4.4.2"
+            ,"agent.(1)product=\"MT6582_TD/V1\""
+            ,"agent.(1)product.(1)name=\"MT6582_TD\""
+            ,"agent.(1)product.(1)version=\"V1\""
+
+            ,"agent.(2)product=\"Linux/3.4.67\""
+            ,"agent.(2)product.(1)name=\"Linux\""
+            ,"agent.(2)product.(1)version=\"3.4.67\""
+
+            ,"agent.(3)product=\"Android/4.4.2\""
+            ,"agent.(3)product.(1)name=\"Android\""
+            ,"agent.(3)product.(1)version=\"4.4.2\""
+
+            // Although this looks incorrect to a human this is the best parse possible.
+            ,"agent.(4)product=\"Release/ Browser/AppleWebKit537.36\""
+            ,"agent.(4)product.(1)name=\"Release\""
+            ,"agent.(4)product.(1)name[1-1]=\"Release\""
+            ,"agent.(4)product.(1)version=\"Browser\""
+            ,"agent.(4)product.(2)version=\"AppleWebKit537.36\""
+
+            ,"agent.(5)product=\"Chrome/30.0.0.0\""
+            ,"agent.(5)product.(1)name=\"Chrome\""
+            ,"agent.(5)product.(1)version=\"30.0.0.0\""
+
+            ,"agent.(6)product=\"Mobile Safari/537.36\""
+            ,"agent.(6)product.(1)name=\"Mobile Safari\""
+            ,"agent.(6)product.(1)version=\"537.36\""
+
+            ,"agent.(7)product=\"System/Android 4.4.2\""
+            ,"agent.(7)product.(1)name=\"System\""
+            ,"agent.(7)product.(1)version=\"Android\""
+            ,"agent.(7)product.(2)version=\"4.4.2\""
+        );
 
         // Although VERY strange we do see this in real life
         validateUserAgent(
