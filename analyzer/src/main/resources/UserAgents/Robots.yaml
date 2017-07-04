@@ -152,107 +152,107 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           :  101:"Robot"'
-    - 'DeviceBrand           :  101:"Unknown"'
-    - 'DeviceName            :  101:agent.product.name~"spider"'
-    - 'OperatingSystemClass  :  101:"Cloud"'
-    - 'OperatingSystemName   :  101:"Cloud"'
-    - 'OperatingSystemVersion:  101:"Cloud"'
-    - 'LayoutEngineClass     :  101:"Robot"'
-    - 'LayoutEngineName      :  101:agent.product.name~"spider"'
-    - 'LayoutEngineVersion   :  101:"??"'
-    - 'AgentClass            :  101:"Robot"'
-    - 'AgentName             :  101:agent.product.name~"spider"'
-    - 'AgentVersion          :  101:"??"'
+    - 'DeviceClass           :  111:"Robot"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'DeviceName            :  111:agent.product.name~"spider"'
+    - 'OperatingSystemClass  :  111:"Cloud"'
+    - 'OperatingSystemName   :  111:"Cloud"'
+    - 'OperatingSystemVersion:  111:"Cloud"'
+    - 'LayoutEngineClass     :  111:"Robot"'
+    - 'LayoutEngineName      :  111:agent.product.name~"spider"'
+    - 'LayoutEngineVersion   :  111:"??"'
+    - 'AgentClass            :  111:"Robot"'
+    - 'AgentName             :  111:agent.product.name~"spider"'
+    - 'AgentVersion          :  111:"??"'
 
 - matcher:
     require:
     - 'agent.product.name~"spider"@~"mobile"'
     extract:
-    - 'DeviceClass           :  102:"Robot Mobile"'
+    - 'DeviceClass           :  112:"Robot Mobile"'
 
 - matcher:
     extract:
-    - 'LayoutEngineVersion   :  102:agent.product.name~"spider"^.(1)version'
-    - 'AgentVersion          :  102:agent.product.name~"spider"^.(1)version'
+    - 'LayoutEngineVersion   :  112:agent.product.name~"spider"^.(1)version'
+    - 'AgentVersion          :  112:agent.product.name~"spider"^.(1)version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :  101:"Robot"'
-    - 'DeviceBrand           :  101:"Unknown"'
-    - 'DeviceName            :  101:agent.product.name~"crawl"'
-    - 'OperatingSystemClass  :  101:"Cloud"'
-    - 'OperatingSystemName   :  101:"Cloud"'
-    - 'OperatingSystemVersion:  101:"Cloud"'
-    - 'LayoutEngineClass     :  101:"Robot"'
-    - 'LayoutEngineName      :  101:agent.product.name~"crawl"'
-    - 'LayoutEngineVersion   :  101:"??"'
-    - 'AgentClass            :  101:"Robot"'
-    - 'AgentName             :  101:agent.product.name~"crawl"'
-    - 'AgentVersion          :  101:"??"'
+    - 'DeviceClass           :  111:"Robot"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'DeviceName            :  111:agent.product.name~"crawl"'
+    - 'OperatingSystemClass  :  111:"Cloud"'
+    - 'OperatingSystemName   :  111:"Cloud"'
+    - 'OperatingSystemVersion:  111:"Cloud"'
+    - 'LayoutEngineClass     :  111:"Robot"'
+    - 'LayoutEngineName      :  111:agent.product.name~"crawl"'
+    - 'LayoutEngineVersion   :  111:"??"'
+    - 'AgentClass            :  111:"Robot"'
+    - 'AgentName             :  111:agent.product.name~"crawl"'
+    - 'AgentVersion          :  111:"??"'
 
 - matcher:
     require:
     - 'agent.product.name~"spider"@~"mobile"'
     extract:
-    - 'DeviceClass           :  102:"Robot Mobile"'
+    - 'DeviceClass           :  112:"Robot Mobile"'
 
 - matcher:
     extract:
-    - 'LayoutEngineVersion   :  102:agent.product.name~"crawl"^.(1)version'
-    - 'AgentVersion          :  102:agent.product.name~"crawl"^.(1)version'
+    - 'LayoutEngineVersion   :  112:agent.product.name~"crawl"^.(1)version'
+    - 'AgentVersion          :  112:agent.product.name~"crawl"^.(1)version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :  101:"Robot"'
-    - 'DeviceBrand           :  101:"Unknown"'
-    - 'DeviceName            :  101:agent.product.name~"bot"'
-    - 'OperatingSystemClass  :  101:"Cloud"'
-    - 'OperatingSystemName   :  101:"Cloud"'
-    - 'OperatingSystemVersion:  101:"Cloud"'
-    - 'LayoutEngineClass     :  101:"Robot"'
-    - 'LayoutEngineName      :  101:agent.product.name~"bot"'
-    - 'LayoutEngineVersion   :  101:"??"'
-    - 'AgentClass            :  101:"Robot"'
-    - 'AgentName             :  101:agent.product.name~"bot"'
-    - 'AgentVersion          :  101:"??"'
+    - 'DeviceClass           :  111:"Robot"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'DeviceName            :  111:agent.product.name~"bot"'
+    - 'OperatingSystemClass  :  111:"Cloud"'
+    - 'OperatingSystemName   :  111:"Cloud"'
+    - 'OperatingSystemVersion:  111:"Cloud"'
+    - 'LayoutEngineClass     :  111:"Robot"'
+    - 'LayoutEngineName      :  111:agent.product.name~"bot"'
+    - 'LayoutEngineVersion   :  111:"??"'
+    - 'AgentClass            :  111:"Robot"'
+    - 'AgentName             :  111:agent.product.name~"bot"'
+    - 'AgentVersion          :  111:"??"'
 
 - matcher:
     require:
     - 'agent.product.name~"bot"@~"mobile"'
     extract:
-    - 'DeviceClass           :  102:"Robot Mobile"'
+    - 'DeviceClass           :  112:"Robot Mobile"'
 
 - matcher:
     extract:
-    - 'LayoutEngineVersion   :  102:agent.product.name~"bot"^.(1)version'
-    - 'AgentVersion          :  102:agent.product.name~"bot"^.(1)version'
+    - 'LayoutEngineVersion   :  112:agent.product.name~"bot"^.(1)version'
+    - 'AgentVersion          :  112:agent.product.name~"bot"^.(1)version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :  101:"Robot"'
-    - 'DeviceBrand           :  101:"Unknown"'
-    - 'DeviceName            :  101:agent.product.name~"scan"'
-    - 'OperatingSystemClass  :  101:"Cloud"'
-    - 'OperatingSystemName   :  101:"Cloud"'
-    - 'OperatingSystemVersion:  101:"Cloud"'
-    - 'LayoutEngineClass     :  101:"Robot"'
-    - 'LayoutEngineName      :  101:agent.product.name~"scan"'
-    - 'LayoutEngineVersion   :  101:"??"'
-    - 'AgentClass            :  101:"Robot"'
-    - 'AgentName             :  101:agent.product.name~"scan"'
-    - 'AgentVersion          :  101:"??"'
+    - 'DeviceClass           :  111:"Robot"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'DeviceName            :  111:agent.product.name~"scan"'
+    - 'OperatingSystemClass  :  111:"Cloud"'
+    - 'OperatingSystemName   :  111:"Cloud"'
+    - 'OperatingSystemVersion:  111:"Cloud"'
+    - 'LayoutEngineClass     :  111:"Robot"'
+    - 'LayoutEngineName      :  111:agent.product.name~"scan"'
+    - 'LayoutEngineVersion   :  111:"??"'
+    - 'AgentClass            :  111:"Robot"'
+    - 'AgentName             :  111:agent.product.name~"scan"'
+    - 'AgentVersion          :  111:"??"'
 
 - matcher:
     require:
     - 'agent.product.name~"scan"@~"mobile"'
     extract:
-    - 'DeviceClass           :  102:"Robot Mobile"'
+    - 'DeviceClass           :  112:"Robot Mobile"'
 
 - matcher:
     extract:
-    - 'LayoutEngineVersion   :  102:agent.product.name~"scan"^.(1)version'
-    - 'AgentVersion          :  102:agent.product.name~"scan"^.(1)version'
+    - 'LayoutEngineVersion   :  112:agent.product.name~"scan"^.(1)version'
+    - 'AgentVersion          :  112:agent.product.name~"scan"^.(1)version'
 
 - matcher:
     extract:
@@ -1342,3 +1342,29 @@ config:
       AgentNameVersion                     : 'Typhoeus https://github.com/typhoeus/typhoeus'
       AgentNameVersionMajor                : 'Typhoeus https://github.com/typhoeus/typhoeus'
       AgentInformationUrl                  : 'https://github.com/typhoeus/typhoeus'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 CommonCrawler Node 252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4.R.GPMRT2CTBQMMKZPSBBCPP6O4XLKIWXRKYIQNNL3CIDAST4WS.cdn0.common.crawl.zone'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'CommonCrawler Node'
+      DeviceBrand                           : 'Unknown'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : 'Cloud'
+      OperatingSystemNameVersion            : 'Cloud'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'CommonCrawler Node'
+      LayoutEngineVersion                   : '252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4.R.GPMRT2CTBQMMKZPSBBCPP6O4XLKIWXRKYIQNNL3CIDAST4WS.cdn0.common.crawl.zone'
+      LayoutEngineVersionMajor              : '252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4'
+      LayoutEngineNameVersion               : 'CommonCrawler Node 252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4.R.GPMRT2CTBQMMKZPSBBCPP6O4XLKIWXRKYIQNNL3CIDAST4WS.cdn0.common.crawl.zone'
+      LayoutEngineNameVersionMajor          : 'CommonCrawler Node 252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'CommonCrawler Node'
+      AgentVersion                          : '252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4.R.GPMRT2CTBQMMKZPSBBCPP6O4XLKIWXRKYIQNNL3CIDAST4WS.cdn0.common.crawl.zone'
+      AgentVersionMajor                     : '252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4'
+      AgentNameVersion                      : 'CommonCrawler Node 252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4.R.GPMRT2CTBQMMKZPSBBCPP6O4XLKIWXRKYIQNNL3CIDAST4WS.cdn0.common.crawl.zone'
+      AgentNameVersionMajor                 : 'CommonCrawler Node 252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4'
+
