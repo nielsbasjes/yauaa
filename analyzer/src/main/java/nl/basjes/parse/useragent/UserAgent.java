@@ -492,7 +492,6 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
                         sb.append(' ');
                     }
                     sb.append(": '").append(field.getValue()).append('\'');
-                    sb.append("# ").append(field.confidence);
                     sb.append('\n');
                 }
             }
