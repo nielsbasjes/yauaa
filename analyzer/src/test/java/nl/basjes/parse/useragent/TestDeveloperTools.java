@@ -17,11 +17,13 @@
 
 package nl.basjes.parse.useragent;
 
+import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -53,12 +55,33 @@ public class TestDeveloperTools {
 
 
     @Test
-    public void validateStringJsonAndYamlOutput() {
-        UserAgentAnalyzer uaa = UserAgentAnalyzer.newBuilder().withField("DeviceName").build();
+    public void validateStringOutputsAndMatches() {
+        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester.newBuilder().withField("DeviceName").build();
         UserAgent useragent = uaa.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36");
         assertTrue(useragent.toString().contains("'Google Nexus 6'"));
         assertTrue(useragent.toJson().contains("\"DeviceName\":\"Google Nexus 6\""));
         assertTrue(useragent.toYamlTestCase(true).contains("'Google Nexus 6'"));
+
+        boolean ok = false;
+        for (MatcherAction.Match match : uaa.getMatches()) {
+            if ("agent.(1)product.(1)comments.(3)entry[3-3]".equals(match.getKey())) {
+                assertEquals("Build", match.getValue());
+                ok = true;
+                break;
+            }
+        }
+        assertTrue("Did not see the expected match.", ok);
+
+        ok = false;
+        for (MatcherAction.Match match : uaa.getUsedMatches(useragent)) {
+            if ("agent.(1)product.(1)comments.(3)entry[3-3]".equals(match.getKey())) {
+                assertEquals("Build", match.getValue());
+                ok = true;
+                break;
+            }
+        }
+        assertTrue("Did not see the expected match.", ok);
     }
+
 
 }

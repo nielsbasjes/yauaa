@@ -470,7 +470,6 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
      * This function is used only for analyzing which patterns that could possibly be relevant
      * were actually relevant for the matcher actions
      */
-    @SuppressWarnings({"unused"})
     public List<MatcherAction.Match> getMatches() {
         List<MatcherAction.Match> allMatches = new ArrayList<>(128);
         for (Matcher matcher: allMatchers) {
@@ -508,6 +507,48 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         @Override
         public UserAgentAnalyzerTester build() {
             return (UserAgentAnalyzerTester)super.build();
+        }
+
+        @Override
+        public UserAgentAnalyzerTester.Builder withCache(int cacheSize) {
+            super.withCache(cacheSize);
+            return this;
+        }
+
+        @Override
+        public UserAgentAnalyzerTester.Builder withoutCache() {
+            super.withoutCache();
+            return this;
+        }
+
+        @Override
+        public UserAgentAnalyzerTester.Builder withField(String fieldName) {
+            super.withField(fieldName);
+            return this;
+        }
+
+        @Override
+        public UserAgentAnalyzerTester.Builder withFields(Collection<String> fieldNames) {
+            super.withFields(fieldNames);
+            return this;
+        }
+
+        @Override
+        public UserAgentAnalyzerTester.Builder withAllFields() {
+            super.withAllFields();
+            return this;
+        }
+
+        @Override
+        public UserAgentAnalyzerTester.Builder showMatcherLoadStats() {
+            super.showMatcherLoadStats();
+            return this;
+        }
+
+        @Override
+        public UserAgentAnalyzerTester.Builder hideMatcherLoadStats() {
+            super.hideMatcherLoadStats();
+            return this;
         }
     }
 
