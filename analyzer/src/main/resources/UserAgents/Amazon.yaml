@@ -18,6 +18,26 @@ config:
 # https://developer.amazon.com/public/solutions/devices/kindle-fire/specifications/01-device-and-feature-specifications
 # https://developer.amazon.com/public/solutions/devices/fire-tablets/specifications/04-user-agent-strings
 # http://docs.aws.amazon.com/silk/latest/developerguide/user-agent.html
+# http://docs.aws.amazon.com/silk/latest/developerguide/screen-size.html
+# https://developer.amazon.com/public/solutions/devices/fire-phone/docs/fire-phone-user-agent-strings
+#  KFTBWI          | Amazon Fire HD 10 (5th Gen)           | Amazon | Tablet # 10.1-inch screen
+#  KFMEWI          | Amazon Fire HD 8 (5th Gen)            | Amazon | Tablet # 8-inch screen
+#  KFFOWI          | Amazon Fire (5th Gen)                 | Amazon | Tablet # 7-inch screen
+#  KFSAWI          | Amazon Fire HDX 8.9 (4th Gen)         | Amazon | Tablet # 8.9-inch screen
+#  KFSAWA          | Amazon Fire HDX 8.9 (4th Gen)         | Amazon | Tablet # 8.9-inch screen
+#  KFASWI          | Amazon Fire HD 7 (4th Gen)            | Amazon | Tablet # 7-inch screen
+#  KFARWI          | Amazon Fire HD 6 (4th Gen)            | Amazon | Tablet # 6-inch screen
+#  KFAPWI          | Amazon Kindle Fire HDX 8.9 (3rd Gen)  | Amazon | Tablet # 8.9-inch screen
+#  KFAPWA          | Amazon Kindle Fire HDX 8.9 (3rd Gen)  | Amazon | Tablet # 8.9-inch screen
+#  KFTHWI          | Amazon Kindle Fire HDX 7 (3rd Gen)    | Amazon | Tablet # 7-inch screen
+#  KFTHWA          | Amazon Kindle Fire HDX 7 (3rd Gen)    | Amazon | Tablet # 7-inch screen
+#  KFSOWI          | Amazon Kindle Fire HD 7 (3rd Gen)     | Amazon | Tablet # 7-inch screen
+#  KFJWI           | Amazon Kindle Fire HD 8.9 (2nd Gen)   | Amazon | Tablet # 8.9-inch screen
+#  KFJWA           | Amazon Kindle Fire HD 8.9 (2nd Gen)   | Amazon | Tablet # 8.9-inch screen
+#  KFTT            | Amazon Kindle Fire HD 7 (2nd Gen)     | Amazon | Tablet # 7-inch screen
+#  KFOT            | Amazon Kindle Fire (2nd Gen)          | Amazon | Tablet # 7-inch screen
+#  KFOT            | Amazon Kindle Fire (1st Gen)          | Amazon | Tablet # 7-inch screen
+#  SD4930UR        | Amazon Fire Phone                     | Amazon | Phone  # 4.7-inch screen
 
 #  KFTHW           | Amazon Kindle Fire (KFTHW ) | Amazon | Tablet
 #  KFAUWI          | Amazon Kindle Fire (KFAUWI) | Amazon | Tablet
@@ -46,6 +66,41 @@ config:
     - 'DeviceClass           :   500:"Tablet"'
     - 'DeviceBrand           :   500:"Amazon"'
     - 'DeviceName            :   500:agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Build"@[1]{"KF"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :   500:"Phone"'
+    - 'DeviceBrand           :   500:"Amazon"'
+    - 'DeviceName            :   500:agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Build"@[1]{"SD"'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.4.4; en-gb; SD4930UR Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Silk/3.58 like Chrome/37.0.2026.117 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Amazon SD4930UR'
+      DeviceBrand                          : 'Amazon'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.4'
+      OperatingSystemNameVersion           : 'Android 4.4.4'
+      OperatingSystemVersionBuild          : 'KTU84P'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Silk'
+      AgentVersion                         : '3.58'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Silk 3.58'
+      AgentNameVersionMajor                : 'Silk 3'
+      AgentLanguage                        : 'English (United Kingdom)'
+      AgentLanguageCode                    : 'en-gb'
+      AgentSecurity                        : 'Strong security'
 
 - test:
     input:
