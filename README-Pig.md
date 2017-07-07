@@ -8,7 +8,7 @@ If you use a maven based project simply add this dependency
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa-pig</artifactId>
       <classifier>udf</classifier>
-      <version>1.3</version>
+      <version>1.4</version>
     </dependency>
 
 ## Building
