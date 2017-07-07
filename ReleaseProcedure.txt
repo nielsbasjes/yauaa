@@ -9,8 +9,8 @@ mvn clean
 
 
 # Prepare the versions for the release
-RELEASEVERSION=1.4
-NEXTVERSION=1.5
+RELEASEVERSION=1.5
+NEXTVERSION=1.6
 
 # Creating and publishing the new Tagging
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION}
@@ -22,6 +22,9 @@ git diff README*.md
 git status
 git commit -m"Version ${RELEASEVERSION}" -a
 
+# We must first tag it because the tag is generated into the code
+git tag -a v${RELEASEVERSION} -m"Tag Version ${RELEASEVERSION}"
+
 #mvn clean deploy -Pplatfora -Prelease -Pdeploy-local
 #VERIFY If this all looks good
 
@@ -29,8 +32,6 @@ git commit -m"Version ${RELEASEVERSION}" -a
 mvn clean deploy -Pplatfora -Prelease -Pdeploy-sonatype
 
 # Now check SONATYPE
-
-git tag -a v${RELEASEVERSION} -m"Tag Version ${RELEASEVERSION}"
 
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${NEXTVERSION}-SNAPSHOT
 git commit -m"Start development for ${NEXTVERSION}" -a
