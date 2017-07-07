@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.utils;
 
 import java.util.Locale;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class Normalize {
@@ -111,7 +112,7 @@ public final class Normalize {
         if (lowerDeviceName.startsWith(lowerDeviceBrand)) {
             deviceName = deviceName.replaceAll("_", " ");
             // (?i) means: case insensitive
-            deviceName = deviceName.replaceAll("(?i)^" + Pattern.quote(deviceBrand) + "([^ ].*)$", deviceBrand+" $1");
+            deviceName = deviceName.replaceAll("(?i)^" + Pattern.quote(deviceBrand) + "([^ ].*)$", Matcher.quoteReplacement(deviceBrand)+" $1");
             deviceName = deviceName.replaceAll("( -| )+", " ");
         } else {
             deviceName = deviceBrand + ' ' + deviceName;

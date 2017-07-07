@@ -99,4 +99,10 @@ public class TestNormalize {
         assertEquals("mms-mmaudvidcrawler-support@yahoo-inc.com",  Normalize.email("mms dash mmaudvidcrawler dash support at yahoo dash inc dot com"));
     }
 
+    @Test
+    public void checkBadInputData() {
+        // This used to trigger an exception in the underlying RegEx.
+        Normalize.cleanupDeviceBrandName("${N", "${N.Foo");
+    }
+
 }
