@@ -57,6 +57,34 @@ config:
 
 - matcher:
     require:
+    - 'agent.product.comments.entry{"GT-N8"'
+    extract:
+    - 'DeviceClass           :   1011:"Tablet"'
+    - 'DeviceBrand           :   1011:"Samsung"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"Samsung GT-N8"'
+    extract:
+    - 'DeviceClass           :   1011:"Tablet"'
+    - 'DeviceBrand           :   1011:"Samsung"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"GT-N5"'
+    extract:
+    - 'DeviceClass           :   1011:"Tablet"'
+    - 'DeviceBrand           :   1011:"Samsung"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry{"Samsung GT-N5"'
+    extract:
+    - 'DeviceClass           :   1011:"Tablet"'
+    - 'DeviceBrand           :   1011:"Samsung"'
+
+- matcher:
+    require:
     - 'agent.product.comments.entry{"GT-I"'
     extract:
     - 'DeviceClass           :   1010:"Phone"'
@@ -371,3 +399,28 @@ config:
       AgentVersionMajor                    : '33'
       AgentNameVersion                     : 'Chrome 33.0.1750.170'
       AgentNameVersionMajor                : 'Chrome 33'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.1.2; GT-N8000 Build/JZO54K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.99 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung GT-N8000'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.1.2'
+      OperatingSystemNameVersion           : 'Android 4.1.2'
+      OperatingSystemVersionBuild          : 'JZO54K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '32.0'
+      LayoutEngineVersionMajor             : '32'
+      LayoutEngineNameVersion              : 'Blink 32.0'
+      LayoutEngineNameVersionMajor         : 'Blink 32'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '32.0.1700.99'
+      AgentVersionMajor                    : '32'
+      AgentNameVersion                     : 'Chrome 32.0.1700.99'
+      AgentNameVersionMajor                : 'Chrome 32'
