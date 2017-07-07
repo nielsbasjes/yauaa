@@ -555,6 +555,13 @@ config:
 - matcher:
     require:
     - 'agent.product.(1)name="UCBrowser"'
+    - 'agent.product.name[1]="Mobile"'
+    extract:
+    - 'DeviceClass           :   332:"Phone"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="UCBrowser"'
     - 'agent.text="Mobile"'
     extract:
     - 'DeviceClass           :   332:"Phone"'
@@ -569,6 +576,13 @@ config:
     require:
     - 'agent.product.(1)name="UCWEB"'
     - 'agent.text="Mobile"'
+    extract:
+    - 'DeviceClass           :   332:"Phone"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="UCWEB"'
+    - 'agent.product.name[1]="Mobile"'
     extract:
     - 'DeviceClass           :   332:"Phone"'
 
@@ -645,6 +659,32 @@ config:
       AgentNameVersion                     : 'UCBrowser 8.7.0.218'
       AgentNameVersionMajor                : 'UCBrowser 8'
       AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'NokiaX2-02/2.0 (11.79) Profile/MIDP-2.1 Configuration/CLDC-1.1 UCWEB/2.0(Java; U; MIDP-2.0; en-us; nokiax2-02) U2/1.0.0 UCBrowser/8.7.1.234 U2/1.0.0 Mobile UNTRUSTED/1.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia X2-02'
+      DeviceBrand                          : 'Nokia'
+      DeviceVersion                        : '2.0'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'UCBrowser U2'
+      LayoutEngineVersion                  : '1.0.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'UCBrowser U2 1.0.0'
+      LayoutEngineNameVersionMajor         : 'UCBrowser U2 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'UCBrowser'
+      AgentVersion                         : '8.7.1.234'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'UCBrowser 8.7.1.234'
+      AgentNameVersionMajor                : 'UCBrowser 8'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
 
 - test:
     input:
