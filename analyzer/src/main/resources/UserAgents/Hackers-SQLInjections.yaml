@@ -132,11 +132,6 @@ config:
       HackerToolkit                        : 'Sqlmap'
       __SyntaxError__                      : 'true'
 
-#- test:
-#    input:
-#      user_agent_string: '"-3563\"" OR ELT(6900=6900,1436)"'
-#
-
 - matcher:
     require:
     - 'agent~"SELECT "'
@@ -487,6 +482,10 @@ config:
       user_agent_string: '(select convert(int,CHAR(65)))'
     expected: *isSQLInjection
 
+- test:
+    input:
+      user_agent_string: '"-3563\"" OR ELT(6900=6900,1436)"'
+    expected: *isSQLInjection
 
 # Validate false positive edge case that matched the substring "OR NOT" in "honOR NOTe 8"
 - test:
