@@ -1,4 +1,12 @@
 # User Defined Function for Platfora
+
+## IMPORTANT NOTE
+The Platfora tool for which this UDF was written is end-of-life.
+
+So as soon as my employer stops using Platfora I will ditch this UDF.
+
+Just so you know.
+
 ## Getting the UDF
 You can get the prebuild UDF from maven central.
 If you use a maven based project simply add this dependency

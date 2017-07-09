@@ -162,7 +162,7 @@ For two such systems Apache Pig and Platfora (both are used within bol.com (wher
 a UDF which are both part of this project.
 
 * [Apache Pig](README-Pig.md)
-* [Platfora](README-Platfora.md)
+* ~~[Platfora](README-Platfora.md)~~
 
 UDFs written by other people:
 
