@@ -217,6 +217,60 @@ config:
     - 'OperatingSystemName   :   20:"iOS"'
     - 'OperatingSystemVersion:   20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="CPU iPad OS"^.version]'
 
+
+- matcher:
+    require:
+    - 'agent.text="CPU like Mac OS X"'
+    extract:
+    - 'OperatingSystemClass  :  20:"Mobile"'
+    - 'OperatingSystemName   :  20:"iOS"'
+    - 'OperatingSystemVersion:  20:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name="CPU"^>="like Mac OS X"'
+    extract:
+    - 'DeviceFirmwareVersion :  20:agent.product.name="Mobile"^.version'
+    - 'OperatingSystemClass  :  20:"Mobile"'
+    - 'OperatingSystemName   :  20:"iOS"'
+    - 'OperatingSystemVersion:  20:CleanVersion[agent.product.name="CPU"^.version]'
+
+- matcher:
+    require:
+    - 'agent.product.name="CPU OS"^>="like Mac OS X"'
+    extract:
+    - 'DeviceFirmwareVersion :  20:agent.product.name="Mobile"^.version'
+    - 'OperatingSystemClass  :  20:"Mobile"'
+    - 'OperatingSystemName   :  20:"iOS"'
+    - 'OperatingSystemVersion:  20:CleanVersion[agent.product.name="CPU OS"^.version]'
+
+- matcher:
+    require:
+    - 'agent.product.name="CPU OS"^>="like Mac OS X"'
+    extract:
+    - 'OperatingSystemClass  :  20:"Mobile"'
+    - 'OperatingSystemName   :  20:"iOS"'
+    - 'OperatingSystemVersion:  20:CleanVersion[agent.product.name="CPU OS"^.version]'
+
+- matcher:
+    require:
+    - 'agent.product.name="CPU iPhone OS"^>="like Mac OS X"'
+    extract:
+    - 'DeviceFirmwareVersion :   20:agent.product.name="Mobile"^.version'
+    - 'OperatingSystemClass  :   20:"Mobile"'
+    - 'OperatingSystemName   :   20:"iOS"'
+    - 'OperatingSystemVersion:   20:CleanVersion[agent.product.name="CPU iPhone OS"^.version]'
+
+- matcher:
+    require:
+    - 'agent.product.name="CPU iPad OS"^>="like Mac OS X"'
+    extract:
+    - 'DeviceFirmwareVersion :   20:agent.product.name="Mobile"^.version'
+    - 'OperatingSystemClass  :   20:"Mobile"'
+    - 'OperatingSystemName   :   20:"iOS"'
+    - 'OperatingSystemVersion:   20:CleanVersion[agent.product.name="CPU iPad OS"^.version]'
+
+
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.(1)entry.text="Macintosh"'
