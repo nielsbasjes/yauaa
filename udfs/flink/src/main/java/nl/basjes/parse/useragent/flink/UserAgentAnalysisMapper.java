@@ -1,0 +1,41 @@
+/*
+ * Yet Another UserAgent Analyzer
+ * Copyright (C) 2013-2017 Niels Basjes
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package nl.basjes.parse.useragent.flink;
+
+import nl.basjes.parse.useragent.annonate.UserAgentAnnotationAnalyzer;
+import nl.basjes.parse.useragent.annonate.UseragentAnnotationMapper;
+import org.apache.flink.api.common.functions.RichMapFunction;
+import org.apache.flink.configuration.Configuration;
+
+import java.io.Serializable;
+
+public abstract class UserAgentAnalysisMapper<T> extends RichMapFunction<T, T>
+    implements UseragentAnnotationMapper<T>, Serializable {
+    private transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer = null;
+
+    @Override
+    public void open(Configuration parameters) throws Exception {
+        userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
+        userAgentAnalyzer.initialize(this);
+    }
+
+    @Override
+    public T map(T record) throws Exception {
+        return userAgentAnalyzer.map(record);
+    }
+}
