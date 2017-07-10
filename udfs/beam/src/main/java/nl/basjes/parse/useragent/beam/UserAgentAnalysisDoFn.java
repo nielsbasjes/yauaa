@@ -1,0 +1,55 @@
+/*
+ * Yet Another UserAgent Analyzer
+ * Copyright (C) 2013-2017 Niels Basjes
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package nl.basjes.parse.useragent.beam;
+
+import nl.basjes.parse.useragent.annonate.UserAgentAnnotationAnalyzer;
+import nl.basjes.parse.useragent.annonate.UseragentAnnotationMapper;
+import org.apache.beam.sdk.repackaged.org.apache.commons.lang3.SerializationUtils;
+import org.apache.beam.sdk.transforms.DoFn;
+
+import java.io.Serializable;
+
+public abstract class UserAgentAnalysisDoFn<T extends Serializable> extends DoFn<T, T>
+    implements UseragentAnnotationMapper<T>, Serializable {
+    private transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer = null;
+
+    @ProcessElement
+    public void processElement(ProcessContext c) {
+        if (userAgentAnalyzer == null) {
+            userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
+            userAgentAnalyzer.initialize(this);
+        }
+
+        // Currently Beam does not allow changing the input instance.
+        // So unfortunately we must clone the entire thing :(
+        // See also: https://issues.apache.org/jira/browse/BEAM-1164
+        c.output(userAgentAnalyzer.map(clone(c.element())));
+    }
+
+    /**
+     * Clone the provided instance of T.
+     * This default implementation uses a mindless brute force cloning via serialization.
+     * If for your class you can do better; please override this method.
+     * @param t The original input value
+     * @return A deep copied copy of t
+     */
+    public T clone(T t) {
+        return SerializationUtils.clone(t);
+    }
+
+}
