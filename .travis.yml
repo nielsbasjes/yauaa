@@ -1,5 +1,8 @@
 language: java
 
+jdk:
+  - oraclejdk8
+
 after_success:
   - mvn clean -PEnableReportPlugins cobertura:cobertura coveralls:report com.srcclr:srcclr-maven-plugin:scan
 
