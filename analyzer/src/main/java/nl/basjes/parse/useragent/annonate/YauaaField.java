@@ -15,14 +15,18 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.analyze;
+package nl.basjes.parse.useragent.annonate;
 
-public class InvalidParserConfigurationException extends RuntimeException {
-    public InvalidParserConfigurationException(String message) {
-        super(message);
-    }
-    public InvalidParserConfigurationException(String message, Exception e) {
-        super(message, e);
-    }
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD})
+/*
+ * Defines the resulting field that must be used to call this setter.
+ */
+public @interface YauaaField {
+    String[] value();
 }

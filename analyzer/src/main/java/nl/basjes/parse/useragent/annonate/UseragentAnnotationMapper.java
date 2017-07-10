@@ -15,14 +15,8 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.analyze;
+package nl.basjes.parse.useragent.annonate;
 
-public class InvalidParserConfigurationException extends RuntimeException {
-    public InvalidParserConfigurationException(String message) {
-        super(message);
-    }
-    public InvalidParserConfigurationException(String message, Exception e) {
-        super(message, e);
-    }
-
+public interface UseragentAnnotationMapper<T> {
+    String getUserAgentString(T record);
 }
