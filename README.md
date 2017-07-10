@@ -166,7 +166,7 @@ a UDF which are both part of this project.
 
 UDFs written by other people:
 
-* Apache Drill [https://github.com/cgivre/drill-useragent-function](https://github.com/cgivre/drill-useragent-function)
+* [Apache Drill](https://github.com/cgivre/drill-useragent-function)
 
 
 Values explained
