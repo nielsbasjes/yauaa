@@ -87,9 +87,9 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
     private static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
-    protected final List<Matcher> allMatchers = new ArrayList<>(5000);
-    private final Map<String, Set<MatcherAction>> informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
-    private transient Map<String, List<MappingNode>> matcherConfigs;
+    protected List<Matcher> allMatchers = new ArrayList<>(5000);
+    private Map<String, Set<MatcherAction>> informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
+    private transient Map<String, List<MappingNode>> matcherConfigs = new HashMap<>();
 
     private boolean showMatcherStats = false;
     private boolean doingOnlyASingleTest = false;

@@ -22,6 +22,7 @@ public final class WordSplitter extends Splitter {
     }
 
     private static WordSplitter instance = null;
+
     public static WordSplitter getInstance() {
         if (instance == null) {
             instance = new WordSplitter();
@@ -52,13 +53,6 @@ public final class WordSplitter extends Splitter {
         }
     }
     public boolean isEndOfStringSeparator(char c) {
-        switch (c) {
-            case '(':
-            case ')':
-                return true;
-            default:
-                return false;
-        }
+        return c == '(' || c == ')';
     }
-
 }
