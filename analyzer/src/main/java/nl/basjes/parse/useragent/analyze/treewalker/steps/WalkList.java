@@ -95,17 +95,16 @@ public class WalkList implements Serializable {
     }
 
     private void linkSteps() {
-        if (steps.size() > 0) {
-            int i;
-            for (i = 0; i < steps.size() - 1; i++) {
-                steps.get(i).setNextStep(i, steps.get(i + 1));
-            }
-            steps.get(i).setNextStep(i, null); // This sets the logging prefix for the last step
+        Step nextStep = null;
+        for (int i = steps.size() -1; i >= 0; i--) {
+            Step current = steps.get(i);
+            current.setNextStep(i, nextStep);
+            nextStep = current;
         }
     }
 
     public String walk(ParseTree tree, String value) {
-        if (steps.size() == 0) {
+        if (steps.isEmpty()) {
             return value;
 //            return GetResultValueVisitor.getResultValue(tree);
         }
@@ -122,10 +121,7 @@ public class WalkList implements Serializable {
     }
 
     public Step getFirstStep() {
-        if (steps == null || steps.size() == 0) {
-            return null;
-        }
-        return steps.get(0);
+        return steps == null || steps.isEmpty() ? null : steps.get(0);
     }
 
     private Boolean usesIsNull = null;
@@ -148,7 +144,7 @@ public class WalkList implements Serializable {
 
     @Override
     public String toString() {
-        if (steps.size() == 0) {
+        if (steps.isEmpty()) {
             return "Empty";
         }
         StringBuilder sb = new StringBuilder(128);
