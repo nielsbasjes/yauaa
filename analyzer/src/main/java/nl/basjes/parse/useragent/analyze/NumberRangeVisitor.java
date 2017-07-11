@@ -58,7 +58,10 @@ public class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<NumberRan
         MAX_RANGE.put("uuid",                 4);
     }
 
-    private Integer getMaxRange(NumberRangeContext ctx) {
+    private NumberRangeVisitor() {
+    }
+
+    private static Integer getMaxRange(NumberRangeContext ctx) {
         ParserRuleContext parent = ctx.getParent();
         if (!(parent instanceof StepDownContext)) {
             return DEFAULT_MAX;
@@ -74,7 +77,7 @@ public class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<NumberRan
         return maxRange;
     }
 
-    private static final NumberRangeVisitor NUMBER_RANGE_VISITOR = new NumberRangeVisitor();
+    static final NumberRangeVisitor NUMBER_RANGE_VISITOR = new NumberRangeVisitor();
 
     public static NumberRangeList getList(NumberRangeContext ctx) {
         return NUMBER_RANGE_VISITOR.visit(ctx);
