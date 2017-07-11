@@ -65,6 +65,9 @@ public class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordRangeVi
 
     private static final WordRangeVisitor WORD_RANGE_VISITOR = new WordRangeVisitor();
 
+    private WordRangeVisitor() {
+    }
+
     public static Range getRange(WordRangeContext ctx) {
         return WORD_RANGE_VISITOR.visit(ctx);
     }
@@ -92,7 +95,7 @@ public class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordRangeVi
 
     @Override
     public Range visitWordRangeSingleWord(UserAgentTreeWalkerParser.WordRangeSingleWordContext ctx) {
-        Integer wordNumber = Integer.parseInt(ctx.singleWord.getText());
+        int wordNumber = Integer.parseInt(ctx.singleWord.getText());
         return new Range(
             wordNumber,
             wordNumber);
