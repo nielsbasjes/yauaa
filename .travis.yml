@@ -4,7 +4,7 @@ jdk:
   - oraclejdk8
 
 after_success:
-  - mvn clean -PEnableReportPlugins cobertura:cobertura coveralls:report com.srcclr:srcclr-maven-plugin:scan
+  - mvn clean -PEnableReportPlugins cobertura:cobertura coveralls:report 
 
 cache:
   directories:
