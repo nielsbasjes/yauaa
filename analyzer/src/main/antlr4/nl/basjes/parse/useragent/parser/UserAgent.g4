@@ -67,7 +67,7 @@ USERAGENT1   : '-'*[Uu][Ss][Ee][Rr]'-'*[Aa][Gg][Ee][Nn][Tt]' '*(COLON|EQUALS|CUR
 USERAGENT2   : '\''[Uu][Ss][Ee][Rr]'-'*[Aa][Gg][Ee][Nn][Tt]'\'' COLON -> skip;
 
 fragment EMailLetter
-    : [a-zA-Z0-9-+_]
+    : [a-zA-Z0-9_+-]
     ;
 
 fragment EMailWord
