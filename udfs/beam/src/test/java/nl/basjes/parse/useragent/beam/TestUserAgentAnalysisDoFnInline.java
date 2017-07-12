@@ -52,9 +52,6 @@ public class TestUserAgentAnalysisDoFnInline implements Serializable {
                 "Chrome/53.0.2785.124 Mobile Safari/537.36"
         );
 
-        PipelineOptions options =
-            PipelineOptionsFactory.create();
-
         // Apply Create, passing the list and the coder, to create the PCollection.
         PCollection<String> input = pipeline.apply(Create.of(useragents)).setCoder(StringUtf8Coder.of());
 
@@ -70,7 +67,6 @@ public class TestUserAgentAnalysisDoFnInline implements Serializable {
         PCollection<TestRecord> filledTestRecords = testRecords
             .apply("Extract Elements from Useragent",
                 ParDo.of(new UserAgentAnalysisDoFn<TestRecord>() {
-                    @Override
                     public String getUserAgentString(TestRecord record) {
                         return record.useragent;
                     }
