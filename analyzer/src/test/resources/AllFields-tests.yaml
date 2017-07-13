@@ -119,20 +119,20 @@ config:
 #      options:
 #        - 'verbose'
       require:
-        - 'agent.(1)product.(1)name.(1)key="keyText"'
-        - 'agent.(1)product.(1)name.(2)text="text"'
+        - 'agent.(1)product.(1)name.(1)keyvalue.(1)key="keyText"'
+        - 'agent.(1)product.(1)name.(1)keyvalue.(2)text="text"'
         - 'agent.(1)product.(1)comments.entry.(1)text="a"'
 
-        - 'agent.(2)product.(1)name.(1)key="keyEmail"'
-        - 'agent.(2)product.(1)name.(2)email="em@il.nl"'
+        - 'agent.(2)product.(1)name.(1)keyvalue.(1)key="keyEmail"'
+        - 'agent.(2)product.(1)name.(1)keyvalue.(2)email="em@il.nl"'
         - 'agent.(2)product.(1)comments.entry.(1)text="b"'
 
-        - 'agent.(3)product.(1)name.(1)key="keyWeb"'
-        - 'agent.(3)product.(1)name.(2)url="http://web.site"'
+        - 'agent.(3)product.(1)name.(1)keyvalue.(1)key="keyWeb"'
+        - 'agent.(3)product.(1)name.(1)keyvalue.(2)url="http://web.site"'
         - 'agent.(3)product.(1)comments.entry.(1)text="c"'
 
-        - 'agent.(4)product.(1)name.(1)key="keyUuid"'
-        - 'agent.(4)product.(1)name.(2)uuid="A43F3165-FAC1-11E1-8828-00123F6EDBB1"'
+        - 'agent.(4)product.(1)name.(1)keyvalue.(1)key="keyUuid"'
+        - 'agent.(4)product.(1)name.(1)keyvalue.(2)uuid="A43F3165-FAC1-11E1-8828-00123F6EDBB1"'
         - 'agent.(4)product.(1)comments.entry.(1)text="d"'
       extract:
         - 'Test3:1:"Ok"'

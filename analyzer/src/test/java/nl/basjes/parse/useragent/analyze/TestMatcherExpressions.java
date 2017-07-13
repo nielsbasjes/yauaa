@@ -94,4 +94,10 @@ public class TestMatcherExpressions {
         Assert.assertTrue(uaa.runTests(false, true));
     }
 
+    @Test
+    public void runAllPossibleSteps() {
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:AllPossibleSteps.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
+
 }

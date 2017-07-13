@@ -298,7 +298,8 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
     @Override
     public void enterProductNameKeyValue(ProductNameKeyValueContext ctx) {
-        informSubstrings(ctx, "name");
+        inform(ctx, "name.(1)keyvalue", ctx.getText(), false);
+        informSubstrings(ctx, "name", true);
     }
 
     @Override
@@ -321,7 +322,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         enterProductVersion(ctx);
     }
 
-    public void enterProductVersion(ParseTree ctx) {
+    private void enterProductVersion(ParseTree ctx) {
         if (ctx.getChildCount() != 1) {
             // These are the specials with multiple children like keyvalue, etc.
             inform(ctx, "version");
@@ -374,11 +375,15 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     }
 
     private void informSubstrings(ParserRuleContext ctx, String name) {
+        informSubstrings(ctx, name, false);
+    }
+
+    private void informSubstrings(ParserRuleContext ctx, String name, boolean fakeChild) {
         String text = getSourceText(ctx);
         if (text==null) {
             return;
         }
-        inform(ctx, name, text, false);
+        inform(ctx, name, text, fakeChild);
 
         int startOffsetPrevious = 0;
         int count = 1;
@@ -438,7 +443,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
     @Override
     public void enterKeyName(KeyNameContext ctx) {
-        inform(ctx, "key");
+        informSubstrings(ctx, "key");
     }
 
     @Override

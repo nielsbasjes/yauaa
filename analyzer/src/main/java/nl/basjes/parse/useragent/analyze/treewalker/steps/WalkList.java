@@ -127,7 +127,7 @@ public class WalkList implements Serializable {
         return steps.get(0);
     }
 
-    Boolean usesIsNull = null;
+    private Boolean usesIsNull = null;
     public boolean usesIsNull() {
         if (usesIsNull != null) {
             return usesIsNull;

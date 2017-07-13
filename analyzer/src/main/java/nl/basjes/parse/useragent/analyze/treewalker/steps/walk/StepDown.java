@@ -21,11 +21,11 @@ import nl.basjes.parse.useragent.analyze.NumberRangeList;
 import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.parser.UserAgentBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentParser;
 import nl.basjes.parse.useragent.parser.UserAgentParser.Base64Context;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentBlockContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentEntryContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentProductContext;
-import nl.basjes.parse.useragent.parser.UserAgentParser.CommentSeparatorContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.EmailAddressContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.EmptyWordContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.KeyNameContext;
@@ -41,15 +41,11 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameKeyValueConte
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameNoVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameUrlContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameUuidContext;
-import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameVersionContext;
-import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameWordsContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionSingleWordContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWithCommasContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWordsContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.RootTextContext;
-import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionContext;
-import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionWithCommasContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.SiteUrlContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UserAgentContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UuIdContext;
@@ -186,27 +182,56 @@ public class StepDown extends Step {
      */
     private class UserAgentGetChildrenVisitor extends UserAgentBaseVisitor<List<? extends ParserRuleContext>> {
 
-        @Override
-        public List<? extends ParserRuleContext> visitUserAgent(UserAgentContext ctx) {
+        List<? extends ParserRuleContext> getChildrenByName(ParserRuleContext ctx) {
             switch (name) {
+//                case "comments":
+//                    return getChildren(ctx, CommentBlockContext.class);
+                case "keyvalue":
+                    return getChildren(ctx, KeyValueContext.class,
+                                            KeyWithoutValueContext.class,
+                                            ProductNameKeyValueContext.class);
                 case "product":
-                    return getChildren(ctx, ProductContext.class);
+                    return getChildren(ctx, ProductContext.class,
+                                            CommentProductContext.class);
+                case "uuid":
+                    return getChildren(ctx, UuIdContext.class,
+                                            ProductNameUuidContext.class);
+                case "base64":
+                    return getChildren(ctx, Base64Context.class);
                 case "url":
-                    return getChildren(ctx, SiteUrlContext.class);
+                    return getChildren(ctx, SiteUrlContext.class,
+                                            ProductNameUrlContext.class);
                 case "email":
-                    return getChildren(ctx, EmailAddressContext.class);
+                    return getChildren(ctx, EmailAddressContext.class,
+                                            ProductNameEmailContext.class);
                 case "text":
-                    return getChildren(ctx, RootTextContext.class);
+                    return getChildren(ctx, MultipleWordsContext.class,
+                                            VersionWordsContext.class,
+                                            EmptyWordContext.class,
+                                            RootTextContext.class);
                 default:
                     return Collections.emptyList();
             }
         }
 
+        @Override
+        public List<? extends ParserRuleContext> visitUserAgent(UserAgentContext ctx) {
+            List<? extends ParserRuleContext> children = getChildrenByName(ctx);
+            if (children.isEmpty()) {
+                return visitChildren(ctx);
+            }
+            return children;
+        }
+
+        @Override
+        public List<? extends ParserRuleContext> visitRootElements(UserAgentParser.RootElementsContext ctx) {
+            return getChildrenByName(ctx);
+        }
+
         private List<? extends ParserRuleContext> visitGenericProduct(ParserRuleContext ctx) {
             switch (name) {
                 case "name":
-                    return getChildren(ctx, false,  ProductNameContext.class,
-                                                    ProductNameNoVersionContext.class);
+                    return getChildren(ctx, false,  ProductNameContext.class);
                 case "version":
                     return getChildren(ctx, true,   ProductVersionContext.class,
                                                     ProductVersionWithCommasContext.class,
@@ -225,38 +250,18 @@ public class StepDown extends Step {
         }
 
         @Override
+        public List<? extends ParserRuleContext> visitProductNameNoVersion(ProductNameNoVersionContext ctx) {
+            return visitGenericProduct(ctx);
+        }
+
+        @Override
         public List<? extends ParserRuleContext> visitCommentProduct(CommentProductContext ctx) {
             return visitGenericProduct(ctx);
         }
 
         @Override
         public List<? extends ParserRuleContext> visitProductName(ProductNameContext ctx) {
-            return Collections.emptyList();
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitProductNameNoVersion(ProductNameNoVersionContext ctx) {
-            return Collections.emptyList();
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitProductNameWords(ProductNameWordsContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitProductNameVersion(ProductNameVersionContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitProductVersionWords(ProductVersionWordsContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitProductVersionSingleWord(ProductVersionSingleWordContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
+            return getChildrenByName(ctx);
         }
 
         @Override
@@ -266,103 +271,42 @@ public class StepDown extends Step {
                     return Collections.singletonList((ParserRuleContext) ctx.key);
                 case "value":
                     List<? extends ParserRuleContext> children = ctx.multipleWords();
-                    if (children.isEmpty()) {
-                        children = ctx.keyValueProductVersionName();
-                        if (children.isEmpty()) {
-                            children = ctx.siteUrl();
-                            if (children.isEmpty()) {
-                                children = ctx.emailAddress();
-                                if (children.isEmpty()) {
-                                    children = ctx.uuId();
-                                }
-                            }
-                        }
+                    if (!children.isEmpty()) {
+                        return children;
                     }
+
+                    children = ctx.keyValueProductVersionName();
+                    if (!children.isEmpty()) {
+                        return children;
+                    }
+
+                    children = ctx.siteUrl();
+                    if (!children.isEmpty()) {
+                        return children;
+                    }
+
+                    children = ctx.emailAddress();
+                    if (!children.isEmpty()) {
+                        return children;
+                    }
+
+                    children = ctx.uuId();
                     return children;
-                case "comments":
-                    return getChildren(ctx, true, CommentBlockContext.class);
                 default:
-                    return Collections.emptyList();
+                    return getChildrenByName(ctx);
             }
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitProductNameEmail(ProductNameEmailContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitProductNameUrl(ProductNameUrlContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitProductNameUuid(ProductNameUuidContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
         }
 
         @Override
         public List<? extends ParserRuleContext> visitProductVersion(ProductVersionContext ctx) {
-            switch (name) {
-                case "keyvalue":
-                    return getChildren(ctx, KeyValueContext.class,
-                                            KeyWithoutValueContext.class);
-                case "email":
-                    return getChildren(ctx, EmailAddressContext.class);
-                case "url":
-                    return getChildren(ctx, SiteUrlContext.class);
-                case "uuid":
-                    return getChildren(ctx, UuIdContext.class);
-                case "base64":
-                    return getChildren(ctx, Base64Context.class);
-                default:
-                    return getChildren(ctx, SingleVersionContext.class);
-            }
+            return getChildrenByName(ctx);
         }
 
         @Override
         public List<? extends ParserRuleContext> visitProductVersionWithCommas(ProductVersionWithCommasContext ctx) {
-            switch (name) {
-                case "keyvalue":
-                    return getChildren(ctx, KeyValueContext.class,
-                                            KeyWithoutValueContext.class);
-                case "email":
-                    return getChildren(ctx, EmailAddressContext.class);
-                case "url":
-                    return getChildren(ctx, SiteUrlContext.class);
-                case "uuid":
-                    return getChildren(ctx, UuIdContext.class);
-                case "base64":
-                    return getChildren(ctx, Base64Context.class);
-                default:
-                    return getChildren(ctx, SingleVersionWithCommasContext.class);
-            }
+            return getChildrenByName(ctx);
         }
 
-        @Override
-        public List<? extends ParserRuleContext> visitSingleVersion(SingleVersionContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitSingleVersionWithCommas(SingleVersionWithCommasContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitBase64(Base64Context ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitKeyName(KeyNameContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitKeyValueVersionName(KeyValueVersionNameContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
 
         @Override
         public List<? extends ParserRuleContext> visitKeyValue(KeyValueContext ctx) {
@@ -383,7 +327,8 @@ public class StepDown extends Step {
                                             MultipleWordsContext.class,
                                             SiteUrlContext.class,
                                             EmailAddressContext.class,
-                                            KeyValueVersionNameContext.class);
+                                            KeyValueVersionNameContext.class,
+                                            KeyValueProductVersionNameContext.class);
                 default:
                     return Collections.emptyList();
             }
@@ -400,11 +345,6 @@ public class StepDown extends Step {
         }
 
         @Override
-        public List<? extends ParserRuleContext> visitKeyValueProductVersionName(KeyValueProductVersionNameContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
         public List<? extends ParserRuleContext> visitCommentBlock(CommentBlockContext ctx) {
             switch (name) {
                 case "entry":
@@ -417,13 +357,12 @@ public class StepDown extends Step {
         @Override
         public List<? extends ParserRuleContext> visitCommentEntry(CommentEntryContext ctx) {
             switch (name) {
-                case "comments":
-                    return getChildren(ctx, CommentBlockContext.class);
                 case "keyvalue":
                     return getChildren(ctx, KeyValueContext.class,
                                             KeyWithoutValueContext.class);
                 case "product":
-                    return getChildren(ctx, CommentProductContext.class);
+                    return getChildren(ctx, CommentProductContext.class,
+                                            ProductNameNoVersionContext.class);
                 case "uuid":
                     return getChildren(ctx, UuIdContext.class);
                 case "url":
@@ -464,15 +403,10 @@ public class StepDown extends Step {
             return Collections.emptyList(); // Cannot walk in here at all
         }
 
-        @Override
-        public List<? extends ParserRuleContext> visitCommentSeparator(CommentSeparatorContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitEmptyWord(EmptyWordContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
+//        @Override
+//        public List<? extends ParserRuleContext> visitEmptyWord(EmptyWordContext ctx) {
+//            return Collections.emptyList(); // Cannot walk in here at all
+//        }
 
         @Override
         public List<? extends ParserRuleContext> visitRootText(RootTextContext ctx) {

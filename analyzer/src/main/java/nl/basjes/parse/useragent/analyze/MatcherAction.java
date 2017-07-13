@@ -101,7 +101,7 @@ public abstract class MatcherAction implements Serializable {
     }
 
     private Matcher matcher;
-    protected List<Match> matches;
+    private List<Match> matches;
     private boolean isFixedString;
 
     boolean verbose = false;

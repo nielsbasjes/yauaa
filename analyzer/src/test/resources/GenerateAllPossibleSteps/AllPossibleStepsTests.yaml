@@ -1,0 +1,540 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2017 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# =============================
+#  ROOT STEPS
+# =============================
+
+- test:
+    input:
+      user_agent_string                     : 'One/1'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product                         : 'One/1'
+      agent.product.name                    : 'One'
+      agent.product.version                 : '1'
+
+
+- test:
+    input:
+      user_agent_string                     : 'One/'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product                         : 'One/'
+      agent.product.name                    : 'One'
+
+# =============================
+
+- test:
+    input:
+      user_agent_string                     : 'http://niels.basjes.nl'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.url                             : 'http://niels.basjes.nl'
+
+# =============================
+
+- test:
+    input:
+      user_agent_string                     : 'One/1 niels@basjes.nl'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.email                           : 'niels@basjes.nl'
+
+# =============================
+
+- test:
+    input:
+      user_agent_string                     : 'One/1 Some text'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.text                            : 'Some text'
+
+# =============================
+
+- test:
+    input:
+      user_agent_string                     : 'text:Niels Basjes'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.keyvalue                        : 'text:Niels Basjes'
+      agent.keyvalue.key                    : 'text'
+      agent.keyvalue.value                  : 'Niels Basjes'
+      agent.keyvalue.text                   : 'Niels Basjes'
+
+
+- test:
+    input:
+      user_agent_string                     : 'email:niels@basjes.nl'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.keyvalue                        : 'email:niels@basjes.nl'
+      agent.keyvalue.key                    : 'email'
+      agent.keyvalue.value                  : 'niels@basjes.nl'
+      agent.keyvalue.email                  : 'niels@basjes.nl'
+
+
+- test:
+    input:
+      user_agent_string                     : 'url:http://niels.basjes.nl'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.keyvalue                        : 'url:http://niels.basjes.nl'
+      agent.keyvalue.key                    : 'url'
+      agent.keyvalue.value                  : 'http://niels.basjes.nl'
+      agent.keyvalue.url                    : 'http://niels.basjes.nl'
+
+
+- test:
+    input:
+      user_agent_string                     : 'uuid:c9af8e16-5999-47f9-abb0-464795853dc8'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.keyvalue                        : 'uuid:c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.keyvalue.key                    : 'uuid'
+      agent.keyvalue.value                  : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.keyvalue.uuid                   : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+
+# =============================
+
+- test:
+    input:
+      user_agent_string                     : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.uuid                            : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+
+
+# =============================
+#  PRODUCT NAME KEYVALUE
+# =============================
+
+- test:
+    input:
+      user_agent_string                     : 'aap=noot/1'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product                         : 'aap=noot/1'     # 1
+      agent.product.name                    : 'aap=noot'              # 1
+      agent.product.name.keyvalue           : 'aap=noot'
+      agent.product.name.keyvalue.key       : 'aap'
+      agent.product.name.keyvalue.value     : 'noot'
+      agent.product.name.keyvalue.text      : 'noot'
+      agent.product.version                 : '1'              # 1
+
+- test:
+    input:
+      user_agent_string                     : 'email:niels@basjes.nl/1'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.name                    : 'email:niels@basjes.nl'
+      agent.product.version                 : '1'
+      agent.product.name.keyvalue           : 'email:niels@basjes.nl'
+      agent.product.name.keyvalue.key       : 'email'
+      agent.product.name.keyvalue.value     : 'niels@basjes.nl'
+      agent.product.name.keyvalue.email     : 'niels@basjes.nl'
+
+- test:
+    input:
+      user_agent_string                     : 'url:http://niels.basjes.nl 1'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.name                    : 'url:http://niels.basjes.nl'
+      agent.product.version                 : '1'
+      agent.product.name.keyvalue           : 'url:http://niels.basjes.nl'
+      agent.product.name.keyvalue.key       : 'url'
+      agent.product.name.keyvalue.value     : 'http://niels.basjes.nl'
+      agent.product.name.keyvalue.url       : 'http://niels.basjes.nl'
+
+- test:
+    input:
+      user_agent_string                     : 'uuid:c9af8e16-5999-47f9-abb0-464795853dc8/1'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.name                    : 'uuid:c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.version                 : '1'
+      agent.product.name.keyvalue           : 'uuid:c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.name.keyvalue.key       : 'uuid'
+      agent.product.name.keyvalue.value     : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.name.keyvalue.uuid      : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+
+
+# =============================
+#  PRODUCT VERSION KEYVALUE
+# =============================
+
+- test:
+    input:
+      user_agent_string                     : 'One/foo=bar'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.version.keyvalue        : 'foo=bar'
+      agent.product.version.keyvalue.key    : 'foo'
+      agent.product.version.keyvalue.value  : 'bar'
+
+- test:
+    input:
+      user_agent_string                     : 'One/email:niels@basjes.nl'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.name                    : 'One'
+      agent.product.version                 : 'email:niels@basjes.nl'
+      agent.product.version.keyvalue        : 'email:niels@basjes.nl'
+      agent.product.version.keyvalue.key    : 'email'
+      agent.product.version.keyvalue.value  : 'niels@basjes.nl'
+
+- test:
+    input:
+      user_agent_string                     : 'One/url:http://niels.basjes.nl'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.name                    : 'One'
+      agent.product.version                 : 'url:http://niels.basjes.nl'
+      agent.product.version.keyvalue        : 'url:http://niels.basjes.nl'
+      agent.product.version.keyvalue.key    : 'url'
+      agent.product.version.keyvalue.value  : 'http://niels.basjes.nl'
+
+- test:
+    input:
+      user_agent_string                     : 'One/uuid:c9af8e16-5999-47f9-abb0-464795853dc8'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.name                    : 'One'
+      agent.product.version                 : 'uuid:c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.version.keyvalue        : 'uuid:c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.version.keyvalue.key    : 'uuid'
+      agent.product.version.keyvalue.value  : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+
+
+# ===============
+
+- test:
+    input:
+      user_agent_string                     : 'niels@basjes.nl/1'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.name                    : 'niels@basjes.nl'
+      agent.product.version                 : '1'
+      agent.product.name.email              : 'niels@basjes.nl'
+
+- test:
+    input:
+      user_agent_string                     : 'http://niels.basjes.nl 1'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.name                    : 'http://niels.basjes.nl'
+      agent.product.name.url                : 'http://niels.basjes.nl'
+      agent.product.version                 : '1'
+
+- test:
+    input:
+      user_agent_string                     : 'c9af8e16-5999-47f9-abb0-464795853dc8/1'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.name                    : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.name.uuid               : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.version                 : '1'
+
+
+
+#######################################
+#######################################
+# Everything inside a comment block
+
+# =============================
+#  ROOT STEPS
+# =============================
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 ( )'
+    expected:
+      MustBeOk                               : 'OK'
+      agent.product.comments.entry.text      : ''
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (One)'
+    expected:
+      MustBeOk                               : 'OK'
+      agent.product.comments.entry.text      : 'One'
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (1234)'
+    expected:
+      MustBeOk                               : 'OK'
+      agent.product.comments.entry.text      : '1234'
+
+
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (One/1)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.product                         : 'One/1'
+      agent.product.comments.entry.product.name                    : 'One'
+      agent.product.comments.entry.product.version                 : '1'
+
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (One/)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.product                         : 'One/'
+      agent.product.comments.entry.product.name                    : 'One'
+
+# =============================
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (http://niels.basjes.nl)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.url                             : 'http://niels.basjes.nl'
+
+# =============================
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (One/1 niels@basjes.nl)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.email                           : 'niels@basjes.nl'
+
+# =============================
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (One/1 Some text)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.text                            : 'Some text'
+
+# =============================
+
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (key:)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.keyvalue                        : 'key:'
+      agent.product.comments.entry.keyvalue.key                    : 'key'
+
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (key:1234/Foo)'
+    expected:
+      MustBeOk                                                     : 'OK'
+      agent.product.comments.entry.keyvalue                        : 'key:1234/Foo'
+      agent.product.comments.entry.keyvalue.key                    : 'key'
+      agent.product.comments.entry.keyvalue.value                  : '1234/Foo'
+      agent.product.comments.entry.keyvalue.version                   : '1234/Foo'
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (text:Niels Basjes)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.keyvalue                        : 'text:Niels Basjes'
+      agent.product.comments.entry.keyvalue.key                    : 'text'
+      agent.product.comments.entry.keyvalue.value                  : 'Niels Basjes'
+      agent.product.comments.entry.keyvalue.text                   : 'Niels Basjes'
+
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (email:niels@basjes.nl)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.keyvalue                        : 'email:niels@basjes.nl'
+      agent.product.comments.entry.keyvalue.key                    : 'email'
+      agent.product.comments.entry.keyvalue.value                  : 'niels@basjes.nl'
+      agent.product.comments.entry.keyvalue.email                  : 'niels@basjes.nl'
+
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (url:http://niels.basjes.nl)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.keyvalue                        : 'url:http://niels.basjes.nl'
+      agent.product.comments.entry.keyvalue.key                    : 'url'
+      agent.product.comments.entry.keyvalue.value                  : 'http://niels.basjes.nl'
+      agent.product.comments.entry.keyvalue.url                    : 'http://niels.basjes.nl'
+
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (uuid:c9af8e16-5999-47f9-abb0-464795853dc8)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.keyvalue                        : 'uuid:c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.comments.entry.keyvalue.key                    : 'uuid'
+      agent.product.comments.entry.keyvalue.value                  : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.comments.entry.keyvalue.uuid                   : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+
+# =============================
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (c9af8e16-5999-47f9-abb0-464795853dc8)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.uuid                            : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+
+
+# =============================
+#  PRODUCT NAME KEYVALUE
+# =============================
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (aap=noot/1)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.product                         : 'aap=noot/1'     # 1
+      agent.product.comments.entry.product.name                    : 'aap=noot'              # 1
+      agent.product.comments.entry.product.name.keyvalue           : 'aap=noot'
+      agent.product.comments.entry.product.name.keyvalue.key       : 'aap'
+      agent.product.comments.entry.product.name.keyvalue.value     : 'noot'
+      agent.product.comments.entry.product.name.keyvalue.text      : 'noot'
+      agent.product.comments.entry.product.version                 : '1'              # 1
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (email:niels@basjes.nl/1)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.product.name                    : 'email:niels@basjes.nl'
+      agent.product.comments.entry.product.version                 : '1'
+      agent.product.comments.entry.product.name.keyvalue           : 'email:niels@basjes.nl'
+      agent.product.comments.entry.product.name.keyvalue.key       : 'email'
+      agent.product.comments.entry.product.name.keyvalue.value     : 'niels@basjes.nl'
+      agent.product.comments.entry.product.name.keyvalue.email     : 'niels@basjes.nl'
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (url:http://niels.basjes.nl 1)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.product.name                    : 'url:http://niels.basjes.nl'
+      agent.product.comments.entry.product.version                 : '1'
+      agent.product.comments.entry.product.name.keyvalue           : 'url:http://niels.basjes.nl'
+      agent.product.comments.entry.product.name.keyvalue.key       : 'url'
+      agent.product.comments.entry.product.name.keyvalue.value     : 'http://niels.basjes.nl'
+      agent.product.comments.entry.product.name.keyvalue.url       : 'http://niels.basjes.nl'
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (uuid:c9af8e16-5999-47f9-abb0-464795853dc8/1)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.product.name                    : 'uuid:c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.comments.entry.product.version                 : '1'
+      agent.product.comments.entry.product.name.keyvalue           : 'uuid:c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.comments.entry.product.name.keyvalue.key       : 'uuid'
+      agent.product.comments.entry.product.name.keyvalue.value     : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.comments.entry.product.name.keyvalue.uuid      : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+
+
+# =============================
+#  PRODUCT VERSION KEYVALUE
+# =============================
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (One/foo=bar)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.product.version.keyvalue        : 'foo=bar'
+      agent.product.comments.entry.product.version.keyvalue.key    : 'foo'
+      agent.product.comments.entry.product.version.keyvalue.value  : 'bar'
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (One/email:niels@basjes.nl)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.product.name                    : 'One'
+      agent.product.comments.entry.product.version                 : 'email:niels@basjes.nl'
+      agent.product.comments.entry.product.version.keyvalue        : 'email:niels@basjes.nl'
+      agent.product.comments.entry.product.version.keyvalue.key    : 'email'
+      agent.product.comments.entry.product.version.keyvalue.value  : 'niels@basjes.nl'
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (One/url:http://niels.basjes.nl)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.product.name                    : 'One'
+      agent.product.comments.entry.product.version                 : 'url:http://niels.basjes.nl'
+      agent.product.comments.entry.product.version.keyvalue        : 'url:http://niels.basjes.nl'
+      agent.product.comments.entry.product.version.keyvalue.key    : 'url'
+      agent.product.comments.entry.product.version.keyvalue.value  : 'http://niels.basjes.nl'
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (One/uuid:c9af8e16-5999-47f9-abb0-464795853dc8)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.product.name                    : 'One'
+      agent.product.comments.entry.product.version                 : 'uuid:c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.comments.entry.product.version.keyvalue        : 'uuid:c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.comments.entry.product.version.keyvalue.key    : 'uuid'
+      agent.product.comments.entry.product.version.keyvalue.value  : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+
+
+# ===============
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (niels@basjes.nl/1)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.product.name                    : 'niels@basjes.nl'
+      agent.product.comments.entry.product.version                 : '1'
+      agent.product.comments.entry.product.name.email              : 'niels@basjes.nl'
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (http://niels.basjes.nl 1)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.product.name                    : 'http://niels.basjes.nl'
+      agent.product.comments.entry.product.name.url                : 'http://niels.basjes.nl'
+      agent.product.comments.entry.product.version                 : '1'
+
+- test:
+    input:
+       user_agent_string                     : 'Root/1.0 (c9af8e16-5999-47f9-abb0-464795853dc8/1)'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.comments.entry.product.name                    : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.comments.entry.product.name.uuid               : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.comments.entry.product.version                 : '1'
+
+
+
+
+
+
+
