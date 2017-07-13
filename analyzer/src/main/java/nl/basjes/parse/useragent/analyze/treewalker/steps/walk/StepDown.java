@@ -182,10 +182,13 @@ public class StepDown extends Step {
      */
     private class UserAgentGetChildrenVisitor extends UserAgentBaseVisitor<List<? extends ParserRuleContext>> {
 
+        @Override
+        protected List<? extends ParserRuleContext> defaultResult() {
+            return Collections.emptyList();
+        }
+
         List<? extends ParserRuleContext> getChildrenByName(ParserRuleContext ctx) {
             switch (name) {
-//                case "comments":
-//                    return getChildren(ctx, CommentBlockContext.class);
                 case "keyvalue":
                     return getChildren(ctx, KeyValueContext.class,
                                             KeyWithoutValueContext.class,
