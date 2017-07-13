@@ -341,13 +341,13 @@
 
 - test:
     input:
-       user_agent_string                     : 'Root/1.0 (key:1234/Foo)'
+       user_agent_string                     : 'Root/1.0 (key:1234)'
     expected:
       MustBeOk                                                     : 'OK'
-      agent.product.comments.entry.keyvalue                        : 'key:1234/Foo'
+      agent.product.comments.entry.keyvalue                        : 'key:1234'
       agent.product.comments.entry.keyvalue.key                    : 'key'
-      agent.product.comments.entry.keyvalue.value                  : '1234/Foo'
-      agent.product.comments.entry.keyvalue.version                   : '1234/Foo'
+      agent.product.comments.entry.keyvalue.value                  : '1234'
+      agent.product.comments.entry.keyvalue.text                   : '1234'
 
 - test:
     input:
