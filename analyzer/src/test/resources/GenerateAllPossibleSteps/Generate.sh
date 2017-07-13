@@ -15,12 +15,15 @@
 # limitations under the License.
 
 INPUT=AllPossibleSteps.csv
+INPUTTESTS=AllPossibleStepsTests.yaml
 OUTPUT=../AllPossibleSteps.yaml
 
 if [ "Generate.sh" -ot "${OUTPUT}" ]; then
-    if [ "${INPUT}" -ot "${OUTPUT}" ]; then
-        echo "${OUTPUT} is up to date";
-        exit;
+    if [ "${INPUTTESTS}" -ot "${OUTPUT}" ]; then
+        if [ "${INPUT}" -ot "${OUTPUT}" ]; then
+            echo "${OUTPUT} is up to date";
+            exit;
+        fi
     fi
 fi
 
@@ -56,7 +59,7 @@ echo ""
 
 cat "AllPossibleSteps.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
 do
-    match=$(echo  ${line} | sed 's@^agent@agent!=""@') #;s@\.@.(1)@g;s@keyvalue.(1)@keyvalue.(2)@g;s@keyvalue.(2)key@keyvalue.(1)key@g')
+    match=$(echo  ${line} | sed 's@^agent@agent!=""@')
     echo "- matcher:"
     echo "    extract:"
     echo "      - '${line}  :1:${match}'"
@@ -97,6 +100,6 @@ do
     echo "    - 'MUST_BE_NULL_${line}.foo  :2:\"<<<null>>>\"'"
 done
 
-cat "AllPossibleStepsTests.yaml"
+cat "${INPUTTESTS}"
 
 ) > ${OUTPUT}
