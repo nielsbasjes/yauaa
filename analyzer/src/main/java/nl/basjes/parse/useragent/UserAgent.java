@@ -592,9 +592,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
         }
 
         Collections.sort(fieldNames);
-        for (String fieldName : fieldNames) {
-            result.add(fieldName);
-        }
+        result.addAll(fieldNames);
         return result;
 
     }

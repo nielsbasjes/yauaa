@@ -310,7 +310,7 @@ public class TestTreewalkerParsing {
 
     private void checkPath(String path, String[] expectedHashEntries, String[] expectedWalkList) {
         Map<String, Map<String, String>> lookups = new HashMap<>();
-        lookups.put("TridentVersions", new HashMap<String, String>());
+        lookups.put("TridentVersions", new HashMap<>());
 
         TestMatcher matcher = new TestMatcher(null, lookups);
         MatcherRequireAction action = new MatcherRequireAction(path, matcher);

@@ -233,6 +233,8 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     private UserAgentContext parseUserAgent(UserAgent userAgent) {
         String userAgentString = EvilManualUseragentStringHacks.fixIt(userAgent.getUserAgentString());
 
+        // FIXME: Must wait for https://github.com/antlr/antlr4/issues/1949 to be fixed to use the new API.
+        @SuppressWarnings("deprecation")
         ANTLRInputStream input = new ANTLRInputStream(userAgentString);
         UserAgentLexer lexer = new UserAgentLexer(input);
 

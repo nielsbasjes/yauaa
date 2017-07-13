@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
@@ -53,7 +54,7 @@ public class TestPredefinedBrowsersPerField {
         LOG.info("==============================================================");
         LOG.info("Validating when ONLY asking for {}", fieldName);
         LOG.info("--------------------------------------------------------------");
-        UserAgentAnalyzer userAgentAnalyzer =
+        UserAgentAnalyzerTester userAgentAnalyzer =
             UserAgentAnalyzerTester
                 .newBuilder()
                 .withoutCache()
@@ -63,8 +64,8 @@ public class TestPredefinedBrowsersPerField {
 
         singleFieldList.clear();
         singleFieldList.add(fieldName);
-        assertTrue(userAgentAnalyzer instanceof UserAgentAnalyzerTester);
-        assertTrue(((UserAgentAnalyzerTester) userAgentAnalyzer).runTests(false, true, singleFieldList, false, false));
+        assertNotNull(userAgentAnalyzer);
+        assertTrue(userAgentAnalyzer.runTests(false, true, singleFieldList, false, false));
     }
 
 

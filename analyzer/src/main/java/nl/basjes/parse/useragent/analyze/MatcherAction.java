@@ -183,6 +183,9 @@ public abstract class MatcherAction implements Serializable {
         setVerbose(newMatcher.getVerbose());
 
         InitErrorListener errorListener = new InitErrorListener();
+
+        // FIXME: Must wait for https://github.com/antlr/antlr4/issues/1949 to be fixed to use the new API.
+        @SuppressWarnings("deprecation")
         ANTLRInputStream input = new ANTLRInputStream(this.matchExpression);
         UserAgentTreeWalkerLexer lexer = new UserAgentTreeWalkerLexer(input);
 

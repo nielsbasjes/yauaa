@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class TestPredefinedBrowsers {
@@ -54,7 +55,7 @@ public class TestPredefinedBrowsers {
         LOG.info("==============================================================");
         LOG.info("Validating when ONLY asking for {}", fields.toString());
         LOG.info("--------------------------------------------------------------");
-        UserAgentAnalyzer userAgentAnalyzer =
+        UserAgentAnalyzerTester userAgentAnalyzer =
             UserAgentAnalyzerTester
                 .newBuilder()
                 .withoutCache()
@@ -62,8 +63,8 @@ public class TestPredefinedBrowsers {
                 .hideMatcherLoadStats()
                 .build();
 
-        assertTrue(userAgentAnalyzer instanceof UserAgentAnalyzerTester);
-        assertTrue(((UserAgentAnalyzerTester) userAgentAnalyzer).runTests(false, true, fields, false, false));
+        assertNotNull(userAgentAnalyzer);
+        assertTrue(userAgentAnalyzer.runTests(false, true, fields, false, false));
     }
 
     @Test
