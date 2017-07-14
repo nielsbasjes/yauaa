@@ -10,7 +10,7 @@ At this moment you must build it from sources yourself**
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa-flink</artifactId>
-      <version>1.4</version>
+      <version>2.0</version>
     </dependency>
 
 ## Building
