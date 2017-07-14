@@ -66,6 +66,18 @@ Then use it
     +------------------------------------------------------------------------------------------------------------+--------------+--+
 
 
+    SELECT useragent,  ParseUserAgent(useragent).deviceclass, ParseUserAgent(useragent).agentname, ParseUserAgent(useragent).agentnameversionmajor from useragents;
+    
+    +------------------------------------------------------------------------------------------------------------+--------------+------------+------------------------+--+
+    |                                                 useragent                                                  | deviceclass  | agentname  | agentnameversionmajor  |
+    +------------------------------------------------------------------------------------------------------------+--------------+------------+------------------------+--+
+    | Mozilla                                                                                                    | Hacker       | Hacker     | Hacker                 |
+    | Mozilla/5.0                                                                                                | Unknown      | Netscape   | Netscape 5             |
+    | Mozilla/5.0 (X11 Linux x86_64)                                                                             | Unknown      | X11 Linux  | X11 Linux x86          |
+    | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36  | Desktop      | Chrome     | Chrome 59              |
+    +------------------------------------------------------------------------------------------------------------+--------------+------------+------------------------+--+
+
+
 
 License
 =======
