@@ -183,7 +183,7 @@ public class TestParseUserAgent {
         assertEquals("Field named "+fieldName +" should be \""+value+"\".", value, data.get(position));
     }
 
-    private void checkAbsent(Schema schema, String fieldName) throws FrontendException, ExecException {
+    private void checkAbsent(Schema schema, String fieldName) throws FrontendException {
         assertEquals("Field named "+fieldName +" is present in the schema", schema.getField(fieldName), null);
     }
 
