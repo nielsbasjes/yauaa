@@ -380,41 +380,6 @@ public class StepDown extends Step {
                     return Collections.emptyList();
             }
         }
-
-        @Override
-        public List<? extends ParserRuleContext> visitSiteUrl(SiteUrlContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitEmailAddress(EmailAddressContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitUuId(UuIdContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitVersionWords(VersionWordsContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitMultipleWords(MultipleWordsContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
-
-//        @Override
-//        public List<? extends ParserRuleContext> visitEmptyWord(EmptyWordContext ctx) {
-//            return Collections.emptyList(); // Cannot walk in here at all
-//        }
-
-        @Override
-        public List<? extends ParserRuleContext> visitRootText(RootTextContext ctx) {
-            return Collections.emptyList(); // Cannot walk in here at all
-        }
     }
 
 }
