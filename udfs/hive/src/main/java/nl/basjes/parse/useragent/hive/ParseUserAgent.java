@@ -59,9 +59,19 @@ import java.util.List;
         "  xxxxxx  FIXME xxxx") // FIXME:
 public class ParseUserAgent extends GenericUDF {
 
-    private transient StringObjectInspector useragentOI = null;
-    private transient UserAgentAnalyzer userAgentAnalyzer = null;
-    private transient List<String> fieldNames = null;
+    private static StringObjectInspector useragentOI = null;
+    private static UserAgentAnalyzer userAgentAnalyzer = null;
+    private static List<String> fieldNames = null;
+
+    private static synchronized void constructAnalyzer(){
+        if (userAgentAnalyzer == null) {
+            userAgentAnalyzer = UserAgentAnalyzer
+                .newBuilder()
+                .hideMatcherLoadStats()
+                .build();
+            fieldNames = userAgentAnalyzer.getAllPossibleFieldNamesSorted();
+        }
+    }
 
     @Override
     public ObjectInspector initialize(ObjectInspector[] args) throws UDFArgumentException {
@@ -77,14 +87,8 @@ public class ParseUserAgent extends GenericUDF {
 
         // ================================
         // Initialize the parser
-        // TODO: Add feature to only select limited fields
-        if (userAgentAnalyzer == null) {
-            userAgentAnalyzer = UserAgentAnalyzer
-                .newBuilder()
-                .hideMatcherLoadStats()
-                .build();
-            fieldNames = userAgentAnalyzer.getAllPossibleFieldNamesSorted();
-        }
+        constructAnalyzer();
+
         // ================================
         // Define the output
         // https://stackoverflow.com/questions/26026027/how-to-return-struct-from-hive-udf
