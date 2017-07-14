@@ -22,6 +22,8 @@ import nl.basjes.parse.core.Field;
 import nl.basjes.parse.core.Parser;
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,9 +58,20 @@ public class TestDissectUserAgent {
     }
 
     class UAParser extends Parser<TestRecordUserAgent> {
-        public UAParser() {
+        public UAParser() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
             super(TestRecordUserAgent.class);
-            Dissector userAgentDissector = new UserAgentDissector();
+
+            // We do this
+            // Dissector userAgentDissector = new UserAgentDissector();
+            // Via reflection to test that instantiation route
+            String dissectorClassName = UserAgentDissector.class.getCanonicalName();
+            Class<?> clazz = Class.forName(dissectorClassName);
+            Constructor<?> constructor = clazz.getConstructor();
+            Dissector userAgentDissector = (Dissector) constructor.newInstance();
+            if (!userAgentDissector.initializeFromSettingsParameter(null)) {
+                throw new IllegalArgumentException("Initialization failed of dissector instance of class " + dissectorClassName);
+            }
+
             addDissector(userAgentDissector);
             setRootType(userAgentDissector.getInputType());
         }
