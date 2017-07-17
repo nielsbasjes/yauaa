@@ -40,8 +40,6 @@ config:
 
 
 - matcher:
-#    options:
-#    - 'verbose'
     require:
     - 'IsNull[agent~"a"]'
     - 'IsNull[agent~"e"]'
@@ -59,8 +57,6 @@ config:
       Test: "Ok"
 
 - matcher:
-    options:
-    - 'verbose'
     extract:
     - 'RootText : 1:agent.text[2]'
 
@@ -71,3 +67,61 @@ config:
       RootText : "bar"
       IsNullCheck : "No Product"
       Test: "Ok"
+
+
+- matcher:
+    require:
+    - 'agent="Full null"'
+    extract:
+    - 'DeviceClass                   : 10000:"A test value"'
+    - 'DeviceName                    : 10000:"A test value"'
+    - 'DeviceBrand                   : 10000:"A test value"'
+    - 'DeviceCpu                     : 10000:"A test value"'
+    - 'DeviceVersion                 : 10000:"A test value"'
+    - 'OperatingSystemClass          : 10000:"A test value"'
+    - 'OperatingSystemName           : 10000:"A test value"'
+    - 'OperatingSystemVersion        : 10000:"A test value"'
+    - 'OperatingSystemNameVersion    : 10000:"A test value"'
+    - 'LayoutEngineClass             : 10000:"A test value"'
+    - 'LayoutEngineName              : 10000:"A test value"'
+    - 'LayoutEngineVersion           : 10000:"A test value"'
+    - 'LayoutEngineVersionMajor      : 10000:"A test value"'
+    - 'LayoutEngineNameVersion       : 10000:"A test value"'
+    - 'LayoutEngineNameVersionMajor  : 10000:"A test value"'
+    - 'LayoutEngineBuild             : 10000:"A test value"'
+    - 'AgentClass                    : 10000:"A test value"'
+    - 'AgentName                     : 10000:"A test value"'
+    - 'AgentVersion                  : 10000:"A test value"'
+    - 'AgentVersionMajor             : 10000:"A test value"'
+    - 'AgentNameVersion              : 10000:"A test value"'
+    - 'AgentNameVersionMajor         : 10000:"A test value"'
+    - 'AgentLanguage                 : 10000:"A test value"'
+    - 'AgentLanguageCode             : 10000:"A test value"'
+    - 'AgentSecurity                 : 10000:"A test value"'
+    - 'HackerAttackVector            : 10000:"A test value"'
+    - 'HackerToolkit                 : 10000:"A test value"'
+
+- matcher:
+    require:
+    - 'agent="Full null"'
+    extract:
+    - '__Set_ALL_Fields__    : 9999999:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+
+- test:
+    input:
+      user_agent_string: 'Full null'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Unknown'
+      AgentName                            : 'Unknown'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
