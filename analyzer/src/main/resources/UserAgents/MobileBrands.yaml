@@ -89,6 +89,8 @@ config:
       "X98" : "Teclast"
       "NSX-" : "Sony"
       "NSZ-" : "Sony"
+      "SHIELD" : "Nvidia"
+      "POV_" : "Point of view"
 
 # ===================================================================================================
 
@@ -7227,6 +7229,208 @@ config:
     - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"NSZ-"'
 
 
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Nvidia"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"SHIELD"@'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Nvidia"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"SHIELD"@'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Nvidia"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"SHIELD"@'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SHIELD"'
+    extract:
+    - 'DeviceBrand                 :  324:"Nvidia"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Nvidia"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"SHIELD"@[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Nvidia"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"SHIELD"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Nvidia"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"SHIELD"@[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Nvidia"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"SHIELD"@[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Nvidia"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"SHIELD"@'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Nvidia"'
+    - 'DeviceName                  :  313:agent.product.name{"SHIELD"@'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Nvidia"'
+    - 'DeviceName                  :  324:agent.(1)product.name="SHIELD"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Nvidia"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="SHIELD"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Nvidia"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"SHIELD"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Nvidia"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"SHIELD"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Point of view"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"POV_"@'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Point of view"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"POV_"@'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Point of view"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"POV_"@'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"POV_"'
+    extract:
+    - 'DeviceBrand                 :  324:"Point of view"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Point of view"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"POV_"@[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Point of view"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"POV_"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Point of view"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"POV_"@[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Point of view"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"POV_"@[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Point of view"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"POV_"@'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Point of view"'
+    - 'DeviceName                  :  313:agent.product.name{"POV_"@'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Point of view"'
+    - 'DeviceName                  :  324:agent.(1)product.name="POV_"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Point of view"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="POV_"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Point of view"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"POV_"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Point of view"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"POV_"'
+
+
 
 - matcher:
     require:
@@ -7965,6 +8169,41 @@ config:
 
 - matcher:
     require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version{"Nvidia"'
+    extract:
+    - 'DeviceBrand                 :   94:"Nvidia"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^.version{"Nvidia"'
+    extract:
+    - 'DeviceBrand                 :   93:"Nvidia"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^.version{"Nvidia"'
+    extract:
+    - 'DeviceBrand                 :   92:"Nvidia"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"^.version{"Nvidia"'
+    extract:
+    - 'DeviceBrand                 :   91:"Nvidia"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Nvidia"'
+    extract:
+    - 'DeviceBrand                 :   90:"Nvidia"'
+
+# ===================================================================================================
+
+
+
+
+- matcher:
+    require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version{"OnePlus"'
     extract:
     - 'DeviceBrand                 :   94:"OnePlus"'
@@ -8062,6 +8301,41 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Philips"'
     extract:
     - 'DeviceBrand                 :   90:"Philips"'
+
+# ===================================================================================================
+
+
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version{"Point of view"'
+    extract:
+    - 'DeviceBrand                 :   94:"Point of view"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^.version{"Point of view"'
+    extract:
+    - 'DeviceBrand                 :   93:"Point of view"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^.version{"Point of view"'
+    extract:
+    - 'DeviceBrand                 :   92:"Point of view"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"^.version{"Point of view"'
+    extract:
+    - 'DeviceBrand                 :   91:"Point of view"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Point of view"'
+    extract:
+    - 'DeviceBrand                 :   90:"Point of view"'
 
 # ===================================================================================================
 
