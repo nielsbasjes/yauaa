@@ -55,8 +55,18 @@ import java.util.List;
     name = "ParseUserAgent",
     value = "_FUNC_(str) - Parses the UserAgent into all possible pieces.",
     extended = "Example:\n" +
-        "  > SELECT ParseUserAgent(useragent) FROM clickLogs a;\n" +
-        "  xxxxxx  FIXME xxxx") // FIXME:
+        "> SELECT ParseUserAgent(useragent).DeviceClass, \n" +
+        "         ParseUserAgent(useragent).OperatingsystemNameVersion, \n" +
+        "         ParseUserAgent(useragent).AgentNameVersionMajor \n" +
+        "  FROM   clickLogs;\n" +
+        "+---------------+-----------------------------+------------------------+--+\n" +
+        "|  deviceclass  | operatingsystemnameversion  | agentnameversionmajor  |\n" +
+        "+---------------+-----------------------------+------------------------+--+\n" +
+        "| Phone         | Android 6.0                 | Chrome 46              |\n" +
+        "| Tablet        | Android 5.1                 | Chrome 40              |\n" +
+        "| Desktop       | Linux Intel x86_64          | Chrome 59              |\n" +
+        "| Game Console  | Windows 10.0                | Edge 13                |\n" +
+        "+---------------+-----------------------------+------------------------+--+\n")
 public class ParseUserAgent extends GenericUDF {
 
     private static StringObjectInspector useragentOI = null;

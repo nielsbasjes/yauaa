@@ -40,7 +40,7 @@ or installing it locally with the Hive Server
 
 ***TODO*** 
 
-Then use it
+Verify if it has been installed
 
     DESCRIBE FUNCTION ParseUserAgent;
 
@@ -51,31 +51,45 @@ Then use it
     +-----------------------------------------------------------------------+--+
 
 
-    SELECT ParseUserAgent('Mozilla/5.0 (X11\; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36');
-    
-    SELECT useragent,  ParseUserAgent(useragent).deviceclass from useragents;
+    > DESCRIBE FUNCTION EXTENDED ParseUserAgent;
+    +------------------------------------------------------------------------------+--+
+    |                                   tab_name                                   |
+    +------------------------------------------------------------------------------+--+
+    | parseuseragent(str) - Parses the UserAgent into all possible pieces.         |
+    | Synonyms: default.parseuseragent                                             |
+    | Example:                                                                     |
+    | > SELECT ParseUserAgent(useragent).DeviceClass,                              |
+    |          ParseUserAgent(useragent).OperatingsystemNameVersion,               |
+    |          ParseUserAgent(useragent).AgentNameVersionMajor                     |
+    |   FROM   clickLogs;                                                          |
+    | +---------------+-----------------------------+------------------------+--+  |
+    | |  deviceclass  | operatingsystemnameversion  | agentnameversionmajor  |     |
+    | +---------------+-----------------------------+------------------------+--+  |
+    | | Phone         | Android 6.0                 | Chrome 46              |     |
+    | | Tablet        | Android 5.1                 | Chrome 40              |     |
+    | | Desktop       | Linux Intel x86_64          | Chrome 59              |     |
+    | | Game Console  | Windows 10.0                | Edge 13                |     |
+    | +---------------+-----------------------------+------------------------+--+  |
+    |                                                                              |
+    +------------------------------------------------------------------------------+--+
 
-    > SELECT useragent,  ParseUserAgent(useragent).deviceclass from useragents;
-    +------------------------------------------------------------------------------------------------------------+--------------+--+
-    |                                                 useragent                                                  | deviceclass  |
-    +------------------------------------------------------------------------------------------------------------+--------------+--+
-    | Mozilla                                                                                                    | Hacker       |
-    | Mozilla/5.0                                                                                                | Unknown      |
-    | Mozilla/5.0 (X11 Linux x86_64)                                                                             | Unknown      |
-    | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36  | Desktop      |
-    +------------------------------------------------------------------------------------------------------------+--------------+--+
+Usage example:
 
+    CREATE TABLE useragents (useragent STRING COMMENT 'The useragent string');
 
-    SELECT useragent,  ParseUserAgent(useragent).deviceclass, ParseUserAgent(useragent).agentname, ParseUserAgent(useragent).agentnameversionmajor from useragents;
-    
-    +------------------------------------------------------------------------------------------------------------+--------------+------------+------------------------+--+
-    |                                                 useragent                                                  | deviceclass  | agentname  | agentnameversionmajor  |
-    +------------------------------------------------------------------------------------------------------------+--------------+------------+------------------------+--+
-    | Mozilla                                                                                                    | Hacker       | Hacker     | Hacker                 |
-    | Mozilla/5.0                                                                                                | Unknown      | Netscape   | Netscape 5             |
-    | Mozilla/5.0 (X11 Linux x86_64)                                                                             | Unknown      | X11 Linux  | X11 Linux x86          |
-    | Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36  | Desktop      | Chrome     | Chrome 59              |
-    +------------------------------------------------------------------------------------------------------------+--------------+------------+------------------------+--+
+    INSERT INTO TABLE useragents VALUES ('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
+    INSERT INTO TABLE useragents VALUES ('Mozilla/5.0 (Linux\; Android 5.1\; Nexus 10 Build/LMY47D) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.109 Safari/537.36');
+    INSERT INTO TABLE useragents VALUES ('Mozilla/5.0 (X11\; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36');
+    INSERT INTO TABLE useragents VALUES ('Mozilla/5.0 (Windows NT 10.0\; Win64\; x64\; Xbox\; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10553'); 
+    SELECT ParseUserAgent(useragent).DeviceClass, ParseUserAgent(useragent).OperatingsystemNameVersion, ParseUserAgent(useragent).AgentName, ParseUserAgent(useragent).AgentNameVersionMajor from useragents;
+    +---------------+-----------------------------+------------+------------------------+--+
+    |  deviceclass  | operatingsystemnameversion  | agentname  | agentnameversionmajor  |
+    +---------------+-----------------------------+------------+------------------------+--+
+    | Phone         | Android 6.0                 | Chrome     | Chrome 46              |
+    | Tablet        | Android 5.1                 | Chrome     | Chrome 40              |
+    | Desktop       | Linux Intel x86_64          | Chrome     | Chrome 59              |
+    | Game Console  | Windows 10.0                | Edge       | Edge 13                |
+    +---------------+-----------------------------+------------+------------------------+--+
 
 
 
