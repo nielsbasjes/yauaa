@@ -44,34 +44,34 @@ Verify if it has been installed
 
     DESCRIBE FUNCTION ParseUserAgent;
 
-    +-----------------------------------------------------------------------+--+
+    +-----------------------------------------------------------------------+
     |                               tab_name                                |
-    +-----------------------------------------------------------------------+--+
+    +-----------------------------------------------------------------------+
     | ParseUserAgent(str) - Parses the UserAgent into all possible pieces.  |
-    +-----------------------------------------------------------------------+--+
+    +-----------------------------------------------------------------------+
 
 
     > DESCRIBE FUNCTION EXTENDED ParseUserAgent;
-    +------------------------------------------------------------------------------+--+
-    |                                   tab_name                                   |
-    +------------------------------------------------------------------------------+--+
-    | parseuseragent(str) - Parses the UserAgent into all possible pieces.         |
-    | Synonyms: default.parseuseragent                                             |
-    | Example:                                                                     |
-    | > SELECT ParseUserAgent(useragent).DeviceClass,                              |
-    |          ParseUserAgent(useragent).OperatingsystemNameVersion,               |
-    |          ParseUserAgent(useragent).AgentNameVersionMajor                     |
-    |   FROM   clickLogs;                                                          |
-    | +---------------+-----------------------------+------------------------+--+  |
-    | |  deviceclass  | operatingsystemnameversion  | agentnameversionmajor  |     |
-    | +---------------+-----------------------------+------------------------+--+  |
-    | | Phone         | Android 6.0                 | Chrome 46              |     |
-    | | Tablet        | Android 5.1                 | Chrome 40              |     |
-    | | Desktop       | Linux Intel x86_64          | Chrome 59              |     |
-    | | Game Console  | Windows 10.0                | Edge 13                |     |
-    | +---------------+-----------------------------+------------------------+--+  |
-    |                                                                              |
-    +------------------------------------------------------------------------------+--+
+    +---------------------------------------------------------------------------+
+    |                                   tab_name                                |
+    +---------------------------------------------------------------------------+
+    | parseuseragent(str) - Parses the UserAgent into all possible pieces.      |
+    | Synonyms: default.parseuseragent                                          |
+    | Example:                                                                  |
+    | > SELECT ParseUserAgent(useragent).DeviceClass,                           |
+    |          ParseUserAgent(useragent).OperatingsystemNameVersion,            |
+    |          ParseUserAgent(useragent).AgentNameVersionMajor                  |
+    |   FROM   clickLogs;                                                       |
+    | +---------------+-----------------------------+------------------------+  |
+    | |  deviceclass  | operatingsystemnameversion  | agentnameversionmajor  |  |
+    | +---------------+-----------------------------+------------------------+  |
+    | | Phone         | Android 6.0                 | Chrome 46              |  |
+    | | Tablet        | Android 5.1                 | Chrome 40              |  |
+    | | Desktop       | Linux Intel x86_64          | Chrome 59              |  |
+    | | Game Console  | Windows 10.0                | Edge 13                |  |
+    | +---------------+-----------------------------+------------------------+  |
+    |                                                                           |
+    +---------------------------------------------------------------------------+
 
 Usage example:
 
