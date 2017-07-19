@@ -21,6 +21,7 @@ import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.annonate.YauaaField;
 import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.transforms.DoFnTester;
+import org.apache.beam.sdk.util.UserCodeException;
 import org.junit.Test;
 
 import java.io.Serializable;
@@ -82,7 +83,7 @@ public class TestUserAgentAnalysisDoFnRaw implements Serializable {
         assertNull(record.shouldRemainNull);
     }
 
-    @Test(expected = InvalidParserConfigurationException.class)
+    @Test(expected = UserCodeException.class)
     public void testImpossibleField() throws Exception {
         DoFn<TestRecord, TestRecord> fn = new UserAgentAnalysisDoFn<TestRecord>() {
             @Override

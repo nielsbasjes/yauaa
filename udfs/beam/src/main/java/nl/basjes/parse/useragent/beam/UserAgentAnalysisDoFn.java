@@ -28,13 +28,14 @@ public abstract class UserAgentAnalysisDoFn<T extends Serializable> extends DoFn
     implements UseragentAnnotationMapper<T>, Serializable {
     private transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer = null;
 
+    @Setup
+    public void initialize() {
+        userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
+        userAgentAnalyzer.initialize(this);
+    }
+
     @ProcessElement
     public void processElement(ProcessContext c) {
-        if (userAgentAnalyzer == null) {
-            userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
-            userAgentAnalyzer.initialize(this);
-        }
-
         // Currently Beam does not allow changing the input instance.
         // So unfortunately we must clone the entire thing :(
         // See also: https://issues.apache.org/jira/browse/BEAM-1164
