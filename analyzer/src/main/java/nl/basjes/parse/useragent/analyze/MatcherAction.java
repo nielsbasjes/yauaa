@@ -30,7 +30,8 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRan
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
 import org.antlr.v4.runtime.ANTLRErrorListener;
-import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Parser;
@@ -184,9 +185,7 @@ public abstract class MatcherAction implements Serializable {
 
         InitErrorListener errorListener = new InitErrorListener();
 
-        // FIXME: Must wait for https://github.com/antlr/antlr4/issues/1949 to be fixed to use the new API.
-        @SuppressWarnings("deprecation")
-        ANTLRInputStream input = new ANTLRInputStream(this.matchExpression);
+        CodePointCharStream input = CharStreams.fromString(this.matchExpression);
         UserAgentTreeWalkerLexer lexer = new UserAgentTreeWalkerLexer(input);
 
         lexer.addErrorListener(errorListener);
