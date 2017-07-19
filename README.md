@@ -80,7 +80,7 @@ Take for example these two (both were found exactly as shown here in the logs of
 The difference between "Mobile Safari" and "Safari" has been defined for Google Chrome as the difference between "Phone" and "Tablet" (see https://developer.chrome.com/multidevice/user-agent ). 
 
 And as you can see in this example: we sometimes get it wrong. 
-The impact in this case is however very limited: Of the 445 visitors I found using this device only 2 were classified wrong all other were correct.
+The impact in this case is however very limited: Of the 445 visitors I found using this device only 2 were classified wrong all others were correct.
 
 Performance
 ===========
