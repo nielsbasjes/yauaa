@@ -136,6 +136,8 @@ and in your application you can use it as simple as this
             System.out.println(fieldName + " = " + agent.getValue(fieldName));
         }
 
+Please instantiate a new UserAgentAnalyzer as few times as possible because the initialization step for a full UserAgentAnalyzer (i.e. all fields) usually takes something in the range of 2-5 seconds.
+
 Note that not all fields are available after every parse. So be prepared to receive a 'null' if you extract a specific name.
 
 **IMPORTANT: This library is NOT threadsafe/reentrant!**
