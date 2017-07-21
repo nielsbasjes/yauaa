@@ -1,8 +1,8 @@
 Yauaa: Yet Another UserAgent Analyzer
 ========================================
-[![Travis Build status](https://api.travis-ci.org/nielsbasjes/yauaa.png?branch=master)](https://travis-ci.org/nielsbasjes/yauaa) 
-[![Coverage Status](https://coveralls.io/repos/github/nielsbasjes/yauaa/badge.svg?branch=master)](https://coveralls.io/github/nielsbasjes/yauaa?branch=master) 
-[![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) 
+[![Travis Build status](https://api.travis-ci.org/nielsbasjes/yauaa.png?branch=master)](https://travis-ci.org/nielsbasjes/yauaa)
+[![Coverage Status](https://coveralls.io/repos/github/nielsbasjes/yauaa/badge.svg?branch=master)](https://coveralls.io/github/nielsbasjes/yauaa?branch=master)
+[![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Maven Central](https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22)
 [![If this project has business value for you then don't hesitate to support me with a small donation.](https://img.shields.io/badge/Donations-via%20Paypal-blue.svg)](https://www.paypal.me/nielsbasjes)
 
@@ -77,9 +77,9 @@ Take for example these two (both were found exactly as shown here in the logs of
     Mozilla/5.0 (Linux; Android 5.1; SAMSUNG-T805s Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.94 Mobile Safari/537.36
     Mozilla/5.0 (Linux; Android 4.4.2; SAMSUNG-T805S Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.89 Safari/537.36
 
-The difference between "Mobile Safari" and "Safari" has been defined for Google Chrome as the difference between "Phone" and "Tablet" (see https://developer.chrome.com/multidevice/user-agent ). 
+The difference between "Mobile Safari" and "Safari" has been defined for Google Chrome as the difference between "Phone" and "Tablet" (see https://developer.chrome.com/multidevice/user-agent ).
 
-And as you can see in this example: we sometimes get it wrong. 
+And as you can see in this example: we sometimes get it wrong.
 The impact in this case is however very limited: Of the 445 visitors I found using this device only 2 were classified wrong all others were correct.
 
 Performance
@@ -128,7 +128,11 @@ This has been published to maven central so that should work in almost any envir
 
 and in your application you can use it as simple as this
 
-        UserAgentAnalyzer uaa = new UserAgentAnalyzer();
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+                    .newBuilder()
+                    .hideMatcherLoadStats()
+                    .withCache(25000)
+                    .build();
 
         UserAgent agent = uaa.parse("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11");
 
@@ -151,7 +155,6 @@ This can be achieved by creating the analyzer in Java like this:
 
     uaa = UserAgentAnalyzer
             .newBuilder()
-            .withoutCache()
             .withField("DeviceClass")
             .withField("AgentNameVersionMajor")
             .build();
@@ -164,8 +167,8 @@ Several external computation systems support the concept of a User Defined Funct
 A UDF is simply a way of making functionality (in this case the analysis of useragents)
 available in such a system.
 
-For several systems (tools used within 
-[bol.com](https://partnerprogramma.bol.com/click/click?p=1&t=url&s=2483&f=TXL&url=http%3A%2F%2Fwww.bol.com%2F&name=yauaa) (where I work)) 
+For several systems (tools used within
+[bol.com](https://partnerprogramma.bol.com/click/click?p=1&t=url&s=2483&f=TXL&url=http%3A%2F%2Fwww.bol.com%2F&name=yauaa) (where I work))
 I have written such a UDF which are all part of this project.
 
 * [Apache Pig](README-Pig.md)
@@ -204,7 +207,7 @@ DeviceClass
 | Spy                   | Robots that visit the site pretending they are robots like google, but they are not |
 | Hacker                | In case scripting is detected in the useragent string, also fallback in really broken situations |
 
-OperatingSystemClass 
+OperatingSystemClass
 -----------
 
 | Value | Meaning |
@@ -228,7 +231,7 @@ LayoutEngineClass
 | Hacker     | A hacker, so it can really be anything. |
 | Robot      | A robot spidering the site |
 | Unknown    | We don't know |
-             
+
 AgentClass
 -----------
 
