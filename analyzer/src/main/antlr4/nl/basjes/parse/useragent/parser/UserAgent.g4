@@ -52,8 +52,6 @@ grammar UserAgent;
 // Lexer
 
 // First we match the parts that are useless and make the grammar too hard:
-//GFE : ',gzip(gfe)'                      -> skip;  // Seems related to Google's PageSpeed Service
-//IWSS25: 'IWSS25:'[a-zA-Z0-9\+\=\/\\]+   -> skip;  // Unparsable junk (Actually, it's a Base64 encoded binary)
 QUOTE1:       '\\"'     -> skip;
 QUOTE2:       '"'       -> skip;
 QUOTE3:       '\\\\'    -> skip;
@@ -113,7 +111,7 @@ PLUS        :        '+'                 ;
 
 // HexWord is 4 hex digits long
 fragment HexDigit: [a-fA-F0-9];
-fragment HexWord: HexDigit HexDigit HexDigit HexDigit ;
+fragment HexWord : HexDigit HexDigit HexDigit HexDigit ;
 UUID        :        // 550e8400-e29b-41d4-a716-446655440000
                      HexWord HexWord '-' HexWord '-' HexWord '-' HexWord '-' HexWord HexWord HexWord;
 
@@ -121,7 +119,7 @@ fragment BareHostname:  [a-zA-Z0-9\-_]+ ('.'[a-zA-Z0-9\-_]+)*;
 fragment UrlPath     :  [a-zA-Z0-9\-_~=?&%+.:/#]*;
 fragment BasicURL    :  ('http'|'ftp') 's'? '://' BareHostname UrlPath ;
 fragment HTMLURL     :  '<a href="' BasicURL '">'~[<]+'</a>';
-URL         :        ( '<'? ('www.'BareHostname UrlPath|BasicURL) '>'? |HTMLURL | 'index.htm' UrlPath);
+URL         :        ( '<'? ('www.'BareHostname UrlPath|BasicURL) '>'? | HTMLURL | 'index.htm' UrlPath);
 
 GIBBERISH   : '@'(~[ ;])*;
 
@@ -174,8 +172,13 @@ userAgent
       (SEMICOLON|COMMA|MINUS|PLUS|'\''|'"'|'\\'|';'|'='|BRACECLOSE|BLOCKCLOSE)*       // Trailing garbage
     ;
 
-rootElements:
-            keyValue | siteUrl | emailAddress | uuId | rootText ;
+rootElements
+    : keyValue
+    | siteUrl
+    | emailAddress
+    | uuId
+    | rootText
+    ;
 
 rootText
     : VERSION
