@@ -43,21 +43,28 @@ public class TestRecord implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TestRecord)) return false;
 
         TestRecord record = (TestRecord) o;
 
-        if (!useragent.equals(record.useragent)) return false;
-        if (deviceClass != null ? !deviceClass.equals(record.deviceClass) : record.deviceClass != null) return false;
-        if (agentNameVersion != null ? !agentNameVersion.equals(record.agentNameVersion) : record.agentNameVersion != null)
-            return false;
-        return shouldRemainNull != null ? shouldRemainNull.equals(record.shouldRemainNull) : record.shouldRemainNull == null;
+        return
+            isSame(useragent,        record.useragent        ) &&
+            isSame(deviceClass,      record.deviceClass      ) &&
+            isSame(agentNameVersion, record.agentNameVersion ) &&
+            isSame(shouldRemainNull, record.shouldRemainNull );
+    }
+
+    private boolean isSame(String a, String b){
+        if (a == null || b == null) {
+            return (a == null && b == null);
+        }
+        return a.equals(b);
     }
 
     @Override
     public int hashCode() {
         int result = useragent.hashCode();
-        result = 31 * result + (deviceClass != null ? deviceClass.hashCode() : 0);
+        result = 31 * result + (deviceClass      != null ? deviceClass.hashCode()      : 0);
         result = 31 * result + (agentNameVersion != null ? agentNameVersion.hashCode() : 0);
         result = 31 * result + (shouldRemainNull != null ? shouldRemainNull.hashCode() : 0);
         return result;

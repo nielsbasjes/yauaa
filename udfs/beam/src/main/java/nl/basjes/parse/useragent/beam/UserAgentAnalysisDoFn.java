@@ -46,6 +46,7 @@ public abstract class UserAgentAnalysisDoFn<T extends Serializable> extends DoFn
      * Clone the provided instance of T.
      * This default implementation uses a mindless brute force cloning via serialization.
      * If for your class you can do better; please override this method.
+     * For AVRO you can do something like MyRecord.newBuilder(instance).build();
      * @param t The original input value
      * @return A deep copied copy of t
      */

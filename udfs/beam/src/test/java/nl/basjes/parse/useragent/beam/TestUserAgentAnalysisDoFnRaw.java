@@ -17,7 +17,6 @@
 
 package nl.basjes.parse.useragent.beam;
 
-import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.annonate.YauaaField;
 import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.transforms.DoFnTester;

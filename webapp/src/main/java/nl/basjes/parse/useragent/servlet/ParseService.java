@@ -246,7 +246,7 @@ public class ParseService {
         return responseBuilder.entity(userAgent.toJson()).build();
     }
 
-    private StringBuilder addBugReportButton(StringBuilder sb, UserAgent userAgent) {
+    private void addBugReportButton(StringBuilder sb, UserAgent userAgent) {
         // https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=bar
 
         try {
@@ -255,7 +255,7 @@ public class ParseService {
             String report =  "I found a problem with this useragent.\n" +
                 "[Please update the output below to match what you expect it should be]\n" +
                 "\n```\n" +
-                userAgent.toYamlTestCase().replaceAll("  *:", "  :") +
+                userAgent.toYamlTestCase().replaceAll(" +:", "  :") +
                 "\n```\n";
 
             reportUrl.append(URLEncoder.encode(report, "UTF-8"));
@@ -265,6 +265,5 @@ public class ParseService {
         } catch (UnsupportedEncodingException e) {
             // Never happens.
         }
-        return sb;
     }
 }
