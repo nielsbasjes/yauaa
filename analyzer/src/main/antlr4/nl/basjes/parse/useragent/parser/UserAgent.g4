@@ -60,9 +60,13 @@ BAD_ESC_TAB:  '\\t'     -> skip;
 
 SPACE :       (' '|'\t'|'+') -> skip;
 
+fragment UserAgent
+    : [Uu][Ss][Ee][Rr]'-'*[Aa][Gg][Ee][Nn][Tt]
+    ;
+
 // Specialtype of leading garbage (which actually happens)
-USERAGENT1   : '-'*[Uu][Ss][Ee][Rr]'-'*[Aa][Gg][Ee][Nn][Tt]' '*(COLON|EQUALS|CURLYBRACEOPEN)' '* -> skip;
-USERAGENT2   : '\''[Uu][Ss][Ee][Rr]'-'*[Aa][Gg][Ee][Nn][Tt]'\'' COLON -> skip;
+USERAGENT1   : '-'* UserAgent ' '*(COLON|EQUALS|CURLYBRACEOPEN)' '* -> skip;
+USERAGENT2   : '\'' UserAgent '\'' COLON -> skip;
 
 fragment EMailLetter
     : [a-zA-Z0-9_+-]
@@ -93,35 +97,46 @@ fragment EMailTLD
     :  [a-zA-Z]+  // No tld has numbers in it
     ;
 
-EMAIL       :        (EMailWord EMailDOT?)+ EMailAT EMailWord ( EMailDOT EMailWord )* EMailDOT EMailTLD;
+fragment EMailWords
+    : EMailWord ( EMailDOT EMailWord )*
+    ;
 
-CURLYBRACEOPEN :     '{'                 ;
-CURLYBRACECLOSE:     '}'                 ;
-BRACEOPEN   :        '('                 ;
-BRACECLOSE  :        ')'                 ;
-BLOCKOPEN   :        '['                 ;
-BLOCKCLOSE  :        ']'                 ;
-SEMICOLON   :        ';'                 ;
-COLON       :        ':'                 ;
-COMMA       :        ','                 ;
-SLASH       :        '/'                 ;
-EQUALS      :        '='                 ;
-MINUS       :        '-'                 ;
-PLUS        :        '+'                 ;
+EMAIL
+    : EMailWords EMailAT EMailWords EMailDOT EMailTLD
+    ;
+
+CURLYBRACEOPEN  : '{' ;
+CURLYBRACECLOSE : '}' ;
+BRACEOPEN       : '(' ;
+BRACECLOSE      : ')' ;
+BLOCKOPEN       : '[' ;
+BLOCKCLOSE      : ']' ;
+SEMICOLON       : ';' ;
+COLON           : ':' ;
+COMMA           : ',' ;
+SLASH           : '/' ;
+EQUALS          : '=' ;
+MINUS           : '-' ;
+PLUS            : '+' ;
 
 // HexWord is 4 hex digits long
 fragment HexDigit: [a-fA-F0-9];
 fragment HexWord : HexDigit HexDigit HexDigit HexDigit ;
-UUID        :        // 550e8400-e29b-41d4-a716-446655440000
-                     HexWord HexWord '-' HexWord '-' HexWord '-' HexWord '-' HexWord HexWord HexWord;
+UUID  // 550e8400-e29b-41d4-a716-446655440000
+    : HexWord HexWord '-' HexWord '-' HexWord '-' HexWord '-' HexWord HexWord HexWord
+    ;
 
 fragment BareHostname:  [a-zA-Z0-9\-_]+ ('.'[a-zA-Z0-9\-_]+)*;
 fragment UrlPath     :  [a-zA-Z0-9\-_~=?&%+.:/#]*;
 fragment BasicURL    :  ('http'|'ftp') 's'? '://' BareHostname UrlPath ;
 fragment HTMLURL     :  '<a href="' BasicURL '">'~[<]+'</a>';
-URL         :        ( '<'? ('www.'BareHostname UrlPath|BasicURL) '>'? | HTMLURL | 'index.htm' UrlPath);
+URL
+    : ( '<'? ('www.'BareHostname UrlPath|BasicURL) '>'? | HTMLURL | 'index.htm' UrlPath)
+    ;
 
-GIBBERISH   : '@'(~[ ;])*;
+GIBBERISH
+    : '@'(~[ ;])*
+    ;
 
 // A version is a WORD with at least 1 number in it (and that can contain a '-').
 VERSION
@@ -132,9 +147,9 @@ fragment WORDLetter
     : (~[0-9+;,{}()\\/ \t:=[\]"-])             // Normal letters
     | '\\x'[0-9a-f][0-9a-f]                    // Hex encoded letters \xab\x12
     ;
+
 WORD
-    : WORDLetter+ MINUS*
-    | WORDLetter+ (MINUS+ WORDLetter+ )+ MINUS*
+    : MINUS* WORDLetter+ (MINUS+ WORDLetter+ )* MINUS*
     | SPACE MINUS SPACE
     ;
 
@@ -144,10 +159,8 @@ WORD
 // - It may not start with a special character (like '/' )
 fragment B64LetterBase      : [a-zA-Z0-9];
 fragment B64LetterSpecial   : [+?_/];
-fragment B64Letter          : [a-zA-Z0-9+?_/];
-fragment B64FirstChunk
-    : B64LetterBase B64Letter B64Letter B64Letter
-    ;
+fragment B64Letter          : B64LetterBase | B64LetterSpecial;
+fragment B64FirstChunk      : B64LetterBase B64Letter B64Letter B64Letter;
 
 fragment B64Chunk
     : B64Letter B64Letter B64Letter B64Letter
@@ -161,15 +174,17 @@ fragment B64LastChunk
     ;
 
 // We want to avoid matching against normal names and uuids so a BASE64 needs to be pretty long
-BASE64: B64FirstChunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk+ B64LastChunk;
+BASE64
+    : B64FirstChunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk B64Chunk+ B64LastChunk
+    ;
 
 // =========================================================================================
 // Parser
 
 userAgent
-    : (SEMICOLON|COMMA|MINUS|'\''|'"'|'\\'|';'|'='|BRACEOPEN|BLOCKOPEN)*                // Leading garbage
+    : (SEMICOLON|COMMA|MINUS|PLUS|'\''|'"'|'\\'|';'|'='|BRACEOPEN|BLOCKOPEN)*    // Leading garbage
       ( (SEMICOLON|COMMA|MINUS)? ( product | rootElements ) )*
-      (SEMICOLON|COMMA|MINUS|PLUS|'\''|'"'|'\\'|';'|'='|BRACECLOSE|BLOCKCLOSE)*       // Trailing garbage
+      (SEMICOLON|COMMA|MINUS|PLUS|'\''|'"'|'\\'|';'|'='|BRACECLOSE|BLOCKCLOSE)*  // Trailing garbage
     ;
 
 rootElements
@@ -182,7 +197,7 @@ rootElements
 
 rootText
     : VERSION
-    | (MINUS* WORD)+ MINUS*
+    | WORD+
     | GIBBERISH
     | MINUS
     ;
