@@ -65,11 +65,8 @@ public class UserAgentAnnotationAnalyzer<T> {
                     parameters[0] == classOfT &&
                     parameters[1] == String.class) {
                     for (String fieldName : field.value()) {
-                        List<Method> methods = fieldSetters.get(fieldName);
-                        if (methods == null) {
-                            methods = new ArrayList<>();
-                            fieldSetters.put(fieldName, methods);
-                        }
+                        List<Method> methods = fieldSetters
+                            .computeIfAbsent(fieldName, k -> new ArrayList<>());
                         methods.add(method);
 
                         if (!method.isAccessible() && method.getDeclaringClass().isAnonymousClass()) {

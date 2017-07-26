@@ -498,11 +498,8 @@ config:
 
     private void loadYamlMatcher(MappingNode entry, String filename) {
 //        LOG.info("Loading matcher.({}:{})", filename, entry.getStartMark().getLine());
-        List<MappingNode> matcherConfigList = matcherConfigs.get(filename);
-        if (matcherConfigList == null) {
-            matcherConfigList = new ArrayList<>(32);
-            matcherConfigs.put(filename, matcherConfigList);
-        }
+        List<MappingNode> matcherConfigList = matcherConfigs
+            .computeIfAbsent(filename, k -> new ArrayList<>(32));
         matcherConfigList.add(entry);
     }
 
@@ -596,11 +593,8 @@ config:
 
     public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
         String hashKey = keyPattern.toLowerCase();
-        Set<MatcherAction> analyzerSet = informMatcherActions.get(hashKey);
-        if (analyzerSet == null) {
-            analyzerSet = new HashSet<>();
-            informMatcherActions.put(hashKey, analyzerSet);
-        }
+        Set<MatcherAction> analyzerSet = informMatcherActions
+            .computeIfAbsent(hashKey, k -> new HashSet<>());
         analyzerSet.add(matcherAction);
     }
 

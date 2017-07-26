@@ -108,12 +108,11 @@ public class UserAgentDissector extends Dissector {
     private static final Map<String, String> FIELD_NAME_MAPPING_CACHE = new HashMap<>(64);
 
     static String fieldNameToDissectionName(String fieldName) {
-        String dissectionName = FIELD_NAME_MAPPING_CACHE.get(fieldName);
-        if (dissectionName == null) {
-            dissectionName = fieldName.replaceAll("([A-Z])", "_$1").toLowerCase(Locale.ENGLISH).replaceFirst("_", "");
-            FIELD_NAME_MAPPING_CACHE.put(fieldName, dissectionName);
-        }
-        return dissectionName;
+        return FIELD_NAME_MAPPING_CACHE
+            .computeIfAbsent(fieldName,
+                n -> n  .replaceAll("([A-Z])", "_$1")
+                        .toLowerCase(Locale.ENGLISH)
+                        .replaceFirst("_", ""));
     }
 
 }

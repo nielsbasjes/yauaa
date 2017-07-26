@@ -47,12 +47,7 @@ public class TestUserAgentAnalysisMapperInline {
                     "Chrome/53.0.2785.124 Mobile Safari/537.36"
             )
 
-            .map(new MapFunction<String, TestRecord>() {
-                @Override
-                public TestRecord map(String s) throws Exception {
-                    return new TestRecord(s);
-                }
-            })
+            .map((MapFunction<String, TestRecord>) TestRecord::new)
 
             .map(new UserAgentAnalysisMapper<TestRecord>() {
                 @Override
