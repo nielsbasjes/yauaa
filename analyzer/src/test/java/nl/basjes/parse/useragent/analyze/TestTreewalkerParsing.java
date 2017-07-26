@@ -312,7 +312,7 @@ public class TestTreewalkerParsing {
         Map<String, Map<String, String>> lookups = new HashMap<>();
         lookups.put("TridentVersions", new HashMap<>());
 
-        TestMatcher matcher = new TestMatcher(null, lookups);
+        TestMatcher matcher = new TestMatcher(lookups);
         MatcherRequireAction action = new MatcherRequireAction(path, matcher);
 
         StringBuilder sb = new StringBuilder("\n---------------------------\nActual list (").append(matcher.reveicedValues.size()).append(" entries):\n");
@@ -343,8 +343,8 @@ public class TestTreewalkerParsing {
     private static class TestMatcher extends Matcher {
         final List<String> reveicedValues = new ArrayList<>(128);
 
-        TestMatcher(Analyzer analyzer, Map<String, Map<String, String>> lookups) {
-            super(analyzer, lookups);
+        TestMatcher(Map<String, Map<String, String>> lookups) {
+            super(null, lookups);
         }
 
         @Override
