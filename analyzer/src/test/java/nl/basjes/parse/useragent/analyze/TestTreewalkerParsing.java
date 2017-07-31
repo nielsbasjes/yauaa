@@ -28,11 +28,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static nl.basjes.parse.useragent.analyze.WordRangeVisitor.MAX_RANGE_IN_HASHMAP;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+//import static nl.basjes.parse.useragent.analyze.WordRangeVisitor.MAX_RANGE_IN_HASHMAP;
 
 public class TestTreewalkerParsing {
 
@@ -153,29 +154,6 @@ public class TestTreewalkerParsing {
     }
 
     @Test
-    public void checkHashEntryDepth() {
-        // We only put the lower (common) values in the hashmapx
-        int i = 1;
-        while (i <= MAX_RANGE_IN_HASHMAP) {
-            String path = "agent.(1)product.(1)name[" + i + "]";
-            String[] expectedHashEntries = {
-                "agent.(1)product.(1)name[" + i + "-" + i + "]"
-            };
-            String[] expectedWalkList = {};
-            checkPath(path, expectedHashEntries, expectedWalkList);
-            i++;
-        }
-        while (i < 20) {
-            String path = "agent.(1)product.(1)name[" + i + "]";
-            String[] expectedHashEntries = {"agent.(1)product.(1)name"};
-            String[] expectedWalkList = {"WordRange([" + i + ":" + i + "])",};
-            checkPath(path, expectedHashEntries, expectedWalkList);
-            i++;
-        }
-    }
-
-
-    @Test
     public void validateWalkPathSimpleNameEquals() {
         String path = "agent.(1)product.(1)name=\"Foo\"^.(1-3)version";
 
@@ -212,12 +190,10 @@ public class TestTreewalkerParsing {
         String path = "agent.(1)product.(1)name[3-5]=\"Foo\"^.(1-3)version";
 
         String[] expectedHashEntries = {
-            "agent.(1)product.(1)name",
+            "agent.(1)product.(1)name[3-5]=\"Foo\"",
         };
 
         String[] expectedWalkList = {
-            "WordRange([3:5])",
-            "Equals(foo)",
             "Up()",
             "Down([1:3]version)"
         };
@@ -354,6 +330,11 @@ public class TestTreewalkerParsing {
 
         @Override
         public void analyze(UserAgent userAgent) {
+            // Do nothing
+        }
+
+        @Override
+        public void lookingForRange(MatcherAction matcherAction, String treeName, WordRangeVisitor.Range range) {
             // Do nothing
         }
     }

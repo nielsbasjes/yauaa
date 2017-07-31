@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps;
 
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
+import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEndsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEquals;
@@ -322,10 +323,7 @@ public class WalkList implements Serializable {
 
         @Override
         public Void visitStepWordRange(StepWordRangeContext ctx) {
-            WordRangeVisitor.Range range = WordRangeVisitor.getRange(ctx.wordRange());
-            if (!range.isRangeInHashMap()) {
-                fromHereItCannotBeInHashMapAnymore();
-            }
+            Range range = WordRangeVisitor.getRange(ctx.wordRange());
             add(new StepWordRange(range));
             visitNext(ctx.nextStep);
             return null; // Void

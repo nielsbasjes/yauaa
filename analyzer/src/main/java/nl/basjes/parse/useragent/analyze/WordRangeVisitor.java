@@ -21,10 +21,12 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeContext;
 
-public class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordRangeVisitor.Range> {
-    public static final int MAX_RANGE_IN_HASHMAP = 3;
+import java.io.Serializable;
+import java.util.Objects;
 
-    public static class Range {
+public class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordRangeVisitor.Range> {
+
+    public static class Range implements Serializable {
 
         public Range(int first, int last) {
             this.first = first;
@@ -42,15 +44,23 @@ public class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordRangeVi
         final int first;
         final int last;
 
-        public boolean isRangeInHashMap(){
-            if (last > MAX_RANGE_IN_HASHMAP) {
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (!Range.class.isInstance(o)) {
                 return false;
             }
-            // First == 1 , Last = N
-            // First == N , Last = N
-            return ((first == 1 && last != -1) || first == last);
+            Range range = (Range) o;
+            return first == range.first &&
+                last == range.last;
         }
 
+        @Override
+        public int hashCode() {
+            return Objects.hash(first, last);
+        }
     }
 
     private static final WordRangeVisitor WORD_RANGE_VISITOR = new WordRangeVisitor();

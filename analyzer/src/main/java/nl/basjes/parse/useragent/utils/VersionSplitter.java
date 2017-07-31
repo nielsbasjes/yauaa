@@ -17,6 +17,8 @@
 
 package nl.basjes.parse.useragent.utils;
 
+import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
+
 public final class VersionSplitter {
     private VersionSplitter() {
     }
@@ -137,7 +139,7 @@ public final class VersionSplitter {
     }
 
     public static String getVersionRange(String value, int firstVersion, int lastVersion) {
-        if (value == null || (lastVersion >0 && lastVersion < firstVersion)) {
+        if (value == null || (lastVersion > 0 && lastVersion < firstVersion)) {
             return null;
         }
         char[] characters = value.toCharArray();
@@ -163,6 +165,10 @@ public final class VersionSplitter {
         }
 
         return value.substring(firstCharOfFirstVersion, lastCharOfLastVersion);
+    }
+
+    public static String getVersionRange(String value, Range range) {
+        return getVersionRange(value, range.getFirst(), range.getLast());
     }
 
 }

@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.parse;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.analyze.Analyzer;
+import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.parser.UserAgentBaseListener;
 import nl.basjes.parse.useragent.parser.UserAgentLexer;
 import nl.basjes.parse.useragent.parser.UserAgentParser;
@@ -62,10 +63,12 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
-import static nl.basjes.parse.useragent.analyze.WordRangeVisitor.MAX_RANGE_IN_HASHMAP;
 import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
+
+//import static nl.basjes.parse.useragent.analyze.WordRangeVisitor.MAX_RANGE_IN_HASHMAP;
 
 public class UserAgentTreeFlattener extends UserAgentBaseListener implements Serializable {
     private static final ParseTreeWalker WALKER = new ParseTreeWalker();
@@ -195,19 +198,19 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
     // =================================================================================
 
-    private void inform(ParseTree ctx, String path) {
-        inform(ctx, path, getSourceText(ctx));
+    private String inform(ParseTree ctx, String path) {
+        return inform(ctx, path, getSourceText(ctx));
     }
 
-    private void inform(ParseTree ctx, String name, String value) {
-        inform(ctx, ctx, name, value, false);
+    private String inform(ParseTree ctx, String name, String value) {
+        return inform(ctx, ctx, name, value, false);
     }
 
-    private void inform(ParseTree ctx, String name, String value, boolean fakeChild) {
-        inform(ctx, ctx, name, value, fakeChild);
+    private String inform(ParseTree ctx, String name, String value, boolean fakeChild) {
+        return inform(ctx, ctx, name, value, fakeChild);
     }
 
-    private void inform(ParseTree stateCtx, ParseTree ctx, String name, String value, boolean fakeChild) {
+    private String inform(ParseTree stateCtx, ParseTree ctx, String name, String value, boolean fakeChild) {
         State myState = new State(stateCtx, name);
 
         if (!fakeChild) {
@@ -228,6 +231,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
         String path = myState.calculatePath(childType, fakeChild);
         analyzer.inform(path, value, ctx);
+        return path;
     }
 
 //  =================================================================================
@@ -392,22 +396,12 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         if (text==null) {
             return;
         }
-        inform(ctx, name, text, fakeChild);
 
-        int startOffsetPrevious = 0;
-        int count = 1;
-        char[] chars = text.toCharArray();
-        String firstWords;
-        while((firstWords = WordSplitter.getFirstWords(text, count))!=null) {
-            inform(ctx, ctx, name + "[1-" + count + "]", firstWords, true);
-            if (count>1) {
-                inform(ctx, ctx, name + "[" + count + "-" + count + "]", firstWords.substring(startOffsetPrevious), true);
-            }
-            count++;
-            if (count > MAX_RANGE_IN_HASHMAP) {
-                return;
-            }
-            startOffsetPrevious = WordSplitter.findNextWordStart(chars, firstWords.length());
+        String path = inform(ctx, name, text, fakeChild);
+        Set<Range> ranges = analyzer.getRequiredInformRanges(path);
+
+        for (Range range: ranges) {
+            inform(ctx, ctx, name + "[" + range.getFirst() + "-" + range.getLast() + "]", WordSplitter.getWordRange(text, range), true);
         }
     }
 
@@ -416,22 +410,12 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         if (text==null) {
             return;
         }
-        inform(ctx, name, text, false);
 
-        int startOffsetPrevious = 0;
-        int count = 1;
-        char[] chars = text.toCharArray();
-        String firstVersions;
-        while((firstVersions = VersionSplitter.getFirstVersions(text, count))!=null) {
-            inform(ctx, ctx, name + "[1-" + count + "]", firstVersions, true);
-            if (count>1) {
-                inform(ctx, ctx, name + "[" + count + "-" + count + "]", firstVersions.substring(startOffsetPrevious), true);
-            }
-            count++;
-            if (count > MAX_RANGE_IN_HASHMAP) {
-                return;
-            }
-            startOffsetPrevious = VersionSplitter.findNextVersionStart(chars, firstVersions.length());
+        String path = inform(ctx, name, text, false);
+        Set<Range> ranges = analyzer.getRequiredInformRanges(path);
+
+        for (Range range: ranges) {
+            inform(ctx, ctx, name + "[" + range.getFirst() + "-" + range.getLast() + "]", VersionSplitter.getVersionRange(text, range), true);
         }
     }
 

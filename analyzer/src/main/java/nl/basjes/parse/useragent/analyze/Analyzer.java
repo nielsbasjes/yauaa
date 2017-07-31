@@ -17,10 +17,22 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import org.antlr.v4.runtime.tree.ParseTree;
+
+import java.util.Collections;
+import java.util.Set;
 
 public abstract class Analyzer {
     public abstract void inform(String path, String value, ParseTree ctx);
 
     public abstract void informMeAbout(MatcherAction matcherAction, String keyPattern);
+
+    public void lookingForRange(MatcherAction matcherAction, String treeName, Range range){
+        // Do nothing
+    }
+
+    public Set<Range> getRequiredInformRanges(String treeName){
+        return Collections.emptySet();
+    }
 }

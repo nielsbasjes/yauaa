@@ -209,6 +209,13 @@ public class Matcher implements Serializable {
         return results;
     }
 
+    public void lookingForRange(MatcherAction matcherAction, String treeName, WordRangeVisitor.Range range) {
+        if (verbose) {
+            LOG.info("Requested range: {} : [ {} - {} ]", treeName, range.getFirst(), range.getLast());
+        }
+        analyzer.lookingForRange(matcherAction, treeName, range);
+    }
+
     public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
         if (verbose) {
             LOG.info("Requested: {}", keyPattern);

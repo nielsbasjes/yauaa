@@ -17,6 +17,8 @@
 
 package nl.basjes.parse.useragent.utils;
 
+import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
+
 public final class WordSplitter {
     private WordSplitter() {
     }
@@ -160,7 +162,7 @@ public final class WordSplitter {
     }
 
     public static String getWordRange(String value, int firstWord, int lastWord) {
-        if (value == null || (lastWord >0 && lastWord < firstWord)) {
+        if (value == null || (lastWord > 0 && lastWord < firstWord)) {
             return null;
         }
         char[] characters = value.toCharArray();
@@ -188,4 +190,7 @@ public final class WordSplitter {
         return value.substring(firstCharOfFirstWord, lastCharOfLastWord);
     }
 
+    public static String getWordRange(String value, Range range) {
+        return getWordRange(value, range.getFirst(), range.getLast());
+    }
 }

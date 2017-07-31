@@ -22,6 +22,7 @@ import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.UselessMatcherException;
+import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
 import nl.basjes.parse.useragent.utils.Normalize;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
@@ -338,6 +339,7 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
         LOG.info("Lookups      : {}", (lookups == null) ? 0 : lookups.size());
         LOG.info("Matchers     : {} (total:{} ; dropped: {})", allMatchers.size(), totalNumberOfMatchers, skippedMatchers);
         LOG.info("Hashmap size : {}", informMatcherActions.size());
+        LOG.info("Ranges map size : {}", informMatcherActionRanges.size());
         LOG.info("Testcases    : {}", testCases.size());
 //        LOG.info("All possible field names:");
 //        int count = 1;
@@ -591,6 +593,14 @@ config:
 
     }
 
+    // These are the actual subrange we need for the paths.
+    private Map<String, Set<Range>> informMatcherActionRanges = new HashMap<>(10000); // FIXME: Determine optimal hashmap size
+    @Override
+    public void lookingForRange(MatcherAction matcherAction, String treeName, Range range) {
+        Set<Range> ranges = informMatcherActionRanges.computeIfAbsent(treeName, k -> new HashSet<>(4));
+        ranges.add(range);
+    }
+
     public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
         String hashKey = keyPattern.toLowerCase();
         Set<MatcherAction> analyzerSet = informMatcherActions
@@ -842,6 +852,10 @@ config:
                     agentVersion.getConfidence());
             }
         }
+    }
+
+    public Set<Range> getRequiredInformRanges(String treeName) {
+        return informMatcherActionRanges.computeIfAbsent(treeName, k -> Collections.emptySet());
     }
 
     public void inform(String key, String value, ParseTree ctx) {
