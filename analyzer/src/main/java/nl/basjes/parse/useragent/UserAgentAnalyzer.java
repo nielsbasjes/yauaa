@@ -850,7 +850,7 @@ config:
     }
 
     private void inform(String match, String key, String value, ParseTree ctx) {
-        Set<MatcherAction> relevantActions = informMatcherActions.get(match.toLowerCase());
+        Set<MatcherAction> relevantActions = informMatcherActions.get(match.toLowerCase(Locale.ENGLISH));
         if (verbose) {
             if (relevantActions == null) {
                 LOG.info("--- Have (0): {}", match);
