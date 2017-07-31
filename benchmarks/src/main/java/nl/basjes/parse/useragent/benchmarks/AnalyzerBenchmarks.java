@@ -35,7 +35,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import java.util.concurrent.TimeUnit;
 
-@Warmup(iterations = 5)
+@Warmup(iterations = 10)
 @Measurement(iterations = 10)
 @Fork(1)
 @BenchmarkMode(Mode.AverageTime)
