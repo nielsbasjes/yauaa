@@ -51,6 +51,7 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.SiteUrlContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UserAgentContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UuIdContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.VersionWordsContext;
+import nl.basjes.parse.useragent.utils.Splitter;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
 import org.antlr.v4.runtime.CharStream;
@@ -61,8 +62,10 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
@@ -392,6 +395,14 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     }
 
     private void informSubstrings(ParserRuleContext ctx, String name, boolean fakeChild) {
+        informSubstrings(ctx, name, fakeChild, WordSplitter.getInstance());
+    }
+
+    private void informSubVersions(ParserRuleContext ctx, String name) {
+        informSubstrings(ctx, name, false, VersionSplitter.getInstance());
+    }
+
+    private void informSubstrings(ParserRuleContext ctx, String name, boolean fakeChild, Splitter splitter) {
         String text = getSourceText(ctx);
         if (text==null) {
             return;
@@ -400,24 +411,28 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         String path = inform(ctx, name, text, fakeChild);
         Set<Range> ranges = analyzer.getRequiredInformRanges(path);
 
-        for (Range range: ranges) {
-            inform(ctx, ctx, name + "[" + range.getFirst() + "-" + range.getLast() + "]", WordSplitter.getWordRange(text, range), true);
+        if (ranges.size() > 4) { // Benchmarks showed this to be the breakeven point. (see below)
+            List<Pair<Integer, Integer>> splitList = splitter.createSplitList(text);
+            for (Range range : ranges) {
+                inform(ctx, ctx, name + "[" + range.getFirst() + "-" + range.getLast() + "]", splitter.getSplitRange(text, splitList, range), true);
+            }
+        } else {
+            for (Range range : ranges) {
+                inform(ctx, ctx, name + "[" + range.getFirst() + "-" + range.getLast() + "]", splitter.getSplitRange(text, range), true);
+            }
         }
     }
 
-    private void informSubVersions(ParserRuleContext ctx, String name) {
-        String text = getSourceText(ctx);
-        if (text==null) {
-            return;
-        }
-
-        String path = inform(ctx, name, text, false);
-        Set<Range> ranges = analyzer.getRequiredInformRanges(path);
-
-        for (Range range: ranges) {
-            inform(ctx, ctx, name + "[" + range.getFirst() + "-" + range.getLast() + "]", VersionSplitter.getVersionRange(text, range), true);
-        }
-    }
+    // # Ranges | Direct                   |  SplitList
+    // 1        |    1.664 ± 0.010  ns/op  |    99.378 ± 1.548  ns/op
+    // 2        |   38.103 ± 0.479  ns/op  |   115.808 ± 1.055  ns/op
+    // 3        |  109.023 ± 0.849  ns/op  |   141.473 ± 6.702  ns/op
+    // 4        |  162.917 ± 1.842  ns/op  |   166.120 ± 7.166  ns/op  <-- Break even
+    // 5        |  264.877 ± 6.264  ns/op  |   176.334 ± 3.999  ns/op
+    // 6        |  356.914 ± 2.573  ns/op  |   196.640 ± 1.306  ns/op
+    // 7        |  446.930 ± 3.329  ns/op  |   215.499 ± 3.410  ns/op
+    // 8        |  533.153 ± 2.250  ns/op  |   233.241 ± 5.311  ns/op
+    // 9        |  519.130 ± 3.495  ns/op  |   250.921 ± 6.107  ns/op
 
     @Override
     public void enterMultipleWords(MultipleWordsContext ctx) {

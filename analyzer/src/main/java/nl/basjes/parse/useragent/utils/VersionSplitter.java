@@ -17,13 +17,19 @@
 
 package nl.basjes.parse.useragent.utils;
 
-import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
-
-public final class VersionSplitter {
+public final class VersionSplitter extends Splitter {
     private VersionSplitter() {
     }
 
-    public static boolean isVersionSeparator(char c) {
+    private static VersionSplitter instance;
+    public static VersionSplitter getInstance() {
+        if (instance == null) {
+            instance = new VersionSplitter();
+        }
+        return instance;
+    }
+
+    public boolean isSeparator(char c) {
         switch (c) {
             case '.':
             case '_':
@@ -31,144 +37,52 @@ public final class VersionSplitter {
             default:
                 return false;
         }
-
     }
 
-    /**
-     * Find the start offset of next word
-     *
-     * @param chars The input in which we are seeking
-     * @param offset The start offset from where to seek
-     * @return The offset of the next word
-     */
-    public static int findNextVersionStart(char[] chars, int offset) {
-        for (int charNr = offset; charNr<chars.length; charNr++) {
-            char theChar = chars[charNr];
-            if (!isVersionSeparator(theChar)) {
-                return charNr;
-            }
-        }
-        return -1;
+    @Override
+    public boolean isEndOfStringSeparator(char c) {
+        return false;
     }
 
-    /**
-     * Find the start offset of version
-     *
-     * @param chars The input in which we are seeking
-     * @param version  The version number for which we are looking for the start
-     * @return The offset or -1 if it does not exist
-     */
-    public static int findVersionStart(char[] chars, int version) {
-        if (version <= 0) {
-            return -1;
-        }
-        // We expect the chars to start with a version.
-
-        int charNr = 0;
-        boolean inVersion = false;
-        int currentVersion = 0;
-        for (char theChar : chars) {
-            if (isVersionSeparator(theChar)) {
-                if (inVersion) {
-                    inVersion = false;
-                }
-            } else {
-                if (!inVersion) {
-                    inVersion = true;
-                    currentVersion++;
-                    if (currentVersion == version) {
-                        return charNr;
-                    }
-                }
-            }
-            charNr++;
-        }
-        return -1;
-    }
-
-    public static int findVersionEnd(char[] chars, int start) {
-        int i = start;
-        while (i < chars.length) {
-            if (isVersionSeparator(chars[i])) {
-                return i;
-            }
-            i++;
-        }
-        return chars.length; // == The end of the string
-    }
-
-    private static boolean looksLikeEmailOrWebaddress(String value) {
+    private boolean looksLikeEmailOrWebaddress(String value) {
         // Simple quick and dirty way to avoid splitting email and web addresses
         return (value.startsWith("www.") || value.startsWith("http") || (value.contains("@") && value.contains(".")));
     }
 
-    public static String getSingleVersion(String value, int word) {
+    public String getSingleSplit(String value, int split) {
         if (value == null) {
             return null;
         }
 
         if (looksLikeEmailOrWebaddress(value)) {
-            return (word == 1) ? value : null;
+            return (split == 1) ? value : null;
         }
 
         char[] characters = value.toCharArray();
-        int start = VersionSplitter.findVersionStart(characters, word);
+        int start = findSplitStart(characters, split);
         if (start == -1) {
             return null;
         }
-        int end = VersionSplitter.findVersionEnd(characters, start);
+        int end = findSplitEnd(characters, start);
         return value.substring(start, end);
     }
 
-    public static String getFirstVersions(String value, int word) {
+    public String getFirstSplits(String value, int split) {
         if (value == null) {
             return null;
         }
 
         if (looksLikeEmailOrWebaddress(value)) {
-            return (word == 1) ? value : null;
+            return (split == 1) ? value : null;
         }
 
         char[] characters = value.toCharArray();
-        int start = VersionSplitter.findVersionStart(characters, word);
+        int start = findSplitStart(characters, split);
         if (start == -1) {
             return null;
         }
-        int end = VersionSplitter.findVersionEnd(characters, start);
+        int end = findSplitEnd(characters, start);
         return value.substring(0, end);
-    }
-
-    public static String getVersionRange(String value, int firstVersion, int lastVersion) {
-        if (value == null || (lastVersion > 0 && lastVersion < firstVersion)) {
-            return null;
-        }
-        char[] characters = value.toCharArray();
-        int firstCharOfFirstVersion = findVersionStart(characters, firstVersion);
-        if (firstCharOfFirstVersion == -1) {
-            return null;
-        }
-
-        if (lastVersion == -1) {
-            return value.substring(firstCharOfFirstVersion, characters.length);
-        }
-        int firstCharOfLastWord = firstCharOfFirstVersion;
-        if (lastVersion != firstVersion) {
-            firstCharOfLastWord = findVersionStart(characters, lastVersion);
-            if (firstCharOfLastWord == -1) {
-                return null;
-            }
-        }
-
-        int lastCharOfLastVersion = findVersionEnd(characters, firstCharOfLastWord);
-        if (lastCharOfLastVersion == -1) {
-            return null;
-        }
-
-        return value.substring(firstCharOfFirstVersion, lastCharOfLastVersion);
-    }
-
-    public static String getVersionRange(String value, Range range) {
-        return getVersionRange(value, range.getFirst(), range.getLast());
     }
 
 }

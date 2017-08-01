@@ -42,9 +42,9 @@ public class StepWordRange extends Step {
         if (tree.getChildCount() == 1 && (
               tree.getChild(0) instanceof SingleVersionContext |
               tree.getChild(0) instanceof SingleVersionWithCommasContext)) {
-            filteredValue = VersionSplitter.getVersionRange(actualValue, firstWord, lastWord);
+            filteredValue = VersionSplitter.getInstance().getSplitRange(actualValue, firstWord, lastWord);
         } else {
-            filteredValue = WordSplitter.getWordRange(actualValue, firstWord, lastWord);
+            filteredValue = WordSplitter.getInstance().getSplitRange(actualValue, firstWord, lastWord);
         }
         if (filteredValue == null) {
             return null;

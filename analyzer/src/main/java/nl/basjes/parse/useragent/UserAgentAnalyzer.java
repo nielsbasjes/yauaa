@@ -848,7 +848,7 @@ config:
             if (agentVersion != null) {
                 userAgent.set(
                     majorVersionName,
-                    VersionSplitter.getSingleVersion(agentVersion.getValue(), 1),
+                    VersionSplitter.getInstance().getSingleSplit(agentVersion.getValue(), 1),
                     agentVersion.getConfidence());
             }
         }
