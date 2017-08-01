@@ -21,7 +21,6 @@ import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.utils.Splitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
 import org.apache.commons.lang3.tuple.Pair;
-import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Measurement;
@@ -101,92 +100,92 @@ public class SplitterBenchmarks {
         }
     }
 
-    @Benchmark
+//    @Benchmark
     public void directRange1(ThreadState state) {
         runDirect(state.splitter, state.ranges1);
     }
 
-    @Benchmark
+//    @Benchmark
     public void splitLRange1(ThreadState state) {
         runSplitList(state.splitter, state.ranges1);
     }
 
-    @Benchmark
+//    @Benchmark
     public void directRange2(ThreadState state) {
         runDirect(state.splitter, state.ranges2);
     }
 
-    @Benchmark
+//    @Benchmark
     public void splitLRange2(ThreadState state) {
         runSplitList(state.splitter, state.ranges2);
     }
 
-    @Benchmark
+//    @Benchmark
     public void directRange3(ThreadState state) {
         runDirect(state.splitter, state.ranges3);
     }
 
-    @Benchmark
+//    @Benchmark
     public void splitLRange3(ThreadState state) {
         runSplitList(state.splitter, state.ranges3);
     }
 
-    @Benchmark
+//    @Benchmark
     public void directRange4(ThreadState state) {
         runDirect(state.splitter, state.ranges4);
     }
 
-    @Benchmark
+//    @Benchmark
     public void splitLRange4(ThreadState state) {
         runSplitList(state.splitter, state.ranges4);
     }
 
-    @Benchmark
+//    @Benchmark
     public void directRange5(ThreadState state) {
         runDirect(state.splitter, state.ranges5);
     }
 
-    @Benchmark
+//    @Benchmark
     public void splitLRange5(ThreadState state) {
         runSplitList(state.splitter, state.ranges5);
     }
 
-    @Benchmark
+//    @Benchmark
     public void directRange6(ThreadState state) {
         runDirect(state.splitter, state.ranges6);
     }
 
-    @Benchmark
+//    @Benchmark
     public void splitLRange6(ThreadState state) {
         runSplitList(state.splitter, state.ranges6);
     }
 
-    @Benchmark
+//    @Benchmark
     public void directRange7(ThreadState state) {
         runDirect(state.splitter, state.ranges7);
     }
 
-    @Benchmark
+//    @Benchmark
     public void splitLRange7(ThreadState state) {
         runSplitList(state.splitter, state.ranges7);
     }
 
-    @Benchmark
+//    @Benchmark
     public void directRange8(ThreadState state) {
         runDirect(state.splitter, state.ranges8);
     }
 
-    @Benchmark
+//    @Benchmark
     public void splitLRange8(ThreadState state) {
         runSplitList(state.splitter, state.ranges8);
     }
 
-    @Benchmark
+//    @Benchmark
     public void directRange9(ThreadState state) {
         runDirect(state.splitter, state.ranges9);
     }
 
-    @Benchmark
+//    @Benchmark
     public void splitLRange9(ThreadState state) {
         runSplitList(state.splitter, state.ranges9);
     }
