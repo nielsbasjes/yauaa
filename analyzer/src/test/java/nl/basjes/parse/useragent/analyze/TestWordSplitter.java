@@ -82,7 +82,6 @@ public class TestWordSplitter {
         assertEquals(null      , splitter.getFirstSplits(value,4));
     }
 
-
     @Test
     public void versionSplitterMIX2() {
         String value = "1.2_3";
@@ -99,6 +98,33 @@ public class TestWordSplitter {
         assertEquals("1.2"     , splitter.getFirstSplits(value,2));
         assertEquals("1.2_3"   , splitter.getFirstSplits(value,3));
         assertEquals(null      , splitter.getFirstSplits(value,4));
+    }
+
+    @Test
+    public void versionSplitterWWW1() {
+        String value = "www.bar.com";
+        VersionSplitter splitter = VersionSplitter.getInstance();
+
+        assertEquals("www.bar.com"    , splitter.getSingleSplit(value,1));
+        assertEquals(null             , splitter.getSingleSplit(value,2));
+    }
+
+    @Test
+    public void versionSplitterWWW2() {
+        String value = "http://bar.com";
+        VersionSplitter splitter = VersionSplitter.getInstance();
+
+        assertEquals("http://bar.com" , splitter.getSingleSplit(value,1));
+        assertEquals(null             , splitter.getSingleSplit(value,2));
+    }
+
+    @Test
+    public void versionSplitterEMail() {
+        String value = "foo@bar.com";
+        VersionSplitter splitter = VersionSplitter.getInstance();
+
+        assertEquals("foo@bar.com"    , splitter.getSingleSplit(value,1));
+        assertEquals(null             , splitter.getSingleSplit(value,2));
     }
 
     @Test
