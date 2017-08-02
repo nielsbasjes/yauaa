@@ -54,7 +54,7 @@ public abstract class Step implements Serializable {
         if (nextStep == null) {
             String result = value;
             if (value == null) {
-                result = GetResultValueVisitor.getResultValue(tree);
+                result = getSourceText(tree);
             }
             if (verbose) {
                 LOG.info("{} Final (implicit) step: {}", logprefix, result);
