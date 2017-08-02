@@ -24,12 +24,12 @@ public class StepUp extends Step {
 
     @Override
     public String walk(ParseTree tree, String value) {
-        ParseTree nextTree = up(tree);
-        if (nextTree == null) {
+        ParseTree parent = up(tree);
+        if (parent == null) {
             return null;
         }
 
-        return walkNextStep(nextTree, null);
+        return walkNextStep(parent, null);
     }
 
     @Override

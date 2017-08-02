@@ -23,10 +23,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class StepNext extends Step {
 
     private ParseTree next(ParseTree tree) {
-        if (tree == null) {
-            return null;
-        }
-
         ParseTree parent = up(tree);
         ParseTree child;
         boolean foundCurrent = false;

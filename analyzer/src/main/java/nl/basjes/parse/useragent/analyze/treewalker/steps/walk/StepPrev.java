@@ -23,9 +23,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class StepPrev extends Step {
 
     private ParseTree prev(ParseTree tree) {
-        if (tree == null) {
-            return null;
-        }
         ParseTree parent = up(tree);
 
         ParseTree prevChild = null;
