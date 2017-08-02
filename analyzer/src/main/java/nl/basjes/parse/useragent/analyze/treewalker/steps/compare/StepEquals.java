@@ -33,14 +33,7 @@ public class StepEquals extends Step {
         String actualValue = getActualValue(tree, value);
 
         if (actualValue.toLowerCase().equals(desiredValue)) {
-            if (verbose) {
-                LOG.info("{} Equals: {} == {} --> TRUE", logprefix, actualValue, desiredValue);
-            }
             return walkNextStep(tree, actualValue);
-        }
-
-        if (verbose) {
-            LOG.info("{} Equals: {} == {} --> FALSE", logprefix, actualValue, desiredValue);
         }
         return null;
     }

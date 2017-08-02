@@ -42,20 +42,10 @@ public class StepLookup extends Step {
 
         if (result == null) {
             if (defaultValue == null) {
-                if (verbose) {
-                    LOG.info("{} Lookup: {}[{}] => null", logprefix, lookupName, input);
-                }
                 return null;
             } else {
-                if (verbose) {
-                    LOG.info("{} Lookup: {}[{}] => USE DEFAULT:{}", logprefix, lookupName, input, defaultValue);
-                }
                 return walkNextStep(tree, defaultValue);
             }
-        }
-
-        if (verbose) {
-            LOG.info("{} Lookup: {}[{}] => Lookup:{}", logprefix, lookupName, input, result);
         }
         return walkNextStep(tree, result);
     }
