@@ -91,7 +91,7 @@ public abstract class Step implements Serializable {
         return tree.getParent();
     }
 
-    protected final boolean treeIsSeparator(ParseTree tree) {
+    public static boolean treeIsSeparator(ParseTree tree) {
         return tree instanceof CommentSeparatorContext
             || tree instanceof TerminalNode;
     }
