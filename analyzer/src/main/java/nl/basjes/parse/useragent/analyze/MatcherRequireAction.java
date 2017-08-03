@@ -28,9 +28,6 @@ public class MatcherRequireAction extends MatcherAction {
 
     public MatcherRequireAction(String config, Matcher matcher) {
         init(config, matcher);
-//        if (verbose) {
-//            LOG.info("{} ({})", this.getClass().getSimpleName(), config);
-//        }
     }
 
     protected ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser) {
