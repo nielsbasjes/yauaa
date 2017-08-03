@@ -41,9 +41,7 @@ public class Matcher implements Serializable {
     private final List<MatcherAction> dynamicActions;
     private final List<MatcherAction> fixedStringActions;
 
-    // Set this to true if there is a reason not to trust the 'can possibly be valid'
-    // One reason is if there is an IsNull check used somewhere.
-    private boolean forceEvaluation = false;
+    private long actionsThatRequireInput;
     final Map<String, Map<String, String>> lookups;
     private boolean verbose;
     private boolean permanentVerbose;
@@ -175,12 +173,12 @@ public class Matcher implements Serializable {
             }
         }
 
+        actionsThatRequireInput = 0;
         for (MatcherAction action : dynamicActions) {
             // If an action exists which without any data can be valid, then we must force the evaluation
             action.reset();
-            if (action.canPossiblyBeValid()) {
-                forceEvaluation = true;
-                break;
+            if (!action.canPassWithoutAnyMatches()) {
+                actionsThatRequireInput++;
             }
         }
 
@@ -217,7 +215,7 @@ public class Matcher implements Serializable {
         analyzer.informMeAbout(matcherAction, keyPattern);
     }
 
-    private final UserAgent newValuesUserAgent = new UserAgent("dummy");
+    private UserAgent newValuesUserAgent = null;
 
     /**
      * Fires all matcher actions.
@@ -237,6 +235,9 @@ public class Matcher implements Serializable {
                     LOG.error("CANNOT BE VALID : {}", action.getMatchExpression());
                     good = false;
                 }
+            }
+            if (newValuesUserAgent == null) {
+                newValuesUserAgent = new UserAgent();
             }
             newValuesUserAgent.reset();
             for (MatcherAction action : dynamicActions) {
@@ -258,23 +259,18 @@ public class Matcher implements Serializable {
                 return;
             }
         } else {
-            if (!forceEvaluation) {
-                if (!possiblyValid) {
-                    return;
+            if (actionsThatRequireInput != actionsThatRequireInputAndReceivedInput) {
+                return;
+            }
+            if (newValuesUserAgent == null) {
+                newValuesUserAgent = new UserAgent();
+                for (MatcherAction action : fixedStringActions) {
+                    if (!action.obtainResult(newValuesUserAgent)) {
+                        throw new IllegalStateException("How can getting a fixed string fail ?!?!");
+                    }
                 }
             }
             for (MatcherAction action : dynamicActions) {
-                if (!action.canPossiblyBeValid()) {
-                    return; // If one of them is bad we skip the rest
-                }
-            }
-            newValuesUserAgent.reset();
-            for (MatcherAction action : dynamicActions) {
-                if (!action.obtainResult(newValuesUserAgent)) {
-                    return; // If one of them is bad we skip the rest
-                }
-            }
-            for (MatcherAction action : fixedStringActions) {
                 if (!action.obtainResult(newValuesUserAgent)) {
                     return; // If one of them is bad we skip the rest
                 }
@@ -287,20 +283,16 @@ public class Matcher implements Serializable {
         return verbose;
     }
 
-    boolean possiblyValid = false;
+    long actionsThatRequireInputAndReceivedInput = 0;
     public void gotAStartingPoint() {
-        possiblyValid = true;
+        actionsThatRequireInputAndReceivedInput++;
     }
 
     public void reset(boolean setVerboseTemporarily) {
         // If there are no dynamic actions we have fixed strings only
-        possiblyValid = dynamicActions.isEmpty();
+        actionsThatRequireInputAndReceivedInput = 0;
         for (MatcherAction action : dynamicActions) {
             action.reset();
-            // In some cases even a action without data can be valid
-            if (action.canPossiblyBeValid()) {
-                possiblyValid = true;
-            }
             if (setVerboseTemporarily) {
                 verbose = true;
                 action.setVerbose(true, true);
@@ -320,9 +312,6 @@ public class Matcher implements Serializable {
 
     public List<MatcherAction.Match> getUsedMatches() {
         List<MatcherAction.Match> allMatches = new ArrayList<>(128);
-        if (!possiblyValid) {
-            return new ArrayList<>(); // There is NO way one of them is valid
-        }
         for (MatcherAction action : dynamicActions) {
             if (!action.canPossiblyBeValid()) {
                 return new ArrayList<>(); // There is NO way one of them is valid

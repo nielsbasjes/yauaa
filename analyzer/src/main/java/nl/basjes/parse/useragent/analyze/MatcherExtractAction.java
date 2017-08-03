@@ -86,14 +86,14 @@ public class MatcherExtractAction extends MatcherAction {
             if (verbose) {
                 LOG.info("Set fixedvalue ({})[{}]: {}", attribute, confidence, fixedValue);
             }
-            userAgent.set(attribute, fixedValue, confidence);
+            userAgent.setForced(attribute, fixedValue, confidence);
             return true;
         }
         if (foundValue != null) {
             if (verbose) {
                 LOG.info("Set parsevalue ({})[{}]: {}", attribute, confidence, foundValue);
             }
-            userAgent.set(attribute, foundValue, confidence);
+            userAgent.setForced(attribute, foundValue, confidence);
             return true;
         }
         if (verbose) {

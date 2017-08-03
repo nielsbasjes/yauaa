@@ -214,6 +214,17 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
             return false;
         }
 
+        protected boolean setValueForced(String newValue, long newConfidence) {
+            this.confidence = newConfidence;
+
+            if (NULL_VALUE.equals(newValue)) {
+                this.value = defaultValue;
+            } else {
+                this.value = newValue;
+            }
+            return true;
+        }
+
         @Override
         public String toString() {
             return ">" + this.value + "#" + this.confidence + "<";
@@ -315,6 +326,24 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
 
         boolean wasEmpty = confidence == -1;
         boolean updated = field.setValue(value, confidence);
+        if (debug && !wasEmpty) {
+            if (updated) {
+                LOG.info("USE  {} ({}) = {}", attribute, confidence, value);
+            } else {
+                LOG.info("SKIP {} ({}) = {}", attribute, confidence, value);
+            }
+        }
+        allFields.put(attribute, field);
+    }
+
+    public void setForced(String attribute, String value, long confidence) {
+        AgentField field = allFields.get(attribute);
+        if (field == null) {
+            field = new AgentField(null); // The fields we do not know get a 'null' default
+        }
+
+        boolean wasEmpty = confidence == -1;
+        boolean updated = field.setValueForced(value, confidence);
         if (debug && !wasEmpty) {
             if (updated) {
                 LOG.info("USE  {} ({}) = {}", attribute, confidence, value);

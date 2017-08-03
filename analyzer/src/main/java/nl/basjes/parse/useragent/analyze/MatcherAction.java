@@ -103,7 +103,11 @@ public abstract class MatcherAction implements Serializable {
 
     private Matcher matcher;
     private List<Match> matches;
-    private boolean isFixedString;
+    private boolean canPassWithoutAnyMatches = true;
+
+    public boolean canPassWithoutAnyMatches() {
+        return canPassWithoutAnyMatches;
+    }
 
     boolean verbose = false;
     private boolean verbosePermanent = false;
@@ -179,7 +183,6 @@ public abstract class MatcherAction implements Serializable {
     void init(String newMatchExpression, Matcher newMatcher) {
         this.matcher = newMatcher;
         this.matches = new ArrayList<>(16);
-        this.isFixedString = false;
         this.matchExpression = newMatchExpression;
         setVerbose(newMatcher.getVerbose());
 
@@ -213,9 +216,11 @@ public abstract class MatcherAction implements Serializable {
         String fixedValue = evaluator.getFixedValue();
         if (fixedValue != null) {
             setFixedValue(fixedValue);
-            isFixedString = true;
+            canPassWithoutAnyMatches = true;
             return; // Not interested in any patterns
         }
+
+        canPassWithoutAnyMatches = evaluator.usesIsNull();
 
         calculateInformPath("agent", requiredPattern);
     }
@@ -284,8 +289,11 @@ public abstract class MatcherAction implements Serializable {
      * @param result The node in the parser tree where the match occurred
      */
     public void inform(String key, String value, ParseTree result) {
+        // Only if this needs input we tell the matcher on the first one.
+        if (!canPassWithoutAnyMatches && matches.isEmpty()) {
+            matcher.gotAStartingPoint();
+        }
         matches.add(new Match(key, value, result));
-        matcher.gotAStartingPoint();
     }
 
     protected abstract void inform(String key, String foundValue);
@@ -294,7 +302,7 @@ public abstract class MatcherAction implements Serializable {
      * @return If it is impossible that this can be valid it returns false, else true.
      */
     public boolean canPossiblyBeValid() {
-        return evaluator.usesIsNull() || isFixedString || !matches.isEmpty();
+        return canPassWithoutAnyMatches || !matches.isEmpty();
     }
 
     /**
@@ -313,7 +321,6 @@ public abstract class MatcherAction implements Serializable {
         }
         return false;
     }
-
 
     /**
      * Optimization: Only if there is a possibility that all actions for this matcher CAN be valid do we
