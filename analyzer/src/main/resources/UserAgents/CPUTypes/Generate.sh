@@ -89,7 +89,7 @@ echo "
 echo "- lookup:"
 echo "    name: 'CPUArchitectures'"
 echo "    map:"
-cat "CPUTypes.csv" | while read line ; \
+cat "CPUTypes.csv" | grep -v '#' | grep . | while read line ; \
 do
     cpu=$(echo ${line} | cut -d' ' -f1)
     value=$(echo ${line} | cut -d' ' -f2-)

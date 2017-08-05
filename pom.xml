@@ -41,6 +41,7 @@
     <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
     <slf4j.version>1.7.25</slf4j.version>
     <logparser.version>3.1</logparser.version>
+    <rat.version>0.9</rat.version>
   </properties>
 
   <dependencies>
@@ -207,6 +208,67 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <version>${rat.version}</version>
+        <inherited>false</inherited>
+        <!-- https://issues.apache.org/jira/browse/RAT-158 -->
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.doxia</groupId>
+            <artifactId>doxia-core</artifactId>
+            <version>1.6</version>
+            <exclusions>
+              <exclusion>
+                <groupId>xerces</groupId>
+                <artifactId>xercesImpl</artifactId>
+              </exclusion>
+            </exclusions>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <phase>test</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <excludeSubProjects>false</excludeSubProjects>
+          <excludes>
+            <!-- Version control files -->
+            <exclude>**/.git/**</exclude>
+            <exclude>**/.gitignore</exclude>
+            <!-- IDE settings and files -->
+            <exclude>**/.classpath</exclude>
+            <exclude>**/.project</exclude>
+            <exclude>**/.settings/**</exclude>
+            <exclude>**/.idea/**</exclude>
+            <exclude>**/*.iml</exclude>
+            <!-- Files that cannot be 'polluted' -->
+            <exclude>udfs/platfora/src/main/resources/udf-classes.txt</exclude>
+            <exclude>examples/pig/testcases.txt</exclude>
+            <!-- Files from external sources -->
+            <exclude>**/analyzer/src/main/resources/UserAgents/AppleTypes/*.csv</exclude>
+            <exclude>**/analyzer/src/main/resources/UserAgents/ISOLanguageCode/*.tab</exclude>
+            <exclude>**/analyzer/src/main/resources/UserAgents/ISOLanguageCode/*.csv</exclude>
+            <exclude>**/analyzer/src/main/resources/UserAgents/ISOLanguageCode/*.md</exclude>
+            <!-- Test and demo input files -->
+            <exclude>**/testfiles/**</exclude>
+            <exclude>**/examples/**/*.log</exclude>
+            <exclude>**/examples/**/*.jar</exclude>
+            <!-- File generated during build -->
+            <exclude>**/target/**</exclude>
+            <exclude>**/dependency-reduced-pom.xml</exclude>
+            <!-- Other files -->
+            <exclude>ReleaseProcedure.txt</exclude>
+
+          </excludes>
+        </configuration>
       </plugin>
 
     </plugins>
