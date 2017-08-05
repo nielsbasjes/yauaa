@@ -46,13 +46,8 @@ public class AnalyzerBenchmarks {
     public static class ThreadState {
         final UserAgentAnalyzer uaa;
         public ThreadState() {
-            uaa = UserAgentAnalyzer
-                    .newBuilder()
-                    .withoutCache()
-                    .hideMatcherLoadStats()
-//                    .withField("DeviceClass")
-//                    .withField("AgentNameVersionMajor")
-                    .build();
+            uaa = new UserAgentAnalyzer();
+            uaa.disableCaching();
         }
     }
 
