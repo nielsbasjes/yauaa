@@ -202,7 +202,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     // =================================================================================
 
     private String inform(ParseTree ctx, String path) {
-        return inform(ctx, path, getSourceText(ctx));
+        return inform(ctx, path, getSourceText((ParserRuleContext)ctx));
     }
 
     private String inform(ParseTree ctx, String name, String value) {

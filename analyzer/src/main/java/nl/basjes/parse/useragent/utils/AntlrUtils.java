@@ -20,8 +20,6 @@ package nl.basjes.parse.useragent.utils;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.RuleNode;
 
 public final class AntlrUtils {
     private AntlrUtils() {
@@ -41,20 +39,6 @@ public final class AntlrUtils {
         }
         CharStream inputStream = ctx.start.getInputStream();
         return inputStream.getText(new Interval(startIndex, stopIndex));
-    }
-
-    public static String getSourceText(RuleNode ruleNode){
-        if (ruleNode instanceof ParserRuleContext) {
-            return getSourceText((ParserRuleContext)ruleNode);
-        }
-        return ruleNode.getText();
-    }
-
-    public static String getSourceText(ParseTree ruleNode){
-        if (ruleNode instanceof ParserRuleContext) {
-            return getSourceText((ParserRuleContext)ruleNode);
-        }
-        return ruleNode.getText();
     }
 
 }

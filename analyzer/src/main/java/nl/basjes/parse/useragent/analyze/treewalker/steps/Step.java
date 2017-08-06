@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps;
 
 import nl.basjes.parse.useragent.parser.UserAgentParser;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentSeparatorContext;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.slf4j.Logger;
@@ -54,7 +55,7 @@ public abstract class Step implements Serializable {
         if (nextStep == null) {
             String result = value;
             if (value == null) {
-                result = getSourceText(tree);
+                result = getSourceText((ParserRuleContext)tree);
             }
             if (verbose) {
                 LOG.info("{} Final (implicit) step: {}", logprefix, result);
@@ -63,7 +64,7 @@ public abstract class Step implements Serializable {
         }
 
         if (verbose) {
-            LOG.info("{} Tree: >>>{}<<<", logprefix, getSourceText(tree));
+            LOG.info("{} Tree: >>>{}<<<", logprefix, getSourceText((ParserRuleContext)tree));
             LOG.info("{} Enter step({}): {}", logprefix, stepNr, nextStep);
         }
         String result = nextStep.walk(tree, value);
@@ -98,7 +99,7 @@ public abstract class Step implements Serializable {
 
     protected String getActualValue(ParseTree tree, String value) {
         if (value == null) {
-            return getSourceText(tree);
+            return getSourceText((ParserRuleContext)tree);
         }
         return value;
     }
