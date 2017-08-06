@@ -117,7 +117,7 @@ Output from the benchmark ( [using this code](benchmarks/src/main/java/nl/basjes
 
 
 In the canonical usecase of analysing clickstream data you will see a <1ms hit per visitor (or better: per new non-cached useragent)
-and for all the other clicks the values are retrieved from this cache at close to 0 time.
+and for all the other clicks the values are retrieved from this cache at a speed of < 1 microsecond (i.e. close to 0).
 
 Using the analyzer
 ==================
