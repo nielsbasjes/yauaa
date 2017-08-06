@@ -18,6 +18,7 @@
 
 git tag | \
 sed 's/v//' | \
+egrep -v '^(0.1|0.10|0.3)' | \
 while read version ;
 do
   if [ ! -f version-${version}.txt ];

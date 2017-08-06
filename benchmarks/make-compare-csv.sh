@@ -16,7 +16,26 @@
 # limitations under the License.
 #
 
-( cd .. && mvn clean package -DskipTests=true )
-version=$(fgrep '<version>' pom.xml | head -1 | sed 's@.*>\(.*\)<.*$@\1@g')
-echo "Testing version ${version}" && \
-java -jar target/benchmarks.jar > version-${version}.txt
+(
+echo -n "Name"
+for version in $(ls version*.txt | sed 's@^.*version-\(.*\).txt$@\1@g' | sort -V) ;
+do
+    echo -n ";v${version}"
+done
+echo ""
+
+for BenchMarkName in $(ls version*.txt | head -1 | xargs grep '^AnalyzerBenchmarks.' | cut -d' ' -f1);
+do
+    echo -n "${BenchMarkName}"
+    grep "^${BenchMarkName} " version*txt | \
+    sed 's/  */ /g' |\
+    sed 's@^.*version-\(.*\).txt:@\1 @g' |\
+    sort -V | \
+    cut -d' ' -f 5 |\
+    xargs -n1 -iXXX echo -n ";XXX"
+    echo ""
+done
+
+) > output.csv
+
+echo "Wrote output.csv"
