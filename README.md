@@ -82,6 +82,13 @@ The difference between "Mobile Safari" and "Safari" has been defined for Google 
 And as you can see in this example: we sometimes get it wrong.
 The impact in this case is however very limited: Of the 445 visitors I found using this device only 2 were classified wrong all others were correct.
 
+A second example is when the Samsung Browser is installed on a non-Samsung device (in this example a Google Nexus 6):
+
+    Mozilla/5.0 (Linux; Android 7.0; SAMSUNG Nexus 6 Build/NBD92G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.4 Chrome/51.0.2704.106 Mobile Safari/537.36
+
+As you can see this browser assumes it is only installed on Samsung devices so they 'force' the word Samsung in there.
+In this case you will see this being reported as a "Samsung Nexus 6", which is obviously wrong.
+
 Performance
 ===========
 On my i7 system I see a speed ranging from 500 to 4000 useragents per second (depending on the length and ambiguities in the useragent).
