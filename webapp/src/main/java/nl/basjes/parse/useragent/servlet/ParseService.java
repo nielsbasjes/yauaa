@@ -22,17 +22,19 @@ import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -43,75 +45,69 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
-@Path("parse")
+@SpringBootApplication
+@RestController
 public class ParseService {
 
     private static final UserAgentAnalyzer USER_AGENT_ANALYZER = new UserAgentAnalyzer();
     private static final String ANALYZER_VERSION = UserAgentAnalyzer.getVersion();
 
-    protected synchronized UserAgent parse(String userAgentString) {
-        return USER_AGENT_ANALYZER.parse(userAgentString); // This class and method are NOT threadsafe/reentrant !
+    @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED, reason = "The User-Agent header is missing")
+    class MissingUserAgentException extends RuntimeException {
     }
 
-    @GET
-    @Produces(MediaType.TEXT_HTML)
-    public Response getHtml(@HeaderParam("User-Agent") String userAgentString) {
+    @GetMapping(value = "/", produces = MediaType.TEXT_HTML_VALUE)
+    public String getHtml(@RequestHeader("User-Agent") String userAgentString) {
         return doHTML(userAgentString);
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.TEXT_HTML)
-    public Response getHtmlPOST(@FormParam("useragent") String userAgentString) {
-        return doHTML(userAgentString);
-    }
-
-    @GET
-    @Path("/{UserAgent}")
-    @Produces(MediaType.TEXT_HTML)
-    public Response getHtmlPath(@PathParam("UserAgent") String userAgent) {
+    @PostMapping(
+        value = "/",
+        consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+        produces = MediaType.TEXT_HTML_VALUE
+    )
+    public String getHtmlPOST(@ModelAttribute("useragent") String userAgent) {
         return doHTML(userAgent);
     }
 
-    @GET
-    @Path("/json")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getJSon(@HeaderParam("User-Agent") String userAgentString) {
+    @GetMapping(value = "/{userAgent}", produces = MediaType.TEXT_HTML_VALUE)
+    public String getHtmlPath(@PathVariable String userAgent) {
+        return doHTML(userAgent);
+    }
+
+    @GetMapping(value = "/json", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getJSon(@RequestHeader("User-Agent") String userAgentString) {
         return doJSon(userAgentString);
     }
 
-    @POST
-    @Path("/json")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getJSonPOST(@FormParam("useragent") String userAgentString) {
+    @PostMapping(
+        value = "/json",
+        consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public String getJSonPOST(@ModelAttribute("useragent") String userAgentString) {
         return doJSon(userAgentString);
     }
 
-    @GET
-    @Path("/json/{UserAgent}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getJSonPath(@PathParam("UserAgent") String userAgent) {
+    @GetMapping(value = "/json/{userAgent}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getJSonPath(@PathVariable String userAgent) {
         return doJSon(userAgent);
     }
 
-    private Response doHTML(String userAgentString) {
+    private String doHTML(String userAgentString) {
         long start = System.nanoTime();
+        long startParse=0;
+        long stopParse=0;
 
         if (userAgentString == null) {
-            return Response
-                .status(Response.Status.PRECONDITION_FAILED)
-                .entity("<b><u>The User-Agent header is missing</u></b>")
-                .build();
+            throw new MissingUserAgentException();
         }
-
-        Response.ResponseBuilder responseBuilder = Response.status(200);
 
         StringBuilder sb = new StringBuilder(4096);
         try {
             sb.append("<!DOCTYPE html>");
             sb.append("<html><head profile=\"http://www.w3.org/2005/10/profile\">");
-            sb.append("<link rel=\"icon\" type=\"image/ico\" href=\"/static/favicon.ico\" />\n");
+            sb.append("<link rel=\"icon\" type=\"image/ico\" href=\"/favicon.ico\" />\n");
             sb.append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
             sb.append("<title>Analyzing the useragent</title></head>");
             sb.append("<body>");
@@ -122,7 +118,9 @@ public class ParseService {
             sb.append(ANALYZER_VERSION).append("<br/>");
             sb.append("<hr/>");
 
-            UserAgent userAgent = parse(userAgentString);
+            startParse = System.nanoTime();
+            UserAgent userAgent = USER_AGENT_ANALYZER.parse(userAgentString);
+            stopParse = System.nanoTime();
 
             sb.append("Received useragent: <B>").append(escapeHtml4(userAgent.getUserAgentString())).append("</B>");
             sb.append("<table border=1>");
@@ -197,14 +195,16 @@ public class ParseService {
             sb.append("<hr/>");
         } finally {
             long stop = System.nanoTime();
-            double milliseconds = (stop - start) / 1000000.0;
+            double pageMilliseconds = (stop - start) / 1000000.0;
+            double parseMilliseconds = (stopParse - startParse) / 1000000.0;
 
             sb.append("<br/>");
-            sb.append("<u>Building this page took ").append(String.format(Locale.ENGLISH, "%3.3f", milliseconds)).append(" ms.</u><br/>");
+            sb.append("<u>Building this page took ").append(String.format(Locale.ENGLISH, "%3.3f", pageMilliseconds)).append(" ms.</u><br/>");
+            sb.append("<u>Parsing took ").append(String.format(Locale.ENGLISH, "%3.3f", parseMilliseconds)).append(" ms.</u><br/>");
             sb.append("</body>");
             sb.append("</html>");
         }
-        return responseBuilder.entity(sb.toString()).build();
+        return sb.toString();
     }
 
     private Pair<String, String> prefixSplitter(String input) {
@@ -234,16 +234,12 @@ public class ParseService {
         return result;
     }
 
-    private Response doJSon(String userAgentString) {
+    private String doJSon(String userAgentString) {
         if (userAgentString == null) {
-            return Response
-                .status(Response.Status.PRECONDITION_FAILED)
-                .entity("{ error: \"The User-Agent header is missing\" }")
-                .build();
+            throw new MissingUserAgentException();
         }
-        Response.ResponseBuilder responseBuilder = Response.status(200);
-        UserAgent userAgent = parse(userAgentString);
-        return responseBuilder.entity(userAgent.toJson()).build();
+        UserAgent userAgent = USER_AGENT_ANALYZER.parse(userAgentString);
+        return userAgent.toJson();
     }
 
     private void addBugReportButton(StringBuilder sb, UserAgent userAgent) {
@@ -265,5 +261,20 @@ public class ParseService {
         } catch (UnsupportedEncodingException e) {
             // Never happens.
         }
+    }
+
+    /**
+     * <a href="https://cloud.google.com/appengine/docs/flexible/java/how-instances-are-managed#health_checking">
+     * App Engine health checking</a> requires responding with 200 to {@code /_ah/health}.
+     */
+    @RequestMapping("/_ah/health")
+    public String healthy() {
+        // Message body required though ignored
+        return "Still surviving.";
+    }
+
+
+    public static void main(String[] args) {
+        SpringApplication.run(ParseService.class, args);
     }
 }
