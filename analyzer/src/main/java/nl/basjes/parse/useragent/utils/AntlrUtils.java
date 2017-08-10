@@ -26,16 +26,10 @@ public final class AntlrUtils {
     }
 
     public static String getSourceText(ParserRuleContext ctx){
-        if (ctx.start == null) {
-            return null; // Invalid
-        }
-        if (ctx.stop == null) {
-            return ctx.getText();
-        }
         int startIndex = ctx.start.getStartIndex();
         int stopIndex = ctx.stop.getStopIndex();
         if (stopIndex < startIndex) {
-            return ctx.getText();
+            return ""; // Just return the empty string.
         }
         CharStream inputStream = ctx.start.getInputStream();
         return inputStream.getText(new Interval(startIndex, stopIndex));
