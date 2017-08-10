@@ -284,7 +284,7 @@ public class Matcher implements Serializable {
     }
 
     long actionsThatRequireInputAndReceivedInput = 0;
-    public void gotAStartingPoint() {
+    public void gotMyFirstStartingPoint() {
         actionsThatRequireInputAndReceivedInput++;
     }
 

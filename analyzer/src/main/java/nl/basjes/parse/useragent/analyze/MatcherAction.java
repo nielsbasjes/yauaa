@@ -291,7 +291,7 @@ public abstract class MatcherAction implements Serializable {
     public void inform(String key, String value, ParseTree result) {
         // Only if this needs input we tell the matcher on the first one.
         if (!canPassWithoutAnyMatches && matches.isEmpty()) {
-            matcher.gotAStartingPoint();
+            matcher.gotMyFirstStartingPoint();
         }
         matches.add(new Match(key, value, result));
     }
