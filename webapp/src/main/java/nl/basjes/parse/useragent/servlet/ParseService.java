@@ -53,7 +53,7 @@ public class ParseService {
     private static final String ANALYZER_VERSION = UserAgentAnalyzer.getVersion();
 
     @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED, reason = "The User-Agent header is missing")
-    class MissingUserAgentException extends RuntimeException {
+    private class MissingUserAgentException extends RuntimeException {
     }
 
     @GetMapping(value = "/", produces = MediaType.TEXT_HTML_VALUE)
