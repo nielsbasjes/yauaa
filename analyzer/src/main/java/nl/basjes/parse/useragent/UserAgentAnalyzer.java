@@ -755,19 +755,19 @@ config:
         // The device brand field is a mess.
         UserAgent.AgentField deviceBrand = userAgent.get(DEVICE_BRAND);
         if (deviceBrand.getConfidence() >= 0) {
-            userAgent.set(
+            userAgent.setForced(
                 DEVICE_BRAND,
                 Normalize.brand(deviceBrand.getValue()),
-                deviceBrand.getConfidence() + 1);
+                deviceBrand.getConfidence());
         }
 
         // The email address is a mess
         UserAgent.AgentField email = userAgent.get("AgentInformationEmail");
         if (email != null && email.getConfidence() >= 0) {
-            userAgent.set(
+            userAgent.setForced(
                 "AgentInformationEmail",
                 Normalize.email(email.getValue()),
-                email.getConfidence() + 1);
+                email.getConfidence());
         }
 
         // Make sure the DeviceName always starts with the DeviceBrand
@@ -785,10 +785,10 @@ config:
                 deviceNameValue = Normalize.brand(deviceNameValue);
             }
 
-            userAgent.set(
+            userAgent.setForced(
                 DEVICE_NAME,
                 deviceNameValue,
-                deviceName.getConfidence() + 1);
+                deviceName.getConfidence());
         }
         return userAgent;
     }

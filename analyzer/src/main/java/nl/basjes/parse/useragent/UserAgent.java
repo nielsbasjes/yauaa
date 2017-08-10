@@ -214,7 +214,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
             return false;
         }
 
-        protected boolean setValueForced(String newValue, long newConfidence) {
+        public boolean setValueForced(String newValue, long newConfidence) {
             this.confidence = newConfidence;
 
             if (NULL_VALUE.equals(newValue)) {
