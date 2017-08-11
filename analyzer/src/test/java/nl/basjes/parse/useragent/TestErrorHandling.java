@@ -30,7 +30,7 @@ import static org.junit.Assert.assertNull;
 
 public class TestErrorHandling {
     @Rule
-    public ExpectedException expectedEx = ExpectedException.none();
+    public final ExpectedException expectedEx = ExpectedException.none();
 
 
     @Test

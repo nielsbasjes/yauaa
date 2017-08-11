@@ -87,8 +87,8 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
     private static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
-    protected List<Matcher> allMatchers = new ArrayList<>();
-    private Map<String, Set<MatcherAction>> informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
+    protected final List<Matcher> allMatchers = new ArrayList<>(5000);
+    private final Map<String, Set<MatcherAction>> informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
     private transient Map<String, List<MappingNode>> matcherConfigs;
 
     private boolean showMatcherStats = false;
@@ -97,7 +97,7 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
     protected List<String> wantedFieldNames = null;
 
-    protected List<Map<String, Map<String, String>>> testCases = new ArrayList<>(2048);
+    protected final List<Map<String, Map<String, String>>> testCases = new ArrayList<>(2048);
     private Map<String, Map<String, String>> lookups = new HashMap<>(128);
 
     protected UserAgentTreeFlattener flattener;
@@ -594,9 +594,9 @@ config:
     }
 
     // These are the actual subrange we need for the paths.
-    private Map<String, Set<Range>> informMatcherActionRanges = new HashMap<>(10000); // FIXME: Determine optimal hashmap size
+    private final Map<String, Set<Range>> informMatcherActionRanges = new HashMap<>(10000); // FIXME: Determine optimal hashmap size
     @Override
-    public void lookingForRange(MatcherAction matcherAction, String treeName, Range range) {
+    public void lookingForRange(String treeName, Range range) {
         Set<Range> ranges = informMatcherActionRanges.computeIfAbsent(treeName, k -> new HashSet<>(4));
         ranges.add(range);
     }

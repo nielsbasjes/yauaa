@@ -35,7 +35,7 @@ import static org.junit.Assert.fail;
 
 public class TestParseUserAgent {
 
-    private String testUserAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36";
+    private final String testUserAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36";
     @Test
     public void testParseUserAgentPigUDF_allFields() throws Exception {
         PigServer pigServer = new PigServer(ExecType.LOCAL);

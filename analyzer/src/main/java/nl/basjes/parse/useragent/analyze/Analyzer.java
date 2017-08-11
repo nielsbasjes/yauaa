@@ -28,7 +28,7 @@ public abstract class Analyzer {
 
     public abstract void informMeAbout(MatcherAction matcherAction, String keyPattern);
 
-    public void lookingForRange(MatcherAction matcherAction, String treeName, Range range){
+    public void lookingForRange(String treeName, Range range){
         // Do nothing
     }
 

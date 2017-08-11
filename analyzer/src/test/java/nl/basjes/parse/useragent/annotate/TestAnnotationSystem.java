@@ -31,7 +31,7 @@ import static org.junit.Assert.fail;
 public class TestAnnotationSystem {
 
     public static class TestRecord implements Serializable {
-        String useragent;
+        final String useragent;
         String deviceClass;
         String agentNameVersion;
 

@@ -59,8 +59,8 @@ import java.util.List;
  */
 public class UserAgentGetChildrenVisitor extends UserAgentBaseVisitor<Iterator<? extends ParserRuleContext>> {
 
-    private String name;
-    private ChildIterable childIterable;
+    private final String name;
+    private final ChildIterable childIterable;
 
     public UserAgentGetChildrenVisitor(String name, int start, int end) {
         this.name = name;

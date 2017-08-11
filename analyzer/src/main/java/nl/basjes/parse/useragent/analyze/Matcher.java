@@ -207,8 +207,8 @@ public class Matcher implements Serializable {
         return results;
     }
 
-    public void lookingForRange(MatcherAction matcherAction, String treeName, WordRangeVisitor.Range range) {
-        analyzer.lookingForRange(matcherAction, treeName, range);
+    public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
+        analyzer.lookingForRange(treeName, range);
     }
 
     public void informMeAbout(MatcherAction matcherAction, String keyPattern) {

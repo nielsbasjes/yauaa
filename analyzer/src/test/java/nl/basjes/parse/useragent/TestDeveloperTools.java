@@ -20,16 +20,12 @@ package nl.basjes.parse.useragent;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class TestDeveloperTools {
-
-    private static final Logger LOG = LoggerFactory.getLogger(TestDeveloperTools.class);
 
     @Test
     public void validateErrorSituationOutput() {

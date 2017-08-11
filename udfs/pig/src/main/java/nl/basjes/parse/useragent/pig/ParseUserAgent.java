@@ -36,7 +36,7 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
     private UserAgentAnalyzer analyzer = null;
 
     private int cacheSize = -1;
-    private List<String> requestedFields = new ArrayList<>(32);
+    private final List<String> requestedFields = new ArrayList<>(32);
 
     private boolean initialized = false;
     private void initialize() {

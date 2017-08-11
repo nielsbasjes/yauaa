@@ -25,8 +25,10 @@ public final class EvilManualUseragentStringHacks {
     private EvilManualUseragentStringHacks() {
     }
 
-    static Pattern missingProductAtStart = Pattern.compile("^\\(( |;|null|compatible|windows|android|linux).*", Pattern.CASE_INSENSITIVE);
-    static Pattern missingSpace = Pattern.compile("(/[0-9]+\\.[0-9]+)([A-Z][a-z][a-z][a-z]+ )");
+    private static final Pattern MISSING_PRODUCT_AT_START =
+        Pattern.compile("^\\(( |;|null|compatible|windows|android|linux).*", Pattern.CASE_INSENSITIVE);
+    private static final Pattern MISSING_SPACE =
+        Pattern.compile("(/[0-9]+\\.[0-9]+)([A-Z][a-z][a-z][a-z]+ )");
 
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
@@ -46,8 +48,8 @@ public final class EvilManualUseragentStringHacks {
         }
 
         // We have seen problems causes by " Version/4.0Mobile Safari/530.17"
-        if (missingSpace.matcher(result).find()) {
-            result = missingSpace.matcher(result).replaceAll("$1 $2");
+        if (MISSING_SPACE.matcher(result).find()) {
+            result = MISSING_SPACE.matcher(result).replaceAll("$1 $2");
         }
 
         // This one is a single useragent that hold significant traffic
@@ -56,7 +58,7 @@ public final class EvilManualUseragentStringHacks {
         }
 
         // Repair certain cases of broken useragents (like we see for the Facebook app a lot)
-        if (missingProductAtStart.matcher(result).matches()){
+        if (MISSING_PRODUCT_AT_START.matcher(result).matches()){
             // We simply prefix a fake product name to continue parsing.
             result = "Mozilla/5.0 " + result;
         } else {

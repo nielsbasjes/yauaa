@@ -30,7 +30,7 @@ import static org.junit.Assert.fail;
 public class TestAnnotationSystemAnonymous {
 
     public static class TestRecord implements Serializable {
-        String useragent;
+        final String useragent;
         String deviceClass;
         String agentNameVersion;
 

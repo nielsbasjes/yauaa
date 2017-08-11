@@ -30,10 +30,10 @@ import static nl.basjes.parse.useragent.analyze.treewalker.steps.Step.treeIsSepa
 public class ChildIterable {
 
     private boolean privateNumberRange = false;
-    private int start;
-    private int end;
+    private final int start;
+    private final int end;
 
-    private Predicate<ParserRuleContext> isWantedClassPredicate;
+    private final Predicate<ParserRuleContext> isWantedClassPredicate;
 
     public ChildIterable(boolean privateNumberRange,
                          int start, int end,
@@ -49,7 +49,7 @@ public class ChildIterable {
     }
 
     class ChildIterator implements Iterator<ParserRuleContext> {
-        private Iterator<ParseTree> childIterator;
+        private final Iterator<ParseTree> childIterator;
         private Boolean hasNext = null;
         private int index = 0;
         private ParserRuleContext nextChild;

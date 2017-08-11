@@ -71,22 +71,21 @@ public class TestBuilder {
     }
 
     @Rule
-    public ExpectedException expectedEx = ExpectedException.none();
+    public final ExpectedException expectedEx = ExpectedException.none();
 
     @Test
     public void testAskingForImpossibleField() {
         expectedEx.expect(InvalidParserConfigurationException.class);
         expectedEx.expectMessage("We cannot provide these fields:[FirstNonexistentField, SecondNonexistentField]");
 
-        UserAgentAnalyzer userAgentAnalyzer =
-            UserAgentAnalyzer
-                .newBuilder()
-                .withoutCache()
-                .hideMatcherLoadStats()
-                .withField("FirstNonexistentField")
-                .withField("DeviceClass")
-                .withField("SecondNonexistentField")
-                .build();
+        UserAgentAnalyzer
+            .newBuilder()
+            .withoutCache()
+            .hideMatcherLoadStats()
+            .withField("FirstNonexistentField")
+            .withField("DeviceClass")
+            .withField("SecondNonexistentField")
+            .build();
     }
 
 }

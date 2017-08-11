@@ -75,7 +75,7 @@ import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
 public class UserAgentTreeFlattener extends UserAgentBaseListener implements Serializable {
     private static final ParseTreeWalker WALKER = new ParseTreeWalker();
-    private Analyzer analyzer;
+    private final Analyzer analyzer;
 
     enum PathType {
         CHILD,

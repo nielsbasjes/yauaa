@@ -334,7 +334,7 @@ public class TestTreewalkerParsing {
         }
 
         @Override
-        public void lookingForRange(MatcherAction matcherAction, String treeName, WordRangeVisitor.Range range) {
+        public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
             // Do nothing
         }
     }

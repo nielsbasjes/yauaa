@@ -78,9 +78,9 @@ public abstract class MatcherAction implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(MatcherAction.class);
 
     public class Match {
-        final String key;
-        final String value;
-        final ParseTree result;
+        private final String key;
+        private final String value;
+        private final ParseTree result;
 
         public Match(String key, String value, ParseTree result) {
             this.key = key;
@@ -130,8 +130,6 @@ public abstract class MatcherAction implements Serializable {
     }
 
     class InitErrorListener implements ANTLRErrorListener {
-        boolean hasAmbiguity;
-
         @Override
         public void syntaxError(
                 Recognizer<?, ?> recognizer,
@@ -143,7 +141,7 @@ public abstract class MatcherAction implements Serializable {
             LOG.error("Syntax error");
             LOG.error("Source : {}", matchExpression);
             LOG.error("Message: {}", msg);
-            System.exit(-1); // VERY BRUTAL EXIT, TOO UNSAFE TO CONTINUE
+            throw new InvalidParserConfigurationException("Syntax error \"" + msg + "\" caused by \"" + matchExpression + "\".");
         }
 
         @Override
@@ -155,7 +153,7 @@ public abstract class MatcherAction implements Serializable {
                 boolean exact,
                 BitSet ambigAlts,
                 ATNConfigSet configs) {
-            hasAmbiguity = true;
+            // Ignore this type of problem
         }
 
         @Override
@@ -166,6 +164,7 @@ public abstract class MatcherAction implements Serializable {
                 int stopIndex,
                 BitSet conflictingAlts,
                 ATNConfigSet configs) {
+            // Ignore this type of problem
         }
 
         @Override
@@ -176,7 +175,7 @@ public abstract class MatcherAction implements Serializable {
                 int stopIndex,
                 int prediction,
                 ATNConfigSet configs) {
-
+            // Ignore this type of problem
         }
     }
 
@@ -428,7 +427,7 @@ public abstract class MatcherAction implements Serializable {
 
     private void calculateInformPath(String treeName, StepWordRangeContext tree) {
         Range range = WordRangeVisitor.getRange(tree.wordRange());
-        matcher.lookingForRange(this, treeName, range);
+        matcher.lookingForRange(treeName, range);
         calculateInformPath(treeName + "[" + range.first + "-" + range.last + "]", tree.nextStep);
     }
 

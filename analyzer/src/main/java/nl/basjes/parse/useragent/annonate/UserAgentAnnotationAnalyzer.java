@@ -36,7 +36,7 @@ public class UserAgentAnnotationAnalyzer<T> {
     private UserAgentAnalyzer userAgentAnalyzer = null;
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnnotationAnalyzer.class);
 
-    private Map<String, List<Method>> fieldSetters = new HashMap<>();
+    private final Map<String, List<Method>> fieldSetters = new HashMap<>();
 
     public UserAgentAnnotationAnalyzer() {
     }
