@@ -177,7 +177,7 @@ public class Matcher implements Serializable {
         for (MatcherAction action : dynamicActions) {
             // If an action exists which without any data can be valid, then we must force the evaluation
             action.reset();
-            if (!action.canPassWithoutAnyMatches()) {
+            if (action.mustHaveMatches()) {
                 actionsThatRequireInput++;
             }
         }
@@ -231,7 +231,7 @@ public class Matcher implements Serializable {
             LOG.info("ANALYSE ----------------------------");
             boolean good = true;
             for (MatcherAction action : dynamicActions) {
-                if (!action.canPossiblyBeValid()) {
+                if (action.cannotBeValid()) {
                     LOG.error("CANNOT BE VALID : {}", action.getMatchExpression());
                     good = false;
                 }
@@ -283,8 +283,8 @@ public class Matcher implements Serializable {
         return verbose;
     }
 
-    long actionsThatRequireInputAndReceivedInput = 0;
-    public void gotMyFirstStartingPoint() {
+    private long actionsThatRequireInputAndReceivedInput = 0;
+    void gotMyFirstStartingPoint() {
         actionsThatRequireInputAndReceivedInput++;
     }
 
@@ -313,7 +313,7 @@ public class Matcher implements Serializable {
     public List<MatcherAction.Match> getUsedMatches() {
         List<MatcherAction.Match> allMatches = new ArrayList<>(128);
         for (MatcherAction action : dynamicActions) {
-            if (!action.canPossiblyBeValid()) {
+            if (action.cannotBeValid()) {
                 return new ArrayList<>(); // There is NO way one of them is valid
             }
         }

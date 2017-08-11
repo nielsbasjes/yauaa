@@ -103,10 +103,10 @@ public abstract class MatcherAction implements Serializable {
 
     private Matcher matcher;
     private List<Match> matches;
-    private boolean canPassWithoutAnyMatches = true;
+    private boolean mustHaveMatches = false;
 
-    public boolean canPassWithoutAnyMatches() {
-        return canPassWithoutAnyMatches;
+    boolean mustHaveMatches() {
+        return mustHaveMatches;
     }
 
     boolean verbose = false;
@@ -216,11 +216,11 @@ public abstract class MatcherAction implements Serializable {
         String fixedValue = evaluator.getFixedValue();
         if (fixedValue != null) {
             setFixedValue(fixedValue);
-            canPassWithoutAnyMatches = true;
+            mustHaveMatches = false;
             return; // Not interested in any patterns
         }
 
-        canPassWithoutAnyMatches = evaluator.usesIsNull();
+        mustHaveMatches = !evaluator.usesIsNull();
 
         calculateInformPath("agent", requiredPattern);
     }
@@ -290,7 +290,7 @@ public abstract class MatcherAction implements Serializable {
      */
     public void inform(String key, String value, ParseTree result) {
         // Only if this needs input we tell the matcher on the first one.
-        if (!canPassWithoutAnyMatches && matches.isEmpty()) {
+        if (mustHaveMatches && matches.isEmpty()) {
             matcher.gotMyFirstStartingPoint();
         }
         matches.add(new Match(key, value, result));
@@ -299,10 +299,10 @@ public abstract class MatcherAction implements Serializable {
     protected abstract void inform(String key, String foundValue);
 
     /**
-     * @return If it is impossible that this can be valid it returns false, else true.
+     * @return If it is impossible that this can be valid it returns true, else false.
      */
-    public boolean canPossiblyBeValid() {
-        return canPassWithoutAnyMatches || !matches.isEmpty();
+    boolean cannotBeValid() {
+        return mustHaveMatches && matches.isEmpty();
     }
 
     /**
