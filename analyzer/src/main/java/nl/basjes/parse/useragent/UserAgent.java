@@ -214,7 +214,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
             return false;
         }
 
-        public boolean setValueForced(String newValue, long newConfidence) {
+        public void setValueForced(String newValue, long newConfidence) {
             this.confidence = newConfidence;
 
             if (NULL_VALUE.equals(newValue)) {
@@ -222,7 +222,6 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
             } else {
                 this.value = newValue;
             }
-            return true;
         }
 
         @Override
@@ -343,13 +342,9 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
         }
 
         boolean wasEmpty = confidence == -1;
-        boolean updated = field.setValueForced(value, confidence);
+        field.setValueForced(value, confidence);
         if (debug && !wasEmpty) {
-            if (updated) {
-                LOG.info("USE  {} ({}) = {}", attribute, confidence, value);
-            } else {
-                LOG.info("SKIP {} ({}) = {}", attribute, confidence, value);
-            }
+            LOG.info("USE  {} ({}) = {}", attribute, confidence, value);
         }
         allFields.put(attribute, field);
     }
