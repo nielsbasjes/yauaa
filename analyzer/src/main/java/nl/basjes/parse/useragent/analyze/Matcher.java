@@ -41,6 +41,8 @@ public class Matcher implements Serializable {
     private final List<MatcherAction> dynamicActions;
     private final List<MatcherAction> fixedStringActions;
 
+    private UserAgent newValuesUserAgent = new UserAgent();
+
     private long actionsThatRequireInput;
     final Map<String, Map<String, String>> lookups;
     private boolean verbose;
@@ -161,6 +163,7 @@ public class Matcher implements Serializable {
                 MatcherExtractAction action = new MatcherExtractAction(attribute, Long.parseLong(confidence), config, this);
                 if (action.isFixedValue()) {
                     fixedStringActions.add(action);
+                    action.obtainResult(newValuesUserAgent);
                 } else {
                     dynamicActions.add(action);
                 }
@@ -215,8 +218,6 @@ public class Matcher implements Serializable {
         analyzer.informMeAbout(matcherAction, keyPattern);
     }
 
-    private UserAgent newValuesUserAgent = null;
-
     /**
      * Fires all matcher actions.
      * IFF all success then we tell the userAgent
@@ -246,12 +247,6 @@ public class Matcher implements Serializable {
                     good = false;
                 }
             }
-            for (MatcherAction action : fixedStringActions) {
-                if (!action.obtainResult(newValuesUserAgent)) {
-                    LOG.error("FAILED : {}", action.getMatchExpression());
-                    good = false;
-                }
-            }
             if (good) {
                 LOG.info("COMPLETE ----------------------------");
             } else  {
@@ -261,14 +256,6 @@ public class Matcher implements Serializable {
         } else {
             if (actionsThatRequireInput != actionsThatRequireInputAndReceivedInput) {
                 return;
-            }
-            if (newValuesUserAgent == null) {
-                newValuesUserAgent = new UserAgent();
-                for (MatcherAction action : fixedStringActions) {
-                    if (!action.obtainResult(newValuesUserAgent)) {
-                        throw new IllegalStateException("How can getting a fixed string fail ?!?!");
-                    }
-                }
             }
             for (MatcherAction action : dynamicActions) {
                 if (!action.obtainResult(newValuesUserAgent)) {
