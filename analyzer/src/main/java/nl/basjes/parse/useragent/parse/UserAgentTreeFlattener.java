@@ -404,10 +404,6 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
     private void informSubstrings(ParserRuleContext ctx, String name, boolean fakeChild, Splitter splitter) {
         String text = getSourceText(ctx);
-        if (text==null) {
-            return;
-        }
-
         String path = inform(ctx, name, text, fakeChild);
         Set<Range> ranges = analyzer.getRequiredInformRanges(path);
 

@@ -20,7 +20,6 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
@@ -55,14 +54,8 @@ public class ChildIterable {
         private ParserRuleContext nextChild;
 
         ChildIterator(ParserRuleContext treeContext) {
-            if (treeContext.children == null) {
-                this.childIterator  = Collections.emptyIterator();
-                this.hasNext        = false;
-                this.nextChild      = null;
-            } else {
-                this.childIterator  = treeContext.children.iterator();
-                this.hasNext        = findNext(); // We always want the first one
-            }
+            this.childIterator  = treeContext.children.iterator();
+            this.hasNext        = findNext(); // We always want the first one
         }
 
         /**
