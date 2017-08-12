@@ -40,7 +40,6 @@ public class TestAnnotationSystem {
         }
     }
 
-    @SuppressWarnings("unused")
     public static class MyMapper
         implements UseragentAnnotationMapper<TestRecord>, Serializable {
         private transient UserAgentAnnotationAnalyzer<TestRecord> userAgentAnalyzer = null;

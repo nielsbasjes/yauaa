@@ -69,13 +69,11 @@ public class TestUserAgentAnalysisDoFnInline implements Serializable {
                         return record.useragent;
                     }
 
-                    @SuppressWarnings("unused")
                     @YauaaField("DeviceClass")
                     public void setDeviceClass(TestRecord record, String value) {
                         record.deviceClass = value;
                     }
 
-                    @SuppressWarnings("unused")
                     @YauaaField("AgentNameVersion")
                     public void setAgentNameVersion(TestRecord record, String value) {
                         record.agentNameVersion = value;

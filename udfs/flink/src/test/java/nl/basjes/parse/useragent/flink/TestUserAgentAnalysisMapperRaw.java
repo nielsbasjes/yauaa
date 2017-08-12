@@ -26,7 +26,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 public class TestUserAgentAnalysisMapperRaw {
-    @SuppressWarnings("unused")
     public static class TestMapper extends UserAgentAnalysisMapper<TestRecord> {
         @Override
         public String getUserAgentString(TestRecord record) {
@@ -75,7 +74,6 @@ public class TestUserAgentAnalysisMapperRaw {
         assertNull(record.shouldRemainNull);
     }
 
-    @SuppressWarnings("unused")
     public static class TestImpossibleFieldMapper extends UserAgentAnalysisMapper<TestRecord> {
         @Override
         public String getUserAgentString(TestRecord record) {

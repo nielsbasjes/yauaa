@@ -31,7 +31,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 public class TestUserAgentAnalysisDoFnRaw implements Serializable {
-    @SuppressWarnings("unused")
     public static class TestDoFn extends UserAgentAnalysisDoFn<TestRecord> {
         @Override
         public String getUserAgentString(TestRecord record) {
