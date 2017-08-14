@@ -92,20 +92,20 @@
       </plugin>
 
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
         <configuration>
-          <check/>
-          <instrumentation>
-            <ignoreTrivial>true</ignoreTrivial>
-            <ignores>
-              <ignore>org.slf4j.*</ignore>
-            </ignores>
+          <!--TODO: Migrate remaining Cobertura settings to JaCoCo -->
+          <!--<instrumentation>-->
+            <!--<ignoreTrivial>true</ignoreTrivial>-->
+            <!--<ignores>-->
+              <!--<ignore>org.slf4j.*</ignore>-->
+            <!--</ignores>-->
             <excludes>
               <!-- Developer debugging tools -->
               <exclude>nl/basjes/parse/useragent/commandline/*.class</exclude>
             </excludes>
-          </instrumentation>
+          <!--</instrumentation>-->
         </configuration>
       </plugin>
 

@@ -21,7 +21,7 @@ jdk:
   - oraclejdk8
 
 after_success:
-  - mvn clean -PEnableReportPlugins cobertura:cobertura coveralls:report
+  - mvn clean -PEnableReportPlugins jacoco:report coveralls:report
 
 cache:
   directories:
