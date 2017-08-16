@@ -43,8 +43,9 @@
     <slf4j.version>1.7.25</slf4j.version>
     <logparser.version>3.1</logparser.version>
     <rat.version>0.9</rat.version>
+    <jacoco.version>0.7.9</jacoco.version>
 
-    <surefireArgLine/> <!-- Needed for JaCoCo -->
+    <jacoco.surefireArgLine/> <!-- Needed for JaCoCo -->
   </properties>
 
   <dependencies>
@@ -129,6 +130,7 @@
       <id>EnableReportPlugins</id>
       <build>
         <plugins>
+
           <plugin>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
@@ -137,6 +139,12 @@
             <groupId>org.eluder.coveralls</groupId>
             <artifactId>coveralls-maven-plugin</artifactId>
             <version>4.3.0</version>
+            <configuration>
+              <relativeReportDirs>
+                <relativeReportDir>/jacoco-ut</relativeReportDir>
+                <!--<relativeReportDir>/jacoco-it</relativeReportDir>-->
+              </relativeReportDirs>
+            </configuration>
           </plugin>
         </plugins>
       </build>
@@ -162,7 +170,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.19.1</version>
         <configuration>
-          <argLine>@{surefireArgLine} -Xmx1024m</argLine>
+          <argLine>@{jacoco.surefireArgLine} -Xmx1024m</argLine>
         </configuration>
       </plugin>
 
@@ -318,10 +326,7 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.7.9</version>
-          <configuration>
-
-          </configuration>
+          <version>${jacoco.version}</version>
           <executions>
             <!--
                 Prepares the property pointing to the JaCoCo runtime agent which
@@ -339,7 +344,7 @@
                     Sets the name of the property containing the settings
                     for JaCoCo runtime agent.
                 -->
-                <propertyName>surefireArgLine</propertyName>
+                <propertyName>jacoco.surefireArgLine</propertyName>
               </configuration>
             </execution>
             <!--
