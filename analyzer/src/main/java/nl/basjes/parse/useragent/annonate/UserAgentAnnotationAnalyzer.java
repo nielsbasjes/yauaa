@@ -26,6 +26,7 @@ import org.springframework.core.GenericTypeResolver;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +56,7 @@ public class UserAgentAnnotationAnalyzer<T> {
         }
 
         // Get all methods of the correct signature that have been annotated with YauaaField
-        for (final Method method : mapper.getClass().getMethods()) {
+        for (final Method method : mapper.getClass().getDeclaredMethods()) {
             final YauaaField field = method.getAnnotation(YauaaField.class);
             if (field != null) {
                 final Class<?> returnType = method.getReturnType();
@@ -64,24 +65,32 @@ public class UserAgentAnnotationAnalyzer<T> {
                     parameters.length == 2 &&
                     parameters[0] == classOfT &&
                     parameters[1] == String.class) {
+
+                    if (!Modifier.isPublic(method.getModifiers()) || !Modifier.isPublic(classOfT.getModifiers())) {
+                        throw new InvalidParserConfigurationException("Method annotated with YauaaField is not public: " +
+                            method.getName());
+                    }
+
+                    if (method.getDeclaringClass().isAnonymousClass()) {
+                        String methodName =
+                            method.getReturnType().getName() + " " +
+                                method.getName() + "(" +
+                                parameters[0].getSimpleName()+ " ," +
+                                parameters[1].getSimpleName()+ ");";
+                        LOG.warn("Trying to make anonymous {} {} accessible.", method.getDeclaringClass(), methodName);
+                        method.setAccessible(true);
+                    }
+
                     for (String fieldName : field.value()) {
                         List<Method> methods = fieldSetters
                             .computeIfAbsent(fieldName, k -> new ArrayList<>());
                         methods.add(method);
-
-                        if (!method.isAccessible() && method.getDeclaringClass().isAnonymousClass()) {
-                            String methodName =
-                                method.getReturnType().getName() + " " +
-                                    method.getName() + "(" +
-                                    parameters[0].getName()+ " ," +
-                                    parameters[1].getName()+ ");";
-                            LOG.warn("Trying to make anonymous {} {} accessible.", method.getDeclaringClass(), methodName);
-                            method.setAccessible(true);
-                        }
                     }
                 } else {
-                    LOG.error("The method {} of the class {} has the YauaaField annotation " +
-                        "but has the wrong method signature.", method.getName(), method.getDeclaringClass());
+                    throw new InvalidParserConfigurationException(
+                        "In class [" + method.getDeclaringClass() + "] the method [" + method.getName() + "] " +
+                        "has been annotated with YauaaField but it has the wrong method signature. " +
+                        "It must look like [ public void " + method.getName() + "(" + classOfT.getSimpleName() + " record, String value) ]");
                 }
             }
         }

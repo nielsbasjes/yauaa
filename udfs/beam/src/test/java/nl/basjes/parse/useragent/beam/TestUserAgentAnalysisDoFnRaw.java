@@ -46,22 +46,6 @@ public class TestUserAgentAnalysisDoFnRaw implements Serializable {
         public void setAgentNameVersion(TestRecord record, String value) {
             record.agentNameVersion = value;
         }
-
-        @YauaaField("DeviceClass")
-        public void wrongSetDeviceClass1(String record, String value, String extra) {
-            fail("May NEVER call this method");
-        }
-
-        @YauaaField("DeviceClass")
-        public void wrongSetDeviceClass2(TestRecord record, String value, String extra) {
-            fail("May NEVER call this method");
-        }
-
-        @YauaaField("DeviceClass")
-        public void wrongSetDeviceClass3(TestRecord record, Double value) {
-            fail("May NEVER call this method");
-        }
-
     }
 
     @Test
