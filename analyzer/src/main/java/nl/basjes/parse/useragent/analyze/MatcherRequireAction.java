@@ -17,7 +17,6 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.slf4j.Logger;
@@ -52,7 +51,7 @@ public class MatcherRequireAction extends MatcherAction {
     }
 
     @Override
-    public boolean obtainResult(UserAgent userAgent) {
+    public boolean obtainResult() {
         if (isValidIsNull()) {
             foundRequiredValue = true;
         }

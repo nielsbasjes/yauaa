@@ -59,6 +59,18 @@ public class Matcher implements Serializable {
         this.dynamicActions = new ArrayList<>();
     }
 
+    private static class ConfigLine {
+        String attribute;
+        Long confidence;
+        String expression;
+
+        ConfigLine(String attribute, Long confidence, String expression) {
+            this.attribute = attribute;
+            this.confidence = confidence;
+            this.expression = expression;
+        }
+    }
+
     public Matcher(Analyzer analyzer,
                    Map<String, Map<String, String>> lookups,
                    List<String> wantedFieldNames,
@@ -73,20 +85,45 @@ public class Matcher implements Serializable {
 
         verbose = false;
 
-        List<String> options = null;
-        List<String> requireConfigs = null;
-        List<String> extractConfigs = null;
+        boolean hasActiveExtractConfigs = false;
+        boolean hasDefinedExtractConfigs = false;
+
+        // List of 'attribute', 'confidence', 'expression'
+        List<ConfigLine> configLines = new ArrayList<>(16);
         for (NodeTuple nodeTuple: matcherConfig.getValue()) {
             String name = getKeyAsString(nodeTuple, filename);
             switch (name) {
                 case "options":
-                    options = YamlUtils.getStringValues(nodeTuple.getValueNode(), filename);
+                    List<String> options = YamlUtils.getStringValues(nodeTuple.getValueNode(), filename);
+                    if (options != null) {
+                        verbose = options.contains("verbose");
+                    }
                     break;
                 case "require":
-                    requireConfigs = YamlUtils.getStringValues(nodeTuple.getValueNode(), filename);
+                    for (String requireConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), filename)) {
+                        configLines.add(new ConfigLine(null, null, requireConfig));
+                    }
                     break;
                 case "extract":
-                    extractConfigs = YamlUtils.getStringValues(nodeTuple.getValueNode(), filename);
+                    for (String extractConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), filename)) {
+                        String[] configParts = extractConfig.split(":", 3);
+
+                        if (configParts.length != 3) {
+                            throw new InvalidParserConfigurationException("Invalid extract config line: " + extractConfig);
+                        }
+                        String attribute = configParts[0].trim();
+                        Long confidence = Long.parseLong(configParts[1].trim());
+                        String config = configParts[2].trim();
+
+                        hasDefinedExtractConfigs = true;
+                        // If we have a restriction on the wanted fields we check if this one is needed at all
+                        if (wantedFieldNames == null || wantedFieldNames.contains(attribute)) {
+                            configLines.add(new ConfigLine(attribute, confidence, config));
+                            hasActiveExtractConfigs = true;
+                        } else {
+                            configLines.add(new ConfigLine(null, null, config));
+                        }
+                    }
                     break;
                 default:
                     // Ignore
@@ -94,9 +131,6 @@ public class Matcher implements Serializable {
             }
         }
 
-        if (options != null) {
-            verbose = options.contains("verbose");
-        }
         permanentVerbose = verbose;
 
         if (verbose) {
@@ -104,74 +138,43 @@ public class Matcher implements Serializable {
             LOG.info("- MATCHER -");
         }
 
-        if (extractConfigs == null) {
+        if (!hasDefinedExtractConfigs) {
             throw new InvalidParserConfigurationException("Matcher does not extract anything");
         }
 
-        // If we have a restriction on the wanted fields we check if this one is needed at all
-        if (wantedFieldNames != null) {
-            boolean keep = false;
-
-            for (String extractConfig : extractConfigs) {
-                String[] configParts = extractConfig.split(":", 3);
-
-                if (configParts.length != 3) {
-                    throw new InvalidParserConfigurationException("Invalid extract config line: " + extractConfig);
-                }
-
-                String attribute = configParts[0].trim();
-                if (wantedFieldNames.contains(attribute)) {
-                    keep=true;
-                    break;
-                }
-            }
-            if (!keep) {
-                throw new UselessMatcherException("Does not extract any wanted fields");
-            }
+        if (!hasActiveExtractConfigs) {
+            throw new UselessMatcherException("Does not extract any wanted fields");
         }
 
-        // First the requires because they are meant to fail faster
-        if (requireConfigs != null) {
-            for (String requireConfig : requireConfigs) {
+        for (ConfigLine configLine : configLines) {
+            if (configLine.attribute == null) {
+                // Require
                 if (verbose) {
-                    LOG.info("REQUIRE: {}", requireConfig);
+                    LOG.info("REQUIRE: {}", configLine.expression);
                 }
-                dynamicActions.add(new MatcherRequireAction(requireConfig, this));
-            }
-        }
-
-        for (String extractConfig : extractConfigs) {
-            if (verbose) {
-                LOG.info("EXTRACT: {}", extractConfig);
-            }
-            String[] configParts = extractConfig.split(":", 3);
-
-            if (configParts.length != 3) {
-                throw new InvalidParserConfigurationException("Invalid extract config line: "+ extractConfig);
-            }
-
-            String attribute = configParts[0].trim();
-            String confidence = configParts[1].trim();
-            String config = configParts[2].trim();
-
-            boolean wantThisAttribute = true;
-            if (wantedFieldNames != null && !wantedFieldNames.contains(attribute)) {
-                wantThisAttribute = false;
-            }
-
-            if (wantThisAttribute) {
-                MatcherExtractAction action = new MatcherExtractAction(attribute, Long.parseLong(confidence), config, this);
-                if (action.isFixedValue()) {
-                    fixedStringActions.add(action);
-                    action.obtainResult(newValuesUserAgent);
-                } else {
-                    dynamicActions.add(action);
-                }
-            } else {
                 try {
-                    dynamicActions.add(new MatcherRequireAction(config, this));
+                    dynamicActions.add(new MatcherRequireAction(configLine.expression, this));
                 } catch (InvalidParserConfigurationException e) {
                     // Ignore fixed values in require
+                    // FIXME: Bad check
+                }
+            } else {
+                // Extract
+                if (verbose) {
+                    LOG.info("EXTRACT: {}", configLine.expression);
+                }
+                MatcherExtractAction action =
+                    new MatcherExtractAction(configLine.attribute, configLine.confidence, configLine.expression, this);
+
+                // Make sure the field actually exists
+                newValuesUserAgent.set(configLine.attribute, "Dummy", -9999);
+                action.setResultAgentField(newValuesUserAgent.get(configLine.attribute));
+
+                if (action.isFixedValue()) {
+                    fixedStringActions.add(action);
+                    action.obtainResult();
+                } else {
+                    dynamicActions.add(action);
                 }
             }
         }
@@ -237,12 +240,8 @@ public class Matcher implements Serializable {
                     good = false;
                 }
             }
-            if (newValuesUserAgent == null) {
-                newValuesUserAgent = new UserAgent();
-            }
-            newValuesUserAgent.reset();
             for (MatcherAction action : dynamicActions) {
-                if (!action.obtainResult(newValuesUserAgent)) {
+                if (!action.obtainResult()) {
                     LOG.error("FAILED : {}", action.getMatchExpression());
                     good = false;
                 }
@@ -258,9 +257,10 @@ public class Matcher implements Serializable {
                 return;
             }
             for (MatcherAction action : dynamicActions) {
-                if (!action.obtainResult(newValuesUserAgent)) {
-                    return; // If one of them is bad we skip the rest
+                if (action.obtainResult()) {
+                    continue;
                 }
+                return; // If one of them is bad we skip the rest
             }
         }
         userAgent.set(newValuesUserAgent, this);
@@ -305,7 +305,7 @@ public class Matcher implements Serializable {
             }
         }
         for (MatcherAction action : dynamicActions) {
-            if (!action.obtainResult(newValuesUserAgent)) {
+            if (!action.obtainResult()) {
                 return new ArrayList<>(); // There is NO way one of them is valid
             } else {
                 allMatches.addAll(action.getMatches());

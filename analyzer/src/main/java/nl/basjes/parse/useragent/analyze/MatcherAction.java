@@ -17,7 +17,6 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
@@ -209,7 +208,7 @@ public abstract class MatcherAction implements Serializable {
         new UnQuoteValues().visit(requiredPattern);
 
         // Now we create an evaluator instance
-        evaluator = new TreeExpressionEvaluator(requiredPattern, newMatcher.lookups, verbose);
+        evaluator = new TreeExpressionEvaluator(requiredPattern, matcher.lookups, verbose);
 
         // Is a fixed value (i.e. no events will ever be fired)?
         String fixedValue = evaluator.getFixedValue();
@@ -306,11 +305,9 @@ public abstract class MatcherAction implements Serializable {
 
     /**
      * Called after all nodes have been notified.
-     *
-     * @param userAgent The UserAgent instance in which the result must be placed.
      * @return true if the obtainResult result was valid. False will fail the entire matcher this belongs to.
      */
-    public abstract boolean obtainResult(UserAgent userAgent);
+    public abstract boolean obtainResult();
 
     boolean isValidIsNull() {
         if (matches.isEmpty()) {

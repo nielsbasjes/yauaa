@@ -31,12 +31,17 @@ public class MatcherExtractAction extends MatcherAction {
     private String foundValue = null;
     private String fixedValue = null;
     private final String expression;
+    private UserAgent.AgentField resultAgentField;
 
     public MatcherExtractAction(String attribute, long confidence, String config, Matcher matcher) {
         this.attribute = attribute;
         this.confidence = confidence;
         expression = config;
         init(config, matcher);
+    }
+
+    public void setResultAgentField(UserAgent.AgentField newResultAgentField){
+        resultAgentField = newResultAgentField;
     }
 
     protected ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser) {
@@ -80,20 +85,20 @@ public class MatcherExtractAction extends MatcherAction {
         }
     }
 
-    public boolean obtainResult(UserAgent userAgent) {
+    public boolean obtainResult() {
         processInformedMatches();
         if (fixedValue != null) {
             if (verbose) {
                 LOG.info("Set fixedvalue ({})[{}]: {}", attribute, confidence, fixedValue);
             }
-            userAgent.setForced(attribute, fixedValue, confidence);
+            resultAgentField.setValueForced(fixedValue, confidence);
             return true;
         }
         if (foundValue != null) {
             if (verbose) {
                 LOG.info("Set parsevalue ({})[{}]: {}", attribute, confidence, foundValue);
             }
-            userAgent.setForced(attribute, foundValue, confidence);
+            resultAgentField.setValueForced(foundValue, confidence);
             return true;
         }
         if (verbose) {
