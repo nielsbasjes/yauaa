@@ -36,7 +36,7 @@ public class MatcherRequireAction extends MatcherAction {
 
     protected void setFixedValue(String fixedValue) {
         throw new InvalidParserConfigurationException(
-                "It is useless to put a fixed value \"" + fixedValue + "\"in the require section.");
+                "It is useless to put a fixed value \"" + fixedValue + "\" in the require section.");
     }
 
     private boolean foundRequiredValue = false;
