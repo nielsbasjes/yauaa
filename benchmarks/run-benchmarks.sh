@@ -19,4 +19,4 @@
 ( cd .. && mvn clean package -DskipTests=true )
 version=$(fgrep '<version>' pom.xml | head -1 | sed 's@.*>\(.*\)<.*$@\1@g')
 echo "Testing version ${version}" && \
-java -jar target/benchmarks.jar > version-${version}.txt
+java -jar target/benchmarks.jar > version-${version}-$(date +%Y%m%d-%H%M%S).txt
