@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.parse.EvilManualUseragentStringHacks;
+import org.hamcrest.core.StringStartsWith;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -32,6 +33,14 @@ public class TestErrorHandling {
     @Rule
     public final ExpectedException expectedEx = ExpectedException.none();
 
+    @Test
+    public void checkNoFile() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage("Unable to find ANY config files");
+
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:BadDefinitions/ThisOneDoesNotExist---Really.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
 
     @Test
     public void checkEmptyFile() {
@@ -87,6 +96,23 @@ public class TestErrorHandling {
         Assert.assertTrue(uaa.runTests(false, false));
     }
 
+    @Test
+    public void checkSyntaxErrorRequire() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage(new StringStartsWith("Syntax error"));
+
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:BadDefinitions/SyntaxErrorRequire.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
+
+    @Test
+    public void checkSyntaxErrorExpect() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage(new StringStartsWith("Syntax error"));
+
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:BadDefinitions/SyntaxErrorExtract.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
 
 
     @Test

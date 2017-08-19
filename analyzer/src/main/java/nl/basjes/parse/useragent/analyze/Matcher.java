@@ -155,8 +155,9 @@ public class Matcher implements Serializable {
                 try {
                     dynamicActions.add(new MatcherRequireAction(configLine.expression, this));
                 } catch (InvalidParserConfigurationException e) {
-                    // Ignore fixed values in require
-                    // FIXME: Bad check
+                    if (!e.getMessage().startsWith("It is useless to put a fixed value")) {// Ignore fixed values in require
+                        throw e;
+                    }
                 }
             } else {
                 // Extract
