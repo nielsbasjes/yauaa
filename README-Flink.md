@@ -4,9 +4,6 @@
 You can get the prebuilt UDF from maven central.
 If you use a maven based project simply add this dependency to your Apache Flink application.
 
-**FIXME: This has not yet been release to Maven Central. 
-At this moment you must build it from sources yourself**
-
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa-flink</artifactId>

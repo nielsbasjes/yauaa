@@ -1,15 +1,8 @@
 # User Defined Function for Apache Hive
 
-### ___*** DRAFT ***___
-This UDF is a work in progress.
-
-
 ## Getting the UDF
 You can get the prebuilt UDF from maven central.
 If you use a maven based project simply add this dependency
-
-**FIXME: This has not yet been release to Maven Central. 
-At this moment you must build it from sources yourself**
 
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
@@ -38,7 +31,7 @@ or by defining it as a [permanent function](https://cwiki.apache.org/confluence/
 
 or installing it locally with the Hive Server
 
-***TODO*** 
+***TODO: Document installation*** 
 
 Verify if it has been installed
 
@@ -82,15 +75,14 @@ Usage example:
     INSERT INTO TABLE useragents VALUES ('Mozilla/5.0 (X11\; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36');
     INSERT INTO TABLE useragents VALUES ('Mozilla/5.0 (Windows NT 10.0\; Win64\; x64\; Xbox\; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10553'); 
     SELECT ParseUserAgent(useragent).DeviceClass, ParseUserAgent(useragent).OperatingsystemNameVersion, ParseUserAgent(useragent).AgentName, ParseUserAgent(useragent).AgentNameVersionMajor from useragents;
-    +---------------+-----------------------------+------------+------------------------+--+
+    +---------------+-----------------------------+------------+------------------------+
     |  deviceclass  | operatingsystemnameversion  | agentname  | agentnameversionmajor  |
-    +---------------+-----------------------------+------------+------------------------+--+
+    +---------------+-----------------------------+------------+------------------------+
     | Phone         | Android 6.0                 | Chrome     | Chrome 46              |
     | Tablet        | Android 5.1                 | Chrome     | Chrome 40              |
     | Desktop       | Linux Intel x86_64          | Chrome     | Chrome 59              |
     | Game Console  | Windows 10.0                | Edge       | Edge 13                |
-    +---------------+-----------------------------+------------+------------------------+--+
-
+    +---------------+-----------------------------+------------+------------------------+
 
 
 License
