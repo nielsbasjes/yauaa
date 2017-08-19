@@ -94,17 +94,7 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <configuration>
-          <!--TODO: Migrate remaining Cobertura settings to JaCoCo -->
-          <!--<instrumentation>-->
-            <!--<ignoreTrivial>true</ignoreTrivial>-->
-            <!--<ignores>-->
-              <!--<ignore>org.slf4j.*</ignore>-->
-            <!--</ignores>-->
-            <excludes>
-              <!-- Developer debugging tools -->
-              <exclude>nl/basjes/parse/useragent/commandline/*.class</exclude>
-            </excludes>
-          <!--</instrumentation>-->
+          <skip>true</skip>
         </configuration>
       </plugin>
 

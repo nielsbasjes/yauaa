@@ -539,8 +539,6 @@ config:
                                     input = new HashMap<>();
                                     input.put(inputName, inputString);
                                     break;
-                                case "name": // FIXME: handle name
-                                    break;
                                 default:
                                     break;
                             }

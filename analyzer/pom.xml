@@ -195,13 +195,6 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <configuration>
-          <!--TODO: Migrate remaining Cobertura settings to JaCoCo -->
-          <!--<instrumentation>-->
-            <!--<ignoreTrivial>true</ignoreTrivial>-->
-            <!--<ignores>-->
-              <!--<ignore>nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException</ignore>-->
-              <!--<ignore>org.slf4j.*</ignore>-->
-            <!--</ignores>-->
             <excludes>
               <!-- Generated class -->
               <exclude>nl/basjes/parse/useragent/Version.class</exclude>
@@ -210,7 +203,6 @@
               <!-- Developer debugging tools -->
               <exclude>nl/basjes/parse/useragent/debug/*.class</exclude>
             </excludes>
-          <!--</instrumentation>-->
         </configuration>
       </plugin>
 
