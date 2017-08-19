@@ -52,6 +52,10 @@ public class ParseService {
     private static final UserAgentAnalyzer USER_AGENT_ANALYZER = new UserAgentAnalyzer();
     private static final String ANALYZER_VERSION = UserAgentAnalyzer.getVersion();
 
+    static {
+        USER_AGENT_ANALYZER.preHeat(10000);
+    }
+
     @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED, reason = "The User-Agent header is missing")
     private class MissingUserAgentException extends RuntimeException {
     }

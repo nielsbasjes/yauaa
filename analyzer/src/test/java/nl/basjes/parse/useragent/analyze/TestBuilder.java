@@ -31,6 +31,7 @@ public class TestBuilder {
         UserAgentAnalyzer userAgentAnalyzer =
             UserAgentAnalyzer
                 .newBuilder()
+                .preheat(100)
                 .withCache(42)
                 .withoutCache()
                 .hideMatcherLoadStats()

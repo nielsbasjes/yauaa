@@ -886,6 +886,37 @@ config:
         }
     }
 
+    public void preHeat(int preheatIterations) {
+        if (!testCases.isEmpty()) {
+            if (preheatIterations > 0) {
+                LOG.info("Preheating JVM by running {} testcases.", preheatIterations);
+                int remainingIterations = preheatIterations;
+                UserAgent userAgent = new UserAgent();
+                while (remainingIterations > 0) {
+                    for (Map<String, Map<String, String>> test : testCases) {
+                        Map<String, String> input = test.get("input");
+                        if (input == null) {
+                            continue;
+                        }
+
+                        String userAgentString = input.get("user_agent_string");
+                        if (userAgentString == null) {
+                            continue;
+                        }
+                        remainingIterations--;
+                        userAgent.setUserAgentString(userAgentString);
+                        userAgent.reset();
+                        nonCachedParse(userAgent);
+                        if (remainingIterations <= 0) {
+                            break;
+                        }
+                    }
+                }
+                LOG.info("Preheating JVM completed.", preheatIterations);
+            }
+        }
+    }
+
     // ===============================================================================================================
 
     public static class GetAllPathsAnalyzer extends Analyzer {
@@ -934,6 +965,7 @@ config:
     @SuppressWarnings({"UnusedReturnValue", "unused"})
     public static class Builder {
         private final UserAgentAnalyzer uaa;
+        private int preheatIterations = 0;
 
         protected Builder() {
             this.uaa = new UserAgentAnalyzer(false)
@@ -951,6 +983,11 @@ config:
 
         public Builder withoutCache() {
             uaa.setCacheSize(0);
+            return this;
+        }
+
+        public Builder preheat(int iterations) {
+            this.preheatIterations = iterations;
             return this;
         }
 
@@ -1010,6 +1047,9 @@ config:
                 uaa.wantedFieldNames.add(SET_ALL_FIELDS);
             }
             uaa.initialize();
+            if (preheatIterations > 0) {
+                uaa.preHeat(preheatIterations);
+            }
             return uaa;
         }
 
