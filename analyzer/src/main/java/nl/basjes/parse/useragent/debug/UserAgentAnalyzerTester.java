@@ -20,7 +20,7 @@ package nl.basjes.parse.useragent.debug;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.analyze.Matcher;
-import nl.basjes.parse.useragent.analyze.MatcherAction;
+import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -470,23 +470,24 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
      * This function is used only for analyzing which patterns that could possibly be relevant
      * were actually relevant for the matcher actions
      */
-    public List<MatcherAction.Match> getMatches() {
-        List<MatcherAction.Match> allMatches = new ArrayList<>(128);
+    public List<Match> getMatches() {
+        List<Match> allMatches = new ArrayList<>(128);
         for (Matcher matcher: allMatchers) {
             allMatches.addAll(matcher.getMatches());
         }
         return allMatches;
     }
 
-    public List<MatcherAction.Match> getUsedMatches(UserAgent userAgent) {
+    public List<Match> getUsedMatches(UserAgent userAgent) {
         // Reset all Matchers
         for (Matcher matcher : allMatchers) {
-            matcher.reset(false);
+            matcher.reset();
+            matcher.setVerboseTemporarily(false);
         }
 
         flattener.parse(userAgent);
 
-        List<MatcherAction.Match> allMatches = new ArrayList<>(128);
+        List<Match> allMatches = new ArrayList<>(128);
         for (Matcher matcher: allMatchers) {
             allMatches.addAll(matcher.getUsedMatches());
         }

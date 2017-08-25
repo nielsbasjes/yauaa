@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent;
 
-import nl.basjes.parse.useragent.analyze.MatcherAction;
+import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.junit.Test;
 
@@ -59,7 +59,7 @@ public class TestDeveloperTools {
         assertTrue(useragent.toYamlTestCase(true).contains("'Google Nexus 6'"));
 
         boolean ok = false;
-        for (MatcherAction.Match match : uaa.getMatches()) {
+        for (Match match : uaa.getMatches()) {
             if ("agent.(1)product.(1)comments.(3)entry[3-3]".equals(match.getKey())) {
                 assertEquals("Build", match.getValue());
                 ok = true;
@@ -69,7 +69,7 @@ public class TestDeveloperTools {
         assertTrue("Did not see the expected match.", ok);
 
         ok = false;
-        for (MatcherAction.Match match : uaa.getUsedMatches(useragent)) {
+        for (Match match : uaa.getUsedMatches(useragent)) {
             if ("agent.(1)product.(1)comments.(3)entry[3-3]".equals(match.getKey())) {
                 assertEquals("Build", match.getValue());
                 ok = true;

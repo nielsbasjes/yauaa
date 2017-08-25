@@ -674,7 +674,13 @@ config:
 
         // Reset all Matchers
         for (Matcher matcher : allMatchers) {
-            matcher.reset(setVerboseTemporarily);
+            matcher.reset();
+        }
+
+        if (userAgent.isDebug()) {
+            for (Matcher matcher : allMatchers) {
+                matcher.setVerboseTemporarily(false);
+            }
         }
 
         userAgent = flattener.parse(userAgent);

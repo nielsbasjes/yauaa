@@ -249,7 +249,7 @@ public class Matcher implements Serializable {
             }
             if (good) {
                 LOG.info("COMPLETE ----------------------------");
-            } else  {
+            } else {
                 LOG.info("INCOMPLETE ----------------------------");
                 return;
             }
@@ -276,30 +276,32 @@ public class Matcher implements Serializable {
         actionsThatRequireInputAndReceivedInput++;
     }
 
-    public void reset(boolean setVerboseTemporarily) {
-        // If there are no dynamic actions we have fixed strings only
-        actionsThatRequireInputAndReceivedInput = 0;
+
+    public void setVerboseTemporarily(boolean newVerbose) {
         for (MatcherAction action : dynamicActions) {
-            action.reset();
-            if (setVerboseTemporarily) {
-                verbose = true;
-                action.setVerbose(true, true);
-            } else {
-                verbose = permanentVerbose;
-            }
+            action.setVerbose(newVerbose, true);
         }
     }
 
-    public List<MatcherAction.Match> getMatches() {
-        List<MatcherAction.Match> allMatches = new ArrayList<>(128);
+    public void reset() {
+        // If there are no dynamic actions we have fixed strings only
+        actionsThatRequireInputAndReceivedInput = 0;
+        verbose = permanentVerbose;
+        for (MatcherAction action : dynamicActions) {
+            action.reset();
+        }
+    }
+
+    public List<MatchesList.Match> getMatches() {
+        List<MatchesList.Match> allMatches = new ArrayList<>(128);
         for (MatcherAction action : dynamicActions) {
             allMatches.addAll(action.getMatches());
         }
         return allMatches;
     }
 
-    public List<MatcherAction.Match> getUsedMatches() {
-        List<MatcherAction.Match> allMatches = new ArrayList<>(128);
+    public List<MatchesList.Match> getUsedMatches() {
+        List<MatchesList.Match> allMatches = new ArrayList<>(128);
         for (MatcherAction action : dynamicActions) {
             if (action.cannotBeValid()) {
                 return new ArrayList<>(); // There is NO way one of them is valid

@@ -1,0 +1,168 @@
+/*
+ * Yet Another UserAgent Analyzer
+ * Copyright (C) 2013-2017 Niels Basjes
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package nl.basjes.parse.useragent.analyze;
+
+import org.antlr.v4.runtime.tree.ParseTree;
+
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+
+public class MatchesList implements Collection<MatchesList.Match>, Serializable {
+
+    public static class Match implements Serializable {
+        String key;
+        String value;
+        ParseTree result;
+
+        public Match(String key, String value, ParseTree result) {
+            fill(key, value, result);
+        }
+
+        public void fill(String nKey, String nValue, ParseTree nResult) {
+            this.key = nKey;
+            this.value = nValue;
+            this.result = nResult;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public ParseTree getResult() {
+            return result;
+        }
+    }
+
+
+    private int size = 0;
+    private int maxSize = 0;
+
+    private Match[] allElements;
+
+    @SuppressWarnings("unchecked")
+    public MatchesList(int newMaxSize) {
+        maxSize = newMaxSize;
+
+        size = 0;
+        allElements = new Match[maxSize];
+        for (int i = 0; i < maxSize; i++) {
+            allElements[i] = new Match(null, null, null);
+        }
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public void clear() {
+        size = 0;
+    }
+
+    public boolean add(String key, String value, ParseTree result) {
+        if (size >= maxSize) {
+            throw new IndexOutOfBoundsException("This list has a FIXED size and cannot be extended. This list has maxSize " + maxSize);
+        }
+
+        allElements[size].fill(key, value, result);
+        size++;
+        return true;
+    }
+
+    @Override
+    public boolean add(Match match) {
+        if (size >= maxSize) {
+            throw new IndexOutOfBoundsException("This list has a FIXED size and cannot be extended.");
+        }
+        allElements[size++] = match;
+        return true;
+    }
+
+    @Override
+    public Iterator<Match> iterator() {
+        return new Iterator<Match>() {
+            int offset = 0;
+
+            @Override
+            public boolean hasNext() {
+                return offset < size;
+            }
+
+            @Override
+            public Match next() {
+                return allElements[offset++];
+            }
+        };
+    }
+
+    @Override
+    public Object[] toArray() {
+        return Arrays.copyOf(this.allElements, this.size);
+    }
+
+// ============================================================
+// Everything else is NOT supported
+// ============================================================
+
+    @Override
+    public boolean contains(Object o) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> T[] toArray(T[] ts) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends Match> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+}

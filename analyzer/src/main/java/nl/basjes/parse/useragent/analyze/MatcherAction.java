@@ -45,9 +45,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.List;
+import java.util.Collection;
 
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.BasePathContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
@@ -76,32 +75,9 @@ public abstract class MatcherAction implements Serializable {
 
     private static final Logger LOG = LoggerFactory.getLogger(MatcherAction.class);
 
-    public class Match {
-        private final String key;
-        private final String value;
-        private final ParseTree result;
-
-        public Match(String key, String value, ParseTree result) {
-            this.key = key;
-            this.value = value;
-            this.result = result;
-        }
-
-        public String getKey() {
-            return key;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public ParseTree getResult() {
-            return result;
-        }
-    }
 
     private Matcher matcher;
-    private List<Match> matches;
+    private MatchesList matches;
     private boolean mustHaveMatches = false;
 
     boolean mustHaveMatches() {
@@ -180,7 +156,6 @@ public abstract class MatcherAction implements Serializable {
 
     void init(String newMatchExpression, Matcher newMatcher) {
         this.matcher = newMatcher;
-        this.matches = new ArrayList<>(16);
         this.matchExpression = newMatchExpression;
         setVerbose(newMatcher.getVerbose());
 
@@ -215,12 +190,19 @@ public abstract class MatcherAction implements Serializable {
         if (fixedValue != null) {
             setFixedValue(fixedValue);
             mustHaveMatches = false;
+            matches = new MatchesList(0);
             return; // Not interested in any patterns
         }
 
         mustHaveMatches = !evaluator.usesIsNull();
 
-        calculateInformPath("agent", requiredPattern);
+        int informs = calculateInformPath("agent", requiredPattern);
+
+        int listSize = informs;
+        if (informs > 32) {
+            listSize = 32;
+        }
+        this.matches = new MatchesList(listSize);
     }
 
     protected abstract ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser);
@@ -291,7 +273,7 @@ public abstract class MatcherAction implements Serializable {
         if (mustHaveMatches && matches.isEmpty()) {
             matcher.gotMyFirstStartingPoint();
         }
-        matches.add(new Match(key, value, result));
+        matches.add(key, value, result);
     }
 
     protected abstract void inform(String key, String foundValue);
@@ -323,7 +305,7 @@ public abstract class MatcherAction implements Serializable {
      * actually perform the analysis and do the (expensive) tree walking and matching.
      */
     void processInformedMatches() {
-        for (Match match : matches) {
+        for (MatchesList.Match match : matches) {
             String matchedValue = evaluator.evaluate(match.result, match.key, match.value);
             if (matchedValue != null) {
                 inform(match.key, matchedValue);
@@ -332,114 +314,109 @@ public abstract class MatcherAction implements Serializable {
         }
     }
 
-
     // ============================================================================================================
 
-
     // -----
-    private void calculateInformPath(@SuppressWarnings("SameParameterValue") String treeName, ParserRuleContext tree) {
+    private int calculateInformPath(@SuppressWarnings("SameParameterValue") String treeName, ParserRuleContext tree) {
         if (tree instanceof MatcherRequireContext) {
-            calculateInformPath(treeName, ((MatcherRequireContext) tree));
-            return;
+            return calculateInformPath(treeName, ((MatcherRequireContext) tree));
         }
         if (tree instanceof MatcherContext){
-            calculateInformPath(treeName, ((MatcherContext) tree));
+            return calculateInformPath(treeName, ((MatcherContext) tree));
         }
+        return 0;
     }
 
-    private void calculateInformPath(String treeName, MatcherRequireContext tree) {
+    private int calculateInformPath(String treeName, MatcherRequireContext tree) {
         if (tree instanceof MatcherBaseContext) {
-            calculateInformPath(treeName, ((MatcherBaseContext) tree).matcher());
-            return;
+            return calculateInformPath(treeName, ((MatcherBaseContext) tree).matcher());
         }
         if (tree instanceof MatcherPathIsNullContext){
-            calculateInformPath(treeName, ((MatcherPathIsNullContext) tree).matcher());
+            return calculateInformPath(treeName, ((MatcherPathIsNullContext) tree).matcher());
         }
+        return 0;
     }
 
-    private void calculateInformPath(String treeName, MatcherContext tree) {
+    private int calculateInformPath(String treeName, MatcherContext tree) {
         if (tree instanceof MatcherPathContext) {
-            calculateInformPath(treeName, ((MatcherPathContext) tree).basePath());
-            return;
+            return calculateInformPath(treeName, ((MatcherPathContext) tree).basePath());
         }
         if (tree instanceof MatcherCleanVersionContext){
-            calculateInformPath(treeName, ((MatcherCleanVersionContext) tree).matcher());
-            return;
+            return calculateInformPath(treeName, ((MatcherCleanVersionContext) tree).matcher());
         }
         if (tree instanceof MatcherNormalizeBrandContext){
-            calculateInformPath(treeName, ((MatcherNormalizeBrandContext) tree).matcher());
-            return;
+            return calculateInformPath(treeName, ((MatcherNormalizeBrandContext) tree).matcher());
         }
         if (tree instanceof MatcherPathLookupContext){
-            calculateInformPath(treeName, ((MatcherPathLookupContext) tree).matcher());
-            return;
+            return calculateInformPath(treeName, ((MatcherPathLookupContext) tree).matcher());
         }
         if (tree instanceof MatcherWordRangeContext){
-            calculateInformPath(treeName, ((MatcherWordRangeContext) tree).matcher());
+            return calculateInformPath(treeName, ((MatcherWordRangeContext) tree).matcher());
         }
+        return 0;
     }
 
     // -----
 
-    private void calculateInformPath(String treeName, BasePathContext tree) {
+    private int calculateInformPath(String treeName, BasePathContext tree) {
         // Useless to register a fixed value
 //             case "PathFixedValueContext"         : calculateInformPath(treeName, (PathFixedValueContext)         tree); break;
         if (tree instanceof PathWalkContext) {
-            calculateInformPath(treeName, ((PathWalkContext) tree).nextStep);
+            return calculateInformPath(treeName, ((PathWalkContext) tree).nextStep);
         }
+        return 0;
     }
 
-    private void calculateInformPath(String treeName, PathContext tree) {
+    private int calculateInformPath(String treeName, PathContext tree) {
         if (tree != null) {
             if (tree instanceof StepDownContext){
-                calculateInformPath(treeName, (StepDownContext) tree);
-                return;
+                return calculateInformPath(treeName, (StepDownContext) tree);
             }
             if (tree instanceof StepEqualsValueContext){
-                calculateInformPath(treeName, (StepEqualsValueContext) tree);
-                return;
+                return calculateInformPath(treeName, (StepEqualsValueContext) tree);
             }
             if (tree instanceof StepWordRangeContext) {
-                calculateInformPath(treeName, (StepWordRangeContext) tree);
-                return;
+                return calculateInformPath(treeName, (StepWordRangeContext) tree);
             }
         }
         matcher.informMeAbout(this, treeName);
+        return 1;
     }
     // -----
 
-    private void calculateInformPath(String treeName, StepDownContext tree) {
+    private int calculateInformPath(String treeName, StepDownContext tree) {
         if (treeName.length() == 0) {
-            calculateInformPath(treeName + '.' + tree.name.getText(), tree.nextStep);
-        } else {
-            for (Integer number : NUMBER_RANGE_VISITOR.visit(tree.numberRange())) {
-                calculateInformPath(treeName + '.' + "(" + number + ")" + tree.name.getText(), tree.nextStep);
-            }
+            return calculateInformPath(treeName + '.' + tree.name.getText(), tree.nextStep);
         }
+
+        int informs = 0;
+        for (Integer number : NUMBER_RANGE_VISITOR.visit(tree.numberRange())) {
+            informs += calculateInformPath(treeName + '.' + "(" + number + ")" + tree.name.getText(), tree.nextStep);
+        }
+        return informs;
     }
 
-    private void calculateInformPath(String treeName, StepEqualsValueContext tree) {
+    private int calculateInformPath(String treeName, StepEqualsValueContext tree) {
         matcher.informMeAbout(this, treeName + "=\"" + tree.value.getText() + "\"");
+        return 1;
     }
 
-    private void calculateInformPath(String treeName, StepWordRangeContext tree) {
+    private int calculateInformPath(String treeName, StepWordRangeContext tree) {
         Range range = WordRangeVisitor.getRange(tree.wordRange());
         matcher.lookingForRange(treeName, range);
-        calculateInformPath(treeName + "[" + range.first + "-" + range.last + "]", tree.nextStep);
+        return calculateInformPath(treeName + "[" + range.first + "-" + range.last + "]", tree.nextStep);
     }
 
     // ============================================================================================================
 
     public void reset() {
-        if (!matches.isEmpty()) {
-            matches.clear();
-        }
+        matches.clear();
         if (verboseTemporary) {
             verbose = verbosePermanent;
         }
     }
 
-    public List<Match> getMatches() {
+    public Collection<MatchesList.Match> getMatches() {
         return matches;
     }
 }
