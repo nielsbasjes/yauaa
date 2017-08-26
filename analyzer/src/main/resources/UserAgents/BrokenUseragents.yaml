@@ -1597,3 +1597,39 @@ config:
       WebviewAppVersion                    : '??'
       WebviewAppVersionMajor               : '??'
 
+
+# Some useragents are broken in the sense that the last entry is just the word 'mobile' instead of "Mobile Safari". We assume these are phones too.
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.(1)product.(1)name="Android"'
+    - 'agent.text="Mobile"'
+    - 'IsNull[agent.text="Mobile"^>]'
+    extract:
+    - 'DeviceClass                 :   500:"Phone"'
+    - 'OperatingSystemClass        :   500:"Mobile"'
+
+- test:
+    input:
+      user_agent_string: 'mozilla/5.0 (linux; android 6.0.1; sm-g920f build/mmb29k) applewebkit/537.36 (khtml, like gecko) chrome/48.0.2564.95 mobile'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G920F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : 'mmb29k'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '48.0'
+      LayoutEngineVersionMajor             : '48'
+      LayoutEngineNameVersion              : 'Blink 48.0'
+      LayoutEngineNameVersionMajor         : 'Blink 48'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '48.0.2564.95'
+      AgentVersionMajor                    : '48'
+      AgentNameVersion                     : 'Chrome 48.0.2564.95'
+      AgentNameVersionMajor                : 'Chrome 48'
+
