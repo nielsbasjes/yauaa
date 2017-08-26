@@ -549,6 +549,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
         PRE_SORTED_FIELDS_LIST.add("DeviceName");
         PRE_SORTED_FIELDS_LIST.add("DeviceBrand");
         PRE_SORTED_FIELDS_LIST.add("DeviceCpu");
+        PRE_SORTED_FIELDS_LIST.add("DeviceCpuBits");
         PRE_SORTED_FIELDS_LIST.add("DeviceFirmwareVersion");
         PRE_SORTED_FIELDS_LIST.add("DeviceVersion");
 

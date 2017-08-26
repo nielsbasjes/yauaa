@@ -91,9 +91,57 @@ echo "    name: 'CPUArchitectures'"
 echo "    map:"
 cat "CPUTypes.csv" | grep -v '#' | grep . | while read line ; \
 do
-    cpu=$(echo ${line} | cut -d' ' -f1)
-    value=$(echo ${line} | cut -d' ' -f2-)
+    cpu=$(echo ${line} | sed 's/ *| */|/g' | cut -d'|' -f1)
+    value=$(echo ${line} | sed 's/ *| */|/g' | cut -d'|' -f2)
     echo "      \"${cpu}\" : \"${value}\""
 done
+
+echo "
+- matcher:
+    extract:
+    - 'DeviceCpuBits : 115:LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[1-2]]'
+- matcher:
+    extract:
+    - 'DeviceCpuBits : 114:LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[2-3]]'
+- matcher:
+    extract:
+    - 'DeviceCpuBits : 113:LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[3-4]]'
+- matcher:
+    extract:
+    - 'DeviceCpuBits : 112:LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[4-5]]'
+- matcher:
+    extract:
+    - 'DeviceCpuBits : 111:LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[5-6]]'
+
+- matcher:
+    extract:
+    - 'DeviceCpuBits : 105:LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[1]]'
+- matcher:
+    extract:
+    - 'DeviceCpuBits : 104:LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[2]]'
+- matcher:
+    extract:
+    - 'DeviceCpuBits : 103:LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[3]]'
+- matcher:
+    extract:
+    - 'DeviceCpuBits : 102:LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[4]]'
+- matcher:
+    extract:
+    - 'DeviceCpuBits : 101:LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[5]]'
+- matcher:
+    extract:
+    - 'DeviceCpuBits : 106:LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry.product.version]'
+"
+
+echo "- lookup:"
+echo "    name: 'CPUArchitecturesBits'"
+echo "    map:"
+cat "CPUTypes.csv" | grep -v '#' | grep . | while read line ; \
+do
+    cpu=$(echo ${line} | sed 's/ *| */|/g' | cut -d'|' -f1)
+    value=$(echo ${line} | sed 's/ *| */|/g' | cut -d'|' -f3)
+    echo "      \"${cpu}\" : \"${value}\""
+done
+
 
 ) > ${OUTPUT}

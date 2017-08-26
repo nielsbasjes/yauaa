@@ -27,12 +27,7 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass               : 100:"Desktop"'
-    - 'DeviceName                : 100:"Desktop"'
-    - 'OperatingSystemClass      : 100:"Desktop"'
-    - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.(1)product.comments.entry.product]'
-    - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
-    - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
+    - 'DeviceCpuBits             : 100:LookUp[OperatingSystemCpuBits;agent.(1)product.comments.entry.product]'
 
 - matcher:
     extract:
@@ -65,12 +60,7 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass               : 100:"Desktop"'
-    - 'DeviceName                : 100:"Desktop"'
-    - 'OperatingSystemClass      : 100:"Desktop"'
-    - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product]'
-    - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product]'
-    - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product]'
+    - 'DeviceCpuBits             : 100:LookUp[OperatingSystemCpuBits;agent.(1)product.comments.entry.text]'
 
 - matcher:
     extract:
@@ -80,11 +70,16 @@ config:
     - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product]'
     - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product]'
     - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product]'
+
+- matcher:
+    extract:
+    - 'DeviceCpuBits             : 100:LookUp[OperatingSystemCpuBits;agent.product]'
 
 - matcher:
     extract:
     - 'DeviceClass               :  50:"Desktop"'
     - 'DeviceName                :  50:"Desktop"'
+    - 'DeviceCpuBits             :   1:"32"'
     - 'OperatingSystemClass      :  50:"Desktop"'
     - 'OperatingSystemName       :   5:"Windows NT"'
     - 'OperatingSystemVersion    :   5:agent.product.name="Windows NT"^'
@@ -99,6 +94,10 @@ config:
     - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product.text]'
     - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product.text]'
 
+- matcher:
+    extract:
+    - 'DeviceCpuBits             : 100:LookUp[OperatingSystemCpuBits;agent.product.text]'
+
 - test:
     input:
       user_agent_string:  'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko'
@@ -107,6 +106,7 @@ config:
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
       OperatingSystemVersion               : 'Windows 7'
@@ -132,6 +132,7 @@ config:
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows 9x'
       OperatingSystemVersion               : 'Windows Millennium Edition'
@@ -157,6 +158,7 @@ config:
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
       OperatingSystemVersion               : 'Windows 10 Preview'
@@ -258,6 +260,7 @@ config:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows 9x'
       OperatingSystemVersion               : 'Windows 98'
