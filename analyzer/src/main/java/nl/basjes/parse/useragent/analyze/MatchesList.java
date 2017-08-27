@@ -59,7 +59,6 @@ public class MatchesList implements Collection<MatchesList.Match>, Serializable 
 
     private Match[] allElements;
 
-    @SuppressWarnings("unchecked")
     public MatchesList(int newMaxSize) {
         maxSize = newMaxSize;
 
