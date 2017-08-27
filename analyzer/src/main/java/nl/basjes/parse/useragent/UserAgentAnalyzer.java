@@ -336,11 +336,11 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
 
         }
         LOG.info("Analyzer stats");
-        LOG.info("Lookups      : {}", (lookups == null) ? 0 : lookups.size());
-        LOG.info("Matchers     : {} (total:{} ; dropped: {})", allMatchers.size(), totalNumberOfMatchers, skippedMatchers);
-        LOG.info("Hashmap size : {}", informMatcherActions.size());
+        LOG.info("Lookups         : {}", (lookups == null) ? 0 : lookups.size());
+        LOG.info("Matchers        : {} (total:{} ; dropped: {})", allMatchers.size(), totalNumberOfMatchers, skippedMatchers);
+        LOG.info("Hashmap size    : {}", informMatcherActions.size());
         LOG.info("Ranges map size : {}", informMatcherActionRanges.size());
-        LOG.info("Testcases    : {}", testCases.size());
+        LOG.info("Testcases       : {}", testCases.size());
 //        LOG.info("All possible field names:");
 //        int count = 1;
 //        for (String fieldName : getAllPossibleFieldNames()) {
@@ -669,9 +669,6 @@ config:
     }
 
     private UserAgent nonCachedParse(UserAgent userAgent) {
-
-        boolean setVerboseTemporarily = userAgent.isDebug();
-
         // Reset all Matchers
         for (Matcher matcher : allMatchers) {
             matcher.reset();
