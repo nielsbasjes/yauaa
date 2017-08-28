@@ -46,7 +46,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.BitSet;
-import java.util.Collection;
 
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.BasePathContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
