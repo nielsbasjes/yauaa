@@ -86,7 +86,7 @@ public class MatchesList implements Collection<MatchesList.Match>, Serializable 
 
     public boolean add(String key, String value, ParseTree result) {
         if (size >= maxSize) {
-            throw new IndexOutOfBoundsException("This list has a FIXED size and cannot be extended. This list has maxSize " + maxSize);
+            increaseCapacity();
         }
 
         allElements[size].fill(key, value, result);
@@ -97,7 +97,7 @@ public class MatchesList implements Collection<MatchesList.Match>, Serializable 
     @Override
     public boolean add(Match match) {
         if (size >= maxSize) {
-            throw new IndexOutOfBoundsException("This list has a FIXED size and cannot be extended.");
+            increaseCapacity();
         }
         allElements[size++] = match;
         return true;
@@ -123,6 +123,22 @@ public class MatchesList implements Collection<MatchesList.Match>, Serializable 
     @Override
     public Object[] toArray() {
         return Arrays.copyOf(this.allElements, this.size);
+    }
+
+    private static final int CAPACITY_INCREASE = 5;
+
+    private void increaseCapacity() {
+        int newMaxSize = maxSize+ CAPACITY_INCREASE;
+
+        System.out.println("Increasing capacity of " + maxSize + " to " + newMaxSize);
+
+        Match[] newAllElements = new Match[newMaxSize];
+        System.arraycopy(allElements, 0, newAllElements, 0, maxSize);
+        for (int i = maxSize; i < newMaxSize; i++) {
+            newAllElements[i] = new Match(null, null, null);
+        }
+        allElements = newAllElements;
+        maxSize = newMaxSize;
     }
 
 // ============================================================
