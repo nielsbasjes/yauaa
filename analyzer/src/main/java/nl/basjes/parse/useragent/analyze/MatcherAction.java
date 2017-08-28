@@ -416,7 +416,7 @@ public abstract class MatcherAction implements Serializable {
         }
     }
 
-    public Collection<MatchesList.Match> getMatches() {
+    public MatchesList getMatches() {
         return matches;
     }
 }

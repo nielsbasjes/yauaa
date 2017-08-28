@@ -62,7 +62,7 @@ public class DebugUserAgent extends UserAgent {
         for (Pair<UserAgent, Matcher> pair: appliedMatcherResults){
             sb.append("\n");
             sb.append("+================\n");
-            sb.append("+ Applied matched\n");
+            sb.append("+ Applied matcher\n");
             sb.append("+----------------\n");
             UserAgent result = pair.getLeft();
             Matcher matcher = pair.getRight();

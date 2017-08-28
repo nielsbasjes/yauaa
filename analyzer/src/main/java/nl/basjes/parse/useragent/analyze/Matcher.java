@@ -325,12 +325,14 @@ public class Matcher implements Serializable {
         for (MatcherAction action : dynamicActions) {
             if (action instanceof MatcherRequireAction) {
                 sb.append("        ").append(action.getMatchExpression()).append("\n");
+                sb.append("        ").append(action.getMatches().toStrings()).append("\n");
             }
         }
         sb.append("    EXTRACT:\n");
         for (MatcherAction action : dynamicActions) {
             if (action instanceof MatcherExtractAction) {
                 sb.append("        ").append(action.toString()).append("\n");
+                sb.append("        ").append(action.getMatches().toStrings()).append("\n");
             }
         }
         for (MatcherAction action : fixedStringActions) {

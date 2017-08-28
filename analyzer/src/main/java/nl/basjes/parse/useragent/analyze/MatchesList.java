@@ -19,9 +19,11 @@ package nl.basjes.parse.useragent.analyze;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public class MatchesList implements Collection<MatchesList.Match>, Serializable {
 
@@ -136,6 +138,14 @@ public class MatchesList implements Collection<MatchesList.Match>, Serializable 
         }
         allElements = newAllElements;
         maxSize = newMaxSize;
+    }
+
+    public List<String> toStrings() {
+        List<String> result = new ArrayList<>(size);
+        for (Match match: this) {
+            result.add("{ \"" + match.key + "\"=\"" + match.value + "\" }");
+        }
+        return result;
     }
 
 // ============================================================
