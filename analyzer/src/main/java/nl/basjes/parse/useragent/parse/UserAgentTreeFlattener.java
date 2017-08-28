@@ -407,11 +407,17 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         if (ranges.size() > 4) { // Benchmarks showed this to be the breakeven point. (see below)
             List<Pair<Integer, Integer>> splitList = splitter.createSplitList(text);
             for (Range range : ranges) {
-                inform(ctx, ctx, name + "[" + range.getFirst() + "-" + range.getLast() + "]", splitter.getSplitRange(text, splitList, range), true);
+                String value = splitter.getSplitRange(text, splitList, range);
+                if (value != null) {
+                    inform(ctx, ctx, name + "[" + range.getFirst() + "-" + range.getLast() + "]", value, true);
+                }
             }
         } else {
             for (Range range : ranges) {
-                inform(ctx, ctx, name + "[" + range.getFirst() + "-" + range.getLast() + "]", splitter.getSplitRange(text, range), true);
+                String value = splitter.getSplitRange(text, range);
+                if (value != null) {
+                    inform(ctx, ctx, name + "[" + range.getFirst() + "-" + range.getLast() + "]", value, true);
+                }
             }
         }
     }
