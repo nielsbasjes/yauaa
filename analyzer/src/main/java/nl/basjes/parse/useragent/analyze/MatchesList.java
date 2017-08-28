@@ -129,9 +129,6 @@ public class MatchesList implements Collection<MatchesList.Match>, Serializable 
 
     private void increaseCapacity() {
         int newMaxSize = maxSize+ CAPACITY_INCREASE;
-
-        System.out.println("Increasing capacity of " + maxSize + " to " + newMaxSize);
-
         Match[] newAllElements = new Match[newMaxSize];
         System.arraycopy(allElements, 0, newAllElements, 0, maxSize);
         for (int i = maxSize; i < newMaxSize; i++) {
