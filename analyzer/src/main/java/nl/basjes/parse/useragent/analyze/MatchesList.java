@@ -125,7 +125,7 @@ public class MatchesList implements Collection<MatchesList.Match>, Serializable 
         return Arrays.copyOf(this.allElements, this.size);
     }
 
-    private static final int CAPACITY_INCREASE = 5;
+    private static final int CAPACITY_INCREASE = 3;
 
     private void increaseCapacity() {
         int newMaxSize = maxSize+ CAPACITY_INCREASE;

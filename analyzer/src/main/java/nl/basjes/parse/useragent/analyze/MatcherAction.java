@@ -198,9 +198,9 @@ public abstract class MatcherAction implements Serializable {
 
         int informs = calculateInformPath("agent", requiredPattern);
 
-        int listSize = 1;
-        if (informs > 5) {
-            listSize = 3;
+        int listSize = 0;
+        if (informs > 0) {
+            listSize = 1;
         }
         this.matches = new MatchesList(listSize);
     }
