@@ -878,6 +878,61 @@ config:
 
 - test:
     input:
+      user_agent_string: 'yacybot (/global; amd64 Windows 10 10.0; java 1.8.0_77; Europe/en) http://yacy.net/bot.html'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yacybot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'yacybot'
+      LayoutEngineVersion                  : 'global'
+      LayoutEngineVersionMajor             : 'global'
+      LayoutEngineNameVersion              : 'yacybot global'
+      LayoutEngineNameVersionMajor         : 'yacybot global'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'yacybot'
+      AgentVersion                         : 'global'
+      AgentVersionMajor                    : 'global'
+      AgentNameVersion                     : 'yacybot global'
+      AgentNameVersionMajor                : 'yacybot global'
+      __SyntaxError__                      : 'true'
+
+
+- test:
+    input:
+      user_agent_string: 'yacybot (-global; amd64 Windows 2003 5.2; java 1.8.0_131; Europe/en) http://yacy.net/bot.html'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yacybot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'yacybot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'yacybot ??'
+      LayoutEngineNameVersionMajor         : 'yacybot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'yacybot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'yacybot ??'
+      AgentNameVersionMajor                : 'yacybot ??'
+      AgentInformationUrl                  : 'http://yacy.net/bot.html'
+
+
+
+
+
+- test:
+    input:
       user_agent_string: 'NetLyzer FastProbe (See http://netlyzer.com/report/www.bol.com for info)'
     expected:
       DeviceClass                          : 'Robot'
