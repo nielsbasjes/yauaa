@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+
 <!--
   ~ Yet Another UserAgent Analyzer
   ~ Copyright (C) 2013-2017 Niels Basjes
@@ -50,7 +51,6 @@
     <argLine>@{jacoco.surefireArgLine} -Xmx1024m</argLine>
 
     <git-commit-id-plugin.version>2.2.3</git-commit-id-plugin.version>
-    <git.dirty/>
   </properties>
 
   <dependencies>
@@ -148,11 +148,11 @@
                       <shouldMatchTo>false</shouldMatchTo>
                     </validationProperty>
                     <!-- verify that the current commit has a tag -->
-                    <!--<validationProperty>-->
-                    <!--<name>validating current commit has a tag</name>-->
-                    <!--<value>${git.closest.tag.commit.count}</value>-->
-                    <!--<shouldMatchTo>0</shouldMatchTo>-->
-                    <!--</validationProperty>-->
+                    <validationProperty>
+                      <name>validating current commit has a tag</name>
+                      <value>${git.closest.tag.commit.count}</value>
+                    <shouldMatchTo>0</shouldMatchTo>
+                    </validationProperty>
                   </validationProperties>
                   <validationShouldFailIfNoMatch>true</validationShouldFailIfNoMatch>
                 </configuration>
