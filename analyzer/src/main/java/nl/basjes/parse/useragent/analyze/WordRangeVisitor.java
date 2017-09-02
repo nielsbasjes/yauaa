@@ -24,7 +24,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeConte
 import java.io.Serializable;
 import java.util.Objects;
 
-public class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordRangeVisitor.Range> {
+public final class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordRangeVisitor.Range> {
 
     public static class Range implements Serializable {
 

@@ -30,7 +30,7 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberR
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeStartToEndContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
 
-public class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<NumberRangeList> {
+public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<NumberRangeList> {
 
     private static final Integer DEFAULT_MIN = 1;
     private static final Integer DEFAULT_MAX = 10;
