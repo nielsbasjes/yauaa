@@ -48,6 +48,9 @@
     <!-- See http://www.eclemma.org/jacoco/trunk/doc/prepare-agent-mojo.html-->
     <jacoco.surefireArgLine/>
     <argLine>@{jacoco.surefireArgLine} -Xmx1024m</argLine>
+
+    <git-commit-id-plugin.version>2.2.3</git-commit-id-plugin.version>
+    <git.dirty/>
   </properties>
 
   <dependencies>
@@ -124,6 +127,39 @@
             </executions>
           </plugin>
 
+          <plugin>
+            <!-- Description: https://github.com/ktoso/maven-git-commit-id-plugin -->
+            <groupId>pl.project13.maven</groupId>
+            <artifactId>git-commit-id-plugin</artifactId>
+            <version>${git-commit-id-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>Validate-Revision-Information</id>
+                <phase>validate</phase>
+                <goals>
+                  <goal>validateRevision</goal>
+                </goals>
+                <configuration>
+                  <validationProperties>
+                    <!-- verify that the current repository is not dirty -->
+                    <validationProperty>
+                      <name>Don't try to release if something has not yet been committed.</name>
+                      <value>${git.dirty}</value>
+                      <shouldMatchTo>false</shouldMatchTo>
+                    </validationProperty>
+                    <!-- verify that the current commit has a tag -->
+                    <!--<validationProperty>-->
+                    <!--<name>validating current commit has a tag</name>-->
+                    <!--<value>${git.closest.tag.commit.count}</value>-->
+                    <!--<shouldMatchTo>0</shouldMatchTo>-->
+                    <!--</validationProperty>-->
+                  </validationProperties>
+                  <validationShouldFailIfNoMatch>true</validationShouldFailIfNoMatch>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
         </plugins>
       </build>
     </profile>
@@ -183,7 +219,7 @@
         <!-- Description: https://github.com/ktoso/maven-git-commit-id-plugin -->
         <groupId>pl.project13.maven</groupId>
         <artifactId>git-commit-id-plugin</artifactId>
-        <version>2.2.1</version>
+        <version>${git-commit-id-plugin.version}</version>
         <executions>
           <execution>
             <id>get-the-git-infos</id>
