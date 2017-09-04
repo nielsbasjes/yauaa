@@ -4,13 +4,12 @@ So we do it manually.
 # Ensure all has been committed
 
 # Ensure it all works
-mvn clean verify -Pplatfora -Prelease
+mvn clean verify -Pplatfora 
 mvn clean
 
-
 # Prepare the versions for the release
-RELEASEVERSION=2.0
-NEXTVERSION=2.1
+RELEASEVERSION=2.1
+NEXTVERSION=2.2
 
 # Creating and publishing the new Tagging
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION}
