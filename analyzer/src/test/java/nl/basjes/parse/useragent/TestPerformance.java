@@ -21,8 +21,12 @@ import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestPerformance {
+    private static final Logger LOG = LoggerFactory.getLogger(TestPerformance.class);
+
     @Ignore
     @Test
     public void validateAllPredefinedBrowsersPerformance() {
@@ -30,6 +34,45 @@ public class TestPerformance {
         uaa.setShowMatcherStats(true);
         uaa.initialize();
         Assert.assertTrue(uaa.runTests(false, false, null, true, true));
+    }
+
+
+    private static final long MEGABYTE = 1024L * 1024L;
+
+    public static long bytesToMegabytes(long bytes) {
+        return bytes / MEGABYTE;
+    }
+
+    private void printMemoryUsage(int iterationsDone){
+        // Get the Java runtime
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        // Calculate the used memory
+        long memory = runtime.totalMemory() - runtime.freeMemory();
+        LOG.info(String.format(
+            "After %7d iterations and GC --> Used memory is %10d bytes (%5d MiB)",
+            iterationsDone, memory, bytesToMegabytes(memory)));
+    }
+
+    @Ignore
+    @Test
+    public void checkForMemoryLeaks() {
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .withoutCache()
+            .withField("OperatingSystemName")
+            .withField("OperatingSystemVersion")
+            .withField("DeviceName")
+            .hideMatcherLoadStats()
+            .build();
+
+        LOG.info("Init complete");
+        int iterationsDone = 0;
+        for (int i = 0 ; i < 100 ; i++) {
+            printMemoryUsage(iterationsDone);
+            uaa.preHeat(5000, false);
+            iterationsDone += 5000;
+        }
     }
 
 }

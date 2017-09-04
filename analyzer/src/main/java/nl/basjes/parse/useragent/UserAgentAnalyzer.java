@@ -886,11 +886,15 @@ config:
             }
         }
     }
-
     public void preHeat(int preheatIterations) {
+        preHeat(preheatIterations, true);
+    }
+    public void preHeat(int preheatIterations, boolean log) {
         if (!testCases.isEmpty()) {
             if (preheatIterations > 0) {
-                LOG.info("Preheating JVM by running {} testcases.", preheatIterations);
+                if (log) {
+                    LOG.info("Preheating JVM by running {} testcases.", preheatIterations);
+                }
                 int remainingIterations = preheatIterations;
                 UserAgent userAgent = new UserAgent();
                 while (remainingIterations > 0) {
@@ -913,7 +917,9 @@ config:
                         }
                     }
                 }
-                LOG.info("Preheating JVM completed.", preheatIterations);
+                if (log) {
+                    LOG.info("Preheating JVM completed.", preheatIterations);
+                }
             }
         }
     }
