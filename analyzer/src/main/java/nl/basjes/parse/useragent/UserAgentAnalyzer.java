@@ -896,6 +896,7 @@ config:
                     LOG.info("Preheating JVM by running {} testcases.", preheatIterations);
                 }
                 int remainingIterations = preheatIterations;
+                int goodResults = 0;
                 UserAgent userAgent = new UserAgent();
                 while (remainingIterations > 0) {
                     for (Map<String, Map<String, String>> test : testCases) {
@@ -909,16 +910,17 @@ config:
                             continue;
                         }
                         remainingIterations--;
-                        userAgent.setUserAgentString(userAgentString);
-                        userAgent.reset();
-                        nonCachedParse(userAgent);
+                        // Calculate and use result to guarantee not optimized away.
+                        if(!parse(userAgentString).hasSyntaxError()) {
+                            goodResults++;
+                        }
                         if (remainingIterations <= 0) {
                             break;
                         }
                     }
                 }
                 if (log) {
-                    LOG.info("Preheating JVM completed.", preheatIterations);
+                    LOG.info("Preheating JVM completed. ({} proper results)", preheatIterations, goodResults);
                 }
             }
         }

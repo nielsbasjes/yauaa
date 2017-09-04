@@ -43,15 +43,15 @@ public class TestPerformance {
         return bytes / MEGABYTE;
     }
 
-    private void printMemoryUsage(int iterationsDone){
+    private void printMemoryUsage(int iterationsDone, long averageNanos){
         // Get the Java runtime
         Runtime runtime = Runtime.getRuntime();
         runtime.gc();
         // Calculate the used memory
         long memory = runtime.totalMemory() - runtime.freeMemory();
         LOG.info(String.format(
-            "After %7d iterations and GC --> Used memory is %10d bytes (%5d MiB)",
-            iterationsDone, memory, bytesToMegabytes(memory)));
+            "After %7d iterations and GC --> Used memory is %10d bytes (%5d MiB), Average time per parse %5d ns",
+            iterationsDone, memory, bytesToMegabytes(memory), averageNanos));
     }
 
     @Ignore
@@ -68,10 +68,15 @@ public class TestPerformance {
 
         LOG.info("Init complete");
         int iterationsDone = 0;
+        final int iterationsPerLoop = 1000;
         for (int i = 0 ; i < 100 ; i++) {
-            printMemoryUsage(iterationsDone);
-            uaa.preHeat(5000, false);
-            iterationsDone += 5000;
+            long start = System.nanoTime();
+            uaa.preHeat(iterationsPerLoop, false);
+            long stop = System.nanoTime();
+            iterationsDone += iterationsPerLoop;
+
+            long averageNanos = (stop - start) / iterationsPerLoop;
+            printMemoryUsage(iterationsDone, averageNanos);
         }
     }
 
