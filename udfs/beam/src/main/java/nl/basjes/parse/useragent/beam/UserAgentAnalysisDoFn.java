@@ -18,14 +18,14 @@
 package nl.basjes.parse.useragent.beam;
 
 import nl.basjes.parse.useragent.annonate.UserAgentAnnotationAnalyzer;
-import nl.basjes.parse.useragent.annonate.UseragentAnnotationMapper;
+import nl.basjes.parse.useragent.annonate.UserAgentAnnotationMapper;
 import org.apache.beam.sdk.repackaged.org.apache.commons.lang3.SerializationUtils;
 import org.apache.beam.sdk.transforms.DoFn;
 
 import java.io.Serializable;
 
 public abstract class UserAgentAnalysisDoFn<T extends Serializable> extends DoFn<T, T>
-    implements UseragentAnnotationMapper<T>, Serializable {
+    implements UserAgentAnnotationMapper<T>, Serializable {
     private transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer = null;
 
     @Setup

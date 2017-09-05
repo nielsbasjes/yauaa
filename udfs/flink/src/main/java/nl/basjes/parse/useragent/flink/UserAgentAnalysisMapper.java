@@ -18,14 +18,14 @@
 package nl.basjes.parse.useragent.flink;
 
 import nl.basjes.parse.useragent.annonate.UserAgentAnnotationAnalyzer;
-import nl.basjes.parse.useragent.annonate.UseragentAnnotationMapper;
+import nl.basjes.parse.useragent.annonate.UserAgentAnnotationMapper;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.configuration.Configuration;
 
 import java.io.Serializable;
 
 public abstract class UserAgentAnalysisMapper<T> extends RichMapFunction<T, T>
-    implements UseragentAnnotationMapper<T>, Serializable {
+    implements UserAgentAnnotationMapper<T>, Serializable {
     private transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer = null;
 
     @Override

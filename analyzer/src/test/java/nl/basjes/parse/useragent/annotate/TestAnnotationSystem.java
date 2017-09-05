@@ -19,7 +19,7 @@ package nl.basjes.parse.useragent.annotate;
 
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.annonate.UserAgentAnnotationAnalyzer;
-import nl.basjes.parse.useragent.annonate.UseragentAnnotationMapper;
+import nl.basjes.parse.useragent.annonate.UserAgentAnnotationMapper;
 import nl.basjes.parse.useragent.annonate.YauaaField;
 import org.junit.Rule;
 import org.junit.Test;
@@ -46,7 +46,7 @@ public class TestAnnotationSystem {
     }
 
     public static class MyBaseMapper
-        implements UseragentAnnotationMapper<TestRecord>, Serializable {
+        implements UserAgentAnnotationMapper<TestRecord>, Serializable {
         private transient UserAgentAnnotationAnalyzer<TestRecord> userAgentAnalyzer = null;
 
         public MyBaseMapper() {

@@ -17,6 +17,6 @@
 
 package nl.basjes.parse.useragent.annonate;
 
-public interface UseragentAnnotationMapper<T> {
+public interface UserAgentAnnotationMapper<T> {
     String getUserAgentString(T record);
 }

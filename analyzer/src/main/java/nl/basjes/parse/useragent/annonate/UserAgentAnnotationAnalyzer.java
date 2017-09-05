@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UserAgentAnnotationAnalyzer<T> {
-    private UseragentAnnotationMapper<T> mapper = null;
+    private UserAgentAnnotationMapper<T> mapper = null;
     private UserAgentAnalyzer userAgentAnalyzer = null;
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnnotationAnalyzer.class);
 
@@ -42,14 +42,14 @@ public class UserAgentAnnotationAnalyzer<T> {
     public UserAgentAnnotationAnalyzer() {
     }
 
-    public void initialize(UseragentAnnotationMapper<T> theMapper) {
+    public void initialize(UserAgentAnnotationMapper<T> theMapper) {
         mapper = theMapper;
 
         if (mapper == null) {
             throw new InvalidParserConfigurationException("The mapper instance is null.");
         }
 
-        Class classOfT = GenericTypeResolver.resolveTypeArguments(mapper.getClass(), UseragentAnnotationMapper.class)[0];
+        Class classOfT = GenericTypeResolver.resolveTypeArguments(mapper.getClass(), UserAgentAnnotationMapper.class)[0];
 
         if (classOfT == null) {
             throw new InvalidParserConfigurationException("Couldn't find the used annotation.");
