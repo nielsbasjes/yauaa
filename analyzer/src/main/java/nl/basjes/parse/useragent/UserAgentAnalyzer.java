@@ -592,7 +592,7 @@ config:
     }
 
     // These are the actual subrange we need for the paths.
-    private final Map<String, Set<Range>> informMatcherActionRanges = new HashMap<>(10000); // FIXME: Determine optimal hashmap size
+    private final Map<String, Set<Range>> informMatcherActionRanges = new HashMap<>(10000);
     @Override
     public void lookingForRange(String treeName, Range range) {
         Set<Range> ranges = informMatcherActionRanges.computeIfAbsent(treeName, k -> new HashSet<>(4));
