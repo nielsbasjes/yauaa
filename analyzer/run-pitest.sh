@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-mvn -DwithHistory org.pitest:pitest-maven:mutationCoverage
+mvn org.pitest:pitest-maven:mutationCoverage
 

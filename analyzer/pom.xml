@@ -286,15 +286,19 @@
         <version>1.2.2</version>
         <configuration>
 
-          <threads>4</threads>
-          <reportsDirectory>pitest/pit-reports</reportsDirectory>
+          <!--<threads>4</threads>-->
+          <!--<verbose>true</verbose>-->
+          <reportsDirectory>${project.basedir}/pitest/pit-reports</reportsDirectory>
 
-          <historyInputFile>pitest/yauaa_pitest_history.bin</historyInputFile>
-          <historyOutputFile>pitest/yauaa_pitest_history.bin</historyOutputFile>
+          <withHistory>true</withHistory>
+          <historyInputFile>${project.basedir}/pitest/yauaa_pitest_history.bin</historyInputFile>
+          <historyOutputFile>${project.basedir}/>pitest/yauaa_pitest_history.bin</historyOutputFile>
 
           <timestampedReports>true</timestampedReports>
 
-          <excludedMethods>toString</excludedMethods>
+          <excludedMethods>
+            <excludedMethod>toString</excludedMethod>
+          </excludedMethods>
 
           <excludedClasses>
             <excludedClass>nl.basjes.parse.useragent.Version</excludedClass>
