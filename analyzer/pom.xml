@@ -277,6 +277,41 @@
           </execution>
         </executions>
       </plugin>
+
+
+      <!--Configuration for periodic mutation testing.-->
+      <plugin>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-maven</artifactId>
+        <version>1.2.2</version>
+        <configuration>
+
+          <threads>4</threads>
+          <reportsDirectory>pitest/pit-reports</reportsDirectory>
+
+          <historyInputFile>pitest/yauaa_pitest_history.bin</historyInputFile>
+          <historyOutputFile>pitest/yauaa_pitest_history.bin</historyOutputFile>
+
+          <timestampedReports>true</timestampedReports>
+
+          <excludedMethods>toString</excludedMethods>
+
+          <excludedClasses>
+            <excludedClass>nl.basjes.parse.useragent.Version</excludedClass>
+            <excludedClass>nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepFixedString.java</excludedClass>
+            <excludedGroup>nl.basjes.parse.useragent.parser.*</excludedGroup> <!-- Generated antlr4 code -->
+            <excludedGroup>nl.basjes.parse.useragent.debug.*</excludedGroup>
+          </excludedClasses>
+
+          <avoidCallsTo>
+            <avoidCallsTo>java.util.logging</avoidCallsTo>
+            <avoidCallsTo>org.apache.log4j</avoidCallsTo>
+            <avoidCallsTo>org.slf4j</avoidCallsTo>
+            <avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
+          </avoidCallsTo>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 

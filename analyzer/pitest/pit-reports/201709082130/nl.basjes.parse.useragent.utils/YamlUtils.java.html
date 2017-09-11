@@ -1,0 +1,1744 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10;display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+
+.pop span { border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+</style>
+
+</head>
+<body>
+
+
+<h1>YamlUtils.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Yet Another UserAgent Analyzer</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (C) 2013-2017 Niels Basjes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package nl.basjes.parse.useragent.utils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.yaml.snakeyaml.nodes.MappingNode;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.yaml.snakeyaml.nodes.Node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.yaml.snakeyaml.nodes.NodeTuple;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.yaml.snakeyaml.nodes.ScalarNode;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.yaml.snakeyaml.nodes.SequenceNode;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class YamlUtils {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_31'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    private YamlUtils() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_32'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static void fail(Node node, String filename, String error) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_35'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        throw new InvalidParserConfigurationException(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_36'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            createErrorString(node, filename, error));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static String createErrorString(Node node, String filename, String error) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_40'/>
+40
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_40'>1</a>
+<span>
+1. createErrorString : mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::createErrorString to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return  &#34;Yaml config problem.(&#34;+filename+&#34;:&#34;+node.getStartMark().getLine()+&#34;): &#34; + error;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static NodeTuple getExactlyOneNodeTuple(MappingNode mappingNode, String filename) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_44'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        List&#60;NodeTuple&#62; nodeTupleList = mappingNode.getValue();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_45'/>
+45
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_45'>1</a>
+<span>
+1. getExactlyOneNodeTuple : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (nodeTupleList.size() != 1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_46'/>
+46
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_46'>1</a>
+<span>
+1. getExactlyOneNodeTuple : removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            fail(mappingNode, filename, &#34;There must be exactly 1 value in the list&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_48'/>
+48
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_48'>1</a>
+<span>
+1. getExactlyOneNodeTuple : mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::getExactlyOneNodeTuple to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return nodeTupleList.get(0);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static String getKeyAsString(NodeTuple tuple, String filename) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_52'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Node keyNode = tuple.getKeyNode();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_53'/>
+53
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_53'>1</a>
+<span>
+1. getKeyAsString : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (!(keyNode instanceof ScalarNode)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_54'/>
+54
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_54'>1</a>
+<span>
+1. getKeyAsString : removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            fail(tuple.getKeyNode(), filename, &#34;The key should be a string but it is a &#34; + keyNode.getNodeId().name());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_56'/>
+56
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_56'>1</a>
+<span>
+1. getKeyAsString : mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::getKeyAsString to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return ((ScalarNode)keyNode).getValue();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static String getValueAsString(NodeTuple tuple, String filename) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_60'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Node valueNode = tuple.getValueNode();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_61'/>
+61
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_61'>1</a>
+<span>
+1. getValueAsString : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (!(valueNode instanceof ScalarNode)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_62'/>
+62
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_62'>1</a>
+<span>
+1. getValueAsString : removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            fail(tuple.getValueNode(), filename, &#34;The value should be a string but it is a &#34; + valueNode.getNodeId().name());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_64'/>
+64
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_64'>1</a>
+<span>
+1. getValueAsString : mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::getValueAsString to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return ((ScalarNode)valueNode).getValue();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static MappingNode getValueAsMappingNode(NodeTuple tuple, String filename) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_68'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Node valueNode = tuple.getValueNode();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_69'/>
+69
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_69'>1</a>
+<span>
+1. getValueAsMappingNode : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (!(valueNode instanceof MappingNode)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_70'/>
+70
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_70'>1</a>
+<span>
+1. getValueAsMappingNode : removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            fail(tuple.getValueNode(), filename, &#34;The value should be a map but it is a &#34; + valueNode.getNodeId().name());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_72'>1</a>
+<span>
+1. getValueAsMappingNode : mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::getValueAsMappingNode to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return ((MappingNode)valueNode);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static SequenceNode getValueAsSequenceNode(NodeTuple tuple, String filename) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_76'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Node valueNode = tuple.getValueNode();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_77'/>
+77
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_77'>1</a>
+<span>
+1. getValueAsSequenceNode : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (!(valueNode instanceof SequenceNode)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_78'/>
+78
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_78'>1</a>
+<span>
+1. getValueAsSequenceNode : removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            fail(tuple.getValueNode(), filename, &#34;The value should be a sequence but it is a &#34; + valueNode.getNodeId().name());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_80'/>
+80
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_80'>1</a>
+<span>
+1. getValueAsSequenceNode : mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::getValueAsSequenceNode to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return ((SequenceNode)valueNode);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static List&#60;String&#62; getStringValues(Node sequenceNode, String filename) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_84'/>
+84
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_84'>1</a>
+<span>
+1. getStringValues : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (!(sequenceNode instanceof SequenceNode)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_85'/>
+85
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_85'>1</a>
+<span>
+1. getStringValues : removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            fail(sequenceNode, filename, &#34;The provided node must be a sequence but it is a &#34; + sequenceNode.getNodeId().name());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_88'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        List&#60;Node&#62; valueNodes = ((SequenceNode)sequenceNode).getValue();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_89'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        List&#60;String&#62; values = new ArrayList&#60;&#62;(valueNodes.size());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_90'/>
+90
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_90'>1</a>
+<span>
+1. getStringValues : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        for (Node node: valueNodes) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_91'/>
+91
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_91'>1</a>
+<span>
+1. getStringValues : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (!(node instanceof ScalarNode)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_92'/>
+92
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_92'>1</a>
+<span>
+1. getStringValues : removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                fail(node, filename, &#34;The value should be a string but it is a &#34; + node.getNodeId().name());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_94'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            values.add(((ScalarNode)node).getValue());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_95'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_96'>1</a>
+<span>
+1. getStringValues : mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::getStringValues to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return values;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@50b0cd7_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_40'>40</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_40'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createErrorString<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkFileIsNotAMap(nl.basjes.parse.useragent.TestErrorHandling)</span></span> mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::createErrorString to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_45'>45</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_45'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getExactlyOneNodeTuple<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkNoTestInput(nl.basjes.parse.useragent.TestErrorHandling)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_46'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getExactlyOneNodeTuple<br/><b>Killed by : </b>none</span></span> removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_48'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getExactlyOneNodeTuple<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkNoTestInput(nl.basjes.parse.useragent.TestErrorHandling)</span></span> mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::getExactlyOneNodeTuple to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_53'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getKeyAsString<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkFileIsNotAMap(nl.basjes.parse.useragent.TestErrorHandling)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_54'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getKeyAsString<br/><b>Killed by : </b>none</span></span> removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getKeyAsString<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkFileIsNotAMap(nl.basjes.parse.useragent.TestErrorHandling)</span></span> mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::getKeyAsString to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_61'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValueAsString<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkNoTestInput(nl.basjes.parse.useragent.TestErrorHandling)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_62'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValueAsString<br/><b>Killed by : </b>none</span></span> removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_64'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValueAsString<br/><b>Killed by : </b>nl.basjes.parse.useragent.analyze.TestMatcherExpressions.runPositionalTests(nl.basjes.parse.useragent.analyze.TestMatcherExpressions)</span></span> mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::getValueAsString to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_69'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValueAsMappingNode<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkNoTestInput(nl.basjes.parse.useragent.TestErrorHandling)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_70'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValueAsMappingNode<br/><b>Killed by : </b>none</span></span> removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValueAsMappingNode<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkNoTestInput(nl.basjes.parse.useragent.TestErrorHandling)</span></span> mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::getValueAsMappingNode to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_77'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValueAsSequenceNode<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkFileIsNotAMap(nl.basjes.parse.useragent.TestErrorHandling)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValueAsSequenceNode<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkFileIsNotAMap(nl.basjes.parse.useragent.TestErrorHandling)</span></span> removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_80'>80</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_80'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValueAsSequenceNode<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkNoTestInput(nl.basjes.parse.useragent.TestErrorHandling)</span></span> mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::getValueAsSequenceNode to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getStringValues<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkInvalidExtract(nl.basjes.parse.useragent.TestErrorHandling)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_85'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getStringValues<br/><b>Killed by : </b>none</span></span> removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_90'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getStringValues<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkInvalidExtract(nl.basjes.parse.useragent.TestErrorHandling)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getStringValues<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkInvalidExtract(nl.basjes.parse.useragent.TestErrorHandling)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_92'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getStringValues<br/><b>Killed by : </b>none</span></span> removed call to nl/basjes/parse/useragent/utils/YamlUtils::fail &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@50b0cd7_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@50b0cd7_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getStringValues<br/><b>Killed by : </b>nl.basjes.parse.useragent.TestErrorHandling.checkInvalidExtract(nl.basjes.parse.useragent.TestErrorHandling)</span></span> mutated return of Object value for nl/basjes/parse/useragent/utils/YamlUtils::getStringValues to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 38 -> Only field: "FacebookOperatingSystemVersion"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3550 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 30 -> Only field: "AgentUuid"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3603 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 41 -> Only field: "HackerToolkit"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3684 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 36 -> Only field: "FacebookFBSS"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3582 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 2 -> Only field: "DeviceBrand"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (6442 ms)</li><li>nl.basjes.parse.useragent.analyze.TestMatcherExpressions.runMatcherNestedFunctionsTests(nl.basjes.parse.useragent.analyze.TestMatcherExpressions) (5 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 49 -> Only field: "Carrier"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3784 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 26 -> Only field: "AgentLanguageCode"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3566 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 20 -> Only field: "AgentVersion"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3831 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 9 -> Only field: "OperatingSystemNameVersion"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (4112 ms)</li><li>nl.basjes.parse.useragent.analyze.TestMatcherExpressions.runAllPossibleSteps(nl.basjes.parse.useragent.analyze.TestMatcherExpressions) (83 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 44 -> Only field: "IECompatibilityVersion"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3585 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 39 -> Only field: "Anonymized"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3600 ms)</li><li>nl.basjes.parse.useragent.TestErrorHandling.checkSyntaxErrorExpect(nl.basjes.parse.useragent.TestErrorHandling) (3 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 18 -> Only field: "AgentClass"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3856 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 7 -> Only field: "OperatingSystemName"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (4187 ms)</li><li>nl.basjes.parse.useragent.TestErrorHandling.checkSyntaxErrorRequire(nl.basjes.parse.useragent.TestErrorHandling) (2 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 54 -> Only field: "WebviewAppVersionMajor"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3792 ms)</li><li>nl.basjes.parse.useragent.analyze.TestBuilder.testAskingForImpossibleField(nl.basjes.parse.useragent.analyze.TestBuilder) (680 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 45 -> Only field: "IECompatibilityVersionMajor"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3624 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 23 -> Only field: "AgentNameVersionMajor"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3780 ms)</li><li>nl.basjes.parse.useragent.analyze.TestMatcherExpressions.runSubstringVersionTests(nl.basjes.parse.useragent.analyze.TestMatcherExpressions) (7 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 8 -> Only field: "OperatingSystemVersion"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (4195 ms)</li><li>nl.basjes.parse.useragent.TestErrorHandling.checkInvalidExtract(nl.basjes.parse.useragent.TestErrorHandling) (2 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 4 -> Only field: "DeviceFirmwareVersion"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3571 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 1 -> Only field: "DeviceName"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (6607 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 42 -> Only field: "KoboAffiliate"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3567 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 35 -> Only field: "FacebookFBOP"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3641 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 17 -> Only field: "LayoutEngineBuild"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3555 ms)</li><li>nl.basjes.parse.useragent.TestErrorHandling.checkFileIsNotAMap(nl.basjes.parse.useragent.TestErrorHandling) (1 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 53 -> Only field: "WebviewAppVersion"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3820 ms)</li><li>nl.basjes.parse.useragent.analyze.TestMatcherExpressions.runWalkingTests(nl.basjes.parse.useragent.analyze.TestMatcherExpressions) (88 ms)</li><li>nl.basjes.parse.useragent.TestErrorHandling.checkNoExtract(nl.basjes.parse.useragent.TestErrorHandling) (1 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 28 -> Only field: "AgentInformationUrl"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3567 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 15 -> Only field: "LayoutEngineNameVersion"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3717 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 6 -> Only field: "OperatingSystemClass"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (4166 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 43 -> Only field: "KoboPlatformId"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3560 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 5 -> Only field: "DeviceVersion"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3816 ms)</li><li>nl.basjes.parse.useragent.TestSerialization.nl.basjes.parse.useragent.TestSerialization (6067 ms)</li><li>nl.basjes.parse.useragent.TestErrorHandling.methodInputValidation(nl.basjes.parse.useragent.TestErrorHandling) (2896 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 12 -> Only field: "LayoutEngineName"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3750 ms)</li><li>nl.basjes.parse.useragent.analyze.TestMatcherExpressions.runMatcherTests(nl.basjes.parse.useragent.analyze.TestMatcherExpressions) (55 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 32 -> Only field: "FacebookDeviceClass"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3580 ms)</li><li>nl.basjes.parse.useragent.analyze.TestMatcherExpressions.runEdgecasesTest(nl.basjes.parse.useragent.analyze.TestMatcherExpressions) (5 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 31 -> Only field: "FacebookCarrier"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3553 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 47 -> Only field: "IECompatibilityNameVersionMajor"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3567 ms)</li><li>nl.basjes.parse.useragent.analyze.TestMatcherExpressions.runAllFieldsTests(nl.basjes.parse.useragent.analyze.TestMatcherExpressions) (18 ms)</li><li>nl.basjes.parse.useragent.DocumentationExample.runDocumentationExample(nl.basjes.parse.useragent.DocumentationExample) (182 ms)</li><li>nl.basjes.parse.useragent.TestDeveloperTools.validateNewTestcaseSituationOutput(nl.basjes.parse.useragent.TestDeveloperTools) (3235 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 29 -> Only field: "AgentSecurity"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3609 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 19 -> Only field: "AgentName"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3860 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 24 -> Only field: "AgentBuild"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3550 ms)</li><li>nl.basjes.parse.useragent.analyze.TestMatcherExpressions.runMatcherIsNullTests(nl.basjes.parse.useragent.analyze.TestMatcherExpressions) (5 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 48 -> Only field: "__SyntaxError__"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3649 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 22 -> Only field: "AgentNameVersion"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3852 ms)</li><li>nl.basjes.parse.useragent.TestDeveloperTools.validateErrorSituationOutput(nl.basjes.parse.useragent.TestDeveloperTools) (3572 ms)</li><li>nl.basjes.parse.useragent.annotate.TestAnnotationSystem.testAnnotationBasedParser(nl.basjes.parse.useragent.annotate.TestAnnotationSystem) (924 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 14 -> Only field: "LayoutEngineVersionMajor"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3708 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 50 -> Only field: "GSAInstallationID"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3854 ms)</li><li>nl.basjes.parse.useragent.analyze.TestMatcherExpressions.runSubstringTests(nl.basjes.parse.useragent.analyze.TestMatcherExpressions) (6 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 46 -> Only field: "IECompatibilityNameVersion"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3619 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 37 -> Only field: "FacebookOperatingSystemName"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3708 ms)</li><li>nl.basjes.parse.useragent.analyze.TestBasics.testCacheSetter(nl.basjes.parse.useragent.analyze.TestBasics) (4 ms)</li><li>nl.basjes.parse.useragent.TestDeveloperTools.validateStringOutputsAndMatches(nl.basjes.parse.useragent.TestDeveloperTools) (3590 ms)</li><li>nl.basjes.parse.useragent.analyze.TestMatcherExpressions.runPositionalTests(nl.basjes.parse.useragent.analyze.TestMatcherExpressions) (3 ms)</li><li>nl.basjes.parse.useragent.annotate.TestAnnotationSystemAnonymous.testAnnotationBasedParser(nl.basjes.parse.useragent.annotate.TestAnnotationSystemAnonymous) (805 ms)</li><li>nl.basjes.parse.useragent.TestErrorHandling.checkNoTestInput(nl.basjes.parse.useragent.TestErrorHandling) (1 ms)</li><li>nl.basjes.parse.useragent.analyze.TestBuilder.testLimitedFields(nl.basjes.parse.useragent.analyze.TestBuilder) (906 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 40 -> Only field: "HackerAttackVector"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3601 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 27 -> Only field: "AgentInformationEmail"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3564 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsers.nl.basjes.parse.useragent.TestPredefinedBrowsers (8350 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 13 -> Only field: "LayoutEngineVersion"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3720 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 25 -> Only field: "AgentLanguage"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3651 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 10 -> Only field: "OperatingSystemVersionBuild"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3846 ms)</li><li>nl.basjes.parse.useragent.annotate.TestAnnotationSystemAnonymous.testImpossibleField(nl.basjes.parse.useragent.annotate.TestAnnotationSystemAnonymous) (330 ms)</li><li>nl.basjes.parse.useragent.analyze.TestMatcherExpressions.runLookupTests(nl.basjes.parse.useragent.analyze.TestMatcherExpressions) (19 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 34 -> Only field: "FacebookDeviceVersion"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3551 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 0 -> Only field: "DeviceClass"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (4928 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 33 -> Only field: "FacebookDeviceName"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3557 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 11 -> Only field: "LayoutEngineClass"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (4038 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 21 -> Only field: "AgentVersionMajor"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3835 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 3 -> Only field: "DeviceCpu"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3631 ms)</li><li>nl.basjes.parse.useragent.annotate.TestAnnotationSystem.testImpossibleField(nl.basjes.parse.useragent.annotate.TestAnnotationSystem) (330 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 51 -> Only field: "WebviewAppName"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3834 ms)</li><li>nl.basjes.parse.useragent.analyze.TestMatcherExpressions.runDebugOutputTest(nl.basjes.parse.useragent.analyze.TestMatcherExpressions) (30 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 52 -> Only field: "WebviewAppNameVersionMajor"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3816 ms)</li><li>nl.basjes.parse.useragent.TestErrorHandling.checkBadStructure(nl.basjes.parse.useragent.TestErrorHandling) (9 ms)</li><li>nl.basjes.parse.useragent.TestPredefinedBrowsersPerField.validateAllPredefinedBrowsersForField[Test 16 -> Only field: "LayoutEngineNameVersionMajor"](nl.basjes.parse.useragent.TestPredefinedBrowsersPerField) (3698 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.2
+
+</body>
+</html>
