@@ -297,7 +297,8 @@ config:
 - lookup:
     name: 'KnownWebviewAppNames'
     map:
-      'GSApp': 'Google Search App'
+      'GSApp' : 'Google Search App'
+      'Focus' : 'Firefox Focus'
 
 - matcher:
     require:
@@ -308,6 +309,26 @@ config:
     - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
     - 'WebviewAppName    :     11:LookUp[KnownWebviewAppNames;agent.product.(1)name="Chrome"^>>.name]'
     - 'WebviewAppVersion :     11:agent.product.(1)name="Chrome"^>>.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Chrome"'
+    extract:
+    - 'AgentClass        :   2500:"Browser Webview"'
+    - 'AgentName         :   2500:"Chrome Webview"'
+    - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
+    - 'WebviewAppName    :     12:LookUp[KnownWebviewAppNames;agent.product.(1)name="Version"^>>.name="Chrome"^<.name]'
+    - 'WebviewAppVersion :     12:agent.product.(1)name="Version"^>>.name="Chrome"^<.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Chrome"'
+    extract:
+    - 'AgentClass        :   2500:"Browser Webview"'
+    - 'AgentName         :   2500:"Chrome Webview"'
+    - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
+    - 'WebviewAppName    :     11:agent.product.(1)name="Version"^>>.name="Chrome"^<.name'
+    - 'WebviewAppVersion :     11:agent.product.(1)name="Version"^>>.name="Chrome"^<.version'
 
 # WebView UA in Lollipop and Above
 # In the newer versions of WebView, you can differentiate the WebView by looking for the wv field
@@ -629,3 +650,87 @@ config:
       AgentVersionMajor                    : '17'
       AgentNameVersion                     : 'Amigo 17.0.963.46'
       AgentNameVersionMajor                : 'Amigo 17'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Focus/1.3 Chrome/60.0.3112.116 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '60.0'
+      LayoutEngineVersionMajor             : '60'
+      LayoutEngineNameVersion              : 'Blink 60.0'
+      LayoutEngineNameVersionMajor         : 'Blink 60'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '60.0.3112.116'
+      AgentVersionMajor                    : '60'
+      AgentNameVersion                     : 'Chrome Webview 60.0.3112.116'
+      AgentNameVersionMajor                : 'Chrome Webview 60'
+      WebviewAppName                       : 'Firefox Focus'
+      WebviewAppNameVersionMajor           : 'Firefox Focus 1'
+      WebviewAppVersion                    : '1.3'
+      WebviewAppVersionMajor               : '1'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 SomeThing Unexpected/3.14 Chrome/60.0.3112.116 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '60.0'
+      LayoutEngineVersionMajor             : '60'
+      LayoutEngineNameVersion              : 'Blink 60.0'
+      LayoutEngineNameVersionMajor         : 'Blink 60'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '60.0.3112.116'
+      AgentVersionMajor                    : '60'
+      AgentNameVersion                     : 'Chrome Webview 60.0.3112.116'
+      AgentNameVersionMajor                : 'Chrome Webview 60'
+      WebviewAppName                       : 'SomeThing Unexpected'
+      WebviewAppNameVersionMajor           : 'SomeThing Unexpected 3'
+      WebviewAppVersion                    : '3.14'
+      WebviewAppVersionMajor               : '3'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.116 Mobile Safari/537.36 SomeThing Unexpected/3.14'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '60.0'
+      LayoutEngineVersionMajor             : '60'
+      LayoutEngineNameVersion              : 'Blink 60.0'
+      LayoutEngineNameVersionMajor         : 'Blink 60'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '60.0.3112.116'
+      AgentVersionMajor                    : '60'
+      AgentNameVersion                     : 'Chrome Webview 60.0.3112.116'
+      AgentNameVersionMajor                : 'Chrome Webview 60'
+      WebviewAppName                       : 'SomeThing Unexpected'
+      WebviewAppNameVersionMajor           : 'SomeThing Unexpected 3'
+      WebviewAppVersion                    : '3.14'
+      WebviewAppVersionMajor               : '3'
