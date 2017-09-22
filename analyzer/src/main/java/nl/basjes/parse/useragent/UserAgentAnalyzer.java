@@ -709,10 +709,10 @@ config:
     private UserAgent hardCodedPostProcessing(UserAgent userAgent) {
         // If it is really really bad ... then it is a Hacker.
         if ("true".equals(userAgent.getValue(SYNTAX_ERROR))) {
-            if (wantedFieldNames == null ||
-                wantedFieldNames.contains(DEVICE_CLASS) ||
-                wantedFieldNames.contains(OPERATING_SYSTEM_CLASS) ||
-                wantedFieldNames.contains(LAYOUT_ENGINE_CLASS)
+            if (wantedFieldNames == null || (
+                wantedFieldNames.contains(DEVICE_CLASS) &&
+                wantedFieldNames.contains(OPERATING_SYSTEM_CLASS) &&
+                wantedFieldNames.contains(LAYOUT_ENGINE_CLASS))
                 ) {
                 if (userAgent.get(DEVICE_CLASS).getConfidence() == -1 &&
                     userAgent.get(OPERATING_SYSTEM_CLASS).getConfidence() == -1 &&

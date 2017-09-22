@@ -1662,3 +1662,26 @@ config:
       AgentVersionMajor                    : '10'
       AgentNameVersion                     : 'Internet Explorer 10.0'
       AgentNameVersionMajor                : 'Internet Explorer 10'
+
+# This used to trigger an NPE
+- test:
+    input:
+      user_agent_string: '"      ltx71 - (http://ltx71.com/)"'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Unknown'
+      AgentName                            : 'Unknown'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentInformationUrl                  : 'http://ltx71.com/'
+      __SyntaxError__                      : 'true'

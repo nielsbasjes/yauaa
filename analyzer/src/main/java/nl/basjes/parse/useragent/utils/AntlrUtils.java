@@ -26,6 +26,9 @@ public final class AntlrUtils {
     }
 
     public static String getSourceText(ParserRuleContext ctx){
+        if (ctx.start == null || ctx.stop == null) {
+            return ctx.getText();
+        }
         int startIndex = ctx.start.getStartIndex();
         int stopIndex = ctx.stop.getStopIndex();
         if (stopIndex < startIndex) {
