@@ -106,6 +106,8 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
 
     private LRUMap<String, UserAgent> parseCache = new LRUMap<>(DEFAULT_PARSE_CACHE_SIZE);
 
+    private int userAgentMaxLength = Integer.MAX_VALUE;
+
     /**
      * Initialize the transient default values
      */
@@ -616,6 +618,9 @@ config:
     }
 
     public UserAgent parse(String userAgentString) {
+        if (userAgentMaxLength != Integer.MAX_VALUE) {
+            userAgentString = userAgentString.substring(0, userAgentMaxLength - 1);
+        }
         UserAgent userAgent = new UserAgent(userAgentString);
         return cachedParse(userAgent);
     }
@@ -651,6 +656,14 @@ config:
             return 0;
         }
         return parseCache.maxSize();
+    }
+
+    public void setUserAgentMaxLength(int newUserAgentMaxLength) {
+        this.userAgentMaxLength = newUserAgentMaxLength;
+    }
+
+    public int getUserAgentMaxLength() {
+        return this.userAgentMaxLength;
     }
 
     private synchronized UserAgent cachedParse(UserAgent userAgent) {
@@ -1061,6 +1074,11 @@ config:
             if (uaa.wantedFieldNames.contains(result)) {
                 Collections.addAll(uaa.wantedFieldNames, dependencies);
             }
+        }
+
+        public Builder withUserAgentMaxLength(int newUserAgentMaxLength) {
+            uaa.setUserAgentMaxLength(newUserAgentMaxLength);
+            return this;
         }
 
         public UserAgentAnalyzer build() {
