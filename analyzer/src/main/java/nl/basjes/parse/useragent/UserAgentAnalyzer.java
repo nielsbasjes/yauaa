@@ -656,8 +656,8 @@ config:
         return parseCache.maxSize();
     }
 
-    public void setUserAgentMaxLength(int userAgentMaxLength) {
-        this.userAgentMaxLength = userAgentMaxLength;
+    public void setUserAgentMaxLength(int newUserAgentMaxLength) {
+        this.userAgentMaxLength = newUserAgentMaxLength;
     }
 
     public int getUserAgentMaxLength() {
@@ -1052,8 +1052,8 @@ config:
             }
         }
 
-        public Builder withUserAgentMaxLength(int userAgentMaxLength) {
-            uaa.setUserAgentMaxLength(userAgentMaxLength);
+        public Builder withUserAgentMaxLength(int newUserAgentMaxLength) {
+            uaa.setUserAgentMaxLength(newUserAgentMaxLength);
             return this;
         }
 
