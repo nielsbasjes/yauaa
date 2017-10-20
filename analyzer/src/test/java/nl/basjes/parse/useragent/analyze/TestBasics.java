@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.junit.Test;
 
@@ -44,6 +45,30 @@ public class TestBasics {
 
         userAgentAnalyzer.setCacheSize(50000);
         assertEquals("Incorrect cache size", 50000, userAgentAnalyzer.getCacheSize());
+
+        userAgentAnalyzer.setUserAgentMaxLength(555);
+        assertEquals("Incorrect user agent max length", 555, userAgentAnalyzer.getUserAgentMaxLength());
     }
 
+    @Test
+    public void testUserAgentMaxLengthSetter() {
+        UserAgentAnalyzer userAgentAnalyzer = new UserAgentAnalyzer("classpath*:AllFields-tests.yaml");
+
+        assertEquals("Incorrect default user agent max length", Integer.MAX_VALUE, userAgentAnalyzer.getUserAgentMaxLength());
+
+        userAgentAnalyzer.setUserAgentMaxLength(250);
+        assertEquals("Incorrect default user agent max length", 250, userAgentAnalyzer.getUserAgentMaxLength());
+    }
+
+    @Test
+    public void testUserAgentMaxLengthParsing() {
+        UserAgentAnalyzer uaa = UserAgentAnalyzer.newBuilder()
+            .withUserAgentMaxLength(67)
+            .build();
+
+        UserAgent userAgent =
+            uaa.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 ignored part of user agent");
+
+        assertEquals("Trimmed user agent string", userAgent.getUserAgentString(), "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36");
+    }
 }
