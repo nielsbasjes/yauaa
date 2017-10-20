@@ -86,8 +86,6 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
     private static final int INFORM_ACTIONS_HASHMAP_SIZE = 300000;
     private static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
-    private static final int MAX_USERAGENT_LENGTH = 2048;
-
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
     protected List<Matcher> allMatchers = new ArrayList<>(5000);
     private Map<String, Set<MatcherAction>> informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
@@ -106,7 +104,8 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
 
     private LRUMap<String, UserAgent> parseCache = new LRUMap<>(DEFAULT_PARSE_CACHE_SIZE);
 
-    private int userAgentMaxLength = Integer.MAX_VALUE;
+    public static final int DEFAULT_USER_AGENT_MAX_LENGTH = 2048;
+    private int userAgentMaxLength = DEFAULT_USER_AGENT_MAX_LENGTH;
 
     /**
      * Initialize the transient default values
@@ -618,9 +617,6 @@ config:
     }
 
     public UserAgent parse(String userAgentString) {
-        if (userAgentMaxLength != Integer.MAX_VALUE) {
-            userAgentString = userAgentString.substring(0, userAgentMaxLength - 1);
-        }
         UserAgent userAgent = new UserAgent(userAgentString);
         return cachedParse(userAgent);
     }
@@ -659,7 +655,11 @@ config:
     }
 
     public void setUserAgentMaxLength(int newUserAgentMaxLength) {
-        this.userAgentMaxLength = newUserAgentMaxLength;
+        if (newUserAgentMaxLength <= 0) {
+            userAgentMaxLength = DEFAULT_USER_AGENT_MAX_LENGTH;
+        } else {
+            userAgentMaxLength = newUserAgentMaxLength;
+        }
     }
 
     public int getUserAgentMaxLength() {
@@ -668,7 +668,7 @@ config:
 
     private synchronized UserAgent cachedParse(UserAgent userAgent) {
         String useragentString = userAgent.getUserAgentString();
-        if (useragentString != null && useragentString.length() > MAX_USERAGENT_LENGTH) {
+        if (useragentString != null && useragentString.length() > userAgentMaxLength) {
             userAgent.set(DEVICE_CLASS, "Hacker", 100);
             userAgent.set(DEVICE_BRAND, "Hacker", 100);
             userAgent.set(DEVICE_NAME, "Hacker", 100);

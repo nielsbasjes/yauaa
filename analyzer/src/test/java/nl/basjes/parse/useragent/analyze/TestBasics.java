@@ -21,6 +21,7 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.junit.Test;
 
+import static nl.basjes.parse.useragent.UserAgentAnalyzer.DEFAULT_USER_AGENT_MAX_LENGTH;
 import static org.junit.Assert.assertEquals;
 
 public class TestBasics {
@@ -54,21 +55,13 @@ public class TestBasics {
     public void testUserAgentMaxLengthSetter() {
         UserAgentAnalyzer userAgentAnalyzer = new UserAgentAnalyzer("classpath*:AllFields-tests.yaml");
 
-        assertEquals("Incorrect default user agent max length", Integer.MAX_VALUE, userAgentAnalyzer.getUserAgentMaxLength());
+        assertEquals("Incorrect default user agent max length", DEFAULT_USER_AGENT_MAX_LENGTH, userAgentAnalyzer.getUserAgentMaxLength());
 
         userAgentAnalyzer.setUserAgentMaxLength(250);
         assertEquals("Incorrect default user agent max length", 250, userAgentAnalyzer.getUserAgentMaxLength());
+
+        userAgentAnalyzer.setUserAgentMaxLength(-100);
+        assertEquals("Incorrect default user agent max length", DEFAULT_USER_AGENT_MAX_LENGTH, userAgentAnalyzer.getUserAgentMaxLength());
     }
 
-    @Test
-    public void testUserAgentMaxLengthParsing() {
-        UserAgentAnalyzer uaa = UserAgentAnalyzer.newBuilder()
-            .withUserAgentMaxLength(67)
-            .build();
-
-        UserAgent userAgent =
-            uaa.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 ignored part of user agent");
-
-        assertEquals("Trimmed user agent string", userAgent.getUserAgentString(), "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36");
-    }
 }
