@@ -86,6 +86,8 @@ public class UserAgentAnalyzer extends Analyzer implements Serializable {
     private static final int INFORM_ACTIONS_HASHMAP_SIZE = 300000;
     private static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
+    private static final int MAX_USERAGENT_LENGTH = 2048;
+
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzer.class);
     protected List<Matcher> allMatchers = new ArrayList<>(5000);
     private Map<String, Set<MatcherAction>> informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
@@ -652,17 +654,39 @@ config:
     }
 
     private synchronized UserAgent cachedParse(UserAgent userAgent) {
-        if (parseCache == null) {
-            return nonCachedParse(userAgent);
-        }
-
-        String userAgentString = userAgent.getUserAgentString();
-        UserAgent cachedValue = parseCache.get(userAgentString);
-        if (cachedValue != null) {
-            userAgent.clone(cachedValue);
+        String useragentString = userAgent.getUserAgentString();
+        if (useragentString != null && useragentString.length() > MAX_USERAGENT_LENGTH) {
+            userAgent.set(DEVICE_CLASS, "Hacker", 100);
+            userAgent.set(DEVICE_BRAND, "Hacker", 100);
+            userAgent.set(DEVICE_NAME, "Hacker", 100);
+            userAgent.set(DEVICE_VERSION, "Hacker", 100);
+            userAgent.set(OPERATING_SYSTEM_CLASS, "Hacker", 100);
+            userAgent.set(OPERATING_SYSTEM_NAME, "Hacker", 100);
+            userAgent.set(OPERATING_SYSTEM_VERSION, "Hacker", 100);
+            userAgent.set(LAYOUT_ENGINE_CLASS, "Hacker", 100);
+            userAgent.set(LAYOUT_ENGINE_NAME, "Hacker", 100);
+            userAgent.set(LAYOUT_ENGINE_VERSION, "Hacker", 100);
+            userAgent.set(LAYOUT_ENGINE_VERSION_MAJOR, "Hacker", 100);
+            userAgent.set(AGENT_CLASS, "Hacker", 100);
+            userAgent.set(AGENT_NAME, "Hacker", 100);
+            userAgent.set(AGENT_VERSION, "Hacker", 100);
+            userAgent.set(AGENT_VERSION_MAJOR, "Hacker", 100);
+            userAgent.set("HackerToolkit", "Unknown", 100);
+            userAgent.set("HackerAttackVector", "Buffer overflow", 100);
+            return hardCodedPostProcessing(userAgent);
         } else {
-            cachedValue = new UserAgent(nonCachedParse(userAgent));
-            parseCache.put(userAgentString, cachedValue);
+            if (parseCache == null) {
+                return nonCachedParse(userAgent);
+            }
+
+            String userAgentString = userAgent.getUserAgentString();
+            UserAgent cachedValue = parseCache.get(userAgentString);
+            if (cachedValue != null) {
+                userAgent.clone(cachedValue);
+            } else {
+                cachedValue = new UserAgent(nonCachedParse(userAgent));
+                parseCache.put(userAgentString, cachedValue);
+            }
         }
         // We have our answer.
         return userAgent;
