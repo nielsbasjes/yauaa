@@ -39,7 +39,10 @@ public class TestBuilder {
                 .withAllFields()
                 .withField("DeviceClass")
                 .withField("AgentNameVersionMajor")
+                .withUserAgentMaxLength(1234)
                 .build();
+
+        Assert.assertEquals(1234, userAgentAnalyzer.getUserAgentMaxLength());
 
         UserAgent parsedAgent = userAgentAnalyzer.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36");
