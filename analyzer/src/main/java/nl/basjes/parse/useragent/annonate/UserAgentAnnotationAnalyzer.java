@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.annonate;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,7 +100,7 @@ public class UserAgentAnnotationAnalyzer<T> {
             throw new InvalidParserConfigurationException("You MUST specify at least 1 field to extract.");
         }
 
-        UserAgentAnalyzer.Builder builder = UserAgentAnalyzer.newBuilder();
+        UserAgentAnalyzerBuilder builder = UserAgentAnalyzer.newBuilder();
         builder.hideMatcherLoadStats();
         if (!fieldSetters.isEmpty()) {
             builder.withFields(fieldSetters.keySet());

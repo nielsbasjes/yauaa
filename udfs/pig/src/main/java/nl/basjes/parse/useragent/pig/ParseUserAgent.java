@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.pig;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
 import org.apache.pig.FuncSpec;
 import org.apache.pig.data.DataType;
 import org.apache.pig.data.Tuple;
@@ -41,7 +42,7 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
     private boolean initialized = false;
     private void initialize() {
         if (!initialized) {
-            UserAgentAnalyzer.Builder analyzerBuilder = UserAgentAnalyzer.newBuilder();
+            UserAgentAnalyzerBuilder analyzerBuilder = UserAgentAnalyzer.newBuilder();
 
             analyzerBuilder.hideMatcherLoadStats();
 

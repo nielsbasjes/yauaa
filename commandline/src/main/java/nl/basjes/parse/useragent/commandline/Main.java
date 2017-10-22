@@ -22,6 +22,7 @@ import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import nl.basjes.parse.useragent.debug.FlattenPrinter;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
+import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzerTesterBuilder;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
@@ -119,7 +120,7 @@ public final class Main {
                 }
             }
 
-            UserAgentAnalyzerTester.Builder builder = UserAgentAnalyzerTester.newBuilder();
+            UserAgentAnalyzerTesterBuilder builder = UserAgentAnalyzerTester.newBuilder();
             builder.hideMatcherLoadStats();
             builder.withCache(commandlineOptions.cacheSize);
             if (commandlineOptions.fields != null) {

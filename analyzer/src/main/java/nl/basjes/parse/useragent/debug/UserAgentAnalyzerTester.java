@@ -494,64 +494,26 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         return allMatches;
     }
 
-
-    public static UserAgentAnalyzerTester.Builder newBuilder() {
-        return new UserAgentAnalyzerTester.Builder();
+    public static UserAgentAnalyzerTesterBuilder<? extends UserAgentAnalyzerTester, ? extends UserAgentAnalyzerTesterBuilder> newBuilder() {
+        return new UserAgentAnalyzerTesterBuilder<>(new UserAgentAnalyzerTester());
     }
 
-    public static class Builder extends UserAgentAnalyzer.Builder {
+    public static class UserAgentAnalyzerTesterBuilder<UAA extends UserAgentAnalyzerTester, B extends UserAgentAnalyzerTesterBuilder<UAA, B>>
+        extends UserAgentAnalyzerBuilder<UAA, B> {
 
-        public Builder() {
-            super(new UserAgentAnalyzerTester());
+        private final UAA uaa;
+
+        public UserAgentAnalyzerTesterBuilder(UAA newUaa) {
+            super(newUaa);
+            this.uaa = newUaa;
         }
 
         @Override
-        public UserAgentAnalyzerTester build() {
-            return (UserAgentAnalyzerTester)super.build();
+        public UAA build() {
+            return super.build();
         }
 
-        @Override
-        public UserAgentAnalyzerTester.Builder withCache(int cacheSize) {
-            super.withCache(cacheSize);
-            return this;
-        }
-
-        @Override
-        public UserAgentAnalyzerTester.Builder withoutCache() {
-            super.withoutCache();
-            return this;
-        }
-
-        @Override
-        public UserAgentAnalyzerTester.Builder withField(String fieldName) {
-            super.withField(fieldName);
-            return this;
-        }
-
-        @Override
-        public UserAgentAnalyzerTester.Builder withFields(Collection<String> fieldNames) {
-            super.withFields(fieldNames);
-            return this;
-        }
-
-        @Override
-        public UserAgentAnalyzerTester.Builder withAllFields() {
-            super.withAllFields();
-            return this;
-        }
-
-        @Override
-        public UserAgentAnalyzerTester.Builder showMatcherLoadStats() {
-            super.showMatcherLoadStats();
-            return this;
-        }
-
-        @Override
-        public UserAgentAnalyzerTester.Builder hideMatcherLoadStats() {
-            super.hideMatcherLoadStats();
-            return this;
-        }
     }
-
 
 }
+
