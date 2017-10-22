@@ -158,9 +158,6 @@ public abstract class Splitter {
         }
 
         int lastCharOfLastSplit = findSplitEnd(characters, firstCharOfLastSplit);
-        if (lastCharOfLastSplit == -1) {
-            return null;
-        }
 
         return value.substring(firstCharOfFirstSplit, lastCharOfLastSplit);
     }

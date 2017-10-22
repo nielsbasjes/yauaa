@@ -25,6 +25,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class TestWordSplitter {
 
@@ -107,6 +108,9 @@ public class TestWordSplitter {
 
         assertEquals("www.bar.com"    , splitter.getSingleSplit(value,1));
         assertEquals(null             , splitter.getSingleSplit(value,2));
+
+        assertEquals("www.bar.com"    , splitter.getFirstSplits(value,1));
+        assertEquals(null             , splitter.getFirstSplits(value,2));
     }
 
     @Test
@@ -116,6 +120,9 @@ public class TestWordSplitter {
 
         assertEquals("http://bar.com" , splitter.getSingleSplit(value,1));
         assertEquals(null             , splitter.getSingleSplit(value,2));
+
+        assertEquals("http://bar.com" , splitter.getFirstSplits(value,1));
+        assertEquals(null             , splitter.getFirstSplits(value,2));
     }
 
     @Test
@@ -125,6 +132,9 @@ public class TestWordSplitter {
 
         assertEquals("foo@bar.com"    , splitter.getSingleSplit(value,1));
         assertEquals(null             , splitter.getSingleSplit(value,2));
+
+        assertEquals("foo@bar.com"    , splitter.getFirstSplits(value,1));
+        assertEquals(null             , splitter.getFirstSplits(value,2));
     }
 
     @Test
@@ -308,6 +318,17 @@ public class TestWordSplitter {
         assertEquals(null                    , splitter.getSplitRange(value, splitList, 0,  0));
         assertEquals(null                    , splitter.getSplitRange(value, splitList, 0, -1));
         assertEquals(null                    , splitter.getSplitRange(value, splitList,-1, -1));
+    }
+
+    @Test
+    public void badCalls() {
+        String value = "one two/3 four-4 five(some more)";
+        WordSplitter splitter = WordSplitter.getInstance();
+
+        assertNull(splitter.getSplitRange(null , 1, 2));
+        assertNull(splitter.getSplitRange(value, -1, 2));
+        assertNull(splitter.getSplitRange(value, 1, -2));
+        assertNull(splitter.getSplitRange(value, 3, 2));
     }
 
 }
