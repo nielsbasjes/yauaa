@@ -8,6 +8,8 @@ Yauaa: Yet Another UserAgent Analyzer
 
 This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.
 
+A bit more background about this useragent parser can be found in this blog which I wrote about it: [https://techlab.bol.com/making-sense-user-agent-string/](https://partnerprogramma.bol.com/click/click?p=1&t=url&s=2171&f=TXL&url=https%3A%2F%2Ftechlab.bol.com%2Fmaking-sense-user-agent-string%2F&name=yauaa)
+
 The resulting output fields can be classified into several categories:
 
 - The **Device**:
@@ -121,8 +123,8 @@ and for all the other clicks the values are retrieved from this cache at a speed
 
 Using the analyzer
 ==================
-In addition to the UDFs for Apache Pig and Platfora (see below) this analyzer
-can also be used in Java based applications.
+In addition to the UDFs for many of Apache tools (Pig, Hive, Flink, Beam, ... see below) this analyzer
+can also directly be used in Java based applications.
 
 First add the library as a dependency to your application.
 This has been published to maven central so that should work in almost any environment.
@@ -151,8 +153,10 @@ Please instantiate a new UserAgentAnalyzer as few times as possible because the 
 
 Note that not all fields are available after every parse. So be prepared to receive a 'null' if you extract a specific name.
 
-**IMPORTANT: This library is NOT threadsafe/reentrant!**
-So if you need it in a multi threaded situation you either need to synchronize using it or create a separate instance per thread.
+**IMPORTANT: This library is single threaded !**
+Because the code is not reentrant the main method has been synchronized on the instance. 
+So if you are in a multi threaded situation you should create a separate instance per thread or accept the speed limitation.
+Note that you should really instantiate it only once per thread (and use a ThreadPool or something similar) because starting a new instance takes several seconds.
 
 # Limiting to only certain fields
 In some scenarios you only want a specific field and all others are unwanted.
@@ -188,11 +192,6 @@ I have written such a UDF which are all part of this project.
 UDFs written by other people:
 
 * [Apache Drill](https://github.com/cgivre/drill-useragent-function)
-
-
-
-
-
 
 
 Values explained
