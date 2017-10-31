@@ -111,7 +111,7 @@ public class ParseService {
         try {
             sb.append("<!DOCTYPE html>");
             sb.append("<html><head profile=\"http://www.w3.org/2005/10/profile\">");
-            sb.append("<link rel=\"icon\" type=\"image/ico\" href=\"/favicon.ico\" />\n");
+            insertFavIcons(sb);
             sb.append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
             sb.append("<title>Analyzing the useragent</title></head>");
             sb.append("<body>");
@@ -209,6 +209,17 @@ public class ParseService {
             sb.append("</html>");
         }
         return sb.toString();
+    }
+
+    private void insertFavIcons(StringBuilder sb) {
+        sb.append("<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon.png\">");
+        sb.append("<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon-32x32.png\">");
+        sb.append("<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/favicon-16x16.png\">");
+        sb.append("<link rel=\"manifest\" href=\"/manifest.json\">");
+        sb.append("<link rel=\"mask-icon\" href=\"/safari-pinned-tab.svg\" color=\"#5bbad5\">");
+        sb.append("<meta name=\"msapplication-TileColor\" content=\"#2d89ef\">");
+        sb.append("<meta name=\"msapplication-TileImage\" content=\"/mstile-144x144.png\">");
+        sb.append("<meta name=\"theme-color\" content=\"#ffffff\">");
     }
 
     private Pair<String, String> prefixSplitter(String input) {
