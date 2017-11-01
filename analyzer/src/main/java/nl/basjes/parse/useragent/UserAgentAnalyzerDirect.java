@@ -869,6 +869,10 @@ config:
             }
         }
     }
+
+    public void preHeat() {
+        preHeat(testCases.size(), true);
+    }
     public void preHeat(int preheatIterations) {
         preHeat(preheatIterations, true);
     }
@@ -893,7 +897,7 @@ config:
                         }
                         remainingIterations--;
                         // Calculate and use result to guarantee not optimized away.
-                        if(!parse(userAgentString).hasSyntaxError()) {
+                        if(!UserAgentAnalyzerDirect.this.parse(userAgentString).hasSyntaxError()) {
                             goodResults++;
                         }
                         if (remainingIterations <= 0) {

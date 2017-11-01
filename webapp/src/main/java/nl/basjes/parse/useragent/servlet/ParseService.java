@@ -53,7 +53,7 @@ public class ParseService {
     private static final String ANALYZER_VERSION = UserAgentAnalyzer.getVersion();
 
     static {
-        USER_AGENT_ANALYZER.preHeat(10000);
+        USER_AGENT_ANALYZER.preHeat();
     }
 
     @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED, reason = "The User-Agent header is missing")
@@ -72,6 +72,12 @@ public class ParseService {
     )
     public String getHtmlPOST(@ModelAttribute("useragent") String userAgent) {
         return doHTML(userAgent);
+    }
+
+    @GetMapping(value = "/preheat", produces = MediaType.TEXT_HTML_VALUE)
+    public String getHtmlPreHeat(@RequestHeader("User-Agent") String userAgentString) {
+        USER_AGENT_ANALYZER.preHeat();
+        return doHTML(userAgentString);
     }
 
     @GetMapping(value = "/{userAgent}", produces = MediaType.TEXT_HTML_VALUE)
