@@ -953,10 +953,12 @@ config:
 
     // ===============================================================================================================
 
+    @SuppressWarnings("unchecked")
     public static UserAgentAnalyzerDirectBuilder<? extends UserAgentAnalyzerDirect, ? extends UserAgentAnalyzerDirectBuilder> newBuilder() {
         return new UserAgentAnalyzerDirectBuilder<>(new UserAgentAnalyzerDirect(false));
     }
 
+    @SuppressWarnings("unchecked")
     public static class UserAgentAnalyzerDirectBuilder<UAA extends UserAgentAnalyzerDirect, B extends UserAgentAnalyzerDirectBuilder<UAA, B>> {
         private final UAA uaa;
         private int preheatIterations = 0;

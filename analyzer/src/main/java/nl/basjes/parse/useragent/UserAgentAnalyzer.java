@@ -90,17 +90,20 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
         return userAgent;
     }
 
+    @SuppressWarnings("unchecked")
     public static UserAgentAnalyzerBuilder<? extends UserAgentAnalyzer, ? extends UserAgentAnalyzerBuilder> newBuilder() {
         return new UserAgentAnalyzerBuilder<>(new UserAgentAnalyzer(false));
     }
 
     // This is purely to retain backwards compatibility
+    @SuppressWarnings("unchecked")
     public static class Builder extends UserAgentAnalyzerBuilder{
         public Builder(UserAgentAnalyzer newUaa) {
             super(newUaa);
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static class UserAgentAnalyzerBuilder<UAA extends UserAgentAnalyzer, B extends UserAgentAnalyzerBuilder<UAA, B>>
             extends UserAgentAnalyzerDirectBuilder<UAA, B> {
         private final UAA uaa;
