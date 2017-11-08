@@ -8,7 +8,7 @@ If you use a maven based project simply add this dependency
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa-hive</artifactId>
       <classifier>udf</classifier>
-      <version>2.2</version>
+      <version>3.0</version>
     </dependency>
 
 ## Building

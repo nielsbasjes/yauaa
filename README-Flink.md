@@ -7,7 +7,7 @@ If you use a maven based project simply add this dependency to your Apache Flink
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa-flink</artifactId>
-      <version>2.2</version>
+      <version>3.0</version>
     </dependency>
 
 ## Building
