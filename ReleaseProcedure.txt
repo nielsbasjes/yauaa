@@ -28,7 +28,7 @@ git tag -a v${RELEASEVERSION} -m"Tag Version ${RELEASEVERSION}"
 #VERIFY If this all looks good
 
 # These two profiles are defined in ~/.m2/settings.xml
-mvn clean deploy -Pplatfora -Prelease -Pdeploy-sonatype
+mvn clean deploy -Prelease -Pdeploy-sonatype
 
 # Now check SONATYPE
 

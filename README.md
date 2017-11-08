@@ -186,7 +186,7 @@ I have written such a UDF which are all part of this project.
 * [Apache Flink](README-Flink.md)
 * [Apache Beam](README-Beam.md)
 * [Apache Hive](README-Hive.md)
-* ~~[Platfora](README-Platfora.md)~~
+* ~~[Platfora](README-Platfora.md)~~ (Deprecated)
 * [Commandline tool](README-Commandline.md)
 
 UDFs written by other people:

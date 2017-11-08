@@ -8,19 +8,8 @@ So as soon as my employer stops using Platfora I will ditch this UDF.
 Just so you know.
 
 ## Getting the UDF
-You can get the prebuild UDF from maven central.
-If you use a maven based project simply add this dependency
-
-    <dependency>
-      <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa-platfora</artifactId>
-      <classifier>udf</classifier>
-      <version>2.2</version>
-    </dependency>
-
-Or simply download it via this URL:
-http://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-platfora/
-Then go the the right version and download the file named yauaa-platfora-*version*-udf.jar
+The Platfora UDF is no longer published starting version 3.0.
+If you need this UDF you must build it yourself (see below).
 
 ## Example usage
 Once installed you will see two new functions that can be used in computed fields:
