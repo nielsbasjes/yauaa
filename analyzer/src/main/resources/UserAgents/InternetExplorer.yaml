@@ -609,6 +609,128 @@ config:
     - 'WebviewAppName    :    0:"Unknown Webview App"'
     - 'WebviewAppVersion :    0:"??"'
 
+# =================================================
+# Edge for Android & iOS
+# Specs:
+# https://blogs.windows.com/msedgedev/2017/10/05/microsoft-edge-ios-android-developer/
+# A few notes:
+# - The app/OS identifier is chosen so that it does not contain the string “Edge.”
+#   This is to avoid triggering any existing UA detection logic that might accidentally decide that
+#   these browsers are Microsoft Edge for Windows 10, resulting in a desktop site or something equally confusing.
+# - The version number “41” is the app version number aligned across all current versions of Microsoft Edge
+#   (note that for simplicity, the app version number is not currently exposed in Microsoft Edge for PC;
+#   only the EdgeHTML engine version number is exposed).
+# - The sub-version number is a platform-specific version number that internal version number of
+#   the app on that platform.
+
+# Specs say:
+# On Android, we are using the Blink rendering engine from the Chromium browser project.
+# This approach gives us more control and better performance than using the Android WebView control,
+# but means that we are shipping our own copy of the rendering engine in the app.
+- matcher:
+    extract:
+    - 'LayoutEngineClass     :   2015:"Browser"'
+    - 'LayoutEngineName      :   2015:"Blink"'
+    - 'LayoutEngineVersion   :   2015:agent.product.name="Chrome"^.version[-2]'
+
+    - 'AgentClass            :   2015:"Browser"'
+    - 'AgentName             :   2015:"Edge"'
+    - 'AgentVersion          :   2015:agent.product.name="EdgA"^.version'
+
+# Specs say:
+# On iOS, we are using the WebKit engine, as provided by iOS in the WKWebView control.
+# That means that from a compatibility perspective, Microsoft Edge for iOS should match
+# the version of Safari that is currently available for iOS.
+- matcher:
+    extract:
+    - 'LayoutEngineClass     :   2015:"Browser"'
+    - 'LayoutEngineName      :   2015:"AppleWebKit"'
+    - 'LayoutEngineVersion   :   2015:agent.product.name="AppleWebKit"^.version'
+
+    - 'AgentClass            :   2015:"Browser"'
+    - 'AgentName             :   2015:"Edge"'
+    - 'AgentVersion          :   2015:agent.product.name="EdgiOS"^.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6 Build/N6F27M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.145 Mobile Safari/537.36 EdgA/41.0.0.1136'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemVersionBuild          : 'N6F27M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '58.0'
+      LayoutEngineVersionMajor             : '58'
+      LayoutEngineNameVersion              : 'Blink 58.0'
+      LayoutEngineNameVersionMajor         : 'Blink 58'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '41.0.0.1136'
+      AgentVersionMajor                    : '41'
+      AgentNameVersion                     : 'Edge 41.0.0.1136'
+      AgentNameVersionMajor                : 'Edge 41'
+
+# Example from specs page
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0; Pixel XL Build/OPP3.170518.006) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.0 Mobile Safari/537.36 EdgA/41.1.35.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Pixel XL'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0'
+      OperatingSystemNameVersion           : 'Android 8.0'
+      OperatingSystemVersionBuild          : 'OPP3.170518.006'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '58.0'
+      LayoutEngineVersionMajor             : '58'
+      LayoutEngineNameVersion              : 'Blink 58.0'
+      LayoutEngineNameVersionMajor         : 'Blink 58'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '41.1.35.1'
+      AgentVersionMajor                    : '41'
+      AgentNameVersion                     : 'Edge 41.1.35.1'
+      AgentNameVersionMajor                : 'Edge 41'
+
+# Example from specs page
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac OS X) AppleWebKit/603.2.4 (KHTML, like Gecko) Mobile/14F89 Safari/603.2.4 EdgiOS/41.1.35.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '14F89'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.3.2'
+      OperatingSystemNameVersion           : 'iOS 10.3.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '603.2.4'
+      LayoutEngineVersionMajor             : '603'
+      LayoutEngineNameVersion              : 'AppleWebKit 603.2.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 603'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '41.1.35.1'
+      AgentVersionMajor                    : '41'
+      AgentNameVersion                     : 'Edge 41.1.35.1'
+      AgentNameVersionMajor                : 'Edge 41'
+
+# ===============================================
+
 # MSAppHost means webview
 - test:
     input:
