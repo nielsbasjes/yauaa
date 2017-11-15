@@ -140,7 +140,7 @@ config:
       extract:
         - 'NameSplitTwo5: 1:agent.product.name[5-6]'
 
-
+# String concat tests
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
@@ -154,7 +154,12 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'PrePostfixNameSplitTwo2: 1:Concat["Prefix ->";Concat[agent.product.name[2-3];"<- Postfix"]]'
+        - 'PrePostfixNameSplitTwo2: 1:Concat["Prefix ->";agent.product.name[2-3];"<- Postfix"]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NestedPrePostfixNameSplitTwo2: 1:Concat["Prefix ->";Concat[agent.product.name[2-3];"<- Postfix"]]'
 
   - test:
       <<: *TEST_OPTIONS
@@ -189,6 +194,7 @@ config:
         NameSplitTwo4               : 'four five'
         NameSplitTwo5               : 'Unknown'
 
-        PrefixNameSplitTwo2                  : 'Prefix ->two three'
-        PostfixNameSplitTwo2                 : 'two three<- Postfix'
-        PrePostfixNameSplitTwo2              : 'Prefix ->two three<- Postfix'
+        PrefixNameSplitTwo2           : 'Prefix ->two three'
+        PostfixNameSplitTwo2          : 'two three<- Postfix'
+        PrePostfixNameSplitTwo2       : 'Prefix ->two three<- Postfix'
+        NestedPrePostfixNameSplitTwo2 : 'Prefix ->two three<- Postfix'

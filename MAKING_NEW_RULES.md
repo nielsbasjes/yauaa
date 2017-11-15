@@ -258,6 +258,7 @@ LookUp the value against a lookup table | LookUp[lookupname;expression] | LookUp
 LookUp the value against a lookup table with fallback | LookUp[lookupname;expression;defaultvalue] | LookUp[OSNames;agent.product.entry.text;"Unknown"]
 Put a fixed string before an expression | Concat[value;expression] | Concat["Something";agent.product.entry.text]
 Put a fixed string after an expression | Concat[expression;value] | Concat[agent.product.entry.text;"Something"]
+Surround the expression with both a prefix and a postfix | Concat[value;expression;value] | Concat["Something";agent.product.entry.text;"Something"]
 
 Chaining operators
 ==================

@@ -23,6 +23,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerLexer;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherBaseContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
@@ -230,6 +231,13 @@ public abstract class MatcherAction implements Serializable {
         }
 
         @Override
+        public Void visitMatcherConcat(MatcherConcatContext ctx) {
+            unQuoteToken(ctx.prefix);
+            unQuoteToken(ctx.postfix);
+            return super.visitMatcherConcat(ctx);
+        }
+
+        @Override
         public Void visitMatcherConcatPrefix(MatcherConcatPrefixContext ctx) {
             unQuoteToken(ctx.prefix);
             return super.visitMatcherConcatPrefix(ctx);
@@ -365,6 +373,9 @@ public abstract class MatcherAction implements Serializable {
         }
         if (tree instanceof MatcherWordRangeContext){
             return calculateInformPath(treeName, ((MatcherWordRangeContext) tree).matcher());
+        }
+        if (tree instanceof MatcherConcatContext){
+            return calculateInformPath(treeName, ((MatcherConcatContext) tree).matcher());
         }
         if (tree instanceof MatcherConcatPrefixContext){
             return calculateInformPath(treeName, ((MatcherConcatPrefixContext) tree).matcher());
