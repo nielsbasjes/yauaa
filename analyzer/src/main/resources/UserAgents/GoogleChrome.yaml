@@ -568,6 +568,17 @@ config:
       AgentNameVersion                     : 'Opera Neon 1.0.2459.0'
       AgentNameVersionMajor                : 'Opera Neon 1'
 
+# TODO: Confusing case. I am unsure what the right value for the CPU and the bits of the CPU are.
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686 (x86_64)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+#    expected:
+#      DeviceCpu                            : 'Intel i686'
+#      DeviceCpuBits                        : '32'
+#      OperatingSystemName                  : 'Linux'
+#      OperatingSystemVersion               : 'Intel i686'
+#      OperatingSystemNameVersion           : 'Linux Intel i686'
+
 - test:
     input:
       # Pulse browser from https://amigo.mail.ru/

@@ -2309,6 +2309,94 @@ config:
 
 - matcher:
     require:
+    - 'agent.(1)product.(1)comments.entry.text="SugarLabs"'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SugarLabs"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SugarLabs"'
+    - 'OperatingSystemVersion:  150:CleanVersion[agent.(1)product.(1)comments.entry.product.name="SugarLabs"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="SugarLabs"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SugarLabs"'
+    - 'OperatingSystemVersion:  151:CleanVersion[agent.(1)product.(1)comments.entry.product.name="SugarLabs"^.(2)version]'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.text="SugarLabs"'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SugarLabs"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SugarLabs"'
+    - 'OperatingSystemVersion:  150:CleanVersion[agent.product.name="SugarLabs"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;agent.product.name="SugarLabs"^.(2)version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"SugarLabs"'
+    - 'OperatingSystemVersion:  151:CleanVersion[agent.product.name="SugarLabs"^.(2)version]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="SugarLabs"'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"Linux Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  151:"Desktop"'
+    - 'OperatingSystemName   :  151:"SugarLabs"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="SugarLabs"'
+    extract:
+    - 'DeviceClass           :  112:"Desktop"'
+    - 'DeviceName            :  112:"Linux Desktop"'
+    - 'DeviceBrand           :  112:"Unknown"'
+    - 'OperatingSystemClass  :  152:"Desktop"'
+    - 'OperatingSystemName   :  152:"SugarLabs"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+
+
+- matcher:
+    require:
     - 'agent.(1)product.(1)comments.entry.text="SunOS"'
     extract:
     - 'DeviceClass           :  111:"Desktop"'
