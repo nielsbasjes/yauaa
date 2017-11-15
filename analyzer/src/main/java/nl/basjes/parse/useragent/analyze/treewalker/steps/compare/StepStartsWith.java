@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.analyze.treewalker.steps.compare;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepStartsWith extends Step {
@@ -29,7 +30,7 @@ public class StepStartsWith extends Step {
     }
 
     @Override
-    public String walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
 
         if (actualValue.toLowerCase().startsWith(desiredValue)) {

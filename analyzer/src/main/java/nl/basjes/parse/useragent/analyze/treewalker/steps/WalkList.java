@@ -86,6 +86,30 @@ public class WalkList implements Serializable {
 
     private final boolean verbose;
 
+    public static class WalkResult {
+        private ParseTree tree;
+        private String value;
+        public WalkResult(ParseTree tree, String value) {
+            this.tree = tree;
+            this.value = value;
+        }
+        public ParseTree getTree() {
+            return tree;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return "WalkResult{" +
+                "tree=" + tree.getText() +
+                ", value='" + value + '\'' +
+                '}';
+        }
+    }
+
     public WalkList(ParserRuleContext requiredPattern,
                     Map<String, Map<String, String>> lookups,
                     Map<String, Set<String>> lookupSets,
@@ -117,9 +141,9 @@ public class WalkList implements Serializable {
         }
     }
 
-    public String walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree tree, String value) {
         if (steps.isEmpty()) {
-            return value;
+            return new WalkResult(tree, value);
 //            return GetResultValueVisitor.getResultValue(tree);
         }
         Step firstStep = steps.get(0);
@@ -127,7 +151,7 @@ public class WalkList implements Serializable {
             Step.LOG.info("Tree: >>>{}<<<", tree.getText());
             Step.LOG.info("Enter step: {}", firstStep);
         }
-        String result = firstStep.walk(tree, value);
+        WalkResult result = firstStep.walk(tree, value);
         if (verbose) {
             Step.LOG.info("Leave step ({}): {}", result == null ? "-" : "+", firstStep);
         }
@@ -269,6 +293,13 @@ public class WalkList implements Serializable {
             // Always add this one, it's special
             steps.add(new StepIsNull());
             visit(ctx.matcher());
+            return null; // Void
+        }
+
+        @Override
+        public Void visitPathVariable(UserAgentTreeWalkerParser.PathVariableContext ctx) {
+            fromHereItCannotBeInHashMapAnymore();
+            visitNext(ctx.nextStep);
             return null; // Void
         }
 

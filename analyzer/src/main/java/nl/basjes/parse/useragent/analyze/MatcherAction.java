@@ -19,15 +19,17 @@ package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerLexer;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherBaseContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatContext;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherRequireContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
@@ -185,7 +187,7 @@ public abstract class MatcherAction implements Serializable {
         new UnQuoteValues().visit(requiredPattern);
 
         // Now we create an evaluator instance
-        evaluator = new TreeExpressionEvaluator(requiredPattern, matcher.lookups, matcher.lookupSets, verbose);
+        evaluator = new TreeExpressionEvaluator(requiredPattern, matcher, verbose);
 
         // Is a fixed value (i.e. no events will ever be fired)?
         String fixedValue = evaluator.getFixedValue();
@@ -199,6 +201,11 @@ public abstract class MatcherAction implements Serializable {
         mustHaveMatches = !evaluator.usesIsNull();
 
         int informs = calculateInformPath("agent", requiredPattern);
+
+        // If this is based on a variable we do not need any matches from the hashmap.
+        if (mustHaveMatches && informs == 0) {
+            mustHaveMatches = false;
+        }
 
         int listSize = 0;
         if (informs > 0) {
@@ -297,7 +304,7 @@ public abstract class MatcherAction implements Serializable {
         matches.add(key, value, result);
     }
 
-    protected abstract void inform(String key, String foundValue);
+    protected abstract void inform(String key, WalkResult foundValue);
 
     /**
      * @return If it is impossible that this can be valid it returns true, else false.
@@ -327,7 +334,7 @@ public abstract class MatcherAction implements Serializable {
      */
     void processInformedMatches() {
         for (MatchesList.Match match : matches) {
-            String matchedValue = evaluator.evaluate(match.result, match.key, match.value);
+            WalkResult matchedValue = evaluator.evaluate(match.result, match.key, match.value);
             if (matchedValue != null) {
                 inform(match.key, matchedValue);
                 break; // We always stick to the first match
@@ -391,6 +398,10 @@ public abstract class MatcherAction implements Serializable {
     private int calculateInformPath(String treeName, BasePathContext tree) {
         // Useless to register a fixed value
 //             case "PathFixedValueContext"         : calculateInformPath(treeName, (PathFixedValueContext)         tree); break;
+        if (tree instanceof PathVariableContext) {
+            matcher.informMeAboutVariable(this, ((PathVariableContext) tree).variable.getText());
+            return 0;
+        }
         if (tree instanceof PathWalkContext) {
             return calculateInformPath(treeName, ((PathWalkContext) tree).nextStep);
         }
@@ -434,7 +445,7 @@ public abstract class MatcherAction implements Serializable {
     private int calculateInformPath(String treeName, StepWordRangeContext tree) {
         Range range = WordRangeVisitor.getRange(tree.wordRange());
         matcher.lookingForRange(treeName, range);
-        return calculateInformPath(treeName + "[" + range.first + "-" + range.last + "]", tree.nextStep);
+        return calculateInformPath(treeName + range, tree.nextStep);
     }
 
     // ============================================================================================================

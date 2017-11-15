@@ -41,8 +41,22 @@ public final class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordR
             return last;
         }
 
-        final int first;
-        final int last;
+        private final int first;
+        private final int last;
+
+        private String rangeString = null;
+
+        @Override
+        public String toString() {
+            if (rangeString == null) {
+                if (last == -1) {
+                    rangeString = "[" + first + "-]";
+                } else {
+                    rangeString = "[" + first + "-" + last + "]";
+                }
+            }
+            return rangeString;
+        }
 
         @Override
         public boolean equals(Object o) {

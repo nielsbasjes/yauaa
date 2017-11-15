@@ -71,8 +71,6 @@ import java.util.Set;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
-//import static nl.basjes.parse.useragent.analyze.WordRangeVisitor.MAX_RANGE_IN_HASHMAP;
-
 public class UserAgentTreeFlattener extends UserAgentBaseListener implements Serializable {
     private static final ParseTreeWalker WALKER = new ParseTreeWalker();
     private final Analyzer analyzer;
@@ -409,14 +407,14 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
             for (Range range : ranges) {
                 String value = splitter.getSplitRange(text, splitList, range);
                 if (value != null) {
-                    inform(ctx, ctx, name + "[" + range.getFirst() + "-" + range.getLast() + "]", value, true);
+                    inform(ctx, ctx, name + range, value, true);
                 }
             }
         } else {
             for (Range range : ranges) {
                 String value = splitter.getSplitRange(text, range);
                 if (value != null) {
-                    inform(ctx, ctx, name + "[" + range.getFirst() + "-" + range.getLast() + "]", value, true);
+                    inform(ctx, ctx, name + range, value, true);
                 }
             }
         }

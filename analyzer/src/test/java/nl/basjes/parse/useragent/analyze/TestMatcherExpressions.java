@@ -65,6 +65,12 @@ public class TestMatcherExpressions {
     }
 
     @Test
+    public void runVariableTests() {
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:Variable-tests.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
+
+    @Test
     public void runPositionalTests() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:Positional-tests.yaml");
         Assert.assertTrue(uaa.runTests(false, true));
