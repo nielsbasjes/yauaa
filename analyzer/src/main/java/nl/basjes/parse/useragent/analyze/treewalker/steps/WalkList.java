@@ -30,6 +30,8 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepBackToFull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepFixedString;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
@@ -40,6 +42,8 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
@@ -223,6 +227,22 @@ public class WalkList implements Serializable {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepNormalizeBrand());
+            return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherConcatPrefix(MatcherConcatPrefixContext ctx) {
+            visit(ctx.matcher());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepConcatPrefix(ctx.prefix.getText()));
+            return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherConcatPostfix(MatcherConcatPostfixContext ctx) {
+            visit(ctx.matcher());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepConcatPostfix(ctx.postfix.getText()));
             return null; // Void
         }
 

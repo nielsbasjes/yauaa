@@ -256,6 +256,8 @@ Check if the expresssion resulted in a null 'no match' value. | IsNull[expressio
 Cleanup the version from an _ separated to a . separated string| CleanVersion[expression] | CleanVersion["1_2_3"] | 1.2.3
 LookUp the value against a lookup table | LookUp[lookupname;expression] | LookUp[OSNames;agent.product.entry.text]
 LookUp the value against a lookup table with fallback | LookUp[lookupname;expression;defaultvalue] | LookUp[OSNames;agent.product.entry.text;"Unknown"]
+Put a fixed string before a value | Concat[value;expression] | Concat["Something";agent.product.entry.text]
+Put a fixed string after a value | Concat[expression;value] | Concat[agent.product.entry.text;"Something"]
 
 Chaining operators
 ==================
