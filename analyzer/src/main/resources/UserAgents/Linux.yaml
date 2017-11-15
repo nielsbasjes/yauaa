@@ -996,6 +996,41 @@ config:
       AgentNameVersion                     : 'Chromium 23.0.1271.95'
       AgentNameVersionMajor                : 'Chromium 23'
 
+# Ubuntu Touch
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name="Ubuntu"'
+    - 'agent.(1)product.(1)comments.(2)entry.(2)product.(1)name="like Android"'
+    extract:
+    - 'DeviceName            :   160:"Linux Mobile"'
+    - 'OperatingSystemClass  :   160:"Mobile"'
+    - 'OperatingSystemName   :   160:"Ubuntu Touch"'
+    - 'OperatingSystemVersion:   160:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name="Ubuntu"^.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Ubuntu 15.04 like Android 4.4) AppleWebKit/537.36 Chromium/51.0.2704.79 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Linux Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Ubuntu Touch'
+      OperatingSystemVersion               : '15.04'
+      OperatingSystemNameVersion           : 'Ubuntu Touch 15.04'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : '51.0.2704.79'
+      AgentVersionMajor                    : '51'
+      AgentNameVersion                     : 'Chromium 51.0.2704.79'
+      AgentNameVersionMajor                : 'Chromium 51'
+
 #Mozilla/5.0 (X11; U; Linux i686; nl-nl) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/531.2+ Debian/squeeze (2.30.6-1) Epiphany/2.30.6
 #Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.0.16) Gecko/2009121609 Iceweasel/3.0.6 (Debian-3.0.6-3)
 
