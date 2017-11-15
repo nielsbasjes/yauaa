@@ -28,6 +28,7 @@ PREV            : '<'           ;
 DOT             : '.'           ;
 MINUS           : '-'           ;
 STAR            : '*'           ;
+IN              : '?'           ;
 
 NUMBER          : [0-9]+        ;
 BLOCKOPEN       : '['           ;
@@ -80,6 +81,7 @@ path            : DOT numberRange name=VALUENAME  (nextStep=path)?  #stepDown
                 | STARTSWITH value=VALUE          (nextStep=path)?  #stepStartsWithValue
                 | ENDSWITH   value=VALUE          (nextStep=path)?  #stepEndsWithValue
                 | CONTAINS   value=VALUE          (nextStep=path)?  #stepContainsValue
+                | IN         set=VALUENAME        (nextStep=path)?  #stepIsInSet
                 | wordRange                       (nextStep=path)?  #stepWordRange
                 | BACKTOFULL                      (nextStep=path)?  #stepBackToFull
                 ;

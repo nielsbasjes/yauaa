@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This class gets the symbol table (1 value) uses that to evaluate
@@ -43,11 +44,14 @@ public class TreeExpressionEvaluator implements Serializable {
     private final WalkList walkList;
     private final String fixedValue;
 
-    public TreeExpressionEvaluator(ParserRuleContext requiredPattern, Map<String, Map<String, String>> lookups, boolean verbose) {
+    public TreeExpressionEvaluator(ParserRuleContext requiredPattern,
+                                   Map<String, Map<String, String>> lookups,
+                                   Map<String, Set<String>> lookupSets,
+                                   boolean verbose) {
         this.requiredPatternText = requiredPattern.getText();
         this.lookups = lookups;
         this.verbose = verbose;
-        walkList = new WalkList(requiredPattern, lookups, verbose);
+        walkList = new WalkList(requiredPattern, lookups, lookupSets, verbose);
         this.fixedValue = calculateFixedValue(requiredPattern);
     }
 

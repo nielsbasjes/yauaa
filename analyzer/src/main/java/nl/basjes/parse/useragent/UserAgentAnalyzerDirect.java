@@ -26,7 +26,6 @@ import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
 import nl.basjes.parse.useragent.utils.Normalize;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
-import nl.basjes.parse.useragent.utils.YamlUtils;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,6 +75,7 @@ import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.utils.YamlUtils.fail;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getExactlyOneNodeTuple;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
+import static nl.basjes.parse.useragent.utils.YamlUtils.getStringValues;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsMappingNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsSequenceNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsString;
@@ -97,6 +97,7 @@ public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
 
     protected final List<Map<String, Map<String, String>>> testCases = new ArrayList<>(2048);
     private Map<String, Map<String, String>> lookups = new HashMap<>(128);
+    private Map<String, Set<String>> lookupSets = new HashMap<>(128);
 
     protected UserAgentTreeFlattener flattener;
 
@@ -119,6 +120,7 @@ public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
         lines.add("This Analyzer instance was deserialized.");
         lines.add("");
         lines.add("Lookups      : " + ((lookups == null) ? 0 : lookups.size()));
+        lines.add("LookupSets   : " + ((lookupSets == null) ? 0 : lookupSets.size()));
         lines.add("Matchers     : " + allMatchers.size());
         lines.add("Hashmap size : " + informMatcherActions.size());
         lines.add("Testcases    : " + testCases.size());
@@ -300,7 +302,7 @@ public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
                 int startSkipped = skippedMatchers;
                 for (MappingNode map : matcherConfig) {
                     try {
-                        allMatchers.add(new Matcher(this, lookups, wantedFieldNames, map, configFilename));
+                        allMatchers.add(new Matcher(this, lookups, lookupSets, wantedFieldNames, map, configFilename));
                         totalNumberOfMatchers++;
                     } catch (UselessMatcherException ume) {
                         skippedMatchers++;
@@ -336,6 +338,7 @@ public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
         }
         LOG.info("Analyzer stats");
         LOG.info("Lookups         : {}", (lookups == null) ? 0 : lookups.size());
+        LOG.info("LookupSets      : {}", (lookupSets == null) ? 0 : lookupSets.size());
         LOG.info("Matchers        : {} (total:{} ; dropped: {})", allMatchers.size(), totalNumberOfMatchers, skippedMatchers);
         LOG.info("Hashmap size    : {}", informMatcherActions.size());
         LOG.info("Ranges map size : {}", informMatcherActionRanges.size());
@@ -450,6 +453,9 @@ config:
                 case "lookup":
                     loadYamlLookup(actualEntry, filename);
                     break;
+                case "set":
+                    loadYamlLookupSets(actualEntry, filename);
+                    break;
                 case "matcher":
                     loadYamlMatcher(actualEntry, filename);
                     break;
@@ -497,6 +503,31 @@ config:
         lookups.put(name, map);
     }
 
+    private void loadYamlLookupSets(MappingNode entry, String filename) {
+//        LOG.info("Loading lookupSet.({}:{})", filename, entry.getStartMark().getLine());
+        String name = null;
+        Set<String> lookupSet = new HashSet<>();
+
+        for (NodeTuple tuple : entry.getValue()) {
+            switch (getKeyAsString(tuple, filename)) {
+                case "name":
+                    name = getValueAsString(tuple, filename);
+                    break;
+                case "values":
+                    SequenceNode node = getValueAsSequenceNode(tuple, filename);
+                    List<String> values = getStringValues(node, filename);
+                    for (String value: values) {
+                        lookupSet.add(value.toLowerCase(Locale.ENGLISH));
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        lookupSets.put(name, lookupSet);
+    }
+
     private void loadYamlMatcher(MappingNode entry, String filename) {
 //        LOG.info("Loading matcher.({}:{})", filename, entry.getStartMark().getLine());
         List<MappingNode> matcherConfigList = matcherConfigs
@@ -521,7 +552,7 @@ config:
                 String name = getKeyAsString(tuple, filename);
                 switch (name) {
                     case "options":
-                        options = YamlUtils.getStringValues(tuple.getValueNode(), filename);
+                        options = getStringValues(tuple.getValueNode(), filename);
                         if (options != null) {
                             if (options.contains("only")) {
                                 doingOnlyASingleTest = true;

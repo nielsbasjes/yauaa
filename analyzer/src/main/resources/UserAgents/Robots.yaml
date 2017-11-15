@@ -20,6 +20,26 @@
 
 config:
 
+- set:
+    name: 'NamedRobots'
+    values:
+      - 'DejaClick'
+      - 'Site-Shot'
+
+- matcher:
+    extract:
+    - 'DeviceClass           : 1000:"Robot"'
+    - 'DeviceBrand           : 1000:agent.product.name?NamedRobots'
+    - 'DeviceName            : 1000:agent.product.name?NamedRobots'
+    - 'DeviceCpu             : 1000:"<<<null>>>"'
+    - 'DeviceCpuBits         : 1000:"<<<null>>>"'
+    - 'LayoutEngineClass     : 1000:"Robot"'
+    - 'LayoutEngineName      : 1000:agent.product.name?NamedRobots'
+    - 'LayoutEngineVersion   : 1000:agent.product.name?NamedRobots^.version'
+    - 'AgentClass            : 1000:"Robot"'
+    - 'AgentName             : 1000:agent.product.name?NamedRobots'
+    - 'AgentVersion          : 1000:agent.product.name?NamedRobots^.version'
+
 # --------------------------------------------------------------------------------------
 - matcher:
     extract:
@@ -457,12 +477,84 @@ config:
       AgentNameVersion                     : 'PhantomJS 1.9.8'
       AgentNameVersionMajor                : 'PhantomJS 1'
 
-#TODO: DejaClick
-#Mozilla/5.0 (X11; Linux i686; rv:10.0.2) Gecko/20100101 Firefox/10.0.2 DejaClick/2.4.1.6
+# DejaClick  (last occurance was in 2015)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; rv:10.0.2) Gecko/20100101 Firefox/10.0.2 DejaClick/2.4.1.6'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'DejaClick'
+      DeviceBrand                          : 'DejaClick'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel i686'
+      OperatingSystemNameVersion           : 'Linux Intel i686'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '10.0.2'
+      LayoutEngineVersionMajor             : '10'
+      LayoutEngineNameVersion              : 'Gecko 10.0.2'
+      LayoutEngineNameVersionMajor         : 'Gecko 10'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'DejaClick'
+      AgentVersion                         : '2.4.1.6'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'DejaClick 2.4.1.6'
+      AgentNameVersionMajor                : 'DejaClick 2'
 
-#  - test:
-#      input:
-#        user_agent_string: 'Mozilla/5.0 (compatible; Seznam screenshot-generator 2.1; +http://fulltext.sblog.cz/screenshot/)'
+# Online website screenshot tool
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Seznam screenshot-generator 2.1; +http://fulltext.sblog.cz/screenshot/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Seznam screenshot-generator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Seznam screenshot-generator 2.1'
+      AgentNameVersionMajor                : 'Seznam screenshot-generator 2'
+      AgentInformationUrl                  : 'http://fulltext.sblog.cz/screenshot/'
+
+
+# Online website screenshot tool
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) Chromium/31.0.1650.63 Site-Shot/2.1 (http://www.site-shot.com/) Safari/534.34'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Site-Shot'
+      DeviceBrand                          : 'Site-Shot'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Site-Shot'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Site-Shot 2.1'
+      LayoutEngineNameVersionMajor         : 'Site-Shot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Site-Shot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Site-Shot 2.1'
+      AgentNameVersionMajor                : 'Site-Shot 2'
+      AgentInformationUrl                  : 'http://www.site-shot.com/'
 
 - test:
     input:

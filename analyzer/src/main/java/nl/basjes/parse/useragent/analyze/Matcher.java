@@ -45,6 +45,7 @@ public class Matcher implements Serializable {
 
     private long actionsThatRequireInput;
     final Map<String, Map<String, String>> lookups;
+    final Map<String, Set<String>> lookupSets;
     private boolean verbose;
     private boolean permanentVerbose;
 
@@ -52,8 +53,9 @@ public class Matcher implements Serializable {
     private String filename;
 
     // Package private constructor for testing purposes only
-    Matcher(Analyzer analyzer, Map<String, Map<String, String>> lookups) {
+    Matcher(Analyzer analyzer, Map<String, Map<String, String>> lookups, Map<String, Set<String>> lookupSets) {
         this.lookups = lookups;
+        this.lookupSets = lookupSets;
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
         this.dynamicActions = new ArrayList<>();
@@ -73,10 +75,12 @@ public class Matcher implements Serializable {
 
     public Matcher(Analyzer analyzer,
                    Map<String, Map<String, String>> lookups,
+                   Map<String, Set<String>> lookupSets,
                    List<String> wantedFieldNames,
                    MappingNode matcherConfig,
                    String filename) throws UselessMatcherException {
         this.lookups = lookups;
+        this.lookupSets = lookupSets;
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
         this.dynamicActions = new ArrayList<>();

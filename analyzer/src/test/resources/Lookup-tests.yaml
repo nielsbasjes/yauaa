@@ -199,6 +199,49 @@ config:
 #        name: 'Word Splitter validation'
 #        user_agent_string: 'Mozilla/5.0 (One/111; Two-two two/222; Three Three/333; Four Four Four Four Four Four Four Four )'
 
+  - set:
+      name: 'LookupSet'
+      values:
+        - 'Two'
+        - 'Four'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupSetWalk1: 1: agent.(1)product.comments.entry.product.name?LookupSet'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupSetWalk2: 1: agent.(1)product.comments.entry.product.name?LookupSet^.version^^>.product.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupSetWalk3: 1: agent.(1)product.comments.entry.product.name?LookupSet^.version="222"^^>.product.version'
+
+  - lookup:
+      name: 'LookupMap'
+      map:
+        "Two"  : "MAP->TWO"
+        "Four" : "MAP->FOUR"
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupMapWalk1: 1: agent.(1)product.comments.entry.product.name?LookupMap'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupMapWalk2: 1: agent.(1)product.comments.entry.product.name?LookupMap^.version^^>.product.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupMapWalk3: 1: agent.(1)product.comments.entry.product.name?LookupMap^.version="222"^^>.product.version'
+
+
   - test:
       <<: *TEST_OPTIONS
       input:
@@ -237,4 +280,9 @@ config:
         LookupStepsTestA1: "Version One"
         LookupStepsTestB1: "Version Two"
         LookupStepsTestC1: "Version Three"
-
+        LookupSetWalk1: "Two"
+        LookupSetWalk2: "Three"
+        LookupSetWalk3: "333"
+        LookupMapWalk1: "Two"
+        LookupMapWalk2: "Three"
+        LookupMapWalk3: "333"

@@ -182,7 +182,7 @@ public abstract class MatcherAction implements Serializable {
         new UnQuoteValues().visit(requiredPattern);
 
         // Now we create an evaluator instance
-        evaluator = new TreeExpressionEvaluator(requiredPattern, matcher.lookups, verbose);
+        evaluator = new TreeExpressionEvaluator(requiredPattern, matcher.lookups, matcher.lookupSets, verbose);
 
         // Is a fixed value (i.e. no events will ever be fired)?
         String fixedValue = evaluator.getFixedValue();
