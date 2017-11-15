@@ -31,13 +31,13 @@ public class StepConcatPrefix extends Step {
     @Override
     public String walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
-        String filteredValue = prefix+actualValue;
+        String filteredValue = prefix + actualValue;
         return walkNextStep(tree, filteredValue);
     }
 
     @Override
     public String toString() {
-        return "StepConcatPrefix("+prefix+")";
+        return "StepConcatPrefix(" + prefix + ")";
     }
 
 }
