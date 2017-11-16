@@ -28,6 +28,7 @@ PREV            : '<'           ;
 DOT             : '.'           ;
 MINUS           : '-'           ;
 STAR            : '*'           ;
+IN              : '?'           ;
 
 NUMBER          : [0-9]+        ;
 BLOCKOPEN       : '['           ;
@@ -58,8 +59,9 @@ matcherRequire  : matcher                                                  #matc
                 ;
 
 matcher         : basePath                                                      #matcherPath
-//                | 'Concat' BLOCKOPEN VALUE SEMICOLON matcher BLOCKCLOSE         #matcherConcat1
-//                | 'Concat' BLOCKOPEN matcher SEMICOLON VALUE BLOCKCLOSE         #matcherConcat2
+                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher SEMICOLON postfix=VALUE BLOCKCLOSE #matcherConcat
+                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher                         BLOCKCLOSE #matcherConcatPrefix
+                | 'Concat' BLOCKOPEN                        matcher SEMICOLON postfix=VALUE BLOCKCLOSE #matcherConcatPostfix
                 | 'NormalizeBrand' BLOCKOPEN matcher BLOCKCLOSE                 #matcherNormalizeBrand
                 | 'CleanVersion'   BLOCKOPEN matcher BLOCKCLOSE                 #matcherCleanVersion
                 | 'LookUp'         BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookup
@@ -80,6 +82,7 @@ path            : DOT numberRange name=VALUENAME  (nextStep=path)?  #stepDown
                 | STARTSWITH value=VALUE          (nextStep=path)?  #stepStartsWithValue
                 | ENDSWITH   value=VALUE          (nextStep=path)?  #stepEndsWithValue
                 | CONTAINS   value=VALUE          (nextStep=path)?  #stepContainsValue
+                | IN         set=VALUENAME        (nextStep=path)?  #stepIsInSet
                 | wordRange                       (nextStep=path)?  #stepWordRange
                 | BACKTOFULL                      (nextStep=path)?  #stepBackToFull
                 ;

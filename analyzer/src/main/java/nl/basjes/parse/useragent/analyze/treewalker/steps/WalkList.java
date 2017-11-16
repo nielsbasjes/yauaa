@@ -23,12 +23,16 @@ import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEndsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEquals;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsInSet;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepBackToFull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepFixedString;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
@@ -37,7 +41,11 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNext;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
@@ -64,6 +72,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
@@ -72,12 +81,17 @@ public class WalkList implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(WalkList.class);
 
     private final Map<String, Map<String, String>> lookups;
+    private final Map<String, Set<String>>         lookupSets;
     private final List<Step> steps = new ArrayList<>();
 
     private final boolean verbose;
 
-    public WalkList(ParserRuleContext requiredPattern, Map<String, Map<String, String>> lookups, boolean verbose) {
+    public WalkList(ParserRuleContext requiredPattern,
+                    Map<String, Map<String, String>> lookups,
+                    Map<String, Set<String>> lookupSets,
+                    boolean verbose) {
         this.lookups = lookups;
+        this.lookupSets = lookupSets;
         this.verbose = verbose;
         // Generate the walkList from the requiredPattern
         new WalkListBuilder().visit(requiredPattern);
@@ -219,6 +233,30 @@ public class WalkList implements Serializable {
         }
 
         @Override
+        public Void visitMatcherConcat(MatcherConcatContext ctx) {
+            visit(ctx.matcher());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepConcat(ctx.prefix.getText(), ctx.postfix.getText()));
+            return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherConcatPrefix(MatcherConcatPrefixContext ctx) {
+            visit(ctx.matcher());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepConcatPrefix(ctx.prefix.getText()));
+            return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherConcatPostfix(MatcherConcatPostfixContext ctx) {
+            visit(ctx.matcher());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepConcatPostfix(ctx.postfix.getText()));
+            return null; // Void
+        }
+
+        @Override
         public Void visitMatcherWordRange(MatcherWordRangeContext ctx) {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
@@ -289,6 +327,27 @@ public class WalkList implements Serializable {
         public Void visitStepNotEqualsValue(StepNotEqualsValueContext ctx) {
             fromHereItCannotBeInHashMapAnymore();
             add(new StepNotEquals(ctx.value.getText()));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepIsInSet(UserAgentTreeWalkerParser.StepIsInSetContext ctx) {
+            fromHereItCannotBeInHashMapAnymore();
+
+            String lookupSetName = ctx.set.getText();
+            Set<String> lookupSet = lookupSets.get(lookupSetName);
+            if (lookupSet == null) {
+                Map<String, String> lookup = lookups.get(lookupSetName);
+                if (lookup != null) {
+                    lookupSet = lookup.keySet();
+                }
+            }
+            if (lookupSet == null) {
+                throw new InvalidParserConfigurationException("Missing lookupSet \"" + lookupSetName + "\" ");
+            }
+
+            add(new StepIsInSet(lookupSetName, lookupSet));
             visitNext(ctx.nextStep);
             return null; // Void
         }

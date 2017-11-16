@@ -48,7 +48,7 @@ echo "# limitations under the License."
 echo "#"
 echo "config:"
 
-cat "OperatingSystemDeviceNames.csv" | grep . | fgrep -v '#' | while read line ; \
+cat "OperatingSystemDeviceNames.csv" | grep . | fgrep -v '#' | sed 's/ *|/|/g;s/| */|/g' | while read line ; \
 do
     ospattern=$(echo ${line} | cut -d'|' -f1)
     osname=$(   echo ${line} | cut -d'|' -f2)

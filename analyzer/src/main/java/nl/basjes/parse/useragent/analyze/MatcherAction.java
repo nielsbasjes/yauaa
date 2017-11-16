@@ -23,6 +23,9 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerLexer;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherBaseContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherRequireContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
@@ -182,7 +185,7 @@ public abstract class MatcherAction implements Serializable {
         new UnQuoteValues().visit(requiredPattern);
 
         // Now we create an evaluator instance
-        evaluator = new TreeExpressionEvaluator(requiredPattern, matcher.lookups, verbose);
+        evaluator = new TreeExpressionEvaluator(requiredPattern, matcher.lookups, matcher.lookupSets, verbose);
 
         // Is a fixed value (i.e. no events will ever be fired)?
         String fixedValue = evaluator.getFixedValue();
@@ -225,6 +228,25 @@ public abstract class MatcherAction implements Serializable {
         public Void visitPathFixedValue(PathFixedValueContext ctx) {
             unQuoteToken(ctx.value);
             return super.visitPathFixedValue(ctx);
+        }
+
+        @Override
+        public Void visitMatcherConcat(MatcherConcatContext ctx) {
+            unQuoteToken(ctx.prefix);
+            unQuoteToken(ctx.postfix);
+            return super.visitMatcherConcat(ctx);
+        }
+
+        @Override
+        public Void visitMatcherConcatPrefix(MatcherConcatPrefixContext ctx) {
+            unQuoteToken(ctx.prefix);
+            return super.visitMatcherConcatPrefix(ctx);
+        }
+
+        @Override
+        public Void visitMatcherConcatPostfix(MatcherConcatPostfixContext ctx) {
+            unQuoteToken(ctx.postfix);
+            return super.visitMatcherConcatPostfix(ctx);
         }
 
         @Override
@@ -351,6 +373,15 @@ public abstract class MatcherAction implements Serializable {
         }
         if (tree instanceof MatcherWordRangeContext){
             return calculateInformPath(treeName, ((MatcherWordRangeContext) tree).matcher());
+        }
+        if (tree instanceof MatcherConcatContext){
+            return calculateInformPath(treeName, ((MatcherConcatContext) tree).matcher());
+        }
+        if (tree instanceof MatcherConcatPrefixContext){
+            return calculateInformPath(treeName, ((MatcherConcatPrefixContext) tree).matcher());
+        }
+        if (tree instanceof MatcherConcatPostfixContext){
+            return calculateInformPath(treeName, ((MatcherConcatPostfixContext) tree).matcher());
         }
         return 0;
     }

@@ -61,6 +61,12 @@ The overall structure is this:
           "From2" : "To2"
           "From3" : "To3"
 
+    - set:
+        name: 'setname'
+        values:
+        - 'foo'
+        - 'bar'
+
     - matcher:
         options:
         - 'verbose'
@@ -228,6 +234,7 @@ Not equals | != | agent.(1)product.version!="1.0" | agent.(1)product.(2)version 
 Contains | ~ | agent.product.name~"ar" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that contains "ar"
 Starts with | { | agent.product.name{"b" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that starts with "b"
 Ends with | }| agent.product.name}"z" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that ends with "z"
+(Key)set contains | ? | agent.product.name?mySetOfValues | agent.(3)product.(1)name | The name of the third product was present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated  
 
 Extracting substrings
 
@@ -249,6 +256,9 @@ Check if the expresssion resulted in a null 'no match' value. | IsNull[expressio
 Cleanup the version from an _ separated to a . separated string| CleanVersion[expression] | CleanVersion["1_2_3"] | 1.2.3
 LookUp the value against a lookup table | LookUp[lookupname;expression] | LookUp[OSNames;agent.product.entry.text]
 LookUp the value against a lookup table with fallback | LookUp[lookupname;expression;defaultvalue] | LookUp[OSNames;agent.product.entry.text;"Unknown"]
+Put a fixed string before an expression | Concat[value;expression] | Concat["Something";agent.product.entry.text]
+Put a fixed string after an expression | Concat[expression;value] | Concat[agent.product.entry.text;"Something"]
+Surround the expression with both a prefix and a postfix | Concat[value;expression;value] | Concat["Something";agent.product.entry.text;"Something"]
 
 Chaining operators
 ==================
