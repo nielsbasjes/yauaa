@@ -30,8 +30,9 @@ public class SimpleReader {
     public static void main(String[] args) {
         
         /*
-        String testUa = "Mozilla/5.0 (Linux; Android 4.4.4; 2014811 Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 YaBrowser/17.6.1.345.00 Mobile Safari/537.36";
-        System.out.println(createSQL(testUa));
+        String testUa = "Mozilla/5.0 (Linux; Android 6.0.1; SO-04H Build/35.0.B.4.24; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36";
+        analyzeAndPrint(testUa);
+        if (true) return;
         */
         
         readFileAndCreateSQL("/tmp/uas.txt", "/tmp/uas.sql");
