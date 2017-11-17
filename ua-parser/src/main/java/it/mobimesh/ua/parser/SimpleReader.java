@@ -30,7 +30,7 @@ public class SimpleReader {
     public static void main(String[] args) {
         
         /*
-        String testUa = "Mozilla/5.0 (Linux; Android 6.0.1; SO-04H Build/35.0.B.4.24; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36";
+        String testUa = "Mozilla/5.0 (Linux; U; Android 6.0; zh-CN; CAM-TL00H Build/HONORCAM-TL00H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/40.0.2214.89 UCBrowser/11.6.6.951 Mobile Safari/537.36";
         analyzeAndPrint(testUa);
         if (true) return;
         */
@@ -44,7 +44,7 @@ public class SimpleReader {
         UserAgent ua = USER_AGENT_ANALYZER.parse(uaString);
         
         for (String key : ua.getAvailableFieldNamesSorted())
-            System.out.println(key + ": " + ua.getValue(key));
+            System.out.println(key + ": \"" + ua.getValue(key) + "\"");
         
         System.out.println("\n Done '" + ua.getUserAgentString() + "'.");
     }
