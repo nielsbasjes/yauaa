@@ -48,7 +48,6 @@ config:
   # We define the 'old' version with a higher score and set the new one as the default
 - matcher:
     require:
-    - 'agent.product.(1)name="Chrome"'
     - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="Chrome"^.version[-1]]'
     extract:
     - 'LayoutEngineClass     :   1000:"Browser"'
@@ -56,8 +55,6 @@ config:
     - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
 
 - matcher:
-    require:
-    - 'agent.product.(1)name="Chrome"'
     extract:
     - 'LayoutEngineClass     :    999:"Browser"'
     - 'LayoutEngineName      :    999:"Blink"'
@@ -65,7 +62,6 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)name="CriOS"'
     - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="CriOS"^.version[-1]]'
     extract:
     - 'LayoutEngineClass     :   1000:"Browser"'
@@ -73,8 +69,6 @@ config:
     - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
 
 - matcher:
-    require:
-    - 'agent.product.(1)name="CriOS"'
     extract:
     - 'LayoutEngineClass     :    999:"Browser"'
     - 'LayoutEngineName      :    999:"Blink"'
@@ -83,7 +77,6 @@ config:
 # Sometimes (Coc coc does this) we do not have "Chrome" with "Mobile Safari" but instead: "Mobile Chrome" with "Safari"
 - matcher:
     require:
-    - 'agent.product.(1)name="Mobile Chrome"'
     - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="Mobile Chrome"^.version[-1]]'
     extract:
     - 'DeviceClass           :   1000:"Phone"'
@@ -92,8 +85,6 @@ config:
     - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
 
 - matcher:
-    require:
-    - 'agent.product.(1)name="Mobile Chrome"'
     extract:
     - 'DeviceClass           :    999:"Phone"'
     - 'LayoutEngineClass     :    999:"Browser"'
@@ -301,34 +292,36 @@ config:
       'Focus' : 'Firefox Focus'
 
 - matcher:
+    variable:
+    - 'WebViewProduct: agent.product.(1)name="Chrome"^>>'
     require:
     - 'agent.product.(1)name="Version"'
     extract:
     - 'AgentClass        :   2500:"Browser Webview"'
     - 'AgentName         :   2500:"Chrome Webview"'
     - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
-    - 'WebviewAppName    :     11:LookUp[KnownWebviewAppNames;agent.product.(1)name="Chrome"^>>.name]'
-    - 'WebviewAppVersion :     11:agent.product.(1)name="Chrome"^>>.version'
+    - 'WebviewAppName    :     11:LookUp[KnownWebviewAppNames;@WebViewProduct.name]'
+    - 'WebviewAppVersion :     11:@WebViewProduct.version'
 
 - matcher:
-    require:
-    - 'agent.product.(1)name="Chrome"'
+    variable:
+    - 'WebViewProduct: agent.product.(1)name="Version"^>>.name="Chrome"^<'
     extract:
     - 'AgentClass        :   2500:"Browser Webview"'
     - 'AgentName         :   2500:"Chrome Webview"'
     - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
-    - 'WebviewAppName    :     12:LookUp[KnownWebviewAppNames;agent.product.(1)name="Version"^>>.name="Chrome"^<.name]'
-    - 'WebviewAppVersion :     12:agent.product.(1)name="Version"^>>.name="Chrome"^<.version'
+    - 'WebviewAppName    :     12:LookUp[KnownWebviewAppNames;@WebViewProduct.name]'
+    - 'WebviewAppVersion :     12:@WebViewProduct.version'
 
 - matcher:
-    require:
-    - 'agent.product.(1)name="Chrome"'
+    variable:
+    - 'WebViewProduct: agent.product.(1)name="Version"^>>.name="Chrome"^<'
     extract:
     - 'AgentClass        :   2500:"Browser Webview"'
     - 'AgentName         :   2500:"Chrome Webview"'
     - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
-    - 'WebviewAppName    :     11:agent.product.(1)name="Version"^>>.name="Chrome"^<.name'
-    - 'WebviewAppVersion :     11:agent.product.(1)name="Version"^>>.name="Chrome"^<.version'
+    - 'WebviewAppName    :     11:@WebViewProduct.name'
+    - 'WebviewAppVersion :     11:@WebViewProduct.version'
 
 # WebView UA in Lollipop and Above
 # In the newer versions of WebView, you can differentiate the WebView by looking for the wv field
@@ -339,7 +332,6 @@ config:
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)text="wv"'
-    - 'agent.product.(1)name="Chrome"'
     extract:
     - 'AgentClass      :   10000:"Browser Webview"'
     - 'AgentName       :   10000:"Chrome Webview"'
@@ -503,24 +495,32 @@ config:
       "Epiphany"        : "Epiphany"
 
 - matcher:
+    variable:
+    - 'ProductAfterChrome: agent.product.(1)name="Chrome"^>'
     extract:
-    - 'AgentName             :   2022:LookUp[SpecialChromeBrowserNames;agent.product.(1)name="Chrome"^>.(1)name]'
-    - 'AgentVersion          :   2022:agent.product.(1)name="Chrome"^>.(1)version'
+    - 'AgentName             :   2022:LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
+    - 'AgentVersion          :   2022:@ProductAfterChrome.(1)version'
 
 - matcher:
+    variable:
+    - 'ProductAfterChrome: agent.product.(1)name="Chrome"^>>'
     extract:
-    - 'AgentName             :   2021:LookUp[SpecialChromeBrowserNames;agent.product.(1)name="Chrome"^>>.(1)name]'
-    - 'AgentVersion          :   2021:agent.product.(1)name="Chrome"^>>.(1)version'
+    - 'AgentName             :   2021:LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
+    - 'AgentVersion          :   2021:@ProductAfterChrome.(1)version'
 
 - matcher:
+    variable:
+    - 'ProductAfterChrome: agent.product.(1)name="Chrome"^>>>'
     extract:
-    - 'AgentName             :   2020:LookUp[SpecialChromeBrowserNames;agent.product.(1)name="Chrome"^>>>.(1)name]'
-    - 'AgentVersion          :   2020:agent.product.(1)name="Chrome"^>>>.(1)version'
+    - 'AgentName             :   2020:LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
+    - 'AgentVersion          :   2020:@ProductAfterChrome.(1)version'
 
 - matcher:
+    variable:
+    - 'ProductAfterChrome: agent.product.(1)name="Chrome"^>>>>'
     extract:
-    - 'AgentName             :   2019:LookUp[SpecialChromeBrowserNames;agent.product.(1)name="Chrome"^>>>>.(1)name]'
-    - 'AgentVersion          :   2019:agent.product.(1)name="Chrome"^>>>>.(1)version'
+    - 'AgentName             :   2019:LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
+    - 'AgentVersion          :   2019:@ProductAfterChrome.(1)version'
 
 - matcher:
     extract:
@@ -528,9 +528,11 @@ config:
     - 'AgentVersion          :   2019:agent.product.(1)name="Chrome"^.version'
 
 - matcher:
+    variable:
+    - 'ProductBeforeChrome: agent.product.(1)name="Chrome"^<'
     extract:
-    - 'AgentName             :   2017:LookUp[SpecialChromeBrowserNames;agent.product.(1)name="Chrome"^<.(1)name]'
-    - 'AgentVersion          :   2017:agent.product.(1)name="Chrome"^<.(1)version'
+    - 'AgentName             :   2017:LookUp[SpecialChromeBrowserNames;@ProductBeforeChrome.(1)name]'
+    - 'AgentVersion          :   2017:@ProductBeforeChrome.(1)version'
 
 - test:
     input:

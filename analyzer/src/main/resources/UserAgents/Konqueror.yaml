@@ -18,13 +18,15 @@
 config:
 
 - matcher:
+    variable:
+    - 'KonquerorVersion            :agent.(1)product.comments.entry.product.name="Konqueror"^.version'
     extract:
     - 'LayoutEngineClass     : 2000:"Browser"'
     - 'LayoutEngineName      : 2000:"KHTML"'
-    - 'LayoutEngineVersion   : 2000:agent.(1)product.comments.entry.product.name="Konqueror"^.version'
+    - 'LayoutEngineVersion   : 2000:@KonquerorVersion'
     - 'AgentClass            : 2000:"Browser"'
     - 'AgentName             : 2000:"Konqueror"'
-    - 'AgentVersion          : 2000:agent.(1)product.comments.entry.product.name="Konqueror"^.version'
+    - 'AgentVersion          : 2000:@KonquerorVersion'
 
 - matcher:
     extract:

@@ -174,48 +174,58 @@ config:
     - 'OperatingSystemVersion:  20:"??"'
 
 - matcher:
+    variable:
+    - 'CPUProduct :agent.(1)product.(1)comments.entry.product.name="CPU"^'
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name="CPU"^>="like Mac OS X"'
+    - '@CPUProduct>="like Mac OS X"'
     extract:
     - 'DeviceFirmwareVersion :  20:agent.product.name="Mobile"^.version'
     - 'OperatingSystemClass  :  20:"Mobile"'
     - 'OperatingSystemName   :  20:"iOS"'
-    - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="CPU"^.version]'
+    - 'OperatingSystemVersion:  20:CleanVersion[@CPUProduct.version]'
 
 - matcher:
+    variable:
+    - 'CPUProduct :agent.(1)product.(1)comments.entry.product.name="CPU OS"^'
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name="CPU OS"^>="like Mac OS X"'
+    - '@CPUProduct>="like Mac OS X"'
     extract:
     - 'DeviceFirmwareVersion :  20:agent.product.name="Mobile"^.version'
     - 'OperatingSystemClass  :  20:"Mobile"'
     - 'OperatingSystemName   :  20:"iOS"'
-    - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="CPU OS"^.version]'
+    - 'OperatingSystemVersion:  20:CleanVersion[@CPUProduct.version]'
 
 - matcher:
+    variable:
+    - 'CPUProduct :agent.(1)product.(1)comments.entry.product.name="CPU OS"^'
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name="CPU OS"^>="like Mac OS X"'
+    - '@CPUProduct>="like Mac OS X"'
     extract:
     - 'OperatingSystemClass  :  20:"Mobile"'
     - 'OperatingSystemName   :  20:"iOS"'
-    - 'OperatingSystemVersion:  20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="CPU OS"^.version]'
+    - 'OperatingSystemVersion:  20:CleanVersion[@CPUProduct.version]'
 
 - matcher:
+    variable:
+    - 'CPUProduct :agent.(1)product.(1)comments.entry.product.name="CPU iPhone OS"^'
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name="CPU iPhone OS"^>="like Mac OS X"'
+    - '@CPUProduct>="like Mac OS X"'
     extract:
     - 'DeviceFirmwareVersion :   20:agent.product.name="Mobile"^.version'
     - 'OperatingSystemClass  :   20:"Mobile"'
     - 'OperatingSystemName   :   20:"iOS"'
-    - 'OperatingSystemVersion:   20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="CPU iPhone OS"^.version]'
+    - 'OperatingSystemVersion:   20:CleanVersion[@CPUProduct.version]'
 
 - matcher:
+    variable:
+    - 'CPUProduct :agent.(1)product.(1)comments.entry.product.name="CPU iPad OS"^'
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name="CPU iPad OS"^>="like Mac OS X"'
+    - '@CPUProduct>="like Mac OS X"'
     extract:
     - 'DeviceFirmwareVersion :   20:agent.product.name="Mobile"^.version'
     - 'OperatingSystemClass  :   20:"Mobile"'
     - 'OperatingSystemName   :   20:"iOS"'
-    - 'OperatingSystemVersion:   20:CleanVersion[agent.(1)product.(1)comments.entry.product.name="CPU iPad OS"^.version]'
+    - 'OperatingSystemVersion:   20:CleanVersion[@CPUProduct.version]'
 
 
 - matcher:
@@ -898,10 +908,12 @@ config:
       AgentSecurity                        : 'Strong security'
 
 - matcher:
+    variable:
+    - 'NextProduct: agent.(2-5)product.(1)name="Mobile"^>'
     extract:
     - 'AgentClass            :  39:"Mobile App"'
-    - 'AgentName             :  39:agent.(2-5)product.(1)name="Mobile"^>.name'
-    - 'AgentVersion          :  39:agent.(2-5)product.(1)name="Mobile"^>.version'
+    - 'AgentName             :  39:@NextProduct.name'
+    - 'AgentVersion          :  39:@NextProduct.version'
 
 - test:
     input:

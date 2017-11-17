@@ -45,7 +45,6 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)name="AppleWebKit"'
     - 'agent.product.(1)name="Mobile"'
     - 'IsNull[agent.product.(1)name="Mobile"^>]'
     - 'IsNull[agent.product.(1)name="Safari"]'
@@ -296,7 +295,6 @@ config:
 # This one doesn't follow the normal pattern for a webview
 - matcher:
     require:
-    - 'agent.product.(1)name="AppleWebKit"'
     - 'agent.product.(1)name="Mobile"'
     extract:
     - 'AgentClass            :   41:"Browser Webview"'
