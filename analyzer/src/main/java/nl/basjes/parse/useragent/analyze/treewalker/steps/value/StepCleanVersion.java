@@ -18,13 +18,14 @@
 package nl.basjes.parse.useragent.analyze.treewalker.steps.value;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parse.EvilManualUseragentStringHacks;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepCleanVersion extends Step {
 
     @Override
-    public String walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
 
         String cleanedValue = EvilManualUseragentStringHacks.replaceString(actualValue, "_", ".");

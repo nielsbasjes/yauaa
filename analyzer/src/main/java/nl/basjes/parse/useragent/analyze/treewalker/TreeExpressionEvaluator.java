@@ -18,7 +18,9 @@
 package nl.basjes.parse.useragent.analyze.treewalker;
 
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
+import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
@@ -29,7 +31,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * This class gets the symbol table (1 value) uses that to evaluate
@@ -40,18 +41,17 @@ public class TreeExpressionEvaluator implements Serializable {
     private boolean verbose = false;
 
     private final String requiredPatternText;
-    private final Map<String, Map<String, String>> lookups;
+    private final Matcher matcher;
     private final WalkList walkList;
     private final String fixedValue;
 
     public TreeExpressionEvaluator(ParserRuleContext requiredPattern,
-                                   Map<String, Map<String, String>> lookups,
-                                   Map<String, Set<String>> lookupSets,
+                                   Matcher matcher,
                                    boolean verbose) {
         this.requiredPatternText = requiredPattern.getText();
-        this.lookups = lookups;
+        this.matcher = matcher;
         this.verbose = verbose;
-        walkList = new WalkList(requiredPattern, lookups, lookupSets, verbose);
+        walkList = new WalkList(requiredPattern, matcher.getLookups(), matcher.getLookupSets(), verbose);
         this.fixedValue = calculateFixedValue(requiredPattern);
     }
 
@@ -73,7 +73,7 @@ public class TreeExpressionEvaluator implements Serializable {
                 // No we know this is a fixed value. Yet we can have a problem in the lookup that was
                 // configured. If we have this then this is a FATAL error (it will fail always everywhere).
 
-                Map<String, String> lookup = lookups.get(ctx.lookup.getText());
+                Map<String, String> lookup = matcher.getLookups().get(ctx.lookup.getText());
                 if (lookup == null) {
                     throw new InvalidParserConfigurationException("Missing lookup \"" + ctx.lookup.getText() + "\" ");
                 }
@@ -98,15 +98,15 @@ public class TreeExpressionEvaluator implements Serializable {
 
     // ------------------------------------------
 
-    public String evaluate(ParseTree tree, String key, String value) {
+    public WalkResult evaluate(ParseTree tree, String key, String value) {
         if (verbose) {
             LOG.info("Evaluate: {} => {}", key, value);
             LOG.info("Pattern : {}", requiredPatternText);
             LOG.info("WalkList: {}", walkList.toString());
         }
-        String result = walkList.walk(tree, value);
+        WalkResult result = walkList.walk(tree, value);
         if (verbose) {
-            LOG.info("Evaluate: Result = {}", result);
+            LOG.info("Evaluate: Result = {}", result == null ? "null" : result.getValue());
         }
         return result;
     }

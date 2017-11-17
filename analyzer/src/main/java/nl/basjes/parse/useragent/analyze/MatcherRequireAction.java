@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.slf4j.Logger;
@@ -41,7 +42,7 @@ public class MatcherRequireAction extends MatcherAction {
     private boolean foundRequiredValue = false;
 
     @Override
-    public void inform(String key, String foundValue) {
+    public void inform(String key, WalkResult foundValue) {
         foundRequiredValue = true;
         if (verbose) {
             LOG.info("Info REQUIRE: {}", key);

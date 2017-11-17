@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps;
 
+import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentParser;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentSeparatorContext;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -51,7 +52,7 @@ public abstract class Step implements Serializable {
         logprefix = sb.toString();
     }
 
-    protected final String walkNextStep(ParseTree tree, String value) {
+    protected final WalkResult walkNextStep(ParseTree tree, String value) {
         if (nextStep == null) {
             String result = value;
             if (value == null) {
@@ -60,14 +61,14 @@ public abstract class Step implements Serializable {
             if (verbose) {
                 LOG.info("{} Final (implicit) step: {}", logprefix, result);
             }
-            return result;
+            return new WalkResult(tree, result);
         }
 
         if (verbose) {
             LOG.info("{} Tree: >>>{}<<<", logprefix, getSourceText((ParserRuleContext)tree));
             LOG.info("{} Enter step({}): {}", logprefix, stepNr, nextStep);
         }
-        String result = nextStep.walk(tree, value);
+        WalkResult result = nextStep.walk(tree, value);
         if (verbose) {
             LOG.info("{} Result: >>>{}<<<", logprefix, result);
             LOG.info("{} Leave step({}): {}", logprefix, result == null ? "-" : "+", nextStep);
@@ -80,16 +81,16 @@ public abstract class Step implements Serializable {
             return null;
         }
 
+        ParseTree parent = tree.getParent();
+
         // Needed because of the way the ANTLR rules have been defined.
-        if (tree instanceof UserAgentParser.ProductNameWordsContext     ||
-            tree instanceof UserAgentParser.ProductNameEmailContext     ||
-            tree instanceof UserAgentParser.ProductNameUuidContext      ||
-            tree instanceof UserAgentParser.ProductNameKeyValueContext  ||
-            tree instanceof UserAgentParser.ProductNameVersionContext
+        if (parent instanceof UserAgentParser.ProductNameContext ||
+            parent instanceof UserAgentParser.ProductVersionContext ||
+            parent instanceof UserAgentParser.ProductVersionWithCommasContext
             ) {
-            return up(tree.getParent());
+            return up(parent);
         }
-        return tree.getParent();
+        return parent;
     }
 
     public static boolean treeIsSeparator(ParseTree tree) {
@@ -113,7 +114,7 @@ public abstract class Step implements Serializable {
      *              The null value means to use the implicit 'full' value (i.e. getSourceText(tree) )
      * @return Either null or the actual value that was found.
      */
-    public abstract String walk(ParseTree tree, String value);
+    public abstract WalkResult walk(ParseTree tree, String value);
 
     public Step getNextStep() {
         return nextStep;

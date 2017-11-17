@@ -14,38 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Some language codes conflict with words we see in useragent strings that are NOT language codes.
-# We simply kick those languages.
-# Also kick the first line
-Language_Type
-^www
-^com
-^org
-^net
-^cpu
-^pad
-^bol
-^new
-^psp
-^url
-^arc
-^plk
-^dot
-^aol
-^one
-^two
-^kbd
-^rim
-^wii
-^dev
-^int
-^and
-^not
-^sim
-^lts
-^gnu
-^for
-^mmp
-^win
-^loh
-^pro
+config:
+
+- matcher:
+    variable:
+    # This must fail because the ordering of the variables is important: First define; then use
+    - 'VariableOne: NormalizeBrand[@VariableTwo.name]'
+    - 'VariableTwo: agent.product.version="3"^'
+    extract:
+    - 'Dummy : 1: "Dummy"'

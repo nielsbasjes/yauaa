@@ -58,19 +58,20 @@ matcherRequire  : matcher                                                  #matc
                 | 'IsNull'         BLOCKOPEN matcher BLOCKCLOSE            #matcherPathIsNull
                 ;
 
-matcher         : basePath                                                      #matcherPath
-                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher SEMICOLON postfix=VALUE BLOCKCLOSE #matcherConcat
-                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher                         BLOCKCLOSE #matcherConcatPrefix
-                | 'Concat' BLOCKOPEN                        matcher SEMICOLON postfix=VALUE BLOCKCLOSE #matcherConcatPostfix
-                | 'NormalizeBrand' BLOCKOPEN matcher BLOCKCLOSE                 #matcherNormalizeBrand
-                | 'CleanVersion'   BLOCKOPEN matcher BLOCKCLOSE                 #matcherCleanVersion
+matcher         : basePath                                                                              #matcherPath
+                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher SEMICOLON postfix=VALUE BLOCKCLOSE  #matcherConcat
+                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher                         BLOCKCLOSE  #matcherConcatPrefix
+                | 'Concat' BLOCKOPEN                        matcher SEMICOLON postfix=VALUE BLOCKCLOSE  #matcherConcatPostfix
+                | 'NormalizeBrand' BLOCKOPEN matcher BLOCKCLOSE                                         #matcherNormalizeBrand
+                | 'CleanVersion'   BLOCKOPEN matcher BLOCKCLOSE                                         #matcherCleanVersion
                 | 'LookUp'         BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookup
-                | matcher wordRange                                             #matcherWordRange
+                | matcher wordRange                                                                     #matcherWordRange
                 ;
 
-basePath        : value=VALUE                           #pathFixedValue
-//                | 'agent'                               #pathNoWalk
-                | 'agent' nextStep=path                 #pathWalk
+basePath        : value=VALUE                              #pathFixedValue
+//                | 'agent'                                #pathNoWalk
+                | '@' variable=VALUENAME (nextStep=path)?  #pathVariable
+                | 'agent'                (nextStep=path)?  #pathWalk
                 ;
 
 path            : DOT numberRange name=VALUENAME  (nextStep=path)?  #stepDown
