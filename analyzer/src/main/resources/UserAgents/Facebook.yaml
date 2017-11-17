@@ -48,11 +48,13 @@ config:
         'AtWorkForiOS'     : 'UIWebView'
 
 - matcher:
+    variable:
+    - 'FBANVersion       : agent.product.(1-2)comments.entry.(1)product.(1)name="FBAN"^.version'
     extract:
     - 'AgentClass        : 1001:"Browser Webview"'
-    - 'AgentName         : 1001:LookUp[FaceBookWebviewNames;agent.product.(1-2)comments.entry.(1)product.(1)name="FBAN"^.version]'
+    - 'AgentName         : 1001:LookUp[FaceBookWebviewNames;@FBANVersion]'
     - 'AgentVersion      :   11:"??"'
-    - 'WebviewAppName    : 1001:LookUp[FaceBookAppNames;agent.product.(1-2)comments.entry.(1)product.(1)name="FBAN"^.version]'
+    - 'WebviewAppName    : 1001:LookUp[FaceBookAppNames;@FBANVersion]'
     - 'WebviewAppVersion : 1001:agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
 
 - matcher:

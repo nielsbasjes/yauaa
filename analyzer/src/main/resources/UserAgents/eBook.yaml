@@ -17,15 +17,17 @@
 config:
 
 - matcher:
+    variable:
+    - 'KoboAppVersion: agent.product.name="KoboApp"^.version'
     extract:
     - 'LayoutEngineClass     :   150:"eReader"'
     - 'LayoutEngineName      :   150:"KoboApp"'
-    - 'LayoutEngineVersion   :   150:agent.product.name="KoboApp"^.version'
+    - 'LayoutEngineVersion   :   150:@KoboAppVersion'
     - 'AgentClass            :   150:"eReader"'
     - 'AgentName             :   150:"KoboApp"'
-    - 'AgentVersion          :   150:agent.product.name="KoboApp"^.version'
+    - 'AgentVersion          :   150:@KoboAppVersion'
     - 'WebviewAppName        :   150:"KoboApp"'
-    - 'WebviewAppVersion     :   150:agent.product.name="KoboApp"^.version'
+    - 'WebviewAppVersion     :   150:@KoboAppVersion'
     - 'KoboPlatformId        :   100:agent.product.name="KoboPlatform Id"^.version'
     - 'KoboAffiliate         :   100:agent.product.name="KoboAffiliate"^.version'
 

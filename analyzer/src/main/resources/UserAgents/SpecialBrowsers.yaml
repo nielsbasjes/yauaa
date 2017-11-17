@@ -636,16 +636,20 @@ config:
 
 # Sometimes the name of the agent is BETWEEN the "Chrome" and "(Mobile) Safari" products.
 - matcher:
+    variable:
+      - 'Product: agent.product.(1)name="Chrome"^>>.name="Safari"^<'
     extract:
       - 'AgentClass    :  2050:"Browser"'
-      - 'AgentName     :  2050:agent.product.(1)name="Chrome"^>>.name="Safari"^<.name'
-      - 'AgentVersion  :  2050:agent.product.(1)name="Chrome"^>>.name="Safari"^<.version'
+      - 'AgentName     :  2050:@Product.name'
+      - 'AgentVersion  :  2050:@Product.version'
 
 - matcher:
+    variable:
+      - 'Product: agent.product.(1)name="Chrome"^>>.name="Mobile Safari"^<'
     extract:
       - 'AgentClass    :  2050:"Browser"'
-      - 'AgentName     :  2050:agent.product.(1)name="Chrome"^>>.name="Mobile Safari"^<.name'
-      - 'AgentVersion  :  2050:agent.product.(1)name="Chrome"^>>.name="Mobile Safari"^<.version'
+      - 'AgentName     :  2050:@Product.name'
+      - 'AgentVersion  :  2050:@Product.version'
 
 - test:
     input:
@@ -674,10 +678,12 @@ config:
 
 # Sometimes the name of the agent is BETWEEN the "Mobile" and "Version" products.
 - matcher:
+    variable:
+      - 'Product: agent.product.(1)name="Mobile"^>>.name="Version"^<'
     extract:
       - 'AgentClass    :  100:"Browser"'
-      - 'AgentName     :  100:agent.product.(1)name="Mobile"^>>.name="Version"^<.name'
-      - 'AgentVersion  :  100:agent.product.(1)name="Mobile"^>>.name="Version"^<.version'
+      - 'AgentName     :  100:@Product.name'
+      - 'AgentVersion  :  100:@Product.version'
 
 - test:
     input:
@@ -707,17 +713,20 @@ config:
 
 # Sometimes the name of the agent is BETWEEN the "Mobile" and "(Mobile) Safari" products.
 - matcher:
+    variable:
+      - 'Product: agent.product.(1)name="Mobile"^>>.name="Safari"^<'
     extract:
       - 'AgentClass    :  2049:"Browser"'
-      - 'AgentName     :  2049:agent.product.(1)name="Mobile"^>>.name="Safari"^<.name'
-      - 'AgentVersion  :  2049:agent.product.(1)name="Mobile"^>>.name="Safari"^<.version'
+      - 'AgentName     :  2049:@Product.name'
+      - 'AgentVersion  :  2049:@Product.version'
 
 - matcher:
+    variable:
+      - 'Product: agent.product.(1)name="Mobile"^>>.name="Mobile Safari"^<'
     extract:
       - 'AgentClass    :  2049:"Browser"'
-      - 'AgentName     :  2049:agent.product.(1)name="Mobile"^>>.name="Mobile Safari"^<.name'
-      - 'AgentVersion  :  2049:agent.product.(1)name="Mobile"^>>.name="Mobile Safari"^<.version'
-
+      - 'AgentName     :  2049:@Product.name'
+      - 'AgentVersion  :  2049:@Product.version'
 
 - test:
     input:
@@ -1246,8 +1255,6 @@ config:
 # ----------------------------------------------------------------------------------
 # DuckDuckGo
 - matcher:
-    require:
-    - 'agent.text[1-2]="DDG-Android"'
     extract:
     - '__Set_ALL_Fields__    :   11:"<<<null>>>"'
     - 'DeviceClass           :   12:"Mobile"'
@@ -1289,8 +1296,6 @@ config:
 
 
 - matcher:
-    require:
-    - 'agent.text[-2]="DDG-iOS"'
     extract:
     - 'DeviceClass           :   11:"Mobile"'
     - 'DeviceBrand           :   11:"Unknown"'

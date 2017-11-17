@@ -17,13 +17,15 @@
 config:
 
 - matcher:
+    variable:
+    - 'BeforeBrowser: agent.(1)product.(1)comments.entry.product.(1)name="Browser"^<'
     require:
     - 'agent.(1)product.(1)comments.entry.product.(1)name="Browser"^.(1)version="Browser"'
     extract:
     - 'DeviceClass    :   50:"Mobile"'
-    - 'DeviceBrand    : 1000:NormalizeBrand[agent.(1)product.(1)comments.entry.product.(1)name="Browser"^<.name]'
-    - 'DeviceName     : 1000:agent.(1)product.(1)comments.entry.product.(1)name="Browser"^<.(1)version'
-    - 'DeviceVersion  : 1000:agent.(1)product.(1)comments.entry.product.(1)name="Browser"^<.(2)version'
+    - 'DeviceBrand    : 1000:NormalizeBrand[@BeforeBrowser.name]'
+    - 'DeviceName     : 1000:@BeforeBrowser.(1)version'
+    - 'DeviceVersion  : 1000:@BeforeBrowser.(2)version'
 
 - test:
     input:
