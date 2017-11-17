@@ -1,0 +1,200 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2017 Davide Magni
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"402LG"'
+    extract:
+    - 'DeviceBrand :   3000:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"AS98"'
+    extract:
+    - 'DeviceBrand :   3000:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"RS98"'
+    extract:
+    - 'DeviceBrand :   3000:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"DM-01"'
+    extract:
+    - 'DeviceBrand :   3000:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"L-01"'
+    extract:
+    - 'DeviceBrand :   3000:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"VK"'
+    extract:
+    - 'DeviceBrand :   3000:"LG"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"VS"'
+    extract:
+    - 'DeviceBrand :   3000:"LG"'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0; VS985 4G Build/MRA58K; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.116 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'LG VS985 4G'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemVersionBuild          : 'MRA58K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '60.0'
+      LayoutEngineVersionMajor             : '60'
+      LayoutEngineNameVersion              : 'Blink 60.0'
+      LayoutEngineNameVersionMajor         : 'Blink 60'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '60.0.3112.116'
+      AgentVersionMajor                    : '60'
+      AgentNameVersion                     : 'Chrome Webview 60.0.3112.116'
+      AgentNameVersionMajor                : 'Chrome Webview 60'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.2; VK810 4G Build/LRX22G) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'LG VK810 4G'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemVersionBuild          : 'LRX22G'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome 61'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; RS988 Build/NRD90U; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.116 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'LG RS988'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NRD90U'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '60.0'
+      LayoutEngineVersionMajor             : '60'
+      LayoutEngineNameVersion              : 'Blink 60.0'
+      LayoutEngineNameVersionMajor         : 'Blink 60'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '60.0.3112.116'
+      AgentVersionMajor                    : '60'
+      AgentNameVersion                     : 'Chrome Webview 60.0.3112.116'
+      AgentNameVersionMajor                : 'Chrome Webview 60'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; ja-jp; L-01F Build/JDQ39B) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.2 Mobile Safari/534.30'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'LG L-01F'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.2.2'
+      OperatingSystemNameVersion           : 'Android 4.2.2'
+      OperatingSystemVersionBuild          : 'JDQ39B'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.2'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.2'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'Japanese (Japan)'
+      AgentLanguageCode                    : 'ja-jp'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.2; DM-01G Build/LRX22G; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'LG DM-01G'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemVersionBuild          : 'LRX22G'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
