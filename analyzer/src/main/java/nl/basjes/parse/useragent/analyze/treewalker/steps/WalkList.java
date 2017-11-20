@@ -38,7 +38,9 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBra
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNext;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNextN;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrevN;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
@@ -58,8 +60,14 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsVa
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEndsWithValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEqualsValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext2Context;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext3Context;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext4Context;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNextContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotEqualsValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrev2Context;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrev3Context;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrev4Context;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrevContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepStartsWithValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepUpContext;
@@ -330,6 +338,7 @@ public class WalkList implements Serializable {
             return null; // Void
         }
 
+        //----
         @Override
         public Void visitStepNext(StepNextContext ctx) {
             fromHereItCannotBeInHashMapAnymore();
@@ -338,6 +347,29 @@ public class WalkList implements Serializable {
             return null; // Void
         }
 
+        private Void doStepNextN(PathContext nextStep, int nextSteps) {
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepNextN(nextSteps));
+            visitNext(nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepNext2(StepNext2Context ctx) {
+            return doStepNextN(ctx.nextStep, 2);
+        }
+
+        @Override
+        public Void visitStepNext3(StepNext3Context ctx) {
+            return doStepNextN(ctx.nextStep, 3);
+        }
+
+        @Override
+        public Void visitStepNext4(StepNext4Context ctx) {
+            return doStepNextN(ctx.nextStep, 4);
+        }
+
+        //----
         @Override
         public Void visitStepPrev(StepPrevContext ctx) {
             fromHereItCannotBeInHashMapAnymore();
@@ -346,6 +378,29 @@ public class WalkList implements Serializable {
             return null; // Void
         }
 
+        private Void doStepPrevN(PathContext nextStep, int prevSteps) {
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepPrevN(prevSteps));
+            visitNext(nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepPrev2(StepPrev2Context ctx) {
+            return doStepPrevN(ctx.nextStep, 2);
+        }
+
+        @Override
+        public Void visitStepPrev3(StepPrev3Context ctx) {
+            return doStepPrevN(ctx.nextStep, 3);
+        }
+
+        @Override
+        public Void visitStepPrev4(StepPrev4Context ctx) {
+            return doStepPrevN(ctx.nextStep, 4);
+        }
+
+        //----
         @Override
         public Void visitStepEqualsValue(StepEqualsValueContext ctx) {
             add(new StepEquals(ctx.value.getText()));
