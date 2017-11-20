@@ -158,7 +158,9 @@ Because the code is not reentrant the main method has been synchronized on the i
 So if you are in a multi threaded situation you should create a separate instance per thread or accept the speed limitation.
 Note that you should really instantiate it only once per thread (and use a ThreadPool or something similar) because starting a new instance takes several seconds.
 
-**Eclipse users**: Be aware of this bug in Eclipse which will show you errors in prefectly valid Java code: https://bugs.eclipse.org/bugs/show_bug.cgi?id=527475 
+**Eclipse users**: Be aware of there is a bug in Eclipse which will show you errors in perfectly valid Java code: 
+https://bugs.eclipse.org/bugs/show_bug.cgi?id=527475 
+The errors you see are related to the inheritance model used by the Builders in this project and the fact that Eclipse does not interpret it correctly. 
 
 # Limiting to only certain fields
 In some scenarios you only want a specific field and all others are unwanted.
