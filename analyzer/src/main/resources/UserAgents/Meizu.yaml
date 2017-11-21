@@ -28,3 +28,167 @@ config:
     - 'agent.(1)product.(1)comments.entry~"Build"{"MZ-"'
     extract:
     - 'DeviceBrand :   3000:"Meizu"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"m3"'
+    extract:
+    - 'DeviceBrand :   350:"Meizu"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"m5"'
+    extract:
+    - 'DeviceBrand :   350:"Meizu"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"MX"'
+    extract:
+    - 'DeviceBrand :   350:"Meizu"'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1; m3 note Build/LMY47I; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/44.0.2403.146 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Meizu M3 Note'
+      DeviceBrand                          : 'Meizu'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1'
+      OperatingSystemNameVersion           : 'Android 5.1'
+      OperatingSystemVersionBuild          : 'LMY47I'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '44.0'
+      LayoutEngineVersionMajor             : '44'
+      LayoutEngineNameVersion              : 'Blink 44.0'
+      LayoutEngineNameVersionMajor         : 'Blink 44'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '44.0.2403.146'
+      AgentVersionMajor                    : '44'
+      AgentNameVersion                     : 'Chrome Webview 44.0.2403.146'
+      AgentNameVersionMajor                : 'Chrome Webview 44'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0; M5 Note Build/MRA58K; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/44.0.2403.128 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Meizu M5 Note'
+      DeviceBrand                          : 'Meizu'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemVersionBuild          : 'MRA58K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '44.0'
+      LayoutEngineVersionMajor             : '44'
+      LayoutEngineNameVersion              : 'Blink 44.0'
+      LayoutEngineNameVersionMajor         : 'Blink 44'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '44.0.2403.128'
+      AgentVersionMajor                    : '44'
+      AgentNameVersion                     : 'Chrome Webview 44.0.2403.128'
+      AgentNameVersionMajor                : 'Chrome Webview 44'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1; MX4 Build/LMY47I; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/44.0.2403.146 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Meizu MX4'
+      DeviceBrand                          : 'Meizu'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1'
+      OperatingSystemNameVersion           : 'Android 5.1'
+      OperatingSystemVersionBuild          : 'LMY47I'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '44.0'
+      LayoutEngineVersionMajor             : '44'
+      LayoutEngineNameVersion              : 'Blink 44.0'
+      LayoutEngineNameVersionMajor         : 'Blink 44'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '44.0.2403.146'
+      AgentVersionMajor                    : '44'
+      AgentNameVersion                     : 'Chrome Webview 44.0.2403.146'
+      AgentNameVersionMajor                : 'Chrome Webview 44'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 6.0; MZ-MEIZU_M5 Build/MRA58K) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/45.0.2454.94 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Meizu MZ-Meizu M5'
+      DeviceBrand                          : 'Meizu'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemVersionBuild          : 'MRA58K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '45.0'
+      LayoutEngineVersionMajor             : '45'
+      LayoutEngineNameVersion              : 'Blink 45.0'
+      LayoutEngineNameVersionMajor         : 'Blink 45'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '45.0.2454.94'
+      AgentVersionMajor                    : '45'
+      AgentNameVersion                     : 'Chrome Webview 45.0.2454.94'
+      AgentNameVersionMajor                : 'Chrome Webview 45'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 5.1; MZ-M3s Build/LMY47I) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/45.0.2454.94 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Meizu MZ-M3S'
+      DeviceBrand                          : 'Meizu'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1'
+      OperatingSystemNameVersion           : 'Android 5.1'
+      OperatingSystemVersionBuild          : 'LMY47I'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '45.0'
+      LayoutEngineVersionMajor             : '45'
+      LayoutEngineNameVersion              : 'Blink 45.0'
+      LayoutEngineNameVersionMajor         : 'Blink 45'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '45.0.2454.94'
+      AgentVersionMajor                    : '45'
+      AgentNameVersion                     : 'Chrome Webview 45.0.2454.94'
+      AgentNameVersionMajor                : 'Chrome Webview 45'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
