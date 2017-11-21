@@ -152,7 +152,6 @@ public class WalkList implements Serializable {
     public WalkResult walk(ParseTree tree, String value) {
         if (steps.isEmpty()) {
             return new WalkResult(tree, value);
-//            return GetResultValueVisitor.getResultValue(tree);
         }
         Step firstStep = steps.get(0);
         if (verbose) {
