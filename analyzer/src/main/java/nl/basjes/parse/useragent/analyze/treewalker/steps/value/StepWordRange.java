@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.value;
 
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionWithCommasContext;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
@@ -36,7 +37,7 @@ public class StepWordRange extends Step {
     }
 
     @Override
-    public String walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
         String filteredValue;
         if (tree.getChildCount() == 1 && (

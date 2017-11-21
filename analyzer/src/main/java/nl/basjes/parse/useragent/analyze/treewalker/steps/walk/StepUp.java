@@ -18,12 +18,13 @@
 package nl.basjes.parse.useragent.analyze.treewalker.steps.walk;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepUp extends Step {
 
     @Override
-    public String walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree tree, String value) {
         ParseTree parent = up(tree);
         if (parent == null) {
             return null;

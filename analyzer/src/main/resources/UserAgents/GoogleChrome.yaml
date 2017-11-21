@@ -48,7 +48,6 @@ config:
   # We define the 'old' version with a higher score and set the new one as the default
 - matcher:
     require:
-    - 'agent.product.(1)name="Chrome"'
     - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="Chrome"^.version[-1]]'
     extract:
     - 'LayoutEngineClass     :   1000:"Browser"'
@@ -56,8 +55,6 @@ config:
     - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
 
 - matcher:
-    require:
-    - 'agent.product.(1)name="Chrome"'
     extract:
     - 'LayoutEngineClass     :    999:"Browser"'
     - 'LayoutEngineName      :    999:"Blink"'
@@ -65,7 +62,6 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)name="CriOS"'
     - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="CriOS"^.version[-1]]'
     extract:
     - 'LayoutEngineClass     :   1000:"Browser"'
@@ -73,8 +69,6 @@ config:
     - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
 
 - matcher:
-    require:
-    - 'agent.product.(1)name="CriOS"'
     extract:
     - 'LayoutEngineClass     :    999:"Browser"'
     - 'LayoutEngineName      :    999:"Blink"'
@@ -83,7 +77,6 @@ config:
 # Sometimes (Coc coc does this) we do not have "Chrome" with "Mobile Safari" but instead: "Mobile Chrome" with "Safari"
 - matcher:
     require:
-    - 'agent.product.(1)name="Mobile Chrome"'
     - 'LookUp[ChromeLayoutEngineName;agent.product.(1)name="Mobile Chrome"^.version[-1]]'
     extract:
     - 'DeviceClass           :   1000:"Phone"'
@@ -92,8 +85,6 @@ config:
     - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
 
 - matcher:
-    require:
-    - 'agent.product.(1)name="Mobile Chrome"'
     extract:
     - 'DeviceClass           :    999:"Phone"'
     - 'LayoutEngineClass     :    999:"Browser"'
@@ -301,34 +292,36 @@ config:
       'Focus' : 'Firefox Focus'
 
 - matcher:
+    variable:
+    - 'WebViewProduct: agent.product.(1)name="Chrome"^>>'
     require:
     - 'agent.product.(1)name="Version"'
     extract:
     - 'AgentClass        :   2500:"Browser Webview"'
     - 'AgentName         :   2500:"Chrome Webview"'
     - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
-    - 'WebviewAppName    :     11:LookUp[KnownWebviewAppNames;agent.product.(1)name="Chrome"^>>.name]'
-    - 'WebviewAppVersion :     11:agent.product.(1)name="Chrome"^>>.version'
+    - 'WebviewAppName    :     11:LookUp[KnownWebviewAppNames;@WebViewProduct.name]'
+    - 'WebviewAppVersion :     11:@WebViewProduct.version'
 
 - matcher:
-    require:
-    - 'agent.product.(1)name="Chrome"'
+    variable:
+    - 'WebViewProduct: agent.product.(1)name="Version"^>>.name="Chrome"^<'
     extract:
     - 'AgentClass        :   2500:"Browser Webview"'
     - 'AgentName         :   2500:"Chrome Webview"'
     - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
-    - 'WebviewAppName    :     12:LookUp[KnownWebviewAppNames;agent.product.(1)name="Version"^>>.name="Chrome"^<.name]'
-    - 'WebviewAppVersion :     12:agent.product.(1)name="Version"^>>.name="Chrome"^<.version'
+    - 'WebviewAppName    :     12:LookUp[KnownWebviewAppNames;@WebViewProduct.name]'
+    - 'WebviewAppVersion :     12:@WebViewProduct.version'
 
 - matcher:
-    require:
-    - 'agent.product.(1)name="Chrome"'
+    variable:
+    - 'WebViewProduct: agent.product.(1)name="Version"^>>.name="Chrome"^<'
     extract:
     - 'AgentClass        :   2500:"Browser Webview"'
     - 'AgentName         :   2500:"Chrome Webview"'
     - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
-    - 'WebviewAppName    :     11:agent.product.(1)name="Version"^>>.name="Chrome"^<.name'
-    - 'WebviewAppVersion :     11:agent.product.(1)name="Version"^>>.name="Chrome"^<.version'
+    - 'WebviewAppName    :     11:@WebViewProduct.name'
+    - 'WebviewAppVersion :     11:@WebViewProduct.version'
 
 # WebView UA in Lollipop and Above
 # In the newer versions of WebView, you can differentiate the WebView by looking for the wv field
@@ -339,7 +332,6 @@ config:
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)text="wv"'
-    - 'agent.product.(1)name="Chrome"'
     extract:
     - 'AgentClass      :   10000:"Browser Webview"'
     - 'AgentName       :   10000:"Chrome Webview"'
@@ -492,29 +484,55 @@ config:
 - lookup:
     name: 'SpecialChromeBrowserNames'
     map:
-      "Vivaldi"  : "Vivaldi"
-      "OPR"      : "Opera"
-      "MMS"      : "Opera Neon"
-      "Amigo"    : "Amigo" # https://amigo.mail.ru/
-      "MRCHROME" : "Amigo" # https://amigo.mail.ru/
-      "MRPULSE"  : "Pulse" # https://amigo.mail.ru/
+      "Vivaldi"         : "Vivaldi"
+      "OPR"             : "Opera"
+      "MMS"             : "Opera Neon"
+      "Amigo"           : "Amigo"       # https://amigo.mail.ru/
+      "MRCHROME"        : "Amigo"       # https://amigo.mail.ru/
+      "MRPULSE"         : "Pulse"       # https://amigo.mail.ru/
+      "Chromium"        : "Chromium"
+      "Ubuntu Chromium" : "Chromium"
+      "Epiphany"        : "Epiphany"
 
 - matcher:
+    variable:
+    - 'ProductAfterChrome: agent.product.(1)name="Chrome"^>'
     extract:
-    - 'AgentName             :   2018:LookUp[SpecialChromeBrowserNames;agent.product.(1)name="Chrome"^>.(1)name}"Safari"^>.(1)name]'
-    - 'AgentVersion          :   2018:agent.product.(1)name="Chrome"^>.(1)name}"Safari"^>.(1)version'
+    - 'AgentName             :   2022:LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
+    - 'AgentVersion          :   2022:@ProductAfterChrome.(1)version'
 
 - matcher:
-    require:
-    - 'IsNull[agent.product.(1)name="Chrome"^>.(1)name}"Safari"]'
+    variable:
+    - 'ProductAfterChrome: agent.product.(1)name="Chrome"^>>'
     extract:
-    - 'AgentName             :   2018:LookUp[SpecialChromeBrowserNames;agent.product.(1)name="Chrome"^>.(1)name]'
-    - 'AgentVersion          :   2018:agent.product.(1)name="Chrome"^>.(1)version'
+    - 'AgentName             :   2021:LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
+    - 'AgentVersion          :   2021:@ProductAfterChrome.(1)version'
+
+- matcher:
+    variable:
+    - 'ProductAfterChrome: agent.product.(1)name="Chrome"^>>>'
+    extract:
+    - 'AgentName             :   2020:LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
+    - 'AgentVersion          :   2020:@ProductAfterChrome.(1)version'
+
+- matcher:
+    variable:
+    - 'ProductAfterChrome: agent.product.(1)name="Chrome"^>>>>'
+    extract:
+    - 'AgentName             :   2019:LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
+    - 'AgentVersion          :   2019:@ProductAfterChrome.(1)version'
 
 - matcher:
     extract:
     - 'AgentName             :   2019:LookUp[SpecialChromeBrowserNames;agent.text]'
     - 'AgentVersion          :   2019:agent.product.(1)name="Chrome"^.version'
+
+- matcher:
+    variable:
+    - 'ProductBeforeChrome: agent.product.(1)name="Chrome"^<'
+    extract:
+    - 'AgentName             :   2017:LookUp[SpecialChromeBrowserNames;@ProductBeforeChrome.(1)name]'
+    - 'AgentVersion          :   2017:@ProductBeforeChrome.(1)version'
 
 - test:
     input:
@@ -567,6 +585,17 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'Opera Neon 1.0.2459.0'
       AgentNameVersionMajor                : 'Opera Neon 1'
+
+# TODO: Confusing case. I am unsure what the right value for the CPU and the bits of the CPU are.
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686 (x86_64)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+#    expected:
+#      DeviceCpu                            : 'Intel i686'
+#      DeviceCpuBits                        : '32'
+#      OperatingSystemName                  : 'Linux'
+#      OperatingSystemVersion               : 'Intel i686'
+#      OperatingSystemNameVersion           : 'Linux Intel i686'
 
 - test:
     input:
@@ -734,3 +763,187 @@ config:
       WebviewAppNameVersionMajor           : 'SomeThing Unexpected 3'
       WebviewAppVersion                    : '3.14'
       WebviewAppVersionMajor               : '3'
+
+# Chromium
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/45.0.2454.101 Chrome/45.0.2454.101 Safari/537.36 FirePHP/4Chrome'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Ubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '45.0'
+      LayoutEngineVersionMajor             : '45'
+      LayoutEngineNameVersion              : 'Blink 45.0'
+      LayoutEngineNameVersionMajor         : 'Blink 45'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : '45.0.2454.101'
+      AgentVersionMajor                    : '45'
+      AgentNameVersion                     : 'Chromium 45.0.2454.101'
+      AgentNameVersionMajor                : 'Chromium 45'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/45.0.2454.101 Chrome/45.0.2454.101 Safari/537.36,gzip(gfe)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Ubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '45.0'
+      LayoutEngineVersionMajor             : '45'
+      LayoutEngineNameVersion              : 'Blink 45.0'
+      LayoutEngineNameVersionMajor         : 'Blink 45'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : '45.0.2454.101'
+      AgentVersionMajor                    : '45'
+      AgentNameVersion                     : 'Chromium 45.0.2454.101'
+      AgentNameVersionMajor                : 'Chromium 45'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.22+ (KHTML, like Gecko) Chromium/17.0.963.56 Chrome/17.0.963.56 Safari/535.22+ Debian/7.0 (3.4.2-2.1) Epiphany/3.4.2'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Debian'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Debian 7.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '535.22'
+      LayoutEngineVersionMajor             : '535'
+      LayoutEngineNameVersion              : 'AppleWebKit 535.22'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Epiphany'
+      AgentVersion                         : '3.4.2'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Epiphany 3.4.2'
+      AgentNameVersionMajor                : 'Epiphany 3'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (SMART-TV; X11; Linux armv7l) AppleWebKit/537.42 (KHTML, like Gecko) Chromium/25.0.1349.2 Chrome/25.0.1349.2 Safari/537.42'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Samsung Smart TV'
+      DeviceBrand                          : 'Samsung'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'SmartTV'
+      OperatingSystemNameVersion           : 'Linux SmartTV'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.42'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.42'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : '25.0.1349.2'
+      AgentVersionMajor                    : '25'
+      AgentNameVersion                     : 'Chromium 25.0.1349.2'
+      AgentNameVersionMajor                : 'Chromium 25'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (SMART-TV; X11; Linux armv7l) AppleWebkit/537.42 (KHTML, like Gecko) Chromium/25.0.1349.2 Chrome/25.0.1349.2 Safari/537.42,gzip(gfe)'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Samsung Smart TV'
+      DeviceBrand                          : 'Samsung'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'SmartTV'
+      OperatingSystemNameVersion           : 'Linux SmartTV'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.42'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.42'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : '25.0.1349.2'
+      AgentVersionMajor                    : '25'
+      AgentNameVersion                     : 'Chromium 25.0.1349.2'
+      AgentNameVersionMajor                : 'Chromium 25'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.6+ (KHTML, like Gecko) Chromium/23.0.1271.95 Chrome/23.0.1271.95 Safari/537.6+ Epiphany/3.6.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'ARMv7l'
+      OperatingSystemNameVersion           : 'Linux ARMv7l'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.6'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.6'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Epiphany'
+      AgentVersion                         : '3.6.1'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Epiphany 3.6.1'
+      AgentNameVersionMajor                : 'Epiphany 3'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/62.0.3202.89 Chrome/62.0.3202.89 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Ubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '62.0'
+      LayoutEngineVersionMajor             : '62'
+      LayoutEngineNameVersion              : 'Blink 62.0'
+      LayoutEngineNameVersionMajor         : 'Blink 62'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : '62.0.3202.89'
+      AgentVersionMajor                    : '62'
+      AgentNameVersion                     : 'Chromium 62.0.3202.89'
+      AgentNameVersionMajor                : 'Chromium 62'
+

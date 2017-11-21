@@ -114,6 +114,14 @@ public class TestErrorHandling {
         Assert.assertTrue(uaa.runTests(false, false));
     }
 
+    @Test
+    public void checkSyntaxErrorVariableBackReference() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage(new StringStartsWith("Syntax error"));
+
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:BadDefinitions/Variable-BackReference.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
 
     @Test
     public void methodInputValidation(){

@@ -23,21 +23,31 @@ import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEndsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEquals;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsInSet;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepBackToFull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepFixedString;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNext;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNextN;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrevN;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
@@ -50,8 +60,14 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsVa
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEndsWithValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEqualsValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext2Context;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext3Context;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext4Context;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNextContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotEqualsValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrev2Context;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrev3Context;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrev4Context;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrevContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepStartsWithValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepUpContext;
@@ -64,6 +80,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
@@ -72,12 +89,41 @@ public class WalkList implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(WalkList.class);
 
     private final Map<String, Map<String, String>> lookups;
+    private final Map<String, Set<String>>         lookupSets;
     private final List<Step> steps = new ArrayList<>();
 
     private final boolean verbose;
 
-    public WalkList(ParserRuleContext requiredPattern, Map<String, Map<String, String>> lookups, boolean verbose) {
+    public static class WalkResult {
+        private ParseTree tree;
+        private String value;
+        public WalkResult(ParseTree tree, String value) {
+            this.tree = tree;
+            this.value = value;
+        }
+        public ParseTree getTree() {
+            return tree;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return "WalkResult{" +
+                "tree=" + tree.getText() +
+                ", value='" + value + '\'' +
+                '}';
+        }
+    }
+
+    public WalkList(ParserRuleContext requiredPattern,
+                    Map<String, Map<String, String>> lookups,
+                    Map<String, Set<String>> lookupSets,
+                    boolean verbose) {
         this.lookups = lookups;
+        this.lookupSets = lookupSets;
         this.verbose = verbose;
         // Generate the walkList from the requiredPattern
         new WalkListBuilder().visit(requiredPattern);
@@ -103,9 +149,9 @@ public class WalkList implements Serializable {
         }
     }
 
-    public String walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree tree, String value) {
         if (steps.isEmpty()) {
-            return value;
+            return new WalkResult(tree, value);
 //            return GetResultValueVisitor.getResultValue(tree);
         }
         Step firstStep = steps.get(0);
@@ -113,7 +159,7 @@ public class WalkList implements Serializable {
             Step.LOG.info("Tree: >>>{}<<<", tree.getText());
             Step.LOG.info("Enter step: {}", firstStep);
         }
-        String result = firstStep.walk(tree, value);
+        WalkResult result = firstStep.walk(tree, value);
         if (verbose) {
             Step.LOG.info("Leave step ({}): {}", result == null ? "-" : "+", firstStep);
         }
@@ -219,6 +265,30 @@ public class WalkList implements Serializable {
         }
 
         @Override
+        public Void visitMatcherConcat(MatcherConcatContext ctx) {
+            visit(ctx.matcher());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepConcat(ctx.prefix.getText(), ctx.postfix.getText()));
+            return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherConcatPrefix(MatcherConcatPrefixContext ctx) {
+            visit(ctx.matcher());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepConcatPrefix(ctx.prefix.getText()));
+            return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherConcatPostfix(MatcherConcatPostfixContext ctx) {
+            visit(ctx.matcher());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepConcatPostfix(ctx.postfix.getText()));
+            return null; // Void
+        }
+
+        @Override
         public Void visitMatcherWordRange(MatcherWordRangeContext ctx) {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
@@ -231,6 +301,13 @@ public class WalkList implements Serializable {
             // Always add this one, it's special
             steps.add(new StepIsNull());
             visit(ctx.matcher());
+            return null; // Void
+        }
+
+        @Override
+        public Void visitPathVariable(UserAgentTreeWalkerParser.PathVariableContext ctx) {
+            fromHereItCannotBeInHashMapAnymore();
+            visitNext(ctx.nextStep);
             return null; // Void
         }
 
@@ -261,6 +338,7 @@ public class WalkList implements Serializable {
             return null; // Void
         }
 
+        //----
         @Override
         public Void visitStepNext(StepNextContext ctx) {
             fromHereItCannotBeInHashMapAnymore();
@@ -269,6 +347,29 @@ public class WalkList implements Serializable {
             return null; // Void
         }
 
+        private Void doStepNextN(PathContext nextStep, int nextSteps) {
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepNextN(nextSteps));
+            visitNext(nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepNext2(StepNext2Context ctx) {
+            return doStepNextN(ctx.nextStep, 2);
+        }
+
+        @Override
+        public Void visitStepNext3(StepNext3Context ctx) {
+            return doStepNextN(ctx.nextStep, 3);
+        }
+
+        @Override
+        public Void visitStepNext4(StepNext4Context ctx) {
+            return doStepNextN(ctx.nextStep, 4);
+        }
+
+        //----
         @Override
         public Void visitStepPrev(StepPrevContext ctx) {
             fromHereItCannotBeInHashMapAnymore();
@@ -277,6 +378,29 @@ public class WalkList implements Serializable {
             return null; // Void
         }
 
+        private Void doStepPrevN(PathContext nextStep, int prevSteps) {
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepPrevN(prevSteps));
+            visitNext(nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepPrev2(StepPrev2Context ctx) {
+            return doStepPrevN(ctx.nextStep, 2);
+        }
+
+        @Override
+        public Void visitStepPrev3(StepPrev3Context ctx) {
+            return doStepPrevN(ctx.nextStep, 3);
+        }
+
+        @Override
+        public Void visitStepPrev4(StepPrev4Context ctx) {
+            return doStepPrevN(ctx.nextStep, 4);
+        }
+
+        //----
         @Override
         public Void visitStepEqualsValue(StepEqualsValueContext ctx) {
             add(new StepEquals(ctx.value.getText()));
@@ -289,6 +413,27 @@ public class WalkList implements Serializable {
         public Void visitStepNotEqualsValue(StepNotEqualsValueContext ctx) {
             fromHereItCannotBeInHashMapAnymore();
             add(new StepNotEquals(ctx.value.getText()));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepIsInSet(UserAgentTreeWalkerParser.StepIsInSetContext ctx) {
+            fromHereItCannotBeInHashMapAnymore();
+
+            String lookupSetName = ctx.set.getText();
+            Set<String> lookupSet = lookupSets.get(lookupSetName);
+            if (lookupSet == null) {
+                Map<String, String> lookup = lookups.get(lookupSetName);
+                if (lookup != null) {
+                    lookupSet = lookup.keySet();
+                }
+            }
+            if (lookupSet == null) {
+                throw new InvalidParserConfigurationException("Missing lookupSet \"" + lookupSetName + "\" ");
+            }
+
+            add(new StepIsInSet(lookupSetName, lookupSet));
             visitNext(ctx.nextStep);
             return null; // Void
         }

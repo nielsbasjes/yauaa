@@ -54,7 +54,7 @@ config:
     - 'IsNull[agent.(2)product.(1)name="Version"]'
     extract:
     - 'AgentClass             :  37:"Browser"'
-    - 'AgentName              :  37:agent.(2)product.(1)name!="AppleWebKit"'
+    - 'AgentName              :  37:agent.(2)product.(1)name'
     - 'AgentVersion           :  37:agent.(2)product.(1)version'
 
 - matcher:
@@ -84,15 +84,12 @@ config:
 - matcher:
     require:
     - 'agent.product.(1)name="AppleWebKit"'
-    - 'agent.product.(1)name="Safari"'
     extract:
     - 'AgentClass            :   20:"Browser"'
     - 'AgentName             :   20:"Safari"'
     - 'AgentVersion          :   18:agent.product.(1)name="Safari"^.version'
 
 - matcher:
-    require:
-    - 'agent.product.(1)name="Mobile Safari"'
     extract:
     - 'AgentClass            :   20:"Browser"'
     - 'AgentName             :   20:"Mobile Safari"'

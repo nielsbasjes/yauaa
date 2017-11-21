@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.analyze.treewalker.steps.lookup;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.Map;
@@ -35,7 +36,7 @@ public class StepLookup extends Step {
     }
 
     @Override
-    public String walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree tree, String value) {
         String input = getActualValue(tree, value);
 
         String result = lookup.get(input.toLowerCase());

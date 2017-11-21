@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -288,7 +289,7 @@ public class TestTreewalkerParsing {
         Map<String, Map<String, String>> lookups = new HashMap<>();
         lookups.put("TridentVersions", new HashMap<>());
 
-        TestMatcher matcher = new TestMatcher(lookups);
+        TestMatcher matcher = new TestMatcher(lookups, new HashMap<>());
         MatcherRequireAction action = new MatcherRequireAction(path, matcher);
 
         StringBuilder sb = new StringBuilder("\n---------------------------\nActual list (").append(matcher.reveicedValues.size()).append(" entries):\n");
@@ -319,8 +320,8 @@ public class TestTreewalkerParsing {
     private static class TestMatcher extends Matcher {
         final List<String> reveicedValues = new ArrayList<>(128);
 
-        TestMatcher(Map<String, Map<String, String>> lookups) {
-            super(null, lookups);
+        TestMatcher(Map<String, Map<String, String>> lookups, Map<String, Set<String>> lookupSets) {
+            super(null, lookups, lookupSets);
         }
 
         @Override

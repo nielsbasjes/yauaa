@@ -535,15 +535,11 @@ config:
       AgentSecurity                        : 'Strong security'
 
 - matcher:
-    require:
-    - 'agent.(1)product.(1)comments.entry.product.(1)name[2-4]="Smart TV box"'
     extract:
     - 'OperatingSystemClass  :  1100:"Embedded"'
     - 'DeviceClass           :  1100:"Set-top box"'
     - 'DeviceName            :   400:"Smart TV box"'
     - 'DeviceBrand           :   400:agent.(1)product.(1)comments.entry.product.(1)name[2-4]="Smart TV box"@[1]'
-
-
 
 - test:
     input:
@@ -574,8 +570,6 @@ config:
       AgentSecurity                        : 'Strong security'
 
 - matcher:
-    require:
-    - 'agent.(1)product.(1)comments.entry.product.(1)name[2-3]="Android TV"'
     extract:
     - 'OperatingSystemClass  :  1100:"Embedded"'
     - 'DeviceClass           :  1100:"Set-top box"'

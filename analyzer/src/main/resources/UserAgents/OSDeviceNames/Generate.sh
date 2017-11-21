@@ -48,7 +48,7 @@ echo "# limitations under the License."
 echo "#"
 echo "config:"
 
-cat "OperatingSystemDeviceNames.csv" | grep . | fgrep -v '#' | while read line ; \
+cat "OperatingSystemDeviceNames.csv" | grep . | fgrep -v '#' | sed 's/ *|/|/g;s/| */|/g' | while read line ; \
 do
     ospattern=$(echo ${line} | cut -d'|' -f1)
     osname=$(   echo ${line} | cut -d'|' -f2)
@@ -79,15 +79,17 @@ echo "
 
 # Only if the second version field is NOT a type of CPU.
 - matcher:
+    variable:
+    - 'Version: agent.(1)product.(1)comments.entry.product.name=\"${ospattern}\"^.(2)version'
     require:
-    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name=\"${ospattern}\"^.(2)version]]'
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
     - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
-    - 'OperatingSystemVersion:  151:CleanVersion[agent.(1)product.(1)comments.entry.product.name=\"${ospattern}\"^.(2)version]'
+    - 'OperatingSystemVersion:  151:CleanVersion[@Version]'
 
 - matcher:
     require:
@@ -111,15 +113,17 @@ echo "
 
 # Only if the second version field is NOT a type of CPU.
 - matcher:
+    variable:
+    - 'Version: agent.product.name=\"${ospattern}\"^.(2)version'
     require:
-    - 'IsNull[LookUp[CPUArchitectures;agent.product.name=\"${ospattern}\"^.(2)version]]'
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
     - 'OperatingSystemClass  :  150:\"${osclass}\"'
     - 'OperatingSystemName   :  150:\"${osname}\"'
-    - 'OperatingSystemVersion:  151:CleanVersion[agent.product.name=\"${ospattern}\"^.(2)version]'
+    - 'OperatingSystemVersion:  151:CleanVersion[@Version]'
 
 - matcher:
     require:

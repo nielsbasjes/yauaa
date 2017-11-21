@@ -26,25 +26,32 @@ import org.yaml.snakeyaml.nodes.NodeTuple;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
+import static nl.basjes.parse.useragent.analyze.Matcher.ConfigLine.Type.EXTRACT;
+import static nl.basjes.parse.useragent.analyze.Matcher.ConfigLine.Type.REQUIRE;
+import static nl.basjes.parse.useragent.analyze.Matcher.ConfigLine.Type.VARIABLE;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
 
 public class Matcher implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(Matcher.class);
 
     private final Analyzer analyzer;
-    private final List<MatcherAction> dynamicActions;
-    private final List<MatcherAction> fixedStringActions;
+    private List<MatcherVariableAction> variableActions;
+    private List<MatcherAction> dynamicActions;
+    private List<MatcherAction> fixedStringActions;
 
     private UserAgent newValuesUserAgent = new UserAgent();
 
     private long actionsThatRequireInput;
-    final Map<String, Map<String, String>> lookups;
+    private final Map<String, Map<String, String>> lookups;
+    private final Map<String, Set<String>> lookupSets;
     private boolean verbose;
     private boolean permanentVerbose;
 
@@ -52,19 +59,36 @@ public class Matcher implements Serializable {
     private String filename;
 
     // Package private constructor for testing purposes only
-    Matcher(Analyzer analyzer, Map<String, Map<String, String>> lookups) {
+    Matcher(Analyzer analyzer, Map<String, Map<String, String>> lookups, Map<String, Set<String>> lookupSets) {
         this.lookups = lookups;
+        this.lookupSets = lookupSets;
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
+        this.variableActions = new ArrayList<>();
         this.dynamicActions = new ArrayList<>();
     }
 
-    private static class ConfigLine {
+    public Map<String, Map<String, String>> getLookups() {
+        return lookups;
+    }
+
+    public Map<String, Set<String>> getLookupSets() {
+        return lookupSets;
+    }
+
+    static class ConfigLine {
+        public enum Type {
+            VARIABLE,
+            REQUIRE,
+            EXTRACT
+        }
+        Type type;
         String attribute;
         Long confidence;
         String expression;
 
-        ConfigLine(String attribute, Long confidence, String expression) {
+        ConfigLine(Type type, String attribute, Long confidence, String expression) {
+            this.type = type;
             this.attribute = attribute;
             this.confidence = confidence;
             this.expression = expression;
@@ -73,12 +97,15 @@ public class Matcher implements Serializable {
 
     public Matcher(Analyzer analyzer,
                    Map<String, Map<String, String>> lookups,
+                   Map<String, Set<String>> lookupSets,
                    List<String> wantedFieldNames,
                    MappingNode matcherConfig,
                    String filename) throws UselessMatcherException {
         this.lookups = lookups;
+        this.lookupSets = lookupSets;
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
+        this.variableActions = new ArrayList<>();
         this.dynamicActions = new ArrayList<>();
 
         this.filename = filename + ':' + matcherConfig.getStartMark().getLine();
@@ -99,9 +126,22 @@ public class Matcher implements Serializable {
                         verbose = options.contains("verbose");
                     }
                     break;
+                case "variable":
+                    for (String variableConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), filename)) {
+                        String[] configParts = variableConfig.split(":", 2);
+
+                        if (configParts.length != 2) {
+                            throw new InvalidParserConfigurationException("Invalid variable config line: " + variableConfig);
+                        }
+                        String variableName = configParts[0].trim();
+                        String config = configParts[1].trim();
+
+                        configLines.add(new ConfigLine(VARIABLE, variableName, null, config));
+                    }
+                    break;
                 case "require":
                     for (String requireConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), filename)) {
-                        configLines.add(new ConfigLine(null, null, requireConfig));
+                        configLines.add(new ConfigLine(REQUIRE, null, null, requireConfig));
                     }
                     break;
                 case "extract":
@@ -118,10 +158,10 @@ public class Matcher implements Serializable {
                         hasDefinedExtractConfigs = true;
                         // If we have a restriction on the wanted fields we check if this one is needed at all
                         if (wantedFieldNames == null || wantedFieldNames.contains(attribute)) {
-                            configLines.add(new ConfigLine(attribute, confidence, config));
+                            configLines.add(new ConfigLine(EXTRACT, attribute, confidence, config));
                             hasActiveExtractConfigs = true;
                         } else {
-                            configLines.add(new ConfigLine(null, null, config));
+                            configLines.add(new ConfigLine(REQUIRE, null, null, config));
                         }
                     }
                     break;
@@ -147,53 +187,90 @@ public class Matcher implements Serializable {
         }
 
         for (ConfigLine configLine : configLines) {
-            if (configLine.attribute == null) {
-                // Require
-                if (verbose) {
-                    LOG.info("REQUIRE: {}", configLine.expression);
-                }
-                try {
-                    dynamicActions.add(new MatcherRequireAction(configLine.expression, this));
-                } catch (InvalidParserConfigurationException e) {
-                    if (!e.getMessage().startsWith("It is useless to put a fixed value")) {// Ignore fixed values in require
-                        throw e;
+            if (verbose) {
+                LOG.info("{}: {}", configLine.type, configLine.expression);
+            }
+            switch (configLine.type) {
+                case VARIABLE:
+                    try {
+                        variableActions.add(new MatcherVariableAction(configLine.attribute, configLine.expression, this));
+                    } catch (InvalidParserConfigurationException e) {
+                        if (!e.getMessage().startsWith("It is useless to put a fixed value")) {// Ignore fixed values in require
+                            throw e;
+                        }
+                    }
+                    break;
+                case REQUIRE:
+                    try {
+                        dynamicActions.add(new MatcherRequireAction(configLine.expression, this));
+                    } catch (InvalidParserConfigurationException e) {
+                        if (!e.getMessage().startsWith("It is useless to put a fixed value")) {// Ignore fixed values in require
+                            throw e;
+                        }
+                    }
+                    break;
+                case EXTRACT:
+                    MatcherExtractAction action =
+                        new MatcherExtractAction(configLine.attribute, configLine.confidence, configLine.expression, this);
+
+                    // Make sure the field actually exists
+                    newValuesUserAgent.set(configLine.attribute, "Dummy", -9999);
+                    action.setResultAgentField(newValuesUserAgent.get(configLine.attribute));
+
+                    if (action.isFixedValue()) {
+                        fixedStringActions.add(action);
+                        action.obtainResult();
+                    } else {
+                        dynamicActions.add(action);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // Verify that a variable only contains the variables that have been defined BEFORE it (also not referencing itself).
+        // If all is ok we link them
+        Set<MatcherAction> seenVariables = new HashSet<>(variableActions.size());
+        for (MatcherVariableAction variableAction: variableActions) {
+            seenVariables.add(variableAction); // Add myself
+            Set<MatcherAction> interestedActions = informMatcherActionsAboutVariables.get(variableAction.getVariableName());
+            if (interestedActions != null && !interestedActions.isEmpty()) {
+                variableAction.setInterestedActions(interestedActions);
+                for (MatcherAction interestedAction : interestedActions) {
+                    if (seenVariables.contains(interestedAction)) {
+                        throw new InvalidParserConfigurationException("Syntax error: The line >>" + interestedAction + "<< " +
+                            "is referencing variable @"+variableAction.getVariableName()+ " which is not defined yet.");
                     }
                 }
-            } else {
-                // Extract
-                if (verbose) {
-                    LOG.info("EXTRACT: {}", configLine.expression);
-                }
-                MatcherExtractAction action =
-                    new MatcherExtractAction(configLine.attribute, configLine.confidence, configLine.expression, this);
-
-                // Make sure the field actually exists
-                newValuesUserAgent.set(configLine.attribute, "Dummy", -9999);
-                action.setResultAgentField(newValuesUserAgent.get(configLine.attribute));
-
-                if (action.isFixedValue()) {
-                    fixedStringActions.add(action);
-                    action.obtainResult();
-                } else {
-                    dynamicActions.add(action);
-                }
             }
         }
 
-        actionsThatRequireInput = 0;
-        for (MatcherAction action : dynamicActions) {
-            // If an action exists which without any data can be valid, then we must force the evaluation
-            action.reset();
-            if (action.mustHaveMatches()) {
-                actionsThatRequireInput++;
-            }
-        }
+        List<MatcherAction> allDynamicActions = new ArrayList<>(variableActions.size() + dynamicActions.size());
+        allDynamicActions.addAll(variableActions);
+        allDynamicActions.addAll(dynamicActions);
+        dynamicActions = allDynamicActions;
+
+        actionsThatRequireInput = countActionsThatMustHaveMatches(dynamicActions);
 
         if (verbose) {
             LOG.info("---------------------------");
         }
 
     }
+
+    private long countActionsThatMustHaveMatches(List<? extends MatcherAction> actions) {
+        long actionsThatMustHaveMatches = 0;
+        for (MatcherAction action : actions) {
+            // If an action exists which without any data can be valid, then we must force the evaluation
+            action.reset();
+            if (action.mustHaveMatches()) {
+                actionsThatMustHaveMatches++;
+            }
+        }
+        return actionsThatMustHaveMatches;
+    }
+
 
     public Set<String> getAllPossibleFieldNames() {
         Set<String> results = new TreeSet<>();
@@ -220,6 +297,14 @@ public class Matcher implements Serializable {
 
     public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
         analyzer.informMeAbout(matcherAction, keyPattern);
+    }
+
+    private Map<String, Set<MatcherAction>> informMatcherActionsAboutVariables = new HashMap<>(8);
+
+    void informMeAboutVariable(MatcherAction matcherAction, String variableName) {
+        Set<MatcherAction> analyzerSet = informMatcherActionsAboutVariables
+            .computeIfAbsent(variableName, k -> new HashSet<>());
+        analyzerSet.add(matcherAction);
     }
 
     /**
@@ -321,18 +406,26 @@ public class Matcher implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder(512);
         sb.append("MATCHER.(").append(filename).append("):\n");
+        sb.append("    VARIABLE:\n");
+        for (MatcherAction action : dynamicActions) {
+            if (action instanceof MatcherVariableAction) {
+                sb.append("        @").append(((MatcherVariableAction) action).getVariableName())
+                    .append(":    ").append(action.getMatchExpression()).append("\n");
+                sb.append("        -->").append(action.getMatches().toStrings()).append("\n");
+            }
+        }
         sb.append("    REQUIRE:\n");
         for (MatcherAction action : dynamicActions) {
             if (action instanceof MatcherRequireAction) {
                 sb.append("        ").append(action.getMatchExpression()).append("\n");
-                sb.append("        ").append(action.getMatches().toStrings()).append("\n");
+                sb.append("        -->").append(action.getMatches().toStrings()).append("\n");
             }
         }
         sb.append("    EXTRACT:\n");
         for (MatcherAction action : dynamicActions) {
             if (action instanceof MatcherExtractAction) {
                 sb.append("        ").append(action.toString()).append("\n");
-                sb.append("        ").append(action.getMatches().toStrings()).append("\n");
+                sb.append("        -->").append(action.getMatches().toStrings()).append("\n");
             }
         }
         for (MatcherAction action : fixedStringActions) {

@@ -64,8 +64,21 @@ config:
       "Philips" : "Philips"
       "SonyEricsson" : "SonyEricsson"
       "Xperia" : "Sony"
-      "D5" : "Sony"
+      "C1" : "Sony"
+      "C2" : "Sony"
+      "C5" : "Sony"
       "C6" : "Sony"
+      "D2" : "Sony"
+      "D5" : "Sony"
+      "D6" : "Sony"
+      "E2" : "Sony"
+      "E5" : "Sony"
+      "E6" : "Sony"
+      "F3" : "Sony"
+      "F5" : "Sony"
+      "F8" : "Sony"
+      "G3" : "Sony"
+      "G8" : "Sony"
       "SmartWatch" : "Sony"
       "Arc BUILD" : "Sony"
       "Arc 6" : "Kobo"
@@ -4639,26 +4652,26 @@ config:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
     extract:
     - 'DeviceBrand                 :  325:"Sony"'
-    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"D5"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"C1"'
 
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
     extract:
     - 'DeviceBrand                 :  325:"Sony"'
-    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"D5"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"C1"'
 
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
     extract:
     - 'DeviceBrand                 :  325:"Sony"'
-    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"D5"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"C1"'
 
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"D5"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"C1"'
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
 
@@ -4667,56 +4680,56 @@ config:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
-    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"D5"[-1]'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"C1"[-1]'
 
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
-    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"D5"[-2]'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"C1"[-2]'
 
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
-    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"D5"[-3]'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"C1"[-3]'
 
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
-    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"D5"[-4]'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"C1"[-4]'
 
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
     extract:
     - 'DeviceBrand                 :  330:"Sony"'
-    - 'DeviceName                  :  330:agent.(1-2)product.name{"D5"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"C1"'
 
 - matcher:
     require:
     - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
     extract:
     - 'DeviceBrand                 :  313:"Sony"'
-    - 'DeviceName                  :  313:agent.product.name{"D5"'
+    - 'DeviceName                  :  313:agent.product.name{"C1"'
 
 - matcher:
     require:
     - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
-    - 'DeviceName                  :  324:agent.(1)product.name="D5"^.version'
+    - 'DeviceName                  :  324:agent.(1)product.name="C1"^.version'
 
 - matcher:
     require:
     - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
     extract:
     - 'DeviceBrand                 :  323:"Sony"'
-    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="D5"^.version'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="C1"^.version'
 
 
 
@@ -4725,14 +4738,216 @@ config:
     - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
     extract:
     - 'DeviceBrand                 :  322:"Sony"'
-    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"D5"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"C1"'
 
 - matcher:
     require:
     - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
     extract:
     - 'DeviceBrand                 :  320:"Sony"'
-    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"D5"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"C1"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"C2"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"C2"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"C2"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"C2"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"C2"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"C2"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"C2"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"C2"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Sony"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"C2"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Sony"'
+    - 'DeviceName                  :  313:agent.product.name{"C2"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1)product.name="C2"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Sony"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="C2"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Sony"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"C2"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Sony"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"C2"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"C5"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"C5"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"C5"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"C5"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"C5"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"C5"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"C5"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"C5"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Sony"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"C5"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Sony"'
+    - 'DeviceName                  :  313:agent.product.name{"C5"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1)product.name="C5"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Sony"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="C5"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Sony"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"C5"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Sony"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"C5"'
 
 
 - matcher:
@@ -4834,6 +5049,1117 @@ config:
     extract:
     - 'DeviceBrand                 :  320:"Sony"'
     - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"C6"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"D2"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"D2"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"D2"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"D2"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"D2"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"D2"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"D2"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"D2"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Sony"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"D2"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Sony"'
+    - 'DeviceName                  :  313:agent.product.name{"D2"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1)product.name="D2"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Sony"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="D2"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Sony"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"D2"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Sony"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"D2"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"D5"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"D5"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"D5"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"D5"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"D5"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"D5"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"D5"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"D5"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Sony"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"D5"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Sony"'
+    - 'DeviceName                  :  313:agent.product.name{"D5"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1)product.name="D5"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Sony"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="D5"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Sony"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"D5"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Sony"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"D5"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"D6"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"D6"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"D6"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"D6"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"D6"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"D6"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"D6"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"D6"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Sony"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"D6"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Sony"'
+    - 'DeviceName                  :  313:agent.product.name{"D6"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1)product.name="D6"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Sony"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="D6"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Sony"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"D6"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Sony"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"D6"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"E2"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"E2"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"E2"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"E2"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"E2"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"E2"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"E2"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"E2"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Sony"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"E2"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Sony"'
+    - 'DeviceName                  :  313:agent.product.name{"E2"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1)product.name="E2"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Sony"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="E2"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Sony"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"E2"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Sony"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"E2"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"E5"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"E5"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"E5"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"E5"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"E5"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"E5"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"E5"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"E5"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Sony"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"E5"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Sony"'
+    - 'DeviceName                  :  313:agent.product.name{"E5"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1)product.name="E5"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Sony"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="E5"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Sony"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"E5"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Sony"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"E5"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"E6"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"E6"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"E6"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"E6"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"E6"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"E6"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"E6"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"E6"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Sony"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"E6"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Sony"'
+    - 'DeviceName                  :  313:agent.product.name{"E6"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1)product.name="E6"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Sony"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="E6"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Sony"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"E6"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Sony"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"E6"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"F3"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"F3"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"F3"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"F3"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"F3"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"F3"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"F3"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"F3"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Sony"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"F3"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Sony"'
+    - 'DeviceName                  :  313:agent.product.name{"F3"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1)product.name="F3"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Sony"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="F3"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Sony"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"F3"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Sony"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"F3"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"F5"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"F5"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"F5"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"F5"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"F5"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"F5"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"F5"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"F5"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Sony"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"F5"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Sony"'
+    - 'DeviceName                  :  313:agent.product.name{"F5"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1)product.name="F5"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Sony"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="F5"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Sony"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"F5"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Sony"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"F5"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"F8"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"F8"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"F8"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"F8"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"F8"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"F8"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"F8"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"F8"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Sony"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"F8"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Sony"'
+    - 'DeviceName                  :  313:agent.product.name{"F8"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1)product.name="F8"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Sony"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="F8"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Sony"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"F8"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Sony"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"F8"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"G3"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"G3"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"G3"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"G3"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"G3"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"G3"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"G3"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"G3"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Sony"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"G3"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Sony"'
+    - 'DeviceName                  :  313:agent.product.name{"G3"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1)product.name="G3"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Sony"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="G3"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Sony"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"G3"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Sony"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"G3"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"G8"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"G8"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"Sony"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"G8"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"G8"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"G8"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"G8"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"G8"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"G8"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Sony"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"G8"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Sony"'
+    - 'DeviceName                  :  313:agent.product.name{"G8"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Sony"'
+    - 'DeviceName                  :  324:agent.(1)product.name="G8"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Sony"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="G8"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Sony"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"G8"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Sony"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"G8"'
 
 
 - matcher:
@@ -7994,41 +9320,6 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version{"Lenovo"'
-    extract:
-    - 'DeviceBrand                 :   94:"Lenovo"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^.version{"Lenovo"'
-    extract:
-    - 'DeviceBrand                 :   93:"Lenovo"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^.version{"Lenovo"'
-    extract:
-    - 'DeviceBrand                 :   92:"Lenovo"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"^.version{"Lenovo"'
-    extract:
-    - 'DeviceBrand                 :   91:"Lenovo"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Lenovo"'
-    extract:
-    - 'DeviceBrand                 :   90:"Lenovo"'
-
-# ===================================================================================================
-
-
-
-
-- matcher:
-    require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version{"LG"'
     extract:
     - 'DeviceBrand                 :   94:"LG"'
@@ -8056,6 +9347,41 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"LG"'
     extract:
     - 'DeviceBrand                 :   90:"LG"'
+
+# ===================================================================================================
+
+
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version{"Lenovo"'
+    extract:
+    - 'DeviceBrand                 :   94:"Lenovo"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^.version{"Lenovo"'
+    extract:
+    - 'DeviceBrand                 :   93:"Lenovo"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^.version{"Lenovo"'
+    extract:
+    - 'DeviceBrand                 :   92:"Lenovo"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"^.version{"Lenovo"'
+    extract:
+    - 'DeviceBrand                 :   91:"Lenovo"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Lenovo"'
+    extract:
+    - 'DeviceBrand                 :   90:"Lenovo"'
 
 # ===================================================================================================
 

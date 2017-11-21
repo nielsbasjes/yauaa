@@ -59,12 +59,14 @@ config:
     - 'OperatingSystemVersion      :  4:"??"'
 
 - matcher:
+    variable:
+    - 'ProductBuild: agent.(1-2)product.(1)comments.entry.product.name="Build"^'
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
     extract:
     - 'DeviceClass                 :  51:"Mobile"'
-    - 'DeviceName                  :  51:agent.(1-2)product.(1)comments.entry.product.name="Build"^<'
-    - 'OperatingSystemVersionBuild :  51:agent.(1-2)product.(1)comments.entry.product.name="Build"^.version'
+    - 'DeviceName                  :  51:@ProductBuild<'
+    - 'OperatingSystemVersionBuild :  51:@ProductBuild.version'
 
 # ===========================
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Gecko_user_agent_string_reference
@@ -192,42 +194,52 @@ config:
     - 'DeviceName                  :  76:agent.(1-2)product.(1)comments.entry[3]="Build"@[-2]'
 
 - matcher:
+    variable:
+    - 'BuildString: agent.(1-2)product.(1)comments.entry[4]="Build"@'
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
     extract:
-    - 'DeviceName                  :  77:agent.(1-2)product.(1)comments.entry[4]="Build"@[-3]'
-    - 'DeviceBrand                 :   1:NormalizeBrand[agent.(1-2)product.(1)comments.entry[4]="Build"@[1]]'
+    - 'DeviceName                  :  77:@BuildString[-3]'
+    - 'DeviceBrand                 :   1:NormalizeBrand[@BuildString[1]]'
 
 - matcher:
+    variable:
+    - 'BuildString: agent.(1-2)product.(1)comments.entry[5]="Build"@'
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
     extract:
-    - 'DeviceName                  :  78:agent.(1-2)product.(1)comments.entry[5]="Build"@[-4]'
-    - 'DeviceBrand                 :   1:NormalizeBrand[agent.(1-2)product.(1)comments.entry[5]="Build"@[1]]'
+    - 'DeviceName                  :  77:@BuildString[-4]'
+    - 'DeviceBrand                 :   1:NormalizeBrand[@BuildString[1]]'
 
 - matcher:
+    variable:
+    - 'BuildString: agent.(1-2)product.(1)comments.entry[6]="Build"@'
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
     extract:
-    - 'DeviceName                  :  79:agent.(1-2)product.(1)comments.entry[6]="Build"@[-5]'
-    - 'DeviceBrand                 :   1:NormalizeBrand[agent.(1-2)product.(1)comments.entry[6]="Build"@[1]]'
+    - 'DeviceName                  :  77:@BuildString[-5]'
+    - 'DeviceBrand                 :   1:NormalizeBrand[@BuildString[1]]'
 
 - matcher:
+    variable:
+    - 'BuildString: agent.(1-2)product.(1)comments.entry[7]="Build"@'
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
     extract:
-    - 'DeviceName                  :  79:agent.(1-2)product.(1)comments.entry[7]="Build"@[-6]'
-    - 'DeviceBrand                 :   1:NormalizeBrand[agent.(1-2)product.(1)comments.entry[7]="Build"@[1]]'
+    - 'DeviceName                  :  77:@BuildString[-6]'
+    - 'DeviceBrand                 :   1:NormalizeBrand[@BuildString[1]]'
 
 - matcher:
+    variable:
+    - 'CrOSProduct                   :agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^'
     extract:
     - 'DeviceClass            :  2015:"Desktop"'
     - 'DeviceBrand            :  2015:"Google"'
     - 'DeviceName             :  2015:"Chromebook"'
-    - 'DeviceCpu              :  2015:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^.(1)version]'
+    - 'DeviceCpu              :  2015:LookUp[CPUArchitectures;@CrOSProduct.(1)version]'
     - 'OperatingSystemClass   :  2015:"Desktop"'
     - 'OperatingSystemName    :  2015:"Chrome OS"'
-    - 'OperatingSystemVersion :  2015:agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^.(2)version'
+    - 'OperatingSystemVersion :  2015:@CrOSProduct.(2)version'
 
 - matcher:
     extract:

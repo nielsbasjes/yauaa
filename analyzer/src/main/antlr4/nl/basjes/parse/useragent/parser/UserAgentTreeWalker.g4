@@ -24,10 +24,17 @@ VALUE           : DOUBLEQUOTE ( '\\' [btnfr"'\\] | ~[\\"]  )* DOUBLEQUOTE ;
 
 UP              : '^'           ;
 NEXT            : '>'           ;
+NEXT2           : '>>'          ;
+NEXT3           : '>>>'         ;
+NEXT4           : '>>>>'        ;
 PREV            : '<'           ;
+PREV2           : '<<'          ;
+PREV3           : '<<<'         ;
+PREV4           : '<<<<'        ;
 DOT             : '.'           ;
 MINUS           : '-'           ;
 STAR            : '*'           ;
+IN              : '?'           ;
 
 NUMBER          : [0-9]+        ;
 BLOCKOPEN       : '['           ;
@@ -57,29 +64,38 @@ matcherRequire  : matcher                                                  #matc
                 | 'IsNull'         BLOCKOPEN matcher BLOCKCLOSE            #matcherPathIsNull
                 ;
 
-matcher         : basePath                                                      #matcherPath
-//                | 'Concat' BLOCKOPEN VALUE SEMICOLON matcher BLOCKCLOSE         #matcherConcat1
-//                | 'Concat' BLOCKOPEN matcher SEMICOLON VALUE BLOCKCLOSE         #matcherConcat2
-                | 'NormalizeBrand' BLOCKOPEN matcher BLOCKCLOSE                 #matcherNormalizeBrand
-                | 'CleanVersion'   BLOCKOPEN matcher BLOCKCLOSE                 #matcherCleanVersion
+matcher         : basePath                                                                              #matcherPath
+                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher SEMICOLON postfix=VALUE BLOCKCLOSE  #matcherConcat
+                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher                         BLOCKCLOSE  #matcherConcatPrefix
+                | 'Concat' BLOCKOPEN                        matcher SEMICOLON postfix=VALUE BLOCKCLOSE  #matcherConcatPostfix
+                | 'NormalizeBrand' BLOCKOPEN matcher BLOCKCLOSE                                         #matcherNormalizeBrand
+                | 'CleanVersion'   BLOCKOPEN matcher BLOCKCLOSE                                         #matcherCleanVersion
                 | 'LookUp'         BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookup
-                | matcher wordRange                                             #matcherWordRange
+                | matcher wordRange                                                                     #matcherWordRange
                 ;
 
-basePath        : value=VALUE                           #pathFixedValue
-//                | 'agent'                               #pathNoWalk
-                | 'agent' nextStep=path                 #pathWalk
+basePath        : value=VALUE                              #pathFixedValue
+//                | 'agent'                                #pathNoWalk
+                | '@' variable=VALUENAME (nextStep=path)?  #pathVariable
+                | 'agent'                (nextStep=path)?  #pathWalk
                 ;
 
 path            : DOT numberRange name=VALUENAME  (nextStep=path)?  #stepDown
                 | UP                              (nextStep=path)?  #stepUp
                 | NEXT                            (nextStep=path)?  #stepNext
+                | NEXT2                           (nextStep=path)?  #stepNext2
+                | NEXT3                           (nextStep=path)?  #stepNext3
+                | NEXT4                           (nextStep=path)?  #stepNext4
                 | PREV                            (nextStep=path)?  #stepPrev
+                | PREV2                           (nextStep=path)?  #stepPrev2
+                | PREV3                           (nextStep=path)?  #stepPrev3
+                | PREV4                           (nextStep=path)?  #stepPrev4
                 | EQUALS     value=VALUE          (nextStep=path)?  #stepEqualsValue
                 | NOTEQUALS  value=VALUE          (nextStep=path)?  #stepNotEqualsValue
                 | STARTSWITH value=VALUE          (nextStep=path)?  #stepStartsWithValue
                 | ENDSWITH   value=VALUE          (nextStep=path)?  #stepEndsWithValue
                 | CONTAINS   value=VALUE          (nextStep=path)?  #stepContainsValue
+                | IN         set=VALUENAME        (nextStep=path)?  #stepIsInSet
                 | wordRange                       (nextStep=path)?  #stepWordRange
                 | BACKTOFULL                      (nextStep=path)?  #stepBackToFull
                 ;

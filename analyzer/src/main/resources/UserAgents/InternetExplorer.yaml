@@ -52,36 +52,38 @@ config:
       "11": "7.0"
 
 - matcher:
-    require:
-    - 'agent.product.comments.entry.product.name="MSIEMobile"'
+    variable:
+    - 'MSIEVersion: agent.product.comments.entry.product.name="MSIEMobile"^.version'
     extract:
     - 'LayoutEngineClass         : 2011:"Browser"'
     - 'LayoutEngineName          : 2011:"Internet Explorer Mobile"'
-    - 'LayoutEngineVersion       : 2011:agent.product.comments.entry.product.name="MSIEMobile"^.version'
+    - 'LayoutEngineVersion       : 2011:@MSIEVersion'
     - 'AgentClass                : 2003:"Browser"'
     - 'AgentName                 : 2003:"Internet Explorer"'
-    - 'AgentVersion              : 2003:agent.product.comments.entry.product.name="MSIEMobile"^.version'
+    - 'AgentVersion              : 2003:@MSIEVersion'
 
 - matcher:
-    require:
-    - 'agent.product.comments.entry.product.name="MSIE"'
+    variable:
+    - 'MSIEVersion: agent.product.comments.entry.product.name="MSIE"^.version'
     extract:
     - 'LayoutEngineClass         : 2002:"Browser"'
     - 'LayoutEngineName          : 2002:"Internet Explorer"'
-    - 'LayoutEngineVersion       : 2002:agent.product.comments.entry.product.name="MSIE"^.version'
+    - 'LayoutEngineVersion       : 2002:@MSIEVersion'
     - 'AgentClass                : 2002:"Browser"'
     - 'AgentName                 : 2002:"Internet Explorer"'
-    - 'AgentVersion              : 2002:agent.product.comments.entry.product.name="MSIE"^.version'
+    - 'AgentVersion              : 2002:@MSIEVersion'
 
 - matcher:
+    variable:
+    - 'MSIEVersion: agent.product.comments.entry.product.name="MSIE"^.version'
     extract:
     - 'LayoutEngineClass     :   2009:"Browser"'
-    - 'LayoutEngineName      :   2009:LookUp[MSIELayoutEngineName;agent.product.comments.entry.product.name="MSIE"^.version[1]]'
-    - 'LayoutEngineVersion   :   2009:LookUp[MSIELayoutEngineVersion;agent.product.comments.entry.product.name="MSIE"^.version[1]]'
+    - 'LayoutEngineName      :   2009:LookUp[MSIELayoutEngineName;@MSIEVersion[1]]'
+    - 'LayoutEngineVersion   :   2009:LookUp[MSIELayoutEngineVersion;@MSIEVersion[1]]'
 
     - 'AgentClass            :   2009:"Browser"'
     - 'AgentName             :   2009:"Internet Explorer"'
-    - 'AgentVersion          :   2009:agent.product.comments.entry.product.name="MSIE"^.version'
+    - 'AgentVersion          :   2009:@MSIEVersion'
 
 - matcher:
     extract:

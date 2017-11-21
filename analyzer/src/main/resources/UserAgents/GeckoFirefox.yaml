@@ -27,48 +27,60 @@ config:
     - 'AgentVersion         :  1995:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
 
 - matcher:
+    variable:
+    - 'Gecko: agent.(2-5)product.name="Gecko"^>'
     extract:
     - 'AgentClass           :  2000:"Browser"'
-    - 'AgentName            :  2000:agent.(2-5)product.name="Gecko"^>.name'
-    - 'AgentVersion         :  2000:agent.(2-5)product.name="Gecko"^>.version'
+    - 'AgentName            :  2000:@Gecko.name'
+    - 'AgentVersion         :  2000:@Gecko.version'
 
 - matcher:
+    variable:
+    - 'Gecko: agent.(2-5)product.name="Gecko"^>>'
     extract:
     - 'AgentClass           :  2001:"Browser"'
-    - 'AgentName            :  2001:agent.(2-5)product.name="Gecko"^>>.name[-1]!="anonymized"@'
-    - 'AgentVersion         :  2001:agent.(2-5)product.name="Gecko"^>>.version'
+    - 'AgentName            :  2001:@Gecko.name[-1]!="anonymized"@'
+    - 'AgentVersion         :  2001:@Gecko.version'
 
 - matcher:
+    variable:
+    - 'Gecko: agent.(2-5)product.name="Gecko"^>'
     require:
     - 'agent.(3-6)product.name[2]="Firefox"' # Performance trick
     extract:
     - 'AgentClass           :  2002:"Browser"'
-    - 'AgentName            :  2002:agent.(2-5)product.name="Gecko"^>.name[2]="Firefox"'
-    - 'AgentVersion         :  2002:agent.(2-5)product.name="Gecko"^>.version'
+    - 'AgentName            :  2002:@Gecko.name[2]="Firefox"'
+    - 'AgentVersion         :  2002:@Gecko.version'
 
 - matcher:
+    variable:
+    - 'Gecko: agent.(2-5)product.name="Gecko"^>'
     require:
     - 'agent.(3-6)product.name[3]="Firefox"' # Performance trick
     extract:
     - 'AgentClass           :  2002:"Browser"'
-    - 'AgentName            :  2002:agent.(2-5)product.name="Gecko"^>.name[3]="Firefox"'
-    - 'AgentVersion         :  2002:agent.(2-5)product.name="Gecko"^>.version'
+    - 'AgentName            :  2002:@Gecko.name[3]="Firefox"'
+    - 'AgentVersion         :  2002:@Gecko.version'
 
 - matcher:
+    variable:
+    - 'Gecko: agent.(2-5)product.name="Gecko"^>>'
     require:
     - 'agent.(4-7)product.name[2]="Firefox"' # Performance trick
     extract:
     - 'AgentClass           :  2003:"Browser"'
-    - 'AgentName            :  2003:agent.(2-5)product.name="Gecko"^>>.name[2]="Firefox"'
-    - 'AgentVersion         :  2003:agent.(2-5)product.name="Gecko"^>>.version'
+    - 'AgentName            :  2003:@Gecko.name[2]="Firefox"'
+    - 'AgentVersion         :  2003:@Gecko.version'
 
 - matcher:
+    variable:
+    - 'Gecko: agent.(2-5)product.name="Gecko"^>>'
     require:
     - 'agent.(4-7)product.name[3]="Firefox"' # Performance trick
     extract:
     - 'AgentClass           :  2003:"Browser"'
-    - 'AgentName            :  2003:agent.(2-5)product.name="Gecko"^>>.name[3]="Firefox"'
-    - 'AgentVersion         :  2003:agent.(2-5)product.name="Gecko"^>>.version'
+    - 'AgentName            :  2003:@Gecko.name[3]="Firefox"'
+    - 'AgentVersion         :  2003:@Gecko.version'
 
     # In some obscure cases we have a parse problem that sends everything inside a comment block
 - matcher:
@@ -82,10 +94,12 @@ config:
     - 'AgentVersion         :  1895:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
 
 - matcher:
+    variable:
+    - 'Gecko: agent.product.comments.entry.product.name="Gecko"^>'
     extract:
     - 'AgentClass           :  1900:"Browser"'
-    - 'AgentName            :  1900:agent.product.comments.entry.product.name="Gecko"^>.name'
-    - 'AgentVersion         :  1900:agent.product.comments.entry.product.name="Gecko"^>.version'
+    - 'AgentName            :  1900:@Gecko.name'
+    - 'AgentVersion         :  1900:@Gecko.version'
 
 #
 #Gecko:

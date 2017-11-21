@@ -1,0 +1,64 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2017 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+MATCH_OPTIONS: &MATCH_OPTIONS
+  options:
+    - 'verbose'
+
+TEST_OPTIONS: &TEST_OPTIONS
+  options:
+    - 'verbose'
+    - 'init'
+
+config:
+
+
+- matcher:
+#    options:
+#    - 'verbose'
+    variable:
+    - 'VariableProductName : agent.product.name[3-]'
+    extract:
+    - 'ProductName                  : 1:  @VariableProductName    '
+    - 'ProductName1                 : 1:  @VariableProductName[1] '
+    - 'ProductName2                 : 1:  @VariableProductName[2] '
+    - 'ProductName3                 : 1:  @VariableProductName[3] '
+
+- matcher:
+#    options:
+#    - 'verbose'
+    variable:
+    - 'ProductThree : agent.product.version="3"^'
+    - 'ProductThreeCommentTwo : @ProductThree.version="3"^'
+    extract:
+    - 'ProductThreeName             : 1:  @ProductThree.name    '
+    - 'ProductThreeNameNormalized   : 1:  NormalizeBrand[@ProductThree.name]  '
+    - 'ProductThreeVersion          : 1:  @ProductThree.version    '
+    - 'ProductThreeCommentTwo       : 1:  @ProductThreeCommentTwo'
+
+- test:
+    input:
+      name: 'Using variables in combinations'
+      user_agent_string   : 'one two three four five/1.0 (comment) six seven eight / 3 (foo 1 ; bar 2)'
+    expected:
+      ProductName         : 'three four five'
+      ProductName1        : 'three'
+      ProductName2        : 'four'
+      ProductName3        : 'five'
+      ProductThreeName            : 'six seven eight'
+      ProductThreeNameNormalized  : 'SIX Seven Eight'
+      ProductThreeVersion         : '3'
+      ProductThreeCommentTwo      : 'six seven eight / 3 (foo 1 ; bar 2)'
