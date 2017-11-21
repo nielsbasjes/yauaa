@@ -1,0 +1,223 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2017 Davide Magni
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.product~"Build".version{"HONOR"'
+    extract:
+    - 'DeviceBrand :   3000:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.product~"Build".version~"HUAWEI"'
+    extract:
+    - 'DeviceBrand :   3000:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"Che1-"'
+    extract:
+    - 'DeviceBrand :   3000:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"HW-Che1-"'
+    extract:
+    - 'DeviceBrand :   3000:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"H30-"'
+    extract:
+    - 'DeviceBrand :   3000:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"HW-H30-"'
+    extract:
+    - 'DeviceBrand :   3000:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"H60-"'
+    extract:
+    - 'DeviceBrand :   3000:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"HW-H60-"'
+    extract:
+    - 'DeviceBrand :   3000:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"SCL-"'
+    extract:
+    - 'DeviceBrand :   3000:"Huawei"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"HW-SCL-"'
+    extract:
+    - 'DeviceBrand :   3000:"Huawei"'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 6.0; zh-CN; CAM-TL00H Build/HONORCAM-TL00H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/40.0.2214.89 UCBrowser/11.6.6.951 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei CAM-TL00H'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemVersionBuild          : 'HONORCAM-TL00H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '40.0'
+      LayoutEngineVersionMajor             : '40'
+      LayoutEngineNameVersion              : 'Blink 40.0'
+      LayoutEngineNameVersionMajor         : 'Blink 40'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '40.0.2214.89'
+      AgentVersionMajor                    : '40'
+      AgentNameVersion                     : 'Chrome Webview 40.0.2214.89'
+      AgentNameVersionMajor                : 'Chrome Webview 40'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      AgentSecurity                        : 'Strong security'
+      WebviewAppName                       : 'Mobile Safari'                   # It is impossible!!!
+      WebviewAppNameVersionMajor           : 'Mobile Safari 537'               #
+      WebviewAppVersion                    : '537.36'                          # This must be UCBrowser! 
+      WebviewAppVersionMajor               : '537'                             # To understand and fix.
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; SCL-TL00H Build/HonorSCL-TL00H; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/56.0.2924.87 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei SCL-TL00H'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'HonorSCL-TL00H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '56.0'
+      LayoutEngineVersionMajor             : '56'
+      LayoutEngineNameVersion              : 'Blink 56.0'
+      LayoutEngineNameVersionMajor         : 'Blink 56'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '56.0.2924.87'
+      AgentVersionMajor                    : '56'
+      AgentNameVersion                     : 'Chrome Webview 56.0.2924.87'
+      AgentNameVersionMajor                : 'Chrome Webview 56'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; Che1-L04 Build/Che1-L04) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/39.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei CHE1-L04'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'Che1-L04'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '39.0'
+      LayoutEngineVersionMajor             : '39'
+      LayoutEngineNameVersion              : 'Blink 39.0'
+      LayoutEngineNameVersionMajor         : 'Blink 39'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '39.0.0.0'
+      AgentVersionMajor                    : '39'
+      AgentNameVersion                     : 'Chrome Webview 39.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 39'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; H30-U10 Build/MOB31K; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/51.0.2704.106 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei H30-U10'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : 'MOB31K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '51.0'
+      LayoutEngineVersionMajor             : '51'
+      LayoutEngineNameVersion              : 'Blink 51.0'
+      LayoutEngineNameVersionMajor         : 'Blink 51'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '51.0.2704.106'
+      AgentVersionMajor                    : '51'
+      AgentNameVersion                     : 'Chrome Webview 51.0.2704.106'
+      AgentNameVersionMajor                : 'Chrome Webview 51'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; H60-L04 Build/HDH60-L04) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei H60-L04'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'HDH60-L04'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome 61'
