@@ -24,7 +24,13 @@ VALUE           : DOUBLEQUOTE ( '\\' [btnfr"'\\] | ~[\\"]  )* DOUBLEQUOTE ;
 
 UP              : '^'           ;
 NEXT            : '>'           ;
+NEXT2           : '>>'          ;
+NEXT3           : '>>>'         ;
+NEXT4           : '>>>>'        ;
 PREV            : '<'           ;
+PREV2           : '<<'          ;
+PREV3           : '<<<'         ;
+PREV4           : '<<<<'        ;
 DOT             : '.'           ;
 MINUS           : '-'           ;
 STAR            : '*'           ;
@@ -77,7 +83,13 @@ basePath        : value=VALUE                              #pathFixedValue
 path            : DOT numberRange name=VALUENAME  (nextStep=path)?  #stepDown
                 | UP                              (nextStep=path)?  #stepUp
                 | NEXT                            (nextStep=path)?  #stepNext
+                | NEXT2                           (nextStep=path)?  #stepNext2
+                | NEXT3                           (nextStep=path)?  #stepNext3
+                | NEXT4                           (nextStep=path)?  #stepNext4
                 | PREV                            (nextStep=path)?  #stepPrev
+                | PREV2                           (nextStep=path)?  #stepPrev2
+                | PREV3                           (nextStep=path)?  #stepPrev3
+                | PREV4                           (nextStep=path)?  #stepPrev4
                 | EQUALS     value=VALUE          (nextStep=path)?  #stepEqualsValue
                 | NOTEQUALS  value=VALUE          (nextStep=path)?  #stepNotEqualsValue
                 | STARTSWITH value=VALUE          (nextStep=path)?  #stepStartsWithValue
