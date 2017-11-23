@@ -1,0 +1,975 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2017 Davide Magni
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"SO-"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"401S"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"402S"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"501S"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"502S"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"601S"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"602S"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"L39"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"L50"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"LT2"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"LT3"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"SOL"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"SonyC"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"SonyD"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"SonyL"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"SonyS"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"SOV"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"ST2"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"SGP"'
+    extract:
+    - 'DeviceBrand :   3000:"Sony"'
+
+
+# Standard models (matched in MobileBrands CSV)
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; D2533 Build/19.4.A.0.182; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.107 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony D2533'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : '19.4.A.0.182'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '60.0'
+      LayoutEngineVersionMajor             : '60'
+      LayoutEngineNameVersion              : 'Blink 60.0'
+      LayoutEngineNameVersionMajor         : 'Blink 60'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '60.0.3112.107'
+      AgentVersionMajor                    : '60'
+      AgentNameVersion                     : 'Chrome Webview 60.0.3112.107'
+      AgentNameVersionMajor                : 'Chrome Webview 60'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.2; D5322 Build/19.3.A.0.472) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.95 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony D5322'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemVersionBuild          : '19.3.A.0.472'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '48.0'
+      LayoutEngineVersionMajor             : '48'
+      LayoutEngineNameVersion              : 'Blink 48.0'
+      LayoutEngineNameVersionMajor         : 'Blink 48'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '48.0.2564.95'
+      AgentVersionMajor                    : '48'
+      AgentNameVersion                     : 'Chrome 48.0.2564.95'
+      AgentNameVersionMajor                : 'Chrome 48'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.2; D6603 Build/23.1.A.1.28; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.116 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony D6603'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemVersionBuild          : '23.1.A.1.28'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '60.0'
+      LayoutEngineVersionMajor             : '60'
+      LayoutEngineNameVersion              : 'Blink 60.0'
+      LayoutEngineNameVersionMajor         : 'Blink 60'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '60.0.3112.116'
+      AgentVersionMajor                    : '60'
+      AgentNameVersion                     : 'Chrome Webview 60.0.3112.116'
+      AgentNameVersionMajor                : 'Chrome Webview 60'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.3; C1905 Build/15.4.A.1.9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony C1905'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.3'
+      OperatingSystemNameVersion           : 'Android 4.3'
+      OperatingSystemVersionBuild          : '15.4.A.1.9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome 61'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.3; C2005 Build/15.5.A.1.5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.116 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony C2005'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.3'
+      OperatingSystemNameVersion           : 'Android 4.3'
+      OperatingSystemVersionBuild          : '15.5.A.1.5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '60.0'
+      LayoutEngineVersionMajor             : '60'
+      LayoutEngineNameVersion              : 'Blink 60.0'
+      LayoutEngineNameVersionMajor         : 'Blink 60'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '60.0.3112.116'
+      AgentVersionMajor                    : '60'
+      AgentNameVersion                     : 'Chrome 60.0.3112.116'
+      AgentNameVersionMajor                : 'Chrome 60'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; C6943 Build/14.6.A.1.236; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony C6943'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : '14.6.A.1.236'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; E2363 Build/26.3.B.1.33; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony E2363'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : '26.3.B.1.33'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; E5823 Build/32.2.A.5.11; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony E5823'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : '32.2.A.5.11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; E6853 Build/32.0.A.6.170; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony E6853'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : '32.0.A.6.170'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 6.0; en-US; F3213 Build/36.0.A.2.146) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/11.3.5.972 U3/0.8.0 Mobile Safari/534.30'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony F3213'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemVersionBuild          : '36.0.A.2.146'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'UCBrowser U3'
+      LayoutEngineVersion                  : '0.8.0'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'UCBrowser U3 0.8.0'
+      LayoutEngineNameVersionMajor         : 'UCBrowser U3 0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'UCBrowser'
+      AgentVersion                         : '11.3.5.972'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'UCBrowser 11.3.5.972'
+      AgentNameVersionMajor                : 'UCBrowser 11'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; F5321 Build/34.3.A.0.238; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/147.0.0.44.75;]'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony F5321'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemVersionBuild          : '34.3.A.0.238'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Facebook App for Android'
+      WebviewAppNameVersionMajor           : 'Facebook App for Android 147'
+      WebviewAppVersion                    : '147.0.0.44.75'
+      WebviewAppVersionMajor               : '147'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; F8332 Build/39.2.A.0.442; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/55.0.2883.91 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony F8332'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : '39.2.A.0.442'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '55.0'
+      LayoutEngineVersionMajor             : '55'
+      LayoutEngineNameVersion              : 'Blink 55.0'
+      LayoutEngineNameVersionMajor         : 'Blink 55'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '55.0.2883.91'
+      AgentVersionMajor                    : '55'
+      AgentNameVersion                     : 'Chrome Webview 55.0.2883.91'
+      AgentNameVersionMajor                : 'Chrome Webview 55'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; G3121 Build/40.0.A.6.135; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony G3121'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : '40.0.A.6.135'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; G8141 Build/45.0.A.7.137; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony G8141'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemVersionBuild          : '45.0.A.7.137'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+# Smartphone (mainly Sony Xperia)
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.2; 401SO Build/23.1.F.0.464) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/40.0.2214.89 Mobile Safari/537.3'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony 401SO'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemVersionBuild          : '23.1.F.0.464'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '40.0'
+      LayoutEngineVersionMajor             : '40'
+      LayoutEngineNameVersion              : 'Blink 40.0'
+      LayoutEngineNameVersionMajor         : 'Blink 40'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '40.0.2214.89'
+      AgentVersionMajor                    : '40'
+      AgentNameVersion                     : 'Chrome Webview 40.0.2214.89'
+      AgentNameVersionMajor                : 'Chrome Webview 40'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; 502SO Build/39.2.D.0.288; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony 502SO'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : '39.2.D.0.288'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Linux; Android 7.0; 601SO Build/39.2.D.0.244; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony 601SO'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : '39.2.D.0.244'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Linux; Android 4.2.2; L39t Build/14.1.M.1.59) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.135 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony L39T'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.2.2'
+      OperatingSystemNameVersion           : 'Android 4.2.2'
+      OperatingSystemVersionBuild          : '14.1.M.1.59'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '36.0'
+      LayoutEngineVersionMajor             : '36'
+      LayoutEngineNameVersion              : 'Blink 36.0'
+      LayoutEngineNameVersionMajor         : 'Blink 36'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '36.0.1985.135'
+      AgentVersionMajor                    : '36'
+      AgentNameVersion                     : 'Chrome 36.0.1985.135'
+      AgentNameVersionMajor                : 'Chrome 36'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Linux; U; Android 4.4.2; zh-cn; L50t Build/17.1.E.2.67) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony L50T'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : '17.1.E.2.67'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Linux; Android 4.1.2; LT28h Build/6.2.B.0.211) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony LT28H'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.1.2'
+      OperatingSystemNameVersion           : 'Android 4.1.2'
+      OperatingSystemVersionBuild          : '6.2.B.0.211'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '56.0'
+      LayoutEngineVersionMajor             : '56'
+      LayoutEngineNameVersion              : 'Blink 56.0'
+      LayoutEngineNameVersionMajor         : 'Blink 56'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '56.0.2924.87'
+      AgentVersionMajor                    : '56'
+      AgentNameVersion                     : 'Chrome 56.0.2924.87'
+      AgentNameVersionMajor                : 'Chrome 56'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Linux; Android 5.1.1; SO-02H Build/32.0.B.0.478; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony SO-02H'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : '32.0.B.0.478'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Linux; Android 5.0.2; SOL25 Build/23.1.G.2.151; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/42.0.2311.138 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony SOL25'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemVersionBuild          : '23.1.G.2.151'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '42.0'
+      LayoutEngineVersionMajor             : '42'
+      LayoutEngineNameVersion              : 'Blink 42.0'
+      LayoutEngineNameVersionMajor         : 'Blink 42'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '42.0.2311.138'
+      AgentVersionMajor                    : '42'
+      AgentNameVersion                     : 'Chrome Webview 42.0.2311.138'
+      AgentNameVersionMajor                : 'Chrome Webview 42'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Linux; U; Android 4.2.2; en-ca; SonyC2104 Build/15.3.A.1.14) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony C2104'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.2.2'
+      OperatingSystemNameVersion           : 'Android 4.2.2'
+      OperatingSystemVersionBuild          : '15.3.A.1.14'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'English (Canada)'
+      AgentLanguageCode                    : 'en-ca'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Linux; U; Android 4.1.2; es-es; SonyLT30at Build/9.1.F.1.120) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony LT30AT'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.1.2'
+      OperatingSystemNameVersion           : 'Android 4.1.2'
+      OperatingSystemVersionBuild          : '9.1.F.1.120'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'Spanish (Spain)'
+      AgentLanguageCode                    : 'es-es'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Linux; U; Android 4.4.2; ja-jp; SonySO-04F Build/14.3.B.0.362) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony SO-04F'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : '14.3.B.0.362'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'Japanese (Japan)'
+      AgentLanguageCode                    : 'ja-jp'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Linux; U; Android 4.1.2; en-ca; SonyST26a Build/11.2.A.0.33) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony ST26A'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.1.2'
+      OperatingSystemNameVersion           : 'Android 4.1.2'
+      OperatingSystemVersionBuild          : '11.2.A.0.33'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'English (Canada)'
+      AgentLanguageCode                    : 'en-ca'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Linux; Android 7.0; SOV32 Build/32.3.C.0.371; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony SOV32'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : '32.3.C.0.371'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string:  'Mozilla/5.0 (Linux; Android 4.0.4; ST23i Build/11.0.A.5.5) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony ST23I'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.0.4'
+      OperatingSystemNameVersion           : 'Android 4.0.4'
+      OperatingSystemVersionBuild          : '11.0.A.5.5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '535.19'
+      LayoutEngineVersionMajor             : '535'
+      LayoutEngineNameVersion              : 'AppleWebKit 535.19'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '18.0.1025.166'
+      AgentVersionMajor                    : '18'
+      AgentNameVersion                     : 'Chrome 18.0.1025.166'
+      AgentNameVersionMajor                : 'Chrome 18'
+
+# Tablet (mainly Sony Xperia Tablet Zx)
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 6.0.1; SGP511 Build/23.5.A.1.291; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Sony SGP511'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : '23.5.A.1.291'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 4.1.1; SGPT12 Build/TJDSU0177) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Sony SGPT12'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.1.1'
+      OperatingSystemNameVersion           : 'Android 4.1.1'
+      OperatingSystemVersionBuild          : 'TJDSU0177'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome 61'

@@ -1,0 +1,151 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2017 Davide Magni
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"Vodacom"'
+    extract:
+    - 'DeviceBrand :   3000:"Vodafone"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"VFD "'
+    extract:
+    - 'DeviceBrand :   3000:"Vodafone"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"VF-"'
+    extract:
+    - 'DeviceBrand :   1500:"Vodafone"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"Build"{"VF69"'
+    extract:
+    - 'DeviceBrand :   1500:"Vodafone"'
+
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 5.1; Vodacom Power Tab 10 Build/LMY47I) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Vodafone Vodacom Power TAB 10'
+      DeviceBrand                          : 'Vodafone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1'
+      OperatingSystemNameVersion           : 'Android 5.1'
+      OperatingSystemVersionBuild          : 'LMY47I'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome 61'
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 5.1; VFD 200 Build/LMY47D; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Vodafone VFD 200'
+      DeviceBrand                          : 'Vodafone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1'
+      OperatingSystemNameVersion           : 'Android 5.1'
+      OperatingSystemVersionBuild          : 'LMY47D'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 5.1; VF-795 Build/LMY47D; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Vodafone VF-795'
+      DeviceBrand                          : 'Vodafone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1'
+      OperatingSystemNameVersion           : 'Android 5.1'
+      OperatingSystemVersionBuild          : 'LMY47D'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 4.4.2; VF695 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Vodafone VF695'
+      DeviceBrand                          : 'Vodafone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KOT49H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '56.0'
+      LayoutEngineVersionMajor             : '56'
+      LayoutEngineNameVersion              : 'Blink 56.0'
+      LayoutEngineNameVersionMajor         : 'Blink 56'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '56.0.2924.87'
+      AgentVersionMajor                    : '56'
+      AgentNameVersion                     : 'Chrome 56.0.2924.87'
+      AgentNameVersionMajor                : 'Chrome 56'
