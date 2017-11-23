@@ -97,10 +97,15 @@ public class WalkList implements Serializable {
     public static class WalkResult {
         private ParseTree tree;
         private String value;
+
         public WalkResult(ParseTree tree, String value) {
             this.tree = tree;
             this.value = value;
+//            if (value == null || tree == null ) {
+//                throw new IllegalStateException("An invalid WalkResult was created :" + this.toString());
+//            }
         }
+
         public ParseTree getTree() {
             return tree;
         }
@@ -112,8 +117,8 @@ public class WalkList implements Serializable {
         @Override
         public String toString() {
             return "WalkResult{" +
-                "tree=" + tree.getText() +
-                ", value='" + value + '\'' +
+                "tree=" + (tree == null ? ">>>NULL<<<" : tree.getText()) +
+                ", value=" + (value == null ? ">>>NULL<<<" : '\'' + value + '\'') +
                 '}';
         }
     }
@@ -142,7 +147,7 @@ public class WalkList implements Serializable {
 
     private void linkSteps() {
         Step nextStep = null;
-        for (int i = steps.size() -1; i >= 0; i--) {
+        for (int i = steps.size() - 1; i >= 0; i--) {
             Step current = steps.get(i);
             current.setNextStep(i, nextStep);
             nextStep = current;
@@ -152,7 +157,6 @@ public class WalkList implements Serializable {
     public WalkResult walk(ParseTree tree, String value) {
         if (steps.isEmpty()) {
             return new WalkResult(tree, value);
-//            return GetResultValueVisitor.getResultValue(tree);
         }
         Step firstStep = steps.get(0);
         if (verbose) {
@@ -171,6 +175,7 @@ public class WalkList implements Serializable {
     }
 
     private Boolean usesIsNull = null;
+
     public boolean usesIsNull() {
         if (usesIsNull != null) {
             return usesIsNull;
