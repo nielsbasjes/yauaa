@@ -285,6 +285,28 @@ config:
     - 'WebviewAppName    :     10:NormalizeBrand[agent.product.(1)name="Chrome"^>>.name]'
     - 'WebviewAppVersion :     10:agent.product.(1)name="Chrome"^>>.version'
 
+- matcher:
+    variable:
+    - 'WebViewProduct: agent.product.(1)name="Chrome"^>>'
+    require:
+    - 'agent.product.(1)name="Version"'
+    extract:
+    - 'AgentClass        :   2500:"Browser Webview"'
+    - 'AgentName         :   2500:"Chrome Webview"'
+    - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
+    - 'WebviewAppName    :     11:LookUp[SpecialChromeBrowserNames;@WebViewProduct.name]'
+    - 'WebviewAppVersion :     11:@WebViewProduct.version'
+
+- matcher:
+    variable:
+    - 'WebViewProduct: agent.product.(1)name="Version"^>>.name="Chrome"^<'
+    extract:
+    - 'AgentClass        :   2500:"Browser Webview"'
+    - 'AgentName         :   2500:"Chrome Webview"'
+    - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
+    - 'WebviewAppName    :     12:LookUp[SpecialChromeBrowserNames;@WebViewProduct.name]'
+    - 'WebviewAppVersion :     12:@WebViewProduct.version'
+
 - lookup:
     name: 'KnownWebviewAppNames'
     map:
