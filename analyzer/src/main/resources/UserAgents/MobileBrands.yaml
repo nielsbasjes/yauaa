@@ -104,6 +104,7 @@ config:
       "NSZ-" : "Sony"
       "SHIELD" : "Nvidia"
       "POV_" : "Point of view"
+      "SpreadTrum" : "SpreadTrum"
 
 # ===================================================================================================
 
@@ -8757,6 +8758,121 @@ config:
     - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"POV_"'
 
 
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"SpreadTrum"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name="Build"^<{"SpreadTrum"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"SpreadTrum"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<{"SpreadTrum"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  325:"SpreadTrum"'
+    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<{"SpreadTrum"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SpreadTrum"'
+    extract:
+    - 'DeviceBrand                 :  324:"SpreadTrum"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"SpreadTrum"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"SpreadTrum"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"SpreadTrum"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"SpreadTrum"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"SpreadTrum"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"SpreadTrum"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  324:"SpreadTrum"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"SpreadTrum"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"SpreadTrum"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"SpreadTrum"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"SpreadTrum"'
+    - 'DeviceName                  :  313:agent.product.name{"SpreadTrum"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"SpreadTrum"'
+    - 'DeviceName                  :  324:agent.(1)product.name="SpreadTrum"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"SpreadTrum"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="SpreadTrum"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"SpreadTrum"'
+    - 'DeviceName                  :  125:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"SpreadTrum"@'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"SpreadTrum"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"SpreadTrum"@!="SpreadTrum"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"SpreadTrum"'
+    - 'DeviceName                  :  124:agent.(1-2)product.(1)comments.entry.text{"SpreadTrum"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"SpreadTrum"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"SpreadTrum"@!="SpreadTrum"'
+
+
 
 - matcher:
     require:
@@ -9837,6 +9953,41 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"SonyEricsson"'
     extract:
     - 'DeviceBrand                 :   90:"SonyEricsson"'
+
+# ===================================================================================================
+
+
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version{"SpreadTrum"'
+    extract:
+    - 'DeviceBrand                 :   94:"SpreadTrum"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^.version{"SpreadTrum"'
+    extract:
+    - 'DeviceBrand                 :   93:"SpreadTrum"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^.version{"SpreadTrum"'
+    extract:
+    - 'DeviceBrand                 :   92:"SpreadTrum"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"^.version{"SpreadTrum"'
+    extract:
+    - 'DeviceBrand                 :   91:"SpreadTrum"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"SpreadTrum"'
+    extract:
+    - 'DeviceBrand                 :   90:"SpreadTrum"'
 
 # ===================================================================================================
 
