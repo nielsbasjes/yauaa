@@ -26,6 +26,10 @@ TEST_OPTIONS: &TEST_OPTIONS
 config:
 
 # Walking around
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NoWalking:1:agent'
 
   - matcher:
       <<: *MATCH_OPTIONS
@@ -175,6 +179,7 @@ config:
         name: 'Walking around'
         user_agent_string:            'One/1 Two/2 Three/3.1/3.2/3.3/3.4/3.5 Four/4 Five/5'
       expected:
+        NoWalking                  :  'One/1 Two/2 Three/3.1/3.2/3.3/3.4/3.5 Four/4 Five/5'
         WalkLeft1                  :  'Two/2'
         WalkLeft1Name              :  'Two'
         WalkLeft2                  :  'One/1'
