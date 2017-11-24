@@ -298,8 +298,40 @@ config:
     - 'WebviewAppVersion :     11:@WebViewProduct.version'
 
 - matcher:
+    require:
+    - 'agent.product.(1)name="Version"'
+    - 'agent.product.(1)name="Chrome"'
     variable:
     - 'WebViewProduct: agent.product.(1)name="Version"^>>.name="Chrome"^<'
+    extract:
+    - 'AgentClass        :   2500:"Browser Webview"'
+    - 'AgentName         :   2500:"Chrome Webview"'
+    - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
+    - 'WebviewAppName    :     12:LookUp[SpecialChromeBrowserNames;@WebViewProduct.name]'
+    - 'WebviewAppVersion :     12:@WebViewProduct.version'
+
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Version"'
+    - 'agent.product.(1)name="Chrome"'
+    - 'agent.product.(1)name="Safari"'
+    variable:
+    - 'WebViewProduct: agent.product.(1)name="Version"^>.name="Chrome"^>>.name="Safari"^<'
+    extract:
+    - 'AgentClass        :   2500:"Browser Webview"'
+    - 'AgentName         :   2500:"Chrome Webview"'
+    - 'AgentVersion      :   2500:agent.product.(1)name="Chrome"^.version'
+    - 'WebviewAppName    :     12:LookUp[SpecialChromeBrowserNames;@WebViewProduct.name]'
+    - 'WebviewAppVersion :     12:@WebViewProduct.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Version"'
+    - 'agent.product.(1)name="Chrome"'
+    - 'agent.product.(1)name="Mobile Safari"'
+    variable:
+    - 'WebViewProduct: agent.product.(1)name="Version"^>.name="Chrome"^>>.name="Mobile Safari"^<'
     extract:
     - 'AgentClass        :   2500:"Browser Webview"'
     - 'AgentName         :   2500:"Chrome Webview"'
@@ -515,6 +547,7 @@ config:
       "Chromium"        : "Chromium"
       "Ubuntu Chromium" : "Chromium"
       "Epiphany"        : "Epiphany"
+      "UCBrowser"       : "UCBrowser"
 
 - matcher:
     variable:
