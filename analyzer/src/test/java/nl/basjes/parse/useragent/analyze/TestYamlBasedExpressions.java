@@ -21,7 +21,7 @@ import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TestMatcherExpressions {
+public class TestYamlBasedExpressions {
 //    @Test
 //    public void runSingleMatcherFile() {
 //        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:**/Linux.yaml");
