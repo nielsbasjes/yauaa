@@ -30,7 +30,7 @@ import static org.junit.Assert.fail;
 
 public class TestUserAgentFlattening {
 
-    private final Logger LOG = LoggerFactory.getLogger(TestUserAgentFlattening.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TestUserAgentFlattening.class);
 
     @Test
     public void testFlatteningProduct() throws Exception {
@@ -1350,7 +1350,7 @@ public class TestUserAgentFlattening {
         }
 
         StringBuilder sb = new StringBuilder(2048);
-        sb.append("\n");
+        sb.append('\n');
         sb.append("|====================================== \n");
         sb.append("| ").append(useragent).append('\n');
         sb.append("|-------------------------------------- \n");

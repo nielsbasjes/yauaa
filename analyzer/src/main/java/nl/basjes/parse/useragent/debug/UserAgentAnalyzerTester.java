@@ -44,10 +44,6 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         super(resourceString);
     }
 
-    public void initialize() {
-        super.initialize();
-    }
-
     class TestResult {
         String field;
         String expected;
@@ -329,8 +325,8 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
             if (init || !pass) {
                 sb.setLength(0);
-                sb.append("\n");
-                sb.append("\n");
+                sb.append('\n');
+                sb.append('\n');
                 sb.append("- matcher:\n");
                 sb.append("#    options:\n");
                 sb.append("#    - 'verbose'\n");
@@ -353,8 +349,8 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                 sb.append("#    - 'AgentClass            :   1:' \n");
                 sb.append("#    - 'AgentName             :   1:' \n");
                 sb.append("#    - 'AgentVersion          :   1:' \n");
-                sb.append("\n");
-                sb.append("\n");
+                sb.append('\n');
+                sb.append('\n');
                 LOG.info(sb.toString());
             }
 
@@ -395,7 +391,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
             LOG.info(separator);
 
-            Map<String,String> failComments = new HashMap<>();
+            Map<String, String> failComments = new HashMap<>();
 
             List<String> failedFieldNames = new ArrayList<>();
             for (TestResult result : results) {
@@ -506,11 +502,8 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     public static class UserAgentAnalyzerTesterBuilder<UAA extends UserAgentAnalyzerTester, B extends UserAgentAnalyzerTesterBuilder<UAA, B>>
         extends UserAgentAnalyzerBuilder<UAA, B> {
 
-        private final UAA uaa;
-
         public UserAgentAnalyzerTesterBuilder(UAA newUaa) {
             super(newUaa);
-            this.uaa = newUaa;
         }
 
         @Override

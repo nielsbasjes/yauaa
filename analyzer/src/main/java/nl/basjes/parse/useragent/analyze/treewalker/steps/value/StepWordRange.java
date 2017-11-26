@@ -41,7 +41,7 @@ public class StepWordRange extends Step {
         String actualValue = getActualValue(tree, value);
         String filteredValue;
         if (tree.getChildCount() == 1 && (
-              tree.getChild(0) instanceof SingleVersionContext |
+              tree.getChild(0) instanceof SingleVersionContext ||
               tree.getChild(0) instanceof SingleVersionWithCommasContext)) {
             filteredValue = VersionSplitter.getInstance().getSplitRange(actualValue, firstWord, lastWord);
         } else {

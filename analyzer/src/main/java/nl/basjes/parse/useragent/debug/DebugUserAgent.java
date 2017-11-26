@@ -53,14 +53,14 @@ public class DebugUserAgent extends UserAgent {
 
     public String toMatchTrace(List<String> highlightNames) {
         StringBuilder sb = new StringBuilder(4096);
-        sb.append("\n");
+        sb.append('\n');
         sb.append("+=========================================+\n");
         sb.append("| Matcher results that have been combined |\n");
         sb.append("+=========================================+\n");
-        sb.append("\n");
+        sb.append('\n');
 
         for (Pair<UserAgent, Matcher> pair: appliedMatcherResults){
-            sb.append("\n");
+            sb.append('\n');
             sb.append("+================\n");
             sb.append("+ Applied matcher\n");
             sb.append("+----------------\n");

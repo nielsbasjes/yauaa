@@ -433,7 +433,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
                 for (int l = value.length(); l < maxValueLength + 5; l++) {
                     sb.append(' ');
                 }
-                sb.append("# ").append(String.format("%5d" ,get(fieldName).confidence));
+                sb.append("# ").append(String.format("%5d", get(fieldName).confidence));
             }
             if (comments != null) {
                 String comment = comments.get(fieldName);
@@ -443,8 +443,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
             }
             sb.append('\n');
         }
-        sb.append("\n");
-        sb.append("\n");
+        sb.append("\n\n");
 
         return sb.toString();
     }

@@ -40,9 +40,6 @@ public class UserAgentAnnotationAnalyzer<T> {
 
     private final Map<String, List<Method>> fieldSetters = new HashMap<>();
 
-    public UserAgentAnnotationAnalyzer() {
-    }
-
     public void initialize(UserAgentAnnotationMapper<T> theMapper) {
         mapper = theMapper;
 

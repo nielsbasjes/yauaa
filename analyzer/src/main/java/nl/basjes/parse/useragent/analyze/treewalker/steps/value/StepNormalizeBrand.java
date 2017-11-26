@@ -24,9 +24,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepNormalizeBrand extends Step {
 
-    public StepNormalizeBrand() {
-    }
-
     @Override
     public WalkResult walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);

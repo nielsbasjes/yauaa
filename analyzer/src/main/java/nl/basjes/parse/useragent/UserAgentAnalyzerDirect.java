@@ -937,7 +937,7 @@ config:
                     }
                 }
                 if (log) {
-                    LOG.info("Preheating JVM completed. ({} proper results)", preheatIterations, goodResults);
+                    LOG.info("Preheating JVM completed. ({} of {} were proper results)", goodResults, preheatIterations);
                 }
             }
         }

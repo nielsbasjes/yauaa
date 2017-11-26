@@ -33,7 +33,7 @@ public class StepEquals extends Step {
     public WalkResult walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
 
-        if (actualValue.toLowerCase().equals(desiredValue)) {
+        if (actualValue.equalsIgnoreCase(desiredValue)) {
             return walkNextStep(tree, actualValue);
         }
         return null;
