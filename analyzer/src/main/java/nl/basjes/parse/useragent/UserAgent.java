@@ -393,10 +393,12 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
     }
 
     public String toYamlTestCase() {
-        return toYamlTestCase(false);
+        return toYamlTestCase(false, null);
     }
-
     public String toYamlTestCase(boolean showConfidence) {
+        return toYamlTestCase(showConfidence, null);
+    }
+    public String toYamlTestCase(boolean showConfidence, Map<String, String> comments) {
         StringBuilder sb = new StringBuilder(10240);
         sb.append("\n");
         sb.append("- test:\n");
@@ -431,7 +433,13 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
                 for (int l = value.length(); l < maxValueLength + 5; l++) {
                     sb.append(' ');
                 }
-                sb.append("# ").append(get(fieldName).confidence);
+                sb.append("# ").append(String.format("%5d" ,get(fieldName).confidence));
+            }
+            if (comments != null) {
+                String comment = comments.get(fieldName);
+                if (comment != null) {
+                    sb.append(" | ").append(comment);
+                }
             }
             sb.append('\n');
         }

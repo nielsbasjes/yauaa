@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -394,6 +395,8 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
             LOG.info(separator);
 
+            Map<String,String> failComments = new HashMap<>();
+
             List<String> failedFieldNames = new ArrayList<>();
             for (TestResult result : results) {
                 sb.setLength(0);
@@ -402,8 +405,10 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                 } else {
                     if (result.warn) {
                         sb.append("| ~warn~ | ");
+                        failComments.put(result.field, "~~ Unexpected result ~~");
                     } else {
                         sb.append("| -FAIL- | ");
+                        failComments.put(result.field, "FAILED; Should be '" + result.expected + "'");
                         failedFieldNames.add(result.field);
                     }
                 }
@@ -446,7 +451,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
             LOG.info(agent.toMatchTrace(failedFieldNames));
 
-            LOG.info("\n\nconfig:\n"+agent.toYamlTestCase(!init));
+            LOG.info("\n\nconfig:\n"+agent.toYamlTestCase(!init, failComments));
             LOG.info("Location of failed test.({}:{})", filename, linenumber);
             if (!pass && !showAll) {
 //                LOG.info("+===========================================================================================");
