@@ -140,6 +140,26 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
+        - 'CommentWalkLeft4       : 1 :agent.product.comments.entry.product.name="Mies"^^<<<<.product'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkLeft4Name   : 1 :agent.product.comments.entry.product.name="Mies"^^<<<<.product.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkLeft5       : 1 :agent.product.comments.entry.product.name="Mies"^^<<<<<.product'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkLeft5Name   : 1 :agent.product.comments.entry.product.name="Mies"^^<<<<<.product.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
         - 'CommentWalkRight1      : 1 :agent.product.comments.entry.product.name="Mies"^^>.product'
 
   - matcher:
@@ -166,6 +186,26 @@ config:
       <<: *MATCH_OPTIONS
       extract:
         - 'CommentWalkRight3Name  : 1 :agent.product.comments.entry.product.name="Mies"^^>>>.product.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkRight4      : 1 :agent.product.comments.entry.product.name="Mies"^^>>>>.product'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkRight4Name  : 1 :agent.product.comments.entry.product.name="Mies"^^>>>>.product.name'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkRight5      : 1 :agent.product.comments.entry.product.name="Mies"^^>>>>>.product'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'CommentWalkRight5Name  : 1 :agent.product.comments.entry.product.name="Mies"^^>>>>>.product.name'
 
 
   - matcher:
@@ -214,6 +254,34 @@ config:
           CommentWalkRight2Name    : 'Zus'
           CommentWalkRight3        : 'Unknown'
           CommentWalkRight3Name    : 'Unknown'
+
+  - test:
+      <<: *TEST_OPTIONS
+      input:
+          name: 'Walking around in comments 2'
+          user_agent_string:         'One/1 Two/2 (MinusOne/-1 ; Zero/0 ; Aap/1; Noot/2 ;Mies/3 ; Wim/4;   Zus/5; Jet/6; Teun/7 ; ) Four/4 Five/5'
+      expected:
+          NoWalking                : 'One/1 Two/2 (MinusOne/-1 ; Zero/0 ; Aap/1; Noot/2 ;Mies/3 ; Wim/4;   Zus/5; Jet/6; Teun/7 ; ) Four/4 Five/5'
+          CommentWalkLeft1         : 'Noot/2'
+          CommentWalkLeft1Name     : 'Noot'
+          CommentWalkLeft2         : 'Aap/1'
+          CommentWalkLeft2Name     : 'Aap'
+          CommentWalkLeft3         : 'Zero/0'
+          CommentWalkLeft3Name     : 'Zero'
+          CommentWalkLeft4         : 'MinusOne/-1'
+          CommentWalkLeft4Name     : 'MinusOne'
+          CommentWalkLeft5         : 'Unknown'
+          CommentWalkLeft5Name     : 'Unknown'
+          CommentWalkRight1        : 'Wim/4'
+          CommentWalkRight1Name    : 'Wim'
+          CommentWalkRight2        : 'Zus/5'
+          CommentWalkRight2Name    : 'Zus'
+          CommentWalkRight3        : 'Jet/6'
+          CommentWalkRight3Name    : 'Jet'
+          CommentWalkRight4        : 'Teun/7'
+          CommentWalkRight4Name    : 'Teun'
+          CommentWalkRight5        : 'Unknown'
+          CommentWalkRight5Name    : 'Unknown'
 
   - test:
       <<: *TEST_OPTIONS
