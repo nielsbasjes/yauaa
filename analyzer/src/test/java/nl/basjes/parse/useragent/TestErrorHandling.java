@@ -69,6 +69,27 @@ public class TestErrorHandling {
         Assert.assertTrue(uaa.runTests(false, false));
     }
 
+
+    @Test
+    public void checkFixedStringLookupMissing() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage(new StringStartsWith("Missing lookup"));
+
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:BadDefinitions/FixedStringLookupMissing.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
+
+
+    @Test
+    public void checkFixedStringLookupMissingvalue() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage(new StringStartsWith("Fixed value"));
+
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:BadDefinitions/FixedStringLookupMissingValue.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
+
+
     @Test
     public void checkNoExtract() {
         expectedEx.expect(InvalidParserConfigurationException.class);
