@@ -55,8 +55,8 @@ public class Matcher implements Serializable {
     private boolean verbose;
     private boolean permanentVerbose;
 
-    // Used for error reporting: The filename where the config was located.
-    private String filename;
+    // Used for error reporting: The filename and line number where the config was located.
+    private String matcherSourceLocation;
 
     // Package private constructor for testing purposes only
     Matcher(Analyzer analyzer, Map<String, Map<String, String>> lookups, Map<String, Set<String>> lookupSets) {
@@ -93,6 +93,16 @@ public class Matcher implements Serializable {
             this.confidence = confidence;
             this.expression = expression;
         }
+
+        @Override
+        public String toString() {
+            return "ConfigLine{" +
+                "type=" + type +
+                ", attribute='" + attribute + '\'' +
+                ", confidence=" + confidence +
+                ", expression='" + expression + '\'' +
+                '}';
+        }
     }
 
     public Matcher(Analyzer analyzer,
@@ -108,7 +118,7 @@ public class Matcher implements Serializable {
         this.variableActions = new ArrayList<>();
         this.dynamicActions = new ArrayList<>();
 
-        this.filename = filename + ':' + matcherConfig.getStartMark().getLine();
+        matcherSourceLocation = filename + ':' + matcherConfig.getStartMark().getLine();
 
         verbose = false;
 
@@ -118,16 +128,16 @@ public class Matcher implements Serializable {
         // List of 'attribute', 'confidence', 'expression'
         List<ConfigLine> configLines = new ArrayList<>(16);
         for (NodeTuple nodeTuple: matcherConfig.getValue()) {
-            String name = getKeyAsString(nodeTuple, filename);
+            String name = getKeyAsString(nodeTuple, matcherSourceLocation);
             switch (name) {
                 case "options":
-                    List<String> options = YamlUtils.getStringValues(nodeTuple.getValueNode(), filename);
+                    List<String> options = YamlUtils.getStringValues(nodeTuple.getValueNode(), matcherSourceLocation);
                     if (options != null) {
                         verbose = options.contains("verbose");
                     }
                     break;
                 case "variable":
-                    for (String variableConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), filename)) {
+                    for (String variableConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), matcherSourceLocation)) {
                         String[] configParts = variableConfig.split(":", 2);
 
                         if (configParts.length != 2) {
@@ -140,12 +150,12 @@ public class Matcher implements Serializable {
                     }
                     break;
                 case "require":
-                    for (String requireConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), filename)) {
+                    for (String requireConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), matcherSourceLocation)) {
                         configLines.add(new ConfigLine(REQUIRE, null, null, requireConfig));
                     }
                     break;
                 case "extract":
-                    for (String extractConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), filename)) {
+                    for (String extractConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), matcherSourceLocation)) {
                         String[] configParts = extractConfig.split(":", 3);
 
                         if (configParts.length != 3) {
@@ -167,7 +177,7 @@ public class Matcher implements Serializable {
                     break;
                 default:
                     // Ignore
-//                    fail(nodeTuple.getKeyNode(), filename, "Unexpected " + name);
+//                    fail(nodeTuple.getKeyNode(), matcherSourceLocation, "Unexpected " + name);
             }
         }
 
@@ -196,7 +206,7 @@ public class Matcher implements Serializable {
                         variableActions.add(new MatcherVariableAction(configLine.attribute, configLine.expression, this));
                     } catch (InvalidParserConfigurationException e) {
                         if (!e.getMessage().startsWith("It is useless to put a fixed value")) {// Ignore fixed values in require
-                            throw e;
+                            throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ") => " + configLine, e);
                         }
                     }
                     break;
@@ -205,7 +215,7 @@ public class Matcher implements Serializable {
                         dynamicActions.add(new MatcherRequireAction(configLine.expression, this));
                     } catch (InvalidParserConfigurationException e) {
                         if (!e.getMessage().startsWith("It is useless to put a fixed value")) {// Ignore fixed values in require
-                            throw e;
+                            throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ") => " + configLine, e);
                         }
                     }
                     break;
@@ -405,7 +415,7 @@ public class Matcher implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(512);
-        sb.append("MATCHER.(").append(filename).append("):\n")
+        sb.append("MATCHER.(").append(matcherSourceLocation).append("):\n")
           .append("    VARIABLE:\n");
         for (MatcherAction action : dynamicActions) {
             if (action instanceof MatcherVariableAction) {
