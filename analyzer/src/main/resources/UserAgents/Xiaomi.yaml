@@ -51,31 +51,31 @@ config:
     - 'DeviceBrand :   1010:"Xiaomi"'
 
 - matcher:
-    require:
-    - 'agent.(1)product.(1)comments.entry.(1)product{"HM "'
+    variable:
+    - 'Product: agent.(1)product.(1)comments.entry.(1)product{"HM "'
     extract:
-    - 'DeviceName :    1010:LookUp[XiaomiModels;agent.(1)product.(1)comments.entry.(1)product{"HM "[1];"Redmi Note 4"]'
+    - 'DeviceName :    1010:LookUp[XiaomiModels;@Product[1];"Redmi Note 4"]'
     - 'DeviceBrand :   1010:"Xiaomi"'
 
 - matcher:
-    require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name{"20130"'
+    variable:
+    - 'Product: agent.(1)product.(1)comments.entry.(1)product.(1)name{"20130"'
     extract:
-    - 'DeviceName :    3000:LookUp[XiaomiModels;agent.(1)product.(1)comments.entry.(1)product.(1)name{"20130"[1];"Redmi 1"]'
+    - 'DeviceName :    3000:LookUp[XiaomiModels;@Product[1];"Redmi 1"]'
     - 'DeviceBrand :   3000:"Xiaomi"'
 
 - matcher:
-    require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name{"20140"'
+    variable:
+    - 'Product: agent.(1)product.(1)comments.entry.(1)product.(1)name{"20140"'
     extract:
-    - 'DeviceName :    3000:LookUp[XiaomiModels;agent.(1)product.(1)comments.entry.(1)product.(1)name{"20140"[1];"Redmi 1"]'
+    - 'DeviceName :    3000:LookUp[XiaomiModels;@Product[1];"Redmi 1"]'
     - 'DeviceBrand :   3000:"Xiaomi"'
 
 - matcher:
-    require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name{"20148"'
+    variable:
+    - 'Product: agent.(1)product.(1)comments.entry.(1)product.(1)name{"20148"'
     extract:
-    - 'DeviceName :    3000:LookUp[XiaomiModels;agent.(1)product.(1)comments.entry.(1)product.(1)name{"20148"[1];"Redmi 2"]'
+    - 'DeviceName :    3000:LookUp[XiaomiModels;@Product[1];"Redmi 2"]'
     - 'DeviceBrand :   3000:"Xiaomi"'
 
 - matcher:

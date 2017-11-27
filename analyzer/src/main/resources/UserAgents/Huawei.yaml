@@ -20,60 +20,70 @@ config:
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.product~"Build".version{"HONOR"'
+    - 'agent.(1)product.(1)comments.entry.product.version{"HONOR"'
     extract:
     - 'DeviceBrand :   3000:"Huawei"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.product~"Build".version~"HUAWEI"'
+    - 'agent.(1)product.(1)comments.entry.product.version~"HUAWEI"'
     extract:
     - 'DeviceBrand :   3000:"Huawei"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry~"Build"{"Che1-"'
+    - 'agent.(1)product.(1)comments.entry{"Che1-"'
     extract:
     - 'DeviceBrand :   3000:"Huawei"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry~"Build"{"HW-Che1-"'
+    - 'agent.(1)product.(1)comments.entry{"HW-Che1-"'
     extract:
     - 'DeviceBrand :   3000:"Huawei"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry~"Build"{"H30-"'
+    - 'agent.(1)product.(1)comments.entry{"H30-"'
     extract:
     - 'DeviceBrand :   3000:"Huawei"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry~"Build"{"HW-H30-"'
+    - 'agent.(1)product.(1)comments.entry{"HW-H30-"'
     extract:
     - 'DeviceBrand :   3000:"Huawei"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry~"Build"{"H60-"'
+    - 'agent.(1)product.(1)comments.entry{"H60-"'
     extract:
     - 'DeviceBrand :   3000:"Huawei"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry~"Build"{"HW-H60-"'
+    - 'agent.(1)product.(1)comments.entry{"HW-H60-"'
     extract:
     - 'DeviceBrand :   3000:"Huawei"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry~"Build"{"SCL-"'
+    - 'agent.(1)product.(1)comments.entry{"SCL-"'
     extract:
     - 'DeviceBrand :   3000:"Huawei"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry~"Build"{"HW-SCL-"'
+    - 'agent.(1)product.(1)comments.entry{"HW-SCL-"'
     extract:
     - 'DeviceBrand :   3000:"Huawei"'
 

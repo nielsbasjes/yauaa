@@ -70,25 +70,33 @@ do
     brand=$(echo ${line} | cut -d'|' -f2)
 echo "
 - matcher:
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name=\"Build\"'
     require:
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.(1)comments.entry.product{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  325:\"${brand}\"'
-    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name=\"Build\"^<{\"${prefix}\"'
+    - 'DeviceName                  :  325:@BuildProduct^<{\"${prefix}\"'
 
 - matcher:
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name[2]=\"Build\"'
     require:
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.(1)comments.entry.product{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  325:\"${brand}\"'
-    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[2]=\"Build\"^<{\"${prefix}\"'
+    - 'DeviceName                  :  325:@BuildProduct^<{\"${prefix}\"'
 
-- matcher:
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name[3]=\"Build\"'
     require:
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.(1)comments.entry.product{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  325:\"${brand}\"'
-    - 'DeviceName                  :  325:agent.(1-2)product.(1)comments.entry.product.name[3]=\"Build\"^<{\"${prefix}\"'
+    - 'DeviceName                  :  325:@BuildProduct^<{\"${prefix}\"'
 
 - matcher:
     require:
@@ -96,10 +104,12 @@ echo "
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]=\"Build\"@{\"${prefix}\"'
     extract:
     - 'DeviceBrand                 :  324:\"${brand}\"'
+    - 'POEP: 1:\"Niet goed\"'
 
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:\"${brand}\"'
     - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]=\"Build\"@{\"${prefix}\"[-1]'
@@ -107,6 +117,7 @@ echo "
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:\"${brand}\"'
     - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]=\"Build\"@{\"${prefix}\"[-2]'
@@ -114,6 +125,7 @@ echo "
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:\"${brand}\"'
     - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]=\"Build\"@{\"${prefix}\"[-3]'
@@ -121,6 +133,7 @@ echo "
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:\"${brand}\"'
     - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]=\"Build\"@{\"${prefix}\"[-4]'
@@ -213,30 +226,35 @@ echo "
 
 - matcher:
     require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{\"${brand}\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]=\"Build\"^.version{\"${brand}\"'
     extract:
     - 'DeviceBrand                 :   94:\"${brand}\"'
 
 - matcher:
     require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{\"${brand}\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[2]=\"Build\"^.version{\"${brand}\"'
     extract:
     - 'DeviceBrand                 :   93:\"${brand}\"'
 
 - matcher:
     require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{\"${brand}\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[3]=\"Build\"^.version{\"${brand}\"'
     extract:
     - 'DeviceBrand                 :   92:\"${brand}\"'
 
 - matcher:
     require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{\"${brand}\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[4]=\"Build\"^.version{\"${brand}\"'
     extract:
     - 'DeviceBrand                 :   91:\"${brand}\"'
 
 - matcher:
     require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{\"${brand}\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[5]=\"Build\"^.version{\"${brand}\"'
     extract:
     - 'DeviceBrand                 :   90:\"${brand}\"'

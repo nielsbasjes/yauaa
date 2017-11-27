@@ -84,12 +84,15 @@ config:
     - 'DeviceFirmwareVersion : 302:agent.product.(1)name="Release"^.version'
 
 - matcher:
+    variable:
+    - 'BrowserVersion:agent.product.(1)name="Browser"^.version'
     require:
-    - 'agent.product.(1)name="Browser"^.version{"AppleWebKit"'
+    - 'agent.product.(1)version{"AppleWebKit"'
+    - '@BrowserVersion{"AppleWebKit"'
     extract:
     - 'LayoutEngineClass     :   1:"Browser"'
     - 'LayoutEngineName      :   1:"AppleWebKit"'
-    - 'LayoutEngineVersion   :   1:agent.product.(1)name="Browser"^.version'
+    - 'LayoutEngineVersion   :   1:@BrowserVersion'
 
 - test:
     input:

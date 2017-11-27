@@ -35,4 +35,13 @@ public abstract class Analyzer {
     public Set<Range> getRequiredInformRanges(String treeName){
         return Collections.emptySet();
     }
+
+    public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
+        // Do nothing
+    }
+
+    public Set<Integer> getRequiredPrefixLengths(String treeName){
+        return Collections.emptySet();
+    }
+
 }

@@ -416,6 +416,9 @@ public abstract class MatcherAction implements Serializable {
             if (tree instanceof StepEqualsValueContext){
                 return calculateInformPath(treeName, (StepEqualsValueContext) tree);
             }
+            if (tree instanceof StepStartsWithValueContext){
+                return calculateInformPath(treeName, (StepStartsWithValueContext) tree);
+            }
             if (tree instanceof StepWordRangeContext) {
                 return calculateInformPath(treeName, (StepWordRangeContext) tree);
             }
@@ -439,6 +442,11 @@ public abstract class MatcherAction implements Serializable {
 
     private int calculateInformPath(String treeName, StepEqualsValueContext tree) {
         matcher.informMeAbout(this, treeName + "=\"" + tree.value.getText() + "\"");
+        return 1;
+    }
+
+    private int calculateInformPath(String treeName, StepStartsWithValueContext tree) {
+        matcher.informMeAboutPrefix(this, treeName, tree.value.getText());
         return 1;
     }
 

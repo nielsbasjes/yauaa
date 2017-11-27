@@ -26,24 +26,28 @@ config:
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry~"Build"{"MZ-"'
+    - 'agent.(1)product.(1)comments.entry{"MZ-"'
     extract:
     - 'DeviceBrand :   3000:"Meizu"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry~"Build"{"m3"'
+    - 'agent.(1)product.(1)comments.entry{"m3"'
     extract:
     - 'DeviceBrand :   350:"Meizu"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry~"Build"{"m5"'
+    - 'agent.(1)product.(1)comments.entry{"m5"'
     extract:
     - 'DeviceBrand :   350:"Meizu"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry~"Build"{"MX"'
+    - 'agent.(1)product.(1)comments.entry{"MX"'
     extract:
     - 'DeviceBrand :   350:"Meizu"'
 

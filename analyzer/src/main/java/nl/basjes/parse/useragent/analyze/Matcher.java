@@ -309,6 +309,10 @@ public class Matcher implements Serializable {
         analyzer.informMeAbout(matcherAction, keyPattern);
     }
 
+    public void informMeAboutPrefix(MatcherAction matcherAction, String keyPattern, String prefix) {
+        analyzer.informMeAboutPrefix(matcherAction, keyPattern, prefix);
+    }
+
     private Map<String, Set<MatcherAction>> informMatcherActionsAboutVariables = new HashMap<>(8);
 
     void informMeAboutVariable(MatcherAction matcherAction, String variableName) {

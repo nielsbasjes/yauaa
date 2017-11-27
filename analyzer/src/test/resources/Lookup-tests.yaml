@@ -152,7 +152,28 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
+        - 'StartsT:   1:  agent.(1)product.(1)comments.(1-5)entry.product.(1)name{"T"^.version'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
         - 'StartsTh:   1:  agent.(1)product.(1)comments.(1-5)entry.product.(1)name{"Th"^.version'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'StartsThr:   1:  agent.(1)product.(1)comments.(1-5)entry.product.(1)name{"Thr"^.version'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'StartsThre:   1:  agent.(1)product.(1)comments.(1-5)entry.product.(1)name{"Thre"^.version'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'StartsThree:   1:  agent.(1)product.(1)comments.(1-5)entry.product.(1)name{"Three"^.version'
+
 
   - matcher:
       <<: *MATCH_OPTIONS
@@ -270,7 +291,11 @@ config:
         user_agent_string: 'Mozilla/5.0 (One/111; Two/222; Three/333; Four/444)'
       expected:
         Equals: "333"
+        StartsT: "222"
         StartsTh: "333"
+        StartsThr: "333"
+        StartsThre: "333"
+        StartsThree: "333"
         EndsWo: "222"
         ContainsOU: "444"
         VEquals: "Version Three"

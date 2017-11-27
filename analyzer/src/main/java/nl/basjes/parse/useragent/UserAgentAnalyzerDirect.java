@@ -629,6 +629,33 @@ config:
         ranges.add(range);
     }
 
+    // We do not want to put ALL lengths in the hashmap for performance reasons
+    private static final int MAX_PREFIX_HASH_MATCH = 3;
+
+    // Calculate the max length we will put in the hashmap.
+    public static int firstCharactersForPrefixHashLength(String input, int maxChars) {
+        return Math.min(maxChars, Math.min(MAX_PREFIX_HASH_MATCH, input.length()));
+    }
+
+    public static String firstCharactersForPrefixHash(String input, int maxChars) {
+        return input.substring(0, firstCharactersForPrefixHashLength(input, maxChars));
+    }
+
+    // These are the paths for which we have prefix requests.
+    private final Map<String, Set<Integer>> informMatcherActionPrefixesLengths = new HashMap<>(1000);
+
+    @Override
+    public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
+        this.informMeAbout(matcherAction, treeName + "{\"" + firstCharactersForPrefixHash(prefix, MAX_PREFIX_HASH_MATCH) + "\"");
+        Set<Integer> lengths = informMatcherActionPrefixesLengths.computeIfAbsent(treeName, k -> new HashSet<>(4));
+        lengths.add(firstCharactersForPrefixHashLength(prefix, MAX_PREFIX_HASH_MATCH));
+    }
+
+    @Override
+    public Set<Integer> getRequiredPrefixLengths(String treeName) {
+        return informMatcherActionPrefixesLengths.get(treeName);
+    }
+
     public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
         String hashKey = keyPattern.toLowerCase();
         Set<MatcherAction> analyzerSet = informMatcherActions
@@ -876,6 +903,16 @@ config:
     public void inform(String key, String value, ParseTree ctx) {
         inform(key, key, value, ctx);
         inform(key + "=\"" + value + '"', key, value, ctx);
+
+        Set<Integer> lengths = getRequiredPrefixLengths(key);
+        if (lengths != null) {
+            int valueLength = value.length();
+            for (Integer prefixLength : lengths) {
+                if (valueLength >= prefixLength) {
+                    inform(key + "{\"" + firstCharactersForPrefixHash(value, prefixLength) + '"', key, value, ctx);
+                }
+            }
+        }
     }
 
     private void inform(String match, String key, String value, ParseTree ctx) {
@@ -967,6 +1004,7 @@ config:
         public void inform(String path, String value, ParseTree ctx) {
             values.add(path);
             values.add(path + "=\"" + value + "\"");
+            values.add(path + "{\"" + firstCharactersForPrefixHash(value, MAX_PREFIX_HASH_MATCH) + "\"");
         }
 
         public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
