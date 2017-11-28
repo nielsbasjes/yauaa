@@ -101,14 +101,6 @@ echo "
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]=\"Build\"@{\"${prefix}\"'
-    extract:
-    - 'DeviceBrand                 :  324:\"${brand}\"'
-    - 'POEP: 1:\"Niet goed\"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:\"${brand}\"'

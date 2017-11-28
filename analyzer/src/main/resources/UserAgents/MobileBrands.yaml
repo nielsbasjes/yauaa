@@ -141,14 +141,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Samsung"'
-    extract:
-    - 'DeviceBrand                 :  324:"Samsung"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Samsung"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Samsung"'
@@ -269,14 +261,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Galaxy"'
-    extract:
-    - 'DeviceBrand                 :  324:"Samsung"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Galaxy"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Samsung"'
@@ -379,14 +363,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Samsung"'
     - 'DeviceName                  :  325:@BuildProduct^<{"GT-"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"GT-"'
-    extract:
-    - 'DeviceBrand                 :  324:"Samsung"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -497,14 +473,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"GT -"'
-    extract:
-    - 'DeviceBrand                 :  324:"Samsung"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"GT -"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Samsung"'
@@ -607,14 +575,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Samsung"'
     - 'DeviceName                  :  325:@BuildProduct^<{"SM-"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SM-"'
-    extract:
-    - 'DeviceBrand                 :  324:"Samsung"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -725,14 +685,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SM -"'
-    extract:
-    - 'DeviceBrand                 :  324:"Samsung"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"SM -"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Samsung"'
@@ -835,14 +787,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Smartisan"'
     - 'DeviceName                  :  325:@BuildProduct^<{"SM7"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SM7"'
-    extract:
-    - 'DeviceBrand                 :  324:"Smartisan"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -953,14 +897,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SM8"'
-    extract:
-    - 'DeviceBrand                 :  324:"Smartisan"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"SM8"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Smartisan"'
@@ -1063,14 +999,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Smartisan"'
     - 'DeviceName                  :  325:@BuildProduct^<{"SM9"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SM9"'
-    extract:
-    - 'DeviceBrand                 :  324:"Smartisan"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -1181,14 +1109,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"YQ6"'
-    extract:
-    - 'DeviceBrand                 :  324:"Smartisan"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"YQ6"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Smartisan"'
@@ -1291,14 +1211,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Coolpad"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Coolpad"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Coolpad"'
-    extract:
-    - 'DeviceBrand                 :  324:"Coolpad"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -1423,14 +1335,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"LG"'
-    extract:
-    - 'DeviceBrand                 :  324:"LG"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"LG"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"LG"'
@@ -1551,14 +1455,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"LG-"'
-    extract:
-    - 'DeviceBrand                 :  324:"LG"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"LG-"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"LG"'
@@ -1665,14 +1561,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"G Watch"'
-    extract:
-    - 'DeviceBrand                 :  324:"LG"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"G Watch"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"LG"'
@@ -1775,14 +1663,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"HTC"'
     - 'DeviceName                  :  325:@BuildProduct^<{"HTC"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"HTC"'
-    extract:
-    - 'DeviceBrand                 :  324:"HTC"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -1907,14 +1787,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Desire"'
-    extract:
-    - 'DeviceBrand                 :  324:"HTC"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Desire"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"HTC"'
@@ -2017,14 +1889,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Huawei"'
     - 'DeviceName                  :  325:@BuildProduct^<{"HUAWEI"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"HUAWEI"'
-    extract:
-    - 'DeviceBrand                 :  324:"Huawei"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -2135,14 +1999,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"ALE-"'
-    extract:
-    - 'DeviceBrand                 :  324:"Huawei"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"ALE-"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Huawei"'
@@ -2245,14 +2101,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Huawei"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Ascend"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Ascend"'
-    extract:
-    - 'DeviceBrand                 :  324:"Huawei"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -2363,14 +2211,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"G7"'
-    extract:
-    - 'DeviceBrand                 :  324:"Huawei"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"G7"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Huawei"'
@@ -2473,14 +2313,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Huawei"'
     - 'DeviceName                  :  325:@BuildProduct^<{"G6"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"G6"'
-    extract:
-    - 'DeviceBrand                 :  324:"Huawei"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -2591,14 +2423,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"PLK"'
-    extract:
-    - 'DeviceBrand                 :  324:"Huawei"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"PLK"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Huawei"'
@@ -2701,14 +2525,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Huawei"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Honor"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Honor"'
-    extract:
-    - 'DeviceBrand                 :  324:"Huawei"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -2819,14 +2635,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"H60"'
-    extract:
-    - 'DeviceBrand                 :  324:"Symphony"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"H60"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Symphony"'
@@ -2929,14 +2737,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"HP"'
     - 'DeviceName                  :  325:@BuildProduct^<{"HP"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"HP"'
-    extract:
-    - 'DeviceBrand                 :  324:"HP"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -3061,14 +2861,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"AG "'
-    extract:
-    - 'DeviceBrand                 :  324:"AG Mobile"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"AG "' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"AG Mobile"'
@@ -3171,14 +2963,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"AKAI"'
     - 'DeviceName                  :  325:@BuildProduct^<{"AKAI"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"AKAI"'
-    extract:
-    - 'DeviceBrand                 :  324:"AKAI"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -3303,14 +3087,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"ALCATEL"'
-    extract:
-    - 'DeviceBrand                 :  324:"Alcatel"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"ALCATEL"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Alcatel"'
@@ -3413,14 +3189,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Amazon"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Amazon"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Amazon"'
-    extract:
-    - 'DeviceBrand                 :  324:"Amazon"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -3545,14 +3313,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Kindle"'
-    extract:
-    - 'DeviceBrand                 :  324:"Amazon"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Kindle"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Amazon"'
@@ -3655,14 +3415,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Amazon"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Fire "'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Fire "'
-    extract:
-    - 'DeviceBrand                 :  324:"Amazon"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -3773,14 +3525,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"ASUS"'
-    extract:
-    - 'DeviceBrand                 :  324:"Asus"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"ASUS"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Asus"'
@@ -3883,14 +3627,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Asus"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Transformer"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Transformer"'
-    extract:
-    - 'DeviceBrand                 :  324:"Asus"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -4001,14 +3737,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"AT-"'
-    extract:
-    - 'DeviceBrand                 :  324:"Wolfgang Mobile"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"AT-"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Wolfgang Mobile"'
@@ -4111,14 +3839,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Avea"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Avea"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Avea"'
-    extract:
-    - 'DeviceBrand                 :  324:"Avea"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -4243,14 +3963,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Avvio"'
-    extract:
-    - 'DeviceBrand                 :  324:"Avvio"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Avvio"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Avvio"'
@@ -4367,14 +4079,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Azumi"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Azumi"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Azumi"'
-    extract:
-    - 'DeviceBrand                 :  324:"Azumi"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -4499,14 +4203,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Lenovo"'
-    extract:
-    - 'DeviceBrand                 :  324:"Lenovo"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Lenovo"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Lenovo"'
@@ -4627,14 +4323,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Nexus"'
-    extract:
-    - 'DeviceBrand                 :  324:"Google"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Nexus"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Google"'
@@ -4737,14 +4425,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Panasonic"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Panasonic"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Panasonic"'
-    extract:
-    - 'DeviceBrand                 :  324:"Panasonic"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -4869,14 +4549,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Philips"'
-    extract:
-    - 'DeviceBrand                 :  324:"Philips"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Philips"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Philips"'
@@ -4993,14 +4665,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"SonyEricsson"'
     - 'DeviceName                  :  325:@BuildProduct^<{"SonyEricsson"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SonyEricsson"'
-    extract:
-    - 'DeviceBrand                 :  324:"SonyEricsson"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -5125,14 +4789,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Xperia"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Xperia"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
@@ -5235,14 +4891,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Sony"'
     - 'DeviceName                  :  325:@BuildProduct^<{"C1"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"C1"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -5353,14 +5001,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"C2"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"C2"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
@@ -5463,14 +5103,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Sony"'
     - 'DeviceName                  :  325:@BuildProduct^<{"C5"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"C5"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -5581,14 +5213,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"C6"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"C6"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
@@ -5691,14 +5315,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Sony"'
     - 'DeviceName                  :  325:@BuildProduct^<{"D2"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"D2"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -5809,14 +5425,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"D5"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"D5"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
@@ -5919,14 +5527,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Sony"'
     - 'DeviceName                  :  325:@BuildProduct^<{"D6"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"D6"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -6037,14 +5637,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"E2"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"E2"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
@@ -6147,14 +5739,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Sony"'
     - 'DeviceName                  :  325:@BuildProduct^<{"E5"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"E5"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -6265,14 +5849,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"E6"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"E6"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
@@ -6375,14 +5951,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Sony"'
     - 'DeviceName                  :  325:@BuildProduct^<{"F3"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"F3"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -6493,14 +6061,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"F5"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"F5"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
@@ -6603,14 +6163,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Sony"'
     - 'DeviceName                  :  325:@BuildProduct^<{"F8"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"F8"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -6721,14 +6273,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"G3"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"G3"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
@@ -6831,14 +6375,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Sony"'
     - 'DeviceName                  :  325:@BuildProduct^<{"G8"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"G8"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -6949,14 +6485,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SmartWatch"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"SmartWatch"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
@@ -7059,14 +6587,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Sony"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Arc BUILD"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Arc BUILD"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -7177,14 +6697,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Arc 6"'
-    extract:
-    - 'DeviceBrand                 :  324:"Kobo"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Arc 6"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Kobo"'
@@ -7287,14 +6799,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Kobo"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Arc 7"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Arc 7"'
-    extract:
-    - 'DeviceBrand                 :  324:"Kobo"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -7405,14 +6909,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Arc 8"'
-    extract:
-    - 'DeviceBrand                 :  324:"Kobo"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Arc 8"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Kobo"'
@@ -7515,14 +7011,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Kobo"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Arc 9"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Arc 9"'
-    extract:
-    - 'DeviceBrand                 :  324:"Kobo"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -7633,14 +7121,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Arc 10"'
-    extract:
-    - 'DeviceBrand                 :  324:"Kobo"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Arc 10"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Kobo"'
@@ -7743,14 +7223,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Archos"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Archos"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Archos"'
-    extract:
-    - 'DeviceBrand                 :  324:"Archos"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -7875,14 +7347,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"A0001"'
-    extract:
-    - 'DeviceBrand                 :  324:"OnePlus"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"A0001"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"OnePlus"'
@@ -7989,14 +7453,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"One"'
-    extract:
-    - 'DeviceBrand                 :  324:"OnePlus"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"One"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"OnePlus"'
@@ -8099,14 +7555,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"OnePlus"'
     - 'DeviceName                  :  325:@BuildProduct^<{"OnePlus"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"OnePlus"'
-    extract:
-    - 'DeviceBrand                 :  324:"OnePlus"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -8231,14 +7679,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"XT"'
-    extract:
-    - 'DeviceBrand                 :  324:"Motorola"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"XT"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Motorola"'
@@ -8341,14 +7781,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Motorola"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Xoom"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Xoom"'
-    extract:
-    - 'DeviceBrand                 :  324:"Motorola"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -8459,14 +7891,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Moto"'
-    extract:
-    - 'DeviceBrand                 :  324:"Motorola"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Moto"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Motorola"'
@@ -8569,14 +7993,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Lenovo"'
     - 'DeviceName                  :  325:@BuildProduct^<{"Lenovo"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Lenovo"'
-    extract:
-    - 'DeviceBrand                 :  324:"Lenovo"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -8701,14 +8117,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"Nokia"'
-    extract:
-    - 'DeviceBrand                 :  324:"Nokia"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"Nokia"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Nokia"'
@@ -8829,14 +8237,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"PlayBook"'
-    extract:
-    - 'DeviceBrand                 :  324:"BlackBerry"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"PlayBook"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"BlackBerry"'
@@ -8939,14 +8339,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"BlackBerry"'
     - 'DeviceName                  :  325:@BuildProduct^<{"BlackBerry"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"BlackBerry"'
-    extract:
-    - 'DeviceBrand                 :  324:"BlackBerry"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -9071,14 +8463,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"MP"'
-    extract:
-    - 'DeviceBrand                 :  324:"Mpman"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"MP"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Mpman"'
@@ -9181,14 +8565,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Qware"'
     - 'DeviceName                  :  325:@BuildProduct^<{"QW"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"QW"'
-    extract:
-    - 'DeviceBrand                 :  324:"Qware"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -9299,14 +8675,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"X98"'
-    extract:
-    - 'DeviceBrand                 :  324:"Teclast"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"X98"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Teclast"'
@@ -9409,14 +8777,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Sony"'
     - 'DeviceName                  :  325:@BuildProduct^<{"NSX-"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"NSX-"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -9527,14 +8887,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"NSZ-"'
-    extract:
-    - 'DeviceBrand                 :  324:"Sony"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"NSZ-"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Sony"'
@@ -9637,14 +8989,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"Nvidia"'
     - 'DeviceName                  :  325:@BuildProduct^<{"SHIELD"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SHIELD"'
-    extract:
-    - 'DeviceBrand                 :  324:"Nvidia"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
@@ -9755,14 +9099,6 @@ config:
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"POV_"'
-    extract:
-    - 'DeviceBrand                 :  324:"Point of view"'
-    - 'POEP: 1:"Niet goed"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{"POV_"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:"Point of view"'
@@ -9865,14 +9201,6 @@ config:
     extract:
     - 'DeviceBrand                 :  325:"SpreadTrum"'
     - 'DeviceName                  :  325:@BuildProduct^<{"SpreadTrum"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@{"SpreadTrum"'
-    extract:
-    - 'DeviceBrand                 :  324:"SpreadTrum"'
-    - 'POEP: 1:"Niet goed"'
 
 - matcher:
     require:
