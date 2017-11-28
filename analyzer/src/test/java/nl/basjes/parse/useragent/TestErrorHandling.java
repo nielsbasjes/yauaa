@@ -152,6 +152,25 @@ public class TestErrorHandling {
     }
 
     @Test
+    public void checkSyntaxErrorVariableBadDefinition() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage(new StringStartsWith("Invalid variable config line:"));
+
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:BadDefinitions/Variable-BadDefinition.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
+
+    @Test
+    public void checkSyntaxErrorVariableFixedString() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage(new StringStartsWith("Syntax error"));
+
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:BadDefinitions/Variable-FixedString.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
+
+
+    @Test
     public void methodInputValidation(){
         UserAgentAnalyzer uaa = UserAgentAnalyzer.newBuilder()
             .build();

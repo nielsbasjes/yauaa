@@ -205,9 +205,7 @@ public class Matcher implements Serializable {
                     try {
                         variableActions.add(new MatcherVariableAction(configLine.attribute, configLine.expression, this));
                     } catch (InvalidParserConfigurationException e) {
-                        if (!e.getMessage().startsWith("It is useless to put a fixed value")) {// Ignore fixed values in require
-                            throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ") => " + configLine, e);
-                        }
+                        throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ") => " + configLine, e);
                     }
                     break;
                 case REQUIRE:
