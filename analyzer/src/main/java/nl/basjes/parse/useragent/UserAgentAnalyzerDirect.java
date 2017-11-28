@@ -82,7 +82,7 @@ import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsString;
 
 public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
 
-    private static final int INFORM_ACTIONS_HASHMAP_SIZE = 300000;
+    private static final int INFORM_ACTIONS_HASHMAP_SIZE = 500000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzerDirect.class);
     protected List<Matcher> allMatchers = new ArrayList<>(5000);
