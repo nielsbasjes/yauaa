@@ -75,7 +75,6 @@ matcher         : basePath                                                      
                 ;
 
 basePath        : value=VALUE                              #pathFixedValue
-//                | 'agent'                                #pathNoWalk
                 | '@' variable=VALUENAME (nextStep=path)?  #pathVariable
                 | 'agent'                (nextStep=path)?  #pathWalk
                 ;
