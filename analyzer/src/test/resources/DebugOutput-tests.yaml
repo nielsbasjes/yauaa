@@ -44,15 +44,24 @@ config:
     extract:
     - 'Foo: 1:"Bar"'
 
+- set:
+    name: 'LookupSet'
+    values:
+      - 'Two'
+      - 'Four'
+
 - matcher:
     options:
     - 'verbose'
+    variable:
+    - 'Product:agent.(1)product'
     require:
-    - 'agent.(1)product.(1)name^^^^^'
-    - 'agent.(1)product.(1)name>>>>>'
-    - 'agent.(1)product.(1)name<<<<<'
+    - '@Product'
+    - '@Product.(1)name?LookupSet'
     extract:
-    - 'Foo: 1:"Bar"'
+    - 'ConcatL : 1:Concat["-->";agent.(1)product.(1)name      ]'
+    - 'ConcatR : 1:Concat[      agent.(1)product.(1)name;"<--"]'
+    - 'ConcatLR: 1:Concat["-->";agent.(1)product.(1)name;"<--"]'
 
 - test:
     options:

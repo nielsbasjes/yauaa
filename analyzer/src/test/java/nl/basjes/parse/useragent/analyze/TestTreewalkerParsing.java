@@ -219,7 +219,7 @@ public class TestTreewalkerParsing {
             "Up()",
             "Up()",
             "Up()",
-            "Prev()",
+            "Prev(1)",
             "Down([1:1]name)",
             "Equals(foo faa)",
             "Up()",

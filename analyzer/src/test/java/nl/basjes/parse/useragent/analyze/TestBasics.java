@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.junit.Test;
 
@@ -62,5 +63,13 @@ public class TestBasics {
         userAgentAnalyzer.setUserAgentMaxLength(-100);
         assertEquals("Incorrect default user agent max length", DEFAULT_USER_AGENT_MAX_LENGTH, userAgentAnalyzer.getUserAgentMaxLength());
     }
+
+    @Test
+    public void testUseragent(){
+        String uaString = "Foo Bar";
+        UserAgent agent = new UserAgent(uaString);
+        assertEquals(agent.get(UserAgent.USERAGENT).getValue(), uaString);
+    }
+
 
 }

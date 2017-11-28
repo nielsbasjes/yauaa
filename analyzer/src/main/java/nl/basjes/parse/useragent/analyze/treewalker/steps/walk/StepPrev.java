@@ -53,7 +53,7 @@ public class StepPrev extends Step {
 
     @Override
     public String toString() {
-        return "Prev()";
+        return "Prev(1)";
     }
 
 }

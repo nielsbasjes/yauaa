@@ -55,7 +55,7 @@ public class StepNext extends Step {
 
     @Override
     public String toString() {
-        return "Next()";
+        return "Next(1)";
     }
 
 }

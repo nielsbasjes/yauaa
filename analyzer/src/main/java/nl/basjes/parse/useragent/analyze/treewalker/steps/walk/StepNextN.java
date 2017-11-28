@@ -33,7 +33,7 @@ public class StepNextN extends Step {
         ParseTree parent = up(tree);
         ParseTree child;
         boolean foundCurrent = false;
-        int stepsToDo =  steps;
+        int stepsToDo = steps;
         for (int i = 0; i < parent.getChildCount(); i++) {
             child = parent.getChild(i);
             if (foundCurrent) {
@@ -65,7 +65,7 @@ public class StepNextN extends Step {
 
     @Override
     public String toString() {
-        return "Next("+steps+")";
+        return "Next(" + steps + ")";
     }
 
 }

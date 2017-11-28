@@ -34,6 +34,26 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
+        - 'NoWalkLeftSingleStep         : 1 :agent.product.name="One"^<'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NoWalkLeftTwoStep            : 1 :agent.product.name="One"^><<'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NoWalkRightSingleStep        : 1 :agent.product.name="Five"^>'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'NoWalkRightTwoStep           : 1 :agent.product.name="Five"^<>>'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
         - 'WalkLeft1:1:agent.product.name="Three"^<'
 
   - matcher:
@@ -235,6 +255,10 @@ config:
         CompareAfterStep           :  '4'
         GetSpecificProduct         :  'Two/2'
         GetSpecificProductVersion  :  '3.3'
+        NoWalkLeftSingleStep       :  'Unknown'
+        NoWalkLeftTwoStep          :  'Unknown'
+        NoWalkRightSingleStep      :  'Unknown'
+        NoWalkRightTwoStep         :  'Unknown'
 
   - test:
       <<: *TEST_OPTIONS

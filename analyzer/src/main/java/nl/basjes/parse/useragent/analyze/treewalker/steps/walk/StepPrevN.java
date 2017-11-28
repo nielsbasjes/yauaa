@@ -46,9 +46,9 @@ public class StepPrevN extends Step {
             child = parent.getChild(i);
             if (child == tree) {
                 if (lastChildIndex < steps) {
-                    return null;
+                    break; // There is no previous
                 }
-                return children[lastChildIndex-steps+1];
+                return children[lastChildIndex - steps + 1];
             }
         }
         return null; // There is no previous
@@ -66,7 +66,7 @@ public class StepPrevN extends Step {
 
     @Override
     public String toString() {
-        return "Prev()";
+        return "Prev(" + steps + ")";
     }
 
 }
