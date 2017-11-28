@@ -24,11 +24,13 @@ config:
 - matcher:
     options:
     - 'verbose'
+    variable:
+    - 'FirstProductName: agent.(1)product.(1)name'
     require:
-    - 'LookUp[Dummy;agent.(1)product.(1)name;"Fake"]'
-    - 'IsNull[agent.(1)product.(1)name^.name="Word"!="Other"^.name[1]@{"Start"}"End"@@[-1][2-3][3-]<><>><<]'
+    - 'LookUp[Dummy;@FirstProductName;"Fake"]'
+    - 'IsNull[@FirstProductName^.name="Word"!="Other"^.name[1]@{"Start"}"End"@@[-1][2-3][3-]<><>><<]'
     extract:
-    - 'WordMatchFlipFlop: 1:agent.(1)product.(1)comments.(1-3)entry.(1)text[-1]="One"@[3]="Three"@[2]'
+    - 'WordMatchFlipFlop: 1:@FirstProductName^.(1)comments.(1-3)entry.(1)text[-1]="One"@[3]="Three"@[2]'
 
 - matcher:
     options:
