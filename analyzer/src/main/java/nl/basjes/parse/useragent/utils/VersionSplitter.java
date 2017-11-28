@@ -50,10 +50,6 @@ public final class VersionSplitter extends Splitter {
     }
 
     public String getSingleSplit(String value, int split) {
-        if (value == null) {
-            return null;
-        }
-
         if (looksLikeEmailOrWebaddress(value)) {
             return (split == 1) ? value : null;
         }
@@ -68,10 +64,6 @@ public final class VersionSplitter extends Splitter {
     }
 
     public String getFirstSplits(String value, int split) {
-        if (value == null) {
-            return null;
-        }
-
         if (looksLikeEmailOrWebaddress(value)) {
             return (split == 1) ? value : null;
         }

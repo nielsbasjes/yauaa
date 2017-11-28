@@ -888,9 +888,13 @@ config:
         if (agentVersionMajor == null || agentVersionMajor.getConfidence() == -1) {
             UserAgent.AgentField agentVersion = userAgent.get(versionName);
             if (agentVersion != null) {
+                String version = agentVersion.getValue();
+                if (version != null) {
+                    version = VersionSplitter.getInstance().getSingleSplit(agentVersion.getValue(), 1);
+                }
                 userAgent.set(
                     majorVersionName,
-                    VersionSplitter.getInstance().getSingleSplit(agentVersion.getValue(), 1),
+                    version,
                     agentVersion.getConfidence());
             }
         }
