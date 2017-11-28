@@ -69,6 +69,7 @@ public class TestBasics {
         String uaString = "Foo Bar";
         UserAgent agent = new UserAgent(uaString);
         assertEquals(agent.get(UserAgent.USERAGENT).getValue(), uaString);
+        assertEquals(agent.get(UserAgent.USERAGENT).getConfidence(), 0);
     }
 
 
