@@ -717,7 +717,7 @@ config:
 
         if (userAgent.isDebug()) {
             for (Matcher matcher : allMatchers) {
-                matcher.setVerboseTemporarily(false);
+                matcher.setVerboseTemporarily(true);
             }
         }
 
