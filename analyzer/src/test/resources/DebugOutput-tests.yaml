@@ -41,6 +41,12 @@ config:
 - matcher:
     options:
     - 'verbose'
+    extract:
+    - 'Impossible: 2:CleanVersion[LookUp[Dummy;agent.(1)product.(1)name="Bla"]]'
+
+- matcher:
+    options:
+    - 'verbose'
     require:
     - 'CleanVersion[LookUp[Dummy;agent.(1)product.(1)name^.name="Word"]]'
     extract:

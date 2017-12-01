@@ -77,10 +77,6 @@ public abstract class Step implements Serializable {
     }
 
     protected final ParseTree up(ParseTree tree) {
-        if (tree == null) {
-            return null;
-        }
-
         ParseTree parent = tree.getParent();
 
         // Needed because of the way the ANTLR rules have been defined.

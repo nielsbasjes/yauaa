@@ -162,6 +162,17 @@
 
 - test:
     input:
+      user_agent_string                     : 'name:42 1'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product.name                    : 'name:42'
+      agent.product.name.keyvalue           : 'name:42'
+      agent.product.name.keyvalue.key       : 'name'
+      agent.product.name.keyvalue.value     : '42'
+      agent.product.version                 : '1'
+
+- test:
+    input:
       user_agent_string                     : 'uuid:c9af8e16-5999-47f9-abb0-464795853dc8/1'
     expected:
       MustBeOk                              : 'OK'
