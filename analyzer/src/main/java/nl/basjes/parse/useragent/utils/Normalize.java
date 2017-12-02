@@ -22,8 +22,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class Normalize {
-    private Normalize() {
-    }
+    private Normalize() {}
 
     private static boolean isTokenSeparator(char letter) {
         switch (letter) {
