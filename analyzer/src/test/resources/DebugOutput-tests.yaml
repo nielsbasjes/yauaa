@@ -134,3 +134,22 @@ config:
       HackerToolkit                        : 'Unknown'
       __SyntaxError__                      : 'true'
 
+
+- matcher:
+    options:
+    - 'verbose'
+    require:
+      - 'agent.(1)product.(1)name="Name"'
+    extract:
+      - 'IgnoreSecond:1:NormalizeBrand [agent.product.(1)name]'
+
+
+- test:
+    options:
+      - 'only'
+    input:
+      name: 'Double match ignore second'
+      user_agent_string: 'Name/1 Name/2'
+    expected:
+      IgnoreSecond                         : 'Name'
+      Name                                 : 'Name'

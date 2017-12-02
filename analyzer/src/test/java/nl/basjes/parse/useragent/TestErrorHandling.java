@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.parse.EvilManualUseragentStringHacks;
+import org.hamcrest.core.StringContains;
 import org.hamcrest.core.StringStartsWith;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -75,6 +76,15 @@ public class TestErrorHandling {
         expectedEx.expectMessage(new StringStartsWith("Missing lookupSet"));
 
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:BadDefinitions/LookupSetMissing.yaml");
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
+
+    @Test
+    public void checkBadEntry() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage(new StringContains("Found unexpected config entry:"));
+
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:BadDefinitions/BadEntry.yaml");
         Assert.assertTrue(uaa.runTests(false, false));
     }
 

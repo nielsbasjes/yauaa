@@ -465,7 +465,7 @@ config:
                 default:
                     throw new InvalidParserConfigurationException(
                         "Yaml config.(" + filename + ":" + actualEntry.getStartMark().getLine() + "): " +
-                            "Found unexpected config entry: " + entryType + ", allowed are 'lookup, 'matcher' and 'test'");
+                            "Found unexpected config entry: " + entryType + ", allowed are 'lookup', 'set', 'matcher' and 'test'");
             }
         }
     }
