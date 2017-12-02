@@ -51,8 +51,8 @@ public class TreeExpressionEvaluator implements Serializable {
         this.requiredPatternText = requiredPattern.getText();
         this.matcher = matcher;
         this.verbose = verbose;
-        walkList = new WalkList(requiredPattern, matcher.getLookups(), matcher.getLookupSets(), verbose);
         this.fixedValue = calculateFixedValue(requiredPattern);
+        walkList = new WalkList(requiredPattern, matcher.getLookups(), matcher.getLookupSets(), verbose);
     }
 
     /**
