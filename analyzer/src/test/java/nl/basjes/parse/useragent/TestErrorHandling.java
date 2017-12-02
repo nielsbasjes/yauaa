@@ -173,6 +173,7 @@ public class TestErrorHandling {
     @Test
     public void methodInputValidation(){
         UserAgentAnalyzer uaa = UserAgentAnalyzer.newBuilder()
+            .withField("AgentClass")
             .build();
 
         UserAgent agent = uaa.parse((String)null);
