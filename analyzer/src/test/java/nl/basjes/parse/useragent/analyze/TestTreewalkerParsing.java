@@ -18,17 +18,22 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static nl.basjes.parse.useragent.UserAgentAnalyzerDirect.MAX_PREFIX_HASH_MATCH;
+import static nl.basjes.parse.useragent.UserAgentAnalyzerDirect.firstCharactersForPrefixHash;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -138,6 +143,39 @@ public class TestTreewalkerParsing {
         };
 
         checkPath(path, expectedHashEntries, expectedWalkList);
+    }
+
+    @Test
+    public void validateStartsWithLength() {
+        String value = "OneTwoThree";
+
+        for (int i = 1 ; i <= value.length() ; i++) {
+            String matchValue = value.substring(0, i);
+            String hashValue = matchValue.substring(0, Math.min(MAX_PREFIX_HASH_MATCH, matchValue.length()));
+
+            String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(1)name{\"" + matchValue + "\";\"DefaultValue\"]]";
+
+            String[] expectedHashEntries = {
+                "agent.(1)product.(1)name{\"" + hashValue + "\"",
+            };
+
+            String[] expectedWalkList;
+            if (matchValue.length() > MAX_PREFIX_HASH_MATCH) {
+                expectedWalkList = new String[]{
+                    "IsNull()",
+                    "StartsWith("+matchValue.toLowerCase()+")",
+                    "Lookup(@TridentVersions ; default=DefaultValue)",
+                };
+            } else {
+                expectedWalkList = new String[]{
+                    "IsNull()",
+                    // Short entries should not appear in the walk list to optimize performance
+                    "Lookup(@TridentVersions ; default=DefaultValue)",
+                };
+            }
+
+            checkPath(path, expectedHashEntries, expectedWalkList);
+        }
     }
 
     @Test
@@ -327,6 +365,11 @@ public class TestTreewalkerParsing {
         @Override
         public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
             reveicedValues.add(keyPattern);
+        }
+
+        @Override
+        public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
+            informMeAbout(matcherAction, treeName + "{\"" + firstCharactersForPrefixHash(prefix, MAX_PREFIX_HASH_MATCH) + "\"");
         }
 
         @Override

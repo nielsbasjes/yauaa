@@ -633,7 +633,7 @@ config:
     }
 
     // We do not want to put ALL lengths in the hashmap for performance reasons
-    private static final int MAX_PREFIX_HASH_MATCH = 3;
+    public static final int MAX_PREFIX_HASH_MATCH = 3;
 
     // Calculate the max length we will put in the hashmap.
     public static int firstCharactersForPrefixHashLength(String input, int maxChars) {
