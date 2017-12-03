@@ -132,7 +132,7 @@ This has been published to maven central so that should work in almost any envir
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
-      <version>3.1</version>
+      <version>3.2</version>
     </dependency>
 
 and in your application you can use it as simple as this
