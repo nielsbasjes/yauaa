@@ -25,12 +25,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class MatchesList implements Collection<MatchesList.Match>, Serializable {
+public final class MatchesList implements Collection<MatchesList.Match>, Serializable {
 
-    public static class Match implements Serializable {
-        String key;
-        String value;
-        ParseTree result;
+    public static final class Match implements Serializable {
+        private String key;
+        private String value;
+        private ParseTree result;
 
         public Match(String key, String value, ParseTree result) {
             fill(key, value, result);
@@ -55,9 +55,8 @@ public class MatchesList implements Collection<MatchesList.Match>, Serializable 
         }
     }
 
-
-    private int size = 0;
-    private int maxSize = 0;
+    private int size;
+    private int maxSize;
 
     private Match[] allElements;
 
@@ -93,15 +92,6 @@ public class MatchesList implements Collection<MatchesList.Match>, Serializable 
 
         allElements[size].fill(key, value, result);
         size++;
-        return true;
-    }
-
-    @Override
-    public boolean add(Match match) {
-        if (size >= maxSize) {
-            increaseCapacity();
-        }
-        allElements[size++] = match;
         return true;
     }
 
@@ -153,27 +143,17 @@ public class MatchesList implements Collection<MatchesList.Match>, Serializable 
 // ============================================================
 
     @Override
-    public boolean contains(Object o) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> T[] toArray(T[] ts) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean containsAll(Collection<?> collection) {
+    public boolean add(Match match) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean addAll(Collection<? extends Match> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean remove(Object o) {
         throw new UnsupportedOperationException();
     }
 
@@ -187,4 +167,18 @@ public class MatchesList implements Collection<MatchesList.Match>, Serializable 
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public boolean contains(Object o) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> T[] toArray(T[] ts) {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -334,9 +334,9 @@ public abstract class MatcherAction implements Serializable {
      */
     void processInformedMatches() {
         for (MatchesList.Match match : matches) {
-            WalkResult matchedValue = evaluator.evaluate(match.result, match.key, match.value);
+            WalkResult matchedValue = evaluator.evaluate(match.getResult(), match.getKey(), match.getValue());
             if (matchedValue != null) {
-                inform(match.key, matchedValue);
+                inform(match.getKey(), matchedValue);
                 break; // We always stick to the first match
             }
         }
