@@ -19,29 +19,25 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry~"Build"{"Vodacom"'
-    - 'agent.(1)product.(1)comments.entry{"Vodacom"'
+    - 'agent.(1)product.(1)comments.entry{"Vodacom"~"Build"'
     extract:
     - 'DeviceBrand :   3000:"Vodafone"'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry~"Build"{"VFD "'
-    - 'agent.(1)product.(1)comments.entry{"VFD "'
+    - 'agent.(1)product.(1)comments.entry{"VFD "~"Build"'
     extract:
     - 'DeviceBrand :   3000:"Vodafone"'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry~"Build"{"VF-"'
-    - 'agent.(1)product.(1)comments.entry{"VF-"'
+    - 'agent.(1)product.(1)comments.entry{"VF-"~"Build"'
     extract:
     - 'DeviceBrand :   1500:"Vodafone"'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry~"Build"{"VF69"'
-    - 'agent.(1)product.(1)comments.entry{"VF69"'
+    - 'agent.(1)product.(1)comments.entry{"VF69"~"Build"'
     extract:
     - 'DeviceBrand :   1500:"Vodafone"'
 
