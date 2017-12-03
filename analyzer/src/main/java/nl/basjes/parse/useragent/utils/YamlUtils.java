@@ -28,8 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class YamlUtils {
-    private YamlUtils() {
-    }
+    private YamlUtils() {}
 
     public static void fail(Node node, String filename, String error) {
         throw new InvalidParserConfigurationException(

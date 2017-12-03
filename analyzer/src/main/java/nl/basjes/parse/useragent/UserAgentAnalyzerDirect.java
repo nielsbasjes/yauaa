@@ -1055,9 +1055,6 @@ config:
         }
 
         public B withFields(Collection<String> fieldNames) {
-            if (fieldNames == null) {
-                return (B)this;
-            }
             for (String fieldName : fieldNames) {
                 withField(fieldName);
             }
