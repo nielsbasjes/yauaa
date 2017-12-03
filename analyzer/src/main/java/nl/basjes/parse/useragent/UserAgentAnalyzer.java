@@ -41,16 +41,11 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
 
     @Override
     protected void initialize() {
-        if (cacheSize >= 1) {
-            parseCache = new LRUMap<>(cacheSize);
-        } else {
-            parseCache = null;
-        }
         super.initialize();
     }
 
     public void disableCaching() {
-        cacheSize = 0;
+        setCacheSize(0);
     }
 
     /**
@@ -61,6 +56,11 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
      */
     public void setCacheSize(int newCacheSize) {
         cacheSize = newCacheSize > 0 ? newCacheSize : 0;
+        if (cacheSize >= 1) {
+            parseCache = new LRUMap<>(cacheSize);
+        } else {
+            parseCache = null;
+        }
     }
 
     public int getCacheSize() {
