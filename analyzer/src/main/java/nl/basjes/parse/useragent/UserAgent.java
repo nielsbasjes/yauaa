@@ -168,8 +168,12 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserAgent)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UserAgent)) {
+            return false;
+        }
         UserAgent agent = (UserAgent) o;
         return Objects.equals(userAgentString, agent.userAgentString) &&
                Objects.equals(allFields, agent.allFields);
