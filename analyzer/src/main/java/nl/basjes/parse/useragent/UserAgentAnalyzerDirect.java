@@ -82,7 +82,10 @@ import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsString;
 
 public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
 
-    private static final int INFORM_ACTIONS_HASHMAP_SIZE = 500000;
+    // We set this to 100000 always.
+    // In case someone needs 'all' fields then the map will increase in size automatically during startup.
+    // In other cases the reduced memory footprint is preferred.
+    private static final int INFORM_ACTIONS_HASHMAP_SIZE = 100000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzerDirect.class);
     protected List<Matcher> allMatchers = new ArrayList<>(5000);
