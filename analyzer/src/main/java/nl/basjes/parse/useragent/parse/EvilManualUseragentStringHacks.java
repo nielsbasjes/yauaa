@@ -22,8 +22,7 @@ import java.net.URLDecoder;
 import java.util.regex.Pattern;
 
 public final class EvilManualUseragentStringHacks {
-    private EvilManualUseragentStringHacks() {
-    }
+    private EvilManualUseragentStringHacks() {}
 
     private static final Pattern MISSING_PRODUCT_AT_START =
         Pattern.compile("^\\(( |;|null|compatible|windows|android|linux).*", Pattern.CASE_INSENSITIVE);

@@ -22,8 +22,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.Interval;
 
 public final class AntlrUtils {
-    private AntlrUtils() {
-    }
+    private AntlrUtils() {}
 
     public static String getSourceText(ParserRuleContext ctx){
         if (ctx.start == null || ctx.stop == null) {
