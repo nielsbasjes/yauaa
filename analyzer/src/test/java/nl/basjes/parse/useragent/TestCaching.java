@@ -23,7 +23,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestCachingSettings {
+public class TestCaching {
 
     @Test
     public void testSettingCaching() throws IllegalAccessException {
@@ -67,17 +67,59 @@ public class TestCachingSettings {
         assertEquals(0, getAllocatedCacheSize(uaa));
     }
 
+
+    @Test
+    public void testCache() throws IllegalAccessException {
+        String uuid = "11111111-2222-3333-4444-555555555555";
+        String fieldName = "AgentUuid";
+
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .withCache(1)
+            .hideMatcherLoadStats()
+            .withField(fieldName)
+            .build();
+
+        UserAgent agent;
+
+        assertEquals(1, uaa.getCacheSize());
+        assertEquals(1, getAllocatedCacheSize(uaa));
+
+        agent = uaa.parse(uuid);
+        assertEquals(uuid, agent.get(fieldName).getValue());
+        assertEquals(agent, getCache(uaa).get(uuid));
+
+        agent = uaa.parse(uuid);
+        assertEquals(uuid, agent.get(fieldName).getValue());
+        assertEquals(agent, getCache(uaa).get(uuid));
+
+        uaa.disableCaching();
+        assertEquals(0, uaa.getCacheSize());
+        assertEquals(0, getAllocatedCacheSize(uaa));
+
+        agent = uaa.parse(uuid);
+        assertEquals(uuid, agent.get(fieldName).getValue());
+        assertEquals(null, getCache(uaa)    );
+    }
+
+    private LRUMap<?, ?> getCache(UserAgentAnalyzer uaa) throws IllegalAccessException {
+        LRUMap<?, ?> actualCache = null;
+        Object rawParseCache = FieldUtils.readField(uaa, "parseCache", true);
+        if (rawParseCache instanceof LRUMap<?, ?>) {
+            actualCache = (LRUMap) rawParseCache;
+        }
+        return actualCache;
+    }
+
     private int getAllocatedCacheSize(UserAgentAnalyzer uaa ) throws IllegalAccessException {
         int actualCaceSize = -1;
-        Object rawParseCache = FieldUtils.readField(uaa, "parseCache", true);
-        if (rawParseCache == null) {
-            actualCaceSize = 0;
-        } else {
-            if (rawParseCache instanceof LRUMap) {
-                actualCaceSize = ((LRUMap) rawParseCache).maxSize();
-            }
+        LRUMap<?, ?> cache = getCache(uaa);
+        if (cache == null) {
+            return 0;
         }
-        return actualCaceSize;
+        return cache.maxSize();
     }
+
+
 
 }

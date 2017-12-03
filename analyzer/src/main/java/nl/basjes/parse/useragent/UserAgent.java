@@ -37,6 +37,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class UserAgent extends UserAgentBaseListener implements Serializable, ANTLRErrorListener {
 
@@ -165,6 +166,21 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
         this.debug = newDebug;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserAgent)) return false;
+        UserAgent agent = (UserAgent) o;
+        return Objects.equals(userAgentString, agent.userAgentString) &&
+               Objects.equals(allFields, agent.allFields);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(userAgentString, allFields);
+    }
+
     public class AgentField implements Serializable {
         private final String defaultValue;
         private String value;
@@ -225,6 +241,25 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
         }
 
         @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof AgentField)) {
+                return false;
+            }
+            AgentField that = (AgentField) o;
+            return confidence == that.confidence &&
+                Objects.equals(defaultValue, that.defaultValue) &&
+                Objects.equals(value, that.value);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(defaultValue, value, confidence);
+        }
+
+        @Override
         public String toString() {
             return ">" + this.value + "#" + this.confidence + "<";
         }
@@ -248,7 +283,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
 
     public void clone(UserAgent userAgent) {
         init();
-        setUserAgentString(userAgentString);
+        setUserAgentString(userAgent.userAgentString);
         for (Map.Entry<String, AgentField> entry : userAgent.allFields.entrySet()) {
             set(entry.getKey(), entry.getValue().getValue(), entry.getValue().confidence);
         }
