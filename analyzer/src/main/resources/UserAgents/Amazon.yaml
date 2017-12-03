@@ -62,12 +62,16 @@ config:
 #  KFARWI          | Amazon Kindle Fire (KFARWI) | Amazon | Tablet
 
 - matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name{"KF"'
     extract:
     - 'DeviceClass           :   500:"Tablet"'
     - 'DeviceBrand           :   500:"Amazon"'
     - 'DeviceName            :   500:agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Build"@[1]{"KF"'
 
 - matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name{"SD"'
     extract:
     - 'DeviceClass           :   500:"Phone"'
     - 'DeviceBrand           :   500:"Amazon"'
