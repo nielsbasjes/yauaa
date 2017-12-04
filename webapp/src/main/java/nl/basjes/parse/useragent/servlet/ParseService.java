@@ -49,12 +49,8 @@ import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 @RestController
 public class ParseService {
 
-    private static final UserAgentAnalyzer USER_AGENT_ANALYZER = new UserAgentAnalyzer();
+    private static final UserAgentAnalyzer USER_AGENT_ANALYZER = UserAgentAnalyzer.newBuilder().dropTests().hideMatcherLoadStats().build();
     private static final String ANALYZER_VERSION = UserAgentAnalyzer.getVersion();
-
-    static {
-        USER_AGENT_ANALYZER.preHeat();
-    }
 
     @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED, reason = "The User-Agent header is missing")
     private class MissingUserAgentException extends RuntimeException {

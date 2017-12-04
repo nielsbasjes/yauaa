@@ -106,6 +106,7 @@ public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
 
     public static final int DEFAULT_USER_AGENT_MAX_LENGTH = 2048;
     private int userAgentMaxLength = DEFAULT_USER_AGENT_MAX_LENGTH;
+    private boolean dropTests = false;
 
     /**
      * Initialize the transient default values
@@ -157,6 +158,10 @@ public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
     public UserAgentAnalyzerDirect setShowMatcherStats(boolean newShowMatcherStats) {
         this.showMatcherStats = newShowMatcherStats;
         return this;
+    }
+
+    public void dropTests() {
+        dropTests = true;
     }
 
     protected void initialize() {
@@ -463,7 +468,9 @@ config:
                     loadYamlMatcher(actualEntry, filename);
                     break;
                 case "test":
-                    loadYamlTestcase(actualEntry, filename);
+                    if (!dropTests) {
+                        loadYamlTestcase(actualEntry, filename);
+                    }
                     break;
                 default:
                     throw new InvalidParserConfigurationException(
@@ -952,37 +959,37 @@ config:
         preHeat(preheatIterations, true);
     }
     public void preHeat(int preheatIterations, boolean log) {
-        if (!testCases.isEmpty()) {
-            if (preheatIterations > 0) {
-                if (log) {
-                    LOG.info("Preheating JVM by running {} testcases.", preheatIterations);
-                }
-                int remainingIterations = preheatIterations;
-                int goodResults = 0;
-                while (remainingIterations > 0) {
-                    for (Map<String, Map<String, String>> test : testCases) {
-                        Map<String, String> input = test.get("input");
-                        if (input == null) {
-                            continue;
-                        }
+        if (testCases.isEmpty() || preheatIterations == 0) {
+            LOG.warn("NO PREHEAT WAS DONE. Simply because there are no test cases available.");
+        } else {
+            if (log) {
+                LOG.info("Preheating JVM by running {} testcases.", preheatIterations);
+            }
+            int remainingIterations = preheatIterations;
+            int goodResults = 0;
+            while (remainingIterations > 0) {
+                for (Map<String, Map<String, String>> test : testCases) {
+                    Map<String, String> input = test.get("input");
+                    if (input == null) {
+                        continue;
+                    }
 
-                        String userAgentString = input.get("user_agent_string");
-                        if (userAgentString == null) {
-                            continue;
-                        }
-                        remainingIterations--;
-                        // Calculate and use result to guarantee not optimized away.
-                        if(!UserAgentAnalyzerDirect.this.parse(userAgentString).hasSyntaxError()) {
-                            goodResults++;
-                        }
-                        if (remainingIterations <= 0) {
-                            break;
-                        }
+                    String userAgentString = input.get("user_agent_string");
+                    if (userAgentString == null) {
+                        continue;
+                    }
+                    remainingIterations--;
+                    // Calculate and use result to guarantee not optimized away.
+                    if(!UserAgentAnalyzerDirect.this.parse(userAgentString).hasSyntaxError()) {
+                        goodResults++;
+                    }
+                    if (remainingIterations <= 0) {
+                        break;
                     }
                 }
-                if (log) {
-                    LOG.info("Preheating JVM completed. ({} of {} were proper results)", goodResults, preheatIterations);
-                }
+            }
+            if (log) {
+                LOG.info("Preheating JVM completed. ({} of {} were proper results)", goodResults, preheatIterations);
             }
         }
     }
@@ -1081,6 +1088,11 @@ config:
 
         public B withUserAgentMaxLength(int newUserAgentMaxLength) {
             uaa.setUserAgentMaxLength(newUserAgentMaxLength);
+            return (B)this;
+        }
+
+        public B dropTests() {
+            uaa.dropTests();
             return (B)this;
         }
 
