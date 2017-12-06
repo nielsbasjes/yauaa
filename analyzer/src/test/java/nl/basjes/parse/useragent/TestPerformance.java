@@ -24,6 +24,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class TestPerformance {
     private static final Logger LOG = LoggerFactory.getLogger(TestPerformance.class);
 
@@ -78,6 +80,52 @@ public class TestPerformance {
 
             long averageNanos = (stop - start) / iterationsPerLoop;
             printMemoryUsage(iterationsDone, averageNanos);
+        }
+    }
+
+
+    @Ignore
+    @Test
+    public void assesMemoryImpactPerFieldName() {
+        // Get the Java runtime
+        Runtime runtime = Runtime.getRuntime();
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .hideMatcherLoadStats()
+            .withoutCache()
+            .keepTests()
+            .build();
+
+        uaa.preHeat();
+        runtime.gc();
+        uaa.preHeat();
+        runtime.gc();
+
+        // Calculate the used memory
+        long memory = runtime.totalMemory() - runtime.freeMemory();
+        LOG.error(String.format(
+            "Querying for 'All fields' and GC --> Used memory is %10d bytes (%5d MiB)",
+            memory, bytesToMegabytes(memory)));
+
+        for (String fieldName: uaa.getAllPossibleFieldNamesSorted()) {
+            uaa = UserAgentAnalyzer
+                .newBuilder()
+                .withoutCache()
+                .withField(fieldName)
+                .hideMatcherLoadStats()
+                .keepTests()
+                .build();
+
+            uaa.preHeat();
+            runtime.gc();
+            uaa.preHeat();
+            runtime.gc();
+
+            // Calculate the used memory
+            memory = runtime.totalMemory() - runtime.freeMemory();
+            LOG.error(String.format(
+                "Querying for %s and GC --> Used memory is %10d bytes (%5d MiB)",
+                fieldName, memory, bytesToMegabytes(memory)));
         }
     }
 

@@ -179,6 +179,84 @@ This can be achieved by creating the analyzer in Java like this:
 One important effect is that this speeds up the system because it will kick any rules that do not help in getting the desired fields.
 The above example showed an approximate 40% speed increase (i.e. times dropped from ~1ms to ~0.6ms).
 
+# Memory usage
+The system relies heavily on HashMaps to quickly find the rules that need to be fired.
+
+Some fields only require a handful of rules where others have a lot of them.
+This means that it depends on the fields that have been requested how many rules are kept in the system and
+thus how much memory is used to store the rules in.
+To get an idea of the relative memory impact of the rules needed for a specific field.
+
+This table was constructed by running all testcases against the engine where we only request 1 field.
+Then after forcing a GC in the JVM we retrieve the memory footprint.
+Because there are no rules for the field `__SyntaxError__` we assumed that to be the baseline
+against which we determine the relative memory usage.
+
+Because most rules determine several fields there is a lot of overlap in the rules used.
+If you keep all rules we see that version 3.2 uses about 224 MiB of memory for all rules which shows that
+the most expensive rules related to finding the DeviceName and DeviceBrand because both need
+to determine the brand of the device at hand.
+
+| Field | Relative Memory usage  |
+| :--- | ---: |
+| DeviceClass                     |  74.6 MiB |
+| DeviceName                      | 193.8 MiB |
+| DeviceBrand                     | 179.0 MiB |
+| DeviceCpu                       |   3.2 MiB |
+| DeviceCpuBits                   |   2.4 MiB |
+| DeviceFirmwareVersion           |   4.1 MiB |
+| DeviceVersion                   |  12.5 MiB |
+| OperatingSystemClass            |  50.5 MiB |
+| OperatingSystemName             |  49.5 MiB |
+| OperatingSystemVersion          |  49.5 MiB |
+| OperatingSystemNameVersion      |  49.7 MiB |
+| OperatingSystemVersionBuild     |   2.2 MiB |
+| LayoutEngineClass               |   9.0 MiB |
+| LayoutEngineName                |   9.0 MiB |
+| LayoutEngineVersion             |   9.0 MiB |
+| LayoutEngineVersionMajor        |   9.0 MiB |
+| LayoutEngineNameVersion         |   9.0 MiB |
+| LayoutEngineNameVersionMajor    |   9.0 MiB |
+| LayoutEngineBuild               |   1.5 MiB |
+| AgentClass                      |  15.9 MiB |
+| AgentName                       |  15.6 MiB |
+| AgentVersion                    |  15.6 MiB |
+| AgentVersionMajor               |  15.6 MiB |
+| AgentNameVersion                |  15.7 MiB |
+| AgentNameVersionMajor           |  15.7 MiB |
+| AgentBuild                      |   0.5 MiB |
+| AgentLanguage                   |   0.3 MiB |
+| AgentLanguageCode               |   0.3 MiB |
+| AgentInformationEmail           |   4.1 MiB |
+| AgentInformationUrl             |   5.9 MiB |
+| AgentSecurity                   |   0.3 MiB |
+| AgentUuid                       |   0.3 MiB |
+| FacebookCarrier                 |   0.2 MiB |
+| FacebookDeviceClass             |   0.5 MiB |
+| FacebookDeviceName              |   0.5 MiB |
+| FacebookDeviceVersion           |   0.5 MiB |
+| FacebookFBOP                    |   0.2 MiB |
+| FacebookFBSS                    |   0.5 MiB |
+| FacebookOperatingSystemName     |   0.5 MiB |
+| FacebookOperatingSystemVersion  |   0.5 MiB |
+| Anonymized                      |   1.2 MiB |
+| HackerAttackVector              |   0.2 MiB |
+| HackerToolkit                   |   0.2 MiB |
+| KoboAffiliate                   |   0.0 MiB |
+| KoboPlatformId                  |   0.0 MiB |
+| IECompatibilityVersion          |   1.6 MiB |
+| IECompatibilityVersionMajor     |   1.6 MiB |
+| IECompatibilityNameVersion      |   1.6 MiB |
+| IECompatibilityNameVersionMajor |   1.6 MiB |
+| Carrier                         |   0.2 MiB |
+| GSAInstallationID               |   0.0 MiB |
+| WebviewAppName                  |   1.9 MiB |
+| WebviewAppNameVersionMajor      |   2.0 MiB |
+| WebviewAppVersion               |   1.9 MiB |
+| WebviewAppVersionMajor          |   1.9 MiB |
+
+
+
 # User Defined Functions
 Several external computation systems support the concept of a User Defined Function (UDF).
 A UDF is simply a way of making functionality (in this case the analysis of useragents)
