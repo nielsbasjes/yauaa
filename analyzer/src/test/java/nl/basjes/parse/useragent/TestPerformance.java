@@ -50,8 +50,8 @@ public class TestPerformance {
         // Calculate the used memory
         long memory = runtime.totalMemory() - runtime.freeMemory();
         LOG.info(String.format(
-            "After %7d iterations and GC --> Used memory is %10d bytes (%5d MiB), Average time per parse %5d ns",
-            iterationsDone, memory, bytesToMegabytes(memory), averageNanos));
+            "After %7d iterations and GC --> Used memory is %10d bytes (%5d MiB), Average time per parse %7d ns ( ~ %4.3f ms)",
+            iterationsDone, memory, bytesToMegabytes(memory), averageNanos, averageNanos/1000000.0));
     }
 
     @Ignore
@@ -60,10 +60,11 @@ public class TestPerformance {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .withoutCache()
-            .withField("OperatingSystemName")
-            .withField("OperatingSystemVersion")
-            .withField("DeviceName")
+//            .withField("OperatingSystemName")
+//            .withField("OperatingSystemVersion")
+//            .withField("DeviceClass")
             .hideMatcherLoadStats()
+            .keepTests()
             .build();
 
         LOG.info("Init complete");
