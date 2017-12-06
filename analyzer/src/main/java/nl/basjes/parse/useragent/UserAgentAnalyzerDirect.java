@@ -352,12 +352,12 @@ public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
 
         }
         LOG.info("Analyzer stats");
-        LOG.info("Lookups         : {}", (lookups == null) ? 0 : lookups.size());
-        LOG.info("LookupSets      : {}", (lookupSets == null) ? 0 : lookupSets.size());
-        LOG.info("Matchers        : {} (total:{} ; dropped: {})", allMatchers.size(), totalNumberOfMatchers, skippedMatchers);
-        LOG.info("Hashmap size    : {}", informMatcherActions.size());
-        LOG.info("Ranges map size : {}", informMatcherActionRanges.size());
-        LOG.info("Testcases       : {}", testCases.size());
+        LOG.info("- Lookups         : {}", (lookups == null) ? 0 : lookups.size());
+        LOG.info("- LookupSets      : {}", (lookupSets == null) ? 0 : lookupSets.size());
+        LOG.info("- Matchers        : {} (total:{} ; dropped: {})", allMatchers.size(), totalNumberOfMatchers, skippedMatchers);
+        LOG.info("- Hashmap size    : {}", informMatcherActions.size());
+        LOG.info("- Ranges map size : {}", informMatcherActionRanges.size());
+        LOG.info("- Testcases       : {}", testCases.size());
 //        LOG.info("All possible field names:");
 //        int count = 1;
 //        for (String fieldName : getAllPossibleFieldNames()) {
@@ -1055,6 +1055,11 @@ config:
             return (B)this;
         }
 
+        public B preheat() {
+            this.preheatIterations = -1;
+            return (B)this;
+        }
+
         public B withField(String fieldName) {
             if (uaa.wantedFieldNames == null) {
                 uaa.wantedFieldNames = new ArrayList<>(32);
@@ -1122,9 +1127,16 @@ config:
                 // Special field that affects ALL fields.
                 uaa.wantedFieldNames.add(SET_ALL_FIELDS);
             }
+            if (preheatIterations != 0) {
+                uaa.keepTests();
+            }
             uaa.initialize();
-            if (preheatIterations > 0) {
-                uaa.preHeat(preheatIterations);
+            if (preheatIterations < 0) {
+                uaa.preHeat();
+            } else {
+                if (preheatIterations > 0) {
+                    uaa.preHeat(preheatIterations);
+                }
             }
             return uaa;
         }

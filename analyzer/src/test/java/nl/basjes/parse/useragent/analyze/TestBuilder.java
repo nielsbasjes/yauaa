@@ -43,6 +43,8 @@ public class TestBuilder {
                 .withUserAgentMaxLength(1234)
                 .build();
 
+        userAgentAnalyzer.preHeat();
+
         assertEquals(1234, userAgentAnalyzer.getUserAgentMaxLength());
 
         UserAgent parsedAgent = userAgentAnalyzer.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
