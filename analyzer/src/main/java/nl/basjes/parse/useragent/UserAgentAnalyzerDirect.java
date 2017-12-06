@@ -106,7 +106,7 @@ public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
 
     public static final int DEFAULT_USER_AGENT_MAX_LENGTH = 2048;
     private int userAgentMaxLength = DEFAULT_USER_AGENT_MAX_LENGTH;
-    private boolean dropTests = false;
+    private boolean loadTests = false;
 
     /**
      * Initialize the transient default values
@@ -160,8 +160,15 @@ public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
         return this;
     }
 
-    public void dropTests() {
-        dropTests = true;
+    public UserAgentAnalyzerDirect dropTests() {
+        loadTests = false;
+        testCases.clear();
+        return this;
+    }
+
+    public UserAgentAnalyzerDirect keepTests() {
+        loadTests = true;
+        return this;
     }
 
     protected void initialize() {
@@ -358,13 +365,6 @@ public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
 //        }
     }
 
-    /**
-     * Used by some unit tests to get rid of all the standard tests and focus on the experiment at hand.
-     */
-    public void eraseTestCases() {
-        testCases.clear();
-    }
-
     public Set<String> getAllPossibleFieldNames() {
         Set<String> results = new TreeSet<>();
         results.addAll(HARD_CODED_GENERATED_FIELDS);
@@ -387,7 +387,6 @@ public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
 
         return result;
     }
-
 
 /*
 Example of the structure of the yaml file:
@@ -468,7 +467,7 @@ config:
                     loadYamlMatcher(actualEntry, filename);
                     break;
                 case "test":
-                    if (!dropTests) {
+                    if (loadTests) {
                         loadYamlTestcase(actualEntry, filename);
                     }
                     break;
@@ -1088,6 +1087,11 @@ config:
 
         public B withUserAgentMaxLength(int newUserAgentMaxLength) {
             uaa.setUserAgentMaxLength(newUserAgentMaxLength);
+            return (B)this;
+        }
+
+        public B keepTests() {
+            uaa.keepTests();
             return (B)this;
         }
 

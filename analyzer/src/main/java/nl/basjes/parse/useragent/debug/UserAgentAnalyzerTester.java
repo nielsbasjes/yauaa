@@ -38,10 +38,12 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
     public UserAgentAnalyzerTester() {
         super(false);
+        keepTests();
     }
 
     public UserAgentAnalyzerTester(String resourceString) {
-        super(resourceString);
+        this();
+        loadResources(resourceString);
     }
 
     class TestResult {
@@ -460,6 +462,8 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
         if (showPassedTests) {
             LOG.info("+===========================================================================================");
+        } else {
+            LOG.info("All {} tests passed", testcount);
         }
         return allPass;
     }

@@ -34,17 +34,12 @@ public class TestPredefinedBrowsers {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestPredefinedBrowsers.class);
 
-    protected static UserAgentAnalyzerTester uaa;
-
-    @BeforeClass
-    public static void getListOfAllFields() {
+    @Test
+    public void validateAllPredefinedBrowsers() {
+        UserAgentAnalyzerTester uaa;
         uaa = new UserAgentAnalyzerTester();
         uaa.setShowMatcherStats(false);
         uaa.initialize();
-    }
-
-    @Test
-    public void validateAllPredefinedBrowsers() {
         LOG.info("==============================================================");
         LOG.info("Validating when getting all fields");
         LOG.info("--------------------------------------------------------------");

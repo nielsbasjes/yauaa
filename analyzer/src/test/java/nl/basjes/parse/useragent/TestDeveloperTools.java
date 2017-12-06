@@ -29,22 +29,26 @@ public class TestDeveloperTools {
 
     @Test
     public void validateErrorSituationOutput() {
-        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
-        uaa.setShowMatcherStats(false);
-        uaa.initialize();
-        uaa.eraseTestCases();
+        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
+            .newBuilder()
+            .hideMatcherLoadStats()
+            .dropTests()
+            .build();
         uaa.setShowMatcherStats(true);
+        uaa.keepTests();
         uaa.loadResources("classpath*:**/CheckErrorOutput.yaml");
         assertFalse(uaa.runTests(false, true)); // This test must return an error state
     }
 
     @Test
     public void validateNewTestcaseSituationOutput() {
-        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
-        uaa.setShowMatcherStats(false);
-        uaa.initialize();
-        uaa.eraseTestCases();
+        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
+            .newBuilder()
+            .hideMatcherLoadStats()
+            .dropTests()
+            .build();
         uaa.setShowMatcherStats(true);
+        uaa.keepTests();
         uaa.loadResources("classpath*:**/CheckNewTestcaseOutput.yaml");
         assertTrue(uaa.runTests(false, true));
     }
