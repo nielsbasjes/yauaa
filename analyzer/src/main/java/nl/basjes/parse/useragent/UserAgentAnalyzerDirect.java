@@ -80,7 +80,7 @@ import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsMappingNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsSequenceNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsString;
 
-public class UserAgentAnalyzerDirect extends Analyzer implements Serializable {
+public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 
     // We set this to 100000 always.
     // In case someone needs 'all' fields then the map will increase in size automatically during startup.
@@ -1008,7 +1008,7 @@ config:
 
     // ===============================================================================================================
 
-    public static class GetAllPathsAnalyzer extends Analyzer {
+    public static class GetAllPathsAnalyzer implements Analyzer {
         final List<String> values = new ArrayList<>(128);
         final UserAgentTreeFlattener flattener;
 

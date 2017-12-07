@@ -23,7 +23,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.PrintStream;
 
-public class FlattenPrinter extends Analyzer {
+public class FlattenPrinter implements Analyzer {
 
     PrintStream outputStream = System.out;
 
