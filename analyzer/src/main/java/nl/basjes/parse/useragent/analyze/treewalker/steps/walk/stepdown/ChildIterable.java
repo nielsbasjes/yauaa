@@ -49,13 +49,19 @@ public class ChildIterable {
 
     class ChildIterator implements Iterator<ParserRuleContext> {
         private final Iterator<ParseTree> childIterator;
-        private Boolean hasNext = null;
+        private Boolean hasNext;
         private int index = 0;
         private ParserRuleContext nextChild;
 
         ChildIterator(ParserRuleContext treeContext) {
-            this.childIterator  = treeContext.children.iterator();
-            this.hasNext        = findNext(); // We always want the first one
+            if (treeContext.children == null) {
+                childIterator = null;
+                nextChild = null;
+                hasNext = false;
+            } else {
+                childIterator = treeContext.children.iterator();
+                hasNext = findNext(); // We always want the first one
+            }
         }
 
         /**

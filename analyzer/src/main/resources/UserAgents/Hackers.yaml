@@ -622,6 +622,27 @@ config:
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
 
+- matcher:
+    require:
+    - 'agent~"${"'
+    extract:
+    - '__Set_ALL_Fields__          :    4999:"<<<null>>>"' # Must be at least 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                 :   10000:"Hacker"'
+    - 'DeviceBrand                 :   10000:"Hacker"'
+    - 'DeviceName                  :   10000:"Hacker"'
+    - 'DeviceVersion               :   10000:"Hacker"'
+    - 'OperatingSystemClass        :   10000:"Hacker"'
+    - 'OperatingSystemName         :   10000:"Hacker"'
+    - 'OperatingSystemVersion      :   10000:"Hacker"'
+    - 'LayoutEngineClass           :   10000:"Hacker"'
+    - 'LayoutEngineName            :   10000:"Hacker"'
+    - 'LayoutEngineVersion         :   10000:"Hacker"'
+    - 'AgentClass                  :   10000:"Hacker"'
+    - 'AgentName                   :   10000:"Hacker"'
+    - 'AgentVersion                :   10000:"Hacker"'
+    - 'HackerAttackVector          :    5000:"Unknown"'
+    - 'HackerToolkit               :    5000:"Unknown"'
+
 - test:
     input:
       user_agent_string: '${9999072+10000055}'
@@ -947,4 +968,33 @@ config:
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Buffer overflow'
+      HackerToolkit                        : 'Unknown'
+
+
+# This used to trigger an NPE
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36{${sleep(20)}}'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
