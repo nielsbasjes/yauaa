@@ -696,26 +696,32 @@ config:
         return parse(userAgent);
     }
 
+    private UserAgent setAsHacker(UserAgent userAgent, int confidence) {
+        userAgent.set(DEVICE_CLASS,                 "Hacker",           confidence);
+        userAgent.set(DEVICE_BRAND,                 "Hacker",           confidence);
+        userAgent.set(DEVICE_NAME,                  "Hacker",           confidence);
+        userAgent.set(DEVICE_VERSION,               "Hacker",           confidence);
+        userAgent.set(OPERATING_SYSTEM_CLASS,       "Hacker",           confidence);
+        userAgent.set(OPERATING_SYSTEM_NAME,        "Hacker",           confidence);
+        userAgent.set(OPERATING_SYSTEM_VERSION,     "Hacker",           confidence);
+        userAgent.set(LAYOUT_ENGINE_CLASS,          "Hacker",           confidence);
+        userAgent.set(LAYOUT_ENGINE_NAME,           "Hacker",           confidence);
+        userAgent.set(LAYOUT_ENGINE_VERSION,        "Hacker",           confidence);
+        userAgent.set(LAYOUT_ENGINE_VERSION_MAJOR,  "Hacker",           confidence);
+        userAgent.set(AGENT_CLASS,                  "Hacker",           confidence);
+        userAgent.set(AGENT_NAME,                   "Hacker",           confidence);
+        userAgent.set(AGENT_VERSION,                "Hacker",           confidence);
+        userAgent.set(AGENT_VERSION_MAJOR,          "Hacker",           confidence);
+        userAgent.set("HackerToolkit",              "Unknown",          confidence);
+        userAgent.set("HackerAttackVector",         "Buffer overflow",  confidence);
+        return userAgent;
+    }
+
     public synchronized UserAgent parse(UserAgent userAgent) {
         String useragentString = userAgent.getUserAgentString();
         if (useragentString != null && useragentString.length() > userAgentMaxLength) {
-            userAgent.set(DEVICE_CLASS, "Hacker", 100);
-            userAgent.set(DEVICE_BRAND, "Hacker", 100);
-            userAgent.set(DEVICE_NAME, "Hacker", 100);
-            userAgent.set(DEVICE_VERSION, "Hacker", 100);
-            userAgent.set(OPERATING_SYSTEM_CLASS, "Hacker", 100);
-            userAgent.set(OPERATING_SYSTEM_NAME, "Hacker", 100);
-            userAgent.set(OPERATING_SYSTEM_VERSION, "Hacker", 100);
-            userAgent.set(LAYOUT_ENGINE_CLASS, "Hacker", 100);
-            userAgent.set(LAYOUT_ENGINE_NAME, "Hacker", 100);
-            userAgent.set(LAYOUT_ENGINE_VERSION, "Hacker", 100);
-            userAgent.set(LAYOUT_ENGINE_VERSION_MAJOR, "Hacker", 100);
-            userAgent.set(AGENT_CLASS, "Hacker", 100);
-            userAgent.set(AGENT_NAME, "Hacker", 100);
-            userAgent.set(AGENT_VERSION, "Hacker", 100);
-            userAgent.set(AGENT_VERSION_MAJOR, "Hacker", 100);
-            userAgent.set("HackerToolkit", "Unknown", 100);
-            userAgent.set("HackerAttackVector", "Buffer overflow", 100);
+            userAgent = setAsHacker(userAgent, 100);
+            userAgent.setForced("HackerAttackVector", "Buffer overflow", 100);
             return hardCodedPostProcessing(userAgent);
         }
 
@@ -730,15 +736,22 @@ config:
             }
         }
 
-        userAgent = flattener.parse(userAgent);
+        try {
+            userAgent = flattener.parse(userAgent);
 
-        // Fire all Analyzers
-        for (Matcher matcher : allMatchers) {
-            matcher.analyze(userAgent);
+            // Fire all Analyzers
+            for (Matcher matcher : allMatchers) {
+                matcher.analyze(userAgent);
+            }
+
+            userAgent.processSetAll();
+            return hardCodedPostProcessing(userAgent);
+        } catch (NullPointerException npe) {
+            userAgent.reset();
+            userAgent = setAsHacker(userAgent, 10000);
+            userAgent.setForced("HackerAttackVector", "Yauaa NPE Exploit", 10000);
+            return hardCodedPostProcessing(userAgent);
         }
-
-        userAgent.processSetAll();
-        return hardCodedPostProcessing(userAgent);
     }
 
     private static final List<String> HARD_CODED_GENERATED_FIELDS = new ArrayList<>();
