@@ -96,8 +96,8 @@ public class WalkList implements Serializable {
     private final boolean verbose;
 
     public static class WalkResult {
-        private ParseTree tree;
-        private String value;
+        private final ParseTree tree;
+        private final String value;
 
         public WalkResult(ParseTree tree, String value) {
             this.tree = tree;

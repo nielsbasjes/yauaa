@@ -43,11 +43,11 @@ public class Matcher implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(Matcher.class);
 
     private final Analyzer analyzer;
-    private List<MatcherVariableAction> variableActions;
+    private final List<MatcherVariableAction> variableActions;
     private List<MatcherAction> dynamicActions;
-    private List<MatcherAction> fixedStringActions;
+    private final List<MatcherAction> fixedStringActions;
 
-    private UserAgent newValuesUserAgent = new UserAgent();
+    private final UserAgent newValuesUserAgent = new UserAgent();
 
     private long actionsThatRequireInput;
     private final Map<String, Map<String, String>> lookups;
@@ -82,10 +82,10 @@ public class Matcher implements Serializable {
             REQUIRE,
             EXTRACT
         }
-        Type type;
-        String attribute;
-        Long confidence;
-        String expression;
+        final Type type;
+        final String attribute;
+        final Long confidence;
+        final String expression;
 
         ConfigLine(Type type, String attribute, Long confidence, String expression) {
             this.type = type;
@@ -311,7 +311,7 @@ public class Matcher implements Serializable {
         analyzer.informMeAboutPrefix(matcherAction, keyPattern, prefix);
     }
 
-    private Map<String, Set<MatcherAction>> informMatcherActionsAboutVariables = new HashMap<>(8);
+    private final Map<String, Set<MatcherAction>> informMatcherActionsAboutVariables = new HashMap<>(8);
 
     void informMeAboutVariable(MatcherAction matcherAction, String variableName) {
         Set<MatcherAction> analyzerSet = informMatcherActionsAboutVariables

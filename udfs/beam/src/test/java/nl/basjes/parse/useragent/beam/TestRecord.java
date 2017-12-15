@@ -20,11 +20,11 @@ package nl.basjes.parse.useragent.beam;
 import java.io.Serializable;
 
 public class TestRecord implements Serializable {
-    String useragent;
+    final String useragent;
     String deviceClass;
     String agentNameVersion;
 
-    String shouldRemainNull = null;
+    final String shouldRemainNull = null;
 
     public TestRecord(String useragent) {
         this.useragent = useragent;

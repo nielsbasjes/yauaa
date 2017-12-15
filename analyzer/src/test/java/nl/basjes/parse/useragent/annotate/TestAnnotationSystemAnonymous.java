@@ -45,7 +45,7 @@ public class TestAnnotationSystemAnonymous {
     @SuppressWarnings("unused")
     public abstract static class MyMapper<T>
         implements UserAgentAnnotationMapper<T>, Serializable {
-        private transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer;
+        private final transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer;
 
         public MyMapper() {
             userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();

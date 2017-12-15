@@ -28,7 +28,7 @@ import static nl.basjes.parse.useragent.analyze.treewalker.steps.Step.treeIsSepa
 
 public class ChildIterable {
 
-    private boolean privateNumberRange;
+    private final boolean privateNumberRange;
     private final int start;
     private final int end;
 

@@ -47,7 +47,7 @@ public class TestAnnotationSystem {
 
     public static class MyBaseMapper
         implements UserAgentAnnotationMapper<TestRecord>, Serializable {
-        private transient UserAgentAnnotationAnalyzer<TestRecord> userAgentAnalyzer;
+        private final transient UserAgentAnnotationAnalyzer<TestRecord> userAgentAnalyzer;
 
         public MyBaseMapper() {
             userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();

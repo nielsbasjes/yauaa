@@ -88,8 +88,8 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
     private static final int INFORM_ACTIONS_HASHMAP_SIZE = 100000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzerDirect.class);
-    protected List<Matcher> allMatchers = new ArrayList<>(5000);
-    private Map<String, Set<MatcherAction>> informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
+    protected final List<Matcher> allMatchers = new ArrayList<>(5000);
+    private final Map<String, Set<MatcherAction>> informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
     private transient Map<String, List<MappingNode>> matcherConfigs = new HashMap<>();
 
     private boolean showMatcherStats = false;
@@ -100,7 +100,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 
     protected final List<Map<String, Map<String, String>>> testCases = new ArrayList<>(2048);
     private Map<String, Map<String, String>> lookups = new HashMap<>(128);
-    private Map<String, Set<String>> lookupSets = new HashMap<>(128);
+    private final Map<String, Set<String>> lookupSets = new HashMap<>(128);
 
     protected UserAgentTreeFlattener flattener;
 

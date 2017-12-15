@@ -24,9 +24,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class StepPrevN extends Step {
 
     private static final int SIZE = 20;
-    ParseTree[] children = new ParseTree[SIZE];
+    final ParseTree[] children = new ParseTree[SIZE];
 
-    private int steps;
+    private final int steps;
 
     public StepPrevN(int steps) {
         this.steps = steps;
