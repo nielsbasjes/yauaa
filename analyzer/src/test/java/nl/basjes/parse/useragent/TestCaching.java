@@ -112,7 +112,6 @@ public class TestCaching {
     }
 
     private int getAllocatedCacheSize(UserAgentAnalyzer uaa) throws IllegalAccessException {
-        int actualCaceSize = -1;
         LRUMap<?, ?> cache = getCache(uaa);
         if (cache == null) {
             return 0;

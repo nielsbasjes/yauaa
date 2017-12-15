@@ -33,7 +33,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -321,7 +320,7 @@ public final class Main {
         private boolean jsonFormat = false;
 
         @Option(name = "-fields", handler = StringArrayOptionHandler.class,
-            usage = "A list of the desired fieldnames (use '"+USERAGENT+"' if you want the input value aswell)")
+            usage = "A list of the desired fieldnames (use '"+USERAGENT+"' if you want the input value as well)")
         private List<String> fields = null;
 
         @Option(name = "-cache", usage = "The number of elements that can be cached (LRU).")
