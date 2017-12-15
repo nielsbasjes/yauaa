@@ -39,11 +39,6 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
         super(resourceString);
     }
 
-    @Override
-    protected void initialize() {
-        super.initialize();
-    }
-
     public void disableCaching() {
         setCacheSize(0);
     }
