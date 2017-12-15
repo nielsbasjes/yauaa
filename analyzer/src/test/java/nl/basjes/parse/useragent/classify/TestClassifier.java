@@ -49,59 +49,59 @@ public class TestClassifier {
 
     @Test
     public void testEnumCreation() {
-        verifyEnum("Desktop"               );
-        verifyEnum("Anonymized"            );
-        verifyEnum("Mobile"                );
-        verifyEnum("Tablet"                );
-        verifyEnum("Phone"                 );
-        verifyEnum("Watch"                 );
-        verifyEnum("Virtual Reality"       );
-        verifyEnum("eReader"               );
-        verifyEnum("Set-top box"           );
-        verifyEnum("TV"                    );
-        verifyEnum("Game Console"          );
-        verifyEnum("Handheld Game Console" );
-        verifyEnum("Robot"                 );
-        verifyEnum("Robot Mobile"          );
-        verifyEnum("Spy"                   );
-        verifyEnum("Hacker"                );
-        verifyEnum("Unknown"               );
+        verifyEnum("Desktop");
+        verifyEnum("Anonymized");
+        verifyEnum("Mobile");
+        verifyEnum("Tablet");
+        verifyEnum("Phone");
+        verifyEnum("Watch");
+        verifyEnum("Virtual Reality");
+        verifyEnum("eReader");
+        verifyEnum("Set-top box");
+        verifyEnum("TV");
+        verifyEnum("Game Console");
+        verifyEnum("Handheld Game Console");
+        verifyEnum("Robot");
+        verifyEnum("Robot Mobile");
+        verifyEnum("Spy");
+        verifyEnum("Hacker");
+        verifyEnum("Unknown");
     }
 
     private void verifyEnum(String deviceClass) {
         UserAgent userAgent = new UserAgent();
-        userAgent.set(DEVICE_CLASS, deviceClass, 1 );
+        userAgent.set(DEVICE_CLASS, deviceClass, 1);
         assertEquals(deviceClass, UserAgentClassifier.getDeviceClass(userAgent).getValue());
     }
 
 
     @Test
     public void testClassifier() {
-                       // DeviceClass         , human,mobile,normal,misuse
-        verifyDeviceClass(Desktop             ,  true,  false,  true, false);
-        verifyDeviceClass(Anonymized          ,  true,  false, false,  true);
-        verifyDeviceClass(Mobile              ,  true,   true,  true, false);
-        verifyDeviceClass(Tablet              ,  true,   true,  true, false);
-        verifyDeviceClass(Phone               ,  true,   true,  true, false);
-        verifyDeviceClass(Watch               ,  true,   true,  true, false);
-        verifyDeviceClass(VirtualReality      ,  true,   true,  true, false);
-        verifyDeviceClass(eReader             ,  true,   true,  true, false);
-        verifyDeviceClass(SetTopBox           ,  true,  false,  true, false);
-        verifyDeviceClass(TV                  ,  true,  false,  true, false);
-        verifyDeviceClass(GameConsole         ,  true,  false,  true, false);
-        verifyDeviceClass(HandheldGameConsole ,  true,   true,  true, false);
-        verifyDeviceClass(Robot               ,  false, false, false, false);
-        verifyDeviceClass(RobotMobile         ,  false,  true, false, false);
-        verifyDeviceClass(Spy                 ,  false, false, false,  true);
-        verifyDeviceClass(Hacker              ,  false, false, false,  true);
-        verifyDeviceClass(Unknown             ,  false, false, false, false);
-        verifyDeviceClass(Unclassified        ,  false, false, false, false);
+                       // DeviceClass,          human, mobile, normal, misuse
+        verifyDeviceClass(Desktop,               true,  false,  true, false);
+        verifyDeviceClass(Anonymized,            true,  false, false,  true);
+        verifyDeviceClass(Mobile,                true,   true,  true, false);
+        verifyDeviceClass(Tablet,                true,   true,  true, false);
+        verifyDeviceClass(Phone,                 true,   true,  true, false);
+        verifyDeviceClass(Watch,                 true,   true,  true, false);
+        verifyDeviceClass(VirtualReality,        true,   true,  true, false);
+        verifyDeviceClass(eReader,               true,   true,  true, false);
+        verifyDeviceClass(SetTopBox,             true,  false,  true, false);
+        verifyDeviceClass(TV,                    true,  false,  true, false);
+        verifyDeviceClass(GameConsole,           true,  false,  true, false);
+        verifyDeviceClass(HandheldGameConsole,   true,   true,  true, false);
+        verifyDeviceClass(Robot,                 false, false, false, false);
+        verifyDeviceClass(RobotMobile,           false,  true, false, false);
+        verifyDeviceClass(Spy,                   false, false, false,  true);
+        verifyDeviceClass(Hacker,                false, false, false,  true);
+        verifyDeviceClass(Unknown,               false, false, false, false);
+        verifyDeviceClass(Unclassified,          false, false, false, false);
     }
 
     private void verifyDeviceClass(DeviceClass deviceClass, boolean human, boolean mobile, boolean normal, boolean misuse) {
         UserAgent userAgent = new UserAgent();
 
-        userAgent.set(DEVICE_CLASS, deviceClass.getValue(), 1 );
+        userAgent.set(DEVICE_CLASS, deviceClass.getValue(), 1);
         assertEquals("For the DeviceClass " + deviceClass.toString() + " the isHuman() was incorrect.",
             human, isHuman(userAgent));
         assertEquals("For the DeviceClass " + deviceClass.toString() + " the isMobile() was incorrect.",

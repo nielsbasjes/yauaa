@@ -99,7 +99,7 @@ public class TestCaching {
 
         agent = uaa.parse(uuid);
         assertEquals(uuid, agent.get(fieldName).getValue());
-        assertEquals(null, getCache(uaa)    );
+        assertEquals(null, getCache(uaa));
     }
 
     private LRUMap<?, ?> getCache(UserAgentAnalyzer uaa) throws IllegalAccessException {
@@ -111,7 +111,7 @@ public class TestCaching {
         return actualCache;
     }
 
-    private int getAllocatedCacheSize(UserAgentAnalyzer uaa ) throws IllegalAccessException {
+    private int getAllocatedCacheSize(UserAgentAnalyzer uaa) throws IllegalAccessException {
         int actualCaceSize = -1;
         LRUMap<?, ?> cache = getCache(uaa);
         if (cache == null) {

@@ -28,12 +28,16 @@ import java.util.List;
 
 import static org.junit.Assert.fail;
 
+// CHECKSTYLE.OFF: LineLength
+// CHECKSTYLE.OFF: MethodLength
+// CHECKSTYLE.OFF: WhitespaceAfter
+// CHECKSTYLE.OFF: NoWhitespaceBefore
 public class TestUserAgentFlattening {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestUserAgentFlattening.class);
 
     @Test
-    public void testFlatteningProduct() throws Exception {
+    public void testFlatteningProduct() {
         validateUserAgent(
             "Mozilla/5.0"
             ,"agent=\"Mozilla/5.0\""
@@ -199,7 +203,7 @@ public class TestUserAgentFlattening {
     }
 
     @Test
-    public void testFlatteningComment() throws Exception {
+    public void testFlatteningComment() {
         // Comment variations
         validateUserAgent("One/1 (;Key=Value;; Key=Two Value;OneWord;Two words; Numb3rWord ; TwoNumb3r W0rds ; em@il.nl ; http://web.site ; Sub product/2(Sub Comment,))"
             ,"agent=\"One/1 (;Key=Value;; Key=Two Value;OneWord;Two words; Numb3rWord ; TwoNumb3r W0rds ; em@il.nl ; http://web.site ; Sub product/2(Sub Comment,))\""
@@ -246,7 +250,7 @@ public class TestUserAgentFlattening {
     }
 
     @Test
-    public void testFlatteningKeyValue() throws Exception {
+    public void testFlatteningKeyValue() {
 
         // KeyValue variations
 
@@ -443,7 +447,7 @@ public class TestUserAgentFlattening {
     }
 
     @Test
-    public void testRootCases() throws Exception {
+    public void testRootCases() {
         validateUserAgent(
             "FooBar"
             ,"agent=\"FooBar\""
@@ -499,7 +503,7 @@ public class TestUserAgentFlattening {
     }
 
     @Test
-    public void testFlatteningSpecialCases() throws Exception {
+    public void testFlatteningSpecialCases() {
         validateUserAgent(
             "Mozilla/5.0 (Linux; Android 4.4; Nexus 7/JSS15R) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36"
             ,"agent=\"Mozilla/5.0 (Linux; Android 4.4; Nexus 7/JSS15R) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36\""
@@ -1088,7 +1092,8 @@ public class TestUserAgentFlattening {
             ,"agent.(1)product.(1)comments.(1)entry.(1)text=\"foo\""
         );
 
-        validateUserAgent( // The last one was parsd and flattened incorrectly
+        // The last one was parsed and flattened incorrectly
+        validateUserAgent(
             "MT6592/V1 Linux/3.4.39 Mobile Safari/534.30 System/Android 4.2.2"
             ,"agent=\"MT6592/V1 Linux/3.4.39 Mobile Safari/534.30 System/Android 4.2.2\""
             ,"agent.(1)product=\"MT6592/V1\""
@@ -1134,14 +1139,14 @@ public class TestUserAgentFlattening {
     }
 
     @Test
-    public void testFlatteningParsingErrorCases() throws Exception {
+    public void testFlatteningParsingErrorCases() {
         validateUserAgent(
             "InetURL:/1.0"
             ,"agent=\"InetURL:/1.0\""
         );
 
         // Note that the last part (starting after the Safari product) is bad and causes a parse error
-         validateUserAgent(
+        validateUserAgent(
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.20 (KHTML,like Gecko) Chrome/19.0.1036.7 Safari/535.20 +rr:1511) +x10955"
             ,"agent=\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.20 (KHTML,like Gecko) Chrome/19.0.1036.7 Safari/535.20 +rr:1511) +x10955\""
             ,"agent.(1)product=\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3)\""
@@ -1301,7 +1306,7 @@ public class TestUserAgentFlattening {
     }
 
     @Test
-    public void testFlatteningExtremeTestCase() throws Exception {
+    public void testFlatteningExtremeTestCase() {
 
         validateUserAgent(
             "0n3 Niels Basjes/1/2(+http://niels.basjes.nl/index.html?foo=1&bar=2#marker (http://github.com) ; foo ; bar@baz.com ; Mozilla Mozilla/4.0((Windows NT,etc.)) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH)info@example.com (Yadda)"

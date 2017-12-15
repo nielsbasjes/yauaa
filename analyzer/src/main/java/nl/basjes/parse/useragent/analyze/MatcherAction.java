@@ -320,12 +320,7 @@ public abstract class MatcherAction implements Serializable {
     public abstract boolean obtainResult();
 
     boolean isValidIsNull() {
-        if (matches.isEmpty()) {
-            if (evaluator.usesIsNull()) {
-                return true;
-            }
-        }
-        return false;
+        return matches.isEmpty() && evaluator.usesIsNull();
     }
 
     /**

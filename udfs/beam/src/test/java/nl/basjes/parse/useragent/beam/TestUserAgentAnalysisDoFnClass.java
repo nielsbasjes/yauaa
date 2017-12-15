@@ -58,7 +58,7 @@ public class TestUserAgentAnalysisDoFnClass implements Serializable {
     public final transient TestPipeline pipeline = TestPipeline.create();
 
     @Test
-    public void testInlineDefinition() throws Exception {
+    public void testInlineDefinition() {
         List<String> useragents = Arrays.asList(
             "Mozilla/5.0 (X11; Linux x86_64) " +
                 "AppleWebKit/537.36 (KHTML, like Gecko) " +

@@ -47,7 +47,7 @@ public class TestAnnotationSystem {
 
     public static class MyBaseMapper
         implements UserAgentAnnotationMapper<TestRecord>, Serializable {
-        private transient UserAgentAnnotationAnalyzer<TestRecord> userAgentAnalyzer = null;
+        private transient UserAgentAnnotationAnalyzer<TestRecord> userAgentAnalyzer;
 
         public MyBaseMapper() {
             userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
@@ -84,7 +84,8 @@ public class TestAnnotationSystem {
 
         MyMapper mapper = new MyMapper();
 
-        TestRecord record = new TestRecord("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36");
+        TestRecord record = new TestRecord("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) " +
+            "Chrome/48.0.2564.82 Safari/537.36");
 
         record = mapper.enrich(record);
 
@@ -102,7 +103,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testImpossibleField() throws Exception {
+    public void testImpossibleField() {
         expectedEx.expect(InvalidParserConfigurationException.class);
         expectedEx.expectMessage("We cannot provide these fields:[NielsBasjes]");
         new ImpossibleFieldMapper();
@@ -118,7 +119,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testInaccessibleSetter() throws Exception {
+    public void testInaccessibleSetter() {
         expectedEx.expect(InvalidParserConfigurationException.class);
         expectedEx.expectMessage("Method annotated with YauaaField is not public: inaccessibleSetter");
         new InaccessibleSetterMapper();
@@ -134,7 +135,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testTooManyParameters() throws Exception {
+    public void testTooManyParameters() {
         expectedEx.expect(InvalidParserConfigurationException.class);
         expectedEx.expectMessage("In class [class nl.basjes.parse.useragent.annotate.TestAnnotationSystem$TooManyParameters] " +
             "the method [wrongSetter] has been annotated with YauaaField but it has the wrong method signature. " +
@@ -152,7 +153,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testWrongTypeParameters1() throws Exception {
+    public void testWrongTypeParameters1() {
         expectedEx.expect(InvalidParserConfigurationException.class);
         expectedEx.expectMessage("In class [class nl.basjes.parse.useragent.annotate.TestAnnotationSystem$WrongTypeParameters1] " +
             "the method [wrongSetter] has been annotated with YauaaField but it has the wrong method signature. " +
@@ -170,7 +171,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testWrongTypeParameters2() throws Exception {
+    public void testWrongTypeParameters2() {
         expectedEx.expect(InvalidParserConfigurationException.class);
         expectedEx.expectMessage("In class [class nl.basjes.parse.useragent.annotate.TestAnnotationSystem$WrongTypeParameters2] " +
             "the method [wrongSetter] has been annotated with YauaaField but it has the wrong method signature. " +

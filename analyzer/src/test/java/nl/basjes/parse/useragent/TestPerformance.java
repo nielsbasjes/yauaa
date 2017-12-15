@@ -43,7 +43,7 @@ public class TestPerformance {
         return bytes / MEGABYTE;
     }
 
-    private void printMemoryUsage(int iterationsDone, long averageNanos){
+    private void printMemoryUsage(int iterationsDone, long averageNanos) {
         // Get the Java runtime
         Runtime runtime = Runtime.getRuntime();
         runtime.gc();
@@ -51,7 +51,7 @@ public class TestPerformance {
         long memory = runtime.totalMemory() - runtime.freeMemory();
         LOG.info(String.format(
             "After %7d iterations and GC --> Used memory is %10d bytes (%5d MiB), Average time per parse %7d ns ( ~ %4.3f ms)",
-            iterationsDone, memory, bytesToMegabytes(memory), averageNanos, averageNanos/1000000.0));
+            iterationsDone, memory, bytesToMegabytes(memory), averageNanos, averageNanos / 1000000.0));
     }
 
     @Ignore
@@ -70,7 +70,7 @@ public class TestPerformance {
         LOG.info("Init complete");
         int iterationsDone = 0;
         final int iterationsPerLoop = 1000;
-        for (int i = 0 ; i < 100 ; i++) {
+        for (int i = 0; i < 100; i++) {
             long start = System.nanoTime();
             uaa.preHeat(iterationsPerLoop, false);
             long stop = System.nanoTime();
@@ -105,7 +105,7 @@ public class TestPerformance {
             "Querying for 'All fields' and GC --> Used memory is %10d bytes (%5d MiB)",
             memory, bytesToMegabytes(memory)));
 
-        for (String fieldName: uaa.getAllPossibleFieldNamesSorted()) {
+        for (String fieldName : uaa.getAllPossibleFieldNamesSorted()) {
             uaa = UserAgentAnalyzer
                 .newBuilder()
                 .withoutCache()

@@ -23,7 +23,6 @@ import nl.basjes.parse.core.Parser;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,7 +57,7 @@ public class TestDissectUserAgent {
     }
 
     class UAParser extends Parser<TestRecordUserAgent> {
-        public UAParser() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        UAParser() throws Exception {
             super(TestRecordUserAgent.class);
 
             // We do this

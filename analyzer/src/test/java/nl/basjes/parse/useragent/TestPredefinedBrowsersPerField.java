@@ -45,8 +45,10 @@ public class TestPredefinedBrowsersPerField {
         return uaa.getAllPossibleFieldNamesSorted();
     }
 
+    // CHECKSTYLE.OFF: VisibilityModifier doesn't work like that for @Parameter variables
     @Parameter
     public String fieldName;
+    // CHECKSTYLE.ON
 
     @Test
     public void validateAllPredefinedBrowsersForField() {

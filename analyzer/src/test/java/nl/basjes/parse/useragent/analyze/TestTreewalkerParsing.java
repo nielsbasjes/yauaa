@@ -40,7 +40,8 @@ public class TestTreewalkerParsing {
 
     @Test
     public void validateWalkPathParsing() {
-        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1]=\"Trident\"[2-3]~\"Foo\"^.(*)version[-2]{\"7.\";\"DefaultValue\"]]";
+        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1]=\"Trident\"" +
+            "[2-3]~\"Foo\"^.(*)version[-2]{\"7.\";\"DefaultValue\"]]";
 
         String[] expectedHashEntries = {
             "agent.(1)product.(2)comments.(1)product.(1)name[1-1]=\"Trident\"",
@@ -91,7 +92,8 @@ public class TestTreewalkerParsing {
 
     @Test
     public void validateWalkPathParsingRange() {
-        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1]=\"Trident\"[2-3]~\"Foo\"^.(*)version[2]{\"7.\";\"DefaultValue\"]]";
+        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1]=\"Trident\"" +
+            "[2-3]~\"Foo\"^.(*)version[2]{\"7.\";\"DefaultValue\"]]";
 
         String[] expectedHashEntries = {
             "agent.(1)product.(2)comments.(1)product.(1)name[1-1]=\"Trident\"",
@@ -144,7 +146,7 @@ public class TestTreewalkerParsing {
     public void validateStartsWithLength() {
         String value = "OneTwoThree";
 
-        for (int i = 1 ; i <= value.length() ; i++) {
+        for (int i = 1; i <= value.length(); i++) {
             String matchValue = value.substring(0, i);
             String hashValue = matchValue.substring(0, Math.min(MAX_PREFIX_HASH_MATCH, matchValue.length()));
 
@@ -271,7 +273,8 @@ public class TestTreewalkerParsing {
     @Test
     public void validateWalkPathParsingCleanVersion() {
 
-        String path = "CleanVersion[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1-1]=\"Trident\"^.(*)version[-2]{\"7.\";\"DefaultValue\"]]";
+        String path = "CleanVersion[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1-1]=\"Trident\"" +
+            "^.(*)version[-2]{\"7.\";\"DefaultValue\"]]";
 
         String[] expectedHashEntries = {
             "agent.(1)product.(2)comments.(1)product.(1)name[1-1]=\"Trident\"",
@@ -325,7 +328,10 @@ public class TestTreewalkerParsing {
         TestMatcher matcher = new TestMatcher(lookups, new HashMap<>());
         MatcherRequireAction action = new MatcherRequireAction(path, matcher);
 
-        StringBuilder sb = new StringBuilder("\n---------------------------\nActual list (").append(matcher.reveicedValues.size()).append(" entries):\n");
+        StringBuilder sb = new StringBuilder("\n---------------------------\nActual list (")
+            .append(matcher.reveicedValues.size())
+            .append(" entries):\n");
+
         for (String actual : matcher.reveicedValues) {
             sb.append(actual).append('\n');
         }

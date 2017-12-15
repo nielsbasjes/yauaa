@@ -42,8 +42,12 @@ public class TestRecord implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TestRecord)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof TestRecord)) {
+            return false;
+        }
 
         TestRecord record = (TestRecord) o;
 
