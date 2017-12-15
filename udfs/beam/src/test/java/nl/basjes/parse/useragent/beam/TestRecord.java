@@ -24,7 +24,7 @@ public class TestRecord implements Serializable {
     String deviceClass;
     String agentNameVersion;
 
-    final String shouldRemainNull = null;
+    String shouldRemainNull = null;
 
     public TestRecord(String useragent) {
         this.useragent = useragent;
@@ -42,16 +42,20 @@ public class TestRecord implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TestRecord)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof TestRecord)) {
+            return false;
+        }
 
         TestRecord record = (TestRecord) o;
 
         return
-            isSame(useragent,        record.useragent        ) &&
-            isSame(deviceClass,      record.deviceClass      ) &&
-            isSame(agentNameVersion, record.agentNameVersion ) &&
-            isSame(shouldRemainNull, record.shouldRemainNull );
+            isSame(useragent,        record.useragent)         &&
+            isSame(deviceClass,      record.deviceClass)       &&
+            isSame(agentNameVersion, record.agentNameVersion)  &&
+            isSame(shouldRemainNull, record.shouldRemainNull);
     }
 
     private boolean isSame(String a, String b){

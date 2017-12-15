@@ -123,6 +123,7 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
             return (B)this;
         }
 
+        @SuppressWarnings("EmptyMethod") // We must override the method because of the generic return value.
         @Override
         public UAA build() {
             return super.build();

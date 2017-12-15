@@ -25,6 +25,7 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 
+// CHECKSTYLE.OFF: ParenPad
 public class TestBuilder {
 
     @Test

@@ -52,10 +52,10 @@ public class TestRecord implements Serializable {
         TestRecord record = (TestRecord) o;
 
         return
-            isSame(useragent,        record.useragent        ) &&
-            isSame(deviceClass,      record.deviceClass      ) &&
-            isSame(agentNameVersion, record.agentNameVersion ) &&
-            isSame(shouldRemainNull, record.shouldRemainNull );
+            isSame(useragent,        record.useragent)         &&
+            isSame(deviceClass,      record.deviceClass)       &&
+            isSame(agentNameVersion, record.agentNameVersion)  &&
+            isSame(shouldRemainNull, record.shouldRemainNull);
     }
 
     private boolean isSame(String a, String b){

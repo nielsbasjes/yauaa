@@ -64,20 +64,20 @@ public class TestAnnotationSystemAnonymous {
         record =
             new MyMapper<TestRecord>() {
                 @Override
-                public String getUserAgentString(TestRecord record) {
-                    return record.useragent;
+                public String getUserAgentString(TestRecord testRecord) {
+                    return testRecord.useragent;
                 }
 
                 @YauaaField("DeviceClass")
-                public void setDeviceClass(TestRecord record, String value) {
-                    record.deviceClass = value;
+                public void setDeviceClass(TestRecord testRecord, String value) {
+                    testRecord.deviceClass = value;
                 }
 
                 @YauaaField("AgentNameVersion")
-                public void setAgentNameVersion(TestRecord record, String value) {
-                    record.agentNameVersion = value;
+                public void setAgentNameVersion(TestRecord testRecord, String value) {
+                    testRecord.agentNameVersion = value;
                 }
-            } . enrich(record);
+            } .enrich(record);
 
         assertEquals("Desktop", record.deviceClass);
         assertEquals("Chrome 48.0.2564.82", record.agentNameVersion);
