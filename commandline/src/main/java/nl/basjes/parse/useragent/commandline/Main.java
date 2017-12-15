@@ -100,7 +100,7 @@ public final class Main {
     }
 
     @SuppressWarnings("deprecation")
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         int returnValue = 0;
         final CommandOptions commandlineOptions = new CommandOptions();
         final CmdLineParser parser = new CmdLineParser(commandlineOptions);

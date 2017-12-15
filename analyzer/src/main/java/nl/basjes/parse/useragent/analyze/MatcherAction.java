@@ -182,7 +182,7 @@ public abstract class MatcherAction implements Serializable {
             throw new InvalidParserConfigurationException("NO pattern ?!?!?");
         }
 
-        // We couldn't ditch the double quotes around the fixed values in the parsing pase.
+        // We couldn't ditch the double quotes around the fixed values in the parsing phase.
         // So we ditch them here. We simply walk the tree and modify some of the tokens.
         new UnQuoteValues().visit(requiredPattern);
 

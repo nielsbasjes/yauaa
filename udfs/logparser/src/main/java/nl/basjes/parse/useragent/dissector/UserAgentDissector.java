@@ -22,7 +22,6 @@ import nl.basjes.parse.core.Dissector;
 import nl.basjes.parse.core.Parsable;
 import nl.basjes.parse.core.ParsedField;
 import nl.basjes.parse.core.exceptions.DissectionFailure;
-import nl.basjes.parse.core.exceptions.InvalidDissectorException;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 
@@ -97,7 +96,7 @@ public class UserAgentDissector extends Dissector {
     }
 
     @Override
-    public void prepareForRun() throws InvalidDissectorException {
+    public void prepareForRun() {
         // Nothing to do here
     }
 

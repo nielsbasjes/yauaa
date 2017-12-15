@@ -26,7 +26,7 @@ public class StepPrevN extends Step {
     private static final int SIZE = 20;
     ParseTree[] children = new ParseTree[SIZE];
 
-    private int steps = 1;
+    private int steps;
 
     public StepPrevN(int steps) {
         this.steps = steps;

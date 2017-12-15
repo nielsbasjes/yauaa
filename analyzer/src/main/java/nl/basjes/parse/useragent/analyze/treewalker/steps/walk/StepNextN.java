@@ -23,7 +23,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepNextN extends Step {
 
-    private int steps = 1;
+    private int steps;
 
     public StepNextN(int steps) {
         this.steps = steps;

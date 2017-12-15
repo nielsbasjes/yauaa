@@ -296,8 +296,8 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
     private void init() {
         // Device : Family - Brand - Model
         allFields.put(DEVICE_CLASS,                  new AgentField(UNKNOWN_VALUE)); // Hacker / Cloud / Server / Desktop / Tablet / Phone / Watch
-        allFields.put(DEVICE_BRAND,                  new AgentField(UNKNOWN_VALUE)); // (Google/AWS/Asure) / ????
-        allFields.put(DEVICE_NAME,                   new AgentField(UNKNOWN_VALUE)); // (Google/AWS/Asure) / ????
+        allFields.put(DEVICE_BRAND,                  new AgentField(UNKNOWN_VALUE)); // (Google/AWS/Azure) / ????
+        allFields.put(DEVICE_NAME,                   new AgentField(UNKNOWN_VALUE)); // (Google/AWS/Azure) / ????
 
         // Operating system
         allFields.put(OPERATING_SYSTEM_CLASS,        new AgentField(UNKNOWN_VALUE)); // Cloud, Desktop, Mobile, Embedded

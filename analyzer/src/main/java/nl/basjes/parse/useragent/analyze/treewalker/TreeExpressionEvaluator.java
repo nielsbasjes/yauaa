@@ -38,7 +38,7 @@ import java.util.Map;
  */
 public class TreeExpressionEvaluator implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(TreeExpressionEvaluator.class);
-    private boolean verbose = false;
+    private boolean verbose;
 
     private final String requiredPatternText;
     private final Matcher matcher;

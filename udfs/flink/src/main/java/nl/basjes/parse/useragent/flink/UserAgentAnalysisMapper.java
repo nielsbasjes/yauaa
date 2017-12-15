@@ -29,13 +29,13 @@ public abstract class UserAgentAnalysisMapper<T> extends RichMapFunction<T, T>
     private transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer = null;
 
     @Override
-    public void open(Configuration parameters) throws Exception {
+    public void open(Configuration parameters) {
         userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
         userAgentAnalyzer.initialize(this);
     }
 
     @Override
-    public T map(T record) throws Exception {
+    public T map(T record) {
         return userAgentAnalyzer.map(record);
     }
 }

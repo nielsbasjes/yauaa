@@ -25,7 +25,7 @@ import java.io.PrintStream;
 
 public class FlattenPrinter implements Analyzer {
 
-    PrintStream outputStream = System.out;
+    PrintStream outputStream;
 
     public FlattenPrinter(PrintStream outputStream) {
         this.outputStream = outputStream;
