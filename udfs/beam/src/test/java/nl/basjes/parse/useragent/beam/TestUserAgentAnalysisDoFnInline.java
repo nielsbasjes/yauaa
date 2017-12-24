@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.beam;
 
-import nl.basjes.parse.useragent.annonate.YauaaField;
+import nl.basjes.parse.useragent.annotate.YauaaField;
 import org.apache.beam.sdk.coders.StringUtf8Coder;
 import org.apache.beam.sdk.testing.PAssert;
 import org.apache.beam.sdk.testing.TestPipeline;

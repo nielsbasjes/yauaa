@@ -18,9 +18,6 @@
 package nl.basjes.parse.useragent.annotate;
 
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
-import nl.basjes.parse.useragent.annonate.UserAgentAnnotationAnalyzer;
-import nl.basjes.parse.useragent.annonate.UserAgentAnnotationMapper;
-import nl.basjes.parse.useragent.annonate.YauaaField;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

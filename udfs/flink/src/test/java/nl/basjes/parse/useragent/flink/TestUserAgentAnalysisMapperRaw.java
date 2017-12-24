@@ -18,7 +18,7 @@
 package nl.basjes.parse.useragent.flink;
 
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
-import nl.basjes.parse.useragent.annonate.YauaaField;
+import nl.basjes.parse.useragent.annotate.YauaaField;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

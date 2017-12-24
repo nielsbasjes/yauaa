@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.annonate;
+package nl.basjes.parse.useragent.annotate;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;

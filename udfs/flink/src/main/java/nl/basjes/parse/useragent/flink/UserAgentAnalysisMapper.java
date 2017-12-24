@@ -17,8 +17,8 @@
 
 package nl.basjes.parse.useragent.flink;
 
-import nl.basjes.parse.useragent.annonate.UserAgentAnnotationAnalyzer;
-import nl.basjes.parse.useragent.annonate.UserAgentAnnotationMapper;
+import nl.basjes.parse.useragent.annotate.UserAgentAnnotationAnalyzer;
+import nl.basjes.parse.useragent.annotate.UserAgentAnnotationMapper;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.configuration.Configuration;
 
