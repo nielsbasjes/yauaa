@@ -107,7 +107,7 @@ echo "    name: 'ISOLanguageCodes'"
 echo "    map:"
 fgrep -v '#' "${INPUT1}" | grep . | while read line ; \
 do
-    echo "      \"$(echo ${line} | cut -d' ' -f1)\" : \"$(echo ${line} | cut -d' ' -f1 | sed 's/_/-/g')\""
+    echo "      \"$(echo "${line}" | cut -d' ' -f1)\" : \"$(echo "${line}" | cut -d' ' -f1 | sed 's/_/-/g')\""
 done
 
 echo "# -----------------------------------------------------------------------------"
@@ -116,7 +116,7 @@ echo "    name: 'ISOLanguageCodesName'"
 echo "    map:"
 fgrep -v '#' "${INPUT1}" | grep . | while read line ; \
 do
-    echo "      \"$(echo ${line} | cut -d' ' -f1)\" : \"$(echo ${line} | cut -d' ' -f2-)\""
+    echo "      \"$(echo "${line}" | cut -d' ' -f1)\" : \"$(echo "${line}" | cut -d' ' -f2-)\""
 done
 
 echo "# -----------------------------------------------------------------------------"
