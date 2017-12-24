@@ -381,7 +381,7 @@ It says it:
 
 - is Mozilla/5.0
 - uses AppleWebKit/537.36
-- for "compatibility" the AppleWebKit lie about being "KHTML" and that it is siliar to "Gecko" are also copied
+- for "compatibility" the AppleWebKit lie about being "KHTML" and that it is similar to "Gecko" are also copied
 - is Chrome 42
 - is Safari 537
 - is Edge 12

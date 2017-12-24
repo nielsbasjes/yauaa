@@ -249,7 +249,7 @@ First N Words | [-N] | agent.(1)product.(1)comments.(2)entry.(1)text[-3] | one t
 Single Word at position N | [N] | agent.(1)product.(1)comments.(2)entry.(1)text[3] | three
 A range of words N-M | [N-M] | agent.(1)product.(1)comments.(2)entry.(1)text[2-4] | two three four
 All words to the end starting at N | [N-] | agent.(1)product.(1)comments.(2)entry.(1)text[3-] | three four five
-Backto full value | @ | agent.(1)product.(1)comments.(2)entry.(1)text[2]="three" <br/> agent.(1)product.(1)comments.(2)entry.(1)text[2]="three"@ | three <br/> one two three four five
+Back to full value | @ | agent.(1)product.(1)comments.(2)entry.(1)text[2]="three" <br/> agent.(1)product.(1)comments.(2)entry.(1)text[2]="three"@ | three <br/> one two three four five
 
 Special operations
 
