@@ -48,14 +48,14 @@ echo "# limitations under the License."
 echo "#"
 echo "config:"
 
-cat "OperatingSystemDeviceNames.csv" | grep . | fgrep -v '#' | sed 's/ *|/|/g;s/| */|/g' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep . | sed 's/ *|/|/g;s/| */|/g' | while read line ; \
 do
-    ospattern=$(echo ${line} | cut -d'|' -f1)
-    osname=$(   echo ${line} | cut -d'|' -f2)
-    devclass=$( echo ${line} | cut -d'|' -f3)
-    devname=$(  echo ${line} | cut -d'|' -f4)
-    devbrand=$( echo ${line} | cut -d'|' -f5)
-    osclass=$(  echo ${line} | cut -d'|' -f6)
+    ospattern=$(echo "${line}" | cut -d'|' -f1)
+    osname=$(   echo "${line}" | cut -d'|' -f2)
+    devclass=$( echo "${line}" | cut -d'|' -f3)
+    devname=$(  echo "${line}" | cut -d'|' -f4)
+    devbrand=$( echo "${line}" | cut -d'|' -f5)
+    osclass=$(  echo "${line}" | cut -d'|' -f6)
 echo "
 - matcher:
     require:

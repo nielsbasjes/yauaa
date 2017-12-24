@@ -51,31 +51,31 @@ echo "config:"
 echo "- lookup:"
 echo "    name: 'OperatingSystemName'"
 echo "    map:"
-cat "OperatingSystemNames.csv" | grep . | fgrep -v '#' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep  . | while read line ; \
 do
-    tag=$(        echo ${line} | sed 's@ *| *@|@g' | cut -d'|' -f1)
-    osname=$(     echo ${line} | sed 's@ *| *@|@g' | cut -d'|' -f2)
+    tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
+    osname=$(     echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f2)
     echo "      \"${tag}\" : \"${osname}\""
 done
 
 echo "- lookup:"
 echo "    name: 'OperatingSystemVersion'"
 echo "    map:"
-cat "OperatingSystemNames.csv" | grep . | fgrep -v '#' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep  . | while read line ; \
 do
-    tag=$(        echo ${line} | sed 's@ *| *@|@g' | cut -d'|' -f1)
-    osversion=$(  echo ${line} | sed 's@ *| *@|@g' | cut -d'|' -f3)
+    tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
+    osversion=$(  echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f3)
     echo "      \"${tag}\" : \"${osversion}\""
 done
 
 echo "- lookup:"
 echo "    name: 'OperatingSystemCpuBits'"
 echo "    map:"
-cat "OperatingSystemNames.csv" | grep . | fgrep -v '#' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep  . | while read line ; \
 do
-    tag=$(        echo ${line} | sed 's@ *| *@|@g' | cut -d'|' -f1)
-    cpubits=$(    echo ${line} | sed 's@ *| *@|@g' | cut -d'|' -f4)
-    if [ ! -z ${cpubits} ];
+    tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
+    cpubits=$(    echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f4)
+    if [ ! -z "${cpubits}" ];
     then
         echo "      \"${tag}\" : \"${cpubits}\""
     fi

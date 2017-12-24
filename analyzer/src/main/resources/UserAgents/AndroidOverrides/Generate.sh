@@ -49,12 +49,12 @@ echo "#"
 
 echo "config:"
 
-cat ${INPUT} | fgrep -v '#' | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
 do
-    tag=$(        echo ${line} | sed 's@ *| *@|@g' | cut -d'|' -f1 )
-    deviceName=$( echo ${line} | sed 's@ *| *@|@g' | cut -d'|' -f2 )
-    deviceBrand=$(echo ${line} | sed 's@ *| *@|@g' | cut -d'|' -f3 )
-    deviceClass=$(echo ${line} | sed 's@ *| *@|@g' | cut -d'|' -f4 )
+    tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1 )
+    deviceName=$( echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f2 )
+    deviceBrand=$(echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f3 )
+    deviceClass=$(echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f4 )
 
     tagWords=$(echo "${tag}" | sed 's@-@ @g' | wc -w)
 

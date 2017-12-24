@@ -28,5 +28,5 @@ s@^  *input:@    input:@
 s@^  *expected:@    expected:@
 s@^  *name:@    name:@
 s@^  *map:@    map:@
- " *.yaml
+ " ./*.yaml
 

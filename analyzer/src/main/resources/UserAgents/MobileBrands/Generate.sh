@@ -53,10 +53,10 @@ echo "- lookup:"
 echo "    name: 'MobileBrands'"
 echo "    map:"
 
-cat "MobileBrands.csv" | fgrep -v '#' | grep . | while read line ; \
+fgrep -v '#' "${INPUT}" | grep . | while read line ; \
 do
-    prefix=$(echo ${line} | cut -d'|' -f1)
-    brand=$(echo ${line} | cut -d'|' -f2)
+    prefix=$(echo "${line}" | cut -d'|' -f1)
+    brand=$(echo "${line}" | cut -d'|' -f2)
     echo "      \"${prefix}\" : \"${brand}\""
 done
 
@@ -64,10 +64,10 @@ echo "
 # ===================================================================================================
 "
 
-cat "MobileBrands.csv" | fgrep -v '#' | grep . | while read line ; \
+fgrep -v '#' "${INPUT}" | grep . | while read line ; \
 do
-    prefix=$(echo ${line} | cut -d'|' -f1)
-    brand=$(echo ${line} | cut -d'|' -f2)
+    prefix=$(echo "${line}" | cut -d'|' -f1)
+    brand=$(echo "${line}" | cut -d'|' -f2)
 echo "
 - matcher:
     variable:
@@ -212,7 +212,7 @@ fi
 
 done
 
-cat "MobileBrands.csv" | fgrep -v '#' | grep . | cut -d'|' -f2 | sort -u | while read brand;
+fgrep -v '#' "${INPUT}" | grep . | cut -d'|' -f2 | sort -u | while read brand;
 do
 echo "
 

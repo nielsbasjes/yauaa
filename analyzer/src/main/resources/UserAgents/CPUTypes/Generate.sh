@@ -89,10 +89,10 @@ echo "
 echo "- lookup:"
 echo "    name: 'CPUArchitectures'"
 echo "    map:"
-cat "CPUTypes.csv" | grep -v '#' | grep . | while read line ; \
+fgrep -v '#' "${INPUT}" | grep . | while read line ; \
 do
-    cpu=$(echo ${line} | sed 's/ *| */|/g' | cut -d'|' -f1)
-    value=$(echo ${line} | sed 's/ *| */|/g' | cut -d'|' -f2)
+    cpu=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f1)
+    value=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f2)
     echo "      \"${cpu}\" : \"${value}\""
 done
 
@@ -136,10 +136,10 @@ echo "
 echo "- lookup:"
 echo "    name: 'CPUArchitecturesBits'"
 echo "    map:"
-cat "CPUTypes.csv" | grep -v '#' | grep . | while read line ; \
+fgrep -v '#' "${INPUT}" | grep . | while read line ; \
 do
-    cpu=$(echo ${line} | sed 's/ *| */|/g' | cut -d'|' -f1)
-    value=$(echo ${line} | sed 's/ *| */|/g' | cut -d'|' -f3)
+    cpu=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f1)
+    value=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f3)
     echo "      \"${cpu}\" : \"${value}\""
 done
 

@@ -57,13 +57,13 @@ echo "      \"iPad\"       : \"Tablet\""
 echo "      \"iPod\"       : \"Phone\""
 echo "      \"iPod touch\" : \"Phone\""
 
-cat "AppleTypes.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
 do
-    key=$(echo ${line} | cut -d'|' -f1)
-    keyC=$(echo ${line} | cut -d'|' -f1 | sed 's/,/C/g')
-    deviceClass=$(echo ${line} | cut -d'|' -f2)
-    deviceName=$(echo ${line} | cut -d'|' -f3)
-    deviceVersion=$(echo ${line} | cut -d'|' -f4-)
+    key=$(echo "${line}" | cut -d'|' -f1)
+    keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
+    deviceClass=$(echo "${line}" | cut -d'|' -f2)
+    deviceName=$(echo "${line}" | cut -d'|' -f3)
+    deviceVersion=$(echo "${line}" | cut -d'|' -f4-)
     echo "      \"${key}\" : \"${deviceClass}\""
     echo "      \"${keyC}\" : \"${deviceClass}\""
 done
@@ -76,13 +76,13 @@ echo "      \"iPhone\"     : \"Apple iPhone\""
 echo "      \"iPad\"       : \"Apple iPad\""
 echo "      \"iPod\"       : \"Apple iPod\""
 echo "      \"iPod touch\" : \"Apple iPod touch\""
-cat "AppleTypes.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
 do
-    key=$(echo ${line} | cut -d'|' -f1)
-    keyC=$(echo ${line} | cut -d'|' -f1 | sed 's/,/C/g')
-    deviceClass=$(echo ${line} | cut -d'|' -f2)
-    deviceName=$(echo ${line} | cut -d'|' -f3)
-    deviceVersion=$(echo ${line} | cut -d'|' -f4-)
+    key=$(echo "${line}" | cut -d'|' -f1)
+    keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
+    deviceClass=$(echo "${line}" | cut -d'|' -f2)
+    deviceName=$(echo "${line}" | cut -d'|' -f3)
+    deviceVersion=$(echo "${line}" | cut -d'|' -f4-)
     echo "      \"${key}\" : \"${deviceName}\""
     echo "      \"${keyC}\" : \"${deviceName}\""
 done
@@ -95,23 +95,23 @@ echo "      \"iPhone\"     : \"iPhone\""
 echo "      \"iPad\"       : \"iPad\""
 echo "      \"iPod\"       : \"iPod\""
 echo "      \"iPod touch\" : \"iPod touch\""
-cat "AppleTypes.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
 do
-    key=$(echo ${line} | cut -d'|' -f1)
-    keyC=$(echo ${line} | cut -d'|' -f1 | sed 's/,/C/g')
-    deviceClass=$(echo ${line} | cut -d'|' -f2)
-    deviceName=$(echo ${line} | cut -d'|' -f3)
-    deviceVersion=$(echo ${line} | cut -d'|' -f4-)
+    key=$(echo "${line}" | cut -d'|' -f1)
+    keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
+    deviceClass=$(echo "${line}" | cut -d'|' -f2)
+    deviceName=$(echo "${line}" | cut -d'|' -f3)
+    deviceVersion=$(echo "${line}" | cut -d'|' -f4-)
     echo "      \"${key}\" : \"${deviceVersion}\""
     echo "      \"${keyC}\" : \"${deviceVersion}\""
 done
 
-cat "AppleTypes.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
 do
-    key=$(echo ${line} | cut -d'|' -f1)
-    deviceClass=$(echo ${line} | cut -d'|' -f2)
-    deviceName=$(echo ${line} | cut -d'|' -f3)
-    deviceVersion=$(echo ${line} | cut -d'|' -f4-)
+    key=$(echo "${line}" | cut -d'|' -f1)
+    deviceClass=$(echo "${line}" | cut -d'|' -f2)
+    deviceName=$(echo "${line}" | cut -d'|' -f3)
+    deviceVersion=$(echo "${line}" | cut -d'|' -f4-)
 echo "
 - matcher:
     require:

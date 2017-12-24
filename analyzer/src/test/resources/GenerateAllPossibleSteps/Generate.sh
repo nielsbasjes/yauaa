@@ -57,9 +57,9 @@ echo "#  Extract all fields possible"
 echo "# ============================="
 echo ""
 
-cat "AllPossibleSteps.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
 do
-    match=$(echo  ${line} | sed 's@^agent@agent!=""@')
+    match="${line//agent/agent!=\"\"}"
     echo "- matcher:"
     echo "    extract:"
     echo "      - '${line}  :1:${match}'"
@@ -75,9 +75,9 @@ echo "- matcher:"
 echo "    extract:"
 echo "      - 'MustBeOk  :1:\"Not OK\"'"
 
-cat "AllPossibleSteps.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
 do
-    match=$(echo  ${line} | sed 's@^agent@agent!=""@')
+    match="${line//agent/agent!=\"\"}"
     echo "- matcher:"
     echo "    extract:"
     echo "      - 'MUST_BE_NULL_${line}.foo  :1:${match}.foo'"
@@ -87,16 +87,16 @@ done
 
 echo "- matcher:"
 echo "    require:"
-cat "AllPossibleSteps.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
 do
-    match=$(echo ${line} | sed 's@^agent@agent!=""@')
+    match="${line//agent/agent!=\"\"}"
     echo "      - 'IsNull[${match}.foo]'"
 done
 echo "    extract:"
 echo "    - 'MustBeOk :2:\"OK\"'"
-cat "AllPossibleSteps.csv" | fgrep -v '#' | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
 do
-    match=$(echo ${line} | sed 's@^agent@agent!=""@')
+    match="${line//agent/agent!=\"\"}"
     echo "    - 'MUST_BE_NULL_${line}.foo  :2:\"<<<null>>>\"'"
 done
 
