@@ -57,7 +57,7 @@ echo "      \"iPad\"       : \"Tablet\""
 echo "      \"iPod\"       : \"Phone\""
 echo "      \"iPod touch\" : \"Phone\""
 
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
 do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
@@ -76,7 +76,7 @@ echo "      \"iPhone\"     : \"Apple iPhone\""
 echo "      \"iPad\"       : \"Apple iPad\""
 echo "      \"iPod\"       : \"Apple iPod\""
 echo "      \"iPod touch\" : \"Apple iPod touch\""
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
 do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
@@ -95,7 +95,7 @@ echo "      \"iPhone\"     : \"iPhone\""
 echo "      \"iPad\"       : \"iPad\""
 echo "      \"iPod\"       : \"iPod\""
 echo "      \"iPod touch\" : \"iPod touch\""
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
 do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
@@ -106,7 +106,7 @@ do
     echo "      \"${keyC}\" : \"${deviceVersion}\""
 done
 
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
 do
     key=$(echo "${line}" | cut -d'|' -f1)
     deviceClass=$(echo "${line}" | cut -d'|' -f2)

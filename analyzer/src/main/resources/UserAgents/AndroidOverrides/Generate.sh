@@ -49,7 +49,7 @@ echo "#"
 
 echo "config:"
 
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
 do
     tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1 )
     deviceName=$( echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f2 )

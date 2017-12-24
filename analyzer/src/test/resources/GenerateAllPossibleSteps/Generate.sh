@@ -57,7 +57,7 @@ echo "#  Extract all fields possible"
 echo "# ============================="
 echo ""
 
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
 do
     match="${line//agent/agent!=\"\"}"
     echo "- matcher:"
@@ -75,7 +75,7 @@ echo "- matcher:"
 echo "    extract:"
 echo "      - 'MustBeOk  :1:\"Not OK\"'"
 
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
 do
     match="${line//agent/agent!=\"\"}"
     echo "- matcher:"
@@ -87,14 +87,14 @@ done
 
 echo "- matcher:"
 echo "    require:"
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
 do
     match="${line//agent/agent!=\"\"}"
     echo "      - 'IsNull[${match}.foo]'"
 done
 echo "    extract:"
 echo "    - 'MustBeOk :2:\"OK\"'"
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
 do
     match="${line//agent/agent!=\"\"}"
     echo "    - 'MUST_BE_NULL_${line}.foo  :2:\"<<<null>>>\"'"

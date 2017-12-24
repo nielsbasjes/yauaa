@@ -105,7 +105,7 @@ echo "# ------------------------------------------------------------------------
 echo "- lookup:"
 echo "    name: 'ISOLanguageCodes'"
 echo "    map:"
-fgrep -v '#' "${INPUT1}" | grep . | while read line ; \
+fgrep -v '#' "${INPUT1}" | grep . | while read line
 do
     echo "      \"$(echo "${line}" | cut -d' ' -f1)\" : \"$(echo "${line}" | cut -d' ' -f1 | sed 's/_/-/g')\""
 done
@@ -114,7 +114,7 @@ echo "# ------------------------------------------------------------------------
 echo "- lookup:"
 echo "    name: 'ISOLanguageCodesName'"
 echo "    map:"
-fgrep -v '#' "${INPUT1}" | grep . | while read line ; \
+fgrep -v '#' "${INPUT1}" | grep . | while read line
 do
     echo "      \"$(echo "${line}" | cut -d' ' -f1)\" : \"$(echo "${line}" | cut -d' ' -f2-)\""
 done
@@ -123,8 +123,7 @@ echo "# ------------------------------------------------------------------------
 echo "- lookup:"
 echo "    name: 'ISOLanguageCodes3'"
 echo "    map:"
-grep -v -f unwanted-language-codes.txt "${INPUT2}" | \
-while read line ; \
+grep -v -f unwanted-language-codes.txt "${INPUT2}" | while read line
 do
     CODE=$(echo "${line}" | cut -d'	' -f1)
     echo "      \"${CODE}\" : \"${CODE}\""
@@ -134,8 +133,7 @@ echo "# ------------------------------------------------------------------------
 echo "- lookup:"
 echo "    name: 'ISOLanguageCodes3Name'"
 echo "    map:"
-grep -v -f unwanted-language-codes.txt "${INPUT2}" | \
-while read line ; \
+grep -v -f unwanted-language-codes.txt "${INPUT2}" | while read line
 do
     CODE=$(echo "${line}" | cut -d'	' -f1)
     NAME=$(echo "${line}" | cut -d'	' -f7)

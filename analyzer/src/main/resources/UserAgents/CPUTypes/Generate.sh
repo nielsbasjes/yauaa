@@ -89,7 +89,7 @@ echo "
 echo "- lookup:"
 echo "    name: 'CPUArchitectures'"
 echo "    map:"
-fgrep -v '#' "${INPUT}" | grep . | while read line ; \
+fgrep -v '#' "${INPUT}" | grep . | while read line
 do
     cpu=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f1)
     value=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f2)
@@ -136,7 +136,7 @@ echo "
 echo "- lookup:"
 echo "    name: 'CPUArchitecturesBits'"
 echo "    map:"
-fgrep -v '#' "${INPUT}" | grep . | while read line ; \
+fgrep -v '#' "${INPUT}" | grep . | while read line
 do
     cpu=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f1)
     value=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f3)

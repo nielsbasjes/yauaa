@@ -18,7 +18,10 @@
 
 (
 echo -n "Name"
-for version in $(ls version*.txt | sed 's@^.*version-\(.*\).txt$@\1@g' | sort -V) ;
+
+find . -type f -name "version*.txt" -print0 | xargs -n1 -0 echo | \
+    sed 's@^.*version-\(.*\).txt$@\1@g' | sort -V | \
+    while read version
 do
     echo -n ";v${version}"
 done

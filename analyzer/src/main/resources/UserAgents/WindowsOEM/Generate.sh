@@ -55,7 +55,7 @@ echo "    - 'DeviceBrand :  200:LookUp[WindowsOEMCodes;agent.(1)product.comments
 echo "- lookup:"
 echo "    name: 'WindowsOEMCodes'"
 echo "    map:"
-fgrep -v '#' "${INPUT}" | grep . | while read line ; \
+fgrep -v '#' "${INPUT}" | grep . | while read line
 do
     code=$(echo "${line}" | cut -d' ' -f1)
     value=$(echo "${line}" | cut -d' ' -f2- | sed 's/^ *//')

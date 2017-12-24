@@ -53,7 +53,7 @@ echo "- lookup:"
 echo "    name: 'MobileBrands'"
 echo "    map:"
 
-fgrep -v '#' "${INPUT}" | grep . | while read line ; \
+fgrep -v '#' "${INPUT}" | grep . | while read line
 do
     prefix=$(echo "${line}" | cut -d'|' -f1)
     brand=$(echo "${line}" | cut -d'|' -f2)
@@ -64,7 +64,7 @@ echo "
 # ===================================================================================================
 "
 
-fgrep -v '#' "${INPUT}" | grep . | while read line ; \
+fgrep -v '#' "${INPUT}" | grep . | while read line
 do
     prefix=$(echo "${line}" | cut -d'|' -f1)
     brand=$(echo "${line}" | cut -d'|' -f2)

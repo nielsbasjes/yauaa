@@ -48,7 +48,7 @@ echo "# limitations under the License."
 echo "#"
 echo "config:"
 
-fgrep -v '#' "${INPUT}" | grep . | sed 's/ *|/|/g;s/| */|/g' | while read line ; \
+fgrep -v '#' "${INPUT}" | grep . | sed 's/ *|/|/g;s/| */|/g' | while read line
 do
     ospattern=$(echo "${line}" | cut -d'|' -f1)
     osname=$(   echo "${line}" | cut -d'|' -f2)

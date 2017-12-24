@@ -18,14 +18,13 @@
 
 git tag | \
 sed 's/v//' | \
-egrep -v '^(0.1|0.10|0.3)' | \
-while read version ;
+egrep -v '^(0.1|0.10|0.3)' | while read version ;
 do
-  if [ ! -f version-${version}.txt ];
+  if [ ! -f "version-${version}.txt" ];
   then
-    mvn clean package -Dyauaa.version=${version} && \
+    mvn clean package -Dyauaa.version="${version}" && \
     echo "Testing version ${version}" && \
-    java -jar target/benchmarks.jar > version-${version}.txt
+    java -jar target/benchmarks.jar > "version-${version}.txt"
   fi
 done
 
