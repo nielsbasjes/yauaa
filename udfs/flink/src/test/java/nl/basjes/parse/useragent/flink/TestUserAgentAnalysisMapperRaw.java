@@ -43,7 +43,7 @@ public class TestUserAgentAnalysisMapperRaw {
     }
 
     @Test
-    public void testUserAgentParser() throws Exception {
+    public void testUserAgentParser() {
         TestMapper mapper = new TestMapper();
 
         mapper.open(null);
