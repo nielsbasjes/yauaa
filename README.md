@@ -309,7 +309,7 @@ OperatingSystemClass
 
 | Value | Meaning |
 | --- | --- |
-| Desktop      | The type of OS you would run on a dekstop or laptop |
+| Desktop      | The type of OS you would run on a Desktop or Laptop |
 | Mobile       | The type of OS you would run on a Phone, Tablet or Watch |
 | Cloud        | Looks like a thing that runs in a cloud environment |
 | Embedded     | Apparently embedded into something like a TV |
