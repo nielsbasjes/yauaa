@@ -71,7 +71,7 @@ public class TestUserAgentAnalysisMapperRaw {
     }
 
     @Test(expected = InvalidParserConfigurationException.class)
-    public void testImpossibleField() throws Exception {
+    public void testImpossibleField() {
         TestImpossibleFieldMapper mapper = new TestImpossibleFieldMapper();
         mapper.open(null);
     }
