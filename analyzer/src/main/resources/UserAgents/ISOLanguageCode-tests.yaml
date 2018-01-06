@@ -159,27 +159,3 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-
-# Ensure that 'pro' is not detected as the language
-#   "pro" : "Old Provençal (to 1500)"
-- test:
-    input:
-      user_agent_string: 'Microsoft Office/16.0 (Microsoft Outlook 16.0.8241; Pro)'
-    expected:
-      DeviceClass              : 'Unknown'
-      DeviceName               : 'Unknown'
-      DeviceBrand              : 'Unknown'
-      OperatingSystemClass     : 'Unknown'
-      OperatingSystemName      : 'Unknown'
-      OperatingSystemVersion   : '??'
-      LayoutEngineClass        : 'Unknown'
-      LayoutEngineName         : 'Unknown'
-      LayoutEngineVersion      : '??'
-      LayoutEngineVersionMajor : '??'
-      AgentClass               : 'Special'
-      AgentName                : 'Microsoft Office'
-      AgentVersion             : '16.0'
-      AgentVersionMajor        : '16'
-      AgentNameVersion         : 'Microsoft Office 16.0'
-      AgentNameVersionMajor    : 'Microsoft Office 16'
-
