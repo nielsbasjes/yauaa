@@ -54,7 +54,6 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.VersionWordsContext;
 import nl.basjes.parse.useragent.utils.Splitter;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
-import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -262,14 +261,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     @Override
     public void enterUserAgent(UserAgentContext ctx) {
         // In case of a parse error the 'parsed' version of agent can be incomplete
-        // TODO: Remove this workaround for the Antlr 4.7 bug described here https://github.com/antlr/antlr4/issues/1949
-//        String input = ctx.start.getTokenSource().getInputStream().toString();
-        String input = "";
-        CharStream inputCharStream = ctx.start.getTokenSource().getInputStream();
-        if (inputCharStream.size() > 0) {
-            input = inputCharStream.toString();
-        }
-        inform(ctx, "agent", input);
+        inform(ctx, "agent", ctx.start.getTokenSource().getInputStream().toString());
     }
 
     @Override
