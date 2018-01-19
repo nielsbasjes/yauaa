@@ -28,13 +28,13 @@ public class TestPlatforaUDF {
 
     private AnalyzeUserAgent udf = new AnalyzeUserAgent();
 
-    private static final String useragent =
+    private static final String USERAGENT =
         "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36";
 
     @Test
-    public void checkBasicParse (){
+    public void checkBasicParse(){
         List<String> arguments = new ArrayList<>();
-        arguments.add(useragent);
+        arguments.add(USERAGENT);
         arguments.add("DeviceName");
         assertEquals("Google Nexus 6", udf.compute(arguments));
     }
@@ -42,7 +42,7 @@ public class TestPlatforaUDF {
     @Test
     public void checkVersion(){
         List<String> arguments = new ArrayList<>();
-        arguments.add(useragent);
+        arguments.add(USERAGENT);
         arguments.add("__version__");
         assertTrue(udf.compute(arguments).startsWith("Yauaa"));
     }
