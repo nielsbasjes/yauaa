@@ -38,6 +38,8 @@
     <appengine.maven.plugin>1.3.1</appengine.maven.plugin>
     <spring.version>1.5.6.RELEASE</spring.version>
     <main.class>nl.basjes.parse.useragent.servlet.ParseService</main.class>
+
+    <docker.image.prefix>nl.basjes</docker.image.prefix>
   </properties>
 
   <dependencies>
@@ -130,6 +132,19 @@
           <skip>true</skip>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>dockerfile-maven-plugin</artifactId>
+        <version>1.3.6</version>
+        <configuration>
+          <repository>${docker.image.prefix}/${project.artifactId}</repository>
+          <buildArgs>
+            <JAR_FILE>target/${project.build.finalName}.war</JAR_FILE>
+          </buildArgs>
+        </configuration>
+      </plugin>
+
     </plugins>
 
   </build>
