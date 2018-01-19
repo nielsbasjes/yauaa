@@ -45,3 +45,165 @@ config:
       AgentNameVersion         : 'Microsoft Office 16.0'
       AgentNameVersionMajor    : 'Microsoft Office 16'
 
+# Lotus notes
+
+- matcher:
+    extract:
+      - 'AgentClass       :   100:"Email Client"'
+      - 'AgentName        :   100:"Lotus-Notes"'
+      - 'AgentVersion     :   100:agent.(1)product.(1)comments.entry.(1)product.name="Lotus-Notes"^.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; Lotus-Notes/6.0; Windows-NT)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows NT'
+      OperatingSystemNameVersion           : 'Windows NT'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '4.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Mozilla 4.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 4'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Lotus-Notes'
+      AgentVersion                         : '6.0'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Lotus-Notes 6.0'
+      AgentNameVersionMajor                : 'Lotus-Notes 6'
+
+# Thunderbird
+- matcher:
+    extract:
+      - 'AgentClass       :   2100:"Email Client"'
+      - 'AgentName        :   2100:"Thunderbird"'
+      - 'AgentVersion     :   2100:agent.product.name="Thunderbird"^.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.14) Gecko/20080505 Thunderbird/2.0.0.14'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel i686'
+      OperatingSystemNameVersion           : 'Linux Intel i686'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1.14'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1.14'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20080505'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Thunderbird'
+      AgentVersion                         : '2.0.0.14'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Thunderbird 2.0.0.14'
+      AgentNameVersionMajor                : 'Thunderbird 2'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.8.1.19) Gecko/20081209 Thunderbird/2.0.0.19'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows Vista'
+      OperatingSystemNameVersion           : 'Windows Vista'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1.19'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1.19'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20081209'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Thunderbird'
+      AgentVersion                         : '2.0.0.19'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Thunderbird 2.0.0.19'
+      AgentNameVersionMajor                : 'Thunderbird 2'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+# Lightning is a calendar addon for THunderbird
+# https://addons.mozilla.org/nl/thunderbird/addon/lightning/
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; cs; rv:1.9.1.8) Gecko/20100227 Lightning/1.0b1 Thunderbird/3.0.3'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.1.8'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.1.8'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20100227'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Thunderbird'
+      AgentVersion                         : '3.0.3'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Thunderbird 3.0.3'
+      AgentNameVersionMajor                : 'Thunderbird 3'
+      AgentLanguage                        : 'Czech'
+      AgentLanguageCode                    : 'cs'
+      AgentSecurity                        : 'Strong security'
+
+# ThunderBrowse is a webbrowsing addon for THunderbird
+# https://addons.mozilla.org/nl/thunderbird/addon/thunderbrowse/
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.2.8) Gecko/20100802 Lightning/1.0b2 Thunderbird/3.1.2 ThunderBrowse/3.3.2'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.2.8'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.2.8'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20100802'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Thunderbird'
+      AgentVersion                         : '3.1.2'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Thunderbird 3.1.2'
+      AgentNameVersionMajor                : 'Thunderbird 3'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      AgentSecurity                        : 'Strong security'
+
+
