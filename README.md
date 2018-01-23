@@ -272,11 +272,7 @@ I have written such a UDF which are all part of this project.
 * [Apache Hive](README-Hive.md)
 * ~~[Platfora](README-Platfora.md)~~ (Deprecated)
 * [Commandline tool](README-Commandline.md)
-
-UDFs written by other people:
-
-* [Apache Drill](https://github.com/cgivre/drill-useragent-function)
-
+* [Apache Drill](README-Drill.md) which was originally written by [Charles S. Grive](https://github.com/cgivre/drill-useragent-function)
 
 Values explained
 ================

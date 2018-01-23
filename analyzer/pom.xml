@@ -127,9 +127,9 @@
         </configuration>
       </plugin>
 
-      <!-- Some of the dependencies (Antlr4 and Spring) have proven to be problematic for    -->
-      <!-- downstream users who need different versions of these in the same application.    -->
-      <!-- So for only these two we include and relocate the used classes into the main jar. -->
+      <!-- Some of the dependencies (Antlr4, Spring and SnakeYaml) have proven to be problematic -->
+      <!-- for downstream users who need different versions of these in the same application.    -->
+      <!-- So for only these we include and relocate the used classes into the main jar.         -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -146,6 +146,10 @@
               <pattern>org.antlr</pattern>
               <shadedPattern>nl.basjes.shaded.org.antlr</shadedPattern>
             </relocation>
+            <relocation>
+              <pattern>org.yaml.snakeyaml</pattern>
+              <shadedPattern>nl.basjes.shaded.org.yaml.snakeyaml</shadedPattern>
+            </relocation>
           </relocations>
         </configuration>
 
@@ -161,6 +165,7 @@
                 <includes>
                   <include>org.antlr:antlr4-runtime</include>
                   <include>org.springframework:spring-core</include>
+                  <include>org.yaml:snakeyaml</include>
                 </includes>
               </artifactSet>
             </configuration>

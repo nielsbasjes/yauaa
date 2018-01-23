@@ -6,6 +6,7 @@ v4.0
 - Rename package annonate to annotate (which was a typo)
 - Upgrade Antlr to 4.7.1 and get rid of bug workaround
 - Introduce "Email Client" as a new AgentClass value.
+- Included the UDF for Apache Drill originally written by [Charles S. Givre](https://github.com/cgivre)
 
 v3.3
 ===
