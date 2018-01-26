@@ -1,120 +1,66 @@
 This is intended as an overview of the major changes
 
-v0.1
+v4.0
 ===
-- Initial release of a parser and matcher version that seems to work pretty good.
+- Switch Analyzer to interface with default methods
+- Rename package annonate to annotate (which was a typo)
+- Upgrade Antlr to 4.7.1 and get rid of bug workaround
+- Introduce "Email Client" as a new AgentClass value.
 
-v0.2
+v3.3
 ===
-- Added checkstyle to the build process
-- Improve detection Phone/Tablet
-- Improve detection Operating system name
-- Improved performance from ~90/sec to >4000/sec (measured on an i7).
+- By default do not load all test cases into memory
+- Fixed NPE in parse error situation (Hacker scenario)
+- Never let any NPE disturb the calling application ever again
 
-v0.3.1
+v3.2
 ===
-- Detect Opera better
-- UDF for Platfora
-- Cleanup of rules and results
-- Ability to measure performance better
-- 'Robot' and 'Mobile Robot'
+- Detect Chromium, SugarLabs, Ubuntu Touch
+- Detect few more robots
+- New matching language feature: Is this value present in a predefined set of values?
+- New matching language feature: Basic String concatenation
+- New matching language feature: Variables
+- Make doing 2,3 and 4 steps Next/Prev more efficient
+- [Davide Magni] Small fixes on WEB-INF to test & deploy using NetBeans.
+- [Davide Magni] Simple change in form POST action (Parse Service) to support deploying in both root and non-root paths on webservers.
+- [Davide Magni] Massively improved Android brand detection for Sony, Xiaomi, Wiko, LG, Huawei, Alcatel, Vodafone, Meizu and Asus by Davide Magni (BIG THANKS!)
+- Make matching prefix strings use the HashMap for performance improvement
 
-v0.4
+v3.1
 ===
-- Detect webviews
-- Detect race conditions in the rules (unit tests fail when detected)
-- Added missing IDs for new Apple devices
-- Set-top boxes, Bada, Stock Android browser, ...
-- A lot of documentation
+- Detect Microsoft Edge for Android & iOS
 
-v0.5
+v3.0
 ===
-- Restructured the project
-- Added very simple testing servlet
+- Avoid DDOS (too long parsing times). Without actual parsing: Useragent too tong == hacker.
+- Separate the parser from the caching.
+- Massive rewrite of the Builder system to avoid redundant code (hence 3.0)
+- Platfora UDF is no longer part of the release.
 
-v0.6
+v2.2
 ===
-- Fixed build (jars and uber jars)
-- The top level 'agent' is the unparsed version needed for better hacker detection.
-- Better hacker detection (SQL variants)
-- Fixed bug in the way the value is passed during walking around
-- Fixed bug in the tests
+- Detect Firefox Focus and a more generic pattern for WebView applications
+- Fixed NPE
 
-v0.7
+v2.1
 ===
-- Allow wiping a value
-- Allow setting all fields to a specific value (for example wiping them)
-- Changed the matcher language to support extracting ranges from a string (like; extract 3rd to 5th word).
+- Rewrote managing matches to reduce allocation/gc load (i.e. improve performance)
+- Determine the Device Cpu Bits (i.e. 32 or 64) where possible.
+- Stop release process if there are uncommitted changes.
 
-v0.8
+v2.0
 ===
-- Detect SQL injection better.
-- Detect some smartwatches
-- Many updated and improved rules
-- Allow setting the cache size
-
-v0.9
-===
-- Detect very old Mac devices
-- iPod is now a "Phone" because of the screensize.
-- Split words also on _
-- New Device class: "Handheld Game Console"
-
-v0.10
-===
-- Cleanup of duplicate rules (small performance improvement)
-- Added JMH based benchmark
-- Added the option to remove all rules that only provide fields we're not interested in at that moment.
-- Pig UDF support for requested fields
-- Improved performance by detecting a mismatch faster.
-- Change license to Apache 2.0
-
-v0.11
-===
-- Implement test code coverage measuring
-- Improve test coverage.
-- Detect Bing related bots.
-
-v0.12
-===
-- Changed the way the version and commit information is made available in the code.
-- The UDFs now return the version of the analyzer engine
-- Fixed nasty exception in rare cases where %20 appears in the useragent.
-
-v1.0
-===
-- Various small improvements.
-- Project is mature enough to call this 1.0
-
-v1.1
-===
-- Report on IE compatibility mode
-- Walker language now supports nesting some functions
-- Added NormalizeBrands as a new function
-- Walker language now allows spaces for readability
-- All 'Hacker' situations now have DeviceVersion field set.
-- [BUG] Matchers with ONLY IsNull and Fixedstrings would never match.
-- Added Opera Neon, Vivaldi and Firefox Focus
-
-v1.2
-===
-- Limit use of IsNull operator.
-- Fix root level fields.
-- Fix issues with Hacker detection
-- Implement DuckDuckGo app
-- Implement several Tencent apps: WeChat, QQ Browser, QQ Client
-- Cleanup and normalization of the language code
-- [PIG] Return a schema with ONLY the requested fields
-- Consistently add the Brand to the DeviceName to get a much more consistent dataset.
-- Implement Google Pixel devices
-- Improved the extraction of the DeviceName
-
-v1.3
-===
-- Added simple classification tool
-- Remove '_' from DeviceName
-- Fixed NPE in Pig udf
-- Shaded the used parts of Spring and the Antlr4 runtime to minimize the impact on downstream applications.
+- Upgraded to need Java 1.8 (hence the major version number)
+- Added generic annotation/setter based parsing
+- Added Apache Flink mapper
+- Added Apache Beam function
+- Updated dependencies Antlr 4, Apache Hadoop, Apache Pig, Checkstyle
+- Changed the structure of an extracted Keyvalue.
+- Rearranged the structure of StepDown (core step in walking around).
+- Added Apache Hive UDF
+- Various performance improvements (overall effect is approx 30% less time needed)
+- Refactored the webapp to use Spring-boot
+- Switched from Cobertura to JaCoCo (because of Java 8)
 
 v1.4
 ===
@@ -131,67 +77,121 @@ v1.4
 - Fixed stackoverflow (infinite recursion) in specific parse situations.
 - Fixed regex problem.
 
-v2.0
+v1.3
 ===
-- Upgraded to need Java 1.8 (hence the major version number)
-- Added generic annotation/setter based parsing
-- Added Apache Flink mapper
-- Added Apache Beam function
-- Updated dependencies Antlr 4, Apache Hadoop, Apache Pig, Checkstyle
-- Changed the structure of an extracted Keyvalue.
-- Rearranged the structure of StepDown (core step in walking around).
-- Added Apache Hive UDF
-- Various performance improvements (overall effect is approx 30% less time needed)
-- Refactored the webapp to use Spring-boot
-- Switched from Cobertura to JaCoCo (because of Java 8)
+- Added simple classification tool
+- Remove '_' from DeviceName
+- Fixed NPE in Pig udf
+- Shaded the used parts of Spring and the Antlr4 runtime to minimize the impact on downstream applications.
 
-v2.1
+v1.2
 ===
-- Rewrote managing matches to reduce allocation/gc load (i.e. improve performance)
-- Determine the Device Cpu Bits (i.e. 32 or 64) where possible.
-- Stop release process if there are uncommitted changes.
+- Limit use of IsNull operator.
+- Fix root level fields.
+- Fix issues with Hacker detection
+- Implement DuckDuckGo app
+- Implement several Tencent apps: WeChat, QQ Browser, QQ Client
+- Cleanup and normalization of the language code
+- [PIG] Return a schema with ONLY the requested fields
+- Consistently add the Brand to the DeviceName to get a much more consistent dataset.
+- Implement Google Pixel devices
+- Improved the extraction of the DeviceName
 
-v2.2
+v1.1
 ===
-- Detect Firefox Focus and a more generic pattern for WebView applications
-- Fixed NPE
+- Report on IE compatibility mode
+- Walker language now supports nesting some functions
+- Added NormalizeBrands as a new function
+- Walker language now allows spaces for readability
+- All 'Hacker' situations now have DeviceVersion field set.
+- [BUG] Matchers with ONLY IsNull and Fixedstrings would never match.
+- Added Opera Neon, Vivaldi and Firefox Focus
 
-v3.0
+v1.0
 ===
-- Avoid DDOS (too long parsing times). Without actual parsing: Useragent too tong == hacker.
-- Separate the parser from the caching.
-- Massive rewrite of the Builder system to avoid redundant code (hence 3.0)
-- Platfora UDF is no longer part of the release.
+- Various small improvements.
+- Project is mature enough to call this 1.0
 
-v3.1
+v0.12
 ===
-- Detect Microsoft Edge for Android & iOS
+- Changed the way the version and commit information is made available in the code.
+- The UDFs now return the version of the analyzer engine
+- Fixed nasty exception in rare cases where %20 appears in the useragent.
 
-v3.2
+v0.11
 ===
-- Detect Chromium, SugarLabs, Ubuntu Touch
-- Detect few more robots
-- New matching language feature: Is this value present in a predefined set of values?
-- New matching language feature: Basic String concatenation
-- New matching language feature: Variables
-- Make doing 2,3 and 4 steps Next/Prev more efficient
-- [Davide Magni] Small fixes on WEB-INF to test & deploy using NetBeans.
-- [Davide Magni] Simple change in form POST action (Parse Service) to support deploying in both root and non-root paths on webservers.
-- [Davide Magni] Massively improved Android brand detection for Sony, Xiaomi, Wiko, LG, Huawei, Alcatel, Vodafone, Meizu and Asus by Davide Magni (BIG THANKS!)
-- Make matching prefix strings use the HashMap for performance improvement
+- Implement test code coverage measuring
+- Improve test coverage.
+- Detect Bing related bots.
 
-v3.3
+v0.10
 ===
-- By default do not load all test cases into memory
-- Fixed NPE in parse error situation (Hacker scenario)
-- Never let any NPE disturb the calling application ever again
+- Cleanup of duplicate rules (small performance improvement)
+- Added JMH based benchmark
+- Added the option to remove all rules that only provide fields we're not interested in at that moment.
+- Pig UDF support for requested fields
+- Improved performance by detecting a mismatch faster.
+- Change license to Apache 2.0
 
-v4.0
+v0.9
 ===
-- Switch Analyzer to interface with default methods
-- Rename package annonate to annotate (which was a typo)
-- Upgrade Antlr to 4.7.1 and get rid of bug workaround
-- Introduce "Email Client" as a new AgentClass value.
+- Detect very old Mac devices
+- iPod is now a "Phone" because of the screensize.
+- Split words also on _
+- New Device class: "Handheld Game Console"
+
+v0.8
+===
+- Detect SQL injection better.
+- Detect some smartwatches
+- Many updated and improved rules
+- Allow setting the cache size
+
+v0.7
+===
+- Allow wiping a value
+- Allow setting all fields to a specific value (for example wiping them)
+- Changed the matcher language to support extracting ranges from a string (like; extract 3rd to 5th word).
+
+v0.6
+===
+- Fixed build (jars and uber jars)
+- The top level 'agent' is the unparsed version needed for better hacker detection.
+- Better hacker detection (SQL variants)
+- Fixed bug in the way the value is passed during walking around
+- Fixed bug in the tests
+
+v0.5
+===
+- Restructured the project
+- Added very simple testing servlet
+
+v0.4
+===
+- Detect webviews
+- Detect race conditions in the rules (unit tests fail when detected)
+- Added missing IDs for new Apple devices
+- Set-top boxes, Bada, Stock Android browser, ...
+- A lot of documentation
+
+v0.3.1
+===
+- Detect Opera better
+- UDF for Platfora
+- Cleanup of rules and results
+- Ability to measure performance better
+- 'Robot' and 'Mobile Robot'
+
+v0.2
+===
+- Added checkstyle to the build process
+- Improve detection Phone/Tablet
+- Improve detection Operating system name
+- Improved performance from ~90/sec to >4000/sec (measured on an i7).
+
+v0.1
+===
+- Initial release of a parser and matcher version that seems to work pretty good.
 
 License
 =======
