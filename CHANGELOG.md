@@ -3,6 +3,7 @@ This is intended as an overview of the major changes
 v4.3
 ===
 - Bump Apache Beam version from 2.0.0 to 2.4.0
+- Added Processor (UDF) for Apache Nifi 1.6.0
 
 v4.2
 ===
