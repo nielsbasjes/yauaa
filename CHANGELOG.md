@@ -1,5 +1,9 @@
 This is intended as an overview of the major changes
 
+v4.1
+===
+- Added newer Apple devices like iPhone 8 and X
+
 v4.0
 ===
 - Switch Analyzer to interface with default methods
