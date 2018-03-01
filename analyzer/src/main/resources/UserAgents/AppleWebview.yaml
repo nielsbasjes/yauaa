@@ -363,6 +363,37 @@ config:
       WebviewAppVersion                    : '15.0.122066290'
       WebviewAppVersionMajor               : '15'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 11_1_1 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) GSA/38.0.172903409 Mobile/15B150 Safari/604.1'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15B150'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '11.1.1'
+      OperatingSystemNameVersion           : 'iOS 11.1.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '604.1.34'
+      LayoutEngineVersionMajor             : '604'
+      LayoutEngineNameVersion              : 'AppleWebKit 604.1.34'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 604'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '604.1.34'
+      AgentVersionMajor                    : '604'
+      AgentNameVersion                     : 'UIWebView 604.1.34'
+      AgentNameVersionMajor                : 'UIWebView 604'
+      WebviewAppName                       : 'Google Search App'
+      WebviewAppNameVersionMajor           : 'Google Search App 38'
+      WebviewAppVersion                    : '38.0.172903409'
+      WebviewAppVersionMajor               : '38'
+
+
 # NOTE: According to https://mobiforge.com/research-analysis/webviews-and-user-agent-strings my current rules are incorrect
 # I suspect the author of that website got these two mixed up (because then they match perfectly with the specifications from Apple)
 #Safari for iOS User-Agent string
