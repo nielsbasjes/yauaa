@@ -627,6 +627,11 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
         PRE_SORTED_FIELDS_LIST.add("AgentSecurity");
         PRE_SORTED_FIELDS_LIST.add("AgentUuid");
 
+        PRE_SORTED_FIELDS_LIST.add("WebviewAppName");
+        PRE_SORTED_FIELDS_LIST.add("WebviewAppVersion");
+        PRE_SORTED_FIELDS_LIST.add("WebviewAppVersionMajor");
+        PRE_SORTED_FIELDS_LIST.add("WebviewAppNameVersionMajor");
+
         PRE_SORTED_FIELDS_LIST.add("FacebookCarrier");
         PRE_SORTED_FIELDS_LIST.add("FacebookDeviceClass");
         PRE_SORTED_FIELDS_LIST.add("FacebookDeviceName");
