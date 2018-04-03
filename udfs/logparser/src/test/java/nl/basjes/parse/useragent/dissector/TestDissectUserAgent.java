@@ -17,88 +17,32 @@
 
 package nl.basjes.parse.useragent.dissector;
 
-import nl.basjes.parse.core.Dissector;
-import nl.basjes.parse.core.Field;
-import nl.basjes.parse.core.Parser;
+import nl.basjes.parse.core.test.DissectorTester;
 import org.junit.Test;
-
-import java.lang.reflect.Constructor;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestDissectUserAgent {
-    public class TestRecordUserAgent {
-
-        private final Map<String, String> results = new HashMap<>(32);
-
-        @SuppressWarnings({"unused"}) // Used via reflection
-        @Field({
-            "STRING:device_class",
-            "STRING:device_name",
-            "STRING:device_cpu",
-
-            "STRING:operating_system_class",
-            "STRING:operating_system_name",
-            "STRING:operating_system_version",
-
-            "STRING:layout_engine_class",
-            "STRING:layout_engine_name",
-            "STRING:layout_engine_version",
-
-            "STRING:agent_class",
-            "STRING:agent_name",
-            "STRING:agent_version",
-        })
-        public void setValue(final String name, final String value) {
-            results.put(name, value);
-        }
-    }
-
-    class UAParser extends Parser<TestRecordUserAgent> {
-        UAParser() throws Exception {
-            super(TestRecordUserAgent.class);
-
-            // We do this
-            // Dissector userAgentDissector = new UserAgentDissector();
-            // Via reflection to test that instantiation route
-            String dissectorClassName = UserAgentDissector.class.getCanonicalName();
-            Class<?> clazz = Class.forName(dissectorClassName);
-            Constructor<?> constructor = clazz.getConstructor();
-            Dissector userAgentDissector = (Dissector) constructor.newInstance();
-            if (!userAgentDissector.initializeFromSettingsParameter(null)) {
-                throw new IllegalArgumentException("Initialization failed of dissector instance of class " + dissectorClassName);
-            }
-
-            addDissector(userAgentDissector);
-            setRootType(userAgentDissector.getInputType());
-        }
-    }
 
     @Test
-    public void testUserAgentDissector() throws Exception {
-        UAParser uaParser = new UAParser();
-        TestRecordUserAgent record = new TestRecordUserAgent();
-        uaParser.parse(record, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36");
-
-        Map<String, String> results = record.results;
-
-        assertEquals("Desktop",       results.get("STRING:device_class"));
-        assertEquals("Linux Desktop", results.get("STRING:device_name"));
-        assertEquals("Intel x86_64",  results.get("STRING:device_cpu"));
-
-        assertEquals("Desktop",       results.get("STRING:operating_system_class"));
-        assertEquals("Linux",         results.get("STRING:operating_system_name"));
-        assertEquals("Intel x86_64",  results.get("STRING:operating_system_version"));
-
-        assertEquals("Browser",       results.get("STRING:layout_engine_class"));
-        assertEquals("Blink",         results.get("STRING:layout_engine_name"));
-        assertEquals("48.0",          results.get("STRING:layout_engine_version"));
-
-        assertEquals("Browser",       results.get("STRING:agent_class"));
-        assertEquals("Chrome",        results.get("STRING:agent_name"));
-        assertEquals("48.0.2564.82",  results.get("STRING:agent_version"));
+    public void testUserAgentDissector() {
+        DissectorTester
+            .create()
+            .withDissector(new UserAgentDissector())
+            .withInput("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36")
+            .expect("STRING:device_class",             "Desktop")
+            .expect("STRING:device_name",              "Linux Desktop")
+            .expect("STRING:device_cpu",               "Intel x86_64")
+            .expect("STRING:operating_system_class",   "Desktop")
+            .expect("STRING:operating_system_name",    "Linux")
+            .expect("STRING:operating_system_version", "Intel x86_64")
+            .expect("STRING:layout_engine_class",      "Browser")
+            .expect("STRING:layout_engine_name",       "Blink")
+            .expect("STRING:layout_engine_version",    "48.0")
+            .expect("STRING:agent_class",              "Browser")
+            .expect("STRING:agent_name",               "Chrome")
+            .expect("STRING:agent_version",            "48.0.2564.82")
+            .checkExpectations();
     }
 
     @Test
@@ -107,6 +51,5 @@ public class TestDissectUserAgent {
         assertEquals("foo_bar",     UserAgentDissector.fieldNameToDissectionName("FooBar"));
         assertEquals("foo_bar_baz", UserAgentDissector.fieldNameToDissectionName("FooBarBaz"));
     }
-
 
 }
