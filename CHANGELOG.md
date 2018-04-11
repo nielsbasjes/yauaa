@@ -1,5 +1,9 @@
 This is intended as an overview of the major changes
 
+v4.3
+===
+- Bump Apache Beam version from 2.0.0 to 2.4.0
+
 v4.2
 ===
 - Changed CPU classification regarding Intel/AMD x86_64 and Intel Itanium x64
