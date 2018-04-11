@@ -1083,14 +1083,7 @@ config:
 
 # ===================================================================================
 # Some problem cases with IE where the Trident and other indicators seem off.
-
-- matcher:
-    require:
-    - 'agent.product.name="Trident"'
-    extract:
-    - 'AgentClass            :   2010:"Browser"'
-    - 'AgentName             :   2010:"Internet Explorer"'
-    - 'AgentVersion          :   2012:agent.product.comments.entry.keyvalue.key="rv"^.value'
+# Reported via https://github.com/nielsbasjes/yauaa/issues/75
 
 - matcher:
     require:
@@ -1130,3 +1123,115 @@ config:
       AgentNameVersion                     : 'Internet Explorer 11.1'
       AgentNameVersionMajor                : 'Internet Explorer 11'
 
+# Examples of an incorrect "Compatibility mode"
+# The Trident value indicates IE 8 or IE 9, Yet it says it is compatible with IE 10 ...
+# That is impossible so we are forcing it into reporting "IE 10.0"
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.product.name="Trident"'
+    - 'agent.product.comments.entry.product.name="MSIE"^.version[1]="10"'
+    extract:
+    - 'AgentClass            :   2010:"Browser"'
+    - 'AgentName             :   2010:"Internet Explorer"'
+    - 'AgentVersion          :   2013:agent.product.comments.entry.product.name="MSIE"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.product.name="Trident"'
+    - 'agent.product.comments.entry.product.name="MSIE"^.version[1]="11"'
+    extract:
+    - 'AgentClass            :   2010:"Browser"'
+    - 'AgentName             :   2010:"Internet Explorer"'
+    - 'AgentVersion          :   2013:agent.product.comments.entry.product.name="MSIE"^.version'
+
+#Example 3 (IE10)
+#UserAgent: "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/5.0)"
+#Actual Version: "9.0"
+#Right Version: "10.0"
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/5.0)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Trident 5.0'
+      LayoutEngineNameVersionMajor         : 'Trident 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Internet Explorer 10.0'
+      AgentNameVersionMajor                : 'Internet Explorer 10'
+
+#Example 4 (IE10)
+#UserAgent: "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/4.0; InfoPath.2; SV1; .NET CLR 2.0.50727; WOW64)"
+#Actual Vesion: "8.0"
+#Right Version: "10.0"
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/4.0; InfoPath.2; SV1; .NET CLR 2.0.50727; WOW64)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '4.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Trident 4.0'
+      LayoutEngineNameVersionMajor         : 'Trident 4'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Internet Explorer 10.0'
+      AgentNameVersionMajor                : 'Internet Explorer 10'
+
+#Example 5 (IE10)
+#UserAgent: "Mozilla/4.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/5.0)"
+#Actual Version: "9.0"
+#Right Version: "10.0"
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/5.0)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Trident 5.0'
+      LayoutEngineNameVersionMajor         : 'Trident 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Internet Explorer 10.0'
+      AgentNameVersionMajor                : 'Internet Explorer 10'
