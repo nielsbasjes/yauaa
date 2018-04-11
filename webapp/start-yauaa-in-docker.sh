@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # Yet Another UserAgent Analyzer
 # Copyright (C) 2013-2018 Niels Basjes
@@ -14,8 +15,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM openjdk:8-jdk-alpine
-ARG WAR_FILE
-ADD ${WAR_FILE} app.war
-EXPOSE 8080
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.war"]
+
+VERSION="latest"
+#WARFILE="target/yauaa-webapp-${VERSION}.war"
+WARFILE="target/yauaa-webapp-*.war"
+
+docker build --build-arg WAR_FILE=${WARFILE} -t yauaa:${VERSION} .
+docker run -p 8080:8080  yauaa:${VERSION}
+#Detached:  docker run -d -p 8080:8080  yauaa:${VERSION}
+

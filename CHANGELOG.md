@@ -4,6 +4,7 @@ v4.2
 ===
 - Changed CPU classification regarding Intel/AMD x86_64 and Intel Itanium x64
 - Fixed several problem cases with Internet Explorer
+- Added more complete Docker scripting for the webapp.
  
 v4.1
 ===
