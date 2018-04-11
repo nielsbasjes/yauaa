@@ -632,3 +632,33 @@ config:
       AgentLanguageCode                    : 'it'
       AgentSecurity                        : 'Strong security'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; it-IT; rv:1.9.0.2) Gecko/2008092313 Ubuntu/9.25 (jaunty) Firefox/3.8'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '9.25'
+      OperatingSystemNameVersion           : 'Ubuntu 9.25'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.0.2'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.0.2'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '2008092313'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.8'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.8'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'Italian (Italy)'
+      AgentLanguageCode                    : 'it-it'
+      AgentSecurity                        : 'Strong security'
+
