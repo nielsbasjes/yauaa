@@ -213,3 +213,28 @@ config:
       WebviewAppNameVersionMajor           : 'Facebook App for Android 111'
       WebviewAppVersion                    : '111.0.0.18.69'
       WebviewAppVersionMajor               : '111'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0.0; Pixel Build/OPR3.170623.007) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.116 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Pixel'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0.0'
+      OperatingSystemNameVersion           : 'Android 8.0.0'
+      OperatingSystemVersionBuild          : 'OPR3.170623.007'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '60.0'
+      LayoutEngineVersionMajor             : '60'
+      LayoutEngineNameVersion              : 'Blink 60.0'
+      LayoutEngineNameVersionMajor         : 'Blink 60'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '60.0.3112.116'
+      AgentVersionMajor                    : '60'
+      AgentNameVersion                     : 'Chrome 60.0.3112.116'
+      AgentNameVersionMajor                : 'Chrome 60'
