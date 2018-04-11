@@ -1079,3 +1079,54 @@ config:
       IECompatibilityVersionMajor          : '7'
       IECompatibilityNameVersion           : 'Internet Explorer 7.0'
       IECompatibilityNameVersionMajor      : 'Internet Explorer 7'
+
+
+# ===================================================================================
+# Some problem cases with IE where the Trident and other indicators seem off.
+
+- matcher:
+    require:
+    - 'agent.product.name="Trident"'
+    extract:
+    - 'AgentClass            :   2010:"Browser"'
+    - 'AgentName             :   2010:"Internet Explorer"'
+    - 'AgentVersion          :   2012:agent.product.comments.entry.keyvalue.key="rv"^.value'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.product.name="Trident"'
+    extract:
+    - 'AgentClass            :   2010:"Browser"'
+    - 'AgentName             :   2010:"Internet Explorer"'
+    - 'AgentVersion          :   2012:agent.product.comments.entry.keyvalue.key="rv"^.value'
+
+#Example 1 (IE 11)
+#UserAgent: "Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.1) like Gecko"
+#Actual Version: "11.0"
+#Right Version "11.1"
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.1) like Gecko'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 8.1'
+      OperatingSystemNameVersion           : 'Windows 8.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.1'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.1'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
+
