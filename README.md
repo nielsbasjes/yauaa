@@ -270,9 +270,9 @@ I have written such a UDF which are all part of this project.
 * [Apache Flink](README-Flink.md)
 * [Apache Beam](README-Beam.md)
 * [Apache Hive](README-Hive.md)
-* ~~[Platfora](README-Platfora.md)~~ (Deprecated)
 * [Commandline tool](README-Commandline.md)
 * [Apache Drill](README-Drill.md) which was originally written by [Charles S. Grive](https://github.com/cgivre/drill-useragent-function)
+* [Apache Nifi](README-Nifi.md)
 
 Values explained
 ================
