@@ -36,7 +36,7 @@ Simply install the normal build tools for a Java project (i.e. maven and jdk 8+)
 
 The jar file for Apache Drill can be found as
 
-    ./udfs/drill/target/yauaa-drill-<version>.jar
+    ./udfs/drill/function/target/yauaa-drill-<version>.jar
 
 ## Installation
 To install this function put the jar file in the <drill-path>/jars/3rdparty directory.
