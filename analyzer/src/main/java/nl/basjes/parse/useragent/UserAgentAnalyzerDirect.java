@@ -299,7 +299,15 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
             lookups = cleanedLookups;
         }
 
-        LOG.info("Building all matchers");
+        if (wantedFieldNames != null) {
+            int wantedSize = wantedFieldNames.size();
+            if (wantedFieldNames.contains(SET_ALL_FIELDS)) {
+                wantedSize--;
+            }
+            LOG.info("Building all needed matchers for the requested {} fields.", wantedSize);
+        } else {
+            LOG.info("Building all matchers for all possible fields.");
+        }
         int totalNumberOfMatchers = 0;
         int skippedMatchers = 0;
         if (matcherConfigs != null) {
