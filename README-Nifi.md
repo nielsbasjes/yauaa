@@ -19,7 +19,7 @@ Simply install the normal build tools for a Java project (i.e. maven and jdk 8+)
 
     mvn clean package
 
-The nar file for Apache Nifo can be found as
+The nar file for Apache Nifi can be found as
 
     ./udfs/nifi/nifi-nar/target/yauaa-nifi-<version>.nar
 
