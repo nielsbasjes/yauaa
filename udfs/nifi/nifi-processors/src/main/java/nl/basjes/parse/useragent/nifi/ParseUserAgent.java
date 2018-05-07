@@ -83,6 +83,7 @@ public class ParseUserAgent extends AbstractProcessor {
                 ALL_FIELD_NAMES.addAll(UserAgentAnalyzer
                     .newBuilder()
                     .hideMatcherLoadStats()
+                    .delayInitialization()
                     .dropTests()
                     .build()
                     .getAllPossibleFieldNamesSorted());

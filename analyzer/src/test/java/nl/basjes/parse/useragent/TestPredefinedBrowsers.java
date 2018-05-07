@@ -38,6 +38,7 @@ public class TestPredefinedBrowsers {
         UserAgentAnalyzerTester uaa;
         uaa = new UserAgentAnalyzerTester();
         uaa.setShowMatcherStats(false);
+        uaa.delayInitialization();
         uaa.initialize();
         LOG.info("==============================================================");
         LOG.info("Validating when getting all fields");

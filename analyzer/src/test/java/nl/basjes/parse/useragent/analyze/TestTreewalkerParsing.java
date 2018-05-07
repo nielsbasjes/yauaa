@@ -327,6 +327,7 @@ public class TestTreewalkerParsing {
 
         TestMatcher matcher = new TestMatcher(lookups, new HashMap<>());
         MatcherRequireAction action = new MatcherRequireAction(path, matcher);
+        action.initialize();
 
         StringBuilder sb = new StringBuilder("\n---------------------------\nActual list (")
             .append(matcher.reveicedValues.size())

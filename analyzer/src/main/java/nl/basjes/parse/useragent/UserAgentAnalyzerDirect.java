@@ -82,14 +82,15 @@ import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsString;
 
 public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 
-    // We set this to 100000 always.
-    // In case someone needs 'all' fields then the map will increase in size automatically during startup.
-    // In other cases the reduced memory footprint is preferred.
-    private static final int INFORM_ACTIONS_HASHMAP_SIZE = 100000;
+    // We set this to 1000000 always.
+    // Why?
+    // At the time of writing this the actual HashMap size needed about 410K entries.
+    // To keep the bins small the load factor of 0.75 already puts us at the capacity of 1048576
+    private static final int INFORM_ACTIONS_HASHMAP_CAPACITY = 1000000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzerDirect.class);
     protected final List<Matcher> allMatchers = new ArrayList<>(5000);
-    private final Map<String, Set<MatcherAction>> informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_SIZE);
+    private final Map<String, Set<MatcherAction>> informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_CAPACITY);
     private transient Map<String, List<MappingNode>> matcherConfigs = new HashMap<>();
 
     private boolean showMatcherStats = false;
@@ -124,7 +125,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         lines.add("This Analyzer instance was deserialized.");
         lines.add("");
         lines.add("Lookups      : " + ((lookups == null) ? 0 : lookups.size()));
-        lines.add("LookupSets   : " + ((lookupSets == null) ? 0 : lookupSets.size()));
+        lines.add("LookupSets   : " + lookupSets.size());
         lines.add("Matchers     : " + allMatchers.size());
         lines.add("Hashmap size : " + informMatcherActions.size());
         lines.add("Testcases    : " + testCases.size());
@@ -134,8 +135,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 //            lines.add("- " + count++ + ": " + fieldName);
 //        }
 
-        String[] x = {};
-        logVersion(lines.toArray(x));
+        logVersion();
     }
 
     public UserAgentAnalyzerDirect() {
@@ -146,6 +146,9 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         setDefaultFieldValues();
         if (initialize) {
             initialize();
+            if (!delayInitialization) {
+                initializeMatchers();
+            }
         }
     }
 
@@ -153,6 +156,14 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         setDefaultFieldValues();
         setShowMatcherStats(true);
         loadResources(resourceString);
+        if (!delayInitialization) {
+            initializeMatchers();
+        }
+    }
+
+    private boolean delayInitialization = false;
+    public void delayInitialization() {
+        delayInitialization = true;
     }
 
     public UserAgentAnalyzerDirect setShowMatcherStats(boolean newShowMatcherStats) {
@@ -175,6 +186,9 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         logVersion();
         loadResources("classpath*:UserAgents/**/*.yaml");
         verifyWeAreNotAskingForImpossibleFields();
+        if (!delayInitialization) {
+            initializeMatchers();
+        }
     }
 
     protected void verifyWeAreNotAskingForImpossibleFields() {
@@ -252,6 +266,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 
     public void loadResources(String resourceString) {
         LOG.info("Loading from: \"{}\"", resourceString);
+        long startFiles = System.nanoTime();
 
         flattener = new UserAgentTreeFlattener(this);
         Yaml yaml = new Yaml();
@@ -284,7 +299,8 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
                 e.printStackTrace();
             }
         }
-        LOG.info("Loaded {} files", resources.size());
+        long stopFiles = System.nanoTime();
+        LOG.info("Loaded {} files in {} msec", resources.size(),  (stopFiles - startFiles) / 1000000);
 
         if (lookups != null && !lookups.isEmpty()) {
             // All compares are done in a case insensitive way. So we lowercase ALL keys of the lookups beforehand.
@@ -321,7 +337,6 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
                 }
 
                 long start = System.nanoTime();
-                int startSize = informMatcherActions.size();
                 int startSkipped = skippedMatchers;
                 for (MappingNode map : matcherConfig) {
                     try {
@@ -332,45 +347,48 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
                     }
                 }
                 long stop = System.nanoTime();
-                int stopSize = informMatcherActions.size();
                 int stopSkipped = skippedMatchers;
 
                 if (showMatcherStats) {
                     Formatter msg = new Formatter(Locale.ENGLISH);
-                    msg.format("Building %4d (dropped %4d) matchers from %-" + maxFilenameLength + "s " +
-                            "took %5d msec resulted in %8d extra hashmap entries",
+                    msg.format("Loading %4d (dropped %4d) matchers from %-" + maxFilenameLength + "s " + "took %5d msec",
                         matcherConfig.size(),
                         stopSkipped - startSkipped,
                         configFilename,
-                        (stop - start) / 1000000,
-                        stopSize - startSize);
+                        (stop - start) / 1000000);
                     LOG.info(msg.toString());
                 }
             }
             long fullStop = System.nanoTime();
 
             Formatter msg = new Formatter(Locale.ENGLISH);
-            msg.format("Building %4d (dropped %4d) matchers from %4d files took %5d msec resulted in %8d hashmap entries",
+            msg.format("Loading %4d (dropped %4d) matchers, %d lookups, %d lookupsets, %d testcases from %4d files took %5d msec",
                 totalNumberOfMatchers,
                 skippedMatchers,
+                (lookups == null) ? 0 : lookups.size(),
+                lookupSets.size(),
+                testCases.size(),
                 matcherConfigs.size(),
-                (fullStop - fullStart) / 1000000,
-                informMatcherActions.size());
+                (fullStop - fullStart) / 1000000);
             LOG.info(msg.toString());
 
         }
-        LOG.info("Analyzer stats");
-        LOG.info("- Lookups         : {}", (lookups == null) ? 0 : lookups.size());
-        LOG.info("- LookupSets      : {}", (lookupSets == null) ? 0 : lookupSets.size());
-        LOG.info("- Matchers        : {} (total:{} ; dropped: {})", allMatchers.size(), totalNumberOfMatchers, skippedMatchers);
-        LOG.info("- Hashmap size    : {}", informMatcherActions.size());
-        LOG.info("- Ranges map size : {}", informMatcherActionRanges.size());
-        LOG.info("- Testcases       : {}", testCases.size());
-//        LOG.info("All possible field names:");
-//        int count = 1;
-//        for (String fieldName : getAllPossibleFieldNames()) {
-//            LOG.info("- {}: {}", count++, fieldName);
-//        }
+    }
+
+    private boolean matchersHaveBeenInitialized = false;
+    public void initializeMatchers() {
+        if (matchersHaveBeenInitialized) {
+            return;
+        }
+        LOG.info("Initializing Analyzer data structures");
+        long start = System.nanoTime();
+        allMatchers.forEach(Matcher::initialize);
+        long stop = System.nanoTime();
+        matchersHaveBeenInitialized = true;
+        LOG.info("Built in {} msec : Hashmap {}, Ranges map:{}",
+            (stop - start) / 1000000,
+            informMatcherActions.size(),
+            informMatcherActionRanges.size());
     }
 
     public Set<String> getAllPossibleFieldNames() {
@@ -726,6 +744,7 @@ config:
     }
 
     public synchronized UserAgent parse(UserAgent userAgent) {
+        initializeMatchers();
         String useragentString = userAgent.getUserAgentString();
         if (useragentString != null && useragentString.length() > userAgentMaxLength) {
             userAgent = setAsHacker(userAgent, 100);
@@ -1123,6 +1142,11 @@ config:
 
         public B dropTests() {
             uaa.dropTests();
+            return (B)this;
+        }
+
+        public B delayInitialization() {
+            uaa.delayInitialization();
             return (B)this;
         }
 

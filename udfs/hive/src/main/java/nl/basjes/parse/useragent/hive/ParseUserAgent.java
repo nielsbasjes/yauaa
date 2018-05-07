@@ -78,6 +78,7 @@ public class ParseUserAgent extends GenericUDF {
             userAgentAnalyzer = UserAgentAnalyzer
                 .newBuilder()
                 .hideMatcherLoadStats()
+                .delayInitialization()
                 .build();
             fieldNames = userAgentAnalyzer.getAllPossibleFieldNamesSorted();
         }

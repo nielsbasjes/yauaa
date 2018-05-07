@@ -162,7 +162,9 @@ public abstract class MatcherAction implements Serializable {
         this.matcher = newMatcher;
         this.matchExpression = newMatchExpression;
         setVerbose(newMatcher.getVerbose());
+    }
 
+    public void initialize() {
         InitErrorListener errorListener = new InitErrorListener();
 
         CodePointCharStream input = CharStreams.fromString(this.matchExpression);

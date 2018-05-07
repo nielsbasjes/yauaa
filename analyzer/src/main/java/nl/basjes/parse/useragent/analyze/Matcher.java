@@ -197,45 +197,67 @@ public class Matcher implements Serializable {
         }
 
         for (ConfigLine configLine : configLines) {
-            if (verbose) {
-                LOG.info("{}: {}", configLine.type, configLine.expression);
-            }
-            switch (configLine.type) {
-                case VARIABLE:
-                    try {
+            try {
+                if (verbose) {
+                    LOG.info("{}: {}", configLine.type, configLine.expression);
+                }
+                switch (configLine.type) {
+                    case VARIABLE:
                         variableActions.add(new MatcherVariableAction(configLine.attribute, configLine.expression, this));
-                    } catch (InvalidParserConfigurationException e) {
-                        throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ") => " + configLine, e);
-                    }
-                    break;
-                case REQUIRE:
-                    try {
+                        break;
+                    case REQUIRE:
                         dynamicActions.add(new MatcherRequireAction(configLine.expression, this));
-                    } catch (InvalidParserConfigurationException e) {
-                        if (!e.getMessage().startsWith("It is useless to put a fixed value")) {// Ignore fixed values in require
-                            throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ") => " + configLine, e);
-                        }
-                    }
-                    break;
-                case EXTRACT:
-                    MatcherExtractAction action =
-                        new MatcherExtractAction(configLine.attribute, configLine.confidence, configLine.expression, this);
-
-                    // Make sure the field actually exists
-                    newValuesUserAgent.set(configLine.attribute, "Dummy", -9999);
-                    action.setResultAgentField(newValuesUserAgent.get(configLine.attribute));
-
-                    if (action.isFixedValue()) {
-                        fixedStringActions.add(action);
-                        action.obtainResult();
-                    } else {
+                        break;
+                    case EXTRACT:
+                        MatcherExtractAction action =
+                            new MatcherExtractAction(configLine.attribute, configLine.confidence, configLine.expression, this);
                         dynamicActions.add(action);
-                    }
-                    break;
-                default:
-                    break;
+
+                        // Make sure the field actually exists
+                        newValuesUserAgent.set(configLine.attribute, "Dummy", -9999);
+                        action.setResultAgentField(newValuesUserAgent.get(configLine.attribute));
+                        break;
+                    default:
+                        break;
+                }
+            } catch (InvalidParserConfigurationException e) {
+                throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ") => " + configLine, e);
+            }
+
+        }
+
+    }
+
+    public void initialize() {
+        try {
+            variableActions.forEach(MatcherAction::initialize);
+        } catch (InvalidParserConfigurationException e) {
+            throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ")", e);
+        }
+
+        Set<MatcherAction> uselessRequireActions = new HashSet<>();
+        for (MatcherAction dynamicAction : dynamicActions) {
+            try {
+                dynamicAction.initialize();
+            } catch (InvalidParserConfigurationException e) {
+                if (!e.getMessage().startsWith("It is useless to put a fixed value")) {// Ignore fixed values in require
+                    throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ")" + e.getMessage(), e);
+                }
+                uselessRequireActions.add(dynamicAction);
             }
         }
+
+        for (MatcherAction action: dynamicActions) {
+            if (action instanceof MatcherExtractAction) {
+                if (((MatcherExtractAction)action).isFixedValue()) {
+                    fixedStringActions.add(action);
+                    action.obtainResult();
+                }
+            }
+        }
+
+        fixedStringActions.forEach(action -> dynamicActions.remove(action));
+        uselessRequireActions.forEach(action -> dynamicActions.remove(action));
 
         // Verify that a variable only contains the variables that have been defined BEFORE it (also not referencing itself).
         // If all is ok we link them

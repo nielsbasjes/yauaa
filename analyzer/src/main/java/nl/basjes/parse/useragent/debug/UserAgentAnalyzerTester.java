@@ -75,6 +75,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                             boolean measureSpeed,
                             boolean showPassedTests) {
         boolean allPass = true;
+        initializeMatchers();
         if (testCases == null) {
             return allPass;
         }
