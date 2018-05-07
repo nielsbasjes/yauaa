@@ -353,7 +353,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
                 if (showMatcherStats) {
                     Formatter msg = new Formatter(Locale.ENGLISH);
                     msg.format("Loading %4d (dropped %4d) matchers from %-" + maxFilenameLength + "s " + "took %5d msec",
-                        matcherConfig.size(),
+                        matcherConfig.size() - (stopSkipped - startSkipped),
                         stopSkipped - startSkipped,
                         configFilename,
                         (stop - start) / 1000000);
@@ -393,8 +393,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
     }
 
     public Set<String> getAllPossibleFieldNames() {
-        Set<String> results = new TreeSet<>();
-        results.addAll(HARD_CODED_GENERATED_FIELDS);
+        Set<String> results = new TreeSet<>(HARD_CODED_GENERATED_FIELDS);
         for (Matcher matcher : allMatchers) {
             results.addAll(matcher.getAllPossibleFieldNames());
         }
