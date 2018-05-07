@@ -18,15 +18,16 @@
 package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class DocumentationExample {
 
     @Test
     public void runDocumentationExample() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:DocumentationExample.yaml");
-        Assert.assertTrue(uaa.runTests(false, true));
+        assertTrue(uaa.runTests(false, true));
     }
 
 }
