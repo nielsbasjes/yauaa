@@ -135,7 +135,8 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 //            lines.add("- " + count++ + ": " + fieldName);
 //        }
 
-        logVersion();
+        String[] x = {};
+        logVersion(lines.toArray(x));
     }
 
     public UserAgentAnalyzerDirect() {
