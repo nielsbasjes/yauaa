@@ -191,6 +191,7 @@
   </profiles>
 
   <build>
+    <defaultGoal>clean package</defaultGoal>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -325,6 +326,8 @@
             <exclude>analyzer/run-pitest.sh</exclude>
             <exclude>analyzer/pitest/</exclude>
             <exclude>**/.~lock.*</exclude>
+            <exclude>docker/_m2/**</exclude>
+            <exclude>docker/_gnupg/**</exclude>
             <!-- Test scripts -->
             <exclude>*.sh</exclude>
             <exclude>_*/**</exclude>
