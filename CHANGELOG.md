@@ -3,6 +3,7 @@ This is intended as an overview of the major changes
 v4.4
 ===
 - Added extra checks to avoid using the builder twice
+- Completely dropped Platfora
 
 v4.3
 ===

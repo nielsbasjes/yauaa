@@ -4,8 +4,8 @@ So we do it manually.
 # Ensure all has been committed
 
 # Ensure it all works
-mvn clean verify -Pplatfora 
-mvn clean -Pplatfora
+mvn clean verify
+mvn clean
 
 # Prepare the versions for the release
 RELEASEVERSION=4.4
@@ -24,7 +24,7 @@ git commit -m"Version ${RELEASEVERSION}" -a
 # We must first tag it because the tag is generated into the code
 git tag -a v${RELEASEVERSION} -m"Tag Version ${RELEASEVERSION}"
 
-#mvn clean deploy -Pplatfora -Prelease -Pdeploy-local
+#mvn clean deploy -Prelease -Pdeploy-local
 #VERIFY If this all looks good
 
 # These two profiles are defined in ~/.m2/settings.xml
