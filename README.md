@@ -152,6 +152,7 @@ and in your application you can use it as simple as this
         }
 
 Please instantiate a new UserAgentAnalyzer as few times as possible because the initialization step for a full UserAgentAnalyzer (i.e. all fields) usually takes something in the range of 2-5 seconds.
+If you need multiple instances of the UserAgentAnalyzer then you MUST create a new Builder instance for each of those.
 
 Note that not all fields are available after every parse. So be prepared to receive a 'null' if you extract a specific name.
 

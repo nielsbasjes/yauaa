@@ -32,6 +32,7 @@ public class TestDeveloperTools {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
             .hideMatcherLoadStats()
+            .delayInitialization()
             .dropTests()
             .build();
         uaa.setShowMatcherStats(true);
@@ -44,6 +45,7 @@ public class TestDeveloperTools {
     public void validateNewTestcaseSituationOutput() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
+            .delayInitialization()
             .hideMatcherLoadStats()
             .dropTests()
             .build();

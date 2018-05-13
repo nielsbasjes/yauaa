@@ -109,11 +109,13 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
         }
 
         public B withCache(int newCacheSize) {
+            failIfAlreadyBuilt();
             uaa.setCacheSize(newCacheSize);
             return (B)this;
         }
 
         public B withoutCache() {
+            failIfAlreadyBuilt();
             uaa.setCacheSize(0);
             return (B)this;
         }

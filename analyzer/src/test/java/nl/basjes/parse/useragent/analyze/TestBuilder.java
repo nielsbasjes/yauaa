@@ -19,11 +19,13 @@ package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 // CHECKSTYLE.OFF: ParenPad
 public class TestBuilder {
@@ -34,6 +36,7 @@ public class TestBuilder {
             UserAgentAnalyzer
                 .newBuilder()
                 .preheat(100)
+                .preheat()
                 .withCache(42)
                 .withoutCache()
                 .hideMatcherLoadStats()
@@ -43,8 +46,6 @@ public class TestBuilder {
                 .withField("AgentNameVersionMajor")
                 .withUserAgentMaxLength(1234)
                 .build();
-
-        userAgentAnalyzer.preHeat();
 
         assertEquals(1234, userAgentAnalyzer.getUserAgentMaxLength());
 
@@ -90,10 +91,45 @@ public class TestBuilder {
             .newBuilder()
             .withoutCache()
             .hideMatcherLoadStats()
+            .delayInitialization()
             .withField("FirstNonexistentField")
             .withField("DeviceClass")
             .withField("SecondNonexistentField")
             .build();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testDualBuilderUsageNoSecondInstance() {
+        UserAgentAnalyzerBuilder<?, ?> builder =
+            UserAgentAnalyzer.newBuilder().delayInitialization();
+
+        assertNotNull("We should get a first instance from a single builder.", builder.build());
+        // And calling build() again should fail with an exception
+        builder.build();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testDualBuilderUsageUseSetterAfterBuild() {
+        UserAgentAnalyzerBuilder<?, ?> builder =
+            UserAgentAnalyzer.newBuilder().delayInitialization();
+
+        assertNotNull("We should get a first instance from a single builder.", builder.build());
+
+        // And calling a setter after the build() should fail with an exception
+        builder.withCache(1234);
+    }
+
+
+    @Test(expected = IllegalStateException.class)
+    public void testLoadMoreResources() {
+        UserAgentAnalyzerBuilder<?, ?> builder =
+            UserAgentAnalyzer.newBuilder().delayInitialization().withField("DeviceClass");
+
+        UserAgentAnalyzer uaa = builder.build();
+        assertNotNull("We should get a first instance from a single builder.", uaa);
+
+        uaa.initializeMatchers();
+        uaa.loadResources("Something extra");
     }
 
 }

@@ -266,6 +266,10 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
     }
 
     public void loadResources(String resourceString) {
+        if (matchersHaveBeenInitialized) {
+            throw new IllegalStateException("Refusing to load additional resources after the datastructures have been initialized.");
+        }
+
         LOG.info("Loading from: \"{}\"", resourceString);
         long startFiles = System.nanoTime();
 
@@ -1083,7 +1087,14 @@ config:
     @SuppressWarnings("unchecked")
     public static class UserAgentAnalyzerDirectBuilder<UAA extends UserAgentAnalyzerDirect, B extends UserAgentAnalyzerDirectBuilder<UAA, B>> {
         private final UAA uaa;
+        private boolean didBuildStep = false;
         private int preheatIterations = 0;
+
+        protected void failIfAlreadyBuilt() {
+            if (didBuildStep) {
+                throw new IllegalStateException("A builder can provide only a single instance. It is not allowed to set values after doing build()");
+            }
+        }
 
         protected UserAgentAnalyzerDirectBuilder(UAA newUaa) {
             this.uaa = newUaa;
@@ -1091,16 +1102,19 @@ config:
         }
 
         public B preheat(int iterations) {
+            failIfAlreadyBuilt();
             this.preheatIterations = iterations;
             return (B)this;
         }
 
         public B preheat() {
+            failIfAlreadyBuilt();
             this.preheatIterations = -1;
             return (B)this;
         }
 
         public B withField(String fieldName) {
+            failIfAlreadyBuilt();
             if (uaa.wantedFieldNames == null) {
                 uaa.wantedFieldNames = new ArrayList<>(32);
             }
@@ -1115,37 +1129,51 @@ config:
             return (B)this;
         }
 
+        public B withFields(String... fieldNames) {
+            for (String fieldName : fieldNames) {
+                withField(fieldName);
+            }
+            return (B)this;
+        }
+
         public B withAllFields() {
+            failIfAlreadyBuilt();
             uaa.wantedFieldNames = null;
             return (B)this;
         }
 
         public B showMatcherLoadStats() {
+            failIfAlreadyBuilt();
             uaa.setShowMatcherStats(true);
             return (B)this;
         }
 
         public B hideMatcherLoadStats() {
+            failIfAlreadyBuilt();
             uaa.setShowMatcherStats(false);
             return (B)this;
         }
 
         public B withUserAgentMaxLength(int newUserAgentMaxLength) {
+            failIfAlreadyBuilt();
             uaa.setUserAgentMaxLength(newUserAgentMaxLength);
             return (B)this;
         }
 
         public B keepTests() {
+            failIfAlreadyBuilt();
             uaa.keepTests();
             return (B)this;
         }
 
         public B dropTests() {
+            failIfAlreadyBuilt();
             uaa.dropTests();
             return (B)this;
         }
 
         public B delayInitialization() {
+            failIfAlreadyBuilt();
             uaa.delayInitialization();
             return (B)this;
         }
@@ -1157,6 +1185,7 @@ config:
         }
 
         public UAA build() {
+            failIfAlreadyBuilt();
             if (uaa.wantedFieldNames != null) {
                 addGeneratedFields("AgentNameVersion", AGENT_NAME, AGENT_VERSION);
                 addGeneratedFields("AgentNameVersionMajor", AGENT_NAME, AGENT_VERSION_MAJOR);
@@ -1183,6 +1212,7 @@ config:
                     uaa.preHeat(preheatIterations);
                 }
             }
+            didBuildStep = true;
             return uaa;
         }
 

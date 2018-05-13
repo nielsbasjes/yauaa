@@ -1,5 +1,9 @@
 This is intended as an overview of the major changes
 
+v4.4
+===
+- Added extra checks to avoid using the builder twice
+
 v4.3
 ===
 - Bump Apache Beam version from 2.0.0 to 2.4.0
