@@ -4,6 +4,7 @@ v4.4
 ===
 - Added extra checks to avoid using the builder twice
 - Completely dropped Platfora
+- Detect the brand 'Cubot' as not a robot
 
 v4.3
 ===

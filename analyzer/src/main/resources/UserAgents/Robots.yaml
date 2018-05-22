@@ -335,6 +335,8 @@ config:
     - 'AgentVersion          :  100:agent.(1)product.comments.entry.product.name~"crawl"^.version'
 
 - matcher:
+    require:
+    - 'IsNull[agent.(1)product.comments.entry.product.name[1]="cubot"]'
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
@@ -394,7 +396,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.comments.entry.text~"bot"'
+    - 'IsNull[agent.(1)product.comments.entry.text[1]="cubot"]'
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'

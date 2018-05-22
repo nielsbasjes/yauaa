@@ -104,6 +104,7 @@ config:
       "NSZ-" : "Sony"
       "SHIELD" : "Nvidia"
       "POV_" : "Point of view"
+      "Cubot" : "Cubot"
       "SpreadTrum" : "SpreadTrum"
 
 # ===================================================================================================
@@ -9178,6 +9179,126 @@ config:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
     require:
     - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product{"Cubot"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  325:"Cubot"'
+    - 'DeviceName                  :  325:@BuildProduct^<{"Cubot"'
+
+- matcher:
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name[2]="Build"'
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product{"Cubot"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  325:"Cubot"'
+    - 'DeviceName                  :  325:@BuildProduct^<{"Cubot"'
+
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name[3]="Build"'
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product{"Cubot"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  325:"Cubot"'
+    - 'DeviceName                  :  325:@BuildProduct^<{"Cubot"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"Cubot"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  324:"Cubot"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"Cubot"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"Cubot"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  324:"Cubot"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"Cubot"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"Cubot"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  324:"Cubot"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"Cubot"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"Cubot"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  324:"Cubot"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"Cubot"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Cubot"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"Cubot"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Cubot"'
+    - 'DeviceName                  :  313:agent.product.name{"Cubot"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Cubot"'
+    - 'DeviceName                  :  324:agent.(1)product.name="Cubot"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Cubot"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="Cubot"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Cubot"'
+    - 'DeviceName                  :  125:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"Cubot"@'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Cubot"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"Cubot"@!="Cubot"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Cubot"'
+    - 'DeviceName                  :  124:agent.(1-2)product.(1)comments.entry.text{"Cubot"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Cubot"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"Cubot"@!="Cubot"'
+
+
+- matcher:
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name="Android"'
     - 'agent.(1-2)product.(1)comments.entry.product{"SpreadTrum"' # Performance trick
     extract:
     - 'DeviceBrand                 :  325:"SpreadTrum"'
@@ -9728,6 +9849,46 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Coolpad"'
     extract:
     - 'DeviceBrand                 :   90:"Coolpad"'
+
+# ===================================================================================================
+
+
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Cubot"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version{"Cubot"'
+    extract:
+    - 'DeviceBrand                 :   94:"Cubot"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Cubot"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^.version{"Cubot"'
+    extract:
+    - 'DeviceBrand                 :   93:"Cubot"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Cubot"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^.version{"Cubot"'
+    extract:
+    - 'DeviceBrand                 :   92:"Cubot"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Cubot"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"^.version{"Cubot"'
+    extract:
+    - 'DeviceBrand                 :   91:"Cubot"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Cubot"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Cubot"'
+    extract:
+    - 'DeviceBrand                 :   90:"Cubot"'
 
 # ===================================================================================================
 
