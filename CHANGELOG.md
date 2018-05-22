@@ -5,6 +5,7 @@ v4.4
 - Added extra checks to avoid using the builder twice
 - Completely dropped Platfora
 - Detect the brand 'Cubot' as not a robot
+- Improved performance by rewriting some Robot detection rules
 
 v4.3
 ===
