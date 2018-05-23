@@ -164,6 +164,57 @@ config:
       AgentNameVersion                     : '1Password 5.1.2'
       AgentNameVersionMajor                : '1Password 5'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU OS 11_4 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) 1Password/7.0.6 (like Version/11.4 Mobile/15F5049c Safari/600.1.4)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '11.4'
+      OperatingSystemNameVersion           : 'iOS 11.4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '600.1.4'
+      LayoutEngineVersionMajor             : '600'
+      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      AgentClass                           : 'Browser'
+      AgentName                            : '1Password'
+      AgentVersion                         : '7.0.6'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : '1Password 7.0.6'
+      AgentNameVersionMajor                : '1Password 7'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 11_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) 1Password/7.0.6 (like Version/11.3 Mobile/15E216 Safari/600.1.4'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '11.3'
+      OperatingSystemNameVersion           : 'iOS 11.3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '600.1.4'
+      LayoutEngineVersionMajor             : '600'
+      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      AgentClass                           : 'Browser'
+      AgentName                            : '1Password'
+      AgentVersion                         : '7.0.6'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : '1Password 7.0.6'
+      AgentNameVersionMajor                : '1Password 7'
+
 # If the BASE64 minimal size gets too smal this becomes a parse error
 - test:
     input:
