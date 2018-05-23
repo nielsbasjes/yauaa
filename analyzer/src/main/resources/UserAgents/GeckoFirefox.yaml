@@ -16,6 +16,12 @@
 #
 config:
 
+- set:
+    name: 'BadGeckoNames'
+    values:
+      - 'anonymized'
+      - 'owasmime'
+
 - matcher:
     extract:
     - 'LayoutEngineClass    :  2000:"Browser"'
@@ -29,6 +35,8 @@ config:
 - matcher:
     variable:
     - 'Gecko: agent.(2-5)product.name="Gecko"^>'
+    require:
+    - 'IsNull[@Gecko.name?BadGeckoNames]'
     extract:
     - 'AgentClass           :  2000:"Browser"'
     - 'AgentName            :  2000:@Gecko.name'
@@ -37,9 +45,11 @@ config:
 - matcher:
     variable:
     - 'Gecko: agent.(2-5)product.name="Gecko"^>>'
+    require:
+    - 'IsNull[@Gecko.name[-1]?BadGeckoNames]'
     extract:
     - 'AgentClass           :  2001:"Browser"'
-    - 'AgentName            :  2001:@Gecko.name[-1]!="anonymized"@'
+    - 'AgentName            :  2001:@Gecko.name'
     - 'AgentVersion         :  2001:@Gecko.version'
 
 - matcher:

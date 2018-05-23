@@ -6,6 +6,7 @@ v4.4
 - Completely dropped Platfora
 - Detect the brand 'Cubot' as not a robot
 - Improved performance by rewriting some Robot detection rules
+- Fixed OWASMIME plugin problem.
 
 v4.3
 ===
