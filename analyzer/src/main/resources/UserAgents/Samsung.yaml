@@ -424,3 +424,36 @@ config:
       AgentVersionMajor                    : '32'
       AgentNameVersion                     : 'Chrome 32.0.1700.99'
       AgentNameVersionMajor                : 'Chrome 32'
+
+- matcher:
+    variable:
+      - 'AgentVersion:agent.product.name="NetFront"^.version'
+    extract:
+      - 'LayoutEngineClass     : 7 :"Browser"'
+      - 'LayoutEngineName      : 7 :"Netfront"'
+      - 'LayoutEngineVersion   : 7 :@AgentVersion'
+      - 'AgentClass            : 7 :"Browser"'
+      - 'AgentName             : 7 :"Netfront"'
+      - 'AgentVersion          : 7 :@AgentVersion'
+
+- test:
+    input:
+      user_agent_string: 'SAMSUNG-GT-S5610-ORANGE/S5610BVKL1 NetFront/4.1 Profile/MIDP-2.0 Configuration/CLDC-1.1'
+    expected:
+      DeviceClass                           : 'Mobile'
+      DeviceName                            : 'Samsung GT-S5610-Orange'
+      DeviceBrand                           : 'Samsung'
+      DeviceVersion                         : 'S5610BVKL1'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Netfront'
+      LayoutEngineVersion                   : '4.1'
+      LayoutEngineVersionMajor              : '4'
+      LayoutEngineNameVersion               : 'Netfront 4.1'
+      LayoutEngineNameVersionMajor          : 'Netfront 4'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Netfront'
+      AgentVersion                          : '4.1'
+      AgentVersionMajor                     : '4'
+      AgentNameVersion                      : 'Netfront 4.1'
+      AgentNameVersionMajor                 : 'Netfront 4'
+

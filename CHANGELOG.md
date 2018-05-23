@@ -7,6 +7,7 @@ v4.4
 - Detect the brand 'Cubot' as not a robot
 - Improved performance by rewriting some Robot detection rules
 - Fixed OWASMIME plugin problem.
+- Improved Netfront detection
 
 v4.3
 ===
