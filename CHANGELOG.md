@@ -8,6 +8,7 @@ v4.4
 - Improved performance by rewriting some Robot detection rules
 - Fixed OWASMIME plugin problem.
 - Improved Netfront detection
+- Fallback to Stock Android Browser in a few more cases.
 
 v4.3
 ===
