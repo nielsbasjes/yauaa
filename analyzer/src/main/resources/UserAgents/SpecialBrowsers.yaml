@@ -49,20 +49,6 @@ config:
     - 'AgentName             :   2010:"Crazy Browser"'
     - 'AgentVersion          :   2010:agent.(1)product.(1)comments.entry.product.name="Crazy Browser"^.version'
 
-- matcher:
-    require:
-    - 'agent.(1)product.(1)comments.entry.(1)text="Viera"'
-    extract:
-    - 'AgentClass            :2015:"Browser"'
-    - 'AgentName             :2015:"Viera"'
-    - 'AgentVersion          :2015:"Viera"'
-
-- matcher:
-    extract:
-    - 'AgentClass            :2016:"Browser"'
-    - 'AgentName             :2016:"Viera"'
-    - 'AgentVersion          :2016:agent.product.name="Viera"^.version'
-
 - test:
     input:
       user_agent_string: 'Links (2.1pre15; Linux 2.4.26 i686; 128x48)'
@@ -116,9 +102,9 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; FreeBSD; U; Viera; nl-NL) AppleWebKit/537.11 (KHTML, like Gecko) Viera/3.10.14 Chrome/23.0.1271.97 Safari/537.11'
     expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'FreeBsd Desktop'
-      DeviceBrand                          : 'Unknown'
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Panasonic Viera'
+      DeviceBrand                          : 'Panasonic'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'FreeBSD'
       OperatingSystemVersion               : '??'
@@ -215,7 +201,7 @@ config:
       AgentNameVersion                     : '1Password 7.0.6'
       AgentNameVersionMajor                : '1Password 7'
 
-# If the BASE64 minimal size gets too smal this becomes a parse error
+# If the BASE64 minimal size gets too small this becomes a parse error
 - test:
     input:
       user_agent_string: 'AndroidDownloadManager/5.0.1 (Linux; U; Android 5.0.1; HUAWEI GRA-L09 Build/HUAWEIGRA-L09)'
@@ -390,25 +376,6 @@ config:
       AgentNameVersion                     : 'IntelliJ IDEA 162.1447.26'
       AgentNameVersionMajor                : 'IntelliJ IDEA 162'
 
-# It turns out that only in very few cases the value after "Safari" is the name of the 'real browser'
-# In most scenarios it is a plugin, toolbar or the name of the oeprating system that appears there.
-- matcher:
-    extract:
-    - 'AgentClass            : 2019:"Browser"'
-    - 'AgentName             : 2019:"Puffin"'
-    - 'AgentVersion          : 2019:agent.product.(1)name="Puffin"^.version'
-
-- matcher:
-    extract:
-    - 'AgentClass            : 2019:"Browser"'
-    - 'AgentName             : 2019:"AvantBrowser"'
-    - 'AgentVersion          : 2019:agent.product.(1)name="AvantBrowser"^.version'
-
-- matcher:
-    extract:
-    - 'AgentClass            : 2019:"Browser"'
-    - 'AgentName             : 2019:"CoolNovo"'
-    - 'AgentVersion          : 2019:agent.product.(1)name="CoolNovo"^.version'
 
 # Puffin on an Android 6 phone is incorrectly reported as a Linux desktop
 - test:

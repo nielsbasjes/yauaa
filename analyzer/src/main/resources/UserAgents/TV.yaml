@@ -1115,3 +1115,42 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'HbbTV 1.1.1'
       AgentNameVersionMajor                : 'HbbTV 1'
+
+
+# http://thadafinser.github.io/UserAgentParserComparison/v4/user-agent-detail/ce/71/ce710618-578f-4c06-bb21-240e261b3ca5.html
+# Apparently Panasonic Viera 2015 television
+#
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (FreeBSD; Viera; rv:34.0) Gecko/20100101 Firefox/34.0'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Panasonic Viera'
+      DeviceBrand                          : 'Panasonic'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'FreeBSD'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'FreeBSD ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '34.0'
+      LayoutEngineVersionMajor             : '34'
+      LayoutEngineNameVersion              : 'Gecko 34.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 34'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '34.0'
+      AgentVersionMajor                    : '34'
+      AgentNameVersion                     : 'Firefox 34.0'
+      AgentNameVersionMajor                : 'Firefox 34'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)text="Viera"'
+    extract:
+    - 'DeviceClass           :   200:"TV"'
+    - 'DeviceName            :   200:"Panasonic Viera"'
+    - 'DeviceBrand           :   200:"Panasonic"'
+
+
