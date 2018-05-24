@@ -97,7 +97,7 @@ public class UserAgentAnnotationAnalyzer<T> {
             throw new InvalidParserConfigurationException("You MUST specify at least 1 field to extract.");
         }
 
-        UserAgentAnalyzerBuilder builder = UserAgentAnalyzer.newBuilder();
+        UserAgentAnalyzerBuilder<?, ?> builder = UserAgentAnalyzer.newBuilder();
         builder.hideMatcherLoadStats();
         if (!fieldSetters.isEmpty()) {
             builder.withFields(fieldSetters.keySet());
