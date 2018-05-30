@@ -10,7 +10,7 @@ This is the maven dependency definition where it can be downloaded.
     <dependency>
         <groupId>nl.basjes.parse.useragent</groupId>
         <artifactId>yauaa-nifi</artifactId>
-        <version>4.4</version>
+        <version>4.5</version>
         <type>nar</type>
     </dependency>
 
