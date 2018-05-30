@@ -3,6 +3,7 @@ This is intended as an overview of the major changes
 v4.5
 ===
 - Check (and fail) if two (possibly different) versions are both loaded.
+- Default cache size was not used.
 
 v4.4
 ===

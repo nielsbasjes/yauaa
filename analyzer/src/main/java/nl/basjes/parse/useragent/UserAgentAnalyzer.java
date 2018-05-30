@@ -29,10 +29,12 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
 
     public UserAgentAnalyzer() {
         super();
+        initializeCache();
     }
 
     protected UserAgentAnalyzer(boolean initialize) {
         super(initialize);
+        initializeCache();
     }
 
     public UserAgentAnalyzer(String resourceString) {
@@ -51,6 +53,10 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
      */
     public void setCacheSize(int newCacheSize) {
         cacheSize = newCacheSize > 0 ? newCacheSize : 0;
+        initializeCache();
+    }
+
+    private void initializeCache() {
         if (cacheSize >= 1) {
             parseCache = new LRUMap<>(cacheSize);
         } else {

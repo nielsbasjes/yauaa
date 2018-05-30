@@ -40,10 +40,12 @@ public class TestParseUserAgent {
                 PrimitiveObjectInspectorFactory.javaStringObjectInspector
             });
 
-        Object row = parseUserAgent.evaluate(new DeferredObject[]{new DeferredJavaObject(userAgent)});
+        for (int i = 0; i < 100000; i++) {
+            Object row = parseUserAgent.evaluate(new DeferredObject[]{new DeferredJavaObject(userAgent)});
 
-        checkField(resultInspector, row, "DeviceName",            "Linux Desktop");
-        checkField(resultInspector, row, "AgentNameVersionMajor", "Chrome 58");
+            checkField(resultInspector, row, "DeviceName", "Linux Desktop");
+            checkField(resultInspector, row, "AgentNameVersionMajor", "Chrome 58");
+        }
     }
 
     private void checkField(StandardStructObjectInspector resultInspector, Object row, String fieldName, String expectedValue) {
