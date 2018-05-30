@@ -18,7 +18,6 @@
 package nl.basjes.parse.useragent.commandline;
 
 import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import nl.basjes.parse.useragent.debug.FlattenPrinter;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
@@ -41,6 +40,7 @@ import static nl.basjes.parse.useragent.UserAgent.USERAGENT;
 import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.CSV;
 import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.JSON;
 import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.YAML;
+import static nl.basjes.parse.useragent.utils.YauaaVersion.logVersion;
 
 public final class Main {
     private Main() {
@@ -286,7 +286,7 @@ public final class Main {
             }
 
         } catch (final CmdLineException e) {
-            UserAgentAnalyzer.logVersion();
+            logVersion();
             LOG.error("Errors: " + e.getMessage());
             LOG.error("");
             System.err.println("Usage: java jar <jar containing this class> <options>");

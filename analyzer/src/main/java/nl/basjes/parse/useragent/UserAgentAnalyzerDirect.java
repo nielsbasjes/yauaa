@@ -53,6 +53,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
@@ -79,6 +80,8 @@ import static nl.basjes.parse.useragent.utils.YamlUtils.getStringValues;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsMappingNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsSequenceNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsString;
+import static nl.basjes.parse.useragent.utils.YauaaVersion.assertSameVersion;
+import static nl.basjes.parse.useragent.utils.YauaaVersion.logVersion;
 
 public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 
@@ -213,51 +216,6 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         throw new InvalidParserConfigurationException("We cannot provide these fields:" + impossibleFields.toString());
     }
 
-
-    public static void logVersion(String... extraLines) {
-        String[] lines = {
-            "For more information: https://github.com/nielsbasjes/yauaa",
-            "Copyright (C) 2013-2018 Niels Basjes - License Apache 2.0"
-        };
-        String version = getVersion();
-        int width = version.length();
-        for (String line : lines) {
-            width = Math.max(width, line.length());
-        }
-        for (String line : extraLines) {
-            width = Math.max(width, line.length());
-        }
-
-        LOG.info("");
-        LOG.info("/-{}-\\", padding('-', width));
-        logLine(version, width);
-        LOG.info("+-{}-+", padding('-', width));
-        for (String line : lines) {
-            logLine(line, width);
-        }
-        if (extraLines.length > 0) {
-            LOG.info("+-{}-+", padding('-', width));
-            for (String line : extraLines) {
-                logLine(line, width);
-            }
-        }
-
-        LOG.info("\\-{}-/", padding('-', width));
-        LOG.info("");
-    }
-
-    private static String padding(char letter, int count) {
-        StringBuilder sb = new StringBuilder(128);
-        for (int i = 0; i < count; i++) {
-            sb.append(letter);
-        }
-        return sb.toString();
-    }
-
-    private static void logLine(String line, int width) {
-        LOG.info("| {}{} |", line, padding(' ', width - line.length()));
-    }
-
     // --------------------------------------------
 
 
@@ -293,6 +251,27 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         if (resources.isEmpty()) {
             throw new InvalidParserConfigurationException("Unable to find ANY config files");
         }
+
+        // We need to determine if we are trying to load the yaml files TWICE.
+        // This can happen if the library is loaded twice (perhaps even two different versions).
+        Set<String> resourceBasenames = resources
+            .keySet().stream()
+            .map(k -> k.replaceAll("^.*/", ""))
+            .collect(Collectors.toSet());
+
+        Set<String> alreadyLoadedResourceBasenames = matcherConfigs
+            .keySet().stream()
+            .map(k -> k.replaceAll("^.*/", ""))
+            .collect(Collectors.toSet());
+
+        alreadyLoadedResourceBasenames.retainAll(resourceBasenames);
+        if (!alreadyLoadedResourceBasenames.isEmpty()) {
+            LOG.error("Trying to load these {} resources for the second time: {}",
+                alreadyLoadedResourceBasenames.size(), alreadyLoadedResourceBasenames.toString());
+            throw new InvalidParserConfigurationException("Trying to load " + alreadyLoadedResourceBasenames.size() +
+                " resources for the second time");
+        }
+
 
         for (Map.Entry<String, Resource> resourceEntry : resources.entrySet()) {
             try {
@@ -468,6 +447,11 @@ config:
             if ("config".equals(name)) {
                 configNodeTuple = tuple;
                 break;
+            }
+            if ("version".equals(name)) {
+                // Check the version information from the Yaml files
+                assertSameVersion(tuple, filename);
+                return;
             }
         }
 
