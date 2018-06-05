@@ -30,6 +30,13 @@ public class TestRecord implements Serializable {
         this.useragent = useragent;
     }
 
+    public TestRecord(String useragent, String deviceClass, String agentNameVersion, String shouldRemainNull) {
+        this.useragent = useragent;
+        this.deviceClass = deviceClass;
+        this.agentNameVersion = agentNameVersion;
+        this.shouldRemainNull = shouldRemainNull;
+    }
+
     @Override
     public String toString() {
         return "TestRecord{" +

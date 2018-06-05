@@ -22,7 +22,6 @@ import nl.basjes.parse.useragent.annotate.YauaaField;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 public class TestUserAgentAnalysisMapperRaw {
     public static class TestMapper extends UserAgentAnalysisMapper<TestRecord> {
@@ -53,9 +52,15 @@ public class TestUserAgentAnalysisMapperRaw {
 
         record = mapper.map(record);
 
-        assertEquals("Desktop", record.deviceClass);
-        assertEquals("Chrome 48.0.2564.82", record.agentNameVersion);
-        assertNull(record.shouldRemainNull);
+        assertEquals(
+            new TestRecord(
+                "Mozilla/5.0 (X11; Linux x86_64) " +
+                    "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                    "Chrome/48.0.2564.82 Safari/537.36",
+                "Desktop",
+                "Chrome 48.0.2564.82",
+                null),
+            record);
     }
 
     public static class TestImpossibleFieldMapper extends UserAgentAnalysisMapper<TestRecord> {

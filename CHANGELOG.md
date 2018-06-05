@@ -1,5 +1,9 @@
 This is intended as an overview of the major changes
 
+v4.6
+===
+- Bump Flink to 1.5 and test both DataSet and DataStream use.
+
 v4.5
 ===
 - Check (and fail) if two (possibly different) versions are both loaded.

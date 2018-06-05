@@ -23,17 +23,21 @@ import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.LocalEnvironment;
 import org.apache.flink.api.java.io.LocalCollectionOutputFormat;
+import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.environment.LocalStreamEnvironment;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 public class TestUserAgentAnalysisMapperInline {
     @Test
-    public void testInlineDefinition() throws Exception {
+    public void testInlineDefinitionDataSet() throws Exception {
         ExecutionEnvironment environment = LocalEnvironment.getExecutionEnvironment();
 
         DataSet<TestRecord> testRecordDataSet = environment
@@ -74,15 +78,84 @@ public class TestUserAgentAnalysisMapperInline {
 
         assertEquals(2, result.size());
 
-        TestRecord record = result.get(0);
-        assertEquals("Desktop", record.deviceClass);
-        assertEquals("Chrome 48.0.2564.82", record.agentNameVersion);
-        assertNull(record.shouldRemainNull);
+        assertThat(result, hasItems(
+            new TestRecord(
+                "Mozilla/5.0 (X11; Linux x86_64) " +
+                    "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                    "Chrome/48.0.2564.82 Safari/537.36",
+                "Desktop",
+                "Chrome 48.0.2564.82",
+                null),
 
-        record = result.get(1);
-        assertEquals("Phone", record.deviceClass);
-        assertEquals("Chrome 53.0.2785.124", record.agentNameVersion);
-        assertNull(record.shouldRemainNull);
+            new TestRecord(
+                "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+                    "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                    "Chrome/53.0.2785.124 Mobile Safari/537.36",
+                "Phone",
+                "Chrome 53.0.2785.124",
+                null)
+        ));
+    }
+
+    @Test
+    public void testInlineDefinitionDataStream() throws Exception {
+        StreamExecutionEnvironment environment = LocalStreamEnvironment.getExecutionEnvironment();
+
+        DataStream<TestRecord> testRecordDataSet = environment
+            .fromElements(
+                "Mozilla/5.0 (X11; Linux x86_64) " +
+                    "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                    "Chrome/48.0.2564.82 Safari/537.36",
+
+                "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+                    "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                    "Chrome/53.0.2785.124 Mobile Safari/537.36"
+            )
+
+            .map((MapFunction<String, TestRecord>) TestRecord::new)
+
+            .map(new UserAgentAnalysisMapper<TestRecord>() {
+                @Override
+                public String getUserAgentString(TestRecord record) {
+                    return record.useragent;
+                }
+
+                @YauaaField("DeviceClass")
+                public void setDeviceClass(TestRecord record, String value) {
+                    record.deviceClass = value;
+                }
+
+                @YauaaField("AgentNameVersion")
+                public void setAgentNameVersion(TestRecord record, String value) {
+                    record.agentNameVersion = value;
+                }
+            });
+
+        List<TestRecord> result = new ArrayList<>(5);
+        testRecordDataSet
+            .writeUsingOutputFormat(new LocalCollectionOutputFormat<>(result));
+
+        environment.execute();
+
+        assertEquals(2, result.size());
+
+        assertThat(result, hasItems(
+            new TestRecord(
+                "Mozilla/5.0 (X11; Linux x86_64) " +
+                    "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                    "Chrome/48.0.2564.82 Safari/537.36",
+                "Desktop",
+                "Chrome 48.0.2564.82",
+                null),
+
+            new TestRecord(
+                "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+                    "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                    "Chrome/53.0.2785.124 Mobile Safari/537.36",
+                "Phone",
+                "Chrome 53.0.2785.124",
+                null)
+        ));
     }
 
 }
