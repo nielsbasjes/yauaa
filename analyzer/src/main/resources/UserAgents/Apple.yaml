@@ -191,6 +191,13 @@ config:
     - '@CPUProduct>="like Mac OS X"'
     extract:
     - 'DeviceFirmwareVersion :  20:agent.product.name="Mobile"^.version'
+
+- matcher:
+    variable:
+    - 'CPUProduct :agent.(1)product.(1)comments.entry.product.name="CPU OS"^'
+    require:
+    - '@CPUProduct>="like Mac OS X"'
+    extract:
     - 'OperatingSystemClass  :  20:"Mobile"'
     - 'OperatingSystemName   :  20:"iOS"'
     - 'OperatingSystemVersion:  20:CleanVersion[@CPUProduct.version]'
@@ -205,6 +212,7 @@ config:
     - 'OperatingSystemName   :  20:"iOS"'
     - 'OperatingSystemVersion:  20:CleanVersion[@CPUProduct.version]'
 
+
 - matcher:
     variable:
     - 'CPUProduct :agent.(1)product.(1)comments.entry.product.name="CPU iPhone OS"^'
@@ -212,6 +220,13 @@ config:
     - '@CPUProduct>="like Mac OS X"'
     extract:
     - 'DeviceFirmwareVersion :   20:agent.product.name="Mobile"^.version'
+
+- matcher:
+    variable:
+    - 'CPUProduct :agent.(1)product.(1)comments.entry.product.name="CPU iPhone OS"^'
+    require:
+    - '@CPUProduct>="like Mac OS X"'
+    extract:
     - 'OperatingSystemClass  :   20:"Mobile"'
     - 'OperatingSystemName   :   20:"iOS"'
     - 'OperatingSystemVersion:   20:CleanVersion[@CPUProduct.version]'
@@ -223,10 +238,16 @@ config:
     - '@CPUProduct>="like Mac OS X"'
     extract:
     - 'DeviceFirmwareVersion :   20:agent.product.name="Mobile"^.version'
+
+- matcher:
+    variable:
+    - 'CPUProduct :agent.(1)product.(1)comments.entry.product.name="CPU iPad OS"^'
+    require:
+    - '@CPUProduct>="like Mac OS X"'
+    extract:
     - 'OperatingSystemClass  :   20:"Mobile"'
     - 'OperatingSystemName   :   20:"iOS"'
     - 'OperatingSystemVersion:   20:CleanVersion[@CPUProduct.version]'
-
 
 - matcher:
     require:
@@ -241,6 +262,11 @@ config:
     - 'agent.product.name="CPU"^>="like Mac OS X"'
     extract:
     - 'DeviceFirmwareVersion :  20:agent.product.name="Mobile"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.name="CPU"^>="like Mac OS X"'
+    extract:
     - 'OperatingSystemClass  :  20:"Mobile"'
     - 'OperatingSystemName   :  20:"iOS"'
     - 'OperatingSystemVersion:  20:CleanVersion[agent.product.name="CPU"^.version]'
@@ -250,6 +276,11 @@ config:
     - 'agent.product.name="CPU OS"^>="like Mac OS X"'
     extract:
     - 'DeviceFirmwareVersion :  20:agent.product.name="Mobile"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.name="CPU OS"^>="like Mac OS X"'
+    extract:
     - 'OperatingSystemClass  :  20:"Mobile"'
     - 'OperatingSystemName   :  20:"iOS"'
     - 'OperatingSystemVersion:  20:CleanVersion[agent.product.name="CPU OS"^.version]'
@@ -267,6 +298,11 @@ config:
     - 'agent.product.name="CPU iPhone OS"^>="like Mac OS X"'
     extract:
     - 'DeviceFirmwareVersion :   20:agent.product.name="Mobile"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.name="CPU iPhone OS"^>="like Mac OS X"'
+    extract:
     - 'OperatingSystemClass  :   20:"Mobile"'
     - 'OperatingSystemName   :   20:"iOS"'
     - 'OperatingSystemVersion:   20:CleanVersion[agent.product.name="CPU iPhone OS"^.version]'
@@ -276,10 +312,14 @@ config:
     - 'agent.product.name="CPU iPad OS"^>="like Mac OS X"'
     extract:
     - 'DeviceFirmwareVersion :   20:agent.product.name="Mobile"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.name="CPU iPad OS"^>="like Mac OS X"'
+    extract:
     - 'OperatingSystemClass  :   20:"Mobile"'
     - 'OperatingSystemName   :   20:"iOS"'
     - 'OperatingSystemVersion:   20:CleanVersion[agent.product.name="CPU iPad OS"^.version]'
-
 
 - matcher:
     require:
@@ -1075,4 +1115,29 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
 
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Snapchat/10.34.1.1 (iPhone9,2; iOS 11.4; gzip)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 7 Plus'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '11.4'
+      OperatingSystemNameVersion           : 'iOS 11.4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Snapchat'
+      AgentVersion                         : '10.34.1.1'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Snapchat 10.34.1.1'
+      AgentNameVersionMajor                : 'Snapchat 10'
 

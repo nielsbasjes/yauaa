@@ -4,6 +4,7 @@ v4.6
 ===
 - Bump Flink to 1.5 and test both DataSet and DataStream use.
 - Bump Apache Drill version to 1.13
+- Fix bug in iOS detection with some apps
 
 v4.5
 ===
