@@ -46,6 +46,7 @@ public class TestSerialization {
         LOG.info("--------------------------------------------------------------");
         uaa = new UserAgentAnalyzerTester();
         uaa.setShowMatcherStats(false);
+        uaa.immediateInitialization();
         uaa.initialize();
 
         LOG.info("--------------------------------------------------------------");
