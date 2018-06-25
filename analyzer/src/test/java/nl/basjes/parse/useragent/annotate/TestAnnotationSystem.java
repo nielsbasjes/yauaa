@@ -25,6 +25,7 @@ import org.junit.rules.ExpectedException;
 import java.io.Serializable;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 public class TestAnnotationSystem {
@@ -175,5 +176,31 @@ public class TestAnnotationSystem {
             "It must look like [ public void wrongSetter(TestRecord record, String value) ]");
         new WrongTypeParameters2();
     }
+
+    // ----------------------------------------------------------------
+
+    public static class MissingAnnotations extends MyBaseMapper {
+        public void setWasNotAnnotated(TestRecord record, Double value) {
+            fail("May NEVER call this method");
+        }
+    }
+
+    @Test
+    public void testMissingAnnotations() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage("You MUST specify at least 1 field to extract.");
+        new MissingAnnotations();
+    }
+
+
+    @Test
+    public void testBadGeneric(){
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage("[Map] The mapper instance is null.");
+        UserAgentAnnotationAnalyzer userAgentAnalyzer = new UserAgentAnnotationAnalyzer();
+        assertNull(userAgentAnalyzer.map("Foo"));
+    }
+
+
 
 }

@@ -166,6 +166,18 @@ public class TestAnnotationSystemAnonymous {
             } .enrich(record);
     }
 
+    // ----------------------------------------------------------------
 
+    @Test
+    public void testMissingAnnotations() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage("You MUST specify at least 1 field to extract.");
+        record =
+            new MyErrorMapper() {
+                public void setWasNotAnnotated(TestRecord testRecord, String value) {
+                    fail("May NEVER call this method");
+                }
+            } .enrich(record);
+    }
 
 }

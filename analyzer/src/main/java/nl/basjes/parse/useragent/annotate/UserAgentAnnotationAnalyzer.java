@@ -44,14 +44,15 @@ public class UserAgentAnnotationAnalyzer<T> {
         mapper = theMapper;
 
         if (mapper == null) {
-            throw new InvalidParserConfigurationException("The mapper instance is null.");
+            throw new InvalidParserConfigurationException("[Initialize] The mapper instance is null.");
         }
 
-        Class classOfT = GenericTypeResolver.resolveTypeArguments(mapper.getClass(), UserAgentAnnotationMapper.class)[0];
-
-        if (classOfT == null) {
-            throw new InvalidParserConfigurationException("Couldn't find the used annotation.");
+        Class[] classOfTArray = GenericTypeResolver.resolveTypeArguments(mapper.getClass(), UserAgentAnnotationMapper.class);
+        if (classOfTArray == null || classOfTArray[0] == null) {
+            throw new InvalidParserConfigurationException("Couldn't find the used generic type of the UserAgentAnnotationMapper.");
         }
+
+        Class classOfT = classOfTArray[0];
 
         // Get all methods of the correct signature that have been annotated with YauaaField
         for (final Method method : mapper.getClass().getDeclaredMethods()) {
@@ -110,7 +111,7 @@ public class UserAgentAnnotationAnalyzer<T> {
             return null;
         }
         if (mapper == null) {
-            throw new InvalidParserConfigurationException("The mapper instance is null.");
+            throw new InvalidParserConfigurationException("[Map] The mapper instance is null.");
         }
 
         UserAgent userAgent = userAgentAnalyzer.parse(mapper.getUserAgentString(record));
