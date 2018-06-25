@@ -20,13 +20,17 @@ WORKDIR /root
 
 ENV INSIDE_DOCKER Yes
 
+# --------------------------------
 # Install the basics
+RUN yum install -y epel-release
 RUN yum install -y curl wget git tar expect rpm-build rpm-sign vim-enhanced bash-completion sudo
 
+# --------------------------------
 # Java Development
 RUN yum install -y java-1.8.0-openjdk-devel
 ENV JAVA_HOME /usr/lib/jvm/java
 
+# --------------------------------
 # Install Maven
 RUN mkdir -p /usr/local/apache-maven
 RUN wget "http://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz" -O "apache-maven-3.5.3-bin.tar.gz"
@@ -37,11 +41,17 @@ ENV PATH ${M2_HOME}/bin:${PATH}
 # Avoid out of memory errors in builds
 ENV MAVEN_OPTS -Xms256m -Xmx512m
 
+# --------------------------------
 # Install Pig
 RUN rpm --import http://www.apache.org/dist/bigtop/bigtop-1.2.1/repos/GPG-KEY-bigtop
 RUN yum-config-manager --add-repo http://www.apache.org/dist/bigtop/bigtop-1.2.1/repos/centos7/bigtop.repo
 RUN yum install -y pig
 
+# --------------------------------
+# Install shellcheck
+RUN yum install -y ShellCheck
+
+# --------------------------------
 # Add a welcome message and environment checks.
 RUN mkdir /scripts
 ADD *.sh /scripts/
