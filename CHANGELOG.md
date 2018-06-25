@@ -6,6 +6,7 @@ v4.6
 - Bump Apache Drill version to 1.13
 - Fix bug in iOS detection with some apps
 - Drop tests after preheat if dropTests is requested
+- Changed the default to use the delayed initialization.
 
 v4.5
 ===

@@ -46,8 +46,11 @@ public class AnalyzerBenchmarks {
     public static class ThreadState {
         final UserAgentAnalyzer uaa;
         public ThreadState() {
-            uaa = new UserAgentAnalyzer();
-            uaa.disableCaching();
+            uaa = UserAgentAnalyzer.newBuilder()
+                .withoutCache()
+                .immediateInitialization()
+                .hideMatcherLoadStats()
+                .build();
         }
     }
 
@@ -140,11 +143,6 @@ public class AnalyzerBenchmarks {
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
             .include(AnalyzerBenchmarks.class.getSimpleName())
-//            .warmupIterations(5)
-//            .measurementIterations(10)
-//            .mode(Mode.AverageTime)
-//            .timeUnit(TimeUnit.MILLISECONDS)
-//            .forks(1)
             .build();
 
         new Runner(opt).run();

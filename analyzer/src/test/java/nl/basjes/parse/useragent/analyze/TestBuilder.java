@@ -138,6 +138,7 @@ public class TestBuilder {
         UserAgentAnalyzer userAgentAnalyzer =
             UserAgentAnalyzer
                 .newBuilder()
+                .immediateInitialization()
                 // Without .preheat(100)
                 .dropTests()
                 .hideMatcherLoadStats()
@@ -148,6 +149,7 @@ public class TestBuilder {
         userAgentAnalyzer =
             UserAgentAnalyzer
                 .newBuilder()
+                .immediateInitialization()
                 .preheat(100) // With .preheat(100)
                 .dropTests()
                 .hideMatcherLoadStats()

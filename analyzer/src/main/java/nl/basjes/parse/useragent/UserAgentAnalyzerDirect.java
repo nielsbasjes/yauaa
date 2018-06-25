@@ -165,9 +165,13 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         }
     }
 
-    private boolean delayInitialization = false;
+    private boolean delayInitialization = true;
     public void delayInitialization() {
         delayInitialization = true;
+    }
+
+    public void immediateInitialization() {
+        delayInitialization = false;
     }
 
     public UserAgentAnalyzerDirect setShowMatcherStats(boolean newShowMatcherStats) {
@@ -1167,6 +1171,12 @@ config:
         public B delayInitialization() {
             failIfAlreadyBuilt();
             uaa.delayInitialization();
+            return (B)this;
+        }
+
+        public B immediateInitialization() {
+            failIfAlreadyBuilt();
+            uaa.immediateInitialization();
             return (B)this;
         }
 
