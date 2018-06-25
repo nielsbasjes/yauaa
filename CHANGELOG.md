@@ -7,6 +7,7 @@ v4.6
 - Fix bug in iOS detection with some apps
 - Drop tests after preheat if dropTests is requested
 - Changed the default to use the delayed initialization.
+- Only calculate special fields if needed.
 
 v4.5
 ===

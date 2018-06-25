@@ -26,7 +26,6 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 // CHECKSTYLE.OFF: ParenPad
 public class TestBuilder {
@@ -61,23 +60,26 @@ public class TestBuilder {
         assertEquals("Chrome",                   parsedAgent.getValue("AgentName"                )); // Chrome
         assertEquals("53.0.2785.124",            parsedAgent.getValue("AgentVersion"             )); // 53.0.2785.124
         assertEquals("53",                       parsedAgent.getValue("AgentVersionMajor"        )); // 53
-        assertEquals("Chrome 53.0.2785.124",     parsedAgent.getValue("AgentNameVersion"         )); // Chrome 53.0.2785.124
+
+        Long min1 = (long) -1;
 
         // The rest must be at confidence -1 (i.e. no rules fired)
-        assertEquals(-1, parsedAgent.get("DeviceName"                   ).getConfidence()); // Nexus 6
-        assertEquals(-1, parsedAgent.get("DeviceBrand"                  ).getConfidence()); // Google
-        assertEquals(-1, parsedAgent.get("OperatingSystemClass"         ).getConfidence()); // Mobile
-        assertEquals(-1, parsedAgent.get("OperatingSystemName"          ).getConfidence()); // Android
-        assertEquals(-1, parsedAgent.get("OperatingSystemVersion"       ).getConfidence()); // 7.0
-        assertEquals(-1, parsedAgent.get("OperatingSystemNameVersion"   ).getConfidence()); // Android 7.0
-//        Assert.assertEquals(-1, parsedAgent.get("OperatingSystemVersionBuild"  ).getConfidence()); // NBD90Z
-        assertEquals(-1, parsedAgent.get("LayoutEngineClass"            ).getConfidence()); // Browser
-        assertEquals(-1, parsedAgent.get("LayoutEngineName"             ).getConfidence()); // Blink
-        assertEquals(-1, parsedAgent.get("LayoutEngineVersion"          ).getConfidence()); // 53.0
-        assertEquals(-1, parsedAgent.get("LayoutEngineVersionMajor"     ).getConfidence()); // 53
-        assertEquals(-1, parsedAgent.get("LayoutEngineNameVersion"      ).getConfidence()); // Blink 53.0
-        assertEquals(-1, parsedAgent.get("LayoutEngineNameVersionMajor" ).getConfidence()); // Blink 53
-        assertEquals(-1, parsedAgent.get("AgentClass"                   ).getConfidence()); // Browser
+        assertEquals(min1, parsedAgent.getConfidence("DeviceName"                   )); // Nexus 6
+        assertEquals(min1, parsedAgent.getConfidence("DeviceBrand"                  )); // Google
+        assertEquals(min1, parsedAgent.getConfidence("OperatingSystemClass"         )); // Mobile
+        assertEquals(min1, parsedAgent.getConfidence("OperatingSystemName"          )); // Android
+        assertEquals(min1, parsedAgent.getConfidence("OperatingSystemVersion"       )); // 7.0
+        assertEquals(min1, parsedAgent.getConfidence("OperatingSystemNameVersion"   )); // Android 7.0
+        assertEquals(min1, parsedAgent.getConfidence("OperatingSystemVersionBuild"  )); // NBD90Z
+        assertEquals(min1, parsedAgent.getConfidence("LayoutEngineClass"            )); // Browser
+        assertEquals(min1, parsedAgent.getConfidence("LayoutEngineName"             )); // Blink
+        assertEquals(min1, parsedAgent.getConfidence("LayoutEngineVersion"          )); // 53.0
+        assertEquals(min1, parsedAgent.getConfidence("LayoutEngineVersionMajor"     )); // 53
+        assertEquals(min1, parsedAgent.getConfidence("LayoutEngineNameVersion"      )); // Blink 53.0
+        assertEquals(min1, parsedAgent.getConfidence("LayoutEngineNameVersionMajor" )); // Blink 53
+        assertEquals(min1, parsedAgent.getConfidence("AgentClass"                   )); // Browser
+        assertEquals(min1, parsedAgent.getConfidence("AgentNameVersion"             )); // Chrome 53.0.2785.124
+
     }
 
     @Rule

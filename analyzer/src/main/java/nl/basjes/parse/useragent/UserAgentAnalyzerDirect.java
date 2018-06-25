@@ -796,6 +796,13 @@ config:
         HARD_CODED_GENERATED_FIELDS.add("WebviewAppNameVersionMajor");
     }
 
+    public boolean isWantedField(String fieldName) {
+        if (wantedFieldNames == null) {
+            return true;
+        }
+        return wantedFieldNames.contains(fieldName);
+    }
+
     private UserAgent hardCodedPostProcessing(UserAgent userAgent) {
         // If it is really really bad ... then it is a Hacker.
         if ("true".equals(userAgent.getValue(SYNTAX_ERROR))) {
@@ -885,6 +892,9 @@ config:
     }
 
     private void concatFieldValuesNONDuplicated(UserAgent userAgent, String targetName, String firstName, String secondName) {
+        if (!isWantedField(targetName)) {
+            return;
+        }
         UserAgent.AgentField firstField = userAgent.get(firstName);
         UserAgent.AgentField secondField = userAgent.get(secondName);
 
@@ -933,6 +943,9 @@ config:
     }
 
     private void addMajorVersionField(UserAgent userAgent, String versionName, String majorVersionName) {
+        if (!isWantedField(majorVersionName)) {
+            return;
+        }
         UserAgent.AgentField agentVersionMajor = userAgent.get(majorVersionName);
         if (agentVersionMajor == null || agentVersionMajor.getConfidence() == -1) {
             UserAgent.AgentField agentVersion = userAgent.get(versionName);
