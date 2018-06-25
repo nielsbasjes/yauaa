@@ -19,8 +19,31 @@
 OS=centos7
 PROJECTNAME=yauaa
 CONTAINER_NAME=${PROJECTNAME}-${OS}-${USER}-$$
+DOCKER_BUILD="docker build"
 
-docker build -t ${PROJECTNAME}-${OS} docker/${OS}
+if [[ "$(docker images -q ${PROJECTNAME}-${OS} 2> /dev/null)" == "" ]]; then
+  DOCKER_BUILD="docker build"
+cat << "Welcome-message"
+
+ _____      _   _   _                                             _                                      _
+/  ___|    | | | | (_)                                           (_)                                    | |
+\ `--.  ___| |_| |_ _ _ __   __ _   _   _ _ __     ___ _ ____   ___ _ __ ___  _ __  _ __ ___   ___ _ __ | |_
+ `--. \/ _ \ __| __| | '_ \ / _` | | | | | '_ \   / _ \ '_ \ \ / / | '__/ _ \| '_ \| '_ ` _ \ / _ \ '_ \| __|
+/\__/ /  __/ |_| |_| | | | | (_| | | |_| | |_) | |  __/ | | \ V /| | | | (_) | | | | | | | | |  __/ | | | |_
+\____/ \___|\__|\__|_|_| |_|\__, |  \__,_| .__/   \___|_| |_|\_/ |_|_|  \___/|_| |_|_| |_| |_|\___|_| |_|\__|
+                             __/ |       | |
+                            |___/        |_|
+
+ For building Yet Another UserAgent Analyzer
+
+ This will take a few minutes...
+Welcome-message
+else
+  DOCKER_BUILD="docker build -q"
+  echo "Loading Yauaa development environment"
+fi
+
+${DOCKER_BUILD} -t ${PROJECTNAME}-${OS} docker/${OS}
 
 if [ "$(uname -s)" == "Linux" ]; then
   USER_NAME=${SUDO_USER:=${USER}}
@@ -32,11 +55,9 @@ else # boot2docker uid and gid
   GROUP_ID=50
 fi
 
-docker build -t ${PROJECTNAME}-${OS}-${USER_NAME} - <<UserSpecificDocker
+${DOCKER_BUILD} -t ${PROJECTNAME}-${OS}-${USER_NAME} - <<UserSpecificDocker
 FROM ${PROJECTNAME}-${OS}
-RUN groupadd -g ${GROUP_ID} ${USER_NAME} || true
-RUN useradd -g ${GROUP_ID} -u ${USER_ID} -k /root -m ${USER_NAME}
-ENV HOME /home/${USER_NAME}
+RUN bash /scripts/configure-for-user.sh ${USER_NAME} ${USER_ID} ${GROUP_ID} "$(fgrep vboxsf /etc/group)"
 UserSpecificDocker
 
 # Do NOT Map the real ~/.m2 directory !!!
@@ -52,6 +73,5 @@ docker run --rm=true -t -i                                    \
            --name "${CONTAINER_NAME}"                         \
            ${PROJECTNAME}-${OS}-${USER_NAME}                  \
            bash
-
 
 exit 0

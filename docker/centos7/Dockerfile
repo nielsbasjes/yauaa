@@ -20,8 +20,12 @@ WORKDIR /root
 
 ENV INSIDE_DOCKER Yes
 
-# Install required tools
-RUN yum install -y curl wget git tar java-1.8.0-openjdk-devel expect rpm-build rpm-sign vim-enhanced bash-completion
+# Install the basics
+RUN yum install -y curl wget git tar expect rpm-build rpm-sign vim-enhanced bash-completion sudo
+
+# Java Development
+RUN yum install -y java-1.8.0-openjdk-devel
+ENV JAVA_HOME /usr/lib/jvm/java
 
 # Install Maven
 RUN mkdir -p /usr/local/apache-maven
@@ -30,7 +34,15 @@ RUN tar xzf apache-maven-3.5.3-bin.tar.gz --strip-components 1 -C /usr/local/apa
 ENV M2_HOME /usr/local/apache-maven
 ENV PATH ${M2_HOME}/bin:${PATH}
 
+# Avoid out of memory errors in builds
+ENV MAVEN_OPTS -Xms256m -Xmx512m
+
 # Install Pig
 RUN rpm --import http://www.apache.org/dist/bigtop/bigtop-1.2.1/repos/GPG-KEY-bigtop
 RUN yum-config-manager --add-repo http://www.apache.org/dist/bigtop/bigtop-1.2.1/repos/centos7/bigtop.repo
 RUN yum install -y pig
+
+# Add a welcome message and environment checks.
+RUN mkdir /scripts
+ADD *.sh /scripts/
+RUN chmod 755 /scripts/*.sh
