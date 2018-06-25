@@ -186,6 +186,14 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         return this;
     }
 
+    public boolean willKeepTests() {
+        return loadTests;
+    }
+
+    public long getNumberOfTestCases() {
+        return testCases.size();
+    }
+
     protected void initialize() {
         logVersion();
         loadResources("classpath*:UserAgents/**/*.yaml");
@@ -1185,6 +1193,8 @@ config:
                 // Special field that affects ALL fields.
                 uaa.wantedFieldNames.add(SET_ALL_FIELDS);
             }
+
+            boolean mustDropTestsLater = !uaa.willKeepTests();
             if (preheatIterations != 0) {
                 uaa.keepTests();
             }
@@ -1195,6 +1205,9 @@ config:
                 if (preheatIterations > 0) {
                     uaa.preHeat(preheatIterations);
                 }
+            }
+            if (mustDropTestsLater) {
+                uaa.dropTests();
             }
             didBuildStep = true;
             return uaa;
