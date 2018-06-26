@@ -88,7 +88,7 @@ public class TestErrorHandling {
     @Test
     public void checkLookupMissing() {
         runTest(
-        "classpath*:BadDefinitions/LookupMissing.yaml",
+            "classpath*:BadDefinitions/LookupMissing.yaml",
             containsString("Missing lookup"));
     }
 
