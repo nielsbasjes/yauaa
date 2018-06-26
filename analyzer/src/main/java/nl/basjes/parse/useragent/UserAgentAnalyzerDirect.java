@@ -112,16 +112,18 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
     private int userAgentMaxLength = DEFAULT_USER_AGENT_MAX_LENGTH;
     private boolean loadTests = false;
 
-    /**
+    private static final String DEFAULT_RESOURCES = "classpath*:UserAgents/**/*.yaml";
+
+    /*
      * Initialize the transient default values
      */
-    private void setDefaultFieldValues() {
+    private void initTransientFields() {
         matcherConfigs = new HashMap<>(64);
     }
 
     private void readObject(java.io.ObjectInputStream stream)
         throws IOException, ClassNotFoundException {
-        setDefaultFieldValues();
+        initTransientFields();
         stream.defaultReadObject();
 
         List<String> lines = new ArrayList<>();
@@ -132,37 +134,12 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         lines.add("Matchers     : " + allMatchers.size());
         lines.add("Hashmap size : " + informMatcherActions.size());
         lines.add("Testcases    : " + testCases.size());
-//        lines.add("All possible field names:");
-//        int count = 1;
-//        for (String fieldName : getAllPossibleFieldNames()) {
-//            lines.add("- " + count++ + ": " + fieldName);
-//        }
 
         String[] x = {};
         logVersion(lines.toArray(x));
     }
 
-    public UserAgentAnalyzerDirect() {
-        this(true);
-    }
-
-    protected UserAgentAnalyzerDirect(boolean initialize) {
-        setDefaultFieldValues();
-        if (initialize) {
-            initialize();
-            if (!delayInitialization) {
-                initializeMatchers();
-            }
-        }
-    }
-
-    public UserAgentAnalyzerDirect(String resourceString) {
-        setDefaultFieldValues();
-        setShowMatcherStats(true);
-        loadResources(resourceString);
-        if (!delayInitialization) {
-            initializeMatchers();
-        }
+    protected UserAgentAnalyzerDirect() {
     }
 
     private boolean delayInitialization = true;
@@ -199,8 +176,12 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
     }
 
     protected void initialize() {
+        initialize(Collections.singletonList(DEFAULT_RESOURCES));
+    }
+
+    protected void initialize(List<String> resources) {
         logVersion();
-        loadResources("classpath*:UserAgents/**/*.yaml");
+        resources.forEach(this::loadResources);
         verifyWeAreNotAskingForImpossibleFields();
         if (!delayInitialization) {
             initializeMatchers();
@@ -284,7 +265,6 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
                 " resources for the second time");
         }
 
-
         for (Map.Entry<String, Resource> resourceEntry : resources.entrySet()) {
             try {
                 Resource resource = resourceEntry.getValue();
@@ -295,6 +275,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
                 e.printStackTrace();
             }
         }
+
         long stopFiles = System.nanoTime();
         LOG.info("Loaded {} files in {} msec", resources.size(),  (stopFiles - startFiles) / 1000000);
 
@@ -1089,15 +1070,12 @@ config:
     // ===============================================================================================================
 
     @SuppressWarnings("unchecked")
-    public static UserAgentAnalyzerDirectBuilder<? extends UserAgentAnalyzerDirect, ? extends UserAgentAnalyzerDirectBuilder> newBuilder() {
-        return new UserAgentAnalyzerDirectBuilder<>(new UserAgentAnalyzerDirect(false));
-    }
-
-    @SuppressWarnings("unchecked")
     public static class UserAgentAnalyzerDirectBuilder<UAA extends UserAgentAnalyzerDirect, B extends UserAgentAnalyzerDirectBuilder<UAA, B>> {
         private final UAA uaa;
         private boolean didBuildStep = false;
         private int preheatIterations = 0;
+
+        private List<String> resources = new ArrayList<>();
 
         protected void failIfAlreadyBuilt() {
             if (didBuildStep) {
@@ -1108,6 +1086,13 @@ config:
         protected UserAgentAnalyzerDirectBuilder(UAA newUaa) {
             this.uaa = newUaa;
             this.uaa.setShowMatcherStats(false);
+            resources.add(DEFAULT_RESOURCES);
+        }
+
+        public B addResources(String resourceString) {
+            failIfAlreadyBuilt();
+            resources.add(resourceString);
+            return (B)this;
         }
 
         public B preheat(int iterations) {
@@ -1221,7 +1206,7 @@ config:
             if (preheatIterations != 0) {
                 uaa.keepTests();
             }
-            uaa.initialize();
+            uaa.initialize(resources);
             if (preheatIterations < 0) {
                 uaa.preHeat();
             } else {

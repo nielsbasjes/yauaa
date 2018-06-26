@@ -27,18 +27,9 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
     private int cacheSize = DEFAULT_PARSE_CACHE_SIZE;
     private LRUMap<String, UserAgent> parseCache = null;
 
-    public UserAgentAnalyzer() {
+    protected UserAgentAnalyzer() {
         super();
         initializeCache();
-    }
-
-    protected UserAgentAnalyzer(boolean initialize) {
-        super(initialize);
-        initializeCache();
-    }
-
-    public UserAgentAnalyzer(String resourceString) {
-        super(resourceString);
     }
 
     public void disableCaching() {
@@ -93,15 +84,7 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
 
     @SuppressWarnings("unchecked")
     public static UserAgentAnalyzerBuilder<? extends UserAgentAnalyzer, ? extends UserAgentAnalyzerBuilder> newBuilder() {
-        return new UserAgentAnalyzerBuilder<>(new UserAgentAnalyzer(false));
-    }
-
-    // This is purely to retain backwards compatibility
-    @SuppressWarnings("unchecked")
-    public static class Builder extends UserAgentAnalyzerBuilder{
-        public Builder(UserAgentAnalyzer newUaa) {
-            super(newUaa);
-        }
+        return new UserAgentAnalyzerBuilder<>(new UserAgentAnalyzer());
     }
 
     @SuppressWarnings("unchecked")

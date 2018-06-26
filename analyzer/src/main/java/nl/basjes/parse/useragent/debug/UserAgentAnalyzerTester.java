@@ -37,7 +37,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzerTester.class);
 
     public UserAgentAnalyzerTester() {
-        super(false);
+        super();
         keepTests();
     }
 

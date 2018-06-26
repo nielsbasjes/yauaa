@@ -8,6 +8,7 @@ v5.0
 - Drop tests after preheat if dropTests is requested
 - Changed the default to use the delayed initialization.
 - Only calculate special fields if needed.
+- Dropped support for old style constructors
 
 v4.5
 ===

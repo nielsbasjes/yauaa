@@ -79,7 +79,51 @@ public class TestBuilder {
         assertEquals(min1, parsedAgent.getConfidence("LayoutEngineNameVersionMajor" )); // Blink 53
         assertEquals(min1, parsedAgent.getConfidence("AgentClass"                   )); // Browser
         assertEquals(min1, parsedAgent.getConfidence("AgentNameVersion"             )); // Chrome 53.0.2785.124
+    }
 
+    @Test
+    public void testLoadAdditionalRules() {
+        UserAgentAnalyzer userAgentAnalyzer =
+            UserAgentAnalyzer
+                .newBuilder()
+                .withField("DeviceClass")
+                .withoutCache()
+                .hideMatcherLoadStats()
+                .addResources("ExtraLoadedRule1.yaml")
+                .withField("ExtraValue2")
+                .withField("ExtraValue1")
+                .addResources("ExtraLoadedRule2.yaml")
+                .build();
+
+        UserAgent parsedAgent = userAgentAnalyzer.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36");
+
+        // The requested fields
+        assertEquals("Phone",  parsedAgent.getValue("DeviceClass" ));
+        assertEquals("One",    parsedAgent.getValue("ExtraValue1" ));
+        assertEquals("Two",    parsedAgent.getValue("ExtraValue2" ));
+    }
+
+
+    @Test
+    public void testLoadOnlyCustomRules() {
+        UserAgentAnalyzer userAgentAnalyzer =
+            UserAgentAnalyzer
+                .newBuilder()
+                .withoutCache()
+                .hideMatcherLoadStats()
+                .addResources("ExtraLoadedRule1.yaml")
+                .withField("ExtraValue2")
+                .withField("ExtraValue1")
+                .addResources("ExtraLoadedRule2.yaml")
+                .build();
+
+        UserAgent parsedAgent = userAgentAnalyzer.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36");
+
+        // The requested fields
+        assertEquals("One",    parsedAgent.getValue("ExtraValue1" ));
+        assertEquals("Two",    parsedAgent.getValue("ExtraValue2" ));
     }
 
     @Rule
