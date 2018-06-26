@@ -93,16 +93,6 @@ public class Matcher implements Serializable {
             this.confidence = confidence;
             this.expression = expression;
         }
-
-        @Override
-        public String toString() {
-            return "ConfigLine{" +
-                "type=" + type +
-                ", attribute='" + attribute + '\'' +
-                ", confidence=" + confidence +
-                ", expression='" + expression + '\'' +
-                '}';
-        }
     }
 
     public Matcher(Analyzer analyzer,
@@ -197,33 +187,28 @@ public class Matcher implements Serializable {
         }
 
         for (ConfigLine configLine : configLines) {
-            try {
-                if (verbose) {
-                    LOG.info("{}: {}", configLine.type, configLine.expression);
-                }
-                switch (configLine.type) {
-                    case VARIABLE:
-                        variableActions.add(new MatcherVariableAction(configLine.attribute, configLine.expression, this));
-                        break;
-                    case REQUIRE:
-                        dynamicActions.add(new MatcherRequireAction(configLine.expression, this));
-                        break;
-                    case EXTRACT:
-                        MatcherExtractAction action =
-                            new MatcherExtractAction(configLine.attribute, configLine.confidence, configLine.expression, this);
-                        dynamicActions.add(action);
-
-                        // Make sure the field actually exists
-                        newValuesUserAgent.set(configLine.attribute, "Dummy", -9999);
-                        action.setResultAgentField(newValuesUserAgent.get(configLine.attribute));
-                        break;
-                    default:
-                        break;
-                }
-            } catch (InvalidParserConfigurationException e) {
-                throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ") => " + configLine, e);
+            if (verbose) {
+                LOG.info("{}: {}", configLine.type, configLine.expression);
             }
+            switch (configLine.type) {
+                case VARIABLE:
+                    variableActions.add(new MatcherVariableAction(configLine.attribute, configLine.expression, this));
+                    break;
+                case REQUIRE:
+                    dynamicActions.add(new MatcherRequireAction(configLine.expression, this));
+                    break;
+                case EXTRACT:
+                    MatcherExtractAction action =
+                        new MatcherExtractAction(configLine.attribute, configLine.confidence, configLine.expression, this);
+                    dynamicActions.add(action);
 
+                    // Make sure the field actually exists
+                    newValuesUserAgent.set(configLine.attribute, "Dummy", -9999);
+                    action.setResultAgentField(newValuesUserAgent.get(configLine.attribute));
+                    break;
+                default:
+                    break;
+            }
         }
 
     }
