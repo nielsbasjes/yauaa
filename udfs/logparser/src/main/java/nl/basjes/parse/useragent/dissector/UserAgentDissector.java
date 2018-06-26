@@ -42,22 +42,29 @@ public class UserAgentDissector extends Dissector {
         return INPUT_TYPE;
     }
 
+    private void ensureUserAgentAnalyzer() {
+        if (userAgentAnalyzer == null) {
+            userAgentAnalyzer = UserAgentAnalyzer
+                .newBuilder()
+                .delayInitialization()
+                .dropTests()
+                .hideMatcherLoadStats()
+                .build();
+        }
+    }
+
     @Override
     public boolean initializeFromSettingsParameter(String s) {
-        if (userAgentAnalyzer == null) {
-            userAgentAnalyzer = new UserAgentAnalyzer();
-            if (s != null && !(s.trim().isEmpty())) {
-                userAgentAnalyzer.loadResources(s);
-            }
+        ensureUserAgentAnalyzer();
+        if (s != null && !(s.trim().isEmpty())) {
+            userAgentAnalyzer.loadResources(s);
         }
         return true;
     }
 
     @Override
     public void dissect(Parsable<?> parsable, String inputname) throws DissectionFailure {
-        if (userAgentAnalyzer == null) {
-            userAgentAnalyzer = new UserAgentAnalyzer();
-        }
+        ensureUserAgentAnalyzer();
         final ParsedField agentField = parsable.getParsableField(INPUT_TYPE, inputname);
 
         String userAgentString = agentField.getValue().getString();
@@ -75,9 +82,7 @@ public class UserAgentDissector extends Dissector {
 
     @Override
     public List<String> getPossibleOutput() {
-        if (userAgentAnalyzer == null) {
-            userAgentAnalyzer = new UserAgentAnalyzer();
-        }
+        ensureUserAgentAnalyzer();
 
         List<String> result = new ArrayList<>();
 
