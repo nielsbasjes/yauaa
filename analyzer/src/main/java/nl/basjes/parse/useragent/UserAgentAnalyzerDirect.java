@@ -1089,6 +1089,18 @@ config:
             resources.add(DEFAULT_RESOURCES);
         }
 
+        /**
+         * Drop the default set of rules. Useful in parsing ONLY company specific useragents.
+         */
+        public B dropDefaultResources() {
+            failIfAlreadyBuilt();
+            resources.remove(DEFAULT_RESOURCES);
+            return (B)this;
+        }
+
+        /**
+         * Add a set of additional rules. Useful in handling specific cases.
+         */
         public B addResources(String resourceString) {
             failIfAlreadyBuilt();
             resources.add(resourceString);

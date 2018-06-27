@@ -104,7 +104,6 @@ public class TestBuilder {
         assertEquals("Two",    parsedAgent.getValue("ExtraValue2" ));
     }
 
-
     @Test
     public void testLoadOnlyCustomRules() {
         UserAgentAnalyzer userAgentAnalyzer =
@@ -125,6 +124,34 @@ public class TestBuilder {
         assertEquals("One",    parsedAgent.getValue("ExtraValue1" ));
         assertEquals("Two",    parsedAgent.getValue("ExtraValue2" ));
     }
+
+    @Test
+    public void testLoadOnlyCompanyCustomFormatRules() {
+        UserAgentAnalyzer userAgentAnalyzer =
+            UserAgentAnalyzer
+                .newBuilder()
+                .withoutCache()
+                .hideMatcherLoadStats()
+                .dropDefaultResources()
+                .addResources("CompanyInternalUserAgents.yaml")
+                .withField("ApplicationName")
+                .withField("ApplicationVersion")
+                .withField("ApplicationInstance")
+                .withField("ApplicationGitCommit")
+                .withField("ServerName")
+                .build();
+
+        UserAgent parsedAgent = userAgentAnalyzer.parse("TestApplication/1.2.3 (node123.datacenter.example.nl; 1234; d71922715c2bfe29343644b14a4731bf5690e66e)");
+
+        // The requested fields
+        assertEquals("TestApplication",                          parsedAgent.getValue("ApplicationName"));
+        assertEquals("1.2.3",                                    parsedAgent.getValue("ApplicationVersion"));
+        assertEquals("1234",                                     parsedAgent.getValue("ApplicationInstance"));
+        assertEquals("d71922715c2bfe29343644b14a4731bf5690e66e", parsedAgent.getValue("ApplicationGitCommit"));
+        assertEquals("node123.datacenter.example.nl",            parsedAgent.getValue("ServerName"));
+    }
+
+
 
     @Rule
     public final ExpectedException expectedEx = ExpectedException.none();
