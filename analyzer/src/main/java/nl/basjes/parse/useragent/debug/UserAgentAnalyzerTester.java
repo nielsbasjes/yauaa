@@ -334,7 +334,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                 sb.append("#    options:\n");
                 sb.append("#    - 'verbose'\n");
                 sb.append("    require:\n");
-                for (String path : getAllPathsAnalyzer(userAgentString).getValues()) {
+                for (String path : getAllPaths(userAgentString)) {
                     if (path.contains("=\"")) {
                         sb.append("#    - '").append(path).append("'\n");
                     }

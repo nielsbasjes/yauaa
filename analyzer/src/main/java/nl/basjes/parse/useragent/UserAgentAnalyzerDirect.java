@@ -1058,7 +1058,6 @@ config:
         }
     }
 
-    @SuppressWarnings({"unused"})
     public static List<String> getAllPaths(String agent) {
         return new GetAllPathsAnalyzer(agent).getValues();
     }
