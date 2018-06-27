@@ -56,6 +56,11 @@ public final class EvilManualUseragentStringHacks {
             result = replaceString(result, " (Macintosh); ", " (Macintosh; ");
         }
 
+        // This one is a single useragent that hold significant traffic
+        if (result.contains("Microsoft Windows NT 6.2.9200.0);")){
+            result = replaceString(result, "Microsoft Windows NT 6.2.9200.0);", "Microsoft Windows NT 6.2.9200.0;");
+        }
+
         // Repair certain cases of broken useragents (like we see for the Facebook app a lot)
         if (MISSING_PRODUCT_AT_START.matcher(result).matches()){
             // We simply prefix a fake product name to continue parsing.
