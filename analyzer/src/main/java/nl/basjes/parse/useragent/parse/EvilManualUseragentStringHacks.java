@@ -47,19 +47,15 @@ public final class EvilManualUseragentStringHacks {
         }
 
         // We have seen problems causes by " Version/4.0Mobile Safari/530.17"
-        if (MISSING_SPACE.matcher(result).find()) {
-            result = MISSING_SPACE.matcher(result).replaceAll("$1 $2");
-        }
+//        if (MISSING_SPACE.matcher(result).find()) {
+        result = MISSING_SPACE.matcher(result).replaceAll("$1 $2");
+//        }
 
         // This one is a single useragent that hold significant traffic
-        if (result.contains(" (Macintosh); ")){
-            result = replaceString(result, " (Macintosh); ", " (Macintosh; ");
-        }
+        result = replaceString(result, " (Macintosh); ", " (Macintosh; ");
 
         // This one is a single useragent that hold significant traffic
-        if (result.contains("Microsoft Windows NT 6.2.9200.0);")){
-            result = replaceString(result, "Microsoft Windows NT 6.2.9200.0);", "Microsoft Windows NT 6.2.9200.0;");
-        }
+        result = replaceString(result, "Microsoft Windows NT 6.2.9200.0);", "Microsoft Windows NT 6.2.9200.0;");
 
         // Repair certain cases of broken useragents (like we see for the Facebook app a lot)
         if (MISSING_PRODUCT_AT_START.matcher(result).matches()){
@@ -74,14 +70,10 @@ public final class EvilManualUseragentStringHacks {
         }
 
         // Kick some garbage that sometimes occurs.
-        if (useragent.endsWith(",gzip(gfe)")) {
-            result = replaceString(result, ",gzip(gfe)", "");
-        }
+        result = replaceString(result, ",gzip(gfe)", "");
 
         // The Weibo useragent This one is a single useragent that hold significant traffic
-        if (useragent.contains("__")){
-            result = replaceString(result, "__", " ");
-        }
+        result = replaceString(result, "__", " ");
 
         if (result.contains("%20")) {
             try {
@@ -101,12 +93,16 @@ public final class EvilManualUseragentStringHacks {
             final String searchFor,
             final String replaceWith
     ){
-        final StringBuilder result = new StringBuilder(input.length()+32);
         //startIdx and idxSearchFor delimit various chunks of input; these
         //chunks always end where searchFor begins
         int startIdx = 0;
-        int idxSearchFor;
-        while ((idxSearchFor = input.indexOf(searchFor, startIdx)) >= 0) {
+        int idxSearchFor = input.indexOf(searchFor, startIdx);
+        if (idxSearchFor < 0) {
+            return input;
+        }
+        final StringBuilder result = new StringBuilder(input.length()+32);
+
+        while (idxSearchFor >= 0) {
             //grab a part of input which does not include searchFor
             result.append(input.substring(startIdx, idxSearchFor));
             //add replaceWith to take place of searchFor
@@ -115,6 +111,7 @@ public final class EvilManualUseragentStringHacks {
             //reset the startIdx to just after the current match, to see
             //if there are any further matches
             startIdx = idxSearchFor + searchFor.length();
+            idxSearchFor = input.indexOf(searchFor, startIdx);
         }
         //the final chunk will go to the end of input
         result.append(input.substring(startIdx));
