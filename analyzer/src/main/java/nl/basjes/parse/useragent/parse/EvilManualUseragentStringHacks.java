@@ -47,9 +47,7 @@ public final class EvilManualUseragentStringHacks {
         }
 
         // We have seen problems causes by " Version/4.0Mobile Safari/530.17"
-//        if (MISSING_SPACE.matcher(result).find()) {
         result = MISSING_SPACE.matcher(result).replaceAll("$1 $2");
-//        }
 
         // This one is a single useragent that hold significant traffic
         result = replaceString(result, " (Macintosh); ", " (Macintosh; ");

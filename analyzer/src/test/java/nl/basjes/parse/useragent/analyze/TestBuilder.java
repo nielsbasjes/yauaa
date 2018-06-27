@@ -141,7 +141,8 @@ public class TestBuilder {
                 .withField("ServerName")
                 .build();
 
-        UserAgent parsedAgent = userAgentAnalyzer.parse("TestApplication/1.2.3 (node123.datacenter.example.nl; 1234; d71922715c2bfe29343644b14a4731bf5690e66e)");
+        UserAgent parsedAgent = userAgentAnalyzer.parse(
+            "TestApplication/1.2.3 (node123.datacenter.example.nl; 1234; d71922715c2bfe29343644b14a4731bf5690e66e)");
 
         // The requested fields
         assertEquals("TestApplication",                          parsedAgent.getValue("ApplicationName"));
