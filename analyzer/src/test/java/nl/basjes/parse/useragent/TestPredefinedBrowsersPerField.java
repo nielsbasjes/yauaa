@@ -39,10 +39,12 @@ public class TestPredefinedBrowsersPerField {
 
     @Parameters(name = "Test {index} -> Only field: \"{0}\"")
     public static Iterable<String> data() {
-        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
-        uaa.setShowMatcherStats(false);
-        uaa.initialize();
-        return uaa.getAllPossibleFieldNamesSorted();
+        return UserAgentAnalyzer
+            .newBuilder()
+            .hideMatcherLoadStats()
+            .delayInitialization()
+            .build()
+            .getAllPossibleFieldNamesSorted();
     }
 
     // CHECKSTYLE.OFF: VisibilityModifier doesn't work like that for @Parameter variables

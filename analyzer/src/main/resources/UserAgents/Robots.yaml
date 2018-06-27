@@ -1641,3 +1641,61 @@ config:
       AgentNameVersion                      : 'CommonCrawler Node 252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4.R.GPMRT2CTBQMMKZPSBBCPP6O4XLKIWXRKYIQNNL3CIDAST4WS.cdn0.common.crawl.zone'
       AgentNameVersionMajor                 : 'CommonCrawler Node 252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4'
 
+
+#- test:
+#    input:
+#      user_agent_string: 'Consilio/4.17.00 (WebHare Application Portal); LinkChecker)'
+
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; PRTG Network Monitor (www.paessler.com); Windows)'
+
+- test:
+    input:
+      user_agent_string: 'bitlybot/3.0 (+http://bit.ly/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Bitlybot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'bitlybot'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'bitlybot 3.0'
+      LayoutEngineNameVersionMajor         : 'bitlybot 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'bitlybot'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'bitlybot 3.0'
+      AgentNameVersionMajor                : 'bitlybot 3'
+      AgentInformationUrl                  : 'http://bit.ly/'
+
+- test:
+    input:
+      user_agent_string: 'Xanti Link Check Robot/1.1 (http://www.xanti.nl/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Xanti Link Check Robot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Xanti Link Check Robot'
+      LayoutEngineVersion                  : '1.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Xanti Link Check Robot 1.1'
+      LayoutEngineNameVersionMajor         : 'Xanti Link Check Robot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Xanti Link Check Robot'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Xanti Link Check Robot 1.1'
+      AgentNameVersionMajor                : 'Xanti Link Check Robot 1'
+      AgentInformationUrl                  : 'http://www.xanti.nl/'

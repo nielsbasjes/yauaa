@@ -377,6 +377,59 @@ config:
       AgentNameVersionMajor                : 'IntelliJ IDEA 162'
 
 
+- matcher:
+    extract:
+      - 'AgentVersion : 1 : agent.(1)product.(1)name="R"^.(1)comments.(1)entry.(1)product.(1)name'
+
+- test:
+    input:
+      user_agent_string: 'R (3.3.3 x86_64-redhat-linux-gnu x86_64 linux-gnu)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'R'
+      AgentVersion                         : '3.3.3'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'R 3.3.3'
+      AgentNameVersionMajor                : 'R 3'
+
+- test:
+    input:
+      user_agent_string: 'R (3.3.2 x86_64-w64-mingw32 x86_64 mingw32)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows NT'
+      OperatingSystemNameVersion           : 'Windows NT'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'R'
+      AgentVersion                         : '3.3.2'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'R 3.3.2'
+      AgentNameVersionMajor                : 'R 3'
+
+
 # Puffin on an Android 6 phone is incorrectly reported as a Linux desktop
 - test:
     input:

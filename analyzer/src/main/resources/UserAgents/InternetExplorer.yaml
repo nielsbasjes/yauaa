@@ -1235,3 +1235,33 @@ config:
       AgentVersionMajor                    : '10'
       AgentNameVersion                     : 'Internet Explorer 10.0'
       AgentNameVersionMajor                : 'Internet Explorer 10'
+
+
+# Extra trailing stuff
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US); 0110120602120527'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows Vista'
+      OperatingSystemNameVersion           : 'Windows Vista'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Internet Explorer'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Internet Explorer 7.0'
+      LayoutEngineNameVersionMajor         : 'Internet Explorer 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '7.0'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Internet Explorer 7.0'
+      AgentNameVersionMajor                : 'Internet Explorer 7'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'

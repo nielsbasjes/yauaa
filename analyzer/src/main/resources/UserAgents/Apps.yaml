@@ -254,3 +254,286 @@ config:
       AgentLanguage                        : 'Dutch (Netherlands)'
       AgentLanguageCode                    : 'nl-nl'
       AgentSecurity                        : 'Strong security'
+
+# Snapchat on Android
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.2; Redmi 4X Build/N2G47H; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 Mobile Safari/537.36 Snapchat/10.30.5.0 (Redmi 4X; Android 7.1.2#V9.5.4.0.NAMMIFA#25; gzip)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Xiaomi Redmi 4X'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.2'
+      OperatingSystemNameVersion           : 'Android 7.1.2'
+      OperatingSystemVersionBuild          : 'N2G47H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '66.0'
+      LayoutEngineVersionMajor             : '66'
+      LayoutEngineNameVersion              : 'Blink 66.0'
+      LayoutEngineNameVersionMajor         : 'Blink 66'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '66.0.3359.126'
+      AgentVersionMajor                    : '66'
+      AgentNameVersion                     : 'Chrome Webview 66.0.3359.126'
+      AgentNameVersionMajor                : 'Chrome Webview 66'
+      WebviewAppName                       : 'Snapchat'
+      WebviewAppVersion                    : '10.30.5.0'
+      WebviewAppVersionMajor               : '10'
+      WebviewAppNameVersionMajor           : 'Snapchat 10'
+
+
+# Snapchat on IPhone
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Snapchat/10.34.1.1 (iPhone9,2; iOS 11.4; gzip)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 7 Plus'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '11.4'
+      OperatingSystemNameVersion           : 'iOS 11.4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Snapchat'
+      AgentVersion                         : '10.34.1.1'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Snapchat 10.34.1.1'
+      AgentNameVersionMajor                : 'Snapchat 10'
+
+
+#Instagram on Android 7.1.1
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Moto G (5S) Build/NPPS26.102-49-4; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 Mobile Safari/537.36 Instagram 42.0.0.19.95 Android (25/7.1.1; 480dpi; 1080x1776; motorola; Moto G (5S); montana_n; qcom; nl_BE; 104766900)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Motorola Moto G (5S)'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemVersionBuild          : 'NPPS26.102-49-4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '66.0'
+      LayoutEngineVersionMajor             : '66'
+      LayoutEngineNameVersion              : 'Blink 66.0'
+      LayoutEngineNameVersionMajor         : 'Blink 66'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '66.0.3359.126'
+      AgentVersionMajor                    : '66'
+      AgentNameVersion                     : 'Chrome Webview 66.0.3359.126'
+      AgentNameVersionMajor                : 'Chrome Webview 66'
+      WebviewAppName                       : 'Instagram'
+      WebviewAppVersion                    : '42.0.0.19.95'
+      WebviewAppVersionMajor               : '42'
+      WebviewAppNameVersionMajor           : 'Instagram 42'
+
+#Instagram on iPhone
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_5 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13G36 Instagram 43.0.0.13.91 (iPhone8,1; iPhone OS 9_3_5; nl_NL; nl-NL; scale=2.00; gamut=normal; 750x1334)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '13G36'
+      DeviceVersion                        : 'iPhone 6s'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '9.3.5'
+      OperatingSystemNameVersion           : 'iOS 9.3.5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '601.1.46'
+      LayoutEngineVersionMajor             : '601'
+      LayoutEngineNameVersion              : 'AppleWebKit 601.1.46'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 601'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Instagram'
+      AgentVersion                         : '43.0.0.13.91'
+      AgentVersionMajor                    : '43'
+      AgentNameVersion                     : 'Instagram 43.0.0.13.91'
+      AgentNameVersionMajor                : 'Instagram 43'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+
+- matcher:
+    extract:
+    - 'AgentClass            :  50:"Special"'
+    - 'AgentName             :  50:"iTunes"'
+    - 'AgentVersion          :  50:agent.(1)product.(1)name="iTunes"^.version'
+
+- test:
+    input:
+      user_agent_string: 'iTunes/12.7.4 (Macintosh; OS X 10.13.4) AppleWebKit/605.1.33.1.4'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.33.1.4'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.33.1.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Special'
+      AgentName                            : 'iTunes'
+      AgentVersion                         : '12.7.4'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'iTunes 12.7.4'
+      AgentNameVersionMajor                : 'iTunes 12'
+
+
+# NOTE: iTunes makes a complete mess of the Windows desktop OS names
+- test:
+    input:
+      user_agent_string: 'iTunes/12.7.4 (Windows; Microsoft Windows 10 x64 Home Premium Edition (Build 16299); x64) AppleWebKit/7605.1033.1002.2'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '7605.1033.1002.2'
+      LayoutEngineVersionMajor             : '7605'
+      LayoutEngineNameVersion              : 'AppleWebKit 7605.1033.1002.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 7605'
+      AgentClass                           : 'Special'
+      AgentName                            : 'iTunes'
+      AgentVersion                         : '12.7.4'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'iTunes 12.7.4'
+      AgentNameVersionMajor                : 'iTunes 12'
+
+- test:
+    input:
+      user_agent_string: 'iTunes/12.7.4 (Windows; Microsoft Windows 10 x64 Home Premium Edition (Build 17134); x64) AppleWebKit/7605.1033.1002.2'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '7605.1033.1002.2'
+      LayoutEngineVersionMajor             : '7605'
+      LayoutEngineNameVersion              : 'AppleWebKit 7605.1033.1002.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 7605'
+      AgentClass                           : 'Special'
+      AgentName                            : 'iTunes'
+      AgentVersion                         : '12.7.4'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'iTunes 12.7.4'
+      AgentNameVersionMajor                : 'iTunes 12'
+
+
+- test:
+    input:
+      user_agent_string: 'iTunes/12.7.4 (Windows; Microsoft Windows 10 x64 Professional Edition (Build 16299); x64) AppleWebKit/7605.1033.1002.2'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '7605.1033.1002.2'
+      LayoutEngineVersionMajor             : '7605'
+      LayoutEngineNameVersion              : 'AppleWebKit 7605.1033.1002.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 7605'
+      AgentClass                           : 'Special'
+      AgentName                            : 'iTunes'
+      AgentVersion                         : '12.7.4'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'iTunes 12.7.4'
+      AgentNameVersionMajor                : 'iTunes 12'
+
+
+- test:
+    input:
+      user_agent_string: 'iTunes/12.7.4 (Windows; Microsoft Windows 7 Home Premium Edition Service Pack 1 (Build 7601)) AppleWebKit/7605.1033.1002.2'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '7605.1033.1002.2'
+      LayoutEngineVersionMajor             : '7605'
+      LayoutEngineNameVersion              : 'AppleWebKit 7605.1033.1002.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 7605'
+      AgentClass                           : 'Special'
+      AgentName                            : 'iTunes'
+      AgentVersion                         : '12.7.4'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'iTunes 12.7.4'
+      AgentNameVersionMajor                : 'iTunes 12'
+
+- test:
+    input:
+      user_agent_string: 'iTunes/12.7 (Windows; Microsoft Windows 8.1 x64 Home Premium Edition (Build 9600); x64) AppleWebKit/7604.1038.1006.6'
+
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 8.1'
+      OperatingSystemNameVersion           : 'Windows 8.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '7604.1038.1006.6'
+      LayoutEngineVersionMajor             : '7604'
+      LayoutEngineNameVersion              : 'AppleWebKit 7604.1038.1006.6'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 7604'
+      AgentClass                           : 'Special'
+      AgentName                            : 'iTunes'
+      AgentVersion                         : '12.7'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'iTunes 12.7'
+      AgentNameVersionMajor                : 'iTunes 12'
+
+
+

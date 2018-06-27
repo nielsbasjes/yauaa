@@ -104,6 +104,32 @@ config:
     extract:
     - 'DeviceCpuBits             : 100:LookUp[OperatingSystemCpuBits;agent.product.text]'
 
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.text="mingw32"'
+    extract:
+    - 'DeviceClass               :   1:"Desktop"'
+    - 'DeviceName                :   1:"Desktop"'
+    - 'DeviceCpuBits             :   1:"32"'
+    - 'OperatingSystemClass      :   1:"Desktop"'
+    - 'OperatingSystemName       :   1:"Windows NT"'
+    - 'OperatingSystemVersion    :   1:"Windows NT"'
+    - 'OperatingSystemNameVersion:   1:"Windows NT"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.product.(1-4)version="mingw32"'
+    extract:
+    - 'DeviceClass               :   1:"Desktop"'
+    - 'DeviceName                :   1:"Desktop"'
+    - 'DeviceCpuBits             :   1:"32"'
+    - 'OperatingSystemClass      :   1:"Desktop"'
+    - 'OperatingSystemName       :   1:"Windows NT"'
+    - 'OperatingSystemVersion    :   1:"Windows NT"'
+    - 'OperatingSystemNameVersion:   1:"Windows NT"'
+
+
 - test:
     input:
       user_agent_string:  'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko'
