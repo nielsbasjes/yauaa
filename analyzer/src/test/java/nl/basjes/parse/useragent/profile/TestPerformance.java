@@ -15,18 +15,31 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.analyze;
+package nl.basjes.parse.useragent.profile;
 
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.assertTrue;
 
-public class TestMemoryFootprint {
+public class TestPerformance {
+    private static final Logger LOG = LoggerFactory.getLogger(TestPerformance.class);
 
-    private static final Logger LOG = LoggerFactory.getLogger(TestMemoryFootprint.class);
+    @Ignore
+    @Test
+    public void validateAllPredefinedBrowsersPerformance() {
+        UserAgentAnalyzerTester uaa =
+            UserAgentAnalyzerTester.newBuilder()
+            .showMatcherLoadStats()
+            .immediateInitialization()
+            .build();
+        Assert.assertTrue(uaa.runTests(false, false, null, true, true));
+    }
 
     @Test
     public void checkAllPossibleFieldsFastSpeed() {

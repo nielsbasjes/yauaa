@@ -15,27 +15,19 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent;
+package nl.basjes.parse.useragent.profile;
 
-import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
-import org.junit.Assert;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestPerformance {
-    private static final Logger LOG = LoggerFactory.getLogger(TestPerformance.class);
+import static org.junit.Assert.assertTrue;
 
-    @Ignore
-    @Test
-    public void validateAllPredefinedBrowsersPerformance() {
-        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester();
-        uaa.setShowMatcherStats(true);
-        uaa.initialize();
-        Assert.assertTrue(uaa.runTests(false, false, null, true, true));
-    }
+public class TestMemoryFootprint {
 
+    private static final Logger LOG = LoggerFactory.getLogger(TestMemoryFootprint.class);
 
     private static final long MEGABYTE = 1024L * 1024L;
 
@@ -126,5 +118,55 @@ public class TestPerformance {
                 fieldName, memory, bytesToMegabytes(memory)));
         }
     }
+
+
+    private void printCurrentMemoryProfile(String label){
+        // Get the Java runtime
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        // Calculate the used memory
+        long memory = runtime.totalMemory() - runtime.freeMemory();
+        LOG.info(String.format(
+            "----- %8s: Used memory is %10d bytes (%5d MiB / %5d MiB)",
+            label, memory, bytesToMegabytes(memory), bytesToMegabytes(runtime.totalMemory())));
+    }
+
+    @Ignore
+    @Test
+    public void profileMemoryFootprint() {
+        printCurrentMemoryProfile("Before ");
+
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .hideMatcherLoadStats()
+            .withoutCache()
+            .keepTests()
+            .build();
+        printCurrentMemoryProfile("Loaded ");
+
+        uaa.initializeMatchers();
+        printCurrentMemoryProfile("Init   ");
+
+        Runtime.getRuntime().gc();
+        printCurrentMemoryProfile("Post GC");
+
+        uaa.setCacheSize(1000);
+        uaa.preHeat();
+        Runtime.getRuntime().gc();
+        printCurrentMemoryProfile("Cache 1K");
+
+        uaa.setCacheSize(10000);
+        uaa.preHeat();
+        Runtime.getRuntime().gc();
+        printCurrentMemoryProfile("Cache 10K");
+
+        uaa.dropTests();
+        Runtime.getRuntime().gc();
+        printCurrentMemoryProfile("NoTest ");
+
+    }
+
+
+
 
 }
