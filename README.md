@@ -194,41 +194,41 @@ Because there are no rules for the field `__SyntaxError__` we assumed that to be
 against which we determine the relative memory usage.
 
 Because most rules determine several fields there is a lot of overlap in the rules used.
-If you keep all rules we see that version 3.2 uses about 224 MiB of memory for all rules which shows that
+If you keep all rules we see that version 5.0 uses about 232 MiB of memory for all rules which shows that
 the most expensive rules related to finding the DeviceName and DeviceBrand because both need
 to determine the brand of the device at hand.
 
 | Field | Relative Memory usage  |
 | :--- | ---: |
-| DeviceClass                     |  74.6 MiB |
-| DeviceName                      | 193.8 MiB |
-| DeviceBrand                     | 179.0 MiB |
-| DeviceCpu                       |   3.2 MiB |
-| DeviceCpuBits                   |   2.4 MiB |
+| DeviceClass                     |  81.9 MiB |
+| DeviceName                      | 203.2 MiB |
+| DeviceBrand                     | 181.2 MiB |
+| DeviceCpu                       |   3.1 MiB |
+| DeviceCpuBits                   |   9.5 MiB |
 | DeviceFirmwareVersion           |   4.1 MiB |
-| DeviceVersion                   |  12.5 MiB |
-| OperatingSystemClass            |  50.5 MiB |
-| OperatingSystemName             |  49.5 MiB |
-| OperatingSystemVersion          |  49.5 MiB |
-| OperatingSystemNameVersion      |  49.7 MiB |
+| DeviceVersion                   |  14.3 MiB |
+| OperatingSystemClass            |  56.9 MiB |
+| OperatingSystemName             |  56.0 MiB |
+| OperatingSystemVersion          |  55.9 MiB |
+| OperatingSystemNameVersion      |  56.2 MiB |
 | OperatingSystemVersionBuild     |   2.2 MiB |
-| LayoutEngineClass               |   9.0 MiB |
-| LayoutEngineName                |   9.0 MiB |
-| LayoutEngineVersion             |   9.0 MiB |
-| LayoutEngineVersionMajor        |   9.0 MiB |
+| LayoutEngineClass               |   8.9 MiB |
+| LayoutEngineName                |   8.9 MiB |
+| LayoutEngineVersion             |   8.9 MiB |
+| LayoutEngineVersionMajor        |   8.9 MiB |
 | LayoutEngineNameVersion         |   9.0 MiB |
 | LayoutEngineNameVersionMajor    |   9.0 MiB |
 | LayoutEngineBuild               |   1.5 MiB |
-| AgentClass                      |  15.9 MiB |
-| AgentName                       |  15.6 MiB |
-| AgentVersion                    |  15.6 MiB |
-| AgentVersionMajor               |  15.6 MiB |
-| AgentNameVersion                |  15.7 MiB |
-| AgentNameVersionMajor           |  15.7 MiB |
+| AgentClass                      |  17.1 MiB |
+| AgentName                       |  16.7 MiB |
+| AgentVersion                    |  16.7 MiB |
+| AgentVersionMajor               |  16.7 MiB |
+| AgentNameVersion                |  16.8 MiB |
+| AgentNameVersionMajor           |  16.8 MiB |
 | AgentBuild                      |   0.5 MiB |
 | AgentLanguage                   |   0.3 MiB |
 | AgentLanguageCode               |   0.3 MiB |
-| AgentInformationEmail           |   4.1 MiB |
+| AgentInformationEmail           |   4.0 MiB |
 | AgentInformationUrl             |   5.9 MiB |
 | AgentSecurity                   |   0.3 MiB |
 | AgentUuid                       |   0.3 MiB |
@@ -252,7 +252,7 @@ to determine the brand of the device at hand.
 | Carrier                         |   0.2 MiB |
 | GSAInstallationID               |   0.0 MiB |
 | WebviewAppName                  |   1.9 MiB |
-| WebviewAppNameVersionMajor      |   2.0 MiB |
+| WebviewAppNameVersionMajor      |   1.9 MiB |
 | WebviewAppVersion               |   1.9 MiB |
 | WebviewAppVersionMajor          |   1.9 MiB |
 
