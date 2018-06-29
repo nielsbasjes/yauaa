@@ -9,6 +9,7 @@ v5.0
 - Changed the default to use the delayed initialization.
 - Only calculate special fields if needed.
 - Dropped support for old style constructors
+- Update to Nifi 1.7.0 and Beam 2.5.0
 
 v4.5
 ===
