@@ -64,11 +64,21 @@ UserSpecificDocker
 [ -d "${PWD}/docker/_m2"    ] || mkdir "${PWD}/docker/_m2"
 [ -d "${PWD}/docker/_gnupg" ] || mkdir "${PWD}/docker/_gnupg"
 
+MOUNTGPGDIR="${PWD}/docker/_gnupg"
+
+if [[ "${1}" == "RELEASE" ]];
+then
+  cp "${HOME}"/.m2/*.xml "${PWD}/docker/_m2"
+  MOUNTGPGDIR="${HOME}/.gnupg"
+
+  echo "Setting up for release process"
+fi
+
 docker run --rm=true -t -i                                      \
            -u "${USER_NAME}"                                    \
            -v "${PWD}:/home/${USER_NAME}/${PROJECTNAME}"        \
            -v "${PWD}/docker/_m2:/home/${USER_NAME}/.m2"        \
-           -v "${PWD}/docker/_gnupg:/home/${USER_NAME}/.gnupg"  \
+           -v "${MOUNTGPGDIR}:/home/${USER_NAME}/.gnupg"  \
            -w "/home/${USER}/${PROJECTNAME}"                    \
            --name "${CONTAINER_NAME}"                           \
            "${PROJECTNAME}-${OS}-${USER_NAME}"                  \
