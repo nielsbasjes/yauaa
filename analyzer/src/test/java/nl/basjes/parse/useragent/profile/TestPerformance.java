@@ -43,24 +43,32 @@ public class TestPerformance {
 
     @Test
     public void checkAllPossibleFieldsFastSpeed() {
-        long start = System.nanoTime();
         LOG.info("Create analyzer");
+        long start = System.nanoTime();
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .delayInitialization()
             .build();
-        long loadTime = System.nanoTime();
-        long msecs = (loadTime - start) / 1000000;
-        LOG.info("Analyzer loaded after {}ms", msecs);
-        assertTrue("Loading the analyzer did not finish within 2 seconds (is was " + msecs + "ms).", msecs < 2000);
+        long stop = System.nanoTime();
+        long constructMsecs = (stop - start) / 1000000;
+        LOG.info("-- Construction time: {}ms", constructMsecs);
 
         LOG.info("List fieldnames");
+        start = System.nanoTime();
         uaa.getAllPossibleFieldNamesSorted()
             .forEach(LOG::debug);
-        long stop = System.nanoTime();
-        msecs = (stop - loadTime) / 1000000;
-        LOG.info("Duration {}ms", msecs);
-        assertTrue("Listing the fields did not finish within 200 ms (is was "+msecs+"ms).", msecs < 200);
+        stop = System.nanoTime();
+        long listFieldNamesMsecs = (stop - start) / 1000000;
+        LOG.info("-- List fieldnames: {}ms", listFieldNamesMsecs);
+        assertTrue("Just listing the field names should only take a few ms", listFieldNamesMsecs < 500);
+
+        LOG.info("Initializing the datastructures");
+        start = System.nanoTime();
+        uaa.initializeMatchers();
+        stop = System.nanoTime();
+        long initializeMsecs = (stop - start) / 1000000;
+        LOG.info("-- Initialization: {}ms", initializeMsecs);
+        assertTrue("The initialization went too fast, this should take several seconds", initializeMsecs > 1000);
     }
 
 }
