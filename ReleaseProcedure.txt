@@ -8,8 +8,8 @@ mvn clean verify
 mvn clean
 
 # Prepare the versions for the release
-RELEASEVERSION=5.0
-NEXTVERSION=5.1
+RELEASEVERSION=5.1
+NEXTVERSION=5.2
 
 # Creating and publishing the new Tagging
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION}
@@ -33,6 +33,9 @@ mvn clean deploy -Prelease -Pdeploy-sonatype
 # Now check SONATYPE
 
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${NEXTVERSION}-SNAPSHOT
+
+# Update ReleaseProcedure.txt (versions near the top)
+
 git commit -m"Start development for ${NEXTVERSION}" -a
 
 git push
