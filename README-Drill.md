@@ -26,7 +26,7 @@ This is the maven dependency definition where it can be downloaded.
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa-drill</artifactId>
-      <version>4.5</version>
+      <version>5.0</version>
     </dependency>
 
 ## Building

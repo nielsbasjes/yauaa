@@ -7,7 +7,7 @@ If you use a maven based project simply add this dependency to your Apache Beam 
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa-beam</artifactId>
-      <version>4.5</version>
+      <version>5.0</version>
     </dependency>
 
 ## Building
