@@ -2,14 +2,18 @@ This is intended as an overview of the major changes
 
 v5.0
 ===
-- Bump Flink to 1.5 and test both DataSet and DataStream use.
-- Bump Apache Drill version to 1.13
 - Fix bug in iOS detection with some apps
 - Drop tests after preheat if dropTests is requested
 - Changed the default to use the delayed initialization.
 - Only calculate special fields if needed.
 - Dropped support for old style constructors
-- Update to Nifi 1.7.0 and Beam 2.5.0
+- Flink UDF: Test both DataSet and DataStream use.
+- Updated UDF dependencies
+  - Apache Flink 1.5.0
+  - Apache Drill 1.13
+  - Apache Beam 2.5.0
+  - Apache Nifi 1.7.0
+- Use Spring 2.0.x for the webapp
 
 v4.5
 ===
