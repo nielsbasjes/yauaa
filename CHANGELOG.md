@@ -3,6 +3,9 @@ This is intended as an overview of the major changes
 v5.1
 ===
 - Fix bug in UCBrowser detection (too often reported as Tablet) 
+- More languages
+- Windows NT on ARM cpu --> Mobile device, not Desktop
+- Detect PocketBook devices
 
 v5.0
 ===

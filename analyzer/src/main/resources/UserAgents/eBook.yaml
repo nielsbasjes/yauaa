@@ -302,3 +302,306 @@ config:
 #TODO: GTB??
 #Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB7.5; eBook; InfoPath.2; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)
 #Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; SIMBAR={77DFD0A4-9D43-11E2-A2F9-0018E73E3E5B}; GTB7.5; BTRS109633; eBook; .NET CLR 1.1.4322; .NET4.0C; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET4.0E)
+
+
+- matcher:
+    variable:
+    - 'PocketBookVersion: agent.product.name="PocketBook"^.version'
+    extract:
+    - 'DeviceClass           :   150:"eReader"'
+    - 'DeviceName            :   150:"PocketBook"'
+    - 'DeviceBrand           :   150:"PocketBook"'
+    - 'OperatingSystemClass  :    10:"Mobile"'
+    - 'LayoutEngineClass     :   150:"eReader"'
+    - 'LayoutEngineName      :   150:"PocketBook"'
+    - 'LayoutEngineVersion   :   150:@PocketBookVersion'
+    - 'AgentClass            :   150:"eReader"'
+    - 'AgentName             :   150:"PocketBook"'
+    - 'AgentVersion          :   150:@PocketBookVersion'
+
+- matcher:
+    variable:
+    - 'PocketBookProduct: agent.product.name="PocketBook"^'
+    extract:
+    - 'DeviceFirmwareVersion :   150:@PocketBookProduct.comments.entry.product.name="FW"^.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android; pl_PL) AppleWebKit/534.34 PocketBook/631 (screen 1072x1448; FW U631.5.17.1409) Mobile'
+    expected:
+      DeviceClass                          : 'eReader'
+      DeviceName                           : 'PocketBook'
+      DeviceBrand                          : 'PocketBook'
+      DeviceFirmwareVersion                : 'U631.5.17.1409'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'eReader'
+      LayoutEngineName                     : 'PocketBook'
+      LayoutEngineVersion                  : '631'
+      LayoutEngineVersionMajor             : '631'
+      LayoutEngineNameVersion              : 'PocketBook 631'
+      LayoutEngineNameVersionMajor         : 'PocketBook 631'
+      AgentClass                           : 'eReader'
+      AgentName                            : 'PocketBook'
+      AgentVersion                         : '631'
+      AgentVersionMajor                    : '631'
+      AgentNameVersion                     : 'PocketBook 631'
+      AgentNameVersionMajor                : 'PocketBook 631'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android; pl_PL) AppleWebKit/534.34 PocketBook/626 (screen 758x1024; FW W626.5.14.1475) Mobile'
+    expected:
+      DeviceClass                          : 'eReader'
+      DeviceName                           : 'PocketBook'
+      DeviceBrand                          : 'PocketBook'
+      DeviceFirmwareVersion                : 'W626.5.14.1475'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'eReader'
+      LayoutEngineName                     : 'PocketBook'
+      LayoutEngineVersion                  : '626'
+      LayoutEngineVersionMajor             : '626'
+      LayoutEngineNameVersion              : 'PocketBook 626'
+      LayoutEngineNameVersionMajor         : 'PocketBook 626'
+      AgentClass                           : 'eReader'
+      AgentName                            : 'PocketBook'
+      AgentVersion                         : '626'
+      AgentVersionMajor                    : '626'
+      AgentNameVersion                     : 'PocketBook 626'
+      AgentNameVersionMajor                : 'PocketBook 626'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android; pl_PL) AppleWebKit/534.34 PocketBook/740 (screen 1404x1872; FW U740.5.17.1255) Mobile'
+    expected:
+      DeviceClass                          : 'eReader'
+      DeviceName                           : 'PocketBook'
+      DeviceBrand                          : 'PocketBook'
+      DeviceFirmwareVersion                : 'U740.5.17.1255'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'eReader'
+      LayoutEngineName                     : 'PocketBook'
+      LayoutEngineVersion                  : '740'
+      LayoutEngineVersionMajor             : '740'
+      LayoutEngineNameVersion              : 'PocketBook 740'
+      LayoutEngineNameVersionMajor         : 'PocketBook 740'
+      AgentClass                           : 'eReader'
+      AgentName                            : 'PocketBook'
+      AgentVersion                         : '740'
+      AgentVersionMajor                    : '740'
+      AgentNameVersion                     : 'PocketBook 740'
+      AgentNameVersionMajor                : 'PocketBook 740'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android; ru_RU) AppleWebKit/534.34 PocketBook/631 (screen 1072x1448; FW U631.5.17.972) Mobile'
+    expected:
+      DeviceClass                          : 'eReader'
+      DeviceName                           : 'PocketBook'
+      DeviceBrand                          : 'PocketBook'
+      DeviceFirmwareVersion                : 'U631.5.17.972'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'eReader'
+      LayoutEngineName                     : 'PocketBook'
+      LayoutEngineVersion                  : '631'
+      LayoutEngineVersionMajor             : '631'
+      LayoutEngineNameVersion              : 'PocketBook 631'
+      LayoutEngineNameVersionMajor         : 'PocketBook 631'
+      AgentClass                           : 'eReader'
+      AgentName                            : 'PocketBook'
+      AgentVersion                         : '631'
+      AgentVersionMajor                    : '631'
+      AgentNameVersion                     : 'PocketBook 631'
+      AgentNameVersionMajor                : 'PocketBook 631'
+      AgentLanguage                        : 'Russian (Russia)'
+      AgentLanguageCode                    : 'ru-ru'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux like Android; pl_PL) AppleWebKit/534.34 PocketBook/626 (screen 758x1024; FW W626.5.14.1235) Mobile'
+    expected:
+      DeviceClass                           : 'eReader'
+      DeviceName                            : 'PocketBook'
+      DeviceBrand                           : 'PocketBook'
+      DeviceFirmwareVersion                 : 'W626.5.14.1235'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Linux'
+      OperatingSystemVersion                : '??'
+      OperatingSystemNameVersion            : 'Linux ??'
+      LayoutEngineClass                     : 'eReader'
+      LayoutEngineName                      : 'PocketBook'
+      LayoutEngineVersion                   : '626'
+      LayoutEngineVersionMajor              : '626'
+      LayoutEngineNameVersion               : 'PocketBook 626'
+      LayoutEngineNameVersionMajor          : 'PocketBook 626'
+      AgentClass                            : 'eReader'
+      AgentName                             : 'PocketBook'
+      AgentVersion                          : '626'
+      AgentVersionMajor                     : '626'
+      AgentNameVersion                      : 'PocketBook 626'
+      AgentNameVersionMajor                 : 'PocketBook 626'
+      AgentLanguage                         : 'Polish (Poland)'
+      AgentLanguageCode                     : 'pl-pl'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux like Android; pl_PL) AppleWebKit/534.34 PocketBook/626 (screen 1024x758; FW W626.5.14.1286) Mobile'
+    expected:
+      DeviceClass                          : 'eReader'
+      DeviceName                           : 'PocketBook'
+      DeviceBrand                          : 'PocketBook'
+      DeviceFirmwareVersion                : 'W626.5.14.1286'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'eReader'
+      LayoutEngineName                     : 'PocketBook'
+      LayoutEngineVersion                  : '626'
+      LayoutEngineVersionMajor             : '626'
+      LayoutEngineNameVersion              : 'PocketBook 626'
+      LayoutEngineNameVersionMajor         : 'PocketBook 626'
+      AgentClass                           : 'eReader'
+      AgentName                            : 'PocketBook'
+      AgentVersion                         : '626'
+      AgentVersionMajor                    : '626'
+      AgentNameVersion                     : 'PocketBook 626'
+      AgentNameVersionMajor                : 'PocketBook 626'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux like Android; pl_PL) AppleWebKit/534.34 PocketBook/631 (screen 1072x1448; FW U631.5.17.953) Mobile'
+    expected:
+      DeviceClass                          : 'eReader'
+      DeviceName                           : 'PocketBook'
+      DeviceBrand                          : 'PocketBook'
+      DeviceFirmwareVersion                : 'U631.5.17.953'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'eReader'
+      LayoutEngineName                     : 'PocketBook'
+      LayoutEngineVersion                  : '631'
+      LayoutEngineVersionMajor             : '631'
+      LayoutEngineNameVersion              : 'PocketBook 631'
+      LayoutEngineNameVersionMajor         : 'PocketBook 631'
+      AgentClass                           : 'eReader'
+      AgentName                            : 'PocketBook'
+      AgentVersion                         : '631'
+      AgentVersionMajor                    : '631'
+      AgentNameVersion                     : 'PocketBook 631'
+      AgentNameVersionMajor                : 'PocketBook 631'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux like Android; pl_PL) AppleWebKit/534.34 PocketBook/624 (screen 600x800; FW W624.4.3.216) Mobile'
+    expected:
+      DeviceClass                          : 'eReader'
+      DeviceName                           : 'PocketBook'
+      DeviceBrand                          : 'PocketBook'
+      DeviceFirmwareVersion                : 'W624.4.3.216'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'eReader'
+      LayoutEngineName                     : 'PocketBook'
+      LayoutEngineVersion                  : '624'
+      LayoutEngineVersionMajor             : '624'
+      LayoutEngineNameVersion              : 'PocketBook 624'
+      LayoutEngineNameVersionMajor         : 'PocketBook 624'
+      AgentClass                           : 'eReader'
+      AgentName                            : 'PocketBook'
+      AgentVersion                         : '624'
+      AgentVersionMajor                    : '624'
+      AgentNameVersion                     : 'PocketBook 624'
+      AgentNameVersionMajor                : 'PocketBook 624'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux like Android; pl_PL) AppleWebKit/534.34 PocketBook/626 (screen 758x1024; FW W626.5.14.1096) Mobile'
+    expected:
+      DeviceClass                          : 'eReader'
+      DeviceName                           : 'PocketBook'
+      DeviceBrand                          : 'PocketBook'
+      DeviceFirmwareVersion                : 'W626.5.14.1096'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'eReader'
+      LayoutEngineName                     : 'PocketBook'
+      LayoutEngineVersion                  : '626'
+      LayoutEngineVersionMajor             : '626'
+      LayoutEngineNameVersion              : 'PocketBook 626'
+      LayoutEngineNameVersionMajor         : 'PocketBook 626'
+      AgentClass                           : 'eReader'
+      AgentName                            : 'PocketBook'
+      AgentVersion                         : '626'
+      AgentVersionMajor                    : '626'
+      AgentNameVersion                     : 'PocketBook 626'
+      AgentNameVersionMajor                : 'PocketBook 626'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux like Android; en_US) AppleWebKit/534.34 PocketBook/626 (screen 758x1024; FW W626.5.14.1096) Mobile'
+    expected:
+      DeviceClass                          : 'eReader'
+      DeviceName                           : 'PocketBook'
+      DeviceBrand                          : 'PocketBook'
+      DeviceFirmwareVersion                : 'W626.5.14.1096'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'eReader'
+      LayoutEngineName                     : 'PocketBook'
+      LayoutEngineVersion                  : '626'
+      LayoutEngineVersionMajor             : '626'
+      LayoutEngineNameVersion              : 'PocketBook 626'
+      LayoutEngineNameVersionMajor         : 'PocketBook 626'
+      AgentClass                           : 'eReader'
+      AgentName                            : 'PocketBook'
+      AgentVersion                         : '626'
+      AgentVersionMajor                    : '626'
+      AgentNameVersion                     : 'PocketBook 626'
+      AgentNameVersionMajor                : 'PocketBook 626'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+
