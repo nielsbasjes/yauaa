@@ -1153,4 +1153,29 @@ config:
     - 'DeviceName            :   200:"Panasonic Viera"'
     - 'DeviceBrand           :   200:"Panasonic"'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 OPR/40.0.2207.0 OMI/4.9.0.176.DOM3.103 Model/Vestel-MB130 VSTVB MB100 HbbTV/1.2.1 (; EDENWOOD; MB130; 3.43.4.0; _TV_G10_2017; ;) SmartTvA/3.0.0'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Edenwood MB130'
+      DeviceBrand                          : 'Edenwood'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '3.43.4.0'
+      OperatingSystemNameVersion           : 'Linux 3.43.4.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '40.0.2207.0'
+      AgentVersionMajor                    : '40'
+      AgentNameVersion                     : 'Opera 40.0.2207.0'
+      AgentNameVersionMajor                : 'Opera 40'
 
