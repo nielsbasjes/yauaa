@@ -497,3 +497,38 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
 
+- matcher:
+    extract:
+    - 'DeviceClass           :   320:"Phone"'
+    - 'DeviceBrand           :   320:"Nokia"'
+    - 'DeviceName            :   320:agent.product.(1)name="Maemo Browser"^.(3)version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux armv7l; en-US; rv:1.9.2.3pre) Gecko/20100723 Firefox/3.5 Maemo Browser 1.7.4.8 RX-51 N900'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceBrand                          : 'Nokia'
+      DeviceName                           : 'Nokia N900'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'ARMv7l'
+      OperatingSystemNameVersion           : 'Linux ARMv7l'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.2.3pre'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.2.3pre'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20100723'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Maemo Browser'
+      AgentVersion                         : '1.7.4.8'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Maemo Browser 1.7.4.8'
+      AgentNameVersionMajor                : 'Maemo Browser 1'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
