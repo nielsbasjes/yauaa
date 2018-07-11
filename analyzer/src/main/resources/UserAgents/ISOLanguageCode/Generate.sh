@@ -107,7 +107,11 @@ echo "    name: 'ISOLanguageCodes'"
 echo "    map:"
 fgrep -v '#' "${INPUT1}" | grep . | while read line
 do
-    echo "      \"$(echo "${line}" | cut -d' ' -f1)\" : \"$(echo "${line}" | cut -d' ' -f1 | sed 's/_/-/g')\""
+    CODE=$(echo "${line}" | cut -d' ' -f1)
+    echo "      \"${CODE}\" : \"${CODE}\""
+    if [[ ${CODE} = *"-"* ]]; then
+        echo "      \"$(echo ${CODE} | sed 's/-/_/g')\" : \"${CODE}\""
+    fi
 done
 
 echo "# -----------------------------------------------------------------------------"
@@ -116,7 +120,12 @@ echo "    name: 'ISOLanguageCodesName'"
 echo "    map:"
 fgrep -v '#' "${INPUT1}" | grep . | while read line
 do
-    echo "      \"$(echo "${line}" | cut -d' ' -f1)\" : \"$(echo "${line}" | cut -d' ' -f2-)\""
+    CODE=$(echo "${line}" | cut -d' ' -f1)
+    NAME=$(echo "${line}" | cut -d' ' -f2-)
+    echo "      \"${CODE}\" : \"${NAME}\""
+    if [[ ${CODE} = *"-"* ]]; then
+        echo "      \"$(echo ${CODE} | sed 's/-/_/g')\" : \"${NAME}\""
+    fi
 done
 
 echo "# -----------------------------------------------------------------------------"
