@@ -1,5 +1,9 @@
 This is intended as an overview of the major changes
 
+v5.1
+===
+- Fix bug in UCBrowser detection (too often reported as Tablet) 
+
 v5.0
 ===
 - Fix bug in iOS detection with some apps
