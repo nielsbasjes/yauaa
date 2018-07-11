@@ -1665,6 +1665,8 @@ config:
       AgentNameVersionMajor                : 'Internet Explorer 10'
 
 # This used to trigger an NPE
+# The 'spaces' before ltx71 are in reality unicode 0x2002 a.k.a. "EN SPACE"
+# See  http://www.unicodemap.org/details/0x2002/index.html
 - test:
     input:
       user_agent_string: '"      ltx71 - (http://ltx71.com/)"'
