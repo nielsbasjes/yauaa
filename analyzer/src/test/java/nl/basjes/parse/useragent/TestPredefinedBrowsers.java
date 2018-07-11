@@ -36,14 +36,11 @@ public class TestPredefinedBrowsers {
     @Test
     public void validateAllPredefinedBrowsers() {
         UserAgentAnalyzerTester uaa;
-        uaa = new UserAgentAnalyzerTester();
-        uaa.setShowMatcherStats(false);
-        uaa.delayInitialization();
-        uaa.initialize();
+        uaa = UserAgentAnalyzerTester.newBuilder().immediateInitialization().build();
         LOG.info("==============================================================");
         LOG.info("Validating when getting all fields");
         LOG.info("--------------------------------------------------------------");
-        assertTrue(uaa.runTests(false, true));
+        assertTrue(uaa.runTests(false, true, null, false, true));
     }
 
     private void validateAllPredefinedBrowsersMultipleFields(Collection<String> fields) {

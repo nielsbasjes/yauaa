@@ -66,7 +66,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     }
 
     public boolean runTests(boolean showAll, boolean failOnUnexpected) {
-        return runTests(showAll, failOnUnexpected, null, false, true);
+        return runTests(showAll, failOnUnexpected, null, false, false);
     }
 
     public boolean runTests(boolean showAll,
