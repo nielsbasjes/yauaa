@@ -101,7 +101,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             sb.append(' ');
         }
 
-        sb.append("|S|AA|MF|");
+        sb.append(" |S|AA|MF|");
         if (measureSpeed) {
             sb.append("  PPS| msPP|");
         }
@@ -156,7 +156,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
             sb.setLength(0);
 
-            sb.append("|").append(String.format("%4d", testcount))
+            sb.append("|").append(String.format("%5d", testcount))
               .append(".(").append(filename).append(':').append(linenumber).append(')');
             for (int i = filename.length()+linenumber.length()+7; i < maxFilenameLength; i++) {
                 sb.append(' ');
