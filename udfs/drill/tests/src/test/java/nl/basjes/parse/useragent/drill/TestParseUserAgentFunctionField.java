@@ -73,7 +73,6 @@ public class TestParseUserAgentFunctionField extends ClusterTest {
         ParseUserAgentFunctionField function = new ParseUserAgentFunctionField();
         function.setup();
 
-        // FIXME: Desperately trying to find the right way to set the test useragent value for the (Nullable)VarCharHolder
         DrillConfig c = DrillConfig.create();
         BufferAllocator allocator = RootAllocatorFactory.newRoot(c);
 
