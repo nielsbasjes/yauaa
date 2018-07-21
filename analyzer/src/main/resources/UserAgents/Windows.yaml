@@ -380,3 +380,319 @@ config:
       AgentVersionMajor                    : '9'
       AgentNameVersion                     : 'Internet Explorer 9.0'
       AgentNameVersionMajor                : 'Internet Explorer 9'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; NT 5.1; en-MT) AppleWebKit/603.1.4 (KHTML, like Gecko) Version/3.0.4 Safari/603.1.4'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '603.1.4'
+      LayoutEngineVersionMajor             : '603'
+      LayoutEngineNameVersion              : 'AppleWebKit 603.1.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 603'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '3.0.4'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Safari 3.0.4'
+      AgentNameVersionMajor                : 'Safari 3'
+      AgentLanguage                        : 'English (Malta)'
+      AgentLanguageCode                    : 'en-mt'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; NT 6.1; en-SG) AppleWebKit/602.4.3 (KHTML, like Gecko) Version/4.0.1 Safari/602.4.3'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.4.3'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.4.3'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '4.0.1'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Safari 4.0.1'
+      AgentNameVersionMajor                : 'Safari 4'
+      AgentLanguage                        : 'English (Singapore)'
+      AgentLanguageCode                    : 'en-sg'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; WinNT4.0; pl; rv:1.8.1.20) Gecko/20081217 Firefox/2.0.0.20'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows NT 4.0'
+      OperatingSystemNameVersion           : 'Windows NT 4.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1.20'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1.20'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20081217'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '2.0.0.20'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Firefox 2.0.0.20'
+      AgentNameVersionMajor                : 'Firefox 2'
+      AgentLanguage                        : 'Polish'
+      AgentLanguageCode                    : 'pl'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; NT 6.1; en-ZA) AppleWebKit/605.5.7 (KHTML, like Gecko) Version/5.0.3 Safari/605.5.7'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.5.7'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.5.7'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '5.0.3'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Safari 5.0.3'
+      AgentNameVersionMajor                : 'Safari 5'
+      AgentLanguage                        : 'English (South Africa)'
+      AgentLanguageCode                    : 'en-za'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; NT 5.1; en-NZ) AppleWebKit/536.21.19 (KHTML, like Gecko) Version/5.0.1 Safari/536.21.19'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '536.21.19'
+      LayoutEngineVersionMajor             : '536'
+      LayoutEngineNameVersion              : 'AppleWebKit 536.21.19'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '5.0.1'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Safari 5.0.1'
+      AgentNameVersionMajor                : 'Safari 5'
+      AgentLanguage                        : 'English (New Zealand)'
+      AgentLanguageCode                    : 'en-nz'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; NT 5.1; en-ZA) AppleWebKit/605.3.4 (KHTML, like Gecko) Version/5.0.1 Safari/605.3.4'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.3.4'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.3.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '5.0.1'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Safari 5.0.1'
+      AgentNameVersionMajor                : 'Safari 5'
+      AgentLanguage                        : 'English (South Africa)'
+      AgentLanguageCode                    : 'en-za'
+      AgentSecurity                        : 'Strong security'
+
+# TODO: Known problematic case. Safari as a Chrome webview does not make sense. We do not have enough information.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; NT 5.1; en-US) AppleWebKit/535.15.14 (KHTML, like Gecko) Version/3.0.4 Safari/535.15.14 Chrome/62.0.3202.94'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '62.0'
+      LayoutEngineVersionMajor             : '62'
+      LayoutEngineNameVersion              : 'Blink 62.0'
+      LayoutEngineNameVersionMajor         : 'Blink 62'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '62.0.3202.94'
+      AgentVersionMajor                    : '62'
+      AgentNameVersion                     : 'Chrome Webview 62.0.3202.94'
+      AgentNameVersionMajor                : 'Chrome Webview 62'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+      WebviewAppName                       : 'Safari'
+      WebviewAppVersion                    : '535.15.14'
+      WebviewAppVersionMajor               : '535'
+      WebviewAppNameVersionMajor           : 'Safari 535'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; NT 6.0; en-IN) AppleWebKit/536.19.23 (KHTML, like Gecko) Version/3.0.4 Safari/536.19.23'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows Vista'
+      OperatingSystemNameVersion           : 'Windows Vista'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '536.19.23'
+      LayoutEngineVersionMajor             : '536'
+      LayoutEngineNameVersion              : 'AppleWebKit 536.19.23'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '3.0.4'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Safari 3.0.4'
+      AgentNameVersionMajor                : 'Safari 3'
+      AgentLanguage                        : 'English (India)'
+      AgentLanguageCode                    : 'en-in'
+      AgentSecurity                        : 'Strong security'
+
+
+
+# Windows RT is an OS that was only used on a handful of devices.
+# I classify these as "Tablet"
+# https://msdn.microsoft.com/en-us/ie/hh920767(v=vs.94)
+# Windows RT is tagged as "Windows NT 6.2; ARM"
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.product="Windows NT 6.2"'
+    - 'agent.(1)product.(1)comments.entry.text="ARM"'
+    extract:
+    - 'DeviceClass               :   101:"Tablet"'
+    - 'DeviceName                :   101:"Tablet PC"'
+    - 'DeviceCpuBits             :   101:"32"'
+    - 'OperatingSystemClass      :   101:"Mobile"'
+    - 'OperatingSystemName       :   101:"Windows NT"'
+    - 'OperatingSystemVersion    :   101:"Windows RT"'
+    - 'OperatingSystemNameVersion:   101:"Windows RT"'
+
+# Smartphones classified as desktops "Windows NT 6.2; ARM"
+# Windows RT is tagged as "Windows NT 6.2; ARM" --> These seem to be Windows Phone 8 ?!?!
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop; PSP8400DUO) like Gecko'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Tablet PC'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'ARM'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows RT'
+      OperatingSystemNameVersion           : 'Windows RT'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
+
+# Smartphones classified as desktops
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop; PSP8500DUO) like Gecko'
+
+# Smartphones classified as desktops
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop; Nokia 625H) like Gecko'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; ) AppleWebKit/533.21.1 (KHTML, like Gecko) Zetakey/3.3.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows'
+      OperatingSystemVersion               : 'Windows'
+      OperatingSystemNameVersion           : '??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.21.1'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.21.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Zetakey'
+      AgentVersion                         : '3.3.1'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Zetakey 3.3.1'
+      AgentNameVersionMajor                : 'Zetakey 3'
+      AgentSecurity                        : 'Strong security'
+

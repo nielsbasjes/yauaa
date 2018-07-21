@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-INPUT=AndroidDeviceOverrides.csv
-OUTPUT=../AndroidDeviceOverrides.yaml
+INPUT=AmazonDevices.csv
+OUTPUT=../AmazonDevices.yaml
 
 if [ "Generate.sh" -ot "${OUTPUT}" ]; then
     if [ "${INPUT}" -ot "${OUTPUT}" ]; then
@@ -64,8 +64,9 @@ echo "
     - 'agent.product.name=\"${tag}\"'
     extract:
     - 'DeviceClass                 :  1001:\"${deviceClass}\"'
-    - 'DeviceName                  :   100:\"${deviceName}\"'
-    - 'DeviceBrand                 :   100:\"${deviceBrand}\"'
+    - 'DeviceName                  :  1002:\"${deviceName}\"'
+    - 'DeviceBrand                 :  1002:\"${deviceBrand}\"'
+    - 'OperatingSystemName         :  1002:\"FireOS\"' # All known Amazon devices run FireOS (a tweaked Android)
 
 - matcher:
     require:
@@ -73,26 +74,29 @@ echo "
     - 'agent.product.comments.entry.product.name[1]=\"${tag}\"'
     extract:
     - 'DeviceClass                 :  1001:\"${deviceClass}\"'
-    - 'DeviceName                  :   100:\"${deviceName}\"'
-    - 'DeviceBrand                 :   100:\"${deviceBrand}\"'
+    - 'DeviceName                  :  1002:\"${deviceName}\"'
+    - 'DeviceBrand                 :  1002:\"${deviceBrand}\"'
+    - 'OperatingSystemName         :  1002:\"FireOS\"' # All known Amazon devices run FireOS (a tweaked Android)
 
 - matcher:
     require:
     - 'IsNull[agent.product.name=\"Chrome\"]'
     extract:
     - 'DeviceClass                 :  1001:\"${deviceClass}\"'
-    - 'DeviceName                  :   100:\"${deviceName}\"'
-    - 'DeviceBrand                 :   100:\"${deviceBrand}\"'
+    - 'DeviceName                  :  1002:\"${deviceName}\"'
+    - 'DeviceBrand                 :  1002:\"${deviceBrand}\"'
     - 'OperatingSystemVersionBuild :    12:agent.(1)product.(1)comments.entry[1-$((tagWords+1))]=\"${tag} Build\"@[$((tagWords+2))]'
+    - 'OperatingSystemName         :  1002:\"FireOS\"' # All known Amazon devices run FireOS (a tweaked Android)
 
 - matcher:
     require:
     - 'IsNull[agent.product.name=\"Chrome\"]'
     extract:
     - 'DeviceClass                 :  1001:\"${deviceClass}\"'
-    - 'DeviceName                  :   100:\"${deviceName}\"'
-    - 'DeviceBrand                 :   100:\"${deviceBrand}\"'
+    - 'DeviceName                  :  1002:\"${deviceName}\"'
+    - 'DeviceBrand                 :  1002:\"${deviceBrand}\"'
     - 'OperatingSystemVersionBuild :    11:agent.(1)product.(1)comments.entry[1-$((tagWords))]=\"${tag}\"@[$((tagWords+1))]'
+    - 'OperatingSystemName         :  1002:\"FireOS\"' # All known Amazon devices run FireOS (a tweaked Android)
 
 "
 

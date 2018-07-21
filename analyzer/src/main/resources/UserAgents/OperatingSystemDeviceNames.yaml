@@ -3241,6 +3241,98 @@ config:
 
 - matcher:
     require:
+    - 'agent.(1)product.(1)comments.entry.text="DragonFly"'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"DragonFly BSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"DragonFly BSD"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"DragonFly BSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"DragonFly BSD"'
+    - 'OperatingSystemVersion:  150:CleanVersion[agent.(1)product.(1)comments.entry.product.name="DragonFly"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.(1)product.(1)comments.entry.product.name="DragonFly"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"DragonFly BSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"DragonFly BSD"'
+    - 'OperatingSystemVersion:  151:CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.text="DragonFly"'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"DragonFly BSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"DragonFly BSD"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"DragonFly BSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"DragonFly BSD"'
+    - 'OperatingSystemVersion:  150:CleanVersion[agent.product.name="DragonFly"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.product.name="DragonFly"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"DragonFly BSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  150:"Desktop"'
+    - 'OperatingSystemName   :  150:"DragonFly BSD"'
+    - 'OperatingSystemVersion:  151:CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="DragonFly"'
+    extract:
+    - 'DeviceClass           :  111:"Desktop"'
+    - 'DeviceName            :  111:"DragonFly BSD Desktop"'
+    - 'DeviceBrand           :  111:"Unknown"'
+    - 'OperatingSystemClass  :  151:"Desktop"'
+    - 'OperatingSystemName   :  151:"DragonFly BSD"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="DragonFly"'
+    extract:
+    - 'DeviceClass           :  112:"Desktop"'
+    - 'DeviceName            :  112:"DragonFly BSD Desktop"'
+    - 'DeviceBrand           :  112:"Unknown"'
+    - 'OperatingSystemClass  :  152:"Desktop"'
+    - 'OperatingSystemName   :  152:"DragonFly BSD"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+
+
+- matcher:
+    require:
     - 'agent.(1)product.(1)comments.entry.text="FreeBSD"'
     extract:
     - 'DeviceClass           :  111:"Desktop"'
@@ -3511,6 +3603,98 @@ config:
     - 'DeviceBrand           :  112:"Unknown"'
     - 'OperatingSystemClass  :  152:"Desktop"'
     - 'OperatingSystemName   :  152:"OpenBSD"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.text="hpwOS"'
+    extract:
+    - 'DeviceClass           :  111:"Tablet"'
+    - 'DeviceName            :  111:"HP WebOS Tablet"'
+    - 'DeviceBrand           :  111:"HP"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"HP WebOS"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Tablet"'
+    - 'DeviceName            :  111:"HP WebOS Tablet"'
+    - 'DeviceBrand           :  111:"HP"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"HP WebOS"'
+    - 'OperatingSystemVersion:  150:CleanVersion[agent.(1)product.(1)comments.entry.product.name="hpwOS"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.(1)product.(1)comments.entry.product.name="hpwOS"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass           :  111:"Tablet"'
+    - 'DeviceName            :  111:"HP WebOS Tablet"'
+    - 'DeviceBrand           :  111:"HP"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"HP WebOS"'
+    - 'OperatingSystemVersion:  151:CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.text="hpwOS"'
+    extract:
+    - 'DeviceClass           :  111:"Tablet"'
+    - 'DeviceName            :  111:"HP WebOS Tablet"'
+    - 'DeviceBrand           :  111:"HP"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"HP WebOS"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass           :  111:"Tablet"'
+    - 'DeviceName            :  111:"HP WebOS Tablet"'
+    - 'DeviceBrand           :  111:"HP"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"HP WebOS"'
+    - 'OperatingSystemVersion:  150:CleanVersion[agent.product.name="hpwOS"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.product.name="hpwOS"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass           :  111:"Tablet"'
+    - 'DeviceName            :  111:"HP WebOS Tablet"'
+    - 'DeviceBrand           :  111:"HP"'
+    - 'OperatingSystemClass  :  150:"Mobile"'
+    - 'OperatingSystemName   :  150:"HP WebOS"'
+    - 'OperatingSystemVersion:  151:CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="hpwOS"'
+    extract:
+    - 'DeviceClass           :  111:"Tablet"'
+    - 'DeviceName            :  111:"HP WebOS Tablet"'
+    - 'DeviceBrand           :  111:"HP"'
+    - 'OperatingSystemClass  :  151:"Mobile"'
+    - 'OperatingSystemName   :  151:"HP WebOS"'
+    - 'OperatingSystemVersion:  149:"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="hpwOS"'
+    extract:
+    - 'DeviceClass           :  112:"Tablet"'
+    - 'DeviceName            :  112:"HP WebOS Tablet"'
+    - 'DeviceBrand           :  112:"HP"'
+    - 'OperatingSystemClass  :  152:"Mobile"'
+    - 'OperatingSystemName   :  152:"HP WebOS"'
     - 'OperatingSystemVersion:  149:"??"'
 
 

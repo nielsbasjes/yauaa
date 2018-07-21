@@ -20,75 +20,168 @@ config:
 # http://docs.aws.amazon.com/silk/latest/developerguide/user-agent.html
 # http://docs.aws.amazon.com/silk/latest/developerguide/screen-size.html
 # https://developer.amazon.com/public/solutions/devices/fire-phone/docs/fire-phone-user-agent-strings
-#  KFTBWI          | Amazon Fire HD 10 (5th Gen)           | Amazon | Tablet # 10.1-inch screen
-#  KFMEWI          | Amazon Fire HD 8 (5th Gen)            | Amazon | Tablet # 8-inch screen
-#  KFFOWI          | Amazon Fire (5th Gen)                 | Amazon | Tablet # 7-inch screen
-#  KFSAWI          | Amazon Fire HDX 8.9 (4th Gen)         | Amazon | Tablet # 8.9-inch screen
-#  KFSAWA          | Amazon Fire HDX 8.9 (4th Gen)         | Amazon | Tablet # 8.9-inch screen
-#  KFASWI          | Amazon Fire HD 7 (4th Gen)            | Amazon | Tablet # 7-inch screen
-#  KFARWI          | Amazon Fire HD 6 (4th Gen)            | Amazon | Tablet # 6-inch screen
-#  KFAPWI          | Amazon Kindle Fire HDX 8.9 (3rd Gen)  | Amazon | Tablet # 8.9-inch screen
-#  KFAPWA          | Amazon Kindle Fire HDX 8.9 (3rd Gen)  | Amazon | Tablet # 8.9-inch screen
-#  KFTHWI          | Amazon Kindle Fire HDX 7 (3rd Gen)    | Amazon | Tablet # 7-inch screen
-#  KFTHWA          | Amazon Kindle Fire HDX 7 (3rd Gen)    | Amazon | Tablet # 7-inch screen
-#  KFSOWI          | Amazon Kindle Fire HD 7 (3rd Gen)     | Amazon | Tablet # 7-inch screen
-#  KFJWI           | Amazon Kindle Fire HD 8.9 (2nd Gen)   | Amazon | Tablet # 8.9-inch screen
-#  KFJWA           | Amazon Kindle Fire HD 8.9 (2nd Gen)   | Amazon | Tablet # 8.9-inch screen
-#  KFTT            | Amazon Kindle Fire HD 7 (2nd Gen)     | Amazon | Tablet # 7-inch screen
-#  KFOT            | Amazon Kindle Fire (2nd Gen)          | Amazon | Tablet # 7-inch screen
-#  KFOT            | Amazon Kindle Fire (1st Gen)          | Amazon | Tablet # 7-inch screen
-#  SD4930UR        | Amazon Fire Phone                     | Amazon | Phone  # 4.7-inch screen
+# https://developer.amazon.com/docs/fire-tablets/ft-user-agent-strings.html
 
-#  KFTHW           | Amazon Kindle Fire (KFTHW ) | Amazon | Tablet
-#  KFAUWI          | Amazon Kindle Fire (KFAUWI) | Amazon | Tablet
-#  KFDOWI          | Amazon Kindle Fire (KFDOWI) | Amazon | Tablet
-#  KFGIWI          | Amazon Kindle Fire (KFGIWI) | Amazon | Tablet
-#  KFTBWI          | Amazon Kindle Fire (KFTBWI) | Amazon | Tablet
-#  KFFOWI          | Amazon Kindle Fire (KFFOWI) | Amazon | Tablet
-#  KFMEWI          | Amazon Kindle Fire (KFMEWI) | Amazon | Tablet
-#  KFSAWA          | Amazon Kindle Fire (KFSAWA) | Amazon | Tablet
-#  KFSAWI          | Amazon Kindle Fire (KFSAWI) | Amazon | Tablet
-#  KFARWI          | Amazon Kindle Fire (KFARWI) | Amazon | Tablet
-#  KFASWI          | Amazon Kindle Fire (KFASWI) | Amazon | Tablet
-#  KFAPWA          | Amazon Kindle Fire (KFAPWA) | Amazon | Tablet
-#  KFAPWI          | Amazon Kindle Fire (KFAPWI) | Amazon | Tablet
-#  KFAPWA          | Amazon Kindle Fire (KFAPWA) | Amazon | Tablet
-#  KFAPWI          | Amazon Kindle Fire (KFAPWI) | Amazon | Tablet
-#  KFSOWI          | Amazon Kindle Fire (KFSOWI) | Amazon | Tablet
-#  KFJWA           | Amazon Kindle Fire (KFJWA ) | Amazon | Tablet
-#  KFJWI           | Amazon Kindle Fire (KFJWI ) | Amazon | Tablet
-#  KFTT            | Amazon Kindle Fire (KFTT  ) | Amazon | Tablet
-#  KFOT            | Amazon Kindle Fire (KFOT  ) | Amazon | Tablet
-#  KFARWI          | Amazon Kindle Fire (KFARWI) | Amazon | Tablet
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name{"KF"'
     extract:
-    - 'DeviceClass           :   500:"Tablet"'
-    - 'DeviceBrand           :   500:"Amazon"'
-    - 'DeviceName            :   500:agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Build"@[1]{"KF"'
+    - 'DeviceClass               :   500:"Tablet"'
+    - 'DeviceBrand               :   500:"Amazon"'
+    - 'DeviceName                :   500:agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Build"@[1]{"KF"'
+    - 'DeviceCpu                 :   100:"<<<null>>>"'
+    - 'OperatingSystemClass      :  1000:"Mobile"'
+    - 'OperatingSystemName       :  1000:"FireOS"'
+    - 'OperatingSystemVersion    :  1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name{"SD"'
     extract:
-    - 'DeviceClass           :   500:"Phone"'
-    - 'DeviceBrand           :   500:"Amazon"'
-    - 'DeviceName            :   500:agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Build"@[1]{"SD"'
+    - 'DeviceClass               :   500:"Phone"'
+    - 'DeviceBrand               :   500:"Amazon"'
+    - 'DeviceName                :   500:agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Build"@[1]{"SD"'
+    - 'DeviceCpu                 :   100:"<<<null>>>"'
+    - 'OperatingSystemClass      :  1000:"Mobile"'
+    - 'OperatingSystemName       :  1000:"FireOS"'
+    - 'OperatingSystemVersion    :  1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
 
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[1]="Amazon"'
+    extract:
+    - 'DeviceBrand               :   500:"Amazon"'
+    - 'DeviceCpu                 :   100:"<<<null>>>"'
+    - 'OperatingSystemClass      :  1000:"Mobile"'
+    - 'OperatingSystemName       :  1000:"FireOS"'
+    - 'OperatingSystemVersion    :  1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[1]="Fire"'
+    extract:
+    - 'DeviceBrand               :   500:"Amazon"'
+    - 'DeviceCpu                 :   100:"<<<null>>>"'
+    - 'OperatingSystemClass      :  1000:"Mobile"'
+    - 'OperatingSystemName       :  1000:"FireOS"'
+    - 'OperatingSystemVersion    :  1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[1]="Kindle"'
+    extract:
+    - 'DeviceBrand               :   500:"Amazon"'
+    - 'DeviceCpu                 :   100:"<<<null>>>"'
+    - 'OperatingSystemClass      :  1000:"Mobile"'
+    - 'OperatingSystemName       :  1000:"FireOS"'
+    - 'OperatingSystemVersion    :  1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
+
+# https://docs.aws.amazon.com/silk/latest/developerguide/user-agent.html
+# ---------------------------
+# User Agent Strings and Detection
+# In the user agent request header field, Amazon Silk sends one of three user agent strings,
+# depending on the view requested on the device by the customer.
+# If a specific view is not requested, the view defaults to Tablet for Fire tablets,
+# and Mobile for Fire phones. If a site has compatibility issues when rendered in the default view,
+# a different view may be selected by the device. The templates for the Amazon Silk user agents are shown below.
+#
+# Tablet
+#   Mozilla/5.0 (Linux; Android android-version; product-model Build/product-build)
+#     AppleWebKit/webkit-version (KHTML, like Gecko)
+#     Silk/browser-version like Chrome/chrome-version Safari/webkit-version
+#
+# Desktop
+#   Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/webkit-version (KHTML, like Gecko)
+#     Silk/browser-version like Chrome/chrome-version Safari/webkit-version
+#
+# Mobile
+#   Mozilla/5.0 (Linux; Android android-version; product-model Build/product-build)
+#     AppleWebKit/webkit-version (KHTML, like Gecko)
+#     Silk/browser-version like Chrome/chrome-version Mobile Safari/webkit-version
+# ---------------------------
+
+# Analysis of this: The user can specify what lie the useragent should reflect to get the desired result from the website.
+
+
+# All devices with Silk run on Fire OS which is an Android based system.
+# https://en.wikipedia.org/wiki/Fire_OS
+
+# Silk browser
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Safari"'
+    extract:
+    - 'DeviceClass                   :    98:"Tablet"'
+    - 'DeviceName                    :    98:"Amazon Kindle Fire"'
+    - 'DeviceBrand                   :    98:"Amazon"'
+    - 'DeviceCpu                     :  1000:"<<<null>>>"'
+    - 'DeviceCpuBits                 :  1000:"<<<null>>>"'
+    - 'AgentClass                    :  1000:"Browser"'
+    - 'AgentName                     :  1000:"Silk"'
+    - 'AgentVersion                  :  1000:agent.product.(1)name="Silk"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Mobile Safari"'
+    extract:
+    - 'DeviceClass                   :    98:"Phone"'
+    - 'DeviceName                    :    98:"Amazon Kindle Fire"'
+    - 'DeviceBrand                   :    98:"Amazon"'
+    - 'DeviceCpu                     :  1000:"<<<null>>>"'
+    - 'DeviceCpuBits                 :  1000:"<<<null>>>"'
+    - 'AgentClass                    :  1000:"Browser"'
+    - 'AgentName                     :  1000:"Silk"'
+    - 'AgentVersion                  :  1000:agent.product.(1)name="Silk"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Safari"'
+    extract:
+    - 'DeviceClass                   :    98:"Tablet"'
+    - 'DeviceName                    :    98:"Amazon Kindle Fire"'
+    - 'DeviceBrand                   :    98:"Amazon"'
+    - 'DeviceCpu                     :  1000:"<<<null>>>"'
+    - 'DeviceCpuBits                 :  1000:"<<<null>>>"'
+    - 'AgentClass                    :  1000:"Browser"'
+    - 'AgentName                     :  1000:"Silk"'
+    - 'AgentVersion                  :  1000:agent.product.(1)comments.entry.(1)product.(1)name="Silk"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Mobile Safari"'
+    extract:
+    - 'DeviceClass                   :    98:"Phone"'
+    - 'DeviceName                    :    98:"Amazon Kindle Fire"'
+    - 'DeviceBrand                   :    98:"Amazon"'
+    - 'DeviceCpu                     :  1000:"<<<null>>>"'
+    - 'DeviceCpuBits                 :  1000:"<<<null>>>"'
+    - 'AgentClass                    :  1000:"Browser"'
+    - 'AgentName                     :  1000:"Silk"'
+    - 'AgentVersion                  :  1000:agent.product.(1)comments.entry.(1)product.(1)name="Silk"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Silk"'
+    extract:
+    - 'DeviceCpu                     :  1000:"<<<null>>>"'
+    - 'DeviceCpuBits                 :  1000:"<<<null>>>"'
+    - 'OperatingSystemClass          :  1000:"Mobile"'
+    - 'OperatingSystemName           :  1000:"FireOS"'
+    - 'OperatingSystemVersion        :  1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.4.4; en-gb; SD4930UR Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Silk/3.58 like Chrome/37.0.2026.117 Mobile Safari/537.36'
     expected:
       DeviceClass                          : 'Phone'
-      DeviceName                           : 'Amazon SD4930UR'
+      DeviceName                           : 'Amazon Fire Phone'
       DeviceBrand                          : 'Amazon'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
+      OperatingSystemName                  : 'FireOS'
       OperatingSystemVersion               : '4.4.4'
-      OperatingSystemNameVersion           : 'Android 4.4.4'
+      OperatingSystemNameVersion           : 'FireOS 4.4.4'
       OperatingSystemVersionBuild          : 'KTU84P'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
@@ -111,12 +204,12 @@ config:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.3; KFTHWI Build/KTU84M) AppleWebKit/537.36 (KHTML, like Gecko) Silk/44.1.54 like Chrome/44.0.2403.63 Safari/537.36'
     expected:
       DeviceClass                          : 'Tablet'
-      DeviceName                           : 'Amazon Kfthwi'
+      DeviceName                           : 'Amazon Kindle Fire HDX (WI-FI) (3RD GEN-2013)'
       DeviceBrand                          : 'Amazon'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
+      OperatingSystemName                  : 'FireOS'
       OperatingSystemVersion               : '4.4.3'
-      OperatingSystemNameVersion           : 'Android 4.4.3'
+      OperatingSystemNameVersion           : 'FireOS 4.4.3'
       OperatingSystemVersionBuild          : 'KTU84M'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
@@ -136,15 +229,13 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Silk/44.1.54 like Chrome/44.0.2403.63 Safari/537.36'
     expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Linux Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel x86_64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Linux'
-      OperatingSystemVersion               : 'Intel x86_64'
-      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Amazon Kindle Fire'
+      DeviceBrand                          : 'Amazon'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'FireOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'FireOS ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '537.36'
@@ -158,18 +249,41 @@ config:
       AgentNameVersion                     : 'Silk 44.1.54'
       AgentNameVersionMajor                : 'Silk 44'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Silk/63.1.34 like Chrome/63.0.3239.111 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Amazon Kindle Fire'
+      DeviceBrand                          : 'Amazon'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'FireOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'FireOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Silk'
+      AgentVersion                         : '63.1.34'
+      AgentVersionMajor                    : '63'
+      AgentNameVersion                     : 'Silk 63.1.34'
+      AgentNameVersionMajor                : 'Silk 63'
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.4.3; KFTHWI Build/KTU84M) AppleWebKit/537.36 (KHTML, like Gecko) Silk/44.1.54 like Chrome/44.0.2403.63 Mobile Safari/537.36'
     expected:
-      DeviceClass                          : 'Phone'
-      DeviceName                           : 'Amazon Kfthwi'
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Amazon Kindle Fire HDX (WI-FI) (3RD GEN-2013)'
       DeviceBrand                          : 'Amazon'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
+      OperatingSystemName                  : 'FireOS'
       OperatingSystemVersion               : '4.4.3'
-      OperatingSystemNameVersion           : 'Android 4.4.3'
+      OperatingSystemNameVersion           : 'FireOS 4.4.3'
       OperatingSystemVersionBuild          : 'KTU84M'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
@@ -196,9 +310,9 @@ config:
       DeviceName                           : 'Amazon Kindle Fire'
       DeviceBrand                          : 'Amazon'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
+      OperatingSystemName                  : 'FireOS'
       OperatingSystemVersion               : '4.2.2'
-      OperatingSystemNameVersion           : 'Android 4.2.2'
+      OperatingSystemNameVersion           : 'FireOS 4.2.2'
       OperatingSystemVersionBuild          : 'JDQ39E'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
@@ -222,9 +336,9 @@ config:
       DeviceName                           : 'Amazon Fire'
       DeviceBrand                          : 'Amazon'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
+      OperatingSystemName                  : 'FireOS'
       OperatingSystemVersion               : '4.4.2'
-      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemNameVersion           : 'FireOS 4.4.2'
       OperatingSystemVersionBuild          : 'KOT49H'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
@@ -252,9 +366,9 @@ config:
       DeviceName                           : 'Amazon Fire'
       DeviceBrand                          : 'Amazon'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
+      OperatingSystemName                  : 'FireOS'
       OperatingSystemVersion               : '4.4.2'
-      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemNameVersion           : 'FireOS 4.4.2'
       OperatingSystemVersionBuild          : 'KOT49H'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
@@ -282,9 +396,9 @@ config:
       DeviceName                           : 'Amazon Fire'
       DeviceBrand                          : 'Amazon'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
+      OperatingSystemName                  : 'FireOS'
       OperatingSystemVersion               : '4.4.2'
-      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemNameVersion           : 'FireOS 4.4.2'
       OperatingSystemVersionBuild          : 'KOT49H'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
@@ -311,9 +425,9 @@ config:
       DeviceName                           : 'Amazon Kindle Fire HDX'
       DeviceBrand                          : 'Amazon'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
+      OperatingSystemName                  : 'FireOS'
       OperatingSystemVersion               : '5.1.1'
-      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemNameVersion           : 'FireOS 5.1.1'
       OperatingSystemVersionBuild          : 'LVY48F'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
@@ -337,9 +451,9 @@ config:
       DeviceName                           : 'Amazon Fire Phone'
       DeviceBrand                          : 'Amazon'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
+      OperatingSystemName                  : 'FireOS'
       OperatingSystemVersion               : '4.4.4'
-      OperatingSystemNameVersion           : 'Android 4.4.4'
+      OperatingSystemNameVersion           : 'FireOS 4.4.4'
       OperatingSystemVersionBuild          : 'KTU84Q'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
@@ -358,3 +472,205 @@ config:
       WebviewAppVersion                    : '86.0.0.19.69'
       WebviewAppVersionMajor               : '86'
 
+
+# UA for Kindle Fire 1st Generation
+# The UA for the Kindle Fire 1st Generation follows a slightly different syntax.
+
+# Desktop/Tablet
+#   Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-us; Silk/1.0.13.81_10003810)
+#     AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16 Silk-Accelerated=true
+
+# Mobile
+#   Mozilla/5.0 (Linux; U; Android 2.3.4; en-us; Silk/1.0.13.81_10003810)
+#     AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1 Silk-Accelerated=true
+
+- matcher:
+    extract:
+    - 'DeviceClass                   :   99:"Tablet"'
+    - 'DeviceName                    :  100:"Amazon Kindle Fire"'
+    - 'DeviceBrand                   :  100:"Amazon"'
+    - 'DeviceCpu                     :  1000:"<<<null>>>"'
+    - 'DeviceCpuBits                 :  1000:"<<<null>>>"'
+    - 'AgentClass                    :  100:"Browser"'
+    - 'AgentName                     :  100:"Silk"'
+    - 'AgentVersion                  :  100:agent.(1)product.(1)comments.entry.(1)product.(1)name="Silk"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Silk"'
+    extract:
+    - 'DeviceCpu                     :  1000:"<<<null>>>"'
+    - 'DeviceCpuBits                 :  1000:"<<<null>>>"'
+    - 'OperatingSystemClass          :  1000:"Mobile"'
+    - 'OperatingSystemName           :  1000:"FireOS"'
+    - 'OperatingSystemVersion        :    99:"??"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Silk"'
+    extract:
+    - 'DeviceCpu                     :  1000:"<<<null>>>"'
+    - 'DeviceCpuBits                 :  1000:"<<<null>>>"'
+    - 'OperatingSystemClass          :  1000:"Mobile"'
+    - 'OperatingSystemName           :  1000:"FireOS"'
+    - 'OperatingSystemVersion        :    99:"??"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-us; Silk/1.0.13.81_10003810) AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16 Silk-Accelerated=true'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Amazon Kindle Fire'
+      DeviceBrand                          : 'Amazon'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'FireOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'FireOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.16'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.16'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Silk'
+      AgentVersion                         : '1.0.13.81_10003810'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Silk 1.0.13.81_10003810'
+      AgentNameVersionMajor                : 'Silk 1'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.3.4; en-us; Silk/1.0.13.81_10003810) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1 Silk-Accelerated=true'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Amazon Kindle Fire'
+      DeviceBrand                          : 'Amazon'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'FireOS'
+      OperatingSystemVersion               : '2.3.4'
+      OperatingSystemNameVersion           : 'FireOS 2.3.4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.1'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Silk'
+      AgentVersion                         : '1.0.13.81_10003810'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Silk 1.0.13.81_10003810'
+      AgentNameVersionMajor                : 'Silk 1'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-us; Silk/1.0.146.3-Gen4_12000410) AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16 Silk-Accelerated=true'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Amazon Kindle Fire'
+      DeviceBrand                          : 'Amazon'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'FireOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'FireOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.16'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.16'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Silk'
+      AgentVersion                         : '1.0.146.3-Gen4_12000410'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Silk 1.0.146.3-Gen4_12000410'
+      AgentNameVersionMajor                : 'Silk 1'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Silk/67.4.1 like Chrome/67.0.3396.87 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Amazon Kindle Fire'
+      DeviceBrand                          : 'Amazon'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'FireOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'FireOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Silk'
+      AgentVersion                         : '67.4.1'
+      AgentVersionMajor                    : '67'
+      AgentNameVersion                     : 'Silk 67.4.1'
+      AgentNameVersionMajor                : 'Silk 67'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Silk/65.3.1 like Chrome/65.0.3325.144 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Amazon Kindle Fire'
+      DeviceBrand                          : 'Amazon'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'FireOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'FireOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Silk'
+      AgentVersion                         : '65.3.1'
+      AgentVersionMajor                    : '65'
+      AgentNameVersion                     : 'Silk 65.3.1'
+      AgentNameVersionMajor                : 'Silk 65'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; KFFOWI Build/LMY47O) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/41.51020.2250.0246 Mobile Safari/537.36 cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Amazon Fire (5TH GEN-2015)'
+      DeviceBrand                          : 'Amazon'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'FireOS'
+      OperatingSystemVersion               : '3.4.0'
+      OperatingSystemNameVersion           : 'FireOS 3.4.0'
+      OperatingSystemVersionBuild          : 'LMY47O'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '41.51020'
+      LayoutEngineVersionMajor             : '41'
+      LayoutEngineNameVersion              : 'Blink 41.51020'
+      LayoutEngineNameVersionMajor         : 'Blink 41'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '41.51020.2250.0246'
+      AgentVersionMajor                    : '41'
+      AgentNameVersion                     : 'Chrome Webview 41.51020.2250.0246'
+      AgentNameVersionMajor                : 'Chrome Webview 41'

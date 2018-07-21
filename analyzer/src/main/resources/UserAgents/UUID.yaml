@@ -51,7 +51,11 @@ config:
 
 - matcher:
     extract:
-    - 'AgentUuid:7:agent.uuid'
+    - 'AgentUuid:7:agent.(1-20)keyvalue.uuid'
+
+- matcher:
+    extract:
+    - 'AgentUuid:8:agent.(1-20)uuid'
 
 - test:
     input:
@@ -241,3 +245,93 @@ config:
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
 
+
+# Phone classified as Unknown
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19;CT_JOB_ID:0171e451-c0e6-4d34-93d1-9d828a6daca7;'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 5'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.2.1'
+      OperatingSystemNameVersion           : 'Android 4.2.1'
+      OperatingSystemVersionBuild          : 'JOP40D'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '535.19'
+      LayoutEngineVersionMajor             : '535'
+      LayoutEngineNameVersion              : 'AppleWebKit 535.19'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '18.0.1025.166'
+      AgentVersionMajor                    : '18'
+      AgentNameVersion                     : 'Chrome 18.0.1025.166'
+      AgentNameVersionMajor                : 'Chrome 18'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentUuid                            : '0171e451-c0e6-4d34-93d1-9d828a6daca7'
+
+
+# Phone classified as Unknown
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X; en-us) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53;CT_JOB_ID:61e58770-4309-4c54-beac-bf9c14a794e8;'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '11A465'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'iOS 7.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.51.1'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.51.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '7.0'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Safari 7.0'
+      AgentNameVersionMajor                : 'Safari 7'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentUuid                            : '61e58770-4309-4c54-beac-bf9c14a794e8'
+
+
+# Phone classified as Unknown
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19;CT_JOB_ID:75033994-b6fc-48a1-9e1b-15bf115d9292;'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 5'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.2.1'
+      OperatingSystemNameVersion           : 'Android 4.2.1'
+      OperatingSystemVersionBuild          : 'JOP40D'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '535.19'
+      LayoutEngineVersionMajor             : '535'
+      LayoutEngineNameVersion              : 'AppleWebKit 535.19'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '18.0.1025.166'
+      AgentVersionMajor                    : '18'
+      AgentNameVersion                     : 'Chrome 18.0.1025.166'
+      AgentNameVersionMajor                : 'Chrome 18'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentUuid                            : '75033994-b6fc-48a1-9e1b-15bf115d9292'

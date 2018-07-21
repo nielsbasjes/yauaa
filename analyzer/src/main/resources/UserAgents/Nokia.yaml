@@ -532,3 +532,36 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)version="SymbianOS"'
+    extract:
+    - 'DeviceClass           :   320:"Phone"'
+    - 'DeviceBrand           :   320:"Nokia"'
+    - 'DeviceName            :   320:agent.(1)product.(1)name'
+    - 'OperatingSystemClass  :   310:"Mobile"'
+    - 'OperatingSystemName   :   310:"SymbianOS"'
+    - 'OperatingSystemVersion:   310:agent.(1)product.(2)version'
+
+- test:
+    input:
+      user_agent_string: 'NokiaE52-1/SymbianOS/9.1 Series60/3.0 3gpp-gba'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia E52-1'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'SymbianOS'
+      OperatingSystemVersion               : '9.1'
+      OperatingSystemNameVersion           : 'SymbianOS 9.1'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'NokiaE52-1'
+      AgentVersion                         : 'SymbianOS'
+      AgentVersionMajor                    : 'SymbianOS'
+      AgentNameVersion                     : 'NokiaE52-1 SymbianOS'
+      AgentNameVersionMajor                : 'NokiaE52-1 SymbianOS'

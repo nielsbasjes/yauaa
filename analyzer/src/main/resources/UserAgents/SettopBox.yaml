@@ -18,25 +18,41 @@
 config:
 # =========================================================================================================
 # https://developer.amazon.com/public/solutions/devices/fire-tv/docs/user-agent-strings
+# https://developer.amazon.com/docs/fire-tv/user-agent-strings.html
 # User Agent Strings for Fire TV
 
+# To provide a Amazon Fire TV-specific experience, test for the string "AmazonWebAppPlatform" in combination with a device model that starts with "AFT"
+
 - matcher:
+    variable:
+    - 'AFTTag : agent.(1)product.(1)comments.entry.(1)product.(1)name{"AFT"'
     require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="AFTB Build"'
+    - 'agent.product.(1)name="AmazonWebAppPlatform"'
     extract:
-    - 'DeviceClass           :   1001:"Set-top box"'
-    - 'DeviceBrand           :   1001:"Amazon"'
-    - 'DeviceName            :   1001:"Amazon Fire TV"'
+    - 'DeviceClass               :   1001:"Set-top box"'
+    - 'DeviceName                :   1001:"Amazon Fire TV"'
+    - 'DeviceBrand               :   1001:"Amazon"'
+    - 'DeviceCpu                 :   100:"<<<null>>>"'
+    - 'OperatingSystemClass      :  1000:"Mobile"'
+    - 'OperatingSystemName       :  1000:"FireOS"'
+    - 'OperatingSystemVersion    :  1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
+
+
+- matcher:
+    extract:
+    - 'OperatingSystemClass      :  1000:"Mobile"'
+    - 'OperatingSystemName       :  1000:"FireOS"'
+    - 'OperatingSystemVersion    :  1001:agent.product.(1)name="cordova-amazon-fireos"^.version'
+
 
 - matcher:
     require:
     - 'agent.product.(1)name="AmazonWebAppPlatform"'
     extract:
-    - 'DeviceClass           :   1001:"Set-top box"'
-    - 'DeviceBrand           :   1001:"Amazon"'
-    - 'DeviceName            :   1001:"Amazon Fire TV"'
-    - 'WebviewAppName        :     12:"Amazon Web App Platform"'
-    - 'WebviewAppVersion     :     12:agent.product.(1)name="cordova-amazon-fireos"^.version'
+    - 'WebviewAppName             : 10000:"<<<null>>>"'
+    - 'WebviewAppVersion          : 10000:"<<<null>>>"'
+    - 'WebviewAppVersionMajor     : 10000:"<<<null>>>"'
+    - 'WebviewAppNameVersionMajor : 10000:"<<<null>>>"'
 
 # Android WebView (android.webkit.WebView)
 # Mozilla/5.0 (Linux; U; Android <android>; <locale>; <device> Build/<build>) AppleWebKit/<webkit> (KHTML, like Gecko) Version/4.0 Mobile Safari/<safari>
@@ -48,9 +64,9 @@ config:
       DeviceName                           : 'Amazon Fire TV'
       DeviceBrand                          : 'Amazon'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
+      OperatingSystemName                  : 'FireOS'
       OperatingSystemVersion               : '4.2.2'
-      OperatingSystemNameVersion           : 'Android 4.2.2'
+      OperatingSystemNameVersion           : 'FireOS 4.2.2'
       OperatingSystemVersionBuild          : 'JDQ39'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
@@ -79,9 +95,9 @@ config:
       DeviceName                           : 'Amazon Fire TV'
       DeviceBrand                          : 'Amazon'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
+      OperatingSystemName                  : 'FireOS'
       OperatingSystemVersion               : '4.2.2'
-      OperatingSystemNameVersion           : 'Android 4.2.2'
+      OperatingSystemNameVersion           : 'FireOS 4.2.2'
       OperatingSystemVersionBuild          : 'JDQ39'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
@@ -106,9 +122,9 @@ config:
       DeviceName                           : 'Amazon Fire TV'
       DeviceBrand                          : 'Amazon'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '4.2.2'
-      OperatingSystemNameVersion           : 'Android 4.2.2'
+      OperatingSystemName                  : 'FireOS'
+      OperatingSystemVersion               : '3.4.0'
+      OperatingSystemNameVersion           : 'FireOS 3.4.0'
       OperatingSystemVersionBuild          : 'JDQ39'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
@@ -122,39 +138,45 @@ config:
       AgentVersionMajor                    : '25'
       AgentNameVersion                     : 'Chrome 25.0.1364.173'
       AgentNameVersionMajor                : 'Chrome 25'
-      WebviewAppName                       : 'Amazon Web App Platform'
-      WebviewAppNameVersionMajor           : 'Amazon Web App Platform 3'
-      WebviewAppVersion                    : '3.4.0'
-      WebviewAppVersionMajor               : '3'
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; KFFOWI Build/LMY47O) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/41.51020.2250.0246 Mobile Safari/537.36 cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0'
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; en-us; AFTB Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
     expected:
       DeviceClass                          : 'Set-top box'
       DeviceName                           : 'Amazon Fire TV'
       DeviceBrand                          : 'Amazon'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '5.1.1'
-      OperatingSystemNameVersion           : 'Android 5.1.1'
-      OperatingSystemVersionBuild          : 'LMY47O'
+      OperatingSystemName                  : 'FireOS'
+      OperatingSystemVersion               : '4.2.2'
+      OperatingSystemNameVersion           : 'FireOS 4.2.2'
+      OperatingSystemVersionBuild          : 'JDQ39'
       LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '41.51020'
-      LayoutEngineVersionMajor             : '41'
-      LayoutEngineNameVersion              : 'Blink 41.51020'
-      LayoutEngineNameVersionMajor         : 'Blink 41'
-      AgentClass                           : 'Browser Webview'
-      AgentName                            : 'Chrome Webview'
-      AgentVersion                         : '41.51020.2250.0246'
-      AgentVersionMajor                    : '41'
-      AgentNameVersion                     : 'Chrome Webview 41.51020.2250.0246'
-      AgentNameVersionMajor                : 'Chrome Webview 41'
-      WebviewAppName                       : 'Amazon Web App Platform'
-      WebviewAppNameVersionMajor           : 'Amazon Web App Platform 3'
-      WebviewAppVersion                    : '3.4.0'
-      WebviewAppVersionMajor               : '3'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.2; AFTB Build/JDQ39) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.173 Mobile Safari/537.22'
+#
+#
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.2; AFTB Build/JDQ39) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.173 Mobile Safari/537.22 cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0'
+
+
 
 # =========================================================================================================
 # Google chromecast

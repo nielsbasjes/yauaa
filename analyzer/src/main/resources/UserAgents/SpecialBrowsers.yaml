@@ -828,6 +828,29 @@ config:
       AgentLanguageCode                    : 'nl-nl'
       AgentSecurity                        : 'Strong security'
 
+# https://www.dillo.org/
+- test:
+    input:
+      user_agent_string: 'Dillo/0.8.5-i18n-misc'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Dillo'
+      AgentVersion                         : '0.8.5-i18n-misc'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Dillo 0.8.5-i18n-misc'
+      AgentNameVersionMajor                : 'Dillo 0'
+
+
 # TODO: A lot of special browsers
 
 #DoCoMo    1.0    DoCoMo/1.0/D503iS/c10
@@ -1529,4 +1552,57 @@ config:
       AgentNameVersionMajor                : 'Outlook-Express 7'
 
 
+- matcher:
+    variable:
+    - 'IBrowseVersion : agent.(1)product.(1)comments.entry.(1)product.(1)name="IBrowse"^.version'
+    extract:
+    - 'DeviceClass           :   100:"Desktop"'
+    - 'DeviceBrand           :   100:"Amiga"'
+    - 'DeviceName            :   100:"Amiga"'
+    - 'OperatingSystemClass  :   100:"Desktop"'
+    - 'OperatingSystemName   :   100:"AmigaOS"'
+    - 'OperatingSystemVersion:     1:"??"'
+    - 'LayoutEngineClass     :   100:"Browser"'
+    - 'LayoutEngineName      :   100:"IBrowse"'
+    - 'LayoutEngineVersion   :   100:@IBrowseVersion'
+    - 'AgentClass            :   100:"Browser"'
+    - 'AgentName             :   100:"IBrowse"'
+    - 'AgentVersion          :   100:@IBrowseVersion'
 
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.text="AmigaOS4.0"'
+    extract:
+    - 'DeviceClass           :   100:"Desktop"'
+    - 'DeviceBrand           :   100:"Amiga"'
+    - 'DeviceName            :   100:"Amiga"'
+    - 'OperatingSystemClass  :   100:"Desktop"'
+    - 'OperatingSystemName   :   100:"AmigaOS"'
+    - 'OperatingSystemVersion:   100:"4.0"'
+
+
+# IBrowse: https://www.ibrowse-dev.net/
+# Quote: IBrowse is a fast, stable, classic web browser helping you surf the net with your AMIGA®.
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; IBrowse 2.3; AmigaOS4.0)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Amiga'
+      DeviceBrand                          : 'Amiga'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'AmigaOS'
+      OperatingSystemVersion               : '4.0'
+      OperatingSystemNameVersion           : 'AmigaOS 4.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'IBrowse'
+      LayoutEngineVersion                  : '2.3'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'IBrowse 2.3'
+      LayoutEngineNameVersionMajor         : 'IBrowse 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'IBrowse'
+      AgentVersion                         : '2.3'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'IBrowse 2.3'
+      AgentNameVersionMajor                : 'IBrowse 2'

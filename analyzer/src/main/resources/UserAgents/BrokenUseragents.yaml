@@ -331,40 +331,6 @@ config:
       AgentNameVersionMajor                : 'Stock Android Browser 4'
       AgentSecurity                        : 'Strong security'
 
-# Silk browser
-- matcher:
-    extract:
-    - 'AgentClass            :  100:"Browser"'
-    - 'AgentName             :  100:"Silk"'
-    - 'AgentVersion          :  100:agent.(1)product.(1)comments.entry.(1)product.(1)name="Silk"^.version'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-us; Silk/1.0.146.3-Gen4_12000410) AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16 Silk-Accelerated=true'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Apple Macintosh'
-      DeviceBrand                          : 'Apple'
-      DeviceCpu                            : 'Intel'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Mac OS X'
-      OperatingSystemVersion               : '10.6.3'
-      OperatingSystemNameVersion           : 'Mac OS X 10.6.3'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '533.16'
-      LayoutEngineVersionMajor             : '533'
-      LayoutEngineNameVersion              : 'AppleWebKit 533.16'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Silk'
-      AgentVersion                         : '1.0.146.3-Gen4_12000410'
-      AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'Silk 1.0.146.3-Gen4_12000410'
-      AgentNameVersionMajor                : 'Silk 1'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      AgentSecurity                        : 'Strong security'
 
 # Is really SogouMSE,SogouMobileBrowser/4.0.0
 - matcher:
@@ -1863,3 +1829,357 @@ config:
       AgentLanguage                        : 'Dutch (Netherlands)'
       AgentLanguageCode                    : 'nl-nl'
       AgentSecurity                        : 'Strong security'
+
+# The thinkpad is an Android device ONLY. This useragent is probably modified to look like Windows.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1 ; pl-pl; ThinkPad Tablet Build/ThinkPadTablet_A310_02) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'ThinkPad Tablet'
+      DeviceBrand                          : 'ThinkPad'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.13'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.13'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Safari 4.0'
+      AgentNameVersionMajor                : 'Safari 4'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+      AgentSecurity                        : 'Strong security'
+
+# No Gecko version?
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Android; Linux armv7l; rv:9.0) Gecko/ Firefox/9.0 Fennec/9.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '9.0'
+      LayoutEngineVersionMajor             : '9'
+      LayoutEngineNameVersion              : 'Gecko 9.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 9'
+      LayoutEngineBuild                    : 'Firefox'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Fennec'
+      AgentVersion                         : '9.0'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Fennec 9.0'
+      AgentNameVersionMajor                : 'Fennec 9'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Android; Linux armv7l; rv:2.0b8) Gecko/ Firefox/4.0b8 Fennec/4.0b3'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '2.0b8'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Gecko 2.0b8'
+      LayoutEngineNameVersionMajor         : 'Gecko 2'
+      LayoutEngineBuild                    : 'Firefox'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Fennec'
+      AgentVersion                         : '4.0b3'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Fennec 4.0b3'
+      AgentNameVersionMajor                : 'Fennec 4'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Android; Linux armv7l; rv:2.1) Gecko/20110318 Firefox/4.0b13pre Fennec/4.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Gecko 2.1'
+      LayoutEngineNameVersionMajor         : 'Gecko 2'
+      LayoutEngineBuild                    : '20110318'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Fennec'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Fennec 4.0'
+      AgentNameVersionMajor                : 'Fennec 4'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Android; Linux armv7l; rv:10.0.3) Gecko/20120302 Firefox/10.0.3 Fennec/10.0.3'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '10.0.3'
+      LayoutEngineVersionMajor             : '10'
+      LayoutEngineNameVersion              : 'Gecko 10.0.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 10'
+      LayoutEngineBuild                    : '20120302'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Fennec'
+      AgentVersion                         : '10.0.3'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Fennec 10.0.3'
+      AgentNameVersionMajor                : 'Fennec 10'
+
+# Version 999 ... yeah right
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android; en-us) AppleWebKit/999+ (KHTML, like Gecko) Safari/999.9'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '999'
+      LayoutEngineVersionMajor             : '999'
+      LayoutEngineNameVersion              : 'AppleWebKit 999'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 999'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '999.9'
+      AgentVersionMajor                    : '999'
+      AgentNameVersion                     : 'Safari 999.9'
+      AgentNameVersionMajor                : 'Safari 999'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+# Many rules do not fire because of "Android Android 6.0"
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android Android 6.0) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Focus/4.0.1 Chrome/64.0.3282.123 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Tablet'
+      DeviceName                            : 'Android Mobile'
+      DeviceBrand                           : 'Unknown'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Android'
+      OperatingSystemVersion                : '6.0'
+      OperatingSystemNameVersion            : 'Android 6.0'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '64.0'
+      LayoutEngineVersionMajor              : '64'
+      LayoutEngineNameVersion               : 'Blink 64.0'
+      LayoutEngineNameVersionMajor          : 'Blink 64'
+      AgentClass                            : 'Browser Webview'
+      AgentName                             : 'Chrome Webview'
+      AgentVersion                          : '64.0.3282.123'
+      AgentVersionMajor                     : '64'
+      AgentNameVersion                      : 'Chrome Webview 64.0.3282.123'
+      AgentNameVersionMajor                 : 'Chrome Webview 64'
+      WebviewAppName                        : 'Firefox Focus'
+      WebviewAppVersion                     : '4.0.1'
+      WebviewAppVersionMajor                : '4'
+      WebviewAppNameVersionMajor            : 'Firefox Focus 4'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android Android 6.0) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Focus/4.0.2 Chrome/43.0.2357.121 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '43.0'
+      LayoutEngineVersionMajor             : '43'
+      LayoutEngineNameVersion              : 'Blink 43.0'
+      LayoutEngineNameVersionMajor         : 'Blink 43'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '43.0.2357.121'
+      AgentVersionMajor                    : '43'
+      AgentNameVersion                     : 'Chrome Webview 43.0.2357.121'
+      AgentNameVersionMajor                : 'Chrome Webview 43'
+      WebviewAppName                       : 'Firefox Focus'
+      WebviewAppVersion                    : '4.0.2'
+      WebviewAppVersionMajor               : '4'
+      WebviewAppNameVersionMajor           : 'Firefox Focus 4'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android Android 6.0; Qualcore 1027 3G Build/LMY47I; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.121 Safari/537.36 OPR/32.0.2254.123747'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Qualcore 1027 3G'
+      DeviceBrand                          : 'Qualcore'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemVersionBuild          : 'LMY47I'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '43.0'
+      LayoutEngineVersionMajor             : '43'
+      LayoutEngineNameVersion              : 'Blink 43.0'
+      LayoutEngineNameVersionMajor         : 'Blink 43'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '43.0.2357.121'
+      AgentVersionMajor                    : '43'
+      AgentNameVersion                     : 'Chrome Webview 43.0.2357.121'
+      AgentNameVersionMajor                : 'Chrome Webview 43'
+      AgentSecurity                        : 'Strong security'
+      WebviewAppName                       : 'Opera'
+      WebviewAppVersion                    : '32.0.2254.123747'
+      WebviewAppVersionMajor               : '32'
+      WebviewAppNameVersionMajor           : 'Opera 32'
+
+
+# Last part seems missing
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET CLR 3.0.04506; Media Center PC 5.0; SLCC1; OfficeLiveConnector.1.5; OfficeLivePatch.1.3; Tablet P'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '6.0'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Trident 6.0'
+      LayoutEngineNameVersionMajor         : 'Trident 6'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Internet Explorer 10.0'
+      AgentNameVersionMajor                : 'Internet Explorer 10'
+
+# Android phone running a custom rom called "Zoe ROM"
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android Zoe ROM 7.7 - CM7.2 - SDSL v4; pl-pl; LG-GT540 Build/GWK74; -=Zoe ROM=-) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.7'
+      OperatingSystemNameVersion           : 'Android 7.7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'CM7.2'
+      AgentVersion                         : 'SDSL'
+      AgentVersionMajor                    : 'SDSL'
+      AgentNameVersion                     : 'CM7.2 SDSL'
+      AgentNameVersionMajor                : 'CM7.2 SDSL'
+      AgentSecurity                        : 'Strong security'
+      __SyntaxError__                      : 'true'
+
+# This vendor sends out broken useragents by default: missing ')' just after the "Build/VM".
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android ; VM_Vertis 4010 You Build/VM AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                           : 'Phone'
+      DeviceName                            : 'VM Vertis 4010 YOU'
+      DeviceBrand                           : 'VM'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Android'
+      OperatingSystemVersion                : '??'
+      OperatingSystemNameVersion            : 'Android ??'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '30.0'
+      LayoutEngineVersionMajor              : '30'
+      LayoutEngineNameVersion               : 'Blink 30.0'
+      LayoutEngineNameVersionMajor          : 'Blink 30'
+      AgentClass                            : 'Browser Webview'
+      AgentName                             : 'Chrome Webview'
+      AgentVersion                          : '30.0.0.0'
+      AgentVersionMajor                     : '30'
+      AgentNameVersion                      : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                 : 'Chrome Webview 30'
+      WebviewAppName                        : 'Unknown Webview App'
+      WebviewAppVersion                     : '??'
+      WebviewAppVersionMajor                : '??'
+      WebviewAppNameVersionMajor            : 'Unknown Webview App ??'
+
+# TODO: Classified as Unknown
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 Galeon/1.2.0 (X11; Linux i686; U;) Gecko/20020326'
+
+# TODO: Classified as Unknown
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 Gecko/20100101 Firefox/16.0'
+
+# TODO: ELEMENT10
+#- test:
+#    input:
+#      user_agent_string: 'ELEMENT10 1 Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.34 Safari/534.24'
+
+

@@ -16,13 +16,33 @@
 #
 config:
 
+#- matcher:
+#    require:
+#    - 'agent.(1-2)product.comments.entry.text="Android"'
+#    extract:
+#    - 'DeviceClass                 : 7:"Mobile"'
+#    - 'DeviceName                  : 7:"Android Mobile"'
+#    - 'OperatingSystemClass        : 7:"Mobile"'
+#    - 'OperatingSystemName         : 7:"Android"'
+#    - 'OperatingSystemVersion      : 7:"??"'
+#
+#- matcher:
+#    require:
+#    - 'agent.(1-2)product.comments.entry.text="Adr"'
+#    extract:
+#    - 'DeviceClass                 : 7:"Mobile"'
+#    - 'DeviceName                  : 7:"Android Mobile"'
+#    - 'OperatingSystemClass        : 7:"Mobile"'
+#    - 'OperatingSystemName         : 7:"Android"'
+#    - 'OperatingSystemVersion      : 7:"??"'
+#
 - matcher:
     extract:
     - 'DeviceClass                 :  50:"Mobile"'
     - 'DeviceName                  :  10:"Android Mobile"'
     - 'OperatingSystemClass        : 500:"Mobile"'
     - 'OperatingSystemName         : 500:"Android"'
-    - 'OperatingSystemVersion      : 500:agent.(1-2)product.comments.entry.product.name="Android"^.version'
+    - 'OperatingSystemVersion      : 500:agent.(1-2)product.comments.entry.product.name[1]="Android"^.version'
 
 - matcher:
     extract:
@@ -62,7 +82,7 @@ config:
     variable:
     - 'ProductBuild: agent.(1-2)product.(1)comments.entry.product.name="Build"^'
     require:
-    - 'agent.(1-2)product.comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
     extract:
     - 'DeviceClass                 :  51:"Mobile"'
     - 'DeviceName                  :  51:@ProductBuild<'
@@ -113,7 +133,7 @@ config:
 
 - matcher:
     require:
-#    - 'agent.(1-2)product.(1)comments.entry.(1)product.(1)name="Android"'
+#    - 'agent.(1-2)product.(1)comments.entry.(1)product.(1)name[1]="Android"'
     - 'agent.product.(1)name="Mobile Safari"'
     extract:
     - 'DeviceClass                 :   1000:"Phone"'
@@ -121,7 +141,7 @@ config:
 
 #- matcher:
 #    require:
-#    - 'agent.product.(1)name="Android"'
+#    - 'agent.product.(1)name[1]="Android"'
 #    - 'agent.product.(1)name="Mobile Safari"'
 #    extract:
 #    - 'DeviceClass                 :   1000:"Phone"'
@@ -129,7 +149,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.(1)product.(1)name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.(1)product.(1)name[1]="Android"'
     - 'agent.product.(1)name="Safari"'
     extract:
     - 'DeviceClass                 :   1000:"Tablet"'
@@ -137,7 +157,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)name="Android"'
+    - 'agent.product.(1)name[1]="Android"'
     - 'agent.product.(1)name="Safari"'
     extract:
     - 'DeviceClass                 :   1000:"Tablet"'
@@ -147,49 +167,49 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
     - 'OperatingSystemVersionBuild :  80:agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version'
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
     - 'OperatingSystemVersionBuild :  79:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^.version'
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
     - 'OperatingSystemVersionBuild :  78:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^.version'
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
     - 'OperatingSystemVersionBuild :  77:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"^.version'
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
     - 'OperatingSystemVersionBuild :  77:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version'
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
     - 'OperatingSystemVersionBuild :  77:agent.(1-2)product.(1)comments.entry.product.name[6]="Build"^.version'
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
     - 'DeviceName                  :  75:agent.(1-2)product.(1)comments.entry[2]="Build"@[-1]'
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
     - 'DeviceName                  :  76:agent.(1-2)product.(1)comments.entry[3]="Build"@[-2]'
 
@@ -197,7 +217,7 @@ config:
     variable:
     - 'BuildString: agent.(1-2)product.(1)comments.entry[4]="Build"@'
     require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
     - 'DeviceName                  :  77:@BuildString[-3]'
     - 'DeviceBrand                 :   1:NormalizeBrand[@BuildString[1]]'
@@ -206,7 +226,7 @@ config:
     variable:
     - 'BuildString: agent.(1-2)product.(1)comments.entry[5]="Build"@'
     require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
     - 'DeviceName                  :  77:@BuildString[-4]'
     - 'DeviceBrand                 :   1:NormalizeBrand[@BuildString[1]]'
@@ -215,7 +235,7 @@ config:
     variable:
     - 'BuildString: agent.(1-2)product.(1)comments.entry[6]="Build"@'
     require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
     - 'DeviceName                  :  77:@BuildString[-5]'
     - 'DeviceBrand                 :   1:NormalizeBrand[@BuildString[1]]'
@@ -224,7 +244,7 @@ config:
     variable:
     - 'BuildString: agent.(1-2)product.(1)comments.entry[7]="Build"@'
     require:
-    - 'agent.(1-2)product.(1)comments.entry.product.name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
     - 'DeviceName                  :  77:@BuildString[-6]'
     - 'DeviceBrand                 :   1:NormalizeBrand[@BuildString[1]]'
@@ -925,7 +945,19 @@ config:
     - 'OperatingSystemName   :   1:"Android"'
     - 'OperatingSystemVersion:   1:"??"'
 
-# Android-Mail
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Android-Mail"'
+    extract:
+    - 'OperatingSystemClass          : 100 :"Mobile"'
+    - 'OperatingSystemName           : 100 :"Android"'
+    - 'OperatingSystemVersion        : 100 :"??"'
+    - 'OperatingSystemNameVersion    : 100 :"Android ??"'
+    - 'AgentClass                    : 100 :"Special"'
+    - 'AgentName                     : 100 :"Android-Mail"'
+    - 'AgentVersion                  : 100 :agent.(1)product.(1)version'
+
+# Android-Mail --> This is the GMail app on Android
 - test:
     input:
       user_agent_string: 'Android-Mail/6.5.122794288.release'
@@ -971,12 +1003,12 @@ config:
       LayoutEngineName                     : 'Unknown'
       LayoutEngineVersion                  : '??'
       LayoutEngineVersionMajor             : '??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'Android-SAMSUNG-GT-I9060C'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
       AgentVersion                         : '101.40404'
       AgentVersionMajor                    : '101'
-      AgentNameVersion                     : 'Android-SAMSUNG-GT-I9060C 101.40404'
-      AgentNameVersionMajor                : 'Android-SAMSUNG-GT-I9060C 101'
+      AgentNameVersion                     : 'Stock Android Browser 101.40404'
+      AgentNameVersionMajor                : 'Stock Android Browser 101'
 
 # AndroidDownloadManager
 - test:
@@ -1003,24 +1035,139 @@ config:
       AgentNameVersionMajor                : 'AndroidDownloadManager 5'
       AgentSecurity                        : 'Strong security'
 
-#AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; A0001 Build/MMB29X)
-#AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; D5803 Build/23.5.A.0.575)
-#AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; MI 4W Build/MMB29M)
-#AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; MI NOTE LTE Build/MMB29M)
-#AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; Nexus 6P Build/MMB29M)
+- test:
+    input:
+      user_agent_string: 'AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; A0001 Build/MMB29X)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Oneplus A0001'
+      DeviceBrand                          : 'Oneplus'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : 'MMB29X'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'AndroidDownloadManager'
+      AgentVersion                         : '6.0.1'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'AndroidDownloadManager 6.0.1'
+      AgentNameVersionMajor                : 'AndroidDownloadManager 6'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; D5803 Build/23.5.A.0.575)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Sony D5803'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : '23.5.A.0.575'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'AndroidDownloadManager'
+      AgentVersion                         : '6.0.1'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'AndroidDownloadManager 6.0.1'
+      AgentNameVersionMajor                : 'AndroidDownloadManager 6'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; MI 4W Build/MMB29M)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Xiaomi MI 4W'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : 'MMB29M'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'AndroidDownloadManager'
+      AgentVersion                         : '6.0.1'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'AndroidDownloadManager 6.0.1'
+      AgentNameVersionMajor                : 'AndroidDownloadManager 6'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; MI NOTE LTE Build/MMB29M)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Xiaomi MI Note LTE'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : 'MMB29M'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'AndroidDownloadManager'
+      AgentVersion                         : '6.0.1'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'AndroidDownloadManager 6.0.1'
+      AgentNameVersionMajor                : 'AndroidDownloadManager 6'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'AndroidDownloadManager/6.0.1 (Linux; U; Android 6.0.1; Nexus 6P Build/MMB29M)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Google Nexus 6P'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : 'MMB29M'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'AndroidDownloadManager'
+      AgentVersion                         : '6.0.1'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'AndroidDownloadManager 6.0.1'
+      AgentNameVersionMajor                : 'AndroidDownloadManager 6'
+      AgentSecurity                        : 'Strong security'
+
 
 #Stock android browser
 #http://stackoverflow.com/questions/14403766/how-to-detect-the-stock-android-browser
 # The stock Android browser never went above 534, and Chrome is 537 or higher.
 
 # My analysis:
-#There is no browser on Android that is Safari.
-#So if we conclude that it must be Safari then it really is the stock android browser.
+# There is no browser on Android that is Safari.
+# So if we conclude that it must be Safari then it really is the stock android browser.
 
 - matcher:
     require:
     - 'agent.product.(1)name="Mobile Safari"'
-    - 'agent.(1)product.comments.entry.product.(1)name="Android"'
+    - 'agent.(1)product.comments.entry.product.(1)name[1]="Android"'
     extract:
     - 'AgentClass            :   56:"Browser"'
     - 'AgentName             :   56:"Stock Android Browser"'
@@ -1029,7 +1176,7 @@ config:
 - matcher:
     require:
     - 'agent.product.(1)name="Safari"'
-    - 'agent.(1)product.comments.entry.product.(1)name="Android"'
+    - 'agent.(1)product.comments.entry.product.(1)name[1]="Android"'
     extract:
     - 'AgentClass            :   56:"Browser"'
     - 'AgentName             :   56:"Stock Android Browser"'
@@ -1039,7 +1186,7 @@ config:
     extract:
     - 'AgentClass            :   10:"Browser"'
     - 'AgentName             :   10:"Stock Android Browser"'
-    - 'AgentVersion          :   10:agent.product.(1)name="Android"^.version'
+    - 'AgentVersion          :   10:agent.product.(1)name[1]="Android"^.version'
 
 - test:
     input:
@@ -1067,6 +1214,103 @@ config:
       AgentNameVersionMajor                : 'Stock Android Browser 3'
       AgentSecurity                        : 'Strong security'
 
+
+# Tablet classified as phone
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; MID713 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.105 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet' # The MID713 is a tablet but uses the useragent of a Phone.
+      DeviceName                           : 'Manta MID713'
+      DeviceBrand                          : 'Manta'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KOT49H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '49.0.2623.105'
+      AgentVersionMajor                    : '49'
+      AgentNameVersion                     : 'Chrome 49.0.2623.105'
+      AgentNameVersionMajor                : 'Chrome 49'
+
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[1]="Phone"'
+    extract:
+    - 'DeviceClass           :   1001:"Phone"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Phone"'
+    extract:
+    - 'DeviceClass           :   1001:"Phone"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[3]="Phone"'
+    extract:
+    - 'DeviceClass           :   1001:"Phone"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[1]="Tablet"'
+    extract:
+    - 'DeviceClass           :   1001:"Tablet"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Tablet"'
+    extract:
+    - 'DeviceClass           :   1001:"Tablet"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[3]="Tablet"'
+    extract:
+    - 'DeviceClass           :   1001:"Tablet"'
+
+
+# Tablet classified as phone
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.0.3; en-US; Sony Tablet S Build/TISU0143) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/11.4.0.982 U3/0.8.0 Mobile Safari/534.30'
+    expected:
+      DeviceClass                          : 'Tablet' # The "Sony Tablet S" is a tablet.
+      DeviceName                           : 'Sony Tablet S'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.0.3'
+      OperatingSystemNameVersion           : 'Android 4.0.3'
+      OperatingSystemVersionBuild          : 'TISU0143'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'UCBrowser U3'
+      LayoutEngineVersion                  : '0.8.0'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'UCBrowser U3 0.8.0'
+      LayoutEngineNameVersionMajor         : 'UCBrowser U3 0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'UCBrowser'
+      AgentVersion                         : '11.4.0.982'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'UCBrowser 11.4.0.982'
+      AgentNameVersionMajor                : 'UCBrowser 11'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+# TODO: Add all of these test cases
 #Mozilla/5.0 (Linux; U; Android 2.1-update1; es-mx; SonyEricssonE10a Build/2.0.A.0.504) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17
 #Mozilla/5.0 (Linux; U; Android 2.2.1; de-de; HTC_Wildfire_A3333 Build/FRG83D) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
 #Mozilla/5.0 (Linux; U; Android 2.2.1; en-ca; LG-P505R Build/FRG83) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1

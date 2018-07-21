@@ -73,7 +73,7 @@ echo "
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name=\"Build\"'
     require:
-    - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.comments.entry.product.name[1]=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  325:\"${brand}\"'
@@ -83,7 +83,7 @@ echo "
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name[2]=\"Build\"'
     require:
-    - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.comments.entry.product.name[1]=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  325:\"${brand}\"'
@@ -92,7 +92,7 @@ echo "
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name[3]=\"Build\"'
     require:
-    - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.comments.entry.product.name[1]=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  325:\"${brand}\"'
@@ -100,7 +100,7 @@ echo "
 
 - matcher:
     require:
-    - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.comments.entry.product.name[1]=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:\"${brand}\"'
@@ -108,7 +108,7 @@ echo "
 
 - matcher:
     require:
-    - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.comments.entry.product.name[1]=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:\"${brand}\"'
@@ -116,7 +116,7 @@ echo "
 
 - matcher:
     require:
-    - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.comments.entry.product.name[1]=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:\"${brand}\"'
@@ -124,7 +124,7 @@ echo "
 
 - matcher:
     require:
-    - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.comments.entry.product.name[1]=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"' # Performance trick
     extract:
     - 'DeviceBrand                 :  324:\"${brand}\"'
@@ -132,28 +132,28 @@ echo "
 
 - matcher:
     require:
-    - 'agent.(1-2)product.comments.entry.product.name=\"Android\"'
+    - 'agent.(1-2)product.comments.entry.product.name[1]=\"Android\"'
     extract:
     - 'DeviceBrand                 :  330:\"${brand}\"'
     - 'DeviceName                  :  330:agent.(1-2)product.name{\"${prefix}\"'
 
 - matcher:
     require:
-    - 'IsNull[agent.(1-2)product.comments.entry.product.name=\"Android\"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]=\"Android\"]'
     extract:
     - 'DeviceBrand                 :  313:\"${brand}\"'
     - 'DeviceName                  :  313:agent.product.name{\"${prefix}\"'
 
 - matcher:
     require:
-    - 'IsNull[agent.(1-2)product.comments.entry.product.name=\"Android\"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]=\"Android\"]'
     extract:
     - 'DeviceBrand                 :  324:\"${brand}\"'
     - 'DeviceName                  :  324:agent.(1)product.name=\"${prefix}\"^.version'
 
 - matcher:
     require:
-    - 'IsNull[agent.(1-2)product.comments.entry.product.name=\"Android\"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]=\"Android\"]'
     extract:
     - 'DeviceBrand                 :  323:\"${brand}\"'
     - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name=\"${prefix}\"^.version'
@@ -165,28 +165,28 @@ then
 echo "
 - matcher:
     require:
-    - 'IsNull[agent.(1-2)product.comments.entry.product.name=\"Android\"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]=\"Android\"]'
     extract:
     - 'DeviceBrand                 :  322:\"${brand}\"'
     - 'DeviceName                  :  125:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{\"${prefix}\"@'
 
 - matcher:
     require:
-    - 'IsNull[agent.(1-2)product.comments.entry.product.name=\"Android\"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]=\"Android\"]'
     extract:
     - 'DeviceBrand                 :  322:\"${brand}\"'
     - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{\"${prefix}\"@!=\"${prefix}\"'
 
 - matcher:
     require:
-    - 'IsNull[agent.(1-2)product.comments.entry.product.name=\"Android\"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]=\"Android\"]'
     extract:
     - 'DeviceBrand                 :  320:\"${brand}\"'
     - 'DeviceName                  :  124:agent.(1-2)product.(1)comments.entry.text{\"${prefix}\"'
 
 - matcher:
     require:
-    - 'IsNull[agent.(1-2)product.comments.entry.product.name=\"Android\"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]=\"Android\"]'
     extract:
     - 'DeviceBrand                 :  320:\"${brand}\"'
     - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{\"${prefix}\"@!=\"${prefix}\"'
@@ -195,14 +195,14 @@ else
 echo "
 - matcher:
     require:
-    - 'IsNull[agent.(1-2)product.comments.entry.product.name=\"Android\"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]=\"Android\"]'
     extract:
     - 'DeviceBrand                 :  322:\"${brand}\"'
     - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{\"${prefix}\"'
 
 - matcher:
     require:
-    - 'IsNull[agent.(1-2)product.comments.entry.product.name=\"Android\"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]=\"Android\"]'
     extract:
     - 'DeviceBrand                 :  320:\"${brand}\"'
     - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{\"${prefix}\"'

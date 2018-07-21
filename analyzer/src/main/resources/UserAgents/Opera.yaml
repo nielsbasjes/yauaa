@@ -201,18 +201,11 @@ config:
     - 'AgentName             :   2012:"Opera Tablet"'
     - 'AgentVersion          :   2012:agent.product.name="Version"^.version'
 
-- matcher:
-    require:
-    - 'agent.product.comments.entry.product.name="Opera Tablet"'
-    - 'agent.product.comments.entry.product.name="Android"'
-    extract:
-    - 'DeviceClass           :   2012:"Tablet"'
-
 - test:
     input:
       user_agent_string: 'Opera/9.80 (Windows NT 6.1; Opera Tablet/15165; U; en) Presto/2.8.149 Version/11.1'
     expected:
-      DeviceClass                          : 'Desktop'
+      DeviceClass                          : 'Tablet'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpuBits                        : '32'

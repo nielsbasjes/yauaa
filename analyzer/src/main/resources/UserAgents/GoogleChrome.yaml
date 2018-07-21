@@ -1011,15 +1011,15 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0; ARM; Touch; WPDesktop) UCBrowser/4.2.1.541'
     expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Tablet PC'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'ARM'
       DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows 8'
-      OperatingSystemNameVersion           : 'Windows 8'
+      OperatingSystemVersion               : 'Windows RT'
+      OperatingSystemNameVersion           : 'Windows RT'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Trident'
       LayoutEngineVersion                  : '6.0'
@@ -1176,3 +1176,35 @@ config:
       AgentNameVersionMajor                : 'UCBrowser 11'
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
+
+# This is actually a GAME running on a Desktop PC
+# See https://en.wikipedia.org/wiki/Tabletop_Simulator
+# ZFBrowser
+# https://zenfulcrum.com/docs/browser/Readme.html
+# Quote: This asset allows you to embed a full copy of Chromium, the open-source core of Google Chrome, inside your game!
+# So this is just Chrome running inside a game.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; Unity 3D; ZFBrowser 1.1.0; Tabletop Simulator 1.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2556.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '48.0'
+      LayoutEngineVersionMajor             : '48'
+      LayoutEngineNameVersion              : 'Blink 48.0'
+      LayoutEngineNameVersionMajor         : 'Blink 48'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '48.0.2556.0'
+      AgentVersionMajor                    : '48'
+      AgentNameVersion                     : 'Chrome 48.0.2556.0'
+      AgentNameVersionMajor                : 'Chrome 48'
+

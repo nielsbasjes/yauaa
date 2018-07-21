@@ -23,6 +23,8 @@ config:
 # Linux <version> <cpu>
 
 - matcher:
+    require:
+    -  'IsNull[agent.(1-2)product.comments.entry.text="Android"]'
     extract:
     - 'DeviceClass           :   5:"Desktop"'
     - 'DeviceName            :   5:"Linux Desktop"'
@@ -31,6 +33,8 @@ config:
     - 'OperatingSystemVersion:   6:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linux"^.version]'
 
 - matcher:
+    require:
+    -  'IsNull[agent.(1-2)product.comments.entry.text="Android"]'
     extract:
     - 'DeviceClass           :   5:"Desktop"'
     - 'DeviceName            :   5:"Linux Desktop"'
@@ -39,6 +43,8 @@ config:
     - 'OperatingSystemVersion:   6:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.text[1]="Linux"@[2]]'
 
 - matcher:
+    require:
+    -  'IsNull[agent.(1-2)product.comments.entry.text="Android"]'
     extract:
     - 'DeviceClass           :   5:"Desktop"'
     - 'DeviceName            :   5:"Linux Desktop"'
@@ -47,6 +53,8 @@ config:
     - 'OperatingSystemVersion:   4:agent.(1)product.(1)comments.entry.product.name="Linux"^.version'
 
 - matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.text="Android"]'
     extract:
     - 'DeviceClass           :   5:"Desktop"'
     - 'DeviceName            :   5:"Linux Desktop"'
@@ -56,6 +64,7 @@ config:
 
 - matcher:
     require:
+    - 'IsNull[agent.(1-2)product.comments.entry.text="Android"]'
     - 'agent.(1)product.(1)comments.entry.text[1]="Linux"'
     extract:
     - 'DeviceClass           :   5:"Desktop"'
@@ -437,6 +446,36 @@ config:
       AgentNameVersionMajor                : 'Netscape 1'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; DragonFly i386; de; rv:1.9.1) Gecko/20090720 Firefox/3.5.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'DragonFly BSD Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i386'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'DragonFly BSD'
+      OperatingSystemVersion               : 'i386'
+      OperatingSystemNameVersion           : 'DragonFly BSD i386'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.1'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20090720'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.5.1'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.5.1'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'German'
+      AgentLanguageCode                    : 'de'
+      AgentSecurity                        : 'Strong security'
 
 # Joli
 - test:
@@ -1030,6 +1069,44 @@ config:
       AgentVersionMajor                    : '51'
       AgentNameVersion                     : 'Chromium 51.0.2704.79'
       AgentNameVersionMajor                : 'Chromium 51'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)text="hp-tablet"'
+    extract:
+    - 'DeviceClass            :   360:"Tablet"'
+    - 'DeviceName             :   360:"HP TouchPad"'
+    - 'DeviceBrand            :   360:"HP"'
+    - 'DeviceVersion          :   360:agent.product.name="TouchPad"^.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (hp-tablet; Linux; hpwOS/3.0.5; U; en-US) AppleWebKit/534.6 (KHTML, like Gecko) wOSBrowser/234.83 Safari/534.6 TouchPad/1.0'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'HP TouchPad'
+      DeviceBrand                          : 'HP'
+      DeviceVersion                        : '1.0'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'HP WebOS'
+      OperatingSystemVersion               : '3.0.5'
+      OperatingSystemNameVersion           : 'HP WebOS 3.0.5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.6'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.6'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'wOSBrowser'
+      AgentVersion                         : '234.83'
+      AgentVersionMajor                    : '234'
+      AgentNameVersion                     : 'wOSBrowser 234.83'
+      AgentNameVersionMajor                : 'wOSBrowser 234'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
 
 #Mozilla/5.0 (X11; U; Linux i686; nl-nl) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/531.2+ Debian/squeeze (2.30.6-1) Epiphany/2.30.6
 #Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.0.16) Gecko/2009121609 Iceweasel/3.0.6 (Debian-3.0.6-3)

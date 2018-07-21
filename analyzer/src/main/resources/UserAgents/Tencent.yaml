@@ -34,6 +34,20 @@ config:
 # **** Sometimes with/without MQQBrowser, sometimes chrome webview, ...
 # So for this thing I force it to be a MobileApp (without webview, which may actually be wrong)
 
+#- matcher:
+#    require:
+#    - 'agent.product.(1)name="MQQBrowser"'
+#    - 'agent.product.(1)name="Safari"'
+#    extract:
+#    - 'DeviceClass                 :   99:"Tablet"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Mobile MQQBrowser"'
+    - 'agent.product.(1)name="Safari"'
+    extract:
+    - 'DeviceClass                 :  1100:"Phone"'
+
 - matcher:
     require:
     - 'IsNull[agent.product.(1)name="QQ"]'
@@ -419,7 +433,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; SM801 Build/LMY47V; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.49 Mobile MQQBrowser/6.2 TBS/043024 Safari/537.36 MicroMessenger/6.5.4.1000 NetType/4G Language/zh_CN'
     expected:
-      DeviceClass                          : 'Tablet'
+      DeviceClass                          : 'Phone'
       DeviceName                           : 'Smartisan SM801'
       DeviceBrand                          : 'Smartisan'
       OperatingSystemClass                 : 'Mobile'
@@ -446,7 +460,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; SM919 Build/MXB48T; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.49 Mobile MQQBrowser/6.2 TBS/043024 Safari/537.36 MicroMessenger/6.5.4.1000 NetType/WIFI Language/zh_CN'
     expected:
-      DeviceClass                          : 'Tablet'
+      DeviceClass                          : 'Phone'
       DeviceName                           : 'Smartisan SM919'
       DeviceBrand                          : 'Smartisan'
       OperatingSystemClass                 : 'Mobile'
@@ -472,7 +486,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; SM801 Build/LMY47V; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.49 Mobile MQQBrowser/6.2 TBS/043024 Safari/537.36 MicroMessenger/6.5.4.1000 NetType/4G Language/zh_CN'
     expected:
-      DeviceClass                          : 'Tablet'
+      DeviceClass                          : 'Phone'
       DeviceName                           : 'Smartisan SM801'
       DeviceBrand                          : 'Smartisan'
       OperatingSystemClass                 : 'Mobile'
@@ -633,3 +647,174 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0; HUAWEI VNS-DL00 Build/HUAWEIVNS-DL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.49 Mobile MQQBrowser/6.2 TBS/043670 Safari/537.36 MicroMessenger/6.5.16.1120 NetType/WIFI Language/zh_CN'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei VNS-DL00'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemVersionBuild          : 'HUAWEIVNS-DL00'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '6.5.16.1120'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'WeChat 6.5.16.1120'
+      AgentNameVersionMajor                : 'WeChat 6'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; TA-1000 Build/NMF26F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.49 Mobile MQQBrowser/6.2 TBS/043128 Safari/537.36 MicroMessenger/6.5.7.1041 NetType/WIFI Language/zh_CN'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'TA 1000'
+      DeviceBrand                          : 'TA'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemVersionBuild          : 'NMF26F'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '6.5.7.1041'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'WeChat 6.5.7.1041'
+      AgentNameVersionMajor                : 'WeChat 6'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; MHA-AL00 Build/HUAWEIMHA-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.49 Mobile MQQBrowser/6.2 TBS/043613 Safari/537.36 V1_AND_SQ_6.6.9_482_YYB_D QQ/6.6.9.3060 NetType/2G WebP/0.3.0 Pixel/1080'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei MHA-AL00'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'HUAWEIMHA-AL00'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'QQ Client'
+      AgentVersion                         : '6.6.9.3060'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'QQ Client 6.6.9.3060'
+      AgentNameVersionMajor                : 'QQ Client 6'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0; Le X620 Build/HEXCNFN5902303291S; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.49 Mobile MQQBrowser/6.2 TBS/043128 Safari/537.36 MicroMessenger/6.5.7.1041 NetType/WIFI Language/zh_CN'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'LE X620'
+      DeviceBrand                          : 'LE'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemVersionBuild          : 'HEXCNFN5902303291S'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '6.5.7.1041'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'WeChat 6.5.7.1041'
+      AgentNameVersionMajor                : 'WeChat 6'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; MI 6 Build/NMF26X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.49 Mobile MQQBrowser/6.2 TBS/043670 Safari/537.36 V1_AND_SQ_7.1.8_718_YYB_D QQ/7.1.8.3240 NetType/WIFI WebP/0.3.0 Pixel/1080'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Xiaomi MI 6'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemVersionBuild          : 'NMF26X'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'QQ Client'
+      AgentVersion                         : '7.1.8.3240'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'QQ Client 7.1.8.3240'
+      AgentNameVersionMajor                : 'QQ Client 7'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; SM-C7000 Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.49 Mobile MQQBrowser/6.2 TBS/043670 Safari/537.36 V1_AND_SQ_7.2.0_730_YYB_D QQ/7.2.0.3270 NetType/WIFI WebP/0.3.0 Pixel/1080'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-C7000'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NRD90M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'QQ Client'
+      AgentVersion                         : '7.2.0.3270'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'QQ Client 7.2.0.3270'
+      AgentNameVersionMajor                : 'QQ Client 7'
+
+
+
+
+
+## Phone classified as Unknown
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone1 01; CPU iPhone OS 11_2_5 like Mac OS X) AppleWebKit/604.3.5 (KHTML, like Gecko) Version/11.0 MQQBrowser/8.3.0 Mobile/15B87 Safari/604.1 MttCustomUA/2 QBWebViewType/1 WKType/1'
+
+# Phone classified as Unknown
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone1 06; CPU iPhone OS 11_1 like Mac OS X) AppleWebKit/604.3.5 (KHTML, like Gecko) Version/11.0 MQQBrowser/8.0.2 Mobile/15B87 Safari/8536.25 MttCustomUA/2 QBWebViewType/1 WKType/1'

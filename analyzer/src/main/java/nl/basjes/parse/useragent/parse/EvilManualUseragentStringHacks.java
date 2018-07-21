@@ -55,6 +55,9 @@ public final class EvilManualUseragentStringHacks {
         // This one is a single useragent that hold significant traffic
         result = replaceString(result, "Microsoft Windows NT 6.2.9200.0);", "Microsoft Windows NT 6.2.9200.0;");
 
+        // The VM_Vertis 4010 You Build/VM is missing a ')'
+        result = replaceString(result, "You Build/VM", "You Build/VM)");
+
         // Repair certain cases of broken useragents (like we see for the Facebook app a lot)
         if (MISSING_PRODUCT_AT_START.matcher(result).matches()){
             // We simply prefix a fake product name to continue parsing.
@@ -102,7 +105,7 @@ public final class EvilManualUseragentStringHacks {
 
         while (idxSearchFor >= 0) {
             //grab a part of input which does not include searchFor
-            result.append(input.substring(startIdx, idxSearchFor));
+            result.append(input, startIdx, idxSearchFor);
             //add replaceWith to take place of searchFor
             result.append(replaceWith);
 
