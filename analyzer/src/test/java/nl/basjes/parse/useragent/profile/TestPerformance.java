@@ -47,6 +47,7 @@ public class TestPerformance {
         long start = System.nanoTime();
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
+            .keepTests()
             .delayInitialization()
             .build();
         long stop = System.nanoTime();
@@ -56,7 +57,7 @@ public class TestPerformance {
         LOG.info("List fieldnames");
         start = System.nanoTime();
         uaa.getAllPossibleFieldNamesSorted()
-            .forEach(LOG::debug);
+            .forEach(LOG::info);
         stop = System.nanoTime();
         long listFieldNamesMsecs = (stop - start) / 1000000;
         LOG.info("-- List fieldnames: {}ms", listFieldNamesMsecs);
@@ -69,6 +70,13 @@ public class TestPerformance {
         long initializeMsecs = (stop - start) / 1000000;
         LOG.info("-- Initialization: {}ms", initializeMsecs);
         assertTrue("The initialization went too fast, this should take several seconds", initializeMsecs > 1000);
+
+        LOG.info("Preheat");
+        start = System.nanoTime();
+        uaa.preHeat();
+        stop = System.nanoTime();
+        long preheatMsecs = (stop - start) / 1000000;
+        LOG.info("-- Preheat : {}ms", preheatMsecs);
     }
 
 }
