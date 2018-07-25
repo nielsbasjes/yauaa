@@ -27,6 +27,7 @@ config:
 - lookup:
     name: 'FaceBookAppNames'
     map:
+        'FBW'              : 'Facebook for Windows'
         'FB4A'             : 'Facebook App for Android'
         'FBIOS'            : 'Facebook App for iOS'
         'FBForIPhone'      : 'Facebook App for iOS'
@@ -40,6 +41,7 @@ config:
 - lookup:
     name: 'FaceBookWebviewNames'
     map:
+        'FBW'              : 'Chrome WebView'
         'FB4A'             : 'Chrome Webview'
         'FBIOS'            : 'UIWebView'
         'FBForIPhone'      : 'UIWebView'
@@ -103,6 +105,12 @@ config:
 
 - matcher:
     require:
+    - 'agent.product.(1-2)comments.entry.(1)product="FBID/desktop"'
+    extract:
+    - 'DeviceClass:       200:"Desktop"'
+
+- matcher:
+    require:
     - 'agent.product.(1-2)comments.entry.(1)product="FBID/tablet"'
     extract:
     - 'DeviceClass:       200:"Tablet"'
@@ -133,7 +141,7 @@ config:
 
 - matcher:
     extract:
-    - 'OperatingSystemClass:    199:"Mobile"'
+    - 'OperatingSystemClass:      9:"Mobile"'
     - 'OperatingSystemName:     199:agent.product.(1-2)comments.entry.(1)product.(1)name="FBSN"^.version'
     - 'OperatingSystemVersion:  199:agent.product.(1-2)comments.entry.(1)product.(1)name="FBSV"^.version'
 
@@ -152,7 +160,7 @@ config:
 
 - matcher:
     extract:
-    - 'OperatingSystemClass:    200:"Mobile"'
+    - 'OperatingSystemClass:     10:"Mobile"'
     - 'OperatingSystemName:     200:LookUp[OSNameCleanup;agent.product.(1-2)comments.entry.(1)product.(1)name="FBSN"^.version]'
     - 'OperatingSystemVersion:  200:agent.product.(1-2)comments.entry.(1)product.(1)name="FBSV"^.version'
 

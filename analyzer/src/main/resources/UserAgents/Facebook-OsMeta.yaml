@@ -33,29 +33,29 @@ config:
       DeviceBrand                          : 'Unknown'
       DeviceCpuBits                        : '32'
       DeviceVersion                        : 'WindowsDevice'
-      OperatingSystemClass                 : 'Mobile' # FIXME: Desktop
-      OperatingSystemName                  : 'Windows'
-      OperatingSystemVersion               : '10.0.16299.192'
-      OperatingSystemNameVersion           : 'Windows 10.0.16299.192' # FIXME: Windows 10.0.16299.192 ...
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows'                      #  FIXME:  199 | FAILED; Should be 'Windows NT'
+      OperatingSystemVersion               : '10.0.16299.192'               #  FIXME:  199 | FAILED; Should be 'Windows 10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0.16299.192'       #  FIXME:  199 | FAILED; Should be 'Windows 10.0'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '602.1.1'
       LayoutEngineVersionMajor             : '602'
       LayoutEngineNameVersion              : 'AppleWebKit 602.1.1'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
-      AgentClass                           : 'Mobile App'
-      AgentName                            : 'FBW'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome WebView'
       AgentVersion                         : '9.0'
       AgentVersionMajor                    : '9'
-      AgentNameVersion                     : 'FBW 9.0'
-      AgentNameVersionMajor                : 'FBW 9'
+      AgentNameVersion                     : 'Chrome WebView 9.0'
+      AgentNameVersionMajor                : 'Chrome WebView 9'
       AgentBuild                           : '83145113'
       AgentLanguage                        : 'Dutch (Netherlands)'
       AgentLanguageCode                    : 'nl-nl'
-      WebviewAppName                       : 'FBW'
+      WebviewAppName                       : 'Facebook for Windows'
       WebviewAppVersion                    : '140.0.0.232.179'
       WebviewAppVersionMajor               : '140'
-      WebviewAppNameVersionMajor           : 'FBW 140'
+      WebviewAppNameVersionMajor           : 'Facebook for Windows 140'
       FacebookDeviceClass                  : 'desktop'
       FacebookDeviceName                   : 'Windows Model'
       FacebookDeviceVersion                : 'WindowsDevice'
@@ -342,51 +342,261 @@ config:
       WebviewAppNameVersionMajor           : 'Instagram 16'
 
 
-## TODO: Phone classified as Unknown
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1089_1038) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=1.50; gamut=normal; 540x960)'
+
+- matcher:
+    variable:
+    - 'OSMetaField: agent.(1)product.(1)comments.entry[-2]="osmeta like"'
+    extract:
+    - 'DeviceClass                 :   2:LookUp[AppleDeviceClass;@OSMetaField]'
+    - 'DeviceBrand                 :   2:"Apple"'
+    - 'DeviceName                  :   2:LookUp[AppleDeviceName;@OSMetaField]'
+    - 'DeviceVersion               :   2:LookUp[AppleDeviceVersion;@OSMetaField]'
+    - 'OperatingSystemClass        :  20:"Mobile"'
+    - 'OperatingSystemName         :  20:"iOS"'
+    - 'OperatingSystemVersion      :  20:"??"'
+
+- matcher:
+    variable:
+    - 'InstagramOS: agent.product.name="Instagram"^.comments.entry.product.name="osmeta"^'
+    require:
+    - 'agent.product.comments.entry.product.name="osmeta"' # Performance optimizer
+    - 'agent.(1)product.(1)comments.entry[-2]="osmeta like"'
+    extract:
+    - 'DeviceClass                 :   2:"Mobile"'
+    - 'OperatingSystemClass        :  20:"Mobile"'
+    - 'OperatingSystemName         :  20:@InstagramOS.(1)version'
+    - 'OperatingSystemVersion      :  20:CleanVersion[@InstagramOS.(2)version]'
 
 
-## TODO: Phone classified as Unknown
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1072_1045) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; ru_PL; ru; scale=2.00; gamut=normal; 720x1280)'
+
+# TODO: VERIFY (was:) Phone classified as Unknown
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1089_1038) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=1.50; gamut=normal; 540x960)'
+    expected:
+      DeviceClass                           : 'Mobile'
+      DeviceName                            : 'Nokia RM-1089 1038'
+      DeviceBrand                           : 'Nokia'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Windows Phone'
+      OperatingSystemVersion                : '10.3.2132'
+      OperatingSystemNameVersion            : 'Windows Phone 10.3.2132'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'AppleWebKit'
+      LayoutEngineVersion                   : '602.1.1'
+      LayoutEngineVersionMajor              : '602'
+      LayoutEngineNameVersion               : 'AppleWebKit 602.1.1'
+      LayoutEngineNameVersionMajor          : 'AppleWebKit 602'
+      AgentClass                            : 'Mobile App'
+      AgentName                             : 'Instagram'
+      AgentVersion                          : '10.32.0'
+      AgentVersionMajor                     : '10'
+      AgentNameVersion                      : 'Instagram 10.32.0'
+      AgentNameVersionMajor                 : 'Instagram 10'
+      AgentLanguage                         : 'Polish (Poland)'
+      AgentLanguageCode                     : 'pl-pl'
+      AgentSecurity                         : 'Strong security'
 
 
-## TODO: Phone classified as Unknown
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1045_1011) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=3.00; gamut=normal; 1080x1920)'
+# TODO: VERIFY (was:) Phone classified as Unknown
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1072_1045) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; ru_PL; ru; scale=2.00; gamut=normal; 720x1280)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia RM-1072 1045'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : '10.3.2132'
+      OperatingSystemNameVersion           : 'Windows Phone 10.3.2132'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1.1'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Instagram'
+      AgentVersion                         : '10.32.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Instagram 10.32.0'
+      AgentNameVersionMajor                : 'Instagram 10'
+      AgentLanguage                        : 'Russian'
+      AgentLanguageCode                    : 'ru'
+      AgentSecurity                        : 'Strong security'
 
 
-## TODO: Phone classified as Unknown
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1118_13880) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_DE; pl; scale=4.00; gamut=normal; 1440x2560)'
+# TODO: VERIFY (was:) Phone classified as Unknown
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1045_1011) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=3.00; gamut=normal; 1080x1920)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia RM-1045 1011'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : '10.3.2132'
+      OperatingSystemNameVersion           : 'Windows Phone 10.3.2132'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1.1'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Instagram'
+      AgentVersion                         : '10.32.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Instagram 10.32.0'
+      AgentNameVersionMajor                : 'Instagram 10'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+      AgentSecurity                        : 'Strong security'
+
+
+# TODO: VERIFY (was:) Phone classified as Unknown
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1118_13880) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_DE; pl; scale=4.00; gamut=normal; 1440x2560)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia RM-1118 13880'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : '10.3.2132'
+      OperatingSystemNameVersion           : 'Windows Phone 10.3.2132'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1.1'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Instagram'
+      AgentVersion                         : '10.32.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Instagram 10.32.0'
+      AgentNameVersionMajor                : 'Instagram 10'
+      AgentLanguage                        : 'Polish'
+      AgentLanguageCode                    : 'pl'
+      AgentSecurity                        : 'Strong security'
 
 
 
-## TODO: Phone classified as Unknown
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1099_1016) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; uk_RU; uk; scale=1.50; gamut=normal; 480x800)'
+# TODO: VERIFY (was:) Phone classified as Unknown
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1099_1016) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; uk_RU; uk; scale=1.50; gamut=normal; 480x800)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia RM-1099 1016'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : '10.3.2132'
+      OperatingSystemNameVersion           : 'Windows Phone 10.3.2132'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1.1'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Instagram'
+      AgentVersion                         : '10.32.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Instagram 10.32.0'
+      AgentNameVersionMajor                : 'Instagram 10'
+      AgentLanguage                        : 'Ukrainian'
+      AgentLanguageCode                    : 'uk'
+      AgentSecurity                        : 'Strong security'
 
 
-## TODO: Phone classified as Unknown
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1085_15171) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=3.00; gamut=normal; 1440x2560)'
+# TODO: VERIFY (was:) Phone classified as Unknown
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1085_15171) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=3.00; gamut=normal; 1440x2560)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia RM-1085 15171'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : '10.3.2132'
+      OperatingSystemNameVersion           : 'Windows Phone 10.3.2132'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1.1'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Instagram'
+      AgentVersion                         : '10.32.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Instagram 10.32.0'
+      AgentNameVersionMajor                : 'Instagram 10'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+      AgentSecurity                        : 'Strong security'
+
+# TODO: VERIFY (was:) Phone classified as Unknown
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1045_1046) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=3.00; gamut=normal; 1080x1920)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia RM-1045 1046'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : '10.3.2132'
+      OperatingSystemNameVersion           : 'Windows Phone 10.3.2132'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1.1'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Instagram'
+      AgentVersion                         : '10.32.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Instagram 10.32.0'
+      AgentNameVersionMajor                : 'Instagram 10'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+      AgentSecurity                        : 'Strong security'
 
 
-## TODO: Phone classified as Unknown
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1045_1046) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=3.00; gamut=normal; 1080x1920)'
-
-
-## TODO: Phone classified as Unknown
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1045_1086) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=2.50; gamut=normal; 1080x1920)'
+# TODO: VERIFY (was:) Phone classified as Unknown
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1045_1086) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=2.50; gamut=normal; 1080x1920)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia RM-1045 1086'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : '10.3.2132'
+      OperatingSystemNameVersion           : 'Windows Phone 10.3.2132'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1.1'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Instagram'
+      AgentVersion                         : '10.32.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Instagram 10.32.0'
+      AgentNameVersionMajor                : 'Instagram 10'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+      AgentSecurity                        : 'Strong security'
 

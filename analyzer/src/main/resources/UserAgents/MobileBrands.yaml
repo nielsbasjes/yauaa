@@ -105,6 +105,7 @@ config:
       "Moto" : "Motorola"
       "Lenovo" : "Lenovo"
       "Nokia" : "Nokia"
+      "RM-" : "Nokia"
       "PlayBook" : "BlackBerry"
       "BlackBerry" : "BlackBerry"
       "MP" : "Mpman"
@@ -9276,6 +9277,112 @@ config:
     extract:
     - 'DeviceBrand                 :  320:"Nokia"'
     - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"Nokia"@!="Nokia"'
+
+
+- matcher:
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product{"RM-"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  325:"Nokia"'
+    - 'DeviceName                  :  325:@BuildProduct^<{"RM-"'
+
+- matcher:
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name[2]="Build"'
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product{"RM-"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  325:"Nokia"'
+    - 'DeviceName                  :  325:@BuildProduct^<{"RM-"'
+
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name[3]="Build"'
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product{"RM-"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  325:"Nokia"'
+    - 'DeviceName                  :  325:@BuildProduct^<{"RM-"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"RM-"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  324:"Nokia"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"RM-"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"RM-"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  324:"Nokia"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"RM-"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"RM-"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  324:"Nokia"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"RM-"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"RM-"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  324:"Nokia"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"RM-"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Nokia"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"RM-"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Nokia"'
+    - 'DeviceName                  :  313:agent.product.name{"RM-"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Nokia"'
+    - 'DeviceName                  :  324:agent.(1-2)product.name="RM-"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Nokia"'
+    - 'DeviceName                  :  323:agent.(1-2)product.(1)comments.entry.(1)product.(1)name="RM-"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Nokia"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"RM-"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Nokia"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"RM-"'
 
 
 - matcher:
