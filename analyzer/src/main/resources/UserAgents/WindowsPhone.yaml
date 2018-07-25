@@ -468,3 +468,166 @@ config:
       AgentNameVersion                     : 'IE Mobile 11.0'
       AgentNameVersionMajor                : 'IE Mobile 11'
 
+# =================================================================
+
+
+# https://msdn.microsoft.com/en-us/ie/hh920767(v=vs.94)
+#     says Windows RT is tagged as "Windows NT 6.2; ARM"
+# Windows RT is an OS that was only used on a handful of tablet class devices.
+# Many cases I found so far tag Windows Phone 8 as "Windows NT 6.2; ARM" ...
+# According to these two (Dutch) Wikipedia pages
+#    https://nl.wikipedia.org/wiki/Windows_NT_6.2 --> Windows {8, RT 8, Phone 8}
+#    https://nl.wikipedia.org/wiki/Windows_NT_6.3 --> Windows {8.1, RT 8.1, Phone 8.1}
+# Since almost nobody ever used Windows RT I'm choosing to give the analysis result that is different from the specifications.
+# Hence I choose them to be "Phones"
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry="ARM"'
+    extract:
+    - 'DeviceClass               : 199:"Phone"'
+    - 'DeviceName                : 199:"Windows Phone"'
+    - 'DeviceCpuBits             :   1:"32"'
+    - 'OperatingSystemClass      : 199:"Mobile"'
+    - 'OperatingSystemName       : 199:LookUp[WindowsPhoneOSName;agent.(1)product.comments.entry.product]'
+    - 'OperatingSystemVersion    : 199:LookUp[WindowsPhoneOSVersion;agent.(1)product.comments.entry.product]'
+    - 'OperatingSystemNameVersion: 199:LookUp[WindowsPhoneOSVersion;agent.(1)product.comments.entry.product]'
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry="ARM"'
+    extract:
+    - 'DeviceCpuBits             : 199:LookUp[WindowsPhoneOSCpuBits;agent.(1)product.comments.entry.product]'
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry="ARM"'
+    extract:
+    - 'DeviceClass               : 199:"Phone"'
+    - 'DeviceName                : 199:"Windows Phone"'
+    - 'DeviceCpuBits             :   1:"32"'
+    - 'OperatingSystemClass      : 199:"Mobile"'
+    - 'OperatingSystemName       : 199:LookUp[WindowsPhoneOSName;agent.(1)product.comments.entry.text]'
+    - 'OperatingSystemVersion    : 199:LookUp[WindowsPhoneOSVersion;agent.(1)product.comments.entry.text]'
+    - 'OperatingSystemNameVersion: 199:LookUp[WindowsPhoneOSVersion;agent.(1)product.comments.entry.text]'
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry="ARM"'
+    extract:
+    - 'DeviceCpuBits             : 199:LookUp[WindowsPhoneOSCpuBits;agent.(1)product.comments.entry.text]'
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry="ARM"'
+    extract:
+    - 'DeviceClass               : 199:"Phone"'
+    - 'DeviceName                : 199:"Windows Phone"'
+    - 'DeviceCpuBits             :   1:"32"'
+    - 'OperatingSystemClass      : 199:"Mobile"'
+    - 'OperatingSystemName       : 199:LookUp[WindowsPhoneOSName;agent.product]'
+    - 'OperatingSystemVersion    : 199:LookUp[WindowsPhoneOSVersion;agent.product]'
+    - 'OperatingSystemNameVersion: 199:LookUp[WindowsPhoneOSVersion;agent.product]'
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry="ARM"'
+    extract:
+    - 'DeviceCpuBits             : 199:LookUp[WindowsPhoneOSCpuBits;agent.product]'
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry="ARM"'
+    extract:
+    - 'DeviceClass               : 199:"Phone"'
+    - 'DeviceName                : 199:"Windows Phone"'
+    - 'DeviceCpuBits             :   1:"32"'
+    - 'OperatingSystemClass      : 199:"Mobile"'
+    - 'OperatingSystemName       : 199:LookUp[WindowsPhoneOSName;agent.product.text]'
+    - 'OperatingSystemVersion    : 199:LookUp[WindowsPhoneOSVersion;agent.product.text]'
+    - 'OperatingSystemNameVersion: 199:LookUp[WindowsPhoneOSVersion;agent.product.text]'
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry="ARM"'
+    extract:
+    - 'DeviceCpuBits             : 199:LookUp[WindowsPhoneOSCpuBits;agent.product.text]'
+
+# Smartphones classified as desktops "Windows NT 6.2; ARM" --> Windows Phone 8
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop; PSP8400DUO) like Gecko'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Prestigio PSP8400DUO'
+      DeviceBrand                          : 'Prestigio'
+      DeviceCpu                            : 'ARM'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : 'Windows Phone 8'
+      OperatingSystemNameVersion           : 'Windows Phone 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop; PSP8500DUO) like Gecko'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Prestigio PSP8500DUO'
+      DeviceBrand                          : 'Prestigio'
+      DeviceCpu                            : 'ARM'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : 'Windows Phone 8'
+      OperatingSystemNameVersion           : 'Windows Phone 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop; Nokia 625H) like Gecko'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia 625H'
+      DeviceBrand                          : 'Nokia'
+      DeviceCpu                            : 'ARM'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : 'Windows Phone 8'
+      OperatingSystemNameVersion           : 'Windows Phone 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'

@@ -19,17 +19,17 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.comments.entry.text="N"'
+    - 'agent.(1-2)product.comments.entry.text="N"'
     extract:
     - 'AgentSecurity  :  50:"No security"'
 - matcher:
     require:
-    - 'agent.(1)product.comments.entry.text="U"'
+    - 'agent.(1-2)product.comments.entry.text="U"'
     extract:
     - 'AgentSecurity  :  50:"Strong security"'
 - matcher:
     require:
-    - 'agent.(1)product.comments.entry.text="I"'
+    - 'agent.(1-2)product.comments.entry.text="I"'
     extract:
     - 'AgentSecurity  :  50:"Weak security"'
 

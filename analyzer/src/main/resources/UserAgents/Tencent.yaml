@@ -806,15 +806,56 @@ config:
       AgentNameVersionMajor                : 'QQ Client 7'
 
 
+# Phone classified as Unknown --> Caused by a new example of tagging iPhone versions.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone1 01; CPU iPhone OS 11_2_5 like Mac OS X) AppleWebKit/604.3.5 (KHTML, like Gecko) Version/11.0 MQQBrowser/8.3.0 Mobile/15B87 Safari/604.1 MttCustomUA/2 QBWebViewType/1 WKType/1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15B87'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '11.2.5'
+      OperatingSystemNameVersion           : 'iOS 11.2.5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '604.3.5'
+      LayoutEngineVersionMajor             : '604'
+      LayoutEngineNameVersion              : 'AppleWebKit 604.3.5'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 604'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'QQ Browser'
+      AgentVersion                         : '8.3.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'QQ Browser 8.3.0'
+      AgentNameVersionMajor                : 'QQ Browser 8'
 
-
-
-## Phone classified as Unknown
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (iPhone1 01; CPU iPhone OS 11_2_5 like Mac OS X) AppleWebKit/604.3.5 (KHTML, like Gecko) Version/11.0 MQQBrowser/8.3.0 Mobile/15B87 Safari/604.1 MttCustomUA/2 QBWebViewType/1 WKType/1'
-
-# Phone classified as Unknown
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (iPhone1 06; CPU iPhone OS 11_1 like Mac OS X) AppleWebKit/604.3.5 (KHTML, like Gecko) Version/11.0 MQQBrowser/8.0.2 Mobile/15B87 Safari/8536.25 MttCustomUA/2 QBWebViewType/1 WKType/1'
+# Phone classified as Unknown --> Caused by a new example of tagging iPhone versions.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone1 06; CPU iPhone OS 11_1 like Mac OS X) AppleWebKit/604.3.5 (KHTML, like Gecko) Version/11.0 MQQBrowser/8.0.2 Mobile/15B87 Safari/8536.25 MttCustomUA/2 QBWebViewType/1 WKType/1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15B87'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '11.1'
+      OperatingSystemNameVersion           : 'iOS 11.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '604.3.5'
+      LayoutEngineVersionMajor             : '604'
+      LayoutEngineNameVersion              : 'AppleWebKit 604.3.5'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 604'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'QQ Browser'
+      AgentVersion                         : '8.0.2'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'QQ Browser 8.0.2'
+      AgentNameVersionMajor                : 'QQ Browser 8'

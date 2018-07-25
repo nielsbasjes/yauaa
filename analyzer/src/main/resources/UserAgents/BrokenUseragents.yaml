@@ -1604,19 +1604,20 @@ config:
       AgentNameVersionMajor                : 'Chrome 48'
 
 # Useragent that has a monster length (but happens in production!)
+# This one contains "all" flags so the result of this one tends to change occasionally when adding new rules.
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1 ;Win64; x64; Trident/6.0;  ; ARM; Touch; WPDesktopSLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; InfoPath.3; Tablet PC 2.0SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET CLR 1.1.4322; .NET4.0C; .NET4.0E; MS-RTC LM 8SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; InfoPath.3; .NET4.0C; .NET4.0E; MS-RTC LM 8; .NET CLR 1.1.4322InfoPath.2; SV1; .NET CLR 2.0.50727; WOW64.NET4.0E; .NET4.0C; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; MATMJS.NET4.0E; .NET4.0C; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; InfoPath.3SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; InfoPath.3; .NET4.0C; .NET4.0E; AskTB5.6; EIE10;NLNLWOLSLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; MS-RTC LM 8SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; InfoPath.3; .NET4.0E)'
     expected:
-      DeviceClass                          : 'Tablet'
-      DeviceName                           : 'Tablet PC'
+      DeviceClass                          : 'Tablet' # Because it explicitly says it is a "Tablet PC"
+      DeviceName                           : 'Windows Phone'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
       DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows 7'
-      OperatingSystemNameVersion           : 'Windows 7'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : 'Windows Phone 7'
+      OperatingSystemNameVersion           : 'Windows Phone 7'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Trident'
       LayoutEngineVersion                  : '6.0'
@@ -2167,10 +2168,6 @@ config:
       WebviewAppVersionMajor                : '??'
       WebviewAppNameVersionMajor            : 'Unknown Webview App ??'
 
-# TODO: Classified as Unknown
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 Galeon/1.2.0 (X11; Linux i686; U;) Gecko/20020326'
 
 # TODO: Classified as Unknown
 #- test:

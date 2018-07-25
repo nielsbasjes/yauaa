@@ -60,13 +60,13 @@ config:
     - 'DeviceName                : 100:"Desktop"'
     - 'DeviceCpuBits             :   1:"32"'
     - 'OperatingSystemClass      : 100:"Desktop"'
-    - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.(1)product.comments.entry.product]'
-    - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
-    - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.product]'
+    - 'OperatingSystemName       : 100:LookUp[WindowsDesktopOSName;agent.(1)product.comments.entry.product]'
+    - 'OperatingSystemVersion    : 100:LookUp[WindowsDesktopOSVersion;agent.(1)product.comments.entry.product]'
+    - 'OperatingSystemNameVersion: 100:LookUp[WindowsDesktopOSVersion;agent.(1)product.comments.entry.product]'
 
 - matcher:
     extract:
-    - 'DeviceCpuBits             : 100:LookUp[OperatingSystemCpuBits;agent.(1)product.comments.entry.product]'
+    - 'DeviceCpuBits             : 100:LookUp[WindowsDesktopOSCpuBits;agent.(1)product.comments.entry.product]'
 
 - matcher:
     extract:
@@ -96,13 +96,13 @@ config:
     - 'DeviceName                : 100:"Desktop"'
     - 'DeviceCpuBits             :   1:"32"'
     - 'OperatingSystemClass      : 100:"Desktop"'
-    - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.(1)product.comments.entry.text]'
-    - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.text]'
-    - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.(1)product.comments.entry.text]'
+    - 'OperatingSystemName       : 100:LookUp[WindowsDesktopOSName;agent.(1)product.comments.entry.text]'
+    - 'OperatingSystemVersion    : 100:LookUp[WindowsDesktopOSVersion;agent.(1)product.comments.entry.text]'
+    - 'OperatingSystemNameVersion: 100:LookUp[WindowsDesktopOSVersion;agent.(1)product.comments.entry.text]'
 
 - matcher:
     extract:
-    - 'DeviceCpuBits             : 100:LookUp[OperatingSystemCpuBits;agent.(1)product.comments.entry.text]'
+    - 'DeviceCpuBits             : 100:LookUp[WindowsDesktopOSCpuBits;agent.(1)product.comments.entry.text]'
 
 - matcher:
     extract:
@@ -110,13 +110,13 @@ config:
     - 'DeviceName                : 100:"Desktop"'
     - 'DeviceCpuBits             :   1:"32"'
     - 'OperatingSystemClass      : 100:"Desktop"'
-    - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product]'
-    - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product]'
-    - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product]'
+    - 'OperatingSystemName       : 100:LookUp[WindowsDesktopOSName;agent.product]'
+    - 'OperatingSystemVersion    : 100:LookUp[WindowsDesktopOSVersion;agent.product]'
+    - 'OperatingSystemNameVersion: 100:LookUp[WindowsDesktopOSVersion;agent.product]'
 
 - matcher:
     extract:
-    - 'DeviceCpuBits             : 100:LookUp[OperatingSystemCpuBits;agent.product]'
+    - 'DeviceCpuBits             : 100:LookUp[WindowsDesktopOSCpuBits;agent.product]'
 
 - matcher:
     extract:
@@ -127,21 +127,6 @@ config:
     - 'OperatingSystemName       :   5:"Windows NT"'
     - 'OperatingSystemVersion    :   5:agent.product.name="Windows NT"^'
     - 'OperatingSystemNameVersion:   5:agent.product.name="Windows NT"^'
-
-- matcher:
-    extract:
-    - 'DeviceClass               : 100:"Desktop"'
-    - 'DeviceName                : 100:"Desktop"'
-    - 'OperatingSystemClass      : 100:"Desktop"'
-    - 'DeviceCpuBits             :   1:"32"'
-    - 'OperatingSystemName       : 100:LookUp[OperatingSystemName;agent.product.text]'
-    - 'OperatingSystemVersion    : 100:LookUp[OperatingSystemVersion;agent.product.text]'
-    - 'OperatingSystemNameVersion: 100:LookUp[OperatingSystemVersion;agent.product.text]'
-
-- matcher:
-    extract:
-    - 'DeviceCpuBits             : 100:LookUp[OperatingSystemCpuBits;agent.product.text]'
-
 
 - matcher:
     require:
@@ -613,62 +598,6 @@ config:
       AgentLanguageCode                    : 'en-in'
       AgentSecurity                        : 'Strong security'
 
-
-
-# Windows RT is an OS that was only used on a handful of devices.
-# I classify these as "Tablet"
-# https://msdn.microsoft.com/en-us/ie/hh920767(v=vs.94)
-# Windows RT is tagged as "Windows NT 6.2; ARM"
-- matcher:
-    require:
-    - 'agent.(1)product.(1)comments.entry.product="Windows NT 6.2"'
-    - 'agent.(1)product.(1)comments.entry.text="ARM"'
-    extract:
-    - 'DeviceClass               :   101:"Tablet"'
-    - 'DeviceName                :   101:"Tablet PC"'
-    - 'DeviceCpuBits             :   101:"32"'
-    - 'OperatingSystemClass      :   101:"Mobile"'
-    - 'OperatingSystemName       :   101:"Windows NT"'
-    - 'OperatingSystemVersion    :   101:"Windows RT"'
-    - 'OperatingSystemNameVersion:   101:"Windows RT"'
-
-# Smartphones classified as desktops "Windows NT 6.2; ARM"
-# Windows RT is tagged as "Windows NT 6.2; ARM" --> These seem to be Windows Phone 8 ?!?!
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop; PSP8400DUO) like Gecko'
-    expected:
-      DeviceClass                          : 'Tablet'
-      DeviceName                           : 'Tablet PC'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'ARM'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows RT'
-      OperatingSystemNameVersion           : 'Windows RT'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Trident'
-      LayoutEngineVersion                  : '7.0'
-      LayoutEngineVersionMajor             : '7'
-      LayoutEngineNameVersion              : 'Trident 7.0'
-      LayoutEngineNameVersionMajor         : 'Trident 7'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Internet Explorer'
-      AgentVersion                         : '11.0'
-      AgentVersionMajor                    : '11'
-      AgentNameVersion                     : 'Internet Explorer 11.0'
-      AgentNameVersionMajor                : 'Internet Explorer 11'
-
-# Smartphones classified as desktops
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop; PSP8500DUO) like Gecko'
-
-# Smartphones classified as desktops
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop; Nokia 625H) like Gecko'
 
 
 - test:

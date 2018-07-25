@@ -18,6 +18,54 @@ config:
 
 - matcher:
     require:
+    - 'agent.(1)product.(1)comments.entry[-2]="iPhone OS"'
+    extract:
+    - 'DeviceClass                 : 102:LookUp[AppleDeviceClass;agent.(1)product.comments.entry[1]]'
+    - 'DeviceBrand                 : 102:"Apple"'
+    - 'DeviceName                  : 102:LookUp[AppleDeviceName;agent.(1)product.comments.entry[1]]'
+    - 'DeviceVersion               :   2:LookUp[AppleDeviceVersion;agent.(1)product.comments.entry[1]]'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry[-3]="CPU iPhone OS"'
+    extract:
+    - 'DeviceClass                 : 102:LookUp[AppleDeviceClass;agent.(1)product.comments.entry[1]]'
+    - 'DeviceBrand                 : 102:"Apple"'
+    - 'DeviceName                  : 102:LookUp[AppleDeviceName;agent.(1)product.comments.entry[1]]'
+    - 'DeviceVersion               :   2:LookUp[AppleDeviceVersion;agent.(1)product.comments.entry[1]]'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry[-2]="iPhone OS"'
+    extract:
+    - 'DeviceClass                 : 103:LookUp[AppleDeviceClass;agent.(1)product.comments.entry[-2]]'
+    - 'DeviceBrand                 : 103:"Apple"'
+    - 'DeviceName                  : 103:LookUp[AppleDeviceName;agent.(1)product.comments.entry[-2]]'
+    - 'DeviceVersion               :   3:LookUp[AppleDeviceVersion;agent.(1)product.comments.entry[-2]]'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry[-3]="CPU iPhone OS"'
+    extract:
+    - 'DeviceClass                 : 103:LookUp[AppleDeviceClass;agent.(1)product.comments.entry[-2]]'
+    - 'DeviceBrand                 : 103:"Apple"'
+    - 'DeviceName                  : 103:LookUp[AppleDeviceName;agent.(1)product.comments.entry[-2]]'
+    - 'DeviceVersion               :   3:LookUp[AppleDeviceVersion;agent.(1)product.comments.entry[-2]]'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry="iPhone OS"'
+    extract:
+    - 'DeviceClass           : 100:"Phone"'
+    - 'DeviceBrand           : 100:"Apple"'
+    - 'DeviceName            : 100:"iPhone"'
+    - 'OperatingSystemClass  : 100:"Mobile"'
+    - 'OperatingSystemName   : 100:"iOS"'
+    - 'OperatingSystemVersion: 100:CleanVersion[agent.(1)product.(1)comments.entry.product.name="iPhone OS"^.version]'
+
+- matcher:
+    require:
     - 'agent.(1)product.(1)comments.entry.product.name="iPhone OS"'
     extract:
     - 'DeviceClass           : 100:"Phone"'

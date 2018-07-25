@@ -116,6 +116,7 @@ config:
       "POV_" : "Point of view"
       "Cubot" : "Cubot"
       "SpreadTrum" : "SpreadTrum"
+      "PSP" : "Prestigio"
 
 # ===================================================================================================
 
@@ -10484,6 +10485,112 @@ config:
     - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"SpreadTrum"@!="SpreadTrum"'
 
 
+- matcher:
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product{"PSP"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  325:"Prestigio"'
+    - 'DeviceName                  :  325:@BuildProduct^<{"PSP"'
+
+- matcher:
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name[2]="Build"'
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product{"PSP"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  325:"Prestigio"'
+    - 'DeviceName                  :  325:@BuildProduct^<{"PSP"'
+
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name[3]="Build"'
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product{"PSP"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  325:"Prestigio"'
+    - 'DeviceName                  :  325:@BuildProduct^<{"PSP"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"PSP"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  324:"Prestigio"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"PSP"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"PSP"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  324:"Prestigio"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"PSP"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"PSP"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  324:"Prestigio"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"PSP"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"PSP"' # Performance trick
+    extract:
+    - 'DeviceBrand                 :  324:"Prestigio"'
+    - 'DeviceName                  :  324:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"PSP"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    extract:
+    - 'DeviceBrand                 :  330:"Prestigio"'
+    - 'DeviceName                  :  330:agent.(1-2)product.name{"PSP"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                 :  313:"Prestigio"'
+    - 'DeviceName                  :  313:agent.product.name{"PSP"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                 :  324:"Prestigio"'
+    - 'DeviceName                  :  324:agent.(1)product.name="PSP"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                 :  323:"Prestigio"'
+    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name="PSP"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                 :  322:"Prestigio"'
+    - 'DeviceName                  :  322:agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"PSP"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                 :  320:"Prestigio"'
+    - 'DeviceName                  :  320:agent.(1-2)product.(1)comments.entry.text{"PSP"'
+
+
 
 - matcher:
     require:
@@ -11599,6 +11706,46 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Point of view"'
     extract:
     - 'DeviceBrand                 :   90:"Point of view"'
+
+# ===================================================================================================
+
+
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Prestigio"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version{"Prestigio"'
+    extract:
+    - 'DeviceBrand                 :   94:"Prestigio"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Prestigio"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^.version{"Prestigio"'
+    extract:
+    - 'DeviceBrand                 :   93:"Prestigio"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Prestigio"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^.version{"Prestigio"'
+    extract:
+    - 'DeviceBrand                 :   92:"Prestigio"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Prestigio"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"^.version{"Prestigio"'
+    extract:
+    - 'DeviceBrand                 :   91:"Prestigio"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Prestigio"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Prestigio"'
+    extract:
+    - 'DeviceBrand                 :   90:"Prestigio"'
 
 # ===================================================================================================
 

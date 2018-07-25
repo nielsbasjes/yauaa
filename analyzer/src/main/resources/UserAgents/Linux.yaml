@@ -30,7 +30,7 @@ config:
     - 'DeviceName            :   5:"Linux Desktop"'
     - 'OperatingSystemClass  :   5:"Desktop"'
     - 'OperatingSystemName   :   5:"Linux"'
-    - 'OperatingSystemVersion:   6:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linux"^.version]'
+    - 'OperatingSystemVersion:   6:LookUp[CPUArchitectures;agent.(1-2)product.(1)comments.entry.product.name="Linux"^.version]'
 
 - matcher:
     require:
@@ -40,7 +40,7 @@ config:
     - 'DeviceName            :   5:"Linux Desktop"'
     - 'OperatingSystemClass  :   5:"Desktop"'
     - 'OperatingSystemName   :   5:"Linux"'
-    - 'OperatingSystemVersion:   6:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.text[1]="Linux"@[2]]'
+    - 'OperatingSystemVersion:   6:LookUp[CPUArchitectures;agent.(1-2)product.(1)comments.entry.text[1]="Linux"@[2]]'
 
 - matcher:
     require:
@@ -50,7 +50,7 @@ config:
     - 'DeviceName            :   5:"Linux Desktop"'
     - 'OperatingSystemClass  :   5:"Desktop"'
     - 'OperatingSystemName   :   5:"Linux"'
-    - 'OperatingSystemVersion:   4:agent.(1)product.(1)comments.entry.product.name="Linux"^.version'
+    - 'OperatingSystemVersion:   4:agent.(1-2)product.(1)comments.entry.product.name="Linux"^.version'
 
 - matcher:
     require:
@@ -65,7 +65,7 @@ config:
 - matcher:
     require:
     - 'IsNull[agent.(1-2)product.comments.entry.text="Android"]'
-    - 'agent.(1)product.(1)comments.entry.text[1]="Linux"'
+    - 'agent.(1-2)product.(1)comments.entry.text[1]="Linux"'
     extract:
     - 'DeviceClass           :   5:"Desktop"'
     - 'DeviceName            :   5:"Linux Desktop"'
@@ -75,14 +75,14 @@ config:
 
 - matcher:
     require:
-    - 'IsNull[LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linux"^.(1)version]]'
+    - 'IsNull[LookUp[CPUArchitectures;agent.(1-2)product.(1)comments.entry.product.name="Linux"^.(1)version]]'
     extract:
 #        - 'DeviceCpu             :   1:"??"'
-    - 'OperatingSystemVersion:   5:agent.(1)product.(1)comments.entry.product.name="Linux"^.(1)version'
+    - 'OperatingSystemVersion:   5:agent.(1-2)product.(1)comments.entry.product.name="Linux"^.(1)version'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.product.name="Linux"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name="Linux"'
     extract:
     - 'DeviceCpu             :   15:LookUp[CPUArchitectures;agent.(1)product.(1)comments.entry.product.name="Linux"^.(2)version]'
     - 'OperatingSystemVersion:   15:agent.(1)product.(1)comments.entry.product.name="Linux"^.(1)version'
@@ -590,6 +590,35 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
+
+# TODO: Classified as Unknown
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 Galeon/1.2.0 (X11; Linux i686; U;) Gecko/20020326'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel i686'
+      OperatingSystemNameVersion           : 'Linux Intel i686'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Galeon'
+      AgentVersion                         : '1.2.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Galeon 1.2.0'
+      AgentNameVersionMajor                : 'Galeon 1'
+      AgentSecurity                        : 'Strong security'
+
 
 #TODO All Ubuntu variants (Kubuntu)
 # https://wiki.ubuntu.com/UbuntuFlavors

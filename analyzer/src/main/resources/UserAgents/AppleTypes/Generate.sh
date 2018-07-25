@@ -61,11 +61,15 @@ fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
 do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
+    keyS=$(echo "${line}" | cut -d'|' -f1 | sed 's/,1//g')
     deviceClass=$(echo "${line}" | cut -d'|' -f2)
     deviceName=$(echo "${line}" | cut -d'|' -f3)
     deviceVersion=$(echo "${line}" | cut -d'|' -f4-)
     echo "      \"${key}\" : \"${deviceClass}\""
     echo "      \"${keyC}\" : \"${deviceClass}\""
+    if [[ ${keyS} != *","* ]]; then
+        echo "      \"${keyS}\" : \"${deviceClass}\""
+    fi
 done
 
 echo ""
@@ -80,11 +84,15 @@ fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
 do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
+    keyS=$(echo "${line}" | cut -d'|' -f1 | sed 's/,1//g')
     deviceClass=$(echo "${line}" | cut -d'|' -f2)
     deviceName=$(echo "${line}" | cut -d'|' -f3)
     deviceVersion=$(echo "${line}" | cut -d'|' -f4-)
     echo "      \"${key}\" : \"${deviceName}\""
     echo "      \"${keyC}\" : \"${deviceName}\""
+    if [[ ${keyS} != *","* ]]; then
+        echo "      \"${keyS}\" : \"${deviceName}\""
+    fi
 done
 
 echo ""
@@ -99,11 +107,15 @@ fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
 do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
+    keyS=$(echo "${line}" | cut -d'|' -f1 | sed 's/,1//g')
     deviceClass=$(echo "${line}" | cut -d'|' -f2)
     deviceName=$(echo "${line}" | cut -d'|' -f3)
     deviceVersion=$(echo "${line}" | cut -d'|' -f4-)
     echo "      \"${key}\" : \"${deviceVersion}\""
     echo "      \"${keyC}\" : \"${deviceVersion}\""
+    if [[ ${keyS} != *","* ]]; then
+        echo "      \"${keyS}\" : \"${deviceVersion}\""
+    fi
 done
 
 fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line

@@ -1,0 +1,392 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2018 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+
+# Apparently the Facebook apps send out extra fields in the useragent string telling a lot about the device.
+# See also
+# http://mpulp.mobi/2012/01/funky-user-agent-on-facebook-iphone-app/
+# http://stackoverflow.com/questions/11414006/is-this-a-facebook-for-ios-webview-user-agent
+# http://stackoverflow.com/questions/29094232/what-is-the-user-agent-string-for-facebook-app-from-android
+
+#========================================
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0.16299.125; osmeta 10.3.3308) AppleWebKit/602.1.1 (KHTML, like Gecko) Version/9.0 Safari/602.1.1 osmeta/10.3.3308 Build/3308 [FBAN/FBW;FBAV/140.0.0.232.179;FBBV/83145113;FBDV/WindowsDevice;FBMD/Windows Model;FBSN/Windows;FBSV/10.0.16299.192;FBSS/1;FBCR/;FBID/desktop;FBLC/nl_NL;FBOP/45;FBRV/0]'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Windows Model'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      DeviceVersion                        : 'WindowsDevice'
+      OperatingSystemClass                 : 'Mobile' # FIXME: Desktop
+      OperatingSystemName                  : 'Windows'
+      OperatingSystemVersion               : '10.0.16299.192'
+      OperatingSystemNameVersion           : 'Windows 10.0.16299.192' # FIXME: Windows 10.0.16299.192 ...
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1.1'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'FBW'
+      AgentVersion                         : '9.0'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'FBW 9.0'
+      AgentNameVersionMajor                : 'FBW 9'
+      AgentBuild                           : '83145113'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      WebviewAppName                       : 'FBW'
+      WebviewAppVersion                    : '140.0.0.232.179'
+      WebviewAppVersionMajor               : '140'
+      WebviewAppNameVersionMajor           : 'FBW 140'
+      FacebookDeviceClass                  : 'desktop'
+      FacebookDeviceName                   : 'Windows Model'
+      FacebookDeviceVersion                : 'WindowsDevice'
+      FacebookFBOP                         : '45'
+      FacebookFBSS                         : '1'
+      FacebookOperatingSystemName          : 'Windows'
+      FacebookOperatingSystemVersion       : '10.0.16299.192'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 11_2_2 like Mac OS X) AppleWebKit/604.4.7 (KHTML, like Gecko) Mobile/15C202 Instagram 31.0.0.14.97 (iPad4,2; iOS 11_2_2; nl_NL; nl-NL; scale=2.00; gamut=normal; 960x640)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15C202'
+      DeviceVersion                        : 'iPad Air (Wi-Fi+LTE)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '11.2.2'
+      OperatingSystemNameVersion           : 'iOS 11.2.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '604.4.7'
+      LayoutEngineVersionMajor             : '604'
+      LayoutEngineNameVersion              : 'AppleWebKit 604.4.7'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 604'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Instagram'
+      AgentVersion                         : '31.0.0.14.97'
+      AgentVersionMajor                    : '31'
+      AgentNameVersion                     : 'Instagram 31.0.0.14.97'
+      AgentNameVersionMajor                : 'Instagram 31'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_1 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Mobile/14A403 Instagram 10.18.0 (iPhone8,1; iOS 10_0_1; en_US; en-US; scale=2.00; gamut=normal; 750x1334)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '14A403'
+      DeviceVersion                        : 'iPhone 6s'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.0.1'
+      OperatingSystemNameVersion           : 'iOS 10.0.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1.50'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1.50'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Instagram'
+      AgentVersion                         : '10.18.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Instagram 10.18.0'
+      AgentNameVersionMajor                : 'Instagram 10'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+
+
+# On Android:
+
+- matcher:
+    variable:
+    - 'InstagramAndroidComments: agent.product.(1)name="Instagram"^>.name="Android"^.comments'
+    extract:
+    - 'DeviceBrand           :   100:@InstagramAndroidComments.(4)entry'
+    - 'DeviceName            :   100:@InstagramAndroidComments.(5)entry'
+
+- matcher:
+    variable:
+    - 'InstagramAndroidComments: agent.product.(1)name="Instagram"^>.name="Android"^.comments'
+    extract:
+    - 'DeviceBrand           :   101:@InstagramAndroidComments.(4)entry.product.name'
+    - 'DeviceName            :   101:@InstagramAndroidComments.(5)entry'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; Build/KVT49L) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Safari/537.36 Instagram 41.0.0.13.92 Android (19/4.4.2; 200dpi; 800x1280; samsung; SM-T310; lt01wifi; smdk4x12; nl_NL; 103516643)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung SM-T310'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KVT49L'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Instagram'
+      WebviewAppVersion                    : '41.0.0.13.92'
+      WebviewAppVersionMajor               : '41'
+      WebviewAppNameVersionMajor           : 'Instagram 41'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; CHC-U01 Build/HuaweiCHC-U01) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Instagram 14.1.0.12.91 Android (19/4.4.2; 320dpi; 720x1280; HUAWEI/Huawei; CHC-U01; hwCHC-H; hi6210sft; nl_NL)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei CHC-U01'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'HuaweiCHC-U01'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Instagram'
+      WebviewAppVersion                    : '14.1.0.12.91'
+      WebviewAppVersionMajor               : '14'
+      WebviewAppNameVersionMajor           : 'Instagram 14'
+
+# Manually modified variant to ensure the rules all fire
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Instagram 14.1.0.12.91 Android (19/4.4.2; 320dpi; 720x1280; HUAWEI/Huawei; CHC-U01; hwCHC-H; hi6210sft; nl_NL)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei CHC-U01'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Instagram'
+      WebviewAppVersion                    : '14.1.0.12.91'
+      WebviewAppVersionMajor               : '14'
+      WebviewAppNameVersionMajor           : 'Instagram 14'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; BIRDY Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Instagram 27.0.0.11.97 Android (19/4.4.2; 240dpi; 480x854; WIKO; BIRDY; BIRDY; mt6582; nl_NL)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Wiko Birdy'
+      DeviceBrand                          : 'Wiko'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KOT49H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Instagram'
+      WebviewAppVersion                    : '27.0.0.11.97'
+      WebviewAppVersionMajor               : '27'
+      WebviewAppNameVersionMajor           : 'Instagram 27'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; BIRDY Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Instagram 34.0.0.12.93 Android (19/4.4.2; 240dpi; 480x854; WIKO; BIRDY; BIRDY; mt6582; nl_NL; 94080603)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Wiko Birdy'
+      DeviceBrand                          : 'Wiko'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KOT49H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Instagram'
+      WebviewAppVersion                    : '34.0.0.12.93'
+      WebviewAppVersionMajor               : '34'
+      WebviewAppNameVersionMajor           : 'Instagram 34'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; Blade L3 Plus Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Instagram 10.11.0 Android (19/4.4.2; 320dpi; 720x1280; ZTE; Blade L3 Plus; Blade_L3_Plus; mt6582; es_US)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'ZTE Blade L3 Plus'
+      DeviceBrand                          : 'ZTE'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KOT49H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Instagram'
+      WebviewAppVersion                    : '10.11.0'
+      WebviewAppVersionMajor               : '10'
+      WebviewAppNameVersionMajor           : 'Instagram 10'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; CHC-U01 Build/HuaweiCHC-U01) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Instagram 16.0.0.13.90 Android (19/4.4.2; 320dpi; 720x1280; HUAWEI/Huawei; CHC-U01; hwCHC-H; hi6210sft; nl_NL)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei CHC-U01'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'HuaweiCHC-U01'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Instagram'
+      WebviewAppVersion                    : '16.0.0.13.90'
+      WebviewAppVersionMajor               : '16'
+      WebviewAppNameVersionMajor           : 'Instagram 16'
+
+
+## TODO: Phone classified as Unknown
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1089_1038) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=1.50; gamut=normal; 540x960)'
+
+
+## TODO: Phone classified as Unknown
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1072_1045) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; ru_PL; ru; scale=2.00; gamut=normal; 720x1280)'
+
+
+## TODO: Phone classified as Unknown
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1045_1011) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=3.00; gamut=normal; 1080x1920)'
+
+
+## TODO: Phone classified as Unknown
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1118_13880) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_DE; pl; scale=4.00; gamut=normal; 1440x2560)'
+
+
+
+## TODO: Phone classified as Unknown
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1099_1016) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; uk_RU; uk; scale=1.50; gamut=normal; 480x800)'
+
+
+## TODO: Phone classified as Unknown
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1085_15171) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=3.00; gamut=normal; 1440x2560)'
+
+
+## TODO: Phone classified as Unknown
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1045_1046) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=3.00; gamut=normal; 1080x1920)'
+
+
+## TODO: Phone classified as Unknown
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1045_1086) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=2.50; gamut=normal; 1080x1920)'
+

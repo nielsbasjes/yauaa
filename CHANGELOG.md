@@ -5,8 +5,8 @@ v5.1
 - Fix bug in UCBrowser detection (too often reported as Tablet) 
 - More languages
 - Many bug fixes found on the input provided by https://github.com/DaimonPl (Thank you)
-- Windows NT 8 on ARM cpu = Windows RT --> Mobile device, not Desktop
-- Better detection and naming of the Amazon, HP, PocketBook and Manta devices
+- Windows NT 7/8/8.1/10 on ARM cpu = Windows Phone --> Mobile device, not Desktop
+- Better detection and naming of the Amazon, HP, PocketBook, Manta and Prestigio devices
 
 v5.0
 ===

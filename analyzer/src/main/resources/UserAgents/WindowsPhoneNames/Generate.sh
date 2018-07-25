@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-INPUT=OperatingSystemNames.csv
-OUTPUT=../OperatingSystemNames.yaml
+INPUT=WindowsPhone.csv
+OUTPUT=../WindowsPhoneLookups.yaml
 
 if [ "Generate.sh" -ot "${OUTPUT}" ]; then
     if [ "${INPUT}" -ot "${OUTPUT}" ]; then
@@ -49,7 +49,7 @@ echo "#"
 echo "config:"
 
 echo "- lookup:"
-echo "    name: 'OperatingSystemName'"
+echo "    name: 'WindowsPhoneOSName'"
 echo "    map:"
 fgrep -v '#' "${INPUT}" | grep  . | while read line
 do
@@ -59,7 +59,7 @@ do
 done
 
 echo "- lookup:"
-echo "    name: 'OperatingSystemVersion'"
+echo "    name: 'WindowsPhoneOSVersion'"
 echo "    map:"
 fgrep -v '#' "${INPUT}" | grep  . | while read line
 do
@@ -69,7 +69,7 @@ do
 done
 
 echo "- lookup:"
-echo "    name: 'OperatingSystemCpuBits'"
+echo "    name: 'WindowsPhoneOSCpuBits'"
 echo "    map:"
 fgrep -v '#' "${INPUT}" | grep  . | while read line
 do
