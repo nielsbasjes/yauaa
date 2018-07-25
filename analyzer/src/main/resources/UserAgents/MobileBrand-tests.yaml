@@ -1183,6 +1183,60 @@ config:
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
 
+- test:
+    input:
+      user_agent_string: 'mozilla/5.0 (linux; android 5.1.1; element10_plus_3g build/lmy48g) applewebkit/537.36 (khtml, like gecko) version/4.0 chrome/44.0.2403.119 safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Odys ELEMENT10 Plus 3G'
+      DeviceBrand                          : 'Odys'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'lmy48g'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '44.0'
+      LayoutEngineVersionMajor             : '44'
+      LayoutEngineNameVersion              : 'Blink 44.0'
+      LayoutEngineNameVersionMajor         : 'Blink 44'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '44.0.2403.119'
+      AgentVersionMajor                    : '44'
+      AgentNameVersion                     : 'Chrome Webview 44.0.2403.119'
+      AgentNameVersionMajor                : 'Chrome Webview 44'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+- test:
+    input:
+      user_agent_string: 'mozilla/5.0 (linux; android 5.1.1; element10_plus_3g build/lmy48g) applewebkit/537.36 (khtml, like gecko) chrome/55.0.2883.91 safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Odys ELEMENT10 Plus 3G'
+      DeviceBrand                          : 'Odys'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'lmy48g'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '55.0'
+      LayoutEngineVersionMajor             : '55'
+      LayoutEngineNameVersion              : 'Blink 55.0'
+      LayoutEngineNameVersionMajor         : 'Blink 55'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '55.0.2883.91'
+      AgentVersionMajor                    : '55'
+      AgentNameVersion                     : 'Chrome 55.0.2883.91'
+      AgentNameVersionMajor                : 'Chrome 55'
+
 
 #- test:
 #    input:

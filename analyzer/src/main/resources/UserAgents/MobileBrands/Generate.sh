@@ -149,14 +149,14 @@ echo "
     - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]=\"Android\"]'
     extract:
     - 'DeviceBrand                 :  324:\"${brand}\"'
-    - 'DeviceName                  :  324:agent.(1)product.name=\"${prefix}\"^.version'
+    - 'DeviceName                  :  324:agent.(1-2)product.name=\"${prefix}\"^.version'
 
 - matcher:
     require:
     - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]=\"Android\"]'
     extract:
     - 'DeviceBrand                 :  323:\"${brand}\"'
-    - 'DeviceName                  :  323:agent.(1)product.(1)comments.entry.(1)product.(1)name=\"${prefix}\"^.version'
+    - 'DeviceName                  :  323:agent.(1-2)product.(1)comments.entry.(1)product.(1)name=\"${prefix}\"^.version'
 
 "
 

@@ -2169,7 +2169,7 @@ config:
       WebviewAppNameVersionMajor            : 'Unknown Webview App ??'
 
 
-# TODO: Classified as Unknown
+# We assume FireFox OS so "Mobile"
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 Gecko/20100101 Firefox/16.0'
@@ -2194,9 +2194,29 @@ config:
       AgentNameVersion                     : 'Firefox 16.0'
       AgentNameVersionMajor                : 'Firefox 16'
 
-# TODO: ELEMENT10
-#- test:
-#    input:
-#      user_agent_string: 'ELEMENT10 1 Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.34 Safari/534.24'
-
+- test:
+    input:
+      user_agent_string: 'ELEMENT10 1 Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.34 Safari/534.24'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Odys 1' # Current best guess without breaking everything else
+      DeviceBrand                          : 'Odys'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.24'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.24'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '11.0.696.34'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Chrome 11.0.696.34'
+      AgentNameVersionMajor                : 'Chrome 11'
 
