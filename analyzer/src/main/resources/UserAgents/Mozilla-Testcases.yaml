@@ -180,12 +180,14 @@ config:
 
 - matcher:
     extract:
+    - 'DeviceClass           :   2:"Mobile"' # Cloud, Desktop, Mobile, Embedded
     - 'OperatingSystemClass  :   2:"Mobile"' # Cloud, Desktop, Mobile, Embedded
     - 'OperatingSystemName   :   2:"Firefox OS"' # ( Linux / Android / Windows ...)
     - 'OperatingSystemVersion:   2:agent.product.(1)name="Firefox"^.version'
 
 - matcher:
     extract:
+    - 'DeviceClass           :   3:"Mobile"' # Cloud, Desktop, Mobile, Embedded
     - 'OperatingSystemClass  :   3:"Mobile"' # Cloud, Desktop, Mobile, Embedded
     - 'OperatingSystemName   :   3:"Firefox OS"' # ( Linux / Android / Windows ...)
     - 'OperatingSystemVersion:   3:LookUp[GeckoToFirefoxOSVersion;agent.product.(1)name="Firefox"^.version]'

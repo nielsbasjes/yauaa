@@ -1345,13 +1345,13 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Mac; rv:44.0) Gecko/20100101 Firefox/44.0'
     expected:
-      DeviceClass                          : 'Unknown'
-      DeviceName                           : 'Unknown'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Firefox OS'
-      OperatingSystemVersion               : '2.5'
-      OperatingSystemNameVersion           : 'Firefox OS 2.5'
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple MAC'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : 'before 10'
+      OperatingSystemNameVersion           : 'Mac OS before 10'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
       LayoutEngineVersion                  : '44.0'
@@ -2170,9 +2170,29 @@ config:
 
 
 # TODO: Classified as Unknown
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 Gecko/20100101 Firefox/16.0'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 Gecko/20100101 Firefox/16.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Firefox OS'
+      OperatingSystemVersion               : '16.0'
+      OperatingSystemNameVersion           : 'Firefox OS 16.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '16.0'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Firefox 16.0'
+      AgentNameVersionMajor                : 'Firefox 16'
 
 # TODO: ELEMENT10
 #- test:

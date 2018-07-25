@@ -1058,6 +1058,16 @@ config:
       AgentNameVersion                     : 'Safari 7.1'
       AgentNameVersionMajor                : 'Safari 7'
 
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)text="Mac"'
+    extract:
+    - 'DeviceClass                          : 100:"Desktop"'
+    - 'DeviceName                           : 100:"Mac"'
+    - 'DeviceBrand                          : 100:"Apple"'
+    - 'OperatingSystemClass                 : 100:"Desktop"'
+    - 'OperatingSystemName                  : 100:"Mac OS"'
+    - 'OperatingSystemVersion               : 100:"before 10"'
 
 - matcher:
     require:
