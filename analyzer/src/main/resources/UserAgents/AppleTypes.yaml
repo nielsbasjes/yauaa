@@ -113,6 +113,9 @@ config:
       "iPhone10C5" : "Phone"
       "iPhone10,6" : "Phone"
       "iPhone10C6" : "Phone"
+      "iPhone X" : "Phone"
+      "iPhone X" : "Phone"
+      "iPhone X" : "Phone"
       "iPad1,1" : "Tablet"
       "iPad1C1" : "Tablet"
       "iPad1" : "Tablet"
@@ -298,6 +301,9 @@ config:
       "iPhone10C5" : "iPhone"
       "iPhone10,6" : "iPhone"
       "iPhone10C6" : "iPhone"
+      "iPhone X" : "iPhone"
+      "iPhone X" : "iPhone"
+      "iPhone X" : "iPhone"
       "iPad1,1" : "iPad"
       "iPad1C1" : "iPad"
       "iPad1" : "iPad"
@@ -483,6 +489,9 @@ config:
       "iPhone10C5" : "iPhone 8 Plus (A1897)"
       "iPhone10,6" : "iPhone X (A1901)"
       "iPhone10C6" : "iPhone X (A1901)"
+      "iPhone X" : "iPhone X (A1901)"
+      "iPhone X" : "iPhone X (A1901)"
+      "iPhone X" : "iPhone X (A1901)"
       "iPad1,1" : "iPad"
       "iPad1C1" : "iPad"
       "iPad1" : "iPad"
@@ -1630,6 +1639,34 @@ config:
 - matcher:
     require:
     - 'agent.text="iPhone10,6"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Phone"'
+    - 'DeviceName    : 111:"iPhone"'
+    - 'DeviceVersion : 111:"iPhone X (A1901)"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="iPhone X"'
+    extract:
+    - 'DeviceBrand   : 110:"Apple"'
+    - 'DeviceClass   : 110:"Phone"'
+    - 'DeviceName    : 110:"iPhone"'
+    - 'DeviceVersion : 110:"iPhone X (A1901)"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="iPhone X"'
+    extract:
+    - 'DeviceBrand   : 111:"Apple"'
+    - 'DeviceClass   : 111:"Phone"'
+    - 'DeviceName    : 111:"iPhone"'
+    - 'DeviceVersion : 111:"iPhone X (A1901)"'
+
+- matcher:
+    require:
+    - 'agent.text="iPhone X"'
     extract:
     - 'DeviceBrand   : 111:"Apple"'
     - 'DeviceClass   : 111:"Phone"'
