@@ -92,6 +92,27 @@ config:
     - 'WebviewAppVersion          :     12:"<<<null>>>"'
     - 'WebviewAppVersionMajor     :     12:"<<<null>>>"'
 
+- matcher:
+    extract:
+    - 'NetworkType :   1:agent.product.(1)name="NetType"^.version[1]'
+
+# This happens quite often:
+#       Core/UIWebView NetType/WIFI
+#       Core/UIWebView NetType/2G
+# The effect is that the parse tree gets a bit messy because everything is text (no numbers)
+- matcher:
+    variable:
+    - 'NetTypeProduct:agent.product[-3]="Core/UIWebView NetType"'
+    require:
+    - 'IsNull[@NetTypeProduct.(2)version]'
+    extract:
+    - 'NetworkType :   2:@NetTypeProduct>'
+
+- matcher:
+    variable:
+    - 'NetTypeProduct:agent.product[-3]="Core/UIWebView NetType"'
+    extract:
+    - 'NetworkType :   3:@NetTypeProduct.(2)version'
 
 - test:
     input:
@@ -120,6 +141,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
+      NetworkType                          : 'WIFI'
 
 - test:
     input:
@@ -148,6 +170,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
+      NetworkType                          : 'cmnet'
 
 - test:
     input:
@@ -174,6 +197,7 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'WeChat 6.1.1'
       AgentNameVersionMajor                : 'WeChat 6'
+      NetworkType                          : '2G'
 
 - test:
     input:
@@ -202,7 +226,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-
+      NetworkType                          : 'cmnet'
 
 
 - test:
@@ -232,6 +256,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
+      NetworkType                          : 'WIFI'
 
 
 - test:
@@ -258,6 +283,7 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'WeChat 6.1.0.66_r1062275.542'
       AgentNameVersionMajor                : 'WeChat 6'
+      NetworkType                          : 'cmnet'
 
 
 - test:
@@ -287,6 +313,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
+      NetworkType                          : '3gnet'
 
 
 - test:
@@ -316,6 +343,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
+      NetworkType                          : '#777'
 
 - test:
     input:
@@ -344,6 +372,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
+      NetworkType                          : 'WIFI'
 
 
 - test:
@@ -373,6 +402,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
+      NetworkType                          : 'WIFI'
 
 
 - test:
@@ -402,6 +432,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
+      NetworkType                          : 'cmnet'
 
 - test:
     input:
@@ -428,6 +459,7 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'WeChat 6.5.2.501'
       AgentNameVersionMajor                : 'WeChat 6'
+      NetworkType                          : 'WIFI'
 
 - test:
     input:
@@ -455,6 +487,7 @@ config:
       AgentNameVersionMajor                : 'WeChat 6'
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
+      NetworkType                          : '4G'
 
 - test:
     input:
@@ -480,6 +513,7 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'WeChat 6.5.4.1000'
       AgentNameVersionMajor                : 'WeChat 6'
+      NetworkType                          : 'WIFI'
 
 
 - test:
@@ -508,6 +542,7 @@ config:
       AgentNameVersionMajor                : 'WeChat 6'
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
+      NetworkType                          : '4G'
 
 - test:
     input:
@@ -534,6 +569,7 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'QQ Client 6.5.3.410'
       AgentNameVersionMajor                : 'QQ Client 6'
+      NetworkType                          : '2G'
 
 - test:
     input:
@@ -562,6 +598,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
+      NetworkType                          : 'WIFI'
 
 
 - test:
@@ -647,7 +684,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-
+      NetworkType                          : 'WIFI'
 
 - test:
     input:
@@ -673,6 +710,7 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'WeChat 6.5.16.1120'
       AgentNameVersionMajor                : 'WeChat 6'
+      NetworkType                          : 'WIFI'
 
 
 - test:
@@ -699,6 +737,7 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'WeChat 6.5.7.1041'
       AgentNameVersionMajor                : 'WeChat 6'
+      NetworkType                          : 'WIFI'
 
 
 - test:
@@ -725,8 +764,7 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'QQ Client 6.6.9.3060'
       AgentNameVersionMajor                : 'QQ Client 6'
-
-
+      NetworkType                          : '2G'
 
 - test:
     input:
@@ -752,6 +790,7 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'WeChat 6.5.7.1041'
       AgentNameVersionMajor                : 'WeChat 6'
+      NetworkType                          : 'WIFI'
 
 
 - test:
@@ -778,6 +817,7 @@ config:
       AgentVersionMajor                    : '7'
       AgentNameVersion                     : 'QQ Client 7.1.8.3240'
       AgentNameVersionMajor                : 'QQ Client 7'
+      NetworkType                          : 'WIFI'
 
 
 - test:
@@ -804,6 +844,7 @@ config:
       AgentVersionMajor                    : '7'
       AgentNameVersion                     : 'QQ Client 7.2.0.3270'
       AgentNameVersionMajor                : 'QQ Client 7'
+      NetworkType                          : 'WIFI'
 
 
 # Phone classified as Unknown --> Caused by a new example of tagging iPhone versions.
@@ -859,3 +900,85 @@ config:
       AgentVersionMajor                    : '8'
       AgentNameVersion                     : 'QQ Browser 8.0.2'
       AgentNameVersionMajor                : 'QQ Browser 8'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0; MHA-AL00 Build/HUAWEIMHA-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/044109 Mobile Safari/537.36 MicroMessenger/6.6.7.1321(0x26060739) NetType/4G Language/zh_CN'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei MHA-AL00'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0'
+      OperatingSystemNameVersion           : 'Android 8.0'
+      OperatingSystemVersionBuild          : 'HUAWEIMHA-AL00'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '57.0'
+      LayoutEngineVersionMajor             : '57'
+      LayoutEngineNameVersion              : 'Blink 57.0'
+      LayoutEngineNameVersionMajor         : 'Blink 57'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '6.6.7.1321'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'WeChat 6.6.7.1321'
+      AgentNameVersionMajor                : 'WeChat 6'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      NetworkType                          : '4G'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Mobile/14D27 QQ/6.6.9.412 V1_IPH_SQ_6.6.9_1_APP_A Pixel/750 Core/UIWebView NetType/WIFI'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '14D27'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.2.1'
+      OperatingSystemNameVersion           : 'iOS 10.2.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.4.6'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.4.6'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'QQ Client'
+      AgentVersion                         : '6.6.9.412'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'QQ Client 6.6.9.412'
+      AgentNameVersionMajor                : 'QQ Client 6'
+      NetworkType                          : 'WIFI'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Mobile/14D27 QQ/7.3.5.473 V1_IPH_SQ_7.3.5_1_APP_A Pixel/750 Core/UIWebView Device/Apple(iPhone 6) NetType/4G QBWebViewType/1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '14D27'
+      DeviceVersion                        : '6'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.2.1'
+      OperatingSystemNameVersion           : 'iOS 10.2.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.4.6'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.4.6'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'QQ Client'
+      AgentVersion                         : '7.3.5.473'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'QQ Client 7.3.5.473'
+      AgentNameVersionMajor                : 'QQ Client 7'
+      NetworkType                          : '4G'
