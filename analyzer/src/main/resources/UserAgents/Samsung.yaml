@@ -475,3 +475,27 @@ config:
       AgentNameVersion                      : 'Netfront 4.1'
       AgentNameVersionMajor                 : 'Netfront 4'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G930F Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.2 Chrome/51.0.2704.106 Mobile VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Samsung SM-G930F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NRD90M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '51.0'
+      LayoutEngineVersionMajor             : '51'
+      LayoutEngineNameVersion              : 'Blink 51.0'
+      LayoutEngineNameVersionMajor         : 'Blink 51'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '5.2'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'SamsungBrowser 5.2'
+      AgentNameVersionMajor                : 'SamsungBrowser 5'
