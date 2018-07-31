@@ -625,3 +625,29 @@ config:
       AgentNameVersionMajor                : 'Zetakey 3'
       AgentSecurity                        : 'Strong security'
 
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Windows 10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '63.0'
+      LayoutEngineVersionMajor             : '63'
+      LayoutEngineNameVersion              : 'Blink 63.0'
+      LayoutEngineNameVersionMajor         : 'Blink 63'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '63.0.3239.132'
+      AgentVersionMajor                    : '63'
+      AgentNameVersion                     : 'Chrome 63.0.3239.132'
+      AgentNameVersionMajor                : 'Chrome 63'
