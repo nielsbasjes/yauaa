@@ -2220,3 +2220,28 @@ config:
       AgentNameVersion                     : 'Chrome 11.0.696.34'
       AgentNameVersionMajor                : 'Chrome 11'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; rv:54.0) Gecko/20100101 Firefox/@PKGVER@'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpuBits                         : '32'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : 'Windows 7'
+      OperatingSystemNameVersion            : 'Windows 7'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Gecko'
+      LayoutEngineVersion                   : '54.0'
+      LayoutEngineVersionMajor              : '54'
+      LayoutEngineNameVersion               : 'Gecko 54.0'
+      LayoutEngineNameVersionMajor          : 'Gecko 54'
+      LayoutEngineBuild                     : '20100101'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Firefox'
+      AgentVersion                          : '@PKGVER@'
+      AgentVersionMajor                     : '@PKGVER@'
+      AgentNameVersion                      : 'Firefox @PKGVER@'
+      AgentNameVersionMajor                 : 'Firefox @PKGVER@'

@@ -134,6 +134,10 @@ URL
     : ( '<'? ('www.'BareHostname UrlPath|BasicURL) '>'? | HTMLURL | 'index.htm' UrlPath)
     ;
 
+UNASSIGNEDVARIABLE
+    : '@' [-_0-9a-zA-Z]+ '@'
+    ;
+
 GIBBERISH
     : '@'(~[ ;])*
     ;
@@ -141,6 +145,7 @@ GIBBERISH
 // A version is a WORD with at least 1 number in it (and that can contain a '-').
 VERSION
     : (~[0-9+;{}()\\/ \t:=[\]"])*[0-9]+(~[+;{}()\\/ \t:=[\]"])*
+    | UNASSIGNEDVARIABLE
     ;
 
 fragment WORDLetter
@@ -151,6 +156,7 @@ fragment WORDLetter
 WORD
     : MINUS* WORDLetter+ (MINUS+ WORDLetter+ )* MINUS*
     | SPACE MINUS SPACE
+    | UNASSIGNEDVARIABLE
     ;
 
 // Base64 Encoded strings: Note we do NOT recognize the variant where the '-' is used because that conflicts with the uuid
@@ -254,6 +260,7 @@ commentProduct
 
 productVersionWords
     : WORD (MINUS? WORD)*
+    | UNASSIGNEDVARIABLE
     ;
 
 productName
