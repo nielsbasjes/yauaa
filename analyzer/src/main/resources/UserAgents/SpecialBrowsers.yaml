@@ -357,6 +357,27 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Chromeless 1.3.0'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Chromeless'
+      AgentVersion                         : '1.3.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Chromeless 1.3.0'
+      AgentNameVersionMajor                : 'Chromeless 1'
+
+- test:
+    input:
       user_agent_string: 'IntelliJ IDEA/162.1447.26'
     expected:
       DeviceClass                          : 'Unknown'
