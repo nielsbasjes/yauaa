@@ -26,8 +26,8 @@ config:
     - 'DeviceName                :   1:"Desktop"'
     - 'OperatingSystemClass      :   1:"Desktop"'
     - 'OperatingSystemName       :   1:"Windows"'
-    - 'OperatingSystemVersion    :   1:"Windows"'
-    - 'OperatingSystemNameVersion:   1:"??"'
+    - 'OperatingSystemVersion    :   1:"??"'
+    - 'OperatingSystemNameVersion:   1:"Windows ??"'
 
 - matcher:
     require:
@@ -38,8 +38,8 @@ config:
     - 'DeviceName                :   1:"Desktop"'
     - 'OperatingSystemClass      :   1:"Desktop"'
     - 'OperatingSystemName       :   1:"Windows"'
-    - 'OperatingSystemVersion    :   1:"Windows"'
-    - 'OperatingSystemNameVersion:   1:"??"'
+    - 'OperatingSystemVersion    :   1:"??"'
+    - 'OperatingSystemNameVersion:   1:"Windows ??"'
 
 
 - matcher:
@@ -51,8 +51,8 @@ config:
     - 'DeviceName                :   1:"Desktop"'
     - 'OperatingSystemClass      :   1:"Desktop"'
     - 'OperatingSystemName       :   1:"Windows"'
-    - 'OperatingSystemVersion    :   1:"Windows"'
-    - 'OperatingSystemNameVersion:   1:"??"'
+    - 'OperatingSystemVersion    :   1:"??"'
+    - 'OperatingSystemNameVersion:   1:"Windows ??"'
 
 - matcher:
     extract:
@@ -62,7 +62,7 @@ config:
     - 'OperatingSystemClass      : 100:"Desktop"'
     - 'OperatingSystemName       : 100:LookUp[WindowsDesktopOSName;agent.(1)product.comments.entry.product]'
     - 'OperatingSystemVersion    : 100:LookUp[WindowsDesktopOSVersion;agent.(1)product.comments.entry.product]'
-    - 'OperatingSystemNameVersion: 100:LookUp[WindowsDesktopOSVersion;agent.(1)product.comments.entry.product]'
+    - 'OperatingSystemNameVersion: 100:LookUp[WindowsDesktopOSNameVersion;agent.(1)product.comments.entry.product]'
 
 - matcher:
     extract:
@@ -75,7 +75,7 @@ config:
     - 'DeviceCpuBits             :   1:"32"'
     - 'OperatingSystemClass      :  50:"Desktop"'
     - 'OperatingSystemName       :   5:"Windows NT"'
-    - 'OperatingSystemVersion    :   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
+    - 'OperatingSystemVersion    :   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^.version'
     - 'OperatingSystemNameVersion:   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
 
 - matcher:
@@ -87,7 +87,7 @@ config:
     - 'DeviceCpuBits             :   1:"32"'
     - 'OperatingSystemClass      :  50:"Desktop"'
     - 'OperatingSystemName       :   5:"Windows NT"'
-    - 'OperatingSystemVersion    :   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
+    - 'OperatingSystemVersion    :   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^.version'
     - 'OperatingSystemNameVersion:   5:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
 
 - matcher:
@@ -98,7 +98,7 @@ config:
     - 'OperatingSystemClass      : 100:"Desktop"'
     - 'OperatingSystemName       : 100:LookUp[WindowsDesktopOSName;agent.(1)product.comments.entry.text]'
     - 'OperatingSystemVersion    : 100:LookUp[WindowsDesktopOSVersion;agent.(1)product.comments.entry.text]'
-    - 'OperatingSystemNameVersion: 100:LookUp[WindowsDesktopOSVersion;agent.(1)product.comments.entry.text]'
+    - 'OperatingSystemNameVersion: 100:LookUp[WindowsDesktopOSNameVersion;agent.(1)product.comments.entry.text]'
 
 - matcher:
     extract:
@@ -112,7 +112,7 @@ config:
     - 'OperatingSystemClass      : 100:"Desktop"'
     - 'OperatingSystemName       : 100:LookUp[WindowsDesktopOSName;agent.product]'
     - 'OperatingSystemVersion    : 100:LookUp[WindowsDesktopOSVersion;agent.product]'
-    - 'OperatingSystemNameVersion: 100:LookUp[WindowsDesktopOSVersion;agent.product]'
+    - 'OperatingSystemNameVersion: 100:LookUp[WindowsDesktopOSNameVersion;agent.product]'
 
 - matcher:
     extract:
@@ -125,7 +125,7 @@ config:
     - 'DeviceCpuBits             :   1:"32"'
     - 'OperatingSystemClass      :  50:"Desktop"'
     - 'OperatingSystemName       :   5:"Windows NT"'
-    - 'OperatingSystemVersion    :   5:agent.product.name="Windows NT"^'
+    - 'OperatingSystemVersion    :   5:agent.product.name="Windows NT"^.version'
     - 'OperatingSystemNameVersion:   5:agent.product.name="Windows NT"^'
 
 - matcher:
@@ -137,8 +137,8 @@ config:
     - 'DeviceCpuBits             :   1:"32"'
     - 'OperatingSystemClass      :   1:"Desktop"'
     - 'OperatingSystemName       :   1:"Windows NT"'
-    - 'OperatingSystemVersion    :   1:"Windows NT"'
-    - 'OperatingSystemNameVersion:   1:"Windows NT"'
+    - 'OperatingSystemVersion    :   1:"??"'
+    - 'OperatingSystemNameVersion:   1:"Windows NT ??"'
 
 - matcher:
     require:
@@ -149,8 +149,8 @@ config:
     - 'DeviceCpuBits             :   1:"32"'
     - 'OperatingSystemClass      :   1:"Desktop"'
     - 'OperatingSystemName       :   1:"Windows NT"'
-    - 'OperatingSystemVersion    :   1:"Windows NT"'
-    - 'OperatingSystemNameVersion:   1:"Windows NT"'
+    - 'OperatingSystemVersion    :   1:"??"'
+    - 'OperatingSystemNameVersion:   1:"Windows NT ??"'
 
 
 - test:
@@ -164,7 +164,7 @@ config:
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemVersion               : '7'
       OperatingSystemNameVersion           : 'Windows 7'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Trident'
@@ -190,7 +190,7 @@ config:
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows 9x'
-      OperatingSystemVersion               : 'Windows Millennium Edition'
+      OperatingSystemVersion               : 'Millennium Edition'
       OperatingSystemNameVersion           : 'Windows Millennium Edition'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Trident'
@@ -216,7 +216,7 @@ config:
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows 10 Preview'
+      OperatingSystemVersion               : '10 Preview'
       OperatingSystemNameVersion           : 'Windows 10 Preview'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Trident'
@@ -241,7 +241,7 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows 8.1'
+      OperatingSystemVersion               : '8.1'
       OperatingSystemNameVersion           : 'Windows 8.1'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Trident'
@@ -266,7 +266,7 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows NT 9.0'
+      OperatingSystemVersion               : '9.0'
       OperatingSystemNameVersion           : 'Windows NT 9.0'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Trident'
@@ -294,7 +294,7 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows NT 4.10'
+      OperatingSystemVersion               : '4.10'
       OperatingSystemNameVersion           : 'Windows NT 4.10'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
@@ -321,7 +321,7 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows 9x'
-      OperatingSystemVersion               : 'Windows 98'
+      OperatingSystemVersion               : '98'
       OperatingSystemNameVersion           : 'Windows 98'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
@@ -351,7 +351,7 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemVersion               : '7'
       OperatingSystemNameVersion           : 'Windows 7'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Trident'
@@ -376,7 +376,7 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemVersion               : 'XP'
       OperatingSystemNameVersion           : 'Windows XP'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
@@ -404,7 +404,7 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemVersion               : '7'
       OperatingSystemNameVersion           : 'Windows 7'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
@@ -432,7 +432,7 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows NT 4.0'
+      OperatingSystemVersion               : '4.0'
       OperatingSystemNameVersion           : 'Windows NT 4.0'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
@@ -461,7 +461,7 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows 7'
+      OperatingSystemVersion               : '7'
       OperatingSystemNameVersion           : 'Windows 7'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
@@ -490,7 +490,7 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemVersion               : 'XP'
       OperatingSystemNameVersion           : 'Windows XP'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
@@ -519,7 +519,7 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemVersion               : 'XP'
       OperatingSystemNameVersion           : 'Windows XP'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
@@ -548,7 +548,7 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows XP'
+      OperatingSystemVersion               : 'XP'
       OperatingSystemNameVersion           : 'Windows XP'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
@@ -580,7 +580,7 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows Vista'
+      OperatingSystemVersion               : 'Vista'
       OperatingSystemNameVersion           : 'Windows Vista'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
@@ -609,8 +609,8 @@ config:
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows'
-      OperatingSystemVersion               : 'Windows'
-      OperatingSystemNameVersion           : '??'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Windows ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '533.21.1'
@@ -637,7 +637,7 @@ config:
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'Windows 10.0'
+      OperatingSystemVersion               : '10.0'
       OperatingSystemNameVersion           : 'Windows 10.0'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'

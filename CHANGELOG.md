@@ -8,6 +8,7 @@ v5.1
 - Many bug fixes found on the input provided by https://github.com/DaimonPl (Thank you)
 - Windows NT 7/8/8.1/10 on ARM cpu = Windows Phone --> Mobile device, not Desktop
 - Better detection and naming of the Amazon, HP, PocketBook, Manta and Prestigio devices
+- Massive change of the OS Version for all Windows variants. Much cleaner now.
 
 v5.0
 ===

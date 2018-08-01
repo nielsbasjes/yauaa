@@ -69,12 +69,23 @@ do
 done
 
 echo "- lookup:"
+echo "    name: 'WindowsPhoneOSNameVersion'"
+echo "    map:"
+fgrep -v '#' "${INPUT}" | grep  . | while read line
+do
+    tag=$(            echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
+    osnameversion=$(  echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f4)
+    echo "      \"${tag}\" : \"${osnameversion}\""
+done
+
+
+echo "- lookup:"
 echo "    name: 'WindowsPhoneOSCpuBits'"
 echo "    map:"
 fgrep -v '#' "${INPUT}" | grep  . | while read line
 do
     tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
-    cpubits=$(    echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f4)
+    cpubits=$(    echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f5)
     if [ ! -z "${cpubits}" ];
     then
         echo "      \"${tag}\" : \"${cpubits}\""
