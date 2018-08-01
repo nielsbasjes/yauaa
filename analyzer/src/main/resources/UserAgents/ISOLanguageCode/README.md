@@ -14,4 +14,6 @@ Schema of this file (tab separated)
     Ref_Name  varchar(150) NOT NULL,   -- Reference language name
     Comment   varchar(150) NULL)       -- Comment relating to one or more of the columns
 
-In addition language codes garthered from serveral sources by http://www.localeplanet.com/icu/index.html
+In addition language codes from serveral sources
+  http://www.localeplanet.com/icu/index.html
+  https://lingohub.com/documentation/developers/supported-locales/language-designators-with-regions/
