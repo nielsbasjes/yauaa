@@ -1934,3 +1934,34 @@ config:
       AgentNameVersion                     : 'SpeedCurve WebpageTest 180620.180643'
       AgentNameVersionMajor                : 'SpeedCurve WebpageTest 180620'
 
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.product.name="YandexBot"'
+    extract:
+    - 'DeviceBrand:101:"Yandex"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex BOT'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexBot'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexBot 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexBot 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexBot'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexBot 3.0'
+      AgentNameVersionMajor                : 'YandexBot 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
