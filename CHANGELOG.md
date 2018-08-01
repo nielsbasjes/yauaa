@@ -2,6 +2,7 @@ This is intended as an overview of the major changes
 
 v5.1
 ===
+- Split version field by a '-' too.
 - Fix bug in UCBrowser detection (too often reported as Tablet) 
 - More languages
 - Many bug fixes found on the input provided by https://github.com/DaimonPl (Thank you)

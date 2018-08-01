@@ -1179,8 +1179,36 @@ config:
       AgentNameVersion                     : 'Opera 40.0.2207.0'
       AgentNameVersionMajor                : 'Opera 40'
 
-# FIXME: This is a TV
-#- test:
-#    input:
-#      user_agent_string: 'Model/Sony-KDL-55HX750'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Model"'
+    extract:
+    - 'DeviceClass           :   1:"TV"'
+    - 'DeviceBrand           :   1:agent.(1)product.(1)version[1]'
+    - 'DeviceName            :   1:agent.(1)product.(1)version[2-]'
+    - 'AgentClass             : 10  :"Browser"'
+    - 'AgentName              : 10  :"Unknown"'
+    - 'AgentVersion           : 10  :"??"'
+
+- test:
+    input:
+      user_agent_string: 'Model/Sony-KDL-55HX750'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Sony KDL-55HX750'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Unknown'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Unknown ??'
+      AgentNameVersionMajor                : 'Unknown ??'
 
