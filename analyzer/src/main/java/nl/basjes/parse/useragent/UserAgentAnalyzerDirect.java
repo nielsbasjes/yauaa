@@ -1274,6 +1274,9 @@ config:
                 addGeneratedFields(LAYOUT_ENGINE_VERSION_MAJOR, LAYOUT_ENGINE_VERSION);
                 addGeneratedFields("WebviewAppVersionMajor", "WebviewAppVersion");
 
+                // If we do not have a Brand we try to extract it from URL/Email iff present.
+                addGeneratedFields(DEVICE_BRAND, "AgentInformationUrl", "AgentInformationEmail");
+
                 // Special field that affects ALL fields.
                 uaa.wantedFieldNames.add(SET_ALL_FIELDS);
             }
