@@ -15,7 +15,6 @@
 # limitations under the License.
 #
 
-
 # These are examples of robot/spider/bot useragents we have seen.
 
 config:
@@ -25,6 +24,7 @@ config:
     values:
       - 'DejaClick'
       - 'Site-Shot'
+      - 'Vagabondo'
 
 - matcher:
     variable:
@@ -48,7 +48,6 @@ config:
     - 'RobotProduct:agent.product.version~"spider"^'
     extract:
     - 'DeviceClass           :  102:"Robot"'
-    - 'DeviceBrand           :  102:"Unknown"'
     - 'DeviceName            :  102:@RobotProduct.name'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -67,7 +66,6 @@ config:
     - 'RobotProduct:agent.product.version~"crawl"^'
     extract:
     - 'DeviceClass           :  102:"Robot"'
-    - 'DeviceBrand           :  102:"Unknown"'
     - 'DeviceName            :  102:@RobotProduct.name'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -87,7 +85,6 @@ config:
     - 'RobotProduct:agent.product.version~"bot"^'
     extract:
     - 'DeviceClass           :  102:"Robot"'
-    - 'DeviceBrand           :  102:"Unknown"'
     - 'DeviceName            :  102:@RobotProduct.name'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -107,7 +104,6 @@ config:
     - 'RobotProduct:agent.product.version~"scan"^'
     extract:
     - 'DeviceClass           :  102:"Robot"'
-    - 'DeviceBrand           :  102:"Unknown"'
     - 'DeviceName            :  102:@RobotProduct.name'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -129,7 +125,6 @@ config:
     - 'RobotName:agent.text~"spider"'
     extract:
     - 'DeviceClass           :  101:"Robot"'
-    - 'DeviceBrand           :  101:"Unknown"'
     - 'DeviceName            :  101:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -149,7 +144,6 @@ config:
     - 'RobotName:agent.text~"crawl"'
     extract:
     - 'DeviceClass           :  101:"Robot"'
-    - 'DeviceBrand           :  101:"Unknown"'
     - 'DeviceName            :  101:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -169,7 +163,6 @@ config:
     - 'RobotName:agent.text~"bot"'
     extract:
     - 'DeviceClass           :  101:"Robot"'
-    - 'DeviceBrand           :  101:"Unknown"'
     - 'DeviceName            :  101:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -189,7 +182,6 @@ config:
     - 'RobotName:agent.text~"scan"'
     extract:
     - 'DeviceClass           :  101:"Robot"'
-    - 'DeviceBrand           :  101:"Unknown"'
     - 'DeviceName            :  101:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -210,7 +202,6 @@ config:
     - 'RobotName:agent.product.name~"spider"'
     extract:
     - 'DeviceClass           :  111:"Robot"'
-    - 'DeviceBrand           :  111:"Unknown"'
     - 'DeviceName            :  111:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -242,7 +233,6 @@ config:
     - 'RobotName:agent.product.name~"crawl"'
     extract:
     - 'DeviceClass           :  111:"Robot"'
-    - 'DeviceBrand           :  111:"Unknown"'
     - 'DeviceName            :  111:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -274,7 +264,6 @@ config:
     - 'RobotName:agent.product.name~"bot"'
     extract:
     - 'DeviceClass           :  111:"Robot"'
-    - 'DeviceBrand           :  111:"Unknown"'
     - 'DeviceName            :  111:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -306,7 +295,6 @@ config:
     - 'RobotName:agent.product.name~"scan"'
     extract:
     - 'DeviceClass           :  111:"Robot"'
-    - 'DeviceBrand           :  111:"Unknown"'
     - 'DeviceName            :  111:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -339,7 +327,6 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -359,7 +346,6 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -381,7 +367,6 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -401,7 +386,6 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -422,7 +406,6 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -442,7 +425,6 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -464,7 +446,6 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -484,7 +465,6 @@ config:
     extract:
     - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass           :  100:"Robot"'
-    - 'DeviceBrand           :  100:"Unknown"'
     - 'DeviceName            :  100:@RobotName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -522,7 +502,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Sogou WEB Spider'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Sogou'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -598,7 +578,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Sblog'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -650,7 +630,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Baiduspider'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Baidu'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -721,7 +701,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Archive.org_BOT'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Archive'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -742,11 +722,37 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (compatible; archive.org_bot +http://www.archive.org/details/archive.org_bot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Archive.org_BOT'
+      DeviceBrand                          : 'Archive'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'archive.org_bot'
+      LayoutEngineVersion                  : 'http://www.archive.org/details/archive.org_bot'
+      LayoutEngineVersionMajor             : 'http://www.archive.org/details/archive.org_bot'
+      LayoutEngineNameVersion              : 'archive.org_bot http://www.archive.org/details/archive.org_bot'
+      LayoutEngineNameVersionMajor         : 'archive.org_bot http://www.archive.org/details/archive.org_bot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'archive.org_bot'
+      AgentVersion                         : 'http://www.archive.org/details/archive.org_bot'
+      AgentVersionMajor                    : 'http://www.archive.org/details/archive.org_bot'
+      AgentNameVersion                     : 'archive.org_bot http://www.archive.org/details/archive.org_bot'
+      AgentNameVersionMajor                : 'archive.org_bot http://www.archive.org/details/archive.org_bot'
+      AgentInformationUrl                  : 'http://www.archive.org/details/archive.org_bot'
+
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (compatible; Charlotte/1.1; http://www.searchme.com/support/)'
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Searchme'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -771,7 +777,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'SputnikBot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Sputnik'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -821,7 +827,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Ltbot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'TU-Darmstadt'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -846,7 +852,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'NeumobBot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Neumob'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -871,7 +877,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'MojeekBot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Mojeek'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -975,7 +981,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : '360SPIDER'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Haosou'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1033,7 +1039,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Yacybot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Yacy'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1058,7 +1064,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Yacybot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Unknown'  #FIXME: Should be 'Yacy' but fails due to syntax error caused by '/global'.
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1084,7 +1090,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Yacybot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Yacy'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1113,7 +1119,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Netlyzer'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1163,7 +1169,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Rogerbot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'MOZ'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1189,7 +1195,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Buibui-BOT'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Moquadv'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1214,7 +1220,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Zitebot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Zite'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1240,7 +1246,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Yahoo-INC'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1263,7 +1269,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'DuckDuckBot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Duckduckgo'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1288,7 +1294,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Paessler'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1313,7 +1319,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Sistrix Crawler'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Sistrix'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1338,7 +1344,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'SeznamBot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Seznam'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1363,7 +1369,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'ToutiaoSpider'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Toutiao'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1388,7 +1394,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'SentiBot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Sentibot'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1413,7 +1419,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Deadlinkchecker'
       DeviceCpu                            : 'Intel x86_64'
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Cloud'
@@ -1440,7 +1446,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Admantx'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1599,7 +1605,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Github' # Funny yet unavoidable
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1642,21 +1648,13 @@ config:
       AgentNameVersionMajor                 : 'CommonCrawler Node 252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4'
 
 
-#- test:
-#    input:
-#      user_agent_string: 'Consilio/4.17.00 (WebHare Application Portal); LinkChecker)'
-
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; PRTG Network Monitor (www.paessler.com); Windows)'
-
 - test:
     input:
       user_agent_string: 'bitlybot/3.0 (+http://bit.ly/)'
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Bitlybot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'BIT'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -1681,7 +1679,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Xanti Link Check Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Xanti'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'

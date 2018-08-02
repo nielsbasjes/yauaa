@@ -68,12 +68,17 @@ fragment UserAgent
 USERAGENT1   : '-'* UserAgent ' '*(COLON|EQUALS|CURLYBRACEOPEN)' '* -> skip;
 USERAGENT2   : '\'' UserAgent '\'' COLON -> skip;
 
+fragment EMailFirstLetter
+    : [a-zA-Z0-9]
+    ;
+
 fragment EMailLetter
     : [a-zA-Z0-9_+-]
     ;
 
 fragment EMailWord
-    : ( EMailLetter +
+    : EMailFirstLetter
+      ( EMailLetter +
         | ' dash '
       )+
     ;

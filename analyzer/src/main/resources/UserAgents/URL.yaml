@@ -305,7 +305,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -330,7 +330,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -355,7 +355,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -380,7 +380,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -405,7 +405,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -430,7 +430,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -455,7 +455,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -480,7 +480,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -505,7 +505,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -530,7 +530,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -555,7 +555,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -580,7 +580,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -605,7 +605,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -630,7 +630,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Example'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -655,7 +655,7 @@ config:
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Basjes'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
@@ -673,13 +673,40 @@ config:
       AgentInformationEmail                : 'info@basj.es'
       AgentInformationUrl                  : 'www.basjes.nl'
 
+# With '+' signs in front.
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (+www.example.nl ; +info@example.nl)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Example'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '4.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Mozilla 4.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 4'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Netscape 4.0'
+      AgentNameVersionMajor                : 'Netscape 4'
+      AgentInformationEmail                : 'info@example.nl'
+      AgentInformationUrl                  : 'www.example.nl'
+
 - test:
     input:
       user_agent_string: 'Twikle/1.0 , http://twikle.com , contact@twikle.com'
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Twikle'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'

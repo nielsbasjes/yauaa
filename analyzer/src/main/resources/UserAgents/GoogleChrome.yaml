@@ -1025,6 +1025,32 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/63.0.3239.84 Chrome/63.0.3239.84 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Ubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '63.0'
+      LayoutEngineVersionMajor             : '63'
+      LayoutEngineNameVersion              : 'Blink 63.0'
+      LayoutEngineNameVersionMajor         : 'Blink 63'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : '63.0.3239.84'
+      AgentVersionMajor                    : '63'
+      AgentNameVersion                     : 'Chromium 63.0.3239.84'
+      AgentNameVersionMajor                : 'Chromium 63'
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0; ARM; Touch; WPDesktop) UCBrowser/4.2.1.541'
     expected:
       DeviceClass                          : 'Phone'

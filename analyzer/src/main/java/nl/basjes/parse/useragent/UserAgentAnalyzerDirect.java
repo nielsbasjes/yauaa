@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent;
 
+import com.google.common.net.InternetDomainName;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.Matcher;
@@ -41,6 +42,8 @@ import org.yaml.snakeyaml.reader.UnicodeReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -421,7 +424,12 @@ config:
 */
 
     private void loadResource(Yaml yaml, InputStream yamlStream, String filename) {
-        Node loadedYaml = yaml.compose(new UnicodeReader(yamlStream));
+        Node loadedYaml;
+        try {
+            loadedYaml = yaml.compose(new UnicodeReader(yamlStream));
+        } catch (Exception e) {
+            throw new InvalidParserConfigurationException("Parse error in the file " + filename + ": " + e.getMessage(), e);
+        }
 
         if (loadedYaml == null) {
             throw new InvalidParserConfigurationException("The file " + filename + " is empty");
@@ -869,7 +877,64 @@ config:
                 deviceNameValue,
                 deviceName.getConfidence());
         }
+
+        if (deviceBrand.getConfidence() < 0) {
+            // If no brand is known then try to extract something that looks like a Brand from things like URl and Email addresses.
+            String newDeviceBrand = determineDeviceBrand(userAgent);
+            if (newDeviceBrand != null) {
+                userAgent.setForced(
+                    DEVICE_BRAND,
+                    newDeviceBrand,
+                    1);
+            }
+        }
+
         return userAgent;
+    }
+
+    private String extractCompanyFromHostName(String hostname) {
+        try {
+            InternetDomainName domainName = InternetDomainName.from(hostname);
+            return Normalize.brand(domainName.topPrivateDomain().parts().get(0));
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    private String determineDeviceBrand(UserAgent userAgent) {
+        // If no brand is known but we do have a URL then we assume the hostname to be the brand.
+        // We put this AFTER the creation of the DeviceName because we choose to not have
+        // this brandname in the DeviceName.
+
+        UserAgent.AgentField informationUrl = userAgent.get("AgentInformationUrl");
+        if (informationUrl != null && informationUrl.getConfidence() >= 0) {
+            String hostname = informationUrl.getValue();
+            try {
+                URL url = new URL(hostname);
+                hostname = url.getHost();
+            } catch (MalformedURLException e) {
+                // Ignore any exception and continue.
+            }
+            hostname = extractCompanyFromHostName(hostname);
+            if (hostname != null) {
+                return hostname;
+            }
+        }
+
+        UserAgent.AgentField informationEmail = userAgent.get("AgentInformationEmail");
+        if (informationEmail != null && informationEmail.getConfidence() >= 0) {
+            String hostname = informationEmail.getValue();
+            int atOffset = hostname.indexOf('@');
+            if (atOffset >= 0) {
+                hostname = hostname.substring(atOffset+1);
+            }
+            hostname = extractCompanyFromHostName(hostname);
+            if (hostname != null) {
+                return hostname;
+            }
+        }
+
+        return null;
     }
 
     private void concatFieldValuesNONDuplicated(UserAgent userAgent, String targetName, String firstName, String secondName) {
