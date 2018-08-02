@@ -879,7 +879,7 @@ config:
         }
 
         if (deviceBrand.getConfidence() < 0) {
-            // If no brand is known then try to extract something that looks like a Brand from things like URl and Email addresses.
+            // If no brand is known then try to extract something that looks like a Brand from things like URL and Email addresses.
             String newDeviceBrand = determineDeviceBrand(userAgent);
             if (newDeviceBrand != null) {
                 userAgent.setForced(
