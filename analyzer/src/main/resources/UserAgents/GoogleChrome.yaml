@@ -1250,3 +1250,84 @@ config:
       AgentNameVersion                     : 'Chrome 48.0.2556.0'
       AgentNameVersionMajor                : 'Chrome 48'
 
+
+# Current guess: https://browser.yandex.com/
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 YaBrowser/17.7.1.791 Yowser/2.5 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '59.0'
+      LayoutEngineVersionMajor             : '59'
+      LayoutEngineNameVersion              : 'Blink 59.0'
+      LayoutEngineNameVersionMajor         : 'Blink 59'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'YaBrowser'
+      AgentVersion                         : '17.7.1.791'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'YaBrowser 17.7.1.791'
+      AgentNameVersionMajor                : 'YaBrowser 17'
+
+
+# 2345Explorer seems to be a bad advertising plugin
+# https://greatis.com/blog/win32-pup-gen/fix-2345explorer-virus.htm .
+# https://malwaretips.com/blogs/2345-com-removal/ --> "The 2345.com browser hijacker"
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.108 Safari/537.36 2345Explorer/7.1.0.12633'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '47.0'
+      LayoutEngineVersionMajor             : '47'
+      LayoutEngineNameVersion              : 'Blink 47.0'
+      LayoutEngineNameVersionMajor         : 'Blink 47'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '47.0.2526.108'
+      AgentVersionMajor                    : '47'
+      AgentNameVersion                     : 'Chrome 47.0.2526.108'
+      AgentNameVersionMajor                : 'Chrome 47'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6 Build/N6F27M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 YaBrowser/18.6.0.683.00 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemVersionBuild          : 'N6F27M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '66.0'
+      LayoutEngineVersionMajor             : '66'
+      LayoutEngineNameVersion              : 'Blink 66.0'
+      LayoutEngineNameVersionMajor         : 'Blink 66'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'YaBrowser'
+      AgentVersion                         : '18.6.0.683.00'
+      AgentVersionMajor                    : '18'
+      AgentNameVersion                     : 'YaBrowser 18.6.0.683.00'
+      AgentNameVersionMajor                : 'YaBrowser 18'

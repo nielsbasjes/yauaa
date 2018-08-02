@@ -19,19 +19,20 @@
 
 config:
 
-- set:
+- lookup:
     name: 'NamedRobots'
-    values:
-      - 'DejaClick'
-      - 'Site-Shot'
-      - 'Vagabondo'
+    map:
+      'DejaClick':                  'DejaClick'
+      'Site-Shot':                  'Site-Shot'
+      'Vagabondo':                  'Wise-Guys'
+      'Netcraft Web Server Survey': 'Netcraft'
 
 - matcher:
     variable:
     - 'RobotProductName:agent.product.name?NamedRobots'
     extract:
     - 'DeviceClass           : 1000:"Robot"'
-    - 'DeviceBrand           : 1000:@RobotProductName'
+    - 'DeviceBrand           : 1000:LookUp[NamedRobots;@RobotProductName]'
     - 'DeviceName            : 1000:@RobotProductName'
     - 'DeviceCpu             : 1000:"<<<null>>>"'
     - 'DeviceCpuBits         : 1000:"<<<null>>>"'
@@ -41,6 +42,39 @@ config:
     - 'AgentClass            : 1000:"Robot"'
     - 'AgentName             : 1000:@RobotProductName'
     - 'AgentVersion          : 1000:@RobotProductName^.version'
+
+- matcher:
+    variable:
+    - 'RobotProductName:agent.product.comments.entry.product.name?NamedRobots'
+    extract:
+    - 'DeviceClass           : 1000:"Robot"'
+    - 'DeviceBrand           : 1000:LookUp[NamedRobots;@RobotProductName]'
+    - 'DeviceName            : 1000:@RobotProductName'
+    - 'DeviceCpu             : 1000:"<<<null>>>"'
+    - 'DeviceCpuBits         : 1000:"<<<null>>>"'
+    - 'LayoutEngineClass     : 1000:"Robot"'
+    - 'LayoutEngineName      : 1000:@RobotProductName'
+    - 'LayoutEngineVersion   : 1000:@RobotProductName^.version'
+    - 'AgentClass            : 1000:"Robot"'
+    - 'AgentName             : 1000:@RobotProductName'
+    - 'AgentVersion          : 1000:@RobotProductName^.version'
+
+
+- matcher:
+    variable:
+    - 'RobotProductName:agent.product.comments.entry.text?NamedRobots'
+    extract:
+    - 'DeviceClass           : 1000:"Robot"'
+    - 'DeviceBrand           : 1000:LookUp[NamedRobots;@RobotProductName]'
+    - 'DeviceName            : 1000:@RobotProductName'
+    - 'DeviceCpu             : 1000:"<<<null>>>"'
+    - 'DeviceCpuBits         : 1000:"<<<null>>>"'
+    - 'LayoutEngineClass     : 1000:"Robot"'
+    - 'LayoutEngineName      : 1000:@RobotProductName'
+    - 'LayoutEngineVersion   : 1000:"??"'
+    - 'AgentClass            : 1000:"Robot"'
+    - 'AgentName             : 1000:@RobotProductName'
+    - 'AgentVersion          : 1000:"??"'
 
 # --------------------------------------------------------------------------------------
 - matcher:
@@ -117,6 +151,24 @@ config:
     - 'AgentName             :  102:@RobotProduct.name'
     - 'AgentVersion          :  102:@RobotProduct.(1)version'
 
+#- matcher:
+#    variable:
+#    - 'RobotProduct:agent.product.version~"checker"^'
+#    extract:
+#    - 'DeviceClass           :  102:"Robot"'
+#    - 'DeviceName            :  102:@RobotProduct.name'
+#    - 'DeviceCpu             : 1000:"<<<null>>>"'
+#    - 'DeviceCpuBits         : 1000:"<<<null>>>"'
+#    - 'OperatingSystemClass  :  102:"Cloud"'
+#    - 'OperatingSystemName   :  102:"Cloud"'
+#    - 'OperatingSystemVersion:  102:"Cloud"'
+#    - 'LayoutEngineClass     :  102:"Robot"'
+#    - 'LayoutEngineName      :  102:@RobotProduct.name'
+#    - 'LayoutEngineVersion   :  102:@RobotProduct.(1)version'
+#    - 'AgentClass            :  102:"Robot"'
+#    - 'AgentName             :  102:@RobotProduct.name'
+#    - 'AgentVersion          :  102:@RobotProduct.(1)version'
+
 # --------------------------------------------------------------------------------------
 
 
@@ -180,6 +232,24 @@ config:
 - matcher:
     variable:
     - 'RobotName:agent.text~"scan"'
+    extract:
+    - 'DeviceClass           :  101:"Robot"'
+    - 'DeviceName            :  101:@RobotName'
+    - 'DeviceCpu             : 1000:"<<<null>>>"'
+    - 'DeviceCpuBits         : 1000:"<<<null>>>"'
+    - 'OperatingSystemClass  :  101:"Cloud"'
+    - 'OperatingSystemName   :  101:"Cloud"'
+    - 'OperatingSystemVersion:  101:"Cloud"'
+    - 'LayoutEngineClass     :  101:"Robot"'
+    - 'LayoutEngineName      :  101:@RobotName'
+    - 'LayoutEngineVersion   :  101:"??"'
+    - 'AgentClass            :  101:"Robot"'
+    - 'AgentName             :  101:@RobotName'
+    - 'AgentVersion          :  101:"??"'
+
+- matcher:
+    variable:
+    - 'RobotName:agent.text~"checker"'
     extract:
     - 'DeviceClass           :  101:"Robot"'
     - 'DeviceName            :  101:@RobotName'
@@ -321,6 +391,37 @@ config:
     - 'LayoutEngineVersion   :  112:@RobotVersion'
     - 'AgentVersion          :  112:@RobotVersion'
 
+#- matcher:
+#    variable:
+#    - 'RobotName:agent.product.name~"checker"'
+#    extract:
+#    - 'DeviceClass           :  111:"Robot"'
+#    - 'DeviceName            :  111:@RobotName'
+#    - 'DeviceCpu             : 1000:"<<<null>>>"'
+#    - 'DeviceCpuBits         : 1000:"<<<null>>>"'
+#    - 'OperatingSystemClass  :  111:"Cloud"'
+#    - 'OperatingSystemName   :  111:"Cloud"'
+#    - 'OperatingSystemVersion:  111:"Cloud"'
+#    - 'LayoutEngineClass     :  111:"Robot"'
+#    - 'LayoutEngineName      :  111:@RobotName'
+#    - 'LayoutEngineVersion   :  111:"??"'
+#    - 'AgentClass            :  111:"Robot"'
+#    - 'AgentName             :  111:@RobotName'
+#    - 'AgentVersion          :  111:"??"'
+#
+#- matcher:
+#    require:
+#    - 'agent.product.name~"checker"@~"mobile"'
+#    extract:
+#    - 'DeviceClass           :  112:"Robot Mobile"'
+#
+#- matcher:
+#    variable:
+#    - 'RobotVersion:agent.product.name~"checker"^.(1)version'
+#    extract:
+#    - 'LayoutEngineVersion   :  112:@RobotVersion'
+#    - 'AgentVersion          :  112:@RobotVersion'
+
 - matcher:
     variable:
     - 'RobotName:agent.(1)product.comments.entry.product.name~"spider"'
@@ -399,6 +500,24 @@ config:
     - 'AgentName             :  100:@RobotName'
     - 'AgentVersion          :  100:@RobotName^.version'
 
+#- matcher:
+#    variable:
+#    - 'RobotName:agent.(1)product.comments.entry.product.name~"checker"'
+#    extract:
+#    - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+#    - 'DeviceClass           :  100:"Robot"'
+#    - 'DeviceName            :  100:@RobotName'
+#    - 'DeviceCpu             : 1000:"<<<null>>>"'
+#    - 'DeviceCpuBits         : 1000:"<<<null>>>"'
+#    - 'OperatingSystemClass  :  100:"Cloud"'
+#    - 'OperatingSystemName   :  100:"Cloud"'
+#    - 'OperatingSystemVersion:  100:"Cloud"'
+#    - 'LayoutEngineClass     :  100:"Robot"'
+#    - 'LayoutEngineName      :  100:@RobotName'
+#    - 'LayoutEngineVersion   :  100:@RobotName^.version'
+#    - 'AgentClass            :  100:"Robot"'
+#    - 'AgentName             :  100:@RobotName'
+#    - 'AgentVersion          :  100:@RobotName^.version'
 
 - matcher:
     variable:
@@ -477,6 +596,25 @@ config:
     - 'AgentClass            :  100:"Robot"'
     - 'AgentName             :  100:@RobotName'
     - 'AgentVersion          :  100:@RobotName'
+
+#- matcher:
+#    variable:
+#    - 'RobotName:agent.(1)product.comments.entry.text~"checker"'
+#    extract:
+#    - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+#    - 'DeviceClass           :  100:"Robot"'
+#    - 'DeviceName            :  100:@RobotName'
+#    - 'DeviceCpu             : 1000:"<<<null>>>"'
+#    - 'DeviceCpuBits         : 1000:"<<<null>>>"'
+#    - 'OperatingSystemClass  :  100:"Cloud"'
+#    - 'OperatingSystemName   :  100:"Cloud"'
+#    - 'OperatingSystemVersion:  100:"Cloud"'
+#    - 'LayoutEngineClass     :  100:"Robot"'
+#    - 'LayoutEngineName      :  100:@RobotName'
+#    - 'LayoutEngineVersion   :  100:@RobotName'
+#    - 'AgentClass            :  100:"Robot"'
+#    - 'AgentName             :  100:@RobotName'
+#    - 'AgentVersion          :  100:@RobotName'
 
 - matcher:
     variable:
@@ -1932,19 +2070,12 @@ config:
       AgentNameVersion                     : 'SpeedCurve WebpageTest 180620.180643'
       AgentNameVersionMajor                : 'SpeedCurve WebpageTest 180620'
 
-
-- matcher:
-    require:
-    - 'agent.product.comments.entry.product.name="YandexBot"'
-    extract:
-    - 'DeviceBrand:101:"Yandex"'
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Yandex BOT'
+      DeviceName                           : 'YandexBot'
       DeviceBrand                          : 'Yandex'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
@@ -1963,3 +2094,691 @@ config:
       AgentNameVersion                     : 'YandexBot 3.0'
       AgentNameVersionMajor                : 'YandexBot 3'
       AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; SemrushBot/2~bl; +http://www.semrush.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'SemrushBot'
+      DeviceBrand                          : 'Semrush'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SemrushBot'
+      LayoutEngineVersion                  : '2~bl'
+      LayoutEngineVersionMajor             : '2~bl'
+      LayoutEngineNameVersion              : 'SemrushBot 2~bl'
+      LayoutEngineNameVersionMajor         : 'SemrushBot 2~bl'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SemrushBot'
+      AgentVersion                         : '2~bl'
+      AgentVersionMajor                    : '2~bl'
+      AgentNameVersion                     : 'SemrushBot 2~bl'
+      AgentNameVersionMajor                : 'SemrushBot 2~bl'
+      AgentInformationUrl                  : 'http://www.semrush.com/bot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; SEOkicks; +https://www.seokicks.de/robot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Seokicks'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape' # TODO (low prio): Improve naming this robot.
+      AgentVersion                         : '5.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Netscape 5.0'
+      AgentNameVersionMajor                : 'Netscape 5'
+      AgentInformationUrl                  : 'https://www.seokicks.de/robot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Gluten Free Crawler/1.0; +http://glutenfreepleasure.com/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Gluten Free Crawler'
+      DeviceBrand                          : 'Glutenfreepleasure'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Gluten Free Crawler'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gluten Free Crawler 1.0'
+      LayoutEngineNameVersionMajor         : 'Gluten Free Crawler 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Gluten Free Crawler'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Gluten Free Crawler 1.0'
+      AgentNameVersionMajor                : 'Gluten Free Crawler 1'
+      AgentInformationUrl                  : 'http://glutenfreepleasure.com/'
+
+
+- test:
+    input:
+      user_agent_string: 'DomainCheck.io Crawler/1.3 (https://domaincheck.io)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'DomainCheck.io Crawler'
+      DeviceBrand                          : 'Domaincheck'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'DomainCheck.io Crawler'
+      LayoutEngineVersion                  : '1.3'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'DomainCheck.io Crawler 1.3'
+      LayoutEngineNameVersionMajor         : 'DomainCheck.io Crawler 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'DomainCheck.io Crawler'
+      AgentVersion                         : '1.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'DomainCheck.io Crawler 1.3'
+      AgentNameVersionMajor                : 'DomainCheck.io Crawler 1'
+      AgentInformationUrl                  : 'https://domaincheck.io'
+
+
+- test:
+    input:
+      user_agent_string: 'DomainCrawler/3.0 (info@domaincrawler.com; http://www.domaincrawler.com/basj.es)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'DomainCrawler'
+      DeviceBrand                          : 'Domaincrawler'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'DomainCrawler'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'DomainCrawler 3.0'
+      LayoutEngineNameVersionMajor         : 'DomainCrawler 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'DomainCrawler'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'DomainCrawler 3.0'
+      AgentNameVersionMajor                : 'DomainCrawler 3'
+      AgentInformationEmail                : 'info@domaincrawler.com'
+      AgentInformationUrl                  : 'http://www.domaincrawler.com/basj.es'
+
+
+- test:
+    input:
+      user_agent_string: 'DomainCrawler/3.0 (info@domaincrawler.com; http://www.domaincrawler.com/basjes.nl)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'DomainCrawler'
+      DeviceBrand                          : 'Domaincrawler'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'DomainCrawler'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'DomainCrawler 3.0'
+      LayoutEngineNameVersionMajor         : 'DomainCrawler 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'DomainCrawler'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'DomainCrawler 3.0'
+      AgentNameVersionMajor                : 'DomainCrawler 3'
+      AgentInformationEmail                : 'info@domaincrawler.com'
+      AgentInformationUrl                  : 'http://www.domaincrawler.com/basjes.nl'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; BOTW Spider; +http://botw.org)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Botw Spider'
+      DeviceBrand                          : 'Botw'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'BOTW Spider'
+      LayoutEngineVersion                  : 'BOTW Spider'
+      LayoutEngineVersionMajor             : 'BOTW Spider'
+      LayoutEngineNameVersion              : 'BOTW Spider'
+      LayoutEngineNameVersionMajor         : 'BOTW Spider'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'BOTW Spider'
+      AgentVersion                         : 'BOTW Spider'
+      AgentVersionMajor                    : 'BOTW Spider'
+      AgentNameVersion                     : 'BOTW Spider'
+      AgentNameVersionMajor                : 'BOTW Spider'
+      AgentInformationUrl                  : 'http://botw.org'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; Netcraft Web Server Survey)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Netcraft WEB Server Survey'
+      DeviceBrand                          : 'Netcraft'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Netcraft Web Server Survey'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Netcraft Web Server Survey ??'
+      LayoutEngineNameVersionMajor         : 'Netcraft Web Server Survey ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Netcraft Web Server Survey'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Netcraft Web Server Survey ??'
+      AgentNameVersionMajor                : 'Netcraft Web Server Survey ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible;  Vagabondo/4.0; http://webagent.wise-guys.nl/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Wise-Guys Vagabondo'
+      DeviceBrand                          : 'Wise-Guys'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Vagabondo'
+      LayoutEngineVersion                  : '4.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Vagabondo 4.0'
+      LayoutEngineNameVersionMajor         : 'Vagabondo 4'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Vagabondo'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Vagabondo 4.0'
+      AgentNameVersionMajor                : 'Vagabondo 4'
+      AgentInformationUrl                  : 'http://webagent.wise-guys.nl/'
+
+
+#TODO: Implement
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible;  Vagabondo/4.0; http://webagent.wise-guys.nl/; http://www.wise-guys.nl/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Wise-Guys Vagabondo'
+      DeviceBrand                          : 'Wise-Guys'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Vagabondo'
+      LayoutEngineVersion                  : '4.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Vagabondo 4.0'
+      LayoutEngineNameVersionMajor         : 'Vagabondo 4'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Vagabondo'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Vagabondo 4.0'
+      AgentNameVersionMajor                : 'Vagabondo 4'
+      AgentInformationUrl                  : 'http://webagent.wise-guys.nl/'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; 007ac9 Crawler; http://crawler.007ac9.net/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Crawler'
+      DeviceBrand                          : '007AC9'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Crawler'
+      LayoutEngineVersion                  : 'Crawler'
+      LayoutEngineVersionMajor             : 'Crawler'
+      LayoutEngineNameVersion              : 'Crawler'
+      LayoutEngineNameVersionMajor         : 'Crawler'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Crawler'
+      AgentVersion                         : 'Crawler'
+      AgentVersionMajor                    : 'Crawler'
+      AgentNameVersion                     : 'Crawler'
+      AgentNameVersionMajor                : 'Crawler'
+      AgentInformationUrl                  : 'http://crawler.007ac9.net/'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'AhrefsBot'
+      DeviceBrand                          : 'Ahrefs'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'AhrefsBot'
+      LayoutEngineVersion                  : '5.2'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'AhrefsBot 5.2'
+      LayoutEngineNameVersionMajor         : 'AhrefsBot 5'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'AhrefsBot'
+      AgentVersion                         : '5.2'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'AhrefsBot 5.2'
+      AgentNameVersionMajor                : 'AhrefsBot 5'
+      AgentInformationUrl                  : 'http://ahrefs.com/robot/'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; aiHitBot/2.9; +https://www.aihitdata.com/about)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Aihitbot'
+      DeviceBrand                          : 'Aihitdata'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'aiHitBot'
+      LayoutEngineVersion                  : '2.9'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'aiHitBot 2.9'
+      LayoutEngineNameVersionMajor         : 'aiHitBot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'aiHitBot'
+      AgentVersion                         : '2.9'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'aiHitBot 2.9'
+      AgentNameVersionMajor                : 'aiHitBot 2'
+      AgentInformationUrl                  : 'https://www.aihitdata.com/about'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; alexa site audit/1.0; +http://www.alexa.com/help/webmasters; )'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Alexa'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'alexa site audit'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'alexa site audit 1.0'
+      AgentNameVersionMajor                : 'alexa site audit 1'
+      AgentInformationUrl                  : 'http://www.alexa.com/help/webmasters'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; AlphaBot/3.2; +http://alphaseobot.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'AlphaBot'
+      DeviceBrand                          : 'Alphaseobot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'AlphaBot'
+      LayoutEngineVersion                  : '3.2'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'AlphaBot 3.2'
+      LayoutEngineNameVersionMajor         : 'AlphaBot 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'AlphaBot'
+      AgentVersion                         : '3.2'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'AlphaBot 3.2'
+      AgentNameVersionMajor                : 'AlphaBot 3'
+      AgentInformationUrl                  : 'http://alphaseobot.com/bot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Baiduspider-render/2.0; +http://www.baidu.com/search/spider.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Baiduspider-Render'
+      DeviceBrand                          : 'Baidu'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Baiduspider-render'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Baiduspider-render 2.0'
+      LayoutEngineNameVersionMajor         : 'Baiduspider-render 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Baiduspider-render'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Baiduspider-render 2.0'
+      AgentNameVersionMajor                : 'Baiduspider-render 2'
+      AgentInformationUrl                  : 'http://www.baidu.com/search/spider.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; BLEXBot/1.0; +http://webmeup-crawler.com/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Blexbot'
+      DeviceBrand                          : 'Webmeup-Crawler'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'BLEXBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'BLEXBot 1.0'
+      LayoutEngineNameVersionMajor         : 'BLEXBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'BLEXBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'BLEXBot 1.0'
+      AgentNameVersionMajor                : 'BLEXBot 1'
+      AgentInformationUrl                  : 'http://webmeup-crawler.com/'
+
+
+##TODO: Implement
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; Dataprovider.com;)'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Daum/4.1; +http://cs.daum.net/faq/15/4118.html?faqId=28966)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Daum'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Daum'
+      AgentVersion                         : '4.1'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Daum 4.1'
+      AgentNameVersionMajor                : 'Daum 4'
+      AgentInformationUrl                  : 'http://cs.daum.net/faq/15/4118.html?faqId=28966'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; discobot/2.0; +http://discoveryengine.com/discobot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Discobot'
+      DeviceBrand                          : 'Discoveryengine'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'discobot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'discobot 2.0'
+      LayoutEngineNameVersionMajor         : 'discobot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'discobot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'discobot 2.0'
+      AgentNameVersionMajor                : 'discobot 2'
+      AgentInformationUrl                  : 'http://discoveryengine.com/discobot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; DNS SSL/TLS HTTP HTML Website Security Scanner/0.2 beta; +https://www.htmlyse.com/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Htmlyse'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'DNS SSL'
+      # FIXME: Messy name with extra '/' in it --> broken version. Should be 0.2 in this case.
+      AgentVersion                         : 'TLS HTTP HTML Website Security Scanner'
+      AgentVersionMajor                    : 'TLS HTTP HTML Website Security Scanner'
+      AgentNameVersion                     : 'DNS SSL TLS HTTP HTML Website Security Scanner'
+      AgentNameVersionMajor                : 'DNS SSL TLS HTTP HTML Website Security Scanner'
+      AgentInformationUrl                  : 'https://www.htmlyse.com/'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; DotBot/1.1; http://www.opensiteexplorer.org/dotbot, help@moz.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Dotbot'
+      DeviceBrand                          : 'Opensiteexplorer'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'DotBot'
+      LayoutEngineVersion                  : '1.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'DotBot 1.1'
+      LayoutEngineNameVersionMajor         : 'DotBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'DotBot'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'DotBot 1.1'
+      AgentNameVersionMajor                : 'DotBot 1'
+      AgentInformationEmail                : 'help@moz.com'
+      AgentInformationUrl                  : 'http://www.opensiteexplorer.org/dotbot'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; DuckDuckGo-Favicons-Bot/1.0; +http://duckduckgo.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'DuckDuckGo-Favicons-BOT'
+      DeviceBrand                          : 'Duckduckgo'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'DuckDuckGo-Favicons-Bot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'DuckDuckGo-Favicons-Bot 1.0'
+      LayoutEngineNameVersionMajor         : 'DuckDuckGo-Favicons-Bot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'DuckDuckGo-Favicons-Bot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'DuckDuckGo-Favicons-Bot 1.0'
+      AgentNameVersionMajor                : 'DuckDuckGo-Favicons-Bot 1'
+      AgentInformationUrl                  : 'http://duckduckgo.com'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; ExtLinksBot/1.5; +https://extlinks.com/Bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'ExtlinksBot'
+      DeviceBrand                          : 'Extlinks'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'ExtLinksBot'
+      LayoutEngineVersion                  : '1.5'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'ExtLinksBot 1.5'
+      LayoutEngineNameVersionMajor         : 'ExtLinksBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'ExtLinksBot'
+      AgentVersion                         : '1.5'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'ExtLinksBot 1.5'
+      AgentNameVersionMajor                : 'ExtLinksBot 1'
+      AgentInformationUrl                  : 'https://extlinks.com/Bot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Go-http-client/1.1; +centurybot9@gmail.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Gmail' # Wrong, funny and unavoidable
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Go-http-client'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Go-http-client 1.1'
+      AgentNameVersionMajor                : 'Go-http-client 1'
+      AgentInformationEmail                : 'centurybot9@gmail.com'
+
+
+##TODO: Implement
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; Google-Test;)'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Grobbot/2.2; +https://grob.it)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Grobbot'
+      DeviceBrand                          : 'Grob'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Grobbot'
+      LayoutEngineVersion                  : '2.2'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Grobbot 2.2'
+      LayoutEngineNameVersionMajor         : 'Grobbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Grobbot'
+      AgentVersion                         : '2.2'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Grobbot 2.2'
+      AgentNameVersionMajor                : 'Grobbot 2'
+      AgentInformationUrl                  : 'https://grob.it'
+
+
+- test:
+    input:
+      # Yet another parse error.
+      user_agent_string: 'Consilio/4.17.00 (WebHare Application Portal); LinkChecker)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'LinkChecker'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'LinkChecker'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'LinkChecker ??'
+      LayoutEngineNameVersionMajor         : 'LinkChecker ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'LinkChecker'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'LinkChecker ??'
+      AgentNameVersionMajor                : 'LinkChecker ??'
