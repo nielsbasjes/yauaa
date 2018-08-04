@@ -48,6 +48,16 @@ echo "# limitations under the License."
 echo "#"
 echo "config:"
 
+echo "- set:"
+echo "    name: 'OSPatterns'"
+echo "    values:"
+fgrep -v '#' "${INPUT}" | grep . | sed 's/ *|/|/g;s/| */|/g' | while read line
+do
+    ospattern=$(echo "${line}" | cut -d'|' -f1)
+    echo "    - '${ospattern}'"
+done
+echo ""
+
 fgrep -v '#' "${INPUT}" | grep . | sed 's/ *|/|/g;s/| */|/g' | while read line
 do
     ospattern=$(echo "${line}" | cut -d'|' -f1)
@@ -57,16 +67,19 @@ do
     devbrand=$( echo "${line}" | cut -d'|' -f5)
     osclass=$(  echo "${line}" | cut -d'|' -f6)
 echo "
-- matcher:
-    require:
-    - 'agent.(1)product.(1)comments.entry.text=\"${ospattern}\"'
-    extract:
-    - 'DeviceClass           :  111:\"${devclass}\"'
-    - 'DeviceName            :  111:\"${devname}\"'
-    - 'DeviceBrand           :  111:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  150:\"${osclass}\"'
-    - 'OperatingSystemName   :  150:\"${osname}\"'
-    - 'OperatingSystemVersion:  149:\"??\"'
+# =======================================================================
+# ${ospattern}
+
+#- matcher:
+#    require:
+#    - 'agent.(1)product.(1)comments.entry.text=\"${ospattern}\"'
+#    extract:
+#    - 'DeviceClass           :  111:\"${devclass}\"'
+#    - 'DeviceName            :  111:\"${devname}\"'
+#    - 'DeviceBrand           :  111:\"${devbrand}\"'
+#    - 'OperatingSystemClass  :  150:\"${osclass}\"'
+#    - 'OperatingSystemName   :  150:\"${osname}\"'
+#    - 'OperatingSystemVersion:  149:\"??\"'
 
 - matcher:
     extract:
@@ -98,8 +111,8 @@ echo "
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  150:\"${osclass}\"'
-    - 'OperatingSystemName   :  150:\"${osname}\"'
+    - 'OperatingSystemClass  :  151:\"${osclass}\"'
+    - 'OperatingSystemName   :  151:\"${osname}\"'
     - 'OperatingSystemVersion:  149:\"??\"'
 
 - matcher:
@@ -132,8 +145,8 @@ echo "
     - 'DeviceClass           :  111:\"${devclass}\"'
     - 'DeviceName            :  111:\"${devname}\"'
     - 'DeviceBrand           :  111:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  151:\"${osclass}\"'
-    - 'OperatingSystemName   :  151:\"${osname}\"'
+    - 'OperatingSystemClass  :  152:\"${osclass}\"'
+    - 'OperatingSystemName   :  152:\"${osname}\"'
     - 'OperatingSystemVersion:  149:\"??\"'
 
 - matcher:
@@ -143,8 +156,8 @@ echo "
     - 'DeviceClass           :  112:\"${devclass}\"'
     - 'DeviceName            :  112:\"${devname}\"'
     - 'DeviceBrand           :  112:\"${devbrand}\"'
-    - 'OperatingSystemClass  :  152:\"${osclass}\"'
-    - 'OperatingSystemName   :  152:\"${osname}\"'
+    - 'OperatingSystemClass  :  153:\"${osclass}\"'
+    - 'OperatingSystemName   :  153:\"${osname}\"'
     - 'OperatingSystemVersion:  149:\"??\"'
 
 "

@@ -21,6 +21,7 @@ s@^  *\([\"a-zA-Z_]\)@      \1@
 s@^  *config:@config:@
 s@^  *\(- '\)@    \1@
 s@^  *\(- [a-z]\)@\1@
+s@^  *variable:@    variable:@
 s@^  *require:@    require:@
 s@^  *extract:@    extract:@
 s@^  *options:@    options:@

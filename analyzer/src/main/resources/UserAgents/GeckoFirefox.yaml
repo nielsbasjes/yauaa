@@ -92,6 +92,20 @@ config:
     - 'AgentName            :  2003:@Gecko.name[3]="Firefox"'
     - 'AgentVersion         :  2003:@Gecko.version'
 
+- matcher:
+    variable:
+    - 'Browser: agent.(2-5)product.name="Gecko"^>'
+    require:
+    - 'agent.product.name="Firefox"' # Performance trick
+    - '@Browser>.name="Firefox"'
+    - 'IsNull[@Browser.name?OSPatterns]'
+    - 'IsNull[@Browser.name~"toolbar"]'
+    extract:
+    - 'AgentClass           :  2005:"Browser"'
+    - 'AgentName            :  2005:@Browser.name'
+    - 'AgentVersion         :  2005:@Browser.version'
+
+
     # In some obscure cases we have a parse problem that sends everything inside a comment block
 - matcher:
     extract:
@@ -568,9 +582,9 @@ config:
       DeviceCpu                            : 'x86'
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Linux'
-      OperatingSystemVersion               : 'x86'
-      OperatingSystemNameVersion           : 'Linux x86'
+      OperatingSystemName                  : 'Ultimate Edition'
+      OperatingSystemVersion               : '3.8'
+      OperatingSystemNameVersion           : 'Ultimate Edition 3.8'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
       LayoutEngineVersion                  : '8.0'
