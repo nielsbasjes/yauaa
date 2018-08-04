@@ -935,7 +935,46 @@ config:
       AgentNameVersionMajor                : 'Google Web Preview Analytics ??'
 
 
-## TODO: Figure out what kind of useragent this really is.
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; Google-Test;)'
+
+# Google developer testing tool
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry="Google-Test"'
+    extract:
+    - 'DeviceClass           :   1000:"Robot"'
+    - 'DeviceName            :   1000:"Robot"'
+    - 'DeviceBrand           :   1000:"Google"'
+    - 'OperatingSystemClass  :   1000:"Cloud"'
+    - 'OperatingSystemName   :   1000:"Cloud"'
+    - 'OperatingSystemVersion:   1000:"Cloud"'
+    - 'LayoutEngineClass     :   1000:"Robot"'
+    - 'LayoutEngineName      :   1000:"Google-Test"'
+    - 'LayoutEngineVersion   :   1000:"??"'
+    - 'AgentClass            :   1000:"Testclient"'
+    - 'AgentName             :   1000:"Google-Test"'
+    - 'AgentVersion          :   1000:"??"'
+
+# TODO: Figure out what kind of useragent this really is.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Google-Test;)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Robot'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google-Test'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google-Test ??'
+      LayoutEngineNameVersionMajor         : 'Google-Test ??'
+      AgentClass                           : 'Testclient'
+      AgentName                            : 'Google-Test'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google-Test ??'
+      AgentNameVersionMajor                : 'Google-Test ??'
