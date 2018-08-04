@@ -697,114 +697,666 @@ config:
       AgentLanguageCode                    : 'en'
 
 
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Epiphany/4.4.4 (Ubuntu)'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Epiphany/4.4.4 (Ubuntu) (Ubuntu package 1.0.7)'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Kubuntu)'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 Ubuntu'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu-edgy)'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu-feisty)'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu package 1.0.2)'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Galeon/2.0.1 (Ubuntu package 2.0.1-1ubuntu2) Firefox/8.8.8'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Iceape/1.1.5 (Ubuntu-1.1.5-1ubuntu0.7.10)'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Kubuntu/8.10 (intrepid) Firefox/8.8.8'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Kubuntu/8.10 (intrepid) Minefield/3.2a1'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 MEGAUPLOAD 1.0 (Ubuntu-feisty)'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 SeaMonkey/1.1.9 (Ubuntu-1.1.9+nobinonly-0ubuntu1)'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/10.04 (lucid) Firefox/8.8.8'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/10.04 (lucid) Namoroka/7.7.7'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/1.4.0 (hardy) Firefox/8.8.8'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/1.5.dfsg-4ubuntu6 Firefox/8.8.8'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/8.10 (intrepid) Shiretoko/3.3.3'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Iceweasel/3.0.2'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Minefield/3.2a1'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Namoroka/7.7.7'
-#
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/9.25 (jaunty) Firefox/8.8.8'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Epiphany/4.4.4 (Ubuntu)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Ubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Epiphany'
+      AgentVersion                         : '4.4.4'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Epiphany 4.4.4'
+      AgentNameVersionMajor                : 'Epiphany 4'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Epiphany/4.4.4 (Ubuntu) (Ubuntu package 1.0.7)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Ubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Epiphany'
+      AgentVersion                         : '4.4.4'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Epiphany 4.4.4'
+      AgentNameVersionMajor                : 'Epiphany 4'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Kubuntu)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Kubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Kubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8'
+      AgentNameVersionMajor                : 'Firefox 8'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 Ubuntu'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Ubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8'
+      AgentNameVersionMajor                : 'Firefox 8'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu-edgy)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '6.10'
+      OperatingSystemNameVersion           : 'Ubuntu 6.10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8'
+      AgentNameVersionMajor                : 'Firefox 8'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu-feisty)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '7.04'
+      OperatingSystemNameVersion           : 'Ubuntu 7.04'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8'
+      AgentNameVersionMajor                : 'Firefox 8'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu package 1.0.2)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Ubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8'
+      AgentNameVersionMajor                : 'Firefox 8'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Galeon/2.0.1 (Ubuntu package 2.0.1-1ubuntu2) Firefox/8.8.8'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Ubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Galeon'
+      AgentVersion                         : '2.0.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Galeon 2.0.1'
+      AgentNameVersionMajor                : 'Galeon 2'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Iceape/1.1.5 (Ubuntu-1.1.5-1ubuntu0.7.10)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Ubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Iceape'
+      AgentVersion                         : '1.1.5'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Iceape 1.1.5'
+      AgentNameVersionMajor                : 'Iceape 1'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Kubuntu/8.10 (intrepid) Firefox/8.8.8'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Kubuntu'
+      OperatingSystemVersion               : '8.10'
+      OperatingSystemNameVersion           : 'Kubuntu 8.10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8'
+      AgentNameVersionMajor                : 'Firefox 8'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Kubuntu/8.10 (intrepid) Minefield/3.2a1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Kubuntu'
+      OperatingSystemVersion               : '8.10'
+      OperatingSystemNameVersion           : 'Kubuntu 8.10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Minefield'
+      AgentVersion                         : '3.2a1'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Minefield 3.2a1'
+      AgentNameVersionMajor                : 'Minefield 3'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 MEGAUPLOAD 1.0 (Ubuntu-feisty)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '7.04'
+      OperatingSystemNameVersion           : 'Ubuntu 7.04'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'MEGAUPLOAD'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'MEGAUPLOAD 1.0'
+      AgentNameVersionMajor                : 'MEGAUPLOAD 1'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 SeaMonkey/1.1.9 (Ubuntu-1.1.9+nobinonly-0ubuntu1)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : 'nobinonly-0ubuntu1' # FIXME: See if we can make this version better
+      OperatingSystemNameVersion           : 'Ubuntu nobinonly-0ubuntu1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SeaMonkey'
+      AgentVersion                         : '1.1.9'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SeaMonkey 1.1.9'
+      AgentNameVersionMajor                : 'SeaMonkey 1'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/10.04 (lucid) Firefox/8.8.8'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '10.04'
+      OperatingSystemNameVersion           : 'Ubuntu 10.04'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8'
+      AgentNameVersionMajor                : 'Firefox 8'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/10.04 (lucid) Namoroka/7.7.7'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '10.04'
+      OperatingSystemNameVersion           : 'Ubuntu 10.04'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Namoroka'
+      AgentVersion                         : '7.7.7'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Namoroka 7.7.7'
+      AgentNameVersionMajor                : 'Namoroka 7'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/1.4.0 (hardy) Firefox/8.8.8'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '1.4.0'
+      OperatingSystemNameVersion           : 'Ubuntu 1.4.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8'
+      AgentNameVersionMajor                : 'Firefox 8'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/1.5.dfsg-4ubuntu6 Firefox/8.8.8'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '1.5.dfsg-4ubuntu6'
+      OperatingSystemNameVersion           : 'Ubuntu 1.5.dfsg-4ubuntu6'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8'
+      AgentNameVersionMajor                : 'Firefox 8'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/8.10 (intrepid) Shiretoko/3.3.3'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '8.10'
+      OperatingSystemNameVersion           : 'Ubuntu 8.10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Shiretoko'
+      AgentVersion                         : '3.3.3'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Shiretoko 3.3.3'
+      AgentNameVersionMajor                : 'Shiretoko 3'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Iceweasel/3.0.2'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '9.04'
+      OperatingSystemNameVersion           : 'Ubuntu 9.04'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Iceweasel'
+      AgentVersion                         : '3.0.2'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Iceweasel 3.0.2'
+      AgentNameVersionMajor                : 'Iceweasel 3'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Minefield/3.2a1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '9.04'
+      OperatingSystemNameVersion           : 'Ubuntu 9.04'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Minefield'
+      AgentVersion                         : '3.2a1'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Minefield 3.2a1'
+      AgentNameVersionMajor                : 'Minefield 3'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Namoroka/7.7.7'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '9.04'
+      OperatingSystemNameVersion           : 'Ubuntu 9.04'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Namoroka'
+      AgentVersion                         : '7.7.7'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Namoroka 7.7.7'
+      AgentNameVersionMajor                : 'Namoroka 7'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/9.25 (jaunty) Firefox/8.8.8'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '9.25'
+      OperatingSystemNameVersion           : 'Ubuntu 9.25'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8'
+      AgentNameVersionMajor                : 'Firefox 8'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
 
 
 #
