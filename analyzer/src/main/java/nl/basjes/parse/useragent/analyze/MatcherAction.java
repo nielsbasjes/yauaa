@@ -296,6 +296,7 @@ public abstract class MatcherAction implements Serializable {
      * Note that on a single parse event the same name CAN be called multiple times!!
      *
      * @param key    The key of the node
+     * @param value  The value that was found
      * @param result The node in the parser tree where the match occurred
      */
     public void inform(String key, String value, ParseTree result) {

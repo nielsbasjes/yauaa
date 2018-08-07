@@ -474,7 +474,8 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
     /**
      * This function is used only for analyzing which patterns that could possibly be relevant
-     * were actually relevant for the matcher actions
+     * were actually relevant for the matcher actions.
+     * @return The list of Matches that were possibly relevant.
      */
     public List<Match> getMatches() {
         List<Match> allMatches = new ArrayList<>(128);

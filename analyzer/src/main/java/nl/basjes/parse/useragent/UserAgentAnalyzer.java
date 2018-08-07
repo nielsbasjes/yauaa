@@ -97,12 +97,21 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
             this.uaa = newUaa;
         }
 
+        /**
+         * Specify a new cache size (0 = disable caching).
+         * @param newCacheSize The new cache size value
+         * @return the current Builder instance.
+         */
         public B withCache(int newCacheSize) {
             failIfAlreadyBuilt();
             uaa.setCacheSize(newCacheSize);
             return (B)this;
         }
 
+        /**
+         * Disable caching.
+         * @return the current Builder instance.
+         */
         public B withoutCache() {
             failIfAlreadyBuilt();
             uaa.setCacheSize(0);

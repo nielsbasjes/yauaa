@@ -1155,6 +1155,7 @@ config:
 
         /**
          * Drop the default set of rules. Useful in parsing ONLY company specific useragents.
+         * @return the current Builder instance.
          */
         public B dropDefaultResources() {
             failIfAlreadyBuilt();
@@ -1164,6 +1165,8 @@ config:
 
         /**
          * Add a set of additional rules. Useful in handling specific cases.
+         * @param resourceString The resource list that needs to be added.
+         * @return the current Builder instance.
          */
         public B addResources(String resourceString) {
             failIfAlreadyBuilt();
@@ -1171,18 +1174,33 @@ config:
             return (B)this;
         }
 
+        /**
+         * Use the available testcases to preheat the jvm on this analyzer.
+         * @param iterations How many testcases must be run
+         * @return the current Builder instance.
+         */
         public B preheat(int iterations) {
             failIfAlreadyBuilt();
             this.preheatIterations = iterations;
             return (B)this;
         }
 
+        /**
+         * Use the available testcases to preheat the jvm on this analyzer.
+         * All available testcases will be run exactly once.
+         * @return the current Builder instance.
+         */
         public B preheat() {
             failIfAlreadyBuilt();
             this.preheatIterations = -1;
             return (B)this;
         }
 
+        /**
+         * Specify an additional field that we want to retrieve.
+         * @param fieldName The name of the additional field
+         * @return the current Builder instance.
+         */
         public B withField(String fieldName) {
             failIfAlreadyBuilt();
             if (uaa.wantedFieldNames == null) {
@@ -1192,6 +1210,11 @@ config:
             return (B)this;
         }
 
+        /**
+         * Specify a set of additional fields that we want to retrieve.
+         * @param fieldNames The collection of names of the additional fields
+         * @return the current Builder instance.
+         */
         public B withFields(Collection<String> fieldNames) {
             for (String fieldName : fieldNames) {
                 withField(fieldName);
@@ -1199,6 +1222,11 @@ config:
             return (B)this;
         }
 
+        /**
+         * Specify a set of additional fields that we want to retrieve.
+         * @param fieldNames The array of names of the additional fields
+         * @return the current Builder instance.
+         */
         public B withFields(String... fieldNames) {
             for (String fieldName : fieldNames) {
                 withField(fieldName);
@@ -1206,48 +1234,82 @@ config:
             return (B)this;
         }
 
+        /**
+         * Specify that we simply want to retrieve all possible fields.
+         * @return the current Builder instance.
+         */
         public B withAllFields() {
             failIfAlreadyBuilt();
             uaa.wantedFieldNames = null;
             return (B)this;
         }
 
+        /**
+         * Log additional information during the startup of the analyzer.
+         * @return the current Builder instance.
+         */
         public B showMatcherLoadStats() {
             failIfAlreadyBuilt();
             uaa.setShowMatcherStats(true);
             return (B)this;
         }
 
+        /**
+         * Set the stats logging during the startup of the analyzer back to the default of "minimal".
+         * @return the current Builder instance.
+         */
         public B hideMatcherLoadStats() {
             failIfAlreadyBuilt();
             uaa.setShowMatcherStats(false);
             return (B)this;
         }
 
+        /**
+         * Set maximum length of a useragent for it to be classified as Hacker without any analysis.
+         * @param newUserAgentMaxLength The new maximum length of a useragent for it to be classified as Hacker without any analysis.
+         * @return the current Builder instance.
+         */
         public B withUserAgentMaxLength(int newUserAgentMaxLength) {
             failIfAlreadyBuilt();
             uaa.setUserAgentMaxLength(newUserAgentMaxLength);
             return (B)this;
         }
 
+        /**
+         * Retain all testcases in memory after initialization.
+         * @return the current Builder instance.
+         */
         public B keepTests() {
             failIfAlreadyBuilt();
             uaa.keepTests();
             return (B)this;
         }
 
+        /**
+         * Remove all testcases in memory after initialization.
+         * @return the current Builder instance.
+         */
         public B dropTests() {
             failIfAlreadyBuilt();
             uaa.dropTests();
             return (B)this;
         }
 
+        /**
+         * Load all patterns and rules but do not yet build the lookup hashMaps yet.
+         * For the engine to run these lookup hashMaps are needed so they will be constructed once "just in time".
+         * @return the current Builder instance.
+         */
         public B delayInitialization() {
             failIfAlreadyBuilt();
             uaa.delayInitialization();
             return (B)this;
         }
 
+        /**
+         * Load all patterns and rules and immediately build the lookup hashMaps.
+         * @return the current Builder instance.
+         */
         public B immediateInitialization() {
             failIfAlreadyBuilt();
             uaa.immediateInitialization();
@@ -1260,6 +1322,10 @@ config:
             }
         }
 
+        /**
+         * Construct the analyzer and run the preheat (if requested).
+         * @return the new analyzer instance.
+         */
         public UAA build() {
             failIfAlreadyBuilt();
             if (uaa.wantedFieldNames != null) {
