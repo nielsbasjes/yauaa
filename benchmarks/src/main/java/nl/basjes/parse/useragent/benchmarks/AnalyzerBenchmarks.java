@@ -48,9 +48,9 @@ public class AnalyzerBenchmarks {
         public ThreadState() {
             uaa = UserAgentAnalyzer.newBuilder()
                 .withoutCache()
-                .immediateInitialization()
                 .hideMatcherLoadStats()
                 .build();
+            uaa.parse((String)null);
         }
     }
 
