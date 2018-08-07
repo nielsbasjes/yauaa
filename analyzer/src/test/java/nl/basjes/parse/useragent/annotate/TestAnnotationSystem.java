@@ -193,6 +193,7 @@ public class TestAnnotationSystem {
     }
 
 
+    @SuppressWarnings("unchecked") // Here we deliberately created some bad code to check the behavior.
     @Test
     public void testBadGeneric(){
         expectedEx.expect(InvalidParserConfigurationException.class);
