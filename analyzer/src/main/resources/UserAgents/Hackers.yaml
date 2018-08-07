@@ -1028,3 +1028,35 @@ config:
       AgentUuid                            : '7c745571-46aa-43a7-a2a5-68cdf1a4e9f5'
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
+
+
+# Deliberate syntax error AND not setting any of the values to trigger the "This is a Hacker" fallback code.
+- test:
+    input:
+      user_agent_string: 'BA7D96A3-49DB-48AF-9166-F7043A8866A7 { x }'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      AgentUuid                            : 'BA7D96A3-49DB-48AF-9166-F7043A8866A7'
+      HackerAttackVector                   : 'Unknown'
+      HackerToolkit                        : 'Unknown'
+      __SyntaxError__                      : 'true'
+
