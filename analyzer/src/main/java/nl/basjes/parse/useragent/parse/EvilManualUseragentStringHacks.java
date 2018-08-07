@@ -58,6 +58,10 @@ public final class EvilManualUseragentStringHacks {
         // The VM_Vertis 4010 You Build/VM is missing a ')'
         result = replaceString(result, "You Build/VM", "You Build/VM)");
 
+        // Some agents are providing comment values that are ONLY a version
+        result = replaceString(result, "(/", "(Unknown/");
+        result = replaceString(result, "; /", "; Unknown/");
+
         // Repair certain cases of broken useragents (like we see for the Facebook app a lot)
         if (MISSING_PRODUCT_AT_START.matcher(result).matches()){
             // We simply prefix a fake product name to continue parsing.
