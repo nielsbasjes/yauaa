@@ -795,33 +795,24 @@ config:
     private UserAgent hardCodedPostProcessing(UserAgent userAgent) {
         // If it is really really bad ... then it is a Hacker.
         if ("true".equals(userAgent.getValue(SYNTAX_ERROR))) {
-            if (wantedFieldNames == null || (
-                wantedFieldNames.contains(DEVICE_CLASS) &&
-                wantedFieldNames.contains(OPERATING_SYSTEM_CLASS) &&
-                wantedFieldNames.contains(LAYOUT_ENGINE_CLASS))
-                ) {
-                if (userAgent.get(DEVICE_CLASS).getConfidence() == -1 &&
-                    userAgent.get(OPERATING_SYSTEM_CLASS).getConfidence() == -1 &&
-                    userAgent.get(LAYOUT_ENGINE_CLASS).getConfidence() == -1) {
-
-                    userAgent.set(DEVICE_CLASS, "Hacker", 10);
-                    userAgent.set(DEVICE_BRAND, "Hacker", 10);
-                    userAgent.set(DEVICE_NAME, "Hacker", 10);
-                    userAgent.set(DEVICE_VERSION, "Hacker", 10);
-                    userAgent.set(OPERATING_SYSTEM_CLASS, "Hacker", 10);
-                    userAgent.set(OPERATING_SYSTEM_NAME, "Hacker", 10);
-                    userAgent.set(OPERATING_SYSTEM_VERSION, "Hacker", 10);
-                    userAgent.set(LAYOUT_ENGINE_CLASS, "Hacker", 10);
-                    userAgent.set(LAYOUT_ENGINE_NAME, "Hacker", 10);
-                    userAgent.set(LAYOUT_ENGINE_VERSION, "Hacker", 10);
-                    userAgent.set(LAYOUT_ENGINE_VERSION_MAJOR, "Hacker", 10);
-                    userAgent.set(AGENT_CLASS, "Hacker", 10);
-                    userAgent.set(AGENT_NAME, "Hacker", 10);
-                    userAgent.set(AGENT_VERSION, "Hacker", 10);
-                    userAgent.set(AGENT_VERSION_MAJOR, "Hacker", 10);
-                    userAgent.set("HackerToolkit", "Unknown", 10);
-                    userAgent.set("HackerAttackVector", "Unknown", 10);
-                }
+            if (userAgent.get(DEVICE_CLASS).getConfidence() == -1) {
+                userAgent.set(DEVICE_CLASS, "Hacker", 10);
+                userAgent.set(DEVICE_BRAND, "Hacker", 10);
+                userAgent.set(DEVICE_NAME, "Hacker", 10);
+                userAgent.set(DEVICE_VERSION, "Hacker", 10);
+                userAgent.set(OPERATING_SYSTEM_CLASS, "Hacker", 10);
+                userAgent.set(OPERATING_SYSTEM_NAME, "Hacker", 10);
+                userAgent.set(OPERATING_SYSTEM_VERSION, "Hacker", 10);
+                userAgent.set(LAYOUT_ENGINE_CLASS, "Hacker", 10);
+                userAgent.set(LAYOUT_ENGINE_NAME, "Hacker", 10);
+                userAgent.set(LAYOUT_ENGINE_VERSION, "Hacker", 10);
+                userAgent.set(LAYOUT_ENGINE_VERSION_MAJOR, "Hacker", 10);
+                userAgent.set(AGENT_CLASS, "Hacker", 10);
+                userAgent.set(AGENT_NAME, "Hacker", 10);
+                userAgent.set(AGENT_VERSION, "Hacker", 10);
+                userAgent.set(AGENT_VERSION_MAJOR, "Hacker", 10);
+                userAgent.set("HackerToolkit", "Unknown", 10);
+                userAgent.set("HackerAttackVector", "Unknown", 10);
             }
         }
 
@@ -1345,6 +1336,9 @@ config:
 
                 // Special field that affects ALL fields.
                 uaa.wantedFieldNames.add(SET_ALL_FIELDS);
+
+                // This is always needed to determine the Hacker fallback
+                uaa.wantedFieldNames.add(DEVICE_CLASS);
             }
 
             boolean mustDropTestsLater = !uaa.willKeepTests();
