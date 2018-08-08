@@ -2,15 +2,20 @@ This is intended as an overview of the major changes
 
 v5.1
 ===
+- Massive change of the OS Version for all Windows variants. Much cleaner now.
+- Windows NT 7/8/8.1/10 on ARM cpu = Windows Phone --> Mobile device, not Desktop
+- Get the DeviceBrand from the URL/Email if no other is available
 - Split version field by a '-' too.
 - Fix bug in UCBrowser detection (too often reported as Tablet) 
-- More languages
+- More language-region codes detected
 - Many bug fixes found on the input provided by https://github.com/DaimonPl (Thank you)
-- Windows NT 7/8/8.1/10 on ARM cpu = Windows Phone --> Mobile device, not Desktop
 - Better detection and naming of the Amazon, HP, PocketBook, Manta and Prestigio devices
-- Massive change of the OS Version for all Windows variants. Much cleaner now.
 - Detect the new Gecko fork Goanna (used by Palemoon)
-- Get the DeviceBrand from the URL/Email if no other is available
+- Updated UDF dependencies
+  - Apache Flink 1.5.2
+  - Apache Drill 1.14.0
+  - Apache Beam 2.6.0
+  - Apache Nifi 1.7.1
 
 v5.0
 ===
