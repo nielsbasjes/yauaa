@@ -142,7 +142,7 @@ and in your application you can use it as simple as this
         UserAgentAnalyzer uaa = UserAgentAnalyzer
                     .newBuilder()
                     .hideMatcherLoadStats()
-                    .withCache(25000)
+                    .withCache(10000)
                     .build();
 
         UserAgent agent = uaa.parse("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11");
@@ -155,6 +155,11 @@ Please instantiate a new UserAgentAnalyzer as few times as possible because the 
 If you need multiple instances of the UserAgentAnalyzer then you MUST create a new Builder instance for each of those.
 
 Note that not all fields are available after every parse. So be prepared to receive a 'null' if you extract a specific name.
+
+I recommend you leave the cache to a size that is roughly the unique number of useragents your site finds
+in a limited timespan. Something like 15/30/60 minutes usually gives you a fine cache size.
+On a very busy website I see ~50K-60K distinct useragents per day and ~10K per hour. 
+So in my opinion a cache size of 5K-10K elements is a good choice.
 
 **IMPORTANT: This library is single threaded !**
 Because the code is not reentrant the main method has been synchronized on the instance. 
