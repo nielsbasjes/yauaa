@@ -21,67 +21,67 @@ config:
     - 'agent.product.(1)name="Profile"'
     - 'agent.product.(1)name="Configuration"'
     extract:
-    - 'DeviceClass           : 300:"Mobile"'
-    - 'DeviceName            : 300:agent.(1)product.(1)name'
-    - 'DeviceVersion         : 300:agent.(1)product.(1)name^.version'
-    - 'AgentClass            :   4:"Unknown"'
-    - 'AgentName             :   4:"Unknown"'
-    - 'AgentVersion          :   4:"Unknown"'
+    - 'DeviceClass                         :    300 :"Mobile"'
+    - 'DeviceName                          :    300 :agent.(1)product.(1)name'
+    - 'DeviceVersion                       :    300 :agent.(1)product.(1)name^.version'
+    - 'AgentClass                          :      4 :"Unknown"'
+    - 'AgentName                           :      4 :"Unknown"'
+    - 'AgentVersion                        :      4 :"Unknown"'
 
 - matcher:
     extract:
-    - 'DeviceClass           : 302:"Mobile"'
-    - 'DeviceName            : 402:agent.(1)product.(1)name[2]="Linux"@[-1]'
-    - 'DeviceFirmwareVersion : 402:agent.product.(1)name="Release"^.version'
-    - 'AgentClass            :   4:"Unknown"'
-    - 'AgentName             :   4:"Unknown"'
-    - 'AgentVersion          :   4:"Unknown"'
+    - 'DeviceClass                         :    302 :"Mobile"'
+    - 'DeviceName                          :    402 :agent.(1)product.(1)name[2]="Linux"@[-1]'
+    - 'DeviceFirmwareVersion               :    402 :agent.product.(1)name="Release"^.version'
+    - 'AgentClass                          :      4 :"Unknown"'
+    - 'AgentName                           :      4 :"Unknown"'
+    - 'AgentVersion                        :      4 :"Unknown"'
 
 - matcher:
     extract:
-    - 'DeviceClass           : 302:"Mobile"'
-    - 'DeviceName            : 402:agent.(1)product.(1)name[3]="Linux"@[-2]'
-    - 'DeviceFirmwareVersion : 402:agent.product.(1)name="Release"^.version'
-    - 'AgentClass            :   4:"Unknown"'
-    - 'AgentName             :   4:"Unknown"'
-    - 'AgentVersion          :   4:"Unknown"'
+    - 'DeviceClass                         :    302 :"Mobile"'
+    - 'DeviceName                          :    402 :agent.(1)product.(1)name[3]="Linux"@[-2]'
+    - 'DeviceFirmwareVersion               :    402 :agent.product.(1)name="Release"^.version'
+    - 'AgentClass                          :      4 :"Unknown"'
+    - 'AgentName                           :      4 :"Unknown"'
+    - 'AgentVersion                        :      4 :"Unknown"'
 
 - matcher:
     extract:
-    - 'DeviceClass           : 302:"Mobile"'
-    - 'DeviceName            : 402:agent.(1)product.(1)name[4]="Linux"@[-3]'
-    - 'DeviceFirmwareVersion : 402:agent.product.(1)name="Release"^.version'
-    - 'AgentClass            :   4:"Unknown"'
-    - 'AgentName             :   4:"Unknown"'
-    - 'AgentVersion          :   4:"Unknown"'
+    - 'DeviceClass                         :    302 :"Mobile"'
+    - 'DeviceName                          :    402 :agent.(1)product.(1)name[4]="Linux"@[-3]'
+    - 'DeviceFirmwareVersion               :    402 :agent.product.(1)name="Release"^.version'
+    - 'AgentClass                          :      4 :"Unknown"'
+    - 'AgentName                           :      4 :"Unknown"'
+    - 'AgentVersion                        :      4 :"Unknown"'
 
 - matcher:
     require:
     - 'agent.product.(1)name="Browser"'
     extract:
-    - 'DeviceClass           : 301:"Mobile"'
-    - 'DeviceName            : 300:agent.(1)product.(1)name'
-    - 'DeviceVersion         : 300:agent.(1)product.(1)version'
-    - 'AgentClass            :   4:"Unknown"'
-    - 'AgentName             :   4:"Unknown"'
-    - 'AgentVersion          :   4:"Unknown"'
+    - 'DeviceClass                         :    301 :"Mobile"'
+    - 'DeviceName                          :    300 :agent.(1)product.(1)name'
+    - 'DeviceVersion                       :    300 :agent.(1)product.(1)version'
+    - 'AgentClass                          :      4 :"Unknown"'
+    - 'AgentName                           :      4 :"Unknown"'
+    - 'AgentVersion                        :      4 :"Unknown"'
 
 - matcher:
     extract:
-    - 'DeviceClass           : 301:"Mobile"'
-    - 'DeviceName            : 301:agent.(1)product.(1)name'
-    - 'DeviceVersion         : 301:agent.(1)product.(1)version'
-    - 'DeviceFirmwareVersion : 301:agent.product.(1)name="Release"^.version'
-    - 'AgentClass            :   4:"Unknown"'
-    - 'AgentName             :   4:"Unknown"'
-    - 'AgentVersion          :   4:"Unknown"'
+    - 'DeviceClass                         :    301 :"Mobile"'
+    - 'DeviceName                          :    301 :agent.(1)product.(1)name'
+    - 'DeviceVersion                       :    301 :agent.(1)product.(1)version'
+    - 'DeviceFirmwareVersion               :    301 :agent.product.(1)name="Release"^.version'
+    - 'AgentClass                          :      4 :"Unknown"'
+    - 'AgentName                           :      4 :"Unknown"'
+    - 'AgentVersion                        :      4 :"Unknown"'
 
 - matcher:
     extract:
-    - 'DeviceClass           : 302:"Mobile"'
-    - 'DeviceName            : 302:agent.(1)product[-2]'
-    - 'DeviceVersion         : 302:agent.(1)product.(2)version'
-    - 'DeviceFirmwareVersion : 302:agent.product.(1)name="Release"^.version'
+    - 'DeviceClass                         :    302 :"Mobile"'
+    - 'DeviceName                          :    302 :agent.(1)product[-2]'
+    - 'DeviceVersion                       :    302 :agent.(1)product.(2)version'
+    - 'DeviceFirmwareVersion               :    302 :agent.product.(1)name="Release"^.version'
 
 - matcher:
     variable:
@@ -90,9 +90,9 @@ config:
     - 'agent.product.(1)version{"AppleWebKit"'
     - '@BrowserVersion{"AppleWebKit"'
     extract:
-    - 'LayoutEngineClass     :   1:"Browser"'
-    - 'LayoutEngineName      :   1:"AppleWebKit"'
-    - 'LayoutEngineVersion   :   1:@BrowserVersion'
+    - 'LayoutEngineClass                   :      1 :"Browser"'
+    - 'LayoutEngineName                    :      1 :"AppleWebKit"'
+    - 'LayoutEngineVersion                 :      1 :@BrowserVersion'
 
 - test:
     input:
@@ -200,9 +200,9 @@ config:
 
 - matcher:
     extract:
-    - 'AgentClass            :   100:"Browser"'
-    - 'AgentName             :   100:"Dolfin"'
-    - 'AgentVersion          :   100:agent.product.name="Dolfin"^.version'
+    - 'AgentClass                          :    100 :"Browser"'
+    - 'AgentName                           :    100 :"Dolfin"'
+    - 'AgentVersion                        :    100 :agent.product.name="Dolfin"^.version'
 
 - test:
     input:
@@ -228,9 +228,9 @@ config:
 
 - matcher:
     extract:
-    - 'AgentClass            :   100:"Testclient"'
-    - 'AgentName             :   100:"Jasmine"'
-    - 'AgentVersion          :   100:agent.product.name="Jasmine"^.version'
+    - 'AgentClass                          :    100 :"Testclient"'
+    - 'AgentName                           :    100 :"Jasmine"'
+    - 'AgentVersion                        :    100 :agent.product.name="Jasmine"^.version'
 
 - test:
     input:
@@ -362,279 +362,279 @@ config:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   130:agent.(1)product.(1)comments.(7)entry.(1)product.(1)name'
-    - 'DeviceVersion         :   130:agent.(1)product.(1)comments.(7)entry.(1)product.(1)version'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    130 :agent.(1)product.(1)comments.(7)entry.(1)product.(1)name'
+    - 'DeviceVersion                       :    130 :agent.(1)product.(1)comments.(7)entry.(1)product.(1)version'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     10 :agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   129:agent.(1)product.(1)comments.(7)entry.text'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    129 :agent.(1)product.(1)comments.(7)entry.text'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     10 :agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   128:agent.(1)product.(1)comments.(6)entry.(1)product.(1)name'
-    - 'DeviceVersion         :   128:agent.(1)product.(1)comments.(6)entry.(1)product.(1)version'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    128 :agent.(1)product.(1)comments.(6)entry.(1)product.(1)name'
+    - 'DeviceVersion                       :    128 :agent.(1)product.(1)comments.(6)entry.(1)product.(1)version'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     10 :agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   127:agent.(1)product.(1)comments.(6)entry.text'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    127 :agent.(1)product.(1)comments.(6)entry.text'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     10 :agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   126:agent.(1)product.(1)comments.(5)entry.(1)product.(1)name'
-    - 'DeviceVersion         :   126:agent.(1)product.(1)comments.(5)entry.(1)product.(1)version'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    126 :agent.(1)product.(1)comments.(5)entry.(1)product.(1)name'
+    - 'DeviceVersion                       :    126 :agent.(1)product.(1)comments.(5)entry.(1)product.(1)version'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     10 :agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   125:agent.(1)product.(1)comments.(5)entry.text'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    125 :agent.(1)product.(1)comments.(5)entry.text'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     10 :agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   124:agent.(1)product.(1)comments.(4)entry.(1)product.(1)name'
-    - 'DeviceVersion         :   124:agent.(1)product.(1)comments.(4)entry.(1)product.(1)version'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    124 :agent.(1)product.(1)comments.(4)entry.(1)product.(1)name'
+    - 'DeviceVersion                       :    124 :agent.(1)product.(1)comments.(4)entry.(1)product.(1)version'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     10 :agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   123:agent.(1)product.(1)comments.(4)entry.text'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   10:agent.(1)product.(1)comments.(1)entry'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    123 :agent.(1)product.(1)comments.(4)entry.text'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     10 :agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName               :   121:agent.(1)product.(1)comments.(3)entry.(1)product.(1)name'
-    - 'DeviceVersion            :   122:agent.(1)product.(1)comments.(3)entry.(1)product.(1)version'
-    - 'OperatingSystemClass     :    10:"Mobile"'
-    - 'OperatingSystemName      :    10:agent.(1)product.(1)comments.(1)entry'
-    - 'OperatingSystemVersion   :    10:"??"'
+    - 'DeviceName                          :    121 :agent.(1)product.(1)comments.(3)entry.(1)product.(1)name'
+    - 'DeviceVersion                       :    122 :agent.(1)product.(1)comments.(3)entry.(1)product.(1)version'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     10 :agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName               :   121:agent.(1)product.(1)comments.(3)entry.text'
-    - 'OperatingSystemClass     :    10:"Mobile"'
-    - 'OperatingSystemName      :    10:agent.(1)product.(1)comments.(1)entry'
-    - 'OperatingSystemVersion   :    10:"??"'
+    - 'DeviceName                          :    121 :agent.(1)product.(1)comments.(3)entry.text'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     10 :agent.(1)product.(1)comments.(1)entry'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName               :   120:agent.(1)product.(1)comments.(7)entry.(1)product.(1)name'
-    - 'DeviceVersion            :   120:agent.(1)product.(1)comments.(7)entry.(1)product.(1)version'
-    - 'OperatingSystemClass     :    10:"Mobile"'
-    - 'OperatingSystemName      :    11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-    - 'OperatingSystemVersion   :    10:"??"'
+    - 'DeviceName                          :    120 :agent.(1)product.(1)comments.(7)entry.(1)product.(1)name'
+    - 'DeviceVersion                       :    120 :agent.(1)product.(1)comments.(7)entry.(1)product.(1)version'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     11 :LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   129:agent.(1)product.(1)comments.(7)entry.text'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    129 :agent.(1)product.(1)comments.(7)entry.text'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     11 :LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   128:agent.(1)product.(1)comments.(6)entry.(1)product.(1)name'
-    - 'DeviceVersion         :   128:agent.(1)product.(1)comments.(6)entry.(1)product.(1)version'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    128 :agent.(1)product.(1)comments.(6)entry.(1)product.(1)name'
+    - 'DeviceVersion                       :    128 :agent.(1)product.(1)comments.(6)entry.(1)product.(1)version'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     11 :LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   127:agent.(1)product.(1)comments.(6)entry.text'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    127 :agent.(1)product.(1)comments.(6)entry.text'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     11 :LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   126:agent.(1)product.(1)comments.(5)entry.(1)product.(1)name'
-    - 'DeviceVersion         :   126:agent.(1)product.(1)comments.(5)entry.(1)product.(1)version'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    126 :agent.(1)product.(1)comments.(5)entry.(1)product.(1)name'
+    - 'DeviceVersion                       :    126 :agent.(1)product.(1)comments.(5)entry.(1)product.(1)version'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     11 :LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   125:agent.(1)product.(1)comments.(5)entry.text'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    125 :agent.(1)product.(1)comments.(5)entry.text'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     11 :LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   124:agent.(1)product.(1)comments.(4)entry.(1)product.(1)name'
-    - 'DeviceVersion         :   124:agent.(1)product.(1)comments.(4)entry.(1)product.(1)version'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    124 :agent.(1)product.(1)comments.(4)entry.(1)product.(1)name'
+    - 'DeviceVersion                       :    124 :agent.(1)product.(1)comments.(4)entry.(1)product.(1)version'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     11 :LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName            :   123:agent.(1)product.(1)comments.(4)entry.text'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    123 :agent.(1)product.(1)comments.(4)entry.text'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     11 :LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName               :   122:agent.(1)product.(1)comments.(3)entry.(1)product.(1)name'
-    - 'DeviceVersion            :   122:agent.(1)product.(1)comments.(3)entry.(1)product.(1)version'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    122 :agent.(1)product.(1)comments.(3)entry.(1)product.(1)name'
+    - 'DeviceVersion                       :    122 :agent.(1)product.(1)comments.(3)entry.(1)product.(1)version'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     11 :LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="UCWEB"'
     extract:
-    - 'DeviceName               :   121:agent.(1)product.(1)comments.(3)entry.text'
-    - 'OperatingSystemClass     :   10:"Mobile"'
-    - 'OperatingSystemName      :   11:LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
-    - 'OperatingSystemVersion   :   10:"??"'
+    - 'DeviceName                          :    121 :agent.(1)product.(1)comments.(3)entry.text'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     11 :LookUp[OSNameCleanup;agent.(1)product.(1)comments.(1)entry]'
+    - 'OperatingSystemVersion              :     10 :"??"'
 
 
 - matcher:
     require:
     - 'agent.product.(1)name="UCBrowser"'
     extract:
-    - 'DeviceClass           :    30:"Tablet"'
+    - 'DeviceClass                         :     30 :"Tablet"'
 
 - matcher:
     require:
     - 'agent.product.(1)name="UCBrowser"'
     - 'agent.product.name[1]="Mobile"'
     extract:
-    - 'DeviceClass           :   332:"Phone"'
+    - 'DeviceClass                         :    332 :"Phone"'
 
 - matcher:
     require:
     - 'agent.product.(1)name="UCBrowser"'
     - 'agent.text="Mobile"'
     extract:
-    - 'DeviceClass           :   332:"Phone"'
+    - 'DeviceClass                         :    332 :"Phone"'
 
 - matcher:
     require:
     - 'agent.product.(1)name="UCWEB"'
     extract:
-    - 'DeviceClass           :   330:"Tablet"'
+    - 'DeviceClass                         :    330 :"Tablet"'
 
 - matcher:
     require:
     - 'agent.product.(1)name="UCWEB"'
     - 'agent.text="Mobile"'
     extract:
-    - 'DeviceClass           :   332:"Phone"'
+    - 'DeviceClass                         :    332 :"Phone"'
 
 - matcher:
     require:
     - 'agent.product.(1)name="UCWEB"'
     - 'agent.product.name[1]="Mobile"'
     extract:
-    - 'DeviceClass           :   332:"Phone"'
+    - 'DeviceClass                         :    332 :"Phone"'
 
 
 
 - matcher:
     extract:
-    - 'LayoutEngineClass     :  131:"Browser"'
-    - 'LayoutEngineName      :  131:"UCBrowser"'
-    - 'LayoutEngineVersion   :  131:agent.product.name="UCBrowser"^.version'
-    - 'AgentClass            :  131:"Browser"'
-    - 'AgentName             :  131:"UCBrowser"'
-    - 'AgentVersion          :  131:agent.product.name="UCBrowser"^.version'
+    - 'LayoutEngineClass                   :    131 :"Browser"'
+    - 'LayoutEngineName                    :    131 :"UCBrowser"'
+    - 'LayoutEngineVersion                 :    131 :agent.product.name="UCBrowser"^.version'
+    - 'AgentClass                          :    131 :"Browser"'
+    - 'AgentName                           :    131 :"UCBrowser"'
+    - 'AgentVersion                        :    131 :agent.product.name="UCBrowser"^.version'
 
 - matcher:
     extract:
-    - 'LayoutEngineClass     :  132:"Browser"'
-    - 'LayoutEngineName      :  132:"UCBrowser U2"'
-    - 'LayoutEngineVersion   :  132:agent.product.name="U2"^.version'
-    - 'AgentClass            :  131:"Browser"'
-    - 'AgentName             :  131:"UCBrowser"'
-    - 'AgentVersion          :  131:agent.product.name="UCBrowser"^.version'
+    - 'LayoutEngineClass                   :    132 :"Browser"'
+    - 'LayoutEngineName                    :    132 :"UCBrowser U2"'
+    - 'LayoutEngineVersion                 :    132 :agent.product.name="U2"^.version'
+    - 'AgentClass                          :    131 :"Browser"'
+    - 'AgentName                           :    131 :"UCBrowser"'
+    - 'AgentVersion                        :    131 :agent.product.name="UCBrowser"^.version'
 
 - matcher:
     extract:
-    - 'LayoutEngineClass     :  133:"Browser"'
-    - 'LayoutEngineName      :  133:"UCBrowser U3"'
-    - 'LayoutEngineVersion   :  133:agent.product.name="U3"^.version'
-    - 'AgentClass            :  131:"Browser"'
-    - 'AgentName             :  131:"UCBrowser"'
-    - 'AgentVersion          :  131:agent.product.name="UCBrowser"^.version'
+    - 'LayoutEngineClass                   :    133 :"Browser"'
+    - 'LayoutEngineName                    :    133 :"UCBrowser U3"'
+    - 'LayoutEngineVersion                 :    133 :agent.product.name="U3"^.version'
+    - 'AgentClass                          :    131 :"Browser"'
+    - 'AgentName                           :    131 :"UCBrowser"'
+    - 'AgentVersion                        :    131 :agent.product.name="UCBrowser"^.version'
 
 - matcher:
     extract:
-    - 'LayoutEngineClass     :  122:"Browser"'
-    - 'LayoutEngineName      :  122:"UCBrowser U2"'
-    - 'LayoutEngineVersion   :  122:agent.product.name="U2"^.version'
-    - 'AgentClass            :  121:"Browser"'
-    - 'AgentName             :  121:"UCBrowser"'
-    - 'AgentVersion          :  121:agent.product.name="UCWEB"^.version'
+    - 'LayoutEngineClass                   :    122 :"Browser"'
+    - 'LayoutEngineName                    :    122 :"UCBrowser U2"'
+    - 'LayoutEngineVersion                 :    122 :agent.product.name="U2"^.version'
+    - 'AgentClass                          :    121 :"Browser"'
+    - 'AgentName                           :    121 :"UCBrowser"'
+    - 'AgentVersion                        :    121 :agent.product.name="UCWEB"^.version'
 
 - matcher:
     extract:
-    - 'LayoutEngineClass     :  123:"Browser"'
-    - 'LayoutEngineName      :  123:"UCBrowser U3"'
-    - 'LayoutEngineVersion   :  123:agent.product.name="U3"^.version'
-    - 'AgentClass            :  121:"Browser"'
-    - 'AgentName             :  121:"UCBrowser"'
-    - 'AgentVersion          :  121:agent.product.name="UCWEB"^.version'
+    - 'LayoutEngineClass                   :    123 :"Browser"'
+    - 'LayoutEngineName                    :    123 :"UCBrowser U3"'
+    - 'LayoutEngineVersion                 :    123 :agent.product.name="U3"^.version'
+    - 'AgentClass                          :    121 :"Browser"'
+    - 'AgentName                           :    121 :"UCBrowser"'
+    - 'AgentVersion                        :    121 :agent.product.name="UCWEB"^.version'
 
 
 - test:

@@ -21,27 +21,27 @@ config:
     variable:
     - 'KonquerorVersion            :agent.(1)product.comments.entry.product.name="Konqueror"^.version'
     extract:
-    - 'LayoutEngineClass     : 2000:"Browser"'
-    - 'LayoutEngineName      : 2000:"KHTML"'
-    - 'LayoutEngineVersion   : 2000:@KonquerorVersion'
-    - 'AgentClass            : 2000:"Browser"'
-    - 'AgentName             : 2000:"Konqueror"'
-    - 'AgentVersion          : 2000:@KonquerorVersion'
+    - 'LayoutEngineClass                   :   2000 :"Browser"'
+    - 'LayoutEngineName                    :   2000 :"KHTML"'
+    - 'LayoutEngineVersion                 :   2000 :@KonquerorVersion'
+    - 'AgentClass                          :   2000 :"Browser"'
+    - 'AgentName                           :   2000 :"Konqueror"'
+    - 'AgentVersion                        :   2000 :@KonquerorVersion'
 
 - matcher:
     extract:
-    - 'LayoutEngineClass     : 2000:"Browser"'
-    - 'LayoutEngineName      : 2001:"KHTML"'
-    - 'LayoutEngineVersion   : 2001:agent.product.comments.entry.product.name="KHTML"^.version'
+    - 'LayoutEngineClass                   :   2000 :"Browser"'
+    - 'LayoutEngineName                    :   2001 :"KHTML"'
+    - 'LayoutEngineVersion                 :   2001 :agent.product.comments.entry.product.name="KHTML"^.version'
 
 - matcher:
     extract:
-    - 'LayoutEngineClass     : 2000:"Browser"'
-    - 'LayoutEngineName      : 2001:"KHTML"'
-    - 'LayoutEngineVersion   : 2001:agent.product.name="KHTML"^.version'
-    - 'AgentClass            :   50:"Browser"'
-    - 'AgentName             :   50:"Konqueror"'
-    - 'AgentVersion          :   50:agent.product.name="Konqueror"^.version'
+    - 'LayoutEngineClass                   :   2000 :"Browser"'
+    - 'LayoutEngineName                    :   2001 :"KHTML"'
+    - 'LayoutEngineVersion                 :   2001 :agent.product.name="KHTML"^.version'
+    - 'AgentClass                          :     50 :"Browser"'
+    - 'AgentName                           :     50 :"Konqueror"'
+    - 'AgentVersion                        :     50 :agent.product.name="Konqueror"^.version'
 
 #http://webaim.org/blog/user-agent-string-history/
 

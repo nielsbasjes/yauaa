@@ -19,63 +19,63 @@ config:
 # Base rule if we do not know the brand pattern
 - matcher:
     extract:
-    - 'DeviceClass                 :    2:"Mobile"'
-    - 'DeviceBrand                 :   81:agent.(1-2)product.(1)comments.entry.product.name="Build"^^[1]'
-    - 'DeviceName                  :   81:agent.(1-2)product.(1)comments.entry.product.name="Build"^<'
+    - 'DeviceClass                         :      2 :"Mobile"'
+    - 'DeviceBrand                         :     81 :agent.(1-2)product.(1)comments.entry.product.name="Build"^^[1]'
+    - 'DeviceName                          :     81 :agent.(1-2)product.(1)comments.entry.product.name="Build"^<'
 
 - matcher:
     extract:
-    - 'DeviceClass                 :    2:"Mobile"'
-    - 'DeviceBrand                 :   82:agent.(1-2)product.(1)comments.entry.product.name="Build"^<<[1]'
-    - 'DeviceName                  :   82:agent.(1-2)product.(1)comments.entry.product.name="Build"^<<'
+    - 'DeviceClass                         :      2 :"Mobile"'
+    - 'DeviceBrand                         :     82 :agent.(1-2)product.(1)comments.entry.product.name="Build"^<<[1]'
+    - 'DeviceName                          :     82 :agent.(1-2)product.(1)comments.entry.product.name="Build"^<<'
 
 - matcher:
     extract:
-    - 'DeviceClass                 :    2:"Mobile"'
-    - 'DeviceBrand                 :   83:agent.(1-2)product.(1)comments.entry.product.name="Build"^<<<[1]'
-    - 'DeviceName                  :   83:agent.(1-2)product.(1)comments.entry.product.name="Build"^<<<'
+    - 'DeviceClass                         :      2 :"Mobile"'
+    - 'DeviceBrand                         :     83 :agent.(1-2)product.(1)comments.entry.product.name="Build"^<<<[1]'
+    - 'DeviceName                          :     83 :agent.(1-2)product.(1)comments.entry.product.name="Build"^<<<'
 
 - matcher:
     extract:
-    - 'DeviceClass                 :    2:"Mobile"'
-    - 'DeviceBrand                 :   91:"Unknown"'
-    - 'DeviceName                  :  391:agent.(1-2)product.(1)comments.entry[2]="Build"@[1]'
+    - 'DeviceClass                         :      2 :"Mobile"'
+    - 'DeviceBrand                         :     91 :"Unknown"'
+    - 'DeviceName                          :    391 :agent.(1-2)product.(1)comments.entry[2]="Build"@[1]'
 
 - matcher:
     extract:
-    - 'DeviceClass                 :    2:"Mobile"'
-    - 'DeviceBrand                 :   91:NormalizeBrand[agent.(1-2)product.(1)comments.entry[3]="Build"@[1]]'
-    - 'DeviceName                  :  391:agent.(1-2)product.(1)comments.entry[3]="Build"@[1-2]'
+    - 'DeviceClass                         :      2 :"Mobile"'
+    - 'DeviceBrand                         :     91 :NormalizeBrand[agent.(1-2)product.(1)comments.entry[3]="Build"@[1]]'
+    - 'DeviceName                          :    391 :agent.(1-2)product.(1)comments.entry[3]="Build"@[1-2]'
 
 - matcher:
     extract:
-    - 'DeviceClass                 :    2:"Mobile"'
-    - 'DeviceBrand                 :   91:NormalizeBrand[agent.(1-2)product.(1)comments.entry[4]="Build"@[1]]'
-    - 'DeviceName                  :  391:agent.(1-2)product.(1)comments.entry[4]="Build"@[1-3]'
+    - 'DeviceClass                         :      2 :"Mobile"'
+    - 'DeviceBrand                         :     91 :NormalizeBrand[agent.(1-2)product.(1)comments.entry[4]="Build"@[1]]'
+    - 'DeviceName                          :    391 :agent.(1-2)product.(1)comments.entry[4]="Build"@[1-3]'
 
 - matcher:
     extract:
-    - 'DeviceClass                 :    2:"Mobile"'
-    - 'DeviceBrand                 :   91:NormalizeBrand[agent.(1-2)product.(1)comments.entry[5]="Build"@[1]]'
-    - 'DeviceName                  :  391:agent.(1-2)product.(1)comments.entry[5]="Build"@[1-4]'
+    - 'DeviceClass                         :      2 :"Mobile"'
+    - 'DeviceBrand                         :     91 :NormalizeBrand[agent.(1-2)product.(1)comments.entry[5]="Build"@[1]]'
+    - 'DeviceName                          :    391 :agent.(1-2)product.(1)comments.entry[5]="Build"@[1-4]'
 
 - matcher:
     extract:
-    - 'DeviceClass                 :    2:"Mobile"'
-    - 'DeviceBrand                 :   91:NormalizeBrand[agent.(1-2)product.(1)comments.entry[6]="Build"@[1]]'
-    - 'DeviceName                  :  391:agent.(1-2)product.(1)comments.entry[6]="Build"@[1-5]'
+    - 'DeviceClass                         :      2 :"Mobile"'
+    - 'DeviceBrand                         :     91 :NormalizeBrand[agent.(1-2)product.(1)comments.entry[6]="Build"@[1]]'
+    - 'DeviceName                          :    391 :agent.(1-2)product.(1)comments.entry[6]="Build"@[1-5]'
 
 - matcher:
     extract:
-    - 'DeviceClass                 :    2:"Mobile"'
-    - 'DeviceBrand                 :   91:NormalizeBrand[agent.(1-2)product.(1)comments.entry[7]="Build"@[1]]'
-    - 'DeviceName                  :  391:agent.(1-2)product.(1)comments.entry[7]="Build"@[1-6]'
+    - 'DeviceClass                         :      2 :"Mobile"'
+    - 'DeviceBrand                         :     91 :NormalizeBrand[agent.(1-2)product.(1)comments.entry[7]="Build"@[1]]'
+    - 'DeviceName                          :    391 :agent.(1-2)product.(1)comments.entry[7]="Build"@[1-6]'
 
 - matcher:
     extract:
-    - 'DeviceClass                 :    2:"Mobile"'
-    - 'DeviceBrand                 :   91:NormalizeBrand[agent.(1-2)product.(1)comments.entry[8]="Build"@[1]]'
-    - 'DeviceName                  :  391:agent.(1-2)product.(1)comments.entry[8]="Build"@[1-7]'
+    - 'DeviceClass                         :      2 :"Mobile"'
+    - 'DeviceBrand                         :     91 :NormalizeBrand[agent.(1-2)product.(1)comments.entry[8]="Build"@[1]]'
+    - 'DeviceName                          :    391 :agent.(1-2)product.(1)comments.entry[8]="Build"@[1-7]'
 
 - test:
     input:

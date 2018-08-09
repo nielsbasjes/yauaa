@@ -20,7 +20,7 @@
 config:
 - matcher:
     extract:
-    - 'DeviceBrand :  200:LookUp[WindowsOEMCodes;agent.(1)product.comments.entry.text]'
+    - 'DeviceBrand                         :    200 :LookUp[WindowsOEMCodes;agent.(1)product.comments.entry.text]'
 - lookup:
     name: 'WindowsOEMCodes'
     map:

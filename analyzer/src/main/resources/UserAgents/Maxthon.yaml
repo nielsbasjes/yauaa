@@ -18,9 +18,9 @@ config:
 
 - matcher:
     extract:
-    - 'AgentClass            :   2015:"Browser"'
-    - 'AgentName             :   2015:"Maxthon"'
-    - 'AgentVersion          :   2015:agent.product.(1)name="Maxthon"^.version'
+    - 'AgentClass                          :   2015 :"Browser"'
+    - 'AgentName                           :   2015 :"Maxthon"'
+    - 'AgentVersion                        :   2015 :agent.product.(1)name="Maxthon"^.version'
 
 - test:
     input:
@@ -75,11 +75,11 @@ config:
 
 - matcher:
     extract:
-    - 'AgentClass            :     80:"Browser Webview"'
-    - 'AgentName             :     80:"UIWebView"'
-    - 'AgentVersion          :     80:agent.product.(1)name="AppleWebKit"^.version'
-    - 'WebviewAppName        :   2016:"Maxthon"'
-    - 'WebviewAppVersion     :   2016:agent.product.(1)name="MxBrowser"^.version'
+    - 'AgentClass                          :     80 :"Browser Webview"'
+    - 'AgentName                           :     80 :"UIWebView"'
+    - 'AgentVersion                        :     80 :agent.product.(1)name="AppleWebKit"^.version'
+    - 'WebviewAppName                      :   2016 :"Maxthon"'
+    - 'WebviewAppVersion                   :   2016 :agent.product.(1)name="MxBrowser"^.version'
 
 - test:
     input:

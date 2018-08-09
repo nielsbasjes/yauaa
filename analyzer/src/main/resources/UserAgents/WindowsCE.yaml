@@ -20,36 +20,36 @@ config:
     require:
     - 'agent.product.comments.entry="Windows CE"'
     extract:
-    - 'DeviceClass                : 101:"Mobile"'
-    - 'DeviceName                 : 101:"Mobile"'
-    - 'OperatingSystemClass       : 101:"Mobile"'
-    - 'OperatingSystemName        : 100:"Windows CE"'
-    - 'OperatingSystemVersion     : 100:"CE"'
-    - 'OperatingSystemNameVersion : 100:"Windows CE"'
+    - 'DeviceClass                         :    101 :"Mobile"'
+    - 'DeviceName                          :    101 :"Mobile"'
+    - 'OperatingSystemClass                :    101 :"Mobile"'
+    - 'OperatingSystemName                 :    100 :"Windows CE"'
+    - 'OperatingSystemVersion              :    100 :"CE"'
+    - 'OperatingSystemNameVersion          :    100 :"Windows CE"'
 
 - matcher:
     extract:
-    - 'AgentClass            : 2011:"Browser"'
-    - 'AgentName             : 2011:"IE Mobile"'
-    - 'AgentVersion          : 2011:agent.product.comments.entry.product.name="IEMobile"^.version'
+    - 'AgentClass                          :   2011 :"Browser"'
+    - 'AgentName                           :   2011 :"IE Mobile"'
+    - 'AgentVersion                        :   2011 :agent.product.comments.entry.product.name="IEMobile"^.version'
 
 - matcher:
     require:
     - 'agent.product.comments.entry="Windows CE"'
     - 'IsNull[agent.(1)product.name="Mozilla"]'
     extract:
-    - 'DeviceClass               : 401:"Mobile"'
-    - 'DeviceName                : 403:agent.(1)product.name'
-    - 'DeviceVersion             : 403:agent.(1)product.name^.version'
+    - 'DeviceClass                         :    401 :"Mobile"'
+    - 'DeviceName                          :    403 :agent.(1)product.name'
+    - 'DeviceVersion                       :    403 :agent.(1)product.name^.version'
 
 - matcher:
     require:
     - 'agent.product.comments.entry="Windows CE"'
     - 'agent.product.name="Profile"^<.name!="Mozilla"'
     extract:
-    - 'DeviceClass               : 401:"Mobile"'
-    - 'DeviceName                : 402:agent.product.name="Profile"^<.name'
-    - 'DeviceVersion             : 402:agent.product.name="Profile"^<.version'
+    - 'DeviceClass                         :    401 :"Mobile"'
+    - 'DeviceName                          :    402 :agent.product.name="Profile"^<.name'
+    - 'DeviceVersion                       :    402 :agent.product.name="Profile"^<.version'
 
 #  - test:
 #      input:

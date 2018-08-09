@@ -20,23 +20,23 @@ config:
 
 - matcher:
     extract:
-    - 'LayoutEngineClass          : 2010:"Browser"'
-    - 'LayoutEngineName           : 2010:"Presto"'
-    - 'LayoutEngineVersion        : 2010:"1"'
-    - 'AgentClass                 : 2010:"Browser"'
-    - 'AgentName                  : 2010:"Opera"'
-    - 'AgentVersion               : 2010:agent.product.name="Opera"^.version'
+    - 'LayoutEngineClass                   :   2010 :"Browser"'
+    - 'LayoutEngineName                    :   2010 :"Presto"'
+    - 'LayoutEngineVersion                 :   2010 :"1"'
+    - 'AgentClass                          :   2010 :"Browser"'
+    - 'AgentName                           :   2010 :"Opera"'
+    - 'AgentVersion                        :   2010 :agent.product.name="Opera"^.version'
 
 - matcher:
     require:
     - 'agent.product.name="Opera"'
     extract:
-    - 'LayoutEngineClass          : 2011:"Browser"'
-    - 'LayoutEngineName           : 2011:"Presto"'
-    - 'LayoutEngineVersion        : 2011:agent.product.name="Presto"^.version'
-    - 'AgentClass                 : 2011:"Browser"'
-    - 'AgentName                  : 2011:"Opera"'
-    - 'AgentVersion               : 2011:agent.product.name="Version"^.version'
+    - 'LayoutEngineClass                   :   2011 :"Browser"'
+    - 'LayoutEngineName                    :   2011 :"Presto"'
+    - 'LayoutEngineVersion                 :   2011 :agent.product.name="Presto"^.version'
+    - 'AgentClass                          :   2011 :"Browser"'
+    - 'AgentName                           :   2011 :"Opera"'
+    - 'AgentVersion                        :   2011 :agent.product.name="Version"^.version'
 
 # https://en.m.wikipedia.org/wiki/Presto_(layout_engine)
 # OPR Implies the BLink engine instead of Presto
@@ -161,10 +161,10 @@ config:
 
 - matcher:
     extract:
-    - 'AgentClass            :   2012:"Browser"'
-    - 'AgentName             :   2012:"Opera Mini"'
-    - 'AgentVersion          :   2012:agent.product.comments.entry.product.(1)name="Opera Mini"^.version'
-    - 'DeviceClass           :      1:"Mobile"'
+    - 'AgentClass                          :   2012 :"Browser"'
+    - 'AgentName                           :   2012 :"Opera Mini"'
+    - 'AgentVersion                        :   2012 :agent.product.comments.entry.product.(1)name="Opera Mini"^.version'
+    - 'DeviceClass                         :      1 :"Mobile"'
 
 - test:
     input:
@@ -197,9 +197,9 @@ config:
     require:
     - 'agent.product.comments.entry.product.name="Opera Tablet"'
     extract:
-    - 'AgentClass            :   2012:"Browser"'
-    - 'AgentName             :   2012:"Opera Tablet"'
-    - 'AgentVersion          :   2012:agent.product.name="Version"^.version'
+    - 'AgentClass                          :   2012 :"Browser"'
+    - 'AgentName                           :   2012 :"Opera Tablet"'
+    - 'AgentVersion                        :   2012 :agent.product.name="Version"^.version'
 
 - test:
     input:
@@ -257,9 +257,9 @@ config:
   # Opera on iOS
 - matcher:
     extract:
-    - 'AgentClass            :   2014:"Browser"'
-    - 'AgentName             :   2014:"Opera"'
-    - 'AgentVersion          :   2014:agent.product.(1)name="OPiOS"^.version'
+    - 'AgentClass                          :   2014 :"Browser"'
+    - 'AgentName                           :   2014 :"Opera"'
+    - 'AgentVersion                        :   2014 :agent.product.(1)name="OPiOS"^.version'
 
 - test:
     input:

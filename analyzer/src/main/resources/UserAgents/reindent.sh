@@ -25,9 +25,14 @@ s@^  *variable:@    variable:@
 s@^  *require:@    require:@
 s@^  *extract:@    extract:@
 s@^  *options:@    options:@
+s@^  *values:@    values:@
 s@^  *input:@    input:@
 s@^  *expected:@    expected:@
 s@^  *name:@    name:@
 s@^  *map:@    map:@
+s@^\(    \+[A-Z][a-zA-Z]\+\) \+:@\1                                                  :@
+s@^\(    \+[A-Z][a-zA-Z ]\{36\}\) \+:@\1:@
+s@^  \+\(- '[A-Z][a-zA-Z]\+\) *: *\([0-9]\+\) *:@    \1                                                :            \2:@g
+s@^  \+\(- '[A-Z][a-zA-Z ]\{34\}\) *: *\([0-9 ]\{6\}\) *:@    \1 : \2 :@g
  " ./*.yaml
 

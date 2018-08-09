@@ -130,12 +130,12 @@ config:
 
 - matcher:
     extract:
-    - 'LayoutEngineClass     :   1000:"Browser"'
-    - 'LayoutEngineName      :   1000:"AppleWebKit"'
-    - 'LayoutEngineVersion   :   1000:agent.product.(1)name="AppleWebKit"^.version'
-    - 'AgentClass            :   1000:"Browser"'
-    - 'AgentName             :   1000:"Firefox for iOS"'
-    - 'AgentVersion          :   1000:agent.product.(1)name="FxiOS"^.version'
+    - 'LayoutEngineClass                   :   1000 :"Browser"'
+    - 'LayoutEngineName                    :   1000 :"AppleWebKit"'
+    - 'LayoutEngineVersion                 :   1000 :agent.product.(1)name="AppleWebKit"^.version'
+    - 'AgentClass                          :   1000 :"Browser"'
+    - 'AgentName                           :   1000 :"Firefox for iOS"'
+    - 'AgentVersion                        :   1000 :agent.product.(1)name="FxiOS"^.version'
 
 #====================================================================================
 # Firefox OS
@@ -180,17 +180,17 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           :   2:"Mobile"' # Cloud, Desktop, Mobile, Embedded
-    - 'OperatingSystemClass  :   2:"Mobile"' # Cloud, Desktop, Mobile, Embedded
-    - 'OperatingSystemName   :   2:"Firefox OS"' # ( Linux / Android / Windows ...)
-    - 'OperatingSystemVersion:   2:agent.product.(1)name="Firefox"^.version'
+    - 'DeviceClass                         :      2 :"Mobile"' # Cloud, Desktop, Mobile, Embedded
+    - 'OperatingSystemClass                :      2 :"Mobile"' # Cloud, Desktop, Mobile, Embedded
+    - 'OperatingSystemName                 :      2 :"Firefox OS"' # ( Linux / Android / Windows ...)
+    - 'OperatingSystemVersion              :      2 :agent.product.(1)name="Firefox"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   3:"Mobile"' # Cloud, Desktop, Mobile, Embedded
-    - 'OperatingSystemClass  :   3:"Mobile"' # Cloud, Desktop, Mobile, Embedded
-    - 'OperatingSystemName   :   3:"Firefox OS"' # ( Linux / Android / Windows ...)
-    - 'OperatingSystemVersion:   3:LookUp[GeckoToFirefoxOSVersion;agent.product.(1)name="Firefox"^.version]'
+    - 'DeviceClass                         :      3 :"Mobile"' # Cloud, Desktop, Mobile, Embedded
+    - 'OperatingSystemClass                :      3 :"Mobile"' # Cloud, Desktop, Mobile, Embedded
+    - 'OperatingSystemName                 :      3 :"Firefox OS"' # ( Linux / Android / Windows ...)
+    - 'OperatingSystemVersion              :      3 :LookUp[GeckoToFirefoxOSVersion;agent.product.(1)name="Firefox"^.version]'
 
 #Form factor"              "Gecko user agent string
 #Phone"              "Mozilla/5.0 (Mobile; rv:26.0) Gecko/26.0 Firefox/26.0
@@ -316,7 +316,7 @@ config:
     - 'IsNull[agent.(1)product.(1)comments.(4)entry]'
     - 'agent.(3)product.(1)name="Firefox"'
     extract:
-    - 'DeviceName            :   1000:agent.(1)product.(1)comments.(2)entry.(1)text'
+    - 'DeviceName                          :   1000 :agent.(1)product.(1)comments.(2)entry.(1)text'
 
 - matcher:
     require:
@@ -327,7 +327,7 @@ config:
     - 'IsNull[agent.(1)product.(1)comments.(4)entry]'
     - 'agent.(3)product.(1)name="Firefox"'
     extract:
-    - 'DeviceName            :   1000:agent.(1)product.(1)comments.(2)entry.(1)text'
+    - 'DeviceName                          :   1000 :agent.(1)product.(1)comments.(2)entry.(1)text'
 
 #Some known Firefox OS UA strings with device ids (found in bugzil.la/873385):
 - test:
@@ -439,11 +439,11 @@ config:
     require:
     - 'agent.product.(1)name="Focus"^>.name="Mobile"'
     extract:
-    - 'AgentClass                 : 100 :"Browser"'
-    - 'AgentName                  : 100 :"Firefox Focus"'
-    - 'AgentVersion               : 100 :agent.product.(1)name="Focus"^.version'
-    - 'WebviewAppName             : 100 :"<<<null>>>"'
-    - 'WebviewAppVersion          : 100 :"<<<null>>>"'
+    - 'AgentClass                          :    100 :"Browser"'
+    - 'AgentName                           :    100 :"Firefox Focus"'
+    - 'AgentVersion                        :    100 :agent.product.(1)name="Focus"^.version'
+    - 'WebviewAppName                      :    100 :"<<<null>>>"'
+    - 'WebviewAppVersion                   :    100 :"<<<null>>>"'
 
 - test:
     input:

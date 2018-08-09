@@ -53,56 +53,56 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"'
     extract:
-    - 'DeviceClass           : 1000:"TV"'
-    - 'DeviceBrand           :  101:"Unspecified TV"'
-    - 'DeviceName            :  101:"Unspecified TV"'
-    - 'OperatingSystemClass  : 1000:"Embedded"'
-    - 'OperatingSystemName   :    1:"Proprietary"'
+    - 'DeviceClass                         :   1000 :"TV"'
+    - 'DeviceBrand                         :    101 :"Unspecified TV"'
+    - 'DeviceName                          :    101 :"Unspecified TV"'
+    - 'OperatingSystemClass                :   1000 :"Embedded"'
+    - 'OperatingSystemName                 :      1 :"Proprietary"'
 
 - matcher:
     extract:
-    - 'DeviceBrand           : 1000:NormalizeBrand[agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"^.(1)comments.(2)entry!=""]'
+    - 'DeviceBrand                         :   1000 :NormalizeBrand[agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"^.(1)comments.(2)entry!=""]'
 
 - matcher:
     extract:
-    - 'DeviceName            : 1000:agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"^.(1)comments.(3)entry!=""'
+    - 'DeviceName                          :   1000 :agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"^.(1)comments.(3)entry!=""'
 
 - matcher:
     extract:
-    - 'OperatingSystemVersion: 1000:agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"^.(1)comments.(4)entry!=""'
+    - 'OperatingSystemVersion              :   1000 :agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"^.(1)comments.(4)entry!=""'
 
 - matcher:
     extract:
-    - 'OperatingSystemName   : 1001:agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"^.(1)comments.(4)entry.product.name'
-    - 'OperatingSystemVersion: 1001:agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"^.(1)comments.(4)entry.product.version'
+    - 'OperatingSystemName                 :   1001 :agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"^.(1)comments.(4)entry.product.name'
+    - 'OperatingSystemVersion              :   1001 :agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"^.(1)comments.(4)entry.product.version'
 
 # -----------------
 - matcher:
     require:
     - 'agent.product.(1)name="HbbTV"'
     extract:
-    - 'DeviceClass           : 1000:"TV"'
-    - 'DeviceBrand           :  101:"Unspecified TV"'
-    - 'DeviceName            :  101:"Unspecified TV"'
-    - 'OperatingSystemClass  : 1000:"Embedded"'
-    - 'OperatingSystemName   :    1:"Proprietary"'
+    - 'DeviceClass                         :   1000 :"TV"'
+    - 'DeviceBrand                         :    101 :"Unspecified TV"'
+    - 'DeviceName                          :    101 :"Unspecified TV"'
+    - 'OperatingSystemClass                :   1000 :"Embedded"'
+    - 'OperatingSystemName                 :      1 :"Proprietary"'
 
 - matcher:
     extract:
-    - 'DeviceBrand           : 1000:NormalizeBrand[agent.product.(1)name="HbbTV"^.(1)comments.(2)entry!=""]'
+    - 'DeviceBrand                         :   1000 :NormalizeBrand[agent.product.(1)name="HbbTV"^.(1)comments.(2)entry!=""]'
 
 - matcher:
     extract:
-    - 'DeviceName            : 1000:agent.product.(1)name="HbbTV"^.(1)comments.(3)entry!=""'
+    - 'DeviceName                          :   1000 :agent.product.(1)name="HbbTV"^.(1)comments.(3)entry!=""'
 
 - matcher:
     extract:
-    - 'OperatingSystemVersion: 1000:agent.product.(1)name="HbbTV"^.(1)comments.(4)entry!=""'
+    - 'OperatingSystemVersion              :   1000 :agent.product.(1)name="HbbTV"^.(1)comments.(4)entry!=""'
 
 - matcher:
     extract:
-    - 'OperatingSystemName   : 1001:agent.product.(1)name="HbbTV"^.(1)comments.(4)entry.product.name'
-    - 'OperatingSystemVersion: 1001:agent.product.(1)name="HbbTV"^.(1)comments.(4)entry.product.version'
+    - 'OperatingSystemName                 :   1001 :agent.product.(1)name="HbbTV"^.(1)comments.(4)entry.product.name'
+    - 'OperatingSystemVersion              :   1001 :agent.product.(1)name="HbbTV"^.(1)comments.(4)entry.product.version'
 
 
 # -----------------
@@ -111,23 +111,23 @@ config:
     variable:
     - 'Language: agent.(1)product.(1)comments.(1-5)entry.(1-5)product.(1)name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
     extract:
-    - 'AgentLanguageCode :  10:LookUp[ISOLanguageCodes;@Language]'
-    - 'AgentLanguage     :  10:LookUp[ISOLanguageCodesName;@Language]'
+    - 'AgentLanguageCode                   :     10 :LookUp[ISOLanguageCodes;@Language]'
+    - 'AgentLanguage                       :     10 :LookUp[ISOLanguageCodesName;@Language]'
 
 - matcher:
     variable:
     - 'Language: agent.(1)product.(1)comments.(1-5)entry.(1-5)product.(1)name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
     extract:
-    - 'AgentLanguageCode :  11:LookUp[ISOLanguageCodes3;@Language]'
-    - 'AgentLanguage     :  11:LookUp[ISOLanguageCodes3Name;@Language]'
+    - 'AgentLanguageCode                   :     11 :LookUp[ISOLanguageCodes3;@Language]'
+    - 'AgentLanguage                       :     11 :LookUp[ISOLanguageCodes3Name;@Language]'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1-3)product.(1)name="HbbTV"'
     extract:
-    - 'DeviceBrand           :  102:"Loewe"'
-    - 'OperatingSystemName   : 1000:"LOH"'
-    - 'OperatingSystemVersion: 1000:agent.(1)product.(1)comments.entry.(1-3)product.(1)name="LOH"^.version'
+    - 'DeviceBrand                         :    102 :"Loewe"'
+    - 'OperatingSystemName                 :   1000 :"LOH"'
+    - 'OperatingSystemVersion              :   1000 :agent.(1)product.(1)comments.entry.(1-3)product.(1)name="LOH"^.version'
 
 - test:
     input:
@@ -275,12 +275,12 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry="SMART-TV"'
     extract:
-    - 'DeviceClass               : 500 :"TV"'
-    - 'DeviceBrand               : 500 :"Samsung"'
-    - 'DeviceName                : 500 :"Smart TV"'
-    - 'OperatingSystemClass      : 500 :"Embedded"'
-    - 'OperatingSystemName       : 500 :"Linux"'
-    - 'OperatingSystemVersion    : 500 :"SmartTV"'
+    - 'DeviceClass                         :    500 :"TV"'
+    - 'DeviceBrand                         :    500 :"Samsung"'
+    - 'DeviceName                          :    500 :"Smart TV"'
+    - 'OperatingSystemClass                :    500 :"Embedded"'
+    - 'OperatingSystemName                 :    500 :"Linux"'
+    - 'OperatingSystemVersion              :    500 :"SmartTV"'
 
 #My TV
 - test:
@@ -336,9 +336,9 @@ config:
 
 - matcher:
     extract:
-    - 'OperatingSystemClass      : 501 :"Embedded"'
-    - 'OperatingSystemName       : 501 :"Tizen"'
-    - 'OperatingSystemVersion    : 501 :agent.(1)product.(1)comments.entry.product.name="Tizen"^.version'
+    - 'OperatingSystemClass                :    501 :"Embedded"'
+    - 'OperatingSystemName                 :    501 :"Tizen"'
+    - 'OperatingSystemVersion              :    501 :agent.(1)product.(1)comments.entry.product.name="Tizen"^.version'
 
 - test:
     input:
@@ -789,47 +789,47 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceFirmwareVersion : 1000:agent.(1)product.(1)comments.(1-9)entry.product.(1)comments.(1-9)entry.product.(1)name="Firmware"^.version'
+    - 'DeviceFirmwareVersion               :   1000 :agent.(1)product.(1)comments.(1-9)entry.product.(1)comments.(1-9)entry.product.(1)name="Firmware"^.version'
 
 - matcher:
     extract:
-    - 'DeviceFirmwareVersion : 1000:agent.(1)product.(1)comments.(1-9)entry.product.(1)name="Firmware"^.version'
+    - 'DeviceFirmwareVersion               :   1000 :agent.(1)product.(1)comments.(1-9)entry.product.(1)name="Firmware"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass                          :   10 :"TV"'
-    - 'DeviceBrand                          :   10 :"Unspecified TV"'
-    - 'DeviceName                           :   10 :"Unspecified TV"'
-    - 'OperatingSystemClass                 : 1000:"Embedded"'
-    - 'OperatingSystemName                  : 1000:"NETTV"'
-    - 'OperatingSystemVersion               : 1000:agent.(1-3)product.(1)comments.(1-4)entry.product.(1)comments.(1-9)entry.product.(1)name="NETTV"^.version'
+    - 'DeviceClass                         :     10 :"TV"'
+    - 'DeviceBrand                         :     10 :"Unspecified TV"'
+    - 'DeviceName                          :     10 :"Unspecified TV"'
+    - 'OperatingSystemClass                :   1000 :"Embedded"'
+    - 'OperatingSystemName                 :   1000 :"NETTV"'
+    - 'OperatingSystemVersion              :   1000 :agent.(1-3)product.(1)comments.(1-4)entry.product.(1)comments.(1-9)entry.product.(1)name="NETTV"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass                          :   10:"TV"'
-    - 'DeviceBrand                          :   10:"Unspecified TV"'
-    - 'DeviceName                           :   10:"Unspecified TV"'
-    - 'OperatingSystemClass                 : 1000:"Embedded"'
-    - 'OperatingSystemName                  : 1000:"NETTV"'
-    - 'OperatingSystemVersion               : 1000:agent.(1-3)product.(1)comments.(1-9)entry.product.(1)name="NETTV"^.version'
+    - 'DeviceClass                         :     10 :"TV"'
+    - 'DeviceBrand                         :     10 :"Unspecified TV"'
+    - 'DeviceName                          :     10 :"Unspecified TV"'
+    - 'OperatingSystemClass                :   1000 :"Embedded"'
+    - 'OperatingSystemName                 :   1000 :"NETTV"'
+    - 'OperatingSystemVersion              :   1000 :agent.(1-3)product.(1)comments.(1-9)entry.product.(1)name="NETTV"^.version'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="HbbTV"'
     extract:
-    - 'DeviceClass                          :   10:"TV"'
-    - 'DeviceBrand                          :   10:"Unspecified TV"'
-    - 'DeviceName                           :   10:"Unspecified TV"'
-    - 'OperatingSystemClass                 : 1000:"Embedded"'
-    - 'OperatingSystemName                  :    1:"Proprietary"'
+    - 'DeviceClass                         :     10 :"TV"'
+    - 'DeviceBrand                         :     10 :"Unspecified TV"'
+    - 'DeviceName                          :     10 :"Unspecified TV"'
+    - 'OperatingSystemClass                :   1000 :"Embedded"'
+    - 'OperatingSystemName                 :      1 :"Proprietary"'
 
 - matcher:
     require:
     - 'agent.product.(1)name="PhilipsWebKit"'
     extract:
-    - 'DeviceClass                          :   20:"TV"'
-    - 'DeviceBrand                          :   20:"Philips"'
-    - 'DeviceName                           :  400 :"Unspecified TV"'
+    - 'DeviceClass                         :     20 :"TV"'
+    - 'DeviceBrand                         :     20 :"Philips"'
+    - 'DeviceName                          :    400 :"Unspecified TV"'
 
 
 - test:
@@ -867,10 +867,10 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.product.(1)name="NETTV"'
     extract:
-    - 'OperatingSystemClass  :  100:"Embedded"'
-    - 'DeviceClass           :  100:"TV"'
-    - 'DeviceName            :  100:"NetTV Device"'
-    - 'DeviceBrand           :  100:"Unknown"'
+    - 'OperatingSystemClass                :    100 :"Embedded"'
+    - 'DeviceClass                         :    100 :"TV"'
+    - 'DeviceName                          :    100 :"NetTV Device"'
+    - 'DeviceBrand                         :    100 :"Unknown"'
 
 - test:
     input:
@@ -956,10 +956,10 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           :   500:"TV"' # Well, it is really a video playback device...
-    - 'DeviceBrand           :   500:"Philips"'
-    - 'DeviceName            :   500:agent.product.(1)name[-2]="PHILIPS-AVM"^.comments.(2)entry.text'
-    - 'DeviceVersion         :   500:agent.product.(1)name[-2]="PHILIPS-AVM"^.version'
+    - 'DeviceClass                         :    500 :"TV"' # Well, it is really a video playback device...
+    - 'DeviceBrand                         :    500 :"Philips"'
+    - 'DeviceName                          :    500 :agent.product.(1)name[-2]="PHILIPS-AVM"^.comments.(2)entry.text'
+    - 'DeviceVersion                       :    500 :agent.product.(1)name[-2]="PHILIPS-AVM"^.version'
 
 - test:
     input:
@@ -1037,11 +1037,11 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           :   101:"TV"'
-    - 'DeviceName            :    50:"SmartTV"'
-    - 'AgentClass            :    50:"Browser"'
-    - 'AgentName             :    50:"SmartTV"'
-    - 'AgentVersion          :    50:agent.product.name="SmartTV"^.version'
+    - 'DeviceClass                         :    101 :"TV"'
+    - 'DeviceName                          :     50 :"SmartTV"'
+    - 'AgentClass                          :     50 :"Browser"'
+    - 'AgentName                           :     50 :"SmartTV"'
+    - 'AgentVersion                        :     50 :agent.product.name="SmartTV"^.version'
 
 - test:
     input:
@@ -1149,9 +1149,9 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)text="Viera"'
     extract:
-    - 'DeviceClass           :   200:"TV"'
-    - 'DeviceName            :   200:"Panasonic Viera"'
-    - 'DeviceBrand           :   200:"Panasonic"'
+    - 'DeviceClass                         :    200 :"TV"'
+    - 'DeviceName                          :    200 :"Panasonic Viera"'
+    - 'DeviceBrand                         :    200 :"Panasonic"'
 
 - test:
     input:
@@ -1184,12 +1184,12 @@ config:
     require:
     - 'agent.(1)product.(1)name="Model"'
     extract:
-    - 'DeviceClass           :   1:"TV"'
-    - 'DeviceBrand           :   1:agent.(1)product.(1)version[1]'
-    - 'DeviceName            :   1:agent.(1)product.(1)version[2-]'
-    - 'AgentClass             : 10  :"Browser"'
-    - 'AgentName              : 10  :"Unknown"'
-    - 'AgentVersion           : 10  :"??"'
+    - 'DeviceClass                         :      1 :"TV"'
+    - 'DeviceBrand                         :      1 :agent.(1)product.(1)version[1]'
+    - 'DeviceName                          :      1 :agent.(1)product.(1)version[2-]'
+    - 'AgentClass                          :     10 :"Browser"'
+    - 'AgentName                           :     10 :"Unknown"'
+    - 'AgentVersion                        :     10 :"??"'
 
 - test:
     input:

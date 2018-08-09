@@ -36,57 +36,57 @@ config:
     require:
     - 'agent.product.comments.entry{"Redmi"'
     extract:
-    - 'DeviceBrand :   3000:"Xiaomi"'
+    - 'DeviceBrand                         :   3000 :"Xiaomi"'
 
 - matcher:
     require:
     - 'agent.product.comments.entry{"MI "'
     extract:
-    - 'DeviceBrand :   1010:"Xiaomi"'
+    - 'DeviceBrand                         :   1010 :"Xiaomi"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name{"Mi-"'
     extract:
-    - 'DeviceBrand :   1010:"Xiaomi"'
+    - 'DeviceBrand                         :   1010 :"Xiaomi"'
 
 - matcher:
     variable:
     - 'Product: agent.(1)product.(1)comments.entry.(1)product{"HM "'
     extract:
-    - 'DeviceName :    1010:LookUp[XiaomiModels;@Product[1];"Redmi Note 4"]'
-    - 'DeviceBrand :   1010:"Xiaomi"'
+    - 'DeviceName                          :   1010 :LookUp[XiaomiModels;@Product[1];"Redmi Note 4"]'
+    - 'DeviceBrand                         :   1010 :"Xiaomi"'
 
 - matcher:
     variable:
     - 'Product: agent.(1)product.(1)comments.entry.(1)product.(1)name{"20130"'
     extract:
-    - 'DeviceName :    3000:LookUp[XiaomiModels;@Product[1];"Redmi 1"]'
-    - 'DeviceBrand :   3000:"Xiaomi"'
+    - 'DeviceName                          :   3000 :LookUp[XiaomiModels;@Product[1];"Redmi 1"]'
+    - 'DeviceBrand                         :   3000 :"Xiaomi"'
 
 - matcher:
     variable:
     - 'Product: agent.(1)product.(1)comments.entry.(1)product.(1)name{"20140"'
     extract:
-    - 'DeviceName :    3000:LookUp[XiaomiModels;@Product[1];"Redmi 1"]'
-    - 'DeviceBrand :   3000:"Xiaomi"'
+    - 'DeviceName                          :   3000 :LookUp[XiaomiModels;@Product[1];"Redmi 1"]'
+    - 'DeviceBrand                         :   3000 :"Xiaomi"'
 
 - matcher:
     variable:
     - 'Product: agent.(1)product.(1)comments.entry.(1)product.(1)name{"20148"'
     extract:
-    - 'DeviceName :    3000:LookUp[XiaomiModels;@Product[1];"Redmi 2"]'
-    - 'DeviceBrand :   3000:"Xiaomi"'
+    - 'DeviceName                          :   3000 :LookUp[XiaomiModels;@Product[1];"Redmi 2"]'
+    - 'DeviceBrand                         :   3000 :"Xiaomi"'
 
 - matcher:
     require:
     - 'agent.product.version="MiuiBrowser"'
     extract:
-    - 'AgentName :         3000:"MiuiBrowser"'
-    - 'AgentClass :        3000:"Browser"'
-    - 'AgentVersion :      3000:agent.product.version>'
-    - 'WebviewAppName :    3000:"XiaoMi MiuiBrowser"'
-    - 'WebviewAppVersion : 3000:agent.product.version>'
+    - 'AgentName                           :   3000 :"MiuiBrowser"'
+    - 'AgentClass                          :   3000 :"Browser"'
+    - 'AgentVersion                        :   3000 :agent.product.version>'
+    - 'WebviewAppName                      :   3000 :"XiaoMi MiuiBrowser"'
+    - 'WebviewAppVersion                   :   3000 :agent.product.version>'
 
 
 - test:

@@ -19,18 +19,18 @@ config:
 - set:
     name: 'BadGoannaNames'
     values:
-      - 'anonymized'
-      - 'owasmime'
+    - 'anonymized'
+    - 'owasmime'
 
 - matcher:
     extract:
-    - 'LayoutEngineClass    :  2010:"Browser"'
-    - 'LayoutEngineName     :  2010:"Goanna"'
-    - 'LayoutEngineVersion  :  2010:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
-    - 'LayoutEngineBuild    :  2010:agent.(2-5)product.name="Goanna"^.version'
-    - 'AgentClass           :  1996:"Browser"'
-    - 'AgentName            :  1996:"Goanna"'
-    - 'AgentVersion         :  1996:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
+    - 'LayoutEngineClass                   :   2010 :"Browser"'
+    - 'LayoutEngineName                    :   2010 :"Goanna"'
+    - 'LayoutEngineVersion                 :   2010 :agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
+    - 'LayoutEngineBuild                   :   2010 :agent.(2-5)product.name="Goanna"^.version'
+    - 'AgentClass                          :   1996 :"Browser"'
+    - 'AgentName                           :   1996 :"Goanna"'
+    - 'AgentVersion                        :   1996 :agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
 
 - matcher:
     variable:
@@ -38,9 +38,9 @@ config:
     require:
     - 'IsNull[@Goanna.name?BadGoannaNames]'
     extract:
-    - 'AgentClass           :  2010:"Browser"'
-    - 'AgentName            :  2010:@Goanna.name'
-    - 'AgentVersion         :  2010:@Goanna.version'
+    - 'AgentClass                          :   2010 :"Browser"'
+    - 'AgentName                           :   2010 :@Goanna.name'
+    - 'AgentVersion                        :   2010 :@Goanna.version'
 
 - matcher:
     variable:
@@ -48,9 +48,9 @@ config:
     require:
     - 'IsNull[@Goanna.name[-1]?BadGoannaNames]'
     extract:
-    - 'AgentClass           :  2011:"Browser"'
-    - 'AgentName            :  2011:@Goanna.name'
-    - 'AgentVersion         :  2011:@Goanna.version'
+    - 'AgentClass                          :   2011 :"Browser"'
+    - 'AgentName                           :   2011 :@Goanna.name'
+    - 'AgentVersion                        :   2011 :@Goanna.version'
 
 - matcher:
     variable:
@@ -58,9 +58,9 @@ config:
     require:
     - 'agent.(3-6)product.name[2]="Firefox"' # Performance trick
     extract:
-    - 'AgentClass           :  2012:"Browser"'
-    - 'AgentName            :  2012:@Goanna.name[2]="Firefox"'
-    - 'AgentVersion         :  2012:@Goanna.version'
+    - 'AgentClass                          :   2012 :"Browser"'
+    - 'AgentName                           :   2012 :@Goanna.name[2]="Firefox"'
+    - 'AgentVersion                        :   2012 :@Goanna.version'
 
 - matcher:
     variable:
@@ -68,9 +68,9 @@ config:
     require:
     - 'agent.(3-6)product.name[3]="Firefox"' # Performance trick
     extract:
-    - 'AgentClass           :  2012:"Browser"'
-    - 'AgentName            :  2012:@Goanna.name[3]="Firefox"'
-    - 'AgentVersion         :  2012:@Goanna.version'
+    - 'AgentClass                          :   2012 :"Browser"'
+    - 'AgentName                           :   2012 :@Goanna.name[3]="Firefox"'
+    - 'AgentVersion                        :   2012 :@Goanna.version'
 
 - matcher:
     variable:
@@ -78,9 +78,9 @@ config:
     require:
     - 'agent.(4-7)product.name[2]="Firefox"' # Performance trick
     extract:
-    - 'AgentClass           :  2013:"Browser"'
-    - 'AgentName            :  2013:@Goanna.name[2]="Firefox"'
-    - 'AgentVersion         :  2013:@Goanna.version'
+    - 'AgentClass                          :   2013 :"Browser"'
+    - 'AgentName                           :   2013 :@Goanna.name[2]="Firefox"'
+    - 'AgentVersion                        :   2013 :@Goanna.version'
 
 - matcher:
     variable:
@@ -88,28 +88,28 @@ config:
     require:
     - 'agent.(4-7)product.name[3]="Firefox"' # Performance trick
     extract:
-    - 'AgentClass           :  2013:"Browser"'
-    - 'AgentName            :  2013:@Goanna.name[3]="Firefox"'
-    - 'AgentVersion         :  2013:@Goanna.version'
+    - 'AgentClass                          :   2013 :"Browser"'
+    - 'AgentName                           :   2013 :@Goanna.name[3]="Firefox"'
+    - 'AgentVersion                        :   2013 :@Goanna.version'
 
     # In some obscure cases we have a parse problem that sends everything inside a comment block
 - matcher:
     extract:
-    - 'LayoutEngineClass    :  1901:"Browser"'
-    - 'LayoutEngineName     :  1901:"Goanna"'
-    - 'LayoutEngineVersion  :  1901:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
-    - 'LayoutEngineBuild    :  1901:agent.product.comments.entry.product.name="Goanna"^.version'
-    - 'AgentClass           :  1896:"Browser"'
-    - 'AgentName            :  1896:"Goanna"'
-    - 'AgentVersion         :  1896:agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
+    - 'LayoutEngineClass                   :   1901 :"Browser"'
+    - 'LayoutEngineName                    :   1901 :"Goanna"'
+    - 'LayoutEngineVersion                 :   1901 :agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
+    - 'LayoutEngineBuild                   :   1901 :agent.product.comments.entry.product.name="Goanna"^.version'
+    - 'AgentClass                          :   1896 :"Browser"'
+    - 'AgentName                           :   1896 :"Goanna"'
+    - 'AgentVersion                        :   1896 :agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
 
 - matcher:
     variable:
     - 'Goanna: agent.product.comments.entry.product.name="Goanna"^>'
     extract:
-    - 'AgentClass           :  1901:"Browser"'
-    - 'AgentName            :  1901:@Goanna.name'
-    - 'AgentVersion         :  1901:@Goanna.version'
+    - 'AgentClass                          :   1901 :"Browser"'
+    - 'AgentName                           :   1901 :@Goanna.name'
+    - 'AgentVersion                        :   1901 :@Goanna.version'
 
 - test:
     input:

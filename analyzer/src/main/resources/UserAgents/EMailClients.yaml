@@ -20,7 +20,7 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.name="Microsoft Outlook"'
     extract:
-      - 'AgentClass: 100 :"Email Client"'
+    - 'AgentClass                          :    100 :"Email Client"'
 
 # Ensure that 'pro' is not detected as the language
 #   "pro" : "Old Provençal (to 1500)"
@@ -28,30 +28,30 @@ config:
     input:
       user_agent_string: 'Microsoft Office/16.0 (Microsoft Outlook 16.0.8241; Pro)'
     expected:
-      DeviceClass              : 'Unknown'
-      DeviceName               : 'Unknown'
-      DeviceBrand              : 'Unknown'
-      OperatingSystemClass     : 'Unknown'
-      OperatingSystemName      : 'Unknown'
-      OperatingSystemVersion   : '??'
-      LayoutEngineClass        : 'Unknown'
-      LayoutEngineName         : 'Unknown'
-      LayoutEngineVersion      : '??'
-      LayoutEngineVersionMajor : '??'
-      AgentClass               : 'Email Client'
-      AgentName                : 'Microsoft Office'
-      AgentVersion             : '16.0'
-      AgentVersionMajor        : '16'
-      AgentNameVersion         : 'Microsoft Office 16.0'
-      AgentNameVersionMajor    : 'Microsoft Office 16'
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Office'
+      AgentVersion                         : '16.0'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Office 16.0'
+      AgentNameVersionMajor                : 'Microsoft Office 16'
 
 # Lotus notes
 
 - matcher:
     extract:
-      - 'AgentClass       :   100:"Email Client"'
-      - 'AgentName        :   100:"Lotus-Notes"'
-      - 'AgentVersion     :   100:agent.(1)product.(1)comments.entry.(1)product.name="Lotus-Notes"^.version'
+    - 'AgentClass                          :    100 :"Email Client"'
+    - 'AgentName                           :    100 :"Lotus-Notes"'
+    - 'AgentVersion                        :    100 :agent.(1)product.(1)comments.entry.(1)product.name="Lotus-Notes"^.version'
 
 - test:
     input:
@@ -81,9 +81,9 @@ config:
 # Thunderbird
 - matcher:
     extract:
-      - 'AgentClass       :   2100:"Email Client"'
-      - 'AgentName        :   2100:"Thunderbird"'
-      - 'AgentVersion     :   2100:agent.product.name="Thunderbird"^.version'
+    - 'AgentClass                          :   2100 :"Email Client"'
+    - 'AgentName                           :   2100 :"Thunderbird"'
+    - 'AgentVersion                        :   2100 :agent.product.name="Thunderbird"^.version'
 
 - test:
     input:
@@ -175,7 +175,7 @@ config:
       AgentLanguageCode                    : 'cs'
       AgentSecurity                        : 'Strong security'
 
-# ThunderBrowse is a webbrowsing addon for THunderbird
+# ThunderBrowse is a webbrowsing addon for Thunderbird
 # https://addons.mozilla.org/nl/thunderbird/addon/thunderbrowse/
 - test:
     input:

@@ -38,45 +38,45 @@ config:
 #
 - matcher:
     extract:
-    - 'DeviceClass                 :  50:"Mobile"'
-    - 'DeviceName                  :  10:"Android Mobile"'
-    - 'OperatingSystemClass        : 500:"Mobile"'
-    - 'OperatingSystemName         : 500:"Android"'
-    - 'OperatingSystemVersion      : 500:agent.(1-2)product.comments.entry.product.name[1]="Android"^.version'
+    - 'DeviceClass                         :     50 :"Mobile"'
+    - 'DeviceName                          :     10 :"Android Mobile"'
+    - 'OperatingSystemClass                :    500 :"Mobile"'
+    - 'OperatingSystemName                 :    500 :"Android"'
+    - 'OperatingSystemVersion              :    500 :agent.(1-2)product.comments.entry.product.name[1]="Android"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass                 :  50:"Mobile"'
-    - 'DeviceName                  :  10:"Android Mobile"'
-    - 'OperatingSystemClass        : 500:"Mobile"'
-    - 'OperatingSystemName         : 500:"Android"'
-    - 'OperatingSystemVersion      : 500:agent.(1-2)product.comments.entry.product.name="Adr"^.version'
+    - 'DeviceClass                         :     50 :"Mobile"'
+    - 'DeviceName                          :     10 :"Android Mobile"'
+    - 'OperatingSystemClass                :    500 :"Mobile"'
+    - 'OperatingSystemName                 :    500 :"Android"'
+    - 'OperatingSystemVersion              :    500 :agent.(1-2)product.comments.entry.product.name="Adr"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass                 :  51:"Mobile"'
-    - 'DeviceName                  :  11:"Android Mobile"'
-    - 'OperatingSystemClass        : 501:"Mobile"'
-    - 'OperatingSystemName         : 501:"Android"'
-    - 'OperatingSystemVersion      : 501:agent.product.name="Android"^.version'
+    - 'DeviceClass                         :     51 :"Mobile"'
+    - 'DeviceName                          :     11 :"Android Mobile"'
+    - 'OperatingSystemClass                :    501 :"Mobile"'
+    - 'OperatingSystemName                 :    501 :"Android"'
+    - 'OperatingSystemVersion              :    501 :agent.product.name="Android"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass                 :  51:"Mobile"'
-    - 'DeviceName                  :  11:"Android Mobile"'
-    - 'OperatingSystemClass        : 501:"Mobile"'
-    - 'OperatingSystemName         : 501:"Android"'
-    - 'OperatingSystemVersion      : 501:agent.product.name="Adr"^.version'
+    - 'DeviceClass                         :     51 :"Mobile"'
+    - 'DeviceName                          :     11 :"Android Mobile"'
+    - 'OperatingSystemClass                :    501 :"Mobile"'
+    - 'OperatingSystemName                 :    501 :"Android"'
+    - 'OperatingSystemVersion              :    501 :agent.product.name="Adr"^.version'
 
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.text="Android"'
     extract:
-    - 'DeviceClass                 :  2:"Mobile"'
-    - 'DeviceName                  :  4:"Android Mobile"'
-    - 'OperatingSystemClass        :  4:"Mobile"'
-    - 'OperatingSystemName         :  4:"Android"'
-    - 'OperatingSystemVersion      :  4:"??"'
+    - 'DeviceClass                         :      2 :"Mobile"'
+    - 'DeviceName                          :      4 :"Android Mobile"'
+    - 'OperatingSystemClass                :      4 :"Mobile"'
+    - 'OperatingSystemName                 :      4 :"Android"'
+    - 'OperatingSystemVersion              :      4 :"??"'
 
 - matcher:
     variable:
@@ -84,9 +84,9 @@ config:
     require:
     - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
     extract:
-    - 'DeviceClass                 :  51:"Mobile"'
-    - 'DeviceName                  :  51:@ProductBuild<'
-    - 'OperatingSystemVersionBuild :  51:@ProductBuild.version'
+    - 'DeviceClass                         :     51 :"Mobile"'
+    - 'DeviceName                          :     51 :@ProductBuild<'
+    - 'OperatingSystemVersionBuild         :     51 :@ProductBuild.version'
 
 # ===========================
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Gecko_user_agent_string_reference
@@ -98,28 +98,28 @@ config:
     require:
     - 'agent.(1)product.comments.entry.text="Tablet"'
     extract:
-    - 'DeviceClass                 :  1000:"Tablet"'
-    - 'OperatingSystemClass        :  1000:"Mobile"'
+    - 'DeviceClass                         :   1000 :"Tablet"'
+    - 'OperatingSystemClass                :   1000 :"Mobile"'
 
 - matcher:
     require:
     - 'agent.(1)product.comments.entry.text="Mobile"'
     extract:
-    - 'DeviceClass                 :  1000:"Phone"'
-    - 'OperatingSystemClass        :  1000:"Mobile"'
+    - 'DeviceClass                         :   1000 :"Phone"'
+    - 'OperatingSystemClass                :   1000 :"Mobile"'
 
 - matcher:
     require:
     - 'agent.(1)product.comments.entry.text="Phone"'
     extract:
-    - 'DeviceClass                 :  1000:"Phone"'
-    - 'OperatingSystemClass        :  1000:"Mobile"'
+    - 'DeviceClass                         :   1000 :"Phone"'
+    - 'OperatingSystemClass                :   1000 :"Mobile"'
 
 - matcher:
     require:
     - 'agent.(1)product.comments.entry.text="TV"'
     extract:
-    - 'DeviceClass                 :  1000:"TV"'
+    - 'DeviceClass                         :   1000 :"TV"'
 #        - 'OperatingSystemClass        :  1000:"Mobile"'
 
 # ===========================
@@ -136,8 +136,8 @@ config:
 #    - 'agent.(1-2)product.(1)comments.entry.(1)product.(1)name[1]="Android"'
     - 'agent.product.(1)name="Mobile Safari"'
     extract:
-    - 'DeviceClass                 :   1000:"Phone"'
-    - 'OperatingSystemClass        :   1000:"Mobile"'
+    - 'DeviceClass                         :   1000 :"Phone"'
+    - 'OperatingSystemClass                :   1000 :"Mobile"'
 
 #- matcher:
 #    require:
@@ -152,16 +152,16 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.(1)product.(1)name[1]="Android"'
     - 'agent.product.(1)name="Safari"'
     extract:
-    - 'DeviceClass                 :   1000:"Tablet"'
-    - 'OperatingSystemClass        :   1000:"Mobile"'
+    - 'DeviceClass                         :   1000 :"Tablet"'
+    - 'OperatingSystemClass                :   1000 :"Mobile"'
 
 - matcher:
     require:
     - 'agent.product.(1)name[1]="Android"'
     - 'agent.product.(1)name="Safari"'
     extract:
-    - 'DeviceClass                 :   1000:"Tablet"'
-    - 'OperatingSystemClass        :   1000:"Mobile"'
+    - 'DeviceClass                         :   1000 :"Tablet"'
+    - 'OperatingSystemClass                :   1000 :"Mobile"'
 
 # ===========================
 
@@ -169,49 +169,49 @@ config:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
-    - 'OperatingSystemVersionBuild :  80:agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version'
+    - 'OperatingSystemVersionBuild         :     80 :agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
-    - 'OperatingSystemVersionBuild :  79:agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^.version'
+    - 'OperatingSystemVersionBuild         :     79 :agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^.version'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
-    - 'OperatingSystemVersionBuild :  78:agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^.version'
+    - 'OperatingSystemVersionBuild         :     78 :agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^.version'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
-    - 'OperatingSystemVersionBuild :  77:agent.(1-2)product.(1)comments.entry.product.name[4]="Build"^.version'
+    - 'OperatingSystemVersionBuild         :     77 :agent.(1-2)product.(1)comments.entry.product.name[4]="Build"^.version'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
-    - 'OperatingSystemVersionBuild :  77:agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version'
+    - 'OperatingSystemVersionBuild         :     77 :agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
-    - 'OperatingSystemVersionBuild :  77:agent.(1-2)product.(1)comments.entry.product.name[6]="Build"^.version'
+    - 'OperatingSystemVersionBuild         :     77 :agent.(1-2)product.(1)comments.entry.product.name[6]="Build"^.version'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
-    - 'DeviceName                  :  75:agent.(1-2)product.(1)comments.entry[2]="Build"@[-1]'
+    - 'DeviceName                          :     75 :agent.(1-2)product.(1)comments.entry[2]="Build"@[-1]'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
-    - 'DeviceName                  :  76:agent.(1-2)product.(1)comments.entry[3]="Build"@[-2]'
+    - 'DeviceName                          :     76 :agent.(1-2)product.(1)comments.entry[3]="Build"@[-2]'
 
 - matcher:
     variable:
@@ -219,8 +219,8 @@ config:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
-    - 'DeviceName                  :  77:@BuildString[-3]'
-    - 'DeviceBrand                 :   1:NormalizeBrand[@BuildString[1]]'
+    - 'DeviceName                          :     77 :@BuildString[-3]'
+    - 'DeviceBrand                         :      1 :NormalizeBrand[@BuildString[1]]'
 
 - matcher:
     variable:
@@ -228,8 +228,8 @@ config:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
-    - 'DeviceName                  :  77:@BuildString[-4]'
-    - 'DeviceBrand                 :   1:NormalizeBrand[@BuildString[1]]'
+    - 'DeviceName                          :     77 :@BuildString[-4]'
+    - 'DeviceBrand                         :      1 :NormalizeBrand[@BuildString[1]]'
 
 - matcher:
     variable:
@@ -237,8 +237,8 @@ config:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
-    - 'DeviceName                  :  77:@BuildString[-5]'
-    - 'DeviceBrand                 :   1:NormalizeBrand[@BuildString[1]]'
+    - 'DeviceName                          :     77 :@BuildString[-5]'
+    - 'DeviceBrand                         :      1 :NormalizeBrand[@BuildString[1]]'
 
 - matcher:
     variable:
@@ -246,29 +246,29 @@ config:
     require:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Android"'
     extract:
-    - 'DeviceName                  :  77:@BuildString[-6]'
-    - 'DeviceBrand                 :   1:NormalizeBrand[@BuildString[1]]'
+    - 'DeviceName                          :     77 :@BuildString[-6]'
+    - 'DeviceBrand                         :      1 :NormalizeBrand[@BuildString[1]]'
 
 - matcher:
     variable:
     - 'CrOSProduct                   :agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^'
     extract:
-    - 'DeviceClass            :  2015:"Desktop"'
-    - 'DeviceBrand            :  2015:"Google"'
-    - 'DeviceName             :  2015:"Chromebook"'
-    - 'DeviceCpu              :  2015:LookUp[CPUArchitectures;@CrOSProduct.(1)version]'
-    - 'OperatingSystemClass   :  2015:"Desktop"'
-    - 'OperatingSystemName    :  2015:"Chrome OS"'
-    - 'OperatingSystemVersion :  2015:@CrOSProduct.(2)version'
+    - 'DeviceClass                         :   2015 :"Desktop"'
+    - 'DeviceBrand                         :   2015 :"Google"'
+    - 'DeviceName                          :   2015 :"Chromebook"'
+    - 'DeviceCpu                           :   2015 :LookUp[CPUArchitectures;@CrOSProduct.(1)version]'
+    - 'OperatingSystemClass                :   2015 :"Desktop"'
+    - 'OperatingSystemName                 :   2015 :"Chrome OS"'
+    - 'OperatingSystemVersion              :   2015 :@CrOSProduct.(2)version'
 
 - matcher:
     extract:
-    - 'DeviceClass            :  2014:"Desktop"'
-    - 'DeviceBrand            :  2014:"Google"'
-    - 'DeviceName             :  2014:"Chromebook"'
-    - 'OperatingSystemClass   :  2014:"Desktop"'
-    - 'OperatingSystemName    :  2014:"Chrome OS"'
-    - 'OperatingSystemVersion :  2014:agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^.(1)version'
+    - 'DeviceClass                         :   2014 :"Desktop"'
+    - 'DeviceBrand                         :   2014 :"Google"'
+    - 'DeviceName                          :   2014 :"Chromebook"'
+    - 'OperatingSystemClass                :   2014 :"Desktop"'
+    - 'OperatingSystemName                 :   2014 :"Chrome OS"'
+    - 'OperatingSystemVersion              :   2014 :agent.(1)product.(1)comments.entry.product.(1)name="CrOS"^.(1)version'
 
 - test:
     input:
@@ -940,22 +940,22 @@ config:
     require:
     - 'agent.(1)product.(1)name~"Android"'
     extract:
-    - 'DeviceClass           :   1:"Mobile"'
-    - 'OperatingSystemClass  :   1:"Mobile"'
-    - 'OperatingSystemName   :   1:"Android"'
-    - 'OperatingSystemVersion:   1:"??"'
+    - 'DeviceClass                         :      1 :"Mobile"'
+    - 'OperatingSystemClass                :      1 :"Mobile"'
+    - 'OperatingSystemName                 :      1 :"Android"'
+    - 'OperatingSystemVersion              :      1 :"??"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)name="Android-Mail"'
     extract:
-    - 'OperatingSystemClass          : 100 :"Mobile"'
-    - 'OperatingSystemName           : 100 :"Android"'
-    - 'OperatingSystemVersion        : 100 :"??"'
-    - 'OperatingSystemNameVersion    : 100 :"Android ??"'
-    - 'AgentClass                    : 100 :"Special"'
-    - 'AgentName                     : 100 :"Android-Mail"'
-    - 'AgentVersion                  : 100 :agent.(1)product.(1)version'
+    - 'OperatingSystemClass                :    100 :"Mobile"'
+    - 'OperatingSystemName                 :    100 :"Android"'
+    - 'OperatingSystemVersion              :    100 :"??"'
+    - 'OperatingSystemNameVersion          :    100 :"Android ??"'
+    - 'AgentClass                          :    100 :"Special"'
+    - 'AgentName                           :    100 :"Android-Mail"'
+    - 'AgentVersion                        :    100 :agent.(1)product.(1)version'
 
 # Android-Mail --> This is the GMail app on Android
 - test:
@@ -984,9 +984,9 @@ config:
     require:
     - 'agent.(1)product.(1)name[-2]="Android-SAMSUNG"'
     extract:
-    - 'DeviceClass           :   1:"Mobile"'
-    - 'DeviceBrand           :   1:"Samsung"'
-    - 'DeviceName            :   1:agent.(1)product.(1)name[3-]'
+    - 'DeviceClass                         :      1 :"Mobile"'
+    - 'DeviceBrand                         :      1 :"Samsung"'
+    - 'DeviceName                          :      1 :agent.(1)product.(1)name[3-]'
 
 - test:
     input:
@@ -1169,24 +1169,24 @@ config:
     - 'agent.product.(1)name="Mobile Safari"'
     - 'agent.(1)product.comments.entry.product.(1)name[1]="Android"'
     extract:
-    - 'AgentClass            :   56:"Browser"'
-    - 'AgentName             :   56:"Stock Android Browser"'
-    - 'AgentVersion          :   56:agent.product.(1)name="Version"^.version'
+    - 'AgentClass                          :     56 :"Browser"'
+    - 'AgentName                           :     56 :"Stock Android Browser"'
+    - 'AgentVersion                        :     56 :agent.product.(1)name="Version"^.version'
 
 - matcher:
     require:
     - 'agent.product.(1)name="Safari"'
     - 'agent.(1)product.comments.entry.product.(1)name[1]="Android"'
     extract:
-    - 'AgentClass            :   56:"Browser"'
-    - 'AgentName             :   56:"Stock Android Browser"'
-    - 'AgentVersion          :   56:agent.product.(1)name="Version"^.version'
+    - 'AgentClass                          :     56 :"Browser"'
+    - 'AgentName                           :     56 :"Stock Android Browser"'
+    - 'AgentVersion                        :     56 :agent.product.(1)name="Version"^.version'
 
 - matcher:
     extract:
-    - 'AgentClass            :   10:"Browser"'
-    - 'AgentName             :   10:"Stock Android Browser"'
-    - 'AgentVersion          :   10:agent.product.(1)name[1]="Android"^.version'
+    - 'AgentClass                          :     10 :"Browser"'
+    - 'AgentName                           :     10 :"Stock Android Browser"'
+    - 'AgentVersion                        :     10 :agent.product.(1)name[1]="Android"^.version'
 
 - test:
     input:
@@ -1249,37 +1249,37 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[1]="Phone"'
     extract:
-    - 'DeviceClass           :   1001:"Phone"'
+    - 'DeviceClass                         :   1001 :"Phone"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Phone"'
     extract:
-    - 'DeviceClass           :   1001:"Phone"'
+    - 'DeviceClass                         :   1001 :"Phone"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[3]="Phone"'
     extract:
-    - 'DeviceClass           :   1001:"Phone"'
+    - 'DeviceClass                         :   1001 :"Phone"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[1]="Tablet"'
     extract:
-    - 'DeviceClass           :   1001:"Tablet"'
+    - 'DeviceClass                         :   1001 :"Tablet"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Tablet"'
     extract:
-    - 'DeviceClass           :   1001:"Tablet"'
+    - 'DeviceClass                         :   1001 :"Tablet"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[3]="Tablet"'
     extract:
-    - 'DeviceClass           :   1001:"Tablet"'
+    - 'DeviceClass                         :   1001 :"Tablet"'
 
 
 # Tablet classified as phone

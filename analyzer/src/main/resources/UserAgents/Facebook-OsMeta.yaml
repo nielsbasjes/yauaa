@@ -127,15 +127,15 @@ config:
     variable:
     - 'InstagramAndroidComments: agent.product.(1)name="Instagram"^>.name="Android"^.comments'
     extract:
-    - 'DeviceBrand           :   100:@InstagramAndroidComments.(4)entry'
-    - 'DeviceName            :   100:@InstagramAndroidComments.(5)entry'
+    - 'DeviceBrand                         :    100 :@InstagramAndroidComments.(4)entry'
+    - 'DeviceName                          :    100 :@InstagramAndroidComments.(5)entry'
 
 - matcher:
     variable:
     - 'InstagramAndroidComments: agent.product.(1)name="Instagram"^>.name="Android"^.comments'
     extract:
-    - 'DeviceBrand           :   101:@InstagramAndroidComments.(4)entry.product.name'
-    - 'DeviceName            :   101:@InstagramAndroidComments.(5)entry'
+    - 'DeviceBrand                         :    101 :@InstagramAndroidComments.(4)entry.product.name'
+    - 'DeviceName                          :    101 :@InstagramAndroidComments.(5)entry'
 
 - test:
     input:
@@ -347,13 +347,13 @@ config:
     variable:
     - 'OSMetaField: agent.(1)product.(1)comments.entry[-2]="osmeta like"'
     extract:
-    - 'DeviceClass                 :   2:LookUp[AppleDeviceClass;@OSMetaField]'
-    - 'DeviceBrand                 :   2:"Apple"'
-    - 'DeviceName                  :   2:LookUp[AppleDeviceName;@OSMetaField]'
-    - 'DeviceVersion               :   2:LookUp[AppleDeviceVersion;@OSMetaField]'
-    - 'OperatingSystemClass        :  20:"Mobile"'
-    - 'OperatingSystemName         :  20:"iOS"'
-    - 'OperatingSystemVersion      :  20:"??"'
+    - 'DeviceClass                         :      2 :LookUp[AppleDeviceClass;@OSMetaField]'
+    - 'DeviceBrand                         :      2 :"Apple"'
+    - 'DeviceName                          :      2 :LookUp[AppleDeviceName;@OSMetaField]'
+    - 'DeviceVersion                       :      2 :LookUp[AppleDeviceVersion;@OSMetaField]'
+    - 'OperatingSystemClass                :     20 :"Mobile"'
+    - 'OperatingSystemName                 :     20 :"iOS"'
+    - 'OperatingSystemVersion              :     20 :"??"'
 
 - matcher:
     variable:
@@ -362,38 +362,38 @@ config:
     - 'agent.product.comments.entry.product.name="osmeta"' # Performance optimizer
     - 'agent.(1)product.(1)comments.entry[-2]="osmeta like"'
     extract:
-    - 'DeviceClass                 :   2:"Mobile"'
-    - 'OperatingSystemClass        :  20:"Mobile"'
-    - 'OperatingSystemName         :  20:@InstagramOS.(1)version'
-    - 'OperatingSystemVersion      :  20:CleanVersion[@InstagramOS.(2)version]'
+    - 'DeviceClass                         :      2 :"Mobile"'
+    - 'OperatingSystemClass                :     20 :"Mobile"'
+    - 'OperatingSystemName                 :     20 :@InstagramOS.(1)version'
+    - 'OperatingSystemVersion              :     20 :CleanVersion[@InstagramOS.(2)version]'
 
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (osmeta like iPhone; U; osmeta 10.3.2132; RM-1089_1038) AppleWebKit/602.1.1 (KHTML, like Gecko) Mobile/2132 Instagram 10.32.0 (Windows Phone; osmeta/Windows Phone 10_3_2132; pl_PL; pl; scale=1.50; gamut=normal; 540x960)'
     expected:
-      DeviceClass                           : 'Mobile'
-      DeviceName                            : 'Nokia RM-1089 1038'
-      DeviceBrand                           : 'Nokia'
-      OperatingSystemClass                  : 'Mobile'
-      OperatingSystemName                   : 'Windows Phone'
-      OperatingSystemVersion                : '10.3.2132'
-      OperatingSystemNameVersion            : 'Windows Phone 10.3.2132'
-      LayoutEngineClass                     : 'Browser'
-      LayoutEngineName                      : 'AppleWebKit'
-      LayoutEngineVersion                   : '602.1.1'
-      LayoutEngineVersionMajor              : '602'
-      LayoutEngineNameVersion               : 'AppleWebKit 602.1.1'
-      LayoutEngineNameVersionMajor          : 'AppleWebKit 602'
-      AgentClass                            : 'Mobile App'
-      AgentName                             : 'Instagram'
-      AgentVersion                          : '10.32.0'
-      AgentVersionMajor                     : '10'
-      AgentNameVersion                      : 'Instagram 10.32.0'
-      AgentNameVersionMajor                 : 'Instagram 10'
-      AgentLanguage                         : 'Polish (Poland)'
-      AgentLanguageCode                     : 'pl-pl'
-      AgentSecurity                         : 'Strong security'
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia RM-1089 1038'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : '10.3.2132'
+      OperatingSystemNameVersion           : 'Windows Phone 10.3.2132'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1.1'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Instagram'
+      AgentVersion                         : '10.32.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Instagram 10.32.0'
+      AgentNameVersionMajor                : 'Instagram 10'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+      AgentSecurity                        : 'Strong security'
 
 
 - test:

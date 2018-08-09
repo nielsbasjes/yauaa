@@ -21,7 +21,7 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry~"watch"'
     extract:
-    - 'DeviceClass:   2000:"Watch"'
+    - 'DeviceClass                         :   2000 :"Watch"'
 
 - test:
     input:
@@ -330,11 +330,11 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           :   1100:"Watch"'
-    - 'DeviceBrand           :   1100:NormalizeBrand[agent.product.(1)name="SmartWatch"^.(1)comments.(1)entry.text]'
-    - 'DeviceName            :   1100:agent.product.(1)name="SmartWatch"^.(1)comments.(2)entry.text'
-    - 'WebviewAppName        :   1100:"Android Wear Smartwatch"'
-    - 'WebviewAppVersion     :   1100:"??"'
+    - 'DeviceClass                         :   1100 :"Watch"'
+    - 'DeviceBrand                         :   1100 :NormalizeBrand[agent.product.(1)name="SmartWatch"^.(1)comments.(1)entry.text]'
+    - 'DeviceName                          :   1100 :agent.product.(1)name="SmartWatch"^.(1)comments.(2)entry.text'
+    - 'WebviewAppName                      :   1100 :"Android Wear Smartwatch"'
+    - 'WebviewAppVersion                   :   1100 :"??"'
 
 
 # Android Wear Smartwatch as an add-on to a regular Android device. We report the WATCH (not the phone)

@@ -20,43 +20,43 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="BlackBerry"'
     extract:
-    - 'DeviceClass            : 11:"Phone"'
-    - 'DeviceBrand            : 11:"BlackBerry"'
-    - 'DeviceName             : 11:"BlackBerry"'
-    - 'OperatingSystemClass   : 11:"Mobile"'
-    - 'OperatingSystemName    : 11:"RIM OS"'
-    - 'OperatingSystemVersion : 11:"RIM OS"'
+    - 'DeviceClass                         :     11 :"Phone"'
+    - 'DeviceBrand                         :     11 :"BlackBerry"'
+    - 'DeviceName                          :     11 :"BlackBerry"'
+    - 'OperatingSystemClass                :     11 :"Mobile"'
+    - 'OperatingSystemName                 :     11 :"RIM OS"'
+    - 'OperatingSystemVersion              :     11 :"RIM OS"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.text="BB10"'
     extract:
-    - 'DeviceClass            : 100:"Phone"'
-    - 'DeviceBrand            : 100:"BlackBerry"'
-    - 'DeviceName             : 100:"BlackBerry 10"'
-    - 'OperatingSystemClass   : 100:"Mobile"'
-    - 'OperatingSystemName    : 100:"BlackBerry"'
-    - 'OperatingSystemVersion : 100:"BlackBerry 10"'
+    - 'DeviceClass                         :    100 :"Phone"'
+    - 'DeviceBrand                         :    100 :"BlackBerry"'
+    - 'DeviceName                          :    100 :"BlackBerry 10"'
+    - 'OperatingSystemClass                :    100 :"Mobile"'
+    - 'OperatingSystemName                 :    100 :"BlackBerry"'
+    - 'OperatingSystemVersion              :    100 :"BlackBerry 10"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.(1)entry.text="PlayBook"'
     extract:
-    - 'DeviceClass            :  2013:"Tablet"'
-    - 'DeviceBrand            :  2013:"BlackBerry"'
-    - 'DeviceName             :  2013:"BlackBerry PlayBook"'
-    - 'OperatingSystemClass   :  2013:"Mobile"'
-    - 'OperatingSystemName    :  2013:"RIM Tablet OS"'
-    - 'OperatingSystemVersion :  2013:agent.(1)product.(1)comments.entry.product.(1)name="RIM Tablet OS"^.version'
+    - 'DeviceClass                         :   2013 :"Tablet"'
+    - 'DeviceBrand                         :   2013 :"BlackBerry"'
+    - 'DeviceName                          :   2013 :"BlackBerry PlayBook"'
+    - 'OperatingSystemClass                :   2013 :"Mobile"'
+    - 'OperatingSystemName                 :   2013 :"RIM Tablet OS"'
+    - 'OperatingSystemVersion              :   2013 :agent.(1)product.(1)comments.entry.product.(1)name="RIM Tablet OS"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass            :  2013:"Phone"' # Best guess
-    - 'DeviceBrand            :  2013:"BlackBerry"'
-    - 'DeviceName             :  2013:agent.(1)product.(1)comments.(3)entry.(1)product.(1)name="BlackBerry"^'
-    - 'OperatingSystemClass   :  2013:"Mobile"'
-    - 'OperatingSystemName    :  2013:"RIM OS"'
-    - 'OperatingSystemVersion :   100:"RIM OS"'
+    - 'DeviceClass                         :   2013 :"Phone"' # Best guess
+    - 'DeviceBrand                         :   2013 :"BlackBerry"'
+    - 'DeviceName                          :   2013 :agent.(1)product.(1)comments.(3)entry.(1)product.(1)name="BlackBerry"^'
+    - 'OperatingSystemClass                :   2013 :"Mobile"'
+    - 'OperatingSystemName                 :   2013 :"RIM OS"'
+    - 'OperatingSystemVersion              :    100 :"RIM OS"'
 
 - test:
     input:

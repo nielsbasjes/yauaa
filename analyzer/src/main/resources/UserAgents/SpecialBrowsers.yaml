@@ -21,33 +21,33 @@ config:
     require:
     - 'IsNull[agent.(1)product.(1)name="Mozilla"]'
     extract:
-    - 'AgentClass            :   5:"Special"'
-    - 'AgentName             :   5:agent.(1)product.name'
+    - 'AgentClass                          :      5 :"Special"'
+    - 'AgentName                           :      5 :agent.(1)product.name'
 
 - matcher:
     require:
     - 'IsNull[agent.(1)product.(1)name="Mozilla"]'
     extract:
-    - 'AgentClass            :   6:"Special"'
-    - 'AgentName             :   6:agent.(1)product.url'
+    - 'AgentClass                          :      6 :"Special"'
+    - 'AgentName                           :      6 :agent.(1)product.url'
 
 - matcher:
     require:
     - 'IsNull[agent.(1)product.(1)name="Mozilla"]'
     extract:
-    - 'AgentVersion          :   5:agent.(1)product.(1)comments.(1)entry.(1)text'
+    - 'AgentVersion                        :      5 :agent.(1)product.(1)comments.(1)entry.(1)text'
 
 - matcher:
     require:
     - 'IsNull[agent.(1)product.(1)name="Mozilla"]'
     extract:
-    - 'AgentVersion          :   6:agent.(1)product.version'
+    - 'AgentVersion                        :      6 :agent.(1)product.version'
 
 - matcher:
     extract:
-    - 'AgentClass            :   2010:"Browser"'
-    - 'AgentName             :   2010:"Crazy Browser"'
-    - 'AgentVersion          :   2010:agent.(1)product.(1)comments.entry.product.name="Crazy Browser"^.version'
+    - 'AgentClass                          :   2010 :"Browser"'
+    - 'AgentName                           :   2010 :"Crazy Browser"'
+    - 'AgentVersion                        :   2010 :agent.(1)product.(1)comments.entry.product.name="Crazy Browser"^.version'
 
 - test:
     input:
@@ -251,12 +251,12 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           :   100:"Robot"'
-    - 'DeviceBrand           :   100:"CloudFlare"'
-    - 'DeviceName            :   100:"CloudFlare AlwaysOnline"'
-    - 'AgentClass            :   100:"Robot"'
-    - 'AgentName             :   100:"CloudFlare AlwaysOnline"'
-    - 'AgentVersion          :   100:agent.(1)product.(1)comments.entry.(1)product.(1)name="CloudFlare-AlwaysOnline"^.version'
+    - 'DeviceClass                         :    100 :"Robot"'
+    - 'DeviceBrand                         :    100 :"CloudFlare"'
+    - 'DeviceName                          :    100 :"CloudFlare AlwaysOnline"'
+    - 'AgentClass                          :    100 :"Robot"'
+    - 'AgentName                           :    100 :"CloudFlare AlwaysOnline"'
+    - 'AgentVersion                        :    100 :agent.(1)product.(1)comments.entry.(1)product.(1)name="CloudFlare-AlwaysOnline"^.version'
 
 - test:
     input:
@@ -400,7 +400,7 @@ config:
 
 - matcher:
     extract:
-      - 'AgentVersion : 1 : agent.(1)product.(1)name="R"^.(1)comments.(1)entry.(1)product.(1)name'
+    - 'AgentVersion                        :      1 : agent.(1)product.(1)name="R"^.(1)comments.(1)entry.(1)product.(1)name'
 
 - test:
     input:
@@ -617,12 +617,12 @@ config:
     - 'agent.product="Profile/MIDP-2.1"'
     - 'agent.product.(1)name="Browser"'
     extract:
-    - 'LayoutEngineClass     :     10:"Browser"'
-    - 'LayoutEngineName      :     10:agent.product.(1)name="Browser"^.(1)version'
-    - 'LayoutEngineVersion   :     10:agent.product.(1)name="Browser"^.(2)version'
-    - 'AgentClass            :   1000:"Browser"'
-    - 'AgentName             :   1000:agent.product.(1)name="Browser"^.(1)version'
-    - 'AgentVersion          :   1000:agent.product.(1)name="Browser"^.(2)version'
+    - 'LayoutEngineClass                   :     10 :"Browser"'
+    - 'LayoutEngineName                    :     10 :agent.product.(1)name="Browser"^.(1)version'
+    - 'LayoutEngineVersion                 :     10 :agent.product.(1)name="Browser"^.(2)version'
+    - 'AgentClass                          :   1000 :"Browser"'
+    - 'AgentName                           :   1000 :agent.product.(1)name="Browser"^.(1)version'
+    - 'AgentVersion                        :   1000 :agent.product.(1)name="Browser"^.(2)version'
 
 - test:
     input:
@@ -731,42 +731,42 @@ config:
     require:
     - 'agent.product.(1)name="Safari"' # Performance trick
     variable:
-      - 'Product: agent.product.(1)name="Chrome"^>>.name="Safari"^<'
+    - 'Product: agent.product.(1)name="Chrome"^>>.name="Safari"^<'
     extract:
-      - 'AgentClass    :  2050:"Browser"'
-      - 'AgentName     :  2050:@Product.name'
-      - 'AgentVersion  :  2050:@Product.version'
+    - 'AgentClass                          :   2050 :"Browser"'
+    - 'AgentName                           :   2050 :@Product.name'
+    - 'AgentVersion                        :   2050 :@Product.version'
 
 - matcher:
     require:
     - 'agent.product.(1)name="Mobile Safari"' # Performance trick
     variable:
-      - 'Product: agent.product.(1)name="Chrome"^>>.name="Mobile Safari"^<'
+    - 'Product: agent.product.(1)name="Chrome"^>>.name="Mobile Safari"^<'
     extract:
-      - 'AgentClass    :  2050:"Browser"'
-      - 'AgentName     :  2050:@Product.name'
-      - 'AgentVersion  :  2050:@Product.version'
+    - 'AgentClass                          :   2050 :"Browser"'
+    - 'AgentName                           :   2050 :@Product.name'
+    - 'AgentVersion                        :   2050 :@Product.version'
 
 # Sometimes the name of the agent AND the name of something else are BETWEEN the "Chrome" and "(Mobile) Safari" products.
 - matcher:
     require:
     - 'agent.product.(1)name="Safari"' # Performance trick
     variable:
-      - 'Product: agent.product.(1)name="Chrome"^>>>.name="Safari"^<<'
+    - 'Product: agent.product.(1)name="Chrome"^>>>.name="Safari"^<<'
     extract:
-      - 'AgentClass           :  2050:"Browser"'
-      - 'AgentName            :  2050:@Product.name'
-      - 'AgentVersion         :  2050:@Product.version'
+    - 'AgentClass                          :   2050 :"Browser"'
+    - 'AgentName                           :   2050 :@Product.name'
+    - 'AgentVersion                        :   2050 :@Product.version'
 
 - matcher:
     require:
     - 'agent.product.(1)name="Mobile Safari"' # Performance trick
     variable:
-      - 'Product: agent.product.(1)name="Chrome"^>>>.name="Mobile Safari"^<<'
+    - 'Product: agent.product.(1)name="Chrome"^>>>.name="Mobile Safari"^<<'
     extract:
-      - 'AgentClass           :  2050:"Browser"'
-      - 'AgentName            :  2050:@Product.name'
-      - 'AgentVersion         :  2050:@Product.version'
+    - 'AgentClass                          :   2050 :"Browser"'
+    - 'AgentName                           :   2050 :@Product.name'
+    - 'AgentVersion                        :   2050 :@Product.version'
 
 - test:
     input:
@@ -796,11 +796,11 @@ config:
 # Sometimes the name of the agent is BETWEEN the "Mobile" and "Version" products.
 - matcher:
     variable:
-      - 'Product: agent.product.(1)name="Mobile"^>>.name="Version"^<'
+    - 'Product: agent.product.(1)name="Mobile"^>>.name="Version"^<'
     extract:
-      - 'AgentClass    :  100:"Browser"'
-      - 'AgentName     :  100:@Product.name'
-      - 'AgentVersion  :  100:@Product.version'
+    - 'AgentClass                          :    100 :"Browser"'
+    - 'AgentName                           :    100 :@Product.name'
+    - 'AgentVersion                        :    100 :@Product.version'
 
 - test:
     input:
@@ -831,19 +831,19 @@ config:
 # Sometimes the name of the agent is BETWEEN the "Mobile" and "(Mobile) Safari" products.
 - matcher:
     variable:
-      - 'Product: agent.product.(1)name="Mobile"^>>.name="Safari"^<'
+    - 'Product: agent.product.(1)name="Mobile"^>>.name="Safari"^<'
     extract:
-      - 'AgentClass    :  2049:"Browser"'
-      - 'AgentName     :  2049:@Product.name'
-      - 'AgentVersion  :  2049:@Product.version'
+    - 'AgentClass                          :   2049 :"Browser"'
+    - 'AgentName                           :   2049 :@Product.name'
+    - 'AgentVersion                        :   2049 :@Product.version'
 
 - matcher:
     variable:
-      - 'Product: agent.product.(1)name="Mobile"^>>.name="Mobile Safari"^<'
+    - 'Product: agent.product.(1)name="Mobile"^>>.name="Mobile Safari"^<'
     extract:
-      - 'AgentClass    :  2049:"Browser"'
-      - 'AgentName     :  2049:@Product.name'
-      - 'AgentVersion  :  2049:@Product.version'
+    - 'AgentClass                          :   2049 :"Browser"'
+    - 'AgentName                           :   2049 :@Product.name'
+    - 'AgentVersion                        :   2049 :@Product.version'
 
 - test:
     input:
@@ -1053,8 +1053,8 @@ config:
 # Communicators
 - matcher:
     extract:
-    - 'WebviewAppName        :   150:agent.(1)product.(1)name="Kik"'
-    - 'WebviewAppVersion     :   150:agent.(1)product.(1)version'
+    - 'WebviewAppName                      :    150 :agent.(1)product.(1)name="Kik"'
+    - 'WebviewAppVersion                   :    150 :agent.(1)product.(1)version'
 
 - test:
     input:
@@ -1089,16 +1089,16 @@ config:
     require:
     - 'agent.(1)product.(1)name="OC"'
     extract:
-    - 'DeviceClass                      :   100: "Desktop"'
-    - 'DeviceName                       :   100: "Desktop"'
-    - 'DeviceBrand                      :   100: "Unknown"'
-    - 'OperatingSystemClass             :   100: "Desktop"'
-    - 'OperatingSystemName              :   100: "Windows NT"'
-    - 'OperatingSystemVersion           :   100: "??"'
-    - 'OperatingSystemNameVersion       :   100: "Windows NT ??"'
-    - 'AgentClass                       :   100: "Special"'
-    - 'AgentName                        :   100: "Microsoft Lync (Skype)"'
-    - 'AgentVersion                     :   100: agent.(1)product.(1)version'
+    - 'DeviceClass                         :    100 : "Desktop"'
+    - 'DeviceName                          :    100 : "Desktop"'
+    - 'DeviceBrand                         :    100 : "Unknown"'
+    - 'OperatingSystemClass                :    100 : "Desktop"'
+    - 'OperatingSystemName                 :    100 : "Windows NT"'
+    - 'OperatingSystemVersion              :    100 : "??"'
+    - 'OperatingSystemNameVersion          :    100 : "Windows NT ??"'
+    - 'AgentClass                          :    100 : "Special"'
+    - 'AgentName                           :    100 : "Microsoft Lync (Skype)"'
+    - 'AgentVersion                        :    100 : agent.(1)product.(1)version'
 
 - test:
     input:
@@ -1127,16 +1127,16 @@ config:
     - 'agent.(1)product.(1)name="MC"'
     - 'agent.(1)product.(1)comments.(1)entry.product.name="Microsoft Lync for Mac"'
     extract:
-    - 'DeviceClass                      :   100:"Desktop"'
-    - 'DeviceName                       :   100:"Macintosh"'
-    - 'DeviceBrand                      :   100:"Apple"'
-    - 'DeviceCpu                        :   100:"Intel"'
-    - 'OperatingSystemClass             :   100:"Desktop"'
-    - 'OperatingSystemName              :   100:"Mac OS X"'
-    - 'OperatingSystemVersion           :   100:"10.??"'
-    - 'AgentClass                       :   100: "Special"'
-    - 'AgentName                        :   100: "Microsoft Lync (Skype)"'
-    - 'AgentVersion                     :   100: agent.(1)product.(1)version'
+    - 'DeviceClass                         :    100 :"Desktop"'
+    - 'DeviceName                          :    100 :"Macintosh"'
+    - 'DeviceBrand                         :    100 :"Apple"'
+    - 'DeviceCpu                           :    100 :"Intel"'
+    - 'OperatingSystemClass                :    100 :"Desktop"'
+    - 'OperatingSystemName                 :    100 :"Mac OS X"'
+    - 'OperatingSystemVersion              :    100 :"10.??"'
+    - 'AgentClass                          :    100 : "Special"'
+    - 'AgentName                           :    100 : "Microsoft Lync (Skype)"'
+    - 'AgentVersion                        :    100 : agent.(1)product.(1)version'
 
 - test:
     input:
@@ -1248,16 +1248,16 @@ config:
     - 'IsNull[agent.(2)product]'
     - 'IsNull[agent.(2)text]'
     extract:
-    - 'DeviceClass                 : 202:LookUp[AppleDeviceClass;agent.(1)product.(1)name[2-2]]'
-    - 'DeviceBrand                 : 202:"Apple"'
-    - 'DeviceName                  : 202:LookUp[AppleDeviceName;agent.(1)product.(1)name[2-2]]'
-    - 'DeviceVersion               : 202:LookUp[AppleDeviceVersion;agent.(1)product.(1)name[2-2]]'
-    - 'OperatingSystemClass        :  20:"Mobile"'
-    - 'OperatingSystemName         :  20:"iOS"'
-    - 'OperatingSystemVersion      :  20:"??"'
-    - 'AgentClass                  :  56:"Special"'
-    - 'AgentName                   :  56:"Exchange ActiveSync"'
-    - 'AgentVersion                :  56:agent.(1)product.(1)version'
+    - 'DeviceClass                         :    202 :LookUp[AppleDeviceClass;agent.(1)product.(1)name[2-2]]'
+    - 'DeviceBrand                         :    202 :"Apple"'
+    - 'DeviceName                          :    202 :LookUp[AppleDeviceName;agent.(1)product.(1)name[2-2]]'
+    - 'DeviceVersion                       :    202 :LookUp[AppleDeviceVersion;agent.(1)product.(1)name[2-2]]'
+    - 'OperatingSystemClass                :     20 :"Mobile"'
+    - 'OperatingSystemName                 :     20 :"iOS"'
+    - 'OperatingSystemVersion              :     20 :"??"'
+    - 'AgentClass                          :     56 :"Special"'
+    - 'AgentName                           :     56 :"Exchange ActiveSync"'
+    - 'AgentVersion                        :     56 :agent.(1)product.(1)version'
 
 - matcher:
     require:
@@ -1265,16 +1265,16 @@ config:
     - 'IsNull[agent.(2)product]'
     - 'IsNull[agent.(2)text]'
     extract:
-    - 'DeviceClass                 : 202:"Mobile"'
-    - 'DeviceBrand                 : 202:"Samsung"'
-    - 'DeviceName                  : 202:agent.(1)product.(1)name[2-]'
-    - 'DeviceVersion               : 202:"??"'
-    - 'OperatingSystemClass        :  20:"Mobile"'
-    - 'OperatingSystemName         :  20:"Android"'
-    - 'OperatingSystemVersion      :  20:"??"'
-    - 'AgentClass                  :  56:"Special"'
-    - 'AgentName                   :  56:"Exchange ActiveSync"'
-    - 'AgentVersion                :  56:agent.(1)product.(1)version'
+    - 'DeviceClass                         :    202 :"Mobile"'
+    - 'DeviceBrand                         :    202 :"Samsung"'
+    - 'DeviceName                          :    202 :agent.(1)product.(1)name[2-]'
+    - 'DeviceVersion                       :    202 :"??"'
+    - 'OperatingSystemClass                :     20 :"Mobile"'
+    - 'OperatingSystemName                 :     20 :"Android"'
+    - 'OperatingSystemVersion              :     20 :"??"'
+    - 'AgentClass                          :     56 :"Special"'
+    - 'AgentName                           :     56 :"Exchange ActiveSync"'
+    - 'AgentVersion                        :     56 :agent.(1)product.(1)version'
 
 - test:
     input:
@@ -1397,18 +1397,18 @@ config:
 - matcher:
     extract:
     - '__Set_ALL_Fields__    :   11:"<<<null>>>"'
-    - 'DeviceClass           :   12:"Mobile"'
-    - 'DeviceBrand           :   12:"Unknown"'
-    - 'DeviceName            :   12:"Unknown"'
-    - 'OperatingSystemClass  :   12:"Mobile"'
-    - 'OperatingSystemName   :   12:"Android"'
-    - 'OperatingSystemVersion:   12:"??"'
-    - 'LayoutEngineClass     :   12:"Unknown"'
-    - 'LayoutEngineName      :   12:"Unknown"'
-    - 'LayoutEngineVersion   :   12:"??"'
-    - 'AgentClass            :   20:"Browser"'
-    - 'AgentName             :   20:"DuckDuckGo"'
-    - 'AgentVersion          :   20:agent.text[1-2]="DDG-Android"@[3-]'
+    - 'DeviceClass                         :     12 :"Mobile"'
+    - 'DeviceBrand                         :     12 :"Unknown"'
+    - 'DeviceName                          :     12 :"Unknown"'
+    - 'OperatingSystemClass                :     12 :"Mobile"'
+    - 'OperatingSystemName                 :     12 :"Android"'
+    - 'OperatingSystemVersion              :     12 :"??"'
+    - 'LayoutEngineClass                   :     12 :"Unknown"'
+    - 'LayoutEngineName                    :     12 :"Unknown"'
+    - 'LayoutEngineVersion                 :     12 :"??"'
+    - 'AgentClass                          :     20 :"Browser"'
+    - 'AgentName                           :     20 :"DuckDuckGo"'
+    - 'AgentVersion                        :     20 :agent.text[1-2]="DDG-Android"@[3-]'
 
 - test:
     input:
@@ -1437,18 +1437,18 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           :   11:"Mobile"'
-    - 'DeviceBrand           :   11:"Unknown"'
-    - 'DeviceName            :   11:"Unknown"'
-    - 'OperatingSystemClass  :   11:"Mobile"'
-    - 'OperatingSystemName   :   11:"iOS"'
-    - 'OperatingSystemVersion:   11:"??"'
-    - 'LayoutEngineClass     :   11:"Unknown"'
-    - 'LayoutEngineName      :   11:"Unknown"'
-    - 'LayoutEngineVersion   :   11:"??"'
-    - 'AgentClass            :   20:"Browser"'
-    - 'AgentName             :   20:"DuckDuckGo"'
-    - 'AgentVersion          :   20:agent.text[1-2]="DDG-iOS"@[3-]'
+    - 'DeviceClass                         :     11 :"Mobile"'
+    - 'DeviceBrand                         :     11 :"Unknown"'
+    - 'DeviceName                          :     11 :"Unknown"'
+    - 'OperatingSystemClass                :     11 :"Mobile"'
+    - 'OperatingSystemName                 :     11 :"iOS"'
+    - 'OperatingSystemVersion              :     11 :"??"'
+    - 'LayoutEngineClass                   :     11 :"Unknown"'
+    - 'LayoutEngineName                    :     11 :"Unknown"'
+    - 'LayoutEngineVersion                 :     11 :"??"'
+    - 'AgentClass                          :     20 :"Browser"'
+    - 'AgentName                           :     20 :"DuckDuckGo"'
+    - 'AgentVersion                        :     20 :agent.text[1-2]="DDG-iOS"@[3-]'
 
 # DuckDuckGo for iOS Version 6.0.6 (784)
 - test:
@@ -1481,9 +1481,9 @@ config:
 # Coc Coc Browser (focuses on the Vietnamese market):  https://en.wikipedia.org/wiki/C%E1%BB%91c_C%E1%BB%91c
 - matcher:
     extract:
-    - 'AgentClass            : 2050:"Browser"'
-    - 'AgentName             : 2050:"Coc Coc Browser"'
-    - 'AgentVersion          : 2050:agent.product.name="coc_coc_browser"^.version'
+    - 'AgentClass                          :   2050 :"Browser"'
+    - 'AgentName                           :   2050 :"Coc Coc Browser"'
+    - 'AgentVersion                        :   2050 :agent.product.name="coc_coc_browser"^.version'
 
 - test:
     input:
@@ -1568,8 +1568,8 @@ config:
     require:
     - 'agent.(1)product.(1)name[1]="Outlook"'
     extract:
-    - 'AgentName    : 2040:agent.(1)product.(1)name'
-    - 'AgentVersion : 2040:agent.(1)product.(1)version'
+    - 'AgentName                           :   2040 :agent.(1)product.(1)name'
+    - 'AgentVersion                        :   2040 :agent.(1)product.(1)version'
 
 - test:
     input:
@@ -1602,29 +1602,29 @@ config:
     variable:
     - 'IBrowseVersion : agent.(1)product.(1)comments.entry.(1)product.(1)name="IBrowse"^.version'
     extract:
-    - 'DeviceClass           :   100:"Desktop"'
-    - 'DeviceBrand           :   100:"Amiga"'
-    - 'DeviceName            :   100:"Amiga"'
-    - 'OperatingSystemClass  :   100:"Desktop"'
-    - 'OperatingSystemName   :   100:"AmigaOS"'
-    - 'OperatingSystemVersion:     1:"??"'
-    - 'LayoutEngineClass     :   100:"Browser"'
-    - 'LayoutEngineName      :   100:"IBrowse"'
-    - 'LayoutEngineVersion   :   100:@IBrowseVersion'
-    - 'AgentClass            :   100:"Browser"'
-    - 'AgentName             :   100:"IBrowse"'
-    - 'AgentVersion          :   100:@IBrowseVersion'
+    - 'DeviceClass                         :    100 :"Desktop"'
+    - 'DeviceBrand                         :    100 :"Amiga"'
+    - 'DeviceName                          :    100 :"Amiga"'
+    - 'OperatingSystemClass                :    100 :"Desktop"'
+    - 'OperatingSystemName                 :    100 :"AmigaOS"'
+    - 'OperatingSystemVersion              :      1 :"??"'
+    - 'LayoutEngineClass                   :    100 :"Browser"'
+    - 'LayoutEngineName                    :    100 :"IBrowse"'
+    - 'LayoutEngineVersion                 :    100 :@IBrowseVersion'
+    - 'AgentClass                          :    100 :"Browser"'
+    - 'AgentName                           :    100 :"IBrowse"'
+    - 'AgentVersion                        :    100 :@IBrowseVersion'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.text="AmigaOS4.0"'
     extract:
-    - 'DeviceClass           :   100:"Desktop"'
-    - 'DeviceBrand           :   100:"Amiga"'
-    - 'DeviceName            :   100:"Amiga"'
-    - 'OperatingSystemClass  :   100:"Desktop"'
-    - 'OperatingSystemName   :   100:"AmigaOS"'
-    - 'OperatingSystemVersion:   100:"4.0"'
+    - 'DeviceClass                         :    100 :"Desktop"'
+    - 'DeviceBrand                         :    100 :"Amiga"'
+    - 'DeviceName                          :    100 :"Amiga"'
+    - 'OperatingSystemClass                :    100 :"Desktop"'
+    - 'OperatingSystemName                 :    100 :"AmigaOS"'
+    - 'OperatingSystemVersion              :    100 :"4.0"'
 
 
 # IBrowse: https://www.ibrowse-dev.net/

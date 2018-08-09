@@ -24,14 +24,14 @@ config:
     - 'agent.product.name="Chrome"'
     - 'agent.text="Google Favicon"'
     extract:
-    - 'AgentName             :   10000:"Google Favicon (Chrome)"'
+    - 'AgentName                           :  10000 :"Google Favicon (Chrome)"'
 
 - matcher:
     require:
     - 'agent.product.name="Firefox"'
     - 'agent.text="Google Favicon"'
     extract:
-    - 'AgentName             :   10000:"Google Favicon (Firefox)"'
+    - 'AgentName                           :  10000 :"Google Favicon (Firefox)"'
 
 - test:
     input:
@@ -64,12 +64,12 @@ config:
     require:
     - 'agent.(1)text="Google Favicon"'
     extract:
-    - 'DeviceClass            :     100:"Robot"'
-    - 'DeviceName             :     100:"Google"'
-    - 'DeviceBrand            :     100:"Google"'
-    - 'AgentClass             :     100:"Cloud Application"'
-    - 'AgentName              :   20000:"Google Favicon (Bare)"'
-    - 'AgentVersion           :     100:"??"'
+    - 'DeviceClass                         :    100 :"Robot"'
+    - 'DeviceName                          :    100 :"Google"'
+    - 'DeviceBrand                         :    100 :"Google"'
+    - 'AgentClass                          :    100 :"Cloud Application"'
+    - 'AgentName                           :  20000 :"Google Favicon (Bare)"'
+    - 'AgentVersion                        :    100 :"??"'
 
 - test:
     input:

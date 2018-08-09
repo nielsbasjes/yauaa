@@ -29,30 +29,30 @@ config:
     require:
     - 'agent.product.(1)name="AmazonWebAppPlatform"'
     extract:
-    - 'DeviceClass               :   1001:"Set-top box"'
-    - 'DeviceName                :   1001:"Amazon Fire TV"'
-    - 'DeviceBrand               :   1001:"Amazon"'
-    - 'DeviceCpu                 :   100:"<<<null>>>"'
-    - 'OperatingSystemClass      :  1000:"Mobile"'
-    - 'OperatingSystemName       :  1000:"FireOS"'
-    - 'OperatingSystemVersion    :  1000:agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
+    - 'DeviceClass                         :   1001 :"Set-top box"'
+    - 'DeviceName                          :   1001 :"Amazon Fire TV"'
+    - 'DeviceBrand                         :   1001 :"Amazon"'
+    - 'DeviceCpu                           :    100 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   1000 :"Mobile"'
+    - 'OperatingSystemName                 :   1000 :"FireOS"'
+    - 'OperatingSystemVersion              :   1000 :agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
 
 
 - matcher:
     extract:
-    - 'OperatingSystemClass      :  1000:"Mobile"'
-    - 'OperatingSystemName       :  1000:"FireOS"'
-    - 'OperatingSystemVersion    :  1001:agent.product.(1)name="cordova-amazon-fireos"^.version'
+    - 'OperatingSystemClass                :   1000 :"Mobile"'
+    - 'OperatingSystemName                 :   1000 :"FireOS"'
+    - 'OperatingSystemVersion              :   1001 :agent.product.(1)name="cordova-amazon-fireos"^.version'
 
 
 - matcher:
     require:
     - 'agent.product.(1)name="AmazonWebAppPlatform"'
     extract:
-    - 'WebviewAppName             : 10000:"<<<null>>>"'
-    - 'WebviewAppVersion          : 10000:"<<<null>>>"'
-    - 'WebviewAppVersionMajor     : 10000:"<<<null>>>"'
-    - 'WebviewAppNameVersionMajor : 10000:"<<<null>>>"'
+    - 'WebviewAppName                      :  10000 :"<<<null>>>"'
+    - 'WebviewAppVersion                   :  10000 :"<<<null>>>"'
+    - 'WebviewAppVersionMajor              :  10000 :"<<<null>>>"'
+    - 'WebviewAppNameVersionMajor          :  10000 :"<<<null>>>"'
 
 # Android WebView (android.webkit.WebView)
 # Mozilla/5.0 (Linux; U; Android <android>; <locale>; <device> Build/<build>) AppleWebKit/<webkit> (KHTML, like Gecko) Version/4.0 Mobile Safari/<safari>
@@ -184,24 +184,24 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           :   1001:"Set-top box"'
-    - 'DeviceBrand           :   1001:"Google"'
-    - 'DeviceName            :   1001:"Chromecast"'
-    - 'DeviceVersion         :   1001:agent.(1)product.(1)comments.entry.(1)product.(1)name[-1]="CrKey"^.(1)version'
+    - 'DeviceClass                         :   1001 :"Set-top box"'
+    - 'DeviceBrand                         :   1001 :"Google"'
+    - 'DeviceName                          :   1001 :"Chromecast"'
+    - 'DeviceVersion                       :   1001 :agent.(1)product.(1)comments.entry.(1)product.(1)name[-1]="CrKey"^.(1)version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   1002:"Set-top box"'
-    - 'DeviceBrand           :   1002:"Google"'
-    - 'DeviceName            :   1002:"Chromecast"'
-    - 'DeviceVersion         :   1002:agent.(1)product.(1)comments.entry.(1)product.(1)name[-1]="CrKey"^.(2)version'
+    - 'DeviceClass                         :   1002 :"Set-top box"'
+    - 'DeviceBrand                         :   1002 :"Google"'
+    - 'DeviceName                          :   1002 :"Chromecast"'
+    - 'DeviceVersion                       :   1002 :agent.(1)product.(1)comments.entry.(1)product.(1)name[-1]="CrKey"^.(2)version'
 
 - matcher:
     extract:
-    - 'DeviceClass           :   1003:"Set-top box"'
-    - 'DeviceBrand           :   1003:"Google"'
-    - 'DeviceName            :   1003:"Chromecast"'
-    - 'DeviceVersion         :   1003:agent.product.(1)name="CrKey"^.version'
+    - 'DeviceClass                         :   1003 :"Set-top box"'
+    - 'DeviceBrand                         :   1003 :"Google"'
+    - 'DeviceName                          :   1003 :"Chromecast"'
+    - 'DeviceVersion                       :   1003 :agent.product.(1)name="CrKey"^.version'
 
 # Example found here: https://twitter.com/Robbie/status/360553521000624128
 - test:
@@ -287,10 +287,10 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           :   100:"Set-top box"'
-    - 'OperatingSystemClass  :   100:"Embedded"'
-    - 'OperatingSystemName   :   100:agent.(1)product.(1)comments.entry.(1)product.(1)name="GoogleTV"'
-    - 'OperatingSystemVersion:   100:agent.(1)product.(1)comments.entry.(1)product.(1)name="GoogleTV"^.version'
+    - 'DeviceClass                         :    100 :"Set-top box"'
+    - 'OperatingSystemClass                :    100 :"Embedded"'
+    - 'OperatingSystemName                 :    100 :agent.(1)product.(1)comments.entry.(1)product.(1)name="GoogleTV"'
+    - 'OperatingSystemVersion              :    100 :agent.(1)product.(1)comments.entry.(1)product.(1)name="GoogleTV"^.version'
 
 - test:
     input:
@@ -368,13 +368,13 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass                         :  1100:"Set-top box"'
-    - 'DeviceBrand                         :    10:"Google"'
-    - 'DeviceName                          :    10:"Google TV"'
-    - 'OperatingSystemClass                :   100:"Embedded"'
-    - 'OperatingSystemName                 :   100:"GoogleTV"'
-    - 'OperatingSystemVersion              :   100:"??"'
-    - 'OperatingSystemVersionBuild         :   100:agent.product.(1)name="GoogleTV"^.version'
+    - 'DeviceClass                         :   1100 :"Set-top box"'
+    - 'DeviceBrand                         :     10 :"Google"'
+    - 'DeviceName                          :     10 :"Google TV"'
+    - 'OperatingSystemClass                :    100 :"Embedded"'
+    - 'OperatingSystemName                 :    100 :"GoogleTV"'
+    - 'OperatingSystemVersion              :    100 :"??"'
+    - 'OperatingSystemVersionBuild         :    100 :agent.product.(1)name="GoogleTV"^.version'
 
 - test:
     input:
@@ -439,15 +439,15 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           :  1101:"Set-top box"'
-    - 'DeviceName            :     9:"Unknown Set-top box"'
-    - 'AgentClass            :   101:"Browser"'
-    - 'AgentName             :   101:agent.product.name="Large Screen Safari"^>.name'
-    - 'AgentVersion          :   101:agent.product.name="Large Screen Safari"^>.version'
+    - 'DeviceClass                         :   1101 :"Set-top box"'
+    - 'DeviceName                          :      9 :"Unknown Set-top box"'
+    - 'AgentClass                          :    101 :"Browser"'
+    - 'AgentName                           :    101 :agent.product.name="Large Screen Safari"^>.name'
+    - 'AgentVersion                        :    101 :agent.product.name="Large Screen Safari"^>.version'
 
 - matcher:
     extract:
-    - 'DeviceBrand           :   10:LookUp[MobileBrands;agent.product.name="Large Screen Safari"^>.name[1]]'
+    - 'DeviceBrand                         :     10 :LookUp[MobileBrands;agent.product.name="Large Screen Safari"^>.name[1]]'
 
 
 - test:
@@ -478,20 +478,20 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.product.(1)name{"NSX-"'
     extract:
-    - 'OperatingSystemClass  : 1400:"Embedded"'
-    - 'DeviceClass           : 1400:"Set-top box"'
-    - 'DeviceName            :  400:agent.(1)product.(1)comments.entry.product.(1)name{"NSZ-"@'
-    - 'DeviceBrand           :  400:"Sony"'
+    - 'OperatingSystemClass                :   1400 :"Embedded"'
+    - 'DeviceClass                         :   1400 :"Set-top box"'
+    - 'DeviceName                          :    400 :agent.(1)product.(1)comments.entry.product.(1)name{"NSZ-"@'
+    - 'DeviceBrand                         :    400 :"Sony"'
 
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.product.(1)name{"NSZ-"'
     extract:
-    - 'OperatingSystemClass  : 1400:"Embedded"'
-    - 'DeviceClass           : 1400:"Set-top box"'
-    - 'DeviceName            :  400:agent.(1)product.(1)comments.entry.product.(1)name{"NSZ-"@'
-    - 'DeviceBrand           :  400:"Sony"'
+    - 'OperatingSystemClass                :   1400 :"Embedded"'
+    - 'DeviceClass                         :   1400 :"Set-top box"'
+    - 'DeviceName                          :    400 :agent.(1)product.(1)comments.entry.product.(1)name{"NSZ-"@'
+    - 'DeviceBrand                         :    400 :"Sony"'
 
 - test:
     input:
@@ -523,10 +523,10 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.product.(1)name{"GTV"'
     extract:
-    - 'OperatingSystemClass  : 1400:"Embedded"'
-    - 'DeviceClass           : 1400:"Set-top box"'
-    - 'DeviceName            :  400:"NeoTV"'
-    - 'DeviceBrand           :  400:"Netgear"'
+    - 'OperatingSystemClass                :   1400 :"Embedded"'
+    - 'DeviceClass                         :   1400 :"Set-top box"'
+    - 'DeviceName                          :    400 :"NeoTV"'
+    - 'DeviceBrand                         :    400 :"Netgear"'
 
 - test:
     input:
@@ -558,10 +558,10 @@ config:
 
 - matcher:
     extract:
-    - 'OperatingSystemClass  :  1100:"Embedded"'
-    - 'DeviceClass           :  1100:"Set-top box"'
-    - 'DeviceName            :   400:"Smart TV box"'
-    - 'DeviceBrand           :   400:agent.(1)product.(1)comments.entry.product.(1)name[2-4]="Smart TV box"@[1]'
+    - 'OperatingSystemClass                :   1100 :"Embedded"'
+    - 'DeviceClass                         :   1100 :"Set-top box"'
+    - 'DeviceName                          :    400 :"Smart TV box"'
+    - 'DeviceBrand                         :    400 :agent.(1)product.(1)comments.entry.product.(1)name[2-4]="Smart TV box"@[1]'
 
 - test:
     input:
@@ -593,10 +593,10 @@ config:
 
 - matcher:
     extract:
-    - 'OperatingSystemClass  :  1100:"Embedded"'
-    - 'DeviceClass           :  1100:"Set-top box"'
-    - 'DeviceName            :  1100:agent.(1)product.(1)comments.entry.product.(1)name[2-3]="Android TV"@[1-3]'
-    - 'DeviceBrand           :   300:agent.(1)product.(1)comments.entry.product.(1)name[2-3]="Android TV"@[1]'
+    - 'OperatingSystemClass                :   1100 :"Embedded"'
+    - 'DeviceClass                         :   1100 :"Set-top box"'
+    - 'DeviceName                          :   1100 :agent.(1)product.(1)comments.entry.product.(1)name[2-3]="Android TV"@[1-3]'
+    - 'DeviceBrand                         :    300 :agent.(1)product.(1)comments.entry.product.(1)name[2-3]="Android TV"@[1]'
 
 - test:
     input:
@@ -631,9 +631,9 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.product.(1)name[2]="TV"'
     extract:
-    - 'OperatingSystemClass  :  1100:"Embedded"'
-    - 'DeviceClass           :  1100:"Set-top box"'
-    - 'DeviceName            :  1100:"Smart TV"'
+    - 'OperatingSystemClass                :   1100 :"Embedded"'
+    - 'DeviceClass                         :   1100 :"Set-top box"'
+    - 'DeviceName                          :   1100 :"Smart TV"'
 
 - test:
     input:

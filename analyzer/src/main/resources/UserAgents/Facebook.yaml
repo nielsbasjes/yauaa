@@ -53,97 +53,97 @@ config:
     variable:
     - 'FBANVersion       : agent.product.(1-2)comments.entry.(1)product.(1)name="FBAN"^.version'
     extract:
-    - 'AgentClass        : 1001:"Browser Webview"'
-    - 'AgentName         : 1001:LookUp[FaceBookWebviewNames;@FBANVersion]'
-    - 'AgentVersion      :   11:"??"'
-    - 'WebviewAppName    : 1001:LookUp[FaceBookAppNames;@FBANVersion]'
-    - 'WebviewAppVersion : 1001:agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
+    - 'AgentClass                          :   1001 :"Browser Webview"'
+    - 'AgentName                           :   1001 :LookUp[FaceBookWebviewNames;@FBANVersion]'
+    - 'AgentVersion                        :     11 :"??"'
+    - 'WebviewAppName                      :   1001 :LookUp[FaceBookAppNames;@FBANVersion]'
+    - 'WebviewAppVersion                   :   1001 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
 
 - matcher:
     extract:
-    - 'AgentClass        : 1000:"Mobile App"'
-    - 'AgentName         : 1000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBAN"^.version'
-    - 'AgentVersion      :    5:agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
-    - 'WebviewAppName    : 1000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBAN"^.version'
-    - 'WebviewAppVersion : 1000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
+    - 'AgentClass                          :   1000 :"Mobile App"'
+    - 'AgentName                           :   1000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBAN"^.version'
+    - 'AgentVersion                        :      5 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
+    - 'WebviewAppName                      :   1000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBAN"^.version'
+    - 'WebviewAppVersion                   :   1000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
 
 - matcher:
     extract:
-    - 'AgentClass        : 1001:"Browser Webview"'
-    - 'AgentName         : 1001:LookUp[FaceBookWebviewNames;agent.product.(1-2)comments.entry.(1)product.(1)name="FB_IAB"^.version]'
-    - 'AgentVersion      : 1001:agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
-    - 'WebviewAppName    : 1001:LookUp[FaceBookAppNames;agent.product.(1-2)comments.entry.(1)product.(1)name="FB_IAB"^.version]'
-    - 'WebviewAppVersion : 1001:agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
+    - 'AgentClass                          :   1001 :"Browser Webview"'
+    - 'AgentName                           :   1001 :LookUp[FaceBookWebviewNames;agent.product.(1-2)comments.entry.(1)product.(1)name="FB_IAB"^.version]'
+    - 'AgentVersion                        :   1001 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
+    - 'WebviewAppName                      :   1001 :LookUp[FaceBookAppNames;agent.product.(1-2)comments.entry.(1)product.(1)name="FB_IAB"^.version]'
+    - 'WebviewAppVersion                   :   1001 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
 
 - matcher:
     extract:
-    - 'AgentClass        : 1000:"Mobile App"'
-    - 'AgentName         : 1000:agent.product.(1-2)comments.entry.(1)product.(1)name="FB_IAB"^.version'
-    - 'AgentVersion      :    5:agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
-    - 'WebviewAppName    : 1000:agent.product.(1-2)comments.entry.(1)product.(1)name="FB_IAB"^.version'
-    - 'WebviewAppVersion : 1000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
+    - 'AgentClass                          :   1000 :"Mobile App"'
+    - 'AgentName                           :   1000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FB_IAB"^.version'
+    - 'AgentVersion                        :      5 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
+    - 'WebviewAppName                      :   1000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FB_IAB"^.version'
+    - 'WebviewAppVersion                   :   1000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBAV"^.version'
 
 - matcher:
     require:
     - 'agent.product.(1-2)comments.entry.(1)product.(1)name="FBAN"'
     extract:
-    - 'AgentBuild   : 3000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBBV"^.version'
+    - 'AgentBuild                          :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBBV"^.version'
 
 - matcher:
     require:
     - 'agent.product.(1-2)comments.entry.(1)product.(1)name="FB_IAB"'
     extract:
-    - 'AgentBuild   : 3000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBBV"^.version'
+    - 'AgentBuild                          :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBBV"^.version'
 
 #========================================
 
 - matcher:
     extract:
-    - 'FacebookDeviceClass:   3000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBID"^.version'
-    - 'FacebookDeviceName:    3000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBMD"^.version'
-    - 'FacebookDeviceVersion: 3000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBDV"^.version'
+    - 'FacebookDeviceClass                 :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBID"^.version'
+    - 'FacebookDeviceName                  :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBMD"^.version'
+    - 'FacebookDeviceVersion               :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBDV"^.version'
 
 - matcher:
     require:
     - 'agent.product.(1-2)comments.entry.(1)product="FBID/desktop"'
     extract:
-    - 'DeviceClass:       200:"Desktop"'
+    - 'DeviceClass                         :    200 :"Desktop"'
 
 - matcher:
     require:
     - 'agent.product.(1-2)comments.entry.(1)product="FBID/tablet"'
     extract:
-    - 'DeviceClass:       200:"Tablet"'
+    - 'DeviceClass                         :    200 :"Tablet"'
 
 - matcher:
     require:
     - 'agent.product.(1-2)comments.entry.(1)product="FBID/phone"'
     extract:
-    - 'DeviceClass:       200:"Phone"'
+    - 'DeviceClass                         :    200 :"Phone"'
 
 - matcher:
     extract:
-    - 'DeviceName:        200:agent.product.(1-2)comments.entry.(1)product.(1)name="FBMD"^.version'
-    - 'DeviceVersion:     200:agent.product.(1-2)comments.entry.(1)product.(1)name="FBDV"^.version'
+    - 'DeviceName                          :    200 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBMD"^.version'
+    - 'DeviceVersion                       :    200 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBDV"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass:       198:LookUp[AppleDeviceClass;agent.product.(1-2)comments.entry.(1)product.(1)name="FBMD"^.version]'
-    - 'DeviceName:        201:LookUp[AppleDeviceName;agent.product.(1-2)comments.entry.(1)product.(1)name="FBMD"^.version]'
-    - 'DeviceVersion:     201:LookUp[AppleDeviceVersion;agent.product.(1-2)comments.entry.(1)product.(1)name="FBDV"^.version]'
-    - 'DeviceBrand:       201:"Apple"'
+    - 'DeviceClass                         :    198 :LookUp[AppleDeviceClass;agent.product.(1-2)comments.entry.(1)product.(1)name="FBMD"^.version]'
+    - 'DeviceName                          :    201 :LookUp[AppleDeviceName;agent.product.(1-2)comments.entry.(1)product.(1)name="FBMD"^.version]'
+    - 'DeviceVersion                       :    201 :LookUp[AppleDeviceVersion;agent.product.(1-2)comments.entry.(1)product.(1)name="FBDV"^.version]'
+    - 'DeviceBrand                         :    201 :"Apple"'
 
 - matcher:
     extract:
-    - 'FacebookOperatingSystemName:     3000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBSN"^.version'
-    - 'FacebookOperatingSystemVersion:  3000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBSV"^.version'
-    - 'FacebookFBSS:                    3000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBSS"^.version'
+    - 'FacebookOperatingSystemName         :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBSN"^.version'
+    - 'FacebookOperatingSystemVersion      :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBSV"^.version'
+    - 'FacebookFBSS                        :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBSS"^.version'
 
 - matcher:
     extract:
-    - 'OperatingSystemClass:      9:"Mobile"'
-    - 'OperatingSystemName:     199:agent.product.(1-2)comments.entry.(1)product.(1)name="FBSN"^.version'
-    - 'OperatingSystemVersion:  199:agent.product.(1-2)comments.entry.(1)product.(1)name="FBSV"^.version'
+    - 'OperatingSystemClass                :      9 :"Mobile"'
+    - 'OperatingSystemName                 :    199 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBSN"^.version'
+    - 'OperatingSystemVersion              :    199 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBSV"^.version'
 
 - lookup:
     name: 'OSNameCleanup'
@@ -160,28 +160,28 @@ config:
 
 - matcher:
     extract:
-    - 'OperatingSystemClass:     10:"Mobile"'
-    - 'OperatingSystemName:     200:LookUp[OSNameCleanup;agent.product.(1-2)comments.entry.(1)product.(1)name="FBSN"^.version]'
-    - 'OperatingSystemVersion:  200:agent.product.(1-2)comments.entry.(1)product.(1)name="FBSV"^.version'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :    200 :LookUp[OSNameCleanup;agent.product.(1-2)comments.entry.(1)product.(1)name="FBSN"^.version]'
+    - 'OperatingSystemVersion              :    200 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBSV"^.version'
 
 - matcher:
     extract:
-    - 'AgentLanguage: 3001:LookUp[ISOLanguageCodesName;agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version]'
-    - 'AgentLanguageCode: 3001:LookUp[ISOLanguageCodes;agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version]'
+    - 'AgentLanguage                       :   3001 :LookUp[ISOLanguageCodesName;agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version]'
+    - 'AgentLanguageCode                   :   3001 :LookUp[ISOLanguageCodes;agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version]'
 
 - matcher:
     extract:
-    - 'AgentLanguage: 3000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version'
-    - 'AgentLanguageCode: 3000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version'
+    - 'AgentLanguage                       :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version'
+    - 'AgentLanguageCode                   :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version'
 
 - matcher:
     extract:
-    - 'FacebookCarrier: 3000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBCR"^.version'
-    - 'Carrier        : 3000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBCR"^.version'
+    - 'FacebookCarrier                     :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBCR"^.version'
+    - 'Carrier                             :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBCR"^.version'
 
 - matcher:
     extract:
-    - 'FacebookFBOP: 3000:agent.product.(1-2)comments.entry.(1)product.(1)name="FBOP"^.version'
+    - 'FacebookFBOP                        :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBOP"^.version'
 
 - test:
     input:

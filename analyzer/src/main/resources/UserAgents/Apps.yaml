@@ -25,36 +25,36 @@ config:
     require:
     - 'agent.(2)product.(1)name="CFNetwork"'
     extract:
-    - 'DeviceClass           :  10:"Mobile"'
-    - 'DeviceBrand           :  10:"Apple"'
-    - 'DeviceName            :  10:"iOS Device"'
-    - 'OperatingSystemClass  :  10:"Mobile"'
-    - 'OperatingSystemName   :  10:"Darwin (iOS)"'
-    - 'OperatingSystemVersion:  10:agent.(3)product.(1)name="Darwin"^.version'
-    - 'LayoutEngineClass     :  10:"Mobile App"'
-    - 'LayoutEngineName      :  10:agent.(1)product.(1)name'
-    - 'LayoutEngineVersion   :  10:agent.(1)product.(1)version'
-    - 'AgentClass            :  10:"Mobile App"'
-    - 'AgentName             :  10:agent.(1)product.(1)name'
-    - 'AgentVersion          :  10:agent.(1)product.(1)version'
+    - 'DeviceClass                         :     10 :"Mobile"'
+    - 'DeviceBrand                         :     10 :"Apple"'
+    - 'DeviceName                          :     10 :"iOS Device"'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     10 :"Darwin (iOS)"'
+    - 'OperatingSystemVersion              :     10 :agent.(3)product.(1)name="Darwin"^.version'
+    - 'LayoutEngineClass                   :     10 :"Mobile App"'
+    - 'LayoutEngineName                    :     10 :agent.(1)product.(1)name'
+    - 'LayoutEngineVersion                 :     10 :agent.(1)product.(1)version'
+    - 'AgentClass                          :     10 :"Mobile App"'
+    - 'AgentName                           :     10 :agent.(1)product.(1)name'
+    - 'AgentVersion                        :     10 :agent.(1)product.(1)version'
 
 - matcher:
     require:
     - 'agent.(2)product.(1)name="CFNetwork"'
     - 'agent.(1)product.(1)comments.(1)entry="unknown version"'
     extract:
-    - 'DeviceClass           :  10:"Mobile"'
-    - 'DeviceBrand           :  10:"Apple"'
-    - 'DeviceName            :  10:"iOS Device"'
-    - 'OperatingSystemClass  :  10:"Mobile"'
-    - 'OperatingSystemName   :  10:"Darwin (iOS)"'
-    - 'OperatingSystemVersion:  10:agent.(3)product.(1)name="Darwin"^.version'
-    - 'LayoutEngineClass     :  10:"Mobile App"'
-    - 'LayoutEngineName      :  10:agent.(1)product.(1)name'
-    - 'LayoutEngineVersion   :   6:"??"'
-    - 'AgentClass            :  10:"Mobile App"'
-    - 'AgentName             :  10:agent.(1)product.(1)name'
-    - 'AgentVersion          :   6:"??"'
+    - 'DeviceClass                         :     10 :"Mobile"'
+    - 'DeviceBrand                         :     10 :"Apple"'
+    - 'DeviceName                          :     10 :"iOS Device"'
+    - 'OperatingSystemClass                :     10 :"Mobile"'
+    - 'OperatingSystemName                 :     10 :"Darwin (iOS)"'
+    - 'OperatingSystemVersion              :     10 :agent.(3)product.(1)name="Darwin"^.version'
+    - 'LayoutEngineClass                   :     10 :"Mobile App"'
+    - 'LayoutEngineName                    :     10 :agent.(1)product.(1)name'
+    - 'LayoutEngineVersion                 :      6 :"??"'
+    - 'AgentClass                          :     10 :"Mobile App"'
+    - 'AgentName                           :     10 :agent.(1)product.(1)name'
+    - 'AgentVersion                        :      6 :"??"'
 
 - test:
     input:
@@ -375,9 +375,9 @@ config:
 
 - matcher:
     extract:
-    - 'AgentClass            :  50:"Special"'
-    - 'AgentName             :  50:"iTunes"'
-    - 'AgentVersion          :  50:agent.(1)product.(1)name="iTunes"^.version'
+    - 'AgentClass                          :     50 :"Special"'
+    - 'AgentName                           :     50 :"iTunes"'
+    - 'AgentVersion                        :     50 :agent.(1)product.(1)name="iTunes"^.version'
 
 - test:
     input:

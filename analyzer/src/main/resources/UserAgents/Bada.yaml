@@ -22,13 +22,13 @@ config:
     - 'agent.(1)product.(1)comments.(1)entry="SAMSUNG"'
     - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[-1]="SAMSUNG"'
     extract:
-    - 'DeviceClass           :  500:"Mobile"'
-    - 'DeviceBrand           :  500:"Samsung"'
-    - 'DeviceName            :  500:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[2-]'
-    - 'DeviceVersion         :  500:agent.(1)product.(1)comments.(2)entry.(1)product.(1)version'
-    - 'OperatingSystemClass  :  500:"Mobile"'
-    - 'OperatingSystemName   :  500:"Bada"'
-    - 'OperatingSystemVersion:  500:agent.(1)product.(1)comments.entry.(1)product.(1)name="Bada"^.version'
+    - 'DeviceClass                         :    500 :"Mobile"'
+    - 'DeviceBrand                         :    500 :"Samsung"'
+    - 'DeviceName                          :    500 :agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[2-]'
+    - 'DeviceVersion                       :    500 :agent.(1)product.(1)comments.(2)entry.(1)product.(1)version'
+    - 'OperatingSystemClass                :    500 :"Mobile"'
+    - 'OperatingSystemName                 :    500 :"Bada"'
+    - 'OperatingSystemVersion              :    500 :agent.(1)product.(1)comments.entry.(1)product.(1)name="Bada"^.version'
 
 # Standard matcher for Bada devices that contain the carrier in the product name
 - matcher:
@@ -37,14 +37,14 @@ config:
     - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[-1]="SAMSUNG"'
     - 'agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[4]'
     extract:
-    - 'DeviceClass           :  501:"Mobile"'
-    - 'DeviceBrand           :  501:"Samsung"'
-    - 'DeviceName            :  501:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[2-3]'
-    - 'Carrier               :  501:agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[4]'
-    - 'DeviceVersion         :  501:agent.(1)product.(1)comments.(2)entry.(1)product.(1)version'
-    - 'OperatingSystemClass  :  501:"Mobile"'
-    - 'OperatingSystemName   :  501:"Bada"'
-    - 'OperatingSystemVersion:  501:agent.(1)product.(1)comments.entry.(1)product.(1)name="Bada"^.version'
+    - 'DeviceClass                         :    501 :"Mobile"'
+    - 'DeviceBrand                         :    501 :"Samsung"'
+    - 'DeviceName                          :    501 :agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[2-3]'
+    - 'Carrier                             :    501 :agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[4]'
+    - 'DeviceVersion                       :    501 :agent.(1)product.(1)comments.(2)entry.(1)product.(1)version'
+    - 'OperatingSystemClass                :    501 :"Mobile"'
+    - 'OperatingSystemName                 :    501 :"Bada"'
+    - 'OperatingSystemVersion              :    501 :agent.(1)product.(1)comments.entry.(1)product.(1)name="Bada"^.version'
 
 - test:
     input:
@@ -193,12 +193,12 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Bada"'
     extract:
-    - 'DeviceClass           :    1:"Mobile"'
-    - 'DeviceBrand           :    1:"Samsung"'
-    - 'DeviceName            :    1:"Unknown"'
-    - 'OperatingSystemClass  :    1:"Mobile"'
-    - 'OperatingSystemName   :    1:"Bada"'
-    - 'OperatingSystemVersion:    1:"??"'
+    - 'DeviceClass                         :      1 :"Mobile"'
+    - 'DeviceBrand                         :      1 :"Samsung"'
+    - 'DeviceName                          :      1 :"Unknown"'
+    - 'OperatingSystemClass                :      1 :"Mobile"'
+    - 'OperatingSystemName                 :      1 :"Bada"'
+    - 'OperatingSystemVersion              :      1 :"??"'
 
 - test:
     input:

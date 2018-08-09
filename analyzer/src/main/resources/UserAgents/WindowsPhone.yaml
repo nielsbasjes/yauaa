@@ -18,73 +18,73 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass           : 100:"Phone"'
-    - 'DeviceName            : 100:"Generic Windows Phone"'
-    - 'OperatingSystemClass  : 600:"Mobile"'
-    - 'OperatingSystemName   : 600:"Windows Phone"'
-    - 'OperatingSystemVersion: 600:agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"^.version'
+    - 'DeviceClass                         :    100 :"Phone"'
+    - 'DeviceName                          :    100 :"Generic Windows Phone"'
+    - 'OperatingSystemClass                :    600 :"Mobile"'
+    - 'OperatingSystemName                 :    600 :"Windows Phone"'
+    - 'OperatingSystemVersion              :    600 :agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"^.version'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
-    - 'DeviceClass           : 200:"Phone"'
-    - 'DeviceBrand           : 200:"Microsoft"'
-    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="Microsoft"^>'
+    - 'DeviceClass                         :    200 :"Phone"'
+    - 'DeviceBrand                         :    200 :"Microsoft"'
+    - 'DeviceName                          :    400 :agent.(1)product.(1)comments.entry.text="Microsoft"^>'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
-    - 'DeviceClass           : 200:"Phone"'
-    - 'DeviceBrand           : 200:"Nokia"'
-    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="Nokia"^>'
+    - 'DeviceClass                         :    200 :"Phone"'
+    - 'DeviceBrand                         :    200 :"Nokia"'
+    - 'DeviceName                          :    400 :agent.(1)product.(1)comments.entry.text="Nokia"^>'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
-    - 'DeviceClass           : 200:"Phone"'
-    - 'DeviceBrand           : 200:"Acer"'
-    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="Acer"^>'
+    - 'DeviceClass                         :    200 :"Phone"'
+    - 'DeviceBrand                         :    200 :"Acer"'
+    - 'DeviceName                          :    400 :agent.(1)product.(1)comments.entry.text="Acer"^>'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
-    - 'DeviceClass           : 200:"Phone"'
-    - 'DeviceBrand           : 200:"HTC"'
-    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="HTC"^>'
+    - 'DeviceClass                         :    200 :"Phone"'
+    - 'DeviceBrand                         :    200 :"HTC"'
+    - 'DeviceName                          :    400 :agent.(1)product.(1)comments.entry.text="HTC"^>'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
-    - 'DeviceClass           : 200:"Phone"'
-    - 'DeviceBrand           : 200:"Huawei"'
-    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="Huawei"^>'
+    - 'DeviceClass                         :    200 :"Phone"'
+    - 'DeviceBrand                         :    200 :"Huawei"'
+    - 'DeviceName                          :    400 :agent.(1)product.(1)comments.entry.text="Huawei"^>'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
-    - 'DeviceClass           : 200:"Phone"'
-    - 'DeviceBrand           : 200:"Samsung"'
-    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="Samsung"^>'
+    - 'DeviceClass                         :    200 :"Phone"'
+    - 'DeviceBrand                         :    200 :"Samsung"'
+    - 'DeviceName                          :    400 :agent.(1)product.(1)comments.entry.text="Samsung"^>'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.product.name[-2]="Windows Phone"'
     extract:
-    - 'DeviceClass           : 200:"Phone"'
-    - 'DeviceBrand           : 200:"Archos"'
-    - 'DeviceName            : 400:agent.(1)product.(1)comments.entry.text="Archos"^>'
+    - 'DeviceClass                         :    200 :"Phone"'
+    - 'DeviceBrand                         :    200 :"Archos"'
+    - 'DeviceName                          :    400 :agent.(1)product.(1)comments.entry.text="Archos"^>'
 
 - matcher:
     extract:
-    - 'DeviceClass           : 199:"Phone"'
-    - 'DeviceBrand           : 199:"Nokia"'
-    - 'DeviceName            : 399:agent.(1)product.(1)comments.entry[-1]="Lumia"@'
+    - 'DeviceClass                         :    199 :"Phone"'
+    - 'DeviceBrand                         :    199 :"Nokia"'
+    - 'DeviceName                          :    399 :agent.(1)product.(1)comments.entry[-1]="Lumia"@'
 
 - test:
     input:
@@ -485,73 +485,73 @@ config:
     require:
     - 'agent.(1)product.comments.entry="ARM"'
     extract:
-    - 'DeviceClass               : 199:"Phone"'
-    - 'DeviceName                : 199:"Windows Phone"'
-    - 'DeviceCpuBits             :   1:"32"'
-    - 'OperatingSystemClass      : 199:"Mobile"'
-    - 'OperatingSystemName       : 199:LookUp[WindowsPhoneOSName;agent.(1)product.comments.entry.product]'
-    - 'OperatingSystemVersion    : 199:LookUp[WindowsPhoneOSVersion;agent.(1)product.comments.entry.product]'
-    - 'OperatingSystemNameVersion: 199:LookUp[WindowsPhoneOSNameVersion;agent.(1)product.comments.entry.product]'
+    - 'DeviceClass                         :    199 :"Phone"'
+    - 'DeviceName                          :    199 :"Windows Phone"'
+    - 'DeviceCpuBits                       :      1 :"32"'
+    - 'OperatingSystemClass                :    199 :"Mobile"'
+    - 'OperatingSystemName                 :    199 :LookUp[WindowsPhoneOSName;agent.(1)product.comments.entry.product]'
+    - 'OperatingSystemVersion              :    199 :LookUp[WindowsPhoneOSVersion;agent.(1)product.comments.entry.product]'
+    - 'OperatingSystemNameVersion          :    199 :LookUp[WindowsPhoneOSNameVersion;agent.(1)product.comments.entry.product]'
 
 - matcher:
     require:
     - 'agent.(1)product.comments.entry="ARM"'
     extract:
-    - 'DeviceCpuBits             : 199:LookUp[WindowsPhoneOSCpuBits;agent.(1)product.comments.entry.product]'
+    - 'DeviceCpuBits                       :    199 :LookUp[WindowsPhoneOSCpuBits;agent.(1)product.comments.entry.product]'
 
 - matcher:
     require:
     - 'agent.(1)product.comments.entry="ARM"'
     extract:
-    - 'DeviceClass               : 199:"Phone"'
-    - 'DeviceName                : 199:"Windows Phone"'
-    - 'DeviceCpuBits             :   1:"32"'
-    - 'OperatingSystemClass      : 199:"Mobile"'
-    - 'OperatingSystemName       : 199:LookUp[WindowsPhoneOSName;agent.(1)product.comments.entry.text]'
-    - 'OperatingSystemVersion    : 199:LookUp[WindowsPhoneOSVersion;agent.(1)product.comments.entry.text]'
-    - 'OperatingSystemNameVersion: 199:LookUp[WindowsPhoneOSNameVersion;agent.(1)product.comments.entry.text]'
+    - 'DeviceClass                         :    199 :"Phone"'
+    - 'DeviceName                          :    199 :"Windows Phone"'
+    - 'DeviceCpuBits                       :      1 :"32"'
+    - 'OperatingSystemClass                :    199 :"Mobile"'
+    - 'OperatingSystemName                 :    199 :LookUp[WindowsPhoneOSName;agent.(1)product.comments.entry.text]'
+    - 'OperatingSystemVersion              :    199 :LookUp[WindowsPhoneOSVersion;agent.(1)product.comments.entry.text]'
+    - 'OperatingSystemNameVersion          :    199 :LookUp[WindowsPhoneOSNameVersion;agent.(1)product.comments.entry.text]'
 
 - matcher:
     require:
     - 'agent.(1)product.comments.entry="ARM"'
     extract:
-    - 'DeviceCpuBits             : 199:LookUp[WindowsPhoneOSCpuBits;agent.(1)product.comments.entry.text]'
+    - 'DeviceCpuBits                       :    199 :LookUp[WindowsPhoneOSCpuBits;agent.(1)product.comments.entry.text]'
 
 - matcher:
     require:
     - 'agent.(1)product.comments.entry="ARM"'
     extract:
-    - 'DeviceClass               : 199:"Phone"'
-    - 'DeviceName                : 199:"Windows Phone"'
-    - 'DeviceCpuBits             :   1:"32"'
-    - 'OperatingSystemClass      : 199:"Mobile"'
-    - 'OperatingSystemName       : 199:LookUp[WindowsPhoneOSName;agent.product]'
-    - 'OperatingSystemVersion    : 199:LookUp[WindowsPhoneOSVersion;agent.product]'
-    - 'OperatingSystemNameVersion: 199:LookUp[WindowsPhoneOSNameVersion;agent.product]'
+    - 'DeviceClass                         :    199 :"Phone"'
+    - 'DeviceName                          :    199 :"Windows Phone"'
+    - 'DeviceCpuBits                       :      1 :"32"'
+    - 'OperatingSystemClass                :    199 :"Mobile"'
+    - 'OperatingSystemName                 :    199 :LookUp[WindowsPhoneOSName;agent.product]'
+    - 'OperatingSystemVersion              :    199 :LookUp[WindowsPhoneOSVersion;agent.product]'
+    - 'OperatingSystemNameVersion          :    199 :LookUp[WindowsPhoneOSNameVersion;agent.product]'
 
 - matcher:
     require:
     - 'agent.(1)product.comments.entry="ARM"'
     extract:
-    - 'DeviceCpuBits             : 199:LookUp[WindowsPhoneOSCpuBits;agent.product]'
+    - 'DeviceCpuBits                       :    199 :LookUp[WindowsPhoneOSCpuBits;agent.product]'
 
 - matcher:
     require:
     - 'agent.(1)product.comments.entry="ARM"'
     extract:
-    - 'DeviceClass               : 199:"Phone"'
-    - 'DeviceName                : 199:"Windows Phone"'
-    - 'DeviceCpuBits             :   1:"32"'
-    - 'OperatingSystemClass      : 199:"Mobile"'
-    - 'OperatingSystemName       : 199:LookUp[WindowsPhoneOSName;agent.product.text]'
-    - 'OperatingSystemVersion    : 199:LookUp[WindowsPhoneOSVersion;agent.product.text]'
-    - 'OperatingSystemNameVersion: 199:LookUp[WindowsPhoneOSNameVersion;agent.product.text]'
+    - 'DeviceClass                         :    199 :"Phone"'
+    - 'DeviceName                          :    199 :"Windows Phone"'
+    - 'DeviceCpuBits                       :      1 :"32"'
+    - 'OperatingSystemClass                :    199 :"Mobile"'
+    - 'OperatingSystemName                 :    199 :LookUp[WindowsPhoneOSName;agent.product.text]'
+    - 'OperatingSystemVersion              :    199 :LookUp[WindowsPhoneOSVersion;agent.product.text]'
+    - 'OperatingSystemNameVersion          :    199 :LookUp[WindowsPhoneOSNameVersion;agent.product.text]'
 
 - matcher:
     require:
     - 'agent.(1)product.comments.entry="ARM"'
     extract:
-    - 'DeviceCpuBits             : 199:LookUp[WindowsPhoneOSCpuBits;agent.product.text]'
+    - 'DeviceCpuBits                       :    199 :LookUp[WindowsPhoneOSCpuBits;agent.product.text]'
 
 # Smartphones classified as desktops "Windows NT 6.2; ARM" --> Windows Phone 8
 - test:
