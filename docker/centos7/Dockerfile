@@ -33,8 +33,8 @@ ENV JAVA_HOME /usr/lib/jvm/java
 # --------------------------------
 # Install Maven
 RUN mkdir -p /usr/local/apache-maven
-RUN wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz" -O "apache-maven-3.5.3-bin.tar.gz"
-RUN tar xzf apache-maven-3.5.3-bin.tar.gz --strip-components 1 -C /usr/local/apache-maven
+RUN wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz" -O "apache-maven-3.5.4-bin.tar.gz"
+RUN tar xzf apache-maven-3.5.4-bin.tar.gz --strip-components 1 -C /usr/local/apache-maven
 ENV M2_HOME /usr/local/apache-maven
 ENV PATH ${M2_HOME}/bin:${PATH}
 
