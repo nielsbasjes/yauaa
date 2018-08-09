@@ -50,7 +50,7 @@ echo "#"
 echo "config:"
 echo "- matcher:"
 echo "    extract:"
-echo "    - 'DeviceBrand :  200:LookUp[WindowsOEMCodes;agent.(1)product.comments.entry.text]'"
+echo "    - 'DeviceBrand                         :    200 :LookUp[WindowsOEMCodes;agent.(1)product.comments.entry.text]'"
 
 echo "- lookup:"
 echo "    name: 'WindowsOEMCodes'"

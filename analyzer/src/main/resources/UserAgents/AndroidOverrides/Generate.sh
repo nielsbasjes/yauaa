@@ -63,36 +63,36 @@ echo "
     require:
     - 'agent.product.name=\"${tag}\"'
     extract:
-    - 'DeviceClass                 :  1001:\"${deviceClass}\"'
-    - 'DeviceName                  :   100:\"${deviceName}\"'
-    - 'DeviceBrand                 :   100:\"${deviceBrand}\"'
+    - 'DeviceClass                         :   1001 :\"${deviceClass}\"'
+    - 'DeviceName                          :    100 :\"${deviceName}\"'
+    - 'DeviceBrand                         :    100 :\"${deviceBrand}\"'
 
 - matcher:
     require:
     - 'agent.product.comments.entry.product.name[1]=\"Android\"'
     - 'agent.product.comments.entry.product.name[1]=\"${tag}\"'
     extract:
-    - 'DeviceClass                 :  1001:\"${deviceClass}\"'
-    - 'DeviceName                  :   100:\"${deviceName}\"'
-    - 'DeviceBrand                 :   100:\"${deviceBrand}\"'
+    - 'DeviceClass                         :   1001 :\"${deviceClass}\"'
+    - 'DeviceName                          :    100 :\"${deviceName}\"'
+    - 'DeviceBrand                         :    100 :\"${deviceBrand}\"'
 
 - matcher:
     require:
     - 'IsNull[agent.product.name=\"Chrome\"]'
     extract:
-    - 'DeviceClass                 :  1001:\"${deviceClass}\"'
-    - 'DeviceName                  :   100:\"${deviceName}\"'
-    - 'DeviceBrand                 :   100:\"${deviceBrand}\"'
-    - 'OperatingSystemVersionBuild :    12:agent.(1)product.(1)comments.entry[1-$((tagWords+1))]=\"${tag} Build\"@[$((tagWords+2))]'
+    - 'DeviceClass                         :   1001 :\"${deviceClass}\"'
+    - 'DeviceName                          :    100 :\"${deviceName}\"'
+    - 'DeviceBrand                         :    100 :\"${deviceBrand}\"'
+    - 'OperatingSystemVersionBuild         :     12 :agent.(1)product.(1)comments.entry[1-$((tagWords+1))]=\"${tag} Build\"@[$((tagWords+2))]'
 
 - matcher:
     require:
     - 'IsNull[agent.product.name=\"Chrome\"]'
     extract:
-    - 'DeviceClass                 :  1001:\"${deviceClass}\"'
-    - 'DeviceName                  :   100:\"${deviceName}\"'
-    - 'DeviceBrand                 :   100:\"${deviceBrand}\"'
-    - 'OperatingSystemVersionBuild :    11:agent.(1)product.(1)comments.entry[1-$((tagWords))]=\"${tag}\"@[$((tagWords+1))]'
+    - 'DeviceClass                         :   1001 :\"${deviceClass}\"'
+    - 'DeviceName                          :    100 :\"${deviceName}\"'
+    - 'DeviceBrand                         :    100 :\"${deviceBrand}\"'
+    - 'OperatingSystemVersionBuild         :     11 :agent.(1)product.(1)comments.entry[1-$((tagWords))]=\"${tag}\"@[$((tagWords+1))]'
 
 "
 
