@@ -12,7 +12,7 @@ v5.1
 - Better detection and naming of the Amazon, HP, PocketBook, Manta and Prestigio devices
 - Detect the new Gecko fork Goanna (used by Palemoon)
 - Updated UDF dependencies
-  - Apache Flink 1.5.2
+  - Apache Flink 1.6.0
   - Apache Drill 1.14.0
   - Apache Beam 2.6.0
   - Apache Nifi 1.7.1

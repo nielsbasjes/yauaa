@@ -12,7 +12,7 @@ If you use a maven based project simply add this dependency
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa-commandline</artifactId>
-      <version>5.0</version>
+      <version>5.1</version>
     </dependency>
 
 ## Building

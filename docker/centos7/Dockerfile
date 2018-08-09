@@ -51,6 +51,13 @@ RUN yum install -y pig
 # Install shellcheck
 RUN yum install -y ShellCheck
 
+
+# --------------------------------
+# Install node.js, npm and gitbook
+RUN yum install -y nodejs npm
+RUN npm install --global gitbook-cli \
+        && gitbook fetch 3.2.3
+
 # --------------------------------
 # Add a welcome message and environment checks.
 RUN mkdir /scripts
