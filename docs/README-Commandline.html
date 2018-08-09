@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Introduction · GitBook</title>
+        <title>Commandline · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="README-Output.html" />
+    <link rel="next" href="README-LogParser.html" />
     
+    
+    <link rel="prev" href="README-Performance.html" />
     
 
     </head>
@@ -89,7 +91,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -187,7 +189,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.5" data-path="README-Commandline.html">
+        <li class="chapter active" data-level="2.5" data-path="README-Commandline.html">
             
                 <a href="README-Commandline.html">
             
@@ -408,7 +410,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >Commandline</a>
     </h1>
 </div>
 
@@ -423,121 +425,107 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="yauaa-yet-another-useragent-analyzer">Yauaa: Yet Another UserAgent Analyzer</h1>
-<p><a href="https://travis-ci.org/nielsbasjes/yauaa" target="_blank"><img src="https://api.travis-ci.org/nielsbasjes/yauaa.png?branch=master" alt="Travis Build status"></a>
-<a href="https://coveralls.io/github/nielsbasjes/yauaa?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nielsbasjes/yauaa/badge.svg?branch=master" alt="Coverage Status"></a>
-<a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank"><img src="http://img.shields.io/:license-apache-blue.svg" alt="License"></a>
-<a href="https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22" target="_blank"><img src="https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg" alt="Maven Central"></a>
-<a href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="If this project has business value for you then don&apos;t hesitate to support me with a small donation."></a></p>
-<p>This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.</p>
-<h1 id="blog-post-">Blog post </h1>
-<p>A bit more background about this useragent parser can be found in this blog which I wrote about it: <a href="https://partnerprogramma.bol.com/click/click?p=1&amp;t=url&amp;s=2171&amp;f=TXL&amp;url=https%3A%2F%2Ftechlab.bol.com%2Fmaking-sense-user-agent-string%2F&amp;name=yauaa" target="_blank">https://techlab.bol.com/making-sense-user-agent-string/</a></p>
-<h1 id="example-output">Example output</h1>
-<p>As an example the useragent of my phone:</p>
-<pre><code>Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
-</code></pre><p>is converted into this set of fields:</p>
-<table>
-<thead>
-<tr>
-<th>Field name</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Device</strong>Class</td>
-<td>&apos;Phone&apos;</td>
-</tr>
-<tr>
-<td><strong>Device</strong>Name</td>
-<td>&apos;Google Nexus 6&apos;</td>
-</tr>
-<tr>
-<td><strong>Device</strong>Brand</td>
-<td>&apos;Google&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Class</td>
-<td>&apos;Mobile&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Name</td>
-<td>&apos;Android&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Version</td>
-<td>&apos;7.0&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>NameVersion</td>
-<td>&apos;Android 7.0&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>VersionBuild</td>
-<td>&apos;NBD90Z&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Class</td>
-<td>&apos;Browser&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Name</td>
-<td>&apos;Blink&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Version</td>
-<td>&apos;53.0&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>NameVersion</td>
-<td>&apos;Blink 53.0&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>NameVersionMajor</td>
-<td>&apos;Blink 53&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Class</td>
-<td>&apos;Browser&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Name</td>
-<td>&apos;Chrome&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Version</td>
-<td>&apos;53.0.2785.124&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>NameVersion</td>
-<td>&apos;Chrome 53.0.2785.124&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>NameVersionMajor</td>
-<td>&apos;Chrome 53&apos;</td>
-</tr>
-</tbody>
-</table>
-<h1 id="try-it">Try it!</h1>
-<p>You can try it online with your own browser here: <a href="https://try.yauaa.basjes.nl/" target="_blank">https://try.yauaa.basjes.nl/</a>.</p>
-<p><strong>NOTES</strong></p>
-<ol>
-<li>This runs under a &quot;Free quota&quot; on Google AppEngine. If this quote is exceeded then it will simply become unavailable for that day.</li>
-<li>After a while of inactivity the instance is terminated so the first page may take 15-30 seconds to load.</li>
-<li>If you really like this then run it on your local systems. It&apos;s much faster that way.</li>
-</ol>
-<h1 id="donations">Donations</h1>
-<p>If this project has business value for you then don&apos;t hesitate to support me with a small donation.</p>
-<p><a href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="Donations via PayPal"></a></p>
-<h1 id="license">License</h1>
+                                <h1 id="commandline-tool">Commandline tool</h1>
+<h2 id="warning">Warning</h2>
+<p>This commandline tool is unfinished and has some problems reading files and such.</p>
+<p>So at this time: <strong>BETA</strong> quality.</p>
+<h2 id="getting-the-commandline-tool">Getting the commandline tool</h2>
+<p>You can get the prebuild jar from maven central.
+If you use a maven based project simply add this dependency</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
+  &lt;artifactId&gt;yauaa-commandline&lt;/artifactId&gt;
+  &lt;version&gt;5.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><h2 id="building">Building</h2>
+<p>Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:</p>
+<pre><code>mvn clean package
+</code></pre><h2 id="example-usage">Example usage</h2>
+<h1 id="getting-commandline-help">Getting commandline help</h1>
+<pre><code>$ java -jar yauaa-commandline-*.jar 
+
+/------------------------------------------------------------\
+| Yauaa 2.0-SNAPSHOT (v1.4-63 @ 2017-08-05T07:22:55Z)        |
++------------------------------------------------------------+
+| For more information: https://github.com/nielsbasjes/yauaa |
+| Copyright (C) 2013-2018 Niels Basjes - License Apache 2.0  |
+\------------------------------------------------------------/
+
+Errors: No input specified.
+
+Usage: java jar &lt;jar containing this class&gt; &lt;options&gt;
+ -bad             : Output only cases that have a problem (default: false)
+ -cache N         : The number of elements that can be cached (LRU). (default:
+                    10000)
+ -csv             : Output in csv format (default: false)
+ -debug           : Set to enable debugging. (default: false)
+ -fields STRING[] : A list of the desired fieldnames (use &apos;Useragent&apos; if you
+                    want the input value aswell)
+ -fullFlatten     : Set to flatten each parsed agent string. (default: false)
+ -in VAL          : Location of input file
+ -json            : Output in json format (default: false)
+ -matchedFlatten  : Set to get the flattened values that were relevant for the
+                    Matchers. (default: false)
+ -ua VAL          : A single useragent string
+ -yaml            : Output in yaml testcase format (default: false)
+</code></pre><p>You will get the processing result via stdout and some informational stuff via stderr.</p>
+<h1 id="doing-a-single-value">Doing a single value</h1>
+<p>Note that this is relatively slow because the full 2-3 seconds of startup overhead is incurred each time you start this.</p>
+<pre><code>AGENT=&quot;Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36&quot;
+
+java -jar yauaa-commandline-*.jar -yaml -ua &quot;${AGENT}&quot; &gt; results.yaml
+
+java -jar yauaa-commandline-*.jar -json -ua &quot;${AGENT}&quot; &gt; results.json
+</code></pre><h1 id="doing-a-large-number-of-values">Doing a large number of values</h1>
+<p>For streaming a file in it is recommended to use stdin like this</p>
+<pre><code>cat useragents.txt | java -jar yauaa-commandline-*.jar -json -in - &gt; results.json
+</code></pre><p>Running in this mode will also show some statistics via stderr.</p>
+<pre><code>/------------------------------------------------------------\
+| Yauaa 2.0-SNAPSHOT (v1.4-63 @ 2017-08-05T07:22:55Z)        |
++------------------------------------------------------------+
+| For more information: https://github.com/nielsbasjes/yauaa |
+| Copyright (C) 2013-2018 Niels Basjes - License Apache 2.0  |
+\------------------------------------------------------------/
+
+Loading from: &quot;classpath*:UserAgents/**/*.yaml&quot;
+Loaded 56 files
+Building all matchers
+Building 2314 (dropped    0) matchers from   52 files took  3278 msec resulted in   243070 hashmap entries
+Analyzer stats
+Lookups      : 24
+Matchers     : 2314 (total:2314 ; dropped: 0)
+Hashmap size : 243070
+Ranges map size : 5441
+Testcases    : 771
+Lines =     1000 (Ambiguities:    75 ; SyntaxErrors:     0) Analyze speed =   357/sec.
+Lines =     2000 (Ambiguities:    66 ; SyntaxErrors:     0) Analyze speed =   472/sec.
+Lines =     3000 (Ambiguities:    60 ; SyntaxErrors:     0) Analyze speed =   838/sec.
+Lines =     4000 (Ambiguities:    54 ; SyntaxErrors:     0) Analyze speed =   973/sec.
+Lines =     5000 (Ambiguities:    60 ; SyntaxErrors:     1) Analyze speed =   995/sec.
+Lines =     6000 (Ambiguities:    55 ; SyntaxErrors:     0) Analyze speed =  1153/sec.
+Lines =     7000 (Ambiguities:    56 ; SyntaxErrors:     0) Analyze speed =  1071/sec.
+Lines =     8000 (Ambiguities:    70 ; SyntaxErrors:     1) Analyze speed =  1015/sec.
+Lines =     9000 (Ambiguities:    70 ; SyntaxErrors:     0) Analyze speed =  1053/sec.
+Lines =    10000 (Ambiguities:    74 ; SyntaxErrors:     0) Analyze speed =  1202/sec.
+Lines =    11000 (Ambiguities:    42 ; SyntaxErrors:     0) Analyze speed =  1247/sec.
+Lines =    12000 (Ambiguities:    68 ; SyntaxErrors:     0) Analyze speed =  1204/sec.
+Lines =    13000 (Ambiguities:    37 ; SyntaxErrors:     0) Analyze speed =  1223/sec.
+Lines =    14000 (Ambiguities:    66 ; SyntaxErrors:     0) Analyze speed =  1164/sec.
+Lines =    15000 (Ambiguities:    43 ; SyntaxErrors:     0) Analyze speed =  1224/sec.
+-------------------------------------------------------------
+Performance: 15402 in 17 sec --&gt; 897/sec
+-------------------------------------------------------------
+Parse results of 15402 lines
+Parsed without error:    15400 (= 99.99%)
+Parsed with    error:        2 (=  0.01%)
+Fully matched       :     2642 (= 17.15%)
+-------------------------------------------------------------
+Parse results of 996935 hits
+Parsed without error:   996917 (=100.00%)
+Parsed with    error:       18 (=  0.00%)
+Fully matched       :   248862 (= 24.96%)
+-------------------------------------------------------------
+</code></pre><h1 id="license">License</h1>
 <pre><code>Yet Another UserAgent Analyzer
 Copyright (C) 2013-2018 Niels Basjes
 
@@ -579,8 +567,12 @@ limitations under the License.
 
             
                 
+                <a href="README-Performance.html" class="navigation navigation-prev " aria-label="Previous page: Performance">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="README-Output.html" class="navigation navigation-next navigation-unique" aria-label="Next page: The output to expect">
+                
+                <a href="README-LogParser.html" class="navigation navigation-next " aria-label="Next page: LogParser">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -591,7 +583,7 @@ limitations under the License.
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"The output to expect","level":"1.2","depth":1,"path":"README-Output.md","ref":"README-Output.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-08-09T07:42:35.090Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-09T08:12:39.125Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Commandline","level":"2.5","depth":1,"next":{"title":"LogParser","level":"3.1","depth":1,"path":"README-LogParser.md","ref":"README-LogParser.md","articles":[]},"previous":{"title":"Performance","level":"2.4","depth":1,"path":"README-Performance.md","ref":"README-Performance.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README-Commandline.md","mtime":"2018-07-11T11:31:17.300Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-09T08:12:39.125Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Introduction · GitBook</title>
+        <title>Apache Drill · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="README-Output.html" />
+    <link rel="next" href="README-Flink.html" />
     
+    
+    <link rel="prev" href="README-Beam.html" />
     
 
     </head>
@@ -89,7 +91,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -233,7 +235,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.3" data-path="README-Drill.html">
+        <li class="chapter active" data-level="3.3" data-path="README-Drill.html">
             
                 <a href="README-Drill.html">
             
@@ -408,7 +410,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >Apache Drill</a>
     </h1>
 </div>
 
@@ -423,121 +425,132 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="yauaa-yet-another-useragent-analyzer">Yauaa: Yet Another UserAgent Analyzer</h1>
-<p><a href="https://travis-ci.org/nielsbasjes/yauaa" target="_blank"><img src="https://api.travis-ci.org/nielsbasjes/yauaa.png?branch=master" alt="Travis Build status"></a>
-<a href="https://coveralls.io/github/nielsbasjes/yauaa?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nielsbasjes/yauaa/badge.svg?branch=master" alt="Coverage Status"></a>
-<a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank"><img src="http://img.shields.io/:license-apache-blue.svg" alt="License"></a>
-<a href="https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22" target="_blank"><img src="https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg" alt="Maven Central"></a>
-<a href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="If this project has business value for you then don&apos;t hesitate to support me with a small donation."></a></p>
-<p>This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.</p>
-<h1 id="blog-post-">Blog post </h1>
-<p>A bit more background about this useragent parser can be found in this blog which I wrote about it: <a href="https://partnerprogramma.bol.com/click/click?p=1&amp;t=url&amp;s=2171&amp;f=TXL&amp;url=https%3A%2F%2Ftechlab.bol.com%2Fmaking-sense-user-agent-string%2F&amp;name=yauaa" target="_blank">https://techlab.bol.com/making-sense-user-agent-string/</a></p>
-<h1 id="example-output">Example output</h1>
-<p>As an example the useragent of my phone:</p>
-<pre><code>Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
-</code></pre><p>is converted into this set of fields:</p>
-<table>
-<thead>
-<tr>
-<th>Field name</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Device</strong>Class</td>
-<td>&apos;Phone&apos;</td>
-</tr>
-<tr>
-<td><strong>Device</strong>Name</td>
-<td>&apos;Google Nexus 6&apos;</td>
-</tr>
-<tr>
-<td><strong>Device</strong>Brand</td>
-<td>&apos;Google&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Class</td>
-<td>&apos;Mobile&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Name</td>
-<td>&apos;Android&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Version</td>
-<td>&apos;7.0&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>NameVersion</td>
-<td>&apos;Android 7.0&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>VersionBuild</td>
-<td>&apos;NBD90Z&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Class</td>
-<td>&apos;Browser&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Name</td>
-<td>&apos;Blink&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Version</td>
-<td>&apos;53.0&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>NameVersion</td>
-<td>&apos;Blink 53.0&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>NameVersionMajor</td>
-<td>&apos;Blink 53&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Class</td>
-<td>&apos;Browser&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Name</td>
-<td>&apos;Chrome&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Version</td>
-<td>&apos;53.0.2785.124&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>NameVersion</td>
-<td>&apos;Chrome 53.0.2785.124&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>NameVersionMajor</td>
-<td>&apos;Chrome 53&apos;</td>
-</tr>
-</tbody>
-</table>
-<h1 id="try-it">Try it!</h1>
-<p>You can try it online with your own browser here: <a href="https://try.yauaa.basjes.nl/" target="_blank">https://try.yauaa.basjes.nl/</a>.</p>
-<p><strong>NOTES</strong></p>
-<ol>
-<li>This runs under a &quot;Free quota&quot; on Google AppEngine. If this quote is exceeded then it will simply become unavailable for that day.</li>
-<li>After a while of inactivity the instance is terminated so the first page may take 15-30 seconds to load.</li>
-<li>If you really like this then run it on your local systems. It&apos;s much faster that way.</li>
-</ol>
-<h1 id="donations">Donations</h1>
-<p>If this project has business value for you then don&apos;t hesitate to support me with a small donation.</p>
-<p><a href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="Donations via PayPal"></a></p>
-<h1 id="license">License</h1>
+                                <h1 id="user-defined-function-for-apache-drill">User Defined Function for Apache Drill</h1>
+<h2 id="introduction">Introduction</h2>
+<p>This is an Apache Drill UDF for parsing User Agent Strings.
+This function was originally created by <a href="https://github.com/cgivre" target="_blank">Charles S. Givre</a> and was imported into
+the main Yauaa project to ensure users would have a prebuilt and up to date version available.</p>
+<h1 id="status--works-on-my-machine-">STATUS: ... Works on my machine ...</h1>
+<p>I have copied/implemented the functions</p>
+<pre><code>parse_user_agent       ( &lt;useragent&gt; )
+parse_user_agent_field ( &lt;useragent&gt; , &lt;desired fieldname&gt; )
+</code></pre><p>Able to do basic unit test during build for the parse_user_agent_field function.
+NOT yet able to do automated testing for the parse_user_agent function.</p>
+<p>When I run it in a local drill the things I try work for the most (see below).
+I have not yet tested this in a distributed setup.</p>
+<p>So please try it out and report any issues and/or improvements you see.</p>
+<h2 id="getting-the-udf">Getting the UDF</h2>
+<p>You can get the prebuilt UDF from <a href="http://search.maven.org/#search%7Cga%7C1%7Cyauaa-drill" target="_blank">maven central</a>.
+This is the maven dependency definition where it can be downloaded.</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
+  &lt;artifactId&gt;yauaa-drill&lt;/artifactId&gt;
+  &lt;version&gt;5.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><h2 id="building">Building</h2>
+<p>Simply install the normal build tools for a Java project (i.e. maven and jdk 8+) and then simply do:</p>
+<pre><code>mvn clean package
+</code></pre><p>The jar file for Apache Drill can be found as</p>
+<pre><code>./udfs/drill/function/target/yauaa-drill-&lt;version&gt;.jar
+</code></pre><h2 id="installation">Installation</h2>
+<p>To install this function put the jar file in the <drill-path>/jars/3rdparty directory.</drill-path></p>
+<pre><code>cp ./udfs/drill/target/yauaa-drill-&lt;version&gt;.jar &lt;drill-path&gt;/jars/3rdparty
+</code></pre><p>Make sure you replace <code>&lt;drill-path&gt;</code> with your actual path to your drill installation.
+NOTE: You do not need the <code>yauaa-drill-&lt;version&gt;-sources.jar</code> to run in drill.</p>
+<h1 id="usage-and-examples">Usage and examples</h1>
+<p>Working queries with a direct value</p>
+<pre><code>SELECT parse_user_agent_field(&apos;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36&apos;, &apos;AgentNameVersion&apos;) from (values(1));
+
++----------------------+
+|        EXPR$0        |
++----------------------+
+| Chrome 48.0.2564.82  |
++----------------------+
+</code></pre><p>This one doesn&apos;t work</p>
+<pre><code>SELECT parse_user_agent(&apos;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36&apos;) from (values(1));
+
+Error: PLAN ERROR: Failure while materializing expression in constant expression evaluator [PARSE_USER_AGENT(&apos;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36&apos;)].  Errors:
+Error in expression at index -1.  Error: Only ProjectRecordBatch could have complex writer function. You are using complex writer function parse_user_agent in a non-project operation!.  Full expression: --UNKNOWN EXPRESSION--.
+</code></pre><p>Assume the file <code>/tmp/testcase.tsv</code> which contains 2 lines:</p>
+<pre><code>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36
+Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+</code></pre><p>Working queries using the input file</p>
+<pre><code>SELECT parse_user_agent_field(columns[0], &apos;AgentNameVersion&apos;) AS AgentNameVersion from dfs.`/tmp/testcase.tsv`;
+
++----------------------+
+|   AgentNameVersion   |
++----------------------+
+| Chrome 48.0.2564.82  |
+| Googlebot 2.1        |
++----------------------+
+</code></pre><p>and</p>
+<pre><code>SELECT parse_user_agent(columns[0]) AS AgentNameVersion from dfs.`/tmp/testcase.tsv`;
+
++------------------+
+| AgentNameVersion |
++------------------+
+| {
+    &quot;DeviceClass&quot;:                   &quot;Desktop&quot;,
+    &quot;DeviceName&quot;:                    &quot;Linux Desktop&quot;,
+    &quot;DeviceBrand&quot;:                   &quot;Unknown&quot;,
+    &quot;DeviceCpu&quot;:                     &quot;Intel x86_64&quot;,
+    &quot;DeviceCpuBits&quot;:                 &quot;64&quot;,
+    &quot;OperatingSystemClass&quot;:          &quot;Desktop&quot;,
+    &quot;OperatingSystemName&quot;:           &quot;Linux&quot;,
+    &quot;OperatingSystemVersion&quot;:        &quot;Intel x86_64&quot;,
+    &quot;OperatingSystemNameVersion&quot;:    &quot;Linux Intel x86_64&quot;,
+    &quot;LayoutEngineClass&quot;:             &quot;Browser&quot;,
+    &quot;LayoutEngineName&quot;:              &quot;Blink&quot;,
+    &quot;LayoutEngineVersion&quot;:           &quot;48.0&quot;,
+    &quot;LayoutEngineVersionMajor&quot;:      &quot;48&quot;,
+    &quot;LayoutEngineNameVersion&quot;:       &quot;Blink 48.0&quot;,
+    &quot;LayoutEngineNameVersionMajor&quot;:  &quot;Blink 48&quot;,
+    &quot;AgentClass&quot;:                    &quot;Browser&quot;,
+    &quot;AgentName&quot;:                     &quot;Chrome&quot;,
+    &quot;AgentVersion&quot;:                  &quot;48.0.2564.82&quot;,
+    &quot;AgentVersionMajor&quot;:             &quot;48&quot;,
+    &quot;AgentNameVersion&quot;:              &quot;Chrome 48.0.2564.82&quot;,
+    &quot;AgentNameVersionMajor&quot;:         &quot;Chrome 48&quot;                        } |
+| {
+    &quot;DeviceClass&quot;:                   &quot;Robot Mobile&quot;,
+    &quot;DeviceName&quot;:                    &quot;Google&quot;,
+    &quot;DeviceBrand&quot;:                   &quot;Google&quot;,
+    &quot;OperatingSystemClass&quot;:          &quot;Cloud&quot;,
+    &quot;OperatingSystemName&quot;:           &quot;Google&quot;,
+    &quot;OperatingSystemVersion&quot;:        &quot;Google&quot;,
+    &quot;OperatingSystemNameVersion&quot;:    &quot;Google&quot;,
+    &quot;LayoutEngineClass&quot;:             &quot;Robot&quot;,
+    &quot;LayoutEngineName&quot;:              &quot;Googlebot&quot;,
+    &quot;LayoutEngineVersion&quot;:           &quot;Googlebot&quot;,
+    &quot;LayoutEngineVersionMajor&quot;:      &quot;Googlebot&quot;,
+    &quot;LayoutEngineNameVersion&quot;:       &quot;Googlebot&quot;,
+    &quot;LayoutEngineNameVersionMajor&quot;:  &quot;Googlebot&quot;,
+    &quot;AgentClass&quot;:                    &quot;Robot Mobile&quot;,
+    &quot;AgentName&quot;:                     &quot;Googlebot&quot;,
+    &quot;AgentVersion&quot;:                  &quot;2.1&quot;,
+    &quot;AgentVersionMajor&quot;:             &quot;2&quot;,
+    &quot;AgentNameVersion&quot;:              &quot;Googlebot 2.1&quot;,
+    &quot;AgentNameVersionMajor&quot;:         &quot;Googlebot 2&quot;,
+    &quot;AgentInformationUrl&quot;:           &quot;http://www.google.com/bot.html&quot;   } |
++------------------+
+</code></pre><p>The function returns a Drill map, so you can access any of the fields using Drill&apos;s table.map.key notation.
+For example, the query below illustrates how to extract a field from this map and summarize it:</p>
+<pre><code>SELECT uadata.ua.AgentNameVersion AS Browser,
+COUNT( * ) AS BrowserCount
+FROM (
+   SELECT parse_user_agent( columns[0] ) AS ua
+   FROM dfs.`/tmp/testcase.tsv`
+) AS uadata
+GROUP BY uadata.ua.AgentNameVersion
+ORDER BY BrowserCount DESC;
+
++----------------------+---------------+
+|       Browser        | BrowserCount  |
++----------------------+---------------+
+| Chrome 48.0.2564.82  | 1             |
+| Googlebot 2.1        | 1             |
++----------------------+---------------+
+</code></pre><h1 id="license">License</h1>
 <pre><code>Yet Another UserAgent Analyzer
 Copyright (C) 2013-2018 Niels Basjes
 
@@ -579,8 +592,12 @@ limitations under the License.
 
             
                 
+                <a href="README-Beam.html" class="navigation navigation-prev " aria-label="Previous page: Apache Beam">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="README-Output.html" class="navigation navigation-next navigation-unique" aria-label="Next page: The output to expect">
+                
+                <a href="README-Flink.html" class="navigation navigation-next " aria-label="Next page: Apache Flink">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -591,7 +608,7 @@ limitations under the License.
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"The output to expect","level":"1.2","depth":1,"path":"README-Output.md","ref":"README-Output.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-08-09T07:42:35.090Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-09T08:12:39.125Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Apache Drill","level":"3.3","depth":1,"next":{"title":"Apache Flink","level":"3.4","depth":1,"path":"README-Flink.md","ref":"README-Flink.md","articles":[]},"previous":{"title":"Apache Beam","level":"3.2","depth":1,"path":"README-Beam.md","ref":"README-Beam.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README-Drill.md","mtime":"2018-07-11T11:31:17.300Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-09T08:12:39.125Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

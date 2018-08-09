@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Introduction · GitBook</title>
+        <title>Memory usage · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="README-Output.html" />
+    <link rel="next" href="README-Performance.html" />
     
+    
+    <link rel="prev" href="README-Limitations.html" />
     
 
     </head>
@@ -89,7 +91,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -161,7 +163,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="README-MemoryUsage.html">
+        <li class="chapter active" data-level="2.3" data-path="README-MemoryUsage.html">
             
                 <a href="README-MemoryUsage.html">
             
@@ -408,7 +410,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >Memory usage</a>
     </h1>
 </div>
 
@@ -423,136 +425,251 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="yauaa-yet-another-useragent-analyzer">Yauaa: Yet Another UserAgent Analyzer</h1>
-<p><a href="https://travis-ci.org/nielsbasjes/yauaa" target="_blank"><img src="https://api.travis-ci.org/nielsbasjes/yauaa.png?branch=master" alt="Travis Build status"></a>
-<a href="https://coveralls.io/github/nielsbasjes/yauaa?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nielsbasjes/yauaa/badge.svg?branch=master" alt="Coverage Status"></a>
-<a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank"><img src="http://img.shields.io/:license-apache-blue.svg" alt="License"></a>
-<a href="https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22" target="_blank"><img src="https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg" alt="Maven Central"></a>
-<a href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="If this project has business value for you then don&apos;t hesitate to support me with a small donation."></a></p>
-<p>This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.</p>
-<h1 id="blog-post-">Blog post </h1>
-<p>A bit more background about this useragent parser can be found in this blog which I wrote about it: <a href="https://partnerprogramma.bol.com/click/click?p=1&amp;t=url&amp;s=2171&amp;f=TXL&amp;url=https%3A%2F%2Ftechlab.bol.com%2Fmaking-sense-user-agent-string%2F&amp;name=yauaa" target="_blank">https://techlab.bol.com/making-sense-user-agent-string/</a></p>
-<h1 id="example-output">Example output</h1>
-<p>As an example the useragent of my phone:</p>
-<pre><code>Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
-</code></pre><p>is converted into this set of fields:</p>
+                                <h1 id="memory-usage">Memory usage</h1>
+<p>The system relies heavily on HashMaps to quickly find the rules that need to be fired.</p>
+<p>Some fields only require a handful of rules where others have a lot of them.
+This means that it depends on the fields that have been requested how many rules are kept in the system and
+thus how much memory is used to store the rules in.
+To get an idea of the relative memory impact of the rules needed for a specific field.</p>
+<p>This table was constructed by running all testcases against the engine where we only request 1 field.
+Then after forcing a GC in the JVM we retrieve the memory footprint.
+Because there are no rules for the field <code>__SyntaxError__</code> we assumed that to be the baseline
+against which we determine the relative memory usage.</p>
+<p>Because most rules determine several fields there is a lot of overlap in the rules used.
+If you keep all rules we see that version 5.0 uses about 232 MiB of memory for all rules which shows that
+the most expensive rules related to finding the DeviceName and DeviceBrand because both need
+to determine the brand of the device at hand.</p>
 <table>
 <thead>
 <tr>
-<th>Field name</th>
-<th>Value</th>
+<th style="text-align:left">Field</th>
+<th style="text-align:right">Relative Memory usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Device</strong>Class</td>
-<td>&apos;Phone&apos;</td>
+<td style="text-align:left">DeviceClass</td>
+<td style="text-align:right">81.9 MiB</td>
 </tr>
 <tr>
-<td><strong>Device</strong>Name</td>
-<td>&apos;Google Nexus 6&apos;</td>
+<td style="text-align:left">DeviceName</td>
+<td style="text-align:right">203.2 MiB</td>
 </tr>
 <tr>
-<td><strong>Device</strong>Brand</td>
-<td>&apos;Google&apos;</td>
+<td style="text-align:left">DeviceBrand</td>
+<td style="text-align:right">181.2 MiB</td>
 </tr>
 <tr>
-<td><strong>OperatingSystem</strong>Class</td>
-<td>&apos;Mobile&apos;</td>
+<td style="text-align:left">DeviceCpu</td>
+<td style="text-align:right">3.1 MiB</td>
 </tr>
 <tr>
-<td><strong>OperatingSystem</strong>Name</td>
-<td>&apos;Android&apos;</td>
+<td style="text-align:left">DeviceCpuBits</td>
+<td style="text-align:right">9.5 MiB</td>
 </tr>
 <tr>
-<td><strong>OperatingSystem</strong>Version</td>
-<td>&apos;7.0&apos;</td>
+<td style="text-align:left">DeviceFirmwareVersion</td>
+<td style="text-align:right">4.1 MiB</td>
 </tr>
 <tr>
-<td><strong>OperatingSystem</strong>NameVersion</td>
-<td>&apos;Android 7.0&apos;</td>
+<td style="text-align:left">DeviceVersion</td>
+<td style="text-align:right">14.3 MiB</td>
 </tr>
 <tr>
-<td><strong>OperatingSystem</strong>VersionBuild</td>
-<td>&apos;NBD90Z&apos;</td>
+<td style="text-align:left">OperatingSystemClass</td>
+<td style="text-align:right">56.9 MiB</td>
 </tr>
 <tr>
-<td><strong>LayoutEngine</strong>Class</td>
-<td>&apos;Browser&apos;</td>
+<td style="text-align:left">OperatingSystemName</td>
+<td style="text-align:right">56.0 MiB</td>
 </tr>
 <tr>
-<td><strong>LayoutEngine</strong>Name</td>
-<td>&apos;Blink&apos;</td>
+<td style="text-align:left">OperatingSystemVersion</td>
+<td style="text-align:right">55.9 MiB</td>
 </tr>
 <tr>
-<td><strong>LayoutEngine</strong>Version</td>
-<td>&apos;53.0&apos;</td>
+<td style="text-align:left">OperatingSystemNameVersion</td>
+<td style="text-align:right">56.2 MiB</td>
 </tr>
 <tr>
-<td><strong>LayoutEngine</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
+<td style="text-align:left">OperatingSystemVersionBuild</td>
+<td style="text-align:right">2.2 MiB</td>
 </tr>
 <tr>
-<td><strong>LayoutEngine</strong>NameVersion</td>
-<td>&apos;Blink 53.0&apos;</td>
+<td style="text-align:left">LayoutEngineClass</td>
+<td style="text-align:right">8.9 MiB</td>
 </tr>
 <tr>
-<td><strong>LayoutEngine</strong>NameVersionMajor</td>
-<td>&apos;Blink 53&apos;</td>
+<td style="text-align:left">LayoutEngineName</td>
+<td style="text-align:right">8.9 MiB</td>
 </tr>
 <tr>
-<td><strong>Agent</strong>Class</td>
-<td>&apos;Browser&apos;</td>
+<td style="text-align:left">LayoutEngineVersion</td>
+<td style="text-align:right">8.9 MiB</td>
 </tr>
 <tr>
-<td><strong>Agent</strong>Name</td>
-<td>&apos;Chrome&apos;</td>
+<td style="text-align:left">LayoutEngineVersionMajor</td>
+<td style="text-align:right">8.9 MiB</td>
 </tr>
 <tr>
-<td><strong>Agent</strong>Version</td>
-<td>&apos;53.0.2785.124&apos;</td>
+<td style="text-align:left">LayoutEngineNameVersion</td>
+<td style="text-align:right">9.0 MiB</td>
 </tr>
 <tr>
-<td><strong>Agent</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
+<td style="text-align:left">LayoutEngineNameVersionMajor</td>
+<td style="text-align:right">9.0 MiB</td>
 </tr>
 <tr>
-<td><strong>Agent</strong>NameVersion</td>
-<td>&apos;Chrome 53.0.2785.124&apos;</td>
+<td style="text-align:left">LayoutEngineBuild</td>
+<td style="text-align:right">1.5 MiB</td>
 </tr>
 <tr>
-<td><strong>Agent</strong>NameVersionMajor</td>
-<td>&apos;Chrome 53&apos;</td>
+<td style="text-align:left">AgentClass</td>
+<td style="text-align:right">17.1 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">AgentName</td>
+<td style="text-align:right">16.7 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">AgentVersion</td>
+<td style="text-align:right">16.7 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">AgentVersionMajor</td>
+<td style="text-align:right">16.7 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">AgentNameVersion</td>
+<td style="text-align:right">16.8 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">AgentNameVersionMajor</td>
+<td style="text-align:right">16.8 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">AgentBuild</td>
+<td style="text-align:right">0.5 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">AgentLanguage</td>
+<td style="text-align:right">0.3 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">AgentLanguageCode</td>
+<td style="text-align:right">0.3 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">AgentInformationEmail</td>
+<td style="text-align:right">4.0 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">AgentInformationUrl</td>
+<td style="text-align:right">5.9 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">AgentSecurity</td>
+<td style="text-align:right">0.3 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">AgentUuid</td>
+<td style="text-align:right">0.3 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">FacebookCarrier</td>
+<td style="text-align:right">0.2 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">FacebookDeviceClass</td>
+<td style="text-align:right">0.5 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">FacebookDeviceName</td>
+<td style="text-align:right">0.5 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">FacebookDeviceVersion</td>
+<td style="text-align:right">0.5 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">FacebookFBOP</td>
+<td style="text-align:right">0.2 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">FacebookFBSS</td>
+<td style="text-align:right">0.5 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">FacebookOperatingSystemName</td>
+<td style="text-align:right">0.5 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">FacebookOperatingSystemVersion</td>
+<td style="text-align:right">0.5 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">Anonymized</td>
+<td style="text-align:right">1.2 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">HackerAttackVector</td>
+<td style="text-align:right">0.2 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">HackerToolkit</td>
+<td style="text-align:right">0.2 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">KoboAffiliate</td>
+<td style="text-align:right">0.0 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">KoboPlatformId</td>
+<td style="text-align:right">0.0 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">IECompatibilityVersion</td>
+<td style="text-align:right">1.6 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">IECompatibilityVersionMajor</td>
+<td style="text-align:right">1.6 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">IECompatibilityNameVersion</td>
+<td style="text-align:right">1.6 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">IECompatibilityNameVersionMajor</td>
+<td style="text-align:right">1.6 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">Carrier</td>
+<td style="text-align:right">0.2 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">GSAInstallationID</td>
+<td style="text-align:right">0.0 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">WebviewAppName</td>
+<td style="text-align:right">1.9 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">WebviewAppNameVersionMajor</td>
+<td style="text-align:right">1.9 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">WebviewAppVersion</td>
+<td style="text-align:right">1.9 MiB</td>
+</tr>
+<tr>
+<td style="text-align:left">WebviewAppVersionMajor</td>
+<td style="text-align:right">1.9 MiB</td>
 </tr>
 </tbody>
 </table>
-<h1 id="try-it">Try it!</h1>
-<p>You can try it online with your own browser here: <a href="https://try.yauaa.basjes.nl/" target="_blank">https://try.yauaa.basjes.nl/</a>.</p>
-<p><strong>NOTES</strong></p>
-<ol>
-<li>This runs under a &quot;Free quota&quot; on Google AppEngine. If this quote is exceeded then it will simply become unavailable for that day.</li>
-<li>After a while of inactivity the instance is terminated so the first page may take 15-30 seconds to load.</li>
-<li>If you really like this then run it on your local systems. It&apos;s much faster that way.</li>
-</ol>
-<h1 id="donations">Donations</h1>
-<p>If this project has business value for you then don&apos;t hesitate to support me with a small donation.</p>
-<p><a href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="Donations via PayPal"></a></p>
-<h1 id="license">License</h1>
-<pre><code>Yet Another UserAgent Analyzer
-Copyright (C) 2013-2018 Niels Basjes
 
-Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-</code></pre>
                                 
                                 </section>
                             
@@ -579,8 +696,12 @@ limitations under the License.
 
             
                 
+                <a href="README-Limitations.html" class="navigation navigation-prev " aria-label="Previous page: Limitations of the engine">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="README-Output.html" class="navigation navigation-next navigation-unique" aria-label="Next page: The output to expect">
+                
+                <a href="README-Performance.html" class="navigation navigation-next " aria-label="Next page: Performance">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -591,7 +712,7 @@ limitations under the License.
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"The output to expect","level":"1.2","depth":1,"path":"README-Output.md","ref":"README-Output.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-08-09T07:42:35.090Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-09T08:12:39.125Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Memory usage","level":"2.3","depth":1,"next":{"title":"Performance","level":"2.4","depth":1,"path":"README-Performance.md","ref":"README-Performance.md","articles":[]},"previous":{"title":"Limitations of the engine","level":"2.2","depth":1,"path":"README-Limitations.md","ref":"README-Limitations.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README-MemoryUsage.md","mtime":"2018-08-09T07:35:48.146Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-09T08:12:39.125Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

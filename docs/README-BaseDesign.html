@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Introduction · GitBook</title>
+        <title>Base design idea · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="README-Output.html" />
+    <link rel="next" href="MAKING_NEW_RULES.html" />
     
+    
+    <link rel="prev" href="README-Pig.html" />
     
 
     </head>
@@ -89,7 +91,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -305,7 +307,7 @@
         
         
     
-        <li class="chapter " data-level="4.1" data-path="README-BaseDesign.html">
+        <li class="chapter active" data-level="4.1" data-path="README-BaseDesign.html">
             
                 <a href="README-BaseDesign.html">
             
@@ -408,7 +410,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >Base design idea</a>
     </h1>
 </div>
 
@@ -423,136 +425,67 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="yauaa-yet-another-useragent-analyzer">Yauaa: Yet Another UserAgent Analyzer</h1>
-<p><a href="https://travis-ci.org/nielsbasjes/yauaa" target="_blank"><img src="https://api.travis-ci.org/nielsbasjes/yauaa.png?branch=master" alt="Travis Build status"></a>
-<a href="https://coveralls.io/github/nielsbasjes/yauaa?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nielsbasjes/yauaa/badge.svg?branch=master" alt="Coverage Status"></a>
-<a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank"><img src="http://img.shields.io/:license-apache-blue.svg" alt="License"></a>
-<a href="https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22" target="_blank"><img src="https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg" alt="Maven Central"></a>
-<a href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="If this project has business value for you then don&apos;t hesitate to support me with a small donation."></a></p>
-<p>This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.</p>
-<h1 id="blog-post-">Blog post </h1>
-<p>A bit more background about this useragent parser can be found in this blog which I wrote about it: <a href="https://partnerprogramma.bol.com/click/click?p=1&amp;t=url&amp;s=2171&amp;f=TXL&amp;url=https%3A%2F%2Ftechlab.bol.com%2Fmaking-sense-user-agent-string%2F&amp;name=yauaa" target="_blank">https://techlab.bol.com/making-sense-user-agent-string/</a></p>
-<h1 id="example-output">Example output</h1>
-<p>As an example the useragent of my phone:</p>
-<pre><code>Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
-</code></pre><p>is converted into this set of fields:</p>
-<table>
-<thead>
-<tr>
-<th>Field name</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Device</strong>Class</td>
-<td>&apos;Phone&apos;</td>
-</tr>
-<tr>
-<td><strong>Device</strong>Name</td>
-<td>&apos;Google Nexus 6&apos;</td>
-</tr>
-<tr>
-<td><strong>Device</strong>Brand</td>
-<td>&apos;Google&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Class</td>
-<td>&apos;Mobile&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Name</td>
-<td>&apos;Android&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Version</td>
-<td>&apos;7.0&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>NameVersion</td>
-<td>&apos;Android 7.0&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>VersionBuild</td>
-<td>&apos;NBD90Z&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Class</td>
-<td>&apos;Browser&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Name</td>
-<td>&apos;Blink&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Version</td>
-<td>&apos;53.0&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>NameVersion</td>
-<td>&apos;Blink 53.0&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>NameVersionMajor</td>
-<td>&apos;Blink 53&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Class</td>
-<td>&apos;Browser&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Name</td>
-<td>&apos;Chrome&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Version</td>
-<td>&apos;53.0.2785.124&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>NameVersion</td>
-<td>&apos;Chrome 53.0.2785.124&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>NameVersionMajor</td>
-<td>&apos;Chrome 53&apos;</td>
-</tr>
-</tbody>
-</table>
-<h1 id="try-it">Try it!</h1>
-<p>You can try it online with your own browser here: <a href="https://try.yauaa.basjes.nl/" target="_blank">https://try.yauaa.basjes.nl/</a>.</p>
-<p><strong>NOTES</strong></p>
+                                <h1 id="parsing-useragents">Parsing Useragents</h1>
+<p>Parsing useragents is considered by many to be a ridiculously hard problem.
+The main problems are:</p>
+<ul>
+<li>Although there seems to be a specification, many do not follow it.</li>
+<li>Useragents LIE that they are their competing predecessor with an extra flag.</li>
+</ul>
+<p>The pattern the &apos;normal&apos; browser builders are following is that they all LIE about the ancestor they are trying to improve upon.</p>
+<p>The reason this system (historically) works is because a lot of website builders do a very simple check to see if they can use a specific feature.</p>
+<pre><code>if (useragent.contains(&quot;Chrome&quot;)) {
+   // Use the chrome feature we need.
+}
+</code></pre><p>Some may improve on this an actually check the (major) version that follows.</p>
+<p>A good example of this is the Edge browser:</p>
+<pre><code>Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10136
+</code></pre><p>It says it:</p>
+<ul>
+<li>is Mozilla/5.0</li>
+<li>uses AppleWebKit/537.36</li>
+<li>for &quot;compatibility&quot; the AppleWebKit lie about being &quot;KHTML&quot; and that it is similar to &quot;Gecko&quot; are also copied</li>
+<li>is Chrome 42</li>
+<li>is Safari 537</li>
+<li>is Edge 12</li>
+</ul>
+<p>So any website looking for the word it triggers upon will find it and enable the right features.</p>
+<h1 id="how-many-other-analyzers-work">How many other analyzers work</h1>
+<p>When looking at most implementations of analysing the useragents I see that most implementations are based around
+lists of regular expressions.
+These are (in the systems I have seen) executed in a specific order to find the first one that matches.</p>
+<p>In this solution direction the order in which things occur determines if the patterns match or not.</p>
+<p>Regular expressions are notoriously hard to write and debug and (unless you make them really complex) the order in which parts of the pattern occur is fixed.</p>
+<h1 id="core-design-idea">Core design idea</h1>
+<p>I wanted to see if a completely different approach would work: Can we actually parse these things into a tree and work from there.</p>
+<p>The parser (ANTLR4 based) will be able to parse a lot of the agents but not all.
+Tests have shown that it will parse &gt;99% of all useragents on a large website which is more than 99.99% of the traffic.</p>
+<p>Now the ones that it is not able to parse are the ones that have been set manually to a invalid value.
+So if that happens we assume you are a hacker.
+In all other cases we have matchers that are triggered if a specific value is found by the parser.
+Such a matcher then tells this class is has found a match for a certain attribute with a certain confidence level (0-10000).
+In the end the matcher that has found a match with the highest confidence for a value &apos;wins&apos;.</p>
+<h1 id="high-level-implementation-overview">High level implementation overview</h1>
+<p>The main concept of this useragent parser is that we have two things:</p>
 <ol>
-<li>This runs under a &quot;Free quota&quot; on Google AppEngine. If this quote is exceeded then it will simply become unavailable for that day.</li>
-<li>After a while of inactivity the instance is terminated so the first page may take 15-30 seconds to load.</li>
-<li>If you really like this then run it on your local systems. It&apos;s much faster that way.</li>
+<li>A Parser (ANTLR4) that converts the useragent into a nice tree through which we can walk along.</li>
+<li>A collection of matchers.<ul>
+<li>A matcher triggers if a set of patterns is present in the tree.</li>
+<li>Each pattern is detected by a &quot;matcher action&quot; that triggers and can fill a single attribute.
+If a matcher triggers a set of attributes get set with a value and a confidence level</li>
+<li>All results from all triggered matchers (and actions) are combined and for each individual attribute the &apos;highest value&apos; wins.</li>
+</ul>
+</li>
 </ol>
-<h1 id="donations">Donations</h1>
-<p>If this project has business value for you then don&apos;t hesitate to support me with a small donation.</p>
-<p><a href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="Donations via PayPal"></a></p>
-<h1 id="license">License</h1>
-<pre><code>Yet Another UserAgent Analyzer
-Copyright (C) 2013-2018 Niels Basjes
+<p>As a performance optimization we walk along the parsed tree once and fire everything we find into a precomputed hashmap that
+points to all the applicable matcher actions. As a consequence</p>
+<ul>
+<li>the matching is relatively fast even though the number of matchers already runs into the few hundreds.</li>
+<li>the startup is &quot;slow&quot;</li>
+<li>the memory footprint is pretty big due to the number of matchers, the size of the hashmap and the cache of the parsed useragents.</li>
+</ul>
+<p>A much more in depth explanation can be found in the documentation on <a href="MAKING_NEW_RULES.html">how to create new rules</a></p>
 
-Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-</code></pre>
                                 
                                 </section>
                             
@@ -579,8 +512,12 @@ limitations under the License.
 
             
                 
+                <a href="README-Pig.html" class="navigation navigation-prev " aria-label="Previous page: Apache Pig">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="README-Output.html" class="navigation navigation-next navigation-unique" aria-label="Next page: The output to expect">
+                
+                <a href="MAKING_NEW_RULES.html" class="navigation navigation-next " aria-label="Next page: Making new rules">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -591,7 +528,7 @@ limitations under the License.
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"The output to expect","level":"1.2","depth":1,"path":"README-Output.md","ref":"README-Output.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-08-09T07:42:35.090Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-09T08:12:39.125Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Base design idea","level":"4.1","depth":1,"next":{"title":"Making new rules","level":"4.2","depth":1,"path":"MAKING_NEW_RULES.md","ref":"MAKING_NEW_RULES.md","articles":[]},"previous":{"title":"Apache Pig","level":"3.7","depth":1,"path":"README-Pig.md","ref":"README-Pig.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README-BaseDesign.md","mtime":"2018-08-09T07:36:32.721Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-09T08:12:39.125Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

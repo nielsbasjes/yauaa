@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Introduction · GitBook</title>
+        <title>Limitations of the engine · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="README-Output.html" />
+    <link rel="next" href="README-MemoryUsage.html" />
     
+    
+    <link rel="prev" href="README-Usage.html" />
     
 
     </head>
@@ -89,7 +91,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -148,7 +150,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="README-Limitations.html">
+        <li class="chapter active" data-level="2.2" data-path="README-Limitations.html">
             
                 <a href="README-Limitations.html">
             
@@ -408,7 +410,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >Limitations of the engine</a>
     </h1>
 </div>
 
@@ -423,136 +425,20 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="yauaa-yet-another-useragent-analyzer">Yauaa: Yet Another UserAgent Analyzer</h1>
-<p><a href="https://travis-ci.org/nielsbasjes/yauaa" target="_blank"><img src="https://api.travis-ci.org/nielsbasjes/yauaa.png?branch=master" alt="Travis Build status"></a>
-<a href="https://coveralls.io/github/nielsbasjes/yauaa?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nielsbasjes/yauaa/badge.svg?branch=master" alt="Coverage Status"></a>
-<a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank"><img src="http://img.shields.io/:license-apache-blue.svg" alt="License"></a>
-<a href="https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22" target="_blank"><img src="https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg" alt="Maven Central"></a>
-<a href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="If this project has business value for you then don&apos;t hesitate to support me with a small donation."></a></p>
-<p>This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.</p>
-<h1 id="blog-post-">Blog post </h1>
-<p>A bit more background about this useragent parser can be found in this blog which I wrote about it: <a href="https://partnerprogramma.bol.com/click/click?p=1&amp;t=url&amp;s=2171&amp;f=TXL&amp;url=https%3A%2F%2Ftechlab.bol.com%2Fmaking-sense-user-agent-string%2F&amp;name=yauaa" target="_blank">https://techlab.bol.com/making-sense-user-agent-string/</a></p>
-<h1 id="example-output">Example output</h1>
-<p>As an example the useragent of my phone:</p>
-<pre><code>Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
-</code></pre><p>is converted into this set of fields:</p>
-<table>
-<thead>
-<tr>
-<th>Field name</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Device</strong>Class</td>
-<td>&apos;Phone&apos;</td>
-</tr>
-<tr>
-<td><strong>Device</strong>Name</td>
-<td>&apos;Google Nexus 6&apos;</td>
-</tr>
-<tr>
-<td><strong>Device</strong>Brand</td>
-<td>&apos;Google&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Class</td>
-<td>&apos;Mobile&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Name</td>
-<td>&apos;Android&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Version</td>
-<td>&apos;7.0&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>NameVersion</td>
-<td>&apos;Android 7.0&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>VersionBuild</td>
-<td>&apos;NBD90Z&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Class</td>
-<td>&apos;Browser&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Name</td>
-<td>&apos;Blink&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Version</td>
-<td>&apos;53.0&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>NameVersion</td>
-<td>&apos;Blink 53.0&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>NameVersionMajor</td>
-<td>&apos;Blink 53&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Class</td>
-<td>&apos;Browser&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Name</td>
-<td>&apos;Chrome&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Version</td>
-<td>&apos;53.0.2785.124&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>NameVersion</td>
-<td>&apos;Chrome 53.0.2785.124&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>NameVersionMajor</td>
-<td>&apos;Chrome 53&apos;</td>
-</tr>
-</tbody>
-</table>
-<h1 id="try-it">Try it!</h1>
-<p>You can try it online with your own browser here: <a href="https://try.yauaa.basjes.nl/" target="_blank">https://try.yauaa.basjes.nl/</a>.</p>
-<p><strong>NOTES</strong></p>
-<ol>
-<li>This runs under a &quot;Free quota&quot; on Google AppEngine. If this quote is exceeded then it will simply become unavailable for that day.</li>
-<li>After a while of inactivity the instance is terminated so the first page may take 15-30 seconds to load.</li>
-<li>If you really like this then run it on your local systems. It&apos;s much faster that way.</li>
-</ol>
-<h1 id="donations">Donations</h1>
-<p>If this project has business value for you then don&apos;t hesitate to support me with a small donation.</p>
-<p><a href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="Donations via PayPal"></a></p>
-<h1 id="license">License</h1>
-<pre><code>Yet Another UserAgent Analyzer
-Copyright (C) 2013-2018 Niels Basjes
+                                <h1 id="limitations">Limitations</h1>
+<p>This system is based on analyzing the useragent string and looking for the patterns in the useragent string as they have been defined by parties like Google, Microsoft, Samsung and many others. These have been augmented with observations how developers apparently do things. There are really no (ok, very limited) lookup tables that define if a certain device name is a Phone or a Tablet. This makes this system very maintainable because there is no need to have a list of all possible devices.</p>
+<p>As a consequence if a useragent does not follow these patterns the analysis will yield the &apos;wrong&apos; answer.
+Take for example these two (both were found exactly as shown here in the logs of a live website):</p>
+<pre><code>Mozilla/5.0 (Linux; Android 5.1; SAMSUNG-T805s Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.94 Mobile Safari/537.36
+Mozilla/5.0 (Linux; Android 4.4.2; SAMSUNG-T805S Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.89 Safari/537.36
+</code></pre><p>The difference between &quot;Mobile Safari&quot; and &quot;Safari&quot; has been defined for Google Chrome as the difference between &quot;Phone&quot; and &quot;Tablet&quot; (see <a href="https://developer.chrome.com/multidevice/user-agent" target="_blank">https://developer.chrome.com/multidevice/user-agent</a> ).</p>
+<p>And as you can see in this example: we sometimes get it wrong.
+The impact in this case is however very limited: Of the 445 visitors I found using this device only 2 were classified wrong all others were correct.</p>
+<p>A second example is when the Samsung Browser is installed on a non-Samsung device (in this example a Google Nexus 6):</p>
+<pre><code>Mozilla/5.0 (Linux; Android 7.0; SAMSUNG Nexus 6 Build/NBD92G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.4 Chrome/51.0.2704.106 Mobile Safari/537.36
+</code></pre><p>As you can see this browser assumes it is only installed on Samsung devices so they &apos;force&apos; the word Samsung in there.
+In this case you will see this being reported as a &quot;Samsung Nexus 6&quot;, which is obviously wrong.</p>
 
-Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-</code></pre>
                                 
                                 </section>
                             
@@ -579,8 +465,12 @@ limitations under the License.
 
             
                 
+                <a href="README-Usage.html" class="navigation navigation-prev " aria-label="Previous page: Basic usage">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="README-Output.html" class="navigation navigation-next navigation-unique" aria-label="Next page: The output to expect">
+                
+                <a href="README-MemoryUsage.html" class="navigation navigation-next " aria-label="Next page: Memory usage">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -591,7 +481,7 @@ limitations under the License.
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"The output to expect","level":"1.2","depth":1,"path":"README-Output.md","ref":"README-Output.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-08-09T07:42:35.090Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-09T08:12:39.125Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Limitations of the engine","level":"2.2","depth":1,"next":{"title":"Memory usage","level":"2.3","depth":1,"path":"README-MemoryUsage.md","ref":"README-MemoryUsage.md","articles":[]},"previous":{"title":"Basic usage","level":"2.1","depth":1,"path":"README-Usage.md","ref":"README-Usage.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README-Limitations.md","mtime":"2018-08-09T07:35:48.126Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-09T08:12:39.125Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

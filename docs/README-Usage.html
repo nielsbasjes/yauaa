@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Introduction · GitBook</title>
+        <title>Basic usage · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="README-Output.html" />
+    <link rel="next" href="README-Limitations.html" />
     
+    
+    <link rel="prev" href="TryIt.html" />
     
 
     </head>
@@ -89,7 +91,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -135,7 +137,7 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="README-Usage.html">
+        <li class="chapter active" data-level="2.1" data-path="README-Usage.html">
             
                 <a href="README-Usage.html">
             
@@ -408,7 +410,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >Basic usage</a>
     </h1>
 </div>
 
@@ -423,136 +425,57 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="yauaa-yet-another-useragent-analyzer">Yauaa: Yet Another UserAgent Analyzer</h1>
-<p><a href="https://travis-ci.org/nielsbasjes/yauaa" target="_blank"><img src="https://api.travis-ci.org/nielsbasjes/yauaa.png?branch=master" alt="Travis Build status"></a>
-<a href="https://coveralls.io/github/nielsbasjes/yauaa?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nielsbasjes/yauaa/badge.svg?branch=master" alt="Coverage Status"></a>
-<a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank"><img src="http://img.shields.io/:license-apache-blue.svg" alt="License"></a>
-<a href="https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22" target="_blank"><img src="https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg" alt="Maven Central"></a>
-<a href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="If this project has business value for you then don&apos;t hesitate to support me with a small donation."></a></p>
-<p>This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.</p>
-<h1 id="blog-post-">Blog post </h1>
-<p>A bit more background about this useragent parser can be found in this blog which I wrote about it: <a href="https://partnerprogramma.bol.com/click/click?p=1&amp;t=url&amp;s=2171&amp;f=TXL&amp;url=https%3A%2F%2Ftechlab.bol.com%2Fmaking-sense-user-agent-string%2F&amp;name=yauaa" target="_blank">https://techlab.bol.com/making-sense-user-agent-string/</a></p>
-<h1 id="example-output">Example output</h1>
-<p>As an example the useragent of my phone:</p>
-<pre><code>Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
-</code></pre><p>is converted into this set of fields:</p>
-<table>
-<thead>
-<tr>
-<th>Field name</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Device</strong>Class</td>
-<td>&apos;Phone&apos;</td>
-</tr>
-<tr>
-<td><strong>Device</strong>Name</td>
-<td>&apos;Google Nexus 6&apos;</td>
-</tr>
-<tr>
-<td><strong>Device</strong>Brand</td>
-<td>&apos;Google&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Class</td>
-<td>&apos;Mobile&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Name</td>
-<td>&apos;Android&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>Version</td>
-<td>&apos;7.0&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>NameVersion</td>
-<td>&apos;Android 7.0&apos;</td>
-</tr>
-<tr>
-<td><strong>OperatingSystem</strong>VersionBuild</td>
-<td>&apos;NBD90Z&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Class</td>
-<td>&apos;Browser&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Name</td>
-<td>&apos;Blink&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>Version</td>
-<td>&apos;53.0&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>NameVersion</td>
-<td>&apos;Blink 53.0&apos;</td>
-</tr>
-<tr>
-<td><strong>LayoutEngine</strong>NameVersionMajor</td>
-<td>&apos;Blink 53&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Class</td>
-<td>&apos;Browser&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Name</td>
-<td>&apos;Chrome&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>Version</td>
-<td>&apos;53.0.2785.124&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>NameVersion</td>
-<td>&apos;Chrome 53.0.2785.124&apos;</td>
-</tr>
-<tr>
-<td><strong>Agent</strong>NameVersionMajor</td>
-<td>&apos;Chrome 53&apos;</td>
-</tr>
-</tbody>
-</table>
-<h1 id="try-it">Try it!</h1>
-<p>You can try it online with your own browser here: <a href="https://try.yauaa.basjes.nl/" target="_blank">https://try.yauaa.basjes.nl/</a>.</p>
-<p><strong>NOTES</strong></p>
-<ol>
-<li>This runs under a &quot;Free quota&quot; on Google AppEngine. If this quote is exceeded then it will simply become unavailable for that day.</li>
-<li>After a while of inactivity the instance is terminated so the first page may take 15-30 seconds to load.</li>
-<li>If you really like this then run it on your local systems. It&apos;s much faster that way.</li>
-</ol>
-<h1 id="donations">Donations</h1>
-<p>If this project has business value for you then don&apos;t hesitate to support me with a small donation.</p>
-<p><a href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="Donations via PayPal"></a></p>
-<h1 id="license">License</h1>
-<pre><code>Yet Another UserAgent Analyzer
-Copyright (C) 2013-2018 Niels Basjes
+                                <h1 id="using-the-analyzer">Using the analyzer</h1>
+<p>In addition to the UDFs for many of Apache tools (Pig, Hive, Flink, Beam, ... see below) this analyzer
+can also directly be used in Java based applications.</p>
+<p>First add the library as a dependency to your application.
+This has been published to maven central so that should work in almost any environment.</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
+  &lt;artifactId&gt;yauaa&lt;/artifactId&gt;
+  &lt;version&gt;5.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>and in your application you can use it as simple as this</p>
+<pre><code>UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .hideMatcherLoadStats()
+            .withCache(10000)
+            .build();
 
-Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+UserAgent agent = uaa.parse(&quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11&quot;);
 
-http://www.apache.org/licenses/LICENSE-2.0
+for (String fieldName: agent.getAvailableFieldNamesSorted()) {
+    System.out.println(fieldName + &quot; = &quot; + agent.getValue(fieldName));
+}
+</code></pre><p>Please instantiate a new UserAgentAnalyzer as few times as possible because the initialization step for a full UserAgentAnalyzer (i.e. all fields) usually takes something in the range of 2-5 seconds.
+If you need multiple instances of the UserAgentAnalyzer then you MUST create a new Builder instance for each of those.</p>
+<p>Note that not all fields are available after every parse. So be prepared to receive a &apos;null&apos; if you extract a specific name.</p>
+<h1 id="cache-size-setting">Cache size setting</h1>
+<p>I recommend you leave the cache to a size that is roughly the unique number of useragents your site finds
+in a limited timespan. Something like 15/30/60 minutes usually gives you a fine cache size.
+On a very busy website I see ~50K-60K distinct useragents per day and ~10K per hour. 
+So in my opinion a cache size of 5K-10K elements is a good choice.</p>
+<h1 id="limiting-to-only-certain-fields">Limiting to only certain fields</h1>
+<p>In some scenarios you only want a specific field and all others are unwanted.
+This can be achieved by creating the analyzer in Java like this:</p>
+<pre><code>UserAgentAnalyzer uaa;
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-</code></pre>
+uaa = UserAgentAnalyzer
+        .newBuilder()
+        .withField(&quot;DeviceClass&quot;)
+        .withField(&quot;AgentNameVersionMajor&quot;)
+        .build();
+</code></pre><p>One important effect is that this speeds up the system because it will kick any rules that do not help in getting the desired fields.
+The above example showed an approximate 40% speed increase (i.e. times dropped from ~1ms to ~0.6ms).</p>
+<h1 id="important-this-library-is-single-threaded-">IMPORTANT: This library is single threaded !</h1>
+<p>Because the analyzer code is not reentrant the main method has been synchronized on the instance. 
+So if you are in a multi threaded situation you should create a separate instance per thread or accept the speed limitation of the shared instance.
+Note that you should really instantiate it only once per thread (and use a ThreadPool or something similar) because starting a new instance takes several seconds.</p>
+<h1 id="eclipse-users">Eclipse users</h1>
+<p>Be aware of there is a bug in Eclipse which will show you errors in perfectly valid Java code: 
+<a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=527475" target="_blank">https://bugs.eclipse.org/bugs/show_bug.cgi?id=527475</a> 
+The errors you see are related to the inheritance model used by the Builders in this project and the fact that Eclipse does not interpret it correctly. </p>
+
                                 
                                 </section>
                             
@@ -579,8 +502,12 @@ limitations under the License.
 
             
                 
+                <a href="TryIt.html" class="navigation navigation-prev " aria-label="Previous page: Try it online">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="README-Output.html" class="navigation navigation-next navigation-unique" aria-label="Next page: The output to expect">
+                
+                <a href="README-Limitations.html" class="navigation navigation-next " aria-label="Next page: Limitations of the engine">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -591,7 +518,7 @@ limitations under the License.
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"The output to expect","level":"1.2","depth":1,"path":"README-Output.md","ref":"README-Output.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-08-09T07:42:35.090Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-09T08:12:39.125Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Basic usage","level":"2.1","depth":1,"next":{"title":"Limitations of the engine","level":"2.2","depth":1,"path":"README-Limitations.md","ref":"README-Limitations.md","articles":[]},"previous":{"title":"Try it online","level":"1.3","depth":1,"path":"TryIt.md","ref":"TryIt.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README-Usage.md","mtime":"2018-08-09T07:48:49.232Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-09T08:12:39.125Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
