@@ -4,7 +4,7 @@
 This is an Apache Nifi Processor for parsing User Agent Strings.
 
 ## Getting the Processor
-You can get the prebuilt NAR file of the Processor from [maven central](http://search.maven.org/#search%7Cga%7C1%7Cyauaa-nifi).
+You can get the prebuilt NAR file of the Processor from [maven central](https://search.maven.org/#search%7Cga%7C1%7Cyauaa-nifi).
 This is the maven dependency definition where it can be downloaded.
 
     <dependency>
@@ -57,7 +57,7 @@ License
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+    https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,

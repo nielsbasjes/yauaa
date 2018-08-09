@@ -20,7 +20,7 @@ I have not yet tested this in a distributed setup.
 So please try it out and report any issues and/or improvements you see.
 
 ## Getting the UDF
-You can get the prebuilt UDF from [maven central](http://search.maven.org/#search%7Cga%7C1%7Cyauaa-drill).
+You can get the prebuilt UDF from [maven central](https://search.maven.org/#search%7Cga%7C1%7Cyauaa-drill).
 This is the maven dependency definition where it can be downloaded.
 
     <dependency>
@@ -164,7 +164,7 @@ License
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+    https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
