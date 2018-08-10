@@ -19,3 +19,6 @@
 . "/scripts/build_env_checks.sh"
 . "/usr/share/git-core/contrib/completion/git-prompt.sh"
 . "/scripts/prompt.sh"
+
+alias documentation-build="gitbook build ~/yauaa/src ~/yauaa/docs"
+alias documentation-serve="gitbook serve ~/yauaa/src ~/yauaa/docs"

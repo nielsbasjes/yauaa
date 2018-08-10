@@ -18,6 +18,7 @@
 
 OS=centos7
 PROJECTNAME=yauaa
+USER=$(id -un)
 CONTAINER_NAME=${PROJECTNAME}-${OS}-${USER}-$$
 DOCKER_BUILD="docker build"
 
@@ -78,8 +79,10 @@ docker run --rm=true -t -i                                      \
            -u "${USER_NAME}"                                    \
            -v "${PWD}:/home/${USER_NAME}/${PROJECTNAME}"        \
            -v "${PWD}/docker/_m2:/home/${USER_NAME}/.m2"        \
-           -v "${MOUNTGPGDIR}:/home/${USER_NAME}/.gnupg"  \
+           -v "${MOUNTGPGDIR}:/home/${USER_NAME}/.gnupg"        \
            -w "/home/${USER}/${PROJECTNAME}"                    \
+           -p 4000:4000                                         \
+           -p 35729:35729                                       \
            --name "${CONTAINER_NAME}"                           \
            "${PROJECTNAME}-${OS}-${USER_NAME}"                  \
            bash

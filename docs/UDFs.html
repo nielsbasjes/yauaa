@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Memory usage · Yauaa: Yet Another UserAgent Analyzer</title>
+        <title>Overview · Yauaa: Yet Another UserAgent Analyzer</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="README-Performance.html" />
+    <link rel="next" href="UDF-LogParser.html" />
     
     
-    <link rel="prev" href="README-Limitations.html" />
+    <link rel="prev" href="README-Commandline.html" />
     
 
     </head>
@@ -163,7 +163,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.3" data-path="README-MemoryUsage.html">
+        <li class="chapter " data-level="2.3" data-path="README-MemoryUsage.html">
             
                 <a href="README-MemoryUsage.html">
             
@@ -209,7 +209,7 @@
         
         
     
-        <li class="chapter " data-level="3.1" data-path="UDFs.html">
+        <li class="chapter active" data-level="3.1" data-path="UDFs.html">
             
                 <a href="UDFs.html">
             
@@ -463,7 +463,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Memory usage</a>
+        <a href="." >Overview</a>
     </h1>
 </div>
 
@@ -478,250 +478,22 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="memory-usage">Memory usage</h1>
-<p>The system relies heavily on HashMaps to quickly find the rules that need to be fired.</p>
-<p>Some fields only require a handful of rules where others have a lot of them.
-This means that it depends on the fields that have been requested how many rules are kept in the system and
-thus how much memory is used to store the rules in.
-To get an idea of the relative memory impact of the rules needed for a specific field.</p>
-<p>This table was constructed by running all testcases against the engine where we only request 1 field.
-Then after forcing a GC in the JVM we retrieve the memory footprint.
-Because there are no rules for the field <code>__SyntaxError__</code> we assumed that to be the baseline
-against which we determine the relative memory usage.</p>
-<p>Because most rules determine several fields there is a lot of overlap in the rules used.
-If you keep all rules we see that version 5.0 uses about 232 MiB of memory for all rules which shows that
-the most expensive rules related to finding the DeviceName and DeviceBrand because both need
-to determine the brand of the device at hand.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Field</th>
-<th style="text-align:right">Relative Memory usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">DeviceClass</td>
-<td style="text-align:right">81.9 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">DeviceName</td>
-<td style="text-align:right">203.2 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">DeviceBrand</td>
-<td style="text-align:right">181.2 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">DeviceCpu</td>
-<td style="text-align:right">3.1 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">DeviceCpuBits</td>
-<td style="text-align:right">9.5 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">DeviceFirmwareVersion</td>
-<td style="text-align:right">4.1 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">DeviceVersion</td>
-<td style="text-align:right">14.3 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">OperatingSystemClass</td>
-<td style="text-align:right">56.9 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">OperatingSystemName</td>
-<td style="text-align:right">56.0 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">OperatingSystemVersion</td>
-<td style="text-align:right">55.9 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">OperatingSystemNameVersion</td>
-<td style="text-align:right">56.2 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">OperatingSystemVersionBuild</td>
-<td style="text-align:right">2.2 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">LayoutEngineClass</td>
-<td style="text-align:right">8.9 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">LayoutEngineName</td>
-<td style="text-align:right">8.9 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">LayoutEngineVersion</td>
-<td style="text-align:right">8.9 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">LayoutEngineVersionMajor</td>
-<td style="text-align:right">8.9 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">LayoutEngineNameVersion</td>
-<td style="text-align:right">9.0 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">LayoutEngineNameVersionMajor</td>
-<td style="text-align:right">9.0 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">LayoutEngineBuild</td>
-<td style="text-align:right">1.5 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">AgentClass</td>
-<td style="text-align:right">17.1 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">AgentName</td>
-<td style="text-align:right">16.7 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">AgentVersion</td>
-<td style="text-align:right">16.7 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">AgentVersionMajor</td>
-<td style="text-align:right">16.7 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">AgentNameVersion</td>
-<td style="text-align:right">16.8 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">AgentNameVersionMajor</td>
-<td style="text-align:right">16.8 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">AgentBuild</td>
-<td style="text-align:right">0.5 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">AgentLanguage</td>
-<td style="text-align:right">0.3 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">AgentLanguageCode</td>
-<td style="text-align:right">0.3 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">AgentInformationEmail</td>
-<td style="text-align:right">4.0 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">AgentInformationUrl</td>
-<td style="text-align:right">5.9 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">AgentSecurity</td>
-<td style="text-align:right">0.3 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">AgentUuid</td>
-<td style="text-align:right">0.3 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">FacebookCarrier</td>
-<td style="text-align:right">0.2 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">FacebookDeviceClass</td>
-<td style="text-align:right">0.5 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">FacebookDeviceName</td>
-<td style="text-align:right">0.5 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">FacebookDeviceVersion</td>
-<td style="text-align:right">0.5 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">FacebookFBOP</td>
-<td style="text-align:right">0.2 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">FacebookFBSS</td>
-<td style="text-align:right">0.5 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">FacebookOperatingSystemName</td>
-<td style="text-align:right">0.5 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">FacebookOperatingSystemVersion</td>
-<td style="text-align:right">0.5 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">Anonymized</td>
-<td style="text-align:right">1.2 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">HackerAttackVector</td>
-<td style="text-align:right">0.2 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">HackerToolkit</td>
-<td style="text-align:right">0.2 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">KoboAffiliate</td>
-<td style="text-align:right">0.0 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">KoboPlatformId</td>
-<td style="text-align:right">0.0 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">IECompatibilityVersion</td>
-<td style="text-align:right">1.6 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">IECompatibilityVersionMajor</td>
-<td style="text-align:right">1.6 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">IECompatibilityNameVersion</td>
-<td style="text-align:right">1.6 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">IECompatibilityNameVersionMajor</td>
-<td style="text-align:right">1.6 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">Carrier</td>
-<td style="text-align:right">0.2 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">GSAInstallationID</td>
-<td style="text-align:right">0.0 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">WebviewAppName</td>
-<td style="text-align:right">1.9 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">WebviewAppNameVersionMajor</td>
-<td style="text-align:right">1.9 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">WebviewAppVersion</td>
-<td style="text-align:right">1.9 MiB</td>
-</tr>
-<tr>
-<td style="text-align:left">WebviewAppVersionMajor</td>
-<td style="text-align:right">1.9 MiB</td>
-</tr>
-</tbody>
-</table>
+                                <h1 id="user-defined-functions">User Defined Functions</h1>
+<p>Several external computation systems support the concept of a User Defined Function (UDF).
+A UDF is simply a way of making functionality (in this case the analysis of useragents)
+available in such a system.</p>
+<p>For several systems (tools used within
+<a href="https://partnerprogramma.bol.com/click/click?p=1&amp;t=url&amp;s=2483&amp;f=TXL&amp;url=http%3A%2F%2Fwww.bol.com%2F&amp;name=yauaa" target="_blank">bol.com</a> (where I work))
+I have written such a UDF which are all part of this project.</p>
+<ul>
+<li><a href="UDF-LogParser.html">LogParser</a></li>
+<li><a href="UDF-ApachePig.html">Apache Pig</a></li>
+<li><a href="UDF-ApacheFlink.html">Apache Flink</a></li>
+<li><a href="UDF-ApacheBeam.html">Apache Beam</a></li>
+<li><a href="UDF-ApacheHive.html">Apache Hive</a></li>
+<li><a href="UDF-ApacheDrill.html">Apache Drill</a></li>
+<li><a href="UDF-ApacheNifi.html">Apache Nifi</a></li>
+</ul>
 
                                 
                                 </section>
@@ -749,12 +521,12 @@ to determine the brand of the device at hand.</p>
 
             
                 
-                <a href="README-Limitations.html" class="navigation navigation-prev " aria-label="Previous page: Limitations of the engine">
+                <a href="README-Commandline.html" class="navigation navigation-prev " aria-label="Previous page: Commandline">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="README-Performance.html" class="navigation navigation-next " aria-label="Next page: Performance">
+                <a href="UDF-LogParser.html" class="navigation navigation-next " aria-label="Next page: LogParser">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -765,7 +537,7 @@ to determine the brand of the device at hand.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Memory usage","level":"2.3","depth":1,"next":{"title":"Performance","level":"2.4","depth":1,"path":"README-Performance.md","ref":"README-Performance.md","articles":[]},"previous":{"title":"Limitations of the engine","level":"2.2","depth":1,"path":"README-Limitations.md","ref":"README-Limitations.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.1"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-MemoryUsage.md","mtime":"2018-08-09T13:08:33.306Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-10T22:45:22.987Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Overview","level":"3.1","depth":1,"next":{"title":"LogParser","level":"3.2","depth":1,"path":"UDF-LogParser.md","ref":"UDF-LogParser.md","articles":[]},"previous":{"title":"Commandline","level":"2.5","depth":1,"path":"README-Commandline.md","ref":"README-Commandline.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.1"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"UDFs.md","mtime":"2018-08-10T08:13:26.001Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-10T22:45:22.987Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

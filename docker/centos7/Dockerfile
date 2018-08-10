@@ -63,3 +63,8 @@ RUN npm install --global gitbook-cli \
 RUN mkdir /scripts
 ADD *.sh /scripts/
 RUN chmod 755 /scripts/*.sh
+
+# --------------------------------
+# For serving the documentation site
+EXPOSE 40000
+EXPOSE 35729

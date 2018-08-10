@@ -20,28 +20,21 @@ I have not yet tested this in a distributed setup.
 So please try it out and report any issues and/or improvements you see.
 
 ## Getting the UDF
-You can get the prebuilt UDF from [maven central](https://search.maven.org/#search%7Cga%7C1%7Cyauaa-drill).
-This is the maven dependency definition where it can be downloaded.
+You can get the prebuilt UDF from [maven central](https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-drill/{{ book.YauaaVersion }}/jar).
 
-    <dependency>
-      <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa-drill</artifactId>
-      <version>5.1</version>
-    </dependency>
+If you use a maven based project simply add this dependency to your project.
 
-## Building
-Simply install the normal build tools for a Java project (i.e. maven and jdk 8+) and then simply do:
-
-    mvn clean package
-
-The jar file for Apache Drill can be found as
-
-    ./udfs/drill/function/target/yauaa-drill-<version>.jar
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
+  &lt;artifactId&gt;yauaa-drill&lt;/artifactId&gt;
+  &lt;version&gt;{{ book.YauaaVersion }}&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
 
 ## Installation
 To install this function put the jar file in the <drill-path>/jars/3rdparty directory.
 
-    cp ./udfs/drill/target/yauaa-drill-<version>.jar <drill-path>/jars/3rdparty
+    cp yauaa-drill-<version>.jar <drill-path>/jars/3rdparty
 
 Make sure you replace `<drill-path>` with your actual path to your drill installation.
 NOTE: You do not need the `yauaa-drill-<version>-sources.jar` to run in drill.
@@ -153,21 +146,3 @@ For example, the query below illustrates how to extract a field from this map an
     | Chrome 48.0.2564.82  | 1             |
     | Googlebot 2.1        | 1             |
     +----------------------+---------------+
-
-
-License
-=======
-    Yet Another UserAgent Analyzer
-    Copyright (C) 2013-2018 Niels Basjes
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    https://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.

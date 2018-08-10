@@ -1,16 +1,21 @@
 Using the analyzer
 ==================
-In addition to the UDFs for many of Apache tools (Pig, Hive, Flink, Beam, ... see below) this analyzer
-can also directly be used in Java based applications.
+To use this analyzer you can use it either directly in your Java based applications or use one of 
+the User Defined Functions that are available for many of Apache bigdata tools (Pig, Hive, Flink, Beam, ...) as described [here](UDFs.md).
 
-First add the library as a dependency to your application.
-This has been published to maven central so that should work in almost any environment.
+Using in Java applications
+==========================
+To use the librarya you must first add it as a dependency to your application.
+The library has been published to [maven central](https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa/{{ book.YauaaVersion }}/jar) so that should work in almost any environment.
 
-    <dependency>
-      <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa</artifactId>
-      <version>5.1</version>
-    </dependency>
+If you use a maven based project simply add this dependency to your project.
+
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
+  &lt;artifactId&gt;yauaa&lt;/artifactId&gt;
+  &lt;version&gt;{{ book.YauaaVersion }}&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
 
 and in your application you can use it as simple as this
 

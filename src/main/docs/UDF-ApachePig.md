@@ -1,20 +1,17 @@
 # User Defined Function for Apache Pig
 
 ## Getting the UDF
-You can get the prebuilt UDF from maven central.
+You can get the prebuilt UDF from [maven central](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-pig/{{ book.YauaaVersion }}/yauaa-pig-{{ book.YauaaVersion }}-udf.jar).
+
 If you use a maven based project simply add this dependency
 
-    <dependency>
-      <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa-pig</artifactId>
-      <classifier>udf</classifier>
-      <version>5.1</version>
-    </dependency>
-
-## Building
-Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:
-
-    mvn clean package
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
+  &lt;artifactId&gt;yauaa-pig&lt;/artifactId&gt;
+  &lt;classifier&gt;udf&lt;/classifier&gt;
+  &lt;version&gt;{{ book.YauaaVersion }}&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
 
 ## Example usage
     -- Import the UDF jar file so this script can use it
@@ -44,20 +41,3 @@ Simply install the normal build tools for a Java project (i.e. maven and jdk) an
         GENERATE useragent,
                  -- Do NOT specify a type for this field as the UDF provides the definitions
                  ParseUserAgent(useragent) AS parsedAgent;
-
-License
-=======
-    Yet Another UserAgent Analyzer
-    Copyright (C) 2013-2018 Niels Basjes
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    https://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.

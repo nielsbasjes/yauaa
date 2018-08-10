@@ -1,19 +1,16 @@
 # User Defined Function for Apache Beam
 
 ## Getting the UDF
-You can get the prebuilt UDF from maven central.
-If you use a maven based project simply add this dependency to your Apache Beam application.
+You can get the prebuilt UDF from [maven central](https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-beam/{{ book.YauaaVersion }}/jar).
 
-    <dependency>
-      <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa-beam</artifactId>
-      <version>5.1</version>
-    </dependency>
+If you use a maven based project simply add this dependency to your project.
 
-## Building
-Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:
-
-    mvn clean package
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
+  &lt;artifactId&gt;yauaa-beam&lt;/artifactId&gt;
+  &lt;version&gt;{{ book.YauaaVersion }}&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
 
 ## Example usage
 Assume you have a PCollection with your records.
@@ -21,8 +18,8 @@ In most cases I see (clickstream data) these records (In this example this class
 
 Now you must do two things:
 
-  1) Determine the names of the fields you need.
-  2) Add an instance of the (abstract) UserAgentAnalysisDoFn function and implement the functions as shown in the example below. Use the YauaaField annotation to get the setter for the requested fields.
+1. Determine the names of the fields you need.
+1. Add an instance of the (abstract) UserAgentAnalysisDoFn function and implement the functions as shown in the example below. Use the YauaaField annotation to get the setter for the requested fields.
 
 Note that the name of the two setters is not important, the system looks at the annotation.
 
@@ -82,20 +79,3 @@ and then in the topology simply do this
 
     .apply("Extract Elements from Useragent",
         ParDo.of(new MyUserAgentAnalysisDoFn()));
-
-License
-=======
-    Yet Another UserAgent Analyzer
-    Copyright (C) 2013-2018 Niels Basjes
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    https://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.

@@ -43,13 +43,15 @@ is converted into this set of fields:
 |  **Agent**NameVersion                 | 'Chrome 53.0.2785.124' |
 |  **Agent**NameVersionMajor            | 'Chrome 53'            |
 
+You can find more information about what you can expect as output here: [the output to expect](README-Output.md) 
+
 Try it!
 =======
 You can try it online with your own browser here: [https://try.yauaa.basjes.nl/](https://try.yauaa.basjes.nl/).
 
 **NOTES**
 
-1. This runs under a "Free quota" on Google AppEngine. If this quote is exceeded then it will simply become unavailable for that day.
+1. This runs under a "Free quota" on Google AppEngine. If this quota is exceeded then it will simply become unavailable for that day.
 2. After a while of inactivity the instance is terminated so the first page may take 15-30 seconds to load.
 3. If you really like this then run it on your local systems. It's much faster that way.
 
@@ -58,20 +60,3 @@ Donations
 If this project has business value for you then don't hesitate to support me with a small donation.
 
 [![Donations via PayPal](https://img.shields.io/badge/Donations-via%20Paypal-blue.svg)](https://www.paypal.me/nielsbasjes)
-
-License
-=======
-    Yet Another UserAgent Analyzer
-    Copyright (C) 2013-2018 Niels Basjes
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    https://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Apache Flink · GitBook</title>
+        <title>Apache Pig · Yauaa: Yet Another UserAgent Analyzer</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="README-Hive.html" />
+    <link rel="next" href="Internals-BaseDesign.html" />
     
     
-    <link rel="prev" href="README-Drill.html" />
+    <link rel="prev" href="UDF-ApacheNifi.html" />
     
 
     </head>
@@ -96,7 +96,7 @@
                 <a href="./">
             
                     
-                    Yet Another UserAgent Analyzer
+                    Introduction
             
                 </a>
             
@@ -209,9 +209,22 @@
         
         
     
-        <li class="chapter " data-level="3.1" data-path="README-LogParser.html">
+        <li class="chapter " data-level="3.1" data-path="UDFs.html">
             
-                <a href="README-LogParser.html">
+                <a href="UDFs.html">
+            
+                    
+                    Overview
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="UDF-LogParser.html">
+            
+                <a href="UDF-LogParser.html">
             
                     
                     LogParser
@@ -222,9 +235,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.2" data-path="README-Beam.html">
+        <li class="chapter " data-level="3.3" data-path="UDF-ApacheBeam.html">
             
-                <a href="README-Beam.html">
+                <a href="UDF-ApacheBeam.html">
             
                     
                     Apache Beam
@@ -235,9 +248,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.3" data-path="README-Drill.html">
+        <li class="chapter " data-level="3.4" data-path="UDF-ApacheDrill.html">
             
-                <a href="README-Drill.html">
+                <a href="UDF-ApacheDrill.html">
             
                     
                     Apache Drill
@@ -248,9 +261,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.4" data-path="README-Flink.html">
+        <li class="chapter " data-level="3.5" data-path="UDF-ApacheFlink.html">
             
-                <a href="README-Flink.html">
+                <a href="UDF-ApacheFlink.html">
             
                     
                     Apache Flink
@@ -261,9 +274,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.5" data-path="README-Hive.html">
+        <li class="chapter " data-level="3.6" data-path="UDF-ApacheHive.html">
             
-                <a href="README-Hive.html">
+                <a href="UDF-ApacheHive.html">
             
                     
                     Apache Hive
@@ -274,9 +287,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.6" data-path="README-Nifi.html">
+        <li class="chapter " data-level="3.7" data-path="UDF-ApacheNifi.html">
             
-                <a href="README-Nifi.html">
+                <a href="UDF-ApacheNifi.html">
             
                     
                     Apache Nifi
@@ -287,9 +300,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.7" data-path="README-Pig.html">
+        <li class="chapter active" data-level="3.8" data-path="UDF-ApachePig.html">
             
-                <a href="README-Pig.html">
+                <a href="UDF-ApachePig.html">
             
                     
                     Apache Pig
@@ -307,9 +320,9 @@
         
         
     
-        <li class="chapter " data-level="4.1" data-path="README-BaseDesign.html">
+        <li class="chapter " data-level="4.1" data-path="Internals-BaseDesign.html">
             
-                <a href="README-BaseDesign.html">
+                <a href="Internals-BaseDesign.html">
             
                     
                     Base design idea
@@ -320,9 +333,9 @@
             
         </li>
     
-        <li class="chapter " data-level="4.2" data-path="MAKING_NEW_RULES.html">
+        <li class="chapter " data-level="4.2" data-path="Internals-MakingNewRules.html">
             
-                <a href="MAKING_NEW_RULES.html">
+                <a href="Internals-MakingNewRules.html">
             
                     
                     Making new rules
@@ -345,7 +358,7 @@
                 <a target="_blank" href="https://github.com/nielsbasjes/yauaa/">
             
                     
-                    The source code
+                    Source code
             
                 </a>
             
@@ -353,12 +366,38 @@
             
         </li>
     
-        <li class="chapter " data-level="5.2" >
+        <li class="chapter " data-level="5.2" data-path="Building.html">
+            
+                <a href="Building.html">
+            
+                    
+                    Building
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" >
             
                 <a target="_blank" href="https://github.com/nielsbasjes/yauaa/blob/master/CHANGELOG.md">
             
                     
                     Changelog
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" >
+            
+                <a target="_blank" href="https://github.com/nielsbasjes/yauaa/issues">
+            
+                    
+                    Issue tracker
             
                 </a>
             
@@ -391,13 +430,14 @@
 
     <li class="divider"></li>
 
-    <li class="header">Project status<br/>
-    <a href="https://travis-ci.org/nielsbasjes/yauaa" target="_blank"><img src="https://api.travis-ci.org/nielsbasjes/yauaa.png?branch=master" alt="Travis Build status"></a><br/>
-    <a href="https://coveralls.io/github/nielsbasjes/yauaa?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nielsbasjes/yauaa/badge.svg?branch=master" alt="Coverage Status"></a><br/>
-    <a href="https://www.apache.org/licenses/LICENSE-2.0.html" target="_blank"><img src="https://img.shields.io/:license-apache-blue.svg" alt="License"></a><br/>
-    <a href="https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22" target="_blank"><img src="https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg" alt="Maven Central"></a><br/>
-    <a href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="If this project has business value for you then don&apos;t hesitate to support me with a small donation."></a></li>
-
+    <li class="header">Build & Release status</li>
+    <li>
+    <a style="padding-top: 0 ; padding-bottom: 0" href="https://travis-ci.org/nielsbasjes/yauaa" target="_blank"><img src="https://api.travis-ci.org/nielsbasjes/yauaa.png?branch=master" alt="Travis Build status"></a>
+    <a style="padding-top: 0 ; padding-bottom: 0" href="https://coveralls.io/github/nielsbasjes/yauaa?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nielsbasjes/yauaa/badge.svg?branch=master" alt="Coverage Status"></a>
+    <a style="padding-top: 0 ; padding-bottom: 0" href="https://www.apache.org/licenses/LICENSE-2.0.html" target="_blank"><img src="https://img.shields.io/:license-apache-blue.svg" alt="License"></a>
+    <a style="padding-top: 0 ; padding-bottom: 0" href="https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22" target="_blank"><img src="https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg" alt="Maven Central"></a>
+    <a style="padding-top: 0 ; padding-bottom: 0" href="https://www.paypal.me/nielsbasjes" target="_blank"><img src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg" alt="If this project has business value for you then don&apos;t hesitate to support me with a small donation."></a>
+    </li>
     <li>
         <a href="https://niels.basjes.nl" target="blank" class="gitbook-link">
             Copyright (C) 2013-2018 Niels Basjes
@@ -423,7 +463,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Apache Flink</a>
+        <a href="." >Apache Pig</a>
     </h1>
 </div>
 
@@ -438,83 +478,46 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="user-defined-function-for-apache-flink">User Defined Function for Apache Flink</h1>
+                                <h1 id="user-defined-function-for-apache-pig">User Defined Function for Apache Pig</h1>
 <h2 id="getting-the-udf">Getting the UDF</h2>
-<p>You can get the prebuilt UDF from maven central.
-If you use a maven based project simply add this dependency to your Apache Flink application.</p>
+<p>You can get the prebuilt UDF from <a href="https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-pig/5.1/yauaa-pig-5.1-udf.jar" target="_blank">maven central</a>.</p>
+<p>If you use a maven based project simply add this dependency</p>
 <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
-  &lt;artifactId&gt;yauaa-flink&lt;/artifactId&gt;
+  &lt;artifactId&gt;yauaa-pig&lt;/artifactId&gt;
+  &lt;classifier&gt;udf&lt;/classifier&gt;
   &lt;version&gt;5.1&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre><h2 id="building">Building</h2>
-<p>Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:</p>
-<pre><code>mvn clean package
-</code></pre><h2 id="example-usage">Example usage</h2>
-<p>Assume you have a DataSet or DataStream with your records. 
-In most cases I see (clickstream data) these records (In this example this class is called &quot;TestRecord&quot;) contain the useragent string in a field and the parsed results must be added to these fields.</p>
-<p>Now you must do two things:</p>
-<p>  1) Determine the names of the fields you need.
-  2) Add an instance of the (abstract) UserAgentAnalysisMapper mapper and implement the functions as shown in the example below. Use the Field annotation to get the setter for the requested fields.</p>
-<p>Note that the name of the two setters is not important, the system looks at the annotation.</p>
-<pre><code>.map(new UserAgentAnalysisMapper&lt;TestRecord&gt;() {
-    @Override
-    public String getUserAgentString(TestRecord record) {
-        return record.useragent;
-    }
+</code></pre>
 
-    @SuppressWarnings(&quot;unused&quot;)
-    @YauaaField(&quot;DeviceClass&quot;)
-    public void setDeviceClass(TestRecord record, String value) {
-        record.deviceClass = value;
-    }
+<h2 id="example-usage">Example usage</h2>
+<pre><code>-- Import the UDF jar file so this script can use it
+REGISTER ../target/*-udf.jar;
 
-    @SuppressWarnings(&quot;unused&quot;)
-    @YauaaField(&quot;AgentNameVersion&quot;)
-    public void setAgentNameVersion(TestRecord record, String value) {
-        record.agentNameVersion = value;
-    }
-})
-</code></pre><h2 id="notes-on-defining-it-as-an-anonymous-class">NOTES on defining it as an anonymous class</h2>
-<p>An anonymous inner class in Java is <a href="https://stackoverflow.com/questions/319765/accessing-inner-anonymous-class-members" target="_blank">by default private</a>.</p>
-<p>If you define it as an anonymous inner class as shown above then the system will try to make this class to become public by means of the method .setAccessible(true).
-There are situations in which this will fail (amongst others the SecurityManager can block this). If you run into such a scenario then simply &apos;not&apos; define it inline as an anonymous class and define it as a named (public) class instead.</p>
-<p>So the earlier example will look something like this:</p>
-<pre><code>public class MyUserAgentAnalysisMapper extends UserAgentAnalysisMapper&lt;TestRecord&gt; {
-    @Override
-    public String getUserAgentString(TestRecord record) {
-        return record.useragent;
-    }
+------------------------------------------------------------------------
+-- Define a more readable name for the UDF and pass optional parameters
+-- First parameter is ALWAYS the cache size (as a text string!)
+-- The parameters after that are the requested fields.
+----------
+-- If you simply want &apos;everything&apos;
+-- DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent;
+----------
+-- If you just want to set the cache
+-- DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent(&apos;10000&apos;);
+----------
+-- If you want to set the cache and only retrieve the specified fields
+DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent(&apos;10000&apos;, &apos;DeviceClass&apos;, &apos;DeviceBrand&apos; );
 
-    @SuppressWarnings(&quot;unused&quot;)
-    @YauaaField(&quot;DeviceClass&quot;)
-    public void setDeviceClass(TestRecord record, String value) {
-        record.deviceClass = value;
-    }
+rawData =
+    LOAD &apos;testcases.txt&apos;
+    USING PigStorage()
+    AS  ( useragent: chararray );
 
-    @SuppressWarnings(&quot;unused&quot;)
-    @YauaaField(&quot;AgentNameVersion&quot;)
-    public void setAgentNameVersion(TestRecord record, String value) {
-        record.agentNameVersion = value;
-    }
-}
-</code></pre><p>and then in the topology simply do this</p>
-<pre><code>.map(new MyUserAgentAnalysisMapper())
-</code></pre><h1 id="license">License</h1>
-<pre><code>Yet Another UserAgent Analyzer
-Copyright (C) 2013-2018 Niels Basjes
-
-Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-https://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+UaData =
+    FOREACH  rawData
+    GENERATE useragent,
+             -- Do NOT specify a type for this field as the UDF provides the definitions
+             ParseUserAgent(useragent) AS parsedAgent;
 </code></pre>
                                 
                                 </section>
@@ -542,12 +545,12 @@ limitations under the License.
 
             
                 
-                <a href="README-Drill.html" class="navigation navigation-prev " aria-label="Previous page: Apache Drill">
+                <a href="UDF-ApacheNifi.html" class="navigation navigation-prev " aria-label="Previous page: Apache Nifi">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="README-Hive.html" class="navigation navigation-next " aria-label="Next page: Apache Hive">
+                <a href="Internals-BaseDesign.html" class="navigation navigation-next " aria-label="Next page: Base design idea">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -558,7 +561,7 @@ limitations under the License.
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Apache Flink","level":"3.4","depth":1,"next":{"title":"Apache Hive","level":"3.5","depth":1,"path":"README-Hive.md","ref":"README-Hive.md","articles":[]},"previous":{"title":"Apache Drill","level":"3.3","depth":1,"path":"README-Drill.md","ref":"README-Drill.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README-Flink.md","mtime":"2018-08-09T13:08:33.306Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-09T13:08:46.943Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Apache Pig","level":"3.8","depth":1,"next":{"title":"Base design idea","level":"4.1","depth":1,"path":"Internals-BaseDesign.md","ref":"Internals-BaseDesign.md","articles":[]},"previous":{"title":"Apache Nifi","level":"3.7","depth":1,"path":"UDF-ApacheNifi.md","ref":"UDF-ApacheNifi.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.1"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"UDF-ApachePig.md","mtime":"2018-08-10T09:27:30.248Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-10T22:45:22.987Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
