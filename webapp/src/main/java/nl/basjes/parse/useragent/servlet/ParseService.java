@@ -113,6 +113,7 @@ public class ParseService {
         try {
             sb.append("<!DOCTYPE html>");
             sb.append("<html><head profile=\"http://www.w3.org/2005/10/profile\">");
+            sb.append("<meta name=viewport content=\"width=device-width, initial-scale=1\">");
             insertFavIcons(sb);
             sb.append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
             sb.append("<link rel=\"stylesheet\" href=\"style.css\">");
