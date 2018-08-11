@@ -115,21 +115,24 @@ public class ParseService {
             sb.append("<html><head profile=\"http://www.w3.org/2005/10/profile\">");
             insertFavIcons(sb);
             sb.append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
-            sb.append("<title>Analyzing the useragent</title></head>");
+            sb.append("<link rel=\"stylesheet\" href=\"style.css\">");
+            sb.append("<title>Analyzing the useragent</title>");
+
+            sb.append("</head>");
             sb.append("<body>");
+            sb.append("<div class=\"header\">");
+            sb.append("<h1 class=\"title\">Yet another UserAgent analyzer.</h1>" );
+            sb.append("<p class=\"version\">").append(ANALYZER_VERSION).append("</p>");
+            sb.append("</div>\n");
 
-            sb.append("<h1>Analyzing your useragent string</h1>");
-
-            sb.append("Build using <a href=\"https://github.com/nielsbasjes/yauaa\">Yauaa (Yet another UserAgent analyzer)</a>.<br/>");
-            sb.append(ANALYZER_VERSION).append("<br/>");
             sb.append("<hr/>");
 
             startParse = System.nanoTime();
             UserAgent userAgent = USER_AGENT_ANALYZER.parse(userAgentString);
             stopParse = System.nanoTime();
 
-            sb.append("Received useragent: <B>").append(escapeHtml4(userAgent.getUserAgentString())).append("</B>");
-            sb.append("<table border=1>");
+            sb.append("<p class=\"input\">").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
+            sb.append("<table id=\"result\">");
             sb.append("<tr><th colspan=2>Field</th><th>Value</th></tr>");
 
             Map<String, Integer> fieldGroupCounts = new HashMap<>();
@@ -162,9 +165,11 @@ public class ParseService {
                     .append("</tr>");
             }
             sb.append("</table>");
+            sb.append("<hr/>");
 
-
+            sb.append("<p class=\"bug\">");
             addBugReportButton(sb, userAgent);
+            sb.append("</p>");
 //            sb.append("<ul>");
 //            sb.append("<li><a href=\"/\">HTML (from header)</a></li>");
 //            sb.append("<li><a href=\"/json\">Json (from header)</a></li>");
@@ -179,34 +184,33 @@ public class ParseService {
 //                // Do nothing
 //            }
 //            sb.append("</ul>");
-
-            sb.append("<br/>");
+            sb.append("<p class=\"source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">https://github.com/nielsbasjes/yauaa</a></p>\n");
+            sb.append("<p class=\"contribute\">Creating this free software is a lot of work. If this has business value for your then don't hesitate to <a href=\"https://www.paypal.me/nielsbasjes\">contribute a little something back</a>.</p>\n");
             sb.append("<hr/>");
-            sb.append("<form action=\"\" method=\"post\">");
-            sb.append("Manual testing of a useragent:<br>");
-            sb.append("<input type=\"text\" name=\"useragent\"  size=\"100\" value=\"").append(escapeHtml4(userAgentString)).append("\">");
+            sb.append("<form class=\"tryyourown\" action=\"\" method=\"post\">");
+            sb.append("<label for=\"useragent\">Manual testing of a useragent:</label>");
+            sb.append("<input type=\"text\" id=\"useragent\" name=\"useragent\" placeholder=\"Paste the useragent you want to test...\" size=\"1000\" value=\"").append(escapeHtml4(userAgentString)).append("\">");
             sb.append("<input type=\"submit\" value=\"Analyze\">");
             sb.append("</form>");
             sb.append("<br/>");
 
-            sb.append("<hr/>");
-            userAgentString = "Mozilla/5.0 (Linux; Android 7.8.9; nl-nl ; Niels Ultimate 42 demo phone Build/42 ; nl-nl; " +
-                "https://github.com/nielsbasjes/yauaa ) AppleWebKit/8.4.7.2 (KHTML, like Gecko) Yet another browser/3.1415926 Mobile Safari/6.6.6";
-            sb.append("<form action=\"\" method=\"post\">");
-            sb.append("Try this demo: ");
-            sb.append("<input type=\"hidden\" name=\"useragent\"  size=\"100\" value=\"").append(escapeHtml4(userAgentString)).append("\">");
-            sb.append("<input type=\"submit\" value=\"Analyze Demo\">");
-            sb.append("</form>");
+//            sb.append("<hr/>");
+//            userAgentString = "Mozilla/5.0 (Linux; Android 7.8.9; nl-nl ; Niels Ultimate 42 demo phone Build/42 ; nl-nl; " +
+//                "https://github.com/nielsbasjes/yauaa ) AppleWebKit/8.4.7.2 (KHTML, like Gecko) Yet another browser/3.1415926 Mobile Safari/6.6.6";
+//            sb.append("<form class=\"tryyourown\" action=\"\" method=\"post\">");
+//            sb.append("Try this demo: ");
+//            sb.append("<input type=\"hidden\" name=\"useragent\"  size=\"100\" value=\"").append(escapeHtml4(userAgentString)).append("\">");
+//            sb.append("<input type=\"submit\" value=\"Analyze Demo\">");
+//            sb.append("</form>");
 
             sb.append("<hr/>");
         } finally {
             long stop = System.nanoTime();
             double pageMilliseconds = (stop - start) / 1000000.0;
             double parseMilliseconds = (stopParse - startParse) / 1000000.0;
-
-            sb.append("<br/>");
-            sb.append("<u>Building this page took ").append(String.format(Locale.ENGLISH, "%3.3f", pageMilliseconds)).append(" ms.</u><br/>");
-            sb.append("<u>Parsing took ").append(String.format(Locale.ENGLISH, "%3.3f", parseMilliseconds)).append(" ms.</u><br/>");
+            sb.append("<p class=\"speed\">Building this page took ").append(String.format(Locale.ENGLISH, "%3.3f", pageMilliseconds)).append(" ms.</p>");
+            sb.append("<p class=\"speed\">Parsing took ").append(String.format(Locale.ENGLISH, "%3.3f", parseMilliseconds)).append(" ms.</p>");
+            sb.append("<p class=\"copyright\">Copyright (C) 2013-2018 <a href=\"https://niels.basjes.nl\">Niels Basjes</a></p>");
             sb.append("</body>");
             sb.append("</html>");
         }

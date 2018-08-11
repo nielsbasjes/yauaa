@@ -1,5 +1,9 @@
 This is intended as an overview of the major changes
 
+v5.2
+===
+- Added layout to web servlet.
+
 v5.1
 ===
 - Massive change of the OS Version for all Windows variants. Much cleaner now.
