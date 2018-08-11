@@ -122,7 +122,7 @@ public class ParseService {
             sb.append("</head>");
             sb.append("<body>");
             sb.append("<div class=\"header\">");
-            sb.append("<h1 class=\"title\">Yet Another UserAgent Analyzer.</h1>" );
+            sb.append("<h1 class=\"title\">Yet Another UserAgent Analyzer.</h1>");
             sb.append("<p class=\"version\">").append(ANALYZER_VERSION).append("</p>");
             sb.append("</div>\n");
 
@@ -185,12 +185,17 @@ public class ParseService {
 //                // Do nothing
 //            }
 //            sb.append("</ul>");
-            sb.append("<p class=\"source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">https://github.com/nielsbasjes/yauaa</a></p>\n");
-            sb.append("<p class=\"contribute\">Creating this free software is a lot of work. If this has business value for your then don't hesitate to <a href=\"https://www.paypal.me/nielsbasjes\">contribute a little something back</a>.</p>\n");
+            sb.append("<p class=\"source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">" +
+                "https://github.com/nielsbasjes/yauaa</a></p>\n");
+            sb.append("<p class=\"contribute\">Creating this free software is a lot of work. " +
+                "If this has business value for your then don't hesitate to " +
+                "<a href=\"https://www.paypal.me/nielsbasjes\">contribute a little something back</a>.</p>\n");
             sb.append("<hr/>");
             sb.append("<form class=\"tryyourown\" action=\"\" method=\"post\">");
             sb.append("<label for=\"useragent\">Manual testing of a useragent:</label>");
-            sb.append("<input type=\"text\" id=\"useragent\" name=\"useragent\" placeholder=\"Paste the useragent you want to test...\" size=\"1000\" value=\"").append(escapeHtml4(userAgentString)).append("\">");
+            sb.append("<input type=\"text\" id=\"useragent\" name=\"useragent\" " +
+                "placeholder=\"Paste the useragent you want to test...\" size=\"1000\" " +
+                "value=\"").append(escapeHtml4(userAgentString)).append("\">");
             sb.append("<input type=\"submit\" value=\"Analyze\">");
             sb.append("</form>");
             sb.append("<br/>");
@@ -209,8 +214,12 @@ public class ParseService {
             long stop = System.nanoTime();
             double pageMilliseconds = (stop - start) / 1000000.0;
             double parseMilliseconds = (stopParse - startParse) / 1000000.0;
-            sb.append("<p class=\"speed\">Building this page took ").append(String.format(Locale.ENGLISH, "%3.3f", pageMilliseconds)).append(" ms.</p>");
-            sb.append("<p class=\"speed\">Parsing took ").append(String.format(Locale.ENGLISH, "%3.3f", parseMilliseconds)).append(" ms.</p>");
+            sb.append("<p class=\"speed\">Building this page took ")
+                .append(String.format(Locale.ENGLISH, "%3.3f", pageMilliseconds))
+                .append(" ms.</p>");
+            sb.append("<p class=\"speed\">Parsing took ")
+                .append(String.format(Locale.ENGLISH, "%3.3f", parseMilliseconds))
+                .append(" ms.</p>");
             sb.append("<p class=\"copyright\">Copyright (C) 2013-2018 <a href=\"https://niels.basjes.nl\">Niels Basjes</a></p>");
             sb.append("</body>");
             sb.append("</html>");
