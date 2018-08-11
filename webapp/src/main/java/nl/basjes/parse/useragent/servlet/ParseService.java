@@ -122,7 +122,7 @@ public class ParseService {
             sb.append("</head>");
             sb.append("<body>");
             sb.append("<div class=\"header\">");
-            sb.append("<h1 class=\"title\">Yet another UserAgent analyzer.</h1>" );
+            sb.append("<h1 class=\"title\">Yet Another UserAgent Analyzer.</h1>" );
             sb.append("<p class=\"version\">").append(ANALYZER_VERSION).append("</p>");
             sb.append("</div>\n");
 
