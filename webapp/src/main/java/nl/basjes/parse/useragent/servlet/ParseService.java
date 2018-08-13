@@ -132,7 +132,9 @@ public class ParseService {
             UserAgent userAgent = USER_AGENT_ANALYZER.parse(userAgentString);
             stopParse = System.nanoTime();
 
+            sb.append("<h2 class=\"title\">The UserAgent</h2>");
             sb.append("<p class=\"input\">").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
+            sb.append("<h2 class=\"title\">The analysis result</h2>");
             sb.append("<table id=\"result\">");
             sb.append("<tr><th colspan=2>Field</th><th>Value</th></tr>");
 
@@ -168,7 +170,7 @@ public class ParseService {
             sb.append("</table>");
             sb.append("<hr/>");
 
-            sb.append("<p class=\"bug\">");
+            sb.append("<p class=\"logobar bug\">");
             addBugReportButton(sb, userAgent);
             sb.append("</p>");
 //            sb.append("<ul>");
@@ -185,13 +187,13 @@ public class ParseService {
 //                // Do nothing
 //            }
 //            sb.append("</ul>");
-            sb.append("<p class=\"source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">" +
+            sb.append("<p class=\"logobar source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">" +
                 "https://github.com/nielsbasjes/yauaa</a></p>\n");
-            sb.append("<p class=\"contribute\">Creating this free software is a lot of work. " +
+            sb.append("<p class=\"logobar contribute\">Creating this free software is a lot of work. " +
                 "If this has business value for your then don't hesitate to " +
                 "<a href=\"https://www.paypal.me/nielsbasjes\">contribute a little something back</a>.</p>\n");
             sb.append("<hr/>");
-            sb.append("<form class=\"tryyourown\" action=\"\" method=\"post\">");
+            sb.append("<form class=\"logobar tryyourown\" action=\"\" method=\"post\">");
             sb.append("<label for=\"useragent\">Manual testing of a useragent:</label>");
             sb.append("<input type=\"text\" id=\"useragent\" name=\"useragent\" " +
                 "placeholder=\"Paste the useragent you want to test...\" size=\"1000\" " +
