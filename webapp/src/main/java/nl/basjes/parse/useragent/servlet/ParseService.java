@@ -195,21 +195,24 @@ public class ParseService {
             sb.append("<hr/>");
             sb.append("<form class=\"logobar tryyourown\" action=\"\" method=\"post\">");
             sb.append("<label for=\"useragent\">Manual testing of a useragent:</label>");
-            sb.append("<input type=\"text\" id=\"useragent\" name=\"useragent\" " +
-                "placeholder=\"Paste the useragent you want to test...\" size=\"1000\" " +
-                "value=\"").append(escapeHtml4(userAgentString)).append("\">");
-            sb.append("<input type=\"submit\" value=\"Analyze\">");
+
+            sb.append("<textarea id=\"useragent\" name=\"useragent\" maxlength=\"2000\" rows=\"4\" " +
+                "placeholder=\"Paste the useragent you want to test...\">")
+                .append(escapeHtml4(userAgentString)).append("</textarea>");
+            sb.append("<input class=\"testButton\" type=\"submit\" value=\"Analyze\">");
             sb.append("</form>");
             sb.append("<br/>");
 
-//            sb.append("<hr/>");
-//            userAgentString = "Mozilla/5.0 (Linux; Android 7.8.9; nl-nl ; Niels Ultimate 42 demo phone Build/42 ; nl-nl; " +
-//                "https://github.com/nielsbasjes/yauaa ) AppleWebKit/8.4.7.2 (KHTML, like Gecko) Yet another browser/3.1415926 Mobile Safari/6.6.6";
-//            sb.append("<form class=\"tryyourown\" action=\"\" method=\"post\">");
-//            sb.append("Try this demo: ");
-//            sb.append("<input type=\"hidden\" name=\"useragent\"  size=\"100\" value=\"").append(escapeHtml4(userAgentString)).append("\">");
-//            sb.append("<input type=\"submit\" value=\"Analyze Demo\">");
-//            sb.append("</form>");
+            sb.append("<hr/>");
+            userAgentString = "Mozilla/5.0 (Linux; Android 7.8.9; nl-nl ; Niels Ultimate 42 demo phone Build/42 ; nl-nl; " +
+                "https://github.com/nielsbasjes/yauaa ) AppleWebKit/8.4.7.2 (KHTML, like Gecko) Yet another browser/3.1415926 Mobile Safari/6.6.6";
+            sb.append("<form class=\"logobar tryexample\" action=\"\" method=\"post\">");
+            sb.append("<input type=\"hidden\" id=\"demouseragent\" name=\"useragent\" " +
+                "value=\"").append(escapeHtml4(userAgentString)).append("\">");
+            sb.append("<input class=\"demoButton\" type=\"submit\" value=\"Try this demonstration UserAgent\">");
+            sb.append("</form>");
+
+            sb.append("<hr/>");
 
             sb.append("<hr/>");
         } finally {
