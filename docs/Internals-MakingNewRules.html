@@ -34,6 +34,8 @@
 
     
         
+        <link rel="stylesheet" href="styles/website.css">
+        
     
         
     
@@ -557,14 +559,10 @@ In general a field will receive a value from multiple matchers; the value with t
 </code></pre><p>A require pattern must simply yield a non-null value.
 The IsNull operator only makes sense in the context of a require as with this you can check that a pattern may not exist.</p>
 <p>For example to do checks like &quot;The last product in the list must be named foo&quot; you can write this</p>
-<ul>
-<li>matcher:
-  require:<ul>
-<li>&apos;IsNull[agent.product.name=&quot;foo&quot;^&gt;]&apos;</li>
-</ul>
-</li>
-</ul>
-<p>An extract pattern is either a fixed string &quot;foo&quot; or a path expression as explained later in this document.</p>
+<pre><code>- matcher:
+    require:
+    - &apos;IsNull[agent.product.name=&quot;foo&quot;^&gt;]&apos;
+</code></pre><p>An extract pattern is either a fixed string &quot;foo&quot; or a path expression as explained later in this document.</p>
 <h1 id="where-the-rules-are-located">Where the rules are located</h1>
 <p>Under the main resources there is a folder called <em>UserAgents</em> .
 In the folder a collection of yaml files are located.
@@ -947,7 +945,7 @@ The FIRST matching pattern is used for the end result.</p>
 </table>
 <p>Note that the first possible match is returned.
 If a child sibling or check fails the backtracking continues until the entire parse tree has been examined.</p>
-<p>I created a test that shows all of the debug output of this example: <a href="analyzer/src/test/java/nl/basjes/parse/useragent/DocumentationExample.java">unit test</a> and <a href="analyzer/src/test/resources/DocumentationExample.yaml">yaml file</a></p>
+<p>I created a test that shows all of the debug output of this example: <a href="https://github.com/nielsbasjes/yauaa/tree/master/analyzer/src/test/java/nl/basjes/parse/useragent/DocumentationExample.java" target="_blank">unit test</a> and <a href="https://github.com/nielsbasjes/yauaa/tree/master/analyzer/src/test/resources/DocumentationExample.yaml" target="_blank">yaml file</a></p>
 <p>This can also be run from the commandline using: </p>
 <pre><code>mvn -Dtest=DocumentationExample -DfailIfNoTests=false test
 </code></pre><h1 id="creating-a-new-rule">Creating a new rule</h1>
@@ -1263,7 +1261,7 @@ limitations under the License.
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Making new rules","level":"4.2","depth":1,"next":{"title":"Source code","level":"5.1","depth":1,"url":"https://github.com/nielsbasjes/yauaa/","ref":"https://github.com/nielsbasjes/yauaa/","articles":[]},"previous":{"title":"Base design idea","level":"4.1","depth":1,"path":"Internals-BaseDesign.md","ref":"Internals-BaseDesign.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.1"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"Internals-MakingNewRules.md","mtime":"2018-08-09T13:08:33.298Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-10T22:45:22.987Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Making new rules","level":"4.2","depth":1,"next":{"title":"Source code","level":"5.1","depth":1,"url":"https://github.com/nielsbasjes/yauaa/","ref":"https://github.com/nielsbasjes/yauaa/","articles":[]},"previous":{"title":"Base design idea","level":"4.1","depth":1,"path":"Internals-BaseDesign.md","ref":"Internals-BaseDesign.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.1"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"Internals-MakingNewRules.md","mtime":"2018-08-13T20:49:17.980Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-13T22:11:05.915Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
