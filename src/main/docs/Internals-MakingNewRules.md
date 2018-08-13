@@ -97,9 +97,9 @@ The IsNull operator only makes sense in the context of a require as with this yo
 
 For example to do checks like "The last product in the list must be named foo" you can write this
 
-- matcher:
-    require:
-    - 'IsNull[agent.product.name="foo"^>]'
+    - matcher:
+        require:
+        - 'IsNull[agent.product.name="foo"^>]'
 
 An extract pattern is either a fixed string "foo" or a path expression as explained later in this document.
 
@@ -288,7 +288,7 @@ Expression | Current path | Value
 Note that the first possible match is returned.
 If a child sibling or check fails the backtracking continues until the entire parse tree has been examined.
 
-I created a test that shows all of the debug output of this example: [unit test](analyzer/src/test/java/nl/basjes/parse/useragent/DocumentationExample.java) and [yaml file](analyzer/src/test/resources/DocumentationExample.yaml)
+I created a test that shows all of the debug output of this example: [unit test](https://github.com/nielsbasjes/yauaa/tree/master/analyzer/src/test/java/nl/basjes/parse/useragent/DocumentationExample.java) and [yaml file](https://github.com/nielsbasjes/yauaa/tree/master/analyzer/src/test/resources/DocumentationExample.yaml)
 
 This can also be run from the commandline using: 
 
