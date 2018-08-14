@@ -49,8 +49,23 @@ import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 @RestController
 public class ParseService {
 
-    private static final UserAgentAnalyzer USER_AGENT_ANALYZER = UserAgentAnalyzer.newBuilder().dropTests().hideMatcherLoadStats().build();
-    private static final String ANALYZER_VERSION = UserAgentAnalyzer.getVersion();
+    private static UserAgentAnalyzer userAgentAnalyzer              = null;
+    private static boolean           isInitializing                 = false;
+    private static long              initStartMoment;
+    private static boolean           userAgentAnalyzerIsAvailable   = false;
+    private static final String      ANALYZER_VERSION               = UserAgentAnalyzer.getVersion();
+
+    private static synchronized void ensureStarted() {
+        if (!isInitializing) {
+            isInitializing = true;
+            initStartMoment = System.currentTimeMillis();
+            new Thread(() -> {
+                userAgentAnalyzer = UserAgentAnalyzer.newBuilder().dropTests().hideMatcherLoadStats().build();
+                userAgentAnalyzer.initializeMatchers();
+                userAgentAnalyzerIsAvailable = true;
+            }).start();
+        }
+    }
 
     @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED, reason = "The User-Agent header is missing")
     private class MissingUserAgentException extends RuntimeException {
@@ -72,11 +87,11 @@ public class ParseService {
 
     @GetMapping(value = "/preheat", produces = MediaType.TEXT_HTML_VALUE)
     public String getHtmlPreHeat(@RequestHeader("User-Agent") String userAgentString) {
-        USER_AGENT_ANALYZER.preHeat();
+        userAgentAnalyzer.preHeat();
         return doHTML(userAgentString);
     }
 
-    @GetMapping(value = "/{userAgent}", produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = "/analyze/{userAgent}", produces = MediaType.TEXT_HTML_VALUE)
     public String getHtmlPath(@PathVariable String userAgent) {
         return doHTML(userAgent);
     }
@@ -101,6 +116,7 @@ public class ParseService {
     }
 
     private String doHTML(String userAgentString) {
+        ensureStarted();
         long start = System.nanoTime();
         long startParse=0;
         long stopParse=0;
@@ -116,6 +132,9 @@ public class ParseService {
             sb.append("<meta name=viewport content=\"width=device-width, initial-scale=1\">");
             insertFavIcons(sb);
             sb.append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
+            if (!userAgentAnalyzerIsAvailable) {
+                sb.append("<meta http-equiv=\"refresh\" content=\"1\" >");
+            }
             sb.append("<link rel=\"stylesheet\" href=\"style.css\">");
             sb.append("<title>Analyzing the useragent</title>");
 
@@ -128,51 +147,52 @@ public class ParseService {
 
             sb.append("<hr/>");
 
-            startParse = System.nanoTime();
-            UserAgent userAgent = USER_AGENT_ANALYZER.parse(userAgentString);
-            stopParse = System.nanoTime();
+            if (userAgentAnalyzerIsAvailable) {
+                startParse = System.nanoTime();
+                UserAgent userAgent = userAgentAnalyzer.parse(userAgentString);
+                stopParse = System.nanoTime();
 
-            sb.append("<h2 class=\"title\">The UserAgent</h2>");
-            sb.append("<p class=\"input\">").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
-            sb.append("<h2 class=\"title\">The analysis result</h2>");
-            sb.append("<table id=\"result\">");
-            sb.append("<tr><th colspan=2>Field</th><th>Value</th></tr>");
+                sb.append("<h2 class=\"title\">The UserAgent</h2>");
+                sb.append("<p class=\"input\">").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
+                sb.append("<h2 class=\"title\">The analysis result</h2>");
+                sb.append("<table id=\"result\">");
+                sb.append("<tr><th colspan=2>Field</th><th>Value</th></tr>");
 
-            Map<String, Integer> fieldGroupCounts = new HashMap<>();
-            List<Pair<String, Pair<String, String>>> fields = new ArrayList<>(32);
-            for (String fieldname : userAgent.getAvailableFieldNamesSorted()) {
-                Pair<String, String> split = prefixSplitter(fieldname);
-                fields.add(new ImmutablePair<>(fieldname, split));
-                Integer count = fieldGroupCounts.get(split.getLeft());
-                if (count == null) {
-                    count = 1;
-                } else {
-                    count++;
+                Map<String, Integer>                     fieldGroupCounts = new HashMap<>();
+                List<Pair<String, Pair<String, String>>> fields           = new ArrayList<>(32);
+                for (String fieldname : userAgent.getAvailableFieldNamesSorted()) {
+                    Pair<String, String> split = prefixSplitter(fieldname);
+                    fields.add(new ImmutablePair<>(fieldname, split));
+                    Integer count = fieldGroupCounts.get(split.getLeft());
+                    if (count == null) {
+                        count = 1;
+                    } else {
+                        count++;
+                    }
+                    fieldGroupCounts.put(split.getLeft(), count);
                 }
-                fieldGroupCounts.put(split.getLeft(), count);
-            }
 
-            String currentGroup = "";
-            for (Pair<String, Pair<String, String>> field : fields) {
-                String fieldname = field.getLeft();
-                String groupName = field.getRight().getLeft();
-                String fieldLabel = field.getRight().getRight();
-                sb.append("<tr>");
-                if (!currentGroup.equals(groupName)) {
-                    currentGroup = groupName;
-                    sb.append("<td rowspan=").append(fieldGroupCounts.get(currentGroup)).append("><b><u>")
-                        .append(escapeHtml4(currentGroup)).append("</u></b></td>");
+                String currentGroup = "";
+                for (Pair<String, Pair<String, String>> field : fields) {
+                    String fieldname  = field.getLeft();
+                    String groupName  = field.getRight().getLeft();
+                    String fieldLabel = field.getRight().getRight();
+                    sb.append("<tr>");
+                    if (!currentGroup.equals(groupName)) {
+                        currentGroup = groupName;
+                        sb.append("<td rowspan=").append(fieldGroupCounts.get(currentGroup)).append("><b><u>")
+                            .append(escapeHtml4(currentGroup)).append("</u></b></td>");
+                    }
+                    sb.append("<td>").append(camelStretcher(escapeHtml4(fieldLabel))).append("</td>")
+                        .append("<td>").append(escapeHtml4(userAgent.getValue(fieldname))).append("</td>")
+                        .append("</tr>");
                 }
-                sb.append("<td>").append(camelStretcher(escapeHtml4(fieldLabel))).append("</td>")
-                    .append("<td>").append(escapeHtml4(userAgent.getValue(fieldname))).append("</td>")
-                    .append("</tr>");
-            }
-            sb.append("</table>");
-            sb.append("<hr/>");
+                sb.append("</table>");
+                sb.append("<hr/>");
 
-            sb.append("<p class=\"logobar bug\">");
-            addBugReportButton(sb, userAgent);
-            sb.append("</p>");
+                sb.append("<p class=\"logobar bug\">");
+                addBugReportButton(sb, userAgent);
+                sb.append("</p>");
 //            sb.append("<ul>");
 //            sb.append("<li><a href=\"/\">HTML (from header)</a></li>");
 //            sb.append("<li><a href=\"/json\">Json (from header)</a></li>");
@@ -187,37 +207,49 @@ public class ParseService {
 //                // Do nothing
 //            }
 //            sb.append("</ul>");
-            sb.append("<p class=\"logobar source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">" +
-                "https://github.com/nielsbasjes/yauaa</a></p>\n");
-            sb.append("<p class=\"logobar contribute\">Creating this free software is a lot of work. " +
-                "If this has business value for your then don't hesitate to " +
-                "<a href=\"https://www.paypal.me/nielsbasjes\">contribute a little something back</a>.</p>\n");
-            sb.append("<hr/>");
-            sb.append("<form class=\"logobar tryyourown\" action=\"\" method=\"post\">");
-            sb.append("<label for=\"useragent\">Manual testing of a useragent:</label>");
+                sb.append("<p class=\"logobar source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">" +
+                    "https://github.com/nielsbasjes/yauaa</a></p>\n");
+                sb.append("<p class=\"logobar contribute\">Creating this free software is a lot of work. " +
+                    "If this has business value for your then don't hesitate to " +
+                    "<a href=\"https://www.paypal.me/nielsbasjes\">contribute a little something back</a>.</p>\n");
+                sb.append("<hr/>");
+                sb.append("<form class=\"logobar tryyourown\" action=\"\" method=\"post\">");
+                sb.append("<label for=\"useragent\">Manual testing of a useragent:</label>");
 
-            sb.append("<textarea id=\"useragent\" name=\"useragent\" maxlength=\"2000\" rows=\"4\" " +
-                "placeholder=\"Paste the useragent you want to test...\">")
-                .append(escapeHtml4(userAgentString)).append("</textarea>");
-            sb.append("<input class=\"testButton\" type=\"submit\" value=\"Analyze\">");
-            sb.append("</form>");
-            sb.append("<br/>");
+                sb.append("<textarea id=\"useragent\" name=\"useragent\" maxlength=\"2000\" rows=\"4\" " +
+                    "placeholder=\"Paste the useragent you want to test...\">")
+                    .append(escapeHtml4(userAgentString)).append("</textarea>");
+                sb.append("<input class=\"testButton\" type=\"submit\" value=\"Analyze\">");
+                sb.append("</form>");
+                sb.append("<br/>");
 
-            sb.append("<hr/>");
-            userAgentString = "Mozilla/5.0 (Linux; Android 7.8.9; nl-nl ; Niels Ultimate 42 demo phone Build/42 ; nl-nl; " +
-                "https://github.com/nielsbasjes/yauaa ) AppleWebKit/8.4.7.2 (KHTML, like Gecko) Yet another browser/3.1415926 Mobile Safari/6.6.6";
-            sb.append("<form class=\"logobar tryexample\" action=\"\" method=\"post\">");
-            sb.append("<input type=\"hidden\" id=\"demouseragent\" name=\"useragent\" " +
-                "value=\"").append(escapeHtml4(userAgentString)).append("\">");
-            sb.append("<input class=\"demoButton\" type=\"submit\" value=\"Try this demonstration UserAgent\">");
-            sb.append("</form>");
+                sb.append("<hr/>");
+                userAgentString =
+                    "Mozilla/5.0 (Linux; Android 7.8.9; nl-nl ; " +
+                        "Niels Ultimate 42 demo phone Build/42 ; " +
+                        "https://github.com/nielsbasjes/yauaa ) " +
+                        "AppleWebKit/8.4.7.2 (KHTML, like Gecko) " +
+                        "Yet another browser/3.1415926 Mobile Safari/6.6.6";
+                sb.append("<form class=\"logobar tryexample\" action=\"\" method=\"post\">");
+                sb.append("<input type=\"hidden\" id=\"demouseragent\" name=\"useragent\" " +
+                    "value=\"").append(escapeHtml4(userAgentString)).append("\">");
+                sb.append("<input class=\"demoButton\" type=\"submit\" value=\"Try this demonstration UserAgent\">");
+                sb.append("</form>");
 
-            sb.append("<hr/>");
+                sb.append("<hr/>");
 
-            sb.append("<hr/>");
-        } finally {
-            long stop = System.nanoTime();
-            double pageMilliseconds = (stop - start) / 1000000.0;
+                sb.append("<hr/>");
+            } else {
+                long now = System.currentTimeMillis();
+                sb.append("<p class=\"notYetStarted\">The analyzer is currently starting up.<br/>");
+                sb.append("It has been starting up for ").append(now - initStartMoment).append("ms<br/>");
+                sb.append("Anything between 3000-30000 ms (i.e. 3-30 seconds) is normal.</p>");
+                // TODO: Spinner
+                // TODO: Reload every 5 seconds.
+            }
+        } finally{
+            long   stop              = System.nanoTime();
+            double pageMilliseconds  = (stop - start) / 1000000.0;
             double parseMilliseconds = (stopParse - startParse) / 1000000.0;
             sb.append("<p class=\"speed\">Building this page took ")
                 .append(String.format(Locale.ENGLISH, "%3.3f", pageMilliseconds))
@@ -274,8 +306,12 @@ public class ParseService {
         if (userAgentString == null) {
             throw new MissingUserAgentException();
         }
-        UserAgent userAgent = USER_AGENT_ANALYZER.parse(userAgentString);
-        return userAgent.toJson();
+        ensureStarted();
+        if (userAgentAnalyzerIsAvailable) {
+            UserAgent userAgent = userAgentAnalyzer.parse(userAgentString);
+            return userAgent.toJson();
+        }
+        return "{}";
     }
 
     private void addBugReportButton(StringBuilder sb, UserAgent userAgent) {
