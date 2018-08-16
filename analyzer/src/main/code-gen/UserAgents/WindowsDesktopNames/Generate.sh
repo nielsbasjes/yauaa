@@ -13,18 +13,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+TARGETDIR="${SCRIPTDIR}/../../../resources/UserAgents"
 
-INPUT=WindowsOEMCodes.csv
-OUTPUT=../WindowsOEMCodes.yaml
+INPUT=WindowsDesktop.csv
+OUTPUT="${TARGETDIR}/WindowsDesktopLookups.yaml"
 
 if [ "Generate.sh" -ot "${OUTPUT}" ]; then
     if [ "${INPUT}" -ot "${OUTPUT}" ]; then
-        echo "${OUTPUT} is up to date";
+        echo "Up to date: ${OUTPUT}";
         exit;
     fi
 fi
 
-echo "Generating ${OUTPUT}";
+echo "Generating: ${OUTPUT}";
 
 (
 echo "# ============================================="
@@ -46,20 +48,49 @@ echo "# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 echo "# See the License for the specific language governing permissions and"
 echo "# limitations under the License."
 echo "#"
-
 echo "config:"
-echo "- matcher:"
-echo "    extract:"
-echo "    - 'DeviceBrand                         :    200 :LookUp[WindowsOEMCodes;agent.(1)product.comments.entry.text]'"
 
 echo "- lookup:"
-echo "    name: 'WindowsOEMCodes'"
+echo "    name: 'WindowsDesktopOSName'"
 echo "    map:"
-fgrep -v '#' "${INPUT}" | grep . | while read line
+fgrep -v '#' "${INPUT}" | grep  . | while read line
 do
-    code=$(echo "${line}" | cut -d' ' -f1)
-    value=$(echo "${line}" | cut -d' ' -f2- | sed 's/^ *//')
-    echo "      \"${code}\" : \"${value}\""
+    tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
+    osname=$(     echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f2)
+    echo "      \"${tag}\" : \"${osname}\""
+done
+
+echo "- lookup:"
+echo "    name: 'WindowsDesktopOSVersion'"
+echo "    map:"
+fgrep -v '#' "${INPUT}" | grep  . | while read line
+do
+    tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
+    osversion=$(  echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f3)
+    echo "      \"${tag}\" : \"${osversion}\""
+done
+
+echo "- lookup:"
+echo "    name: 'WindowsDesktopOSNameVersion'"
+echo "    map:"
+fgrep -v '#' "${INPUT}" | grep  . | while read line
+do
+    tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
+    osnameversion=$(  echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f4)
+    echo "      \"${tag}\" : \"${osnameversion}\""
+done
+
+echo "- lookup:"
+echo "    name: 'WindowsDesktopOSCpuBits'"
+echo "    map:"
+fgrep -v '#' "${INPUT}" | grep  . | while read line
+do
+    tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
+    cpubits=$(    echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f5)
+    if [ ! -z "${cpubits}" ];
+    then
+        echo "      \"${tag}\" : \"${cpubits}\""
+    fi
 done
 
 ) > ${OUTPUT}

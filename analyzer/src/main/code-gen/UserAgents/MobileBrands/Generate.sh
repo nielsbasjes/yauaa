@@ -13,18 +13,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+TARGETDIR="${SCRIPTDIR}/../../../resources/UserAgents"
 
 INPUT=MobileBrands.csv
-OUTPUT=../MobileBrands.yaml
+OUTPUT="${TARGETDIR}/MobileBrands.yaml"
 
 if [ "Generate.sh" -ot "${OUTPUT}" ]; then
     if [ "${INPUT}" -ot "${OUTPUT}" ]; then
-        echo "${OUTPUT} is up to date";
+        echo "Up to date: ${OUTPUT}";
         exit;
     fi
 fi
 
-echo "Generating ${OUTPUT}";
+echo "Generating: ${OUTPUT}";
 
 (
 echo "# ============================================="

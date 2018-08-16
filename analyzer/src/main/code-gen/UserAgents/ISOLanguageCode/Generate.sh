@@ -13,19 +13,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+TARGETDIR="${SCRIPTDIR}/../../../resources/UserAgents"
 
 INPUT1=ISOLanguageCodes.csv
 INPUT2=iso-639-3.tab
-OUTPUT=../ISOLanguageCode.yaml
+OUTPUT="${TARGETDIR}/ISOLanguageCode.yaml"
 
 if [ "Generate.sh" -ot "${OUTPUT}" ]; then
     if [ "${INPUT1}" -ot "${OUTPUT}" ] && [ "${INPUT2}" -ot "${OUTPUT}" ] ; then
-        echo "${OUTPUT} is up to date";
+        echo "Up to date: ${OUTPUT}";
         exit;
     fi
 fi
 
-echo "Generating ${OUTPUT}";
+echo "Generating: ${OUTPUT}";
 
 (
 echo "# ============================================="
