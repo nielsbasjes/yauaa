@@ -3,6 +3,7 @@ This is intended as an overview of the major changes
 v5.2
 ===
 - Added layout to web servlet.
+- Fixed shading of Guava
 
 v5.1
 ===
