@@ -12,6 +12,12 @@ A bit more background about this useragent parser can be found in this blog whic
 
 The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa.basjes.nl)
 
+IMPORTANT: Version 5.1 is bad.
+=========
+If you are using version 5.1 you should upgrade IMMEDIATELY to 5.2 because 5.1 crashes over specific useragent patterns caused by a simple packaging mistake.
+
+    Mozilla/1.2.3 (http://basjes.nl)
+
 Example output
 ==============
 As an example the useragent of my phone:
