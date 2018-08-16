@@ -19,7 +19,6 @@ package nl.basjes.parse.useragent.servlet;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -63,7 +62,7 @@ public class ParseService {
             initStartMoment = System.currentTimeMillis();
             new Thread(() -> {
                 try {
-                    userAgentAnalyzer = UserAgentAnalyzer.newBuilder().dropTests().hideMatcherLoadStats().build();
+                    userAgentAnalyzer = UserAgentAnalyzer.newBuilder().hideMatcherLoadStats().build();
                     userAgentAnalyzer.initializeMatchers();
                     userAgentAnalyzerIsAvailable = true;
                 } catch (Exception e){
