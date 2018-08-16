@@ -14,11 +14,10 @@ NEXTVERSION=5.3
 # Creating and publishing the new Tagging
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION}
 
-# Update the version number in all of the examples in the README*md files
-sed -i "s@<version>[0-9\.]*</version>@<version>${RELEASEVERSION}</version>@g" README*.md src/main/docs/*md
-git diff README*.md src/main/docs/*md
-gitbook build src/main/docs docs
-# OR: ( cd src ; ./generate-documentation-website.sh )
+# Update the version number in all of the examples in the generated documentation website.
+sed -i "s@YauaaVersion: \+\"[0-9\.]\+\"@YauaaVersion: \"${RELEASEVERSION}\"@g" src/book.js
+git diff src
+gitbook build ./src ./docs
 
 git status
 git commit -m"Version ${RELEASEVERSION}" -a
