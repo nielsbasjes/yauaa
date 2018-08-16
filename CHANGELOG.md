@@ -2,6 +2,7 @@ This is intended as an overview of the major changes
 
 v5.2
 ===
+- Documentation website generated with gitbook
 - Added layout to web servlet.
 - Fixed shading of Guava
 
