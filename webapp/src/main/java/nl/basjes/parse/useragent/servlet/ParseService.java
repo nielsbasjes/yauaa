@@ -66,7 +66,9 @@ public class ParseService {
                     userAgentAnalyzer.initializeMatchers();
                     userAgentAnalyzerIsAvailable = true;
                 } catch (Exception e){
-                    userAgentAnalyzerFailureMessage = e.getClass().getSimpleName() + ": " + e.getMessage();
+                    userAgentAnalyzerFailureMessage =
+                        e.getClass().getSimpleName() + "<br/>" +
+                        e.getMessage().replaceAll("\n", "<br/>");
                 }
                 isInitializing = false;
             }).start();
@@ -273,13 +275,20 @@ public class ParseService {
                     sb.append("<p class=\"notYetStarted\">It has been starting up for <u>").append(timeString).append("</u> seconds</p>");
                     sb.append("<p class=\"notYetStarted\">Anything between 5-15 seconds is normal.</p>");
                     sb.append("<p class=\"notYetStartedAppEngine\">On a free AppEngine 50 seconds is 'normal'.</p>");
+                    sb.append("</div>");
                 } else {
-                    sb.append("<div class=\"startupFailedBorder\">");
-                    sb.append("<p class=\"startupFailed\">The analyzer startup failed with this message</p>");
-                    sb.append("<p class=\"startupFailed\">").append(userAgentAnalyzerFailureMessage).append("</p>");
+                    sb.append("<div class=\"failureBorder\">");
+                    sb.append("<p class=\"failureContent\">The analyzer startup failed with this message</p>");
+                    sb.append("<p class=\"failureContent\">").append(userAgentAnalyzerFailureMessage).append("</p>");
+                    sb.append("</div>");
                 }
-                sb.append("</div>");
             }
+        } catch (Exception e) {
+            sb.append("<div class=\"failureBorder\">");
+            sb.append("<p class=\"failureContent\">An exception occurred during parsing</p>");
+            sb.append("<p class=\"failureContent\">Exception: ").append(e.getClass().getSimpleName()).append("</p>");
+            sb.append("<p class=\"failureContent\">Message: ").append(e.getMessage().replaceAll("\\n","<br/>")).append("</p>");
+            sb.append("</div>");
         } finally{
             long   stop              = System.nanoTime();
             double pageMilliseconds  = (stop - start) / 1000000.0;
