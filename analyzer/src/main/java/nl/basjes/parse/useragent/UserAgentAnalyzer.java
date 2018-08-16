@@ -82,8 +82,7 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
         return userAgent;
     }
 
-    @SuppressWarnings("unchecked")
-    public static UserAgentAnalyzerBuilder<? extends UserAgentAnalyzer, ? extends UserAgentAnalyzerBuilder> newBuilder() {
+    public static UserAgentAnalyzerBuilder<? extends UserAgentAnalyzer, ? extends UserAgentAnalyzerBuilder<?, ?>> newBuilder() {
         return new UserAgentAnalyzerBuilder<>(new UserAgentAnalyzer());
     }
 

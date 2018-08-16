@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent.analyze;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
+import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -30,25 +31,7 @@ import static org.junit.Assert.assertNotNull;
 // CHECKSTYLE.OFF: ParenPad
 public class TestBuilder {
 
-    @Test
-    public void testLimitedFields() {
-        UserAgentAnalyzer userAgentAnalyzer =
-            UserAgentAnalyzer
-                .newBuilder()
-                .preheat(100)
-                .preheat()
-                .withCache(42)
-                .withoutCache()
-                .hideMatcherLoadStats()
-                .showMatcherLoadStats()
-                .withAllFields()
-                .withField("DeviceClass")
-                .withField("AgentNameVersionMajor")
-                .withUserAgentMaxLength(1234)
-                .build();
-
-        assertEquals(1234, userAgentAnalyzer.getUserAgentMaxLength());
-
+    private void runTestCase(UserAgentAnalyzerDirect userAgentAnalyzer) {
         UserAgent parsedAgent = userAgentAnalyzer.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36");
 
@@ -79,6 +62,48 @@ public class TestBuilder {
         assertEquals(min1, parsedAgent.getConfidence("LayoutEngineNameVersionMajor" )); // Blink 53
         assertEquals(min1, parsedAgent.getConfidence("AgentClass"                   )); // Browser
         assertEquals(min1, parsedAgent.getConfidence("AgentNameVersion"             )); // Chrome 53.0.2785.124
+    }
+
+    @Test
+    public void testLimitedFieldsDirect() {
+        UserAgentAnalyzerDirect userAgentAnalyzer =
+            UserAgentAnalyzerDirect
+                .newBuilder()
+                .preheat(100)
+                .preheat()
+                .hideMatcherLoadStats()
+                .showMatcherLoadStats()
+                .withAllFields()
+                .withField("DeviceClass")
+                .withField("AgentNameVersionMajor")
+                .withUserAgentMaxLength(1234)
+                .build();
+
+        assertEquals(1234, userAgentAnalyzer.getUserAgentMaxLength());
+
+        runTestCase(userAgentAnalyzer);
+    }
+
+    @Test
+    public void testLimitedFields() {
+        UserAgentAnalyzer userAgentAnalyzer =
+            UserAgentAnalyzer
+                .newBuilder()
+                .preheat(100)
+                .preheat()
+                .withCache(42)
+                .withoutCache()
+                .hideMatcherLoadStats()
+                .showMatcherLoadStats()
+                .withAllFields()
+                .withField("DeviceClass")
+                .withField("AgentNameVersionMajor")
+                .withUserAgentMaxLength(1234)
+                .build();
+
+        assertEquals(1234, userAgentAnalyzer.getUserAgentMaxLength());
+
+        runTestCase(userAgentAnalyzer);
     }
 
     @Test

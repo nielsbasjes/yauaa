@@ -1124,6 +1124,10 @@ config:
 
     // ===============================================================================================================
 
+    public static UserAgentAnalyzerDirectBuilder<? extends UserAgentAnalyzer, ? extends UserAgentAnalyzerDirectBuilder<?, ?>> newBuilder() {
+        return new UserAgentAnalyzerDirectBuilder<>(new UserAgentAnalyzer());
+    }
+
     @SuppressWarnings("unchecked")
     public static class UserAgentAnalyzerDirectBuilder<UAA extends UserAgentAnalyzerDirect, B extends UserAgentAnalyzerDirectBuilder<UAA, B>> {
         private final UAA uaa;
