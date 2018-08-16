@@ -28,6 +28,8 @@ import org.yaml.snakeyaml.nodes.SequenceNode;
 
 import java.util.List;
 
+import static nl.basjes.parse.useragent.Version.getCopyright;
+import static nl.basjes.parse.useragent.Version.getLicense;
 import static nl.basjes.parse.useragent.utils.YamlUtils.fail;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getExactlyOneNodeTuple;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
@@ -44,7 +46,7 @@ public final class YauaaVersion {
     public static void logVersion(String... extraLines) {
         String[] lines = {
             "For more information: https://github.com/nielsbasjes/yauaa",
-            "Copyright (C) 2013-2018 Niels Basjes - License Apache 2.0"
+            getCopyright() + " - " + getLicense()
         };
         String version = getVersion();
         int width = version.length();
@@ -118,6 +120,10 @@ public final class YauaaVersion {
                     break;
                 case "project_version":
                     projectVersion = value;
+                    break;
+                case "copyright":
+                case "license":
+                    // Ignore those two when comparing.
                     break;
                 default:
                     throw new InvalidParserConfigurationException(

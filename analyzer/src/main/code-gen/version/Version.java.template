@@ -19,20 +19,24 @@ package nl.basjes.parse.useragent;
 
 public final class Version {
 
-    private static final String git_commit_id_describe_short  = "@git.commit.id.describe-short@";
-    private static final String build_timestamp               = "@maven.build.timestamp@";
-    private static final String project_version               = "@project.version@";
-
     public static String getGitCommitIdDescribeShort() {
-        return git_commit_id_describe_short;
+        return "@git.commit.id.describe-short@";
     }
 
     public static String getBuildTimestamp() {
-        return build_timestamp;
+        return "@maven.build.timestamp@";
     }
 
     public static String getProjectVersion() {
-        return project_version;
+        return "@project.version@";
+    }
+
+    public static String getCopyright() {
+        return "@version.copyright@";
+    }
+
+    public static String getLicense() {
+        return "@version.license@";
     }
 
 }

@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.servlet;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -49,22 +50,43 @@ import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 @RestController
 public class ParseService {
 
-    private static UserAgentAnalyzer userAgentAnalyzer              = null;
-    private static boolean           isInitializing                 = false;
+    private static UserAgentAnalyzer userAgentAnalyzer               = null;
+    private static boolean           isInitializing                  = false;
     private static long              initStartMoment;
-    private static boolean           userAgentAnalyzerIsAvailable   = false;
-    private static final String      ANALYZER_VERSION               = UserAgentAnalyzer.getVersion();
+    private static boolean           userAgentAnalyzerIsAvailable    = false;
+    private static String            userAgentAnalyzerFailureMessage = null;
+    private static final String      ANALYZER_VERSION                = UserAgentAnalyzer.getVersion();
 
     private static synchronized void ensureStarted() {
-        if (!isInitializing) {
+        if (!isInitializing && !userAgentAnalyzerIsAvailable && userAgentAnalyzerFailureMessage == null) {
             isInitializing = true;
             initStartMoment = System.currentTimeMillis();
             new Thread(() -> {
-                userAgentAnalyzer = UserAgentAnalyzer.newBuilder().dropTests().hideMatcherLoadStats().build();
-                userAgentAnalyzer.initializeMatchers();
-                userAgentAnalyzerIsAvailable = true;
+                try {
+                    userAgentAnalyzer = UserAgentAnalyzer.newBuilder().dropTests().hideMatcherLoadStats().build();
+                    userAgentAnalyzer.initializeMatchers();
+                    userAgentAnalyzerIsAvailable = true;
+                } catch (Exception e){
+                    userAgentAnalyzerFailureMessage = e.getClass().getSimpleName() + ": " + e.getMessage();
+                }
+                isInitializing = false;
             }).start();
         }
+    }
+
+    private static final long MEGABYTE = 1024L * 1024L;
+
+    public static long bytesToMegabytes(long bytes) {
+        return bytes / MEGABYTE;
+    }
+
+    private static String getMemoryUsage() {
+        // Get the Java runtime
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        // Calculate the used memory
+        long memory = runtime.totalMemory() - runtime.freeMemory();
+        return String.format("Used memory is %d MiB", bytesToMegabytes(memory));
     }
 
     @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED, reason = "The User-Agent header is missing")
@@ -132,7 +154,9 @@ public class ParseService {
             sb.append("<meta name=viewport content=\"width=device-width, initial-scale=1\">");
             insertFavIcons(sb);
             sb.append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
-            if (!userAgentAnalyzerIsAvailable) {
+
+            // While initializing automatically reload the page.
+            if (isInitializing) {
                 sb.append("<meta http-equiv=\"refresh\" content=\"1\" >");
             }
             sb.append("<link rel=\"stylesheet\" href=\"style.css\">");
@@ -241,11 +265,21 @@ public class ParseService {
                 sb.append("<hr/>");
             } else {
                 long now = System.currentTimeMillis();
-                sb.append("<p class=\"notYetStarted\">The analyzer is currently starting up.<br/>");
-                sb.append("It has been starting up for ").append(now - initStartMoment).append("ms<br/>");
-                sb.append("Anything between 3000-30000 ms (i.e. 3-30 seconds) is normal.</p>");
-                // TODO: Spinner
-                // TODO: Reload every 5 seconds.
+                long millisBusy = now - initStartMoment;
+                String timeString = String.format("%3.1f", ((double)millisBusy/1000.0));
+
+                if (userAgentAnalyzerFailureMessage == null) {
+                    sb.append("<div class=\"notYetStartedBorder\">");
+                    sb.append("<p class=\"notYetStarted\">The analyzer is currently starting up.</p>");
+                    sb.append("<p class=\"notYetStarted\">It has been starting up for <u>").append(timeString).append("</u> seconds</p>");
+                    sb.append("<p class=\"notYetStarted\">Anything between 5-15 seconds is normal.</p>");
+                    sb.append("<p class=\"notYetStartedAppEngine\">On a free AppEngine 50 seconds is 'normal'.</p>");
+                } else {
+                    sb.append("<div class=\"startupFailedBorder\">");
+                    sb.append("<p class=\"startupFailed\">The analyzer startup failed with this message</p>");
+                    sb.append("<p class=\"startupFailed\">").append(userAgentAnalyzerFailureMessage).append("</p>");
+                }
+                sb.append("</div>");
             }
         } finally{
             long   stop              = System.nanoTime();
@@ -257,6 +291,9 @@ public class ParseService {
             sb.append("<p class=\"speed\">Parsing took ")
                 .append(String.format(Locale.ENGLISH, "%3.3f", parseMilliseconds))
                 .append(" ms.</p>");
+
+            sb.append("<p class=\"speed\">").append(getMemoryUsage()).append("</p>");
+
             sb.append("<p class=\"copyright\">Copyright (C) 2013-2018 <a href=\"https://niels.basjes.nl\">Niels Basjes</a></p>");
             sb.append("</body>");
             sb.append("</html>");
