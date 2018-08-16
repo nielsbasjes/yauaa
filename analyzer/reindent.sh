@@ -15,6 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 sed -i "
 s@^  *\([\"a-zA-Z_]\)@      \1@
@@ -34,5 +35,5 @@ s@^\(    \+[A-Z][a-zA-Z]\+\) \+:@\1                                             
 s@^\(    \+[A-Z][a-zA-Z ]\{36\}\) \+:@\1:@
 s@^  \+\(- '[A-Z][a-zA-Z]\+\) *: *\([0-9]\+\) *:@    \1                                                :            \2:@g
 s@^  \+\(- '[A-Z][a-zA-Z ]\{34\}\) *: *\([0-9 ]\{6\}\) *:@    \1 : \2 :@g
- " ./*.yaml
+ " "${DIR}/src/main/resources/UserAgents/"*.yaml
 
