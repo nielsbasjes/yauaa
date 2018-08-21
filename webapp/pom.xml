@@ -36,7 +36,6 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <appengine.maven.plugin>1.3.1</appengine.maven.plugin>
-    <spring.version>2.0.3.RELEASE</spring.version>
     <main.class>nl.basjes.parse.useragent.servlet.ParseService</main.class>
 
     <docker.image.prefix>nl.basjes</docker.image.prefix>
@@ -46,7 +45,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <version>${spring.version}</version>
+      <version>${spring-boot.version}</version>
     </dependency>
 
     <dependency>
@@ -58,7 +57,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
-      <version>${spring.version}</version>
+      <version>${spring-boot.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -83,7 +82,7 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring.version}</version>
+        <version>${spring-boot.version}</version>
         <configuration>
           <mainClass>${main.class}</mainClass>
         </configuration>
