@@ -108,33 +108,6 @@ config:
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (PlayBook; U; RIM Tablet OS 2.1.0; en-US) AppleWebKit/536.2+ (KHTML, like Gecko) Version/7.2.1.0 Safari/536.2+'
-    expected:
-      DeviceClass                          : 'Tablet'
-      DeviceName                           : 'BlackBerry PlayBook'
-      DeviceBrand                          : 'BlackBerry'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'RIM Tablet OS'
-      OperatingSystemVersion               : '2.1.0'
-      OperatingSystemNameVersion           : 'RIM Tablet OS 2.1.0'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '536.2'
-      LayoutEngineVersionMajor             : '536'
-      LayoutEngineNameVersion              : 'AppleWebKit 536.2'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Safari'
-      AgentVersion                         : '7.2.1.0'
-      AgentVersionMajor                    : '7'
-      AgentNameVersion                     : 'Safari 7.2.1.0'
-      AgentNameVersionMajor                : 'Safari 7'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      AgentSecurity                        : 'Strong security'
-
-- test:
-    input:
       user_agent_string: 'Mozilla/5.0 (BB10; Touch) AppleWebKit/537.35+ (KHTML, like Gecko) Version/10.2.1.3442 Mobile Safari/537.35+'
     expected:
       DeviceClass                          : 'Phone'

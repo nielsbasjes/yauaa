@@ -22,12 +22,17 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class TestPredefinedBrowsers {
 
@@ -76,5 +81,41 @@ public class TestPredefinedBrowsers {
         validateAllPredefinedBrowsersMultipleFields(fields);
     }
 
+    @Test
+    public void makeSureWeDoNotHaveDuplicateTests() {
+        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester.newBuilder().build();
 
+        Map<String, List<String>> allTestInputs = new HashMap<>(2000);
+        Set<String> duplicates = new HashSet<>();
+        for (Map<String, Map<String, String>> testCase: uaa.getAllTestCases()) {
+            String input = testCase.get("input").get("user_agent_string");
+            String location = testCase.get("metaData").get("filename") + ":" + testCase.get("metaData").get("fileline");
+            List<String> locations = allTestInputs.get(input);
+            if (locations == null) {
+                locations = new ArrayList<>();
+            }
+            locations.add(location);
+
+            if (locations.size()>1) {
+                duplicates.add(input);
+            }
+            allTestInputs.put(input, locations);
+        }
+
+        if (duplicates.size() == 0) {
+            return; // We're done and all is fine.
+        }
+
+        StringBuilder sb = new StringBuilder(1024);
+        for (String duplicate: duplicates) {
+            sb
+                .append("======================================================\n")
+                .append("Testcase > ").append(duplicate).append("\n");
+            int count = 0;
+            for (String location: allTestInputs.get(duplicate)) {
+                sb.append(">Location ").append(++count).append(".(").append(location).append(")\n");
+            }
+        }
+        fail("Found "+ duplicates.size()+ " testcases multiple times: \n" + sb.toString());
+    }
 }

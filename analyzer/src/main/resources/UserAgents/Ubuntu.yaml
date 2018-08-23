@@ -847,38 +847,6 @@ config:
       AgentLanguageCode                    : 'en'
 
 
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu-feisty)'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Linux Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel i686'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Ubuntu'
-      OperatingSystemVersion               : '7.04'
-      OperatingSystemNameVersion           : 'Ubuntu 7.04'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '12.3'
-      LayoutEngineVersionMajor             : '12'
-      LayoutEngineNameVersion              : 'Gecko 12.3'
-      LayoutEngineNameVersionMajor         : 'Gecko 12'
-      LayoutEngineBuild                    : '2000000000'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '8.8.8'
-      AgentVersionMajor                    : '8'
-      AgentNameVersion                     : 'Firefox 8.8.8'
-      AgentNameVersionMajor                : 'Firefox 8'
-      AgentLanguage                        : 'English'
-      AgentLanguageCode                    : 'en'
-
-
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu package 1.0.2)'
@@ -907,6 +875,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
+
 
 - test:
     input:
@@ -994,36 +963,6 @@ config:
       AgentVersionMajor                    : '8'
       AgentNameVersion                     : 'Firefox 8.8.8'
       AgentNameVersionMajor                : 'Firefox 8'
-      AgentLanguage                        : 'English'
-      AgentLanguageCode                    : 'en'
-
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Kubuntu/8.10 (intrepid) Minefield/3.2a1'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Linux Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel i686'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Kubuntu'
-      OperatingSystemVersion               : '8.10'
-      OperatingSystemNameVersion           : 'Kubuntu 8.10'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '12.3'
-      LayoutEngineVersionMajor             : '12'
-      LayoutEngineNameVersion              : 'Gecko 12.3'
-      LayoutEngineNameVersionMajor         : 'Gecko 12'
-      LayoutEngineBuild                    : '2000000000'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Minefield'
-      AgentVersion                         : '3.2a1'
-      AgentVersionMajor                    : '3'
-      AgentNameVersion                     : 'Minefield 3.2a1'
-      AgentNameVersionMajor                : 'Minefield 3'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
 

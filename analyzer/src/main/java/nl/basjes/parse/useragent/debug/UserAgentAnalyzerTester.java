@@ -55,6 +55,10 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         long confidence;
     }
 
+    public List<Map<String, Map<String, String>>> getAllTestCases() {
+        return testCases;
+    }
+
     /**
      * Run all the test_cases available.
      *

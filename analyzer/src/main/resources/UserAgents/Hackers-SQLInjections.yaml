@@ -248,11 +248,6 @@ config:
 
 - test:
     input:
-      user_agent_string: '(CASE WHEN 8578=7618 THEN 8578 ELSE NULL END)'
-    expected: *isSQLInjection
-
-- test:
-    input:
       user_agent_string: 'or 1=1--'
     expected: *isSQLInjection
 
@@ -474,11 +469,6 @@ config:
 - test:
     input:
       user_agent_string: '(SELECT (CASE WHEN (9814=1041) THEN CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(47)+CHAR(49)+CHAR(46)+CHAR(48)+CHAR(45)+CHAR(100)+CHAR(101)+CHAR(118)+CHAR(45)+CHAR(110)+CHAR(111)+CHAR(110)+CHAR(103)+CHAR(105)+CHAR(116)+CHAR(45)+CHAR(50)+CHAR(48)+CHAR(49)+CHAR(53)+CHAR(48)+CHAR(57)+CHAR(48)+CHAR(57)+CHAR(32)+CHAR(40)+CHAR(104)+CHAR(116)+CHAR(116)+CHAR(112)+CHAR(58)+CHAR(47)+CHAR(47)+CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(46)+CHAR(111)+CHAR(114)+CHAR(103)+CHAR(41) ELSE 9814*(SELECT 9814 FROM master..sysdatabases) END))'
-    expected: *isSQLInjection
-
-- test:
-    input:
-      user_agent_string: '(select convert(int,CHAR(65)))'
     expected: *isSQLInjection
 
 - test:

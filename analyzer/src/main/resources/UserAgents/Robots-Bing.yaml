@@ -533,30 +533,6 @@ config:
       AgentNameVersionMajor                : 'adidxbot 2'
       AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
 
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 530) like Gecko (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
-    expected:
-      DeviceClass                          : 'Robot Mobile'
-      DeviceName                           : 'Microsoft BingBot'
-      DeviceBrand                          : 'Microsoft'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Microsoft Cloud'
-      OperatingSystemVersion               : 'Microsoft Azure'
-      OperatingSystemNameVersion           : 'Microsoft Azure'
-      LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'Bingbot'
-      LayoutEngineVersion                  : '2.0'
-      LayoutEngineVersionMajor             : '2'
-      LayoutEngineNameVersion              : 'Bingbot 2.0'
-      LayoutEngineNameVersionMajor         : 'Bingbot 2'
-      AgentClass                           : 'Robot'
-      AgentName                            : 'Bingbot'
-      AgentVersion                         : '2.0'
-      AgentVersionMajor                    : '2'
-      AgentNameVersion                     : 'Bingbot 2.0'
-      AgentNameVersionMajor                : 'Bingbot 2'
-      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
 
 # BingPreview is used to generate page snapshots.
 
@@ -575,12 +551,6 @@ config:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53 BingPreview/1.0b'
     expected: *isBingPreviewMobile
 
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 530) like Gecko BingPreview/1.0b'
-    expected: *isBingPreviewMobile
-
-
 # ====================================================================================
 # Additional test cases
 
@@ -597,11 +567,6 @@ config:
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.11067 BingPreview/1.0b'
-    expected: *isBingPreview
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) BingPreview/1.0b'
     expected: *isBingPreview
 
 - test:

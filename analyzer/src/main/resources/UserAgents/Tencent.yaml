@@ -518,34 +518,6 @@ config:
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; SM801 Build/LMY47V; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.49 Mobile MQQBrowser/6.2 TBS/043024 Safari/537.36 MicroMessenger/6.5.4.1000 NetType/4G Language/zh_CN'
-    expected:
-      DeviceClass                          : 'Phone'
-      DeviceName                           : 'Smartisan SM801'
-      DeviceBrand                          : 'Smartisan'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '5.1.1'
-      OperatingSystemNameVersion           : 'Android 5.1.1'
-      OperatingSystemVersionBuild          : 'LMY47V'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '53.0'
-      LayoutEngineVersionMajor             : '53'
-      LayoutEngineNameVersion              : 'Blink 53.0'
-      LayoutEngineNameVersionMajor         : 'Blink 53'
-      AgentClass                           : 'Mobile App'
-      AgentName                            : 'WeChat'
-      AgentVersion                         : '6.5.4.1000'
-      AgentVersionMajor                    : '6'
-      AgentNameVersion                     : 'WeChat 6.5.4.1000'
-      AgentNameVersionMajor                : 'WeChat 6'
-      AgentLanguage                        : 'Chinese (S)'
-      AgentLanguageCode                    : 'zh-cn'
-      NetworkType                          : '4G'
-
-- test:
-    input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_4 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13G35 QQ/6.5.3.410 V1_IPH_SQ_6.5.3_1_APP_A Pixel/750 Core/UIWebView NetType/2G Mem/117'
     expected:
       DeviceClass                          : 'Phone'
@@ -570,6 +542,7 @@ config:
       AgentNameVersion                     : 'QQ Client 6.5.3.410'
       AgentNameVersionMajor                : 'QQ Client 6'
       NetworkType                          : '2G'
+
 
 - test:
     input:

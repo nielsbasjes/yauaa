@@ -472,31 +472,6 @@ config:
       AgentNameVersion                     : 'Firefox 18.0'
       AgentNameVersionMajor                : 'Firefox 18'
 
-#Firefox OS tablets:
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Tablet; rv:29.0) Gecko/29.0 Firefox/29.0'
-    expected:
-      DeviceClass                          : 'Tablet'
-      DeviceName                           : 'Unknown'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Firefox OS'
-      OperatingSystemVersion               : '29.0'
-      OperatingSystemNameVersion           : 'Firefox OS 29.0'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '29.0'
-      LayoutEngineVersionMajor             : '29'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '29.0'
-      AgentVersionMajor                    : '29'
-      AgentNameVersion                     : 'Firefox 29.0'
-      AgentNameVersionMajor                : 'Firefox 29'
-      LayoutEngineBuild                    : '29.0'
-      LayoutEngineNameVersion              : 'Gecko 29.0'
-      LayoutEngineNameVersionMajor         : 'Gecko 29'
 
 # With Firefox OS we see that if there are exactly 3 entries in the comment the middle one is the name of the device.
 - matcher:
