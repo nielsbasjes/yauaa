@@ -102,6 +102,7 @@ config:
       AgentNameVersionMajor                : 'appname 1appversion'
 
 #Firefox for iOS user agent string
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#Firefox_for_iOS
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (iPod touch; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) FxiOS/1.0 Mobile/12F69 Safari/600.1.4'
@@ -122,11 +123,202 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Firefox for iOS'
+      AgentName                            : 'Firefox'
       AgentVersion                         : '1.0'
       AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'Firefox for iOS 1.0'
-      AgentNameVersionMajor                : 'Firefox for iOS 1'
+      AgentNameVersion                     : 'Firefox 1.0'
+      AgentNameVersionMajor                : 'Firefox 1'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPad; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) FxiOS/1.0 Mobile/12F69 Safari/600.1.4'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '12F69'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '8.3'
+      OperatingSystemNameVersion           : 'iOS 8.3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '600.1.4'
+      LayoutEngineVersionMajor             : '600'
+      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Firefox 1.0'
+      AgentNameVersionMajor                : 'Firefox 1'
+
+#-----------------------------------------------
+# http://miketaylr.github.io/arewedetectableyet
+#-----------------------------------------------
+#Firefox OS
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Mobile; rv:18.1) Gecko/18.1 Firefox/18.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Firefox OS'
+      OperatingSystemVersion               : '1.1'
+      OperatingSystemNameVersion           : 'Firefox OS 1.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '18.1'
+      LayoutEngineVersionMajor             : '18'
+      LayoutEngineNameVersion              : 'Gecko 18.1'
+      LayoutEngineNameVersionMajor         : 'Gecko 18'
+      LayoutEngineBuild                    : '18.1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '18.1'
+      AgentVersionMajor                    : '18'
+      AgentNameVersion                     : 'Firefox 18.1'
+      AgentNameVersionMajor                : 'Firefox 18'
+
+
+#Firefox OS (Fireweb)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Mobile; LG-D300; rv:18.1) Gecko/18.1 Firefox/18.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'LG D300'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Firefox OS'
+      OperatingSystemVersion               : '1.1'
+      OperatingSystemNameVersion           : 'Firefox OS 1.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '18.1'
+      LayoutEngineVersionMajor             : '18'
+      LayoutEngineNameVersion              : 'Gecko 18.1'
+      LayoutEngineNameVersionMajor         : 'Gecko 18'
+      LayoutEngineBuild                    : '18.1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '18.1'
+      AgentVersionMajor                    : '18'
+      AgentNameVersion                     : 'Firefox 18.1'
+      AgentNameVersionMajor                : 'Firefox 18'
+
+
+#Firefox OS Tablet
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Tablet; rv:29.0) Gecko/29.0 Firefox/29.0'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Firefox OS'
+      OperatingSystemVersion               : '29.0'
+      OperatingSystemNameVersion           : 'Firefox OS 29.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '29.0'
+      LayoutEngineVersionMajor             : '29'
+      LayoutEngineNameVersion              : 'Gecko 29.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 29'
+      LayoutEngineBuild                    : '29.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '29.0'
+      AgentVersionMajor                    : '29'
+      AgentNameVersion                     : 'Firefox 29.0'
+      AgentNameVersionMajor                : 'Firefox 29'
+
+
+#Firefox for Android
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Android; Mobile; rv:26.0) Gecko/26.0 Firefox/26.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '26.0'
+      LayoutEngineVersionMajor             : '26'
+      LayoutEngineNameVersion              : 'Gecko 26.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 26'
+      LayoutEngineBuild                    : '26.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '26.0'
+      AgentVersionMajor                    : '26'
+      AgentNameVersion                     : 'Firefox 26.0'
+      AgentNameVersionMajor                : 'Firefox 26'
+
+
+#Firefox for Android Tablet
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Android; Tablet; rv:26.0) Gecko/26.0 Firefox/26.0'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '26.0'
+      LayoutEngineVersionMajor             : '26'
+      LayoutEngineNameVersion              : 'Gecko 26.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 26'
+      LayoutEngineBuild                    : '26.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '26.0'
+      AgentVersionMajor                    : '26'
+      AgentNameVersion                     : 'Firefox 26.0'
+      AgentNameVersionMajor                : 'Firefox 26'
+
+
+#Firefox for iOS
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) FxiOS/1.0 Mobile/12F69 Safari/600.1.4'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '12F69'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '8.3'
+      OperatingSystemNameVersion           : 'iOS 8.3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '600.1.4'
+      LayoutEngineVersionMajor             : '600'
+      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Firefox 1.0'
+      AgentNameVersionMajor                : 'Firefox 1'
 
 - matcher:
     extract:
@@ -134,7 +326,7 @@ config:
     - 'LayoutEngineName                    :   1000 :"AppleWebKit"'
     - 'LayoutEngineVersion                 :   1000 :agent.product.(1)name="AppleWebKit"^.version'
     - 'AgentClass                          :   1000 :"Browser"'
-    - 'AgentName                           :   1000 :"Firefox for iOS"'
+    - 'AgentName                           :   1000 :"Firefox"'
     - 'AgentVersion                        :   1000 :agent.product.(1)name="FxiOS"^.version'
 
 #====================================================================================
@@ -362,31 +554,6 @@ config:
       DeviceClass                          : 'Phone'
       DeviceName                           : 'Huawei Y300-F1'
       DeviceBrand                          : 'Huawei'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Firefox OS'
-      OperatingSystemVersion               : '1.1'
-      OperatingSystemNameVersion           : 'Firefox OS 1.1'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '18.1'
-      LayoutEngineVersionMajor             : '18'
-      LayoutEngineNameVersion              : 'Gecko 18.1'
-      LayoutEngineNameVersionMajor         : 'Gecko 18'
-      LayoutEngineBuild                    : '18.1'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '18.1'
-      AgentVersionMajor                    : '18'
-      AgentNameVersion                     : 'Firefox 18.1'
-      AgentNameVersionMajor                : 'Firefox 18'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Mobile; LG-D300; rv:18.1) Gecko/18.1 Firefox/18.1'
-    expected:
-      DeviceClass                          : 'Phone'
-      DeviceName                           : 'LG D300'
-      DeviceBrand                          : 'LG'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Firefox OS'
       OperatingSystemVersion               : '1.1'
