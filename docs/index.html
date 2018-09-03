@@ -492,8 +492,10 @@
 <p>A bit more background about this useragent parser can be found in this blog which I wrote about it: <a href="https://partnerprogramma.bol.com/click/click?p=1&amp;t=url&amp;s=2171&amp;f=TXL&amp;url=https%3A%2F%2Ftechlab.bol.com%2Fmaking-sense-user-agent-string%2F&amp;name=yauaa" target="_blank">https://techlab.bol.com/making-sense-user-agent-string/</a></p>
 <h1 id="example-output">Example output</h1>
 <p>As an example the useragent of my phone:</p>
-<pre><code>Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
-</code></pre><p>is converted into this set of fields:</p>
+<blockquote>
+<p>Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36</p>
+</blockquote>
+<p>is converted into this set of fields:</p>
 <table>
 <thead>
 <tr>
@@ -503,84 +505,84 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>Device</strong>Class</td>
-<td>&apos;Phone&apos;</td>
+<td><strong>Device</strong> Class</td>
+<td>Phone</td>
 </tr>
 <tr>
-<td><strong>Device</strong>Name</td>
-<td>&apos;Google Nexus 6&apos;</td>
+<td><strong>Device</strong> Name</td>
+<td>Google Nexus 6</td>
 </tr>
 <tr>
-<td><strong>Device</strong>Brand</td>
-<td>&apos;Google&apos;</td>
+<td><strong>Device</strong> Brand</td>
+<td>Google</td>
 </tr>
 <tr>
-<td><strong>OperatingSystem</strong>Class</td>
-<td>&apos;Mobile&apos;</td>
+<td><strong>Operating System</strong> Class</td>
+<td>Mobile</td>
 </tr>
 <tr>
-<td><strong>OperatingSystem</strong>Name</td>
-<td>&apos;Android&apos;</td>
+<td><strong>Operating System</strong> Name</td>
+<td>Android</td>
 </tr>
 <tr>
-<td><strong>OperatingSystem</strong>Version</td>
-<td>&apos;7.0&apos;</td>
+<td><strong>Operating System</strong> Version</td>
+<td>7.0</td>
 </tr>
 <tr>
-<td><strong>OperatingSystem</strong>NameVersion</td>
-<td>&apos;Android 7.0&apos;</td>
+<td><strong>Operating System</strong> Name Version</td>
+<td>Android 7.0</td>
 </tr>
 <tr>
-<td><strong>OperatingSystem</strong>VersionBuild</td>
-<td>&apos;NBD90Z&apos;</td>
+<td><strong>Operating System</strong> Version Build</td>
+<td>NBD90Z</td>
 </tr>
 <tr>
-<td><strong>LayoutEngine</strong>Class</td>
-<td>&apos;Browser&apos;</td>
+<td><strong>Layout Engine</strong> Class</td>
+<td>Browser</td>
 </tr>
 <tr>
-<td><strong>LayoutEngine</strong>Name</td>
-<td>&apos;Blink&apos;</td>
+<td><strong>Layout Engine</strong> Name</td>
+<td>Blink</td>
 </tr>
 <tr>
-<td><strong>LayoutEngine</strong>Version</td>
-<td>&apos;53.0&apos;</td>
+<td><strong>Layout Engine</strong> Version</td>
+<td>53.0</td>
 </tr>
 <tr>
-<td><strong>LayoutEngine</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
+<td><strong>Layout Engine</strong> Version Major</td>
+<td>53</td>
 </tr>
 <tr>
-<td><strong>LayoutEngine</strong>NameVersion</td>
-<td>&apos;Blink 53.0&apos;</td>
+<td><strong>Layout Engine</strong> Name Version</td>
+<td>Blink 53.0</td>
 </tr>
 <tr>
-<td><strong>LayoutEngine</strong>NameVersionMajor</td>
-<td>&apos;Blink 53&apos;</td>
+<td><strong>Layout Engine</strong> Name Version Major</td>
+<td>Blink 53</td>
 </tr>
 <tr>
-<td><strong>Agent</strong>Class</td>
-<td>&apos;Browser&apos;</td>
+<td><strong>Agent</strong> Class</td>
+<td>Browser</td>
 </tr>
 <tr>
-<td><strong>Agent</strong>Name</td>
-<td>&apos;Chrome&apos;</td>
+<td><strong>Agent</strong> Name</td>
+<td>Chrome</td>
 </tr>
 <tr>
-<td><strong>Agent</strong>Version</td>
-<td>&apos;53.0.2785.124&apos;</td>
+<td><strong>Agent</strong> Version</td>
+<td>53.0.2785.124</td>
 </tr>
 <tr>
-<td><strong>Agent</strong>VersionMajor</td>
-<td>&apos;53&apos;</td>
+<td><strong>Agent</strong> Version Major</td>
+<td>53</td>
 </tr>
 <tr>
-<td><strong>Agent</strong>NameVersion</td>
-<td>&apos;Chrome 53.0.2785.124&apos;</td>
+<td><strong>Agent</strong> Name Version</td>
+<td>Chrome 53.0.2785.124</td>
 </tr>
 <tr>
-<td><strong>Agent</strong>NameVersionMajor</td>
-<td>&apos;Chrome 53&apos;</td>
+<td><strong>Agent</strong> Name Version Major</td>
+<td>Chrome 53</td>
 </tr>
 </tbody>
 </table>
@@ -650,7 +652,7 @@ limitations under the License.
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"The output to expect","level":"1.2","depth":1,"path":"README-Output.md","ref":"README-Output.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.2"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README.md","mtime":"2018-08-16T18:08:16.049Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-16T18:19:01.407Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"The output to expect","level":"1.2","depth":1,"path":"README-Output.md","ref":"README-Output.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.2"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README.md","mtime":"2018-09-03T09:32:41.740Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-03T09:32:57.861Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
