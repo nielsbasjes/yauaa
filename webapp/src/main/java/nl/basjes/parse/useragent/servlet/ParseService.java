@@ -155,6 +155,7 @@ public class ParseService {
             sb.append("<meta name=viewport content=\"width=device-width, initial-scale=1\">");
             insertFavIcons(sb);
             sb.append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
+            sb.append("<meta name=\"theme-color\" content=\"dodgerblue\" />");
 
             // While initializing automatically reload the page.
             if (isInitializing) {
@@ -317,7 +318,6 @@ public class ParseService {
         sb.append("<link rel=\"mask-icon\" href=\"/safari-pinned-tab.svg\" color=\"#5bbad5\">");
         sb.append("<meta name=\"msapplication-TileColor\" content=\"#2d89ef\">");
         sb.append("<meta name=\"msapplication-TileImage\" content=\"/mstile-144x144.png\">");
-        sb.append("<meta name=\"theme-color\" content=\"#ffffff\">");
     }
 
     private Pair<String, String> prefixSplitter(String input) {
