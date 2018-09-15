@@ -2245,3 +2245,31 @@ config:
       AgentVersionMajor                    : '@PKGVER@'
       AgentNameVersion                     : 'Firefox @PKGVER@'
       AgentNameVersionMajor                : 'Firefox @PKGVER@'
+
+# Deliberately modified to ensure having too many spaces still works
+- test:
+    input:
+      user_agent_string: 'Mozilla    /    5.0      (      Linux      ;         Android         7.1.1         ;         Nexus            6         Build       /          N6F27M         )            AppleWebKit / 537.36   (KHTML,   like   Gecko)   Chrome / 66.0.3359.181   YaBrowser / 18.6.0.683.00   Mobile   Safari / 537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemVersionBuild          : 'N6F27M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '66.0'
+      LayoutEngineVersionMajor             : '66'
+      LayoutEngineNameVersion              : 'Blink 66.0'
+      LayoutEngineNameVersionMajor         : 'Blink 66'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'YaBrowser'
+      AgentVersion                         : '18.6.0.683.00'
+      AgentVersionMajor                    : '18'
+      AgentNameVersion                     : 'YaBrowser 18.6.0.683.00'
+      AgentNameVersionMajor                : 'YaBrowser 18'
+
+

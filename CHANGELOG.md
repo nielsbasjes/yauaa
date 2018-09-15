@@ -1,5 +1,10 @@
 This is intended as an overview of the major changes
 
+v5.3
+===
+- Detect Iron browser
+- Handle the 'too many spaces' effect.
+
 v5.2
 ===
 - Documentation website generated with gitbook

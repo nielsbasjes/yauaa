@@ -28,6 +28,8 @@ public final class EvilManualUseragentStringHacks {
         Pattern.compile("^\\(( |;|null|compatible|windows|android|linux).*", Pattern.CASE_INSENSITIVE);
     private static final Pattern MISSING_SPACE =
         Pattern.compile("(/[0-9]+\\.[0-9]+)([A-Z][a-z][a-z][a-z]+ )");
+    private static final Pattern MULTIPLE_SPACES =
+        Pattern.compile("(?: {2,})");
 
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
@@ -41,6 +43,8 @@ public final class EvilManualUseragentStringHacks {
             return useragent;
         }
         String result = useragent;
+
+        result = MULTIPLE_SPACES .matcher(result).replaceAll(" ");
 
         if (result.charAt(0) == ' ') {
             result = result.trim();

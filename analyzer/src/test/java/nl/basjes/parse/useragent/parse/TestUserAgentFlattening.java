@@ -49,9 +49,9 @@ public class TestUserAgentFlattening {
         // Special case with multiple spaces between words
         validateUserAgent(
             "one two  three   four/1"
-            ,"agent=\"one two  three   four/1\""
-            ,"agent.(1)product=\"one two  three   four/1\""
-            ,"agent.(1)product.(1)name=\"one two  three   four\""
+            ,"agent=\"one two three four/1\""
+            ,"agent.(1)product=\"one two three four/1\""
+            ,"agent.(1)product.(1)name=\"one two three four\""
             ,"agent.(1)product.(1)version=\"1\""
         );
 
