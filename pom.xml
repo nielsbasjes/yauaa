@@ -364,17 +364,17 @@
             <exclude>*.patch</exclude>
             <exclude>*.diff</exclude>
             <!-- Documentation -->
-            <exclude>**/src/**</exclude>
-            <exclude>**/docs/**</exclude>
+            <exclude>src/**</exclude>
+            <exclude>docs/**</exclude>
             <!-- Files that cannot be 'polluted' -->
             <exclude>udfs/drill/function/src/main/resources/drill-module.conf</exclude>
             <exclude>examples/pig/testcases.txt</exclude>
             <exclude>**/src/main/resources/META-INF/services/org.apache.nifi.processor.Processor</exclude>
             <!-- Files from external sources -->
-            <exclude>**/analyzer/src/main/resources/UserAgents/AppleTypes/*.csv</exclude>
-            <exclude>**/analyzer/src/main/resources/UserAgents/ISOLanguageCode/*.tab</exclude>
-            <exclude>**/analyzer/src/main/resources/UserAgents/ISOLanguageCode/*.csv</exclude>
-            <exclude>**/analyzer/src/main/resources/UserAgents/ISOLanguageCode/*.md</exclude>
+            <exclude>**/analyzer/src/main/code-gen/UserAgents/AppleTypes/*.csv</exclude>
+            <exclude>**/analyzer/src/main/code-gen/UserAgents/ISOLanguageCode/*.tab</exclude>
+            <exclude>**/analyzer/src/main/code-gen/UserAgents/ISOLanguageCode/*.csv</exclude>
+            <exclude>**/analyzer/src/main/code-gen/UserAgents/ISOLanguageCode/*.md</exclude>
             <!-- Test and demo input files -->
             <exclude>**/testfiles/**</exclude>
             <exclude>**/examples/**/*.log</exclude>
@@ -393,11 +393,12 @@
             <exclude>docker/_gnupg/**</exclude>
             <!-- Test scripts -->
             <exclude>*.sh</exclude>
-            <exclude>_*/**</exclude>
+            <exclude>**/_*/**</exclude>
             <!-- Icon stuff in the demo webapp -->
-            <exclude>webapp/src/main/webapp/manifest.json</exclude>
-            <exclude>webapp/src/main/webapp/browserconfig.xml</exclude>
-            <exclude>webapp/src/main/webapp/safari-pinned-tab.svg</exclude>
+            <exclude>webapp/src/main/**/*.json</exclude>
+            <exclude>webapp/src/main/**/*.xml</exclude>
+            <exclude>webapp/src/main/**/*.svg</exclude>
+            <exclude>webapp/src/main/**/robots.txt</exclude>
             <exclude>webapp/README.md</exclude>
             <exclude>webapp/icon/**</exclude>
           </excludes>

@@ -4,6 +4,7 @@ v5.3
 ===
 - Detect Iron browser
 - Handle the 'too many spaces' effect.
+- Fixed Rat checking
 
 v5.2
 ===
