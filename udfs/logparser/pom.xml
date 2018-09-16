@@ -62,10 +62,46 @@
     </dependency>
 
     <dependency>
+      <groupId>nl.basjes.parse.httpdlog</groupId>
+      <artifactId>httpdlog-parser</artifactId>
+      <version>${logparser.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
       <groupId>nl.basjes.parse</groupId>
       <artifactId>parser-core</artifactId>
       <version>${logparser.version}</version>
       <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- For the test loading it all dynamically inside Apache Pig -->
+    <dependency>
+      <groupId>nl.basjes.parse.httpdlog</groupId>
+      <artifactId>httpdlog-pigloader</artifactId>
+      <version>${logparser.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.pig</groupId>
+      <artifactId>pig</artifactId>
+      <version>${pig.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.python</groupId>
+      <artifactId>jython-standalone</artifactId>
+      <version>2.7.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-client</artifactId>
+      <version>${hadoop.version}</version>
       <scope>test</scope>
     </dependency>
 

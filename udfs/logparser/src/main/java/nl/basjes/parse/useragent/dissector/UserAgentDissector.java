@@ -22,8 +22,12 @@ import nl.basjes.parse.core.Dissector;
 import nl.basjes.parse.core.Parsable;
 import nl.basjes.parse.core.ParsedField;
 import nl.basjes.parse.core.exceptions.DissectionFailure;
+import nl.basjes.parse.core.exceptions.InvalidDissectorException;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -33,38 +37,54 @@ import java.util.Locale;
 import java.util.Map;
 
 public class UserAgentDissector extends Dissector {
-    private static UserAgentAnalyzer userAgentAnalyzer = null;
 
+    private static final Logger LOG = LoggerFactory.getLogger(UserAgentDissector.class);
+
+    private UserAgentAnalyzerBuilder<?, ?> userAgentAnalyzerBuilder;
+    private static UserAgentAnalyzer userAgentAnalyzer = null;
     private static final String INPUT_TYPE = "HTTP.USERAGENT";
+
+    private List<String> extraResources = new ArrayList<>();
+    private List<String> allPossibleFieldNames = new ArrayList<>();
+    private List<String> requestedFieldNames = new ArrayList<>();
+
 
     @Override
     public String getInputType() {
         return INPUT_TYPE;
     }
 
-    private void ensureUserAgentAnalyzer() {
-        if (userAgentAnalyzer == null) {
-            userAgentAnalyzer = UserAgentAnalyzer
+    private UserAgentAnalyzerBuilder<?, ?> getUserAgentAnalyzerBuilder() {
+        if (userAgentAnalyzerBuilder == null) {
+            userAgentAnalyzerBuilder = UserAgentAnalyzer
                 .newBuilder()
                 .delayInitialization()
                 .dropTests()
-                .hideMatcherLoadStats()
-                .build();
+                .hideMatcherLoadStats();
         }
+        return userAgentAnalyzerBuilder;
     }
 
+    /**
+     * @param rawParameter For this dissector it is a '|' separated list of resource paths.
+     */
     @Override
-    public boolean initializeFromSettingsParameter(String s) {
-        ensureUserAgentAnalyzer();
-        if (s != null && !(s.trim().isEmpty())) {
-            userAgentAnalyzer.loadResources(s);
+    public boolean initializeFromSettingsParameter(String rawParameter) {
+        if (rawParameter == null || rawParameter.isEmpty()) {
+            return true; // Nothing to do here
+        }
+
+        String[] parameters = rawParameter.trim().split("\\|");
+        for (String parameter: parameters) {
+            if (!parameter.isEmpty()) {
+                extraResources.add(parameter);
+            }
         }
         return true;
     }
 
     @Override
     public void dissect(Parsable<?> parsable, String inputname) throws DissectionFailure {
-        ensureUserAgentAnalyzer();
         final ParsedField agentField = parsable.getParsableField(INPUT_TYPE, inputname);
 
         String userAgentString = agentField.getValue().getString();
@@ -75,48 +95,100 @@ public class UserAgentDissector extends Dissector {
 
         UserAgent agent = userAgentAnalyzer.parse(userAgentString);
 
-        for (String fieldName : agent.getAvailableFieldNames()) {
-            parsable.addDissection(inputname, "STRING", fieldNameToDissectionName(fieldName), agent.getValue(fieldName));
+        for (String fieldName : requestedFieldNames) {
+            parsable.addDissection(inputname, getFieldOutputType(fieldName), fieldNameToDissectionName(fieldName), agent.getValue(fieldName));
         }
     }
 
     @Override
     public List<String> getPossibleOutput() {
-        ensureUserAgentAnalyzer();
-
         List<String> result = new ArrayList<>();
 
         // First the standard fields in the standard order, then the non-standard fields alphabetically
-        List<String> fieldNames = userAgentAnalyzer.getAllPossibleFieldNamesSorted();
-        for (String fieldName : fieldNames) {
-            result.add("STRING:" + fieldNameToDissectionName(fieldName));
-        }
-        return result;
+        final UserAgentAnalyzerBuilder<?, ?> builder = UserAgentAnalyzer.newBuilder();
+        extraResources.forEach(builder::addResources);
 
+        allPossibleFieldNames = builder.build().getAllPossibleFieldNamesSorted();
+        for (String fieldName : allPossibleFieldNames) {
+            ensureMappingsExistForFieldName(fieldName);
+            result.add(getFieldOutputType(fieldName) + ":" + fieldNameToDissectionName(fieldName));
+        }
+
+//        result.forEach(f -> LOG.warn("Possible {}", f));
+        return result;
+    }
+
+    private String getFieldOutputType(String fieldName) {
+        switch (fieldName) {
+            case "AgentInformationUrl":
+                return "HTTP.URI";
+            default:
+                return "STRING";
+        }
     }
 
     @Override
-    public EnumSet<Casts> prepareForDissect(String s, String s1) {
+    public EnumSet<Casts> prepareForDissect(String inputname, String outputname) {
+        String name = extractFieldName(inputname, outputname);
+        String fieldName = dissectionNameToFieldName(name);
+
+        if (fieldName == null) {
+            LOG.error("There is NO fieldname for the requested \"{}\" ({})", outputname, name);
+            return null;
+        }
+        requestedFieldNames.add(fieldName);
+//        LOG.info("Wanted: {} -- {} (--> {})", inputname, name, fieldName);
         return Casts.STRING_ONLY; // We ONLY do Strings here
     }
 
     @Override
     public void prepareForRun() {
-        // Nothing to do here
+        // Build the internal datastructures
+        LOG.info("Preparing UserAgentAnalyzer to extract {}", requestedFieldNames.isEmpty()? "all fields" : requestedFieldNames);
+        final UserAgentAnalyzerBuilder<?, ?> builder = getUserAgentAnalyzerBuilder();
+
+        extraResources.forEach(r -> LOG.warn("Loading extra resource: {}", r));
+        extraResources.forEach(builder::addResources);
+        requestedFieldNames.forEach(builder::withField);
+        userAgentAnalyzer = getUserAgentAnalyzerBuilder().build();
+        userAgentAnalyzer.initializeMatchers();
     }
 
     @Override
-    protected void initializeNewInstance(Dissector dissector) {
+    protected void initializeNewInstance(Dissector newInstance) throws InvalidDissectorException {
+        if (!(newInstance instanceof UserAgentDissector)) {
+            throw new InvalidDissectorException("The provided instance of the dissector is a " +
+                newInstance.getClass().getCanonicalName() + " which is not a UserAgentDissector");
+        }
+        UserAgentDissector newUserAgentDissector = (UserAgentDissector) newInstance;
+        newUserAgentDissector.extraResources = new ArrayList<>(extraResources);
+        newUserAgentDissector.allPossibleFieldNames = new ArrayList<>(allPossibleFieldNames);
+        newUserAgentDissector.requestedFieldNames = new ArrayList<>(requestedFieldNames);
+        allPossibleFieldNames.forEach(newUserAgentDissector::ensureMappingsExistForFieldName);
     }
 
-    private static final Map<String, String> FIELD_NAME_MAPPING_CACHE = new HashMap<>(64);
+    private final Map<String, String> fieldNameMappingCache      = new HashMap<>(64);
+    private final Map<String, String> dissectionNameMappingCache = new HashMap<>(64);
 
-    static String fieldNameToDissectionName(String fieldName) {
-        return FIELD_NAME_MAPPING_CACHE
-            .computeIfAbsent(fieldName,
-                n -> n  .replaceAll("([A-Z])", "_$1")
-                        .toLowerCase(Locale.ENGLISH)
-                        .replaceFirst("_", ""));
+    void ensureMappingsExistForFieldName(String fieldName) {
+        if (fieldNameMappingCache.containsKey(fieldName)) {
+            return;
+        }
+        String dissectionName = fieldName
+            .replaceAll("([A-Z])", "_$1")
+            .toLowerCase(Locale.ENGLISH)
+            .replaceFirst("_", "");
+
+        fieldNameMappingCache.put(fieldName, dissectionName);
+        dissectionNameMappingCache.put(dissectionName, fieldName);
+    }
+
+    String fieldNameToDissectionName(String fieldName) {
+        return fieldNameMappingCache.get(fieldName);
+    }
+
+    String dissectionNameToFieldName(String dissectionName) {
+        return dissectionNameMappingCache.get(dissectionName);
     }
 
 }
