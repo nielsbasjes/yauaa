@@ -20,10 +20,17 @@ git tag | \
 sed 's/v//' | \
 egrep -v '^(0.1|0.10|0.3)$' | while read version ;
 do
-  if [ ! -f "version-${version}.txt" ];
+  if [ -f "version-${version}.txt" ];
   then
+    echo "- Already have version ${version}"
+  else
+    echo '/ ============================================== ' && \
+    echo "| Building version ${version}" && \
+    echo '\ ============================================== ' && \
     mvn clean package -Dyauaa.version="${version}" && \
-    echo "Testing version ${version}" && \
+    echo '/ ============================================== ' && \
+    echo "| Testing version ${version}" && \
+    echo '\ ============================================== ' && \
     java -jar target/benchmarks.jar > "version-${version}.txt"
   fi
 done
