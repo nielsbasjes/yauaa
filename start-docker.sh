@@ -22,6 +22,12 @@ USER=$(id -un)
 CONTAINER_NAME=${PROJECTNAME}-${OS}-${USER}-$$
 DOCKER_BUILD="docker build"
 
+if [ ! -z ${INSIDE_DOCKER+x} ];
+then
+  echo "Nothing to do: You are already INSIDE the docker environment"
+  exit -1;
+fi
+
 if [[ "$(docker images -q ${PROJECTNAME}-${OS} 2> /dev/null)" == "" ]]; then
   DOCKER_BUILD="docker build"
 cat << "Welcome-message"
