@@ -255,7 +255,7 @@ public class ParseService {
                 userAgentString =
                     "Mozilla/5.0 (Linux; Android 7.8.9; nl-nl ; " +
                         "Niels Ultimate 42 demo phone Build/42 ; " +
-                        "https://github.com/nielsbasjes/yauaa ) " +
+                        "https://yauaa.basjes.nl ) " +
                         "AppleWebKit/8.4.7.2 (KHTML, like Gecko) " +
                         "Yet another browser/3.1415926 Mobile Safari/6.6.6";
                 sb.append("<form class=\"logobar tryexample\" action=\"\" method=\"post\">");

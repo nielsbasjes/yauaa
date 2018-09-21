@@ -76,6 +76,9 @@ import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.PRE_SORTED_FIELDS_LIST;
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
+import static nl.basjes.parse.useragent.Version.BUILD_TIME_STAMP;
+import static nl.basjes.parse.useragent.Version.GIT_COMMIT_ID_DESCRIBE_SHORT;
+import static nl.basjes.parse.useragent.Version.PROJECT_VERSION;
 import static nl.basjes.parse.useragent.utils.YamlUtils.fail;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getExactlyOneNodeTuple;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
@@ -216,7 +219,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 
 
     public static String getVersion() {
-        return "Yauaa " + Version.getProjectVersion() + " (" + Version.getGitCommitIdDescribeShort() + " @ " + Version.getBuildTimestamp() + ")";
+        return "Yauaa " + PROJECT_VERSION + " (" + GIT_COMMIT_ID_DESCRIBE_SHORT + " @ " + BUILD_TIME_STAMP + ")";
     }
 
     public void loadResources(String resourceString) {

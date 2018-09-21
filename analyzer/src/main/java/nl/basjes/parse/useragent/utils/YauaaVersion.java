@@ -17,7 +17,6 @@
 
 package nl.basjes.parse.useragent.utils;
 
-import nl.basjes.parse.useragent.Version;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +27,12 @@ import org.yaml.snakeyaml.nodes.SequenceNode;
 
 import java.util.List;
 
-import static nl.basjes.parse.useragent.Version.getCopyright;
-import static nl.basjes.parse.useragent.Version.getLicense;
+import static nl.basjes.parse.useragent.Version.BUILD_TIME_STAMP;
+import static nl.basjes.parse.useragent.Version.COPYRIGHT;
+import static nl.basjes.parse.useragent.Version.GIT_COMMIT_ID_DESCRIBE_SHORT;
+import static nl.basjes.parse.useragent.Version.LICENSE;
+import static nl.basjes.parse.useragent.Version.PROJECT_VERSION;
+import static nl.basjes.parse.useragent.Version.URL;
 import static nl.basjes.parse.useragent.utils.YamlUtils.fail;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getExactlyOneNodeTuple;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
@@ -45,8 +48,8 @@ public final class YauaaVersion {
 
     public static void logVersion(String... extraLines) {
         String[] lines = {
-            "For more information: https://github.com/nielsbasjes/yauaa",
-            getCopyright() + " - " + getLicense()
+            "For more information: " + URL,
+            COPYRIGHT + " - " + LICENSE
         };
         String version = getVersion();
         int width = version.length();
@@ -88,7 +91,7 @@ public final class YauaaVersion {
     }
 
     public static String getVersion() {
-        return getVersion(Version.getProjectVersion(), Version.getGitCommitIdDescribeShort(), Version.getBuildTimestamp());
+        return getVersion(PROJECT_VERSION, GIT_COMMIT_ID_DESCRIBE_SHORT, BUILD_TIME_STAMP);
     }
 
     public static String getVersion(String projectVersion, String gitCommitIdDescribeShort, String buildTimestamp) {
@@ -123,6 +126,7 @@ public final class YauaaVersion {
                     break;
                 case "copyright":
                 case "license":
+                case "url":
                     // Ignore those two when comparing.
                     break;
                 default:
@@ -136,16 +140,13 @@ public final class YauaaVersion {
     }
 
     public static void assertSameVersion(String gitCommitIdDescribeShort, String buildTimestamp, String projectVersion) {
-        String libraryGitCommitIdDescribeShort = Version.getGitCommitIdDescribeShort();
-        String libraryBuildTimestamp = Version.getBuildTimestamp();
-        String libraryProjectVersion = Version.getProjectVersion();
-        if (libraryGitCommitIdDescribeShort.equals(gitCommitIdDescribeShort) &&
-            libraryBuildTimestamp.equals(buildTimestamp) &&
-            libraryProjectVersion.equals(projectVersion)) {
+        if (GIT_COMMIT_ID_DESCRIBE_SHORT.equals(gitCommitIdDescribeShort) &&
+            BUILD_TIME_STAMP.equals(buildTimestamp) &&
+            PROJECT_VERSION.equals(projectVersion)) {
             return;
         }
 
-        String libraryVersion = getVersion(libraryProjectVersion, libraryGitCommitIdDescribeShort, libraryBuildTimestamp);
+        String libraryVersion = getVersion(PROJECT_VERSION, GIT_COMMIT_ID_DESCRIBE_SHORT, BUILD_TIME_STAMP);
         String rulesVersion = getVersion(projectVersion, gitCommitIdDescribeShort, buildTimestamp);
 
         LOG.error("===============================================");

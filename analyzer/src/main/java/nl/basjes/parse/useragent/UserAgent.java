@@ -25,7 +25,7 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.dfa.DFA;
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -287,10 +287,15 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
 
     public void clone(UserAgent userAgent) {
         init();
+        debug=userAgent.debug;
+
         setUserAgentString(userAgent.userAgentString);
         for (Map.Entry<String, AgentField> entry : userAgent.allFields.entrySet()) {
             set(entry.getKey(), entry.getValue().getValue(), entry.getValue().confidence);
         }
+        hasSyntaxError  = userAgent.hasSyntaxError;
+        hasAmbiguity    = userAgent.hasAmbiguity;
+        ambiguityCount  = userAgent.ambiguityCount;
     }
 
     private void init() {
