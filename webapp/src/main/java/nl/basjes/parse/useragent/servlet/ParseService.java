@@ -216,6 +216,8 @@ public class ParseService {
                 sb.append("</table>");
                 sb.append("<hr/>");
 
+                sb.append("<p class=\"logobar documentation\">Read the online documentation at <a href=\"https://yauaa.basjes.nl\">" +
+                    "https://yauaa.basjes.nl</a></p>\n");
                 sb.append("<p class=\"logobar bug\">");
                 addBugReportButton(sb, userAgent);
                 sb.append("</p>");
