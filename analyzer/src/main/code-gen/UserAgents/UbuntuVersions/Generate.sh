@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-TARGETDIR="${SCRIPTDIR}/../../../resources/UserAgents"
+TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents"; pwd)
 
 INPUT=UbuntuVersions.csv
 OUTPUT="${TARGETDIR}/UbuntuVersionLookups.yaml"
