@@ -26,6 +26,7 @@ import org.apache.hadoop.hive.serde2.objectinspector.primitive.PrimitiveObjectIn
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestParseUserAgent {
 
@@ -50,6 +51,12 @@ public class TestParseUserAgent {
 
     private void checkField(StandardStructObjectInspector resultInspector, Object row, String fieldName, String expectedValue) {
         assertEquals(expectedValue, resultInspector.getStructFieldData(row, resultInspector.getStructFieldRef(fieldName)).toString());
+    }
+
+    @Test
+    public void testExplain() {
+        ParseUserAgent parseUserAgent = new ParseUserAgent();
+        assertTrue("Wrong explanation", parseUserAgent.getDisplayString(null).contains("UserAgent"));
     }
 
 }
