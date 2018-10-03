@@ -45,8 +45,18 @@ public class TestYamlParsing {
     }
 
     @Test
+    public void testEmpty() {
+        runTest("Empty.yaml", "The file Empty.yaml is empty");
+    }
+
+    @Test
     public void testTopNotConfig() {
         runTest("TopNotConfig.yaml", "The top level entry MUST be 'config'");
+    }
+
+    @Test
+    public void testNotAMapFile() {
+        runTest("NotAMapFile.yaml", "File must be a Map");
     }
 
     @Test
