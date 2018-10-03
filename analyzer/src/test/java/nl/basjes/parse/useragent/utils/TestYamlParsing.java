@@ -70,6 +70,11 @@ public class TestYamlParsing {
     }
 
     @Test
+    public void testNotAMap() {
+        runTest("NotAMap.yaml", "The value should be a map but it is a scalar");
+    }
+
+    @Test
     public void testNotSingle() {
         runTest("NotSingle.yaml", "There must be exactly 1 value in the list");
     }
