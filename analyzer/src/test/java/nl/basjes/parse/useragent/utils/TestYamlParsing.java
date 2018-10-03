@@ -94,4 +94,9 @@ public class TestYamlParsing {
         runTest("KeyNotString.yaml", "The key should be a string but it is a sequence");
     }
 
+    @Test
+    public void testParseError() {
+        runTest("ParseError.yaml", "Parse error in the file ParseError.yaml: ");
+    }
+
 }
