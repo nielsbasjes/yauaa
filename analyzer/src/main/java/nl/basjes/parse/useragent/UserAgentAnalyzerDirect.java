@@ -217,11 +217,6 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 
     // --------------------------------------------
 
-
-    public static String getVersion() {
-        return "Yauaa " + PROJECT_VERSION + " (" + GIT_COMMIT_ID_DESCRIBE_SHORT + " @ " + BUILD_TIME_STAMP + ")";
-    }
-
     public void loadResources(String resourceString) {
         if (matchersHaveBeenInitialized) {
             throw new IllegalStateException("Refusing to load additional resources after the datastructures have been initialized.");

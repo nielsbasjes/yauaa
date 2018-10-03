@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
 import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
 @SpringBootApplication
@@ -54,7 +55,7 @@ public class ParseService {
     private static long              initStartMoment;
     private static boolean           userAgentAnalyzerIsAvailable    = false;
     private static String            userAgentAnalyzerFailureMessage = null;
-    private static final String      ANALYZER_VERSION                = UserAgentAnalyzer.getVersion();
+    private static final String      ANALYZER_VERSION                = getVersion();
 
     private static synchronized void ensureStarted() {
         if (!isInitializing && !userAgentAnalyzerIsAvailable && userAgentAnalyzerFailureMessage == null) {

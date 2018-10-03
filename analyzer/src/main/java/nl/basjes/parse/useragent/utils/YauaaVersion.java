@@ -98,7 +98,6 @@ public final class YauaaVersion {
         return "Yauaa " + projectVersion + " (" + gitCommitIdDescribeShort + " @ " + buildTimestamp + ")";
     }
 
-
     public static void assertSameVersion(NodeTuple versionNodeTuple, String filename) {
         // Check the version information from the Yaml files
         SequenceNode versionNode = getValueAsSequenceNode(versionNodeTuple, filename);
