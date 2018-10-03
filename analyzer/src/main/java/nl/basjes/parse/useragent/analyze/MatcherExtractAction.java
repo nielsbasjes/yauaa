@@ -79,10 +79,6 @@ public class MatcherExtractAction extends MatcherAction {
             if (verbose) {
                 LOG.info("KEPT  : EXTRACT ({}): {}", attribute, key);
             }
-        } else {
-            if (verbose) {
-                LOG.info("IGNORE: EXTRACT ({}): {}", attribute, key);
-            }
         }
     }
 

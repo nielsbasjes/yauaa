@@ -181,7 +181,8 @@ public abstract class MatcherAction implements Serializable {
         ParserRuleContext requiredPattern = parseWalkerExpression(parser);
 
         if (requiredPattern == null) {
-            throw new InvalidParserConfigurationException("NO pattern ?!?!?");
+            // This should never happen because the parser of the expressions does not allow this.
+            throw new InvalidParserConfigurationException("Should never happen: NO pattern ?!?!?");
         }
 
         // We couldn't ditch the double quotes around the fixed values in the parsing phase.

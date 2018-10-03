@@ -73,10 +73,6 @@ public class MatcherVariableAction extends MatcherAction {
                     action.inform(variableName, newlyFoundValue.getValue(), newlyFoundValue.getTree());
                 }
             }
-        } else {
-            if (verbose) {
-                LOG.info("IGNORE: VARIABLE ({}): {}", variableName, key);
-            }
         }
     }
 
