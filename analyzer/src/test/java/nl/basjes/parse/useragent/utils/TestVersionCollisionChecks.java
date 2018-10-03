@@ -39,10 +39,25 @@ public class TestVersionCollisionChecks {
 
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
+            .dropDefaultResources()
             .delayInitialization()
             .build();
 
         uaa.loadResources("classpath*:Versions/BadVersion.yaml");
+    }
+
+    @Test
+    public void testBadVersionNotMap(){
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage(containsString("The value should be a string but it is a sequence"));
+
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .dropDefaultResources()
+            .delayInitialization()
+            .build();
+
+        uaa.loadResources("classpath*:Versions/BadVersionNotMap.yaml");
     }
 
     @Test
@@ -70,7 +85,5 @@ public class TestVersionCollisionChecks {
 
         uaa.loadResources("classpath*:UserAgents/**/*.yaml");
     }
-
-
 
 }
