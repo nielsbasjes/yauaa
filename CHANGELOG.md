@@ -6,6 +6,10 @@ v5.3
 - Handle the 'too many spaces' effect.
 - Fixed Rat checking
 - Major update of the UDF for logparser
+- Updated dependencies: Jacoco, Spring
+- Updated UDF dependencies
+  - Apache Flink 1.6.1
+  - Apache Beam 2.7.0
 
 v5.2
 ===
