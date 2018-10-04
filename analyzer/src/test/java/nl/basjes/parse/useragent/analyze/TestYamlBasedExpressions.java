@@ -103,6 +103,7 @@ public class TestYamlBasedExpressions {
     @Test
     public void runAllPossibleSteps() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:AllPossibleSteps.yaml");
+        uaa.setVerbose(true);
         Assert.assertTrue(uaa.runTests(false, false));
     }
 
