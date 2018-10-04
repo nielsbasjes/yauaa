@@ -76,13 +76,14 @@ import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.PRE_SORTED_FIELDS_LIST;
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
-import static nl.basjes.parse.useragent.utils.YamlUtils.fail;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getExactlyOneNodeTuple;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getStringValues;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsMappingNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsSequenceNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsString;
+import static nl.basjes.parse.useragent.utils.YamlUtils.require;
+import static nl.basjes.parse.useragent.utils.YamlUtils.requireNodeInstanceOf;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.assertSameVersion;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.logVersion;
 
@@ -431,9 +432,7 @@ config:
         }
 
         // Get and check top level config
-        if (!(loadedYaml instanceof MappingNode)) {
-            fail(loadedYaml, filename, "File must be a Map");
-        }
+        requireNodeInstanceOf(MappingNode.class, loadedYaml, filename, "File must be a Map");
 
         MappingNode rootNode = (MappingNode) loadedYaml;
 
@@ -451,18 +450,13 @@ config:
             }
         }
 
-        if (configNodeTuple == null) {
-            fail(loadedYaml, filename, "The top level entry MUST be 'config'.");
-        }
+        require(configNodeTuple != null, loadedYaml, filename, "The top level entry MUST be 'config'.");
 
         SequenceNode configNode = getValueAsSequenceNode(configNodeTuple, filename);
         List<Node> configList = configNode.getValue();
 
         for (Node configEntry : configList) {
-            if (!(configEntry instanceof MappingNode)) {
-                fail(loadedYaml, filename, "The entry MUST be a mapping");
-            }
-
+            requireNodeInstanceOf(MappingNode.class, configEntry, filename, "The entry MUST be a mapping");
             NodeTuple entry = getExactlyOneNodeTuple((MappingNode) configEntry, filename);
             MappingNode actualEntry = getValueAsMappingNode(entry, filename);
             String entryType = getKeyAsString(entry, filename);
@@ -515,9 +509,7 @@ config:
             }
         }
 
-        if (name == null && map == null) {
-            fail(entry, filename, "Invalid lookup specified");
-        }
+        require(name != null && map != null, entry, filename, "Invalid lookup specified");
 
         lookups.put(name, map);
     }
@@ -612,9 +604,7 @@ config:
                 }
             }
 
-            if (input == null) {
-                fail(entry, filename, "Test is missing input");
-            }
+            require(input != null, entry, filename, "Test is missing input");
 
             if (expected == null || expected.isEmpty()) {
                 doingOnlyASingleTest = true;

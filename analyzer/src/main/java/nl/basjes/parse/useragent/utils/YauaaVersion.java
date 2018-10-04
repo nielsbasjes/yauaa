@@ -33,11 +33,11 @@ import static nl.basjes.parse.useragent.Version.GIT_COMMIT_ID_DESCRIBE_SHORT;
 import static nl.basjes.parse.useragent.Version.LICENSE;
 import static nl.basjes.parse.useragent.Version.PROJECT_VERSION;
 import static nl.basjes.parse.useragent.Version.URL;
-import static nl.basjes.parse.useragent.utils.YamlUtils.fail;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getExactlyOneNodeTuple;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsSequenceNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsString;
+import static nl.basjes.parse.useragent.utils.YamlUtils.requireNodeInstanceOf;
 
 public final class YauaaVersion {
 
@@ -107,9 +107,7 @@ public final class YauaaVersion {
 
         List<Node> versionList = versionNode.getValue();
         for (Node versionEntry : versionList) {
-            if (!(versionEntry instanceof MappingNode)) {
-                fail(versionEntry, filename, "The entry MUST be a mapping");
-            }
+            requireNodeInstanceOf(MappingNode.class, versionEntry, filename, "The entry MUST be a mapping");
             NodeTuple entry = getExactlyOneNodeTuple((MappingNode) versionEntry, filename);
             String key = getKeyAsString(entry, filename);
             String value = getValueAsString(entry, filename);
