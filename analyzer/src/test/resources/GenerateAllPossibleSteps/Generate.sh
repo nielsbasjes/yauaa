@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-TARGETDIR="${SCRIPTDIR}/.."
+TARGETDIR=$(cd "${SCRIPTDIR}/.."; pwd)
 
 INPUT=AllPossibleSteps.csv
 INPUTTESTS=AllPossibleStepsTests.yaml
