@@ -33,7 +33,6 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepFixedString;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
@@ -53,7 +52,6 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathCon
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathContext;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathFixedValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathWalkContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepBackToFullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
@@ -319,12 +317,6 @@ public class WalkList implements Serializable {
         public Void visitPathVariable(UserAgentTreeWalkerParser.PathVariableContext ctx) {
             fromHereItCannotBeInHashMapAnymore();
             visitNext(ctx.nextStep);
-            return null; // Void
-        }
-
-        @Override
-        public Void visitPathFixedValue(PathFixedValueContext ctx) {
-            add(new StepFixedString(ctx.value.getText()));
             return null; // Void
         }
 
