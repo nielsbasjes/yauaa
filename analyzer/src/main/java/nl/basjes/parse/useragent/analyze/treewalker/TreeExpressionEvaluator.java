@@ -70,7 +70,7 @@ public class TreeExpressionEvaluator implements Serializable {
                 if (value == null) {
                     return null;
                 }
-                // No we know this is a fixed value. Yet we can have a problem in the lookup that was
+                // Now we know this is a fixed value. Yet we can have a problem in the lookup that was
                 // configured. If we have this then this is a FATAL error (it will fail always everywhere).
 
                 Map<String, String> lookup = matcher.getLookups().get(ctx.lookup.getText());
