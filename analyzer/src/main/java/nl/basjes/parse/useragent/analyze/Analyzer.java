@@ -20,7 +20,6 @@ package nl.basjes.parse.useragent.analyze;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.util.Collections;
 import java.util.Set;
 
 public interface Analyzer {
@@ -28,20 +27,12 @@ public interface Analyzer {
 
     void informMeAbout(MatcherAction matcherAction, String keyPattern);
 
-    default void lookingForRange(String treeName, Range range) {
-        // Do nothing
-    }
+    void lookingForRange(String treeName, Range range);
 
-    default Set<Range> getRequiredInformRanges(String treeName){
-        return Collections.emptySet();
-    }
+    Set<Range> getRequiredInformRanges(String treeName);
 
-    default void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
-        // Do nothing
-    }
+    void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix);
 
-    default Set<Integer> getRequiredPrefixLengths(String treeName){
-        return Collections.emptySet();
-    }
+    Set<Integer> getRequiredPrefixLengths(String treeName);
 
 }

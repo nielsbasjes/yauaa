@@ -19,9 +19,12 @@ package nl.basjes.parse.useragent.debug;
 
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
+import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.PrintStream;
+import java.util.Collections;
+import java.util.Set;
 
 public class FlattenPrinter implements Analyzer {
 
@@ -38,6 +41,24 @@ public class FlattenPrinter implements Analyzer {
 
     @Override
     public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
-
     }
+
+    public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
+        // Never called
+    }
+
+    public Set<WordRangeVisitor.Range> getRequiredInformRanges(String treeName){
+        // Never called
+        return Collections.emptySet();
+    }
+
+    public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
+        // Never called
+    }
+
+    public Set<Integer> getRequiredPrefixLengths(String treeName){
+        // Never called
+        return Collections.emptySet();
+    }
+
 }

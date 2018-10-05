@@ -1097,6 +1097,22 @@ config:
 
         public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
         }
+
+        public void lookingForRange(String treeName, Range range) {
+        }
+
+        public Set<Range> getRequiredInformRanges(String treeName) {
+            return Collections.emptySet();
+        }
+
+        @Override
+        public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
+        }
+
+        @Override
+        public Set<Integer> getRequiredPrefixLengths(String treeName) {
+            return Collections.emptySet();
+        }
     }
 
     public static List<String> getAllPaths(String agent) {
