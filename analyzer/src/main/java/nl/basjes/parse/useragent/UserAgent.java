@@ -181,7 +181,6 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
 
     @Override
     public int hashCode() {
-
         return Objects.hash(userAgentString, allFields);
     }
 
