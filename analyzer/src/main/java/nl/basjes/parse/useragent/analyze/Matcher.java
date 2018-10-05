@@ -122,9 +122,7 @@ public class Matcher implements Serializable {
             switch (name) {
                 case "options":
                     List<String> options = YamlUtils.getStringValues(nodeTuple.getValueNode(), matcherSourceLocation);
-                    if (options != null) {
-                        verbose = options.contains("verbose");
-                    }
+                    verbose = options.contains("verbose");
                     break;
                 case "variable":
                     for (String variableConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), matcherSourceLocation)) {

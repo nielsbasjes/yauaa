@@ -65,14 +65,18 @@ public class TestNumberRangeVisitor {
 
     @Test
     public void testRangeCompare() {
-        Range range1a = new Range(1, 2);
+        Range range1 = new Range(1, 2);
         Range range1b = new Range(1, 2);
         Range range2 = new Range(2, 1);
+        Range range3 = new Range(1, 1);
+        Range range4 = new Range(2, 2);
         String notARange = "Range";
 
-        assertEquals(range1a, range1b);
-        assertNotEquals(range1a, range2);
-        assertNotEquals(range1a, notARange);
+        assertEquals(range1, range1b);
+        assertNotEquals(range1, range2);
+        assertNotEquals(range1, range3);
+        assertNotEquals(range1, range4);
+        assertNotEquals(range1, notARange);
     }
 
 }

@@ -395,16 +395,18 @@ public abstract class MatcherAction implements Serializable {
     // -----
 
     private int calculateInformPath(String treeName, BasePathContext tree) {
-        // Useless to register a fixed value
-//             case "PathFixedValueContext"         : calculateInformPath(treeName, (PathFixedValueContext)         tree); break;
+        // The tree can theoretically be an instance of PathFixedValueContext.
+        // These cases are handled in a different way so they cannot occur here.
+
         if (tree instanceof PathVariableContext) {
             matcher.informMeAboutVariable(this, ((PathVariableContext) tree).variable.getText());
             return 0;
         }
-        if (tree instanceof PathWalkContext) {
-            return calculateInformPath(treeName, ((PathWalkContext) tree).nextStep);
-        }
-        return 0;
+//        if (tree instanceof PathWalkContext) {
+        return calculateInformPath(treeName, ((PathWalkContext) tree).nextStep);
+//        }
+        // Should never get here: The antlr definitions only allow one of the above options.
+//        return 0;
     }
 
     private int calculateInformPath(String treeName, PathContext tree) {

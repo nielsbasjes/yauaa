@@ -526,8 +526,7 @@ config:
                     break;
                 case "values":
                     SequenceNode node = getValueAsSequenceNode(tuple, filename);
-                    List<String> values = getStringValues(node, filename);
-                    for (String value: values) {
+                    for (String value: getStringValues(node, filename)) {
                         lookupSet.add(value.toLowerCase(Locale.ENGLISH));
                     }
                     break;
@@ -558,17 +557,15 @@ config:
 
             Map<String, String> input = null;
             List<String> options = null;
-            Map<String, String> expected = null;
+            Map<String, String> expected = new HashMap<>();
             for (NodeTuple tuple : entry.getValue()) {
                 String name = getKeyAsString(tuple, filename);
                 switch (name) {
                     case "options":
                         options = getStringValues(tuple.getValueNode(), filename);
-                        if (options != null) {
-                            if (options.contains("only")) {
-                                doingOnlyASingleTest = true;
-                                testCases.clear();
-                            }
+                        if (options.contains("only")) {
+                            doingOnlyASingleTest = true;
+                            testCases.clear();
                         }
                         break;
                     case "input":
@@ -587,15 +584,10 @@ config:
                         break;
                     case "expected":
                         List<NodeTuple> mappings = getValueAsMappingNode(tuple, filename).getValue();
-                        if (mappings != null) {
-                            if (expected == null) {
-                                expected = new HashMap<>();
-                            }
-                            for (NodeTuple mapping : mappings) {
-                                String key = getKeyAsString(mapping, filename);
-                                String value = getValueAsString(mapping, filename);
-                                expected.put(key, value);
-                            }
+                        for (NodeTuple mapping : mappings) {
+                            String key = getKeyAsString(mapping, filename);
+                            String value = getValueAsString(mapping, filename);
+                            expected.put(key, value);
                         }
                         break;
                     default:
@@ -606,7 +598,7 @@ config:
 
             require(input != null, entry, filename, "Test is missing input");
 
-            if (expected == null || expected.isEmpty()) {
+            if (expected.isEmpty()) {
                 doingOnlyASingleTest = true;
                 testCases.clear();
             }
@@ -614,7 +606,7 @@ config:
             Map<String, Map<String, String>> testCase = new HashMap<>();
 
             testCase.put("input", input);
-            if (expected != null) {
+            if (!expected.isEmpty()) {
                 testCase.put("expected", expected);
             }
             if (options != null) {
