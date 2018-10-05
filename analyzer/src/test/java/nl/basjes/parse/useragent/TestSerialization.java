@@ -65,19 +65,11 @@ public class TestSerialization {
         LOG.info("--------------------------------------------------------------");
         LOG.info("Deserialize");
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-        ObjectInput in = null;
 
-        try {
-            in = new ObjectInputStream(bis);
+        try (ObjectInput in = new ObjectInputStream(bis)) {
             Object o = in.readObject();
-            if (!(o instanceof UserAgentAnalyzerTester)) {
-                throw new IOException("This shouldn't happen...");
-            }
+            assertTrue(o instanceof UserAgentAnalyzerTester);
             uaa = (UserAgentAnalyzerTester) o;
-        } finally {
-            if (in != null) {
-                in.close();
-            }
         }
         LOG.info("Done");
         LOG.info("==============================================================");
