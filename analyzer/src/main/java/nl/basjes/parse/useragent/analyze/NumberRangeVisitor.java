@@ -67,9 +67,6 @@ public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<Num
             return DEFAULT_MAX;
         }
         String name = ((StepDownContext) parent).name.getText();
-        if (name == null) {
-            return DEFAULT_MAX;
-        }
         Integer maxRange = MAX_RANGE.get(name);
         if (maxRange == null) {
             return DEFAULT_MAX;
