@@ -17,12 +17,14 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import org.junit.Test;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
@@ -59,6 +61,18 @@ public class TestNumberRangeVisitor {
         assertFalse(values.contains(7));
         assertFalse(values.contains(8));
         assertFalse(values.contains(9));
+    }
+
+    @Test
+    public void testRangeCompare() {
+        Range range1a = new Range(1, 2);
+        Range range1b = new Range(1, 2);
+        Range range2 = new Range(2, 1);
+        String notARange = "Range";
+
+        assertEquals(range1a, range1b);
+        assertNotEquals(range1a, range2);
+        assertNotEquals(range1a, notARange);
     }
 
 }
