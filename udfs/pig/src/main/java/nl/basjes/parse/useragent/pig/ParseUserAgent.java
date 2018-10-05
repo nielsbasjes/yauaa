@@ -24,6 +24,7 @@ import org.apache.pig.FuncSpec;
 import org.apache.pig.data.DataType;
 import org.apache.pig.data.Tuple;
 import org.apache.pig.data.TupleFactory;
+import org.apache.pig.impl.logicalLayer.FrontendException;
 import org.apache.pig.impl.logicalLayer.schema.Schema;
 
 import java.io.IOException;
@@ -104,8 +105,8 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
                 tupleSchema.add(new Schema.FieldSchema(fieldName, DataType.CHARARRAY));
             }
             return new Schema(new Schema.FieldSchema("UserAgent", tupleSchema, DataType.TUPLE));
-        } catch (Exception e) {
-            return null;
+        } catch (FrontendException e) {
+            return null; // This will never occur because the input type is always TUPLE.
         }
     }
 
