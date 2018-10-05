@@ -14,232 +14,267 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-MATCH_OPTIONS: &MATCH_OPTIONS
-  options:
-#    - 'verbose'
-
-TEST_OPTIONS: &TEST_OPTIONS
-  options:
-#    - 'verbose'
-
 
 config:
 
 # Walking around
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'NoWalking:1:agent'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'TooFarUp                     : 1 :agent.product.name="One"^^^^^^^'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'TooFarLeftSingleStep         : 1 :agent.product.name="One"^<'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'TooFarLeftTwoStep            : 1 :agent.product.name="One"^><<'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'TooFarRightSingleStep        : 1 :agent.product.name="Five"^>'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'TooFarRightTwoStep           : 1 :agent.product.name="Five"^<>>'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'WalkLeft1:1:agent.product.name="Three"^<'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'WalkLeft1Name:1:agent.product.name="Three"^<.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'WalkLeft2:1:agent.product.name="Three"^<<'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'WalkLeft2Name:1:agent.product.name="Three"^<<.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'WalkLeft3:1:agent.product.name="Three"^<<<'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'WalkLeft3Name:1:agent.product.name="Three"^<<<.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'WalkRight1:1:agent.product.name="Three"^>'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'WalkRight1Name:1:agent.product.name="Three"^>.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'WalkRight2:1:agent.product.name="Three"^>>'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'WalkRight2Name:1:agent.product.name="Three"^>>.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'WalkRight3:1:agent.product.name="Three"^>>>'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'WalkRight3Name:1:agent.product.name="Three"^>>>.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'GetSpecificProduct:1:agent.product.name="Three"^^.(2)product'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'GetSpecificProductVersion:1:agent.product.name="Three"^.(3)version'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CompareAfterStep:1:agent.product.name="Three"^>="Four/4".version'
 
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkLeft1       : 1 :agent.product.comments.entry.product.name="Mies"^^<.product'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkLeft1Name   : 1 :agent.product.comments.entry.product.name="Mies"^^<.product.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkLeft2       : 1 :agent.product.comments.entry.product.name="Mies"^^<<.product'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkLeft2Name   : 1 :agent.product.comments.entry.product.name="Mies"^^<<.product.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkLeft3       : 1 :agent.product.comments.entry.product.name="Mies"^^<<<.product'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkLeft3Name   : 1 :agent.product.comments.entry.product.name="Mies"^^<<<.product.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkLeft4       : 1 :agent.product.comments.entry.product.name="Mies"^^<<<<.product'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkLeft4Name   : 1 :agent.product.comments.entry.product.name="Mies"^^<<<<.product.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkLeft5       : 1 :agent.product.comments.entry.product.name="Mies"^^<<<<<.product'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkLeft5Name   : 1 :agent.product.comments.entry.product.name="Mies"^^<<<<<.product.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkRight1      : 1 :agent.product.comments.entry.product.name="Mies"^^>.product'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkRight1Name  : 1 :agent.product.comments.entry.product.name="Mies"^^>.product.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkRight2      : 1 :agent.product.comments.entry.product.name="Mies"^^>>.product'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkRight2Name  : 1 :agent.product.comments.entry.product.name="Mies"^^>>.product.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkRight3      : 1 :agent.product.comments.entry.product.name="Mies"^^>>>.product'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkRight3Name  : 1 :agent.product.comments.entry.product.name="Mies"^^>>>.product.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkRight4      : 1 :agent.product.comments.entry.product.name="Mies"^^>>>>.product'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkRight4Name  : 1 :agent.product.comments.entry.product.name="Mies"^^>>>>.product.name'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkRight5      : 1 :agent.product.comments.entry.product.name="Mies"^^>>>>>.product'
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'CommentWalkRight5Name  : 1 :agent.product.comments.entry.product.name="Mies"^^>>>>>.product.name'
 
 
   - matcher:
-      <<: *MATCH_OPTIONS
+      options:
+        - 'verbose'
       extract:
         - 'WordMatchFlipFlop: 1:agent.(1)product.(1)comments.entry.(1)text[-1]="One"@[3]="Three"@[2]'
 
   - test:
-      <<: *TEST_OPTIONS
+      options:
+        - 'verbose'
       input:
         name: 'Walking around'
         user_agent_string:            'One/1 Two/2 Three/3.1/3.2/3.3/3.4/3.5 Four/4 Five/5'
@@ -267,7 +302,8 @@ config:
         TooFarRightTwoStep         :  'Unknown'
 
   - test:
-      <<: *TEST_OPTIONS
+      options:
+        - 'verbose'
       input:
           name: 'Walking around in comments'
           user_agent_string:         'One/1 Two/2 (Aap/1; Noot/2 ;Mies/3 ; Wim/4;   Zus/5) Four/4 Five/5'
@@ -286,7 +322,8 @@ config:
           CommentWalkRight3Name    : 'Unknown'
 
   - test:
-      <<: *TEST_OPTIONS
+      options:
+        - 'verbose'
       input:
           name: 'Walking around in comments 2'
           user_agent_string:         'One/1 Two/2 (MinusOne/-1 ; Zero/0 ; Aap/1; Noot/2 ;Mies/3 ; Wim/4;   Zus/5; Jet/6; Teun/7 ; ) Four/4 Five/5'
@@ -314,7 +351,8 @@ config:
           CommentWalkRight5Name    : 'Unknown'
 
   - test:
-      <<: *TEST_OPTIONS
+      options:
+        - 'verbose'
       input:
         name: 'Special case'
         user_agent_string:           'Word/1 ( One Two Three )'

@@ -79,6 +79,7 @@ public class TestYamlBasedExpressions {
     @Test
     public void runWalkingTests() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:Walking-tests.yaml");
+        uaa.setVerbose(true);
         Assert.assertTrue(uaa.runTests(false, false));
     }
 
