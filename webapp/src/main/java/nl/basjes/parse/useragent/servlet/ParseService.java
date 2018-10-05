@@ -44,7 +44,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
-import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
+import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
 
 @SpringBootApplication
 @RestController
