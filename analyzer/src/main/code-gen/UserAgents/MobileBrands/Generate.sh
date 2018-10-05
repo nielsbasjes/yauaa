@@ -91,6 +91,7 @@ echo "
     - 'DeviceBrand                         :    325 :\"${brand}\"'
     - 'DeviceName                          :    325 :@BuildProduct^<{\"${prefix}\"'
 
+- matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name[3]=\"Build\"'
     require:
