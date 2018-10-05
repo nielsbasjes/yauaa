@@ -91,9 +91,11 @@ do
     deviceName=$(echo "${line}" | cut -d'|' -f3)
     deviceVersion=$(echo "${line}" | cut -d'|' -f4-)
     echo "      \"${key}\" : \"${deviceName}\""
-    echo "      \"${keyC}\" : \"${deviceName}\""
-    if [[ ${keyS} != *","* ]]; then
-        echo "      \"${keyS}\" : \"${deviceName}\""
+    if [[ ${key} == *","* ]]; then
+        echo "      \"${keyC}\" : \"${deviceName}\""
+        if [[ ${keyS} != *","* ]]; then
+            echo "      \"${keyS}\" : \"${deviceName}\""
+        fi
     fi
 done
 
@@ -114,9 +116,11 @@ do
     deviceName=$(echo "${line}" | cut -d'|' -f3)
     deviceVersion=$(echo "${line}" | cut -d'|' -f4-)
     echo "      \"${key}\" : \"${deviceVersion}\""
-    echo "      \"${keyC}\" : \"${deviceVersion}\""
-    if [[ ${keyS} != *","* ]]; then
-        echo "      \"${keyS}\" : \"${deviceVersion}\""
+    if [[ ${key} == *","* ]]; then
+        echo "      \"${keyC}\" : \"${deviceVersion}\""
+        if [[ ${keyS} != *","* ]]; then
+            echo "      \"${keyS}\" : \"${deviceVersion}\""
+        fi
     fi
 done
 
