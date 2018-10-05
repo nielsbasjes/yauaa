@@ -348,20 +348,23 @@ public abstract class MatcherAction implements Serializable {
         if (tree instanceof MatcherRequireContext) {
             return calculateInformPath(treeName, ((MatcherRequireContext) tree));
         }
-        if (tree instanceof MatcherContext){
-            return calculateInformPath(treeName, ((MatcherContext) tree));
-        }
-        return 0;
+//        if (tree instanceof MatcherContext){
+        return calculateInformPath(treeName, ((MatcherContext) tree));
+//        }
+        // Should never get here: The antlr definitions only allow one of the above options.
+//        return 0;
     }
 
     private int calculateInformPath(String treeName, MatcherRequireContext tree) {
         if (tree instanceof MatcherBaseContext) {
             return calculateInformPath(treeName, ((MatcherBaseContext) tree).matcher());
         }
-        if (tree instanceof MatcherPathIsNullContext){
-            return calculateInformPath(treeName, ((MatcherPathIsNullContext) tree).matcher());
-        }
-        return 0;
+//        if (tree instanceof MatcherPathIsNullContext){
+        return calculateInformPath(treeName, ((MatcherPathIsNullContext) tree).matcher());
+//        }
+
+        // Should never get here: The antlr definitions only allow one of the above options.
+//        return 0;
     }
 
     private int calculateInformPath(String treeName, MatcherContext tree) {
@@ -386,10 +389,12 @@ public abstract class MatcherAction implements Serializable {
         if (tree instanceof MatcherConcatPrefixContext){
             return calculateInformPath(treeName, ((MatcherConcatPrefixContext) tree).matcher());
         }
-        if (tree instanceof MatcherConcatPostfixContext){
-            return calculateInformPath(treeName, ((MatcherConcatPostfixContext) tree).matcher());
-        }
-        return 0;
+//        if (tree instanceof MatcherConcatPostfixContext){
+        return calculateInformPath(treeName, ((MatcherConcatPostfixContext) tree).matcher());
+//        }
+
+        // Should never get here: The antlr definitions only allow one of the above options.
+//        return 0;
     }
 
     // -----
@@ -428,10 +433,6 @@ public abstract class MatcherAction implements Serializable {
     // -----
 
     private int calculateInformPath(String treeName, StepDownContext tree) {
-        if (treeName.length() == 0) {
-            return calculateInformPath(treeName + '.' + tree.name.getText(), tree.nextStep);
-        }
-
         int informs = 0;
         for (Integer number : NUMBER_RANGE_VISITOR.visit(tree.numberRange())) {
             informs += calculateInformPath(treeName + '.' + "(" + number + ")" + tree.name.getText(), tree.nextStep);
