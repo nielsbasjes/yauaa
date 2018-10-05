@@ -180,11 +180,6 @@ public abstract class MatcherAction implements Serializable {
 //        parser.setTrace(true);
         ParserRuleContext requiredPattern = parseWalkerExpression(parser);
 
-        if (requiredPattern == null) {
-            // This should never happen because the parser of the expressions does not allow this.
-            throw new InvalidParserConfigurationException("Should never happen: NO pattern ?!?!?");
-        }
-
         // We couldn't ditch the double quotes around the fixed values in the parsing phase.
         // So we ditch them here. We simply walk the tree and modify some of the tokens.
         new UnQuoteValues().visit(requiredPattern);
