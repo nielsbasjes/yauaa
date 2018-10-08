@@ -1036,6 +1036,16 @@ config:
       agent.keyvalue.value                  : 'c9af8e16-5999-47f9-abb0-464795853dc8'
       agent.keyvalue.uuid                   : 'c9af8e16-5999-47f9-abb0-464795853dc8'
 
+- test:
+    input:
+      user_agent_string                     : 'c9af8e16-5999-47f9-abb0-464795853dc8/1.0'
+    expected:
+      MustBeOk                              : 'OK'
+      agent.product                         : 'c9af8e16-5999-47f9-abb0-464795853dc8/1.0'
+      agent.product.name                    : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+      agent.product.version                 : '1.0'
+      agent.product.name.uuid               : 'c9af8e16-5999-47f9-abb0-464795853dc8'
+
 # =============================
 
 - test:
