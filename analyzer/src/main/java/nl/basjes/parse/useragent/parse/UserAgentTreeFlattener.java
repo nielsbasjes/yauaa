@@ -211,26 +211,31 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     }
 
     private String inform(ParseTree stateCtx, ParseTree ctx, String name, String value, boolean fakeChild) {
-        State myState = new State(stateCtx, name);
+        String path = name;
+        if (stateCtx == null) {
+            analyzer.inform(path, value, ctx);
+        } else {
+            State myState = new State(stateCtx, name);
 
-        if (!fakeChild) {
-            state.put(stateCtx, myState);
+            if (!fakeChild) {
+                state.put(stateCtx, myState);
+            }
+
+            PathType childType;
+            switch (name) {
+                case "comments":
+                    childType = PathType.COMMENT;
+                    break;
+                case "version":
+                    childType = PathType.VERSION;
+                    break;
+                default:
+                    childType = PathType.CHILD;
+            }
+
+            path = myState.calculatePath(childType, fakeChild);
+            analyzer.inform(path, value, ctx);
         }
-
-        PathType childType;
-        switch (name) {
-            case "comments":
-                childType = PathType.COMMENT;
-                break;
-            case "version":
-                childType = PathType.VERSION;
-                break;
-            default:
-                childType = PathType.CHILD;
-        }
-
-        String path = myState.calculatePath(childType, fakeChild);
-        analyzer.inform(path, value, ctx);
         return path;
     }
 
