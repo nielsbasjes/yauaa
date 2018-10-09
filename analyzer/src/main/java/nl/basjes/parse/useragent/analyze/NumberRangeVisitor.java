@@ -63,9 +63,11 @@ public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<Num
 
     private static Integer getMaxRange(NumberRangeContext ctx) {
         ParserRuleContext parent = ctx.getParent();
-        if (!(parent instanceof StepDownContext)) {
-            return DEFAULT_MAX;
-        }
+
+        // The antlr rules force this to always be true.
+//        if (!(parent instanceof StepDownContext)) {
+//            return DEFAULT_MAX;
+//        }
         String name = ((StepDownContext) parent).name.getText();
         Integer maxRange = MAX_RANGE.get(name);
         if (maxRange == null) {
