@@ -25,6 +25,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -160,10 +162,8 @@ public class TestBuilder {
                 .hideMatcherLoadStats()
                 .dropDefaultResources()
                 .addResources("CompanyInternalUserAgents.yaml")
-                .withField("ApplicationName")
-                .withField("ApplicationVersion")
-                .withField("ApplicationInstance")
-                .withField("ApplicationGitCommit")
+                .withFields("ApplicationName", "ApplicationVersion")
+                .withFields(Arrays.asList("ApplicationInstance", "ApplicationGitCommit"))
                 .withField("ServerName")
                 .build();
 
