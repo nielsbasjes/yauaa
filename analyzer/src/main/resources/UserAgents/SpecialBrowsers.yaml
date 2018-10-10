@@ -795,6 +795,8 @@ config:
 
 # Sometimes the name of the agent is BETWEEN the "Mobile" and "Version" products.
 - matcher:
+    require:
+    - 'agent.product.(1)name="Version"' # Performance trick
     variable:
     - 'Product: agent.product.(1)name="Mobile"^>>.name="Version"^<'
     extract:
@@ -830,6 +832,8 @@ config:
 
 # Sometimes the name of the agent is BETWEEN the "Mobile" and "(Mobile) Safari" products.
 - matcher:
+    require:
+    - 'agent.product.(1)name="Safari"' # Performance trick
     variable:
     - 'Product: agent.product.(1)name="Mobile"^>>.name="Safari"^<'
     extract:
@@ -838,6 +842,8 @@ config:
     - 'AgentVersion                        :   2049 :@Product.version'
 
 - matcher:
+    require:
+    - 'agent.product.(1)name="Mobile Safari"' # Performance trick
     variable:
     - 'Product: agent.product.(1)name="Mobile"^>>.name="Mobile Safari"^<'
     extract:
@@ -873,6 +879,88 @@ config:
       AgentLanguage                        : 'Dutch (Netherlands)'
       AgentLanguageCode                    : 'nl-nl'
       AgentSecurity                        : 'Strong security'
+
+# Quark on iOS
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_2_6 like Mac OS X; zh-cn) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/15D100 Quark/2.2.9.989 Mobile'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15D100'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '11.2.6'
+      OperatingSystemNameVersion           : 'iOS 11.2.6'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '601.1.46'
+      LayoutEngineVersionMajor             : '601'
+      LayoutEngineNameVersion              : 'AppleWebKit 601.1.46'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 601'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Quark'
+      AgentVersion                         : '2.2.9.989'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Quark 2.2.9.989'
+      AgentNameVersionMajor                : 'Quark 2'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+
+# Sometimes the name of the agent is AFTER the "Mobile" and "(Mobile) Safari" products.
+- matcher:
+    require:
+    - 'agent.product.(1)name="Safari"' # Performance trick
+    variable:
+    - 'Product: agent.product.(1)name="Mobile"^>.name="Safari"^>'
+    extract:
+    - 'AgentClass                          :   2049 :"Browser"'
+    - 'AgentName                           :   2049 :@Product.name'
+    - 'AgentVersion                        :   2049 :@Product.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Mobile Safari"' # Performance trick
+    variable:
+    - 'Product: agent.product.(1)name="Mobile"^>.name="Mobile Safari"^>'
+    extract:
+    - 'AgentClass                          :   2049 :"Browser"'
+    - 'AgentName                           :   2049 :@Product.name'
+    - 'AgentVersion                        :   2049 :@Product.version'
+
+# Also Quark
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_2 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8H7 Safari/6533.18.5 Quark/2.4.1.985'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '8H7'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '4.3.2'
+      OperatingSystemNameVersion           : 'iOS 4.3.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.17.9'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.17.9'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Quark'
+      AgentVersion                         : '2.4.1.985'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Quark 2.4.1.985'
+      AgentNameVersionMajor                : 'Quark 2'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
 
 # https://www.dillo.org/
 - test:

@@ -10,6 +10,7 @@ v5.3
 - Updated UDF dependencies
   - Apache Flink 1.6.1
   - Apache Beam 2.7.0
+- Detect Quark browser
 
 v5.2
 ===
