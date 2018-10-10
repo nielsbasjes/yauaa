@@ -906,7 +906,7 @@ config:
         return null;
     }
 
-    private void concatFieldValuesNONDuplicated(UserAgent userAgent, String targetName, String firstName, String secondName) {
+    void concatFieldValuesNONDuplicated(UserAgent userAgent, String targetName, String firstName, String secondName) {
         if (!isWantedField(targetName)) {
             return;
         }
