@@ -1159,6 +1159,31 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; Moto G (5) Plus Build/NPNS25.137-93-14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Motorola Moto G (5)'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NPNS25.137-93-14'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '69.0'
+      LayoutEngineVersionMajor             : '69'
+      LayoutEngineNameVersion              : 'Blink 69.0'
+      LayoutEngineNameVersionMajor         : 'Blink 69'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '69.0.3497.100'
+      AgentVersionMajor                    : '69'
+      AgentNameVersion                     : 'Chrome 69.0.3497.100'
+      AgentNameVersionMajor                : 'Chrome 69'
+
+- test:
+    input:
       user_agent_string: 'UCWEB/2.0 (MIDP-2.0; U; Adr 7.0; en-US; Nexus_6) U2/1.0.0 UCBrowser/10.9.0.946 U2/1.0.0 Mobile'
     expected:
       DeviceClass                          : 'Phone'
