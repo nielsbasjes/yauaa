@@ -234,8 +234,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
                 resources.put(resource.getFilename(), resource);
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            return;
+            throw new InvalidParserConfigurationException("Error reading resources: " + e.getMessage(), e);
         }
         doingOnlyASingleTest = false;
         int maxFilenameLength = 0;
@@ -271,7 +270,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
                 maxFilenameLength = Math.max(maxFilenameLength, filename.length());
                 loadResource(yaml, resource.getInputStream(), filename);
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new InvalidParserConfigurationException("Error reading resources: " + e.getMessage(), e);
             }
         }
 
