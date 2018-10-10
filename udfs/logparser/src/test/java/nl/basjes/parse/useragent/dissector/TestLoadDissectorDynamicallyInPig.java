@@ -77,4 +77,45 @@ public class TestLoadDissectorDynamicallyInPig {
             ).toDelimitedString("><#><"),
             out.get(0).toDelimitedString("><#><"));
     }
+
+    // Here we load the dissector WITHOUT extra patterns
+    @Test
+    public void dynamicallyLoadedWithoutExtraRules() throws Exception {
+        PigServer pigServer = new PigServer(ExecType.LOCAL);
+        pigServer.registerQuery(
+            "Clicks = " +
+                "    LOAD '" + logfile + "' " +
+                "    USING nl.basjes.pig.input.apachehttpdlog.Loader(" +
+                "            '" + LOGFORMAT + "'," +
+                "            'IP:connection.client.host'," +
+                "            'TIME.STAMP:request.receive.time'," +
+                "    '-load:nl.basjes.parse.useragent.dissector.UserAgentDissector:'," +
+                "            'HTTP.USERAGENT:request.user-agent'," +
+                "            'HTTP.HOST:request.user-agent.agent_information_url.host'" +
+                "            )" +
+                "         AS (" +
+                "            ConnectionClientHost," +
+                "            RequestReceiveTime," +
+                "            RequestUseragent," +
+                "            RequestUseragentUrlHostName" +
+                "            );"
+        );
+        Storage.Data data = resetData(pigServer);
+
+        pigServer.registerQuery("STORE Clicks INTO 'Clicks' USING mock.Storage();");
+
+        List<Tuple> out = data.get("Clicks");
+
+        assertEquals(1, out.size());
+        assertEquals(tuple(
+            "172.21.13.88",
+            "07/Apr/2013:03:04:49 +0200",
+            "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) " +
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 " +
+                "Mobile Safari/537.36" +
+                "(https://yauaa.basjes.nl:8080/something.html?aap=noot&mies=wim#zus)",
+            "yauaa.basjes.nl"
+            ).toDelimitedString("><#><"),
+            out.get(0).toDelimitedString("><#><"));
+    }
 }
