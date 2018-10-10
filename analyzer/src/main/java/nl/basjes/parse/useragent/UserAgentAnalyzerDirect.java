@@ -1018,46 +1018,67 @@ config:
         }
     }
 
-    public void preHeat() {
-        preHeat(testCases.size(), true);
-    }
-    public void preHeat(int preheatIterations) {
-        preHeat(preheatIterations, true);
-    }
-    public void preHeat(int preheatIterations, boolean log) {
-        if (testCases.isEmpty() || preheatIterations == 0) {
-            LOG.warn("NO PREHEAT WAS DONE. Simply because there are no test cases available.");
-        } else {
-            if (log) {
-                LOG.info("Preheating JVM by running {} testcases.", preheatIterations);
-            }
-            int remainingIterations = preheatIterations;
-            int goodResults = 0;
-            while (remainingIterations > 0) {
-                for (Map<String, Map<String, String>> test : testCases) {
-                    Map<String, String> input = test.get("input");
-                    if (input == null) {
-                        continue;
-                    }
 
-                    String userAgentString = input.get("user_agent_string");
-                    if (userAgentString == null) {
-                        continue;
-                    }
-                    remainingIterations--;
-                    // Calculate and use result to guarantee not optimized away.
-                    if(!UserAgentAnalyzerDirect.this.parse(userAgentString).hasSyntaxError()) {
-                        goodResults++;
-                    }
-                    if (remainingIterations <= 0) {
-                        break;
-                    }
+    /**
+     * Runs all testcases once to heat up the JVM.
+     * @return Number of actually done testcases.
+     */
+    public long preHeat() {
+        return preHeat(testCases.size(), true);
+    }
+    /**
+     * Runs the number of specified testcases to heat up the JVM.
+     * @param preheatIterations Number of desired tests to run.
+     * @return Number of actually done testcases.
+     */
+    public long preHeat(long preheatIterations) {
+        return preHeat(preheatIterations, true);
+    }
+
+    private static final long MAX_PRE_HEAT_ITERATIONS = 1_000_000L;
+
+    /**
+     * Runs the number of specified testcases to heat up the JVM.
+     * @param preheatIterations Number of desired tests to run.
+     * @param log Enable logging?
+     * @return Number of actually done testcases.
+     */
+    public long preHeat(long preheatIterations, boolean log) {
+        if (testCases.isEmpty()) {
+            LOG.warn("NO PREHEAT WAS DONE. Simply because there are no test cases available.");
+            return 0;
+        }
+        if (preheatIterations <= 0) {
+            LOG.warn("NO PREHEAT WAS DONE. Simply because you asked for {} to run.", preheatIterations);
+            return 0;
+        }
+        if (preheatIterations > MAX_PRE_HEAT_ITERATIONS) {
+            LOG.warn("NO PREHEAT WAS DONE. Simply because you asked for too many ({} > {}) to run.", preheatIterations, MAX_PRE_HEAT_ITERATIONS);
+            return 0;
+        }
+        if (log) {
+            LOG.info("Preheating JVM by running {} testcases.", preheatIterations);
+        }
+        long remainingIterations = preheatIterations;
+        long goodResults = 0;
+        while (remainingIterations > 0) {
+            for (Map<String, Map<String, String>> test : testCases) {
+                Map<String, String> input = test.get("input");
+                String userAgentString = input.get("user_agent_string");
+                remainingIterations--;
+                // Calculate and use result to guarantee not optimized away.
+                if(!UserAgentAnalyzerDirect.this.parse(userAgentString).hasSyntaxError()) {
+                    goodResults++;
+                }
+                if (remainingIterations <= 0) {
+                    break;
                 }
             }
-            if (log) {
-                LOG.info("Preheating JVM completed. ({} of {} were proper results)", goodResults, preheatIterations);
-            }
         }
+        if (log) {
+            LOG.info("Preheating JVM completed. ({} of {} were proper results)", goodResults, preheatIterations);
+        }
+        return preheatIterations;
     }
 
     // ===============================================================================================================

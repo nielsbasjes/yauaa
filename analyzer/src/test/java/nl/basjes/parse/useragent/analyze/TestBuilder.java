@@ -27,6 +27,7 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 // CHECKSTYLE.OFF: ParenPad
 public class TestBuilder {
@@ -256,4 +257,25 @@ public class TestBuilder {
                 .build();
         assertEquals(0, userAgentAnalyzer.getNumberOfTestCases());
     }
+
+    @Test
+    public void testPreheatNoTests() {
+        UserAgentAnalyzer userAgentAnalyzer =
+            UserAgentAnalyzer
+                .newBuilder()
+                .keepTests()
+                .hideMatcherLoadStats()
+                .withField("AgentName")
+                .build();
+
+        assertTrue(userAgentAnalyzer.getNumberOfTestCases() > 100);
+        assertEquals(0, userAgentAnalyzer.preHeat(0));
+        assertEquals(0, userAgentAnalyzer.preHeat(-1));
+        assertEquals(0, userAgentAnalyzer.preHeat(1000000000L));
+
+        userAgentAnalyzer.dropTests();
+        assertEquals(0, userAgentAnalyzer.getNumberOfTestCases());
+        assertEquals(0, userAgentAnalyzer.preHeat());
+    }
+
 }
