@@ -2,7 +2,7 @@ This is intended as an overview of the major changes
 
 v5.3
 ===
-- Detect Iron browser
+- Detect Iron, Quark and Otter browsers
 - Handle the 'too many spaces' effect.
 - Fixed Rat checking
 - Major update of the UDF for logparser
@@ -10,7 +10,6 @@ v5.3
 - Updated UDF dependencies
   - Apache Flink 1.6.1
   - Apache Beam 2.7.0
-- Detect Quark browser
 
 v5.2
 ===

@@ -1,0 +1,308 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2018 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) Otter/0.9.07 Safari/538.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.?'
+      OperatingSystemNameVersion           : 'Mac OS X 10.?'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '538.1'
+      LayoutEngineVersionMajor             : '538'
+      LayoutEngineNameVersion              : 'AppleWebKit 538.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Otter'
+      AgentVersion                         : '0.9.07'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Otter 0.9.07'
+      AgentNameVersionMajor                : 'Otter 0'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Wayland; Linux i686) AppleWebKit/538.1 (KHTML, like Gecko) Otter/0.9.06 Safari/538.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel i686'
+      OperatingSystemNameVersion           : 'Linux Intel i686'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '538.1'
+      LayoutEngineVersionMajor             : '538'
+      LayoutEngineNameVersion              : 'AppleWebKit 538.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Otter'
+      AgentVersion                         : '0.9.06'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Otter 0.9.06'
+      AgentNameVersionMajor                : 'Otter 0'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/538.1 (KHTML, like Gecko) Otter/0.9.07 Safari/538.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '538.1'
+      LayoutEngineVersionMajor             : '538'
+      LayoutEngineNameVersion              : 'AppleWebKit 538.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Otter'
+      AgentVersion                         : '0.9.07'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Otter 0.9.07'
+      AgentNameVersionMajor                : 'Otter 0'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/602.1 (KHTML, like Gecko) Otter/0.9.91'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Otter'
+      AgentVersion                         : '0.9.91'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Otter 0.9.91'
+      AgentNameVersionMajor                : 'Otter 0'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/528.1 (KHTML, like Gecko) Otter/0.9.03 weekly #40 Safari/528.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '528.1'
+      LayoutEngineVersionMajor             : '528'
+      LayoutEngineNameVersion              : 'AppleWebKit 528.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 528'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Otter'
+      AgentVersion                         : '0.9.03'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Otter 0.9.03'
+      AgentNameVersionMajor                : 'Otter 0'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/538.1 (KHTML, like Gecko) Otter/0.9.07 Safari/538.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '538.1'
+      LayoutEngineVersionMajor             : '538'
+      LayoutEngineNameVersion              : 'AppleWebKit 538.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Otter'
+      AgentVersion                         : '0.9.07'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Otter 0.9.07'
+      AgentNameVersionMajor                : 'Otter 0'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) Otter/0.9.08 Safari/538.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '538.1'
+      LayoutEngineVersionMajor             : '538'
+      LayoutEngineNameVersion              : 'AppleWebKit 538.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Otter'
+      AgentVersion                         : '0.9.08'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Otter 0.9.08'
+      AgentNameVersionMajor                : 'Otter 0'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; FreeBSD) AppleWebKit/602.1 (KHTML, like Gecko) Otter/0.9.12'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'FreeBsd Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'FreeBSD'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'FreeBSD ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Otter'
+      AgentVersion                         : '0.9.12'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Otter 0.9.12'
+      AgentNameVersionMajor                : 'Otter 0'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/538.1 (KHTML, like Gecko) Otter/0.9.04'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel i686'
+      OperatingSystemNameVersion           : 'Linux Intel i686'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '538.1'
+      LayoutEngineVersionMajor             : '538'
+      LayoutEngineNameVersion              : 'AppleWebKit 538.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Otter'
+      AgentVersion                         : '0.9.04'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Otter 0.9.04'
+      AgentNameVersionMajor                : 'Otter 0'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) Otter/0.9.07 Safari/538.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '538.1'
+      LayoutEngineVersionMajor             : '538'
+      LayoutEngineNameVersion              : 'AppleWebKit 538.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Otter'
+      AgentVersion                         : '0.9.07'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Otter 0.9.07'
+      AgentNameVersionMajor                : 'Otter 0'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/602.1 (KHTML, like Gecko) Otter/0.9.97'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '602.1'
+      LayoutEngineVersionMajor             : '602'
+      LayoutEngineNameVersion              : 'AppleWebKit 602.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Otter'
+      AgentVersion                         : '0.9.97'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Otter 0.9.97'
+      AgentNameVersionMajor                : 'Otter 0'
