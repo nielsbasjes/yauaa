@@ -633,17 +633,150 @@ config:
 # - Ubuntu Kylin
 # - Ubuntu MATE
 
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.9 (like Gecko) (Kubuntu)'
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; Konqueror/4.4; Linux) KHTML/4.4.5 (like Gecko) Kubuntu'
-#
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; ChaletOS based on Xubuntu 14.04.1 LTS) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.0 Maxthon/1.0.5.3 Safari/537.36'
+- matcher:
+    variable:
+    - 'UbuntuProductName: agent.(1)product.(1)comments.entry.(1)product.(1)name~"buntu"'
+    extract:
+    - 'OperatingSystemName                 :    100 :@UbuntuProductName'
+    - 'OperatingSystemVersion              :    100 :@UbuntuProductName^.version="14.04.1"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.9 (like Gecko) (Kubuntu)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Kubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Kubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'KHTML'
+      LayoutEngineVersion                  : '3.5'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'KHTML 3.5'
+      LayoutEngineNameVersionMajor         : 'KHTML 3'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Konqueror'
+      AgentVersion                         : '3.5'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Konqueror 3.5'
+      AgentNameVersionMajor                : 'Konqueror 3'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Konqueror/4.4; Linux) KHTML/4.4.5 (like Gecko) Kubuntu'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Kubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Kubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'KHTML'
+      LayoutEngineVersion                  : '4.4'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'KHTML 4.4'
+      LayoutEngineNameVersionMajor         : 'KHTML 4'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Konqueror'
+      AgentVersion                         : '4.4'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Konqueror 4.4'
+      AgentNameVersionMajor                : 'Konqueror 4'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; ChaletOS based on Xubuntu 14.04.1 LTS) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.0 Maxthon/1.0.5.3 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'ChaletOS based on Xubuntu'
+      OperatingSystemVersion               : '14.04.1'
+      OperatingSystemNameVersion           : 'ChaletOS based on Xubuntu 14.04.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '33.0'
+      LayoutEngineVersionMajor             : '33'
+      LayoutEngineNameVersion              : 'Blink 33.0'
+      LayoutEngineNameVersionMajor         : 'Blink 33'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Maxthon'
+      AgentVersion                         : '1.0.5.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Maxthon 1.0.5.3'
+      AgentNameVersionMajor                : 'Maxthon 1'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; pl-PL; rv:1.9.0.7) Gecko/2009030422 Kubuntu/8.10 (intrepid) Firefox/3.0.9'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Kubuntu'
+      OperatingSystemVersion               : '8.10'
+      OperatingSystemNameVersion           : 'Kubuntu 8.10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.0.7'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.0.7'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '2009030422'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '3.0.9'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Firefox 3.0.9'
+      AgentNameVersionMajor                : 'Firefox 3'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+      AgentSecurity                        : 'Strong security'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; pl-PL; rv:1.9.2a1pre) Gecko/20090128 Kubuntu/8.10 (intrepid) Minefield/3.2a1pre'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Kubuntu'
+      OperatingSystemVersion               : '8.10'
+      OperatingSystemNameVersion           : 'Kubuntu 8.10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.2a1pre'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.2a1pre'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20090128'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Minefield'
+      AgentVersion                         : '3.2a1pre'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Minefield 3.2a1pre'
+      AgentNameVersionMajor                : 'Minefield 3'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+      AgentSecurity                        : 'Strong security'
+
 
 #
 #  - matcher:
