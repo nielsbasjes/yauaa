@@ -2095,6 +2095,53 @@ config:
       AgentNameVersionMajor                : 'YandexBot 3'
       AgentInformationUrl                  : 'http://yandex.com/bots'
 
+- matcher:
+    variable:
+    - 'RobotName:agent.product.comments.entry.product.name="YandexMobileBot"'
+    - 'RobotVersion:@RobotName^.version'
+    extract:
+    - 'DeviceClass                         :    111 :"Robot Mobile"'
+    - 'DeviceName                          :    111 :@RobotName'
+    - 'DeviceBrand                         :   1000 :"Yandex"'
+    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
+    - 'DeviceFirmwareVersion               :   1000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    111 :"Cloud"'
+    - 'OperatingSystemName                 :    111 :"Cloud"'
+    - 'OperatingSystemVersion              :    111 :"Cloud"'
+    - 'LayoutEngineClass                   :    111 :"Robot"'
+    - 'LayoutEngineName                    :    111 :@RobotName'
+    - 'LayoutEngineVersion                 :    111 :@RobotVersion'
+    - 'AgentClass                          :    111 :"Robot"'
+    - 'AgentName                           :    111 :@RobotName'
+    - 'AgentVersion                        :    111 :@RobotVersion'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B411 Safari/600.1.4 (compatible; YandexMobileBot/3.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Yandex MobileBot'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexMobileBot'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexMobileBot 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexMobileBot 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexMobileBot'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexMobileBot 3.0'
+      AgentNameVersionMajor                : 'YandexMobileBot 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
 
 - test:
     input:
