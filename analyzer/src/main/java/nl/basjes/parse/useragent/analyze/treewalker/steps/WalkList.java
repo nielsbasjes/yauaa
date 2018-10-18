@@ -171,7 +171,7 @@ public class WalkList implements Serializable {
     }
 
     public Step getFirstStep() {
-        return steps == null || steps.isEmpty() ? null : steps.get(0);
+        return steps.isEmpty() ? null : steps.get(0);
     }
 
     private Boolean usesIsNull = null;
