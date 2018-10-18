@@ -66,9 +66,9 @@ public class StepDown extends Step {
 
     @Override
     public WalkResult walk(ParseTree tree, String value) {
-        Iterator<? extends ParserRuleContext> children = userAgentGetChildrenVisitor.visit(tree);
+        Iterator<? extends ParseTree> children = userAgentGetChildrenVisitor.visit(tree);
         while (children.hasNext()) {
-            ParserRuleContext child = children.next();
+            ParseTree child = children.next();
             WalkResult childResult = walkNextStep(child, null);
             if (childResult != null) {
                 return childResult;

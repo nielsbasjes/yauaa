@@ -32,26 +32,26 @@ public class ChildIterable {
     private final int start;
     private final int end;
 
-    private final Predicate<ParserRuleContext> isWantedClassPredicate;
+    private final Predicate<ParseTree> isWantedClassPredicate;
 
     public ChildIterable(boolean privateNumberRange,
                          int start, int end,
-                         Predicate<ParserRuleContext> isWantedClassPredicate) {
+                         Predicate<ParseTree> isWantedClassPredicate) {
         this.privateNumberRange = privateNumberRange;
         this.start = start;
         this.end = end;
         this.isWantedClassPredicate = isWantedClassPredicate;
     }
 
-    public Iterator<ParserRuleContext> iterator(ParserRuleContext treeContext) {
+    public Iterator<ParseTree> iterator(ParserRuleContext treeContext) {
         return new ChildIterator(treeContext);
     }
 
-    class ChildIterator implements Iterator<ParserRuleContext> {
+    class ChildIterator implements Iterator<ParseTree> {
         private final Iterator<ParseTree> childIterator;
-        private Boolean hasNext;
-        private int index = 0;
-        private ParserRuleContext nextChild;
+        private       Boolean             hasNext;
+        private       int                 index = 0;
+        private       ParseTree           nextChild;
 
         ChildIterator(ParserRuleContext treeContext) {
             if (treeContext.children == null) {
@@ -74,14 +74,10 @@ public class ChildIterable {
                 if (treeIsSeparator(nextParseTree)) {
                     continue;
                 }
-                if (!(nextParseTree instanceof ParserRuleContext)) {
-                    continue;
-                }
                 if (!privateNumberRange) {
                     index++;
                 }
-                ParserRuleContext possibleNextChild = (ParserRuleContext) nextParseTree;
-                if (!isWantedClassPredicate.test(possibleNextChild)) {
+                if (!isWantedClassPredicate.test(nextParseTree)) {
                     continue;
                 }
                 if (privateNumberRange) {
@@ -92,7 +88,7 @@ public class ChildIterable {
                     return false;
                 }
                 if (start <= index) {
-                    nextChild = possibleNextChild;
+                    nextChild = nextParseTree;
                     return true;
                 }
             }
@@ -111,7 +107,7 @@ public class ChildIterable {
         }
 
         @Override
-        public ParserRuleContext next() {
+        public ParseTree next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }

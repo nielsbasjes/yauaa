@@ -35,10 +35,10 @@ public class StepPrev extends Step {
             }
             child = parent.getChild(i);
             if (child == tree) {
-                return prevChild;
+                break; // Found it
             }
         }
-        return null; // This should never happen
+        return prevChild;
     }
 
     @Override
