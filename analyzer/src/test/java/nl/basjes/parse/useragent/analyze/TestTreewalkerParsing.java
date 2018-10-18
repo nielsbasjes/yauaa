@@ -321,6 +321,25 @@ public class TestTreewalkerParsing {
         checkPath(path, expectedHashEntries, expectedWalkList);
     }
 
+    @Test(expected = InvalidParserConfigurationException.class)
+    public void validateParseError() {
+        String path = "agent.product.(1)name[3]\"Safari\"";
+
+        TestMatcher matcher = new TestMatcher(new HashMap<>(), new HashMap<>());
+        MatcherRequireAction action = new MatcherRequireAction(path, matcher);
+        action.initialize();
+    }
+
+    @Test(expected = InvalidParserConfigurationException.class)
+    public void validateParseErrorUselessFixedString() {
+        String path = "\"Safari\"";
+
+        TestMatcher matcher = new TestMatcher(new HashMap<>(), new HashMap<>());
+        MatcherRequireAction action = new MatcherRequireAction(path, matcher);
+        action.initialize();
+    }
+
+
     private void checkPath(String path, String[] expectedHashEntries, String[] expectedWalkList) {
         Map<String, Map<String, String>> lookups = new HashMap<>();
         lookups.put("TridentVersions", new HashMap<>());
@@ -342,7 +361,7 @@ public class TestTreewalkerParsing {
         for (String expect : expectedHashEntries) {
             assertTrue("\nMissing:\n" + expect + sb.toString(), matcher.reveicedValues.contains(expect));
         }
-        assertTrue("Found wrong number of entries", expectedHashEntries.length == matcher.reveicedValues.size());
+        assertEquals("Found wrong number of entries", expectedHashEntries.length, matcher.reveicedValues.size());
 
         // Validate the expected walk list entries (i.e. the dynamic part of the path)
         TreeExpressionEvaluator evaluator = action.getEvaluatorForUnitTesting();

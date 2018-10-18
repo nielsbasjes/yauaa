@@ -27,8 +27,10 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherBaseCon
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherExtractContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherRequireContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherVariableContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
@@ -340,14 +342,16 @@ public abstract class MatcherAction implements Serializable {
 
     // -----
     private int calculateInformPath(@SuppressWarnings("SameParameterValue") String treeName, ParserRuleContext tree) {
-        if (tree instanceof MatcherRequireContext) {
-            return calculateInformPath(treeName, ((MatcherRequireContext) tree));
+        if (tree instanceof MatcherVariableContext) {
+            return calculateInformPath(treeName, (((MatcherVariableContext) tree).expression));
         }
-//        if (tree instanceof MatcherContext){
-        return calculateInformPath(treeName, ((MatcherContext) tree));
+        if (tree instanceof MatcherExtractContext) {
+            return calculateInformPath(treeName, (((MatcherExtractContext) tree).expression));
+        }
+//        if (tree instanceof MatcherRequireContext) {
+        return calculateInformPath(treeName, ((MatcherRequireContext) tree));
 //        }
         // Should never get here: The antlr definitions only allow one of the above options.
-//        return 0;
     }
 
     private int calculateInformPath(String treeName, MatcherRequireContext tree) {
@@ -357,9 +361,7 @@ public abstract class MatcherAction implements Serializable {
 //        if (tree instanceof MatcherPathIsNullContext){
         return calculateInformPath(treeName, ((MatcherPathIsNullContext) tree).matcher());
 //        }
-
         // Should never get here: The antlr definitions only allow one of the above options.
-//        return 0;
     }
 
     private int calculateInformPath(String treeName, MatcherContext tree) {
@@ -389,7 +391,6 @@ public abstract class MatcherAction implements Serializable {
 //        }
 
         // Should never get here: The antlr definitions only allow one of the above options.
-//        return 0;
     }
 
     // -----
@@ -397,7 +398,6 @@ public abstract class MatcherAction implements Serializable {
     private int calculateInformPath(String treeName, BasePathContext tree) {
         // The tree can theoretically be an instance of PathFixedValueContext.
         // These cases are handled in a different way so they cannot occur here.
-
         if (tree instanceof PathVariableContext) {
             matcher.informMeAboutVariable(this, ((PathVariableContext) tree).variable.getText());
             return 0;
@@ -406,7 +406,6 @@ public abstract class MatcherAction implements Serializable {
         return calculateInformPath(treeName, ((PathWalkContext) tree).nextStep);
 //        }
         // Should never get here: The antlr definitions only allow one of the above options.
-//        return 0;
     }
 
     private int calculateInformPath(String treeName, PathContext tree) {

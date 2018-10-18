@@ -26,6 +26,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.RuleNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,6 +65,17 @@ public class TreeExpressionEvaluator implements Serializable {
 
     private String calculateFixedValue(ParserRuleContext requiredPattern) {
         return new UserAgentTreeWalkerBaseVisitor<String>() {
+
+            @Override
+            protected boolean shouldVisitNextChild(RuleNode node, String currentResult) {
+                return currentResult == null;
+            }
+
+            @Override
+            protected String aggregateResult(String aggregate, String nextResult) {
+                return nextResult == null ? aggregate : nextResult;
+            }
+
             @Override
             public String visitMatcherPathLookup(MatcherPathLookupContext ctx) {
                 String value = visit(ctx.matcher());

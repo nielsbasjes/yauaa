@@ -59,10 +59,15 @@ BACKTOFULL      : '@'           ;
 // TridentName[agent.(1)product.(2-4)comments.(*)product.name="Trident"^.(*)version~"7.";"DefaultValue"]
 // LookUp[TridentName;agent.(1)product.(2-4)comments.(*)product.name#1="Trident"^.(*)version%1="7.";"DefaultValue"]
 
-matcherRequire  : matcher                                                  #matcherBase
+matcherRequire  : matcher                                        EOF   #matcherBase
 //                | '__SyntaxError__' EQUALS value=VALUE                   #isSyntaxError
-                | 'IsNull'         BLOCKOPEN matcher BLOCKCLOSE            #matcherPathIsNull
+                | 'IsNull'         BLOCKOPEN matcher BLOCKCLOSE  EOF   #matcherPathIsNull
                 ;
+
+matcherExtract  : expression=matcher EOF;
+
+// Is a bit duplicate but this gives a lot of clarity in the code
+matcherVariable : expression=matcher EOF;
 
 matcher         : basePath                                                                              #matcherPath
                 | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher SEMICOLON postfix=VALUE BLOCKCLOSE  #matcherConcat

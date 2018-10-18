@@ -46,7 +46,7 @@ public class MatcherExtractAction extends MatcherAction {
     }
 
     protected ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser) {
-        return parser.matcher();
+        return parser.matcherExtract();
     }
 
     public boolean isFixedValue() {

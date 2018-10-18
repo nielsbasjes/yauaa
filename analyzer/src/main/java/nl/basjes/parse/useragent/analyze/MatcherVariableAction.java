@@ -40,7 +40,7 @@ public class MatcherVariableAction extends MatcherAction {
     }
 
     protected ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser) {
-        return parser.matcher();
+        return parser.matcherVariable();
     }
 
     protected void setFixedValue(String fixedValue) {
