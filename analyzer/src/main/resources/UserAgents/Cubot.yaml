@@ -397,3 +397,56 @@ config:
       AgentVersionMajor                    : '64'
       AgentNameVersion                     : 'Chrome 64.0.3282.137'
       AgentNameVersionMajor                : 'Chrome 64'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0.0; CUBOT_X18_Plus Build/O00623) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Cubot X18 Plus'
+      DeviceBrand                          : 'Cubot'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0.0'
+      OperatingSystemNameVersion           : 'Android 8.0.0'
+      OperatingSystemVersionBuild          : 'O00623'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '69.0'
+      LayoutEngineVersionMajor             : '69'
+      LayoutEngineNameVersion              : 'Blink 69.0'
+      LayoutEngineNameVersionMajor         : 'Blink 69'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '69.0.3497.100'
+      AgentVersionMajor                    : '69'
+      AgentNameVersion                     : 'Chrome 69.0.3497.100'
+      AgentNameVersionMajor                : 'Chrome 69'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0; CUBOT MAX Build/MRA58K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Cubot MAX'
+      DeviceBrand                          : 'Cubot'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemVersionBuild          : 'MRA58K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '69.0'
+      LayoutEngineVersionMajor             : '69'
+      LayoutEngineNameVersion              : 'Blink 69.0'
+      LayoutEngineNameVersionMajor         : 'Blink 69'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '69.0.3497.100'
+      AgentVersionMajor                    : '69'
+      AgentNameVersion                     : 'Chrome 69.0.3497.100'
+      AgentNameVersionMajor                : 'Chrome 69'
+
+
+
