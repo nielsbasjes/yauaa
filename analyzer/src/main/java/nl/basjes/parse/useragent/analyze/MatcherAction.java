@@ -35,7 +35,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRan
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
-import org.antlr.v4.runtime.ANTLRErrorListener;
+import nl.basjes.parse.useragent.utils.DefaultANTLRErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonToken;
@@ -110,7 +110,7 @@ public abstract class MatcherAction implements Serializable {
         return matchExpression;
     }
 
-    class InitErrorListener implements ANTLRErrorListener {
+    class InitErrorListener implements DefaultANTLRErrorListener {
         @Override
         public void syntaxError(
                 Recognizer<?, ?> recognizer,
@@ -125,39 +125,7 @@ public abstract class MatcherAction implements Serializable {
             throw new InvalidParserConfigurationException("Syntax error \"" + msg + "\" caused by \"" + matchExpression + "\".");
         }
 
-        @Override
-        public void reportAmbiguity(
-                Parser recognizer,
-                DFA dfa,
-                int startIndex,
-                int stopIndex,
-                boolean exact,
-                BitSet ambigAlts,
-                ATNConfigSet configs) {
-            // Ignore this type of problem
-        }
-
-        @Override
-        public void reportAttemptingFullContext(
-                Parser recognizer,
-                DFA dfa,
-                int startIndex,
-                int stopIndex,
-                BitSet conflictingAlts,
-                ATNConfigSet configs) {
-            // Ignore this type of problem
-        }
-
-        @Override
-        public void reportContextSensitivity(
-                Parser recognizer,
-                DFA dfa,
-                int startIndex,
-                int stopIndex,
-                int prediction,
-                ATNConfigSet configs) {
-            // Ignore this type of problem
-        }
+        // Ignore all other types of problems
     }
 
     void init(String newMatchExpression, Matcher newMatcher) {

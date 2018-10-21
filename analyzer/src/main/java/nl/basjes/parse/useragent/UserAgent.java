@@ -19,7 +19,7 @@ package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.parser.UserAgentBaseListener;
-import org.antlr.v4.runtime.ANTLRErrorListener;
+import nl.basjes.parse.useragent.utils.DefaultANTLRErrorListener;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class UserAgent extends UserAgentBaseListener implements Serializable, ANTLRErrorListener {
+public class UserAgent extends UserAgentBaseListener implements Serializable, DefaultANTLRErrorListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgent.class);
     public static final String DEVICE_CLASS = "DeviceClass";
@@ -132,27 +132,6 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
 //        allFields.put("__Ambiguity__",new AgentField("true"));
     }
 
-    @Override
-    public void reportAttemptingFullContext(
-            Parser recognizer,
-            DFA dfa,
-            int startIndex,
-            int stopIndex,
-            BitSet conflictingAlts,
-            ATNConfigSet configs) {
-    }
-
-    @Override
-    public void reportContextSensitivity(
-            Parser recognizer,
-            DFA dfa,
-            int startIndex,
-            int stopIndex,
-            int prediction,
-            ATNConfigSet configs) {
-
-    }
-
     // The original input value
     private String userAgentString = null;
 
@@ -184,7 +163,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
         return Objects.hash(userAgentString, allFields);
     }
 
-    public class AgentField implements Serializable {
+    public static class AgentField implements Serializable {
         private final String defaultValue;
         private String value;
 
@@ -566,6 +545,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, AN
                         sb.append(' ');
                     }
                     sb.append(": '").append(field.getValue()).append('\'');
+//                    sb.append("            # Default = '").append(field.defaultValue).append('\'');
                     sb.append('\n');
                 }
             }
