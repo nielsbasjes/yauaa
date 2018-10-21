@@ -243,7 +243,10 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
 
         @Override
         public String toString() {
-            return ">" + this.value + "#" + this.confidence + "<";
+            if (defaultValue == null) {
+                return "{ value:'" + value + "', confidence:'" + confidence + "', default:null }";
+            }
+            return "{ value:'" + value + "', confidence:'" + confidence + "', default:'" + defaultValue + "' }";
         }
     }
 
