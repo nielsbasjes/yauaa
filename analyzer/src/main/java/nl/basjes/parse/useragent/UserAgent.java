@@ -377,12 +377,13 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     // The appliedMatcher parameter is needed for development and debugging.
     public void set(UserAgent newValuesUserAgent, Matcher appliedMatcher) {
         for (String fieldName : newValuesUserAgent.allFields.keySet()) {
-            set(fieldName, newValuesUserAgent.allFields.get(fieldName));
+            AgentField field = newValuesUserAgent.allFields.get(fieldName);
+            set(fieldName, field.value, field.confidence);
         }
     }
 
-    private void set(String fieldName, AgentField agentField) {
-        set(fieldName, agentField.value, agentField.confidence);
+    void setImmediateForTesting(String fieldName, AgentField agentField) {
+        allFields.put(fieldName, agentField);
     }
 
     public AgentField get(String fieldName) {
@@ -532,6 +533,9 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     @Override
     public String toString() {
         return toString(getAvailableFieldNamesSorted());
+    }
+    public String toString(String... fieldNames) {
+        return toString(Arrays.asList(fieldNames));
     }
     public String toString(List<String> fieldNames) {
         StringBuilder sb = new StringBuilder("  - user_agent_string: '\"" + userAgentString + "\"'\n");
