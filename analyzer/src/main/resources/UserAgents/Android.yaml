@@ -132,19 +132,18 @@ config:
 
 - matcher:
     require:
-#    - 'agent.(1-2)product.(1)comments.entry.(1)product.(1)name[1]="Android"'
     - 'agent.product.(1)name="Mobile Safari"'
     extract:
     - 'DeviceClass                         :   1000 :"Phone"'
     - 'OperatingSystemClass                :   1000 :"Mobile"'
 
-#- matcher:
-#    require:
-#    - 'agent.product.(1)name[1]="Android"'
-#    - 'agent.product.(1)name="Mobile Safari"'
-#    extract:
-#    - 'DeviceClass                 :   1000:"Phone"'
-#    - 'OperatingSystemClass        :   1000:"Mobile"'
+- matcher:
+    require:
+    - 'agent.product.(1)name[1]="Chrome"'
+    - 'agent.product.(1)name[1]="Mobile"'
+    extract:
+    - 'DeviceClass                         :   100 :"Phone"'
+    - 'OperatingSystemClass                :   100 :"Mobile"'
 
 - matcher:
     require:

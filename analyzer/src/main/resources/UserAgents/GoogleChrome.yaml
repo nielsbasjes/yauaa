@@ -556,6 +556,9 @@ config:
       "Iron"            : "Iron"
       "Quark"           : "Quark"
       "Mxbrowser"       : "Maxthon"
+      "Brave Chrome"    : "Brave"
+      "Iron Safari"     : "Iron"
+      "Mobile Iron Safari" : "Iron"
 
 - matcher:
     variable:
@@ -1651,8 +1654,8 @@ config:
       WebviewAppVersionMajor               : '2'
       WebviewAppNameVersionMajor           : 'Quark 2'
 
-
-# TODO: Check what is 'Brave Chrome'? Is this 'Brave' or something else?
+# Brave and Iron put their name right in front of either "Chrome" or "Safari"
+# In both cases the version with the 'Chrome' is the version of the browser.
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.2; SM-G360F Build/LRX22G) AppleWebKit/537.36 (KHTML, like Gecko) Brave Chrome/65.0.3325.109 Mobile Safari/537.36'
@@ -1677,3 +1680,108 @@ config:
       AgentVersionMajor                    : '65'
       AgentNameVersion                     : 'Brave Chrome 65.0.3325.109'
       AgentNameVersionMajor                : 'Brave Chrome 65'
+
+# Faked testcase
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.2; SM-G360F Build/LRX22G) AppleWebKit/537.36 (KHTML, like Gecko) Brave Chrome/65.0.3325.109 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung SM-G360F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemVersionBuild          : 'LRX22G'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Brave Chrome'
+      AgentVersion                         : '65.0.3325.109'
+      AgentVersionMajor                    : '65'
+      AgentNameVersion                     : 'Brave Chrome 65.0.3325.109'
+      AgentNameVersionMajor                : 'Brave Chrome 65'
+
+
+- matcher:
+    variable:
+    - 'ChromeName:agent.product.(1)name[1]="Chrome"'
+    - 'SafariName:agent.product.(1)name="Iron Safari"'
+    - 'ProductName:@SafariName@[1]'
+    require:
+    - 'IsNull[agent.product.(1)name="Mobile Safari"]'
+    extract:
+    - 'AgentName                           :  2100 :@ProductName'
+    - 'AgentVersion                        :  2100 :@ChromeName^.version'
+
+- matcher:
+    variable:
+    - 'ChromeName:agent.product.(1)name[1]="Chrome"'
+    - 'SafariName:agent.product.(1)name[3]="Safari"'
+    - 'ProductName:@SafariName@[2]'
+    require:
+    - 'agent.product.(1)name[1]="Mobile"' # Speedup trick
+    - '@SafariName@[1]="Mobile"'
+    - 'IsNull[agent.product.(1)name="Mobile Safari"]'
+    - 'IsNull[agent.product.(1)name="Mobile VR Safari"]'
+    extract:
+    - 'AgentName                           :  2100 :@ProductName'
+    - 'AgentVersion                        :  2100 :@ChromeName^.version'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3450.0 Iron Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '66.0'
+      LayoutEngineVersionMajor             : '66'
+      LayoutEngineNameVersion              : 'Blink 66.0'
+      LayoutEngineNameVersionMajor         : 'Blink 66'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Iron'
+      AgentVersion                         : '66.0.3450.0'
+      AgentVersionMajor                    : '66'
+      AgentNameVersion                     : 'Iron 66.0.3450.0'
+      AgentNameVersionMajor                : 'Iron 66'
+
+# Iron browser: https://play.google.com/store/apps/details?id=org.iron.srware
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6 Build/N6F27M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.81 Mobile Iron Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemVersionBuild          : 'N6F27M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Iron'
+      AgentVersion                         : '61.0.3163.81'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Iron 61.0.3163.81'
+      AgentNameVersionMajor                : 'Iron 61'

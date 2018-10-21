@@ -1,5 +1,9 @@
 This is intended as an overview of the major changes
 
+v5.4
+===
+- Detect more Iron variations
+
 v5.3
 ===
 - Detect Iron, Quark and Otter browsers
