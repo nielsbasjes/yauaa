@@ -108,4 +108,11 @@ public class TestYamlBasedExpressions {
         Assert.assertTrue(uaa.runTests(false, false));
     }
 
+    @Test
+    public void runOnlyOneTest() {
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:TestOnlyOneTest.yaml");
+        uaa.setVerbose(true);
+        Assert.assertTrue(uaa.runTests(false, false));
+    }
+
 }
