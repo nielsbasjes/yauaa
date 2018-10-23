@@ -20,8 +20,12 @@ language: java
 jdk:
   - oraclejdk8
 
+addons:
+  sonarcloud:
+    organization: "nielsbasjes-github"
+
 after_success:
-  - mvn -PEnableReportPlugins coveralls:report
+  - mvn -PEnableReportPlugins coveralls:report sonar:sonar
 
 cache:
   directories:
