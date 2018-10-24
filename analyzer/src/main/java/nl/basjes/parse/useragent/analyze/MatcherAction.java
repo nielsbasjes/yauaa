@@ -29,7 +29,6 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatP
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherExtractContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherRequireContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherVariableContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableContext;
@@ -49,15 +48,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import static nl.basjes.parse.useragent.analyze.NumberRangeVisitor.NUMBER_RANGE_VISITOR;
-import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.BasePathContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
-import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
-import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathFixedValueContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathWalkContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
@@ -143,7 +141,6 @@ public abstract class MatcherAction implements Serializable {
 
         parser.addErrorListener(errorListener);
 
-//        parser.setTrace(true);
         ParserRuleContext requiredPattern = parseWalkerExpression(parser);
 
         // We couldn't ditch the double quotes around the fixed values in the parsing phase.
@@ -164,7 +161,7 @@ public abstract class MatcherAction implements Serializable {
 
         mustHaveMatches = !evaluator.usesIsNull();
 
-        int informs = calculateInformPath("agent", requiredPattern);
+        int informs = calculateInformPath(this, "agent", requiredPattern);
 
         // If this is based on a variable we do not need any matches from the hashmap.
         if (mustHaveMatches && informs == 0) {
@@ -304,116 +301,104 @@ public abstract class MatcherAction implements Serializable {
 
     // ============================================================================================================
 
-    // -----
-    private int calculateInformPath(@SuppressWarnings("SameParameterValue") String treeName, ParserRuleContext tree) {
-        if (tree instanceof MatcherVariableContext) {
-            return calculateInformPath(treeName, (((MatcherVariableContext) tree).expression));
-        }
-        if (tree instanceof MatcherExtractContext) {
-            return calculateInformPath(treeName, (((MatcherExtractContext) tree).expression));
-        }
-//        if (tree instanceof MatcherRequireContext) {
-        return calculateInformPath(treeName, ((MatcherRequireContext) tree));
-//        }
-        // Should never get here: The antlr definitions only allow one of the above options.
+    @FunctionalInterface
+    public interface CalculateInformPathFunction {
+        /**
+         * Applies this function to the given arguments.
+         * @param treeName The name of the current tree.
+         * @param tree The actual location in the parseTree
+         * @return the number of informs done
+         */
+        int calculateInformPath(MatcherAction action, String treeName, ParserRuleContext tree);
     }
 
-    private int calculateInformPath(String treeName, MatcherRequireContext tree) {
-        if (tree instanceof MatcherBaseContext) {
-            return calculateInformPath(treeName, ((MatcherBaseContext) tree).matcher());
-        }
-//        if (tree instanceof MatcherPathIsNullContext){
-        return calculateInformPath(treeName, ((MatcherPathIsNullContext) tree).matcher());
-//        }
-        // Should never get here: The antlr definitions only allow one of the above options.
-    }
+    private static final Map<Class, CalculateInformPathFunction> CALCULATE_INFORM_PATH = new HashMap<>();
 
-    private int calculateInformPath(String treeName, MatcherContext tree) {
-        if (tree instanceof MatcherPathContext) {
-            return calculateInformPath(treeName, ((MatcherPathContext) tree).basePath());
-        }
-        if (tree instanceof MatcherCleanVersionContext){
-            return calculateInformPath(treeName, ((MatcherCleanVersionContext) tree).matcher());
-        }
-        if (tree instanceof MatcherNormalizeBrandContext){
-            return calculateInformPath(treeName, ((MatcherNormalizeBrandContext) tree).matcher());
-        }
-        if (tree instanceof MatcherPathLookupContext){
-            return calculateInformPath(treeName, ((MatcherPathLookupContext) tree).matcher());
-        }
-        if (tree instanceof MatcherWordRangeContext){
-            return calculateInformPath(treeName, ((MatcherWordRangeContext) tree).matcher());
-        }
-        if (tree instanceof MatcherConcatContext){
-            return calculateInformPath(treeName, ((MatcherConcatContext) tree).matcher());
-        }
-        if (tree instanceof MatcherConcatPrefixContext){
-            return calculateInformPath(treeName, ((MatcherConcatPrefixContext) tree).matcher());
-        }
-//        if (tree instanceof MatcherConcatPostfixContext){
-        return calculateInformPath(treeName, ((MatcherConcatPostfixContext) tree).matcher());
-//        }
+    static {
+        // -------------
+        CALCULATE_INFORM_PATH.put(MatcherBaseContext.class,             (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherBaseContext) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathIsNullContext.class,       (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherPathIsNullContext) tree).matcher()));
 
-        // Should never get here: The antlr definitions only allow one of the above options.
-    }
+        // -------------
+        CALCULATE_INFORM_PATH.put(MatcherExtractContext.class,          (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherExtractContext) tree).expression));
 
-    // -----
+        // -------------
+        CALCULATE_INFORM_PATH.put(MatcherVariableContext.class,         (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherVariableContext) tree).expression));
 
-    private int calculateInformPath(String treeName, BasePathContext tree) {
-        // The tree can theoretically be an instance of PathFixedValueContext.
-        // These cases are handled in a different way so they cannot occur here.
-        if (tree instanceof PathVariableContext) {
-            matcher.informMeAboutVariable(this, ((PathVariableContext) tree).variable.getText());
+        // -------------
+        CALCULATE_INFORM_PATH.put(MatcherPathContext.class,             (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherPathContext) tree).basePath()));
+        CALCULATE_INFORM_PATH.put(MatcherConcatContext.class,           (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherConcatContext) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherConcatPrefixContext.class,     (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherConcatPrefixContext) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherConcatPostfixContext.class,    (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherConcatPostfixContext) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherNormalizeBrandContext.class,   (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherNormalizeBrandContext) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherCleanVersionContext.class,     (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherCleanVersionContext) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathLookupContext.class,       (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherPathLookupContext) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherWordRangeContext.class,        (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherWordRangeContext) tree).matcher()));
+
+        // -------------
+        CALCULATE_INFORM_PATH.put(PathVariableContext.class,            (action, treeName, tree) -> {
+            action.matcher.informMeAboutVariable(action, ((PathVariableContext) tree).variable.getText());
             return 0;
+        });
+
+        CALCULATE_INFORM_PATH.put(PathWalkContext.class,                (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((PathWalkContext) tree).nextStep));
+
+        // -------------
+        CALCULATE_INFORM_PATH.put(StepDownContext.class,                (action, treeName, tree) -> {
+            StepDownContext thisTree = ((StepDownContext)tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + thisTree.name.getText(), thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepEqualsValueContext.class,         (action, treeName, tree) -> {
+            StepEqualsValueContext thisTree = ((StepEqualsValueContext)tree);
+            action.matcher.informMeAbout(action, treeName + "=\"" + thisTree.value.getText() + "\"");
+            return 1;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepStartsWithValueContext.class,     (action, treeName, tree) -> {
+            StepStartsWithValueContext thisTree = ((StepStartsWithValueContext)tree);
+            action.matcher.informMeAboutPrefix(action, treeName, thisTree.value.getText());
+            return 1;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepWordRangeContext.class,           (action, treeName, tree) -> {
+            StepWordRangeContext thisTree = ((StepWordRangeContext)tree);
+            Range range = WordRangeVisitor.getRange(thisTree.wordRange());
+            action.matcher.lookingForRange(treeName, range);
+            return calculateInformPath(action, treeName + range, thisTree.nextStep);
+        });
+    }
+
+    private static int calculateInformPath(MatcherAction action, String treeName, ParserRuleContext tree) {
+        if (tree == null) {
+            action.matcher.informMeAbout(action, treeName);
+            return 1;
         }
-//        if (tree instanceof PathWalkContext) {
-        return calculateInformPath(treeName, ((PathWalkContext) tree).nextStep);
-//        }
-        // Should never get here: The antlr definitions only allow one of the above options.
-    }
 
-    private int calculateInformPath(String treeName, PathContext tree) {
-        if (tree != null) {
-            if (tree instanceof StepDownContext){
-                return calculateInformPath(treeName, (StepDownContext) tree);
-            }
-            if (tree instanceof StepEqualsValueContext){
-                return calculateInformPath(treeName, (StepEqualsValueContext) tree);
-            }
-            if (tree instanceof StepStartsWithValueContext){
-                return calculateInformPath(treeName, (StepStartsWithValueContext) tree);
-            }
-            if (tree instanceof StepWordRangeContext) {
-                return calculateInformPath(treeName, (StepWordRangeContext) tree);
-            }
+        CalculateInformPathFunction function = CALCULATE_INFORM_PATH.get(tree.getClass());
+        if (function != null) {
+            return function.calculateInformPath(action, treeName, tree);
         }
-        matcher.informMeAbout(this, treeName);
+
+        action.matcher.informMeAbout(action, treeName);
         return 1;
-    }
-    // -----
-
-    private int calculateInformPath(String treeName, StepDownContext tree) {
-        int informs = 0;
-        for (Integer number : NUMBER_RANGE_VISITOR.visit(tree.numberRange())) {
-            informs += calculateInformPath(treeName + '.' + "(" + number + ")" + tree.name.getText(), tree.nextStep);
-        }
-        return informs;
-    }
-
-    private int calculateInformPath(String treeName, StepEqualsValueContext tree) {
-        matcher.informMeAbout(this, treeName + "=\"" + tree.value.getText() + "\"");
-        return 1;
-    }
-
-    private int calculateInformPath(String treeName, StepStartsWithValueContext tree) {
-        matcher.informMeAboutPrefix(this, treeName, tree.value.getText());
-        return 1;
-    }
-
-    private int calculateInformPath(String treeName, StepWordRangeContext tree) {
-        Range range = WordRangeVisitor.getRange(tree.wordRange());
-        matcher.lookingForRange(treeName, range);
-        return calculateInformPath(treeName + range, tree.nextStep);
     }
 
     // ============================================================================================================
