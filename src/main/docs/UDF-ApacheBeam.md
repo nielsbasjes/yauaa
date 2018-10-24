@@ -32,13 +32,13 @@ Note that the name of the two setters is not important, the system looks at the 
 
             @SuppressWarnings("unused")
             @YauaaField("DeviceClass")
-            public void setDeviceClass(TestRecord record, String value) {
+            public void setDC(TestRecord record, String value) {
                 record.deviceClass = value;
             }
 
             @SuppressWarnings("unused")
             @YauaaField("AgentNameVersion")
-            public void setAgentNameVersion(TestRecord record, String value) {
+            public void setANV(TestRecord record, String value) {
                 record.agentNameVersion = value;
             }
         }));
@@ -64,13 +64,13 @@ So the earlier example will look something like this:
 
         @SuppressWarnings("unused")
         @YauaaField("DeviceClass")
-        public void setDeviceClass(TestRecord record, String value) {
+        public void setDC(TestRecord record, String value) {
             record.deviceClass = value;
         }
 
         @SuppressWarnings("unused")
         @YauaaField("AgentNameVersion")
-        public void setAgentNameVersion(TestRecord record, String value) {
+        public void setANV(TestRecord record, String value) {
             record.agentNameVersion = value;
         }
     }

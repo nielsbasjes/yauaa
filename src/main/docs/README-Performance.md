@@ -4,7 +4,7 @@ On my i7 system I see a speed ranging from 500 to 4000 useragents per second (de
 On average the speed is around 2000 per second or ~0.5ms each.
 A LRU cache is in place that does over 1M per second if they are in the cache.
 
-Please note that the current system take approx 256MiB of RAM just for the engine (without any caching!!).
+Please note that the current system take approx 400MiB of RAM just for the engine (without any caching!!).
 
 Output from the benchmark ( [using this code](https://github.com/nielsbasjes/yauaa/blob/master/benchmarks/src/main/java/nl/basjes/parse/useragent/benchmarks/AnalyzerBenchmarks.java) ) on a Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz:
 

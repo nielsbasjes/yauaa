@@ -271,19 +271,19 @@ An extensive example of walking around to get the right value.
 
 Expression | Current path | Value
 :--- |:--- |:---
-| agent.product.(1)comments.entry.(1)text[2]="seven"                                                        | agent.(2)product.(1)comments.(2)entry.(1)text[2] | seven
-| agent.product.(1)comments.entry.(1)text[2]="seven"^                                                       | agent.(2)product.(1)comments.(2)entry            | six seven
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^                                                      | agent.(2)product.(1)comments                     | (five; six seven)
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^                                                     | agent.(2)product                                 | bar baz/2.0/3.0 (five; six seven)
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<                                                    | agent.(1)product                                 | foo faa/1.0/2.3 (one; two three four)
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name                                               | agent.(1)product.(1)name                         | foo faa
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"                                     | agent.(1)product.(1)name                         | foo faa
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^                                    | agent.(1)product                                 | foo faa/1.0/2.3 (one; two three four)
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments                           | agent.(1)product.(1)comments                     | (one; two three four)
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry                     | agent.(1)product.(1)comments.(1)entry            | one
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"     | agent.(1)product.(1)comments.(2)entry[2]         | three
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@    | agent.(1)product.(1)comments.(2)entry            | two three four
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@[1] | agent.(1)product.(1)comments.(2)entry[1]         | two
+agent.product.(1)comments.entry.(1)text[2]="seven"                                                        | agent.(2)product.(1)comments.(2)entry.(1)text[2] | seven
+agent.product.(1)comments.entry.(1)text[2]="seven"^                                                       | agent.(2)product.(1)comments.(2)entry            | six seven
+agent.product.(1)comments.entry.(1)text[2]="seven"^^                                                      | agent.(2)product.(1)comments                     | (five; six seven)
+agent.product.(1)comments.entry.(1)text[2]="seven"^^^                                                     | agent.(2)product                                 | bar baz/2.0/3.0 (five; six seven)
+agent.product.(1)comments.entry.(1)text[2]="seven"^^^<                                                    | agent.(1)product                                 | foo faa/1.0/2.3 (one; two three four)
+agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name                                               | agent.(1)product.(1)name                         | foo faa
+agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"                                     | agent.(1)product.(1)name                         | foo faa
+agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^                                    | agent.(1)product                                 | foo faa/1.0/2.3 (one; two three four)
+agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments                           | agent.(1)product.(1)comments                     | (one; two three four)
+agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry                     | agent.(1)product.(1)comments.(1)entry            | one
+agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"     | agent.(1)product.(1)comments.(2)entry[2]         | three
+agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@    | agent.(1)product.(1)comments.(2)entry            | two three four
+agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@[1] | agent.(1)product.(1)comments.(2)entry[1]         | two
 
 Note that the first possible match is returned.
 If a child sibling or check fails the backtracking continues until the entire parse tree has been examined.
