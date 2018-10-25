@@ -101,9 +101,6 @@ public class WalkList implements Serializable {
         public WalkResult(ParseTree tree, String value) {
             this.tree = tree;
             this.value = value;
-//            if (value == null || tree == null ) {
-//                throw new IllegalStateException("An invalid WalkResult was created :" + this.toString());
-//            }
         }
 
         public ParseTree getTree() {
@@ -137,7 +134,7 @@ public class WalkList implements Serializable {
         int i = 1;
         if (verbose) {
             LOG.info("------------------------------------");
-            LOG.info("Required: " + requiredPattern.getText());
+            LOG.info("Required: {}", requiredPattern.getText());
             for (Step step : steps) {
                 step.setVerbose(true);
                 LOG.info("{}: {}", i++, step);

@@ -219,7 +219,6 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                 LOG.info(testLogLine);
                 sb.append(agent.toYamlTestCase());
                 LOG.info(sb.toString());
-//                return allPass;
             } else {
                 if (expected == null) {
                     LOG.info(testLogLine);
@@ -517,6 +516,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             super(newUaa);
         }
 
+        @SuppressWarnings("EmptyMethod") // We must override the method because of the generic return value.
         @Override
         public UAA build() {
             return super.build();

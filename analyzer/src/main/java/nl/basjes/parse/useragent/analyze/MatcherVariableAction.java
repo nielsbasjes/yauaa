@@ -29,7 +29,7 @@ public class MatcherVariableAction extends MatcherAction {
     private static final Logger LOG = LoggerFactory.getLogger(MatcherVariableAction.class);
 
     private final String variableName;
-    private WalkResult foundValue = null;
+    private transient WalkResult foundValue = null;
     private final String expression;
     private Set<MatcherAction> interestedActions;
 
@@ -81,6 +81,7 @@ public class MatcherVariableAction extends MatcherAction {
         return this.foundValue != null;
     }
 
+    @Override
     public void reset() {
         super.reset();
         this.foundValue = null;

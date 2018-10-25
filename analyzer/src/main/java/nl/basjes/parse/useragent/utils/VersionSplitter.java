@@ -50,6 +50,7 @@ public final class VersionSplitter extends Splitter {
         return (value.startsWith("www.") || value.startsWith("http") || (value.contains("@") && value.contains(".")));
     }
 
+    @Override
     public String getSingleSplit(String value, int split) {
         if (looksLikeEmailOrWebaddress(value)) {
             return (split == 1) ? value : null;
@@ -64,6 +65,7 @@ public final class VersionSplitter extends Splitter {
         return value.substring(start, end);
     }
 
+    @Override
     public String getFirstSplits(String value, int split) {
         if (looksLikeEmailOrWebaddress(value)) {
             return (split == 1) ? value : null;

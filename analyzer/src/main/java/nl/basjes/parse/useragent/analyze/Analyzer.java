@@ -20,9 +20,10 @@ package nl.basjes.parse.useragent.analyze;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public interface Analyzer {
+public interface Analyzer extends Serializable {
     void inform(String path, String value, ParseTree ctx);
 
     void informMeAbout(MatcherAction matcherAction, String keyPattern);

@@ -325,27 +325,29 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
                 int stopSkipped = skippedMatchers;
 
                 if (showMatcherStats) {
-                    Formatter msg = new Formatter(Locale.ENGLISH);
-                    msg.format("Loading %4d (dropped %4d) matchers from %-" + maxFilenameLength + "s " + "took %5d msec",
-                        matcherConfig.size() - (stopSkipped - startSkipped),
-                        stopSkipped - startSkipped,
-                        configFilename,
-                        (stop - start) / 1000000);
-                    LOG.info(msg.toString());
+                    try(Formatter msg = new Formatter(Locale.ENGLISH)) {
+                        msg.format("Loading %4d (dropped %4d) matchers from %-" + maxFilenameLength + "s " + "took %5d msec",
+                            matcherConfig.size() - (stopSkipped - startSkipped),
+                            stopSkipped - startSkipped,
+                            configFilename,
+                            (stop - start) / 1000000);
+                        LOG.info(msg.toString());
+                    }
                 }
             }
             long fullStop = System.nanoTime();
 
-            Formatter msg = new Formatter(Locale.ENGLISH);
-            msg.format("Loading %4d (dropped %4d) matchers, %d lookups, %d lookupsets, %d testcases from %4d files took %5d msec",
-                totalNumberOfMatchers,
-                skippedMatchers,
-                (lookups == null) ? 0 : lookups.size(),
-                lookupSets.size(),
-                testCases.size(),
-                matcherConfigs.size(),
-                (fullStop - fullStart) / 1000000);
-            LOG.info(msg.toString());
+            try(Formatter msg = new Formatter(Locale.ENGLISH)) {
+                msg.format("Loading %4d (dropped %4d) matchers, %d lookups, %d lookupsets, %d testcases from %4d files took %5d msec",
+                    totalNumberOfMatchers,
+                    skippedMatchers,
+                    (lookups == null) ? 0 : lookups.size(),
+                    lookupSets.size(),
+                    testCases.size(),
+                    matcherConfigs.size(),
+                    (fullStop - fullStart) / 1000000);
+                LOG.info(msg.toString());
+            }
 
         }
     }
@@ -483,7 +485,6 @@ config:
     }
 
     private void loadYamlLookup(MappingNode entry, String filename) {
-//        LOG.info("Loading lookup.({}:{})", filename, entry.getStartMark().getLine());
         String name = null;
         Map<String, String> map = null;
 
@@ -514,7 +515,6 @@ config:
     }
 
     private void loadYamlLookupSets(MappingNode entry, String filename) {
-//        LOG.info("Loading lookupSet.({}:{})", filename, entry.getStartMark().getLine());
         String name = null;
         Set<String> lookupSet = new HashSet<>();
 
@@ -538,7 +538,6 @@ config:
     }
 
     private void loadYamlMatcher(MappingNode entry, String filename) {
-//        LOG.info("Loading matcher.({}:{})", filename, entry.getStartMark().getLine());
         List<MappingNode> matcherConfigList = matcherConfigs
             .computeIfAbsent(filename, k -> new ArrayList<>(32));
         matcherConfigList.add(entry);
@@ -546,10 +545,6 @@ config:
 
     private void loadYamlTestcase(MappingNode entry, String filename) {
         if (!doingOnlyASingleTest) {
-//            LOG.info("Skipping testcase.({}:{})", filename, entry.getStartMark().getLine());
-//        } else {
-//            LOG.info("Loading testcase.({}:{})", filename, entry.getStartMark().getLine());
-
             Map<String, String> metaData = new HashMap<>();
             metaData.put("filename", filename);
             metaData.put("fileline", String.valueOf(entry.getStartMark().getLine()));
@@ -1006,7 +1001,7 @@ config:
 
                 int count = 1;
                 for (MatcherAction action : relevantActions) {
-                    LOG.info("+++ -------> ({}): {}", count, action.toString());
+                    LOG.info("+++ -------> ({}): {}", count, action);
                     count++;
                 }
             }

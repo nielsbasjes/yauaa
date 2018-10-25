@@ -40,7 +40,7 @@ public class UserAgentDissector extends Dissector {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentDissector.class);
 
-    private UserAgentAnalyzerBuilder<?, ?> userAgentAnalyzerBuilder;
+    private transient UserAgentAnalyzerBuilder<?, ?> userAgentAnalyzerBuilder;
     private static UserAgentAnalyzer userAgentAnalyzer = null;
     private static final String INPUT_TYPE = "HTTP.USERAGENT";
 
@@ -114,7 +114,6 @@ public class UserAgentDissector extends Dissector {
             result.add(getFieldOutputType(fieldName) + ":" + fieldNameToDissectionName(fieldName));
         }
 
-//        result.forEach(f -> LOG.warn("Possible {}", f));
         return result;
     }
 

@@ -72,7 +72,20 @@ import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
 public class UserAgentTreeFlattener extends UserAgentBaseListener implements Serializable {
     private static final ParseTreeWalker WALKER = new ParseTreeWalker();
-    private final Analyzer analyzer;
+    private final Analyzer               analyzer;
+
+    private static final String AGENT    = "agent";
+    private static final String PRODUCT  = "product";
+    private static final String NAME     = "name";
+    private static final String VERSION  = "version";
+    private static final String COMMENTS = "comments";
+    private static final String KEYVALUE = "keyvalue";
+    private static final String KEY      = "key";
+    private static final String TEXT     = "text";
+    private static final String URL      = "url";
+    private static final String UUID     = "uuid";
+    private static final String EMAIL    = "email";
+    private static final String BASE64   = "base64";
 
     enum PathType {
         CHILD,
@@ -182,7 +195,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         // Walk the tree an inform the calling analyzer about all the nodes found
         state = new ParseTreeProperty<>();
 
-        State rootState = new State("agent");
+        State rootState = new State(AGENT);
         rootState.calculatePath(PathType.CHILD, false);
         state.put(userAgentContext, rootState);
 
@@ -223,10 +236,10 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
             PathType childType;
             switch (name) {
-                case "comments":
+                case COMMENTS:
                     childType = PathType.COMMENT;
                     break;
-                case "version":
+                case VERSION:
                     childType = PathType.VERSION;
                     break;
                 default:
@@ -266,58 +279,58 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     @Override
     public void enterUserAgent(UserAgentContext ctx) {
         // In case of a parse error the 'parsed' version of agent can be incomplete
-        inform(ctx, "agent", ctx.start.getTokenSource().getInputStream().toString());
+        inform(ctx, AGENT, ctx.start.getTokenSource().getInputStream().toString());
     }
 
     @Override
     public void enterRootText(RootTextContext ctx) {
-        informSubstrings(ctx, "text");
+        informSubstrings(ctx, TEXT);
     }
 
     @Override
     public void enterProduct(ProductContext ctx) {
-        informSubstrings(ctx, "product");
+        informSubstrings(ctx, PRODUCT);
     }
 
     @Override
     public void enterCommentProduct(CommentProductContext ctx) {
-        informSubstrings(ctx, "product");
+        informSubstrings(ctx, PRODUCT);
     }
 
     @Override
     public void enterProductNameNoVersion(UserAgentParser.ProductNameNoVersionContext ctx) {
-        informSubstrings(ctx, "product");
+        informSubstrings(ctx, PRODUCT);
     }
 
     @Override
     public void enterProductNameEmail(ProductNameEmailContext ctx) {
-        inform(ctx, "name");
+        inform(ctx, NAME);
     }
 
     @Override
     public void enterProductNameUrl(ProductNameUrlContext ctx) {
-        inform(ctx, "name");
+        inform(ctx, NAME);
     }
 
     @Override
     public void enterProductNameWords(ProductNameWordsContext ctx) {
-        informSubstrings(ctx, "name");
+        informSubstrings(ctx, NAME);
     }
 
     @Override
     public void enterProductNameKeyValue(ProductNameKeyValueContext ctx) {
         inform(ctx, "name.(1)keyvalue", ctx.getText(), false);
-        informSubstrings(ctx, "name", true);
+        informSubstrings(ctx, NAME, true);
     }
 
     @Override
     public void enterProductNameVersion(ProductNameVersionContext ctx) {
-        informSubstrings(ctx, "name");
+        informSubstrings(ctx, NAME);
     }
 
     @Override
     public void enterProductNameUuid(ProductNameUuidContext ctx) {
-        inform(ctx, "name");
+        inform(ctx, NAME);
     }
 
     @Override
@@ -333,7 +346,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     private void enterProductVersion(ParseTree ctx) {
         if (ctx.getChildCount() != 1) {
             // These are the specials with multiple children like keyvalue, etc.
-            inform(ctx, "version");
+            inform(ctx, VERSION);
             return;
         }
 
@@ -343,38 +356,38 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
             return;
         }
 
-        inform(ctx, "version");
+        inform(ctx, VERSION);
     }
 
 
     @Override
     public void enterProductVersionSingleWord(UserAgentParser.ProductVersionSingleWordContext ctx) {
-        inform(ctx, "version");
+        inform(ctx, VERSION);
     }
 
     @Override
     public void enterSingleVersion(SingleVersionContext ctx) {
-        informSubVersions(ctx, "version");
+        informSubVersions(ctx, VERSION);
     }
 
     @Override
     public void enterSingleVersionWithCommas(SingleVersionWithCommasContext ctx) {
-        informSubVersions(ctx, "version");
+        informSubVersions(ctx, VERSION);
     }
 
     @Override
     public void enterProductVersionWords(ProductVersionWordsContext ctx) {
-        informSubstrings(ctx, "version");
+        informSubstrings(ctx, VERSION);
     }
 
     @Override
     public void enterKeyValueProductVersionName(KeyValueProductVersionNameContext ctx) {
-        informSubstrings(ctx, "version");
+        informSubstrings(ctx, VERSION);
     }
 
     @Override
     public void enterCommentBlock(CommentBlockContext ctx) {
-        inform(ctx, "comments");
+        inform(ctx, COMMENTS);
     }
 
     @Override
@@ -430,56 +443,56 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
     @Override
     public void enterMultipleWords(MultipleWordsContext ctx) {
-        informSubstrings(ctx, "text");
+        informSubstrings(ctx, TEXT);
     }
 
     @Override
     public void enterKeyValue(KeyValueContext ctx) {
-        inform(ctx, "keyvalue");
+        inform(ctx, KEYVALUE);
     }
 
     @Override
     public void enterKeyWithoutValue(UserAgentParser.KeyWithoutValueContext ctx) {
-        inform(ctx, "keyvalue");
+        inform(ctx, KEYVALUE);
     }
 
     @Override
     public void enterKeyName(KeyNameContext ctx) {
-        informSubstrings(ctx, "key");
+        informSubstrings(ctx, KEY);
     }
 
     @Override
     public void enterKeyValueVersionName(KeyValueVersionNameContext ctx) {
-        informSubstrings(ctx, "version");
+        informSubstrings(ctx, VERSION);
     }
 
     @Override
     public void enterVersionWords(VersionWordsContext ctx) {
-        informSubstrings(ctx, "text");
+        informSubstrings(ctx, TEXT);
     }
 
     @Override
     public void enterSiteUrl(SiteUrlContext ctx) {
-        inform(ctx, "url", ctx.url.getText());
+        inform(ctx, URL, ctx.url.getText());
     }
 
     @Override
     public void enterUuId(UuIdContext ctx) {
-        inform(ctx, "uuid", ctx.uuid.getText());
+        inform(ctx, UUID, ctx.uuid.getText());
     }
 
     @Override
     public void enterEmailAddress(EmailAddressContext ctx) {
-        inform(ctx, "email", ctx.email.getText());
+        inform(ctx, EMAIL, ctx.email.getText());
     }
 
     @Override
     public void enterBase64(Base64Context ctx) {
-        inform(ctx, "base64", ctx.value.getText());
+        inform(ctx, BASE64, ctx.value.getText());
     }
 
     @Override
     public void enterEmptyWord(EmptyWordContext ctx) {
-        inform(ctx, "text", "");
+        inform(ctx, TEXT, "");
     }
 }
