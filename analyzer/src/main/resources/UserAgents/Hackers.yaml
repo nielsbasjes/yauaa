@@ -1060,3 +1060,65 @@ config:
       HackerToolkit                        : 'Unknown'
       __SyntaxError__                      : 'true'
 
+
+# Confusing edge case:
+# - Just a text without version --> Hacker.
+# - That contains 'bot' --> Robot
+- test:
+    input:
+      user_agent_string: 'robots'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Hacker Robots'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'robots'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'robots ??'
+      LayoutEngineNameVersionMajor         : 'robots ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'robots'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'robots ??'
+      AgentNameVersionMajor                : 'robots ??'
+      HackerAttackVector                   : 'Unknown'
+      HackerToolkit                        : 'Unknown'
+
+
+# Confusing edge case:
+# - Just a text without version --> Hacker.
+# - That contains 'bot' --> Robot
+- test:
+    input:
+      user_agent_string: 'ServiceUptime.robot'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Hacker ServiceUptime.robot'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'ServiceUptime.robot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'ServiceUptime.robot ??'
+      LayoutEngineNameVersionMajor         : 'ServiceUptime.robot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'ServiceUptime.robot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'ServiceUptime.robot ??'
+      AgentNameVersionMajor                : 'ServiceUptime.robot ??'
+      HackerAttackVector                   : 'Unknown'
+      HackerToolkit                        : 'Unknown'
+
