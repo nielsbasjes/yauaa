@@ -46,7 +46,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         loadResources(resourceString);
     }
 
-    class TestResult {
+    static class TestResult {
         String field;
         String expected;
         String actual;

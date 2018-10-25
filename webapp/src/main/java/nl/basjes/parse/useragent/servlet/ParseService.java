@@ -92,7 +92,7 @@ public class ParseService {
     }
 
     @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED, reason = "The User-Agent header is missing")
-    private class MissingUserAgentException extends RuntimeException {
+    private static class MissingUserAgentException extends RuntimeException {
     }
 
     @GetMapping(value = "/", produces = MediaType.TEXT_HTML_VALUE)

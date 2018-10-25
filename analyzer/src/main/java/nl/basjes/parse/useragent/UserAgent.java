@@ -497,7 +497,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
 
     public String toJson() {
         List<String> fields = getAvailableFieldNames();
-        fields.add("Useragent");
+        fields.add(USERAGENT);
         return toJson(fields);
     }
 
@@ -512,7 +512,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             } else {
                 addSeparator = true;
             }
-            if ("Useragent".equals(fieldName)) {
+            if (USERAGENT.equals(fieldName)) {
                 sb
                     .append("\"Useragent\"")
                     .append(':')
@@ -544,7 +544,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             maxLength = Math.max(maxLength, fieldName.length());
         }
         for (String fieldName : fieldNames) {
-            if (!"Useragent".equals(fieldName)) {
+            if (!USERAGENT.equals(fieldName)) {
                 AgentField field = allFields.get(fieldName);
                 if (field.getValue() != null) {
                     sb.append("    ").append(fieldName);

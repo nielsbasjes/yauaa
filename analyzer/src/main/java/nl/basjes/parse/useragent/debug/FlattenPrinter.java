@@ -41,6 +41,7 @@ public class FlattenPrinter implements Analyzer {
 
     @Override
     public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
+        // Not needed
     }
 
     public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
