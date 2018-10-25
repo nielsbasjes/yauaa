@@ -50,6 +50,8 @@ public final class EvilManualUseragentStringHacks {
             result = result.trim();
         }
 
+        result = replaceString(result, "SSL/TLS", "SSL TLS");
+
         // We have seen problems causes by " Version/4.0Mobile Safari/530.17"
         result = MISSING_SPACE.matcher(result).replaceAll("$1 $2");
 
