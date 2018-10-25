@@ -2841,3 +2841,653 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'LinkChecker ??'
       AgentNameVersionMajor                : 'LinkChecker ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Pinterestbot/1.0; +http://www.pinterest.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Pinterestbot'
+      DeviceBrand                          : 'Pinterest'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Pinterestbot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Pinterestbot 1.0'
+      LayoutEngineNameVersionMajor         : 'Pinterestbot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Pinterestbot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Pinterestbot 1.0'
+      AgentNameVersionMajor                : 'Pinterestbot 1'
+      AgentInformationUrl                  : 'http://www.pinterest.com/bot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Caliperbot/1.0 (+http://www.conductor.com/caliperbot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Caliperbot'
+      DeviceBrand                          : 'Conductor'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Caliperbot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Caliperbot 1.0'
+      LayoutEngineNameVersionMajor         : 'Caliperbot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Caliperbot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Caliperbot 1.0'
+      AgentNameVersionMajor                : 'Caliperbot 1'
+      AgentInformationUrl                  : 'http://www.conductor.com/caliperbot'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Mappy/1.0; +http://mappydata.net/bot/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot' #FIXME: Should be Mappy
+      DeviceBrand                          : 'Mappydata'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Mappy'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Mappy 1.0'
+      AgentNameVersionMajor                : 'Mappy 1'
+      AgentInformationUrl                  : 'http://mappydata.net/bot/'
+
+
+- test:
+    input:
+      user_agent_string: 'Mediatoolkitbot (complaints@mediatoolkit.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Mediatoolkitbot'
+      DeviceBrand                          : 'Mediatoolkit'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Mediatoolkitbot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Mediatoolkitbot ??'
+      LayoutEngineNameVersionMajor         : 'Mediatoolkitbot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Mediatoolkitbot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Mediatoolkitbot ??'
+      AgentNameVersionMajor                : 'Mediatoolkitbot ??'
+      AgentInformationEmail                : 'complaints@mediatoolkit.com'
+
+
+- test:
+    input:
+      user_agent_string: 'TelegramBot (like TwitterBot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'TelegramBot'
+      DeviceBrand                          : 'Unknown' #TODO: Can we change this to "Telegram"?
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'TelegramBot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'TelegramBot ??'
+      LayoutEngineNameVersionMajor         : 'TelegramBot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'TelegramBot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'TelegramBot ??'
+      AgentNameVersionMajor                : 'TelegramBot ??'
+
+
+
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/61.0.3163.100 Chrome/61.0.3163.100 Safari/537.36 PingdomPageSpeed/1.0 (pingbot/2.0; +http://www.pingdom.com/)'
+#    expected:
+#      DeviceClass                          : 'Desktop'
+#      DeviceName                           : 'Linux Desktop'
+#      DeviceBrand                          : 'Unknown'
+#      DeviceCpu                            : 'Intel x86_64'
+#      DeviceCpuBits                        : '64'
+#      OperatingSystemClass                 : 'Desktop'
+#      OperatingSystemName                  : 'Ubuntu'
+#      OperatingSystemVersion               : '??'
+#      OperatingSystemNameVersion           : 'Ubuntu ??'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'Blink'
+#      LayoutEngineVersion                  : '61.0'
+#      LayoutEngineVersionMajor             : '61'
+#      LayoutEngineNameVersion              : 'Blink 61.0'
+#      LayoutEngineNameVersionMajor         : 'Blink 61'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'Chromium'  # FIXME: Wrong! Must be pingbot !!
+#      AgentVersion                         : '61.0.3163.100'
+#      AgentVersionMajor                    : '61'
+#      AgentNameVersion                     : 'Chromium 61.0.3163.100'
+#      AgentNameVersionMajor                : 'Chromium 61'
+
+#FIXME: Facebook external hit ?!?!
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/601.2.4 (KHTML, like Gecko) Version/9.0.1 Safari/601.2.4 facebookexternalhit/1.1 Facebot Twitterbot/1.0'
+#    expected:
+#      DeviceClass                          : 'Robot'
+#      DeviceName                           : 'Apple Facebot Twitterbot'
+#      DeviceBrand                          : 'Apple'
+#      OperatingSystemClass                 : 'Cloud'
+#      OperatingSystemName                  : 'Cloud'
+#      OperatingSystemVersion               : 'Cloud'
+#      OperatingSystemNameVersion           : 'Cloud'
+#      LayoutEngineClass                    : 'Robot'
+#      LayoutEngineName                     : 'Facebot Twitterbot'
+#      LayoutEngineVersion                  : '1.0'
+#      LayoutEngineVersionMajor             : '1'
+#      LayoutEngineNameVersion              : 'Facebot Twitterbot 1.0'
+#      LayoutEngineNameVersionMajor         : 'Facebot Twitterbot 1'
+#      AgentClass                           : 'Robot'
+#      AgentName                            : 'Facebot Twitterbot'
+#      AgentVersion                         : '1.0'
+#      AgentVersionMajor                    : '1'
+#      AgentNameVersion                     : 'Facebot Twitterbot 1.0'
+#      AgentNameVersionMajor                : 'Facebot Twitterbot 1'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; coccocbot-web/1.0; +http://help.coccoc.com/searchengine)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Coccocbot-WEB'
+      DeviceBrand                          : 'Coccoc'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'coccocbot-web'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'coccocbot-web 1.0'
+      LayoutEngineNameVersionMajor         : 'coccocbot-web 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'coccocbot-web'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'coccocbot-web 1.0'
+      AgentNameVersionMajor                : 'coccocbot-web 1'
+      AgentInformationUrl                  : 'http://help.coccoc.com/searchengine'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; changedetection/7.0; +http://www.changedetection.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Changedetection'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'changedetection'
+      AgentVersion                         : '7.0'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'changedetection 7.0'
+      AgentNameVersionMajor                : 'changedetection 7'
+      AgentInformationUrl                  : 'http://www.changedetection.com/bot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Twitterbot/1.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Twitterbot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Twitterbot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Twitterbot 1.0'
+      LayoutEngineNameVersionMajor         : 'Twitterbot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Twitterbot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Twitterbot 1.0'
+      AgentNameVersionMajor                : 'Twitterbot 1'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Exabot/3.0; +http://www.exabot.com/go/robot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Exabot'
+      DeviceBrand                          : 'Exabot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Exabot'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'Exabot 3.0'
+      LayoutEngineNameVersionMajor         : 'Exabot 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Exabot'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Exabot 3.0'
+      AgentNameVersionMajor                : 'Exabot 3'
+      AgentInformationUrl                  : 'http://www.exabot.com/go/robot'
+
+
+# TODO: Pingdom: A lot of stray '_' cause parsing problems.
+- test:
+    input:
+      user_agent_string: 'Pingdom.com_bot_version_1.4_(http://www.pingdom.com/)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Pingdom.com_BOT_Version_1.4_'
+      DeviceBrand                           : 'Pingdom'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : 'Cloud'
+      OperatingSystemNameVersion            : 'Cloud'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Pingdom.com_bot_version_1.4_'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Pingdom.com_bot_version_1.4_ ??'
+      LayoutEngineNameVersionMajor          : 'Pingdom.com_bot_version_1.4_ ??'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Pingdom.com_bot_version_1.4_'
+      AgentVersion                          : '??'
+      AgentVersionMajor                     : '??'
+      AgentNameVersion                      : 'Pingdom.com_bot_version_1.4_ ??'
+      AgentNameVersionMajor                 : 'Pingdom.com_bot_version_1.4_ ??'
+      AgentInformationUrl                   : 'http://www.pingdom.com/'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0+(compatible; UptimeRobot/2.0; http://www.uptimerobot.com/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'UptimeRobot'
+      DeviceBrand                          : 'Uptimerobot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'UptimeRobot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'UptimeRobot 2.0'
+      LayoutEngineNameVersionMajor         : 'UptimeRobot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'UptimeRobot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'UptimeRobot 2.0'
+      AgentNameVersionMajor                : 'UptimeRobot 2'
+      AgentInformationUrl                  : 'http://www.uptimerobot.com/'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; AlleAanbiedingenBot/0.1; +http://www.alleaanbiedingen.info/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'AlleAanbiedingenBot'
+      DeviceBrand                          : 'Alleaanbiedingen'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'AlleAanbiedingenBot'
+      LayoutEngineVersion                  : '0.1'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'AlleAanbiedingenBot 0.1'
+      LayoutEngineNameVersionMajor         : 'AlleAanbiedingenBot 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'AlleAanbiedingenBot'
+      AgentVersion                         : '0.1'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'AlleAanbiedingenBot 0.1'
+      AgentNameVersionMajor                : 'AlleAanbiedingenBot 0'
+      AgentInformationUrl                  : 'http://www.alleaanbiedingen.info/'
+
+
+- test:
+    input:
+      user_agent_string: 'ZoomBot (Linkbot 1.0 http://suite.seozoom.it/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'ZoomBot'
+      DeviceBrand                          : 'Seozoom'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'ZoomBot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'ZoomBot ??'
+      LayoutEngineNameVersionMajor         : 'ZoomBot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'ZoomBot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'ZoomBot ??'
+      AgentNameVersionMajor                : 'ZoomBot ??'
+      AgentInformationUrl                  : 'http://suite.seozoom.it/bot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'SEO-Checker-bot/1.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'SEO-Checker-BOT'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SEO-Checker-bot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'SEO-Checker-bot 1.0'
+      LayoutEngineNameVersionMajor         : 'SEO-Checker-bot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SEO-Checker-bot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SEO-Checker-bot 1.0'
+      AgentNameVersionMajor                : 'SEO-Checker-bot 1'
+
+
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (TweetmemeBot/4.0; +http://datasift.com/bot.html) Gecko/20100101 Firefox/31.0'
+#    expected:
+#      DeviceClass                          : 'Robot'
+#      DeviceName                           : 'TweetmemeBot'
+#      DeviceBrand                          : 'Datasift'
+#      OperatingSystemClass                 : 'Cloud'
+#      OperatingSystemName                  : 'Cloud'
+#      OperatingSystemVersion               : 'Cloud'
+#      OperatingSystemNameVersion           : 'Cloud'
+#      LayoutEngineClass                    : 'Robot'
+#      LayoutEngineName                     : 'TweetmemeBot'
+#      LayoutEngineVersion                  : '4.0'
+#      LayoutEngineVersionMajor             : '4'
+#      LayoutEngineNameVersion              : 'TweetmemeBot 4.0'
+#      LayoutEngineNameVersionMajor         : 'TweetmemeBot 4'
+#      #FIXME: Must be Robot - TweetmemeBot - 4.0
+#      AgentClass                           : 'Robot'
+#      AgentName                            : 'TweetmemeBot'
+#      AgentVersion                         : '4.0'
+#      AgentVersionMajor                    : '4'
+#      AgentNameVersion                     : 'TweetmemeBot 4.0'
+#      AgentNameVersionMajor                : 'TweetmemeBot 4'
+#      AgentInformationUrl                  : 'http://datasift.com/bot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; YaK/1.0; http://linkfluence.com/; bot@linkfluence.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot' #FIXME: --> YaK ?
+      DeviceBrand                          : 'Linkfluence'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'YaK'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YaK 1.0'
+      AgentNameVersionMajor                : 'YaK 1'
+      AgentInformationEmail                : 'bot@linkfluence.com'
+      AgentInformationUrl                  : 'http://linkfluence.com/'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; PaperLiBot/2.1; https://support.paper.li/entries/20023257-what-is-paper-li)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'PaperLibot'
+      DeviceBrand                          : 'Paper'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'PaperLiBot'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'PaperLiBot 2.1'
+      LayoutEngineNameVersionMajor         : 'PaperLiBot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'PaperLiBot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'PaperLiBot 2.1'
+      AgentNameVersionMajor                : 'PaperLiBot 2'
+      AgentInformationUrl                  : 'https://support.paper.li/entries/20023257-what-is-paper-li'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; musobot/1.0; info@muso.com; +http://www.muso.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Musobot'
+      DeviceBrand                          : 'Muso'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'musobot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'musobot 1.0'
+      LayoutEngineNameVersionMajor         : 'musobot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'musobot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'musobot 1.0'
+      AgentNameVersionMajor                : 'musobot 1'
+      AgentInformationEmail                : 'info@muso.com'
+      AgentInformationUrl                  : 'http://www.muso.com'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MJ12bot/v1.4.8; http://mj12bot.com/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'MJ12BOT'
+      DeviceBrand                          : 'MJ12BOT'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'MJ12bot'
+      LayoutEngineVersion                  : 'v1.4.8'
+      LayoutEngineVersionMajor             : 'v1'
+      LayoutEngineNameVersion              : 'MJ12bot v1.4.8'
+      LayoutEngineNameVersionMajor         : 'MJ12bot v1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'MJ12bot'
+      AgentVersion                         : 'v1.4.8'
+      AgentVersionMajor                    : 'v1'
+      AgentNameVersion                     : 'MJ12bot v1.4.8'
+      AgentNameVersionMajor                : 'MJ12bot v1'
+      AgentInformationUrl                  : 'http://mj12bot.com/'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Linux x86_64; Mail.RU_Bot/2.0; +http://go.mail.ru/help/robots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Mail.Ru_BOT'
+      DeviceBrand                          : 'Mail'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Mail.RU_Bot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Mail.RU_Bot 2.0'
+      LayoutEngineNameVersionMajor         : 'Mail.RU_Bot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Mail.RU_Bot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Mail.RU_Bot 2.0'
+      AgentNameVersionMajor                : 'Mail.RU_Bot 2'
+      AgentInformationUrl                  : 'http://go.mail.ru/help/robots'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; SemrushBot/1.0~bm; +http://www.semrush.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'SemrushBot'
+      DeviceBrand                          : 'Semrush'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SemrushBot'
+      LayoutEngineVersion                  : '1.0~bm'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'SemrushBot 1.0~bm'
+      LayoutEngineNameVersionMajor         : 'SemrushBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SemrushBot'
+      AgentVersion                         : '1.0~bm'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SemrushBot 1.0~bm'
+      AgentNameVersionMajor                : 'SemrushBot 1'
+      AgentInformationUrl                  : 'http://www.semrush.com/bot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'PiplBot (+http://www.pipl.com/bot/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'PiplBot'
+      DeviceBrand                          : 'Pipl'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'PiplBot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'PiplBot ??'
+      LayoutEngineNameVersionMajor         : 'PiplBot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'PiplBot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'PiplBot ??'
+      AgentNameVersionMajor                : 'PiplBot ??'
+      AgentInformationUrl                  : 'http://www.pipl.com/bot/'
+
+
+- test:
+    input:
+      user_agent_string: 'CBSbot (Statistics Netherlands) Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/68.0.3440.106 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Cbsbot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'CBSbot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'CBSbot ??'
+      LayoutEngineNameVersionMajor         : 'CBSbot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'CBSbot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'CBSbot ??'
+      AgentNameVersionMajor                : 'CBSbot ??'
