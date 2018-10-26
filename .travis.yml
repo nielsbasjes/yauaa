@@ -25,7 +25,7 @@ addons:
     organization: "nielsbasjes-github"
 
 after_success:
-  - mvn -PEnableReportPlugins coveralls:report sonar:sonar
+  - mvn -PEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
 
 cache:
   directories:
