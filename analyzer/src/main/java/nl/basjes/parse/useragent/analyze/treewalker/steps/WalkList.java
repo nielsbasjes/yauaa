@@ -151,6 +151,28 @@ public class WalkList implements Serializable {
         }
     }
 
+    public void pruneTrailingStepsThatCannotFail() {
+        int lastStepThatCannotFail = Integer.MAX_VALUE;
+        for (int i = steps.size() - 1; i >= 0; i--) {
+            Step current = steps.get(i);
+            if (current.canFail()) {
+                break; // We're done. We have the last step that CAN fail.
+            }
+            lastStepThatCannotFail = i;
+        }
+        if (lastStepThatCannotFail != Integer.MAX_VALUE) {
+            if (lastStepThatCannotFail == 0) {
+                steps.clear();
+            } else {
+                int lastRelevantStepIndex = lastStepThatCannotFail - 1;
+                Step lastRelevantStep = steps.get(lastRelevantStepIndex);
+                lastRelevantStep.setNextStep(lastRelevantStepIndex, null);
+
+                steps.subList(lastRelevantStepIndex + 1, steps.size()).clear();
+            }
+        }
+    }
+
     public WalkResult walk(ParseTree tree, String value) {
         if (steps.isEmpty()) {
             return new WalkResult(tree, value);

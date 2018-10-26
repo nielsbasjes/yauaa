@@ -36,144 +36,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-public class TestTreewalkerParsing {
-
-    @Test
-    public void validateWalkPathParsing() {
-        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1]=\"Trident\"" +
-            "[2-3]~\"Foo\"^.(*)version[-2]{\"7.\";\"DefaultValue\"]]";
-
-        String[] expectedHashEntries = {
-            "agent.(1)product.(2)comments.(1)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(2)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(3)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(4)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(5)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(6)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(7)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(8)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(9)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(10)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(1)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(2)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(3)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(4)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(5)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(6)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(7)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(8)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(9)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(10)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(1)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(2)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(3)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(4)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(5)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(6)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(7)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(8)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(9)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(10)product.(1)name[1-1]=\"Trident\"",
-        };
-
-        String[] expectedWalkList = {
-            "IsNull()",
-            "WordRange([2:3])",
-            "Contains(foo)",
-            "Up()",
-            "Down([1:5]version)",
-            "WordRange([1:2])",
-            "StartsWith(7.)",
-            "Lookup(@TridentVersions ; default=DefaultValue)",
-        };
-
-        checkPath(path, expectedHashEntries, expectedWalkList);
-    }
-
-    @Test
-    public void validateWalkPathParsingRange() {
-        String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1]=\"Trident\"" +
-            "[2-3]~\"Foo\"^.(*)version[2]{\"7.\";\"DefaultValue\"]]";
-
-        String[] expectedHashEntries = {
-            "agent.(1)product.(2)comments.(1)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(2)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(3)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(4)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(5)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(6)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(7)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(8)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(9)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(2)comments.(10)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(1)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(2)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(3)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(4)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(5)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(6)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(7)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(8)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(9)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(3)comments.(10)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(1)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(2)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(3)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(4)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(5)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(6)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(7)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(8)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(9)product.(1)name[1-1]=\"Trident\"",
-            "agent.(1)product.(4)comments.(10)product.(1)name[1-1]=\"Trident\"",
-        };
-
-        String[] expectedWalkList = {
-            "IsNull()",
-            "WordRange([2:3])",
-            "Contains(foo)",
-            "Up()",
-            "Down([1:5]version)",
-            "WordRange([2:2])",
-            "StartsWith(7.)",
-            "Lookup(@TridentVersions ; default=DefaultValue)",
-        };
-
-        checkPath(path, expectedHashEntries, expectedWalkList);
-    }
-
-    @Test
-    public void validateStartsWithLength() {
-        String value = "OneTwoThree";
-
-        for (int i = 1; i <= value.length(); i++) {
-            String matchValue = value.substring(0, i);
-            String hashValue = matchValue.substring(0, Math.min(MAX_PREFIX_HASH_MATCH, matchValue.length()));
-
-            String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(1)name{\"" + matchValue + "\";\"DefaultValue\"]]";
-
-            String[] expectedHashEntries = {
-                "agent.(1)product.(1)name{\"" + hashValue + "\"",
-            };
-
-            String[] expectedWalkList;
-            if (matchValue.length() > MAX_PREFIX_HASH_MATCH) {
-                expectedWalkList = new String[]{
-                    "IsNull()",
-                    "StartsWith("+matchValue.toLowerCase()+")",
-                    "Lookup(@TridentVersions ; default=DefaultValue)",
-                };
-            } else {
-                expectedWalkList = new String[]{
-                    "IsNull()",
-                    // Short entries should not appear in the walk list to optimize performance
-                    "Lookup(@TridentVersions ; default=DefaultValue)",
-                };
-            }
-
-            checkPath(path, expectedHashEntries, expectedWalkList);
-        }
-    }
+public class TestTreewalkerExtract {
 
     @Test
     public void validateWalkPathSimpleName() {
@@ -239,7 +102,7 @@ public class TestTreewalkerParsing {
 
     @Test
     public void validateWalkAroundTheWorld() {
-        String path = "agent.(2-4)product.(1)comments.(5-6)entry.(1)text[2]=\"seven\"^^^<.name=\"foo faa\"^.comments.entry.text[-2]=\"three\"@[1-1]";
+        String path = "agent.(2-4)product.(1)comments.(5-6)entry.(1)text[2]=\"seven\"^^^<.name=\"foo faa\"^.comments.entry.text[-2]=\"three\"@[1-2]";
 
         String[] expectedHashEntries = {
             "agent.(2)product.(1)comments.(5)entry.(1)text[2-2]=\"seven\"",
@@ -264,7 +127,7 @@ public class TestTreewalkerParsing {
             "WordRange([1:2])",
             "Equals(three)",
             "BackToFull()",
-            "WordRange([1:1])",
+            "WordRange([1:2])",
         };
 
         checkPath(path, expectedHashEntries, expectedWalkList);
@@ -326,26 +189,16 @@ public class TestTreewalkerParsing {
         String path = "agent.product.(1)name[3]\"Safari\"";
 
         TestMatcher matcher = new TestMatcher(new HashMap<>(), new HashMap<>());
-        MatcherRequireAction action = new MatcherRequireAction(path, matcher);
+        MatcherExtractAction action = new MatcherExtractAction("Dummy", 42, path, matcher);
         action.initialize();
     }
-
-    @Test(expected = InvalidParserConfigurationException.class)
-    public void validateParseErrorUselessFixedString() {
-        String path = "\"Safari\"";
-
-        TestMatcher matcher = new TestMatcher(new HashMap<>(), new HashMap<>());
-        MatcherRequireAction action = new MatcherRequireAction(path, matcher);
-        action.initialize();
-    }
-
 
     private void checkPath(String path, String[] expectedHashEntries, String[] expectedWalkList) {
         Map<String, Map<String, String>> lookups = new HashMap<>();
         lookups.put("TridentVersions", new HashMap<>());
 
         TestMatcher matcher = new TestMatcher(lookups, new HashMap<>());
-        MatcherRequireAction action = new MatcherRequireAction(path, matcher);
+        MatcherExtractAction action = new MatcherExtractAction("Dummy", 42, path, matcher);
         action.initialize();
 
         StringBuilder sb = new StringBuilder("\n---------------------------\nActual list (")

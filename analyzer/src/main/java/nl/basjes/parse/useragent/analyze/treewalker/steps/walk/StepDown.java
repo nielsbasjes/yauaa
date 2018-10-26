@@ -59,11 +59,6 @@ public class StepDown extends Step {
     }
 
     @Override
-    public String toString() {
-        return "Down([" + start + ":" + end + "]" + name + ")";
-    }
-
-    @Override
     public WalkResult walk(ParseTree tree, String value) {
         Iterator<? extends ParseTree> children = userAgentGetChildrenVisitor.visit(tree);
         while (children.hasNext()) {
@@ -75,4 +70,10 @@ public class StepDown extends Step {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Down([" + start + ":" + end + "]" + name + ")";
+    }
+
 }

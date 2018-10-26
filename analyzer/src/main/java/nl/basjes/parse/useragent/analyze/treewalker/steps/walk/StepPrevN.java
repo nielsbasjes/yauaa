@@ -56,12 +56,12 @@ public class StepPrevN extends Step {
 
     @Override
     public WalkResult walk(ParseTree tree, String value) {
-        ParseTree nextTree = prev(tree);
-        if (nextTree == null) {
+        ParseTree prevTree = prev(tree);
+        if (prevTree == null) {
             return null;
         }
 
-        return walkNextStep(nextTree, null);
+        return walkNextStep(prevTree, null);
     }
 
     @Override

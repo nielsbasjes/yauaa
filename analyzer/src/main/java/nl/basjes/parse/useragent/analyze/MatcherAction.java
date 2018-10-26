@@ -67,7 +67,7 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepSta
 public abstract class MatcherAction implements Serializable {
 
     private String matchExpression;
-    private TreeExpressionEvaluator evaluator;
+    protected TreeExpressionEvaluator evaluator;
 
     TreeExpressionEvaluator getEvaluatorForUnitTesting() {
         return evaluator;

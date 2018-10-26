@@ -34,6 +34,12 @@ public class MatcherRequireAction extends MatcherAction {
         return parser.matcherRequire();
     }
 
+    @Override
+    public void initialize() {
+        super.initialize();
+        evaluator.pruneTrailingStepsThatCannotFail();
+    }
+
     protected void setFixedValue(String fixedValue) {
         throw new InvalidParserConfigurationException(
                 "It is useless to put a fixed value \"" + fixedValue + "\" in the require section.");

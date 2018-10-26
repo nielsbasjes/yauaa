@@ -114,7 +114,7 @@ public class TreeExpressionEvaluator implements Serializable {
         if (verbose) {
             LOG.info("Evaluate: {} => {}", key, value);
             LOG.info("Pattern : {}", requiredPatternText);
-            LOG.info("WalkList: {}", walkList.toString());
+            LOG.info("WalkList: {}", walkList);
         }
         WalkResult result = walkList.walk(tree, value);
         if (verbose) {
@@ -129,5 +129,9 @@ public class TreeExpressionEvaluator implements Serializable {
 
     public WalkList getWalkListForUnitTesting() {
         return walkList;
+    }
+
+    public void pruneTrailingStepsThatCannotFail() {
+        walkList.pruneTrailingStepsThatCannotFail();
     }
 }

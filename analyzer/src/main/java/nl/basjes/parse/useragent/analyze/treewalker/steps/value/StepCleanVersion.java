@@ -33,6 +33,11 @@ public class StepCleanVersion extends Step {
     }
 
     @Override
+    public boolean canFail(){
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "CleanVersion()";
     }

@@ -39,6 +39,11 @@ public class StepConcat extends Step {
     }
 
     @Override
+    public boolean canFail(){
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "StepConcat(" + prefix + ";" + postfix + ")";
     }

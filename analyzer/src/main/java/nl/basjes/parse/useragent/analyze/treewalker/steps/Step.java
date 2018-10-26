@@ -112,6 +112,16 @@ public abstract class Step implements Serializable {
      */
     public abstract WalkResult walk(ParseTree tree, String value);
 
+    /**
+     * Some steps cannot fail.
+     * For a require rule if the last step cannot fail then this can be removed from the require list
+     * to improve performance at run time.
+     * @return If this specific step can or cannot fail.
+     */
+    public boolean canFail(){
+        return true; // Default is to assume the step is always needed.
+    }
+
     public Step getNextStep() {
         return nextStep;
     }

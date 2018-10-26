@@ -32,8 +32,8 @@ public class StepWordRange extends Step {
     private final int lastWord;
 
     public StepWordRange(WordRangeVisitor.Range range) {
-        this.firstWord = range.getFirst();
-        this.lastWord = range.getLast();
+        firstWord = range.getFirst();
+        lastWord = range.getLast();
     }
 
     @Override
@@ -51,6 +51,13 @@ public class StepWordRange extends Step {
             return null;
         }
         return walkNextStep(tree, filteredValue);
+    }
+
+    @Override
+    public boolean canFail() {
+        // If you want the first word it cannot fail.
+        // For all other numbers it can.
+        return !(firstWord==1 && lastWord==1);
     }
 
     @Override
