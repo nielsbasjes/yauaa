@@ -73,6 +73,7 @@ public class TestNumberRangeVisitor {
         String notARange = "Range";
 
         assertEquals(range1, range1b);
+        assertNotEquals(range1, null);
         assertNotEquals(range1, range2);
         assertNotEquals(range1, range3);
         assertNotEquals(range1, range4);
