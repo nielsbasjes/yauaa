@@ -66,7 +66,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     public static final String UNKNOWN_VALUE = "Unknown";
     public static final String UNKNOWN_VERSION = "??";
 
-    public static final String[] STANDARD_FIELDS = {
+    protected static final String[] STANDARD_FIELDS = {
         DEVICE_CLASS,
         DEVICE_BRAND,
         DEVICE_NAME,
@@ -563,14 +563,14 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     public List<String> getAvailableFieldNames() {
         List<String> resultSet = new ArrayList<>(allFields.size()+10);
         resultSet.addAll(Arrays.asList(STANDARD_FIELDS));
-        for (String fieldName : allFields.keySet()) {
-            if (!resultSet.contains(fieldName)){
+        allFields.forEach((fieldName, value) -> {
+            if (!resultSet.contains(fieldName)) {
                 AgentField field = allFields.get(fieldName);
                 if (field != null && field.confidence >= 0 && field.getValue() != null) {
                     resultSet.add(fieldName);
                 }
             }
-        }
+        });
 
         // This is not a field; this is a special operator.
         resultSet.remove(SET_ALL_FIELDS);
@@ -579,7 +579,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
 
     // We manually sort the list of fields to ensure the output is consistent.
     // Any unspecified fieldnames will be appended to the end.
-    public static final List<String> PRE_SORTED_FIELDS_LIST = new ArrayList<>(32);
+    protected static final List<String> PRE_SORTED_FIELDS_LIST = new ArrayList<>(32);
 
     static {
         PRE_SORTED_FIELDS_LIST.add("DeviceClass");
