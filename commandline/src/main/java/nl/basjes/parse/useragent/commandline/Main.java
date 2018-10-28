@@ -152,139 +152,141 @@ public final class Main {
             if (!"-".equals(commandlineOptions.inFile)) {
                 inputStream = new FileInputStream(commandlineOptions.inFile);
             }
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
 
-            String strLine;
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
 
-            long ambiguities    = 0;
-            long syntaxErrors   = 0;
+                String strLine;
 
-            long linesTotal   = 0;
-            long hitsTotal    = 0;
-            long linesOk      = 0;
-            long hitsOk       = 0;
-            long linesMatched = 0;
-            long hitsMatched  = 0;
-            long start = System.nanoTime();
+                long ambiguities  = 0;
+                long syntaxErrors = 0;
+
+                long linesTotal   = 0;
+                long hitsTotal    = 0;
+                long linesOk      = 0;
+                long hitsOk       = 0;
+                long linesMatched = 0;
+                long hitsMatched  = 0;
+                long start        = System.nanoTime();
 //            LOG.info("Start @ {}", start);
 
-            long segmentStartTime = start;
-            long segmentStartLines = linesTotal;
+                long segmentStartTime  = start;
+                long segmentStartLines = linesTotal;
 
-            //Read File Line By Line
-            while ((strLine = br.readLine()) != null) {
-                if (strLine.startsWith(" ") || strLine.startsWith("#") || strLine.isEmpty()) {
-                    continue;
-                }
-
-                long hits = 1;
-                String agentStr = strLine;
-
-                if (strLine.contains("\t")) {
-                    String[] parts = strLine.split("\t", 2);
-                    try {
-                        hits = Long.parseLong(parts[0]);
-                        agentStr = parts[1];
-                    } catch (NumberFormatException nfe) {
-                        agentStr = strLine;
-                    }
-                }
-
-                if (commandlineOptions.fullFlatten) {
-                    flattenPrinter.parse(agentStr);
-                    continue;
-                }
-
-                if (commandlineOptions.matchedFlatten) {
-                    for (Match match : uaa.getUsedMatches(new UserAgent(agentStr))) {
-                        System.out.println(match.getKey() + " " + match.getValue());
-                    }
-                    continue;
-                }
-
-                UserAgent agent = uaa.parse(agentStr);
-
-                boolean hasBad = false;
-                for (String field : UserAgent.STANDARD_FIELDS) {
-                    if (agent.getConfidence(field) < 0) {
-                        hasBad = true;
-                        break;
-                    }
-                }
-
-                linesTotal++;
-                hitsTotal += hits;
-
-                if (agent.hasSyntaxError()) {
-                    if (outputFormat == YAML) {
-                        System.out.println("# Syntax error: " + agentStr);
-                    }
-                } else {
-                    linesOk++;
-                    hitsOk += hits;
-                }
-
-                if (!hasBad) {
-                    linesMatched++;
-                    hitsMatched += hits;
-                }
-
-                if (agent.hasAmbiguity()) {
-                    ambiguities++;
-                }
-                if (agent.hasSyntaxError()) {
-                    syntaxErrors++;
-                }
-
-                if (linesTotal % 1000 == 0) {
-                    long nowTime = System.nanoTime();
-                    long speed = (1000000000L*(linesTotal-segmentStartLines))/(nowTime-segmentStartTime);
-                    System.err.println(
-                        String.format("Lines = %8d (Ambiguities: %5d ; SyntaxErrors: %5d) Analyze speed = %5d/sec.",
-                        linesTotal, ambiguities, syntaxErrors, speed));
-                    segmentStartTime = nowTime;
-                    segmentStartLines = linesTotal;
-                    ambiguities=0;
-                    syntaxErrors=0;
-                }
-
-                if (commandlineOptions.outputOnlyBadResults) {
-                    if (hasBad) {
+                //Read File Line By Line
+                while ((strLine = br.readLine()) != null) {
+                    if (strLine.startsWith(" ") || strLine.startsWith("#") || strLine.isEmpty()) {
                         continue;
                     }
+
+                    long   hits     = 1;
+                    String agentStr = strLine;
+
+                    if (strLine.contains("\t")) {
+                        String[] parts = strLine.split("\t", 2);
+                        try {
+                            hits = Long.parseLong(parts[0]);
+                            agentStr = parts[1];
+                        } catch (NumberFormatException nfe) {
+                            agentStr = strLine;
+                        }
+                    }
+
+                    if (commandlineOptions.fullFlatten) {
+                        flattenPrinter.parse(agentStr);
+                        continue;
+                    }
+
+                    if (commandlineOptions.matchedFlatten) {
+                        for (Match match : uaa.getUsedMatches(new UserAgent(agentStr))) {
+                            System.out.println(match.getKey() + " " + match.getValue());
+                        }
+                        continue;
+                    }
+
+                    UserAgent agent = uaa.parse(agentStr);
+
+                    boolean hasBad = false;
+                    for (String field : UserAgent.STANDARD_FIELDS) {
+                        if (agent.getConfidence(field) < 0) {
+                            hasBad = true;
+                            break;
+                        }
+                    }
+
+                    linesTotal++;
+                    hitsTotal += hits;
+
+                    if (agent.hasSyntaxError()) {
+                        if (outputFormat == YAML) {
+                            System.out.println("# Syntax error: " + agentStr);
+                        }
+                    } else {
+                        linesOk++;
+                        hitsOk += hits;
+                    }
+
+                    if (!hasBad) {
+                        linesMatched++;
+                        hitsMatched += hits;
+                    }
+
+                    if (agent.hasAmbiguity()) {
+                        ambiguities++;
+                    }
+                    if (agent.hasSyntaxError()) {
+                        syntaxErrors++;
+                    }
+
+                    if (linesTotal % 1000 == 0) {
+                        long nowTime = System.nanoTime();
+                        long speed   = (1000000000L * (linesTotal - segmentStartLines)) / (nowTime - segmentStartTime);
+                        System.err.println(
+                            String.format("Lines = %8d (Ambiguities: %5d ; SyntaxErrors: %5d) Analyze speed = %5d/sec.",
+                                linesTotal, ambiguities, syntaxErrors, speed));
+                        segmentStartTime = nowTime;
+                        segmentStartLines = linesTotal;
+                        ambiguities = 0;
+                        syntaxErrors = 0;
+                    }
+
+                    if (commandlineOptions.outputOnlyBadResults) {
+                        if (hasBad) {
+                            continue;
+                        }
+                    }
+
+                    printAgent(outputFormat, fields, agent);
                 }
 
-                printAgent(outputFormat, fields, agent);
-            }
-
-            //Close the input stream
-            br.close();
-            long stop = System.nanoTime();
+                //Close the input stream
+                br.close();
+                long stop = System.nanoTime();
 //            LOG.info("Stop  @ {}", stop);
 
-            LOG.info("-------------------------------------------------------------");
-            LOG.info("Performance: {} in {} sec --> {}/sec", linesTotal, (stop-start)/1000000000L, (1000000000L*linesTotal)/(stop-start));
-            LOG.info("-------------------------------------------------------------");
-            LOG.info("Parse results of {} lines", linesTotal);
-            LOG.info(String.format("Parsed without error: %8d (=%6.2f%%)",
-                linesOk, 100.0*(double)linesOk/(double)linesTotal));
-            LOG.info(String.format("Parsed with    error: %8d (=%6.2f%%)",
-                linesTotal-linesOk, 100.0*(double)(linesTotal-linesOk)/(double)linesTotal));
-            LOG.info(String.format("Fully matched       : %8d (=%6.2f%%)",
-                linesMatched, 100.0*(double)linesMatched/(double)linesTotal));
-
-            if (linesTotal != hitsTotal) {
                 LOG.info("-------------------------------------------------------------");
-                LOG.info("Parse results of {} hits", hitsTotal);
+                LOG.info("Performance: {} in {} sec --> {}/sec",
+                    linesTotal, (stop - start) / 1000000000L, (1000000000L * linesTotal) / (stop - start));
+                LOG.info("-------------------------------------------------------------");
+                LOG.info("Parse results of {} lines", linesTotal);
                 LOG.info(String.format("Parsed without error: %8d (=%6.2f%%)",
-                    hitsOk, 100.0*(double)hitsOk/(double)hitsTotal));
+                    linesOk, 100.0 * (double) linesOk / (double) linesTotal));
                 LOG.info(String.format("Parsed with    error: %8d (=%6.2f%%)",
-                    hitsTotal-hitsOk, 100.0*(double)(hitsTotal-hitsOk)/(double)hitsTotal));
+                    linesTotal - linesOk, 100.0 * (double) (linesTotal - linesOk) / (double) linesTotal));
                 LOG.info(String.format("Fully matched       : %8d (=%6.2f%%)",
-                    hitsMatched, 100.0*(double)hitsMatched/(double)hitsTotal));
-                LOG.info("-------------------------------------------------------------");
-            }
+                    linesMatched, 100.0 * (double) linesMatched / (double) linesTotal));
 
+                if (linesTotal != hitsTotal) {
+                    LOG.info("-------------------------------------------------------------");
+                    LOG.info("Parse results of {} hits", hitsTotal);
+                    LOG.info(String.format("Parsed without error: %8d (=%6.2f%%)",
+                        hitsOk, 100.0 * (double) hitsOk / (double) hitsTotal));
+                    LOG.info(String.format("Parsed with    error: %8d (=%6.2f%%)",
+                        hitsTotal - hitsOk, 100.0 * (double) (hitsTotal - hitsOk) / (double) hitsTotal));
+                    LOG.info(String.format("Fully matched       : %8d (=%6.2f%%)",
+                        hitsMatched, 100.0 * (double) hitsMatched / (double) hitsTotal));
+                    LOG.info("-------------------------------------------------------------");
+                }
+            }
         } catch (final CmdLineException e) {
             logVersion();
             LOG.error("Errors: " + e.getMessage());
