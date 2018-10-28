@@ -129,7 +129,6 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             ATNConfigSet configs) {
         hasAmbiguity = true;
         ambiguityCount++;
-//        allFields.put("__Ambiguity__",new AgentField("true"));
     }
 
     // The original input value
@@ -428,12 +427,11 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         StringBuilder sb = new StringBuilder(10240);
         sb.append("\n");
         sb.append("- test:\n");
-//        sb.append("#    options:\n");
-//        sb.append("#    - 'verbose'\n");
-//        sb.append("#    - 'init'\n");
-//        sb.append("#    - 'only'\n");
+        sb.append("#    options:\n");
+        sb.append("#    - 'verbose'\n");
+        sb.append("#    - 'init'\n");
+        sb.append("#    - 'only'\n");
         sb.append("    input:\n");
-//        sb.append("#      name: 'You can give the test case a name'\n");
         sb.append("      user_agent_string: '").append(userAgentString).append("'\n");
         sb.append("    expected:\n");
 
@@ -473,27 +471,6 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
 
         return sb.toString();
     }
-
-
-//    {
-//        "agent": {
-//            "user_agent_string": "Mozilla/5.0 (iPhone; CPU iPhone OS 9_2_1 like Mac OS X) AppleWebKit/601.1.46
-//                                  (KHTML, like Gecko) Version/9.0 Mobile/13D15 Safari/601.1"
-//            "AgentClass": "Browser",
-//            "AgentName": "Safari",
-//            "AgentVersion": "9.0",
-//            "DeviceBrand": "Apple",
-//            "DeviceClass": "Phone",
-//            "DeviceFirmwareVersion": "13D15",
-//            "DeviceName": "iPhone",
-//            "LayoutEngineClass": "Browser",
-//            "LayoutEngineName": "AppleWebKit",
-//            "LayoutEngineVersion": "601.1.46",
-//            "OperatingSystemClass": "Mobile",
-//            "OperatingSystemName": "iOS",
-//            "OperatingSystemVersion": "9_2_1",
-//        }
-//    }
 
     public String toJson() {
         List<String> fields = getAvailableFieldNames();
@@ -552,7 +529,6 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
                         sb.append(' ');
                     }
                     sb.append(": '").append(field.getValue()).append('\'');
-//                    sb.append("            # Default = '").append(field.defaultValue).append('\'');
                     sb.append('\n');
                 }
             }
@@ -663,6 +639,5 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         return result;
 
     }
-
 
 }
