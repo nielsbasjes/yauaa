@@ -66,7 +66,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     public static final String UNKNOWN_VALUE = "Unknown";
     public static final String UNKNOWN_VERSION = "??";
 
-    protected static final String[] STANDARD_FIELDS = {
+    public static final String[] STANDARD_FIELDS = {
         DEVICE_CLASS,
         DEVICE_BRAND,
         DEVICE_NAME,
