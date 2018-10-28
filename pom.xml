@@ -59,6 +59,17 @@
     <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
     <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 
+    <!-- For some parts the code coverage has been disabled because it is -->
+    <!-- either debugging or demonstration code. -->
+    <!-- Yet for some reason the Sonar coverage still reports on ALL files. -->
+    <!-- This is NASTY! -->
+    <sonar.exclusions>
+      src/main/nl/basjes/parse/useragent/Version.*,
+      src/main/nl/basjes/parse/useragent/parser/*,
+      src/main/nl/basjes/parse/useragent/debug/*,
+      src/main/nl/basjes/parse/useragent/servlet/*
+    </sonar.exclusions>
+
     <git-commit-id-plugin.version>2.2.3</git-commit-id-plugin.version>
     <version.copyright>Copyright (C) 2013-2018 Niels Basjes</version.copyright>
     <version.license>License Apache 2.0</version.license>
