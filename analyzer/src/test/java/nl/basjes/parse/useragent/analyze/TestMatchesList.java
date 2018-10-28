@@ -17,9 +17,11 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import org.junit.Test;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -36,11 +38,11 @@ public class TestMatchesList {
         assertEquals(1, list.size());
         list.add("three", "four", null);
         assertEquals(2, list.size());
-        Iterator<MatchesList.Match> iterator = list.iterator();
+        Iterator<Match> iterator = list.iterator();
         assertTrue(iterator.hasNext());
-        MatchesList.Match match1 = iterator.next();
+        Match match1 = iterator.next();
         assertTrue(iterator.hasNext());
-        MatchesList.Match match2 = iterator.next();
+        Match match2 = iterator.next();
         assertFalse(iterator.hasNext());
         assertEquals("one", match1.getKey());
         assertEquals("two", match1.getValue());
@@ -48,6 +50,18 @@ public class TestMatchesList {
         assertEquals("three", match2.getKey());
         assertEquals("four", match2.getValue());
         assertNull(match2.getResult());
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void testTooMany() {
+        MatchesList list = new MatchesList(5);
+        list.add("one", "two", null);
+        list.add("three", "four", null);
+        Iterator<Match> iterator = list.iterator();
+
+        Match match1 = iterator.next(); // Ok
+        Match match2 = iterator.next(); // Ok
+        Match match3 = iterator.next(); // Should throw
     }
 
     @Test(expected = UnsupportedOperationException.class)

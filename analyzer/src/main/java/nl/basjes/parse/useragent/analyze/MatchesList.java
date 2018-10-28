@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public final class MatchesList implements Collection<MatchesList.Match>, Serializable {
 
@@ -107,6 +108,9 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
 
             @Override
             public Match next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException("Array index out of bounds");
+                }
                 return allElements[offset++];
             }
         };
