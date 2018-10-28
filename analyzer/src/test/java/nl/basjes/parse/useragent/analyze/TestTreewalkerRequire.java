@@ -104,7 +104,6 @@ public class TestTreewalkerRequire {
         checkPath(path, expectedHashEntries, expectedWalkList);
     }
 
-
     @Test
     public void validateWalkPathPruneOne() {
         String path = "agent.(1)product.(1)name[1-2]=\"Foo\"^.(1-3)version@";
@@ -166,6 +165,32 @@ public class TestTreewalkerRequire {
 
         checkPath(path, expectedHashEntries, expectedWalkList);
     }
+
+    @Test
+    public void validateWalkPathPruneUnfallableSteps() {
+        String[] paths = {
+            "NormalizeBrand[agent.(1)product.(1)name[1-2]=\"Foo\"@[2]@]",
+            "CleanVersion[agent.(1)product.(1)name[1-2]=\"Foo\"@[2]@]",
+            "Concat[\"Foo\";agent.(1)product.(1)name[1-2]=\"Foo\"@[2]@]",
+            "Concat[\"Foo\";agent.(1)product.(1)name[1-2]=\"Foo\"@[2]@;\"Bar\"]",
+            "Concat[agent.(1)product.(1)name[1-2]=\"Foo\"@[2]@;\"Bar\"]",
+        };
+
+        String[] expectedHashEntries = {
+            "agent.(1)product.(1)name[1-2]=\"Foo\"",
+        };
+
+        String[] expectedWalkList = {
+            "BackToFull()",
+            "WordRange([2:2])"
+        };
+
+        for (String path: paths) {
+            checkPath(path, expectedHashEntries, expectedWalkList);
+        }
+    }
+
+
 
     @Test(expected = InvalidParserConfigurationException.class)
     public void validateParseErrorUselessFixedString() {
