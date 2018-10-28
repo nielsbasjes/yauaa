@@ -23,9 +23,11 @@ jdk:
 addons:
   sonarcloud:
     organization: "nielsbasjes-github"
+    projectKey: "yauaa"
 
-after_success:
-  - mvn -PEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
+script:
+  - mvn clean package -DskipTests
+  - mvn test -PEnableReportPlugins coveralls:report sonar:sonar
 
 cache:
   directories:
