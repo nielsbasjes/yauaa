@@ -60,7 +60,7 @@ public final class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordR
 
         @Override
         public boolean equals(Object o) {
-            if (!Range.class.isInstance(o)) {
+            if ((!(o instanceof Range))) {
                 return false;
             }
             Range range = (Range) o;
