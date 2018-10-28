@@ -54,6 +54,16 @@
     <jacoco.surefireArgLine/>
     <argLine>@{jacoco.surefireArgLine} -Xmx2048m</argLine>
 
+    <sonar.sources>src</sonar.sources>
+    <sonar.language>java</sonar.language>
+    <sonar.binaries>target/classes</sonar.binaries>
+    <sonar.tests>junit</sonar.tests>
+    <sonar.junit.reportsPath>target/surefire-reports</sonar.junit.reportsPath>
+    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+    <sonar.jacoco.reportPath>target/site/jacoco-ut</sonar.jacoco.reportPath>
+    <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+
     <git-commit-id-plugin.version>2.2.3</git-commit-id-plugin.version>
     <version.copyright>Copyright (C) 2013-2018 Niels Basjes</version.copyright>
     <version.license>License Apache 2.0</version.license>
@@ -491,6 +501,12 @@
               </configuration>
             </execution>
           </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>3.5.0.1254</version>
         </plugin>
 
       </plugins>
