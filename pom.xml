@@ -54,14 +54,14 @@
     <jacoco.surefireArgLine/>
     <argLine>@{jacoco.surefireArgLine} -Xmx2048m</argLine>
 
-    <sonar.sources>src</sonar.sources>
     <sonar.language>java</sonar.language>
+    <sonar.sources>src/main</sonar.sources>
+    <sonar.tests>src/test</sonar.tests>
     <sonar.binaries>target/classes</sonar.binaries>
-    <sonar.tests>junit</sonar.tests>
     <sonar.junit.reportsPath>target/surefire-reports</sonar.junit.reportsPath>
     <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-    <sonar.jacoco.reportPath>target/site/jacoco-ut</sonar.jacoco.reportPath>
     <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+    <sonar.jacoco.reportPath>target/site/jacoco-ut</sonar.jacoco.reportPath>
     <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 
     <git-commit-id-plugin.version>2.2.3</git-commit-id-plugin.version>
