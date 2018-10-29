@@ -24,6 +24,7 @@ import org.junit.rules.ExpectedException;
 
 import java.io.Serializable;
 
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
@@ -135,9 +136,9 @@ public class TestAnnotationSystem {
     @Test
     public void testTooManyParameters() {
         expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage("In class [class nl.basjes.parse.useragent.annotate.TestAnnotationSystem$TooManyParameters] " +
+        expectedEx.expectMessage(containsString(
             "the method [wrongSetter] has been annotated with YauaaField but it has the wrong method signature. " +
-            "It must look like [ public void wrongSetter(TestRecord record, String value) ]");
+            "It must look like [ public void wrongSetter(TestRecord record, String value) ]"));
         new TooManyParameters();
     }
 
@@ -153,9 +154,9 @@ public class TestAnnotationSystem {
     @Test
     public void testWrongTypeParameters1() {
         expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage("In class [class nl.basjes.parse.useragent.annotate.TestAnnotationSystem$WrongTypeParameters1] " +
+        expectedEx.expectMessage(containsString(
             "the method [wrongSetter] has been annotated with YauaaField but it has the wrong method signature. " +
-            "It must look like [ public void wrongSetter(TestRecord record, String value) ]");
+            "It must look like [ public void wrongSetter(TestRecord record, String value) ]"));
         new WrongTypeParameters1();
     }
 
@@ -171,9 +172,9 @@ public class TestAnnotationSystem {
     @Test
     public void testWrongTypeParameters2() {
         expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage("In class [class nl.basjes.parse.useragent.annotate.TestAnnotationSystem$WrongTypeParameters2] " +
+        expectedEx.expectMessage(containsString(
             "the method [wrongSetter] has been annotated with YauaaField but it has the wrong method signature. " +
-            "It must look like [ public void wrongSetter(TestRecord record, String value) ]");
+            "It must look like [ public void wrongSetter(TestRecord record, String value) ]"));
         new WrongTypeParameters2();
     }
 
@@ -192,6 +193,71 @@ public class TestAnnotationSystem {
         new MissingAnnotations();
     }
 
+    // ----------------------------------------------------------------
+
+    public static class WrongReturnType extends MyBaseMapper {
+        @YauaaField("DeviceClass")
+        public boolean nonVoidSetter(TestRecord record, String value) {
+            fail("May NEVER call this method");
+            return true;
+        }
+    }
+
+    @Test
+    public void testNonVoidSetter() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage(containsString(
+            "the method [nonVoidSetter] has been annotated with YauaaField but it has the wrong method signature. " +
+            "It must look like [ public void nonVoidSetter(TestRecord record, String value) ]"));
+        new WrongReturnType();
+    }
+
+    // ----------------------------------------------------------------
+
+    private static final class PrivateTestRecord implements Serializable {
+        final String useragent;
+        String deviceClass;
+        String agentNameVersion;
+
+        private PrivateTestRecord(String useragent) {
+            this.useragent = useragent;
+        }
+    }
+
+    public static class PrivateMyBaseMapper
+        implements UserAgentAnnotationMapper<PrivateTestRecord>, Serializable {
+        private final transient UserAgentAnnotationAnalyzer<PrivateTestRecord> userAgentAnalyzer;
+
+        public PrivateMyBaseMapper() {
+            userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
+            userAgentAnalyzer.initialize(this);
+        }
+
+        public PrivateTestRecord enrich(PrivateTestRecord record) {
+            return userAgentAnalyzer.map(record);
+        }
+
+        @Override
+        public String getUserAgentString(PrivateTestRecord record) {
+            return record.useragent;
+        }
+    }
+
+    private static class InaccessibleSetterMapperClass extends PrivateMyBaseMapper {
+        @YauaaField("DeviceClass")
+        public void correctSetter(PrivateTestRecord record, String value) {
+            fail("May NEVER call this method");
+        }
+    }
+
+    @Test
+    public void testInaccessibleSetterClass() {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage("The class nl.basjes.parse.useragent.annotate.TestAnnotationSystem.PrivateTestRecord is not public.");
+        new InaccessibleSetterMapperClass();
+    }
+
+    // ----------------------------------------------------------------
 
     @SuppressWarnings("unchecked") // Here we deliberately created some bad code to check the behavior.
     @Test

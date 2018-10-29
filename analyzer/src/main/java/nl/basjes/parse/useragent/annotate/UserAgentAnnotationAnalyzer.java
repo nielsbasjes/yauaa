@@ -48,7 +48,7 @@ public class UserAgentAnnotationAnalyzer<T> {
         }
 
         Class[] classOfTArray = GenericTypeResolver.resolveTypeArguments(mapper.getClass(), UserAgentAnnotationMapper.class);
-        if (classOfTArray == null || classOfTArray[0] == null) {
+        if (classOfTArray == null) {
             throw new InvalidParserConfigurationException("Couldn't find the used generic type of the UserAgentAnnotationMapper.");
         }
 
@@ -65,7 +65,11 @@ public class UserAgentAnnotationAnalyzer<T> {
                     parameters[0] == classOfT &&
                     parameters[1] == String.class) {
 
-                    if (!Modifier.isPublic(method.getModifiers()) || !Modifier.isPublic(classOfT.getModifiers())) {
+                    if (!Modifier.isPublic(classOfT.getModifiers())) {
+                        throw new InvalidParserConfigurationException("The class " + classOfT.getCanonicalName() + " is not public.");
+                    }
+
+                    if (!Modifier.isPublic(method.getModifiers())) {
                         throw new InvalidParserConfigurationException("Method annotated with YauaaField is not public: " +
                             method.getName());
                     }
@@ -100,9 +104,7 @@ public class UserAgentAnnotationAnalyzer<T> {
 
         UserAgentAnalyzerBuilder<?, ?> builder = UserAgentAnalyzer.newBuilder();
         builder.hideMatcherLoadStats();
-        if (!fieldSetters.isEmpty()) {
-            builder.withFields(fieldSetters.keySet());
-        }
+        builder.withFields(fieldSetters.keySet());
         userAgentAnalyzer = builder.build();
     }
 
@@ -122,7 +124,7 @@ public class UserAgentAnnotationAnalyzer<T> {
                 try {
                     method.invoke(mapper, record, value);
                 } catch (IllegalAccessException | InvocationTargetException e) {
-                    throw new InvalidParserConfigurationException("Couldn't call the requested setter", e);
+                    throw new InvalidParserConfigurationException("A problem occurred while calling the requested setter", e);
                 }
             }
         }

@@ -24,6 +24,7 @@ import org.junit.rules.ExpectedException;
 
 import java.io.Serializable;
 
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -105,6 +106,23 @@ public class TestAnnotationSystemAnonymous {
     // ----------------------------------------------------------------
 
     @Test
+    public void testWrongReturnType() {
+        expectedEx.expectMessage(containsString("the method [wrongSetter] " +
+            "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
+            "[ public void wrongSetter(TestRecord record, String value) ]"));
+        record =
+            new MyErrorMapper() {
+                @YauaaField("DeviceClass")
+                public boolean wrongSetter(TestRecord testRecord, Double value) {
+                    fail("May NEVER call this method");
+                    return false;
+                }
+            } .enrich(record);
+    }
+
+    // ----------------------------------------------------------------
+
+    @Test
     public void testInaccessibleSetter() {
         expectedEx.expect(InvalidParserConfigurationException.class);
         expectedEx.expectMessage("Method annotated with YauaaField is not public: inaccessibleSetter");
@@ -122,9 +140,9 @@ public class TestAnnotationSystemAnonymous {
     @Test
     public void testTooManyParameters() {
         expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage("In class [class nl.basjes.parse.useragent.annotate.TestAnnotationSystemAnonymous$4] the method [wrongSetter] " +
+        expectedEx.expectMessage(containsString("the method [wrongSetter] " +
             "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
-            "[ public void wrongSetter(TestRecord record, String value) ]");
+            "[ public void wrongSetter(TestRecord record, String value) ]"));
         record =
             new MyErrorMapper() {
                 @YauaaField("DeviceClass")
@@ -138,9 +156,9 @@ public class TestAnnotationSystemAnonymous {
 
     @Test
     public void testWrongTypeParameters1() {
-        expectedEx.expectMessage("In class [class nl.basjes.parse.useragent.annotate.TestAnnotationSystemAnonymous$5] the method [wrongSetter] " +
+        expectedEx.expectMessage(containsString("the method [wrongSetter] " +
             "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
-            "[ public void wrongSetter(TestRecord record, String value) ]");
+            "[ public void wrongSetter(TestRecord record, String value) ]"));
         record =
             new MyErrorMapper() {
                 @YauaaField("DeviceClass")
@@ -154,9 +172,9 @@ public class TestAnnotationSystemAnonymous {
 
     @Test
     public void testWrongTypeParameters2() {
-        expectedEx.expectMessage("In class [class nl.basjes.parse.useragent.annotate.TestAnnotationSystemAnonymous$6] the method [wrongSetter] " +
+        expectedEx.expectMessage(containsString("the method [wrongSetter] " +
             "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
-            "[ public void wrongSetter(TestRecord record, String value) ]");
+            "[ public void wrongSetter(TestRecord record, String value) ]"));
         record =
             new MyErrorMapper() {
                 @YauaaField("DeviceClass")
@@ -179,5 +197,21 @@ public class TestAnnotationSystemAnonymous {
                 }
             } .enrich(record);
     }
+
+    // ----------------------------------------------------------------
+
+    @Test
+    public void testSetterFailure() {
+        expectedEx.expectMessage("A problem occurred while calling the requested setter");
+        record =
+            new MyErrorMapper() {
+                @YauaaField("DeviceClass")
+                public void failingSetter(TestRecord testRecord, String value) {
+                    throw new IllegalStateException("Just testing the error handling");
+                }
+            } .enrich(record);
+    }
+
+    // ----------------------------------------------------------------
 
 }
