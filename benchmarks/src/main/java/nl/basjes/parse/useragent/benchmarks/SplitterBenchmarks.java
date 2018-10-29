@@ -43,7 +43,7 @@ package nl.basjes.parse.useragent.benchmarks;
 //@Fork(1)
 //@BenchmarkMode(Mode.AverageTime)
 //@OutputTimeUnit(TimeUnit.NANOSECONDS)
-public class SplitterBenchmarks {
+//public class SplitterBenchmarks {
 //
 //    @State(Scope.Benchmark)
 //    public static class ThreadState {
@@ -197,4 +197,4 @@ public class SplitterBenchmarks {
 //
 //        new Runner(opt).run();
 //    }
-}
+//}
