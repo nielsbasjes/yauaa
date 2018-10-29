@@ -32,7 +32,7 @@ public class TestPerformance {
 
     @Ignore
     @Test
-    public void validateAllPredefinedBrowsersPerformance() {
+    public void validateAllPredefinedBrowsersPerformance() { //NOSONAR: Do not complain about ignored performance test
         UserAgentAnalyzerTester uaa =
             UserAgentAnalyzerTester.newBuilder()
             .showMatcherLoadStats()

@@ -96,7 +96,12 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
     private static final int INFORM_ACTIONS_HASHMAP_CAPACITY = 1000000;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzerDirect.class);
-    protected final List<Matcher> allMatchers = new ArrayList<>(5000);
+    private final List<Matcher> allMatchers = new ArrayList<>(5000);
+
+    protected List<Matcher> getAllMatchers() {
+        return allMatchers;
+    }
+
     private final Map<String, Set<MatcherAction>> informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_CAPACITY);
     private transient Map<String, List<MappingNode>> matcherConfigs = new HashMap<>();
 
@@ -104,9 +109,14 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
     private boolean doingOnlyASingleTest = false;
 
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
-    protected List<String> wantedFieldNames = null;
+    List<String> wantedFieldNames = null; // NOSONAR: Only accessed via Builder.
 
-    protected final List<Map<String, Map<String, String>>> testCases = new ArrayList<>(2048);
+    private final List<Map<String, Map<String, String>>> testCases = new ArrayList<>(2048);
+
+    public List<Map<String, Map<String, String>>> getTestCases() {
+        return testCases;
+    }
+
     private Map<String, Map<String, String>> lookups = new HashMap<>(128);
     private final Map<String, Set<String>> lookupSets = new HashMap<>(128);
 
@@ -258,7 +268,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         alreadyLoadedResourceBasenames.retainAll(resourceBasenames);
         if (!alreadyLoadedResourceBasenames.isEmpty()) {
             LOG.error("Trying to load these {} resources for the second time: {}",
-                alreadyLoadedResourceBasenames.size(), alreadyLoadedResourceBasenames.toString());
+                alreadyLoadedResourceBasenames.size(), alreadyLoadedResourceBasenames);
             throw new InvalidParserConfigurationException("Trying to load " + alreadyLoadedResourceBasenames.size() +
                 " resources for the second time");
         }
@@ -326,7 +336,9 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 
                 if (showMatcherStats) {
                     try(Formatter msg = new Formatter(Locale.ENGLISH)) {
-                        msg.format("Loading %4d (dropped %4d) matchers from %-" + maxFilenameLength + "s " + "took %5d msec",
+                        msg.format("Loading %4d (dropped %4d) matchers from " +
+                                "%-" + maxFilenameLength + "s " + // NOSONAR: I'm creating the format using concatenation
+                                "took %5d msec",
                             matcherConfig.size() - (stopSkipped - startSkipped),
                             stopSkipped - startSkipped,
                             configFilename,
@@ -707,7 +719,7 @@ config:
         initializeMatchers();
         String useragentString = userAgent.getUserAgentString();
         if (useragentString != null && useragentString.length() > userAgentMaxLength) {
-            userAgent = setAsHacker(userAgent, 100);
+            setAsHacker(userAgent, 100);
             userAgent.setForced("HackerAttackVector", "Buffer overflow", 100);
             return hardCodedPostProcessing(userAgent);
         }
@@ -929,7 +941,6 @@ config:
         if (second == null) {
             if (firstConfidence >= 0) {
                 userAgent.set(targetName, first, firstConfidence);
-                return;
             }
             return; // Nothing to do
         } else {
@@ -1080,8 +1091,8 @@ config:
     // ===============================================================================================================
 
     public static class GetAllPathsAnalyzer implements Analyzer {
-        final List<String> values = new ArrayList<>(128);
-        final UserAgentTreeFlattener flattener;
+        private final List<String> values = new ArrayList<>(128);
+        private final UserAgentTreeFlattener flattener;
 
         private final UserAgent result;
 
@@ -1105,21 +1116,26 @@ config:
         }
 
         public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
+            // Not needed to only get all paths
         }
 
         public void lookingForRange(String treeName, Range range) {
+            // Not needed to only get all paths
         }
 
         public Set<Range> getRequiredInformRanges(String treeName) {
+            // Not needed to only get all paths
             return Collections.emptySet();
         }
 
         @Override
         public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
+            // Not needed to only get all paths
         }
 
         @Override
         public Set<Integer> getRequiredPrefixLengths(String treeName) {
+            // Not needed to only get all paths
             return Collections.emptySet();
         }
     }

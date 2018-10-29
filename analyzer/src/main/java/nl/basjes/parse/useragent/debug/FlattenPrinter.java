@@ -28,7 +28,7 @@ import java.util.Set;
 
 public class FlattenPrinter implements Analyzer {
 
-    final PrintStream outputStream;
+    final transient PrintStream outputStream;
 
     public FlattenPrinter(PrintStream outputStream) {
         this.outputStream = outputStream;

@@ -33,7 +33,7 @@ public class DebugUserAgent extends UserAgent {
 
     private static final Logger LOG = LoggerFactory.getLogger(DebugUserAgent.class);
 
-    final List<Pair<UserAgent, Matcher>> appliedMatcherResults = new ArrayList<>(32);
+    private final transient List<Pair<UserAgent, Matcher>> appliedMatcherResults = new ArrayList<>(32);
 
     @Override
     public void set(UserAgent newValuesUserAgent, Matcher appliedMatcher) {

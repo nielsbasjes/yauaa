@@ -155,7 +155,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         }
     }
 
-    private ParseTreeProperty<State> state;
+    private transient ParseTreeProperty<State> state;
 
     public UserAgentTreeFlattener(Analyzer analyzer) {
         this.analyzer = analyzer;

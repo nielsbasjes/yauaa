@@ -150,7 +150,7 @@ public class ParseUserAgent extends AbstractProcessor {
     }
 
     @Override
-    public void onTrigger(ProcessContext context, ProcessSession session) throws ProcessException {
+    public void onTrigger(ProcessContext context, ProcessSession session) throws ProcessException { // NOSONAR: Explicitly name the exception
         FlowFile flowFile = session.get();
         String userAgentString = flowFile.getAttribute(USERAGENTSTRING_ATTRIBUTENAME);
         if (userAgentString == null) {

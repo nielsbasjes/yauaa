@@ -104,6 +104,7 @@ public class MatcherExtractAction extends MatcherAction {
         return false;
     }
 
+    @Override
     public void reset() {
         super.reset();
         this.foundValue = null;

@@ -61,13 +61,17 @@
 
     <!-- For some parts the code coverage has been disabled because it is -->
     <!-- either debugging or demonstration code. -->
-    <!-- Yet for some reason the Sonar coverage still reports on ALL files. -->
+    <!-- Sonar does not look at the Jacoco configs so we need to duplicate these -->
+    <!-- rules here a second time. -->
     <!-- This is NASTY! -->
     <sonar.exclusions>
-      src/main/nl/basjes/parse/useragent/Version.*,
-      src/main/nl/basjes/parse/useragent/parser/*,
-      src/main/nl/basjes/parse/useragent/debug/*,
-      src/main/nl/basjes/parse/useragent/servlet/*
+      src/main/java/nl/basjes/parse/useragent/Version.*,
+      src/main/java/nl/basjes/parse/useragent/parser/**,
+      src/main/java/nl/basjes/parse/useragent/debug/**,
+      src/main/java/nl/basjes/parse/useragent/benchmarks/**,
+      src/main/java/nl/basjes/parse/useragent/servlet/**,
+      src/main/java/nl/basjes/parse/useragent/commandline/**,
+      src/main/java/nl/basjes/parse/useragent/drill/**,
     </sonar.exclusions>
 
     <git-commit-id-plugin.version>2.2.3</git-commit-id-plugin.version>

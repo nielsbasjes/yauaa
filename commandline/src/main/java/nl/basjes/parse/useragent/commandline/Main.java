@@ -107,7 +107,7 @@ public final class Main {
             parser.parseArgument(args);
 
             if (commandlineOptions.useragent == null && commandlineOptions.inFile == null) {
-                throw new CmdLineException(parser, "No input specified.");
+                throw new CmdLineException(parser, "No input specified."); // NOSONAR: Deprecated
             }
 
             OutputFormat outputFormat = YAML;
@@ -183,7 +183,7 @@ public final class Main {
 
                     if (strLine.contains("\t")) {
                         String[] parts = strLine.split("\t", 2);
-                        try {
+                        try { //NOSONAR: Not a separate method
                             hits = Long.parseLong(parts[0]);
                             agentStr = parts[1];
                         } catch (NumberFormatException nfe) {
@@ -258,8 +258,6 @@ public final class Main {
                     printAgent(outputFormat, fields, agent);
                 }
 
-                //Close the input stream
-                br.close();
                 long stop = System.nanoTime();
 //            LOG.info("Stop  @ {}", stop);
 
@@ -289,13 +287,13 @@ public final class Main {
             }
         } catch (final CmdLineException e) {
             logVersion();
-            LOG.error("Errors: " + e.getMessage());
+            LOG.error("Errors: {}", e.getMessage());
             LOG.error("");
             System.err.println("Usage: java jar <jar containing this class> <options>");
             parser.printUsage(System.err);
             returnValue = 1;
         } catch (final Exception e) {
-            LOG.error("IOException:" + e);
+            LOG.error("IOException: {}", e);
             returnValue = 1;
         }
         System.exit(returnValue);

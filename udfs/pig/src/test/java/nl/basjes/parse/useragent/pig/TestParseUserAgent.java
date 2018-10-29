@@ -31,6 +31,7 @@ import static org.apache.pig.builtin.mock.Storage.resetData;
 import static org.apache.pig.builtin.mock.Storage.tuple;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 // CHECKSTYLE.OFF: ParenPad
@@ -185,7 +186,7 @@ public class TestParseUserAgent {
     }
 
     private void checkAbsent(Schema schema, String fieldName) throws FrontendException {
-        assertEquals("Field named "+fieldName +" is present in the schema", schema.getField(fieldName), null);
+        assertNull("Field named " + fieldName + " is present in the schema", schema.getField(fieldName));
     }
 
     @Test

@@ -87,7 +87,7 @@ public class TestPredefinedBrowsers {
 
         Map<String, List<String>> allTestInputs = new HashMap<>(2000);
         Set<String> duplicates = new HashSet<>();
-        for (Map<String, Map<String, String>> testCase: uaa.getAllTestCases()) {
+        for (Map<String, Map<String, String>> testCase: uaa.getTestCases()) {
             String input = testCase.get("input").get("user_agent_string");
             String location = testCase.get("metaData").get("filename") + ":" + testCase.get("metaData").get("fileline");
             List<String> locations = allTestInputs.get(input);

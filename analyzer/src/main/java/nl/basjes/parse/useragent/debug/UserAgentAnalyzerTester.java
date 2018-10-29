@@ -55,10 +55,6 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         long confidence;
     }
 
-    public List<Map<String, Map<String, String>>> getAllTestCases() {
-        return testCases;
-    }
-
     /**
      * Run all the test_cases available.
      *
@@ -80,7 +76,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                             boolean showPassedTests) {
         boolean allPass = true;
         initializeMatchers();
-        if (testCases == null) {
+        if (getTestCases() == null) {
             return allPass;
         }
         DebugUserAgent agent = new DebugUserAgent();
@@ -90,7 +86,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         String filenameHeader = "Test number and source";
         int filenameHeaderLength = filenameHeader.length();
         int maxFilenameLength = filenameHeaderLength;
-        for (Map<String, Map<String, String>> test : testCases) {
+        for (Map<String, Map<String, String>> test : getTestCases()) {
             Map<String, String> metaData = test.get("metaData");
             String filename = metaData.get("filename");
             maxFilenameLength = Math.max(maxFilenameLength, filename.length());
@@ -121,7 +117,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         }
 
         int testcount = 0;
-        for (Map<String, Map<String, String>> test : testCases) {
+        for (Map<String, Map<String, String>> test : getTestCases()) {
             testcount++;
             Map<String, String> input = test.get("input");
             Map<String, String> expected = test.get("expected");
@@ -453,7 +449,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
             LOG.info(agent.toMatchTrace(failedFieldNames));
 
-            LOG.info("\n\nconfig:\n"+agent.toYamlTestCase(!init, failComments));
+            LOG.info("\n\nconfig:\n{}", agent.toYamlTestCase(!init, failComments));
             LOG.info("Location of failed test.({}:{})", filename, linenumber);
             if (!pass && !showAll) {
 //                LOG.info("+===========================================================================================");
@@ -482,7 +478,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
      */
     public List<Match> getMatches() {
         List<Match> allMatches = new ArrayList<>(128);
-        for (Matcher matcher: allMatchers) {
+        for (Matcher matcher: getAllMatchers()) {
             allMatches.addAll(matcher.getMatches());
         }
         return allMatches;
@@ -490,7 +486,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
     public List<Match> getUsedMatches(UserAgent userAgent) {
         // Reset all Matchers
-        for (Matcher matcher : allMatchers) {
+        for (Matcher matcher : getAllMatchers()) {
             matcher.reset();
             matcher.setVerboseTemporarily(false);
         }
@@ -498,7 +494,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         flattener.parse(userAgent);
 
         List<Match> allMatches = new ArrayList<>(128);
-        for (Matcher matcher: allMatchers) {
+        for (Matcher matcher: getAllMatchers()) {
             allMatches.addAll(matcher.getUsedMatches());
         }
         return allMatches;
@@ -525,4 +521,3 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     }
 
 }
-

@@ -46,7 +46,7 @@ public class TestMemoryFootprint {
 
     @Ignore
     @Test
-    public void checkForMemoryLeaks() {
+    public void checkForMemoryLeaks() { //NOSONAR: Do not complain about ignored performance test
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .withoutCache()
@@ -74,7 +74,7 @@ public class TestMemoryFootprint {
 
     @Ignore
     @Test
-    public void assesMemoryImpactPerFieldName() {
+    public void assesMemoryImpactPerFieldName() { //NOSONAR: Do not complain about ignored performance test
         // Get the Java runtime
         Runtime runtime = Runtime.getRuntime();
         UserAgentAnalyzer uaa = UserAgentAnalyzer
@@ -131,7 +131,7 @@ public class TestMemoryFootprint {
 
     @Ignore
     @Test
-    public void profileMemoryFootprint() {
+    public void profileMemoryFootprint() { //NOSONAR: Do not complain about ignored performance test
         printCurrentMemoryProfile("Before ");
 
         UserAgentAnalyzer uaa = UserAgentAnalyzer

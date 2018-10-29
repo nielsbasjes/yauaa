@@ -69,7 +69,7 @@ import java.util.List;
         "+---------------+-----------------------------+------------------------+\n")
 public class ParseUserAgent extends GenericUDF {
 
-    private static StringObjectInspector useragentOI = null;
+    private StringObjectInspector useragentOI = null;
     private static UserAgentAnalyzer userAgentAnalyzer = null;
     private static List<String> fieldNames = null;
 
@@ -88,8 +88,12 @@ public class ParseUserAgent extends GenericUDF {
     public ObjectInspector initialize(ObjectInspector[] args) throws UDFArgumentException {
         // ================================
         // Check the input
-        assert (args.length == 1); // This UDF accepts one argument
-        // The first argument is a list
+        // This UDF accepts one argument
+        if (args.length != 1) {
+            throw new UDFArgumentException("The argument list must be exactly 1 element");
+        }
+
+        // The first argument must be a String
         ObjectInspector inputOI = args[0];
         if (!(inputOI instanceof StringObjectInspector)) {
             throw new UDFArgumentException("The argument must be a string");

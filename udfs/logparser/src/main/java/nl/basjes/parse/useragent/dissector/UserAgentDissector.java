@@ -127,7 +127,7 @@ public class UserAgentDissector extends Dissector {
     }
 
     @Override
-    public EnumSet<Casts> prepareForDissect(String inputname, String outputname) {
+    public EnumSet<Casts> prepareForDissect(String inputname, String outputname) { // NOSONAR: MUST be EnumSet
         String name = extractFieldName(inputname, outputname);
         String fieldName = dissectionNameToFieldName(name);
 
@@ -149,6 +149,10 @@ public class UserAgentDissector extends Dissector {
         extraResources.forEach(r -> LOG.warn("Loading extra resource: {}", r));
         extraResources.forEach(builder::addResources);
         requestedFieldNames.forEach(builder::withField);
+        setupUserAgentAnalyzer();
+    }
+
+    private synchronized void setupUserAgentAnalyzer() {
         userAgentAnalyzer = getUserAgentAnalyzerBuilder().build();
         userAgentAnalyzer.initializeMatchers();
     }

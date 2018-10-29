@@ -374,7 +374,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     }
 
     // The appliedMatcher parameter is needed for development and debugging.
-    public void set(UserAgent newValuesUserAgent, Matcher appliedMatcher) {
+    public void set(UserAgent newValuesUserAgent, Matcher appliedMatcher) { // NOSONAR: Unused parameter
         for (String fieldName : newValuesUserAgent.allFields.keySet()) {
             AgentField field = newValuesUserAgent.allFields.get(fieldName);
             set(fieldName, field.value, field.confidence);
