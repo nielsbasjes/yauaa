@@ -66,7 +66,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     public static final String UNKNOWN_VALUE = "Unknown";
     public static final String UNKNOWN_VERSION = "??";
 
-    public static final String[] STANDARD_FIELDS = {
+    public static final List<String> STANDARD_FIELDS = Collections.unmodifiableList(Arrays.asList(
         DEVICE_CLASS,
         DEVICE_BRAND,
         DEVICE_NAME,
@@ -81,7 +81,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         AGENT_NAME,
         AGENT_VERSION,
         AGENT_VERSION_MAJOR
-    };
+    ));
 
     private boolean hasSyntaxError;
     private boolean hasAmbiguity;
@@ -538,7 +538,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
 
     public List<String> getAvailableFieldNames() {
         List<String> resultSet = new ArrayList<>(allFields.size()+10);
-        resultSet.addAll(Arrays.asList(STANDARD_FIELDS));
+        resultSet.addAll(STANDARD_FIELDS);
         allFields.forEach((fieldName, value) -> {
             if (!resultSet.contains(fieldName)) {
                 AgentField field = allFields.get(fieldName);
