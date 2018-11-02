@@ -31,6 +31,10 @@
 * [Building](Building.md)
 * [Changelog](https://github.com/nielsbasjes/yauaa/blob/master/CHANGELOG.md)
 * [Issue tracker](https://github.com/nielsbasjes/yauaa/issues)
+* [Related projects](RelatedProjects.md)
+
+### Publications
+* [Bol.com techlab blog](https://techlab.bol.com/making-sense-user-agent-string/)
 
 ### Licence
 * [Apache 2.0 License](LICENSE.md)

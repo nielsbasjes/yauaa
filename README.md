@@ -9,8 +9,6 @@ Yauaa: Yet Another UserAgent Analyzer
 
 This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.
 
-A bit more background about this useragent parser can be found in this blog which I wrote about it: [https://techlab.bol.com/making-sense-user-agent-string/](https://partnerprogramma.bol.com/click/click?p=1&t=url&s=2171&f=TXL&url=https%3A%2F%2Ftechlab.bol.com%2Fmaking-sense-user-agent-string%2F&name=yauaa)
-
 The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa.basjes.nl)
 
 IMPORTANT: Version 5.1 is bad.
@@ -19,36 +17,42 @@ If you are using version 5.1 you should upgrade IMMEDIATELY to 5.2 because 5.1 c
 
     Mozilla/1.2.3 (http://basjes.nl)
 
+Blog post 
+=========
+A bit more background about this useragent parser can be found in this blog which I wrote about it: [https://techlab.bol.com/making-sense-user-agent-string/](https://partnerprogramma.bol.com/click/click?p=1&t=url&s=2171&f=TXL&url=https%3A%2F%2Ftechlab.bol.com%2Fmaking-sense-user-agent-string%2F&name=yauaa)
+
 Example output
 ==============
 As an example the useragent of my phone:
 
-    Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
+> Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
 
 is converted into this set of fields:
 
 | Field name | Value |
 | --- | --- |
-|  **Device**Class                      | 'Phone'                |
-|  **Device**Name                       | 'Google Nexus 6'       |
-|  **Device**Brand                      | 'Google'               |
-|  **OperatingSystem**Class             | 'Mobile'               |
-|  **OperatingSystem**Name              | 'Android'              |
-|  **OperatingSystem**Version           | '7.0'                  |
-|  **OperatingSystem**NameVersion       | 'Android 7.0'          |
-|  **OperatingSystem**VersionBuild      | 'NBD90Z'               |
-|  **LayoutEngine**Class                | 'Browser'              |
-|  **LayoutEngine**Name                 | 'Blink'                |
-|  **LayoutEngine**Version              | '53.0'                 |
-|  **LayoutEngine**VersionMajor         | '53'                   |
-|  **LayoutEngine**NameVersion          | 'Blink 53.0'           |
-|  **LayoutEngine**NameVersionMajor     | 'Blink 53'             |
-|  **Agent**Class                       | 'Browser'              |
-|  **Agent**Name                        | 'Chrome'               |
-|  **Agent**Version                     | '53.0.2785.124'        |
-|  **Agent**VersionMajor                | '53'                   |
-|  **Agent**NameVersion                 | 'Chrome 53.0.2785.124' |
-|  **Agent**NameVersionMajor            | 'Chrome 53'            |
+|  **Device** Class                         | Phone                |
+|  **Device** Name                          | Google Nexus 6       |
+|  **Device** Brand                         | Google               |
+|  **Operating System** Class               | Mobile               |
+|  **Operating System** Name                | Android              |
+|  **Operating System** Version             | 7.0                  |
+|  **Operating System** Name Version        | Android 7.0          |
+|  **Operating System** Version Build       | NBD90Z               |
+|  **Layout Engine** Class                  | Browser              |
+|  **Layout Engine** Name                   | Blink                |
+|  **Layout Engine** Version                | 53.0                 |
+|  **Layout Engine** Version Major          | 53                   |
+|  **Layout Engine** Name Version           | Blink 53.0           |
+|  **Layout Engine** Name Version Major     | Blink 53             |
+|  **Agent** Class                          | Browser              |
+|  **Agent** Name                           | Chrome               |
+|  **Agent** Version                        | 53.0.2785.124        |
+|  **Agent** Version Major                  | 53                   |
+|  **Agent** Name Version                   | Chrome 53.0.2785.124 |
+|  **Agent** Name Version Major             | Chrome 53            |
+
+You can find more information about what you can expect as output here: [the output to expect](README-Output.md) 
 
 Try it!
 =======
@@ -60,6 +64,12 @@ You can try it online with your own browser here: [https://try.yauaa.basjes.nl/]
 2. After a while of inactivity the instance is terminated so the first page may take 15-30 seconds to load.
 3. If you really like this then run it on your local systems. It's much faster that way.
 
+Related projects
+===
+[Stefano Balzarotti](https://github.com/OrbintSoft) is putting a lot of effort into porting Yauaa to run in .NET standard.
+
+You can track his efforts here on Github: [Yauaa .NET standard](https://github.com/OrbintSoft/yauaa.netstandard)
+
 Donations
 ===
 If this project has business value for you then don't hesitate to support me with a small donation.
@@ -68,6 +78,7 @@ If this project has business value for you then don't hesitate to support me wit
 
 License
 =======
+
     Yet Another UserAgent Analyzer
     Copyright (C) 2013-2018 Niels Basjes
 

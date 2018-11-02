@@ -62,6 +62,12 @@ You can try it online with your own browser here: [https://try.yauaa.basjes.nl/]
 2. After a while of inactivity the instance is terminated so the first page may take 15-30 seconds to load.
 3. If you really like this then run it on your local systems. It's much faster that way.
 
+Related projects
+===
+[Stefano Balzarotti](https://github.com/OrbintSoft) is putting a lot of effort into porting Yauaa to run in .NET standard.
+
+You can track his efforts here on Github: [Yauaa .NET standard](https://github.com/OrbintSoft/yauaa.netstandard)
+
 Donations
 ===
 If this project has business value for you then don't hesitate to support me with a small donation.
