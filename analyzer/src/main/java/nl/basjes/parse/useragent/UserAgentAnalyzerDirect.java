@@ -597,8 +597,8 @@ config:
                         }
                         break;
                     default:
-//                        fail(tuple.getKeyNode(), filename, "Unexpected: " + name);
-                        break; // Skip
+                        // Ignore
+                        break;
                 }
             }
 

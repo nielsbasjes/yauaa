@@ -58,8 +58,8 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     public static final String AGENT_VERSION = "AgentVersion";
     public static final String AGENT_VERSION_MAJOR = "AgentVersionMajor";
 
-    public static final String SYNTAX_ERROR = "__SyntaxError__";
-    public static final String USERAGENT = "Useragent";
+    public static final String SYNTAX_ERROR        = "__SyntaxError__";
+    public static final String USERAGENT_FIELDNAME = "Useragent";
 
     public static final String SET_ALL_FIELDS = "__Set_ALL_Fields__";
     public static final String NULL_VALUE = "<<<null>>>";
@@ -324,7 +324,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     static boolean isSystemField(String fieldname) {
         return  SET_ALL_FIELDS.equals(fieldname) ||
                 SYNTAX_ERROR.equals(fieldname) ||
-                USERAGENT.equals(fieldname);
+                USERAGENT_FIELDNAME.equals(fieldname);
     }
 
     public void processSetAll() {
@@ -386,7 +386,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     }
 
     public AgentField get(String fieldName) {
-        if (USERAGENT.equals(fieldName)) {
+        if (USERAGENT_FIELDNAME.equals(fieldName)) {
             AgentField agentField = new AgentField(userAgentString);
             agentField.setValue(userAgentString, 0L);
             return agentField;
@@ -396,7 +396,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     }
 
     public String getValue(String fieldName) {
-        if (USERAGENT.equals(fieldName)) {
+        if (USERAGENT_FIELDNAME.equals(fieldName)) {
             return userAgentString;
         }
         AgentField field = allFields.get(fieldName);
@@ -407,7 +407,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     }
 
     public Long getConfidence(String fieldName) {
-        if (USERAGENT.equals(fieldName)) {
+        if (USERAGENT_FIELDNAME.equals(fieldName)) {
             return 0L;
         }
         AgentField field = allFields.get(fieldName);
@@ -474,7 +474,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
 
     public String toJson() {
         List<String> fields = getAvailableFieldNames();
-        fields.add(USERAGENT);
+        fields.add(USERAGENT_FIELDNAME);
         return toJson(fields);
     }
 
@@ -489,7 +489,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             } else {
                 addSeparator = true;
             }
-            if (USERAGENT.equals(fieldName)) {
+            if (USERAGENT_FIELDNAME.equals(fieldName)) {
                 sb
                     .append("\"Useragent\"")
                     .append(':')
@@ -521,7 +521,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             maxLength = Math.max(maxLength, fieldName.length());
         }
         for (String fieldName : fieldNames) {
-            if (!USERAGENT.equals(fieldName)) {
+            if (!USERAGENT_FIELDNAME.equals(fieldName)) {
                 AgentField field = allFields.get(fieldName);
                 if (field.getValue() != null) {
                     sb.append("    ").append(fieldName);

@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DebugUserAgent extends UserAgent {
+public class DebugUserAgent extends UserAgent { // NOSONAR: No need to override equals and hashcode
 
     private static final Logger LOG = LoggerFactory.getLogger(DebugUserAgent.class);
 

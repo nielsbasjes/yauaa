@@ -69,7 +69,7 @@ public class UserAgentDissector extends Dissector {
      * @param rawParameter For this dissector it is a '|' separated list of resource paths.
      */
     @Override
-    public boolean initializeFromSettingsParameter(String rawParameter) {
+    public boolean initializeFromSettingsParameter(String rawParameter) { // NOSONAR: Always return true
         if (rawParameter == null || rawParameter.isEmpty()) {
             return true; // Nothing to do here
         }

@@ -223,9 +223,9 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                 }
             }
 
-            int maxNameLength = 6; // "Field".length()+1;
-            int maxActualLength = 7; // "Actual".length()+1;
-            int maxExpectedLength = 9; // "Expected".length()+1;
+            int maxNameLength     = 6; // "Field".length()+1;            NOSONAR: This is not commented code.
+            int maxActualLength   = 7; // "Actual".length()+1;           NOSONAR: This is not commented code.
+            int maxExpectedLength = 9; // "Expected".length()+1;         NOSONAR: This is not commented code.
 
             if (expected != null) {
                 List<String> fieldNames = agent.getAvailableFieldNamesSorted();
@@ -452,7 +452,6 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             LOG.info("\n\nconfig:\n{}", agent.toYamlTestCase(!init, failComments));
             LOG.info("Location of failed test.({}:{})", filename, linenumber);
             if (!pass && !showAll) {
-//                LOG.info("+===========================================================================================");
                 return false;
             }
             if (init) {

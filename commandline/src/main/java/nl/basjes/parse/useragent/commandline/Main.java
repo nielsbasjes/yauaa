@@ -36,7 +36,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import static nl.basjes.parse.useragent.UserAgent.USERAGENT;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
 import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.CSV;
 import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.JSON;
 import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.YAML;
@@ -129,13 +129,12 @@ public final class Main {
             }
             UserAgentAnalyzerTester uaa = builder.build();
 
-//            uaa.setVerbose(commandlineOptions.debug);
             UserAgentTreeFlattener flattenPrinter = new UserAgentTreeFlattener(new FlattenPrinter(System.out));
 
             List<String> fields;
             if (commandlineOptions.fields == null) {
                 fields = uaa.getAllPossibleFieldNamesSorted();
-                fields.add(USERAGENT);
+                fields.add(USERAGENT_FIELDNAME);
             } else {
                 fields = commandlineOptions.fields;
             }
@@ -167,7 +166,6 @@ public final class Main {
                 long linesMatched = 0;
                 long hitsMatched  = 0;
                 long start        = System.nanoTime();
-//            LOG.info("Start @ {}", start);
 
                 long segmentStartTime  = start;
                 long segmentStartLines = linesTotal;
@@ -259,7 +257,6 @@ public final class Main {
                 }
 
                 long stop = System.nanoTime();
-//            LOG.info("Stop  @ {}", stop);
 
                 LOG.info("-------------------------------------------------------------");
                 LOG.info("Performance: {} in {} sec --> {}/sec",
@@ -307,9 +304,6 @@ public final class Main {
         @Option(name = "-in", usage = "Location of input file", forbids = {"-ua"})
         private String inFile = null;
 
-//        @Option(name = "-testAll", usage = "Run the tests against all built in testcases", required = false)
-//        private boolean testAll = false;
-
         @Option(name = "-yaml", usage = "Output in yaml testcase format", forbids = {"-csv", "-json"})
         private boolean yamlFormat = false;
 
@@ -320,7 +314,7 @@ public final class Main {
         private boolean jsonFormat = false;
 
         @Option(name = "-fields", handler = StringArrayOptionHandler.class,
-            usage = "A list of the desired fieldnames (use '"+USERAGENT+"' if you want the input value as well)")
+            usage = "A list of the desired fieldnames (use '" + USERAGENT_FIELDNAME + "' if you want the input value as well)")
         private List<String> fields = null;
 
         @Option(name = "-cache", usage = "The number of elements that can be cached (LRU).")
@@ -331,9 +325,6 @@ public final class Main {
 
         @Option(name = "-debug", usage = "Set to enable debugging.")
         private boolean debug = false;
-
-//        @Option(name = "-stats", usage = "Set to enable statistics.", required = false)
-//        private boolean stats = false;
 
         @Option(name = "-fullFlatten", usage = "Set to flatten each parsed agent string.")
         private boolean fullFlatten = false;

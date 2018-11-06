@@ -222,20 +222,7 @@ public class ParseService {
                 sb.append("<p class=\"logobar bug\">");
                 addBugReportButton(sb, userAgent);
                 sb.append("</p>");
-//            sb.append("<ul>");
-//            sb.append("<li><a href=\"/\">HTML (from header)</a></li>");
-//            sb.append("<li><a href=\"/json\">Json (from header)</a></li>");
-//
-//            String urlEncodedUserAgent = "";
-//            try {
-//                urlEncodedUserAgent = URLEncoder.encode(userAgentString, "utf-8");
-//                urlEncodedUserAgent = urlEncodedUserAgent.replace("+", "%20");
-//                sb.append("<li><a href=\"/").append(urlEncodedUserAgent).append("\">HTML (from url)</a></li>");
-//                sb.append("<li><a href=\"/json/").append(urlEncodedUserAgent).append("\">Json (from url)</a></li>");
-//            } catch (UnsupportedEncodingException e) {
-//                // Do nothing
-//            }
-//            sb.append("</ul>");
+
                 sb.append("<p class=\"logobar source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">" +
                     "https://github.com/nielsbasjes/yauaa</a></p>\n");
                 sb.append("<p class=\"logobar contribute\">Creating this free software is a lot of work. " +

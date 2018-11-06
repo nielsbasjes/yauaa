@@ -165,7 +165,6 @@ public class Matcher implements Serializable {
                     break;
                 default:
                     // Ignore
-//                    fail(nodeTuple.getKeyNode(), matcherSourceLocation, "Unexpected " + name);
             }
         }
 

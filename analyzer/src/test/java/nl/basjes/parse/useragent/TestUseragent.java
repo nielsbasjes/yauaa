@@ -34,10 +34,10 @@ public class TestUseragent {
     public void testUseragent(){
         String uaString = "Foo Bar";
         UserAgent agent = new UserAgent(uaString);
-        assertEquals(uaString, agent.get(UserAgent.USERAGENT).getValue());
-        assertEquals(0, agent.get(UserAgent.USERAGENT).getConfidence());
-        assertEquals(uaString, agent.getValue(UserAgent.USERAGENT));
-        assertEquals(0L, agent.getConfidence(UserAgent.USERAGENT).longValue());
+        assertEquals(uaString, agent.get(UserAgent.USERAGENT_FIELDNAME).getValue());
+        assertEquals(0, agent.get(UserAgent.USERAGENT_FIELDNAME).getConfidence());
+        assertEquals(uaString, agent.getValue(UserAgent.USERAGENT_FIELDNAME));
+        assertEquals(0L, agent.getConfidence(UserAgent.USERAGENT_FIELDNAME).longValue());
     }
 
     @Test
