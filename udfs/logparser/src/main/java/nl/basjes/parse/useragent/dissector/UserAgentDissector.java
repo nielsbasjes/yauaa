@@ -133,10 +133,9 @@ public class UserAgentDissector extends Dissector {
 
         if (fieldName == null) {
             LOG.error("There is NO fieldname for the requested \"{}\" ({})", outputname, name);
-            return null;
+            return null; // NOSONAR: Returning null is correct
         }
         requestedFieldNames.add(fieldName);
-//        LOG.info("Wanted: {} -- {} (--> {})", inputname, name, fieldName);
         return Casts.STRING_ONLY; // We ONLY do Strings here
     }
 
