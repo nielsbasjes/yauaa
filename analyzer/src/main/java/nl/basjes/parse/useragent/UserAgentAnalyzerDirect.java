@@ -803,7 +803,6 @@ config:
 
         // !!!!!!!!!! NOTE !!!!!!!!!!!!
         // IF YOU ADD ANY EXTRA FIELDS YOU MUST ADD THEM TO THE BUILDER TOO !!!!
-        // TODO: Perhaps this should be more generic. Like a "Post processor"  (Generic: Create fields from fields)?
         addMajorVersionField(userAgent, AGENT_VERSION, AGENT_VERSION_MAJOR);
         addMajorVersionField(userAgent, LAYOUT_ENGINE_VERSION, LAYOUT_ENGINE_VERSION_MAJOR);
         addMajorVersionField(userAgent, "WebviewAppVersion", "WebviewAppVersionMajor");
