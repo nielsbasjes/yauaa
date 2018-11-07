@@ -48,18 +48,18 @@ public class ChildIterable {
     }
 
     class ChildIterator implements Iterator<ParseTree> {
-        private final Iterator<ParseTree> childIterator;
+        private final Iterator<ParseTree> childIter;
         private       Boolean             hasNext;
         private       int                 index = 0;
         private       ParseTree           nextChild;
 
         ChildIterator(ParserRuleContext treeContext) {
             if (treeContext.children == null) {
-                childIterator = null;
+                childIter = null;
                 nextChild = null;
                 hasNext = false;
             } else {
-                childIterator = treeContext.children.iterator();
+                childIter = treeContext.children.iterator();
                 hasNext = findNext(); // We always want the first one
             }
         }
@@ -69,8 +69,8 @@ public class ChildIterable {
          * @return If there is a next
          */
         private boolean findNext() {
-            while (childIterator.hasNext()) {
-                ParseTree nextParseTree = childIterator.next();
+            while (childIter.hasNext()) {
+                ParseTree nextParseTree = childIter.next();
                 if (treeIsSeparator(nextParseTree)) {
                     continue;
                 }
