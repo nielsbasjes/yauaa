@@ -159,4 +159,4 @@ echo "
     - 'DeviceVersion                       :    111 :\"${deviceVersion}\"'
 "
 done
-) > ${OUTPUT}
+) | uniq > ${OUTPUT}
