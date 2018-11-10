@@ -59,6 +59,7 @@ config:
       "Avvio" : "Avvio"
       "Azumi" : "Azumi"
       "Lenovo" : "Lenovo"
+      "Vivo" : "Vivo"
       "Nexus" : "Google"
       "Panasonic" : "Panasonic"
       "Philips" : "Philips"
@@ -122,6 +123,15 @@ config:
 
 # ===================================================================================================
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Samsung"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Samsung"'
 
 - matcher:
     variable:
@@ -244,6 +254,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Samsung"@!="Samsung"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Samsung"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Galaxy"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -350,6 +369,15 @@ config:
     - 'DeviceBrand                         :    320 :"Samsung"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Galaxy"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Samsung"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"GT-"'
 
 - matcher:
     variable:
@@ -458,6 +486,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"GT-"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Samsung"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"GT -"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -564,6 +601,15 @@ config:
     - 'DeviceBrand                         :    320 :"Samsung"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"GT -"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Samsung"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"SM-"'
 
 - matcher:
     variable:
@@ -672,6 +718,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"SM-"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Samsung"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"SM -"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -778,6 +833,15 @@ config:
     - 'DeviceBrand                         :    320 :"Samsung"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"SM -"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Smartisan"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"SM7"'
 
 - matcher:
     variable:
@@ -886,6 +950,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"SM7"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Smartisan"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"SM8"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -992,6 +1065,15 @@ config:
     - 'DeviceBrand                         :    320 :"Smartisan"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"SM8"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Smartisan"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"SM9"'
 
 - matcher:
     variable:
@@ -1100,6 +1182,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"SM9"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Smartisan"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"YQ6"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -1206,6 +1297,15 @@ config:
     - 'DeviceBrand                         :    320 :"Smartisan"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"YQ6"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Coolpad"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Coolpad"'
 
 - matcher:
     variable:
@@ -1328,6 +1428,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Coolpad"@!="Coolpad"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"LG"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"LG"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -1449,6 +1558,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"LG"@!="LG"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"LG"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"LG-"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -1556,6 +1674,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"LG-"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"LG"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"G Watch"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -1662,6 +1789,15 @@ config:
     - 'DeviceBrand                         :    320 :"LG"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"G Watch"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"HTC"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"HTC"'
 
 - matcher:
     variable:
@@ -1784,6 +1920,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"HTC"@!="HTC"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"HTC"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Desire"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -1890,6 +2035,15 @@ config:
     - 'DeviceBrand                         :    320 :"HTC"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Desire"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Huawei"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"HUAWEI"'
 
 - matcher:
     variable:
@@ -1998,6 +2152,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"HUAWEI"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Huawei"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"ALE-"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -2104,6 +2267,15 @@ config:
     - 'DeviceBrand                         :    320 :"Huawei"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"ALE-"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Huawei"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Ascend"'
 
 - matcher:
     variable:
@@ -2212,6 +2384,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Ascend"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Huawei"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"G7"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -2318,6 +2499,15 @@ config:
     - 'DeviceBrand                         :    320 :"Huawei"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"G7"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Huawei"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"G6"'
 
 - matcher:
     variable:
@@ -2426,6 +2616,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"G6"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Huawei"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"PLK"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -2532,6 +2731,15 @@ config:
     - 'DeviceBrand                         :    320 :"Huawei"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"PLK"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Huawei"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Honor"'
 
 - matcher:
     variable:
@@ -2640,6 +2848,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Honor"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Symphony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"H60"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -2746,6 +2963,15 @@ config:
     - 'DeviceBrand                         :    320 :"Symphony"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"H60"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"HP"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"HP"'
 
 - matcher:
     variable:
@@ -2868,6 +3094,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"HP"@!="HP"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"AG Mobile"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"AG "'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -2974,6 +3209,15 @@ config:
     - 'DeviceBrand                         :    320 :"AG Mobile"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"AG "'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"AKAI"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"AKAI"'
 
 - matcher:
     variable:
@@ -3096,6 +3340,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"AKAI"@!="AKAI"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Alcatel"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"ALCATEL"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -3202,6 +3455,15 @@ config:
     - 'DeviceBrand                         :    320 :"Alcatel"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"ALCATEL"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Amazon"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Amazon"'
 
 - matcher:
     variable:
@@ -3324,6 +3586,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Amazon"@!="Amazon"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Amazon"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Kindle"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -3430,6 +3701,15 @@ config:
     - 'DeviceBrand                         :    320 :"Amazon"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Kindle"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Amazon"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Fire "'
 
 - matcher:
     variable:
@@ -3538,6 +3818,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Fire "'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Asus"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"ASUS"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -3644,6 +3933,15 @@ config:
     - 'DeviceBrand                         :    320 :"Asus"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"ASUS"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Asus"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Transformer"'
 
 - matcher:
     variable:
@@ -3752,6 +4050,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Transformer"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Wolfgang Mobile"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"AT-"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -3858,6 +4165,15 @@ config:
     - 'DeviceBrand                         :    320 :"Wolfgang Mobile"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"AT-"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Avea"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Avea"'
 
 - matcher:
     variable:
@@ -3980,6 +4296,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Avea"@!="Avea"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Avvio"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Avvio"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -4100,6 +4425,15 @@ config:
     - 'DeviceBrand                         :    320 :"Avvio"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Avvio"@!="Avvio"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Azumi"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Azumi"'
 
 - matcher:
     variable:
@@ -4222,6 +4556,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Azumi"@!="Azumi"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Lenovo"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Lenovo"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -4343,6 +4686,145 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Lenovo"@!="Lenovo"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Vivo"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Vivo"'
+
+- matcher:
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product{"Vivo"' # Performance trick
+    extract:
+    - 'DeviceBrand                         :    325 :"Vivo"'
+    - 'DeviceName                          :    325 :@BuildProduct^<{"Vivo"'
+
+- matcher:
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name[2]="Build"'
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product{"Vivo"' # Performance trick
+    extract:
+    - 'DeviceBrand                         :    325 :"Vivo"'
+    - 'DeviceName                          :    325 :@BuildProduct^<{"Vivo"'
+
+- matcher:
+    variable:
+    - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name[3]="Build"'
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product{"Vivo"' # Performance trick
+    extract:
+    - 'DeviceBrand                         :    325 :"Vivo"'
+    - 'DeviceName                          :    325 :@BuildProduct^<{"Vivo"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"Vivo"' # Performance trick
+    extract:
+    - 'DeviceBrand                         :    324 :"Vivo"'
+    - 'DeviceName                          :    324 :agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@{"Vivo"[-1]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"Vivo"' # Performance trick
+    extract:
+    - 'DeviceBrand                         :    324 :"Vivo"'
+    - 'DeviceName                          :    324 :agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@{"Vivo"[-2]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"Vivo"' # Performance trick
+    extract:
+    - 'DeviceBrand                         :    324 :"Vivo"'
+    - 'DeviceName                          :    324 :agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@{"Vivo"[-3]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name{"Vivo"' # Performance trick
+    extract:
+    - 'DeviceBrand                         :    324 :"Vivo"'
+    - 'DeviceName                          :    324 :agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@{"Vivo"[-4]'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    extract:
+    - 'DeviceBrand                         :    330 :"Vivo"'
+    - 'DeviceName                          :    330 :agent.(1-2)product.name{"Vivo"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                         :    313 :"Vivo"'
+    - 'DeviceName                          :    313 :agent.product.name{"Vivo"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                         :    324 :"Vivo"'
+    - 'DeviceName                          :    324 :agent.(1-2)product.name="Vivo"^.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                         :    323 :"Vivo"'
+    - 'DeviceName                          :    323 :agent.(1-2)product.(1)comments.entry.(1)product.(1)name="Vivo"^.version'
+
+
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                         :    322 :"Vivo"'
+    - 'DeviceName                          :    125 :agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"Vivo"@'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                         :    322 :"Vivo"'
+    - 'DeviceName                          :    322 :agent.(1-2)product.(1)comments.entry.(1)product.(1)name{"Vivo"@!="Vivo"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                         :    320 :"Vivo"'
+    - 'DeviceName                          :    124 :agent.(1-2)product.(1)comments.entry.text{"Vivo"'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    extract:
+    - 'DeviceBrand                         :    320 :"Vivo"'
+    - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Vivo"@!="Vivo"'
+
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Google"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Nexus"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -4449,6 +4931,15 @@ config:
     - 'DeviceBrand                         :    320 :"Google"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Nexus"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Panasonic"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Panasonic"'
 
 - matcher:
     variable:
@@ -4571,6 +5062,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Panasonic"@!="Panasonic"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Philips"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Philips"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -4691,6 +5191,15 @@ config:
     - 'DeviceBrand                         :    320 :"Philips"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Philips"@!="Philips"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"SonyEricsson"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"SonyEricsson"'
 
 - matcher:
     variable:
@@ -4813,6 +5322,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"SonyEricsson"@!="SonyEricsson"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Manta"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"MID0"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -4919,6 +5437,15 @@ config:
     - 'DeviceBrand                         :    320 :"Manta"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"MID0"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Manta"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"MID1"'
 
 - matcher:
     variable:
@@ -5027,6 +5554,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"MID1"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Manta"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"MID2"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -5133,6 +5669,15 @@ config:
     - 'DeviceBrand                         :    320 :"Manta"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"MID2"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Manta"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"MID3"'
 
 - matcher:
     variable:
@@ -5241,6 +5786,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"MID3"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Manta"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"MID4"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -5347,6 +5901,15 @@ config:
     - 'DeviceBrand                         :    320 :"Manta"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"MID4"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Manta"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"MID5"'
 
 - matcher:
     variable:
@@ -5455,6 +6018,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"MID5"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Manta"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"MID6"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -5561,6 +6133,15 @@ config:
     - 'DeviceBrand                         :    320 :"Manta"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"MID6"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Manta"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"MID7"'
 
 - matcher:
     variable:
@@ -5669,6 +6250,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"MID7"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Manta"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"MID8"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -5775,6 +6365,15 @@ config:
     - 'DeviceBrand                         :    320 :"Manta"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"MID8"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Manta"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"MID9"'
 
 - matcher:
     variable:
@@ -5883,6 +6482,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"MID9"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Xperia"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -5989,6 +6597,15 @@ config:
     - 'DeviceBrand                         :    320 :"Sony"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Xperia"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"C1"'
 
 - matcher:
     variable:
@@ -6097,6 +6714,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"C1"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"C2"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -6203,6 +6829,15 @@ config:
     - 'DeviceBrand                         :    320 :"Sony"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"C2"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"C5"'
 
 - matcher:
     variable:
@@ -6311,6 +6946,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"C5"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"C6"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -6417,6 +7061,15 @@ config:
     - 'DeviceBrand                         :    320 :"Sony"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"C6"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"D2"'
 
 - matcher:
     variable:
@@ -6525,6 +7178,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"D2"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"D5"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -6631,6 +7293,15 @@ config:
     - 'DeviceBrand                         :    320 :"Sony"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"D5"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"D6"'
 
 - matcher:
     variable:
@@ -6739,6 +7410,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"D6"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"E2"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -6845,6 +7525,15 @@ config:
     - 'DeviceBrand                         :    320 :"Sony"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"E2"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"E5"'
 
 - matcher:
     variable:
@@ -6953,6 +7642,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"E5"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"E6"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -7059,6 +7757,15 @@ config:
     - 'DeviceBrand                         :    320 :"Sony"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"E6"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"F3"'
 
 - matcher:
     variable:
@@ -7167,6 +7874,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"F3"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"F5"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -7273,6 +7989,15 @@ config:
     - 'DeviceBrand                         :    320 :"Sony"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"F5"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"F8"'
 
 - matcher:
     variable:
@@ -7381,6 +8106,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"F8"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"G3"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -7487,6 +8221,15 @@ config:
     - 'DeviceBrand                         :    320 :"Sony"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"G3"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"G8"'
 
 - matcher:
     variable:
@@ -7595,6 +8338,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"G8"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"SmartWatch"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -7701,6 +8453,15 @@ config:
     - 'DeviceBrand                         :    320 :"Sony"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"SmartWatch"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Arc BUILD"'
 
 - matcher:
     variable:
@@ -7809,6 +8570,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Arc BUILD"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Kobo"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Arc 6"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -7915,6 +8685,15 @@ config:
     - 'DeviceBrand                         :    320 :"Kobo"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Arc 6"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Kobo"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Arc 7"'
 
 - matcher:
     variable:
@@ -8023,6 +8802,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Arc 7"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Kobo"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Arc 8"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -8129,6 +8917,15 @@ config:
     - 'DeviceBrand                         :    320 :"Kobo"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Arc 8"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Kobo"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Arc 9"'
 
 - matcher:
     variable:
@@ -8237,6 +9034,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Arc 9"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Kobo"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Arc 10"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -8343,6 +9149,15 @@ config:
     - 'DeviceBrand                         :    320 :"Kobo"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Arc 10"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Archos"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Archos"'
 
 - matcher:
     variable:
@@ -8465,6 +9280,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Archos"@!="Archos"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"OnePlus"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"A0001"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -8572,6 +9396,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"A0001"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"OnePlus"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"One"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -8678,6 +9511,15 @@ config:
     - 'DeviceBrand                         :    320 :"OnePlus"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"One"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"OnePlus"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"OnePlus"'
 
 - matcher:
     variable:
@@ -8800,6 +9642,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"OnePlus"@!="OnePlus"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Motorola"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"XT"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -8906,6 +9757,15 @@ config:
     - 'DeviceBrand                         :    320 :"Motorola"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"XT"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Motorola"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Xoom"'
 
 - matcher:
     variable:
@@ -9014,6 +9874,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Xoom"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Motorola"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Moto"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -9120,6 +9989,15 @@ config:
     - 'DeviceBrand                         :    320 :"Motorola"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Moto"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Lenovo"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Lenovo"'
 
 - matcher:
     variable:
@@ -9242,6 +10120,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Lenovo"@!="Lenovo"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Nokia"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Nokia"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -9363,6 +10250,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Nokia"@!="Nokia"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Nokia"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"RM-"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -9470,6 +10366,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"RM-"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"BlackBerry"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"PlayBook"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -9576,6 +10481,15 @@ config:
     - 'DeviceBrand                         :    320 :"BlackBerry"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"PlayBook"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"BlackBerry"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"BlackBerry"'
 
 - matcher:
     variable:
@@ -9698,6 +10612,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"BlackBerry"@!="BlackBerry"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Mpman"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"MP"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -9804,6 +10727,15 @@ config:
     - 'DeviceBrand                         :    320 :"Mpman"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"MP"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Qware"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"QW"'
 
 - matcher:
     variable:
@@ -9912,6 +10844,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"QW"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Teclast"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"X98"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -10018,6 +10959,15 @@ config:
     - 'DeviceBrand                         :    320 :"Teclast"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"X98"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"NSX-"'
 
 - matcher:
     variable:
@@ -10126,6 +11076,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"NSX-"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Sony"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"NSZ-"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -10232,6 +11191,15 @@ config:
     - 'DeviceBrand                         :    320 :"Sony"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"NSZ-"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Nvidia"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"SHIELD"'
 
 - matcher:
     variable:
@@ -10340,6 +11308,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"SHIELD"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Point of view"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"POV_"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -10446,6 +11423,15 @@ config:
     - 'DeviceBrand                         :    320 :"Point of view"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"POV_"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Cubot"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"Cubot"'
 
 - matcher:
     variable:
@@ -10568,6 +11554,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"Cubot"@!="Cubot"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"SpreadTrum"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"SpreadTrum"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -10689,6 +11684,15 @@ config:
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"SpreadTrum"@!="SpreadTrum"'
 
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Prestigio"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"PSP"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name="Build"'
@@ -10795,6 +11799,15 @@ config:
     - 'DeviceBrand                         :    320 :"Prestigio"'
     - 'DeviceName                          :    320 :agent.(1-2)product.(1)comments.entry.text{"PSP"'
 
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Odys"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"ELEMENT10"'
 
 - matcher:
     variable:
@@ -12418,6 +13431,46 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Teclast"'
     extract:
     - 'DeviceBrand                         :     90 :"Teclast"'
+
+# ===================================================================================================
+
+
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Vivo"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"^.version{"Vivo"'
+    extract:
+    - 'DeviceBrand                         :     94 :"Vivo"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Vivo"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^.version{"Vivo"'
+    extract:
+    - 'DeviceBrand                         :     93 :"Vivo"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Vivo"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^.version{"Vivo"'
+    extract:
+    - 'DeviceBrand                         :     92 :"Vivo"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Vivo"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"^.version{"Vivo"'
+    extract:
+    - 'DeviceBrand                         :     91 :"Vivo"'
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.(1)comments.entry.product.version{"Vivo"'
+    - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"^.version{"Vivo"'
+    extract:
+    - 'DeviceBrand                         :     90 :"Vivo"'
 
 # ===================================================================================================
 

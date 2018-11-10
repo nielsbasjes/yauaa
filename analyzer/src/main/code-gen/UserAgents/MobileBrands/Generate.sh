@@ -71,6 +71,15 @@ do
     prefix=$(echo "${line}" | cut -d'|' -f1)
     brand=$(echo "${line}" | cut -d'|' -f2)
 echo "
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text=\"Linux\"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name=\"Android\"'
+    extract:
+    - 'DeviceBrand                         :    323 :\"${brand}\"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{\"${prefix}\"'
+
 - matcher:
     variable:
     - 'BuildProduct: agent.(1-2)product.(1)comments.entry.product.name=\"Build\"'

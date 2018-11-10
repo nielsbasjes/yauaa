@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 v5.4
 ===
 - Detect more Iron variations
+- Major change in the Android Chrome 70 pattern --> broke DeviceBrand
+- Detect Vivo brand
 
 v5.3
 ===
