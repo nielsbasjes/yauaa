@@ -33,21 +33,31 @@ config:
       "2014819"       : "Redmi 2"
 
 - matcher:
-    require:
-    - 'agent.product.comments.entry{"Redmi"'
+    variable:
+    - 'Product:agent.product.comments.entry{"Redmi"'
     extract:
+    - 'DeviceName                          :    301 :@Product'
     - 'DeviceBrand                         :   3000 :"Xiaomi"'
 
 - matcher:
-    require:
-    - 'agent.product.comments.entry{"MI "'
+    variable:
+    - 'Product:agent.product.comments.entry{"MI "'
     extract:
+    - 'DeviceName                          :    301 :@Product'
     - 'DeviceBrand                         :   1010 :"Xiaomi"'
 
 - matcher:
-    require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name{"Mi-"'
+    variable:
+    - 'Product:agent.product.comments.entry{"MIX "'
     extract:
+    - 'DeviceName                          :    301 :@Product'
+    - 'DeviceBrand                         :   1010 :"Xiaomi"'
+
+- matcher:
+    variable:
+    - 'Product:agent.(1)product.(1)comments.entry.(1)product.(1)name{"Mi-"'
+    extract:
+    - 'DeviceName                          :    301 :@Product'
     - 'DeviceBrand                         :   1010 :"Xiaomi"'
 
 - matcher:
@@ -584,3 +594,26 @@ config:
       WebviewAppVersion                    : '1.0'
       WebviewAppVersionMajor               : '1'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0.0; MI 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.80 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Xiaomi MI 5'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0.0'
+      OperatingSystemNameVersion           : 'Android 8.0.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '70.0'
+      LayoutEngineVersionMajor             : '70'
+      LayoutEngineNameVersion              : 'Blink 70.0'
+      LayoutEngineNameVersionMajor         : 'Blink 70'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '70.0.3538.80'
+      AgentVersionMajor                    : '70'
+      AgentNameVersion                     : 'Chrome 70.0.3538.80'
+      AgentNameVersionMajor                : 'Chrome 70'

@@ -113,7 +113,7 @@ echo "
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name[1]=\"Android\"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"' # Performance trick
+    - 'agent.(1-2)product.(1)comments.entry{\"${prefix}\"'
     extract:
     - 'DeviceBrand                         :    324 :\"${brand}\"'
     - 'DeviceName                          :    324 :agent.(1-2)product.(1)comments.entry.product.name[2]=\"Build\"@{\"${prefix}\"[-1]'
@@ -121,7 +121,7 @@ echo "
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name[1]=\"Android\"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"' # Performance trick
+    - 'agent.(1-2)product.(1)comments.entry{\"${prefix}\"'
     extract:
     - 'DeviceBrand                         :    324 :\"${brand}\"'
     - 'DeviceName                          :    324 :agent.(1-2)product.(1)comments.entry.product.name[3]=\"Build\"@{\"${prefix}\"[-2]'
@@ -129,7 +129,7 @@ echo "
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name[1]=\"Android\"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"' # Performance trick
+    - 'agent.(1-2)product.(1)comments.entry{\"${prefix}\"'
     extract:
     - 'DeviceBrand                         :    324 :\"${brand}\"'
     - 'DeviceName                          :    324 :agent.(1-2)product.(1)comments.entry.product.name[4]=\"Build\"@{\"${prefix}\"[-3]'
@@ -137,7 +137,7 @@ echo "
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.product.name[1]=\"Android\"'
-    - 'agent.(1-2)product.(1)comments.entry.product.name{\"${prefix}\"' # Performance trick
+    - 'agent.(1-2)product.(1)comments.entry{\"${prefix}\"'
     extract:
     - 'DeviceBrand                         :    324 :\"${brand}\"'
     - 'DeviceName                          :    324 :agent.(1-2)product.(1)comments.entry.product.name[5]=\"Build\"@{\"${prefix}\"[-4]'
