@@ -31,6 +31,14 @@ It says it:
 
 So any website looking for the word it triggers upon will find it and enable the right features.
 
+In 2014 an RFC for HTTP was released ([RFC 7231 section 5.5.3](https://tools.ietf.org/html/rfc7231#section-5.5.3)) which now explitly states:
+
+    ... implementations are encouraged not to use the product
+    tokens of other implementations in order to declare compatibility
+    with them, as this circumvents the purpose of the field. 
+
+... encouraged ...
+
 How many other analyzers work
 =============================
 When looking at most implementations of analysing the useragents I see that most implementations are based around
