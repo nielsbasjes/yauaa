@@ -1707,6 +1707,31 @@ config:
       AgentNameVersion                     : 'Brave Chrome 65.0.3325.109'
       AgentNameVersionMajor                : 'Brave Chrome 65'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) brave/0.8.3 Chrome/49.0.2623.108 Brave/0.37.3 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Brave'
+      AgentVersion                         : '0.37.3'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Brave 0.37.3' # NOTE: Brave is mentioned TWICE! I do not know which is correct.
+      AgentNameVersionMajor                : 'Brave 0'
 
 - matcher:
     variable:
