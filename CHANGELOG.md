@@ -1,5 +1,10 @@
 This is intended as an overview of the major changes
 
+v5.5
+===
+- Fixed the Chrome 70 pattern for many brands
+- Detect Alibaba Apps (like DingTalk)
+
 v5.4
 ===
 - Detect more Iron variations

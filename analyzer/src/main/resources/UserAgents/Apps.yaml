@@ -537,4 +537,48 @@ config:
       AgentNameVersionMajor                : 'iTunes 12'
 
 
+- set:
+    name: 'IgnoredAliAppNames'
+    values:
+    - 'TUnionSDK'
 
+- matcher:
+      variable:
+      - 'AliApp:agent.product.name="AliApp"^.comments.(1)entry.(1)product'
+      require:
+      - 'IsNull[@AliApp.name?IgnoredAliAppNames]'
+      extract:
+      - 'WebviewAppName                      :     2018 :@AliApp.name'
+      - 'WebviewAppVersion                   :     2018 :@AliApp.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 9; zh-CN; Pixel Build/PPR2.181005.003) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.108 UCBrowser/11.9.4.974 UWS/2.13.2.36 Mobile Safari/537.36 AliApp(DingTalk/4.5.18.1) com.alibaba.android.rimet/10652535 Channel/10002068 language/zh-CN'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Pixel'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemVersionBuild          : 'PPR2.181005.003'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '57.0'
+      LayoutEngineVersionMajor             : '57'
+      LayoutEngineNameVersion              : 'Blink 57.0'
+      LayoutEngineNameVersionMajor         : 'Blink 57'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '57.0.2987.108'
+      AgentVersionMajor                    : '57'
+      AgentNameVersion                     : 'Chrome Webview 57.0.2987.108'
+      AgentNameVersionMajor                : 'Chrome Webview 57'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      AgentSecurity                        : 'Strong security'
+      WebviewAppName                       : 'DingTalk'
+      WebviewAppVersion                    : '4.5.18.1'
+      WebviewAppVersionMajor               : '4'
+      WebviewAppNameVersionMajor           : 'DingTalk 4'
