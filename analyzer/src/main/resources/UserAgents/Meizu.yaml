@@ -19,7 +19,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry~"Build"~"MEIZU"'
+    - 'agent.(1)product.(1)comments.entry~"MEIZU"'
     extract:
     - 'DeviceBrand                         :   3000 :"Meizu"'
 
@@ -46,6 +46,40 @@ config:
     - 'agent.(1)product.(1)comments.entry{"MX"~"Build"'
     extract:
     - 'DeviceBrand                         :    350 :"Meizu"'
+
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Meizu"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"MZ-"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Meizu"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"M3"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Meizu"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"M5"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Meizu"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"MX"'
 
 
 - test:
@@ -192,3 +226,132 @@ config:
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
       WebviewAppVersion                    : '??'
       WebviewAppVersionMajor               : '??'
+
+
+# Manipulated Useragent to test the Chrome 70+ scenario
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 0.0; m3 note ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Meizu M3 Note'
+      DeviceBrand                          : 'Meizu'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '0.0'
+      OperatingSystemNameVersion           : 'Android 0.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '70.0'
+      LayoutEngineVersionMajor             : '70'
+      LayoutEngineNameVersion              : 'Blink 70.0'
+      LayoutEngineNameVersionMajor         : 'Blink 70'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '70.0'
+      AgentVersionMajor                    : '70'
+      AgentNameVersion                     : 'Chrome 70.0'
+      AgentNameVersionMajor                : 'Chrome 70'
+
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 0.0; M5 Note ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Meizu M5 Note'
+      DeviceBrand                          : 'Meizu'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '0.0'
+      OperatingSystemNameVersion           : 'Android 0.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '70.0'
+      LayoutEngineVersionMajor             : '70'
+      LayoutEngineNameVersion              : 'Blink 70.0'
+      LayoutEngineNameVersionMajor         : 'Blink 70'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '70.0'
+      AgentVersionMajor                    : '70'
+      AgentNameVersion                     : 'Chrome 70.0'
+      AgentNameVersionMajor                : 'Chrome 70'
+
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 0.0; MX4 ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Meizu MX4'
+      DeviceBrand                          : 'Meizu'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '0.0'
+      OperatingSystemNameVersion           : 'Android 0.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '70.0'
+      LayoutEngineVersionMajor             : '70'
+      LayoutEngineNameVersion              : 'Blink 70.0'
+      LayoutEngineNameVersionMajor         : 'Blink 70'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '70.0'
+      AgentVersionMajor                    : '70'
+      AgentNameVersion                     : 'Chrome 70.0'
+      AgentNameVersionMajor                : 'Chrome 70'
+
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 0.0; MZ-MEIZU_M5 ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Meizu MZ-Meizu M5'
+      DeviceBrand                          : 'Meizu'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '0.0'
+      OperatingSystemNameVersion           : 'Android 0.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '70.0'
+      LayoutEngineVersionMajor             : '70'
+      LayoutEngineNameVersion              : 'Blink 70.0'
+      LayoutEngineNameVersionMajor         : 'Blink 70'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '70.0'
+      AgentVersionMajor                    : '70'
+      AgentNameVersion                     : 'Chrome 70.0'
+      AgentNameVersionMajor                : 'Chrome 70'
+
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 0.0; MZ-M3s ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Meizu MZ-M3S'
+      DeviceBrand                          : 'Meizu'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '0.0'
+      OperatingSystemNameVersion           : 'Android 0.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '70.0'
+      LayoutEngineVersionMajor             : '70'
+      LayoutEngineNameVersion              : 'Blink 70.0'
+      LayoutEngineNameVersionMajor         : 'Blink 70'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '70.0'
+      AgentVersionMajor                    : '70'
+      AgentNameVersion                     : 'Chrome 70.0'
+      AgentNameVersionMajor                : 'Chrome 70'
+
+
+

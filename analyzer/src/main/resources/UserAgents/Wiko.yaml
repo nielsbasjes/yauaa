@@ -22,6 +22,15 @@ config:
     extract:
     - 'DeviceBrand                         :   3000 :"Wiko"'
 
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :    323 :"Wiko"'
+    - 'DeviceName                          :    323 :agent.(1)product.(1)comments.(3)entry{"GOA"'
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.3; fr-fr; WAX Build/JLS36C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
