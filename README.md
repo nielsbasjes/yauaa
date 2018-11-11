@@ -15,7 +15,7 @@ HIGH Profile release notes:
 ===========================
 
 ##Version 5.4
-With Google Chrome 70 the useragent string pattern has been changed on Android.
+With Google Chrome 70 the useragent string pattern has been changed on Android ( https://www.chromestatus.com/feature/4558585463832576 ) .
 As a consequence the detection of the DeviceBrand failed and you always get "Unknown". 
 This has been fixed in Yauaa 5.4.
 
