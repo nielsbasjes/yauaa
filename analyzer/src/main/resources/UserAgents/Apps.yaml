@@ -544,12 +544,24 @@ config:
 
 - matcher:
       variable:
-      - 'AliApp:agent.product.name="AliApp"^.comments.(1)entry.(1)product'
+      - 'AliApp:agent.product.name[1]="AliApp"^.comments.(1)entry.(1)product'
       require:
       - 'IsNull[@AliApp.name?IgnoredAliAppNames]'
       extract:
-      - 'WebviewAppName                      :     2018 :@AliApp.name'
+      - 'AgentClass                          :     2018 :"Browser Webview"'
+      - 'WebviewAppName                      :     2018 :Concat["Alibaba ";NormalizeBrand[@AliApp.name]]'
       - 'WebviewAppVersion                   :     2018 :@AliApp.version'
+
+- matcher:
+      variable:
+      - 'AliApp:agent.product.name[2]="AliApp"^.comments.(1)entry.(1)product'
+      require:
+      - 'IsNull[@AliApp.name?IgnoredAliAppNames]'
+      extract:
+      - 'AgentClass                          :     2018 :"Browser Webview"'
+      - 'WebviewAppName                      :     2018 :Concat["Alibaba ";NormalizeBrand[@AliApp.name]]'
+      - 'WebviewAppVersion                   :     2018 :@AliApp.version'
+
 
 - test:
     input:
@@ -578,7 +590,464 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-      WebviewAppName                       : 'DingTalk'
+      WebviewAppName                       : 'Alibaba DingTalk'
       WebviewAppVersion                    : '4.5.18.1'
       WebviewAppVersionMajor               : '4'
-      WebviewAppNameVersionMajor           : 'DingTalk 4'
+      WebviewAppNameVersionMajor           : 'Alibaba DingTalk 4'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_2_1 like Mac OS X) AppleWebKit/604.4.7 (KHTML, like Gecko) Mobile/15C153 AliApp(DingTalk/3.5.6) com.laiwang.DingTalk/2697521 Channel/201200 language/en-PT'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15C153'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '11.2.1'
+      OperatingSystemNameVersion           : 'iOS 11.2.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '604.4.7'
+      LayoutEngineVersionMajor             : '604'
+      LayoutEngineNameVersion              : 'AppleWebKit 604.4.7'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 604'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'AppleWebKit'
+      AgentVersion                         : '604.4.7'
+      AgentVersionMajor                    : '604'
+      AgentNameVersion                     : 'AppleWebKit 604.4.7'
+      AgentNameVersionMajor                : 'AppleWebKit 604'
+      WebviewAppName                       : 'Alibaba DingTalk'
+      WebviewAppVersion                    : '3.5.6'
+      WebviewAppVersionMajor               : '3'
+      WebviewAppNameVersionMajor           : 'Alibaba DingTalk 3'
+
+
+#
+#
+#- test:
+##    options:
+##    - 'verbose'
+##    - 'init'
+##    - 'only'
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_3_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/15E302 UCBrowser/11.8.8.1060 Mobile AliApp(TUnionSDK/0.1.20.2)'
+#    expected:
+#      DeviceClass                          : 'Phone'
+#      DeviceName                           : 'Apple iPhone'
+#      DeviceBrand                          : 'Apple'
+#      DeviceFirmwareVersion                : '15E302'
+#      DeviceVersion                        : 'iPhone'
+#      OperatingSystemClass                 : 'Mobile'
+#      OperatingSystemName                  : 'iOS'
+#      OperatingSystemVersion               : '11.3.1'
+#      OperatingSystemNameVersion           : 'iOS 11.3.1'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'UCBrowser'
+#      LayoutEngineVersion                  : '11.8.8.1060'
+#      LayoutEngineVersionMajor             : '11'
+#      LayoutEngineNameVersion              : 'UCBrowser 11.8.8.1060'
+#      LayoutEngineNameVersionMajor         : 'UCBrowser 11'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'UCBrowser'
+#      AgentVersion                         : '11.8.8.1060'
+#      AgentVersionMajor                    : '11'
+#      AgentNameVersion                     : 'UCBrowser 11.8.8.1060'
+#      AgentNameVersionMajor                : 'UCBrowser 11'
+#      AgentLanguage                        : 'Chinese (S)'
+#      AgentLanguageCode                    : 'zh-cn'
+#
+
+
+
+- test:
+#    options:
+#    - 'verbose'
+#    - 'init'
+#    - 'only'
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iOS 11_2_6 like Mac OS X) AppleWebKit/604.5.6 (KHTML, like Gecko) Mobile/15D100 ChannelId(3) Nebula AliApp(CLOUDMAIL/2.6.8)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '604.5.6'
+      LayoutEngineVersionMajor             : '604'
+      LayoutEngineNameVersion              : 'AppleWebKit 604.5.6'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 604'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'AppleWebKit'
+      AgentVersion                         : '604.5.6'
+      AgentVersionMajor                    : '604'
+      AgentNameVersion                     : 'AppleWebKit 604.5.6'
+      AgentNameVersionMajor                : 'AppleWebKit 604'
+      WebviewAppName                       : 'Alibaba Cloudmail'
+      WebviewAppVersion                    : '2.6.8'
+      WebviewAppVersionMajor               : '2'
+      WebviewAppNameVersionMajor           : 'Alibaba Cloudmail 2'
+
+
+#- test:
+##    options:
+##    - 'verbose'
+##    - 'init'
+##    - 'only'
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15F79 AliApp(DingTalk/4.5.1) com.laiwang.DingTalk/10127809 Channel/201200 language/zh-Hans-CN'
+#    expected:
+#      DeviceClass                          : 'Phone'
+#      DeviceName                           : 'Apple iPhone'
+#      DeviceBrand                          : 'Apple'
+#      DeviceFirmwareVersion                : '15F79'
+#      DeviceVersion                        : 'iPhone'
+#      OperatingSystemClass                 : 'Mobile'
+#      OperatingSystemName                  : 'iOS'
+#      OperatingSystemVersion               : '11.4'
+#      OperatingSystemNameVersion           : 'iOS 11.4'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'AppleWebKit'
+#      LayoutEngineVersion                  : '605.1.15'
+#      LayoutEngineVersionMajor             : '605'
+#      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+#      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'AppleWebKit'
+#      AgentVersion                         : '605.1.15'
+#      AgentVersionMajor                    : '605'
+#      AgentNameVersion                     : 'AppleWebKit 605.1.15'
+#      AgentNameVersionMajor                : 'AppleWebKit 605'
+#      AgentLanguage                        : 'Chinese (Simplified Han, China)'
+#      AgentLanguageCode                    : 'zh-hans-cn'
+#      WebviewAppName                       : 'DingTalk'
+#      WebviewAppVersion                    : '4.5.1'
+#      WebviewAppVersionMajor               : '4'
+#      WebviewAppNameVersionMajor           : 'DingTalk 4'
+#
+#
+#
+#
+#- test:
+##    options:
+##    - 'verbose'
+##    - 'init'
+##    - 'only'
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac OS X; zh-CN) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/15B202 UCBrowser/11.8.1.1043 Mobile AliApp(TUnionSDK/0.1.20)'
+#    expected:
+#      DeviceClass                          : 'Phone'
+#      DeviceName                           : 'Apple iPhone'
+#      DeviceBrand                          : 'Apple'
+#      DeviceFirmwareVersion                : '15B202'
+#      DeviceVersion                        : 'iPhone'
+#      OperatingSystemClass                 : 'Mobile'
+#      OperatingSystemName                  : 'iOS'
+#      OperatingSystemVersion               : '11.1.2'
+#      OperatingSystemNameVersion           : 'iOS 11.1.2'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'UCBrowser'
+#      LayoutEngineVersion                  : '11.8.1.1043'
+#      LayoutEngineVersionMajor             : '11'
+#      LayoutEngineNameVersion              : 'UCBrowser 11.8.1.1043'
+#      LayoutEngineNameVersionMajor         : 'UCBrowser 11'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'UCBrowser'
+#      AgentVersion                         : '11.8.1.1043'
+#      AgentVersionMajor                    : '11'
+#      AgentNameVersion                     : 'UCBrowser 11.8.1.1043'
+#      AgentNameVersionMajor                : 'UCBrowser 11'
+#      AgentLanguage                        : 'Chinese (S)'
+#      AgentLanguageCode                    : 'zh-cn'
+#
+#
+#
+#
+#- test:
+##    options:
+##    - 'verbose'
+##    - 'init'
+##    - 'only'
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac OS X; zh-CN) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/14G60 UCBrowser/11.4.7.931 Mobile AliApp(TUnionSDK/0.1.12) AliApp(TUnionSDK/0.1.12)'
+#    expected:
+#      DeviceClass                          : 'Phone'
+#      DeviceName                           : 'Apple iPhone'
+#      DeviceBrand                          : 'Apple'
+#      DeviceFirmwareVersion                : '14G60'
+#      DeviceVersion                        : 'iPhone'
+#      OperatingSystemClass                 : 'Mobile'
+#      OperatingSystemName                  : 'iOS'
+#      OperatingSystemVersion               : '10.3.3'
+#      OperatingSystemNameVersion           : 'iOS 10.3.3'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'UCBrowser'
+#      LayoutEngineVersion                  : '11.4.7.931'
+#      LayoutEngineVersionMajor             : '11'
+#      LayoutEngineNameVersion              : 'UCBrowser 11.4.7.931'
+#      LayoutEngineNameVersionMajor         : 'UCBrowser 11'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'UCBrowser'
+#      AgentVersion                         : '11.4.7.931'
+#      AgentVersionMajor                    : '11'
+#      AgentNameVersion                     : 'UCBrowser 11.4.7.931'
+#      AgentNameVersionMajor                : 'UCBrowser 11'
+#      AgentLanguage                        : 'Chinese (S)'
+#      AgentLanguageCode                    : 'zh-cn'
+#
+#
+#
+#
+#- test:
+##    options:
+##    - 'verbose'
+##    - 'init'
+##    - 'only'
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E230 ChannelId(3) Nebula PSDType(1) AlipayDefined(nt:WIFI,ws:320|504|2.0) AliApp(AP/9.9.0.000001) AlipayClient/9.9.0.000001 Language/zh-Hans ProductType/dev'
+#    expected:
+#      DeviceClass                          : 'Phone'
+#      DeviceName                           : 'Apple iPhone'
+#      DeviceBrand                          : 'Apple'
+#      DeviceFirmwareVersion                : '13E230'
+#      DeviceVersion                        : 'iPhone'
+#      OperatingSystemClass                 : 'Mobile'
+#      OperatingSystemName                  : 'iOS'
+#      OperatingSystemVersion               : '9.3'
+#      OperatingSystemNameVersion           : 'iOS 9.3'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'AppleWebKit'
+#      LayoutEngineVersion                  : '601.1.46'
+#      LayoutEngineVersionMajor             : '601'
+#      LayoutEngineNameVersion              : 'AppleWebKit 601.1.46'
+#      LayoutEngineNameVersionMajor         : 'AppleWebKit 601'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'AppleWebKit'
+#      AgentVersion                         : '601.1.46'
+#      AgentVersionMajor                    : '601'
+#      AgentNameVersion                     : 'AppleWebKit 601.1.46'
+#      AgentNameVersionMajor                : 'AppleWebKit 601'
+#      WebviewAppName                       : 'AP'
+#      WebviewAppVersion                    : '9.9.0.000001'
+#      WebviewAppVersionMajor               : '9'
+#      WebviewAppNameVersionMajor           : 'AP 9'
+#
+#
+#
+#
+#- test:
+##    options:
+##    - 'verbose'
+##    - 'init'
+##    - 'only'
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iOS 11_2_6 like Mac OS X) AppleWebKit/604.5.6 (KHTML, like Gecko) Mobile/15D100 ChannelId(2) Nebula AliApp(CLOUDMAIL/5.1.0)'
+#    expected:
+#      DeviceClass                          : 'Phone'
+#      DeviceName                           : 'Apple iPhone'
+#      DeviceBrand                          : 'Apple'
+#      DeviceVersion                        : 'iPhone'
+#      OperatingSystemClass                 : 'Unknown'
+#      OperatingSystemName                  : 'Unknown'
+#      OperatingSystemVersion               : '??'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'AppleWebKit'
+#      LayoutEngineVersion                  : '604.5.6'
+#      LayoutEngineVersionMajor             : '604'
+#      LayoutEngineNameVersion              : 'AppleWebKit 604.5.6'
+#      LayoutEngineNameVersionMajor         : 'AppleWebKit 604'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'AppleWebKit'
+#      AgentVersion                         : '604.5.6'
+#      AgentVersionMajor                    : '604'
+#      AgentNameVersion                     : 'AppleWebKit 604.5.6'
+#      AgentNameVersionMajor                : 'AppleWebKit 604'
+#
+#
+#
+#
+#- test:
+##    options:
+##    - 'verbose'
+##    - 'init'
+##    - 'only'
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_4_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/15G77 UCBrowser/12.1.2.1096 Mobile AliApp(TUnionSDK/0.1.20.3)'
+#    expected:
+#      DeviceClass                          : 'Phone'
+#      DeviceName                           : 'Apple iPhone'
+#      DeviceBrand                          : 'Apple'
+#      DeviceFirmwareVersion                : '15G77'
+#      DeviceVersion                        : 'iPhone'
+#      OperatingSystemClass                 : 'Mobile'
+#      OperatingSystemName                  : 'iOS'
+#      OperatingSystemVersion               : '11.4.1'
+#      OperatingSystemNameVersion           : 'iOS 11.4.1'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'UCBrowser'
+#      LayoutEngineVersion                  : '12.1.2.1096'
+#      LayoutEngineVersionMajor             : '12'
+#      LayoutEngineNameVersion              : 'UCBrowser 12.1.2.1096'
+#      LayoutEngineNameVersionMajor         : 'UCBrowser 12'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'UCBrowser'
+#      AgentVersion                         : '12.1.2.1096'
+#      AgentVersionMajor                    : '12'
+#      AgentNameVersion                     : 'UCBrowser 12.1.2.1096'
+#      AgentNameVersionMajor                : 'UCBrowser 12'
+#      AgentLanguage                        : 'Chinese (S)'
+#      AgentLanguageCode                    : 'zh-cn'
+#
+#
+#
+#
+#- test:
+##    options:
+##    - 'verbose'
+##    - 'init'
+##    - 'only'
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15F79 AliApp(DingTalk/4.5.1) com.laiwang.DingTalk/10127809 Channel/201200 language/en-DE'
+#    expected:
+#      DeviceClass                          : 'Phone'
+#      DeviceName                           : 'Apple iPhone'
+#      DeviceBrand                          : 'Apple'
+#      DeviceFirmwareVersion                : '15F79'
+#      DeviceVersion                        : 'iPhone'
+#      OperatingSystemClass                 : 'Mobile'
+#      OperatingSystemName                  : 'iOS'
+#      OperatingSystemVersion               : '11.4'
+#      OperatingSystemNameVersion           : 'iOS 11.4'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'AppleWebKit'
+#      LayoutEngineVersion                  : '605.1.15'
+#      LayoutEngineVersionMajor             : '605'
+#      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+#      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'AppleWebKit'
+#      AgentVersion                         : '605.1.15'
+#      AgentVersionMajor                    : '605'
+#      AgentNameVersion                     : 'AppleWebKit 605.1.15'
+#      AgentNameVersionMajor                : 'AppleWebKit 605'
+#      AgentLanguage                        : 'English (Germany)'
+#      AgentLanguageCode                    : 'en-de'
+#      WebviewAppName                       : 'DingTalk'
+#      WebviewAppVersion                    : '4.5.1'
+#      WebviewAppVersionMajor               : '4'
+#      WebviewAppNameVersionMajor           : 'DingTalk 4'
+#
+#
+#
+#
+#- test:
+##    options:
+##    - 'verbose'
+##    - 'init'
+##    - 'only'
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; SM-N9008 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 AliApp(AP/8.5.3.012601) AlipayClient/8.5.3.012601'
+#    expected:
+#      DeviceClass                          : 'Phone'
+#      DeviceName                           : 'Samsung SM-N9008'
+#      DeviceBrand                          : 'Samsung'
+#      OperatingSystemClass                 : 'Mobile'
+#      OperatingSystemName                  : 'Android'
+#      OperatingSystemVersion               : '4.4.2'
+#      OperatingSystemNameVersion           : 'Android 4.4.2'
+#      OperatingSystemVersionBuild          : 'KOT49H'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'Blink'
+#      LayoutEngineVersion                  : '30.0'
+#      LayoutEngineVersionMajor             : '30'
+#      LayoutEngineNameVersion              : 'Blink 30.0'
+#      LayoutEngineNameVersionMajor         : 'Blink 30'
+#      AgentClass                           : 'Browser Webview'
+#      AgentName                            : 'Chrome Webview'
+#      AgentVersion                         : '30.0.0.0'
+#      AgentVersionMajor                    : '30'
+#      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+#      AgentNameVersionMajor                : 'Chrome Webview 30'
+#      WebviewAppName                       : 'AP'
+#      WebviewAppVersion                    : '8.5.3.012601'
+#      WebviewAppVersionMajor               : '8'
+#      WebviewAppNameVersionMajor           : 'AP 8'
+#
+#
+#
+#
+#- test:
+##    options:
+##    - 'verbose'
+##    - 'init'
+##    - 'only'
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; M353 Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36 AliApp(AP/8.5.3.012601) AlipayClient/8.5.3.012601'
+#    expected:
+#      DeviceClass                          : 'Phone'
+#      DeviceName                           : 'Meizu M353'
+#      DeviceBrand                          : 'Meizu'
+#      OperatingSystemClass                 : 'Mobile'
+#      OperatingSystemName                  : 'Android'
+#      OperatingSystemVersion               : '4.4.4'
+#      OperatingSystemNameVersion           : 'Android 4.4.4'
+#      OperatingSystemVersionBuild          : 'KTU84P'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'Blink'
+#      LayoutEngineVersion                  : '33.0'
+#      LayoutEngineVersionMajor             : '33'
+#      LayoutEngineNameVersion              : 'Blink 33.0'
+#      LayoutEngineNameVersionMajor         : 'Blink 33'
+#      AgentClass                           : 'Browser Webview'
+#      AgentName                            : 'Chrome Webview'
+#      AgentVersion                         : '33.0.0.0'
+#      AgentVersionMajor                    : '33'
+#      AgentNameVersion                     : 'Chrome Webview 33.0.0.0'
+#      AgentNameVersionMajor                : 'Chrome Webview 33'
+#      WebviewAppName                       : 'AP'
+#      WebviewAppVersion                    : '8.5.3.012601'
+#      WebviewAppVersionMajor               : '8'
+#      WebviewAppNameVersionMajor           : 'AP 8'
+#
+#
+#
+#
+#- test:
+##    options:
+##    - 'verbose'
+##    - 'init'
+##    - 'only'
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_2_6 like Mac OS X; zh-CN) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/15D100 UCBrowser/11.9.3.1064 Mobile AliApp(TUnionSDK/0.1.20.2)'
+#    expected:
+#      DeviceClass                          : 'Phone'
+#      DeviceName                           : 'Apple iPhone'
+#      DeviceBrand                          : 'Apple'
+#      DeviceFirmwareVersion                : '15D100'
+#      DeviceVersion                        : 'iPhone'
+#      OperatingSystemClass                 : 'Mobile'
+#      OperatingSystemName                  : 'iOS'
+#      OperatingSystemVersion               : '11.2.6'
+#      OperatingSystemNameVersion           : 'iOS 11.2.6'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'UCBrowser'
+#      LayoutEngineVersion                  : '11.9.3.1064'
+#      LayoutEngineVersionMajor             : '11'
+#      LayoutEngineNameVersion              : 'UCBrowser 11.9.3.1064'
+#      LayoutEngineNameVersionMajor         : 'UCBrowser 11'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'UCBrowser'
+#      AgentVersion                         : '11.9.3.1064'
+#      AgentVersionMajor                    : '11'
+#      AgentNameVersion                     : 'UCBrowser 11.9.3.1064'
+#      AgentNameVersionMajor                : 'UCBrowser 11'
+#      AgentLanguage                        : 'Chinese (S)'
+#      AgentLanguageCode                    : 'zh-cn'
+#
