@@ -45,7 +45,7 @@ public class TestLoadDissectorDynamicallyInPig {
                 "            '" + LOGFORMAT + "'," +
                 "            'IP:connection.client.host'," +
                 "            'TIME.STAMP:request.receive.time'," +
-                "    '-load:nl.basjes.parse.useragent.dissector.UserAgentDissector:classpath*:**/CustomPatterns.yaml'," +
+                "    '-load:nl.basjes.parse.useragent.dissector.UserAgentDissector:| || classpath*:**/CustomPatterns.yaml | ||'," +
                 "            'HTTP.USERAGENT:request.user-agent'," +
                 "            'HTTP.HOST:request.user-agent.agent_information_url.host'," +
                 "            'STRING:request.user-agent.my_totally_useless_value'" +

@@ -70,14 +70,16 @@ public class UserAgentDissector extends Dissector {
      */
     @Override
     public boolean initializeFromSettingsParameter(String rawParameter) { // NOSONAR: Always return true
-        if (rawParameter == null || rawParameter.isEmpty()) {
+        String trimmedRawParameter = rawParameter.trim();
+        if (trimmedRawParameter.isEmpty()) {
             return true; // Nothing to do here
         }
 
-        String[] parameters = rawParameter.trim().split("\\|");
+        String[] parameters = trimmedRawParameter.split("\\|");
         for (String parameter: parameters) {
-            if (!parameter.isEmpty()) {
-                extraResources.add(parameter);
+            String trimmedParameter = parameter.trim();
+            if (!trimmedParameter.isEmpty()) {
+                extraResources.add(trimmedParameter);
             }
         }
         return true;
