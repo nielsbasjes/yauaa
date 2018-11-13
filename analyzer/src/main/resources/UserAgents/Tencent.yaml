@@ -513,6 +513,8 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'WeChat 6.5.4.1000'
       AgentNameVersionMajor                : 'WeChat 6'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
       NetworkType                          : 'WIFI'
 
 
@@ -683,6 +685,8 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'WeChat 6.5.16.1120'
       AgentNameVersionMajor                : 'WeChat 6'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
       NetworkType                          : 'WIFI'
 
 
@@ -710,6 +714,8 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'WeChat 6.5.7.1041'
       AgentNameVersionMajor                : 'WeChat 6'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
       NetworkType                          : 'WIFI'
 
 
@@ -763,6 +769,8 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'WeChat 6.5.7.1041'
       AgentNameVersionMajor                : 'WeChat 6'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
       NetworkType                          : 'WIFI'
 
 
@@ -1011,3 +1019,129 @@ config:
       AgentNameVersionMajor                : 'QQ Client 7'
       NetworkType                          : 'WIFI'
 
+
+# This happens quite often:
+#       NetType/WIFI Language/zh_CN
+#       NetType/cmnet Language/zh_CN
+# The effect is that the parse tree gets a bit messy because everything is text (no numbers)
+- matcher:
+    variable:
+    - 'AgentLanguageCode                   :agent.product[-3]="NetType/WIFI Language".(2)version'
+    extract:
+    - 'AgentLanguage                       :   3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
+    - 'AgentLanguageCode                   :   3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
+
+- matcher:
+    variable:
+    - 'AgentLanguageCode                   :agent.product[-3]="NetType/WIFI Language">'
+    require:
+    - 'IsNull[@NetTypeProduct.(2)version]'
+    extract:
+    - 'AgentLanguage                       :   3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
+    - 'AgentLanguageCode                   :   3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
+
+- matcher:
+    variable:
+    - 'AgentLanguageCode                   :agent.product[-3]="NetType/cmnet Language".(2)version'
+    extract:
+    - 'AgentLanguage                       :   3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
+    - 'AgentLanguageCode                   :   3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
+
+- matcher:
+    variable:
+    - 'AgentLanguageCode                   :agent.product[-3]="NetType/cmnet Language">'
+    require:
+    - 'IsNull[@NetTypeProduct.(2)version]'
+    extract:
+    - 'AgentLanguage                       :   3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
+    - 'AgentLanguageCode                   :   3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.4.2; PE-TL20 Build/HuaweiPE-TL20) AppleWebKit/533.1 (KHTML, like Gecko)Version/4.0 MQQBrowser/5.4 TBS/025440 Mobile Safari/533.1 MicroMessenger/6.2.5.53_r2565f18.621 NetType/3G Language/zh_CN'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei PE-TL20'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'HuaweiPE-TL20'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.1'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '6.2.5.53_r2565f18.621'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'WeChat 6.2.5.53_r2565f18.621'
+      AgentNameVersionMajor                : 'WeChat 6'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      AgentSecurity                        : 'Strong security'
+      NetworkType                          : '3G'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.4.2; PE-TL20 Build/HuaweiPE-TL20) AppleWebKit/533.1 (KHTML, like Gecko)Version/4.0 MQQBrowser/5.4 TBS/025440 Mobile Safari/533.1 MicroMessenger/6.2.5.53_r2565f18.621 NetType/WIFI Language/zh_CN'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei PE-TL20'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'HuaweiPE-TL20'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.1'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '6.2.5.53_r2565f18.621'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'WeChat 6.2.5.53_r2565f18.621'
+      AgentNameVersionMajor                : 'WeChat 6'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      AgentSecurity                        : 'Strong security'
+      NetworkType                          : 'WIFI'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.4.2; HM NOTE 1LTETD Build/KVT49L) AppleWebKit/533.1 (KHTML, like Gecko)Version/4.0 MQQBrowser/5.4 TBS/025410 Mobile Safari/533.1 MicroMessenger/6.1.0.66_r1062275.542 NetType/cmnet Language/zh_CN'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Xiaomi Redmi Note 4'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KVT49L'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.1'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '6.1.0.66_r1062275.542'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'WeChat 6.1.0.66_r1062275.542'
+      AgentNameVersionMajor                : 'WeChat 6'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      AgentSecurity                        : 'Strong security'
+      NetworkType                          : 'cmnet'

@@ -1,5 +1,9 @@
 This is intended as an overview of the major changes
 
+v5.6
+===
+- Better extraction of NetType and Language tags as used by Tencent.
+
 v5.5
 ===
 - Fixed the Chrome 70 pattern for many brands
