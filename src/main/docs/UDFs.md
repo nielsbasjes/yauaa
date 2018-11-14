@@ -10,6 +10,7 @@ I have written such a UDF which are all part of this project.
 * [LogParser](UDF-LogParser.md)
 * [Apache Pig](UDF-ApachePig.md)
 * [Apache Flink](UDF-ApacheFlink.md)
+* [Apache Flink (Table/SQL)](UDF-ApacheFlinkTable.md)
 * [Apache Beam](UDF-ApacheBeam.md)
 * [Apache Hive](UDF-ApacheHive.md)
 * [Apache Drill](UDF-ApacheDrill.md)

@@ -27,10 +27,10 @@ In most cases I see (clickstream data) these records contain the useragent strin
 
 Now you must do four things:
 
-  1) Determine the names of the fields you need.
-  2) Register the function with the full list of all the fields you want under the name you want.
-  3) Use the function in your SQL to extract one field at a time.
-  4) Run the query
+* Determine the names of the fields you need.
+* Register the function with the full list of all the fields you want under the name you want.
+* Use the function in your SQL to extract one field at a time.
+* Run the query
 
     // Register the function with all the desired fieldnames
     tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));

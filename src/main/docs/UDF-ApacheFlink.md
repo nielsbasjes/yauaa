@@ -18,8 +18,8 @@ In most cases I see (clickstream data) these records (In this example this class
 
 Now you must do two things:
 
-  1) Determine the names of the fields you need.
-  2) Add an instance of the (abstract) UserAgentAnalysisMapper mapper and implement the functions as shown in the example below. Use the Field annotation to get the setter for the requested fields.
+* Determine the names of the fields you need.
+* Add an instance of the (abstract) UserAgentAnalysisMapper mapper and implement the functions as shown in the example below. Use the Field annotation to get the setter for the requested fields.
 
 Note that the name of the two setters is not important, the system looks at the annotation.
 
