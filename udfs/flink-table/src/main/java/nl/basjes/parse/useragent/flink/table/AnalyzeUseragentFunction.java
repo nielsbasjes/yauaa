@@ -36,7 +36,7 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
      * @param desiredFields The list of desired field names.
      */
     public AnalyzeUseragentFunction(String... desiredFields) {
-        this.extractedFields = Arrays.asList(desiredFields);
+        this(Arrays.asList(desiredFields));
     }
 
     /**
