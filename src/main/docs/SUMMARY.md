@@ -18,6 +18,7 @@
 * [Apache Beam](UDF-ApacheBeam.md)
 * [Apache Drill](UDF-ApacheDrill.md)
 * [Apache Flink](UDF-ApacheFlink.md)
+* [Apache Flink (Table/SQL)](UDF-ApacheFlinkTable.md)
 * [Apache Hive](UDF-ApacheHive.md)
 * [Apache Nifi](UDF-ApacheNifi.md)
 * [Apache Pig](UDF-ApachePig.md)

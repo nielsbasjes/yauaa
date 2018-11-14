@@ -3,6 +3,10 @@ This is intended as an overview of the major changes
 v5.6
 ===
 - Better extraction of NetType and Language tags as used by Tencent.
+- Added Flink Table scalar function
+- Updated UDF dependencies
+  - Apache Flink 1.6.2
+  - Apache Beam 2.8.0
 
 v5.5
 ===
