@@ -32,6 +32,7 @@ Now you must do four things:
 * Use the function in your SQL to extract one field at a time.
 * Run the query
 
+
     // Register the function with all the desired fieldnames
     tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
 

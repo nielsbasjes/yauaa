@@ -14,13 +14,15 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 HIGH Profile release notes:
 ===========================
 
-##Version 5.5
+Version 5.5
+---
 With Google Chrome 70 the useragent string pattern has been changed on Android ( https://www.chromestatus.com/feature/4558585463832576 ) .
 As a consequence the detection of the DeviceBrand failed and you always get "Unknown". 
 This has been fixed in Yauaa 5.5.
 
-##Version 5.1 is bad.
-If you are using version 5.1 you should upgrade IMMEDIATELY to 5.2 because 5.1 crashes over specific useragent patterns caused by a simple packaging mistake.
+Version 5.1 is bad.
+---
+If you are using version 5.1 you should upgrade IMMEDIATELY because 5.1 crashes over specific useragent patterns caused by a simple packaging mistake.
 
     Mozilla/1.2.3 (http://basjes.nl)
 
