@@ -14,6 +14,11 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 HIGH Profile release notes:
 ===========================
 
+Version 5.6 (SNAPSHOT - Not yet released)
+---
+In version 5.6 the number of detected DeviceBrands is greatly increased. The downside is a major performance impact and increased memory footprint.
+I'm currently looking into an alternative implementation for solving the Brand problem.
+
 Version 5.5
 ---
 With Google Chrome 70 the useragent string pattern has been changed on Android ( https://www.chromestatus.com/feature/4558585463832576 ) .
