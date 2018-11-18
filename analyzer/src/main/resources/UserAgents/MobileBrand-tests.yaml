@@ -1264,6 +1264,29 @@ config:
       AgentNameVersion                     : 'Chrome 55.0.2883.91'
       AgentNameVersionMajor                : 'Chrome 55'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; STV100-1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.80 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'BlackBerry STV100-1'
+      DeviceBrand                          : 'BlackBerry'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '70.0'
+      LayoutEngineVersionMajor             : '70'
+      LayoutEngineNameVersion              : 'Blink 70.0'
+      LayoutEngineNameVersionMajor         : 'Blink 70'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '70.0.3538.80'
+      AgentVersionMajor                    : '70'
+      AgentNameVersion                     : 'Chrome 70.0.3538.80'
+      AgentNameVersionMajor                : 'Chrome 70'
 
 #- test:
 #    input:
