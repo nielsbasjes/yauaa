@@ -30,6 +30,8 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -39,15 +41,23 @@ public class TestSerialization {
 
     protected static UserAgentAnalyzerTester uaa;
 
+    private static List<String> allFields;
+
     @BeforeClass
     public static void serializeAndDeserializeUAA() throws IOException, ClassNotFoundException {
         LOG.info("==============================================================");
         LOG.info("Create");
         LOG.info("--------------------------------------------------------------");
-        uaa = new UserAgentAnalyzerTester();
-        uaa.setShowMatcherStats(false);
-        uaa.immediateInitialization();
-        uaa.initialize();
+
+        // The number of rules for the Brands is so large that it results in an OOM in Travis-CI
+        allFields = UserAgentAnalyzer.newBuilder().build().getAllPossibleFieldNamesSorted();
+        allFields.removeAll(Arrays.asList("DeviceName", "DevideClass"));
+
+        uaa = UserAgentAnalyzerTester.newBuilder()
+            .withFields(allFields)
+            .hideMatcherLoadStats()
+            .immediateInitialization()
+            .build();
 
         LOG.info("--------------------------------------------------------------");
         LOG.info("Serialize");
@@ -71,6 +81,7 @@ public class TestSerialization {
             assertTrue(o instanceof UserAgentAnalyzerTester);
             uaa = (UserAgentAnalyzerTester) o;
         }
+
         LOG.info("Done");
         LOG.info("==============================================================");
     }
@@ -80,7 +91,7 @@ public class TestSerialization {
         LOG.info("==============================================================");
         LOG.info("Validating when getting all fields");
         LOG.info("--------------------------------------------------------------");
-        assertTrue(uaa.runTests(false, true));
+        assertTrue(uaa.runTests(false, true, allFields, false, false));
     }
 
 }
