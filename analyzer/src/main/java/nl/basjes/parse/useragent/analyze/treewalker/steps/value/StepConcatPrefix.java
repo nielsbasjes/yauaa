@@ -43,7 +43,7 @@ public class StepConcatPrefix extends Step {
 
     @Override
     public String toString() {
-        return "StepConcatPrefix(" + prefix + ")";
+        return "ConcatPrefix(" + prefix + ")";
     }
 
 }

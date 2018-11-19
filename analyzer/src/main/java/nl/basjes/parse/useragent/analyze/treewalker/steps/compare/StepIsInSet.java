@@ -45,7 +45,7 @@ public class StepIsInSet extends Step {
 
     @Override
     public String toString() {
-        return "StepIsInSet(@" + listName + ")";
+        return "IsInSet(@" + listName + ")";
     }
 
 }

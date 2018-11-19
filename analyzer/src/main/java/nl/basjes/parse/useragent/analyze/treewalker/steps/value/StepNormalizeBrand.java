@@ -38,7 +38,7 @@ public class StepNormalizeBrand extends Step {
 
     @Override
     public String toString() {
-        return "StepNormalizeBrand()";
+        return "NormalizeBrand()";
     }
 
 }

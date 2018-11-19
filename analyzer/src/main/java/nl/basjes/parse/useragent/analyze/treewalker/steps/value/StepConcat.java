@@ -45,7 +45,7 @@ public class StepConcat extends Step {
 
     @Override
     public String toString() {
-        return "StepConcat(" + prefix + ";" + postfix + ")";
+        return "Concat(" + prefix + ";" + postfix + ")";
     }
 
 }
