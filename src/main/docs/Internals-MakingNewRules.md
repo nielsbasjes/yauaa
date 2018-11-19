@@ -258,7 +258,10 @@ Operation | Symbol | Example | Result value (if applicable)
 Check if the expresssion resulted in a null 'no match' value. | IsNull[expression] | IsNull[agent.(1)product.(3)name] | true
 Cleanup the version from an _ separated to a . separated string| CleanVersion[expression] | CleanVersion["1_2_3"] | 1.2.3
 LookUp the value against a lookup table | LookUp[lookupname;expression] | LookUp[OSNames;agent.product.entry.text]
-LookUp the value against a lookup table with fallback | LookUp[lookupname;expression;defaultvalue] | LookUp[OSNames;agent.product.entry.text;"Unknown"]
+LookUp the value against a lookup table (with fallback in case no match) | LookUp[lookupname;expression;defaultvalue] | LookUp[OSNames;agent.product.entry.text;"Unknown"]
+LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value. | LookUpPrefix[lookupname;expression] | LookUpPrefix[OSNames;agent.product.entry.text]
+LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value (with fallback in case no match). | LookUpPrefix[lookupname;expression;defaultvalue] | LookUpPrefix[OSNames;agent.product.entry.text;"Unknown"]
+LookUp the value against a lookup table and return the original value if a matching prefix is present. | IsInLookUpPrefix[lookupname;expression] | IsInLookUpPrefix[OSNames;agent.product.entry.text]
 Put a fixed string before an expression | Concat[value;expression] | Concat["Something";agent.product.entry.text]
 Put a fixed string after an expression | Concat[expression;value] | Concat[agent.product.entry.text;"Something"]
 Surround the expression with both a prefix and a postfix | Concat[value;expression;value] | Concat["Something";agent.product.entry.text;"Something"]

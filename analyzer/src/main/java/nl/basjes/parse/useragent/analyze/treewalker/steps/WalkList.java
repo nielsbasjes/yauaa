@@ -27,7 +27,9 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsInSet;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookupPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepBackToFull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
@@ -49,8 +51,10 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatP
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathWalkContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepBackToFullContext;
@@ -70,6 +74,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrevContex
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepStartsWithValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepUpContext;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -274,6 +279,46 @@ public class WalkList implements Serializable {
 
             add(new StepLookup(lookupName, lookup, defaultValue));
             return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext ctx) {
+            visit(ctx.matcher());
+
+            fromHereItCannotBeInHashMapAnymore();
+
+            String lookupName = ctx.lookup.getText();
+            Map<String, String> lookup = getLookup(lookupName);
+
+            String defaultValue = null;
+            if (ctx.defaultValue != null) {
+                defaultValue = ctx.defaultValue.getText();
+            }
+
+            add(new StepLookupPrefix(lookupName, lookup, defaultValue));
+            return null; // Void
+        }
+
+
+        @Override
+        public Void visitMatcherPathIsInLookupPrefix(MatcherPathIsInLookupPrefixContext ctx) {
+            visit(ctx.matcher());
+
+            fromHereItCannotBeInHashMapAnymore();
+
+            String lookupName = ctx.lookup.getText();
+            Map<String, String> lookup = getLookup(lookupName);
+
+            add(new StepIsInLookupPrefix(lookupName, lookup));
+            return null; // Void
+        }
+
+        private Map<String, String> getLookup(String lookupName) {
+            Map<String, String> lookup = lookups.get(lookupName);
+            if (lookup == null) {
+                throw new InvalidParserConfigurationException("Missing lookup \"" + lookupName + "\" ");
+            }
+            return lookup;
         }
 
         @Override

@@ -1,0 +1,149 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2018 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+- lookup:
+    name: 'Prefixes'
+    map:
+      "1":    "Result 1"
+      "12":   "Result 12"
+      "123":  "Result 123"
+
+- matcher:
+    extract:
+    - 'PrefixResult : 1 : LookUpPrefix[Prefixes;agent;"Not there"]'
+
+- matcher:
+    extract:
+    - 'IsInPrefixes : 1 : IsInLookUpPrefix[Prefixes;agent]'
+
+- lookup:
+    name: 'Level2Prefixes'
+    map:
+      "Result":                     "A result"
+      "1":                          "L2 Result 1"
+      "12":                         "L2 Result 12"
+      "123":                        "L2 Result 123"
+
+- matcher:
+    extract:
+    - 'PrefixResultL2 : 1 : LookUpPrefix[Level2Prefixes;LookUpPrefix[Prefixes;agent;"Not there"];"L2 Failed"]'
+
+- matcher:
+    options:
+    - 'verbose'
+    extract:
+    - 'IsInPrefixesL2 : 1 : LookUpPrefix[Level2Prefixes;IsInLookUpPrefix[Prefixes;agent];"L2 Failed"]'
+
+- matcher:
+    extract:
+    - 'Require : 1 : "Mismatch"'
+
+- matcher:
+    require:
+    - 'IsInLookUpPrefix[Prefixes;agent]'
+    extract:
+    - 'Require : 2 : "Match"'
+
+
+- test:
+    input:
+      user_agent_string: 'MisMatch'
+    expected:
+      PrefixResult:                         'Not there'
+      IsInPrefixes:                         'Unknown'
+      Require:                              'Mismatch'
+      PrefixResultL2:                       'L2 Failed'
+
+- test:
+    input:
+      user_agent_string: '21'
+    expected:
+      PrefixResult:                         'Not there'
+      IsInPrefixes:                         'Unknown'
+      Require:                              'Mismatch'
+      PrefixResultL2:                       'L2 Failed'
+
+- test:
+    input:
+      user_agent_string: '321'
+    expected:
+      PrefixResult:                         'Not there'
+      IsInPrefixes:                         'Unknown'
+      Require:                              'Mismatch'
+      PrefixResultL2:                       'L2 Failed'
+
+- test:
+    input:
+      user_agent_string: '1'
+    expected:
+      PrefixResult:                         'Result 1'
+      IsInPrefixes:                         '1'
+      Require:                              'Match'
+      IsInPrefixesL2:                       'L2 Result 1'
+      PrefixResultL2:                       'A result'
+
+- test:
+    input:
+      user_agent_string: '12'
+    expected:
+      PrefixResult:                         'Result 12'
+      IsInPrefixes:                         '12'
+      Require:                              'Match'
+      IsInPrefixesL2:                       'L2 Result 12'
+      PrefixResultL2:                       'A result'
+
+- test:
+    input:
+      user_agent_string: '123'
+    expected:
+      PrefixResult:                         'Result 123'
+      IsInPrefixes:                         '123'
+      Require:                              'Match'
+      IsInPrefixesL2:                       'L2 Result 123'
+      PrefixResultL2:                       'A result'
+
+- test:
+    input:
+      user_agent_string: '1234'
+    expected:
+      PrefixResult:                         'Result 123'
+      IsInPrefixes:                         '1234'
+      Require:                              'Match'
+      IsInPrefixesL2:                       'L2 Result 123'
+      PrefixResultL2:                       'A result'
+
+- test:
+    input:
+      user_agent_string: '12 Something'
+    expected:
+      PrefixResult:                         'Result 12'
+      IsInPrefixes:                         '12 Something'
+      Require:                              'Match'
+      IsInPrefixesL2:                       'L2 Result 12'
+      PrefixResultL2:                       'A result'
+
+- test:
+    input:
+      user_agent_string: '111'
+    expected:
+      PrefixResult:                         'Result 1'
+      IsInPrefixes:                         '111'
+      Require:                              'Match'
+      IsInPrefixesL2:                       'L2 Result 1'
+      PrefixResultL2:                       'A result'

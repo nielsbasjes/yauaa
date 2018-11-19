@@ -65,6 +65,12 @@ public class TestYamlBasedExpressions {
     }
 
     @Test
+    public void runLookupPrefixTests() {
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:LookupPrefix-tests.yaml");
+        Assert.assertTrue(uaa.runTests(false, true));
+    }
+
+    @Test
     public void runVariableTests() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:Variable-tests.yaml");
         Assert.assertTrue(uaa.runTests(false, false));

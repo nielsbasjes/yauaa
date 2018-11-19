@@ -24,7 +24,9 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupPrefixContext;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.slf4j.Logger;
@@ -78,25 +80,33 @@ public class TreeExpressionEvaluator implements Serializable {
 
             @Override
             public String visitMatcherPathLookup(MatcherPathLookupContext ctx) {
-                String value = visit(ctx.matcher());
+                return visitLookups(ctx.matcher(), ctx.lookup, ctx.defaultValue);
+            }
+            @Override
+            public String visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext ctx) {
+                return visitLookups(ctx.matcher(), ctx.lookup, ctx.defaultValue);
+            }
+
+            private String visitLookups(ParseTree matcherTree, Token lookup, Token defaultValue) {
+                String value = visit(matcherTree);
                 if (value == null) {
                     return null;
                 }
                 // Now we know this is a fixed value. Yet we can have a problem in the lookup that was
                 // configured. If we have this then this is a FATAL error (it will fail always everywhere).
 
-                Map<String, String> lookup = matcher.getLookups().get(ctx.lookup.getText());
-                if (lookup == null) {
-                    throw new InvalidParserConfigurationException("Missing lookup \"" + ctx.lookup.getText() + "\" ");
+                Map<String, String> lookupMap = matcher.getLookups().get(lookup.getText());
+                if (lookupMap == null) {
+                    throw new InvalidParserConfigurationException("Missing lookup \"" + lookup.getText() + "\" ");
                 }
 
-                String resultingValue = lookup.get(value.toLowerCase());
+                String resultingValue = lookupMap.get(value.toLowerCase());
                 if (resultingValue == null) {
-                    if (ctx.defaultValue != null) {
-                        return ctx.defaultValue.getText();
+                    if (defaultValue != null) {
+                        return defaultValue.getText();
                     }
                     throw new InvalidParserConfigurationException(
-                        "Fixed value >>" + value + "<< is missing in lookup: \"" + ctx.lookup.getText() + "\" ");
+                        "Fixed value >>" + value + "<< is missing in lookup: \"" + lookup.getText() + "\" ");
                 }
                 return resultingValue;
             }
