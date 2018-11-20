@@ -6,6 +6,7 @@ v5.6
 - Better extraction of NetType and Language tags as used by Tencent.
 - Detect the brand better for many more devices (Blackberry, Huawei, HiSense, HTC, OnePlus, Oppo, QMobile, Wiko)
 - Added two new functions for prefix matching lookups.
+- Rewrote DeviceBrand detection to improve speed and memory usage.
 - Updated UDF dependencies
   - Apache Flink 1.6.2
   - Apache Beam 2.8.0

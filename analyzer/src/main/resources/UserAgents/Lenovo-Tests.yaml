@@ -19,13 +19,11 @@ config:
 # Lenovo made a big mess of things so we have a list of device names that are forced to be reported as Tablet
 
 - test:
-#    options:
-#    - 'only'
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; pl-pl; Lenovo B8000-H/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.2.2 Mobile Safari/534.30'
     expected:
       DeviceClass                          : 'Tablet'
-      DeviceName                           : 'Lenovo B8000-H'
+      DeviceName                           : 'Lenovo B8000-H/JDQ39'
       DeviceBrand                          : 'Lenovo'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
@@ -54,7 +52,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2;pl-pl; Lenovo B8000-F/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.2.2 Mobile Safari/534.30'
     expected:
       DeviceClass                          : 'Tablet'
-      DeviceName                           : 'Lenovo B8000-F'
+      DeviceName                           : 'Lenovo B8000-F/JDQ39'
       DeviceBrand                          : 'Lenovo'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
@@ -112,7 +110,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2;pl-pl; Lenovo B6000-F/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.2.2 Mobile Safari/534.30'
     expected:
       DeviceClass                          : 'Tablet'
-      DeviceName                           : 'Lenovo B6000-F'
+      DeviceName                           : 'Lenovo B6000-F/JDQ39'
       DeviceBrand                          : 'Lenovo'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'

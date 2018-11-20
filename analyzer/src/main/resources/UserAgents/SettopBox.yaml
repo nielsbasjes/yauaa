@@ -265,6 +265,7 @@ config:
       OperatingSystemName                  : 'GoogleTV'
       OperatingSystemVersion               : '3.2'
       OperatingSystemNameVersion           : 'GoogleTV 3.2'
+      OperatingSystemVersionBuild          : 'MASTER'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '534.24'
@@ -290,6 +291,7 @@ config:
       OperatingSystemName                  : 'GoogleTV'
       OperatingSystemVersion               : '3.2'
       OperatingSystemNameVersion           : 'GoogleTV 3.2'
+      OperatingSystemVersionBuild          : 'MASTER'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '534.24'
@@ -315,6 +317,7 @@ config:
       OperatingSystemName                  : 'GoogleTV'
       OperatingSystemVersion               : '3.2'
       OperatingSystemNameVersion           : 'GoogleTV 3.2'
+      OperatingSystemVersionBuild          : 'MASTER'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '534.24'
@@ -409,7 +412,7 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceBrand                         :     10 :LookUp[MobileBrands;agent.product.name="Large Screen Safari"^>.name[1]]'
+    - 'DeviceBrand                         :     10 :LookUp[MobileBrandPrefixes;agent.product.name="Large Screen Safari"^>.name[1]]'
 
 
 - test:
