@@ -266,10 +266,7 @@ public class WalkList implements Serializable {
             fromHereItCannotBeInHashMapAnymore();
 
             String lookupName = ctx.lookup.getText();
-            Map<String, String> lookup = lookups.get(lookupName);
-            if (lookup == null) {
-                throw new InvalidParserConfigurationException("Missing lookup \"" + ctx.lookup.getText() + "\" ");
-            }
+            Map<String, String> lookup = getLookup(lookupName);
 
             String defaultValue = null;
             if (ctx.defaultValue != null) {
