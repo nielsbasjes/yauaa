@@ -93,6 +93,20 @@ public class TestErrorHandling {
     }
 
     @Test
+    public void checkLookupPrefixMissing() {
+        runTest(
+            "classpath*:BadDefinitions/LookupPrefixMissing.yaml",
+            containsString("Missing lookup"));
+    }
+
+    @Test
+    public void checkIsInLookupPrefixMissing() {
+        runTest(
+            "classpath*:BadDefinitions/IsInLookupPrefixMissing.yaml",
+            containsString("Missing lookup"));
+    }
+
+    @Test
     public void checkFixedStringLookupMissing() {
         runTest(
             "classpath*:BadDefinitions/FixedStringLookupMissing.yaml",
