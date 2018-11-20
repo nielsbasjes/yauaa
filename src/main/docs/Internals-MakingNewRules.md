@@ -227,6 +227,8 @@ Previous Sibling | < | agent.(2)product< | agent.(1)product
 Down to child | .name | agent.(1)product.version |
 Down to specific child | .(2)version | agent.(1)product.(2)version |
 Down to specific child range | .(2-3)version | agent.(1)product.(2-3)version |
+Down to specific child range | .(2-)version | agent.(1)product.(2-)version |
+Down to specific child range | .(-5)version | agent.(1)product.(-5)version |
 
 Comparing values in the tree
 

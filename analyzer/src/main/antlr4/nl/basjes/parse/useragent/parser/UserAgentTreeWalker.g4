@@ -107,6 +107,8 @@ path            : DOT numberRange name=VALUENAME  (nextStep=path)?  #stepDown
                 ;
 
 numberRange     : ( BRACEOPEN rangeStart=NUMBER MINUS rangeEnd=NUMBER BRACECLOSE ) #numberRangeStartToEnd
+                | ( BRACEOPEN                   MINUS rangeEnd=NUMBER BRACECLOSE ) #numberRangeOpenStartToEnd
+                | ( BRACEOPEN rangeStart=NUMBER MINUS                 BRACECLOSE ) #numberRangeStartToOpenEnd
                 | ( BRACEOPEN count=NUMBER BRACECLOSE )                            #numberRangeSingleValue
                 | ( BRACEOPEN STAR BRACECLOSE )                                    #numberRangeAll
                 | (  )                                                             #numberRangeEmpty

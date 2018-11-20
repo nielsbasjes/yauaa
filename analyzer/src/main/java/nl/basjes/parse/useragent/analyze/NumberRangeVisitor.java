@@ -26,8 +26,10 @@ import java.util.Map;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeAllContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeEmptyContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeOpenStartToEndContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeSingleValueContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeStartToEndContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeStartToOpenEndContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
 
 public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<NumberRangeList> {
@@ -82,6 +84,20 @@ public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<Num
         return new NumberRangeList(
                 Integer.parseInt(ctx.rangeStart.getText()),
                 Integer.parseInt(ctx.rangeEnd.getText()));
+    }
+
+    @Override
+    public NumberRangeList visitNumberRangeOpenStartToEnd(NumberRangeOpenStartToEndContext ctx) {
+        return new NumberRangeList(
+            1,
+            Integer.parseInt(ctx.rangeEnd.getText()));
+    }
+
+    @Override
+    public NumberRangeList visitNumberRangeStartToOpenEnd(NumberRangeStartToOpenEndContext ctx) {
+        return new NumberRangeList(
+            Integer.parseInt(ctx.rangeStart.getText()),
+            getMaxRange(ctx));
     }
 
     @Override

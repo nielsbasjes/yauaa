@@ -53,6 +53,41 @@ public class TestTreewalkerExtract {
     }
 
     @Test
+    public void validateWalkPathSimpleNameOpenStartRange() {
+        String path = "agent.(-3)product.(1)name";
+
+        String[] expectedHashEntries = {
+            "agent.(1)product.(1)name",
+            "agent.(2)product.(1)name",
+            "agent.(3)product.(1)name",
+        };
+
+        String[] expectedWalkList = {
+        };
+
+        checkPath(path, expectedHashEntries, expectedWalkList);
+    }
+
+    @Test
+    public void validateWalkPathSimpleNameOpenEndRange() {
+        String path = "agent.(5-)product.(1)name";
+
+        String[] expectedHashEntries = {
+            "agent.(5)product.(1)name",
+            "agent.(6)product.(1)name",
+            "agent.(7)product.(1)name",
+            "agent.(8)product.(1)name",
+            "agent.(9)product.(1)name",
+            "agent.(10)product.(1)name",
+        };
+
+        String[] expectedWalkList = {
+        };
+
+        checkPath(path, expectedHashEntries, expectedWalkList);
+    }
+
+    @Test
     public void validateWalkPathSimpleNameEquals() {
         String path = "agent.(1)product.(1)name=\"Foo\"^.(1-3)version";
 
