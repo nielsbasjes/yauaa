@@ -38,18 +38,18 @@ config:
 - lookup:
     name: 'MSIELayoutEngineName'
     map:
-      "8": "Trident"
-      "9": "Trident"
-      "10": "Trident"
-      "11": "Trident"
+      "8"   : "Trident"
+      "9"   : "Trident"
+      "10"  : "Trident"
+      "11"  : "Trident"
 
 - lookup:
     name: 'MSIELayoutEngineVersion'
     map:
-      "8" : "4.0"
-      "9" : "5.0"
-      "10": "6.0"
-      "11": "7.0"
+      "8"   : "4.0"
+      "9"   : "5.0"
+      "10"  : "6.0"
+      "11"  : "7.0"
 
 - matcher:
     variable:
@@ -467,7 +467,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; WebView/3.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240'
     expected:
-      #TODO (Low prio): What is WebView??
+      #TODO (Low prio): What is WebView/3.0??
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'

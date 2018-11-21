@@ -1186,7 +1186,7 @@ config:
       LayoutEngineVersionMajor             : '40'
       LayoutEngineNameVersion              : 'Blink 40.0'
       LayoutEngineNameVersionMajor         : 'Blink 40'
-      AgentClass                           : 'Browser'
+      AgentClass                           : 'Browser Webview'
       AgentName                            : 'UCBrowser'
       AgentVersion                         : '11.9.2.1062'
       AgentVersionMajor                    : '11'
@@ -1195,6 +1195,10 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
+      WebviewAppName                       : 'Alibaba AliApp'
+      WebviewAppVersion                    : '0.1.20.2'
+      WebviewAppVersionMajor               : '0'
+      WebviewAppNameVersionMajor           : 'Alibaba AliApp 0'
 
 
 - test:
@@ -1216,7 +1220,7 @@ config:
       LayoutEngineVersionMajor             : '11'
       LayoutEngineNameVersion              : 'UCBrowser 11.2.0.863'
       LayoutEngineNameVersionMajor         : 'UCBrowser 11'
-      AgentClass                           : 'Browser'
+      AgentClass                           : 'Browser Webview'
       AgentName                            : 'UCBrowser'
       AgentVersion                         : '11.2.0.863'
       AgentVersionMajor                    : '11'
@@ -1224,6 +1228,10 @@ config:
       AgentNameVersionMajor                : 'UCBrowser 11'
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
+      WebviewAppName                       : 'Alibaba AliApp'
+      WebviewAppVersion                    : '0.1.6'
+      WebviewAppVersionMajor               : '0'
+      WebviewAppNameVersionMajor           : 'Alibaba AliApp 0'
 
 # This is actually a GAME running on a Desktop PC
 # See https://en.wikipedia.org/wiki/Tabletop_Simulator
@@ -1741,8 +1749,8 @@ config:
     require:
     - 'IsNull[agent.product.(1)name="Mobile Safari"]'
     extract:
-    - 'AgentName                           :  2100 :@ProductName'
-    - 'AgentVersion                        :  2100 :@ChromeName^.version'
+    - 'AgentName                           :   2100 :@ProductName'
+    - 'AgentVersion                        :   2100 :@ChromeName^.version'
 
 - matcher:
     variable:
@@ -1755,8 +1763,8 @@ config:
     - 'IsNull[agent.product.(1)name="Mobile Safari"]'
     - 'IsNull[agent.product.(1)name="Mobile VR Safari"]'
     extract:
-    - 'AgentName                           :  2100 :@ProductName'
-    - 'AgentVersion                        :  2100 :@ChromeName^.version'
+    - 'AgentName                           :   2100 :@ProductName'
+    - 'AgentVersion                        :   2100 :@ChromeName^.version'
 
 
 - test:
