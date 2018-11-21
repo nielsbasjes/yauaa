@@ -26,9 +26,12 @@ import org.apache.flink.table.functions.ScalarFunction;
 import java.util.Arrays;
 import java.util.List;
 
+import static nl.basjes.parse.useragent.UserAgentAnalyzer.DEFAULT_PARSE_CACHE_SIZE;
+
 public class AnalyzeUseragentFunction extends ScalarFunction {
     private transient UserAgentAnalyzer userAgentAnalyzer;
 
+    private final int cacheSize;
     private final List<String> extractedFields;
 
     /**
@@ -36,7 +39,7 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
      * @param desiredFields The list of desired field names.
      */
     public AnalyzeUseragentFunction(String... desiredFields) {
-        this(Arrays.asList(desiredFields));
+        this(DEFAULT_PARSE_CACHE_SIZE, Arrays.asList(desiredFields));
     }
 
     /**
@@ -44,6 +47,23 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
      * @param desiredFields The list of desired field names.
      */
     public AnalyzeUseragentFunction(List<String> desiredFields) {
+        this(DEFAULT_PARSE_CACHE_SIZE, desiredFields);
+    }
+
+    /**
+     * Create a UserAgentAnalyzer that extracts only the specified fields
+     * @param desiredFields The list of desired field names.
+     */
+    public AnalyzeUseragentFunction(int cacheSize, String... desiredFields) {
+        this(cacheSize, Arrays.asList(desiredFields));
+    }
+
+    /**
+     * Create a UserAgentAnalyzer that extracts only the specified fields
+     * @param desiredFields The list of desired field names.
+     */
+    public AnalyzeUseragentFunction(int cacheSize, List<String> desiredFields) {
+        this.cacheSize = cacheSize;
         this.extractedFields = desiredFields;
     }
 
@@ -52,6 +72,7 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
         userAgentAnalyzer = UserAgentAnalyzer
             .newBuilder()
             .withFields(extractedFields)
+            .withCache(cacheSize)
             .immediateInitialization()
             .build();
     }

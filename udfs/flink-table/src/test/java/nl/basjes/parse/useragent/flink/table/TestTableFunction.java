@@ -73,11 +73,12 @@ public class TestTableFunction {
 
         // register the function
         tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
+        tableEnv.registerFunction("ParseUserAgentNoCache", new AnalyzeUseragentFunction(0, "DeviceClass", "AgentNameVersionMajor"));
 
         String sqlQuery =
             "SELECT useragent,"+
             "       ParseUserAgent(useragent, 'DeviceClass')            as DeviceClass," +
-            "       ParseUserAgent(useragent, 'AgentNameVersionMajor')  as AgentNameVersionMajor," +
+            "       ParseUserAgentNoCache(useragent, 'AgentNameVersionMajor')  as AgentNameVersionMajor," +
             "       expectedDeviceClass," +
             "       expectedAgentNameVersionMajor " +
             "FROM AgentStream";

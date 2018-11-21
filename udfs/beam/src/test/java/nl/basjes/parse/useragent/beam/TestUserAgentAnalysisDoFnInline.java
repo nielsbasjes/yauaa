@@ -64,7 +64,7 @@ public class TestUserAgentAnalysisDoFnInline implements Serializable {
 
         PCollection<TestRecord> filledTestRecords = testRecords
             .apply("Extract Elements from Useragent",
-                ParDo.of(new UserAgentAnalysisDoFn<TestRecord>() {
+                ParDo.of(new UserAgentAnalysisDoFn<TestRecord>(15000) { // Setting the cacheSize
                     public String getUserAgentString(TestRecord record) {
                         return record.useragent;
                     }

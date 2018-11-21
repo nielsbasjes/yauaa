@@ -24,7 +24,7 @@ Now you must do two things:
 Note that the name of the two setters is not important, the system looks at the annotation.
 
     .apply("Extract Elements from Useragent",
-        ParDo.of(new UserAgentAnalysisDoFn<TestRecord>() {
+        ParDo.of(new UserAgentAnalysisDoFn<TestRecord>(15000) { // Setting the cacheSize
             @Override
             public String getUserAgentString(TestRecord record) {
                 return record.useragent;

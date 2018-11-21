@@ -53,7 +53,7 @@ public class TestUserAgentAnalysisMapperInline {
 
             .map((MapFunction<String, TestRecord>) TestRecord::new)
 
-            .map(new UserAgentAnalysisMapper<TestRecord>() {
+            .map(new UserAgentAnalysisMapper<TestRecord>(15000) { // Setting the cacheSize
                 @Override
                 public String getUserAgentString(TestRecord record) {
                     return record.useragent;

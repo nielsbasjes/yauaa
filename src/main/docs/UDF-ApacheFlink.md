@@ -23,7 +23,7 @@ Now you must do two things:
 
 Note that the name of the two setters is not important, the system looks at the annotation.
 
-    .map(new UserAgentAnalysisMapper<TestRecord>() {
+    .map(new UserAgentAnalysisMapper<TestRecord>(15000) { // Setting the cacheSize
         @Override
         public String getUserAgentString(TestRecord record) {
             return record.useragent;

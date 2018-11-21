@@ -24,13 +24,26 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
 
+import static nl.basjes.parse.useragent.UserAgentAnalyzer.DEFAULT_PARSE_CACHE_SIZE;
+
 public abstract class UserAgentAnalysisDoFn<T extends Serializable> extends DoFn<T, T>
     implements UserAgentAnnotationMapper<T>, Serializable {
     private transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer = null;
 
+    private int cacheSize;
+
+    public UserAgentAnalysisDoFn() {
+        this.cacheSize = DEFAULT_PARSE_CACHE_SIZE;
+    }
+
+    public UserAgentAnalysisDoFn(int cacheSize) {
+        this.cacheSize = cacheSize;
+    }
+
     @Setup
     public void initialize() {
         userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
+        userAgentAnalyzer.setCacheSize(cacheSize);
         userAgentAnalyzer.initialize(this);
     }
 

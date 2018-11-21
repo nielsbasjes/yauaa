@@ -33,8 +33,8 @@ Now you must do four things:
 * Run the query
 
 
-    // Register the function with all the desired fieldnames
-    tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
+    // Register the function with all the desired fieldnames and optionally the size of the cache
+    tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction(15000, "DeviceClass", "AgentNameVersionMajor"));
 
     // Define the query.
     String sqlQuery =

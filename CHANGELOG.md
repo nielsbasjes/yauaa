@@ -7,6 +7,7 @@ v5.6
 - Detect the brand better for many more devices (Blackberry, Huawei, HiSense, HTC, OnePlus, Oppo, QMobile, Wiko)
 - Added two new functions for prefix matching lookups.
 - Rewrote DeviceBrand detection to improve speed and memory usage.
+- Allow setting cache size in Flink, Flink Table and Beam UDFs
 - Updated UDF dependencies
   - Apache Flink 1.6.2
   - Apache Beam 2.8.0

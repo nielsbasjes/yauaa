@@ -24,13 +24,26 @@ import org.apache.flink.configuration.Configuration;
 
 import java.io.Serializable;
 
+import static nl.basjes.parse.useragent.UserAgentAnalyzer.DEFAULT_PARSE_CACHE_SIZE;
+
 public abstract class UserAgentAnalysisMapper<T> extends RichMapFunction<T, T>
     implements UserAgentAnnotationMapper<T>, Serializable {
     private transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer = null;
 
+    private int cacheSize;
+
+    public UserAgentAnalysisMapper() {
+        this.cacheSize = DEFAULT_PARSE_CACHE_SIZE;
+    }
+
+    public UserAgentAnalysisMapper(int cacheSize) {
+        this.cacheSize = cacheSize;
+    }
+
     @Override
     public void open(Configuration parameters) {
         userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
+        userAgentAnalyzer.setCacheSize(cacheSize);
         userAgentAnalyzer.initialize(this);
     }
 

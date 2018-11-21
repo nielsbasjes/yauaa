@@ -22,7 +22,7 @@ import org.apache.commons.collections4.map.LRUMap;
 import java.io.Serializable;
 
 public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serializable {
-    private static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
+    public static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
     private int cacheSize = DEFAULT_PARSE_CACHE_SIZE;
     private LRUMap<String, UserAgent> parseCache = null;
