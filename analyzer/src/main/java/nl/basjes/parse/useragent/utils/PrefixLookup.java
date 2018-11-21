@@ -68,7 +68,7 @@ public class PrefixLookup implements Serializable {
             }
             int myChar = input[charIndex]; // This will give us the ASCII value of the char
             if (myChar < 32 || myChar > 126) {
-                return null; // Cannot store these, so never an answer.
+                return theValue; // Cannot store these, so this is where it ends.
             }
 
             if (childNodes == null || childNodes[myChar] == null) {
