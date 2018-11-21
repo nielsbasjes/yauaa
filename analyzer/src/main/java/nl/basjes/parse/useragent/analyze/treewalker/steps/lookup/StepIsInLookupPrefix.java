@@ -17,24 +17,27 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps.lookup;
 
+import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.utils.PrefixLookup;
 import org.antlr.v4.runtime.tree.ParseTree;
 import java.util.Map;
 
-public class StepIsInLookupPrefix extends StepLookupPrefix {
+public class StepIsInLookupPrefix extends Step {
 
-    private final String              lookupName;
+    private final String       lookupName;
+    private final PrefixLookup prefixLookup;
 
     public StepIsInLookupPrefix(String lookupName, Map<String, String> prefixList) {
-        super(lookupName, prefixList, null);
         this.lookupName = lookupName;
+        this.prefixLookup = new PrefixLookup(prefixList);
     }
 
     @Override
     public WalkResult walk(ParseTree tree, String value) {
         String input = getActualValue(tree, value);
 
-        String result = lookupPrefix(input);
+        String result = prefixLookup.findLongestMatchingPrefix(input);
 
         if (result == null) {
             return null;
