@@ -19,7 +19,7 @@
 (
 echo -n "Name"
 
-find . -type f -name "version*.txt" -print0 | xargs -n1 -0 echo | \
+find . -maxdepth 1 -type f -name "version*.txt" -print0 | xargs -n1 -0 echo | \
     sed 's@^.*version-\(.*\).txt$@\1@g' | sort -V | \
     while read version
 do
