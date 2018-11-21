@@ -28,6 +28,9 @@ config:
       'Netcraft Web Server Survey' : 'Netcraft'
       'Dataprovider.com'           : 'Dataprovider.com'
       'SEOkicks'                   : 'SEOkicks'
+      'PingdomPageSpeed'           : 'Pingdom'
+      'Facebot Twitterbot'         : 'Facebook'
+      'Twitterbot'                 : 'Twitter'
 
 - matcher:
     variable:
@@ -2972,57 +2975,54 @@ config:
       AgentNameVersionMajor                : 'TelegramBot ??'
 
 
-
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/61.0.3163.100 Chrome/61.0.3163.100 Safari/537.36 PingdomPageSpeed/1.0 (pingbot/2.0; +http://www.pingdom.com/)'
-#    expected:
-#      DeviceClass                          : 'Desktop'
-#      DeviceName                           : 'Linux Desktop'
-#      DeviceBrand                          : 'Unknown'
-#      DeviceCpu                            : 'Intel x86_64'
-#      DeviceCpuBits                        : '64'
-#      OperatingSystemClass                 : 'Desktop'
-#      OperatingSystemName                  : 'Ubuntu'
-#      OperatingSystemVersion               : '??'
-#      OperatingSystemNameVersion           : 'Ubuntu ??'
-#      LayoutEngineClass                    : 'Browser'
-#      LayoutEngineName                     : 'Blink'
-#      LayoutEngineVersion                  : '61.0'
-#      LayoutEngineVersionMajor             : '61'
-#      LayoutEngineNameVersion              : 'Blink 61.0'
-#      LayoutEngineNameVersionMajor         : 'Blink 61'
-#      AgentClass                           : 'Browser'
-#      AgentName                            : 'Chromium'  # FIXME: Wrong! Must be pingbot !!
-#      AgentVersion                         : '61.0.3163.100'
-#      AgentVersionMajor                    : '61'
-#      AgentNameVersion                     : 'Chromium 61.0.3163.100'
-#      AgentNameVersionMajor                : 'Chromium 61'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/61.0.3163.100 Chrome/61.0.3163.100 Safari/537.36 PingdomPageSpeed/1.0 (pingbot/2.0; +http://www.pingdom.com/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Pingdom PageSpeed'
+      DeviceBrand                          : 'Pingdom'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Ubuntu ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'PingdomPageSpeed'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'PingdomPageSpeed 1.0'
+      LayoutEngineNameVersionMajor         : 'PingdomPageSpeed 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : '61.0.3163.100'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chromium 61.0.3163.100'
+      AgentNameVersionMajor                : 'Chromium 61'
 
 #FIXME: Facebook external hit ?!?!
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/601.2.4 (KHTML, like Gecko) Version/9.0.1 Safari/601.2.4 facebookexternalhit/1.1 Facebot Twitterbot/1.0'
-#    expected:
-#      DeviceClass                          : 'Robot'
-#      DeviceName                           : 'Apple Facebot Twitterbot'
-#      DeviceBrand                          : 'Apple'
-#      OperatingSystemClass                 : 'Cloud'
-#      OperatingSystemName                  : 'Cloud'
-#      OperatingSystemVersion               : 'Cloud'
-#      OperatingSystemNameVersion           : 'Cloud'
-#      LayoutEngineClass                    : 'Robot'
-#      LayoutEngineName                     : 'Facebot Twitterbot'
-#      LayoutEngineVersion                  : '1.0'
-#      LayoutEngineVersionMajor             : '1'
-#      LayoutEngineNameVersion              : 'Facebot Twitterbot 1.0'
-#      LayoutEngineNameVersionMajor         : 'Facebot Twitterbot 1'
-#      AgentClass                           : 'Robot'
-#      AgentName                            : 'Facebot Twitterbot'
-#      AgentVersion                         : '1.0'
-#      AgentVersionMajor                    : '1'
-#      AgentNameVersion                     : 'Facebot Twitterbot 1.0'
-#      AgentNameVersionMajor                : 'Facebot Twitterbot 1'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/601.2.4 (KHTML, like Gecko) Version/9.0.1 Safari/601.2.4 facebookexternalhit/1.1 Facebot Twitterbot/1.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Facebook Facebot Twitterbot'
+      DeviceBrand                          : 'Facebook'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Facebot Twitterbot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Facebot Twitterbot 1.0'
+      LayoutEngineNameVersionMajor         : 'Facebot Twitterbot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Facebot Twitterbot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Facebot Twitterbot 1.0'
+      AgentNameVersionMajor                : 'Facebot Twitterbot 1'
 
 - test:
     input:
@@ -3081,8 +3081,8 @@ config:
       user_agent_string: 'Twitterbot/1.0'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Twitterbot'
-      DeviceBrand                          : 'Unknown'
+      DeviceName                           : 'Twitter BOT'
+      DeviceBrand                          : 'Twitter'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : 'Cloud'
