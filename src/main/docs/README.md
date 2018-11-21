@@ -16,8 +16,8 @@ HIGH Profile release notes:
 
 Version 5.6 (SNAPSHOT - Not yet released)
 ---
-In version 5.6 the number of detected DeviceBrands is greatly increased. The downside is a major performance impact and increased memory footprint.
-I'm currently looking into an alternative implementation for solving the Brand problem.
+In version 5.6 the number of detected DeviceBrands is greatly increased.
+The detection system for the DeviceBrand has been rewritten and as a consequence both the memory usage and the time needed for the analysis have been decreased.
 
 Version 5.5
 ---
