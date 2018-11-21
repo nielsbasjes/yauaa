@@ -513,6 +513,12 @@ config:
                     for (NodeTuple mapping : mappings) {
                         String key = getKeyAsString(mapping, filename);
                         String value = getValueAsString(mapping, filename);
+
+                        if (map.containsKey(key)) {
+                            throw new InvalidParserConfigurationException(
+                                "In the lookup \"" + name + "\" the key \"" + key + "\" appears multiple times.");
+                        }
+
                         map.put(key, value);
                     }
                     break;

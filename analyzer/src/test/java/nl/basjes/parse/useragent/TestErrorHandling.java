@@ -107,6 +107,13 @@ public class TestErrorHandling {
     }
 
     @Test
+    public void checkLookupDuplicateKey() {
+        runTest(
+            "classpath*:BadDefinitions/LookupDuplicateKey.yaml",
+            containsString("appears multiple times"));
+    }
+
+    @Test
     public void checkFixedStringLookupMissing() {
         runTest(
             "classpath*:BadDefinitions/FixedStringLookupMissing.yaml",
