@@ -24,6 +24,60 @@
 
 config:
 
+# https://www.chromestatus.com/feature/4558585463832576
+# Mentions two examples to illustrate the old and new:
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.1.0; Pixel Build/OPM4.171019.021.D1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36"'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Pixel'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1.0'
+      OperatingSystemNameVersion           : 'Android 8.1.0'
+      OperatingSystemVersionBuild          : 'OPM4.171019.021.D1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome 61'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.1.0; Pixel) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36"'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Pixel'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1.0'
+      OperatingSystemNameVersion           : 'Android 8.1.0'
+# This is the only difference with the previous one.
+#      OperatingSystemVersionBuild          : 'OPM4.171019.021.D1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '61.0.3163.98'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome 61.0.3163.98'
+      AgentNameVersionMajor                : 'Chrome 61'
+
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 0.0; A0001) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.57 Mobile Safari/537.36'
