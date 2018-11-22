@@ -53,11 +53,15 @@ public class PrefixLookup implements Serializable {
             }
 
             if (caseSensitive) {
+                // If case sensitive we 'just' build the tree
                 if (childNodes[myChar] == null) {
                     childNodes[myChar] = new PrefixTrie(true, charIndex + 1);
                 }
                 childNodes[myChar].add(prefix, value);
             } else {
+                // If case INsensitive we build the tree
+                // and we link the same child to both the
+                // lower and uppercase entries in the child array.
                 char lower = Character.toLowerCase(myChar);
                 char upper = Character.toUpperCase(myChar);
 
@@ -66,10 +70,8 @@ public class PrefixLookup implements Serializable {
                 }
                 childNodes[lower].add(prefix, value);
 
-                if (lower != upper) {
-                    if (childNodes[upper] == null) {
-                        childNodes[upper] = childNodes[lower];
-                    }
+                if (childNodes[upper] == null) {
+                    childNodes[upper] = childNodes[lower];
                 }
             }
         }
@@ -84,10 +86,16 @@ public class PrefixLookup implements Serializable {
                 return theValue; // Cannot store these, so this is where it ends.
             }
 
-            if (childNodes == null || childNodes[myChar] == null) {
+            if (childNodes == null) {
                 return theValue;
             }
-            String returnValue = childNodes[myChar].find(input);
+
+            PrefixTrie child = childNodes[myChar];
+            if (child == null) {
+                return theValue;
+            }
+
+            String returnValue = child.find(input);
             return (returnValue == null) ? theValue : returnValue;
         }
 
