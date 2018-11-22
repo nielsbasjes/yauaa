@@ -134,7 +134,8 @@ public class TestPrefixLookup {
             prefixLookup.findLongestMatchingPrefix("999");
         }
         long stop = System.nanoTime();
-        LOG.info("Speed stats: {} runs took {}ms --> {}ns each (={}us) .", iterations, (stop - start)/1000000, ((stop - start)/iterations), ((stop - start)/iterations)/1000);
+        LOG.info("Speed stats: {} runs took {}ms --> {}ns each (={}us) .",
+            iterations, (stop - start)/1000000, ((stop - start)/iterations), ((stop - start)/iterations)/1000);
         assertEquals("Result 1", prefixLookup.findLongestMatchingPrefix("1"));
     }
 
