@@ -33,7 +33,7 @@ public class StepLookupPrefix extends Step {
     public StepLookupPrefix(String lookupName, Map<String, String> prefixList, String defaultValue) {
         this.lookupName = lookupName;
         this.defaultValue = defaultValue;
-        this.prefixLookup = new PrefixLookup(prefixList);
+        this.prefixLookup = new PrefixLookup(prefixList, false);
     }
 
     @Override

@@ -17,7 +17,6 @@
 package nl.basjes.parse.useragent.utils;
 
 import java.io.Serializable;
-import java.util.Locale;
 import java.util.Map;
 
 public class PrefixLookup implements Serializable {
@@ -25,48 +24,62 @@ public class PrefixLookup implements Serializable {
     public static class PrefixTrie implements Serializable {
         private PrefixTrie[] childNodes;
         private int          charIndex;
+        private boolean      caseSensitive;
 
         private String theValue;
 
-        public PrefixTrie() {
-            this(0);
+        public PrefixTrie(boolean caseSensitive) {
+            this(caseSensitive, 0);
         }
 
-        private PrefixTrie(int charIndex) {
+        private PrefixTrie(boolean caseSensitive, int charIndex) {
+            this.caseSensitive = caseSensitive;
             this.charIndex = charIndex;
         }
 
-        private void add(char[] prefix, String value) {
-            if (charIndex == prefix.length) {
+        private void add(String prefix, String value) {
+            if (charIndex == prefix.length()) {
                 theValue = value;
                 return;
             }
 
-            int myChar = prefix[charIndex]; // This will give us the ASCII value of the char
+            char myChar = prefix.charAt(charIndex); // This will give us the ASCII value of the char
             if (myChar < 32 || myChar > 126) {
                 throw new IllegalArgumentException("Only readable ASCII is allowed as key !!!");
             }
 
             if (childNodes == null) {
-                childNodes = new PrefixTrie[128];
+                childNodes = new PrefixLookup.PrefixTrie[128];
             }
 
-            if (childNodes[myChar] == null) {
-                childNodes[myChar] = new PrefixTrie(charIndex+1);
+            if (caseSensitive) {
+                if (childNodes[myChar] == null) {
+                    childNodes[myChar] = new PrefixTrie(true, charIndex + 1);
+                }
+                childNodes[myChar].add(prefix, value);
+            } else {
+                char lower = Character.toLowerCase(myChar);
+                char upper = Character.toUpperCase(myChar);
+
+                if (childNodes[lower] == null) {
+                    childNodes[lower] = new PrefixTrie(false, charIndex + 1);
+                }
+                childNodes[lower].add(prefix, value);
+
+                if (lower != upper) {
+                    if (childNodes[upper] == null) {
+                        childNodes[upper] = childNodes[lower];
+                    }
+                }
             }
-
-            childNodes[myChar].add(prefix, value);
         }
 
-        public void add(String prefix, String value) {
-            add(prefix.toCharArray(), value);
-        }
-
-        public String find(char[] input) {
-            if (charIndex == input.length) {
+        public String find(String input) {
+            if (charIndex == input.length()) {
                 return theValue;
             }
-            int myChar = input[charIndex]; // This will give us the ASCII value of the char
+
+            char myChar = input.charAt(charIndex); // This will give us the ASCII value of the char
             if (myChar < 32 || myChar > 126) {
                 return theValue; // Cannot store these, so this is where it ends.
             }
@@ -75,26 +88,21 @@ public class PrefixLookup implements Serializable {
                 return theValue;
             }
             String returnValue = childNodes[myChar].find(input);
-            if (returnValue == null) {
-                return theValue;
-            }
-            return returnValue;
+            return (returnValue == null) ? theValue : returnValue;
         }
 
-        public String find(String input) {
-            return find(input.toCharArray());
-        }
     }
 
-    private PrefixTrie prefixPrefixTrie = new PrefixTrie();
+    private PrefixTrie prefixPrefixTrie;
 
-    public PrefixLookup(Map<String, String> prefixList) {
-        // Translate the map into a different structure and lowercase the key.
-        prefixList.forEach((key, value) -> prefixPrefixTrie.add(key.toLowerCase(Locale.ENGLISH), value));
+    public PrefixLookup(Map<String, String> prefixList, boolean caseSensitive) {
+        // Translate the map into a different structure.
+        prefixPrefixTrie = new PrefixTrie(caseSensitive);
+        prefixList.forEach((key, value) -> prefixPrefixTrie.add(key, value));
     }
 
     public String findLongestMatchingPrefix(String input) {
-        return prefixPrefixTrie.find(input.toLowerCase(Locale.ENGLISH));
+        return prefixPrefixTrie.find(input);
     }
 
 }

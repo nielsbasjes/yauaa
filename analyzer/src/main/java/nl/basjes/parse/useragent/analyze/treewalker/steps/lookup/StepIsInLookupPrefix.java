@@ -30,7 +30,7 @@ public class StepIsInLookupPrefix extends Step {
 
     public StepIsInLookupPrefix(String lookupName, Map<String, String> prefixList) {
         this.lookupName = lookupName;
-        this.prefixLookup = new PrefixLookup(prefixList);
+        this.prefixLookup = new PrefixLookup(prefixList, false);
     }
 
     @Override

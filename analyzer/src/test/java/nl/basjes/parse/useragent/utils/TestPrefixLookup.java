@@ -32,32 +32,75 @@ public class TestPrefixLookup {
     private static final Logger LOG = LoggerFactory.getLogger(TestPrefixLookup.class);
 
     @Test
-    public void testLookup(){
+    public void testLookupCaseSensitive(){
         Map<String, String> prefixMap = new HashMap<>();
-        prefixMap.put("1",      "Result 1");
-        prefixMap.put("12",     "Result 12");
-        prefixMap.put("123",    "Result 123");
-        // The 1234 is missing !!!
-        prefixMap.put("12345",  "Result 12345");
-        prefixMap.put("123X",   "Result 123X");
-        prefixMap.put("1234X",  "Result 1234X");
+        prefixMap.put("A",      "Result A");
+        prefixMap.put("AB",     "Result AB");
+        prefixMap.put("ABC",    "Result ABC");
+        // The ABCD is missing !!!
+        prefixMap.put("ABCDE",  "Result ABCDE");
+        prefixMap.put("ABCX",   "Result ABCX");
+        prefixMap.put("ABCDX",  "Result ABCDX");
 
-        PrefixLookup prefixLookup = new PrefixLookup(prefixMap);
+        PrefixLookup prefixLookup = new PrefixLookup(prefixMap, true);
 
         assertNull(prefixLookup.findLongestMatchingPrefix("MisMatch"));
 
-        assertEquals("Wrong result for '1'",             "Result 1",        prefixLookup.findLongestMatchingPrefix("1"));
-        assertEquals("Wrong result for '12'",            "Result 12",       prefixLookup.findLongestMatchingPrefix("12"));
-        assertEquals("Wrong result for '123'",           "Result 123",      prefixLookup.findLongestMatchingPrefix("123"));
-        assertEquals("Wrong result for '1234'",          "Result 123",      prefixLookup.findLongestMatchingPrefix("1234"));
-        assertEquals("Wrong result for '12345'",         "Result 12345",    prefixLookup.findLongestMatchingPrefix("12345"));
+        assertEquals("Wrong result for 'A'",             "Result A",        prefixLookup.findLongestMatchingPrefix("A"));
+        assertEquals("Wrong result for 'AB'",            "Result AB",       prefixLookup.findLongestMatchingPrefix("AB"));
+        assertEquals("Wrong result for 'ABC'",           "Result ABC",      prefixLookup.findLongestMatchingPrefix("ABC"));
+        assertEquals("Wrong result for 'ABCD'",          "Result ABC",      prefixLookup.findLongestMatchingPrefix("ABCD"));
+        assertEquals("Wrong result for 'ABCDE'",         "Result ABCDE",    prefixLookup.findLongestMatchingPrefix("ABCDE"));
 
-        assertEquals("Wrong result for '1234'",          "Result 123",      prefixLookup.findLongestMatchingPrefix("1234"));
-        assertEquals("Wrong result for '12 Something'",  "Result 12",       prefixLookup.findLongestMatchingPrefix("12 Something"));
-        assertEquals("Wrong result for '1111'",          "Result 1",        prefixLookup.findLongestMatchingPrefix("1111"));
+        assertEquals("Wrong result for 'ABCD'",          "Result ABC",      prefixLookup.findLongestMatchingPrefix("ABCD"));
+        assertEquals("Wrong result for 'AB Something'",  "Result AB",       prefixLookup.findLongestMatchingPrefix("AB Something"));
+        assertEquals("Wrong result for 'AAAA'",          "Result A",        prefixLookup.findLongestMatchingPrefix("AAAA"));
 
-        assertEquals("Wrong result for '12€'",           "Result 12",       prefixLookup.findLongestMatchingPrefix("12€"));
-        assertEquals("Wrong result for '12\\t'",           "Result 12",       prefixLookup.findLongestMatchingPrefix("12\t"));
+        assertEquals("Wrong result for 'AB€'",           "Result AB",       prefixLookup.findLongestMatchingPrefix("AB€"));
+        assertEquals("Wrong result for 'AB\\t'",         "Result AB",       prefixLookup.findLongestMatchingPrefix("AB\t"));
+    }
+
+
+    @Test
+    public void testLookupCaseInsensitive(){
+        Map<String, String> prefixMap = new HashMap<>();
+        prefixMap.put("A",      "Result A");
+        prefixMap.put("AB",     "Result AB");
+        prefixMap.put("ABC",    "Result ABC");
+        // The ABCD is missing !!!
+        prefixMap.put("ABCDE",  "Result ABCDE");
+        prefixMap.put("ABCX",   "Result ABCX");
+        prefixMap.put("ABCDX",  "Result ABCDX");
+
+        PrefixLookup prefixLookup = new PrefixLookup(prefixMap, false);
+
+        assertNull(prefixLookup.findLongestMatchingPrefix("MisMatch"));
+
+        assertEquals("Wrong result for 'A'",             "Result A",        prefixLookup.findLongestMatchingPrefix("A"));
+        assertEquals("Wrong result for 'AB'",            "Result AB",       prefixLookup.findLongestMatchingPrefix("AB"));
+        assertEquals("Wrong result for 'ABC'",           "Result ABC",      prefixLookup.findLongestMatchingPrefix("ABC"));
+        assertEquals("Wrong result for 'ABCD'",          "Result ABC",      prefixLookup.findLongestMatchingPrefix("ABCD"));
+        assertEquals("Wrong result for 'ABCDE'",         "Result ABCDE",    prefixLookup.findLongestMatchingPrefix("ABCDE"));
+
+        assertEquals("Wrong result for 'ABCD'",          "Result ABC",      prefixLookup.findLongestMatchingPrefix("ABCD"));
+        assertEquals("Wrong result for 'AB Something'",  "Result AB",       prefixLookup.findLongestMatchingPrefix("AB Something"));
+        assertEquals("Wrong result for 'AAAA'",          "Result A",        prefixLookup.findLongestMatchingPrefix("AAAA"));
+
+        assertEquals("Wrong result for 'AB€'",           "Result AB",       prefixLookup.findLongestMatchingPrefix("AB€"));
+        assertEquals("Wrong result for 'AB\\t'",         "Result AB",       prefixLookup.findLongestMatchingPrefix("AB\t"));
+
+        assertEquals("Wrong result for 'a'",             "Result A",        prefixLookup.findLongestMatchingPrefix("a"));
+        assertEquals("Wrong result for 'ab'",            "Result AB",       prefixLookup.findLongestMatchingPrefix("ab"));
+        assertEquals("Wrong result for 'abc'",           "Result ABC",      prefixLookup.findLongestMatchingPrefix("abc"));
+        assertEquals("Wrong result for 'abcd'",          "Result ABC",      prefixLookup.findLongestMatchingPrefix("abcd"));
+        assertEquals("Wrong result for 'abcde'",         "Result ABCDE",    prefixLookup.findLongestMatchingPrefix("abcde"));
+
+        assertEquals("Wrong result for 'abcd'",          "Result ABC",      prefixLookup.findLongestMatchingPrefix("abcd"));
+        assertEquals("Wrong result for 'ab something'",  "Result AB",       prefixLookup.findLongestMatchingPrefix("ab something"));
+        assertEquals("Wrong result for 'aaaa'",          "Result A",        prefixLookup.findLongestMatchingPrefix("aaaa"));
+
+        assertEquals("Wrong result for 'ab€'",           "Result AB",       prefixLookup.findLongestMatchingPrefix("ab€"));
+        assertEquals("Wrong result for 'ab\\t'",         "Result AB",       prefixLookup.findLongestMatchingPrefix("ab\t"));
     }
 
 
@@ -65,14 +108,14 @@ public class TestPrefixLookup {
     public void testStoreNonASCII() {
         Map<String, String> prefixMap = new HashMap<>();
         prefixMap.put("12€", "Euro");
-        PrefixLookup prefixLookup = new PrefixLookup(prefixMap);
+        PrefixLookup prefixLookup = new PrefixLookup(prefixMap, false);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testStoreNonASCIITab() {
         Map<String, String> prefixMap = new HashMap<>();
         prefixMap.put("12\t", "Euro");
-        PrefixLookup prefixLookup = new PrefixLookup(prefixMap);
+        PrefixLookup prefixLookup = new PrefixLookup(prefixMap, false);
     }
 
     @Test
@@ -82,16 +125,16 @@ public class TestPrefixLookup {
         for (int i = 10; i < 1000; i++) {
             prefixMap.put("" + i, "Something");
         }
-        PrefixLookup prefixLookup = new PrefixLookup(prefixMap);
+        PrefixLookup prefixLookup = new PrefixLookup(prefixMap, false);
 
-        long iterations = 1000000;
+        long iterations = 100_000_000;
 
         long start = System.nanoTime();
         for (int i = 0; i<iterations; i++) {
             prefixLookup.findLongestMatchingPrefix("999");
         }
         long stop = System.nanoTime();
-        LOG.info("Speed stats: {} runs took {}ms --> {}us each.", iterations, (stop - start)/1000000, ((stop - start)/iterations)/1000);
+        LOG.info("Speed stats: {} runs took {}ms --> {}ns each (={}us) .", iterations, (stop - start)/1000000, ((stop - start)/iterations), ((stop - start)/iterations)/1000);
         assertEquals("Result 1", prefixLookup.findLongestMatchingPrefix("1"));
     }
 
