@@ -29,6 +29,7 @@ import org.apache.flink.types.Row;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -73,12 +74,11 @@ public class TestTableFunction {
 
         // register the function
         tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
-        tableEnv.registerFunction("ParseUserAgentNoCache", new AnalyzeUseragentFunction(0, "DeviceClass", "AgentNameVersionMajor"));
 
         String sqlQuery =
             "SELECT useragent,"+
-            "       ParseUserAgent(useragent, 'DeviceClass')            as DeviceClass," +
-            "       ParseUserAgentNoCache(useragent, 'AgentNameVersionMajor')  as AgentNameVersionMajor," +
+            "       ParseUserAgent(useragent, 'DeviceClass'          )  as DeviceClass," +
+            "       ParseUserAgent(useragent, 'AgentNameVersionMajor')  as AgentNameVersionMajor," +
             "       expectedDeviceClass," +
             "       expectedAgentNameVersionMajor " +
             "FROM AgentStream";
@@ -87,7 +87,7 @@ public class TestTableFunction {
         DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, Row.class);
 
         resultSet.map((MapFunction<Row, String>) row -> {
-            assertEquals("Wrong DeviceClass: " + row.getField(0), row.getField(3), row.getField(1));
+            assertEquals("Wrong DeviceClass: "           + row.getField(0), row.getField(3), row.getField(1));
             assertEquals("Wrong AgentNameVersionMajor: " + row.getField(0), row.getField(4), row.getField(2));
             return row.getField(0).toString();
         }).print();
@@ -95,5 +95,40 @@ public class TestTableFunction {
         senv.execute();
     }
 
+
+    private static final String USERAGENT =
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36";
+
+    @Test
+    public void testFunctionList() {
+        AnalyzeUseragentFunction function = new AnalyzeUseragentFunction(Arrays.asList("DeviceClass", "AgentNameVersionMajor"));
+        function.open(null);
+        assertEquals("Desktop",   function.eval(USERAGENT, "DeviceClass"));
+        assertEquals("Chrome 70", function.eval(USERAGENT, "AgentNameVersionMajor"));
+    }
+
+    @Test
+    public void testFunctionListNoCache() {
+        AnalyzeUseragentFunction function = new AnalyzeUseragentFunction(0, Arrays.asList("DeviceClass", "AgentNameVersionMajor"));
+        function.open(null);
+        assertEquals("Desktop",   function.eval(USERAGENT, "DeviceClass"));
+        assertEquals("Chrome 70", function.eval(USERAGENT, "AgentNameVersionMajor"));
+    }
+
+    @Test
+    public void testFunctionArray() {
+        AnalyzeUseragentFunction function = new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor");
+        function.open(null);
+        assertEquals("Desktop",   function.eval(USERAGENT, "DeviceClass"));
+        assertEquals("Chrome 70", function.eval(USERAGENT, "AgentNameVersionMajor"));
+    }
+
+    @Test
+    public void testFunctionArrayNoCache() {
+        AnalyzeUseragentFunction function = new AnalyzeUseragentFunction(0, "DeviceClass", "AgentNameVersionMajor");
+        function.open(null);
+        assertEquals("Desktop",   function.eval(USERAGENT, "DeviceClass"));
+        assertEquals("Chrome 70", function.eval(USERAGENT, "AgentNameVersionMajor"));
+    }
 
 }
