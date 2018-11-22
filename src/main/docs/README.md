@@ -14,7 +14,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 HIGH Profile release notes:
 ===========================
 
-Version 5.6 (SNAPSHOT - Not yet released)
+Version 5.6
 ---
 In version 5.6 the number of detected DeviceBrands is greatly increased.
 The detection system for the DeviceBrand has been rewritten and as a consequence both the memory usage and the time needed for the analysis have been decreased.
