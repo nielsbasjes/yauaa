@@ -77,6 +77,13 @@ public class TestMemoryFootprint {
     public void assesMemoryImpactPerFieldName() { //NOSONAR: Do not complain about ignored performance test
         // Get the Java runtime
         Runtime runtime = Runtime.getRuntime();
+
+        // Calculate the used memory
+        long memory = runtime.totalMemory() - runtime.freeMemory();
+        LOG.error(String.format(
+            "Without Yauaa present and GC --> Used memory is %10d bytes (%5d MiB)",
+            memory, bytesToMegabytes(memory)));
+
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .hideMatcherLoadStats()
@@ -90,7 +97,7 @@ public class TestMemoryFootprint {
         runtime.gc();
 
         // Calculate the used memory
-        long memory = runtime.totalMemory() - runtime.freeMemory();
+        memory = runtime.totalMemory() - runtime.freeMemory();
         LOG.error(String.format(
             "Querying for 'All fields' and GC --> Used memory is %10d bytes (%5d MiB)",
             memory, bytesToMegabytes(memory)));
