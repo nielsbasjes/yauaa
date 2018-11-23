@@ -751,12 +751,12 @@ config:
 
             userAgent.processSetAll();
             return hardCodedPostProcessing(userAgent);
-        } catch (NullPointerException npe) {
+        } catch (RuntimeException rte) {
             // If this occurs then someone has found a previously undetected problem.
             // So this is a safety for something that 'can' but 'should not' occur.
             userAgent.reset();
             userAgent = setAsHacker(userAgent, 10000);
-            userAgent.setForced("HackerAttackVector", "Yauaa NPE Exploit", 10000);
+            userAgent.setForced("HackerAttackVector", "Yauaa Exploit", 10000);
             return hardCodedPostProcessing(userAgent);
         }
     }
