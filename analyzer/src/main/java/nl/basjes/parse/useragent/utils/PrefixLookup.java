@@ -77,17 +77,13 @@ public class PrefixLookup implements Serializable {
         }
 
         public String find(String input) {
-            if (charIndex == input.length()) {
+            if (charIndex == input.length() || childNodes == null) {
                 return theValue;
             }
 
             char myChar = input.charAt(charIndex); // This will give us the ASCII value of the char
             if (myChar < 32 || myChar > 126) {
                 return theValue; // Cannot store these, so this is where it ends.
-            }
-
-            if (childNodes == null) {
-                return theValue;
             }
 
             PrefixTrie child = childNodes[myChar];
