@@ -1,5 +1,9 @@
 This is intended as an overview of the major changes
 
+v5.7
+===
+- Fixed exception handling if an illegal domain name is used in an email address or website url
+
 v5.6
 ===
 - Added Flink Table scalar function

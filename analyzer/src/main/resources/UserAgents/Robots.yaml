@@ -3491,3 +3491,84 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'CBSbot ??'
       AgentNameVersionMajor                : 'CBSbot ??'
+
+
+# Using a normal TLD website.
+- test:
+    input:
+      user_agent_string: 'NielsBasjesBot/42 (+http://www.basjes.nl/bot/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'NielsBasjesBot'
+      DeviceBrand                          : 'Basjes' # << -- Picked up from the domain name
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'NielsBasjesBot'
+      LayoutEngineVersion                  : '42'
+      LayoutEngineVersionMajor             : '42'
+      LayoutEngineNameVersion              : 'NielsBasjesBot 42'
+      LayoutEngineNameVersionMajor         : 'NielsBasjesBot 42'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'NielsBasjesBot'
+      AgentVersion                         : '42'
+      AgentVersionMajor                    : '42'
+      AgentNameVersion                     : 'NielsBasjesBot 42'
+      AgentNameVersionMajor                : 'NielsBasjesBot 42'
+      AgentInformationUrl                  : 'http://www.basjes.nl/bot/'
+
+
+# Using a non existent TLD website.
+- test:
+    input:
+      user_agent_string: 'NielsBasjesBot/42 (+http://www.no.such.tld/bot/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'NielsBasjesBot'
+      DeviceBrand                          : 'Unknown'  # << -- Unable to extract from the domainname
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'NielsBasjesBot'
+      LayoutEngineVersion                  : '42'
+      LayoutEngineVersionMajor             : '42'
+      LayoutEngineNameVersion              : 'NielsBasjesBot 42'
+      LayoutEngineNameVersionMajor         : 'NielsBasjesBot 42'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'NielsBasjesBot'
+      AgentVersion                         : '42'
+      AgentVersionMajor                    : '42'
+      AgentNameVersion                     : 'NielsBasjesBot 42'
+      AgentNameVersionMajor                : 'NielsBasjesBot 42'
+      AgentInformationUrl                  : 'http://www.no.such.tld/bot/'
+
+# Using a non existent TLD email.
+- test:
+    input:
+      user_agent_string: 'NielsBasjesBot/42 (info@no.such.tld)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'NielsBasjesBot'
+      DeviceBrand                          : 'Unknown'  # << -- Unable to extract from the domainname
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'NielsBasjesBot'
+      LayoutEngineVersion                  : '42'
+      LayoutEngineVersionMajor             : '42'
+      LayoutEngineNameVersion              : 'NielsBasjesBot 42'
+      LayoutEngineNameVersionMajor         : 'NielsBasjesBot 42'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'NielsBasjesBot'
+      AgentVersion                         : '42'
+      AgentVersionMajor                    : '42'
+      AgentNameVersion                     : 'NielsBasjesBot 42'
+      AgentNameVersionMajor                : 'NielsBasjesBot 42'
+      AgentInformationEmail                : 'info@no.such.tld'
+

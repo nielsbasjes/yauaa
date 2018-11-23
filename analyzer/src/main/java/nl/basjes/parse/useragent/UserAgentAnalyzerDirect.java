@@ -877,7 +877,7 @@ config:
         try {
             InternetDomainName domainName = InternetDomainName.from(hostname);
             return Normalize.brand(domainName.topPrivateDomain().parts().get(0));
-        } catch (IllegalArgumentException e) {
+        } catch (RuntimeException e) {
             return null;
         }
     }
