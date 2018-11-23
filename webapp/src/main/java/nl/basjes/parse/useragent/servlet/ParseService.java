@@ -287,9 +287,12 @@ public class ParseService {
             sb.append("<p class=\"speed\">Building this page took ")
                 .append(String.format(Locale.ENGLISH, "%3.3f", pageMilliseconds))
                 .append(" ms.</p>");
-            sb.append("<p class=\"speed\">Parsing took ")
-                .append(String.format(Locale.ENGLISH, "%3.3f", parseMilliseconds))
-                .append(" ms.</p>");
+
+            if (parseMilliseconds > 0) {
+                sb.append("<p class=\"speed\">Parsing took ")
+                    .append(String.format(Locale.ENGLISH, "%3.3f", parseMilliseconds))
+                    .append(" ms.</p>");
+            }
 
             sb.append("<p class=\"speed\">").append(getMemoryUsage()).append("</p>");
 
