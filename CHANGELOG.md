@@ -2,7 +2,7 @@ This is intended as an overview of the major changes
 
 v5.7
 ===
-- Fixed exception handling if an illegal domain name is used in an email address or website url
+- Fixed exception handling if an illegal TLD is used in the domainname of an email address or website url.
 
 v5.6
 ===
