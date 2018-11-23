@@ -277,8 +277,10 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
             try {
                 Resource resource = resourceEntry.getValue();
                 String filename = resource.getFilename();
-                maxFilenameLength = Math.max(maxFilenameLength, filename.length());
-                loadResource(yaml, resource.getInputStream(), filename);
+                if (filename != null) {
+                    maxFilenameLength = Math.max(maxFilenameLength, filename.length());
+                    loadResource(yaml, resource.getInputStream(), filename);
+                }
             } catch (IOException e) {
                 throw new InvalidParserConfigurationException("Error reading resources: " + e.getMessage(), e);
             }
