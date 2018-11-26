@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-( cd .. && mvn clean package -DskipTests=true ) || exit
+( cd .. && mvn clean package -DskipTests=true -Drat.skip=true ) || exit
 version=$(fgrep '<version>' pom.xml | head -1 | sed 's@.*>\(.*\)<.*$@\1@g')
 echo "Testing version ${version}" && \
 java -jar target/benchmarks.jar > "version-${version}-$(date +%Y%m%d-%H%M%S).txt"
