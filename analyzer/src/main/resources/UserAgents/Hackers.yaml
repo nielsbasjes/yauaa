@@ -18,7 +18,7 @@ config:
 
 - matcher:
     require:
-    - 'agent{"() {"'
+    - 'agent~"() {"'
     extract:
     - 'DeviceClass                         :  10000 :"Hacker"'
     - 'DeviceBrand                         :  10000 :"Hacker"'
@@ -40,27 +40,6 @@ config:
 - matcher:
     require:
     - 'agent{"('''') {"'
-    extract:
-    - 'DeviceClass                         :  10000 :"Hacker"'
-    - 'DeviceBrand                         :  10000 :"Hacker"'
-    - 'DeviceName                          :  10000 :"Hacker"'
-    - 'DeviceVersion                       :  10000 :"Hacker"'
-    - 'OperatingSystemClass                :  10000 :"Hacker"'
-    - 'OperatingSystemName                 :  10000 :"Hacker"'
-    - 'OperatingSystemVersion              :  10000 :"Hacker"'
-    - 'OperatingSystemVersionBuild         :  10000 :"Hacker"'
-    - 'LayoutEngineClass                   :  10000 :"Hacker"'
-    - 'LayoutEngineName                    :  10000 :"Hacker"'
-    - 'LayoutEngineVersion                 :  10000 :"Hacker"'
-    - 'AgentClass                          :  10000 :"Hacker"'
-    - 'AgentName                           :  10000 :"Hacker"'
-    - 'AgentVersion                        :  10000 :"Hacker"'
-    - 'HackerAttackVector                  :  10000 :"Shell Shock"'
-    - 'HackerToolkit                       :      1 :"Unknown"'
-
-- matcher:
-    require:
-    - 'agent~"() {"'
     extract:
     - 'DeviceClass                         :  10000 :"Hacker"'
     - 'DeviceBrand                         :  10000 :"Hacker"'
