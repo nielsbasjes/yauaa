@@ -1,5 +1,9 @@
 This is intended as an overview of the major changes
 
+v5.8-SNAPSHOT
+===
+- Report the actual version of Edge using a lookup.
+
 v5.7
 ===
 - Fixed exception handling if an illegal TLD is used in the domainname of an email address or website url.
