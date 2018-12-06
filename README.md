@@ -66,8 +66,6 @@ is converted into this set of fields:
 |  **Agent** Name Version                   | Chrome 53.0.2785.124 |
 |  **Agent** Name Version Major             | Chrome 53            |
 
-You can find more information about what you can expect as output here: [the output to expect](README-Output.md) 
-
 Try it!
 =======
 You can try it online with your own browser here: [https://try.yauaa.basjes.nl/](https://try.yauaa.basjes.nl/).
