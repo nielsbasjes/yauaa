@@ -685,6 +685,16 @@ A LRU cache is in place that does over 1M per second if they are in the cache.</
 </table>
 <p>In the canonical usecase of analysing clickstream data you will see a &lt;1ms hit per visitor (or better: per new non-cached useragent)
 and for all the other clicks the values are retrieved from this cache at a speed of &lt; 1 microsecond (i.e. close to 0).</p>
+<h1 id="historical-performance">Historical performance</h1>
+<p>The graph below gives you some insight of how the performance of Yauaa has progressed over time.</p>
+<p>You can clearly see the increase in the time needed when adding a lot more rules. 
+Also the periodic drops in time needed are clearly visible when a performance improvement was found.</p>
+<p>Between version 5.5 and 5.6 a lot of extra rules to detect more brands of mobile devices on Android (causing the needed time to reach ~ 3ms).
+Followed by a few steps in a rewrite of that part resulting in effectively the fastest version to date.</p>
+<p><img src="Performance-i7-6820HQ.png" alt="Graph of the performance on an Intel i7 6820"></p>
+<p>In addition I have been able to run (most of) the same benchmarks on a very old Intel Xeon X5650.
+According to <a href="https://www.cpubenchmark.net/compare/Intel-Xeon-X5650-vs-Intel-i7-6820HQ/1304vs2659" target="_blank">cpubenchmark.net</a> this Xeon has only 65% of the single thread speed of the i7.</p>
+<p><img src="Performance-Xeon-X5650.png" alt="Graph of the performance on an Intel i7 6820"></p>
 
                                 
                                 </section>
@@ -728,7 +738,7 @@ and for all the other clicks the values are retrieved from this cache at a speed
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Performance","level":"2.4","depth":1,"next":{"title":"Commandline","level":"2.5","depth":1,"path":"README-Commandline.md","ref":"README-Commandline.md","articles":[]},"previous":{"title":"Memory usage","level":"2.3","depth":1,"path":"README-MemoryUsage.md","ref":"README-MemoryUsage.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap","livereload"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.7"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-Performance.md","mtime":"2018-11-26T09:41:35.905Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-06T20:14:16.288Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Performance","level":"2.4","depth":1,"next":{"title":"Commandline","level":"2.5","depth":1,"path":"README-Commandline.md","ref":"README-Commandline.md","articles":[]},"previous":{"title":"Memory usage","level":"2.3","depth":1,"path":"README-MemoryUsage.md","ref":"README-MemoryUsage.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.7"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-Performance.md","mtime":"2018-12-06T23:12:35.659Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-06T23:17:29.375Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -736,10 +746,6 @@ and for all the other clicks the values are retrieved from this cache at a speed
         
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
-    
-        
-        <script src="gitbook/gitbook-plugin-livereload/plugin.js"></script>
-        
     
         
         <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
