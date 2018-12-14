@@ -52,6 +52,7 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
 
     /**
      * Create a UserAgentAnalyzer that extracts only the specified fields
+     * @param cacheSize The desired size of the cache.
      * @param desiredFields The list of desired field names.
      */
     public AnalyzeUseragentFunction(int cacheSize, String... desiredFields) {
@@ -60,6 +61,7 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
 
     /**
      * Create a UserAgentAnalyzer that extracts only the specified fields
+     * @param cacheSize The desired size of the cache.
      * @param desiredFields The list of desired field names.
      */
     public AnalyzeUseragentFunction(int cacheSize, List<String> desiredFields) {
