@@ -7,7 +7,8 @@ v5.8-SNAPSHOT
 v5.8
 ===
 - Lookup for MS-Edge versions (which are a MESS!)
-- Fixed Chromium running in a snap on Ubuntu.
+- Fixed detection Chromium running in a snap on Ubuntu.
+- Fixed detection Epiphany (Gnome Web)
 
 v5.7
 ===

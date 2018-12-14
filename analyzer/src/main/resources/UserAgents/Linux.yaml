@@ -306,6 +306,12 @@ config:
       AgentNameVersion                     : 'Chromium 39.0.2171.65'
       AgentNameVersionMajor                : 'Chromium 39'
 
+- matcher:
+    extract:
+    - 'AgentClass                          :   2010 :"Browser"'
+    - 'AgentName                           :   2010 :"Epiphany"'
+    - 'AgentVersion                        :   2010 :agent.product.name="Epiphany"^.version'
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/538.15 (KHTML, like Gecko) Version/8.0 Safari/538.15 Ubuntu/14.10 (3.10.3-0ubuntu3) Epiphany/3.10.3'
@@ -326,11 +332,71 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 538.15'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Safari'
-      AgentVersion                         : '8.0'
-      AgentVersionMajor                    : '8'
-      AgentNameVersion                     : 'Safari 8.0'
-      AgentNameVersionMajor                : 'Safari 8'
+      AgentName                            : 'Epiphany'
+      AgentVersion                         : '3.10.3'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Epiphany 3.10.3'
+      AgentNameVersionMajor                : 'Epiphany 3'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Safari/605.1.15 Ubuntu/16.04 (3.18.11-0ubuntu1) Epiphany/3.18.11'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '16.04'
+      OperatingSystemNameVersion           : 'Ubuntu 16.04'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Epiphany'
+      AgentVersion                         : '3.18.11'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Epiphany 3.18.11'
+      AgentNameVersionMajor                : 'Epiphany 3'
+
+
+- matcher:
+    extract:
+    - 'OperatingSystemClass                :   2010 :"Desktop"'
+    - 'OperatingSystemName                 :   2010 :"Elementary OS"'
+    - 'OperatingSystemVersion              :   2010 :agent.product.name="Elementary OS"^.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/604.1 (KHTML, like Gecko) Version/11.0 Safari/604.1 elementary OS/0.4 (Loki) Epiphany/3.18.11'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Elementary OS'
+      OperatingSystemVersion               : '0.4'
+      OperatingSystemNameVersion           : 'Elementary OS 0.4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '604.1'
+      LayoutEngineVersionMajor             : '604'
+      LayoutEngineNameVersion              : 'AppleWebKit 604.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 604'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Epiphany'
+      AgentVersion                         : '3.18.11'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Epiphany 3.18.11'
+      AgentNameVersionMajor                : 'Epiphany 3'
+
 
 - test:
     input:
@@ -1135,14 +1201,14 @@ config:
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '538.15'
       LayoutEngineVersionMajor             : '538'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Safari'
-      AgentVersion                         : '6.0'
-      AgentVersionMajor                    : '6'
-      AgentNameVersion                     : 'Safari 6.0'
-      AgentNameVersionMajor                : 'Safari 6'
       LayoutEngineNameVersion              : 'AppleWebKit 538.15'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Epiphany'
+      AgentVersion                         : '3.8.2'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Epiphany 3.8.2'
+      AgentNameVersionMajor                : 'Epiphany 3'
 
 - test:
     input:
