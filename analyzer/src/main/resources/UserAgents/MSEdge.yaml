@@ -36,82 +36,83 @@ config:
 # So if we have the EdgeHTML version and the OS build in this table then we have the version of Edge.
 # NOTE: Yes, MS deployed the browser as an OS update ... <face palm> ...
 
-# 2018-12-06 Copied from https://en.wikipedia.org/wiki/Microsoft_Edge
+# 2018-12-12 Copied from https://en.wikipedia.org/wiki/Microsoft_Edge
 - lookup:
     name: 'EdgeHtmlVersionToEdgeVersion'
     map:
-      "12.10049" : "0.10"
-      "12.10051" : "0.11"
-      "12.10052" : "0.11"
-      "12.10061" : "0.11"
-      "12.10074" : "0.11"
-      "12.10080" : "0.11"
-      "12.10122" : "13"
-      "12.10130" : "15"
-      "12.10136" : "16"
-      "12.10149" : "19"
-      "12.10158" : "20"
-      "12.10159" : "20"
-      "12.10162" : "20"
-      "12.10166" : "20"
-      "12.10240" : "20"
-      "12.10525" : "20"
-      "12.10532" : "20"
-      "12.10536" : "20"
-      "13.10547" : "21"
-      "13.10549" : "21"
-      "13.10565" : "23"
-      "13.10572" : "25"
-      "13.10576" : "25"
-      "13.10581" : "25"
-      "13.10586" : "25"
-      "13.11082" : "25"
-      "13.11099" : "27"
-      "13.11102" : "28"
-      "13.14251" : "28"
-      "13.14257" : "28"
-      "14.14267" : "31"
-      "14.14271" : "31"
-      "14.14279" : "31"
-      "14.14283" : "31"
-      "14.14291" : "34"
-      "14.14295" : "34"
-      "14.14300" : "34"
-      "14.14316" : "37"
-      "14.14322" : "37"
-      "14.14327" : "37"
-      "14.14328" : "37"
-      "14.14332" : "37"
-      "14.14342" : "38"
-      "14.14352" : "38"
-      "14.14393" : "38"
-      "14.14901" : "39"
-      "14.14905" : "39"
-      "14.14915" : "39"
-      "14.14926" : "39"
-      "14.14931" : "39"
-      "14.14936" : "39"
-      "15.14942" : "39"
-      "15.14946" : "39"
-      "15.14951" : "39"
-      "15.14955" : "39"
-      "15.14959" : "39"
-      "15.14965" : "39"
-      "15.14971" : "39"
-      "15.14977" : "39"
-      "15.14986" : "39"
-      "15.15063" : "40"
-      "16.16299" : "41"
-      "17.17134" : "42"
-      "18.17763" : "44"
+      "12.10049" : "0.10.10049"
+      "12.10051" : "0.11.10051"
+      "12.10052" : "0.11.10052"
+      "12.10061" : "0.11.10061"
+      "12.10074" : "0.11.10074"
+      "12.10080" : "0.11.10080"
+      "12.10122" : "13.10122"
+      "12.10130" : "15.10130"
+      "12.10136" : "16.10136"
+      "12.10149" : "19.10149"
+      "12.10158" : "20.10158"
+      "12.10159" : "20.10159"
+      "12.10162" : "20.10162"
+      "12.10166" : "20.10166"
+      "12.10240" : "20.10240"
+      "12.10525" : "20.10525"
+      "12.10532" : "20.10532"
+      "12.10536" : "20.10536"
+      "13.10547" : "21.10547"
+      "13.10549" : "21.10549"
+      "13.10553" : "22.10553" # Apparently an Xbox specific version. The 22 is an educated guess.
+      "13.10565" : "23.10565"
+      "13.10572" : "25.10572"
+      "13.10576" : "25.10576"
+      "13.10581" : "25.10581"
+      "13.10586" : "25.10586"
+      "13.11082" : "25.11082"
+      "13.11099" : "27.11099"
+      "13.11102" : "28.11102"
+      "13.14251" : "28.14251"
+      "13.14257" : "28.14257"
+      "14.14267" : "31.14267"
+      "14.14271" : "31.14271"
+      "14.14279" : "31.14279"
+      "14.14283" : "31.14283"
+      "14.14291" : "34.14291"
+      "14.14295" : "34.14295"
+      "14.14300" : "34.14300"
+      "14.14316" : "37.14316"
+      "14.14322" : "37.14322"
+      "14.14327" : "37.14327"
+      "14.14328" : "37.14328"
+      "14.14332" : "37.14332"
+      "14.14342" : "38.14342"
+      "14.14352" : "38.14352"
+      "14.14393" : "38.14393"
+      "14.14901" : "39.14901"
+      "14.14905" : "39.14905"
+      "14.14915" : "39.14915"
+      "14.14926" : "39.14926"
+      "14.14931" : "39.14931"
+      "14.14936" : "39.14936"
+      "15.14942" : "39.14942"
+      "15.14946" : "39.14946"
+      "15.14951" : "39.14951"
+      "15.14955" : "39.14955"
+      "15.14959" : "39.14959"
+      "15.14965" : "39.14965"
+      "15.14971" : "39.14971"
+      "15.14977" : "39.14977"
+      "15.14986" : "39.14986"
+      "15.15063" : "40.15063"
+      "16.16299" : "41.16299.15"
+      "17.17134" : "42.17134"
+      "18.17763" : "44.17763"
       # In addition if the Windows 10 build is not in this list we assume the base version is using the latest major
-      "12" : "20"
-      "13" : "28"
-      "14" : "39"
-      "15" : "40"
-      "16" : "41"
-      "17" : "42"
-      "18" : "44"
+      "12"       : "20.??"
+      "13"       : "28.??"
+      "14"       : "39.??"
+      "15"       : "40.??"
+      "16"       : "41.??"
+      "17"       : "42.??"
+      "18"       : "44.??"
 
 
 - matcher:
@@ -170,9 +171,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 12'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '20'
+      AgentVersion                         : '20.??'
       AgentVersionMajor                    : '20'
-      AgentNameVersion                     : 'Edge 20'
+      AgentNameVersion                     : 'Edge 20.??'
       AgentNameVersionMajor                : 'Edge 20'
 
 - test:
@@ -195,9 +196,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '25'
+      AgentVersion                         : '25.10586'
       AgentVersionMajor                    : '25'
-      AgentNameVersion                     : 'Edge 25'
+      AgentNameVersion                     : 'Edge 25.10586'
       AgentNameVersionMajor                : 'Edge 25'
 
 - test:
@@ -221,9 +222,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '25'
+      AgentVersion                         : '25.10586'
       AgentVersionMajor                    : '25'
-      AgentNameVersion                     : 'Edge 25'
+      AgentNameVersion                     : 'Edge 25.10586'
       AgentNameVersionMajor                : 'Edge 25'
 
 - test:
@@ -246,9 +247,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 12'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '20'
+      AgentVersion                         : '20.10166'
       AgentVersionMajor                    : '20'
-      AgentNameVersion                     : 'Edge 20'
+      AgentNameVersion                     : 'Edge 20.10166'
       AgentNameVersionMajor                : 'Edge 20'
 
 - test:
@@ -271,9 +272,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 14'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '34'
+      AgentVersion                         : '34.14295'
       AgentVersionMajor                    : '34'
-      AgentNameVersion                     : 'Edge 34'
+      AgentNameVersion                     : 'Edge 34.14295'
       AgentNameVersionMajor                : 'Edge 34'
 
 - test:
@@ -297,9 +298,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '28'
+      AgentVersion                         : '28.14257'
       AgentVersionMajor                    : '28'
-      AgentNameVersion                     : 'Edge 28'
+      AgentNameVersion                     : 'Edge 28.14257'
       AgentNameVersionMajor                : 'Edge 28'
 
 - test:
@@ -324,9 +325,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 14'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '34'
+      AgentVersion                         : '34.14291'
       AgentVersionMajor                    : '34'
-      AgentNameVersion                     : 'Edge 34'
+      AgentNameVersion                     : 'Edge 34.14291'
       AgentNameVersionMajor                : 'Edge 34'
 
 - test:
@@ -354,9 +355,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '25'
+      AgentVersion                         : '25.10586'
       AgentVersionMajor                    : '25'
-      AgentNameVersion                     : 'Edge 25'
+      AgentNameVersion                     : 'Edge 25.10586'
       AgentNameVersionMajor                : 'Edge 25'
 
 - test:
@@ -383,9 +384,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '25'
+      AgentVersion                         : '25.10586'
       AgentVersionMajor                    : '25'
-      AgentNameVersion                     : 'Edge 25'
+      AgentNameVersion                     : 'Edge 25.10586'
       AgentNameVersionMajor                : 'Edge 25'
 
 - test:
@@ -410,9 +411,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 12'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '20'
+      AgentVersion                         : '20.10240'
       AgentVersionMajor                    : '20'
-      AgentNameVersion                     : 'Edge 20'
+      AgentNameVersion                     : 'Edge 20.10240'
       AgentNameVersionMajor                : 'Edge 20'
 
 - test:
@@ -436,9 +437,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 12'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '20'
+      AgentVersion                         : '20.??'
       AgentVersionMajor                    : '20'
-      AgentNameVersion                     : 'Edge 20'
+      AgentNameVersion                     : 'Edge 20.??'
       AgentNameVersionMajor                : 'Edge 20'
 
 - test:
@@ -463,9 +464,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '25'
+      AgentVersion                         : '25.10586'
       AgentVersionMajor                    : '25'
-      AgentNameVersion                     : 'Edge 25'
+      AgentNameVersion                     : 'Edge 25.10586'
       AgentNameVersionMajor                : 'Edge 25'
 
 - test:
@@ -490,9 +491,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 14'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '31'
+      AgentVersion                         : '31.14279'
       AgentVersionMajor                    : '31'
-      AgentNameVersion                     : 'Edge 31'
+      AgentNameVersion                     : 'Edge 31.14279'
       AgentNameVersionMajor                : 'Edge 31'
 
 - test:
@@ -517,9 +518,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 18'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '44'
+      AgentVersion                         : '44.17763'
       AgentVersionMajor                    : '44'
-      AgentNameVersion                     : 'Edge 44'
+      AgentNameVersion                     : 'Edge 44.17763'
       AgentNameVersionMajor                : 'Edge 44'
 
 
@@ -546,9 +547,9 @@ config:
       LayoutEngineNameVersionMajor         : 'EdgeHTML 18'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '44'
+      AgentVersion                         : '44.??'
       AgentVersionMajor                    : '44'
-      AgentNameVersion                     : 'Edge 44'
+      AgentNameVersion                     : 'Edge 44.??'
       AgentNameVersionMajor                : 'Edge 44'
 
 # Deliberate error: An Edge version tag where the major version is not in the lookup
