@@ -547,6 +547,7 @@ config:
       "MRPULSE"         : "Pulse"       # https://amigo.mail.ru/
       "Chromium"        : "Chromium"
       "Ubuntu Chromium" : "Chromium"
+      "snap Chromium"   : "Chromium"
       "Epiphany"        : "Epiphany"
       "UCBrowser"       : "UCBrowser"
       "Viera"           : "Viera"
@@ -1818,3 +1819,30 @@ config:
       AgentVersionMajor                    : '61'
       AgentNameVersion                     : 'Iron 61.0.3163.81'
       AgentNameVersionMajor                : 'Iron 61'
+
+# Chromium installed as a snap on Ubuntu 16.4 LTS
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '71.0'
+      LayoutEngineVersionMajor             : '71'
+      LayoutEngineNameVersion              : 'Blink 71.0'
+      LayoutEngineNameVersionMajor         : 'Blink 71'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : '71.0.3578.80'
+      AgentVersionMajor                    : '71'
+      AgentNameVersion                     : 'Chromium 71.0.3578.80'
+      AgentNameVersionMajor                : 'Chromium 71'
