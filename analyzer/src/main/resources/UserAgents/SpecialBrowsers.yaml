@@ -1793,7 +1793,6 @@ config:
       AgentNameVersionMajor                : 'Falkon 3'
 
 
-
 # QupZilla (https://qupzilla.com/ -- > Now Falkon)
 
 - test:
@@ -1906,7 +1905,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (UNIX BSD/SYSV system) AppleWebKit/538.1 (KHTML, like Gecko) QupZilla/1.7.0 Safari/538.1'
     expected:
       DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Unix Bsd/sysv Desktop'
+      DeviceName                           : 'Unix BSD/Sysv Desktop'
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'UNIX BSD/SYSV'
@@ -1930,7 +1929,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Unknown; UNIX BSD/SYSV system) AppleWebKit/534.34 (KHTML, like Gecko) QupZilla/1.8.6 Safari/534.34'
     expected:
       DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Unix Bsd/sysv Desktop'
+      DeviceName                           : 'Unix BSD/Sysv Desktop'
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'UNIX BSD/SYSV'
@@ -1954,7 +1953,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Unknown; UNIX BSD/SYSV system) AppleWebKit/538.1 (KHTML, like Gecko) QupZilla/1.8.9 Version/7.0 Safari/538.1'
     expected:
       DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Unix Bsd/sysv Desktop'
+      DeviceName                           : 'Unix BSD/Sysv Desktop'
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'UNIX BSD/SYSV'
@@ -2178,9 +2177,9 @@ config:
 
 - matcher:
     extract:
-    - 'AgentClass                          :   2010 :"Browser"'
-    - 'AgentName                           :   2010 :"QupZilla"'
-    - 'AgentVersion                        :   2010 :agent.product.name="QupZilla"^.version'
+    - 'AgentClass                          :   2011 :"Browser"'
+    - 'AgentName                           :   2011 :"QupZilla"'
+    - 'AgentVersion                        :   2011 :agent.product.name="QupZilla"^.version'
 
 - test:
     input:

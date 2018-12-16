@@ -4,6 +4,7 @@ v5.8-SNAPSHOT
 ===
 - Report the actual version of Edge using a lookup.
 - Detection MSOffice, Falkon, QupZilla
+- Improved OS detection, added BeOS/Haiku
 
 v5.8
 ===

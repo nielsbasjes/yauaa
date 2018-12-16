@@ -1627,33 +1627,6 @@ config:
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
 
-# FIXME: Version 999 is an indication of some kind of manipulation
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.3; en-us) AppleWebKit/999+ (KHTML, like Gecko) Safari/999.9'
-    expected:
-      DeviceClass                          : 'Tablet'
-      DeviceName                           : 'Android Mobile'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '2.3'
-      OperatingSystemNameVersion           : 'Android 2.3'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '999'
-      LayoutEngineVersionMajor             : '999'
-      LayoutEngineNameVersion              : 'AppleWebKit 999'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 999'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Safari'
-      AgentVersion                         : '999.9'
-      AgentVersionMajor                    : '999'
-      AgentNameVersion                     : 'Safari 999.9'
-      AgentNameVersionMajor                : 'Safari 999'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      AgentSecurity                        : 'Strong security'
 
 - test:
     input:

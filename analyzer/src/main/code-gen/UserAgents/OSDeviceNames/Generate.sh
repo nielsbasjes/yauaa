@@ -68,6 +68,8 @@ do
     devname=$(  echo "${line}" | cut -d'|' -f4)
     devbrand=$( echo "${line}" | cut -d'|' -f5)
     osclass=$(  echo "${line}" | cut -d'|' -f6)
+
+    ospatternWords=$(echo ${ospattern} | sed 's@[^ ]\+@x@g;s@ @@g')
 echo "
 # =======================================================================
 # ${ospattern}
@@ -95,6 +97,7 @@ echo "
     - 'OperatingSystemName                 :    150 :\"${osname}\"'
     - 'OperatingSystemVersion              :    151 :CleanVersion[@Version]'
 
+# Exact match
 - matcher:
     require:
     - 'agent.product.(1)comments.entry=\"${ospattern}\"'
@@ -105,7 +108,91 @@ echo "
     - 'OperatingSystemClass                :    151 :\"${osclass}\"'
     - 'OperatingSystemName                 :    151 :\"${osname}\"'
     - 'OperatingSystemVersion              :    149 :\"??\"'
+"
 
+case ${ospatternWords} in
+'x')
+echo "
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[1-1]=\"${ospattern}\"'
+    extract:
+    - 'DeviceClass                         :    108 :\"${devclass}\"'
+    - 'DeviceName                          :    108 :\"${devname}\"'
+    - 'DeviceBrand                         :    108 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :    148 :\"${osclass}\"'
+    - 'OperatingSystemName                 :    148 :\"${osname}\"'
+    - 'OperatingSystemVersion              :    149 :\"??\"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[2-2]=\"${ospattern}\"'
+    extract:
+    - 'DeviceClass                         :    108 :\"${devclass}\"'
+    - 'DeviceName                          :    108 :\"${devname}\"'
+    - 'DeviceBrand                         :    108 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :    148 :\"${osclass}\"'
+    - 'OperatingSystemName                 :    148 :\"${osname}\"'
+    - 'OperatingSystemVersion              :    149 :\"??\"'
+"
+;;
+
+'xx')
+echo "
+# Two words
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[1-2]=\"${ospattern}\"'
+    extract:
+    - 'DeviceClass                         :    109 :\"${devclass}\"'
+    - 'DeviceName                          :    109 :\"${devname}\"'
+    - 'DeviceBrand                         :    109 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :    149 :\"${osclass}\"'
+    - 'OperatingSystemName                 :    149 :\"${osname}\"'
+    - 'OperatingSystemVersion              :    149 :\"??\"'
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[2-3]=\"${ospattern}\"'
+    extract:
+    - 'DeviceClass                         :    109 :\"${devclass}\"'
+    - 'DeviceName                          :    109 :\"${devname}\"'
+    - 'DeviceBrand                         :    109 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :    149 :\"${osclass}\"'
+    - 'OperatingSystemName                 :    149 :\"${osname}\"'
+    - 'OperatingSystemVersion              :    149 :\"??\"'
+"
+;;
+
+'xxx')
+echo "
+# Three words
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[1-3]=\"${ospattern}\"'
+    extract:
+    - 'DeviceClass                         :    110 :\"${devclass}\"'
+    - 'DeviceName                          :    110 :\"${devname}\"'
+    - 'DeviceBrand                         :    110 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :    150 :\"${osclass}\"'
+    - 'OperatingSystemName                 :    150 :\"${osname}\"'
+    - 'OperatingSystemVersion              :    149 :\"??\"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[2-4]=\"${ospattern}\"'
+    extract:
+    - 'DeviceClass                         :    110 :\"${devclass}\"'
+    - 'DeviceName                          :    110 :\"${devname}\"'
+    - 'DeviceBrand                         :    110 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :    150 :\"${osclass}\"'
+    - 'OperatingSystemName                 :    150 :\"${osname}\"'
+    - 'OperatingSystemVersion              :    149 :\"??\"'
+"
+;;
+esac
+
+echo "
 - matcher:
     extract:
     - 'DeviceClass                         :    111 :\"${devclass}\"'
