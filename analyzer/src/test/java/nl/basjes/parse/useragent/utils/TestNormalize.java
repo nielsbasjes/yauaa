@@ -47,6 +47,14 @@ public class TestNormalize {
     }
 
     @Test
+    public void checkBrandThreeFour() {
+        assertEquals("NBA/Klmn", Normalize.brand("nba/kLmN"));
+        assertEquals("NBA/Klmn", Normalize.brand("nBa/KlMn"));
+        assertEquals("NBA/Klmn", Normalize.brand("Nba/klmn"));
+        assertEquals("NBA/Klmn", Normalize.brand("NBA/KLMN"));
+    }
+
+    @Test
     public void checkBrandNormalizationWord() {
         assertEquals("Niels", Normalize.brand("niels"));
         assertEquals("Niels", Normalize.brand("Niels"));

@@ -29,6 +29,7 @@ public final class Normalize {
             case ' ':
             case '-':
             case '_':
+            case '/':
                 return true;
             default:
                 return false;
