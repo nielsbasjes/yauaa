@@ -97,7 +97,7 @@ echo "
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text=\"${ospattern}\"'
+    - 'agent.product.(1)comments.entry=\"${ospattern}\"'
     extract:
     - 'DeviceClass                         :    111 :\"${devclass}\"'
     - 'DeviceName                          :    111 :\"${devname}\"'

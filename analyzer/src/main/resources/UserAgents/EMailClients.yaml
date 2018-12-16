@@ -16,11 +16,54 @@
 #
 config:
 
+- lookup:
+    name: 'MSOfficeApplicationNames'
+    map:
+      "MAPI"   : "Microsoft Office MAPI Client" # Messaging Application Programming Interface (MAPI)
+      "UCMAPI" : "Microsoft Office MAPI Client" # Messaging Application Programming Interface (MAPI)
+      "InfoPath Editor" : "Microsoft Office InfoPath Editor"
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      1 : "Desktop"'
+    - 'AgentClass                          :      9 : "Special"'
+    - 'AgentName                           :      9 : "Microsoft Office"'
+    - 'AgentVersion                        :      9 : agent.(1)product.(1)name="Microsoft Office"^.version'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Microsoft Office"'
+    variable:
+    - 'OfficeAppName: agent.(1)product.(1)comments.entry.product.name{"Microsoft "'
+    extract:
+    - 'DeviceClass                         :      1 : "Desktop"'
+    - 'AgentClass                          :     10 : "Special"'
+    - 'AgentName                           :     10 : @OfficeAppName'
+    - 'AgentVersion                        :     10 : @OfficeAppName^.version'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Microsoft Office"'
+    variable:
+    - 'OfficeAppName: LookUp[MSOfficeApplicationNames;agent.(1)product.(1)comments.entry.product.name]'
+    extract:
+    - 'DeviceClass                         :      1 : "Desktop"'
+    - 'AgentClass                          :     10 : "Special"'
+    - 'AgentName                           :     11 : @OfficeAppName'
+    - 'AgentVersion                        :     10 : @OfficeAppName^.version'
+
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.name="Microsoft Outlook"'
     extract:
     - 'AgentClass                          :    100 :"Email Client"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.name="MAPI"'
+    extract:
+    - 'AgentClass                          :    100 :"Email Client"'
+
 
 # Ensure that 'pro' is not detected as the language
 #   "pro" : "Old Provençal (to 1500)"
@@ -28,7 +71,7 @@ config:
     input:
       user_agent_string: 'Microsoft Office/16.0 (Microsoft Outlook 16.0.8241; Pro)'
     expected:
-      DeviceClass                          : 'Unknown'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Unknown'
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Unknown'
@@ -39,11 +82,419 @@ config:
       LayoutEngineVersion                  : '??'
       LayoutEngineVersionMajor             : '??'
       AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '16.0.8241'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Outlook 16.0.8241'
+      AgentNameVersionMajor                : 'Microsoft Outlook 16'
+
+
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
       AgentName                            : 'Microsoft Office'
       AgentVersion                         : '16.0'
       AgentVersionMajor                    : '16'
       AgentNameVersion                     : 'Microsoft Office 16.0'
       AgentNameVersionMajor                : 'Microsoft Office 16'
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; InfoPath Editor 15.0.5059; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Office InfoPath Editor'
+      AgentVersion                         : '15.0.5059'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft Office InfoPath Editor 15.0.5059'
+      AgentNameVersionMajor                : 'Microsoft Office InfoPath Editor 15'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; Microsoft Excel 15.0.5031; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Excel'
+      AgentVersion                         : '15.0.5031'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft Excel 15.0.5031'
+      AgentNameVersionMajor                : 'Microsoft Excel 15'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; Microsoft Lync 15.0.5059; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Lync'
+      AgentVersion                         : '15.0.5059'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft Lync 15.0.5059'
+      AgentNameVersionMajor                : 'Microsoft Lync 15'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; Microsoft OneNote 15.0.5059; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft OneNote'
+      AgentVersion                         : '15.0.5059'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft OneNote 15.0.5059'
+      AgentNameVersionMajor                : 'Microsoft OneNote 15'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; Microsoft Outlook 15.0.5059; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '15.0.5059'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft Outlook 15.0.5059'
+      AgentNameVersionMajor                : 'Microsoft Outlook 15'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; Microsoft PowerPoint 15.0.5059; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft PowerPoint'
+      AgentVersion                         : '15.0.5059'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft PowerPoint 15.0.5059'
+      AgentNameVersionMajor                : 'Microsoft PowerPoint 15'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; Microsoft Word 15.0.5059; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Word'
+      AgentVersion                         : '15.0.5059'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft Word 15.0.5059'
+      AgentNameVersionMajor                : 'Microsoft Word 15'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Microsoft Outlook 16.0.10827; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '16.0.10827'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Outlook 16.0.10827'
+      AgentNameVersionMajor                : 'Microsoft Outlook 16'
+
+
+# Broken: No application name --> Hence the generic answer "Office"
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0;  16.0.10730; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Office'
+      AgentVersion                         : '16.0'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Office 16.0'
+      AgentNameVersionMajor                : 'Microsoft Office 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; MAPI 16.0.10827; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Office MAPI Client'
+      AgentVersion                         : '16.0.10827'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Office MAPI Client 16.0.10827'
+      AgentNameVersionMajor                : 'Microsoft Office MAPI Client 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; Microsoft Access 16.0.10730; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Access'
+      AgentVersion                         : '16.0.10730'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Access 16.0.10730'
+      AgentNameVersionMajor                : 'Microsoft Access 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; Microsoft Project 16.0.10730; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Project'
+      AgentVersion                         : '16.0.10730'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Project 16.0.10730'
+      AgentNameVersionMajor                : 'Microsoft Project 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; Microsoft Visio 16.0.10730; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Visio'
+      AgentVersion                         : '16.0.10730'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Visio 16.0.10730'
+      AgentNameVersionMajor                : 'Microsoft Visio 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; Microsoft Word 16.0.10730; Converter)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Word'
+      AgentVersion                         : '16.0.10730'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Word 16.0.10730'
+      AgentNameVersionMajor                : 'Microsoft Word 16'
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; Microsoft Word 16.0.10827; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Word'
+      AgentVersion                         : '16.0.10827'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Word 16.0.10827'
+      AgentNameVersionMajor                : 'Microsoft Word 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; ucmapi 16.0.4738; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Office MAPI Client'
+      AgentVersion                         : '16.0.4738'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Office MAPI Client 16.0.4738'
+      AgentNameVersionMajor                : 'Microsoft Office MAPI Client 16'
+
+
 
 # Lotus notes
 

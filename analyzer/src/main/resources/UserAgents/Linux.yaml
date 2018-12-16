@@ -22,6 +22,17 @@ config:
 # Linux <cpu>
 # Linux <version> <cpu>
 
+# Default in case there is a very bare set of comments.
+- matcher:
+    require:
+    -  'agent.(1)product.comments.entry.text="X11"'
+    -  'IsNull[agent.(1)product.(1)comments.(2)entry]'
+    extract:
+    - 'DeviceClass                         :      1 :"Desktop"'
+    - 'DeviceName                          :      1 :"Linux Desktop"'
+    - 'OperatingSystemClass                :      1 :"Desktop"'
+    - 'OperatingSystemName                 :      1 :"Linux"'
+
 - matcher:
     require:
     -  'IsNull[agent.(1-2)product.comments.entry.text="Android"]'

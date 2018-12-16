@@ -61,6 +61,10 @@ config:
     - 'NetBSD'
     - 'OpenBSD'
     - 'hpwOS'
+    - 'Haiku'
+    - 'Intel Haiku'
+    - 'BeOS'
+    - 'UNIX BSD/SYSV system'
 
 
 # =======================================================================
@@ -91,7 +95,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="ASPLinux"'
+    - 'agent.product.(1)comments.entry="ASPLinux"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -175,7 +179,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="CentOS"'
+    - 'agent.product.(1)comments.entry="CentOS"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -259,7 +263,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Red Hat"'
+    - 'agent.product.(1)comments.entry="Red Hat"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -343,7 +347,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Debian"'
+    - 'agent.product.(1)comments.entry="Debian"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -427,7 +431,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Debian GNU"'
+    - 'agent.product.(1)comments.entry="Debian GNU"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -511,7 +515,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Fedora"'
+    - 'agent.product.(1)comments.entry="Fedora"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -595,7 +599,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="FoxOS"'
+    - 'agent.product.(1)comments.entry="FoxOS"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -679,7 +683,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Joli OS"'
+    - 'agent.product.(1)comments.entry="Joli OS"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -763,7 +767,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="JoliCloud"'
+    - 'agent.product.(1)comments.entry="JoliCloud"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -847,7 +851,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Linpus"'
+    - 'agent.product.(1)comments.entry="Linpus"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -931,7 +935,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Linspire"'
+    - 'agent.product.(1)comments.entry="Linspire"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -1015,7 +1019,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Mandriva Linux"'
+    - 'agent.product.(1)comments.entry="Mandriva Linux"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -1099,7 +1103,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Mandriva"'
+    - 'agent.product.(1)comments.entry="Mandriva"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -1183,7 +1187,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Mint"'
+    - 'agent.product.(1)comments.entry="Mint"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -1267,7 +1271,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Linux Mint"'
+    - 'agent.product.(1)comments.entry="Linux Mint"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -1351,7 +1355,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Edition Linux Mint"'
+    - 'agent.product.(1)comments.entry="Edition Linux Mint"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -1435,7 +1439,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Moblin"'
+    - 'agent.product.(1)comments.entry="Moblin"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -1519,7 +1523,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="NaverBot"'
+    - 'agent.product.(1)comments.entry="NaverBot"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -1603,7 +1607,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="PCLinuxOS"'
+    - 'agent.product.(1)comments.entry="PCLinuxOS"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -1687,7 +1691,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Slackware"'
+    - 'agent.product.(1)comments.entry="Slackware"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -1771,7 +1775,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="SUSE"'
+    - 'agent.product.(1)comments.entry="SUSE"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -1855,7 +1859,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Ubuntu"'
+    - 'agent.product.(1)comments.entry="Ubuntu"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -1939,7 +1943,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Kubuntu"'
+    - 'agent.product.(1)comments.entry="Kubuntu"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -2023,7 +2027,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Xubuntu"'
+    - 'agent.product.(1)comments.entry="Xubuntu"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -2107,7 +2111,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Ultimate Edition"'
+    - 'agent.product.(1)comments.entry="Ultimate Edition"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -2191,7 +2195,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Yoper"'
+    - 'agent.product.(1)comments.entry="Yoper"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -2275,7 +2279,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="SugarLabs"'
+    - 'agent.product.(1)comments.entry="SugarLabs"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -2359,7 +2363,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="SunOS"'
+    - 'agent.product.(1)comments.entry="SunOS"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"SUN Microsystems Desktop"'
@@ -2443,7 +2447,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Solaris"'
+    - 'agent.product.(1)comments.entry="Solaris"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"Linux Desktop"'
@@ -2527,7 +2531,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="illumOS"'
+    - 'agent.product.(1)comments.entry="illumOS"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"OpenSolaris Desktop"'
@@ -2611,7 +2615,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="MeeGo"'
+    - 'agent.product.(1)comments.entry="MeeGo"'
     extract:
     - 'DeviceClass                         :    111 :"Mobile"'
     - 'DeviceName                          :    111 :"MeeGo Device"'
@@ -2695,7 +2699,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Symbian"'
+    - 'agent.product.(1)comments.entry="Symbian"'
     extract:
     - 'DeviceClass                         :    111 :"Phone"'
     - 'DeviceName                          :    111 :"Symbian Phone"'
@@ -2779,7 +2783,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="SymbianOS"'
+    - 'agent.product.(1)comments.entry="SymbianOS"'
     extract:
     - 'DeviceClass                         :    111 :"Phone"'
     - 'DeviceName                          :    111 :"Symbian Phone"'
@@ -2863,7 +2867,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="Symbian OS"'
+    - 'agent.product.(1)comments.entry="Symbian OS"'
     extract:
     - 'DeviceClass                         :    111 :"Phone"'
     - 'DeviceName                          :    111 :"Symbian Phone"'
@@ -2947,7 +2951,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="PalmSource"'
+    - 'agent.product.(1)comments.entry="PalmSource"'
     extract:
     - 'DeviceClass                         :    111 :"Mobile"'
     - 'DeviceName                          :    111 :"PalmOS PDA"'
@@ -3031,7 +3035,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="DragonFly"'
+    - 'agent.product.(1)comments.entry="DragonFly"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"DragonFly BSD Desktop"'
@@ -3115,7 +3119,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="FreeBSD"'
+    - 'agent.product.(1)comments.entry="FreeBSD"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"FreeBSD Desktop"'
@@ -3199,7 +3203,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="NetBSD"'
+    - 'agent.product.(1)comments.entry="NetBSD"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"NetBSD Desktop"'
@@ -3283,7 +3287,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="OpenBSD"'
+    - 'agent.product.(1)comments.entry="OpenBSD"'
     extract:
     - 'DeviceClass                         :    111 :"Desktop"'
     - 'DeviceName                          :    111 :"OpenBSD Desktop"'
@@ -3367,7 +3371,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.text="hpwOS"'
+    - 'agent.product.(1)comments.entry="hpwOS"'
     extract:
     - 'DeviceClass                         :    111 :"Tablet"'
     - 'DeviceName                          :    111 :"HP WebOS Tablet"'
@@ -3419,6 +3423,342 @@ config:
     - 'DeviceBrand                         :    112 :"HP"'
     - 'OperatingSystemClass                :    153 :"Mobile"'
     - 'OperatingSystemName                 :    153 :"HP WebOS"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+
+
+# =======================================================================
+# Haiku
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"Haiku"'
+    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.(1)product.(1)comments.entry.product.name="Haiku"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.(1)product.(1)comments.entry.product.name="Haiku"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"Haiku"'
+    - 'OperatingSystemVersion              :    151 :CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry="Haiku"'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    151 :"Desktop"'
+    - 'OperatingSystemName                 :    151 :"Haiku"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"Haiku"'
+    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.product.name="Haiku"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.product.name="Haiku"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"Haiku"'
+    - 'OperatingSystemVersion              :    151 :CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="Haiku"'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    152 :"Desktop"'
+    - 'OperatingSystemName                 :    152 :"Haiku"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="Haiku"'
+    extract:
+    - 'DeviceClass                         :    112 :"Desktop"'
+    - 'DeviceName                          :    112 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    112 :"Unknown"'
+    - 'OperatingSystemClass                :    153 :"Desktop"'
+    - 'OperatingSystemName                 :    153 :"Haiku"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+
+
+# =======================================================================
+# Intel Haiku
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"Haiku"'
+    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.(1)product.(1)comments.entry.product.name="Intel Haiku"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.(1)product.(1)comments.entry.product.name="Intel Haiku"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"Haiku"'
+    - 'OperatingSystemVersion              :    151 :CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry="Intel Haiku"'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    151 :"Desktop"'
+    - 'OperatingSystemName                 :    151 :"Haiku"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"Haiku"'
+    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.product.name="Intel Haiku"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.product.name="Intel Haiku"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"Haiku"'
+    - 'OperatingSystemVersion              :    151 :CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="Intel Haiku"'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    152 :"Desktop"'
+    - 'OperatingSystemName                 :    152 :"Haiku"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="Intel Haiku"'
+    extract:
+    - 'DeviceClass                         :    112 :"Desktop"'
+    - 'DeviceName                          :    112 :"Haiku Desktop"'
+    - 'DeviceBrand                         :    112 :"Unknown"'
+    - 'OperatingSystemClass                :    153 :"Desktop"'
+    - 'OperatingSystemName                 :    153 :"Haiku"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+
+
+# =======================================================================
+# BeOS
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"BeOS Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"BeOS"'
+    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.(1)product.(1)comments.entry.product.name="BeOS"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.(1)product.(1)comments.entry.product.name="BeOS"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"BeOS Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"BeOS"'
+    - 'OperatingSystemVersion              :    151 :CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry="BeOS"'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"BeOS Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    151 :"Desktop"'
+    - 'OperatingSystemName                 :    151 :"BeOS"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"BeOS Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"BeOS"'
+    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.product.name="BeOS"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.product.name="BeOS"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"BeOS Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"BeOS"'
+    - 'OperatingSystemVersion              :    151 :CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="BeOS"'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"BeOS Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    152 :"Desktop"'
+    - 'OperatingSystemName                 :    152 :"BeOS"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="BeOS"'
+    extract:
+    - 'DeviceClass                         :    112 :"Desktop"'
+    - 'DeviceName                          :    112 :"BeOS Desktop"'
+    - 'DeviceBrand                         :    112 :"Unknown"'
+    - 'OperatingSystemClass                :    153 :"Desktop"'
+    - 'OperatingSystemName                 :    153 :"BeOS"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+
+
+# =======================================================================
+# UNIX BSD/SYSV system
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"UNIX BSD/SYSV Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"UNIX BSD/SYSV"'
+    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.(1)product.(1)comments.entry.product.name="UNIX BSD/SYSV system"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.(1)product.(1)comments.entry.product.name="UNIX BSD/SYSV system"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"UNIX BSD/SYSV Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"UNIX BSD/SYSV"'
+    - 'OperatingSystemVersion              :    151 :CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry="UNIX BSD/SYSV system"'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"UNIX BSD/SYSV Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    151 :"Desktop"'
+    - 'OperatingSystemName                 :    151 :"UNIX BSD/SYSV"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"UNIX BSD/SYSV Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"UNIX BSD/SYSV"'
+    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.product.name="UNIX BSD/SYSV system"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.product.name="UNIX BSD/SYSV system"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"UNIX BSD/SYSV Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"UNIX BSD/SYSV"'
+    - 'OperatingSystemVersion              :    151 :CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="UNIX BSD/SYSV system"'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"UNIX BSD/SYSV Desktop"'
+    - 'DeviceBrand                         :    111 :"Unknown"'
+    - 'OperatingSystemClass                :    152 :"Desktop"'
+    - 'OperatingSystemName                 :    152 :"UNIX BSD/SYSV"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="UNIX BSD/SYSV system"'
+    extract:
+    - 'DeviceClass                         :    112 :"Desktop"'
+    - 'DeviceName                          :    112 :"UNIX BSD/SYSV Desktop"'
+    - 'DeviceBrand                         :    112 :"Unknown"'
+    - 'OperatingSystemClass                :    153 :"Desktop"'
+    - 'OperatingSystemName                 :    153 :"UNIX BSD/SYSV"'
     - 'OperatingSystemVersion              :    149 :"??"'
 
 

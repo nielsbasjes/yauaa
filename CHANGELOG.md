@@ -3,6 +3,7 @@ This is intended as an overview of the major changes
 v5.8-SNAPSHOT
 ===
 - Report the actual version of Edge using a lookup.
+- Detection MSOffice, Falkon, QupZilla
 
 v5.8
 ===
