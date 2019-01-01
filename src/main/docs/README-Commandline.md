@@ -30,7 +30,7 @@ Simply install the normal build tools for a Java project (i.e. maven and jdk) an
     | Yauaa 2.0-SNAPSHOT (v1.4-63 @ 2017-08-05T07:22:55Z)        |
     +------------------------------------------------------------+
     | For more information: https://github.com/nielsbasjes/yauaa |
-    | Copyright (C) 2013-2018 Niels Basjes - License Apache 2.0  |
+    | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0  |
     \------------------------------------------------------------/
     
     Errors: No input specified.
@@ -76,7 +76,7 @@ Running in this mode will also show some statistics via stderr.
     | Yauaa 2.0-SNAPSHOT (v1.4-63 @ 2017-08-05T07:22:55Z)        |
     +------------------------------------------------------------+
     | For more information: https://github.com/nielsbasjes/yauaa |
-    | Copyright (C) 2013-2018 Niels Basjes - License Apache 2.0  |
+    | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0  |
     \------------------------------------------------------------/
     
     Loading from: "classpath*:UserAgents/**/*.yaml"
