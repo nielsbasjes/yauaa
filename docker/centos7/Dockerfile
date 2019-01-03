@@ -32,9 +32,10 @@ ENV JAVA_HOME /usr/lib/jvm/java
 
 # --------------------------------
 # Install Maven
+ENV MAVEN_VERSION=3.6.0
 RUN mkdir -p /usr/local/apache-maven
-RUN wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz" -O "apache-maven-3.5.4-bin.tar.gz"
-RUN tar xzf apache-maven-3.5.4-bin.tar.gz --strip-components 1 -C /usr/local/apache-maven
+RUN wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+RUN tar xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz --strip-components 1 -C /usr/local/apache-maven
 ENV M2_HOME /usr/local/apache-maven
 ENV PATH ${M2_HOME}/bin:${PATH}
 
@@ -43,14 +44,16 @@ ENV MAVEN_OPTS -Xms256m -Xmx512m
 
 # --------------------------------
 # Install Pig
-RUN rpm --import https://www.apache.org/dist/bigtop/bigtop-1.2.1/repos/GPG-KEY-bigtop
-RUN yum-config-manager --add-repo https://www.apache.org/dist/bigtop/bigtop-1.2.1/repos/centos7/bigtop.repo
-RUN yum install -y pig
+ENV PIG_VERSION=0.17.0
+RUN cd /usr/local/ && wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/pig/pig-${PIG_VERSION}/pig-${PIG_VERSION}.tar.gz" -O "pig-${PIG_VERSION}.tar.gz"
+RUN cd /usr/local/ && tar xzf pig-${PIG_VERSION}.tar.gz
+ENV PIG_HOME /usr/local/pig-*/
+ENV PATH ${PIG_HOME}/bin:${PATH}
+RUN chmod a+rwX -R ${PIG_HOME}/bin
 
 # --------------------------------
 # Install shellcheck
 RUN yum install -y ShellCheck
-
 
 # --------------------------------
 # Install node.js, npm and gitbook
