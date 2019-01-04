@@ -30,6 +30,41 @@
 
 config:
 
+- lookup:
+    name: 'SpecialChromeBrowserNames'
+    map:
+      "Vivaldi"         : "Vivaldi"
+      "OPR"             : "Opera"
+      "MMS"             : "Opera Neon"
+      "OPT"             : "Opera Touch"
+      "Amigo"           : "Amigo"       # https://amigo.mail.ru/
+      "MRCHROME"        : "Amigo"       # https://amigo.mail.ru/
+      "MRPULSE"         : "Pulse"       # https://amigo.mail.ru/
+      "Chromium"        : "Chromium"
+      "Ubuntu Chromium" : "Chromium"
+      "snap Chromium"   : "Chromium"    # Chromium running from within a snap (Linux installation system)
+      "Epiphany"        : "Epiphany"
+      "UCBrowser"       : "UCBrowser"
+      "Viera"           : "Viera"
+      "Puffin"          : "Puffin"
+      "AvantBrowser"    : "AvantBrowser"
+      "CoolNovo"        : "CoolNovo"
+      "Iron"            : "Iron"
+      "Quark"           : "Quark"
+      "Mxbrowser"       : "Maxthon"
+      "Brave Chrome"    : "Brave"
+      "Iron Safari"     : "Iron"
+      "Mobile Iron Safari" : "Iron"
+      "Falkon"          : "Falkon"
+      "QupZilla"        : "QupZilla"
+      "Colibri"         : "Colibri"
+
+- lookup:
+    name: 'KnownWebviewAppNames'
+    map:
+      'GSApp' : 'Google Search App'
+      'Focus' : 'Firefox Focus'
+
 - matcher:
     extract:
     - 'AgentClass                          :   2014 :"Browser"'
@@ -339,12 +374,6 @@ config:
     - 'WebviewAppName                      :     12 :LookUp[SpecialChromeBrowserNames;@WebViewProduct.name]'
     - 'WebviewAppVersion                   :     12 :@WebViewProduct.version'
 
-- lookup:
-    name: 'KnownWebviewAppNames'
-    map:
-      'GSApp' : 'Google Search App'
-      'Focus' : 'Firefox Focus'
-
 - matcher:
     variable:
     - 'WebViewProduct: agent.product.(1)name="Chrome"^>>'
@@ -534,34 +563,6 @@ config:
       AgentVersionMajor                    : '4'
       AgentNameVersion                     : 'PlayStation Messages App 4.0.15'
       AgentNameVersionMajor                : 'PlayStation Messages App 4'
-
-- lookup:
-    name: 'SpecialChromeBrowserNames'
-    map:
-      "Vivaldi"         : "Vivaldi"
-      "OPR"             : "Opera"
-      "MMS"             : "Opera Neon"
-      "OPT"             : "Opera Touch"
-      "Amigo"           : "Amigo"       # https://amigo.mail.ru/
-      "MRCHROME"        : "Amigo"       # https://amigo.mail.ru/
-      "MRPULSE"         : "Pulse"       # https://amigo.mail.ru/
-      "Chromium"        : "Chromium"
-      "Ubuntu Chromium" : "Chromium"
-      "snap Chromium"   : "Chromium"
-      "Epiphany"        : "Epiphany"
-      "UCBrowser"       : "UCBrowser"
-      "Viera"           : "Viera"
-      "Puffin"          : "Puffin"
-      "AvantBrowser"    : "AvantBrowser"
-      "CoolNovo"        : "CoolNovo"
-      "Iron"            : "Iron"
-      "Quark"           : "Quark"
-      "Mxbrowser"       : "Maxthon"
-      "Brave Chrome"    : "Brave"
-      "Iron Safari"     : "Iron"
-      "Mobile Iron Safari" : "Iron"
-      "Falkon"          : "Falkon"
-      "QupZilla"        : "QupZilla"
 
 - matcher:
     variable:
