@@ -43,11 +43,16 @@ config:
     extract:
     - 'AgentVersion                        :      6 :agent.(1)product.version'
 
+# ================================
+# Specific browser rules
+
 - matcher:
     extract:
     - 'AgentClass                          :   2010 :"Browser"'
     - 'AgentName                           :   2010 :"Crazy Browser"'
     - 'AgentVersion                        :   2010 :agent.(1)product.(1)comments.entry.product.name="Crazy Browser"^.version'
+
+# ================================
 
 - test:
     input:
@@ -725,48 +730,6 @@ config:
       AgentNameVersion                     : 'python-requests 2.1.0'
       AgentNameVersionMajor                : 'python-requests 2'
 
-
-# Sometimes the name of the agent is BETWEEN the "Chrome" and "(Mobile) Safari" products.
-- matcher:
-    require:
-    - 'agent.product.(1)name="Safari"' # Performance trick
-    variable:
-    - 'Product: agent.product.(1)name="Chrome"^>>.name="Safari"^<'
-    extract:
-    - 'AgentClass                          :   2050 :"Browser"'
-    - 'AgentName                           :   2050 :@Product.name'
-    - 'AgentVersion                        :   2050 :@Product.version'
-
-- matcher:
-    require:
-    - 'agent.product.(1)name="Mobile Safari"' # Performance trick
-    variable:
-    - 'Product: agent.product.(1)name="Chrome"^>>.name="Mobile Safari"^<'
-    extract:
-    - 'AgentClass                          :   2050 :"Browser"'
-    - 'AgentName                           :   2050 :@Product.name'
-    - 'AgentVersion                        :   2050 :@Product.version'
-
-# Sometimes the name of the agent AND the name of something else are BETWEEN the "Chrome" and "(Mobile) Safari" products.
-- matcher:
-    require:
-    - 'agent.product.(1)name="Safari"' # Performance trick
-    variable:
-    - 'Product: agent.product.(1)name="Chrome"^>>>.name="Safari"^<<'
-    extract:
-    - 'AgentClass                          :   2050 :"Browser"'
-    - 'AgentName                           :   2050 :@Product.name'
-    - 'AgentVersion                        :   2050 :@Product.version'
-
-- matcher:
-    require:
-    - 'agent.product.(1)name="Mobile Safari"' # Performance trick
-    variable:
-    - 'Product: agent.product.(1)name="Chrome"^>>>.name="Mobile Safari"^<<'
-    extract:
-    - 'AgentClass                          :   2050 :"Browser"'
-    - 'AgentName                           :   2050 :@Product.name'
-    - 'AgentVersion                        :   2050 :@Product.version'
 
 - test:
     input:

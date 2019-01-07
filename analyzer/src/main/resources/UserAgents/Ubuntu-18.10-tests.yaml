@@ -1,0 +1,419 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2019 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+# 2019-01-04: Ubuntu 18.10
+
+# Chromium 71
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/71.0.3578.98 Chrome/71.0.3578.98 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '71.0'
+      LayoutEngineVersionMajor             : '71'
+      LayoutEngineNameVersion              : 'Blink 71.0'
+      LayoutEngineNameVersionMajor         : 'Blink 71'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : '71.0.3578.98'
+      AgentVersionMajor                    : '71'
+      AgentNameVersion                     : 'Chromium 71.0.3578.98'
+      AgentNameVersionMajor                : 'Chromium 71'
+
+# FIXME: Colibri 1.10.0
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Colibri/1.10.0 Chrome/66.0.3359.181 Electron/3.0.10 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '66.0'
+      LayoutEngineVersionMajor             : '66'
+      LayoutEngineNameVersion              : 'Blink 66.0'
+      LayoutEngineNameVersionMajor         : 'Blink 66'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Colibri'
+      AgentVersion                         : '1.10.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Colibri 1.10.0'
+      AgentNameVersionMajor                : 'Colibri 1'
+
+# Opera
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 OPR/57.0.3098.110'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '70.0'
+      LayoutEngineVersionMajor             : '70'
+      LayoutEngineNameVersion              : 'Blink 70.0'
+      LayoutEngineNameVersionMajor         : 'Blink 70'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '57.0.3098.110'
+      AgentVersionMajor                    : '57'
+      AgentNameVersion                     : 'Opera 57.0.3098.110'
+      AgentNameVersionMajor                : 'Opera 57'
+
+# Opera Beta
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36 OPR/58.0.3135.30 (Edition beta)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '71.0'
+      LayoutEngineVersionMajor             : '71'
+      LayoutEngineNameVersion              : 'Blink 71.0'
+      LayoutEngineNameVersionMajor         : 'Blink 71'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '58.0.3135.30'
+      AgentVersionMajor                    : '58'
+      AgentNameVersion                     : 'Opera 58.0.3135.30'
+      AgentNameVersionMajor                : 'Opera 58'
+
+# Opera Developer
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.14 Safari/537.36 OPR/59.0.3187.0 (Edition developer)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '72.0'
+      LayoutEngineVersionMajor             : '72'
+      LayoutEngineNameVersion              : 'Blink 72.0'
+      LayoutEngineNameVersionMajor         : 'Blink 72'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '59.0.3187.0'
+      AgentVersionMajor                    : '59'
+      AgentNameVersion                     : 'Opera 59.0.3187.0'
+      AgentNameVersionMajor                : 'Opera 59'
+
+
+# FIXME: Midori v7
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Safari/605.1.15 Midori/6'
+#    expected:
+#      DeviceClass                          : 'Desktop'
+#      DeviceName                           : 'Linux Desktop'
+#      DeviceBrand                          : 'Unknown'
+#      DeviceCpu                            : 'Intel x86_64'
+#      DeviceCpuBits                        : '64'
+#      OperatingSystemClass                 : 'Desktop'
+#      OperatingSystemName                  : 'Ubuntu'
+#      OperatingSystemVersion               : '??'
+#      OperatingSystemNameVersion           : 'Ubuntu ??'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'AppleWebKit'
+#      LayoutEngineVersion                  : '605.1.15'
+#      LayoutEngineVersionMajor             : '605'
+#      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+#      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'Midori'
+#      AgentVersion                         : '6'
+#      AgentVersionMajor                    : '6'
+#      AgentNameVersion                     : 'Midori 6'
+#      AgentNameVersionMajor                : 'Midori 6'
+
+
+# Falkon 3.0.1
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Falkon/3.0.1 Chrome/65.0.3325.151 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '65.0'
+      LayoutEngineVersionMajor             : '65'
+      LayoutEngineNameVersion              : 'Blink 65.0'
+      LayoutEngineNameVersionMajor         : 'Blink 65'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Falkon'
+      AgentVersion                         : '3.0.1'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Falkon 3.0.1'
+      AgentNameVersionMajor                : 'Falkon 3'
+
+# Links 2.15
+- test:
+    input:
+      user_agent_string: 'Links (2.15; Linux 4.18.0-13-generic x86_64; GNU C 5.4; text)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '4.18.0-13-generic'
+      OperatingSystemNameVersion           : 'Linux 4.18.0-13-generic'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Links'
+      AgentVersion                         : '2.15'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Links 2.15'
+      AgentNameVersionMajor                : 'Links 2'
+
+# Brave (known to hide itself)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '70.0'
+      LayoutEngineVersionMajor             : '70'
+      LayoutEngineNameVersion              : 'Blink 70.0'
+      LayoutEngineNameVersionMajor         : 'Blink 70'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '70.0.3538.77'
+      AgentVersionMajor                    : '70'
+      AgentNameVersion                     : 'Chrome 70.0.3538.77'
+      AgentNameVersionMajor                : 'Chrome 70'
+
+# FIXME: Luakit
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (x86_64) AppleWebKit/538.15+ (KHTML, like Gecko) WebKitGTK+/2.4.11 luakit'
+#    expected:
+#      DeviceClass                          : 'Unknown'
+#      DeviceName                           : 'Unknown'
+#      DeviceBrand                          : 'Unknown'
+#      DeviceCpu                            : 'Intel x86_64'
+#      DeviceCpuBits                        : '64'
+#      OperatingSystemClass                 : 'Unknown'
+#      OperatingSystemName                  : 'Unknown'
+#      OperatingSystemVersion               : '??'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'WebKitGTK'
+#      LayoutEngineVersion                  : '538.15'
+#      LayoutEngineVersionMajor             : '538'
+#      LayoutEngineNameVersion              : 'WebKitGTK 2.4.11'
+#      LayoutEngineNameVersionMajor         : 'WebKitGTK 2'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'Luakit'
+#      AgentVersion                         : '??'
+#      AgentVersionMajor                    : '??'
+#      AgentNameVersion                     : 'Luakit ??'
+#      AgentNameVersionMajor                : 'Luakit ??'
+
+# FIXME: Arora 0.11
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/602.1 (KHTML, like Gecko) Arora/0.11.0 Version/9.0 Safari/602.1'
+#    expected:
+#      DeviceClass                          : 'Desktop'
+#      DeviceName                           : 'Linux Desktop'
+#      DeviceBrand                          : 'Unknown'
+#      DeviceCpu                            : 'Intel x86_64'
+#      DeviceCpuBits                        : '64'
+#      OperatingSystemClass                 : 'Desktop'
+#      OperatingSystemName                  : 'Linux'
+#      OperatingSystemVersion               : 'Intel x86_64'
+#      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'AppleWebKit'
+#      LayoutEngineVersion                  : '602.1'
+#      LayoutEngineVersionMajor             : '602'
+#      LayoutEngineNameVersion              : 'AppleWebKit 602.1'
+#      LayoutEngineNameVersionMajor         : 'AppleWebKit 602'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'Arora'
+#      AgentVersion                         : '0.11.0'
+#      AgentVersionMajor                    : '0'
+#      AgentNameVersion                     : 'Arora 0.11.0'
+#      AgentNameVersionMajor                : 'Arora 0'
+
+# GnomeWeb (aka Epiphany)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Safari/605.1.15 Epiphany/605.1.15'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Ubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Epiphany'
+      AgentVersion                         : '605.1.15'
+      AgentVersionMajor                    : '605'
+      AgentNameVersion                     : 'Epiphany 605.1.15'
+      AgentNameVersionMajor                : 'Epiphany 605'
+
+# Dillo 3.0.5
+- test:
+    input:
+      user_agent_string: 'Dillo/3.0.5'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Dillo'
+      AgentVersion                         : '3.0.5'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Dillo 3.0.5'
+      AgentNameVersionMajor                : 'Dillo 3'
+
+# Tor browser
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; rv:60.0) Gecko/20100101 Firefox/60.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '60.0'
+      LayoutEngineVersionMajor             : '60'
+      LayoutEngineNameVersion              : 'Gecko 60.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 60'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '60.0'
+      AgentVersionMajor                    : '60'
+      AgentNameVersion                     : 'Firefox 60.0'
+      AgentNameVersionMajor                : 'Firefox 60'
+
+# QuteBrowser
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) QtWebEngine/5.11.1 Chrome/65.0.3325.230 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '65.0'
+      LayoutEngineVersionMajor             : '65'
+      LayoutEngineNameVersion              : 'Blink 65.0'
+      LayoutEngineNameVersionMajor         : 'Blink 65'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '65.0.3325.230'
+      AgentVersionMajor                    : '65'
+      AgentNameVersion                     : 'Chrome 65.0.3325.230'
+      AgentNameVersionMajor                : 'Chrome 65'

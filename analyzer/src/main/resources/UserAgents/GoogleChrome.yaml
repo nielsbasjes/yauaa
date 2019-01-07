@@ -65,6 +65,22 @@ config:
       'GSApp' : 'Google Search App'
       'Focus' : 'Firefox Focus'
 
+# ================================
+# Specific browser rules
+
+# Epiphany also occurs like this:
+#  ... Chromium/?? Chrome/?? Safari/?? Debian/?? Epiphany/??
+# In this case the "Chromium" wins which is incorrect
+
+- matcher:
+    extract:
+    - 'AgentClass                          :   2100 :"Browser"'
+    - 'AgentName                           :   2100 :"Epiphany"'
+    - 'AgentVersion                        :   2100 :agent.product.name="Epiphany"^.version'
+
+# ================================
+
+
 - matcher:
     extract:
     - 'AgentClass                          :   2014 :"Browser"'
@@ -568,41 +584,92 @@ config:
     variable:
     - 'ProductAfterChrome: agent.product.(1)name="Chrome"^>'
     extract:
-    - 'AgentName                           :   2022 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
-    - 'AgentVersion                        :   2022 :@ProductAfterChrome.(1)version'
+    - 'AgentName                           :   2072 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
+    - 'AgentVersion                        :   2072 :@ProductAfterChrome.(1)version'
 
 - matcher:
     variable:
     - 'ProductAfterChrome: agent.product.(1)name="Chrome"^>>'
     extract:
-    - 'AgentName                           :   2021 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
-    - 'AgentVersion                        :   2021 :@ProductAfterChrome.(1)version'
+    - 'AgentName                           :   2071 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
+    - 'AgentVersion                        :   2071 :@ProductAfterChrome.(1)version'
 
 - matcher:
     variable:
     - 'ProductAfterChrome: agent.product.(1)name="Chrome"^>>>'
     extract:
-    - 'AgentName                           :   2020 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
-    - 'AgentVersion                        :   2020 :@ProductAfterChrome.(1)version'
+    - 'AgentName                           :   2070 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
+    - 'AgentVersion                        :   2070 :@ProductAfterChrome.(1)version'
 
 - matcher:
     variable:
     - 'ProductAfterChrome: agent.product.(1)name="Chrome"^>>>>'
     extract:
-    - 'AgentName                           :   2019 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
-    - 'AgentVersion                        :   2019 :@ProductAfterChrome.(1)version'
+    - 'AgentName                           :   2069 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.(1)name]'
+    - 'AgentVersion                        :   2069 :@ProductAfterChrome.(1)version'
 
 - matcher:
     extract:
-    - 'AgentName                           :   2019 :LookUp[SpecialChromeBrowserNames;agent.text]'
-    - 'AgentVersion                        :   2019 :agent.product.(1)name="Chrome"^.version'
+    - 'AgentName                           :   2069 :LookUp[SpecialChromeBrowserNames;agent.text]'
+    - 'AgentVersion                        :   2069 :agent.product.(1)name="Chrome"^.version'
 
 - matcher:
     variable:
     - 'ProductBeforeChrome: agent.product.(1)name="Chrome"^<'
     extract:
-    - 'AgentName                           :   2017 :LookUp[SpecialChromeBrowserNames;@ProductBeforeChrome.(1)name]'
-    - 'AgentVersion                        :   2017 :@ProductBeforeChrome.(1)version'
+    - 'AgentName                           :   2087 :LookUp[SpecialChromeBrowserNames;@ProductBeforeChrome.(1)name]'
+    - 'AgentVersion                        :   2087 :@ProductBeforeChrome.(1)version'
+
+
+- matcher:
+    variable:
+    - 'ProductBeforeChrome: agent.product.(1)name="Chrome"^<<'
+    extract:
+    - 'AgentName                           :   2086 :LookUp[SpecialChromeBrowserNames;@ProductBeforeChrome.(1)name]'
+    - 'AgentVersion                        :   2086 :@ProductBeforeChrome.(1)version'
+
+# Sometimes the name of the agent is BETWEEN the "Chrome" and "(Mobile) Safari" products.
+- matcher:
+    require:
+    - 'agent.product.(1)name="Safari"' # Performance trick
+    variable:
+    - 'Product: agent.product.(1)name="Chrome"^>>.name="Safari"^<'
+    extract:
+    - 'AgentClass                          :   2080 :"Browser"'
+    - 'AgentName                           :   2080 :@Product.name'
+    - 'AgentVersion                        :   2080 :@Product.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Mobile Safari"' # Performance trick
+    variable:
+    - 'Product: agent.product.(1)name="Chrome"^>>.name="Mobile Safari"^<'
+    extract:
+    - 'AgentClass                          :   2080 :"Browser"'
+    - 'AgentName                           :   2080 :@Product.name'
+    - 'AgentVersion                        :   2080 :@Product.version'
+
+# Sometimes the name of the agent AND the name of something else are BETWEEN the "Chrome" and "(Mobile) Safari" products.
+- matcher:
+    require:
+    - 'agent.product.(1)name="Safari"' # Performance trick
+    variable:
+    - 'Product: agent.product.(1)name="Chrome"^>>>.name="Safari"^<<'
+    extract:
+    - 'AgentClass                          :   2080 :"Browser"'
+    - 'AgentName                           :   2080 :@Product.name'
+    - 'AgentVersion                        :   2080 :@Product.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Mobile Safari"' # Performance trick
+    variable:
+    - 'Product: agent.product.(1)name="Chrome"^>>>.name="Mobile Safari"^<<'
+    extract:
+    - 'AgentClass                          :   2080 :"Browser"'
+    - 'AgentName                           :   2080 :@Product.name'
+    - 'AgentVersion                        :   2080 :@Product.version'
+
 
 - test:
     input:
