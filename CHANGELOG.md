@@ -2,15 +2,13 @@ This is intended as an overview of the major changes
 
 v5.8-SNAPSHOT
 ===
-- Report the actual version of Edge using a lookup.
-- Detection MSOffice, Falkon, QupZilla
-- Improved OS detection, added BeOS/Haiku
-
-v5.8
-===
 - Lookup for MS-Edge versions (which are a MESS!)
 - Fixed detection Chromium running in a snap on Ubuntu.
 - Fixed detection Epiphany (Gnome Web)
+- Report the actual version of Edge using a lookup.
+- Detection MSOffice, Falkon, QupZilla
+- Improved OS detection, added BeOS/Haiku
+- Detection Colibri, Midori, Arora, WebKitGTK / luakit 
 
 v5.7
 ===
