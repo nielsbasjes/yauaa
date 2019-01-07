@@ -176,11 +176,11 @@ public class Matcher implements Serializable {
         }
 
         if (!hasDefinedExtractConfigs) {
-            throw new InvalidParserConfigurationException("Matcher does not extract anything");
+            throw new InvalidParserConfigurationException("Matcher does not extract anything:" + matcherSourceLocation);
         }
 
         if (!hasActiveExtractConfigs) {
-            throw new UselessMatcherException("Does not extract any wanted fields");
+            throw new UselessMatcherException("Does not extract any wanted fields" + matcherSourceLocation);
         }
 
         for (ConfigLine configLine : configLines) {
