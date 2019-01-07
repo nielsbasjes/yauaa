@@ -111,6 +111,58 @@ config:
     - 'AgentName                           :     55 :"Safari"'
     - 'AgentVersion                        :     55 :agent.product.(1)name="Version"^.version'
 
+# ----
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Mobile Safari"'
+    - 'agent.(1)product.comments.entry.product.(1)name[1]="Android"'
+    extract:
+    - 'AgentClass                          :     56 :"Browser"'
+    - 'AgentName                           :     56 :"Stock Android Browser"'
+    - 'AgentVersion                        :     56 :agent.product.(1)name="Version"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.(1)name="Safari"'
+    - 'agent.(1)product.comments.entry.product.(1)name[1]="Android"'
+    extract:
+    - 'AgentClass                          :     56 :"Browser"'
+    - 'AgentName                           :     56 :"Stock Android Browser"'
+    - 'AgentVersion                        :     56 :agent.product.(1)name="Version"^.version'
+
+- matcher:
+    extract:
+    - 'AgentClass                          :     10 :"Browser"'
+    - 'AgentName                           :     10 :"Stock Android Browser"'
+    - 'AgentVersion                        :     10 :agent.product.(1)name[1]="Android"^.version'
+
+# ----
+
+- matcher:
+    variable:
+    - 'Safari:agent.product.(1)name="Mobile Safari"^'
+    - 'Agent:@Safari>'
+    require:
+    - 'IsNull[agent.product.(1)name="osmeta"]' # NASTY
+    - '@Safari<.name="Version"'
+    extract:
+    - 'AgentClass                          :     57 :"Browser"'
+    - 'AgentName                           :     57 :@Agent.name'
+    - 'AgentVersion                        :     57 :@Agent.version'
+
+- matcher:
+    variable:
+    - 'Safari:agent.product.(1)name="Safari"^'
+    - 'Agent:@Safari>'
+    require:
+    - 'IsNull[agent.product.(1)name="osmeta"]'  # NASTY
+    - '@Safari<.name="Version"'
+    extract:
+    - 'AgentClass                          :     57 :"Browser"'
+    - 'AgentName                           :     57 :@Agent.name'
+    - 'AgentVersion                        :     57 :@Agent.version'
+
 #Safari:
 - test:
     input:
