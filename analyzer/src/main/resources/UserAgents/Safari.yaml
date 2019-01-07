@@ -137,6 +137,7 @@ config:
     - 'AgentName                           :     10 :"Stock Android Browser"'
     - 'AgentVersion                        :     10 :agent.product.(1)name[1]="Android"^.version'
 
+
 # ----
 
 - matcher:
@@ -144,7 +145,10 @@ config:
     - 'Safari:agent.product.(1)name="Mobile Safari"^'
     - 'Agent:@Safari>'
     require:
+    - 'IsNull[@Agent.name="Version"]'
+    - 'IsNull[@Agent.name="AppleWebKit"]'
     - 'IsNull[agent.product.(1)name="osmeta"]' # NASTY
+    - 'agent.product.name="Version"' # Performance trick
     - '@Safari<.name="Version"'
     extract:
     - 'AgentClass                          :     57 :"Browser"'
@@ -156,12 +160,47 @@ config:
     - 'Safari:agent.product.(1)name="Safari"^'
     - 'Agent:@Safari>'
     require:
+    - 'IsNull[@Agent.name="Version"]'
+    - 'IsNull[@Agent.name="AppleWebKit"]'
     - 'IsNull[agent.product.(1)name="osmeta"]'  # NASTY
+    - 'agent.product.name="Version"' # Performance trick
     - '@Safari<.name="Version"'
     extract:
     - 'AgentClass                          :     57 :"Browser"'
     - 'AgentName                           :     57 :@Agent.name'
     - 'AgentVersion                        :     57 :@Agent.version'
+
+# ----
+
+- matcher:
+    variable:
+    - 'Safari:agent.product.(1)name="Mobile Safari"^'
+    - 'Version:@Safari<.name="Version"^'
+    - 'Agent:@Version<'
+    require:
+    - 'IsNull[@Agent.name="Version"]'
+    - 'IsNull[@Agent.name="AppleWebKit"]'
+    - 'IsNull[agent.product.(1)name="osmeta"]' # NASTY
+    - 'agent.product.name="Version"' # Performance trick
+    extract:
+    - 'AgentClass                          :     58 :"Browser"'
+    - 'AgentName                           :     58 :@Agent.name'
+    - 'AgentVersion                        :     58 :@Agent.version'
+
+- matcher:
+    variable:
+    - 'Safari:agent.product.(1)name="Safari"^'
+    - 'Version:@Safari<.name="Version"^'
+    - 'Agent:@Version<'
+    require:
+    - 'IsNull[@Agent.name="Version"]'
+    - 'IsNull[@Agent.name="AppleWebKit"]'
+    - 'IsNull[agent.product.(1)name="osmeta"]'  # NASTY
+    - 'agent.product.name="Version"' # Performance trick
+    extract:
+    - 'AgentClass                          :     58 :"Browser"'
+    - 'AgentName                           :     58 :@Agent.name'
+    - 'AgentVersion                        :     58 :@Agent.version'
 
 #Safari:
 - test:
