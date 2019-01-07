@@ -52,6 +52,37 @@ config:
     - 'AgentName                           :   2010 :"Crazy Browser"'
     - 'AgentVersion                        :   2010 :agent.(1)product.(1)comments.entry.product.name="Crazy Browser"^.version'
 
+- matcher:
+    variable:
+    - 'WebKitGTK:agent.product.(1)name="WebKitGTK"^'
+    extract:
+    - 'LayoutEngineClass                   :    100 :"Browser"'
+    - 'LayoutEngineName                    :    100 :"WebKitGTK"'
+    - 'LayoutEngineVersion                 :    100 :@WebKitGTK.version'
+
+- matcher:
+    variable:
+    - 'WebKitGTK:agent.product.(1)name="WebKitGTK"^'
+    extract:
+    - 'LayoutEngineClass                   :    100 :"Browser"'
+    - 'LayoutEngineName                    :    100 :"WebKitGTK"'
+    - 'LayoutEngineVersion                 :    100 :@WebKitGTK.version'
+    - 'AgentClass                          :    100 :"Browser"'
+    - 'AgentName                           :    100 :@WebKitGTK>.name'
+    - 'AgentVersion                        :    100 :@WebKitGTK>.version'
+
+- matcher:
+    variable:
+    - 'WebKitGTK:agent.product.(1)name="WebKitGTK"^'
+    extract:
+    - 'LayoutEngineClass                   :    100 :"Browser"'
+    - 'LayoutEngineName                    :    100 :"WebKitGTK"'
+    - 'LayoutEngineVersion                 :    100 :@WebKitGTK.version'
+    - 'AgentClass                          :    100 :"Browser"'
+    - 'AgentName                           :    100 :@WebKitGTK>.text'
+    - 'AgentVersion                        :    100 :"??"'
+
+
 # ================================
 
 - test:
@@ -2248,3 +2279,57 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'QupZilla 2.2.0'
       AgentNameVersionMajor                : 'QupZilla 2'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux x86_64) AppleWebKit/538.15+ (KHTML, like Gecko) WebKitGTK+/2.4.2 luakit/2012.09.13'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'WebKitGTK'
+      LayoutEngineVersion                  : '2.4.2'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'WebKitGTK 2.4.2'
+      LayoutEngineNameVersionMajor         : 'WebKitGTK 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'luakit'
+      AgentVersion                         : '2012.09.13'
+      AgentVersionMajor                    : '2012'
+      AgentNameVersion                     : 'luakit 2012.09.13'
+      AgentNameVersionMajor                : 'luakit 2012'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux x86_64) AppleWebKit/535.4+ (KHTML, like Gecko) WebKitGTK+/1.6.1 luakit'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'WebKitGTK'
+      LayoutEngineVersion                  : '1.6.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'WebKitGTK 1.6.1'
+      LayoutEngineNameVersionMajor         : 'WebKitGTK 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'luakit'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'luakit ??'
+      AgentNameVersionMajor                : 'luakit ??'
+
