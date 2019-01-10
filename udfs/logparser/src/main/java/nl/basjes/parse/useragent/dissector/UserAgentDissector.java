@@ -36,6 +36,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static nl.basjes.parse.core.Casts.NO_CASTS;
+import static nl.basjes.parse.core.Casts.STRING_ONLY;
+
 public class UserAgentDissector extends Dissector {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentDissector.class);
@@ -135,10 +138,10 @@ public class UserAgentDissector extends Dissector {
 
         if (fieldName == null) {
             LOG.error("There is NO fieldname for the requested \"{}\" ({})", outputname, name);
-            return null; // NOSONAR: Returning null is correct
+            return NO_CASTS;
         }
         requestedFieldNames.add(fieldName);
-        return Casts.STRING_ONLY; // We ONLY do Strings here
+        return STRING_ONLY; // We ONLY do Strings here
     }
 
     @Override

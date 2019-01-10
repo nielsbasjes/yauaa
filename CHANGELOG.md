@@ -9,6 +9,14 @@ v5.8-SNAPSHOT
 - Detection MSOffice, Falkon, QupZilla
 - Improved OS detection, added BeOS/Haiku
 - Detection Colibri, Midori, Arora, WebKitGTK / luakit 
+- Updated UDF dependencies
+    Apache Flink  1.7.1
+    Apache Beam   2.9.0
+    Apache Drill  1.15.0
+    Apache Hadoop 2.8.5
+    Apache Hive   2.3.4
+    Apache Nifi   1.8.0
+    Logparser     5.2
 
 v5.7
 ===
