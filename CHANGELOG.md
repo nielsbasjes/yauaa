@@ -8,7 +8,7 @@ v5.8-SNAPSHOT
 - Report the actual version of Edge using a lookup.
 - Detection MSOffice, Falkon, QupZilla
 - Improved OS detection, added BeOS/Haiku
-- Detection Colibri, Midori, Arora, WebKitGTK / luakit 
+- Detection Colibri, Midori, Arora, WebKitGTK / luakit, Kodi
 - Detection of Android on Sony Bravia TV
 - Updated UDF dependencies
     Apache Flink  1.7.1

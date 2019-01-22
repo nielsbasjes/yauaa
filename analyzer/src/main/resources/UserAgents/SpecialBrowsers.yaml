@@ -2333,3 +2333,36 @@ config:
       AgentNameVersion                     : 'luakit ??'
       AgentNameVersionMajor                : 'luakit ??'
 
+
+- matcher:
+    extract:
+    - 'AgentClass                          :   2011 :"Browser"' # TODO: Or should this be 'Special'??
+    - 'AgentName                           :   2011 :"Kodi"'
+    - 'AgentVersion                        :   2011 :agent.product.name="Kodi"^.version'
+
+# Kodi = XBMC Media center application = Cross platform, also on Sony Bravia
+- test:
+    input:
+      user_agent_string:   'Kodi/17.1 (Linux; Android 6.0.1; BRAVIA 4K GB Build/MMB29V.S50) Android/6.0.1 Sys_CPU/armv7l App_Bitness/32 Version/17.1-Git:20170320-fc1619b'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Sony Bravia 4K GB'
+      DeviceBrand                          : 'Sony'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : 'MMB29V.S50'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Kodi'
+      AgentVersion                         : '17.1'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Kodi 17.1'
+      AgentNameVersionMajor                : 'Kodi 17'
+
