@@ -856,3 +856,158 @@ config:
       AgentVersionMajor                    : '61'
       AgentNameVersion                     : 'Chrome 61.0.3163.98'
       AgentNameVersionMajor                : 'Chrome 61'
+
+- matcher:
+    extract:
+    - 'OperatingSystemName                 :   1100 :"Android"' # Most likely the TV edition of Android
+    - 'OperatingSystemVersion              :   1100 :agent.(1)product.(1)comments.entry.product.(1)name="Andr0id"^.version'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.product.(1)name="Bravia"'
+    extract:
+    - 'DeviceClass                         :   1100 :"TV"'
+    - 'OperatingSystemClass                :   1100 :"Embedded"'
+
+# Sony (Bravia) KD-49XF7596, Android 7.0 (Android TV ~ https://www.android.com/tv/) running Opera
+# Kernel 3.10.79 . Build:  BRAVIA_ATV3_4K_EU-user 7.0 NRD91N-S140  ~  1.6.0.56.31.1.00 release-keys
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Andr0id 7.0; BRAVIA 4K GB ATV3 Build/NRD91N.S140) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 OPR/40.0.2207.0 OMI/4.9.0.59.E9103576.154'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Sony Bravia 4K GB ATV3'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NRD91N.S140'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '40.0.2207.0'
+      AgentVersionMajor                    : '40'
+      AgentNameVersion                     : 'Opera 40.0.2207.0'
+      AgentNameVersionMajor                : 'Opera 40'
+
+#- test:
+#    input:
+#      user_agent_string:   'Android 6.0.1;AppleWebKit/537.36;Build/MMB29V.S48;BRAVIA 4K GB Build/MMB29V.S48'
+#
+#
+#- test:
+#    input:
+#      user_agent_string:   'Android 6.0.1;Build/MMB29V.S47;BRAVIA 4K GB Build/MMB29V.S47'
+
+- test:
+    input:
+      user_agent_string:   'Dalvik/2.1.0 (Linux; U; Android 7.0; BRAVIA 4K GB Build/NRD91N.S90)'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Sony Bravia 4K GB'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NRD91N.S90'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Dalvik'
+      AgentVersion                         : '2.1.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Dalvik 2.1.0'
+      AgentNameVersionMajor                : 'Dalvik 2'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Andr0id 7.0; BRAVIA 4K GB Build/NRD91N.S90) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 OPR/40.0.2207.0 OMI/4.9.0.59.E9103576.108'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Sony Bravia 4K GB'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NRD91N.S90'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '40.0.2207.0'
+      AgentVersionMajor                    : '40'
+      AgentNameVersion                     : 'Opera 40.0.2207.0'
+      AgentNameVersionMajor                : 'Opera 40'
+
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 7.0; BRAVIA 4K GB Build/NRD91N.S90) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.109 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Sony Bravia 4K GB'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NRD91N.S90'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '65.0'
+      LayoutEngineVersionMajor             : '65'
+      LayoutEngineNameVersion              : 'Blink 65.0'
+      LayoutEngineNameVersionMajor         : 'Blink 65'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '65.0.3325.109'
+      AgentVersionMajor                    : '65'
+      AgentNameVersion                     : 'Chrome 65.0.3325.109'
+      AgentNameVersionMajor                : 'Chrome 65'
+
+
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 7.0; BRAVIA 4K GB Build/NRD91N.S90; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Sony Bravia 4K GB'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NRD91N.S90'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '69.0'
+      LayoutEngineVersionMajor             : '69'
+      LayoutEngineNameVersion              : 'Blink 69.0'
+      LayoutEngineNameVersionMajor         : 'Blink 69'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '69.0.3497.100'
+      AgentVersionMajor                    : '69'
+      AgentNameVersion                     : 'Chrome Webview 69.0.3497.100'
+      AgentNameVersionMajor                : 'Chrome Webview 69'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
