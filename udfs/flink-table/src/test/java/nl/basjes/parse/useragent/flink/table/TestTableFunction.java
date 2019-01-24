@@ -18,7 +18,9 @@
 package nl.basjes.parse.useragent.flink.table;
 
 import org.apache.flink.api.common.functions.MapFunction;
+import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.java.tuple.Tuple3;
+import org.apache.flink.api.java.typeutils.RowTypeInfo;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.apache.flink.api.common.typeinfo.Types.STRING;
 import static org.junit.Assert.assertEquals;
 
 public class TestTableFunction {
@@ -84,7 +87,8 @@ public class TestTableFunction {
             "FROM AgentStream";
         Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
 
-        DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, Row.class);
+        TypeInformation<Row> tupleType = new RowTypeInfo(STRING, STRING, STRING, STRING, STRING);
+        DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
 
         resultSet.map((MapFunction<Row, String>) row -> {
             assertEquals("Wrong DeviceClass: "           + row.getField(0), row.getField(3), row.getField(1));

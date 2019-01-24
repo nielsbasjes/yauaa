@@ -18,7 +18,9 @@
 package nl.basjes.parse.useragent.flink.table;
 
 import org.apache.flink.api.common.functions.MapFunction;
+import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.java.tuple.Tuple4;
+import org.apache.flink.api.java.typeutils.RowTypeInfo;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -32,6 +34,9 @@ import org.apache.flink.types.Row;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import static org.apache.flink.api.common.typeinfo.Types.LONG;
+import static org.apache.flink.api.common.typeinfo.Types.SQL_TIMESTAMP;
+import static org.apache.flink.api.common.typeinfo.Types.STRING;
 import static org.junit.Assert.assertEquals;
 
 public class DemonstrationOfTumblingTableSQLFunction {
@@ -157,7 +162,8 @@ public class DemonstrationOfTumblingTableSQLFunction {
             );
         Table resultTable = tableEnv.sqlQuery(sqlQuery);
 
-        DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, Row.class);
+        TypeInformation<Row> tupleType = new RowTypeInfo(SQL_TIMESTAMP, STRING, STRING, STRING, STRING, LONG);
+        DataStream<Row>      resultSet = tableEnv.toAppendStream(resultTable, tupleType);
 
         resultSet.print();
 
