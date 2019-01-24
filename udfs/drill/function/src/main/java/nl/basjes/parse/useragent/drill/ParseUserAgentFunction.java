@@ -31,7 +31,7 @@ import javax.inject.Inject;
 @FunctionTemplate(
     name    = "parse_user_agent",
     scope   = FunctionTemplate.FunctionScope.SIMPLE,
-    nulls   = FunctionTemplate.NullHandling.NULL_IF_NULL
+    nulls   = FunctionTemplate.NullHandling.INTERNAL
 )
 public class ParseUserAgentFunction implements DrillSimpleFunc {
 
