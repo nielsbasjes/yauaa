@@ -72,6 +72,7 @@
     <slf4j.version>1.7.25</slf4j.version>
     <rat.version>0.13</rat.version>
     <jacoco.version>0.8.2</jacoco.version>
+    <junit5.version>5.3.2</junit5.version>
 
     <spring.version>5.1.4.RELEASE</spring.version>
     <spring-boot.version>2.0.5.RELEASE</spring-boot.version>
@@ -107,13 +108,32 @@
     <version.url>${project.url}</version.url>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit5.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
+
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <profiles>
