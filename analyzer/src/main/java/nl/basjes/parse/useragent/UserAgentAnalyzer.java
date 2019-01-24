@@ -17,10 +17,13 @@
 
 package nl.basjes.parse.useragent;
 
+import com.esotericsoftware.kryo.DefaultSerializer;
+import com.esotericsoftware.kryo.Kryo;
 import org.apache.commons.collections4.map.LRUMap;
 
 import java.io.Serializable;
 
+@DefaultSerializer(UserAgentAnalyzer.KryoSerializer.class)
 public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serializable {
     public static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
@@ -30,6 +33,12 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
     protected UserAgentAnalyzer() {
         super();
         initializeCache();
+    }
+
+    public static class KryoSerializer extends UserAgentAnalyzerDirect.KryoSerializer {
+        public KryoSerializer(Kryo kryo, Class type) {
+            super(kryo, type);
+        }
     }
 
     public void disableCaching() {

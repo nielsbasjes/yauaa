@@ -28,6 +28,11 @@ public class StepPrevN extends Step {
 
     private final int steps;
 
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private StepPrevN() {
+        steps = -1;
+    }
+
     public StepPrevN(int steps) {
         this.steps = steps;
     }

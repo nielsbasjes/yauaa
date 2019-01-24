@@ -29,6 +29,13 @@ public class StepLookup extends Step {
     private final Map<String, String> lookup;
     private final String defaultValue;
 
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private StepLookup() {
+        lookupName = null;
+        lookup = null;
+        defaultValue = null;
+    }
+
     public StepLookup(String lookupName, Map<String, String> lookup, String defaultValue) {
         this.lookupName = lookupName;
         this.lookup = lookup;

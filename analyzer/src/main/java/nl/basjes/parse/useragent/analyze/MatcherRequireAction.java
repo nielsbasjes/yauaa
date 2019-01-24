@@ -26,6 +26,10 @@ import org.slf4j.LoggerFactory;
 public class MatcherRequireAction extends MatcherAction {
     private static final Logger LOG = LoggerFactory.getLogger(MatcherRequireAction.class);
 
+    // private constructor for serialization systems ONLY (like Kyro)
+    private MatcherRequireAction() {
+    }
+
     public MatcherRequireAction(String config, Matcher matcher) {
         init(config, matcher);
     }

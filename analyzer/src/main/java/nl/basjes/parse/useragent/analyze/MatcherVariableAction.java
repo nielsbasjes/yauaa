@@ -33,6 +33,12 @@ public class MatcherVariableAction extends MatcherAction {
     private final String expression;
     private Set<MatcherAction> interestedActions;
 
+    // private constructor for serialization systems ONLY (like Kyro)
+    private MatcherVariableAction() {
+        variableName = null;
+        expression = null;
+    }
+
     public MatcherVariableAction(String variableName, String config, Matcher matcher) {
         this.variableName = variableName;
         expression = config;

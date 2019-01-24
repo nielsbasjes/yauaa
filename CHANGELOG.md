@@ -18,6 +18,7 @@ v5.8-SNAPSHOT
     Apache Hive   2.3.4
     Apache Nifi   1.8.0
     Logparser     5.2
+- Support for serialization using Kryo
 
 v5.7
 ===

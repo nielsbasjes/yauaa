@@ -28,6 +28,13 @@ public class StepIsInSet extends Step {
     private final String listName;
     private final Set<String> list;
 
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private StepIsInSet() {
+        listName = null;
+        list = null;
+    }
+
+
     public StepIsInSet(String listName, Set<String> list) {
         this.listName = listName;
         this.list = list;

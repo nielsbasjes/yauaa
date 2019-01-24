@@ -17,6 +17,10 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps.walk;
 
+import com.esotericsoftware.kryo.DefaultSerializer;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.serializers.FieldSerializer;
 import nl.basjes.parse.useragent.analyze.NumberRangeList;
 import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
@@ -27,6 +31,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.Iterator;
 
+@DefaultSerializer(StepDown.KryoSerializer.class)
 public class StepDown extends Step {
 
     private final int start;
@@ -45,6 +50,26 @@ public class StepDown extends Step {
         throws java.io.IOException, ClassNotFoundException {
         stream.defaultReadObject();
         setDefaultFieldValues();
+    }
+
+    public static final class KryoSerializer extends FieldSerializer<StepDown> {
+        public KryoSerializer(Kryo kryo, Class type) {
+            super(kryo, type);
+        }
+
+        @Override
+        public StepDown read(Kryo kryo, Input input, Class<StepDown> type) {
+            StepDown stepDown = super.read(kryo, input, type);
+            stepDown.setDefaultFieldValues();
+            return stepDown;
+        }
+    }
+
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private StepDown() {
+        start = -1;
+        end = -1;
+        name = null;
     }
 
     public StepDown(NumberRangeContext numberRange, String name) {

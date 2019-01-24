@@ -17,8 +17,11 @@
 
 package nl.basjes.parse.useragent.debug;
 
+import com.esotericsoftware.kryo.DefaultSerializer;
+import com.esotericsoftware.kryo.Kryo;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import org.slf4j.Logger;
@@ -33,6 +36,7 @@ import java.util.Map;
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 
+@DefaultSerializer(UserAgentAnalyzerTester.KryoSerializer.class)
 public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzerTester.class);
 
@@ -44,6 +48,12 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     public UserAgentAnalyzerTester(String resourceString) {
         this();
         loadResources(resourceString);
+    }
+
+    public static class KryoSerializer extends UserAgentAnalyzerDirect.KryoSerializer {
+        public KryoSerializer(Kryo kryo, Class type) {
+            super(kryo, type);
+        }
     }
 
     static class TestResult {

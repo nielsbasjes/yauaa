@@ -16,6 +16,11 @@
  */
 package nl.basjes.parse.useragent.analyze;
 
+import com.esotericsoftware.kryo.DefaultSerializer;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
+import com.esotericsoftware.kryo.serializers.FieldSerializer;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.Serializable;
@@ -26,12 +31,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@DefaultSerializer(MatchesList.KryoSerializer.class)
 public final class MatchesList implements Collection<MatchesList.Match>, Serializable {
 
     public static final class Match implements Serializable {
-        private String key;
-        private String value;
-        private ParseTree result;
+        private transient String key;
+        private transient String value;
+        private transient ParseTree result;
+
+        // Private constructor for serialization systems ONLY (like Kyro)
+        private Match() {
+        }
 
         public Match(String key, String value, ParseTree result) {
             fill(key, value, result);
@@ -61,14 +71,45 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
 
     private Match[] allElements;
 
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private MatchesList() {
+    }
+
+    public static class KryoSerializer extends FieldSerializer<MatchesList> {
+        public KryoSerializer(Kryo kryo, Class type) {
+            super(kryo, type);
+        }
+
+        @Override
+        public void write(Kryo kryo, Output output, MatchesList object) {
+            output.write(object.maxSize);
+        }
+
+        @Override
+        public MatchesList read(Kryo kryo, Input input, Class<MatchesList> type) {
+            MatchesList matchesList = new MatchesList();
+            matchesList.maxSize = input.read();
+
+            // Note: The matches list is always empty after deserialization.
+            matchesList.initialize();
+
+            return matchesList;
+        }
+
+    }
+
     public MatchesList(int newMaxSize) {
         maxSize = newMaxSize;
+        initialize();
+    }
 
+    private void initialize() {
         size = 0;
         allElements = new Match[maxSize];
         for (int i = 0; i < maxSize; i++) {
             allElements[i] = new Match(null, null, null);
         }
+
     }
 
     @Override

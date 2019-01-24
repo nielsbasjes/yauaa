@@ -25,6 +25,12 @@ public class StepEquals extends Step {
 
     private final String desiredValue;
 
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private StepEquals() {
+        desiredValue = null;
+    }
+
+
     public StepEquals(String desiredValue) {
         this.desiredValue = desiredValue.toLowerCase();
     }

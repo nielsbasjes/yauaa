@@ -168,6 +168,11 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
 
         private long confidence;
 
+        // private constructor for serialization systems ONLY (like Kyro)
+        private AgentField() {
+            defaultValue = null;
+        }
+
         AgentField(String defaultValue) {
             this.defaultValue = defaultValue;
             reset();

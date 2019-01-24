@@ -30,6 +30,12 @@ public class StepIsInLookupPrefix extends Step {
     private final String            lookupName;
     private final PrefixMap<String> prefixMap;
 
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private StepIsInLookupPrefix() {
+        lookupName = null;
+        prefixMap = null;
+    }
+
     public StepIsInLookupPrefix(String lookupName, Map<String, String> prefixList) {
         this.lookupName = lookupName;
         this.prefixMap = new StringPrefixMap<>(false);

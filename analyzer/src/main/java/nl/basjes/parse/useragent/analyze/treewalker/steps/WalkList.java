@@ -102,6 +102,12 @@ public class WalkList implements Serializable {
         private final ParseTree tree;
         private final String value;
 
+        // Private constructor for serialization systems ONLY (like Kyro)
+        WalkResult() {
+            tree = null;
+            value = null;
+        }
+
         public WalkResult(ParseTree tree, String value) {
             this.tree = tree;
             this.value = value;
@@ -122,6 +128,13 @@ public class WalkList implements Serializable {
                 ", value=" + (value == null ? ">>>NULL<<<" : '\'' + value + '\'') +
                 '}';
         }
+    }
+
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private WalkList() {
+        lookups = null;
+        lookupSets = null;
+        verbose = false;
     }
 
     public WalkList(ParserRuleContext requiredPattern,

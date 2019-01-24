@@ -26,6 +26,13 @@ public class StepConcat extends Step {
     private final String prefix;
     private final String postfix;
 
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private StepConcat() {
+        prefix = null;
+        postfix = null;
+    }
+
+
     public StepConcat(String prefix, String postfix) {
         this.prefix = prefix;
         this.postfix = postfix;

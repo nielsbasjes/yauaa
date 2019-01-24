@@ -31,6 +31,12 @@ public class StepWordRange extends Step {
     private final int firstWord;
     private final int lastWord;
 
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private StepWordRange() {
+        firstWord = -1;
+        lastWord = -1;
+    }
+
     public StepWordRange(WordRangeVisitor.Range range) {
         firstWord = range.getFirst();
         lastWord = range.getLast();

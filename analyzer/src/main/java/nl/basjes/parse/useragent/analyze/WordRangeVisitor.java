@@ -28,6 +28,12 @@ public final class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordR
 
     public static class Range implements Serializable {
 
+        // private constructor for serialization systems ONLY (like Kyro)
+        private Range() {
+            first = -1;
+            last = -1;
+        }
+
         public Range(int first, int last) {
             this.first = first;
             this.last = last;
@@ -76,6 +82,7 @@ public final class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordR
 
     private static final WordRangeVisitor WORD_RANGE_VISITOR = new WordRangeVisitor();
 
+    // private constructor for serialization systems ONLY (like Kyro)
     private WordRangeVisitor() {
     }
 

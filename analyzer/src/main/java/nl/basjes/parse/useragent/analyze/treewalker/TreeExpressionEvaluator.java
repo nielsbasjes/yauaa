@@ -48,6 +48,16 @@ public class TreeExpressionEvaluator implements Serializable {
     private final WalkList walkList;
     private final String fixedValue;
 
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private TreeExpressionEvaluator() {
+        requiredPatternText = null;
+        matcher = null;
+        verbose = false;
+        fixedValue = null;
+        walkList = null;
+    }
+
+
     public TreeExpressionEvaluator(ParserRuleContext requiredPattern,
                                    Matcher matcher,
                                    boolean verbose) {

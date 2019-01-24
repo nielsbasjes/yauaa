@@ -25,6 +25,11 @@ public class StepEndsWith extends Step {
 
     private final String desiredValue;
 
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private StepEndsWith() {
+        desiredValue = null;
+    }
+
     public StepEndsWith(String desiredValue) {
         this.desiredValue = desiredValue.toLowerCase();
     }

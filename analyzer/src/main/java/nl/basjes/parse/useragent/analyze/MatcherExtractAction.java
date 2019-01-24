@@ -34,6 +34,13 @@ public class MatcherExtractAction extends MatcherAction {
     private final String expression;
     private UserAgent.AgentField resultAgentField;
 
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private MatcherExtractAction() {
+        attribute = null;
+        confidence = -1;
+        expression = null;
+    }
+
     public MatcherExtractAction(String attribute, long confidence, String config, Matcher matcher) {
         this.attribute = attribute;
         this.confidence = confidence;

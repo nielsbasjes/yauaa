@@ -101,6 +101,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         String path;
         ParseTree ctx = null;
 
+        // private constructor for serialization systems ONLY (like Kyro)
+        private State() {
+            name = null;
+        }
+
         public State(String name) {
             this.name = name;
         }
@@ -156,6 +161,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     }
 
     private transient ParseTreeProperty<State> state;
+
+    // private constructor for serialization systems ONLY (like Kyro)
+    private UserAgentTreeFlattener() {
+        analyzer = null;
+    }
 
     public UserAgentTreeFlattener(Analyzer analyzer) {
         this.analyzer = analyzer;

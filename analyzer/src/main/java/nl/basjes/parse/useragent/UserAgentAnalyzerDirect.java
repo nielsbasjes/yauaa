@@ -17,6 +17,10 @@
 
 package nl.basjes.parse.useragent;
 
+import com.esotericsoftware.kryo.DefaultSerializer;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.serializers.FieldSerializer;
 import com.google.common.net.InternetDomainName;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
@@ -87,6 +91,7 @@ import static nl.basjes.parse.useragent.utils.YamlUtils.requireNodeInstanceOf;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.assertSameVersion;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.logVersion;
 
+@DefaultSerializer(UserAgentAnalyzerDirect.KryoSerializer.class)
 public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 
     // We set this to 1000000 always.
@@ -139,7 +144,24 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         throws IOException, ClassNotFoundException {
         initTransientFields();
         stream.defaultReadObject();
+        showDeserializationStats();
+    }
 
+    public static class KryoSerializer extends FieldSerializer<UserAgentAnalyzerDirect> {
+        public KryoSerializer(Kryo kryo, Class type) {
+            super(kryo, type);
+        }
+
+        @Override
+        public UserAgentAnalyzerDirect read(Kryo kryo, Input input, Class<UserAgentAnalyzerDirect> type) {
+            UserAgentAnalyzerDirect uaa = super.read(kryo, input, type);
+            uaa.initTransientFields();
+            uaa.showDeserializationStats();
+            return uaa;
+        }
+    }
+
+    private void showDeserializationStats() {
         List<String> lines = new ArrayList<>();
         lines.add("This Analyzer instance was deserialized.");
         lines.add("");
@@ -147,6 +169,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         lines.add("LookupSets   : " + lookupSets.size());
         lines.add("Matchers     : " + allMatchers.size());
         lines.add("Hashmap size : " + informMatcherActions.size());
+        lines.add("Ranges map   : " + informMatcherActionRanges.size());
         lines.add("Testcases    : " + testCases.size());
 
         logVersion(lines);

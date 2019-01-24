@@ -25,6 +25,11 @@ public class StepContains extends Step {
 
     private final String desiredValue;
 
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private StepContains() {
+        desiredValue = null;
+    }
+
     public StepContains(String desiredValue) {
         this.desiredValue = desiredValue.toLowerCase();
     }

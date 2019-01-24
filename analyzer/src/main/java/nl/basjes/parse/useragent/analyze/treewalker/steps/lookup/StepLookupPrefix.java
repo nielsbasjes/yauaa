@@ -31,6 +31,13 @@ public class StepLookupPrefix extends Step {
     private final String            defaultValue;
     private final PrefixMap<String> prefixMap;
 
+    // Private constructor for serialization systems ONLY (like Kyro)
+    private StepLookupPrefix() {
+        lookupName = null;
+        defaultValue = null;
+        prefixMap = null;
+    }
+
     public StepLookupPrefix(String lookupName, Map<String, String> prefixList, String defaultValue) {
         this.lookupName = lookupName;
         this.defaultValue = defaultValue;
