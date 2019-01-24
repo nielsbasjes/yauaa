@@ -25,6 +25,7 @@ import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.nodes.NodeTuple;
 import org.yaml.snakeyaml.nodes.SequenceNode;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static nl.basjes.parse.useragent.Version.BUILD_TIME_STAMP;
@@ -47,6 +48,10 @@ public final class YauaaVersion {
     }
 
     public static void logVersion(String... extraLines) {
+        logVersion(Arrays.asList(extraLines));
+    }
+
+    public static void logVersion(List<String> extraLines) {
         String[] lines = {
             "For more information: " + URL,
             COPYRIGHT + " - " + LICENSE
@@ -67,7 +72,7 @@ public final class YauaaVersion {
         for (String line : lines) {
             logLine(line, width);
         }
-        if (extraLines.length > 0) {
+        if (!extraLines.isEmpty()) {
             LOG.info("+-{}-+", padding('-', width));
             for (String line : extraLines) {
                 logLine(line, width);

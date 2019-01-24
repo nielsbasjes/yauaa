@@ -149,8 +149,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         lines.add("Hashmap size : " + informMatcherActions.size());
         lines.add("Testcases    : " + testCases.size());
 
-        String[] x = {};
-        logVersion(lines.toArray(x));
+        logVersion(lines);
     }
 
     protected UserAgentAnalyzerDirect() {
@@ -1234,7 +1233,9 @@ config:
             if (uaa.wantedFieldNames == null) {
                 uaa.wantedFieldNames = new ArrayList<>(32);
             }
-            uaa.wantedFieldNames.add(fieldName);
+            if (!uaa.wantedFieldNames.contains(fieldName)) {
+                uaa.wantedFieldNames.add(fieldName);
+            }
             return (B)this;
         }
 
