@@ -1,5 +1,9 @@
 This is intended as an overview of the major changes
 
+v5.9-SNAPSHOT
+===
+- ...
+
 v5.8
 ===
 - Lookup for MS-Edge versions (which are a MESS!)
