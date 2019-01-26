@@ -11,13 +11,13 @@ v5.8
 - Detection Colibri, Midori, Arora, WebKitGTK / luakit, Kodi
 - Detection of Android on Sony Bravia TV
 - Updated UDF dependencies
-    Apache Flink  1.7.1
-    Apache Beam   2.9.0
-    Apache Drill  1.15.0
-    Apache Hadoop 2.8.5
-    Apache Hive   2.3.4
-    Apache Nifi   1.8.0
-    Logparser     5.2
+  - Apache Flink  1.7.1
+  - Apache Beam   2.9.0
+  - Apache Drill  1.15.0
+  - Apache Hadoop 2.8.5
+  - Apache Hive   2.3.4
+  - Apache Nifi   1.8.0
+  - Logparser     5.2
 - Support for serialization using Kryo
 
 v5.7
