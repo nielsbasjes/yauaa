@@ -1,6 +1,6 @@
 This is intended as an overview of the major changes
 
-v5.8-SNAPSHOT
+v5.8
 ===
 - Lookup for MS-Edge versions (which are a MESS!)
 - Fixed detection Chromium running in a snap on Ubuntu.
