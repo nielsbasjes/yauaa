@@ -96,6 +96,12 @@ public class TestYamlBasedExpressions {
     }
 
     @Test
+    public void runAllStepsTests() {
+        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:AllSteps.yaml");
+        Assert.assertTrue(uaa.runTests(false, true));
+    }
+
+    @Test
     public void runDebugOutputTest() {
         UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester("classpath*:DebugOutput-tests.yaml");
         Assert.assertTrue(uaa.runTests(true, true));

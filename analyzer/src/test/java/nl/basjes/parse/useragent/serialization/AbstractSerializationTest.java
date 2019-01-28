@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.serialization;
 
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzerTesterBuilder;
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +53,12 @@ public abstract class AbstractSerializationTest {
 
         UserAgentAnalyzerTesterBuilder<?, ?> uaab = UserAgentAnalyzerTester
             .newBuilder()
+            .dropTests()
+            .dropDefaultResources()
+            .addResources("classpath*:AllSteps.yaml")
+            .addResources("classpath*:AllFields-tests.yaml")
+            .addResources("classpath*:AllPossibleSteps.yaml")
+            .addResources("classpath*:DocumentationExample.yaml")
             .hideMatcherLoadStats();
 
         if (immediate) {
@@ -81,7 +88,7 @@ public abstract class AbstractSerializationTest {
         LOG.info("==============================================================");
         LOG.info("Validating when getting all fields");
         LOG.info("--------------------------------------------------------------");
-        assertTrue(uaa.runTests(false, true, null, false, false));
+        assertTrue(uaa.runTests(false, false, null, false, false));
         LOG.info("==============================================================");
     }
 

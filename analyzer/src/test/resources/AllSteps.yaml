@@ -1,0 +1,98 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2019 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+
+# =============================
+# Use all Step functions
+# Needed to verify serialization
+# =============================
+
+- set:
+    name: 'MySet'
+    values:
+    - 'Foo'
+    - 'Bar'
+
+- lookup:
+    name: 'MyLookup'
+    map:
+      "Foo": "Foo"
+      "Bar": "Bar"
+
+- lookup:
+    name: 'MyPrefixes'
+    map:
+      "F":   "Foo"
+
+- matcher:
+    variable:
+    - 'Foo: agent.product.name^.name'
+    - 'Bar: agent.(1)product.(1)comments.(1)entry.(1)product.(1)name^.name'
+    require:
+    - 'IsNull[agent^]'
+    - 'IsNull[agent.product>]'
+    - 'IsNull[agent.product>>]'
+    - 'IsNull[agent.product>>>]'
+    - 'IsNull[agent.product>>>>]'
+    - 'IsNull[agent.product<]'
+    - 'IsNull[agent.product<<]'
+    - 'IsNull[agent.product<<<]'
+    - 'IsNull[agent.product<<<<]'
+
+    - '@Foo?MyLookup'
+    - '@Foo?MySet'
+
+    - '@Foo="Foo"'
+    - '@Foo~"Foo"'
+    - '@Foo!="Bar"'
+    - '@Foo{"Fo"'
+    - '@Foo}"oo"'
+
+    extract:
+      - 'Test               :   1 : "Ok"'
+      - 'Concat12           :   1 : Concat           [">";@Bar;"<"]'
+      - 'Concat1            :   1 : Concat           [">";@Bar    ]'
+      - 'Concat2            :   1 : Concat           [    @Bar;"<"]'
+      - 'NormalizeBrand     :   1 : NormalizeBrand   [@Bar ]'
+      - 'CleanVersion       :   1 : CleanVersion     [@Bar^.version]'
+      - 'LookUpFoo1         :   1 : LookUp           [MyLookup;@Foo;"No Foo"]'
+      - 'LookUpFoo2         :   1 : LookUp           [MyLookup;@Foo[1]]'
+      - 'LookUpBar1         :   1 : LookUp           [MyLookup;@Bar;"No Bar"]'
+      - 'LookUpBar2         :   1 : LookUp           [MyLookup;@Bar[1]]'
+      - 'LookUpPrefix1      :   1 : LookUpPrefix     [MyPrefixes;@Bar;"No Bar"]'
+      - 'LookUpPrefix2      :   1 : LookUpPrefix     [MyPrefixes;@Foo]'
+      - 'IsInLookUpPrefix   :   1 : IsInLookUpPrefix [MyPrefixes;@Foo]'
+      - 'IsInSet            :   1 : @Foo?MySet'
+
+- test:
+    input:
+       user_agent_string                   : 'Foo/1.0 (BAR bars /2_0_0)'
+    expected:
+      Test                                 : 'Ok'
+      Concat12                             : '>BAR bars<'
+      Concat1                              : '>BAR bars'
+      Concat2                              : 'BAR bars<'
+      NormalizeBrand                       : 'BAR Bars'
+      CleanVersion                         : '2.0.0'
+      LookUpFoo1                           : 'Foo'
+      LookUpFoo2                           : 'Foo'
+      LookUpBar1                           : 'No Bar'
+      LookUpBar2                           : 'Bar'
+      LookUpPrefix1                        : 'No Bar'
+      LookUpPrefix2                        : 'Foo'
+      IsInLookUpPrefix                     : 'Foo'
+      IsInSet                              : 'Foo'

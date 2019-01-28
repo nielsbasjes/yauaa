@@ -102,12 +102,6 @@ public class WalkList implements Serializable {
         private final ParseTree tree;
         private final String value;
 
-        // Private constructor for serialization systems ONLY (like Kyro)
-        WalkResult() {
-            tree = null;
-            value = null;
-        }
-
         public WalkResult(ParseTree tree, String value) {
             this.tree = tree;
             this.value = value;

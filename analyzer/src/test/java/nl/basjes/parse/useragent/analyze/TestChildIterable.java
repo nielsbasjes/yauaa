@@ -22,13 +22,14 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class TestChildIterable {
 
     @Test(expected = NoSuchElementException.class)
-    public void testEdges(){
+    public void testEdgeNoChildren(){
         ChildIterable ci = new ChildIterable(true, 1, 5, x -> (true));
 
         ParserRuleContext prc = new ParserRuleContext();
@@ -36,6 +37,27 @@ public class TestChildIterable {
         Iterator<ParseTree> iterator = ci.iterator(prc);
 
         iterator.next();
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void testEdgeFewChildrens(){
+        ChildIterable ci = new ChildIterable(true, 1, 5, x -> (true));
+
+        ParserRuleContext prc = new ParserRuleContext();
+        prc.children = new ArrayList<>();
+        prc.children.add(new ParserRuleContext());
+        prc.children.add(new ParserRuleContext());
+        prc.children.add(new ParserRuleContext());
+        prc.children.add(new ParserRuleContext());
+
+        Iterator<ParseTree> iterator = ci.iterator(prc);
+
+        int i = 0;
+        while (i < 10) {
+            i++;
+            iterator.next();
+        }
+
     }
 
 }
