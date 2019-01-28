@@ -19,7 +19,6 @@ package nl.basjes.parse.useragent.serialization;
 
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzerTesterBuilder;
-import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
