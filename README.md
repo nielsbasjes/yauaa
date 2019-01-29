@@ -14,6 +14,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 HIGH Profile release notes:
 ===========================
 
+Version 5.8
+---
+The detection for Microsoft Edge now no longer reports the 'EdgeHtml' version as if it is the version of 'Edge' itself. Microsoft made a mess of things again.
+
 Version 5.6
 ---
 In version 5.6 the number of detected DeviceBrands is greatly increased.
