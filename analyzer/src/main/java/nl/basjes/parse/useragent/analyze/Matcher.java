@@ -382,6 +382,19 @@ public class Matcher implements Serializable {
         return verbose;
     }
 
+    boolean alreadyNotifiedAnalyzerWeReceivedInput = false;
+    public void receivedInput() {
+        if (alreadyNotifiedAnalyzerWeReceivedInput) {
+            return;
+        }
+        analyzer.receivedInput(this);
+        alreadyNotifiedAnalyzerWeReceivedInput = true;
+    }
+
+    public long getActionsThatRequireInput() {
+        return actionsThatRequireInput;
+    }
+
     private long actionsThatRequireInputAndReceivedInput = 0;
     void gotMyFirstStartingPoint() {
         actionsThatRequireInputAndReceivedInput++;
@@ -396,6 +409,7 @@ public class Matcher implements Serializable {
 
     public void reset() {
         // If there are no dynamic actions we have fixed strings only
+        alreadyNotifiedAnalyzerWeReceivedInput = false;
         actionsThatRequireInputAndReceivedInput = 0;
         verbose = permanentVerbose;
         for (MatcherAction action : dynamicActions) {

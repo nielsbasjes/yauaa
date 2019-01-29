@@ -26,6 +26,7 @@ import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
+import nl.basjes.parse.useragent.analyze.MatcherList;
 import nl.basjes.parse.useragent.analyze.UselessMatcherException;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
@@ -102,6 +103,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzerDirect.class);
     private final List<Matcher> allMatchers = new ArrayList<>(5000);
+    private final MatcherList zeroInputMatchers = new MatcherList(100);
 
     protected List<Matcher> getAllMatchers() {
         return allMatchers;
@@ -402,6 +404,13 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
             (stop - start) / 1000000,
             informMatcherActions.size(),
             informMatcherActionRanges.size());
+
+        for (Matcher matcher: allMatchers) {
+            if (matcher.getActionsThatRequireInput() == 0) {
+                zeroInputMatchers.add(matcher);
+            }
+        }
+
     }
 
     public Set<String> getAllPossibleFieldNames() {
@@ -745,6 +754,14 @@ config:
         return userAgent;
     }
 
+
+    private transient MatcherList touchedMatchers = null;
+
+    @Override
+    public void receivedInput(Matcher matcher) {
+        touchedMatchers.add(matcher);
+    }
+
     public synchronized UserAgent parse(UserAgent userAgent) {
         initializeMatchers();
         String useragentString = userAgent.getUserAgentString();
@@ -754,8 +771,17 @@ config:
             return hardCodedPostProcessing(userAgent);
         }
 
+        if (touchedMatchers == null) {
+            touchedMatchers = new MatcherList(allMatchers.size());
+        }
+
         // Reset all Matchers
-        for (Matcher matcher : allMatchers) {
+        for (Matcher matcher : touchedMatchers) {
+            matcher.reset();
+        }
+        touchedMatchers.clear();
+
+        for (Matcher matcher : zeroInputMatchers) {
             matcher.reset();
         }
 
@@ -769,7 +795,10 @@ config:
             userAgent = flattener.parse(userAgent);
 
             // Fire all Analyzers
-            for (Matcher matcher : allMatchers) {
+            for (Matcher matcher : touchedMatchers) {
+                matcher.analyze(userAgent);
+            }
+            for (Matcher matcher : zeroInputMatchers) {
                 matcher.analyze(userAgent);
             }
 

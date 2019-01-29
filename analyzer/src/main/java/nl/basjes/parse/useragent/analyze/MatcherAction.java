@@ -267,6 +267,8 @@ public abstract class MatcherAction implements Serializable {
      * @param result The node in the parser tree where the match occurred
      */
     public void inform(String key, String value, ParseTree result) {
+        matcher.receivedInput();
+
         // Only if this needs input we tell the matcher on the first one.
         if (mustHaveMatches && matches.isEmpty()) {
             matcher.gotMyFirstStartingPoint();

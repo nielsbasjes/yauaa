@@ -36,4 +36,7 @@ public interface Analyzer extends Serializable {
 
     Set<Integer> getRequiredPrefixLengths(String treeName);
 
+    default void receivedInput(Matcher matcher) {
+        // Nothing to do
+    }
 }

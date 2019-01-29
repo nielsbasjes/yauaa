@@ -2,7 +2,8 @@ This is intended as an overview of the major changes
 
 v5.9-SNAPSHOT
 ===
-- Minor speedup in handling IsNull cases.
+- Speedup in handling IsNull cases.
+- Speedup in skipping the untouched Matchers.
 
 v5.8
 ===
