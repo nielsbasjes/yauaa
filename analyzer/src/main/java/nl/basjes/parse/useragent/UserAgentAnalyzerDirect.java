@@ -411,6 +411,12 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
             }
         }
 
+        // Reset all Matchers
+        for (Matcher matcher : allMatchers) {
+            matcher.reset();
+        }
+
+        touchedMatchers = new MatcherList(16);
     }
 
     public Set<String> getAllPossibleFieldNames() {
@@ -771,10 +777,6 @@ config:
             return hardCodedPostProcessing(userAgent);
         }
 
-        if (touchedMatchers == null) {
-            touchedMatchers = new MatcherList(allMatchers.size());
-        }
-
         // Reset all Matchers
         for (Matcher matcher : touchedMatchers) {
             matcher.reset();
@@ -794,10 +796,12 @@ config:
         try {
             userAgent = flattener.parse(userAgent);
 
-            // Fire all Analyzers
+            // Fire all Analyzers with any input
             for (Matcher matcher : touchedMatchers) {
                 matcher.analyze(userAgent);
             }
+
+            // Fire all Analyzers that should not get input
             for (Matcher matcher : zeroInputMatchers) {
                 matcher.analyze(userAgent);
             }
