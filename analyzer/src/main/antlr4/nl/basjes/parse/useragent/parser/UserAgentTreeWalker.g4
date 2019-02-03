@@ -19,7 +19,10 @@ grammar UserAgentTreeWalker;
 
 // ===============================================================
 
-VALUENAME       : [a-zA-Z][a-zA-Z0-9]+    ;
+PATHTOKENNAME   : ('agent' | 'product' | 'name' | 'version' | 'comments' | 'entry' | 'text' | 'url' | 'email' | 'base64' | 'uuid' | 'keyvalue' | 'key' | 'value' );
+
+VALUENAME       : PATHTOKENNAME | [a-zA-Z][a-zA-Z0-9]+    ;
+
 VALUE           : DOUBLEQUOTE ( '\\' [btnfr"'\\] | ~[\\"]  )* DOUBLEQUOTE ;
 
 UP              : '^'           ;
@@ -86,7 +89,7 @@ basePath        : value=VALUE                              #pathFixedValue
                 | 'agent'                (nextStep=path)?  #pathWalk
                 ;
 
-path            : DOT numberRange name=VALUENAME  (nextStep=path)?  #stepDown
+path            : DOT numberRange name=PATHTOKENNAME  (nextStep=path)?  #stepDown
                 | UP                              (nextStep=path)?  #stepUp
                 | NEXT                            (nextStep=path)?  #stepNext
                 | NEXT2                           (nextStep=path)?  #stepNext2
