@@ -72,6 +72,7 @@ DeviceClass
 | TV                    | Similar to Set-top box yet here this is built into the TV |
 | Game Console          | 'Fixed' game systems like the PlayStation and XBox |
 | Handheld Game Console | 'Mobile' game systems like the 3DS |
+| Voice                 | A voice driven device (i.e. ask a question and the page is read aloud) |
 | Robot                 | Robots that visit the site |
 | Robot Mobile          | Robots that visit the site indicating they want to be seen as a Mobile visitor |
 | Spy                   | Robots that visit the site pretending they are robots like google, but they are not |
@@ -114,6 +115,7 @@ AgentClass
 | Robot Mobile      | A robot that wants to be treated as a mobile device |
 | Cloud Application | Something running in a cloud (but not a regular robot) |
 | Email Client      | This is an email application that did the request |
+| Voice             | A voice driven 'browser' (i.e. ask a question and the page is read aloud) |
 | Special           | Something special we cannot fully classify |
 | Testclient        | A website testing tool |
 | Hacker            | A hacker, so it can really be anything. |

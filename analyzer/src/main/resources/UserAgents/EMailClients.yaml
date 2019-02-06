@@ -494,8 +494,268 @@ config:
       AgentNameVersion                     : 'Microsoft Office MAPI Client 16.0.4738'
       AgentNameVersionMajor                : 'Microsoft Office MAPI Client 16'
 
+# -----------------------------------------------------------------------------------------------------------------
+# GoogleDocs:
+
+- lookup:
+    name: 'GoogleDocsApps'
+    map:
+      "apps-spreadsheets":  "Google Docs Spreadsheets"
+      "apps-presentations": "Google Docs Presentations"
+      "documents":          "Google Docs Documents"
+      "script":             "Google Docs Script"
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry="compatible"'
+    - 'agent.(1)product.(1)comments.(2)entry="GoogleDocs"'
+    - 'agent.(1)product.(1)comments.(4)entry="http://docs.google.com"'
+    extract:
+    - 'DeviceClass                         :    101 : "Desktop"' # Actually; it can be anything. We don't know.
+    - 'DeviceName                          :    101 : "Google Docs"'
+    - 'DeviceBrand                         :    101 : "Google"'
+    - 'OperatingSystemClass                :    101 : "Cloud"'
+    - 'OperatingSystemName                 :    101 : "Cloud"'
+    - 'OperatingSystemVersion              :    101 : "Cloud"'
+    - 'OperatingSystemNameVersion          :    101 : "Cloud"'
+    - 'LayoutEngineClass                   :    101 : "Cloud"'
+    - 'LayoutEngineName                    :    101 : "Cloud"'
+    - 'LayoutEngineVersion                 :    101 : "??"'
+    - 'LayoutEngineNameVersion             :    101 : "Cloud"'
+    - 'AgentClass                          :    101 : "Cloud Application"'
+    - 'AgentName                           :    101 : LookUp[GoogleDocsApps;agent.(1)product.(1)comments.(3)entry]'
+    - 'AgentVersion                        :    101 : "??"'
 
 
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry="compatible"'
+    - 'agent.(1)product.(1)comments.(2)entry="GoogleDocs"'
+    - 'agent.(1)product.(1)comments.(4)entry="http://docs.google.com"'
+    extract:
+    - 'DeviceClass                         :    100 : "Desktop"' # Actually; it can be anything. We don't know.
+    - 'DeviceName                          :    100 : "Google Docs"'
+    - 'DeviceBrand                         :    100 : "Google"'
+    - 'OperatingSystemClass                :    100 : "Cloud"'
+    - 'OperatingSystemName                 :    100 : "Cloud"'
+    - 'OperatingSystemVersion              :    100 : "Cloud"'
+    - 'OperatingSystemNameVersion          :    100 : "Cloud"'
+    - 'LayoutEngineClass                   :    100 : "Cloud"'
+    - 'LayoutEngineName                    :    100 : "Cloud"'
+    - 'LayoutEngineVersion                 :    100 : "??"'
+    - 'LayoutEngineNameVersion             :    100 : "Cloud"'
+    - 'AgentClass                          :    100 : "Cloud Application"'
+    - 'AgentName                           :    100 : agent.(1)product.(1)comments.(3)entry'
+    - 'AgentVersion                        :    100 : "??"'
+
+
+# Google Docs Sheet (both via website and android app): Put this in cell: =IMAGE("https://niels.basjes.nl/Pasfoto-vierkant.jpg")
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; GoogleDocs; apps-spreadsheets; +http://docs.google.com)'
+    expected:
+      DeviceClass                          : 'Desktop' # Actually; it can be anything. We don't know.
+      DeviceName                           : 'Google Docs'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'Google Docs Spreadsheets'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Docs Spreadsheets ??'
+      AgentNameVersionMajor                : 'Google Docs Spreadsheets ??'
+      AgentInformationUrl                  : 'http://docs.google.com'
+
+# Chrome 71 on Ubuntu 16.04:
+# Google Docs Sheet: Insert --> Image --> By Url .
+# FIXME
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko Firefox/11.0 (via ggpht.com GoogleImageProxy)'
+
+# Chrome 71 on Ubuntu 16.04:
+# Google Docs document: Insert --> Image --> By Url .
+# Duplicate: 'Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko Firefox/11.0 (via ggpht.com GoogleImageProxy)'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; GoogleDocs; documents; +http://docs.google.com)'
+    expected:
+      DeviceClass                          : 'Desktop' # Actually; it can be anything. We don't know.
+      DeviceName                           : 'Google Docs'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'Google Docs Documents'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Docs Documents ??'
+      AgentNameVersionMajor                : 'Google Docs Documents ??'
+      AgentInformationUrl                  : 'http://docs.google.com'
+
+# Google Docs presentation: Insert --> Image --> By Url .
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; GoogleDocs; apps-presentations; +http://docs.google.com)'
+    expected:
+      DeviceClass                          : 'Desktop' # Actually; it can be anything. We don't know.
+      DeviceName                           : 'Google Docs'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'Google Docs Presentations'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Docs Presentations ??'
+      AgentNameVersionMajor                : 'Google Docs Presentations ??'
+      AgentInformationUrl                  : 'http://docs.google.com'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(2)entry="GoogleApps script"'
+    extract:
+    - 'DeviceClass                         :    100 : "Desktop"' # Actually; it can be anything. We don't know.
+    - 'DeviceName                          :    100 : "Google Docs"'
+    - 'DeviceBrand                         :    100 : "Google"'
+    - 'OperatingSystemClass                :    100 : "Cloud"'
+    - 'OperatingSystemName                 :    100 : "Cloud"'
+    - 'OperatingSystemVersion              :    100 : "Cloud"'
+    - 'OperatingSystemNameVersion          :    100 : "Cloud"'
+    - 'LayoutEngineClass                   :    100 : "Cloud"'
+    - 'LayoutEngineName                    :    100 : "Cloud"'
+    - 'LayoutEngineVersion                 :    100 : "??"'
+    - 'LayoutEngineNameVersion             :    100 : "Cloud"'
+    - 'AgentClass                          :    100 : "Cloud Application"'
+    - 'AgentName                           :    100 : "Google Docs Script"'
+    - 'AgentVersion                        :    100 : "??"'
+
+
+# GoogleDocs script; https://rehmann.co/blog/googleapps-script-bot/
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; GoogleApps script; +http://script.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Desktop' # Actually; it can be anything. We don't know.
+      DeviceName                           : 'Google Docs'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'Google Docs Script'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Docs Script ??'
+      AgentNameVersionMajor                : 'Google Docs Script ??'
+      AgentInformationUrl                  : 'http://script.google.com/bot.html'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(2)entry="Google-Apps-Script"'
+    extract:
+    - 'DeviceClass                         :    100 : "Desktop"' # Actually; it can be anything. We don't know.
+    - 'DeviceName                          :    100 : "Google Docs"'
+    - 'DeviceBrand                         :    100 : "Google"'
+    - 'OperatingSystemClass                :    100 : "Cloud"'
+    - 'OperatingSystemName                 :    100 : "Cloud"'
+    - 'OperatingSystemVersion              :    100 : "Cloud"'
+    - 'OperatingSystemNameVersion          :    100 : "Cloud"'
+    - 'LayoutEngineClass                   :    100 : "Cloud"'
+    - 'LayoutEngineName                    :    100 : "Cloud"'
+    - 'LayoutEngineVersion                 :    100 : "??"'
+    - 'LayoutEngineNameVersion             :    100 : "Cloud"'
+    - 'AgentClass                          :    100 : "Cloud Application"'
+    - 'AgentName                           :    100 : "Google Docs Script"'
+    - 'AgentVersion                        :    100 : "??"'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Google-Apps-Script)'
+    expected:
+      DeviceClass                          : 'Desktop' # Actually; it can be anything. We don't know.
+      DeviceName                           : 'Google Docs'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'Google Docs Script'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Docs Script ??'
+      AgentNameVersionMajor                : 'Google Docs Script ??'
+
+# From https://stackoverflow.com/questions/15067462/urlfetch-with-custom-user-agent-string
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; GoogleDocs; script; +http://docs.google.com)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Google Docs'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : 'Cloud'
+      OperatingSystemNameVersion           : 'Cloud'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'Google Docs Script'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Docs Script ??'
+      AgentNameVersionMajor                : 'Google Docs Script ??'
+      AgentInformationUrl                  : 'http://docs.google.com'
+
+
+
+# -----------------------------------------------------------------------------------------------------------------
 # Lotus notes
 
 - matcher:

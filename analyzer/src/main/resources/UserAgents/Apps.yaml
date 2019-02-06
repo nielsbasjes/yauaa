@@ -1079,3 +1079,39 @@ config:
       WebviewAppVersionMajor               : '0'
       WebviewAppNameVersionMajor           : 'Alibaba AliApp 0'
 
+
+# According to https://twitter.com/dannysullivan/status/1092531647319142400
+# A new Google useragent spotted named google-speakr - @JohnMu or @dannysullivan any ideas what this is? https://www.seroundtable.com/new-google-useragent-google-speakr-27056.html …  via @VorticonCmdr and @gfiorelli1
+# That's an useragent used when Google Go fetches a page to make sure it has the most up-to-date information before it translates it to read aloud. We'll see about adding documentation. More info here: https://www.blog.google/technology/next-billion-users/make-google-read-it/
+
+# "Today, we’re launching a new feature which will let everyone using Google Go’s browser listen to webpages out loud."
+
+- matcher:
+    require:
+    - 'agent="google-speakr"'
+    extract:
+    - '__Set_ALL_Fields__                  :     99 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :    100 :"Mobile"'
+    - 'AgentClass                          :    100 :"Voice"'
+    - 'OperatingSystemClass                :    100 :"Mobile"'
+    - 'OperatingSystemName                 :    100 :"Android"'
+    - 'AgentClass                          :    100 :"Voice"'
+    - 'AgentName                           :    100 :"Google Go"'
+
+- test:
+    input:
+      user_agent_string: 'google-speakr'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      AgentClass                           : 'Voice'
+      AgentName                            : 'Google Go'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Go ??'
+      AgentNameVersionMajor                : 'Google Go ??'

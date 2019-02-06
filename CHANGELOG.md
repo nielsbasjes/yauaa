@@ -4,6 +4,8 @@ v5.9-SNAPSHOT
 ===
 - Speedup in handling IsNull cases.
 - Speedup in skipping the untouched Matchers.
+- Detection for Google Go, Google Docs, Google Docs Script
+- New class of Device and Agent: Voice
 
 v5.8
 ===
