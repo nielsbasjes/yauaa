@@ -1,0 +1,526 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2019 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '14E304'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.3.1'
+      OperatingSystemNameVersion           : 'iOS 10.3.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '603.1.30'
+      LayoutEngineVersionMajor             : '603'
+      LayoutEngineNameVersion              : 'AppleWebKit 603.1.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 603'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Safari 10.0'
+      AgentNameVersionMajor                : 'Safari 10'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.4.2; en-us; SCH-I535 Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SCH-I535'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KOT49H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G930V'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NRD90M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '59.0'
+      LayoutEngineVersionMajor             : '59'
+      LayoutEngineNameVersion              : 'Blink 59.0'
+      LayoutEngineNameVersionMajor         : 'Blink 59'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '59.0.3071.125'
+      AgentVersionMajor                    : '59'
+      AgentNameVersion                     : 'Chrome 59.0.3071.125'
+      AgentNameVersionMajor                : 'Chrome 59'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; SM-A310F Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.91 Mobile Safari/537.36 OPR/42.7.2246.114996'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-A310F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NRD90M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '55.0'
+      LayoutEngineVersionMajor             : '55'
+      LayoutEngineNameVersion              : 'Blink 55.0'
+      LayoutEngineNameVersionMajor         : 'Blink 55'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '42.7.2246.114996'
+      AgentVersionMajor                    : '42'
+      AgentNameVersion                     : 'Opera 42.7.2246.114996'
+      AgentNameVersionMajor                : 'Opera 42'
+
+
+
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Android 4.1.2; Linux; Opera Mobi/ADR-1305251841) Presto/2.11.355 Version/12.10'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.1.2'
+      OperatingSystemNameVersion           : 'Android 4.1.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.11.355'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.11.355'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.10'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.10'
+      AgentNameVersionMajor                : 'Opera 12'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (J2ME/MIDP; Opera Mini/5.1.21214/28.2725; U; ru) Presto/2.8.119 Version/11.10'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.8.119'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.8.119'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera Mini'
+      AgentVersion                         : '5.1.21214'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Opera Mini 5.1.21214'
+      AgentNameVersionMajor                : 'Opera Mini 5'
+      AgentLanguage                        : 'Russian'
+      AgentLanguageCode                    : 'ru'
+      AgentSecurity                        : 'Strong security'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) OPiOS/10.2.0.93022 Mobile/11D257 Safari/9537.53'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '11D257'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '7.1.2'
+      OperatingSystemNameVersion           : 'iOS 7.1.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.51.2'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.51.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '10.2.0.93022'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Opera 10.2.0.93022'
+      AgentNameVersionMajor                : 'Opera 10'
+
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Android 7.0; Mobile; rv:54.0) Gecko/54.0 Firefox/54.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '54.0'
+      LayoutEngineVersionMajor             : '54'
+      LayoutEngineNameVersion              : 'Gecko 54.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 54'
+      LayoutEngineBuild                    : '54.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '54.0'
+      AgentVersionMajor                    : '54'
+      AgentNameVersion                     : 'Firefox 54.0'
+      AgentNameVersionMajor                : 'Firefox 54'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac OS X) AppleWebKit/603.2.4 (KHTML, like Gecko) FxiOS/7.5b3349 Mobile/14F89 Safari/603.2.4'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '14F89'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.3.2'
+      OperatingSystemNameVersion           : 'iOS 10.3.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '603.2.4'
+      LayoutEngineVersionMajor             : '603'
+      LayoutEngineNameVersion              : 'AppleWebKit 603.2.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 603'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '7.5b3349'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Firefox 7.5b3349'
+      AgentNameVersionMajor                : 'Firefox 7'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 7.0; en-US; SM-G935F Build/NRD90M) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/11.3.8.976 U3/0.8.0 Mobile Safari/534.30"'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G935F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NRD90M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'UCBrowser U3'
+      LayoutEngineVersion                  : '0.8.0'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'UCBrowser U3 0.8.0'
+      LayoutEngineNameVersionMajor         : 'UCBrowser U3 0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'UCBrowser'
+      AgentVersion                         : '11.3.8.976'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'UCBrowser 11.3.8.976'
+      AgentNameVersionMajor                : 'UCBrowser 11'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G920V'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : 'MMB29K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '52.0'
+      LayoutEngineVersionMajor             : '52'
+      LayoutEngineNameVersion              : 'Blink 52.0'
+      LayoutEngineNameVersionMajor         : 'Blink 52'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '52.0.2743.98'
+      AgentVersionMajor                    : '52'
+      AgentNameVersion                     : 'Chrome 52.0.2743.98'
+      AgentNameVersionMajor                : 'Chrome 52'
+
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; SM-N750K Build/LMY47X; ko-kr) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Mobile Safari/537.36 Puffin/6.0.8.15804AP'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-N750K'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'LMY47X'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '42.0'
+      LayoutEngineVersionMajor             : '42'
+      LayoutEngineNameVersion              : 'Blink 42.0'
+      LayoutEngineNameVersionMajor         : 'Blink 42'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Puffin'
+      AgentVersion                         : '6.0.8.15804AP'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Puffin 6.0.8.15804AP'
+      AgentNameVersionMajor                : 'Puffin 6'
+      AgentLanguage                        : 'Korean (South Korea)'
+      AgentLanguageCode                    : 'ko-kr'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G955U Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.4 Chrome/51.0.2704.106 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G955U'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NRD90M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '51.0'
+      LayoutEngineVersionMajor             : '51'
+      LayoutEngineNameVersion              : 'Blink 51.0'
+      LayoutEngineNameVersionMajor         : 'Blink 51'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '5.4'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'SamsungBrowser 5.4'
+      AgentNameVersionMajor                : 'SamsungBrowser 5'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0; Lenovo K50a40 Build/MRA58K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.137 YaBrowser/17.4.1.352.00 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Lenovo K50A40'
+      DeviceBrand                          : 'Lenovo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemVersionBuild          : 'MRA58K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '57.0'
+      LayoutEngineVersionMajor             : '57'
+      LayoutEngineNameVersion              : 'Blink 57.0'
+      LayoutEngineNameVersionMajor         : 'Blink 57'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'YaBrowser'
+      AgentVersion                         : '17.4.1.352.00'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'YaBrowser 17.4.1.352.00'
+      AgentNameVersionMajor                : 'YaBrowser 17'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 7.0; en-us; MI 5 Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.146 Mobile Safari/537.36 XiaoMi/MiuiBrowser/9.0.3'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Xiaomi MI 5'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NRD90M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'MiuiBrowser'
+      AgentVersion                         : '9.0.3'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'MiuiBrowser 9.0.3'
+      AgentNameVersionMajor                : 'MiuiBrowser 9'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+      WebviewAppName                       : 'XiaoMi MiuiBrowser'
+      WebviewAppVersion                    : '9.0.3'
+      WebviewAppVersionMajor               : '9'
+      WebviewAppNameVersionMajor           : 'XiaoMi MiuiBrowser 9'
+
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; Microsoft; Lumia 950)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Microsoft Lumia 950'
+      DeviceBrand                          : 'Microsoft'
+      DeviceCpu                            : 'ARM'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : '8.0'
+      OperatingSystemNameVersion           : 'Windows Phone 8.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '6.0'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Trident 6.0'
+      LayoutEngineNameVersionMajor         : 'Trident 6'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'IE Mobile'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'IE Mobile 10.0'
+      AgentNameVersionMajor                : 'IE Mobile 10'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows Phone 10.0; Android 6.0.1; Microsoft; Lumia 950) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Mobile Safari/537.36 Edge/15.14977'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Microsoft Lumia 950'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows Phone 10.0'
+      OperatingSystemVersionBuild          : '14977'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'EdgeHTML'
+      LayoutEngineVersion                  : '15'
+      LayoutEngineVersionMajor             : '15'
+      LayoutEngineNameVersion              : 'EdgeHTML 15'
+      LayoutEngineNameVersionMajor         : 'EdgeHTML 15'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '39.14977'
+      AgentVersionMajor                    : '39'
+      AgentNameVersion                     : 'Edge 39.14977'
+      AgentNameVersionMajor                : 'Edge 39'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (BB10; Kbd) AppleWebKit/537.35+ (KHTML, like Gecko) Version/10.3.3.2205 Mobile Safari/537.35+'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'BlackBerry 10'
+      DeviceBrand                          : 'BlackBerry'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'BlackBerry'
+      OperatingSystemVersion               : 'BlackBerry 10'
+      OperatingSystemNameVersion           : 'BlackBerry 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.35'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.35'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Mobile Safari'
+      AgentVersion                         : '10.3.3.2205'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Mobile Safari 10.3.3.2205'
+      AgentNameVersionMajor                : 'Mobile Safari 10'
+
