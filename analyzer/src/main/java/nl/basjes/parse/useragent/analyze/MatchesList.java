@@ -21,6 +21,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.Serializable;
@@ -35,25 +36,25 @@ import java.util.NoSuchElementException;
 public final class MatchesList implements Collection<MatchesList.Match>, Serializable {
 
     public static final class Match implements Serializable {
-        private transient String key;
-        private transient String value;
-        private transient ParseTree result;
+        private transient MatcherTree key;
+        private transient String      value;
+        private transient ParseTree   result;
 
         // Private constructor for serialization systems ONLY (like Kyro)
         private Match() {
         }
 
-        public Match(String key, String value, ParseTree result) {
+        public Match(MatcherTree key, String value, ParseTree result) {
             fill(key, value, result);
         }
 
-        public void fill(String nKey, String nValue, ParseTree nResult) {
+        public void fill(MatcherTree nKey, String nValue, ParseTree nResult) {
             this.key = nKey;
             this.value = nValue;
             this.result = nResult;
         }
 
-        public String getKey() {
+        public MatcherTree getKey() {
             return key;
         }
 
@@ -127,7 +128,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
         size = 0;
     }
 
-    public boolean add(String key, String value, ParseTree result) {
+    public boolean add(ParseTree result, MatcherTree key, String value) {
         if (size >= maxSize) {
             increaseCapacity();
         }

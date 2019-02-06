@@ -19,9 +19,37 @@ grammar UserAgentTreeWalker;
 
 // ===============================================================
 
-PATHTOKENNAME   : ('agent' | 'product' | 'name' | 'version' | 'comments' | 'entry' | 'text' | 'url' | 'email' | 'base64' | 'uuid' | 'keyvalue' | 'key' | 'value' );
+PATH_TOKEN_AGENT     : 'agent';
+PATH_TOKEN_PRODUCT   : 'product';
+PATH_TOKEN_NAME      : 'name';
+PATH_TOKEN_VERSION   : 'version';
+PATH_TOKEN_COMMENTS  : 'comments';
+PATH_TOKEN_ENTRY     : 'entry';
+PATH_TOKEN_TEXT      : 'text';
+PATH_TOKEN_URL       : 'url';
+PATH_TOKEN_EMAIL     : 'email';
+PATH_TOKEN_BASE64    : 'base64';
+PATH_TOKEN_UUID      : 'uuid';
+PATH_TOKEN_KEYVALUE  : 'keyvalue';
+PATH_TOKEN_KEY       : 'key';
+PATH_TOKEN_VALUE     : 'value';
 
-VALUENAME       : PATHTOKENNAME | [a-zA-Z][a-zA-Z0-9]+    ;
+VALUENAME
+    : PATH_TOKEN_AGENT
+    | PATH_TOKEN_PRODUCT
+    | PATH_TOKEN_NAME
+    | PATH_TOKEN_VERSION
+    | PATH_TOKEN_COMMENTS
+    | PATH_TOKEN_ENTRY
+    | PATH_TOKEN_TEXT
+    | PATH_TOKEN_URL
+    | PATH_TOKEN_EMAIL
+    | PATH_TOKEN_BASE64
+    | PATH_TOKEN_UUID
+    | PATH_TOKEN_KEYVALUE
+    | PATH_TOKEN_KEY
+    | PATH_TOKEN_VALUE
+    | [a-zA-Z][a-zA-Z0-9]+    ;
 
 VALUE           : DOUBLEQUOTE ( '\\' [btnfr"'\\] | ~[\\"]  )* DOUBLEQUOTE ;
 
@@ -72,16 +100,16 @@ matcherExtract  : expression=matcher EOF;
 // Is a bit duplicate but this gives a lot of clarity in the code
 matcherVariable : expression=matcher EOF;
 
-matcher         : basePath                                                                              #matcherPath
-                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher SEMICOLON postfix=VALUE BLOCKCLOSE  #matcherConcat
-                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher                         BLOCKCLOSE  #matcherConcatPrefix
-                | 'Concat' BLOCKOPEN                        matcher SEMICOLON postfix=VALUE BLOCKCLOSE  #matcherConcatPostfix
-                | 'NormalizeBrand'   BLOCKOPEN matcher BLOCKCLOSE                                         #matcherNormalizeBrand
-                | 'CleanVersion'     BLOCKOPEN matcher BLOCKCLOSE                                         #matcherCleanVersion
-                | 'LookUp'           BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookup
-                | 'LookUpPrefix'     BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookupPrefix
-                | 'IsInLookUpPrefix' BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsInLookupPrefix
-                | matcher wordRange                                                                     #matcherWordRange
+matcher         : basePath                                                                                                      #matcherPath
+                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher SEMICOLON postfix=VALUE BLOCKCLOSE                          #matcherConcat
+                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher                         BLOCKCLOSE                          #matcherConcatPrefix
+                | 'Concat' BLOCKOPEN                        matcher SEMICOLON postfix=VALUE BLOCKCLOSE                          #matcherConcatPostfix
+                | 'NormalizeBrand'   BLOCKOPEN matcher BLOCKCLOSE                                                               #matcherNormalizeBrand
+                | 'CleanVersion'     BLOCKOPEN matcher BLOCKCLOSE                                                               #matcherCleanVersion
+                | 'LookUp'           BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE   #matcherPathLookup
+                | 'LookUpPrefix'     BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE   #matcherPathLookupPrefix
+                | 'IsInLookUpPrefix' BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE   #matcherPathIsInLookupPrefix
+                | matcher wordRange                                                                                             #matcherWordRange
                 ;
 
 basePath        : value=VALUE                              #pathFixedValue
@@ -89,24 +117,37 @@ basePath        : value=VALUE                              #pathFixedValue
                 | 'agent'                (nextStep=path)?  #pathWalk
                 ;
 
-path            : DOT numberRange name=PATHTOKENNAME  (nextStep=path)?  #stepDown
-                | UP                              (nextStep=path)?  #stepUp
-                | NEXT                            (nextStep=path)?  #stepNext
-                | NEXT2                           (nextStep=path)?  #stepNext2
-                | NEXT3                           (nextStep=path)?  #stepNext3
-                | NEXT4                           (nextStep=path)?  #stepNext4
-                | PREV                            (nextStep=path)?  #stepPrev
-                | PREV2                           (nextStep=path)?  #stepPrev2
-                | PREV3                           (nextStep=path)?  #stepPrev3
-                | PREV4                           (nextStep=path)?  #stepPrev4
-                | EQUALS     value=VALUE          (nextStep=path)?  #stepEqualsValue
-                | NOTEQUALS  value=VALUE          (nextStep=path)?  #stepNotEqualsValue
-                | STARTSWITH value=VALUE          (nextStep=path)?  #stepStartsWithValue
-                | ENDSWITH   value=VALUE          (nextStep=path)?  #stepEndsWithValue
-                | CONTAINS   value=VALUE          (nextStep=path)?  #stepContainsValue
-                | IN         set=VALUENAME        (nextStep=path)?  #stepIsInSet
-                | wordRange                       (nextStep=path)?  #stepWordRange
-                | BACKTOFULL                      (nextStep=path)?  #stepBackToFull
+path            : DOT numberRange PATH_TOKEN_AGENT      (nextStep=path)?  #stepDownAgent
+                | DOT numberRange PATH_TOKEN_PRODUCT    (nextStep=path)?  #stepDownProduct
+                | DOT numberRange PATH_TOKEN_NAME       (nextStep=path)?  #stepDownName
+                | DOT numberRange PATH_TOKEN_VERSION    (nextStep=path)?  #stepDownVersion
+                | DOT numberRange PATH_TOKEN_COMMENTS   (nextStep=path)?  #stepDownComments
+                | DOT numberRange PATH_TOKEN_ENTRY      (nextStep=path)?  #stepDownEntry
+                | DOT numberRange PATH_TOKEN_TEXT       (nextStep=path)?  #stepDownText
+                | DOT numberRange PATH_TOKEN_URL        (nextStep=path)?  #stepDownUrl
+                | DOT numberRange PATH_TOKEN_EMAIL      (nextStep=path)?  #stepDownEmail
+                | DOT numberRange PATH_TOKEN_BASE64     (nextStep=path)?  #stepDownBase64
+                | DOT numberRange PATH_TOKEN_UUID       (nextStep=path)?  #stepDownUuid
+                | DOT numberRange PATH_TOKEN_KEYVALUE   (nextStep=path)?  #stepDownKeyvalue
+                | DOT numberRange PATH_TOKEN_KEY        (nextStep=path)?  #stepDownKey
+                | DOT numberRange PATH_TOKEN_VALUE      (nextStep=path)?  #stepDownValue
+                | UP                                    (nextStep=path)?  #stepUp
+                | NEXT                                  (nextStep=path)?  #stepNext
+                | NEXT2                                 (nextStep=path)?  #stepNext2
+                | NEXT3                                 (nextStep=path)?  #stepNext3
+                | NEXT4                                 (nextStep=path)?  #stepNext4
+                | PREV                                  (nextStep=path)?  #stepPrev
+                | PREV2                                 (nextStep=path)?  #stepPrev2
+                | PREV3                                 (nextStep=path)?  #stepPrev3
+                | PREV4                                 (nextStep=path)?  #stepPrev4
+                | EQUALS     value=VALUE                (nextStep=path)?  #stepEqualsValue
+                | NOTEQUALS  value=VALUE                (nextStep=path)?  #stepNotEqualsValue
+                | STARTSWITH value=VALUE                (nextStep=path)?  #stepStartsWithValue
+                | ENDSWITH   value=VALUE                (nextStep=path)?  #stepEndsWithValue
+                | CONTAINS   value=VALUE                (nextStep=path)?  #stepContainsValue
+                | IN         set=VALUENAME              (nextStep=path)?  #stepIsInSet
+                | wordRange                             (nextStep=path)?  #stepWordRange
+                | BACKTOFULL                            (nextStep=path)?  #stepBackToFull
                 ;
 
 numberRange     : ( BRACEOPEN rangeStart=NUMBER MINUS rangeEnd=NUMBER BRACECLOSE ) #numberRangeStartToEnd

@@ -19,8 +19,8 @@ package nl.basjes.parse.useragent.parse;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.analyze.Analyzer;
-import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
-import nl.basjes.parse.useragent.parser.UserAgentBaseListener;
+import nl.basjes.parse.useragent.analyze.MatcherAction;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown.UserAgentGetChildrenVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentLexer;
 import nl.basjes.parse.useragent.parser.UserAgentParser;
 import nl.basjes.parse.useragent.parser.UserAgentParser.Base64Context;
@@ -33,15 +33,19 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.KeyNameContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.KeyValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.KeyValueProductVersionNameContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.KeyValueVersionNameContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.KeyWithoutValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.MultipleWordsContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameEmailContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameKeyValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameNoVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameUrlContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameUuidContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductNameWordsContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionSingleWordContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWithCommasContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWordsContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.RootTextContext;
@@ -51,121 +55,211 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.SiteUrlContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UserAgentContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UuIdContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.VersionWordsContext;
-import nl.basjes.parse.useragent.utils.Splitter;
-import nl.basjes.parse.useragent.utils.VersionSplitter;
-import nl.basjes.parse.useragent.utils.WordSplitter;
+import nl.basjes.parse.useragent.utils.AntlrUtils;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.apache.commons.lang3.tuple.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
-import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.BASE64;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.COMMENTS;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.EMAIL;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.ENTRY;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEY;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEYVALUE;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.NAME;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.PRODUCT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.TEXT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.URL;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.UUID;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.VERSION;
 
-public class UserAgentTreeFlattener extends UserAgentBaseListener implements Serializable {
-    private static final ParseTreeWalker WALKER = new ParseTreeWalker();
-    private final Analyzer               analyzer;
+// FIXME: Checkstyle cleanup
+// CHECKSTYLE.OFF: LineLength
 
-    private static final String AGENT    = "agent";
-    private static final String PRODUCT  = "product";
-    private static final String NAME     = "name";
-    private static final String VERSION  = "version";
-    private static final String COMMENTS = "comments";
-    private static final String KEYVALUE = "keyvalue";
-    private static final String KEY      = "key";
-    private static final String TEXT     = "text";
-    private static final String URL      = "url";
-    private static final String UUID     = "uuid";
-    private static final String EMAIL    = "email";
-    private static final String BASE64   = "base64";
+public class UserAgentTreeFlattener implements Serializable {
 
-    enum PathType {
-        CHILD,
-        COMMENT,
-        VERSION
+    private final Analyzer analyzer;
+
+    @FunctionalInterface
+    public interface FindMatch {
+        /**
+         * Traverse the two trees in sync and send info to any matcher that is found.
+         * @param matcherTree       The current node in the matcher tree.
+         * @param useragentTree     The current node in the parseTree
+         */
+        void findMatch(MatcherTree matcherTree, ParseTree useragentTree);
     }
 
-    public class State {
-        long child = 0;
-        long version = 0;
-        long comment = 0;
-        final String name;
-        String path;
-        ParseTree ctx = null;
+    private static final Map<Class, FindMatch> MATCH_FINDERS = new HashMap<>();
 
-        // private constructor for serialization systems ONLY (like Kyro)
-        private State() {
-            name = null;
+    static {
+        // In case of a parse error the 'parsed' version of agent can be incomplete
+// FIXME (perhaps)       MATCH_FINDERS.put(UserAgentContext.class,                  (mTree, uaTree) -> match(TEXT,      mTree, uaTree, ((ParseTree)uaTree).start.getTokenSource().getInputStream().toString()));
+
+        MATCH_FINDERS.put(RootTextContext.class,                   (mTree, uaTree) -> match(TEXT,      mTree, uaTree));
+        MATCH_FINDERS.put(ProductContext.class,                    (mTree, uaTree) -> match(PRODUCT,   mTree, uaTree));
+        MATCH_FINDERS.put(CommentProductContext.class,             (mTree, uaTree) -> match(PRODUCT,   mTree, uaTree));
+        MATCH_FINDERS.put(ProductNameNoVersionContext.class,       (mTree, uaTree) -> match(PRODUCT,   mTree, uaTree));
+        MATCH_FINDERS.put(ProductNameEmailContext.class,           (mTree, uaTree) -> match(NAME,      mTree, uaTree));
+        MATCH_FINDERS.put(ProductNameUrlContext.class,             (mTree, uaTree) -> match(NAME,      mTree, uaTree));
+        MATCH_FINDERS.put(ProductNameWordsContext.class,           (mTree, uaTree) -> match(NAME,      mTree, uaTree));
+        MATCH_FINDERS.put(ProductNameVersionContext.class,         (mTree, uaTree) -> match(NAME,      mTree, uaTree));
+        MATCH_FINDERS.put(ProductNameUuidContext.class,            (mTree, uaTree) -> match(NAME,      mTree, uaTree));
+        MATCH_FINDERS.put(ProductVersionSingleWordContext.class,   (mTree, uaTree) -> match(VERSION,   mTree, uaTree));
+        MATCH_FINDERS.put(SingleVersionContext.class,              (mTree, uaTree) -> match(VERSION,   mTree, uaTree));
+        MATCH_FINDERS.put(SingleVersionWithCommasContext.class,    (mTree, uaTree) -> match(VERSION,   mTree, uaTree));
+        MATCH_FINDERS.put(ProductVersionWordsContext.class,        (mTree, uaTree) -> match(VERSION,   mTree, uaTree));
+        MATCH_FINDERS.put(KeyValueProductVersionNameContext.class, (mTree, uaTree) -> match(VERSION,   mTree, uaTree));
+        MATCH_FINDERS.put(CommentBlockContext.class,               (mTree, uaTree) -> match(COMMENTS,  mTree, uaTree));
+        MATCH_FINDERS.put(CommentEntryContext.class,               (mTree, uaTree) -> match(ENTRY,     mTree, uaTree));
+
+        MATCH_FINDERS.put(MultipleWordsContext.class,              (mTree, uaTree) -> match(TEXT,      mTree, uaTree));
+        MATCH_FINDERS.put(KeyValueContext.class,                   (mTree, uaTree) -> match(KEYVALUE,  mTree, uaTree));
+        MATCH_FINDERS.put(KeyWithoutValueContext.class,            (mTree, uaTree) -> match(KEYVALUE,  mTree, uaTree));
+        MATCH_FINDERS.put(KeyNameContext.class,                    (mTree, uaTree) -> match(KEY,       mTree, uaTree));
+        MATCH_FINDERS.put(KeyValueVersionNameContext.class,        (mTree, uaTree) -> match(VERSION,   mTree, uaTree));
+        MATCH_FINDERS.put(VersionWordsContext.class,               (mTree, uaTree) -> match(TEXT,      mTree, uaTree));
+        MATCH_FINDERS.put(SiteUrlContext.class,                    (mTree, uaTree) -> match(URL,       mTree, uaTree, ((SiteUrlContext)uaTree).url.getText()));
+        MATCH_FINDERS.put(UuIdContext.class,                       (mTree, uaTree) -> match(UUID,      mTree, uaTree, ((UuIdContext)uaTree).uuid.getText()));
+        MATCH_FINDERS.put(EmailAddressContext.class,               (mTree, uaTree) -> match(EMAIL,     mTree, uaTree, ((EmailAddressContext)uaTree).email.getText()));
+        MATCH_FINDERS.put(Base64Context.class,                     (mTree, uaTree) -> match(BASE64,    mTree, uaTree, ((Base64Context)uaTree).value.getText()));
+        MATCH_FINDERS.put(EmptyWordContext.class,                  (mTree, uaTree) -> match(TEXT,      mTree, uaTree, ""));
+
+        MATCH_FINDERS.put(ProductNameKeyValueContext.class,        (mTree, uaTree) ->
+            // FIXME: Fakechild = false ...  inform(ctx, "name.(1)keyvalue", ctx.getText(), false);
+            match(NAME, mTree, uaTree, "") // FIXME: Fakechild = true....
+        );
+
+        MATCH_FINDERS.put(ProductVersionContext.class,              UserAgentTreeFlattener::verifyMatchProductVersion);
+        MATCH_FINDERS.put(ProductVersionWithCommasContext.class,    UserAgentTreeFlattener::verifyMatchProductVersion);
+
+        MATCH_FINDERS.put(ProductNameContext.class,                 (mTree, uaTree) -> match(NAME,      mTree, uaTree));
+
+    }
+
+
+    private static void match(AgentPathFragment fragment, MatcherTree mTree, ParseTree uaTree) {
+        match(fragment, mTree, uaTree, null);
+    }
+
+    private static final Logger LOG = LoggerFactory.getLogger(UserAgentTreeFlattener.class);
+
+
+    private static void match(AgentPathFragment fragment, MatcherTree mTree, ParseTree uaTree, String value) {
+//        LOG.warn("[match] F:{} | MT:{} | PT:{} | V:{} |", fragment, mTree, AntlrUtils.getSourceText(uaTree), value);
+
+        if (mTree == null) {// || uaTree == null) {
+            return; // Nothing can be here.
         }
 
-        public State(String name) {
-            this.name = name;
+        // Inform the actions at THIS level that need to be informed.
+        Set<MatcherAction> matcherActions = mTree.getActions();
+        if (!matcherActions.isEmpty()) {
+            String informValue = value == null ? AntlrUtils.getSourceText(uaTree) : value;
+            matcherActions.forEach(action ->
+                // LOG.info("[Inform] A:{} | MT:{} | V:{} |", action, mTree, informValue);
+                action.inform(mTree, uaTree, informValue)
+            );
         }
 
-        public State(ParseTree ctx, String name) {
-            this.ctx = ctx;
-            this.name = name;
-        }
+        // For each of the possible child fragments
+        for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor>> agentPathFragment: mTree.getChildren().entrySet()) {
 
-        public String calculatePath(PathType type, boolean fakeChild) {
-            ParseTree node = ctx;
-            path = name;
-            if (node == null) {
-                return path;
-            }
-            State parentState = null;
+            // Find the subnodes for which we actually patterns
+            List<MatcherTree>               relevantMatcherSubTrees     = agentPathFragment.getValue().getKey();
+            Iterator<? extends ParseTree>   children                    = agentPathFragment.getValue().getValue().visit(uaTree);
 
-            while (parentState == null) {
-                node = node.getParent();
-                if (node == null) {
-                    return path;
+            for (MatcherTree matcherSubTree: relevantMatcherSubTrees) {
+                if (!children.hasNext()) {
+                    break;
                 }
-                parentState = state.get(node);
+                ParseTree parseSubTree = children.next();
+                if (matcherSubTree == null) {
+                    continue;
+                }
+                if (parseSubTree == null) {
+                    continue;
+                }
+                FindMatch matchFinder = MATCH_FINDERS.get(parseSubTree.getClass());
+                if (matchFinder != null) {
+                    matchFinder.findMatch(matcherSubTree, parseSubTree);
+                } else {
+                    LOG.error("No matchFinder for class {}", parseSubTree.getClass().getCanonicalName());
+                }
             }
-
-            long counter = 0;
-            switch (type) {
-                case CHILD:
-                    if (!fakeChild) {
-                        parentState.child++;
-                    }
-                    counter = parentState.child;
-                    break;
-                case COMMENT:
-                    if (!fakeChild) {
-                        parentState.comment++;
-                    }
-                    counter = parentState.comment;
-                    break;
-                case VERSION:
-                    if (!fakeChild) {
-                        parentState.version++;
-                    }
-                    counter = parentState.version;
-                    break;
-                default:
-            }
-
-            this.path = parentState.path + ".(" + counter + ')' + name;
-
-            return this.path;
         }
     }
 
-    private transient ParseTreeProperty<State> state;
-
-    // private constructor for serialization systems ONLY (like Kyro)
-    private UserAgentTreeFlattener() {
-        analyzer = null;
+    private static void verifyMatchProductVersion(MatcherTree mTree, ParseTree uaTree) {
+        match(VERSION, mTree, uaTree);
+//        if (uaTree.getChildCount() != 1) {
+//            // These are the specials with multiple children like keyvalue, etc.
+//            match(VERSION, mTree, uaTree);
+//            return;
+//        }
+//
+//        ParserRuleContext child = (ParserRuleContext)uaTree.getChild(0);
+//        // Only for the SingleVersion edition we want to have splits of the version.
+//        if (child instanceof SingleVersionContext || child instanceof SingleVersionWithCommasContext) {
+//            return;
+//        }
+//
+//        match(VERSION, mTree, child);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // FIXME: Later ... private constructor for serialization systems ONLY (like Kyro)
+//    private UserAgentTreeFlattener() {
+//        analyzer = null;
+//    }
 
     public UserAgentTreeFlattener(Analyzer analyzer) {
         this.analyzer = analyzer;
@@ -200,67 +294,62 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         }
 
         // Parse the userAgent into tree
-        UserAgentContext userAgentContext = parseUserAgent(userAgent);
+        UserAgentContext userAgentTree = parseUserAgent(userAgent);
 
-        // Walk the tree an inform the calling analyzer about all the nodes found
-        state = new ParseTreeProperty<>();
+        // Match the agent against the
+        match(AGENT, analyzer.getMatcherTreeRoot(), userAgentTree, userAgent.getUserAgentString());
 
-        State rootState = new State(AGENT);
-        rootState.calculatePath(PathType.CHILD, false);
-        state.put(userAgentContext, rootState);
+//        if (userAgent.hasSyntaxError()) {
+//            inform(null, SYNTAX_ERROR, "true");
+//        } else {
+//            inform(null, SYNTAX_ERROR, "false");
+//        }
 
-        if (userAgent.hasSyntaxError()) {
-            inform(null, SYNTAX_ERROR, "true");
-        } else {
-            inform(null, SYNTAX_ERROR, "false");
-        }
-
-        WALKER.walk(this, userAgentContext);
         return userAgent;
     }
 
     // =================================================================================
 
-    private String inform(ParseTree ctx, String path) {
-        return inform(ctx, path, getSourceText((ParserRuleContext)ctx));
-    }
+//    private String inform(ParseTree ctx, AgentPathFragment path) {
+//        return inform(ctx, path, getSourceText((ParserRuleContext)ctx));
+//    }
 
-    private String inform(ParseTree ctx, String name, String value) {
-        return inform(ctx, ctx, name, value, false);
-    }
+//    private String inform(ParseTree ctx, AgentPathFragment name, String value) {
+//        return inform(ctx, ctx, name, value, false);
+//    }
 
-    private String inform(ParseTree ctx, String name, String value, boolean fakeChild) {
-        return inform(ctx, ctx, name, value, fakeChild);
-    }
+//    private String inform(ParseTree ctx, AgentPathFragment name, String value, boolean fakeChild) {
+//        return inform(ctx, ctx, name, value, fakeChild);
+//    }
 
-    private String inform(ParseTree stateCtx, ParseTree ctx, String name, String value, boolean fakeChild) {
-        String path = name;
-        if (stateCtx == null) {
-            analyzer.inform(path, value, ctx);
-        } else {
-            State myState = new State(stateCtx, name);
-
-            if (!fakeChild) {
-                state.put(stateCtx, myState);
-            }
-
-            PathType childType;
-            switch (name) {
-                case COMMENTS:
-                    childType = PathType.COMMENT;
-                    break;
-                case VERSION:
-                    childType = PathType.VERSION;
-                    break;
-                default:
-                    childType = PathType.CHILD;
-            }
-
-            path = myState.calculatePath(childType, fakeChild);
-            analyzer.inform(path, value, ctx);
-        }
-        return path;
-    }
+//    private String inform(ParseTree stateCtx, ParseTree ctx, AgentPathFragment name, String value, boolean fakeChild) {
+//        AgentPathFragment path = name;
+//        if (stateCtx == null) {
+//            analyzer.inform(path, value, ctx);
+//        } else {
+//            State myState = new State(stateCtx, name);
+//
+//            if (!fakeChild) {
+//                state.put(stateCtx, myState);
+//            }
+//
+//            PathType childType;
+//            switch (name) {
+//                case COMMENTS:
+//                    childType = PathType.COMMENT;
+//                    break;
+//                case VERSION:
+//                    childType = PathType.VERSION;
+//                    break;
+//                default:
+//                    childType = PathType.CHILD;
+//            }
+//
+//            path = myState.calculatePath(childType, fakeChild);
+//            analyzer.inform(path, value, ctx);
+//        }
+//        return path.toString();
+//    }
 
 //  =================================================================================
 
@@ -286,159 +375,41 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
     //  =================================================================================
 
-    @Override
-    public void enterUserAgent(UserAgentContext ctx) {
-        // In case of a parse error the 'parsed' version of agent can be incomplete
-        inform(ctx, AGENT, ctx.start.getTokenSource().getInputStream().toString());
-    }
 
-    @Override
-    public void enterRootText(RootTextContext ctx) {
-        informSubstrings(ctx, TEXT);
-    }
+//    private void informSubstrings(ParserRuleContext ctx, AgentPathFragment name) {
+//        informSubstrings(ctx, name, false);
+//    }
 
-    @Override
-    public void enterProduct(ProductContext ctx) {
-        informSubstrings(ctx, PRODUCT);
-    }
+//    private void informSubstrings(ParserRuleContext ctx, AgentPathFragment name, boolean fakeChild) {
+//        informSubstrings(ctx, name, fakeChild, WordSplitter.getInstance());
+//    }
 
-    @Override
-    public void enterCommentProduct(CommentProductContext ctx) {
-        informSubstrings(ctx, PRODUCT);
-    }
+//    private void informSubVersions(ParserRuleContext ctx, AgentPathFragment name) {
+//        informSubstrings(ctx, name, false, VersionSplitter.getInstance());
+//    }
 
-    @Override
-    public void enterProductNameNoVersion(UserAgentParser.ProductNameNoVersionContext ctx) {
-        informSubstrings(ctx, PRODUCT);
-    }
-
-    @Override
-    public void enterProductNameEmail(ProductNameEmailContext ctx) {
-        inform(ctx, NAME);
-    }
-
-    @Override
-    public void enterProductNameUrl(ProductNameUrlContext ctx) {
-        inform(ctx, NAME);
-    }
-
-    @Override
-    public void enterProductNameWords(ProductNameWordsContext ctx) {
-        informSubstrings(ctx, NAME);
-    }
-
-    @Override
-    public void enterProductNameKeyValue(ProductNameKeyValueContext ctx) {
-        inform(ctx, "name.(1)keyvalue", ctx.getText(), false);
-        informSubstrings(ctx, NAME, true);
-    }
-
-    @Override
-    public void enterProductNameVersion(ProductNameVersionContext ctx) {
-        informSubstrings(ctx, NAME);
-    }
-
-    @Override
-    public void enterProductNameUuid(ProductNameUuidContext ctx) {
-        inform(ctx, NAME);
-    }
-
-    @Override
-    public void enterProductVersion(ProductVersionContext ctx) {
-        enterProductVersion((ParseTree)ctx);
-    }
-
-    @Override
-    public void enterProductVersionWithCommas(ProductVersionWithCommasContext ctx) {
-        enterProductVersion(ctx);
-    }
-
-    private void enterProductVersion(ParseTree ctx) {
-        if (ctx.getChildCount() != 1) {
-            // These are the specials with multiple children like keyvalue, etc.
-            inform(ctx, VERSION);
-            return;
-        }
-
-        ParseTree child = ctx.getChild(0);
-        // Only for the SingleVersion edition we want to have splits of the version.
-        if (child instanceof SingleVersionContext || child instanceof SingleVersionWithCommasContext) {
-            return;
-        }
-
-        inform(ctx, VERSION);
-    }
-
-
-    @Override
-    public void enterProductVersionSingleWord(UserAgentParser.ProductVersionSingleWordContext ctx) {
-        inform(ctx, VERSION);
-    }
-
-    @Override
-    public void enterSingleVersion(SingleVersionContext ctx) {
-        informSubVersions(ctx, VERSION);
-    }
-
-    @Override
-    public void enterSingleVersionWithCommas(SingleVersionWithCommasContext ctx) {
-        informSubVersions(ctx, VERSION);
-    }
-
-    @Override
-    public void enterProductVersionWords(ProductVersionWordsContext ctx) {
-        informSubstrings(ctx, VERSION);
-    }
-
-    @Override
-    public void enterKeyValueProductVersionName(KeyValueProductVersionNameContext ctx) {
-        informSubstrings(ctx, VERSION);
-    }
-
-    @Override
-    public void enterCommentBlock(CommentBlockContext ctx) {
-        inform(ctx, COMMENTS);
-    }
-
-    @Override
-    public void enterCommentEntry(CommentEntryContext ctx) {
-        informSubstrings(ctx, "entry");
-    }
-
-    private void informSubstrings(ParserRuleContext ctx, String name) {
-        informSubstrings(ctx, name, false);
-    }
-
-    private void informSubstrings(ParserRuleContext ctx, String name, boolean fakeChild) {
-        informSubstrings(ctx, name, fakeChild, WordSplitter.getInstance());
-    }
-
-    private void informSubVersions(ParserRuleContext ctx, String name) {
-        informSubstrings(ctx, name, false, VersionSplitter.getInstance());
-    }
-
-    private void informSubstrings(ParserRuleContext ctx, String name, boolean fakeChild, Splitter splitter) {
-        String text = getSourceText(ctx);
-        String path = inform(ctx, name, text, fakeChild);
-        Set<Range> ranges = analyzer.getRequiredInformRanges(path);
-
-        if (ranges.size() > 4) { // Benchmarks showed this to be the breakeven point. (see below)
-            List<Pair<Integer, Integer>> splitList = splitter.createSplitList(text);
-            for (Range range : ranges) {
-                String value = splitter.getSplitRange(text, splitList, range);
-                if (value != null) {
-                    inform(ctx, ctx, name + range, value, true);
-                }
-            }
-        } else {
-            for (Range range : ranges) {
-                String value = splitter.getSplitRange(text, range);
-                if (value != null) {
-                    inform(ctx, ctx, name + range, value, true);
-                }
-            }
-        }
-    }
+//    private void informSubstrings(ParserRuleContext ctx, AgentPathFragment name, boolean fakeChild, Splitter splitter) {
+//        String text = getSourceText(ctx);
+//        String path = inform(ctx, name, text, fakeChild);
+//        Set<Range> ranges = analyzer.getRequiredInformRanges(path);
+//
+//        if (ranges.size() > 4) { // Benchmarks showed this to be the breakeven point. (see below)
+//            List<Pair<Integer, Integer>> splitList = splitter.createSplitList(text);
+//            for (Range range : ranges) {
+//                String value = splitter.getSplitRange(text, splitList, range);
+//                if (value != null) {
+//                    inform(ctx, ctx, name + range, value, true);
+//                }
+//            }
+//        } else {
+//            for (Range range : ranges) {
+//                String value = splitter.getSplitRange(text, range);
+//                if (value != null) {
+//                    inform(ctx, ctx, name + range, value, true);
+//                }
+//            }
+//        }
+//    }
 
     // # Ranges | Direct                   |  SplitList
     // 1        |    1.664 ± 0.010  ns/op  |    99.378 ± 1.548  ns/op
@@ -451,58 +422,4 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     // 8        |  533.153 ± 2.250  ns/op  |   233.241 ± 5.311  ns/op
     // 9        |  519.130 ± 3.495  ns/op  |   250.921 ± 6.107  ns/op
 
-    @Override
-    public void enterMultipleWords(MultipleWordsContext ctx) {
-        informSubstrings(ctx, TEXT);
-    }
-
-    @Override
-    public void enterKeyValue(KeyValueContext ctx) {
-        inform(ctx, KEYVALUE);
-    }
-
-    @Override
-    public void enterKeyWithoutValue(UserAgentParser.KeyWithoutValueContext ctx) {
-        inform(ctx, KEYVALUE);
-    }
-
-    @Override
-    public void enterKeyName(KeyNameContext ctx) {
-        informSubstrings(ctx, KEY);
-    }
-
-    @Override
-    public void enterKeyValueVersionName(KeyValueVersionNameContext ctx) {
-        informSubstrings(ctx, VERSION);
-    }
-
-    @Override
-    public void enterVersionWords(VersionWordsContext ctx) {
-        informSubstrings(ctx, TEXT);
-    }
-
-    @Override
-    public void enterSiteUrl(SiteUrlContext ctx) {
-        inform(ctx, URL, ctx.url.getText());
-    }
-
-    @Override
-    public void enterUuId(UuIdContext ctx) {
-        inform(ctx, UUID, ctx.uuid.getText());
-    }
-
-    @Override
-    public void enterEmailAddress(EmailAddressContext ctx) {
-        inform(ctx, EMAIL, ctx.email.getText());
-    }
-
-    @Override
-    public void enterBase64(Base64Context ctx) {
-        inform(ctx, BASE64, ctx.value.getText());
-    }
-
-    @Override
-    public void enterEmptyWord(EmptyWordContext ctx) {
-        inform(ctx, TEXT, "");
-    }
 }

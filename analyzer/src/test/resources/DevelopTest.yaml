@@ -1,0 +1,55 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2019 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+
+# =============================
+# Use all Step functions
+# Needed to verify serialization
+# =============================
+
+# FIXME: DROP THIS FILE WHEN FINISHED DEVELOPING THIS
+
+- matcher:
+#    options:
+#    - 'verbose'
+    variable:
+    - 'Foo: agent.product.name^.version'
+#    require:
+#    - 'agent.(6)product.name{"StartsWithThis"'    #path{value
+#    - 'agent.(4-5)product.name="IsThisExactly"'   #path=value
+#    - 'agent.(2-3)product.name[-3]="123"'         #path[n]=value
+#    - 'agent.(1)product.name'                     #path          exists
+    extract:
+    - 'Foo: 1 : @Foo^.comments.entry.product.version'
+#      - 'Agent                :    1 : agent'
+#      - 'AgentProduct         :    1 : agent.(1)product'
+#      - 'AgentProductName     :    1 : agent.(1)product.(1)name'
+#      - 'AgentProductVersion  :    1 : agent.(1)product.(1)version'
+#      - 'AgentProductComments :    1 : agent.(1)product.(1)version^.comments.entry.product.name="FooComment"'
+
+- test:
+#    options:
+#    - 'verbose'
+    input:
+       user_agent_string                   : 'Foo/1.0 (FooComment/2) Bar/3 (BarComment/4)'
+    expected:
+        Foo : 'Foos'
+#       Agent                                : 'Foo/1.0 (FooComment/2) Bar/3 (BarComment/4)'
+#       AgentProduct                         : 'Foo/1.0 (FooComment/2)'
+#       AgentProductName                     : 'Foo'
+#       AgentProductVersion                  : '1.0'
+#       AgentProductComments                 : 'FooComment'

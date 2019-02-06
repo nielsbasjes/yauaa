@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.slf4j.Logger;
@@ -71,7 +72,7 @@ public class MatcherExtractAction extends MatcherAction {
         return attribute;
     }
 
-    public void inform(String key, WalkResult newlyFoundValue) {
+    public void inform(MatcherTree key, WalkResult newlyFoundValue) {
         if (verbose) {
             LOG.info("INFO  : EXTRACT ({}): {}", attribute, key);
             LOG.info("NEED  : EXTRACT ({}): {}", attribute, getMatchExpression());

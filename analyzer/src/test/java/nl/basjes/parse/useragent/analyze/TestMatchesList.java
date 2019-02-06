@@ -18,11 +18,14 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.junit.Test;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.PRODUCT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -30,13 +33,16 @@ import static org.junit.Assert.assertTrue;
 
 public class TestMatchesList {
 
+    MatcherTree agent   = new MatcherTree(AGENT, 0);
+    MatcherTree product = agent.getOrCreateChild(PRODUCT, 1);
+
     @Test
     public void testNormalUse() {
         MatchesList list = new MatchesList(5);
         assertEquals(0, list.size());
-        list.add("one", "two", null);
+        list.add(null, agent, "two");
         assertEquals(1, list.size());
-        list.add("three", "four", null);
+        list.add(null, product, "four");
         assertEquals(2, list.size());
         Iterator<Match> iterator = list.iterator();
         assertTrue(iterator.hasNext());
@@ -44,10 +50,10 @@ public class TestMatchesList {
         assertTrue(iterator.hasNext());
         Match match2 = iterator.next();
         assertFalse(iterator.hasNext());
-        assertEquals("one", match1.getKey());
+        assertEquals("agent", match1.getKey().toString());
         assertEquals("two", match1.getValue());
         assertNull(match1.getResult());
-        assertEquals("three", match2.getKey());
+        assertEquals("agent.(1)product", match2.getKey().toString());
         assertEquals("four", match2.getValue());
         assertNull(match2.getResult());
     }
@@ -55,8 +61,8 @@ public class TestMatchesList {
     @Test(expected = NoSuchElementException.class)
     public void testTooMany() {
         MatchesList list = new MatchesList(5);
-        list.add("one", "two", null);
-        list.add("three", "four", null);
+        list.add(null, agent, "two");
+        list.add(null, product, "four");
         Iterator<Match> iterator = list.iterator();
 
         Match match1 = iterator.next(); // Ok

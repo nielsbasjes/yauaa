@@ -20,7 +20,7 @@ package nl.basjes.parse.useragent.debug;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
-import org.antlr.v4.runtime.tree.ParseTree;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 
 import java.io.PrintStream;
 import java.util.Collections;
@@ -35,13 +35,13 @@ public class FlattenPrinter implements Analyzer {
         this.outputStream = outputStream;
     }
 
-    @Override
-    public void inform(String path, String value, ParseTree ctx) {
-        outputStream.println(path);
-    }
+//    @Override
+//    public void inform(MatcherTree path, String value, ParseTree ctx) {
+//        outputStream.println(path);
+//    }
 
     @Override
-    public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
+    public void informMeAbout(MatcherAction matcherAction, MatcherTree keyPattern) {
         // Not needed
     }
 
@@ -54,7 +54,7 @@ public class FlattenPrinter implements Analyzer {
         return Collections.emptySet();
     }
 
-    public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
+    public void informMeAboutPrefix(MatcherAction matcherAction, MatcherTree treeName, String prefix) {
         // Never called
     }
 
@@ -73,6 +73,11 @@ public class FlattenPrinter implements Analyzer {
     public Map<String, Set<String>> getLookupSets() {
         // Never called
         return Collections.emptyMap();
+    }
+
+    @Override
+    public MatcherTree getMatcherTreeRoot() {
+        return null; // FIXME: Correct?
     }
 
 }

@@ -21,7 +21,7 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
-import org.antlr.v4.runtime.tree.ParseTree;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -32,11 +32,11 @@ import java.util.Map;
 import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgentAnalyzerDirect.MAX_PREFIX_HASH_MATCH;
-import static nl.basjes.parse.useragent.UserAgentAnalyzerDirect.firstCharactersForPrefixHash;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class TestTreewalkerRequire {
 
@@ -347,13 +347,13 @@ public class TestTreewalkerRequire {
         }
 
 
-        @Override
-        public void inform(String path, String value, ParseTree ctx) {
-            // Not used during tests
-        }
+//        @Override
+//        public void inform(MatcherTree path, String value, ParseTree ctx) {
+//            // Not used during tests
+//        }
 
         @Override
-        public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
+        public void informMeAbout(MatcherAction matcherAction, MatcherTree matcherTree) {
             // Not used during tests
         }
 
@@ -369,13 +369,18 @@ public class TestTreewalkerRequire {
         }
 
         @Override
-        public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
+        public void informMeAboutPrefix(MatcherAction matcherAction, MatcherTree treeName, String prefix) {
             // Not used during tests
         }
 
         @Override
         public Set<Integer> getRequiredPrefixLengths(String treeName) {
             return Collections.emptySet();
+        }
+
+        @Override
+        public MatcherTree getMatcherTreeRoot() {
+            return null; // FIXME: Correct?
         }
     }
 
@@ -387,13 +392,14 @@ public class TestTreewalkerRequire {
         }
 
         @Override
-        public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
-            receivedValues.add(keyPattern);
+        public void informMeAbout(MatcherAction matcherAction, MatcherTree matcherTree) {
+            receivedValues.add(matcherTree.toString());
         }
 
         @Override
-        public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
-            informMeAbout(matcherAction, treeName + "{\"" + firstCharactersForPrefixHash(prefix, MAX_PREFIX_HASH_MATCH) + "\"");
+        public void informMeAboutPrefix(MatcherAction matcherAction, MatcherTree matcherTree, String prefix) {
+            fail("FIX THIS");
+//            informMeAbout(matcherAction, matcherTree + "{\"" + firstCharactersForPrefixHash(prefix, MAX_PREFIX_HASH_MATCH) + "\"");
         }
 
         @Override

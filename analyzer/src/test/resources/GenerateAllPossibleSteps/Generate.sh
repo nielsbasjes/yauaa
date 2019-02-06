@@ -64,7 +64,7 @@ do
     match="${line//agent/agent!=\"\"}"
     echo "- matcher:"
     echo "    extract:"
-    echo "      - '${line}  :1:${match}'"
+    echo "    - '${line}  :1:${match}'"
     echo ""
 done
 
@@ -82,7 +82,7 @@ do
     match="${line//agent/agent!=\"\"}"
     echo "- matcher:"
     echo "    extract:"
-    echo "      - 'MUST_BE_NULL_${line}.version.version  :1:${match}.version.version'"
+    echo "    - 'MUST_BE_NULL_${line}.version.version  :1:${match}.version.version'"
     echo ""
 done
 
@@ -92,7 +92,7 @@ echo "    require:"
 fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
 do
     match="${line//agent/agent!=\"\"}"
-    echo "      - 'IsNull[${match}.version.version]'"
+    echo "    - 'IsNull[${match}.version.version]'"
 done
 echo "    extract:"
 echo "    - 'MustBeOk :2:\"OK\"'"

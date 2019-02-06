@@ -59,7 +59,20 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableCo
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathWalkContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepBackToFullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownAgentContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownBase64Context;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownCommentsContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownEmailContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownEntryContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownKeyContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownKeyvalueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownNameContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownProductContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownTextContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownUrlContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownUuidContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEndsWithValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEqualsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepIsInSetContext;
@@ -87,6 +100,20 @@ import java.util.Map;
 import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgentAnalyzerDirect.MAX_PREFIX_HASH_MATCH;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.BASE64;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.COMMENTS;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.EMAIL;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.ENTRY;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEY;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEYVALUE;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.NAME;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.PRODUCT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.TEXT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.URL;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.UUID;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.VALUE;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.VERSION;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
 
@@ -395,8 +422,99 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitStepDown(StepDownContext ctx) {
-            add(new StepDown(ctx.numberRange(), ctx.name.getText()));
+        public Void visitStepDownAgent(StepDownAgentContext ctx) {
+            add(new StepDown(ctx.numberRange(), AGENT));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownProduct(StepDownProductContext ctx) {
+            add(new StepDown(ctx.numberRange(), PRODUCT));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownName(StepDownNameContext ctx) {
+            add(new StepDown(ctx.numberRange(), NAME));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownVersion(StepDownVersionContext ctx) {
+            add(new StepDown(ctx.numberRange(), VERSION));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownComments(StepDownCommentsContext ctx) {
+            add(new StepDown(ctx.numberRange(), COMMENTS));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownEntry(StepDownEntryContext ctx) {
+            add(new StepDown(ctx.numberRange(), ENTRY));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownText(StepDownTextContext ctx) {
+            add(new StepDown(ctx.numberRange(), TEXT));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownUrl(StepDownUrlContext ctx) {
+            add(new StepDown(ctx.numberRange(), URL));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownEmail(StepDownEmailContext ctx) {
+            add(new StepDown(ctx.numberRange(), EMAIL));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownBase64(StepDownBase64Context ctx) {
+            add(new StepDown(ctx.numberRange(), BASE64));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownUuid(StepDownUuidContext ctx) {
+            add(new StepDown(ctx.numberRange(), UUID));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownKeyvalue(StepDownKeyvalueContext ctx) {
+            add(new StepDown(ctx.numberRange(), KEYVALUE));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownKey(StepDownKeyContext ctx) {
+            add(new StepDown(ctx.numberRange(), KEY));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownValue(StepDownValueContext ctx) {
+            add(new StepDown(ctx.numberRange(), VALUE));
             visitNext(ctx.nextStep);
             return null; // Void
         }

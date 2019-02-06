@@ -37,6 +37,12 @@ public class TestUserAgentFlattening {
     private static final Logger LOG = LoggerFactory.getLogger(TestUserAgentFlattening.class);
 
     @Test
+    public void testDevelopment() {
+        validateUserAgent(
+            "Mozilla/5.0 (Aap;Noot/1;Mies(Wim/2))"
+        );
+    }
+    @Test
     public void testFlatteningProduct() {
         validateUserAgent(
             "Mozilla/5.0"
