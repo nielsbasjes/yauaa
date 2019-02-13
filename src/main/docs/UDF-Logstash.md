@@ -13,12 +13,12 @@ mvn clean package -Plogstash -DskipTests=true
 
 After several minutes you'll find the filter gem with a name similar to this 
 
-    ./udfs/logstash/target/logstash-filter-yauaa-{{ book.YauaaVersion }}.gem
+<pre><code>./udfs/logstash/target/logstash-filter-yauaa-{{ book.YauaaVersion }}.gem</code></pre>
 
 ## Installing the filter
 
-    logstash-plugin remove logstash-filter-yauaa
-    logstash-plugin install logstash-filter-yauaa-{{ book.YauaaVersion }}.gem
+<pre><code>logstash-plugin remove logstash-filter-yauaa
+logstash-plugin install logstash-filter-yauaa-{{ book.YauaaVersion }}.gem</code></pre>
 
 ## Example usage
 
