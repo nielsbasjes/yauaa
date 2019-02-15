@@ -113,6 +113,18 @@ config:
 
 - matcher:
     require:
+    - 'IsNull[agent.(1)product.(1)comments.entry.product.name="like Mac OS X"]'
+    extract:
+    - 'DeviceClass                         :     20 :"Desktop"'
+    - 'DeviceBrand                         :     20 :"Apple"'
+    - 'DeviceName                          :     20 :"Apple Macintosh"'
+    - 'DeviceCpu                           :     20 :"Intel x86_64"'
+    - 'OperatingSystemClass                :     20 :"Desktop"'
+    - 'OperatingSystemName                 :     20 :"Mac OS X"'
+    - 'OperatingSystemVersion              :     20 :CleanVersion[agent.(1)product.(1)comments.entry.product.name[-4]="Intelx64 Mac OS X"^.version]'
+
+- matcher:
+    require:
     - 'agent.(1)product.(1)comments.entry.text[-4]="Intel Mac OS X"'
     - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
     extract:
@@ -123,6 +135,20 @@ config:
     - 'OperatingSystemClass                :     19 :"Desktop"'
     - 'OperatingSystemName                 :     19 :"Mac OS X"'
     - 'OperatingSystemVersion              :     19 :"10.?"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.text[-4]="Intelx64 Mac OS X"'
+    - 'IsNull[agent.(1)product.(1)comments.entry.text="like Mac OS X"]'
+    extract:
+    - 'DeviceClass                         :     19 :"Desktop"'
+    - 'DeviceBrand                         :     19 :"Apple"'
+    - 'DeviceName                          :     19 :"Apple Macintosh"'
+    - 'DeviceCpu                           :     19 :"Intel x86_64"'
+    - 'OperatingSystemClass                :     19 :"Desktop"'
+    - 'OperatingSystemName                 :     19 :"Mac OS X"'
+    - 'OperatingSystemVersion              :     19 :"10.?"'
+
 
 - matcher:
     require:

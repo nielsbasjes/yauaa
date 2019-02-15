@@ -7,6 +7,7 @@ v5.9-SNAPSHOT
 - Detection for Google Go, Google Docs, Google Docs Script
 - New class of Device and Agent: Voice
 - Added experimental filter for logstash
+- Detection for CAT, General Mobile, Wileyfox, ZTE, Fairphone, Gigaset
 
 v5.8
 ===

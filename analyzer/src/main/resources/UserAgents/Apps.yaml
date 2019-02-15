@@ -1115,3 +1115,26 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'Google Go ??'
       AgentNameVersionMajor                : 'Google Go ??'
+
+
+- test:
+    input:
+      user_agent_string: 'GeenStijlAndroidApp/2.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'GeenStijlAndroidApp'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'GeenStijlAndroidApp 2.0'
+      AgentNameVersionMajor                : 'GeenStijlAndroidApp 2'
