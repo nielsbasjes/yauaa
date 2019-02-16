@@ -38,13 +38,16 @@ config:
     - 'AgentVersion                        :   2014 :agent.(4)product.(1)name="NintendoBrowser"^.version'
 
 - matcher:
+    variable:
+    - 'PlayStationTag: agent.(1)product.(1)comments.entry.product.name[1]="PlayStation"^'
+    - 'PlayStationName: Concat["PlayStation ";@PlayStationTag[2]]'
     extract:
     - 'DeviceClass                         :   2014 :"Game Console"'
     - 'DeviceBrand                         :   2014 :"Sony"'
-    - 'DeviceName                          :   2014 :"PlayStation 4"'
+    - 'DeviceName                          :   2014 :@PlayStationName'
     - 'OperatingSystemClass                :   2014 :"Game Console"'
-    - 'OperatingSystemName                 :   2014 :"PlayStation 4"'
-    - 'OperatingSystemVersion              :   2014 :agent.(1)product.(1)comments.entry.product.name[1]="PlayStation"^.(2)version'
+    - 'OperatingSystemName                 :   2014 :@PlayStationName'
+    - 'OperatingSystemVersion              :   2014 :@PlayStationTag[3-]'
 
 - matcher:
     extract:
@@ -138,6 +141,31 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (PLAYSTATION 3 4.82) AppleWebKit/531.22.8 (KHTML, like Gecko)'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Sony PlayStation 3'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'PlayStation 3'
+      OperatingSystemVersion               : '4.82'
+      OperatingSystemNameVersion           : 'PlayStation 3 4.82'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '531.22.8'
+      LayoutEngineVersionMajor             : '531'
+      LayoutEngineNameVersion              : 'AppleWebKit 531.22.8'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 531'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AppleWebKit'
+      AgentVersion                         : '531.22.8'
+      AgentVersionMajor                    : '531'
+      AgentNameVersion                     : 'AppleWebKit 531.22.8'
+      AgentNameVersionMajor                : 'AppleWebKit 531'
+
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (PlayStation 4 2.03) AppleWebKit/537.73 (KHTML, like Gecko)'
     expected:
       DeviceClass                          : 'Game Console'
@@ -159,6 +187,34 @@ config:
       AgentVersionMajor                    : '537'
       AgentNameVersion                     : 'AppleWebKit 537.73'
       AgentNameVersionMajor                : 'AppleWebKit 537'
+
+
+# FIXME: IMPORTANT This is an educated guess based on the PS3 and PS4 useragents.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (PlayStation 5 2.03) AppleWebKit/537.73 (KHTML, like Gecko)'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Sony PlayStation 5'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'PlayStation 5'
+      OperatingSystemVersion               : '2.03'
+      OperatingSystemNameVersion           : 'PlayStation 5 2.03'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.73'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.73'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AppleWebKit'
+      AgentVersion                         : '537.73'
+      AgentVersionMajor                    : '537'
+      AgentNameVersion                     : 'AppleWebKit 537.73'
+      AgentNameVersionMajor                : 'AppleWebKit 537'
+
+
 
 - test:
     input:
