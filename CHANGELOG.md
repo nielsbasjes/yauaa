@@ -8,6 +8,7 @@ v5.9-SNAPSHOT
 - New class of Device and Agent: Voice
 - Added experimental filter for logstash
 - Detection for CAT, General Mobile, Wileyfox, ZTE, Fairphone, Gigaset, PlayStation 3
+- Improved Robot detection, most of them ar now "Cloud" instead of "normal" hardware/os.
 
 v5.8
 ===
