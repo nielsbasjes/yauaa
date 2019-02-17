@@ -19,19 +19,24 @@
 
 config:
 
+# These are known robots that do not have words like bot, crawler, spider in their name.
 - lookup:
     name: 'NamedRobots'
     map:
-      'DejaClick'                  : 'DejaClick'
-      'Site-Shot'                  : 'Site-Shot'
-      'Vagabondo'                  : 'Wise-Guys'
-      'Netcraft Web Server Survey' : 'Netcraft'
-      'Dataprovider.com'           : 'Dataprovider.com'
-      'SEOkicks'                   : 'SEOkicks'
-      'PingdomPageSpeed'           : 'Pingdom'
-      'Facebot Twitterbot'         : 'Facebook'
-      'Twitterbot'                 : 'Twitter'
       'Catchpoint'                 : 'Catchpoint'
+      'Dataprovider.com'           : 'Dataprovider.com'
+      'DejaClick'                  : 'DejaClick'
+      'Facebot Twitterbot'         : 'Facebook'
+      'Mappy'                      : 'Mappy'
+      'MegaIndex.ru'               : 'MegaIndex.ru'
+      'Netcraft Web Server Survey' : 'Netcraft'
+      'PingdomPageSpeed'           : 'Pingdom'
+      'proximic'                   : 'proximic'
+      'SEOkicks'                   : 'SEOkicks'
+      'ScoutJet'                   : 'ScoutJet'
+      'Site-Shot'                  : 'Site-Shot'
+      'Twitterbot'                 : 'Twitter'
+      'Vagabondo'                  : 'Wise-Guys'
 
 - matcher:
     variable:
@@ -487,6 +492,76 @@ config:
 
 - matcher:
     variable:
+    - 'RobotName:agent.text~"spider"'
+    extract:
+    - 'DeviceClass                         :    101 :"Robot"'
+    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    101 :"Cloud"'
+    - 'OperatingSystemName                 :    101 :"Cloud"'
+    - 'OperatingSystemVersion              :    101 :"??"'
+    - 'LayoutEngineClass                   :    101 :"Robot"'
+    - 'AgentClass                          :    101 :"Robot"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.url~"crawl"'
+    extract:
+    - 'DeviceClass                         :    101 :"Robot"'
+    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    101 :"Cloud"'
+    - 'OperatingSystemName                 :    101 :"Cloud"'
+    - 'OperatingSystemVersion              :    101 :"??"'
+    - 'LayoutEngineClass                   :    101 :"Robot"'
+    - 'AgentClass                          :    101 :"Robot"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.url~"bot"'
+    extract:
+    - 'DeviceClass                         :    101 :"Robot"'
+    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    101 :"Cloud"'
+    - 'OperatingSystemName                 :    101 :"Cloud"'
+    - 'OperatingSystemVersion              :    101 :"??"'
+    - 'LayoutEngineClass                   :    101 :"Robot"'
+    - 'AgentClass                          :    101 :"Robot"'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.url~"scan"'
+    extract:
+    - 'DeviceClass                         :    101 :"Robot"'
+    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    101 :"Cloud"'
+    - 'OperatingSystemName                 :    101 :"Cloud"'
+    - 'OperatingSystemVersion              :    101 :"??"'
+    - 'LayoutEngineClass                   :    101 :"Robot"'
+    - 'AgentClass                          :    101 :"Robot"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.url~"checker"'
+    extract:
+    - 'DeviceClass                         :    101 :"Robot"'
+    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    101 :"Cloud"'
+    - 'OperatingSystemName                 :    101 :"Cloud"'
+    - 'OperatingSystemVersion              :    101 :"??"'
+    - 'LayoutEngineClass                   :    101 :"Robot"'
+    - 'AgentClass                          :    101 :"Robot"'
+
+# --------------------------------------------------------------------------------------
+
+- matcher:
+    variable:
     - 'RobotName:agent.product.name~"spider"'
     extract:
     - 'DeviceClass                         :    111 :"Robot"'
@@ -900,6 +975,32 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'PhantomJS 1.9.8'
       AgentNameVersionMajor                : 'PhantomJS 1'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'PhantomJs'
+      DeviceBrand                          : 'PhantomJs'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'PhantomJS'
+      LayoutEngineVersion                  : '2.1.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'PhantomJS 2.1.1'
+      LayoutEngineNameVersionMajor         : 'PhantomJS 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'PhantomJS'
+      AgentVersion                         : '2.1.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'PhantomJS 2.1.1'
+      AgentNameVersionMajor                : 'PhantomJS 2'
+
 
 # DejaClick  (last occurance was in 2015)
 - test:
@@ -1316,7 +1417,7 @@ config:
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
       OperatingSystemNameVersion           : 'Cloud ??'
-      LayoutEngineClass                    : 'Browser'
+      LayoutEngineClass                    : 'Robot'
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '600.2.5'
       LayoutEngineVersionMajor             : '600'
@@ -3116,19 +3217,19 @@ config:
       user_agent_string: 'Mozilla/5.0 (compatible; Mappy/1.0; +http://mappydata.net/bot/)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Robot' #FIXME: Should be Mappy
-      DeviceBrand                          : 'Mappydata'
+      DeviceName                           : 'Mappy'
+      DeviceBrand                          : 'Mappy'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
       OperatingSystemNameVersion           : 'Cloud ??'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Browser'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Mappy'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Mappy 1.0'
+      LayoutEngineNameVersionMajor         : 'Mappy 1'
+      AgentClass                           : 'Robot'
       AgentName                            : 'Mappy'
       AgentVersion                         : '1.0'
       AgentVersionMajor                    : '1'
@@ -3299,13 +3400,13 @@ config:
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
       OperatingSystemNameVersion           : 'Cloud ??'
-      LayoutEngineClass                    : 'Browser'
+      LayoutEngineClass                    : 'Robot'
       LayoutEngineName                     : 'Mozilla'
       LayoutEngineVersion                  : '5.0'
       LayoutEngineVersionMajor             : '5'
       LayoutEngineNameVersion              : 'Mozilla 5.0'
       LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Browser'
+      AgentClass                           : 'Robot'
       AgentName                            : 'changedetection'
       AgentVersion                         : '7.0'
       AgentVersionMajor                    : '7'
@@ -4087,3 +4188,247 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'Catchpoint ??'
       AgentNameVersionMajor                : 'Catchpoint ??'
+
+
+# TODO: LUA NGINX
+#   https://github.com/ledgetech/lua-resty-http/blob/master/lib/resty/http.lua#L104
+#   _M._USER_AGENT = "lua-resty-http/" .. _M._VERSION .. " (Lua) ngx_lua/" .. ngx.config.ngx_lua_version
+#- test:
+#    input:
+#      user_agent_string: 'lua-resty-http/0.07 (Lua) ngx_lua/10000'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MegaIndex.ru/2.0; +http://megaindex.com/crawler)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'MegaIndex.ru'
+      DeviceBrand                          : 'MegaIndex.ru'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'MegaIndex.ru'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'MegaIndex.ru 2.0'
+      LayoutEngineNameVersionMajor         : 'MegaIndex.ru 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'MegaIndex.ru'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'MegaIndex.ru 2.0'
+      AgentNameVersionMajor                : 'MegaIndex.ru 2'
+      AgentInformationUrl                  : 'http://megaindex.com/crawler'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; AhrefsBot/6.1; +http://ahrefs.com/robot/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'AhrefsBot'
+      DeviceBrand                          : 'Ahrefs'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'AhrefsBot'
+      LayoutEngineVersion                  : '6.1'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'AhrefsBot 6.1'
+      LayoutEngineNameVersionMajor         : 'AhrefsBot 6'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'AhrefsBot'
+      AgentVersion                         : '6.1'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'AhrefsBot 6.1'
+      AgentNameVersionMajor                : 'AhrefsBot 6'
+      AgentInformationUrl                  : 'http://ahrefs.com/robot/'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Cliqzbot/2.0; +http://cliqz.com/company/cliqzbot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Cliqzbot'
+      DeviceBrand                          : 'Cliqz'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Cliqzbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Cliqzbot 2.0'
+      LayoutEngineNameVersionMajor         : 'Cliqzbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Cliqzbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Cliqzbot 2.0'
+      AgentNameVersionMajor                : 'Cliqzbot 2'
+      AgentInformationUrl                  : 'http://cliqz.com/company/cliqzbot'
+
+
+#- test:
+#    input:
+#      user_agent_string: 'OhDear.app (+https://ohdear.app/docs/checks/uptime)'
+#
+
+#- test:
+#    input:
+#      user_agent_string: '+https://www.adbeat.com/policy adbeat_bot'
+#
+- test:
+    input:
+      user_agent_string: 'LinkedInBot/1.0 (compatible; Mozilla/5.0; Apache-HttpClient +http://www.linkedin.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apache HttpClient +http://Www.linkedin.com'
+      DeviceBrand                          : 'Apache'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'LinkedInBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'LinkedInBot 1.0'
+      LayoutEngineNameVersionMajor         : 'LinkedInBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'LinkedInBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'LinkedInBot 1.0'
+      AgentNameVersionMajor                : 'LinkedInBot 1'
+      AgentInformationUrl                  : 'http://www.linkedin.com'
+
+
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 larbin@unspecified.mail'
+#
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; Yahoo Link Preview; https://help.yahoo.com/kb/mail/yahoo-link-preview-SLN23615.html)'
+#
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; +http://tweetedtimes.com)'
+#
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; proximic; +http://www.proximic.com/info/spider.php)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Proximic'
+      DeviceBrand                          : 'Proximic'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'proximic'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'proximic ??'
+      LayoutEngineNameVersionMajor         : 'proximic ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'proximic'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'proximic ??'
+      AgentNameVersionMajor                : 'proximic ??'
+      AgentInformationUrl                  : 'http://www.proximic.com/info/spider.php'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; proximic; +https://www.comscore.com/Web-Crawler)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Proximic'
+      DeviceBrand                          : 'Proximic'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'proximic'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'proximic ??'
+      LayoutEngineNameVersionMajor         : 'proximic ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'proximic'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'proximic ??'
+      AgentNameVersionMajor                : 'proximic ??'
+      AgentInformationUrl                  : 'https://www.comscore.com/Web-Crawler'
+
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; changedetection/7.0; +http://www.changedetection.com/bot.html)'
+#
+#
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; ScoutJet; http://www.scoutjet.com/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'ScoutJet'
+      DeviceBrand                          : 'ScoutJet'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'ScoutJet'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'ScoutJet ??'
+      LayoutEngineNameVersionMajor         : 'ScoutJet ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'ScoutJet'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'ScoutJet ??'
+      AgentNameVersionMajor                : 'ScoutJet ??'
+      AgentInformationUrl                  : 'http://www.scoutjet.com/'
+
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; Yahoo! Slurp China; http://misc.yahoo.com.cn/help.html)'
+#
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; Shopify Webfile Service; +http://www.shopify.com/contact)'
+#
+
+
+
+
+
+
+#Network%20Logger%20Pro/6.1 CFNetwork/976 Darwin/18.2.0 (x86_64)
+#
+#Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/53 (KHTML, like Gecko) Chrome/65.0.3325 HarmonieCrawler
+#Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36; 360Spider
+#www.deadlinkchecker.com Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36
+#
+#swcd (unknown version) CFNetwork/758.5.3 Darwin/15.6.0
+#
+#Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/38.0.2125.122 Safari/537.31 SmartTV/7.0
+#Mozilla/5.0 (Linux; Android 4.2.2; AND1E TV Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.80 Safari/537.36
+#
+#Apache-HttpClient/4.5.2 (Java/1.8.0_60)
+#Opera/9.50 (Nintendo DSi; Opera/507; U; en-GB)
+#Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)
