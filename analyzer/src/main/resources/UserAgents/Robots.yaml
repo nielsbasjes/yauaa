@@ -30,6 +30,7 @@ config:
       'Mappy'                      : 'Mappy'
       'MegaIndex.ru'               : 'MegaIndex.ru'
       'Netcraft Web Server Survey' : 'Netcraft'
+      'OhDear.app'                 : 'OhDear.app'
       'PingdomPageSpeed'           : 'Pingdom'
       'proximic'                   : 'proximic'
       'SEOkicks'                   : 'SEOkicks'
@@ -37,6 +38,27 @@ config:
       'Site-Shot'                  : 'Site-Shot'
       'Twitterbot'                 : 'Twitter'
       'Vagabondo'                  : 'Wise-Guys'
+
+- matcher:
+    variable:
+    - 'RobotProductName:agent.product.name?NamedRobots'
+    - 'RobotProductVersion:@RobotProductName^.version'
+    extract:
+    - '__Set_ALL_Fields__                  :   2999 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   3000 :"Robot"'
+    - 'DeviceBrand                         :   3000 :LookUp[NamedRobots;@RobotProductName]'
+    - 'DeviceName                          :   3000 :@RobotProductName'
+    - 'DeviceCpu                           :   3000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   3000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   3000 :"Cloud"'
+    - 'OperatingSystemName                 :   3000 :"Cloud"'
+    - 'OperatingSystemVersion              :   3000 :"??"'
+    - 'LayoutEngineClass                   :   3000 :"Robot"'
+    - 'LayoutEngineName                    :   3000 :@RobotProductName'
+    - 'LayoutEngineVersion                 :   3000 :@RobotProductVersion'
+    - 'AgentClass                          :   3000 :"Robot"'
+    - 'AgentName                           :   3000 :@RobotProductName'
+    - 'AgentVersion                        :   3000 :@RobotProductVersion'
 
 - matcher:
     variable:
@@ -53,10 +75,32 @@ config:
     - 'OperatingSystemVersion              :   3000 :"??"'
     - 'LayoutEngineClass                   :   3000 :"Robot"'
     - 'LayoutEngineName                    :   3000 :@RobotProductName'
-    - 'LayoutEngineVersion                 :   3000 :@RobotProductName^.version'
+    - 'LayoutEngineVersion                 :   2999 :"??"'
     - 'AgentClass                          :   3000 :"Robot"'
     - 'AgentName                           :   3000 :@RobotProductName'
-    - 'AgentVersion                        :   3000 :@RobotProductName^.version'
+    - 'AgentVersion                        :   2999 :"??"'
+
+
+- matcher:
+    variable:
+    - 'RobotProductName:agent.product.comments.entry.product.name?NamedRobots'
+    - 'RobotProductVersion:@RobotProductName^.version'
+    extract:
+    - '__Set_ALL_Fields__                  :   2999 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   3000 :"Robot"'
+    - 'DeviceBrand                         :   3000 :LookUp[NamedRobots;@RobotProductName]'
+    - 'DeviceName                          :   3000 :@RobotProductName'
+    - 'DeviceCpu                           :   3000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   3000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   3000 :"Cloud"'
+    - 'OperatingSystemName                 :   3000 :"Cloud"'
+    - 'OperatingSystemVersion              :   3000 :"??"'
+    - 'LayoutEngineClass                   :   3000 :"Robot"'
+    - 'LayoutEngineName                    :   3000 :@RobotProductName'
+    - 'LayoutEngineVersion                 :   3000 :@RobotProductVersion'
+    - 'AgentClass                          :   3000 :"Robot"'
+    - 'AgentName                           :   3000 :@RobotProductName'
+    - 'AgentVersion                        :   3000 :@RobotProductVersion'
 
 - matcher:
     variable:
@@ -73,11 +117,10 @@ config:
     - 'OperatingSystemVersion              :   3000 :"??"'
     - 'LayoutEngineClass                   :   3000 :"Robot"'
     - 'LayoutEngineName                    :   3000 :@RobotProductName'
-    - 'LayoutEngineVersion                 :   3000 :@RobotProductName^.version'
+    - 'LayoutEngineVersion                 :   2999 :"??"'
     - 'AgentClass                          :   3000 :"Robot"'
     - 'AgentName                           :   3000 :@RobotProductName'
-    - 'AgentVersion                        :   3000 :@RobotProductName^.version'
-
+    - 'AgentVersion                        :   2999 :"??"'
 
 - matcher:
     variable:
@@ -4275,15 +4318,59 @@ config:
       AgentInformationUrl                  : 'http://cliqz.com/company/cliqzbot'
 
 
-#- test:
-#    input:
-#      user_agent_string: 'OhDear.app (+https://ohdear.app/docs/checks/uptime)'
-#
+# Uptime monitor.
+- test:
+    input:
+      user_agent_string: 'OhDear.app (+https://ohdear.app/docs/checks/uptime)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Ohdear.app'
+      DeviceBrand                           : 'Ohdear.app'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'OhDear.app'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'OhDear.app ??'
+      LayoutEngineNameVersionMajor          : 'OhDear.app ??'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'OhDear.app'
+      AgentVersion                          : '??'
+      AgentVersionMajor                     : '??'
+      AgentNameVersion                      : 'OhDear.app ??'
+      AgentNameVersionMajor                 : 'OhDear.app ??'
+      AgentInformationUrl                   : 'https://ohdear.app/docs/checks/uptime'
 
-#- test:
-#    input:
-#      user_agent_string: '+https://www.adbeat.com/policy adbeat_bot'
-#
+
+- test:
+    input:
+      user_agent_string: '+https://www.adbeat.com/policy adbeat_bot'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Adbeat_BOT'
+      DeviceBrand                          : 'Adbeat'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'adbeat_bot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'adbeat_bot ??'
+      LayoutEngineNameVersionMajor         : 'adbeat_bot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'adbeat_bot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'adbeat_bot ??'
+      AgentNameVersionMajor                : 'adbeat_bot ??'
+      AgentInformationUrl                  : 'https://www.adbeat.com/policy'
+
+
 - test:
     input:
       user_agent_string: 'LinkedInBot/1.0 (compatible; Mozilla/5.0; Apache-HttpClient +http://www.linkedin.com)'
