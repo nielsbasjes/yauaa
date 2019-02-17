@@ -301,6 +301,34 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Opera/9.50 (Nintendo DSi; Opera/507; U; en-GB)'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Nintendo DSI'
+      DeviceBrand                          : 'Nintendo'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'Nintendo'
+      OperatingSystemVersion               : 'Nintendo DSi'
+      OperatingSystemNameVersion           : 'Nintendo DSi'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Presto 1'
+      LayoutEngineNameVersionMajor         : 'Presto 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '9.50'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Opera 9.50'
+      AgentNameVersionMajor                : 'Opera 9'
+      AgentLanguage                        : 'English (United Kingdom)'
+      AgentLanguageCode                    : 'en-gb'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10553'
     expected:
       DeviceClass                          : 'Game Console'
