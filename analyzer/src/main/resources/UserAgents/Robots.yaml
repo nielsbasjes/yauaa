@@ -4323,26 +4323,26 @@ config:
     input:
       user_agent_string: 'OhDear.app (+https://ohdear.app/docs/checks/uptime)'
     expected:
-      DeviceClass                           : 'Robot'
-      DeviceName                            : 'Ohdear.app'
-      DeviceBrand                           : 'Ohdear.app'
-      OperatingSystemClass                  : 'Cloud'
-      OperatingSystemName                   : 'Cloud'
-      OperatingSystemVersion                : '??'
-      OperatingSystemNameVersion            : 'Cloud ??'
-      LayoutEngineClass                     : 'Robot'
-      LayoutEngineName                      : 'OhDear.app'
-      LayoutEngineVersion                   : '??'
-      LayoutEngineVersionMajor              : '??'
-      LayoutEngineNameVersion               : 'OhDear.app ??'
-      LayoutEngineNameVersionMajor          : 'OhDear.app ??'
-      AgentClass                            : 'Robot'
-      AgentName                             : 'OhDear.app'
-      AgentVersion                          : '??'
-      AgentVersionMajor                     : '??'
-      AgentNameVersion                      : 'OhDear.app ??'
-      AgentNameVersionMajor                 : 'OhDear.app ??'
-      AgentInformationUrl                   : 'https://ohdear.app/docs/checks/uptime'
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Ohdear.app'
+      DeviceBrand                          : 'Ohdear.app'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'OhDear.app'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'OhDear.app ??'
+      LayoutEngineNameVersionMajor         : 'OhDear.app ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'OhDear.app'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'OhDear.app ??'
+      AgentNameVersionMajor                : 'OhDear.app ??'
+      AgentInformationUrl                  : 'https://ohdear.app/docs/checks/uptime'
 
 
 - test:
@@ -4491,30 +4491,56 @@ config:
       AgentNameVersionMajor                : 'ScoutJet ??'
       AgentInformationUrl                  : 'http://www.scoutjet.com/'
 
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; Yahoo! Slurp China; http://misc.yahoo.com.cn/help.html)'
-#
-#- test:
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Yahoo! Slurp China; http://misc.yahoo.com.cn/help.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Yahoo'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '5.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Netscape 5.0'
+      AgentNameVersionMajor                : 'Netscape 5'
+      AgentInformationUrl                  : 'http://misc.yahoo.com.cn/help.html'
+
+#- test: # TODO: Implement
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (compatible; Shopify Webfile Service; +http://www.shopify.com/contact)'
 #
-
-
-
-
-
-
-#Network%20Logger%20Pro/6.1 CFNetwork/976 Darwin/18.2.0 (x86_64)
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Network%20Logger%20Pro/6.1 CFNetwork/976 Darwin/18.2.0 (x86_64)'
 #
-#Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/53 (KHTML, like Gecko) Chrome/65.0.3325 HarmonieCrawler
-#Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36; 360Spider
-#www.deadlinkchecker.com Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/53 (KHTML, like Gecko) Chrome/65.0.3325 HarmonieCrawler'
 #
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36; 360Spider'
+#
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'www.deadlinkchecker.com Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36'
+
+
+
+
 #swcd (unknown version) CFNetwork/758.5.3 Darwin/15.6.0
 #
-#Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/38.0.2125.122 Safari/537.31 SmartTV/7.0
-#Mozilla/5.0 (Linux; Android 4.2.2; AND1E TV Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.80 Safari/537.36
 #
 #Apache-HttpClient/4.5.2 (Java/1.8.0_60)
-#Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)
+#

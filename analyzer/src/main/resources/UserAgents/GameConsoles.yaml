@@ -383,6 +383,32 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Microsoft Xbox'
+      DeviceBrand                          : 'Microsoft'
+      DeviceCpuBits                        : '32'
+      DeviceVersion                        : 'Xbox 360'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Trident 5.0'
+      LayoutEngineNameVersionMajor         : 'Trident 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '9.0'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Internet Explorer 9.0'
+      AgentNameVersionMajor                : 'Internet Explorer 9'
+
+- test:
+    input:
       user_agent_string: 'Opera/9.30 (Nintendo Wii; U; ; 2047-7; nl)'
     expected:
       DeviceClass                          : 'Game Console'

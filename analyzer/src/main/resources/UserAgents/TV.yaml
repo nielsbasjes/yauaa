@@ -995,8 +995,8 @@ config:
       user_agent_string: 'Mozilla/5.0 (Linux; NetCast) AppleWebKit/537.31 (KHTML, licke Gecko) Chrome/26.0.1410.33 Safari/537.31  SmartTV/5.0'
     expected:
       DeviceClass                          : 'TV'
-      DeviceName                           : 'SmartTv'
-      DeviceBrand                          : 'Unknown'
+      DeviceName                           : 'LG SmartTv'
+      DeviceBrand                          : 'LG'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Linux'
       OperatingSystemVersion               : '??'
@@ -1158,4 +1158,62 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'Unknown ??'
       AgentNameVersionMajor                : 'Unknown ??'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.text="NetCast"'
+    extract:
+    - 'DeviceClass                         :      1 : "TV"'
+    - 'DeviceBrand                         :      1 : "LG"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/38.0.2125.122 Safari/537.31 SmartTV/7.0'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'LG SmartTv'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '38.0'
+      LayoutEngineVersionMajor             : '38'
+      LayoutEngineNameVersion              : 'Blink 38.0'
+      LayoutEngineNameVersionMajor         : 'Blink 38'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '38.0.2125.122'
+      AgentVersionMajor                    : '38'
+      AgentNameVersion                     : 'Chrome 38.0.2125.122'
+      AgentNameVersionMajor                : 'Chrome 38'
+      AgentSecurity                        : 'Strong security'
+
+# Philips Android TV
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.2; AND1E TV Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.80 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Philips Smart TV'
+      DeviceBrand                          : 'Philips'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.2.2'
+      OperatingSystemNameVersion           : 'Android 4.2.2'
+      OperatingSystemVersionBuild          : 'JDQ39'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '29.0'
+      LayoutEngineVersionMajor             : '29'
+      LayoutEngineNameVersion              : 'Blink 29.0'
+      LayoutEngineNameVersionMajor         : 'Blink 29'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '29.0.1547.80'
+      AgentVersionMajor                    : '29'
+      AgentNameVersion                     : 'Chrome 29.0.1547.80'
+      AgentNameVersionMajor                : 'Chrome 29'
 
