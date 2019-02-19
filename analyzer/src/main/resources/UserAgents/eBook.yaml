@@ -577,8 +577,37 @@ config:
       AgentLanguageCode                    : 'pl-pl'
 
 
-# FIXME: Sony PRS T2 e-reader
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Linux; U; en-us; EBRD1201; EXT) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry{"EBRD"'
+    extract:
+    - 'DeviceClass                         :      1001 :"eReader"'
+    - 'DeviceBrand                         :      1001 :"Sony"'
 
+# Sony PRS T2 e-reader
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; en-us; EBRD1201; EXT) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
+    expected:
+      DeviceClass                          : 'eReader'
+      DeviceName                           : 'Sony EBRD1201'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.1'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Mobile Safari'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Mobile Safari 4.0'
+      AgentNameVersionMajor                : 'Mobile Safari 4'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
