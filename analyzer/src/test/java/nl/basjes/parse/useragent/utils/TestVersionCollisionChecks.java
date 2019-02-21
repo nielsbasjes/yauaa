@@ -40,10 +40,9 @@ public class TestVersionCollisionChecks {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .dropDefaultResources()
+            .addResources("classpath*:Versions/BadVersion.yaml")
             .delayInitialization()
             .build();
-
-        uaa.loadResources("classpath*:Versions/BadVersion.yaml");
     }
 
     @Test
@@ -54,10 +53,9 @@ public class TestVersionCollisionChecks {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .dropDefaultResources()
+            .addResources("classpath*:Versions/BadVersionNotMap.yaml")
             .delayInitialization()
             .build();
-
-        uaa.loadResources("classpath*:Versions/BadVersionNotMap.yaml");
     }
 
     @Test
@@ -68,9 +66,8 @@ public class TestVersionCollisionChecks {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .delayInitialization()
+            .addResources("classpath*:Versions/DifferentVersion.yaml")
             .build();
-
-        uaa.loadResources("classpath*:Versions/DifferentVersion.yaml");
     }
 
     @Test
@@ -81,9 +78,8 @@ public class TestVersionCollisionChecks {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .delayInitialization()
+            .addResources("classpath*:UserAgents/**/*.yaml")
             .build();
-
-        uaa.loadResources("classpath*:UserAgents/**/*.yaml");
     }
 
 }

@@ -17,20 +17,15 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.analyze.TestTreewalkerRequire.TestMatcher;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import static nl.basjes.parse.useragent.UserAgentAnalyzerDirect.MAX_PREFIX_HASH_MATCH;
-import static nl.basjes.parse.useragent.UserAgentAnalyzerDirect.firstCharactersForPrefixHash;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -237,19 +232,19 @@ public class TestTreewalkerExtract {
         action.initialize();
 
         StringBuilder sb = new StringBuilder("\n---------------------------\nActual list (")
-            .append(matcher.reveicedValues.size())
+            .append(matcher.receivedValues.size())
             .append(" entries):\n");
 
-        for (String actual : matcher.reveicedValues) {
+        for (String actual : matcher.receivedValues) {
             sb.append(actual).append('\n');
         }
         sb.append("---------------------------\n");
 
         // Validate the expected hash entries (i.e. the first part of the path)
         for (String expect : expectedHashEntries) {
-            assertTrue("\nMissing:\n" + expect + sb.toString(), matcher.reveicedValues.contains(expect));
+            assertTrue("\nMissing:\n" + expect + sb.toString(), matcher.receivedValues.contains(expect));
         }
-        assertEquals("Found wrong number of entries", expectedHashEntries.length, matcher.reveicedValues.size());
+        assertEquals("Found wrong number of entries", expectedHashEntries.length, matcher.receivedValues.size());
 
         // Validate the expected walk list entries (i.e. the dynamic part of the path)
         TreeExpressionEvaluator evaluator = action.getEvaluatorForUnitTesting();
@@ -264,31 +259,4 @@ public class TestTreewalkerExtract {
         assertNull(step);
     }
 
-    private static class TestMatcher extends Matcher {
-        final List<String> reveicedValues = new ArrayList<>(128);
-
-        TestMatcher(Map<String, Map<String, String>> lookups, Map<String, Set<String>> lookupSets) {
-            super(null, lookups, lookupSets);
-        }
-
-        @Override
-        public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
-            reveicedValues.add(keyPattern);
-        }
-
-        @Override
-        public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
-            informMeAbout(matcherAction, treeName + "{\"" + firstCharactersForPrefixHash(prefix, MAX_PREFIX_HASH_MATCH) + "\"");
-        }
-
-        @Override
-        public void analyze(UserAgent userAgent) {
-            // Do nothing
-        }
-
-        @Override
-        public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
-            // Do nothing
-        }
-    }
 }

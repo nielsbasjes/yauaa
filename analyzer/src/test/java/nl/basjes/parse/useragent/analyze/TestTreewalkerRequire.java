@@ -21,9 +21,11 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -297,19 +299,19 @@ public class TestTreewalkerRequire {
         action.initialize();
 
         StringBuilder sb = new StringBuilder("\n---------------------------\nActual list (")
-            .append(matcher.reveicedValues.size())
+            .append(matcher.receivedValues.size())
             .append(" entries):\n");
 
-        for (String actual : matcher.reveicedValues) {
+        for (String actual : matcher.receivedValues) {
             sb.append(actual).append('\n');
         }
         sb.append("---------------------------\n");
 
         // Validate the expected hash entries (i.e. the first part of the path)
         for (String expect : expectedHashEntries) {
-            assertTrue("\nMissing:\n" + expect + sb.toString(), matcher.reveicedValues.contains(expect));
+            assertTrue("\nMissing:\n" + expect + sb.toString(), matcher.receivedValues.contains(expect));
         }
-        assertEquals("Found wrong number of entries", expectedHashEntries.length, matcher.reveicedValues.size());
+        assertEquals("Found wrong number of entries", expectedHashEntries.length, matcher.receivedValues.size());
 
         // Validate the expected walk list entries (i.e. the dynamic part of the path)
         TreeExpressionEvaluator evaluator = action.getEvaluatorForUnitTesting();
@@ -324,16 +326,69 @@ public class TestTreewalkerRequire {
         assertNull(step);
     }
 
-    private static class TestMatcher extends Matcher {
-        final List<String> reveicedValues = new ArrayList<>(128);
+    public static class TestAnalyzer implements Analyzer {
 
-        TestMatcher(Map<String, Map<String, String>> lookups, Map<String, Set<String>> lookupSets) {
-            super(null, lookups, lookupSets);
+        private Map<String, Map<String, String>> lookups;
+        private Map<String, Set<String>> lookupSets;
+
+        @Override
+        public Map<String, Map<String, String>> getLookups() {
+            return lookups;
+        }
+
+        @Override
+        public Map<String, Set<String>> getLookupSets() {
+            return lookupSets;
+        }
+
+        TestAnalyzer(Map<String, Map<String, String>> lookups, Map<String, Set<String>> lookupSets) {
+            this.lookups = lookups;
+            this.lookupSets = lookupSets;
+        }
+
+
+        @Override
+        public void inform(String path, String value, ParseTree ctx) {
+            // Not used during tests
         }
 
         @Override
         public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
-            reveicedValues.add(keyPattern);
+            // Not used during tests
+        }
+
+        @Override
+        public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
+            // Not used during tests
+        }
+
+        @Override
+        public Set<WordRangeVisitor.Range> getRequiredInformRanges(String treeName) {
+            // Not used during tests
+            return Collections.emptySet();
+        }
+
+        @Override
+        public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
+            // Not used during tests
+        }
+
+        @Override
+        public Set<Integer> getRequiredPrefixLengths(String treeName) {
+            return Collections.emptySet();
+        }
+    }
+
+    public static class TestMatcher extends Matcher {
+        final List<String> receivedValues = new ArrayList<>(128);
+
+        TestMatcher(Map<String, Map<String, String>> lookups, Map<String, Set<String>> lookupSets) {
+            super(new TestAnalyzer(lookups, lookupSets));
+        }
+
+        @Override
+        public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
+            receivedValues.add(keyPattern);
         }
 
         @Override

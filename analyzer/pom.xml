@@ -220,9 +220,32 @@
       </plugin>
 
       <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <phase>initialize</phase>
+            <configuration>
+              <target>
+                <fileset id="packagedRules" dir="src/main/resources/UserAgents/" />
+                <pathconvert targetos="unix" pathsep="," property="my-file-list" refid="packagedRules">
+                  <map from="${basedir}/src/main/resources/" to="" />
+                </pathconvert>
+                <!--suppress MavenModelInspection -->
+                <echo file="${basedir}/target/temp-yaml-list.txt">${my-file-list}</echo>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>com.google.code.maven-replacer-plugin</groupId>
-        <artifactId>maven-replacer-plugin</artifactId>
-        <version>1.4.1</version>
+        <artifactId>replacer</artifactId>
+        <version>1.5.3</version>
         <executions>
 
           <execution>
@@ -232,7 +255,7 @@
               <goal>replace</goal>
             </goals>
             <configuration>
-            <file>src/main/code-gen/version/Version.yaml.template</file>
+            <file>${basedir}/src/main/code-gen/version/Version.yaml.template</file>
             <outputFile>${basedir}/target/classes/UserAgents/__Version__.yaml</outputFile>
             </configuration>
           </execution>
@@ -244,8 +267,20 @@
               <goal>replace</goal>
             </goals>
             <configuration>
-              <file>src/main/code-gen/version/Version.java.template</file>
+              <file>${basedir}/src/main/code-gen/version/Version.java.template</file>
               <outputFile>${basedir}/target/generated-sources/java/nl/basjes/parse/useragent/Version.java</outputFile>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>Generate Yaml List Java</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+            <configuration>
+              <file>${basedir}/src/main/code-gen/UserAgents/PackagedRules.java.template</file>
+              <outputFile>${basedir}/target/generated-sources/java/nl/basjes/parse/useragent/PackagedRules.java</outputFile>
             </configuration>
           </execution>
 
@@ -277,6 +312,10 @@
             <replacement>
               <token>@version.url@</token>
               <value>${version.url}</value>
+            </replacement>
+            <replacement>
+              <token>###file-list###</token>
+              <valueFile>${basedir}/target/temp-yaml-list.txt</valueFile>
             </replacement>
           </replacements>
         </configuration>

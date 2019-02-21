@@ -31,22 +31,21 @@ public class TestYamlParsing {
     public final ExpectedException expectedEx = ExpectedException.none();
 
     private void runTest(String inputFilename, String message) {
+        expectedEx.expect(InvalidParserConfigurationException.class);
+        expectedEx.expectMessage(containsString(message));
+
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .dropDefaultResources()
             .keepTests()
+            .addResources("classpath*:YamlParsingTests/" + inputFilename)
             .delayInitialization()
             .build();
-
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage(containsString(message));
-
-        uaa.loadResources("classpath*:YamlParsingTests/" + inputFilename);
     }
 
     @Test
     public void testEmpty() {
-        runTest("Empty.yaml", "The file Empty.yaml is empty");
+        runTest("Empty.yaml", "No matchers were loaded at all.");
     }
 
     @Test

@@ -50,8 +50,6 @@ public class Matcher implements Serializable {
     private final UserAgent newValuesUserAgent = new UserAgent();
 
     private long actionsThatRequireInput;
-    private final Map<String, Map<String, String>> lookups;
-    private final Map<String, Set<String>> lookupSets;
     private boolean verbose;
     private boolean permanentVerbose;
 
@@ -60,8 +58,6 @@ public class Matcher implements Serializable {
 
     // Private constructor for serialization systems ONLY (like Kyro)
     private Matcher() {
-        this.lookups = null;
-        this.lookupSets = null;
         this.analyzer = null;
         this.fixedStringActions = new ArrayList<>();
         this.variableActions = new ArrayList<>();
@@ -69,9 +65,7 @@ public class Matcher implements Serializable {
     }
 
     // Package private constructor for testing purposes only
-    Matcher(Analyzer analyzer, Map<String, Map<String, String>> lookups, Map<String, Set<String>> lookupSets) {
-        this.lookups = lookups;
-        this.lookupSets = lookupSets;
+    Matcher(Analyzer analyzer) {
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
         this.variableActions = new ArrayList<>();
@@ -79,11 +73,11 @@ public class Matcher implements Serializable {
     }
 
     public Map<String, Map<String, String>> getLookups() {
-        return lookups;
+        return analyzer.getLookups();
     }
 
     public Map<String, Set<String>> getLookupSets() {
-        return lookupSets;
+        return analyzer.getLookupSets();
     }
 
     static class ConfigLine {
@@ -111,8 +105,6 @@ public class Matcher implements Serializable {
                    List<String> wantedFieldNames,
                    MappingNode matcherConfig,
                    String filename) throws UselessMatcherException {
-        this.lookups = lookups;
-        this.lookupSets = lookupSets;
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
         this.variableActions = new ArrayList<>();

@@ -24,6 +24,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.PrintStream;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 
 public class FlattenPrinter implements Analyzer {
@@ -60,6 +61,18 @@ public class FlattenPrinter implements Analyzer {
     public Set<Integer> getRequiredPrefixLengths(String treeName){
         // Never called
         return Collections.emptySet();
+    }
+
+    @Override
+    public Map<String, Map<String, String>> getLookups() {
+        // Never called
+        return Collections.emptyMap();
+    }
+
+    @Override
+    public Map<String, Set<String>> getLookupSets() {
+        // Never called
+        return Collections.emptyMap();
     }
 
 }

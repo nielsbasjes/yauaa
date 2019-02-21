@@ -33,9 +33,14 @@ public class TestConcatenation {
         return userAgent;
     }
 
+    private UserAgentAnalyzer createUserAgentAnalyzer() {
+        return UserAgentAnalyzer.newBuilder().dropTests().dropDefaultResources().addResources("AllSteps.yaml").build();
+    }
+
+
     @Test
     public void testFieldConcatenation() {
-        UserAgentAnalyzer uaa       = UserAgentAnalyzer.newBuilder().dropTests().dropDefaultResources().build();
+        UserAgentAnalyzer uaa       = createUserAgentAnalyzer();
         UserAgent         userAgent = createUserAgent();
 
         uaa.concatFieldValuesNONDuplicated(userAgent, "Combined1", "One", "Two");
@@ -53,7 +58,7 @@ public class TestConcatenation {
 
     @Test
     public void testFieldConcatenationNulls() {
-        UserAgentAnalyzer uaa       = UserAgentAnalyzer.newBuilder().dropTests().dropDefaultResources().build();
+        UserAgentAnalyzer uaa       = createUserAgentAnalyzer();
         UserAgent         userAgent = createUserAgent();
 
         uaa.concatFieldValuesNONDuplicated(userAgent, "Combined3", "MinusOne", null);
@@ -71,7 +76,7 @@ public class TestConcatenation {
 
     @Test
     public void testFieldConcatenationSamePrefix() {
-        UserAgentAnalyzer uaa       = UserAgentAnalyzer.newBuilder().dropTests().dropDefaultResources().build();
+        UserAgentAnalyzer uaa       = createUserAgentAnalyzer();
         UserAgent         userAgent = createUserAgent();
 
         uaa.concatFieldValuesNONDuplicated(userAgent, "Combined1", "One", "Two");
@@ -87,7 +92,7 @@ public class TestConcatenation {
 
     @Test
     public void testFieldConcatenationNonExistent() {
-        UserAgentAnalyzer uaa       = UserAgentAnalyzer.newBuilder().dropTests().dropDefaultResources().build();
+        UserAgentAnalyzer uaa       = createUserAgentAnalyzer();
         UserAgent         userAgent = createUserAgent();
 
         uaa.concatFieldValuesNONDuplicated(userAgent, "Combined2", "One", "NonExistent");
@@ -102,7 +107,7 @@ public class TestConcatenation {
 
     @Test
     public void testFieldConcatenationNull() {
-        UserAgentAnalyzer uaa       = UserAgentAnalyzer.newBuilder().dropTests().dropDefaultResources().build();
+        UserAgentAnalyzer uaa       = createUserAgentAnalyzer();
         UserAgent         userAgent = createUserAgent();
 
         uaa.concatFieldValuesNONDuplicated(userAgent, "Combined2", "One", null);
@@ -117,7 +122,7 @@ public class TestConcatenation {
 
     @Test
     public void testFieldConcatenationNoConfidence() {
-        UserAgentAnalyzer uaa       = UserAgentAnalyzer.newBuilder().dropTests().dropDefaultResources().build();
+        UserAgentAnalyzer uaa       = createUserAgentAnalyzer();
         UserAgent         userAgent = createUserAgent();
 
         uaa.concatFieldValuesNONDuplicated(userAgent, "Combined2", "One", "MinusOne");

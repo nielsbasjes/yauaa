@@ -34,10 +34,10 @@ public class TestMatcherList {
         MatcherList list = new MatcherList(1);
         assertEquals(0, list.size());
         assertTrue(list.isEmpty());
-        list.add(new Matcher(null, null, null));
+        list.add(new Matcher(null));
         assertEquals(1, list.size());
         assertFalse(list.isEmpty());
-        list.add(new Matcher(null, null, null));
+        list.add(new Matcher(null));
         assertEquals(2, list.size());
         assertFalse(list.isEmpty());
         Iterator<Matcher> iterator = list.iterator();
@@ -53,10 +53,10 @@ public class TestMatcherList {
 
         assertEquals(0, list.size());
         assertTrue(list.isEmpty());
-        list.add(new Matcher(null, null, null));
+        list.add(new Matcher(null));
         assertEquals(1, list.size());
         assertFalse(list.isEmpty());
-        list.add(new Matcher(null, null, null));
+        list.add(new Matcher(null));
         assertEquals(2, list.size());
         assertFalse(list.isEmpty());
         iterator = list.iterator();
@@ -80,8 +80,8 @@ public class TestMatcherList {
     @Test(expected = NoSuchElementException.class)
     public void testTooMany() {
         MatcherList list = new MatcherList(5);
-        list.add(new Matcher(null, null, null));
-        list.add(new Matcher(null, null, null));
+        list.add(new Matcher(null));
+        list.add(new Matcher(null));
         Iterator<Matcher> iterator = list.iterator();
 
         Matcher match1 = iterator.next(); // Ok

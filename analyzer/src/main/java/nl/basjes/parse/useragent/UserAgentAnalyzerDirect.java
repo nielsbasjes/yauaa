@@ -127,6 +127,16 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
     private Map<String, Map<String, String>> lookups = new HashMap<>(128);
     private final Map<String, Set<String>> lookupSets = new HashMap<>(128);
 
+    @Override
+    public Map<String, Map<String, String>> getLookups() {
+        return lookups;
+    }
+
+    @Override
+    public Map<String, Set<String>> getLookupSets() {
+        return lookupSets;
+    }
+
     protected UserAgentTreeFlattener flattener;
 
     public static final int DEFAULT_USER_AGENT_MAX_LENGTH = 2048;
@@ -219,7 +229,38 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 
     protected void initialize(List<String> resources) {
         logVersion();
+        long fullStart = System.nanoTime();
+
+        if (wantedFieldNames != null) {
+            int wantedSize = wantedFieldNames.size();
+            if (wantedFieldNames.contains(SET_ALL_FIELDS)) {
+                wantedSize--;
+            }
+            LOG.info("Building all needed matchers for the requested {} fields.", wantedSize);
+        } else {
+            LOG.info("Building all matchers for all possible fields.");
+        }
+
         resources.forEach(this::loadResources);
+
+        if (matcherConfigs.isEmpty()) {
+            throw new InvalidParserConfigurationException("No matchers were loaded at all.");
+        }
+
+        long fullStop = System.nanoTime();
+
+        try(Formatter msg = new Formatter(Locale.ENGLISH)) {
+            msg.format("Loading %4d matchers, %d lookups, %d lookupsets, %d testcases from %4d files took %5d msec",
+                allMatchers.size(),
+                (lookups == null) ? 0 : lookups.size(),
+                lookupSets.size(),
+                testCases.size(),
+                matcherConfigs.size(),
+                (fullStop - fullStart) / 1000000);
+            LOG.info(msg.toString());
+        }
+
+
         verifyWeAreNotAskingForImpossibleFields();
         if (!delayInitialization) {
             initializeMatchers();
@@ -254,7 +295,6 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
             throw new IllegalStateException("Refusing to load additional resources after the datastructures have been initialized.");
         }
 
-        LOG.info("Loading from: \"{}\"", resourceString);
         long startFiles = System.nanoTime();
 
         flattener = new UserAgentTreeFlattener(this);
@@ -274,7 +314,17 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         int maxFilenameLength = 0;
 
         if (resources.isEmpty()) {
-            throw new InvalidParserConfigurationException("Unable to find ANY config files");
+            LOG.warn("NO config files were found matching this expression: {}", resourceString);
+
+            if (DEFAULT_RESOURCES.equals(resourceString)) {
+                LOG.warn("Unable to load the default resources, usually caused by classloader problems.");
+                LOG.warn("Retrying with built in list.");
+                PackagedRules.getRuleFileNames().forEach(this::loadResources);
+            } else {
+                LOG.error("If you are using wildcards in your expression then try explicitly naming all yamls files explicitly.");
+            }
+
+            return;
         }
 
         // We need to determine if we are trying to load the yaml files TWICE.
@@ -311,7 +361,17 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         }
 
         long stopFiles = System.nanoTime();
-        LOG.info("Loaded {} files in {} msec", resources.size(),  (stopFiles - startFiles) / 1000000);
+        try(Formatter msg = new Formatter(Locale.ENGLISH)) {
+            msg.format("Loading %2d files in %4d msec from %s",
+                resources.size(),
+                (stopFiles - startFiles) / 1000000,
+                resourceString);
+            LOG.info(msg.toString());
+        }
+
+        if (resources.isEmpty()) {
+            throw new InvalidParserConfigurationException("No matchers were loaded at all.");
+        }
 
         if (lookups != null && !lookups.isEmpty()) {
             // All compares are done in a case insensitive way. So we lowercase ALL keys of the lookups beforehand.
@@ -326,15 +386,6 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
             lookups = cleanedLookups;
         }
 
-        if (wantedFieldNames != null) {
-            int wantedSize = wantedFieldNames.size();
-            if (wantedFieldNames.contains(SET_ALL_FIELDS)) {
-                wantedSize--;
-            }
-            LOG.info("Building all needed matchers for the requested {} fields.", wantedSize);
-        } else {
-            LOG.info("Building all matchers for all possible fields.");
-        }
         int totalNumberOfMatchers = 0;
         int skippedMatchers = 0;
         if (matcherConfigs != null) {
@@ -375,18 +426,6 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
             }
             long fullStop = System.nanoTime();
 
-            try(Formatter msg = new Formatter(Locale.ENGLISH)) {
-                msg.format("Loading %4d (dropped %4d) matchers, %d lookups, %d lookupsets, %d testcases from %4d files took %5d msec",
-                    totalNumberOfMatchers,
-                    skippedMatchers,
-                    (lookups == null) ? 0 : lookups.size(),
-                    lookupSets.size(),
-                    testCases.size(),
-                    matcherConfigs.size(),
-                    (fullStop - fullStart) / 1000000);
-                LOG.info(msg.toString());
-            }
-
         }
     }
 
@@ -396,6 +435,11 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
             return;
         }
         LOG.info("Initializing Analyzer data structures");
+
+        if (allMatchers.isEmpty()) {
+            throw new InvalidParserConfigurationException("No matchers were loaded at all.");
+        }
+
         long start = System.nanoTime();
         allMatchers.forEach(Matcher::initialize);
         long stop = System.nanoTime();
@@ -480,7 +524,8 @@ config:
         }
 
         if (loadedYaml == null) {
-            throw new InvalidParserConfigurationException("The file " + filename + " is empty");
+            LOG.warn("The file {} is empty", filename);
+            return;
         }
 
         // Get and check top level config
@@ -1199,6 +1244,18 @@ config:
         public Set<Integer> getRequiredPrefixLengths(String treeName) {
             // Not needed to only get all paths
             return Collections.emptySet();
+        }
+
+        @Override
+        public Map<String, Map<String, String>> getLookups() {
+            // Not needed to only get all paths
+            return Collections.emptyMap();
+        }
+
+        @Override
+        public Map<String, Set<String>> getLookupSets() {
+            // Not needed to only get all paths
+            return Collections.emptyMap();
         }
     }
 

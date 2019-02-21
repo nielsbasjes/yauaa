@@ -47,14 +47,14 @@ public class TestErrorHandling {
     public void checkNoFile() {
         runTest(
             "classpath*:BadDefinitions/ThisOneDoesNotExist---Really.yaml",
-            containsString("Unable to find ANY config files"));
+            containsString("No matchers were loaded at all."));
     }
 
     @Test
     public void checkEmptyFile() {
         runTest(
             "classpath*:BadDefinitions/EmptyFile.yaml",
-            containsString("The file EmptyFile.yaml is empty"));
+            containsString("No matchers were loaded at all."));
     }
 
     @Test

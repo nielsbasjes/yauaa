@@ -120,6 +120,8 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             sb.append(", PPS=parses/sec, msPP=milliseconds per parse");
         }
 
+        long fullStart = System.nanoTime();
+
         if (showPassedTests) {
             LOG.info("+===========================================================================================");
             LOG.info(sb.toString());
@@ -474,9 +476,15 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         } else {
             LOG.info("All {} tests passed", testcount);
         }
+
+        long fullStop = System.nanoTime();
+
+        LOG.info("This took {} ms for {} tests : averaging to {} msec/test (This includes test validation and logging!!)",
+            (fullStop - fullStart)/1000000,
+            testcount,
+            ((double)(fullStop - fullStart)) / (testcount * 1000000L));
         return allPass;
     }
-
 
     // ===============================================================================================================
 
