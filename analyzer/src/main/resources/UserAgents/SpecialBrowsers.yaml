@@ -2367,7 +2367,29 @@ config:
 
 
 #Chrome in Android Studio emulator
-
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string:   'Mozilla/5.0 (Linux; Android 7.0; Android SDK built for x86 Build/NYC) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.90 Mobile Safari/537.36'
+- test:
+    input:
+      user_agent_string:   'Mozilla/5.0 (Linux; Android 7.0; Android SDK built for x86 Build/NYC) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.90 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Android SDK Built FOR X86'
+      DeviceBrand                          : 'Google'
+      DeviceCpu                            : 'x86'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemVersionBuild          : 'NYC'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '51.0'
+      LayoutEngineVersionMajor             : '51'
+      LayoutEngineNameVersion              : 'Blink 51.0'
+      LayoutEngineNameVersionMajor         : 'Blink 51'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '51.0.2704.90'
+      AgentVersionMajor                    : '51'
+      AgentNameVersion                     : 'Chrome 51.0.2704.90'
+      AgentNameVersionMajor                : 'Chrome 51'
