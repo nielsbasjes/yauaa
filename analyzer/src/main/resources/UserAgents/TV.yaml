@@ -1217,24 +1217,92 @@ config:
       AgentNameVersion                     : 'Chrome 29.0.1547.80'
       AgentNameVersionMajor                : 'Chrome 29'
 
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Opera/9.80 (Linux armv7l; Opera TV Store/4563; U; (SonyBDP/BDV12); en) Presto/2.10.250 Version/11.60'
+
+- test: # NOTE: The SonyBDP part is one level deeper than normal.
+    input:
+      user_agent_string: 'Opera/9.80 (Linux armv7l; Opera TV Store/4563; U; (SonyBDP/BDV12); en) Presto/2.10.250 Version/11.60'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Sony BDV12'
+      DeviceBrand                          : 'Sony'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'ARMv7l'
+      OperatingSystemNameVersion           : 'Linux ARMv7l'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.10.250'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.10.250'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '11.60'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Opera 11.60'
+      AgentNameVersionMajor                : 'Opera 11'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
 
 
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Opera/9.80 (Linux mips; Opera TV/19; U; pt-BR) Presto/2.9.201 Version/11.60'
+- test: # NOTE: The SonyBDP part is one level deeper than normal.
+    input:
+      user_agent_string: 'Opera/9.80 (Linux armv6l; Opera TV Store/5581; (SonyBDP/BDV13)) Presto/2.12.362 Version/12.11'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Sony BDV13'
+      DeviceBrand                          : 'Sony'
+      DeviceCpu                            : 'ARMv6l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'ARMv6l'
+      OperatingSystemNameVersion           : 'Linux ARMv6l'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.362'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.362'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.11'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.11'
+      AgentNameVersionMajor                : 'Opera 12'
 
 
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Opera/9.80 (Linux armv6l; Opera TV Store/5581; (SonyBDP/BDV13)) Presto/2.12.362 Version/12.11'
-
-
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Opera/9.80 (Linux mips; Opera TV/1; U; pt-BR) Presto/2.9.201 Version/11.60'
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Linux mips; Opera TV/19; U; pt-BR) Presto/2.9.201 Version/11.60'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Smart TV'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Mips'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Mips'
+      OperatingSystemNameVersion           : 'Linux Mips'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.9.201'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.9.201'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '11.60'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Opera 11.60'
+      AgentNameVersionMajor                : 'Opera 11'
+      AgentLanguage                        : 'Portuguese (Brazil)'
+      AgentLanguageCode                    : 'pt-br'
+      AgentSecurity                        : 'Strong security'
 
 
 - test:

@@ -2411,3 +2411,27 @@ config:
       AgentNameVersion                     : 'Netscape 5.0'
       AgentNameVersionMajor                : 'Netscape 5'
 
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 Chrome/68.0.3440.106 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '68.0'
+      LayoutEngineVersionMajor             : '68'
+      LayoutEngineNameVersion              : 'Blink 68.0'
+      LayoutEngineNameVersionMajor         : 'Blink 68'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '68.0.3440.106'
+      AgentVersionMajor                    : '68'
+      AgentNameVersion                     : 'Chrome 68.0.3440.106'
+      AgentNameVersionMajor                : 'Chrome 68'
+

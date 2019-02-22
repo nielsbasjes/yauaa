@@ -252,8 +252,6 @@ config:
     - 'DeviceBrand                         :    327 :"Microsoft"'
 
 
-
-
 # In the entry there is a secondary product which is called "BUILD"
 - matcher:
     variable:
@@ -340,3 +338,12 @@ config:
     - 'DeviceBrand                         :    324 :LookUpPrefix[MobileBrands;@DeviceModelLine]'
     - 'DeviceName                          :    324 :@DeviceModelLine^.version'
 
+# ===================================================================================================
+
+# Very deep device information
+- matcher:
+    variable:
+    - 'DeviceModelLine: IsInLookUpPrefix[MobileBrands;agent.(1-2)product.comments.entry.comments.entry.product.name]'
+    extract:
+    - 'DeviceBrand                         :   1299 :LookUpPrefix[MobileBrands;@DeviceModelLine]'
+    - 'DeviceName                          :   1299 :@DeviceModelLine^.version'

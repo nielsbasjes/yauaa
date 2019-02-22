@@ -163,7 +163,11 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             String userAgentString = input.get("user_agent_string");
 
             if (testName == null) {
-                testName = userAgentString;
+                if (userAgentString.length() > 300) {
+                    testName = userAgentString.substring(0, 290) + " ... ( " + userAgentString.length() + " chars)";
+                } else {
+                    testName = userAgentString;
+                }
             }
 
             sb.setLength(0);
