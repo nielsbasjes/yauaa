@@ -111,15 +111,15 @@ config:
     variable:
     - 'Language: agent.(1)product.(1)comments.(1-5)entry.(1-5)product.(1)name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
     extract:
-    - 'AgentLanguageCode                   :     10 :LookUp[ISOLanguageCodes;@Language]'
-    - 'AgentLanguage                       :     10 :LookUp[ISOLanguageCodesName;@Language]'
+    - 'AgentLanguageCode                   :   5010 :LookUp[ISOLanguageCodes;@Language]'
+    - 'AgentLanguage                       :   5010 :LookUp[ISOLanguageCodesName;@Language]'
 
 - matcher:
     variable:
     - 'Language: agent.(1)product.(1)comments.(1-5)entry.(1-5)product.(1)name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
     extract:
-    - 'AgentLanguageCode                   :     11 :LookUp[ISOLanguageCodes3;@Language]'
-    - 'AgentLanguage                       :     11 :LookUp[ISOLanguageCodes3Name;@Language]'
+    - 'AgentLanguageCode                   :   5011 :LookUp[ISOLanguageCodes3;@Language]'
+    - 'AgentLanguage                       :   5011 :LookUp[ISOLanguageCodes3Name;@Language]'
 
 - matcher:
     require:
@@ -1236,4 +1236,29 @@ config:
 #    input:
 #      user_agent_string: 'Opera/9.80 (Linux mips; Opera TV/1; U; pt-BR) Presto/2.9.201 Version/11.60'
 
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.31 SmartTV/6.0'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'LG SmartTv'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '34.0'
+      LayoutEngineVersionMajor             : '34'
+      LayoutEngineNameVersion              : 'Blink 34.0'
+      LayoutEngineNameVersionMajor         : 'Blink 34'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '34.0.1847.137'
+      AgentVersionMajor                    : '34'
+      AgentNameVersion                     : 'Chrome 34.0.1847.137'
+      AgentNameVersionMajor                : 'Chrome 34'
+      AgentSecurity                        : 'Strong security'
 

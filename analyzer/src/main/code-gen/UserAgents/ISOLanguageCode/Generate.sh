@@ -18,10 +18,11 @@ TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents"; pwd)
 
 INPUT1=ISOLanguageCodes.csv
 INPUT2=iso-639-3.tab
+INPUT3=unwanted-language-codes.txt
 OUTPUT="${TARGETDIR}/ISOLanguageCode.yaml"
 
 if [ "Generate.sh" -ot "${OUTPUT}" ]; then
-    if [ "${INPUT1}" -ot "${OUTPUT}" ] && [ "${INPUT2}" -ot "${OUTPUT}" ] ; then
+    if [ "${INPUT1}" -ot "${OUTPUT}" ] && [ "${INPUT2}" -ot "${OUTPUT}" ] && [ "${INPUT3}" -ot "${OUTPUT}" ] ; then
         echo "Up to date: ${OUTPUT}";
         exit;
     fi
@@ -56,51 +57,51 @@ echo "config:"
 echo "# Match the 2 and 2-2 letter variants:"
 echo "- matcher:"
 echo "    extract:"
-echo "    - 'AgentLanguageCode                   :      5 :LookUp[ISOLanguageCodes;agent.(1)product.(1)comments.entry.(1-2)text]'"
-echo "    - 'AgentLanguage                       :      5 :LookUp[ISOLanguageCodesName;agent.(1)product.(1)comments.entry.(1-2)text]'"
+echo "    - 'AgentLanguageCode                   :   5000 :LookUp[ISOLanguageCodes;agent.(1)product.(1)comments.entry.(1-2)text]'"
+echo "    - 'AgentLanguage                       :   5000 :LookUp[ISOLanguageCodesName;agent.(1)product.(1)comments.entry.(1-2)text]'"
 echo ""
 
 echo "- matcher:"
 echo "    extract:"
-echo "    - 'AgentLanguageCode                   :      5 :LookUp[ISOLanguageCodes;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'"
-echo "    - 'AgentLanguage                       :      5 :LookUp[ISOLanguageCodesName;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'"
+echo "    - 'AgentLanguageCode                   :   5000 :LookUp[ISOLanguageCodes;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'"
+echo "    - 'AgentLanguage                       :   5000 :LookUp[ISOLanguageCodesName;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'"
 echo ""
 
 echo "- matcher:"
 echo "    extract:"
-echo "    - 'AgentLanguageCode                   :      5 :LookUp[ISOLanguageCodes;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
-echo "    - 'AgentLanguage                       :      5 :LookUp[ISOLanguageCodesName;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
+echo "    - 'AgentLanguageCode                   :   5000 :LookUp[ISOLanguageCodes;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
+echo "    - 'AgentLanguage                       :   5000 :LookUp[ISOLanguageCodesName;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
 echo ""
 
 echo "- matcher:"
 echo "    extract:"
-echo "    - 'AgentLanguageCode                   :      5 :LookUp[ISOLanguageCodes;agent.product.name=\"Language\"^.version]'"
-echo "    - 'AgentLanguage                       :      5 :LookUp[ISOLanguageCodesName;agent.product.name=\"Language\"^.version]'"
+echo "    - 'AgentLanguageCode                   :   5000 :LookUp[ISOLanguageCodes;agent.product.name=\"Language\"^.version]'"
+echo "    - 'AgentLanguage                       :   5000 :LookUp[ISOLanguageCodesName;agent.product.name=\"Language\"^.version]'"
 echo ""
 
 echo "# Match the 3 variants:"
 echo "- matcher:"
 echo "    extract:"
-echo "    - 'AgentLanguageCode                   :      4 :LookUp[ISOLanguageCodes3;agent.(1)product.(1)comments.entry.(1-2)text]'"
-echo "    - 'AgentLanguage                       :      4 :LookUp[ISOLanguageCodes3Name;agent.(1)product.(1)comments.entry.(1-2)text]'"
+echo "    - 'AgentLanguageCode                   :   4999 :LookUp[ISOLanguageCodes3;agent.(1)product.(1)comments.entry.(1-2)text]'"
+echo "    - 'AgentLanguage                       :   4999 :LookUp[ISOLanguageCodes3Name;agent.(1)product.(1)comments.entry.(1-2)text]'"
 echo ""
 
 echo "- matcher:"
 echo "    extract:"
-echo "    - 'AgentLanguageCode                   :      4 :LookUp[ISOLanguageCodes3;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'"
-echo "    - 'AgentLanguage                       :      4 :LookUp[ISOLanguageCodes3Name;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'"
+echo "    - 'AgentLanguageCode                   :   4999 :LookUp[ISOLanguageCodes3;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'"
+echo "    - 'AgentLanguage                       :   4999 :LookUp[ISOLanguageCodes3Name;agent.(2-4)product.(1)comments.(1-5)entry.(1-2)text]'"
 echo ""
 
 echo "- matcher:"
 echo "    extract:"
-echo "    - 'AgentLanguageCode                   :      4 :LookUp[ISOLanguageCodes3;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
-echo "    - 'AgentLanguage                       :      4 :LookUp[ISOLanguageCodes3Name;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
+echo "    - 'AgentLanguageCode                   :   4999 :LookUp[ISOLanguageCodes3;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
+echo "    - 'AgentLanguage                       :   4999 :LookUp[ISOLanguageCodes3Name;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'"
 echo ""
 
 echo "- matcher:"
 echo "    extract:"
-echo "    - 'AgentLanguageCode                   :      5 :LookUp[ISOLanguageCodes3;agent.product.name=\"Language\"^.version]'"
-echo "    - 'AgentLanguage                       :      5 :LookUp[ISOLanguageCodes3Name;agent.product.name=\"Language\"^.version]'"
+echo "    - 'AgentLanguageCode                   :   5000 :LookUp[ISOLanguageCodes3;agent.product.name=\"Language\"^.version]'"
+echo "    - 'AgentLanguage                       :   5000 :LookUp[ISOLanguageCodes3Name;agent.product.name=\"Language\"^.version]'"
 echo ""
 
 echo "# -----------------------------------------------------------------------------"

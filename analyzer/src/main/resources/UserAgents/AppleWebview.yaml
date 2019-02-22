@@ -394,6 +394,99 @@ config:
       WebviewAppVersionMajor               : '38'
 
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 7_0_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) GSA/3.1.0.23513 Mobile/11B554a Safari/8536.25'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '11B554a'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '7.0.4'
+      OperatingSystemNameVersion           : 'iOS 7.0.4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '536.26'
+      LayoutEngineVersionMajor             : '536'
+      LayoutEngineNameVersion              : 'AppleWebKit 536.26'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '536.26'
+      AgentVersionMajor                    : '536'
+      AgentNameVersion                     : 'UIWebView 536.26'
+      AgentNameVersionMajor                : 'UIWebView 536'
+      WebviewAppName                       : 'Google Search App'
+      WebviewAppVersion                    : '3.1.0.23513'
+      WebviewAppVersionMajor               : '3'
+      WebviewAppNameVersionMajor           : 'Google Search App 3'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) GSA/3.1.0.23513 Mobile/11B554a Safari/8536.25'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '11B554a'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '7.0.4'
+      OperatingSystemNameVersion           : 'iOS 7.0.4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '536.26'
+      LayoutEngineVersionMajor             : '536'
+      LayoutEngineNameVersion              : 'AppleWebKit 536.26'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '536.26'
+      AgentVersionMajor                    : '536'
+      AgentNameVersion                     : 'UIWebView 536.26'
+      AgentNameVersionMajor                : 'UIWebView 536'
+      WebviewAppName                       : 'Google Search App'
+      WebviewAppVersion                    : '3.1.0.23513'
+      WebviewAppVersionMajor               : '3'
+      WebviewAppNameVersionMajor           : 'Google Search App 3'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) GSA/3.1.0.23513 Mobile/10B329 Safari/8536.25'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '10B329'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '6.1.3'
+      OperatingSystemNameVersion           : 'iOS 6.1.3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '536.26'
+      LayoutEngineVersionMajor             : '536'
+      LayoutEngineNameVersion              : 'AppleWebKit 536.26'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '536.26'
+      AgentVersionMajor                    : '536'
+      AgentNameVersion                     : 'UIWebView 536.26'
+      AgentNameVersionMajor                : 'UIWebView 536'
+      WebviewAppName                       : 'Google Search App'
+      WebviewAppVersion                    : '3.1.0.23513'
+      WebviewAppVersionMajor               : '3'
+      WebviewAppNameVersionMajor           : 'Google Search App 3'
+
+
 # NOTE: According to https://mobiforge.com/research-analysis/webviews-and-user-agent-strings my current rules are incorrect
 # I suspect the author of that website got these two mixed up (because then they match perfectly with the specifications from Apple)
 # So am assuming this is correct (although it is different from the mentioned site).

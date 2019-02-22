@@ -574,7 +574,7 @@ config:
 
 # Chrome 71 on Ubuntu 16.04:
 # Google Docs Sheet: Insert --> Image --> By Url .
-# FIXME
+# FIXME: Implement
 #- test:
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko Firefox/11.0 (via ggpht.com GoogleImageProxy)'
@@ -909,4 +909,29 @@ config:
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) SkypeUriPreview Preview/0.5'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SkypeUriPreview Preview'
+      AgentVersion                         : '0.5'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'SkypeUriPreview Preview 0.5'
+      AgentNameVersionMajor                : 'SkypeUriPreview Preview 0'
 

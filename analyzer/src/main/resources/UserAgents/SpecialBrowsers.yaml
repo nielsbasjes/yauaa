@@ -2393,3 +2393,128 @@ config:
       AgentVersionMajor                    : '51'
       AgentNameVersion                     : 'Chrome 51.0.2704.90'
       AgentNameVersionMajor                : 'Chrome 51'
+
+
+
+
+# TODO: Review this. tb-gmx is the real useragent. Perhaps this is Thunderbird??
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; tb-gmx/2.6.12; (gmx/1.5.0.0); rv:11.0) like Gecko'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
+
+
+
+# TODO: Review this. tb-webde is the real useragent. Perhaps this is Thunderbird??
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; tb-webde/2.7.4; (webde/1.4.0.0); rv:11.0) like Gecko'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0.0; SM-G950F Build/R16NW; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G950F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0.0'
+      OperatingSystemNameVersion           : 'Android 8.0.0'
+      OperatingSystemVersionBuild          : 'R16NW'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '69.0'
+      LayoutEngineVersionMajor             : '69'
+      LayoutEngineNameVersion              : 'Blink 69.0'
+      LayoutEngineNameVersionMajor         : 'Blink 69'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '69.0.3497.100'
+      AgentVersionMajor                    : '69'
+      AgentNameVersion                     : 'Chrome Webview 69.0.3497.100'
+      AgentNameVersionMajor                : 'Chrome Webview 69'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; SM-G800F Build/MMB29K; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G800F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemVersionBuild          : 'MMB29K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '69.0'
+      LayoutEngineVersionMajor             : '69'
+      LayoutEngineNameVersion              : 'Blink 69.0'
+      LayoutEngineNameVersionMajor         : 'Blink 69'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '69.0.3497.100'
+      AgentVersionMajor                    : '69'
+      AgentNameVersion                     : 'Chrome Webview 69.0.3497.100'
+      AgentNameVersionMajor                : 'Chrome Webview 69'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+
+

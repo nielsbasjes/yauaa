@@ -2271,3 +2271,143 @@ config:
       AgentVersionMajor                    : '61748879'
       AgentNameVersion                     : 'Netscape 61748879'
       AgentNameVersionMajor                : 'Netscape 61748879'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.1) Gecko/2008070208'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.0.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.0.1'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '2008070208'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Gecko'
+      AgentVersion                         : '1.9.0.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Gecko 1.9.0.1'
+      AgentNameVersionMajor                : 'Gecko 1'
+      AgentLanguage                        : 'Russian'
+      AgentLanguageCode                    : 'ru'
+      AgentSecurity                        : 'Strong security'
+
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '2.2'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Gecko 2.2'
+      LayoutEngineNameVersionMajor         : 'Gecko 2'
+      LayoutEngineBuild                    : '20110201'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Gecko'
+      AgentVersion                         : '2.2'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Gecko 2.2'
+      AgentNameVersionMajor                : 'Gecko 2'
+      AgentSecurity                        : 'Strong security'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AppleWebKit'
+      AgentVersion                         : '537.36'
+      AgentVersionMajor                    : '537'
+      AgentNameVersion                     : 'AppleWebKit 537.36'
+      AgentNameVersionMajor                : 'AppleWebKit 537'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.78.2 (KHTML, like Gecko)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.9.5'
+      OperatingSystemNameVersion           : 'Mac OS X 10.9.5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.78.2'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.78.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AppleWebKit'
+      AgentVersion                         : '537.78.2'
+      AgentVersionMajor                    : '537'
+      AgentNameVersion                     : 'AppleWebKit 537.78.2'
+      AgentNameVersionMajor                : 'AppleWebKit 537'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit (KHTML, like Gecko)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.?'
+      OperatingSystemNameVersion           : 'Mac OS X 10.?'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '5.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Netscape 5.0'
+      AgentNameVersionMajor                : 'Netscape 5'
+

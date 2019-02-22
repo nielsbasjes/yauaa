@@ -24,9 +24,12 @@ config:
     name: 'NamedRobots'
     map:
       'Catchpoint'                 : 'Catchpoint'
+      'magpie-crawler'             : 'Brandwatch' # 'watch' causes it to be seen as a wristwatch
       'Dataprovider.com'           : 'Dataprovider.com'
       'DejaClick'                  : 'DejaClick'
+      'Echoping'                   : 'Echoping'
       'Facebot Twitterbot'         : 'Facebook'
+      'lua-resty-http'             : 'LedgeTech'
       'Mappy'                      : 'Mappy'
       'MegaIndex.ru'               : 'MegaIndex.ru'
       'Netcraft Web Server Survey' : 'Netcraft'
@@ -37,9 +40,9 @@ config:
       'ScoutJet'                   : 'ScoutJet'
       'Site-Shot'                  : 'Site-Shot'
       'Twitterbot'                 : 'Twitter'
+      'Watchmouse'                 : 'Watchmouse' # 'watch' causes it to be seen as a wristwatch
       'Vagabondo'                  : 'Wise-Guys'
       'YaK'                        : 'Linkfluence'
-
 
 - matcher:
     variable:
@@ -3960,8 +3963,8 @@ config:
     input:
       user_agent_string: 'magpie-crawler/1.1 (U; Linux amd64; en-GB; +http://www.brandwatch.net)'
     expected:
-      DeviceClass                          : 'Watch'
-      DeviceName                           : 'Magpie-Crawler'
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Brandwatch Magpie-Crawler'
       DeviceBrand                          : 'Brandwatch'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
@@ -4234,12 +4237,31 @@ config:
       AgentNameVersionMajor                : 'Catchpoint ??'
 
 
-# TODO: LUA NGINX
 #   https://github.com/ledgetech/lua-resty-http/blob/master/lib/resty/http.lua#L104
 #   _M._USER_AGENT = "lua-resty-http/" .. _M._VERSION .. " (Lua) ngx_lua/" .. ngx.config.ngx_lua_version
-#- test:
-#    input:
-#      user_agent_string: 'lua-resty-http/0.07 (Lua) ngx_lua/10000'
+- test:
+    input:
+      user_agent_string: 'lua-resty-http/0.07 (Lua) ngx_lua/10000'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'LedgeTech LUA-Resty-Http'
+      DeviceBrand                           : 'LedgeTech'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'lua-resty-http'
+      LayoutEngineVersion                   : '0.07'
+      LayoutEngineVersionMajor              : '0'
+      LayoutEngineNameVersion               : 'lua-resty-http 0.07'
+      LayoutEngineNameVersionMajor          : 'lua-resty-http 0'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'lua-resty-http'
+      AgentVersion                          : '0.07'
+      AgentVersionMajor                     : '0'
+      AgentNameVersion                      : 'lua-resty-http 0.07'
+      AgentNameVersionMajor                 : 'lua-resty-http 0'
 
 - test:
     input:
@@ -4517,13 +4539,60 @@ config:
       AgentNameVersionMajor                : 'Netscape 5'
       AgentInformationUrl                  : 'http://misc.yahoo.com.cn/help.html'
 
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; Shopify Webfile Service; +http://www.shopify.com/contact)'
-#
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Network%20Logger%20Pro/6.1 CFNetwork/976 Darwin/18.2.0 (x86_64)'
+- test: # TODO: Improve this result "Shopify Webfile Service"
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Shopify Webfile Service; +http://www.shopify.com/contact)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Shopify'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '5.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Netscape 5.0'
+      AgentNameVersionMajor                : 'Netscape 5'
+      AgentInformationUrl                  : 'http://www.shopify.com/contact'
+
+
+# https://networklogger.net/
+# FIXME: This product only exists for Desktop OSX, yet it uses "Darwin" which indicates iOS...
+- test:
+    input:
+      user_agent_string: 'Network%20Logger%20Pro/6.1 CFNetwork/976 Darwin/18.2.0 (x86_64)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Darwin (iOS)'
+      OperatingSystemVersion               : '18.2.0'
+      OperatingSystemNameVersion           : 'Darwin (iOS) 18.2.0'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Network Logger Pro'
+      LayoutEngineVersion                  : '6.1'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Network Logger Pro 6.1'
+      LayoutEngineNameVersionMajor         : 'Network Logger Pro 6'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Network Logger Pro'
+      AgentVersion                         : '6.1'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Network Logger Pro 6.1'
+      AgentNameVersionMajor                : 'Network Logger Pro 6'
+
 
 - test:
     input:
@@ -4549,28 +4618,84 @@ config:
       AgentNameVersion                     : 'Chrome 65.0.3325'
       AgentNameVersionMajor                : 'Chrome 65'
 
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36; 360Spider'
-#
 
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'swcd (unknown version) CFNetwork/758.5.3 Darwin/15.6.0'
-#
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Apache-HttpClient/4.5.2 (Java/1.8.0_60)'
-#
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) SkypeUriPreview Preview/0.5'
-#
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Echoping/6.1-BETA'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36; 360Spider'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : '360SPIDER'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '50.0'
+      LayoutEngineVersionMajor             : '50'
+      LayoutEngineNameVersion              : 'Blink 50.0'
+      LayoutEngineNameVersionMajor         : 'Blink 50'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '50.0.2661.102'
+      AgentVersionMajor                    : '50'
+      AgentNameVersion                     : 'Chrome 50.0.2661.102'
+      AgentNameVersionMajor                : 'Chrome 50'
 
-- test: # TODO: Implement
+- matcher:
+    require:
+    - 'agent.product.name="Apache-HttpClient"'
+    extract:
+    - 'DeviceClass                        : 100 : "Robot"'
+
+- test:
+    input:
+      user_agent_string: 'Apache-HttpClient/4.5.2 (Java/1.8.0_60)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Apache HttpClient'
+      DeviceBrand                           : 'Apache'
+      OperatingSystemClass                  : 'Unknown'
+      OperatingSystemName                   : 'Unknown'
+      OperatingSystemVersion                : '??'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      AgentClass                            : 'Special'
+      AgentName                             : 'Apache-HttpClient'
+      AgentVersion                          : '4.5.2'
+      AgentVersionMajor                     : '4'
+      AgentNameVersion                      : 'Apache-HttpClient 4.5.2'
+      AgentNameVersionMajor                 : 'Apache-HttpClient 4'
+
+
+- test:
+    input:
+      user_agent_string: 'Echoping/6.1-BETA'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Echoping'
+      DeviceBrand                          : 'Echoping'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Echoping'
+      LayoutEngineVersion                  : '6.1-BETA'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Echoping 6.1-BETA'
+      LayoutEngineNameVersionMajor         : 'Echoping 6'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Echoping'
+      AgentVersion                         : '6.1-BETA'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Echoping 6.1-BETA'
+      AgentNameVersionMajor                : 'Echoping 6'
+
+- test:
     input:
       user_agent_string: 'Linguee Bot (http://www.linguee.com/bot; bot@linguee.com)'
     expected:
@@ -4635,8 +4760,6 @@ config:
 #MetaURI API/2.0 +metauri.com
 #Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
 #AdsBot-Google-Mobile (+http://www.google.com/mobile/adsbot.html) Mozilla (iPhone; U; CPU iPhone OS 3 0 like Mac OS X) AppleWebKit (KHTML, like Gecko) Mobile Safari
-#AdsBot-Google (+http://www.google.com/adsbot.html)
-#Mozilla/5.0 (compatible; Googlebot/2.1; http://www.google.com/bot.html)
 #Googlebot/2.1 (+http://www.google.com/bot.html)
 #Googlebot
 #\xef\xbb\xbfMozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
@@ -4645,7 +4768,7 @@ config:
 #Googlebot/2.1
 #Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html
 #Mozilla/5.0 (compatible; Googlebot/2.1; http://www.google.com/bot.html)
-#Swayy/2.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html; +http://www.swayy.co)
+#
 #Googlebot/Praduxbot 1.0
 #Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)
 #Mozilla/5.0 (compatible;bingbot/2.0;+http://www.bing.com/bingbot.htm)
@@ -4654,20 +4777,30 @@ config:
 #Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) AppEngine-Google; (+http://code.google.com/appengine; appid: s~i-am-proxy-hrd)
 
 
-# GSA ??
-# Mozilla/5.0 (iPad; CPU OS 7_0_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) GSA/3.1.0.23513 Mobile/11B554a Safari/8536.25
-# Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) GSA/3.1.0.23513 Mobile/11B554a Safari/8536.25
-# Mozilla/5.0 (iPad; CPU OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) GSA/3.1.0.23513 Mobile/10B329 Safari/8536.25
-
-
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'magpie-crawler/1.1 (U; Linux amd64; en-GB; +http://www.brandwatch.net)'
-
-
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'WatchMouse/27333 (http://watchmouse.com/ ; itmil01.watchmouse.net)'
+- test: # TODO: Implement
+    input:
+      user_agent_string: 'WatchMouse/27333 (http://watchmouse.com/ ; itmil01.watchmouse.net)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'WatchMouse'
+      DeviceBrand                           : 'Watchmouse'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'WatchMouse'
+      LayoutEngineVersion                   : '27333'
+      LayoutEngineVersionMajor              : '27333'
+      LayoutEngineNameVersion               : 'WatchMouse 27333'
+      LayoutEngineNameVersionMajor          : 'WatchMouse 27333'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'WatchMouse'
+      AgentVersion                          : '27333'
+      AgentVersionMajor                     : '27333'
+      AgentNameVersion                      : 'WatchMouse 27333'
+      AgentNameVersionMajor                 : 'WatchMouse 27333'
+      AgentInformationUrl                   : 'http://watchmouse.com/'
 
 
 #- test: # TODO: Implement
@@ -4699,4 +4832,6 @@ config:
 #    input:
 #      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Trident/5.0; SLCC1; .NET CLR 2.0.50727; .NET CLR 1.1.4322; ${USR_AGNT}; .NET CLR 3.5.30729; .NET4.0C; BRI/2; .NET CLR 3.0.30729; McAfee)'
 
-
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Swayy/2.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html; +http://www.swayy.co)'

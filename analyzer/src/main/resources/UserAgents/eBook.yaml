@@ -612,6 +612,30 @@ config:
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
 
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Linux like Android; nl_NL) AppleWebKit/534.34 PocketBook/622 (screen 600x800; FW D622.4.2.249) Mobile'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux like Android; nl_NL) AppleWebKit/534.34 PocketBook/622 (screen 600x800; FW D622.4.2.249) Mobile'
+    expected:
+      DeviceClass                          : 'eReader'
+      DeviceName                           : 'PocketBook'
+      DeviceBrand                          : 'PocketBook'
+      DeviceFirmwareVersion                : 'D622.4.2.249'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      LayoutEngineClass                    : 'eReader'
+      LayoutEngineName                     : 'PocketBook'
+      LayoutEngineVersion                  : '622'
+      LayoutEngineVersionMajor             : '622'
+      LayoutEngineNameVersion              : 'PocketBook 622'
+      LayoutEngineNameVersionMajor         : 'PocketBook 622'
+      AgentClass                           : 'eReader'
+      AgentName                            : 'PocketBook'
+      AgentVersion                         : '622'
+      AgentVersionMajor                    : '622'
+      AgentNameVersion                     : 'PocketBook 622'
+      AgentNameVersionMajor                : 'PocketBook 622'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+

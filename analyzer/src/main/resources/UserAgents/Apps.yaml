@@ -1138,3 +1138,52 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'GeenStijlAndroidApp 2.0'
       AgentNameVersionMajor                : 'GeenStijlAndroidApp 2'
+
+- test:
+    input:
+      user_agent_string: 'SafeBrowser/1.11.0.38 CFNetwork/974.2.1 Darwin/18.0.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Darwin (iOS)'
+      OperatingSystemVersion               : '18.0.0'
+      OperatingSystemNameVersion           : 'Darwin (iOS) 18.0.0'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'SafeBrowser'
+      LayoutEngineVersion                  : '1.11.0.38'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'SafeBrowser 1.11.0.38'
+      LayoutEngineNameVersionMajor         : 'SafeBrowser 1'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'SafeBrowser'
+      AgentVersion                         : '1.11.0.38'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SafeBrowser 1.11.0.38'
+      AgentNameVersionMajor                : 'SafeBrowser 1'
+
+- test:
+    input:
+      user_agent_string: 'swcd (unknown version) CFNetwork/758.5.3 Darwin/15.6.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Darwin (iOS)'
+      OperatingSystemVersion               : '15.6.0'
+      OperatingSystemNameVersion           : 'Darwin (iOS) 15.6.0'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'swcd'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'swcd ??'
+      LayoutEngineNameVersionMajor         : 'swcd ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'swcd'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'swcd ??'
+      AgentNameVersionMajor                : 'swcd ??'
+
