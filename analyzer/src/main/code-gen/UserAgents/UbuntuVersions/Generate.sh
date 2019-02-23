@@ -59,8 +59,11 @@ do
     name=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
     version=$(     echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f2)
     echo "      \"${firstname}\"        : \"Ubuntu\""
+    echo "      \"${firstname}-security\" : \"Ubuntu\""
     echo "      \"${name}\"             : \"Ubuntu\""
     echo "      \"ubuntu-${firstname}\" : \"Ubuntu\""
+    echo "      \"ubuntu-${version}\"   : \"Ubuntu\""
+    echo "      \"ubuntu${version}\"    : \"Ubuntu\""
 done
 
 echo "- lookup:"
@@ -72,8 +75,11 @@ do
     name=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
     version=$(     echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f2)
     echo "      \"${firstname}\"        : \"${version}\""
+    echo "      \"${firstname}-security\"  : \"${version} Security\""
     echo "      \"${name}\"             : \"${version}\""
     echo "      \"ubuntu-${firstname}\" : \"${version}\""
+    echo "      \"ubuntu-${version}\"   : \"${version}\""
+    echo "      \"ubuntu${version}\"    : \"${version}\""
 done
 
 ) > ${OUTPUT}

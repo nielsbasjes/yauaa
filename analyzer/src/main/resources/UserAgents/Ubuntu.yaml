@@ -61,6 +61,18 @@ config:
 
 - matcher:
     variable:
+    - 'UbuntuProduct:agent.product.name[1]~"buntu"^'
+    - 'UbuntuName:LookUpPrefix[UbuntuOSName;@UbuntuProduct]'
+    - 'UbuntuVersion:LookUpPrefix[UbuntuOSVersion;@UbuntuProduct]'
+    extract:
+    - 'DeviceClass                         :      1 :"Desktop"'
+    - 'DeviceName                          :      1 :"Linux Desktop"'
+    - 'OperatingSystemClass                :    204 :"Desktop"'
+    - 'OperatingSystemName                 :    204 :@UbuntuName'
+    - 'OperatingSystemVersion              :    204 :@UbuntuVersion'
+
+- matcher:
+    variable:
     - 'UbuntuName:agent.product.name[1]~"buntu"'
     - 'UbuntuVersion:@UbuntuName^.version'
     require:
@@ -1296,148 +1308,3 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
 
-
-
-#
-
-
-# TODO: Make selection and implement some of these testcases.
-
-#Guzzle/5.3.1 curl/7.47.0 PHP/7.1.11-1+ubuntu16.04.1+deb.sury.org+1
-#GuzzleHttp/6.2.0 curl/7.35.0 PHP/7.1.16-1+ubuntu14.04.1+deb.sury.org+1
-#GuzzleHttp/6.2.1 curl/7.47.0 PHP/7.1.16-1+ubuntu16.04.1+deb.sury.org+1
-#Kodi/17.6 (X11; Linux x86_64) Ubuntu/16.04 App_Bitness/64 Version/17.6-Git:20171114-a9a7a20
-#Mozilla/5.0 (Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:12.3) Gecko/2000000000 Firefox/8.8.8; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:12.3) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux AMD64; en; rv:12.3) Gecko/2000000000 Ubuntu/10.10 (maverick) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux i586; en; rv:12.3) Gecko/2000000000 Epiphany/4.4.4 (Ubuntu)
-#Mozilla/5.0 (X11; Linux i686) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu/11.10 Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux i686) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu/12.10 Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux i686) AppleWebKit/1.1.1 (KHTML like Gecko) Ubuntu Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux i686) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux i686) AppleWebKit/1.1.1 (KHTML, like Gecko) Version/11.0 Safari/5.5.5 Ubuntu/17.10 (3.26.1-1ubuntu1) Epiphany/4.4.4
-#Mozilla/5.0 (X11; Linux i686) AppleWebKit/1.1.1 (KHTML, like Gecko) Version/8.0 Safari/5.5.5 Ubuntu/14.10 (3.10.3-0ubuntu3) Epiphany/4.4.4
-#Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Debian/1.5.dfsg-4ubuntu3 Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Debian/1.7.13-0ubuntu05.04
-#Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 (Debian-1.8.1.4-2ubuntu5)
-#Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/dapper Epiphany/4.4.4 Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/dapper Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/dapper-security Epiphany/4.4.4 Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/dapper-security Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko/2000000000 Ubuntu/dapper-security Firefox/8.8.8 Mnenhy/0.7.4.666
-#Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko Galeon/2.0.6 (Ubuntu 2.0.6-2)
-#Mozilla/5.0 (X11; Linux i686; en; rv:12.3) Gecko Kazehakase/0.5.4 Debian/0.5.4-2.1ubuntu3
-#Mozilla/5.0 (X11; Linux i686; en-US) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu/9.10 Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux i686; Ubuntu 7.04; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux i686; U;) Gecko/2000000000 Kazehakase/0.4.3 Debian/0.4.3-1ubuntu1
-#Mozilla/5.0 (X11; Linux i686 (x86_64)) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu/10.04 Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux i686 (x86_64)) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux i686 (x86_64); en; rv:12.3) Gecko/2000000000 Debian/1.7.12-0ubuntu2
-#Mozilla/5.0 (X11; Linux i686 (x86_64); en; rv:12.3) Gecko/2000000000 Ubuntu/dapper-security Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux ia64; en; rv:12.3) Gecko/2000000000 Ubuntu/8.04 (hardy) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux ppc64; en; rv:12.3) Gecko/2000000000 Ubuntu/7.10 (gutsy) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux ppc; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu package 1.0.7)
-#Mozilla/5.0 (X11; Linux ppc; en; rv:12.3) Gecko/2000000000 Ubuntu/10.10 (maverick) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux ppc; en; rv:12.3) Gecko/2000000000 Ubuntu/8.04 (hardy) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux ppc; en; rv:12.3) Gecko/2000000000 Ubuntu/8.10 (intrepid) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x64_64; en; rv:12.3) Gecko/2000000000 Ubuntu/8.10 (intrepid) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu
-#Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu/12.04 Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu/16.04.3 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux x8664) AppleWebKit/1.1.1 (KHTML like Gecko) Ubuntu Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5 FirePHP/4Chrome
-#Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5,gzip(gfe)
-#Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5 PingdomPageSpeed/1.0 (pingbot/2.0; +http://www.pingdom.com/)
-#Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu Chromium/2.2.2 HeadlessChrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu Chromium/2.2.2 Iridium/2017.10 Safari/5.5.5 Chrome/6.6.6
-#Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Version/11.0 Safari/5.5.5 Ubuntu/16.04 (3.18.11-0ubuntu1) Epiphany/4.4.4
-#Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Version/8.0 Safari/5.5.5 Ubuntu/14.10 (3.10.3-0ubuntu3) Epiphany/4.4.4
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 BonEcho/2.0b1 (Ubuntu-edgy)
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Epiphany/4.4.4 Firefox/8.8.8 (Ubuntu-feisty)
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Epiphany/4.4.4 (Ubuntu) (Ubuntu package 1.0.7)
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu-feisty)
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu package 1.0.2)
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu package 1.0.7)
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Kubuntu/8.04 (hardy) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 SeaMonkey/1.1.12 (Ubuntu-1.1.12+nobinonly-0ubuntu1)
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 SeaMonkey/1.1.9 (Ubuntu-1.1.9+nobinonly-0ubuntu1)
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/10.04 (lucid) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/10.04 (lucid) Firefox/8.8.8 GTB7.0
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/10.04 (lucid) Firefox/8.8.8 GTB7.1
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/10.04 (lucid) Firefox/8.8.8 (.NET CLR 3.5.30729)
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/10.04 (lucid) Namoroka/7.7.7
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/10.04 (lucid) Namoroka/7.7.7 GTB7.0
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/10.10 (maverick) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/10.10 (maverick) Firefox/8.8.8 GTB7.1
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/10.10 (maverick) Namoroka/7.7.7
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/7.10 (gutsy) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/8.04 (hardy) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/8.04 (hardy) Firefox/8.8.8 GTB5
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/8.04 (hardy) Firefox/8.8.8 (Linux Mint)
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/8.04 (hardy) Namoroka/7.7.7
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/8.10 (intrepid) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/8.10 (intrepid) Firefox/8.8.8 FirePHP/0.2.4
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/8.10 (intrepid) Minefield/3.0 MEGAUPLOAD 2.0
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/8.10 (intrepid) Mozilla/4.0 (compatible; MSIE 6.0; MSIE 5.5; Windows NT 5.1) Opera 7.03 [de]
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Firefox/8.8.8 FirePHP/0.3
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Firefox/8.8.8 GTB5
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Firefox/8.8.8 (.NET CLR 3.5.30729)
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Namoroka/7.7.7
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Namoroka/7.7.7 GTB5 (.NET CLR 3.5.30729)
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Shiretoko/3.3.3
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.10 (karmic) Epiphany/4.4.4 Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.10 (karmic) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.10 (karmic) Firefox/8.8.8 (.NET CLR 3.5.30729)
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.10 (karmic) Namoroka/7.7.7
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/dapper Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/dapper-security Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu (hardy) Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/hardy Firefox/8.8.8
-#Mozilla/5.0 (X11; Linux x86_64; en-US) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu/10.04 Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux x86_64; en-US) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu/10.10 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux x86_64; en-US) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu/10.10 Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Linux x86_64; it-it) AppleWebKit/1.1.1+ (KHTML, like Gecko) Ubuntu/11.04 Epiphany/4.4.4
-#Mozilla/5.0 (X11; Linux x86; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu-feisty)
-#Mozilla/5.0 (X11; Linux x86; en; rv:12.3) Gecko/2000000000 Ubuntu/8.04 (hardy) Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux amd64; rv:12.3) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux armv7l; rv:12.3) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux i386; rv:12.3) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux i686) AppleWebKit/1.1.1 (KHTML, like Gecko) Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Ubuntu; Linux i686) AppleWebKit/1.1.1 (KHTML, like Gecko) Version/11.0 Safari/5.5.5 Epiphany/4.4.4
-#Mozilla/5.0 (X11; Ubuntu; Linux i686) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux i686 on x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:12.3) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:12.3) Gecko/2000000000 Firefox/8.8.8,gzip(gfe)
-#Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:12.3; ips-agent) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux i686; Trident/7.0; rv:12.3) like Gecko
-#Mozilla/5.0 (X11; Ubuntu; Linux ppc64; rv:12.3) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux; rv:12.3) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Chrome/6.6.6 Safari/5.5.5
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Version/11.0 Safari/5.5.5 Epiphany/4.4.4
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Version/11.0 Safari/5.5.5 Epiphany/4.4.4 (Web App)
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Version/11.0 Safari/5.5.5 Ubuntu/17.10 (3.26.1-1ubuntu1) Epiphany/4.4.4
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3)
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) adbeat.com/policy Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8, */*
-#Mozilla/5.0 (X11; Ubuntu; Linux x8664; rv:12.3) Gecko/2000000000 Firefox/8.8.8
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8, 165
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8, application/json
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8.Firefox/8.8.8 Zotero/5.0
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8 / GnowitNewsbot / Contact information at http://www.gnowit.com
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8,gzip(gfe)
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8 PTST/SpeedCurve/180430.170403
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8 PTST/SpeedCurve/180509.150501
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (via de.motortalk.utils.HttpUtils)
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8 Yandex.Translate
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; Trident/6.0; rv:12.3) like Gecko
-#Mozilla/5.0 (X11; Ubuntu; Linux x86_64; Trident/7.0; rv:12.3) like Gecko
-#Opera/9.10 (X11; Linux i686; kubuntu;pl)
-#Opera/9.80 (X11; Linux i686; Ubuntu/14.10) Presto/1.1.1 Version/12.16
-#Opera/9.80 (X11; Linux i686; Ubuntu/14.10) Presto/1.1.1 Version/12.16 5af45f95103b5/57b713af-e2d1-4c33-b4c1-0e511a471a7d
-#Opera/9.80 (X11; Linux x86_64; Ubuntu/10.10 (maverick); pl) Presto/1.1.1 Version/11.01

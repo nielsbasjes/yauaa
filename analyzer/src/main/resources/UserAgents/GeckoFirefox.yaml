@@ -105,6 +105,14 @@ config:
     - 'AgentName                           :   2005 :@Browser.name'
     - 'AgentVersion                        :   2005 :@Browser.version'
 
+# This extracts the correct name from "Gecko Kazehakase/0.5.4"
+- matcher:
+    variable:
+    - 'Browser: agent.(2-5)product.name[1]="Gecko"@[2-]'
+    extract:
+    - 'AgentClass                          :   2006 :"Browser"'
+    - 'AgentName                           :   2006 :@Browser'
+    - 'AgentVersion                        :   2006 :@Browser^.version'
 
     # In some obscure cases we have a parse problem that sends everything inside a comment block
 - matcher:
@@ -427,9 +435,6 @@ config:
 
 # Problem case: The part between Gecko and Firefox is just a VERSION
 - test:
-#    options:
-#    - 'verbose'
-#    - 'only'
     input:
       user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 6.0; nl; rv:1.9.0.5) Gecko/2008120122 BTRS28059 Firefox/3.0.5 GTB7.1 (.NET CLR 3.5.30729)'
     expected:

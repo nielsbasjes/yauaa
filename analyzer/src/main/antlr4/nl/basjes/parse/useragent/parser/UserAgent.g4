@@ -139,6 +139,13 @@ URL
     : ( '<'? ('www.'BareHostname UrlPath|BasicURL) '>'? | HTMLURL | 'index.htm' UrlPath)
     ;
 
+// In some (rare!) cases the only way to get the correct parse is by treating
+// these words that appear as a 'version' (without digits!!) in a special way.
+SPECIALVERSIONWORDS
+    : 'dapper-security'
+    | 'dapper' // Fixes: "Ubuntu/dapper Something/4.4.4"
+    ;
+
 UNASSIGNEDVARIABLE
     : '@' [-_0-9a-zA-Z]+ '@'
     ;
@@ -266,6 +273,7 @@ commentProduct
 productVersionWords
     : WORD (MINUS? WORD)*
     | UNASSIGNEDVARIABLE
+    | SPECIALVERSIONWORDS
     ;
 
 productName
