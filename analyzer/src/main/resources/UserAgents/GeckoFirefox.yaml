@@ -54,6 +54,17 @@ config:
 
 - matcher:
     variable:
+    - 'Gecko: agent.(2-5)product.name="Gecko"^>>>'
+    require:
+    - '@Gecko<.name="Firefox"'
+    - 'IsNull[@Gecko.name[-1]?BadGeckoNames]'
+    extract:
+    - 'AgentClass                          :   2002 :"Browser"'
+    - 'AgentName                           :   2002 :@Gecko.name'
+    - 'AgentVersion                        :   2002 :@Gecko.version'
+
+- matcher:
+    variable:
     - 'Gecko: agent.(2-5)product.name="Gecko"^>'
     require:
     - 'agent.(3-6)product.name[2]="Firefox"' # Performance trick
@@ -541,11 +552,11 @@ config:
       LayoutEngineNameVersionMajor         : 'Gecko 1'
       LayoutEngineBuild                    : '20101026'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '3.5.7'
-      AgentVersionMajor                    : '3'
-      AgentNameVersion                     : 'Firefox 3.5.7'
-      AgentNameVersionMajor                : 'Firefox 3'
+      AgentName                            : 'MEGAUPLOAD'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'MEGAUPLOAD 1.0'
+      AgentNameVersionMajor                : 'MEGAUPLOAD 1'
       AgentLanguage                        : 'Russian'
       AgentLanguageCode                    : 'ru'
       AgentSecurity                        : 'Strong security'

@@ -679,17 +679,11 @@ config:
       LayoutEngineNameVersionMajor         : 'Gecko 12'
       LayoutEngineBuild                    : '2000000000'
       AgentClass                           : 'Browser'
-# FIXME: This reports Firefox instead of Mnenhy
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '8.8.8'
-      AgentVersionMajor                    : '8'
-      AgentNameVersion                     : 'Firefox 8.8.8'
-      AgentNameVersionMajor                : 'Firefox 8'
-#      AgentName                             : 'Mnenhy'
-#      AgentVersion                          : '0.7.4.666'
-#      AgentVersionMajor                     : '0'
-#      AgentNameVersion                      : 'Mnenhy 0.7.4.666'
-#      AgentNameVersionMajor                 : 'Mnenhy 0'
+      AgentName                            : 'Mnenhy'
+      AgentVersion                         : '0.7.4.666'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Mnenhy 0.7.4.666'
+      AgentNameVersionMajor                : 'Mnenhy 0'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
 
@@ -811,6 +805,8 @@ config:
       AgentLanguageCode                    : 'en'
 
 
+# https://en.wikipedia.org/wiki/Kazehakase
+# This project has stopped since 2009
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux i686; U;) Gecko/2000000000 Kazehakase/0.4.3 Debian/0.4.3-1ubuntu1'
@@ -1404,7 +1400,7 @@ config:
       AgentNameVersionMajor                : 'Ubuntu Chromium 2'
 
 
-- test: # TODO: Check : Iridium ?
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu Chromium/2.2.2 Iridium/2017.10 Safari/5.5.5 Chrome/6.6.6'
     expected:
@@ -1424,11 +1420,11 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 1.1.1'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 1'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Chrome'
-      AgentVersion                         : '6.6.6'
-      AgentVersionMajor                    : '6'
-      AgentNameVersion                     : 'Chrome 6.6.6'
-      AgentNameVersionMajor                : 'Chrome 6'
+      AgentName                            : 'Iridium'
+      AgentVersion                         : '2017.10'
+      AgentVersionMajor                    : '2017'
+      AgentNameVersion                     : 'Iridium 2017.10'
+      AgentNameVersionMajor                : 'Iridium 2017'
 
 
 - test:
@@ -2226,11 +2222,11 @@ config:
       LayoutEngineNameVersionMajor         : 'Gecko 12'
       LayoutEngineBuild                    : '2000000000'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '8.8.8'
-      AgentVersionMajor                    : '8'
-      AgentNameVersion                     : 'Firefox 8.8.8'
-      AgentNameVersionMajor                : 'Firefox 8'
+      AgentName                            : 'FirePHP'
+      AgentVersion                         : '0.2.4'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'FirePHP 0.2.4'
+      AgentNameVersionMajor                : 'FirePHP 0'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
 
@@ -2346,11 +2342,11 @@ config:
       LayoutEngineNameVersionMajor         : 'Gecko 12'
       LayoutEngineBuild                    : '2000000000'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '8.8.8'
-      AgentVersionMajor                    : '8'
-      AgentNameVersion                     : 'Firefox 8.8.8'
-      AgentNameVersionMajor                : 'Firefox 8'
+      AgentName                            : 'FirePHP'
+      AgentVersion                         : '0.3'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'FirePHP 0.3'
+      AgentNameVersionMajor                : 'FirePHP 0'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
 
@@ -2445,7 +2441,7 @@ config:
       AgentLanguageCode                    : 'en'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Namoroka/7.7.7 GTB5 (.NET CLR 3.5.30729)'
     expected:
@@ -2475,7 +2471,7 @@ config:
       AgentLanguageCode                    : 'en'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.04 (jaunty) Shiretoko/3.3.3'
     expected:
@@ -2505,7 +2501,7 @@ config:
       AgentLanguageCode                    : 'en'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.10 (karmic) Epiphany/4.4.4 Firefox/8.8.8'
     expected:
@@ -2535,7 +2531,7 @@ config:
       AgentLanguageCode                    : 'en'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.10 (karmic) Firefox/8.8.8'
     expected:
@@ -2565,7 +2561,7 @@ config:
       AgentLanguageCode                    : 'en'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.10 (karmic) Firefox/8.8.8 (.NET CLR 3.5.30729)'
     expected:
@@ -2595,7 +2591,7 @@ config:
       AgentLanguageCode                    : 'en'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/9.10 (karmic) Namoroka/7.7.7'
     expected:
@@ -2625,7 +2621,7 @@ config:
       AgentLanguageCode                    : 'en'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/dapper Firefox/8.8.8'
     expected:
@@ -2655,37 +2651,37 @@ config:
       AgentLanguageCode                    : 'en'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/dapper-security Firefox/8.8.8'
     expected:
-      DeviceClass                          : 'Desktop'                  #   111
-      DeviceName                           : 'Linux Desktop'            #   111
-      DeviceBrand                          : 'Unknown'                  #   111
-      DeviceCpu                            : 'Intel x86_64'             #   114
-      DeviceCpuBits                        : '64'                       #   114
-      OperatingSystemClass                 : 'Desktop'                  #   203
-      OperatingSystemName                  : 'Ubuntu'                   #   203
-      OperatingSystemVersion               : '6.06 Security'            #   203 | FAILED; Should be 'dapper-security Firefox'
-      OperatingSystemNameVersion           : 'Ubuntu 6.06 Security'     #   203 | FAILED; Should be 'Ubuntu dapper-security Firefox'
-      LayoutEngineClass                    : 'Browser'                  #  2000
-      LayoutEngineName                     : 'Gecko'                    #  2000
-      LayoutEngineVersion                  : '12.3'                     #  2000
-      LayoutEngineVersionMajor             : '12'                       #  2000
-      LayoutEngineNameVersion              : 'Gecko 12.3'               #  2000
-      LayoutEngineNameVersionMajor         : 'Gecko 12'                 #  2000
-      LayoutEngineBuild                    : '2000000000'               #  2000
-      AgentClass                           : 'Browser'                  #  2001
-      AgentName                            : 'Firefox'                  #  2001 | FAILED; Should be 'Ubuntu'
-      AgentVersion                         : '8.8.8'                    #  2001 | FAILED; Should be 'dapper-security Firefox'
-      AgentVersionMajor                    : '8'                        #  2001 | FAILED; Should be 'dapper'
-      AgentNameVersion                     : 'Firefox 8.8.8'            #  2001 | FAILED; Should be 'Ubuntu dapper-security Firefox'
-      AgentNameVersionMajor                : 'Firefox 8'                #  2001 | FAILED; Should be 'Ubuntu dapper'
-      AgentLanguage                        : 'English'                  #  5000
-      AgentLanguageCode                    : 'en'                       #  5000
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '6.06 Security'
+      OperatingSystemNameVersion           : 'Ubuntu 6.06 Security'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8'
+      AgentNameVersionMajor                : 'Firefox 8'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu (hardy) Firefox/8.8.8'
     expected:
@@ -2715,7 +2711,7 @@ config:
       AgentLanguageCode                    : 'en'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; en; rv:12.3) Gecko/2000000000 Ubuntu/hardy Firefox/8.8.8'
     expected:
@@ -2726,8 +2722,8 @@ config:
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Ubuntu'
-      OperatingSystemVersion               : 'hardy Firefox'
-      OperatingSystemNameVersion           : 'Ubuntu hardy Firefox'
+      OperatingSystemVersion               : '8.04'
+      OperatingSystemNameVersion           : 'Ubuntu 8.04'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
       LayoutEngineVersion                  : '12.3'
@@ -2736,16 +2732,16 @@ config:
       LayoutEngineNameVersionMajor         : 'Gecko 12'
       LayoutEngineBuild                    : '2000000000'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Ubuntu'
-      AgentVersion                         : 'hardy Firefox'
-      AgentVersionMajor                    : 'hardy Firefox'
-      AgentNameVersion                     : 'Ubuntu hardy Firefox'
-      AgentNameVersionMajor                : 'Ubuntu hardy Firefox'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8'
+      AgentNameVersionMajor                : 'Firefox 8'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; en-US) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu/10.04 Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5'
     expected:
@@ -2774,7 +2770,7 @@ config:
       AgentLanguageCode                    : 'en-us'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; en-US) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu/10.10 Chrome/6.6.6 Safari/5.5.5'
     expected:
@@ -2803,7 +2799,7 @@ config:
       AgentLanguageCode                    : 'en-us'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; en-US) AppleWebKit/1.1.1 (KHTML, like Gecko) Ubuntu/10.10 Chromium/2.2.2 Chrome/6.6.6 Safari/5.5.5'
     expected:
@@ -2832,7 +2828,7 @@ config:
       AgentLanguageCode                    : 'en-us'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; it-it) AppleWebKit/1.1.1+ (KHTML, like Gecko) Ubuntu/11.04 Epiphany/4.4.4'
     expected:
@@ -2861,7 +2857,7 @@ config:
       AgentLanguageCode                    : 'it-it'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86; en; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (Ubuntu-feisty)'
     expected:
@@ -2891,7 +2887,7 @@ config:
       AgentLanguageCode                    : 'en'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86; en; rv:12.3) Gecko/2000000000 Ubuntu/8.04 (hardy) Firefox/8.8.8'
     expected:
@@ -2921,7 +2917,7 @@ config:
       AgentLanguageCode                    : 'en'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux amd64; rv:12.3) Gecko/2000000000 Firefox/8.8.8'
     expected:
@@ -2949,7 +2945,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux armv7l; rv:12.3) Gecko/2000000000 Firefox/8.8.8'
     expected:
@@ -2977,7 +2973,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux i386; rv:12.3) Gecko/2000000000 Firefox/8.8.8'
     expected:
@@ -3005,7 +3001,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux i686) AppleWebKit/1.1.1 (KHTML, like Gecko) Chrome/6.6.6 Safari/5.5.5'
     expected:
@@ -3032,7 +3028,7 @@ config:
       AgentNameVersionMajor                : 'Chrome 6'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux i686) AppleWebKit/1.1.1 (KHTML, like Gecko) Version/11.0 Safari/5.5.5 Epiphany/4.4.4'
     expected:
@@ -3059,7 +3055,7 @@ config:
       AgentNameVersionMajor                : 'Epiphany 4'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux i686) Gecko/2000000000 Firefox/8.8.8'
     expected:
@@ -3086,7 +3082,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux i686 on x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8'
     expected:
@@ -3114,7 +3110,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:12.3) Gecko/2000000000 Firefox/8.8.8'
     expected:
@@ -3142,7 +3138,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:12.3) Gecko/2000000000 Firefox/8.8.8,gzip(gfe)'
     expected:
@@ -3170,7 +3166,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:12.3; ips-agent) Gecko/2000000000 Firefox/8.8.8'
     expected:
@@ -3198,7 +3194,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test: #FIXME: This is strange. Linux and Trident (Internet Explorer) --> Must be manipulated
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux i686; Trident/7.0; rv:12.3) like Gecko'
     expected:
@@ -3225,7 +3221,7 @@ config:
       AgentNameVersionMajor                : 'Internet Explorer 12'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux ppc64; rv:12.3) Gecko/2000000000 Firefox/8.8.8'
     expected:
@@ -3253,7 +3249,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux; rv:12.3) Gecko/2000000000 Firefox/8.8.8'
     expected:
@@ -3279,7 +3275,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Chrome/6.6.6 Safari/5.5.5'
     expected:
@@ -3306,7 +3302,7 @@ config:
       AgentNameVersionMajor                : 'Chrome 6'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Version/11.0 Safari/5.5.5 Epiphany/4.4.4'
     expected:
@@ -3333,7 +3329,7 @@ config:
       AgentNameVersionMajor                : 'Epiphany 4'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Version/11.0 Safari/5.5.5 Epiphany/4.4.4 (Web App)'
     expected:
@@ -3360,7 +3356,7 @@ config:
       AgentNameVersionMajor                : 'Epiphany 4'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/1.1.1 (KHTML, like Gecko) Version/11.0 Safari/5.5.5 Ubuntu/17.10 (3.26.1-1ubuntu1) Epiphany/4.4.4'
     expected:
@@ -3387,7 +3383,7 @@ config:
       AgentNameVersionMajor                : 'Epiphany 4'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64) Gecko/2000000000 Firefox/8.8.8'
     expected:
@@ -3414,7 +3410,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3)'
     expected:
@@ -3441,7 +3437,7 @@ config:
       AgentNameVersionMajor                : 'Linux x86'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) adbeat.com/policy Gecko/2000000000 Firefox/8.8.8'
     expected:
@@ -3455,20 +3451,22 @@ config:
       OperatingSystemVersion               : '??'
       OperatingSystemNameVersion           : 'Ubuntu ??'
       LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.3'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.3'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '2000000000'
       AgentClass                           : 'Browser'
-      AgentName                            : 'adbeat.com'
-      AgentVersion                         : 'policy Gecko'
-      AgentVersionMajor                    : 'policy Gecko'
-      AgentNameVersion                     : 'adbeat.com policy Gecko'
-      AgentNameVersionMajor                : 'adbeat.com policy Gecko'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8'
+      AgentNameVersionMajor                : 'Firefox 8'
+      AgentInformationUrl                  : 'adbeat.com/policy'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8'
     expected:
@@ -3496,7 +3494,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test: # FIXME: The */* should be ignored
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8, */*'
     expected:
@@ -3524,7 +3522,7 @@ config:
       AgentNameVersionMajor                : '*'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x8664; rv:12.3) Gecko/2000000000 Firefox/8.8.8'
     expected:
@@ -3552,7 +3550,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8, 165'
     expected:
@@ -3580,7 +3578,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test: # FIXME: Skip mime types like application/json
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8, application/json'
     expected:
@@ -3608,7 +3606,7 @@ config:
       AgentNameVersionMajor                : 'application json'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8.Firefox/8.8.8 Zotero/5.0'
     expected:
@@ -3636,7 +3634,7 @@ config:
       AgentNameVersionMajor                : 'Zotero 5'
 
 
-- test: # TODO: Check
+- test: # FIXME: This robot makes a nice mess ...
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8 / GnowitNewsbot / Contact information at http://www.gnowit.com'
     expected:
@@ -3663,7 +3661,7 @@ config:
       AgentInformationUrl                  : 'http://www.gnowit.com'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8,gzip(gfe)'
     expected:
@@ -3691,7 +3689,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8 PTST/SpeedCurve/180430.170403'
     expected:
@@ -3716,7 +3714,7 @@ config:
       AgentNameVersionMajor                : 'SpeedCurve WebpageTest 180430'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8 PTST/SpeedCurve/180509.150501'
     expected:
@@ -3741,7 +3739,7 @@ config:
       AgentNameVersionMajor                : 'SpeedCurve WebpageTest 180509'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8 (via de.motortalk.utils.HttpUtils)'
     expected:
@@ -3769,7 +3767,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test: # TODO: Check what is Yandex.translate ??
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8 Yandex.Translate'
     expected:
@@ -3797,7 +3795,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; Trident/6.0; rv:12.3) like Gecko'
     expected:
@@ -3824,7 +3822,7 @@ config:
       AgentNameVersionMajor                : 'Internet Explorer 12'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; Trident/7.0; rv:12.3) like Gecko'
     expected:
@@ -3851,7 +3849,7 @@ config:
       AgentNameVersionMajor                : 'Internet Explorer 12'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Opera/9.10 (X11; Linux i686; kubuntu;pl)'
     expected:
@@ -3880,7 +3878,7 @@ config:
       AgentLanguageCode                    : 'pl'
 
 
-- test: # TODO: Check
+- test:
     input:
       user_agent_string: 'Opera/9.80 (X11; Linux i686; Ubuntu/14.10) Presto/1.1.1 Version/12.16'
     expected:

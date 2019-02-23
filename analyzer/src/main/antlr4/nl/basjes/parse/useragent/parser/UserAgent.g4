@@ -133,21 +133,79 @@ UUID  // 550e8400-e29b-41d4-a716-446655440000
 
 fragment BareHostname:  [a-zA-Z0-9\-_]+ ('.'[a-zA-Z0-9\-_]+)*;
 fragment UrlPath     :  [a-zA-Z0-9\-_~=?&%+.:/#]*;
+fragment SimpleTextOnlyURL :  [a-zA-Z\-_]+[a-zA-Z0-9\-_]+ ('.'[a-zA-Z\-_][a-zA-Z0-9\-_]*)+ '/' [a-zA-Z\-_~=?&%+.:/#]+;
 fragment BasicURL    :  ('http'|'ftp') 's'? '://' BareHostname UrlPath ;
 fragment HTMLURL     :  '<a href="' BasicURL '">'~[<]+'</a>';
 URL
-    : ( '<'? ('www.'BareHostname UrlPath|BasicURL) '>'? | HTMLURL | 'index.htm' UrlPath)
+    : ( '<'? ('www.'BareHostname UrlPath|BasicURL) '>'? | SimpleTextOnlyURL | HTMLURL | 'index.htm' UrlPath)
     ;
+
+fragment A : [aA]; // match either an 'a' or 'A'
+fragment B : [bB];
+fragment C : [cC];
+fragment D : [dD];
+fragment E : [eE];
+fragment F : [fF];
+fragment G : [gG];
+fragment H : [hH];
+fragment I : [iI];
+fragment J : [jJ];
+fragment K : [kK];
+fragment L : [lL];
+fragment M : [mM];
+fragment N : [nN];
+fragment O : [oO];
+fragment P : [pP];
+fragment Q : [qQ];
+fragment R : [rR];
+fragment S : [sS];
+fragment T : [tT];
+fragment U : [uU];
+fragment V : [vV];
+fragment W : [wW];
+fragment X : [xX];
+fragment Y : [yY];
+fragment Z : [zZ];
 
 // In some (rare!) cases the only way to get the correct parse is by treating
 // these words that appear as a 'version' (without digits!!) in a special way.
 SPECIALVERSIONWORDS
-    : 'dapper-security'
-    | 'dapper' // Fixes: "Ubuntu/dapper Something/4.4.4"
+    // Fixes: "Ubuntu/dapper Something/4.4.4"
+//    : W A R T Y       | W A R T Y        '-' S E C U R I T Y // Codename of Ubuntu  4.10
+//    | H O A R Y       | H O A R Y        '-' S E C U R I T Y // Codename of Ubuntu  5.04
+//    | B R E E Z Y     | B R E E Z Y      '-' S E C U R I T Y // Codename of Ubuntu  5.10
+    : D A P P E R     | D A P P E R      '-' S E C U R I T Y // Codename of Ubuntu  6.06
+//    | E D G Y         | E D G Y          '-' S E C U R I T Y // Codename of Ubuntu  6.10
+//    | F E I S T Y     | F E I S T Y      '-' S E C U R I T Y // Codename of Ubuntu  7.04
+//    | G U T S Y       | G U T S Y        '-' S E C U R I T Y // Codename of Ubuntu  7.10
+    | H A R D Y       | H A R D Y        '-' S E C U R I T Y // Codename of Ubuntu  8.04
+//    | I N T R E P I D | I N T R E P I D  '-' S E C U R I T Y // Codename of Ubuntu  8.10
+//    | J A U N T Y     | J A U N T Y      '-' S E C U R I T Y // Codename of Ubuntu  9.04
+//    | K A R M I C     | K A R M I C      '-' S E C U R I T Y // Codename of Ubuntu  9.10
+//    | L U C I D       | L U C I D        '-' S E C U R I T Y // Codename of Ubuntu 10.04
+//    | M A V E R I C K | M A V E R I C K  '-' S E C U R I T Y // Codename of Ubuntu 10.10
+//    | N A T T Y       | N A T T Y        '-' S E C U R I T Y // Codename of Ubuntu 11.04
+//    | O N E I R I C   | O N E I R I C    '-' S E C U R I T Y // Codename of Ubuntu 11.10
+//    | P R E C I S E   | P R E C I S E    '-' S E C U R I T Y // Codename of Ubuntu 12.04
+//    | Q U A N T A L   | Q U A N T A L    '-' S E C U R I T Y // Codename of Ubuntu 12.10
+//    | R A R I N G     | R A R I N G      '-' S E C U R I T Y // Codename of Ubuntu 13.04
+//    | S A U C Y       | S A U C Y        '-' S E C U R I T Y // Codename of Ubuntu 13.10
+//    | T R U S T Y     | T R U S T Y      '-' S E C U R I T Y // Codename of Ubuntu 14.04
+//    | U T O P I C     | U T O P I C      '-' S E C U R I T Y // Codename of Ubuntu 14.10
+//    | V I V I D       | V I V I D        '-' S E C U R I T Y // Codename of Ubuntu 15.04
+//    | W I L Y         | W I L Y          '-' S E C U R I T Y // Codename of Ubuntu 15.10
+//    | X E N I A L     | X E N I A L      '-' S E C U R I T Y // Codename of Ubuntu 16.04
+//    | Y A K K E T Y   | Y A K K E T Y    '-' S E C U R I T Y // Codename of Ubuntu 16.10
+//    | Z E S T Y       | Z E S T Y        '-' S E C U R I T Y // Codename of Ubuntu 17.04
+//    | A R T F U L     | A R T F U L      '-' S E C U R I T Y // Codename of Ubuntu 17.10
+//    | B I O N I C     | B I O N I C      '-' S E C U R I T Y // Codename of Ubuntu 18.04
+//    | C O S M I C     | C O S M I C      '-' S E C U R I T Y // Codename of Ubuntu 18.10
+//    | D I S C O       | D I S C O        '-' S E C U R I T Y // Codename of Ubuntu 19.04
     ;
 
 UNASSIGNEDVARIABLE
     : '@' [-_0-9a-zA-Z]+ '@'
+    | SPECIALVERSIONWORDS
     ;
 
 GIBBERISH
@@ -163,6 +221,7 @@ VERSION
 fragment WORDLetter
     : (~[0-9+;,{}()\\/ \t:=[\]"-])             // Normal letters
     | '\\x'[0-9a-f][0-9a-f]                    // Hex encoded letters \xab\x12
+    | SPECIALVERSIONWORDS
     ;
 
 WORD
@@ -297,6 +356,7 @@ productVersion
     | uuId
     | base64
     | singleVersion
+    | SPECIALVERSIONWORDS
     ;
 
 productVersionWithCommas
@@ -306,6 +366,7 @@ productVersionWithCommas
     | uuId
     | base64
     | singleVersionWithCommas
+    | SPECIALVERSIONWORDS
     ;
 
 
@@ -456,4 +517,5 @@ multipleWords
 
 versionWords
     : VERSION+
+    | SPECIALVERSIONWORDS
     ;
