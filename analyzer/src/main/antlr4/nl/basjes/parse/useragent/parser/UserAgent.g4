@@ -140,6 +140,8 @@ URL
     : ( '<'? ('www.'BareHostname UrlPath|BasicURL) '>'? | SimpleTextOnlyURL | HTMLURL | 'index.htm' UrlPath)
     ;
 
+
+// Based upon https://github.com/antlr/antlr4/blob/master/doc/case-insensitive-lexing.md
 fragment A : [aA]; // match either an 'a' or 'A'
 fragment B : [bB];
 fragment C : [cC];
