@@ -1227,6 +1227,88 @@ config:
       AgentNameVersion                     : 'Chrome 70.0.3538.80'
       AgentNameVersionMajor                : 'Chrome 70'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0.0; GM 6 d Build/O00623) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.109 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'General Mobile GM 6 D'
+      DeviceBrand                          : 'General Mobile'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0.0'
+      OperatingSystemNameVersion           : 'Android 8.0.0'
+      OperatingSystemVersionBuild          : 'O00623'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '65.0'
+      LayoutEngineVersionMajor             : '65'
+      LayoutEngineNameVersion              : 'Blink 65.0'
+      LayoutEngineNameVersionMajor         : 'Blink 65'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '65.0.3325.109'
+      AgentVersionMajor                    : '65'
+      AgentNameVersion                     : 'Chrome 65.0.3325.109'
+      AgentNameVersionMajor                : 'Chrome 65'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; GM 5 Plus d Build/NNK57) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.109 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'General Mobile GM 5 Plus D'
+      DeviceBrand                          : 'General Mobile'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemVersionBuild          : 'NNK57'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '65.0'
+      LayoutEngineVersionMajor             : '65'
+      LayoutEngineNameVersion              : 'Blink 65.0'
+      LayoutEngineNameVersionMajor         : 'Blink 65'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '65.0.3325.109'
+      AgentVersionMajor                    : '65'
+      AgentNameVersion                     : 'Chrome 65.0.3325.109'
+      AgentNameVersionMajor                : 'Chrome 65'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; GM 5 Plus d Build/NNK57; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/65.0.3325.109 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'General Mobile GM 5 Plus D'
+      DeviceBrand                          : 'General Mobile'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemVersionBuild          : 'NNK57'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '65.0'
+      LayoutEngineVersionMajor             : '65'
+      LayoutEngineNameVersion              : 'Blink 65.0'
+      LayoutEngineNameVersionMajor         : 'Blink 65'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '65.0.3325.109'
+      AgentVersionMajor                    : '65'
+      AgentNameVersion                     : 'Chrome Webview 65.0.3325.109'
+      AgentNameVersionMajor                : 'Chrome Webview 65'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
 #- test:
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; A1 Build/KTU84Q) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Safari/537.36'
