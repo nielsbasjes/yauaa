@@ -1328,3 +1328,29 @@ config:
 #- test:
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; nl-be; PO 8217 TAD-90022 Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
+
+
+- test: # NO brand specified !!!
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0.0; Build/OPR1.170623.032) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.109 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0.0'
+      OperatingSystemNameVersion           : 'Android 8.0.0'
+      OperatingSystemVersionBuild          : 'OPR1.170623.032'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '65.0'
+      LayoutEngineVersionMajor             : '65'
+      LayoutEngineNameVersion              : 'Blink 65.0'
+      LayoutEngineNameVersionMajor         : 'Blink 65'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '65.0.3325.109'
+      AgentVersionMajor                    : '65'
+      AgentNameVersion                     : 'Chrome 65.0.3325.109'
+      AgentNameVersionMajor                : 'Chrome 65'
