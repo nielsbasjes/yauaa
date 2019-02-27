@@ -34,6 +34,7 @@ config:
       'lua-resty-http'             : 'LedgeTech'
       'Mappy'                      : 'Mappy'
       'MegaIndex.ru'               : 'MegaIndex.ru'
+      'MetaURI API'                : 'MetaURI'
       'Netcraft Web Server Survey' : 'Netcraft'
       'OhDear.app'                 : 'OhDear.app'
       'PingdomPageSpeed'           : 'Pingdom'
@@ -42,6 +43,7 @@ config:
       'ScoutJet'                   : 'ScoutJet'
       'Site-Shot'                  : 'Site-Shot'
       'Twitterbot'                 : 'Twitter'
+      'urlwatch'                   : 'Urlwatch'   # 'watch' causes it to be seen as a wristwatch
       'Watchmouse'                 : 'Watchmouse' # 'watch' causes it to be seen as a wristwatch
       'Vagabondo'                  : 'Wise-Guys'
       'YaK'                        : 'Linkfluence'
@@ -4797,6 +4799,31 @@ config:
       AgentNameVersionMajor                : 'Daumoa 2'
       AgentInformationUrl                  : 'http://ws.daum.net/aboutWebSearch.html'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE or Firefox mutant; not on Windows server; + http://tab.search.daum.net/aboutWebSearch.html) Daumoa/3.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Daom Daumoa'
+      DeviceBrand                          : 'Daom'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Daumoa'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'Daumoa 3.0'
+      LayoutEngineNameVersionMajor         : 'Daumoa 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Daumoa'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Daumoa 3.0'
+      AgentNameVersionMajor                : 'Daumoa 3'
+      AgentInformationUrl                  : 'http://tab.search.daum.net/aboutWebSearch.html'
+
 
 #- test: # TODO: Implement
 #    input:
@@ -4805,8 +4832,6 @@ config:
 #- test: # TODO: Implement
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (en-us) AppleWebKit/537.36(KHTML, like Gecko; Google-Adwords-DisplayAds-WebRender;) Chrome/41.0.2272.118Safari/537.36'
-
-
 
 
 #Microsoft URL Control - 6.01.9782
@@ -4819,7 +4844,6 @@ config:
 #Mozilla/3.0 (compatible; Indy Library)
 #Google-HTTP-Java-Client/1.17.0-rc (gzip)
 #SilkCentral Central/3.6+simulating+Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.0)
-#Mozilla/3.0 (compatible; Indy Library)
 #Mozilla/4.0 (compatible; Synapse)
 #Mozilla/5.0 (compatible; Google-Proxy; build=262)
 #Mozilla/5.0
@@ -4836,8 +4860,8 @@ config:
 #Googlebot
 #\xef\xbb\xbfMozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
 #Googlebot/2.1; +http://www.google.com/bot.html)
-#Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html),gzip(gfe) (via docs.google.com/viewer)
 #Googlebot/2.1
+#Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html),gzip(gfe) (via docs.google.com/viewer)
 #Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html
 #Mozilla/5.0 (compatible; Googlebot/2.1; http://www.google.com/bot.html)
 #
@@ -4845,9 +4869,10 @@ config:
 #Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)
 #Mozilla/5.0 (compatible;bingbot/2.0;+http://www.bing.com/bingbot.htm)
 #Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) ASProxy/5.2
+
+# FIXME: These are NOT bingbot --> Spy scrapers!!
 #Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) AppEngine-Google; (+http://code.google.com/appengine; appid: s~doingfly)
 #Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) AppEngine-Google; (+http://code.google.com/appengine; appid: s~i-am-proxy-hrd)
-
 
 - test:
     input:
@@ -4875,14 +4900,7 @@ config:
       AgentInformationUrl                  : 'http://watchmouse.com/'
 
 
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; MSIE or Firefox mutant; not on Windows server; + http://tab.search.daum.net/aboutWebSearch.html) Daumoa/3.0'
 
-
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Trident/5.0; SLCC1; .NET CLR 2.0.50727; .NET CLR 1.1.4322; ${USR_AGNT}; .NET CLR 3.5.30729; .NET4.0C; BRI/2; .NET CLR 3.0.30729; McAfee)'
 
 #- test: # FIXME: Implement (current rules classify this one wrong)
 #    input:
@@ -4916,22 +4934,80 @@ config:
 #    input:
 #      user_agent_string: 'Mozilla/4.0 (X11; MSIE 6.0; i686; .NET CLR 1.1.4322; .NET CLR 2.0.50727; FDM)'
 
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'FDM 3.x'
 
 # FIXME: DeviceClass = Unknown
 # Mozilla/3.0 (compatible; HP Web PrintSmart 04b0 1.0.1.34)
 #
 # Mozilla/4.0 (compatible; Cerberian Drtrs Version-3.2-Build-1)
-# OneNote/16.0.8431.2110 (Windows/10.0; Desktop x64; nl-NL; Desktop app; Dell Inc./Latitude 7480)
-# OneNote/16.0.8431.2110 (Windows/10.0; Desktop x64; nl-NL; Desktop app; Dell Inc./Latitude E7470)
-# Mozilla/4.0 (compatible; Cerberian Drtrs Version-3.2-Build-0)
-# OneNote/16.0.8431.2110 (Windows/10.0; Desktop x64; nl-NL; Desktop app; Dell Inc./Latitude E5570)
-# OneNote/16.0.8431.2110 (Windows/10.0; Desktop x64; nl-NL; Desktop app; Dell Inc./Latitude 5580)
 # LG/U8138/v1.0
 # HP Smart v 5.7
 # LGE612f/4.0.3-EAS-1.3
 # LGMC-LGEAS/6.44.13
 # SonyD2403/4.4.4-EAS-2.0
-# OneNote/16.0.4639.1000 (Windows/10.0; Desktop WOW64; nl-NL; Desktop app; Dell Inc./Latitude 7480)
 # SAMSUNG-SGH-i900/1.0 Opera 9.5
 # SonyD2243/4.4.4-EAS-1.3
 # SonyF3216/7.0-EAS-2.0
+
+#PHP/5.3.28
+
+
+#Mozilla/5.0 (LG-T375 AppleWebkit/531 Browser/Phantom/V2.0 Widget/LGMW/3.0 MMS/LG-MMS-V1.0/1.2 Java/ASVM/1.1 Profile/MIDP-2.1 Configuration/CLDC-1.1)
+#
+
+- test:
+    input:
+      user_agent_string: 'urlwatch/2.9 (+https://thp.io/2008/urlwatch/info.html)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Urlwatch'
+      DeviceBrand                           : 'Urlwatch'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'urlwatch'
+      LayoutEngineVersion                   : '2.9'
+      LayoutEngineVersionMajor              : '2'
+      LayoutEngineNameVersion               : 'urlwatch 2.9'
+      LayoutEngineNameVersionMajor          : 'urlwatch 2'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'urlwatch'
+      AgentVersion                          : '2.9'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'urlwatch 2.9'
+      AgentNameVersionMajor                 : 'urlwatch 2'
+      AgentInformationUrl                   : 'https://thp.io/2008/urlwatch/info.html'
+
+- test:
+    input:
+      user_agent_string: 'MetaURI API/2.0 +metauri.com'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'MetaUri API'
+      DeviceBrand                          : 'MetaUri'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'MetaURI API'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'MetaURI API 2.0'
+      LayoutEngineNameVersionMajor         : 'MetaURI API 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'MetaURI API'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'MetaURI API 2.0'
+      AgentNameVersionMajor                : 'MetaURI API 2'
+
+
+
+
+
+

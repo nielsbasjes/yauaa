@@ -2435,3 +2435,31 @@ config:
       AgentNameVersion                     : 'Chrome 68.0.3440.106'
       AgentNameVersionMajor                : 'Chrome 68'
 
+- test: # The ${USR_AGNT} part triggers the 'hacker' classification. Is this really a hacker?
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Trident/5.0; SLCC1; ${USR_AGNT}; .NET CLR 3.5.30729; .NET4.0C; BRI/2; McAfee)'
+    expected:
+      DeviceClass                           : 'Hacker'      # Should be 'Desktop' ?
+      DeviceName                            : 'Hacker'      # Should be 'Desktop' ?
+      DeviceBrand                           : 'Hacker'      # Should be 'Unknown' ?
+      DeviceVersion                         : 'Hacker'
+      OperatingSystemClass                  : 'Hacker'      # Should be 'Desktop' ?
+      OperatingSystemName                   : 'Hacker'
+      OperatingSystemVersion                : 'Hacker'
+      OperatingSystemNameVersion            : 'Hacker'      # Should be 'Windows Vista' ?
+      LayoutEngineClass                     : 'Hacker'      # Should be 'Browser' ?
+      LayoutEngineName                      : 'Hacker'
+      LayoutEngineVersion                   : 'Hacker'
+      LayoutEngineVersionMajor              : 'Hacker'
+      LayoutEngineNameVersion               : 'Hacker'      # Should be 'Trident 5.0' ?
+      LayoutEngineNameVersionMajor          : 'Hacker'
+      AgentClass                            : 'Hacker'      # Should be 'Browser' ?
+      AgentName                             : 'Hacker'
+      AgentVersion                          : 'Hacker'
+      AgentVersionMajor                     : 'Hacker'
+      AgentNameVersion                      : 'Hacker'      # Should be 'Internet Explorer 9.0' ?
+      AgentNameVersionMajor                 : 'Hacker'
+      HackerAttackVector                    : 'Unknown'
+      HackerToolkit                         : 'Unknown'
+      __SyntaxError__                       : 'true'
+
