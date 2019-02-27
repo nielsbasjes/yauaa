@@ -155,6 +155,7 @@ config:
 - matcher:
     require:
     - 'agent~" OR "'
+    - 'IsNull[agent~"MSIE or Firefox"]'
     extract: *setSQLInjection
 
 - matcher:

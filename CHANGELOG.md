@@ -8,10 +8,15 @@ v5.9-SNAPSHOT
 - New class of Device and Agent: Voice
 - Added experimental filter for logstash
 - Detection for CAT, General Mobile, Wileyfox, ZTE, Fairphone, Gigaset, PlayStation 3
-- Improved Robot detection, most of them ar now "Cloud" instead of "normal" hardware/os.
+- Improved Robot detection, most of them are now "Cloud" instead of "normal" hardware/os.
 - Updated the way yaml files are loaded. An analyzer without any rules will fail faster.
 - An imperfect fallback is attempted when the classloader cannot find the yaml files via a wildcard (happens on Android, OSGi, ...).
 - Improved detection of Ubuntu
+- Detection for very old Windows Phones
+- Updated UDF dependencies
+  - Apache Flink  1.7.2
+  - Apache Beam   2.10.0
+  - Apache Nifi   1.9.0
 
 v5.8
 ===

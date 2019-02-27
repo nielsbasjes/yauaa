@@ -631,3 +631,45 @@ config:
       AgentVersionMajor                    : '11'
       AgentNameVersion                     : 'Internet Explorer 11.0'
       AgentNameVersionMajor                : 'Internet Explorer 11'
+
+- matcher:
+    extract:
+    - 'DeviceClass                      : 1000  :"Phone"'
+    - 'DeviceName                       : 1000  :"Unknown"'
+    - 'DeviceBrand                      : 1000  :"Unknown"'
+    - 'OperatingSystemClass             : 1000  :"Mobile"'
+    - 'OperatingSystemName              : 1000  :"Windows Phone"'
+    - 'OperatingSystemVersion           : 1000  :agent.product.name="MSFT-WP"^.version'
+    - 'LayoutEngineClass                : 1000  :"Browser"'
+    - 'LayoutEngineName                 : 1000  :"Trident"'
+    - 'LayoutEngineVersion              : 1000  :"??"'
+    - 'AgentClass                       : 1000  :"Browser"'
+    - 'AgentName                        : 1000  :"Internet Explorer"'
+    - 'AgentVersion                     : 1000  :"??"'
+
+
+#https://www.msxfaq.de/exchange/mobil/phone7.htm
+#DeviceOS                : Windows Phone7.10.7720
+- test:
+    input:
+      user_agent_string: 'MSFT-WP/7.10.8860'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : '7.10.8860'
+      OperatingSystemNameVersion           : 'Windows Phone 7.10.8860'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Trident ??'
+      LayoutEngineNameVersionMajor         : 'Trident ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Internet Explorer ??'
+      AgentNameVersionMajor                : 'Internet Explorer ??'
