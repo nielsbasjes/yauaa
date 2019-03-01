@@ -500,3 +500,42 @@ config:
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
       Anonymized                           : 'Anonymized'
+
+- matcher:
+    require:
+    - 'agent.text~"custom"'
+    extract:
+    - 'Anonymized                          :     11 :"Anonymized"'
+    - 'DeviceClass                         :     11 :"Anonymized"'
+    - 'DeviceName                          :     11 :"Anonymized"'
+    - 'OperatingSystemClass                :     11 :"Anonymized"'
+    - 'OperatingSystemName                 :     11 :"Anonymized"'
+    - 'OperatingSystemVersion              :     11 :"Anonymized"'
+
+- test: # TODO: This seems a bit messy
+    input:
+      user_agent_string: 'My custom user-agent'
+    expected:
+      DeviceClass                          : 'Anonymized'
+      DeviceName                           : 'Hacker Anonymized'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Anonymized'
+      OperatingSystemName                  : 'Anonymized'
+      OperatingSystemVersion               : 'Anonymized'
+      OperatingSystemNameVersion           : 'Anonymized'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      Anonymized                           : 'Anonymized'
+      HackerAttackVector                   : 'Unknown'
+      HackerToolkit                        : 'Unknown'
