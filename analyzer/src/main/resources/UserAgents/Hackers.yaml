@@ -1097,3 +1097,180 @@ config:
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
 
+
+
+# https://www.cirt.net/node/89
+# Nikto is an open source web server scanner which performs comprehensive tests against web servers for multiple items,
+#   including over 6500 potentially dangerous files/CGIs, checks for outdated versions of over 1200 servers,
+#   and version specific problems on over 270 servers.
+# https://en.wikipedia.org/wiki/Nikto_Web_Scanner
+
+
+- matcher:
+    variable:
+    - 'Nikto    :agent.(1)product.(1)comments.(1)entry.(1)product.(1)name="Nikto"'
+    - 'Evasions :agent.(1)product.(2)comments.(1)entry.(1)keyvalue.(1)key="Evasions"'
+    - 'Test     :agent.(1)product.(3)comments.(1)entry.(1)keyvalue.(1)key="Test"'
+    extract:
+    - 'DeviceClass                         :  10000 :"Hacker"'
+    - 'DeviceBrand                         :  10000 :"Hacker"'
+    - 'DeviceName                          :  10000 :"Hacker"'
+    - 'DeviceVersion                       :  10000 :"Hacker"'
+    - 'OperatingSystemClass                :  10000 :"Hacker"'
+    - 'OperatingSystemName                 :  10000 :"Hacker"'
+    - 'OperatingSystemVersion              :  10000 :"Hacker"'
+    - 'OperatingSystemVersionBuild         :  10000 :"Hacker"'
+    - 'LayoutEngineClass                   :  10000 :"Hacker"'
+    - 'LayoutEngineName                    :  10000 :"Hacker"'
+    - 'LayoutEngineVersion                 :  10000 :"Hacker"'
+    - 'AgentClass                          :  10000 :"Hacker"'
+    - 'AgentName                           :  10000 :"Nikto"'
+    - 'AgentVersion                        :  10000 :@Nikto^.version'
+    - 'HackerAttackVector                  :  10000 :Concat["Nikto test:";@Test^.value]'
+    - 'HackerToolkit                       :      1 :"Nikto"'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:map_codes)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemVersionBuild          : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Nikto'
+      AgentVersion                         : '2.1.5'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Nikto 2.1.5'
+      AgentNameVersionMajor                : 'Nikto 2'
+      HackerAttackVector                   : 'Nikto test:map_codes'
+      HackerToolkit                        : 'Nikto'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:000964)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemVersionBuild          : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Nikto'
+      AgentVersion                         : '2.1.5'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Nikto 2.1.5'
+      AgentNameVersionMajor                : 'Nikto 2'
+      HackerAttackVector                   : 'Nikto test:000964'
+      HackerToolkit                        : 'Nikto'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:cgi dir check)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemVersionBuild          : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Nikto'
+      AgentVersion                         : '2.1.5'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Nikto 2.1.5'
+      AgentNameVersionMajor                : 'Nikto 2'
+      HackerAttackVector                   : 'Nikto test:cgi dir check'
+      HackerToolkit                        : 'Nikto'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:embedded detection)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemVersionBuild          : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Nikto'
+      AgentVersion                         : '2.1.5'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Nikto 2.1.5'
+      AgentNameVersionMajor                : 'Nikto 2'
+      HackerAttackVector                   : 'Nikto test:embedded detection'
+      HackerToolkit                        : 'Nikto'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:multiple_index)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemVersionBuild          : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Nikto'
+      AgentVersion                         : '2.1.5'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Nikto 2.1.5'
+      AgentNameVersionMajor                : 'Nikto 2'
+      HackerAttackVector                   : 'Nikto test:multiple_index'
+      HackerToolkit                        : 'Nikto'
+
