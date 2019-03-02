@@ -278,12 +278,12 @@ config:
       LayoutEngineVersion                  : '??'
       LayoutEngineVersionMajor             : '??'
       AgentClass                           : 'Special'
-      AgentName                            : 'http://Anonymouse.org/'
+      AgentName                            : 'http://Anonymouse.org'
       AgentVersion                         : 'Unix'
       AgentVersionMajor                    : 'Unix'
-      AgentNameVersion                     : 'http://Anonymouse.org/ Unix'
-      AgentNameVersionMajor                : 'http://Anonymouse.org/ Unix'
-      AgentInformationUrl                  : 'http://Anonymouse.org/'
+      AgentNameVersion                     : 'http://Anonymouse.org Unix'
+      AgentNameVersionMajor                : 'http://Anonymouse.org Unix'
+      AgentInformationUrl                  : 'http://Anonymouse.org'
 
 - matcher:
     extract:
@@ -1287,7 +1287,7 @@ config:
       AgentVersionMajor                    : '0'
       AgentNameVersion                     : 'Iframely 0.8.5'
       AgentNameVersionMajor                : 'Iframely 0'
-      AgentInformationUrl                  : 'http://iframely.com/'
+      AgentInformationUrl                  : 'http://iframely.com'
 
 # The demonstration case in the web servlet
 - test:
@@ -1514,6 +1514,30 @@ config:
       AgentVersionMajor                    : '3'
       AgentNameVersion                     : 'DuckDuckGo 3.0.14'
       AgentNameVersionMajor                : 'DuckDuckGo 3'
+
+- test:
+    input:
+      user_agent_string: 'DDG-Android-%version'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'DuckDuckGo'
+      AgentVersion                         : '%version'
+      AgentVersionMajor                    : '%version'
+      AgentNameVersion                     : 'DuckDuckGo %version'
+      AgentNameVersionMajor                : 'DuckDuckGo %version'
 
 
 - matcher:

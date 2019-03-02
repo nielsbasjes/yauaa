@@ -52,6 +52,14 @@ public final class EvilManualUseragentStringHacks {
 
         result = replaceString(result, "SSL/TLS", "SSL TLS");
 
+        if (result.contains("MSIE")) {
+            result = replaceString(result, "MSIE7", "MSIE 7");
+            result = replaceString(result, "MSIE8", "MSIE 8");
+            result = replaceString(result, "MSIE9", "MSIE 9");
+        }
+
+        result = replaceString(result, "Ant.com Toolbar", "Ant.com_Toolbar");
+
         // We have seen problems causes by " Version/4.0Mobile Safari/530.17"
         result = MISSING_SPACE.matcher(result).replaceAll("$1 $2");
 

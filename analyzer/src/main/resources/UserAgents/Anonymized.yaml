@@ -198,7 +198,7 @@ config:
       Anonymized                           : 'Anonymized'
 
 # This one got broken while improving the parser
-#- test:
+#- test: # TODO: Fix this
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; rv:35.0 () Gecko/20100101 Firefox/35.0 ( anonymized by Abelssoft 152378206'
 #    expected:
@@ -512,7 +512,7 @@ config:
     - 'OperatingSystemName                 :     11 :"Anonymized"'
     - 'OperatingSystemVersion              :     11 :"Anonymized"'
 
-- test: # TODO: This seems a bit messy
+- test: # This seems a bit messy, but given the input the best possible
     input:
       user_agent_string: 'My custom user-agent'
     expected:

@@ -23,6 +23,7 @@ config:
 - lookup:
     name: 'NamedRobots'
     map:
+      'App3leWebKit'               : 'App3leWebKit'
       'Catchpoint'                 : 'Catchpoint'
       'magpie-crawler'             : 'Brandwatch' # 'watch' causes it to be seen as a wristwatch
       'Dataprovider.com'           : 'Dataprovider.com'
@@ -31,6 +32,9 @@ config:
       'DejaClick'                  : 'DejaClick'
       'Echoping'                   : 'Echoping'
       'Facebot Twitterbot'         : 'Facebook'
+      'GnowitNewsbot'              : 'GnowitNewsbot'
+      'Guzzle'                     : 'Guzzle'
+      'GuzzleHttp'                 : 'Guzzle'
       'lua-resty-http'             : 'LedgeTech'
       'Mappy'                      : 'Mappy'
       'MegaIndex.ru'               : 'MegaIndex.ru'
@@ -38,6 +42,7 @@ config:
       'Netcraft Web Server Survey' : 'Netcraft'
       'OhDear.app'                 : 'OhDear.app'
       'PingdomPageSpeed'           : 'Pingdom'
+      'PHP'                        : 'PHP'
       'proximic'                   : 'proximic'
       'SEOkicks'                   : 'SEOkicks'
       'ScoutJet'                   : 'ScoutJet'
@@ -540,21 +545,25 @@ config:
     - 'AgentName                           :    101 :@RobotName'
     - 'AgentVersion                        :    101 :"??"'
 
-# --------------------------------------------------------------------------------------
-
 - matcher:
     variable:
     - 'RobotName:agent.text~"spider"'
     extract:
     - 'DeviceClass                         :    101 :"Robot"'
+    - 'DeviceName                          :    101 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
     - 'OperatingSystemClass                :    101 :"Cloud"'
     - 'OperatingSystemName                 :    101 :"Cloud"'
     - 'OperatingSystemVersion              :    101 :"??"'
     - 'LayoutEngineClass                   :    101 :"Robot"'
+    - 'LayoutEngineName                    :    101 :@RobotName'
+    - 'LayoutEngineVersion                 :    101 :"??"'
     - 'AgentClass                          :    101 :"Robot"'
+    - 'AgentName                           :    101 :@RobotName'
+    - 'AgentVersion                        :    101 :"??"'
 
+# --------------------------------------------------------------------------------------
 
 - matcher:
     require:
@@ -1053,6 +1062,29 @@ config:
       AgentNameVersion                     : 'PhantomJS 2.1.1'
       AgentNameVersionMajor                : 'PhantomJS 2'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) CasperJS/1.1.0+PhantomJS/2.1.1 Safari/538.1'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'PhantomJs'
+      DeviceBrand                          : 'PhantomJs'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'PhantomJS'
+      LayoutEngineVersion                  : '2.1.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'PhantomJS 2.1.1' # TODO: Or should this be CasperJS ??
+      LayoutEngineNameVersionMajor         : 'PhantomJS 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'PhantomJS'
+      AgentVersion                         : '2.1.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'PhantomJS 2.1.1'
+      AgentNameVersionMajor                : 'PhantomJS 2'
 
 # DejaClick  (last occurance was in 2015)
 - test:
@@ -1130,7 +1162,7 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'Site-Shot 2.1'
       AgentNameVersionMajor                : 'Site-Shot 2'
-      AgentInformationUrl                  : 'http://www.site-shot.com/'
+      AgentInformationUrl                  : 'http://www.site-shot.com'
 
 - test:
     input:
@@ -1842,7 +1874,7 @@ config:
       AgentVersionMajor                    : 'SISTRIX Crawler'
       AgentNameVersion                     : 'SISTRIX Crawler'
       AgentNameVersionMajor                : 'SISTRIX Crawler'
-      AgentInformationUrl                  : 'http://crawler.sistrix.net/'
+      AgentInformationUrl                  : 'http://crawler.sistrix.net'
 
 - test:
     input:
@@ -1963,10 +1995,11 @@ config:
       LayoutEngineVersionMajor             : '??'
       AgentClass                           : 'Special'
       AgentName                            : 'ADmantX Platform Semantic Analyzer'
-      AgentVersion                         : 'ADmantX'
-      AgentVersionMajor                    : 'ADmantX'
-      AgentNameVersion                     : 'ADmantX Platform Semantic Analyzer ADmantX'
-      AgentNameVersionMajor                : 'ADmantX Platform Semantic Analyzer ADmantX'
+      AgentVersion                         : 'ADmantX Inc.'
+      AgentVersionMajor                    : 'ADmantX Inc'
+      AgentNameVersion                     : 'ADmantX Platform Semantic Analyzer ADmantX Inc.'
+      AgentNameVersionMajor                : 'ADmantX Platform Semantic Analyzer ADmantX Inc'
+      AgentInformationEmail                : 'support@admantx.com'
       AgentInformationUrl                  : 'www.admantx.com'
 
 - test:
@@ -2176,7 +2209,7 @@ config:
       AgentVersionMajor                    : '3'
       AgentNameVersion                     : 'bitlybot 3.0'
       AgentNameVersionMajor                : 'bitlybot 3'
-      AgentInformationUrl                  : 'http://bit.ly/'
+      AgentInformationUrl                  : 'http://bit.ly'
 
 - test:
     input:
@@ -2201,7 +2234,7 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'Xanti Link Check Robot 1.1'
       AgentNameVersionMajor                : 'Xanti Link Check Robot 1'
-      AgentInformationUrl                  : 'http://www.xanti.nl/'
+      AgentInformationUrl                  : 'http://www.xanti.nl'
 
 
 
@@ -2585,33 +2618,33 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'Gluten Free Crawler 1.0'
       AgentNameVersionMajor                : 'Gluten Free Crawler 1'
-      AgentInformationUrl                  : 'http://glutenfreepleasure.com/'
+      AgentInformationUrl                  : 'http://glutenfreepleasure.com'
 
 
 - test:
     input:
       user_agent_string: 'DomainCheck.io Crawler/1.3 (https://domaincheck.io)'
     expected:
-      DeviceClass                          : 'Robot'
-      DeviceName                           : 'DomainCheck.io Crawler'
-      DeviceBrand                          : 'Domaincheck'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Cloud'
-      OperatingSystemVersion               : '??'
-      OperatingSystemNameVersion           : 'Cloud ??'
-      LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'DomainCheck.io Crawler'
-      LayoutEngineVersion                  : '1.3'
-      LayoutEngineVersionMajor             : '1'
-      LayoutEngineNameVersion              : 'DomainCheck.io Crawler 1.3'
-      LayoutEngineNameVersionMajor         : 'DomainCheck.io Crawler 1'
-      AgentClass                           : 'Robot'
-      AgentName                            : 'DomainCheck.io Crawler'
-      AgentVersion                         : '1.3'
-      AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'DomainCheck.io Crawler 1.3'
-      AgentNameVersionMajor                : 'DomainCheck.io Crawler 1'
-      AgentInformationUrl                  : 'https://domaincheck.io'
+      DeviceClass                          : 'Robot'              #   111
+      DeviceName                           : 'Crawler'            #   111 | FAILED; Should be 'DomainCheck.io Crawler'
+      DeviceBrand                          : 'Domaincheck'        #     1
+      OperatingSystemClass                 : 'Cloud'              #   111
+      OperatingSystemName                  : 'Cloud'              #   111
+      OperatingSystemVersion               : '??'                 #   111
+      OperatingSystemNameVersion           : 'Cloud ??'           #   111
+      LayoutEngineClass                    : 'Robot'              #   111
+      LayoutEngineName                     : 'Crawler'            #   111 | FAILED; Should be 'DomainCheck.io Crawler'
+      LayoutEngineVersion                  : '1.3'                #   112
+      LayoutEngineVersionMajor             : '1'                  #   112
+      LayoutEngineNameVersion              : 'Crawler 1.3'        #   112 | FAILED; Should be 'DomainCheck.io Crawler 1.3'
+      LayoutEngineNameVersionMajor         : 'Crawler 1'          #   112 | FAILED; Should be 'DomainCheck.io Crawler 1'
+      AgentClass                           : 'Robot'              #   111
+      AgentName                            : 'Crawler'            #   111 | FAILED; Should be 'DomainCheck.io Crawler'
+      AgentVersion                         : '1.3'                #   112
+      AgentVersionMajor                    : '1'                  #   112
+      AgentNameVersion                     : 'Crawler 1.3'        #   112 | FAILED; Should be 'DomainCheck.io Crawler 1.3'
+      AgentNameVersionMajor                : 'Crawler 1'          #   112 | FAILED; Should be 'DomainCheck.io Crawler 1'
+      AgentInformationUrl                  : 'https://domaincheck.io'     #  5041 | FAILED; Should be 'DomainCheck.io'
 
 
 - test:
@@ -2742,7 +2775,7 @@ config:
       AgentVersionMajor                    : '4'
       AgentNameVersion                     : 'Vagabondo 4.0'
       AgentNameVersionMajor                : 'Vagabondo 4'
-      AgentInformationUrl                  : 'http://webagent.wise-guys.nl/'
+      AgentInformationUrl                  : 'http://webagent.wise-guys.nl'
 
 
 - test:
@@ -2768,7 +2801,7 @@ config:
       AgentVersionMajor                    : '4'
       AgentNameVersion                     : 'Vagabondo 4.0'
       AgentNameVersionMajor                : 'Vagabondo 4'
-      AgentInformationUrl                  : 'http://webagent.wise-guys.nl/'
+      AgentInformationUrl                  : 'http://webagent.wise-guys.nl'
 
 
 - test:
@@ -2794,7 +2827,7 @@ config:
       AgentVersionMajor                    : 'Crawler'
       AgentNameVersion                     : 'Crawler'
       AgentNameVersionMajor                : 'Crawler'
-      AgentInformationUrl                  : 'http://crawler.007ac9.net/'
+      AgentInformationUrl                  : 'http://crawler.007ac9.net'
 
 - test:
     input:
@@ -2949,7 +2982,7 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'BLEXBot 1.0'
       AgentNameVersionMajor                : 'BLEXBot 1'
-      AgentInformationUrl                  : 'http://webmeup-crawler.com/'
+      AgentInformationUrl                  : 'http://webmeup-crawler.com'
 
 
 - test:
@@ -2957,24 +2990,25 @@ config:
       user_agent_string: 'Mozilla/5.0 (compatible; Dataprovider.com;)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Dataprovider.com'
-      DeviceBrand                          : 'Dataprovider.com'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Dataprovider'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
       OperatingSystemNameVersion           : 'Cloud ??'
-      LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'Dataprovider.com'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'Dataprovider.com ??'
-      LayoutEngineNameVersionMajor         : 'Dataprovider.com ??'
-      AgentClass                           : 'Robot'
-      AgentName                            : 'Dataprovider.com'
-      AgentVersion                         : '??'
-      AgentVersionMajor                    : '??'
-      AgentNameVersion                     : 'Dataprovider.com ??'
-      AgentNameVersionMajor                : 'Dataprovider.com ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '5.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Netscape 5.0'
+      AgentNameVersionMajor                : 'Netscape 5'
+      AgentInformationUrl                  : 'Dataprovider.com'
 
 
 - test:
@@ -3052,7 +3086,7 @@ config:
       AgentVersionMajor                    : '0'
       AgentNameVersion                     : 'DNS SSL TLS HTTP HTML Website Security Scanner 0.2'
       AgentNameVersionMajor                : 'DNS SSL TLS HTTP HTML Website Security Scanner 0'
-      AgentInformationUrl                  : 'https://www.htmlyse.com/'
+      AgentInformationUrl                  : 'https://www.htmlyse.com'
 
 
 - test:
@@ -3438,7 +3472,7 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'coccoc 1.0'
       AgentNameVersionMajor                : 'coccoc 1'
-      AgentInformationUrl                  : 'http://help.coccoc.com/'
+      AgentInformationUrl                  : 'http://help.coccoc.com'
 
 
 - test:
@@ -3542,7 +3576,7 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'Pingdom.com_bot_version_1.4_ ??'
       AgentNameVersionMajor                : 'Pingdom.com_bot_version_1.4_ ??'
-      AgentInformationUrl                  : 'http://www.pingdom.com/'
+      AgentInformationUrl                  : 'http://www.pingdom.com'
 
 
 - test:
@@ -3568,7 +3602,7 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'UptimeRobot 2.0'
       AgentNameVersionMajor                : 'UptimeRobot 2'
-      AgentInformationUrl                  : 'http://www.uptimerobot.com/'
+      AgentInformationUrl                  : 'http://www.uptimerobot.com'
 
 
 - test:
@@ -3594,7 +3628,7 @@ config:
       AgentVersionMajor                    : '0'
       AgentNameVersion                     : 'AlleAanbiedingenBot 0.1'
       AgentNameVersionMajor                : 'AlleAanbiedingenBot 0'
-      AgentInformationUrl                  : 'http://www.alleaanbiedingen.info/'
+      AgentInformationUrl                  : 'http://www.alleaanbiedingen.info'
 
 
 - test:
@@ -3698,7 +3732,7 @@ config:
       AgentNameVersion                     : 'YaK 1.0'
       AgentNameVersionMajor                : 'YaK 1'
       AgentInformationEmail                : 'bot@linkfluence.com'
-      AgentInformationUrl                  : 'http://linkfluence.com/'
+      AgentInformationUrl                  : 'http://linkfluence.com'
 
 
 - test:
@@ -3777,7 +3811,7 @@ config:
       AgentVersionMajor                    : 'v1'
       AgentNameVersion                     : 'MJ12bot v1.4.8'
       AgentNameVersionMajor                : 'MJ12bot v1'
-      AgentInformationUrl                  : 'http://mj12bot.com/'
+      AgentInformationUrl                  : 'http://mj12bot.com'
 
 
 - test:
@@ -3913,7 +3947,7 @@ config:
 # Using a non existent TLD website.
 - test:
     input:
-      user_agent_string: 'NielsBasjesBot/42 (+http://www.no.such.tld/bot/)'
+      user_agent_string: 'NielsBasjesBot/42 (+http://www.xx.xx/bot/)'
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'NielsBasjesBot'
@@ -3934,7 +3968,9 @@ config:
       AgentVersionMajor                    : '42'
       AgentNameVersion                     : 'NielsBasjesBot 42'
       AgentNameVersionMajor                : 'NielsBasjesBot 42'
-      AgentInformationUrl                  : 'http://www.no.such.tld/bot/'
+# NO AgentInformationUrl is present!!
+      __SyntaxError__                       : 'true'
+
 
 # Using a non existent TLD email.
 - test:
@@ -4240,6 +4276,8 @@ config:
       AgentNameVersion                     : 'Catchpoint ??'
       AgentNameVersionMajor                : 'Catchpoint ??'
 
+# ===============================================================================================
+# Webserver libraries to fetch external content
 
 #   https://github.com/ledgetech/lua-resty-http/blob/master/lib/resty/http.lua#L104
 #   _M._USER_AGENT = "lua-resty-http/" .. _M._VERSION .. " (Lua) ngx_lua/" .. ngx.config.ngx_lua_version
@@ -4266,6 +4304,36 @@ config:
       AgentVersionMajor                    : '0'
       AgentNameVersion                     : 'lua-resty-http 0.07'
       AgentNameVersionMajor                : 'lua-resty-http 0'
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'PHP/5.3.28'
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'Any23-CLI'
+
+# NOT a url ...
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'request.js'
+
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'Zend\\Http\\Client'
+
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'Zend_Http_Client'
+
+# ===============================================================================================
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'WhatsApp'
+
 
 - test:
     input:
@@ -4424,15 +4492,15 @@ config:
       AgentInformationUrl                  : 'http://www.linkedin.com'
 
 
-#- test:
+#- test: #TODO: Implement
 #    input:
 #      user_agent_string: 'Mozilla/5.0 larbin@unspecified.mail'
 #
-#- test:
+#- test: #TODO: Implement
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (compatible; Yahoo Link Preview; https://help.yahoo.com/kb/mail/yahoo-link-preview-SLN23615.html)'
 #
-#- test:
+#- test: #TODO: Implement
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (compatible; +http://tweetedtimes.com)'
 #
@@ -4487,7 +4555,7 @@ config:
       AgentNameVersionMajor                : 'proximic ??'
       AgentInformationUrl                  : 'https://www.comscore.com/Web-Crawler'
 
-#- test:
+#- test: #TODO: Implement
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (compatible; changedetection/7.0; +http://www.changedetection.com/bot.html)'
 #
@@ -4516,7 +4584,7 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'ScoutJet ??'
       AgentNameVersionMajor                : 'ScoutJet ??'
-      AgentInformationUrl                  : 'http://www.scoutjet.com/'
+      AgentInformationUrl                  : 'http://www.scoutjet.com'
 
 - test:
     input:
@@ -4897,7 +4965,7 @@ config:
       AgentVersionMajor                    : '27333'
       AgentNameVersion                     : 'WatchMouse 27333'
       AgentNameVersionMajor                : 'WatchMouse 27333'
-      AgentInformationUrl                  : 'http://watchmouse.com/'
+      AgentInformationUrl                  : 'itmil01.watchmouse.net' # Two urls, one is picked ...
 
 
 
@@ -4928,6 +4996,8 @@ config:
 #      AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
 
+# Download managers:
+
 # http://www.useragentstring.com/index.php?id=5708
 # FDM = Free Download Manager --> https://www.freedownloadmanager.org/
 #- test: # TODO: Implement
@@ -4937,6 +5007,16 @@ config:
 #- test: # TODO: Implement
 #    input:
 #      user_agent_string: 'FDM 3.x'
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'AndroidDownloadManager'
+
+
+#- test: # TODO: Implement. Looking at the traffic pattern --> this is a robot.
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en)'
+
 
 # FIXME: DeviceClass = Unknown
 # Mozilla/3.0 (compatible; HP Web PrintSmart 04b0 1.0.1.34)
@@ -4951,7 +5031,6 @@ config:
 # SonyD2243/4.4.4-EAS-1.3
 # SonyF3216/7.0-EAS-2.0
 
-#PHP/5.3.28
 
 
 #Mozilla/5.0 (LG-T375 AppleWebkit/531 Browser/Phantom/V2.0 Widget/LGMW/3.0 MMS/LG-MMS-V1.0/1.2 Java/ASVM/1.1 Profile/MIDP-2.1 Configuration/CLDC-1.1)
@@ -4961,26 +5040,26 @@ config:
     input:
       user_agent_string: 'urlwatch/2.9 (+https://thp.io/2008/urlwatch/info.html)'
     expected:
-      DeviceClass                           : 'Robot'
-      DeviceName                            : 'Urlwatch'
-      DeviceBrand                           : 'Urlwatch'
-      OperatingSystemClass                  : 'Cloud'
-      OperatingSystemName                   : 'Cloud'
-      OperatingSystemVersion                : '??'
-      OperatingSystemNameVersion            : 'Cloud ??'
-      LayoutEngineClass                     : 'Robot'
-      LayoutEngineName                      : 'urlwatch'
-      LayoutEngineVersion                   : '2.9'
-      LayoutEngineVersionMajor              : '2'
-      LayoutEngineNameVersion               : 'urlwatch 2.9'
-      LayoutEngineNameVersionMajor          : 'urlwatch 2'
-      AgentClass                            : 'Robot'
-      AgentName                             : 'urlwatch'
-      AgentVersion                          : '2.9'
-      AgentVersionMajor                     : '2'
-      AgentNameVersion                      : 'urlwatch 2.9'
-      AgentNameVersionMajor                 : 'urlwatch 2'
-      AgentInformationUrl                   : 'https://thp.io/2008/urlwatch/info.html'
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Urlwatch'
+      DeviceBrand                          : 'Urlwatch'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'urlwatch'
+      LayoutEngineVersion                  : '2.9'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'urlwatch 2.9'
+      LayoutEngineNameVersionMajor         : 'urlwatch 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'urlwatch'
+      AgentVersion                         : '2.9'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'urlwatch 2.9'
+      AgentNameVersionMajor                : 'urlwatch 2'
+      AgentInformationUrl                  : 'https://thp.io/2008/urlwatch/info.html'
 
 - test:
     input:
@@ -5005,9 +5084,182 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'MetaURI API 2.0'
       AgentNameVersionMajor                : 'MetaURI API 2'
+      AgentInformationUrl                  : 'metauri.com'         #  5021 | FAILED; Should be '<<absent>>'
+
+
+# This is a robot ! (Based on traffic pattern). Only seen situation of 'App3leWebKit' (with a '3')
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.2; fr-fr; Desire_A8181 Build/FRF91) App3leWebKit/53.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'APP3LEWEBKIT'
+      DeviceBrand                          : 'APP3LEWEBKIT'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'App3leWebKit'
+      LayoutEngineVersion                  : '53.1'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'App3leWebKit 53.1'
+      LayoutEngineNameVersionMajor         : 'App3leWebKit 53'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'App3leWebKit'
+      AgentVersion                         : '53.1'
+      AgentVersionMajor                    : '53'
+      AgentNameVersion                     : 'App3leWebKit 53.1'
+      AgentNameVersionMajor                : 'App3leWebKit 53'
+      AgentLanguage                        : 'French (France)'
+      AgentLanguageCode                    : 'fr-fr'
+      AgentSecurity                        : 'Strong security'
 
 
 
 
 
+# Just a URL hostname
+- test:
+    input:
+      user_agent_string: 'DitKostHet.nl'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Ditkosthet'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Unknown'
+      AgentName                            : 'Unknown'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentInformationUrl                  : 'DitKostHet.nl'
 
+- test:
+    input:
+      user_agent_string: 'panscient.com'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Panscient'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Unknown'
+      AgentName                            : 'Unknown'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentInformationUrl                  : 'panscient.com'
+
+
+- test:
+    input:
+      user_agent_string: 'SpiDir.com'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Spidir'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Unknown'
+      AgentName                            : 'Unknown'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentInformationUrl                  : 'SpiDir.com'
+
+
+- test:
+    input:
+      user_agent_string: 'pegasusmonitoring.com'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Pegasusmonitoring'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Unknown'
+      AgentName                            : 'Unknown'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentInformationUrl                  : 'pegasusmonitoring.com'
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'Toweyabot: toweya.com'
+
+
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'Zwemkleding.nl image downloader'
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'WinHTTP'
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'G-i-g-a-b-o-t'
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'Google-Shopping-Quality'
+
+# https://en.wikipedia.org/wiki/Heritrix
+# Heritrix is a web crawler designed for web archiving. It was written by the Internet Archive. It is available under a free software license and written in Java.
+# https://github.com/internetarchive/heritrix3
+# https://github.com/internetarchive/heritrix3/blob/master/modules/src/main/java/org/archive/modules/CrawlMetadata.java#L115
+#         setUserAgentTemplate("Mozilla/5.0 (compatible; heritrix/@VERSION@ +@OPERATOR_CONTACT_URL@)");
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; heritrix/${pom.version} +http://www.google.com)'
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; exal/${pom.version} +http://www.google.com)'
+
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'IntelliJ IDEA'
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'shirtfix'
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'worldping-api'
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'WebwinkelKeur'
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'Google-Ads-Creatives-Assistant'
+
+
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'FastCurl_1.0_0.6'

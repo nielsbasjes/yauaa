@@ -12,11 +12,12 @@ v5.9-SNAPSHOT
 - Updated the way yaml files are loaded. An analyzer without any rules will fail faster.
 - An imperfect fallback is attempted when the classloader cannot find the yaml files via a wildcard (happens on Android, OSGi, ...).
 - Improved detection of Ubuntu
-- Detection for very old Windows Phones
+- Detection for very old Windows Phones, Nikto
 - Updated UDF dependencies
   - Apache Flink  1.7.2
   - Apache Beam   2.10.0
   - Apache Nifi   1.9.0
+- Massive improvement in detection of URLs.
 
 v5.8
 ===

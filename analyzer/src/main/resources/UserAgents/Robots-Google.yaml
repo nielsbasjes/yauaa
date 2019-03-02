@@ -951,8 +951,8 @@ config:
     - 'AgentName                           :   1000 :"Google-Test"'
     - 'AgentVersion                        :   1000 :"??"'
 
-# TODO: Figure out what kind of useragent this really is.
-- test:
+
+- test: # TODO: Figure out what kind of useragent this really is.
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; Google-Test;)'
     expected:
@@ -976,8 +976,8 @@ config:
       AgentNameVersion                     : 'Google-Test ??'
       AgentNameVersionMajor                : 'Google-Test ??'
 
-# TODO: Figure out how to classify this one
-#- test:
+
+#- test: # TODO: Figure out how to classify this one
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (compatible) Feedfetcher-Google; (+http://www.google.com/feedfetcher.html)'
 #    expected:
