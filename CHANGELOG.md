@@ -18,6 +18,7 @@ v5.9-SNAPSHOT
   - Apache Beam   2.10.0
   - Apache Nifi   1.9.0
 - Massive improvement in detection of URLs.
+- New more realistic performance benchmark test
 
 v5.8
 ===

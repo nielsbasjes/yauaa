@@ -34,7 +34,7 @@ public class RunBenchmarks {
     private UserAgentAnalyzer uaa;
 
     @Test
-    public void runBenchmarks() throws InterruptedException {
+    public void runBenchmarks() {
 
         uaa = UserAgentAnalyzer
             .newBuilder()
@@ -44,26 +44,13 @@ public class RunBenchmarks {
 
         List<Triple<Counter, String, String>> testCases = createTestCasesList();
 
-//        for (int preheat = 0; preheat < 5000; preheat++) {
-//            if (preheat % 100 == 0) {
-//                LOG.info("Did {} preheat runs", preheat);
-//            }
-//            testCases.forEach(this::doTest);
-//        }
         System.gc(); // Avoid gc during tests
-
-        // Reset all stats
-//        testCases = createTestCasesList();
 
         for (int run = 1; run < 10000; run++) {
             if (run % 100 == 0) {
                 System.gc(); // Avoid gc during tests
                 LOG.info("Did {} runs", run);
             }
-//            if (run % 1000 == 0) {
-//                testCases.forEach(this::printResults);
-//            }
-            Thread.sleep(1);
             testCases.forEach(this::doTest);
         }
 
@@ -77,14 +64,14 @@ public class RunBenchmarks {
         UserAgent agent = uaa.parse(test.getRight());
         long stop = System.nanoTime();
         if(agent.getValue("DeviceClass") == null) {
-            LOG.error("This should not happen");
+            LOG.error("This should not happen, yet we keep this test to avoid the parse being optimized out.");
         }
 
         test.getLeft().increment((double)(stop - start));
     }
 
     private void printResults(Triple<Counter, String, String> test) {
-        String logLine = String.format("| Test | %-30s | Average(ms) | %6.3f | 3σ(ms) | %6.3f | min-max(ms): | %6.3f | %6.3f |",
+        String logLine = String.format("| Test | %-30s | Average(ms): | %6.3f | 3σ(ms): | %6.3f | min-max(ms): | %6.3f | %6.3f |",
             test.getMiddle(),
             test.getLeft().getMean()/1000000,
             3* test.getLeft().getStdDev()/1000000,
@@ -98,6 +85,7 @@ public class RunBenchmarks {
         List<Triple<Counter, String, String>> testCases = new ArrayList<>();
 
         // CHECKSTYLE.OFF: LineLength
+        testCases.add(Triple.of(new Counter(), "Android 7 Chrome 72",       "Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.105 Mobile Safari/537.36"));
         testCases.add(Triple.of(new Counter(), "Android 6 Chrome 46",       "Mozilla/5.0 (Linux; Android 6.0; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36"));
         testCases.add(Triple.of(new Counter(), "Android Phone",             "Mozilla/5.0 (Linux; Android 5.0.1; ALE-L21 Build/HuaweiALE-L21) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile Safari/537.36"));
         testCases.add(Triple.of(new Counter(), "Google AdsBot",             "AdsBot-Google (+http://www.google.com/adsbot.html)"));
@@ -109,6 +97,7 @@ public class RunBenchmarks {
         testCases.add(Triple.of(new Counter(), "iPad",                      "Mozilla/5.0 (iPad; CPU OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1"));
         testCases.add(Triple.of(new Counter(), "iPhone",                    "Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1"));
         testCases.add(Triple.of(new Counter(), "iPhone FacebookApp",        "Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13G34 [FBAN/FBIOS;FBAV/61.0.0.53.158;FBBV/35251526;FBRV/0;FBDV/iPhone7,2;FBMD/iPhone;FBSN/iPhone OS;FBSV/9.3.3;FBSS/2;FBCR/vfnl;FBID/phone;FBLC/nl_NL;FBOP/5]"));
+        testCases.add(Triple.of(new Counter(), "Linux Chrome 72",           "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36"));
         testCases.add(Triple.of(new Counter(), "Win 10 Chrome 51",          "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"));
         testCases.add(Triple.of(new Counter(), "Win 10 Edge13",             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586"));
         testCases.add(Triple.of(new Counter(), "Win 7 IE11",                "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"));
