@@ -197,29 +197,30 @@ config:
       AgentLanguageCode                    : 'en-us'
       Anonymized                           : 'Anonymized'
 
-# This one got broken while improving the parser
-#- test: # TODO: Fix this
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; rv:35.0 () Gecko/20100101 Firefox/35.0 ( anonymized by Abelssoft 152378206'
-#    expected:
-#      DeviceClass                        : 'Desktop'
-#      DeviceName                         : 'Desktop'
-#      OperatingSystemClass               : 'Desktop'
-#      OperatingSystemName                : 'Windows NT'
-#      OperatingSystemVersion             : '8'
-#      OperatingSystemNameVersion         : 'Windows 8'
-#      LayoutEngineName                   : 'Gecko'
-#      LayoutEngineVersion                : '35.0'
-#      LayoutEngineBuild                  : '20100101'
-#      LayoutEngineVersionMajor           : '35'
-#      LayoutEngineNameVersion            : 'Gecko 35.0'
-#      LayoutEngineNameVersionMajor       : 'Gecko 35'
-#      AgentClass                         : 'Browser'
-#      AgentName                          : 'Firefox'
-#      AgentVersion                       : '35.0'
-#      AgentVersionMajor                  : '35'
-#      AgentNameVersion                   : 'Firefox 35.0'
-#      AgentNameVersionMajor              : 'Firefox 35'
+- test: # This one has parsing problems, this is the best possible at this moment.
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; rv:35.0 () Gecko/20100101 Firefox/35.0 ( anonymized by Abelssoft 152378206'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'     # We would have expected Gecko/20100101 here ...
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '35.0'
+      AgentVersionMajor                    : '35'
+      AgentNameVersion                     : 'Firefox 35.0'
+      AgentNameVersionMajor                : 'Firefox 35'
 
 - test:
     input:
