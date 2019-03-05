@@ -1,0 +1,999 @@
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.android6Chrome46
+
+# Run progress: 0.00% complete, ETA 01:15:00
+# Fork: 1 of 1
+# Warmup Iteration   1: 22:21:29,362 [INFO ] YauaaVersion                            :   63:
+22:21:29,365 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+22:21:29,366 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+22:21:29,366 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+22:21:29,366 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+22:21:29,366 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+22:21:29,366 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+22:21:29,366 [INFO ] YauaaVersion                            :   78:
+22:21:29,368 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+22:21:29,837 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 469 msec
+22:21:29,844 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+22:21:29,880 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    33 msec
+22:21:29,880 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+22:21:31,545 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1664 msec : Hashmap 472312, Ranges map:8031
+0.545 ms/op
+# Warmup Iteration   2: 0.481 ms/op
+# Warmup Iteration   3: 0.476 ms/op
+# Warmup Iteration   4: 0.476 ms/op
+# Warmup Iteration   5: 0.473 ms/op
+# Warmup Iteration   6: 0.473 ms/op
+# Warmup Iteration   7: 0.477 ms/op
+# Warmup Iteration   8: 0.475 ms/op
+# Warmup Iteration   9: 0.473 ms/op
+# Warmup Iteration  10: 0.474 ms/op
+# Warmup Iteration  11: 0.475 ms/op
+# Warmup Iteration  12: 0.485 ms/op
+# Warmup Iteration  13: 0.478 ms/op
+# Warmup Iteration  14: 0.476 ms/op
+# Warmup Iteration  15: 0.476 ms/op
+# Warmup Iteration  16: 0.478 ms/op
+# Warmup Iteration  17: 0.480 ms/op
+# Warmup Iteration  18: 0.477 ms/op
+# Warmup Iteration  19: 0.477 ms/op
+# Warmup Iteration  20: 0.480 ms/op
+Iteration   1: 0.480 ms/op
+Iteration   2: 0.478 ms/op
+Iteration   3: 0.480 ms/op
+Iteration   4: 0.478 ms/op
+Iteration   5: 0.479 ms/op
+Iteration   6: 0.477 ms/op
+Iteration   7: 0.477 ms/op
+Iteration   8: 0.478 ms/op
+Iteration   9: 0.478 ms/op
+Iteration  10: 0.478 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.android6Chrome46":
+  0.478 ±(99.9%) 0.002 ms/op [Average]
+  (min, avg, max) = (0.477, 0.478, 0.480), stdev = 0.001
+  CI (99.9%): [0.476, 0.480] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.androidPhone
+
+# Run progress: 6.67% complete, ETA 01:10:36
+# Fork: 1 of 1
+# Warmup Iteration   1: 22:26:31,928 [INFO ] YauaaVersion                            :   63:
+22:26:31,932 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+22:26:31,932 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+22:26:31,933 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+22:26:31,933 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+22:26:31,933 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+22:26:31,933 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+22:26:31,933 [INFO ] YauaaVersion                            :   78:
+22:26:31,934 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+22:26:32,462 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 526 msec
+22:26:32,472 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+22:26:32,522 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    46 msec
+22:26:32,523 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+22:26:34,198 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1674 msec : Hashmap 472312, Ranges map:8031
+0.740 ms/op
+# Warmup Iteration   2: 0.643 ms/op
+# Warmup Iteration   3: 0.646 ms/op
+# Warmup Iteration   4: 0.654 ms/op
+# Warmup Iteration   5: 0.636 ms/op
+# Warmup Iteration   6: 0.635 ms/op
+# Warmup Iteration   7: 0.633 ms/op
+# Warmup Iteration   8: 0.633 ms/op
+# Warmup Iteration   9: 0.634 ms/op
+# Warmup Iteration  10: 0.641 ms/op
+# Warmup Iteration  11: 0.638 ms/op
+# Warmup Iteration  12: 0.640 ms/op
+# Warmup Iteration  13: 0.639 ms/op
+# Warmup Iteration  14: 0.643 ms/op
+# Warmup Iteration  15: 0.640 ms/op
+# Warmup Iteration  16: 0.636 ms/op
+# Warmup Iteration  17: 0.639 ms/op
+# Warmup Iteration  18: 0.639 ms/op
+# Warmup Iteration  19: 0.638 ms/op
+# Warmup Iteration  20: 0.640 ms/op
+Iteration   1: 0.640 ms/op
+Iteration   2: 0.640 ms/op
+Iteration   3: 0.640 ms/op
+Iteration   4: 0.638 ms/op
+Iteration   5: 0.638 ms/op
+Iteration   6: 0.643 ms/op
+Iteration   7: 0.639 ms/op
+Iteration   8: 0.638 ms/op
+Iteration   9: 0.640 ms/op
+Iteration  10: 0.641 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.androidPhone":
+  0.640 ±(99.9%) 0.002 ms/op [Average]
+  (min, avg, max) = (0.638, 0.640, 0.643), stdev = 0.001
+  CI (99.9%): [0.638, 0.642] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googleAdsBot
+
+# Run progress: 13.33% complete, ETA 01:05:34
+# Fork: 1 of 1
+# Warmup Iteration   1: 22:31:34,558 [INFO ] YauaaVersion                            :   63:
+22:31:34,561 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+22:31:34,561 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+22:31:34,561 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+22:31:34,561 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+22:31:34,561 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+22:31:34,561 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+22:31:34,562 [INFO ] YauaaVersion                            :   78:
+22:31:34,563 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+22:31:35,022 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 459 msec
+22:31:35,029 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+22:31:35,065 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    32 msec
+22:31:35,065 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+22:31:36,988 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1922 msec : Hashmap 472312, Ranges map:8031
+0.151 ms/op
+# Warmup Iteration   2: 0.136 ms/op
+# Warmup Iteration   3: 0.136 ms/op
+# Warmup Iteration   4: 0.134 ms/op
+# Warmup Iteration   5: 0.136 ms/op
+# Warmup Iteration   6: 0.137 ms/op
+# Warmup Iteration   7: 0.137 ms/op
+# Warmup Iteration   8: 0.137 ms/op
+# Warmup Iteration   9: 0.137 ms/op
+# Warmup Iteration  10: 0.137 ms/op
+# Warmup Iteration  11: 0.137 ms/op
+# Warmup Iteration  12: 0.137 ms/op
+# Warmup Iteration  13: 0.135 ms/op
+# Warmup Iteration  14: 0.134 ms/op
+# Warmup Iteration  15: 0.135 ms/op
+# Warmup Iteration  16: 0.137 ms/op
+# Warmup Iteration  17: 0.136 ms/op
+# Warmup Iteration  18: 0.135 ms/op
+# Warmup Iteration  19: 0.137 ms/op
+# Warmup Iteration  20: 0.135 ms/op
+Iteration   1: 0.136 ms/op
+Iteration   2: 0.137 ms/op
+Iteration   3: 0.136 ms/op
+Iteration   4: 0.137 ms/op
+Iteration   5: 0.136 ms/op
+Iteration   6: 0.137 ms/op
+Iteration   7: 0.137 ms/op
+Iteration   8: 0.138 ms/op
+Iteration   9: 0.137 ms/op
+Iteration  10: 0.136 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googleAdsBot":
+  0.137 ±(99.9%) 0.001 ms/op [Average]
+  (min, avg, max) = (0.136, 0.137, 0.138), stdev = 0.001
+  CI (99.9%): [0.136, 0.138] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googleAdsBotMobile
+
+# Run progress: 20.00% complete, ETA 01:00:32
+# Fork: 1 of 1
+# Warmup Iteration   1: 22:36:37,347 [INFO ] YauaaVersion                            :   63:
+22:36:37,351 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+22:36:37,351 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+22:36:37,351 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+22:36:37,351 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+22:36:37,351 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+22:36:37,351 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+22:36:37,351 [INFO ] YauaaVersion                            :   78:
+22:36:37,352 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+22:36:37,809 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 456 msec
+22:36:37,815 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+22:36:37,848 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    29 msec
+22:36:37,849 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+22:36:39,462 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1612 msec : Hashmap 472312, Ranges map:8031
+0.352 ms/op
+# Warmup Iteration   2: 0.313 ms/op
+# Warmup Iteration   3: 0.308 ms/op
+# Warmup Iteration   4: 0.305 ms/op
+# Warmup Iteration   5: 0.306 ms/op
+# Warmup Iteration   6: 0.306 ms/op
+# Warmup Iteration   7: 0.305 ms/op
+# Warmup Iteration   8: 0.307 ms/op
+# Warmup Iteration   9: 0.308 ms/op
+# Warmup Iteration  10: 0.307 ms/op
+# Warmup Iteration  11: 0.307 ms/op
+# Warmup Iteration  12: 0.306 ms/op
+# Warmup Iteration  13: 0.307 ms/op
+# Warmup Iteration  14: 0.312 ms/op
+# Warmup Iteration  15: 0.311 ms/op
+# Warmup Iteration  16: 0.309 ms/op
+# Warmup Iteration  17: 0.309 ms/op
+# Warmup Iteration  18: 0.310 ms/op
+# Warmup Iteration  19: 0.307 ms/op
+# Warmup Iteration  20: 0.309 ms/op
+Iteration   1: 0.310 ms/op
+Iteration   2: 0.311 ms/op
+Iteration   3: 0.308 ms/op
+Iteration   4: 0.309 ms/op
+Iteration   5: 0.308 ms/op
+Iteration   6: 0.310 ms/op
+Iteration   7: 0.308 ms/op
+Iteration   8: 0.309 ms/op
+Iteration   9: 0.310 ms/op
+Iteration  10: 0.310 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googleAdsBotMobile":
+  0.309 ±(99.9%) 0.002 ms/op [Average]
+  (min, avg, max) = (0.308, 0.309, 0.311), stdev = 0.001
+  CI (99.9%): [0.308, 0.311] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googleBotMobileAndroid
+
+# Run progress: 26.67% complete, ETA 00:55:28
+# Fork: 1 of 1
+# Warmup Iteration   1: 22:41:39,819 [INFO ] YauaaVersion                            :   63:
+22:41:39,822 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+22:41:39,822 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+22:41:39,822 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+22:41:39,823 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+22:41:39,823 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+22:41:39,823 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+22:41:39,823 [INFO ] YauaaVersion                            :   78:
+22:41:39,824 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+22:41:40,420 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 595 msec
+22:41:40,428 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+22:41:40,467 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    35 msec
+22:41:40,467 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+22:41:42,119 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1651 msec : Hashmap 472312, Ranges map:8031
+0.664 ms/op
+# Warmup Iteration   2: 0.531 ms/op
+# Warmup Iteration   3: 0.525 ms/op
+# Warmup Iteration   4: 0.525 ms/op
+# Warmup Iteration   5: 0.524 ms/op
+# Warmup Iteration   6: 0.525 ms/op
+# Warmup Iteration   7: 0.526 ms/op
+# Warmup Iteration   8: 0.531 ms/op
+# Warmup Iteration   9: 0.529 ms/op
+# Warmup Iteration  10: 0.528 ms/op
+# Warmup Iteration  11: 0.532 ms/op
+# Warmup Iteration  12: 0.537 ms/op
+# Warmup Iteration  13: 0.530 ms/op
+# Warmup Iteration  14: 0.528 ms/op
+# Warmup Iteration  15: 0.528 ms/op
+# Warmup Iteration  16: 0.532 ms/op
+# Warmup Iteration  17: 0.530 ms/op
+# Warmup Iteration  18: 0.528 ms/op
+# Warmup Iteration  19: 0.534 ms/op
+# Warmup Iteration  20: 0.534 ms/op
+Iteration   1: 0.531 ms/op
+Iteration   2: 0.531 ms/op
+Iteration   3: 0.530 ms/op
+Iteration   4: 0.531 ms/op
+Iteration   5: 0.530 ms/op
+Iteration   6: 0.529 ms/op
+Iteration   7: 0.529 ms/op
+Iteration   8: 0.529 ms/op
+Iteration   9: 0.532 ms/op
+Iteration  10: 0.530 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googleBotMobileAndroid":
+  0.530 ±(99.9%) 0.002 ms/op [Average]
+  (min, avg, max) = (0.529, 0.530, 0.532), stdev = 0.001
+  CI (99.9%): [0.529, 0.532] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googlebot
+
+# Run progress: 33.33% complete, ETA 00:50:26
+# Fork: 1 of 1
+# Warmup Iteration   1: 22:46:42,488 [INFO ] YauaaVersion                            :   63:
+22:46:42,491 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+22:46:42,491 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+22:46:42,491 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+22:46:42,491 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+22:46:42,491 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+22:46:42,491 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+22:46:42,491 [INFO ] YauaaVersion                            :   78:
+22:46:42,492 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+22:46:43,114 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 621 msec
+22:46:43,125 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+22:46:43,174 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    44 msec
+22:46:43,175 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+22:46:44,836 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1660 msec : Hashmap 472312, Ranges map:8031
+0.191 ms/op
+# Warmup Iteration   2: 0.177 ms/op
+# Warmup Iteration   3: 0.178 ms/op
+# Warmup Iteration   4: 0.178 ms/op
+# Warmup Iteration   5: 0.178 ms/op
+# Warmup Iteration   6: 0.178 ms/op
+# Warmup Iteration   7: 0.177 ms/op
+# Warmup Iteration   8: 0.175 ms/op
+# Warmup Iteration   9: 0.174 ms/op
+# Warmup Iteration  10: 0.174 ms/op
+# Warmup Iteration  11: 0.175 ms/op
+# Warmup Iteration  12: 0.176 ms/op
+# Warmup Iteration  13: 0.175 ms/op
+# Warmup Iteration  14: 0.176 ms/op
+# Warmup Iteration  15: 0.178 ms/op
+# Warmup Iteration  16: 0.178 ms/op
+# Warmup Iteration  17: 0.178 ms/op
+# Warmup Iteration  18: 0.178 ms/op
+# Warmup Iteration  19: 0.178 ms/op
+# Warmup Iteration  20: 0.179 ms/op
+Iteration   1: 0.178 ms/op
+Iteration   2: 0.178 ms/op
+Iteration   3: 0.178 ms/op
+Iteration   4: 0.178 ms/op
+Iteration   5: 0.178 ms/op
+Iteration   6: 0.179 ms/op
+Iteration   7: 0.177 ms/op
+Iteration   8: 0.176 ms/op
+Iteration   9: 0.177 ms/op
+Iteration  10: 0.178 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googlebot":
+  0.178 ±(99.9%) 0.001 ms/op [Average]
+  (min, avg, max) = (0.176, 0.178, 0.179), stdev = 0.001
+  CI (99.9%): [0.177, 0.179] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.hackerSQL
+
+# Run progress: 40.00% complete, ETA 00:45:23
+# Fork: 1 of 1
+# Warmup Iteration   1: 22:51:45,199 [INFO ] YauaaVersion                            :   63:
+22:51:45,202 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+22:51:45,203 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+22:51:45,203 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+22:51:45,203 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+22:51:45,203 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+22:51:45,203 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+22:51:45,203 [INFO ] YauaaVersion                            :   78:
+22:51:45,204 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+22:51:45,737 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 532 msec
+22:51:45,744 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+22:51:45,784 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    36 msec
+22:51:45,784 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+22:51:47,463 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1679 msec : Hashmap 472312, Ranges map:8031
+0.130 ms/op
+# Warmup Iteration   2: 0.123 ms/op
+# Warmup Iteration   3: 0.122 ms/op
+# Warmup Iteration   4: 0.123 ms/op
+# Warmup Iteration   5: 0.123 ms/op
+# Warmup Iteration   6: 0.122 ms/op
+# Warmup Iteration   7: 0.121 ms/op
+# Warmup Iteration   8: 0.121 ms/op
+# Warmup Iteration   9: 0.121 ms/op
+# Warmup Iteration  10: 0.121 ms/op
+# Warmup Iteration  11: 0.121 ms/op
+# Warmup Iteration  12: 0.121 ms/op
+# Warmup Iteration  13: 0.121 ms/op
+# Warmup Iteration  14: 0.121 ms/op
+# Warmup Iteration  15: 0.121 ms/op
+# Warmup Iteration  16: 0.121 ms/op
+# Warmup Iteration  17: 0.121 ms/op
+# Warmup Iteration  18: 0.121 ms/op
+# Warmup Iteration  19: 0.122 ms/op
+# Warmup Iteration  20: 0.121 ms/op
+Iteration   1: 0.122 ms/op
+Iteration   2: 0.123 ms/op
+Iteration   3: 0.123 ms/op
+Iteration   4: 0.123 ms/op
+Iteration   5: 0.123 ms/op
+Iteration   6: 0.123 ms/op
+Iteration   7: 0.123 ms/op
+Iteration   8: 0.123 ms/op
+Iteration   9: 0.123 ms/op
+Iteration  10: 0.122 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.hackerSQL":
+  0.123 ±(99.9%) 0.001 ms/op [Average]
+  (min, avg, max) = (0.122, 0.123, 0.123), stdev = 0.001
+  CI (99.9%): [0.122, 0.124] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.hackerShellShock
+
+# Run progress: 46.67% complete, ETA 00:40:21
+# Fork: 1 of 1
+# Warmup Iteration   1: 22:56:47,803 [INFO ] YauaaVersion                            :   63:
+22:56:47,807 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+22:56:47,807 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+22:56:47,807 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+22:56:47,807 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+22:56:47,807 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+22:56:47,807 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+22:56:47,807 [INFO ] YauaaVersion                            :   78:
+22:56:47,809 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+22:56:48,262 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 453 msec
+22:56:48,268 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+22:56:48,307 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    35 msec
+22:56:48,307 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+22:56:50,000 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1692 msec : Hashmap 472312, Ranges map:8031
+0.101 ms/op
+# Warmup Iteration   2: 0.099 ms/op
+# Warmup Iteration   3: 0.098 ms/op
+# Warmup Iteration   4: 0.100 ms/op
+# Warmup Iteration   5: 0.099 ms/op
+# Warmup Iteration   6: 0.099 ms/op
+# Warmup Iteration   7: 0.100 ms/op
+# Warmup Iteration   8: 0.101 ms/op
+# Warmup Iteration   9: 0.101 ms/op
+# Warmup Iteration  10: 0.100 ms/op
+# Warmup Iteration  11: 0.101 ms/op
+# Warmup Iteration  12: 0.100 ms/op
+# Warmup Iteration  13: 0.100 ms/op
+# Warmup Iteration  14: 0.099 ms/op
+# Warmup Iteration  15: 0.098 ms/op
+# Warmup Iteration  16: 0.098 ms/op
+# Warmup Iteration  17: 0.098 ms/op
+# Warmup Iteration  18: 0.098 ms/op
+# Warmup Iteration  19: 0.102 ms/op
+# Warmup Iteration  20: 0.100 ms/op
+Iteration   1: 0.099 ms/op
+Iteration   2: 0.099 ms/op
+Iteration   3: 0.099 ms/op
+Iteration   4: 0.099 ms/op
+Iteration   5: 0.099 ms/op
+Iteration   6: 0.101 ms/op
+Iteration   7: 0.100 ms/op
+Iteration   8: 0.101 ms/op
+Iteration   9: 0.099 ms/op
+Iteration  10: 0.100 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.hackerShellShock":
+  0.100 ±(99.9%) 0.001 ms/op [Average]
+  (min, avg, max) = (0.099, 0.100, 0.101), stdev = 0.001
+  CI (99.9%): [0.099, 0.101] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.iPad
+
+# Run progress: 53.33% complete, ETA 00:35:18
+# Fork: 1 of 1
+# Warmup Iteration   1: 23:01:50,372 [INFO ] YauaaVersion                            :   63:
+23:01:50,376 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+23:01:50,376 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+23:01:50,376 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+23:01:50,376 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+23:01:50,376 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+23:01:50,376 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+23:01:50,377 [INFO ] YauaaVersion                            :   78:
+23:01:50,378 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+23:01:51,013 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 635 msec
+23:01:51,024 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+23:01:51,073 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    44 msec
+23:01:51,073 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+23:01:52,670 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1596 msec : Hashmap 472312, Ranges map:8031
+0.322 ms/op
+# Warmup Iteration   2: 0.272 ms/op
+# Warmup Iteration   3: 0.268 ms/op
+# Warmup Iteration   4: 0.267 ms/op
+# Warmup Iteration   5: 0.268 ms/op
+# Warmup Iteration   6: 0.268 ms/op
+# Warmup Iteration   7: 0.269 ms/op
+# Warmup Iteration   8: 0.268 ms/op
+# Warmup Iteration   9: 0.268 ms/op
+# Warmup Iteration  10: 0.269 ms/op
+# Warmup Iteration  11: 0.270 ms/op
+# Warmup Iteration  12: 0.268 ms/op
+# Warmup Iteration  13: 0.269 ms/op
+# Warmup Iteration  14: 0.271 ms/op
+# Warmup Iteration  15: 0.272 ms/op
+# Warmup Iteration  16: 0.273 ms/op
+# Warmup Iteration  17: 0.273 ms/op
+# Warmup Iteration  18: 0.273 ms/op
+# Warmup Iteration  19: 0.273 ms/op
+# Warmup Iteration  20: 0.282 ms/op
+Iteration   1: 0.277 ms/op
+Iteration   2: 0.270 ms/op
+Iteration   3: 0.270 ms/op
+Iteration   4: 0.268 ms/op
+Iteration   5: 0.270 ms/op
+Iteration   6: 0.271 ms/op
+Iteration   7: 0.270 ms/op
+Iteration   8: 0.270 ms/op
+Iteration   9: 0.269 ms/op
+Iteration  10: 0.270 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.iPad":
+  0.270 ±(99.9%) 0.004 ms/op [Average]
+  (min, avg, max) = (0.268, 0.270, 0.277), stdev = 0.002
+  CI (99.9%): [0.267, 0.274] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.iPhone
+
+# Run progress: 60.00% complete, ETA 00:30:15
+# Fork: 1 of 1
+# Warmup Iteration   1: 23:06:53,033 [INFO ] YauaaVersion                            :   63:
+23:06:53,037 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+23:06:53,037 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+23:06:53,037 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+23:06:53,037 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+23:06:53,037 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+23:06:53,038 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+23:06:53,038 [INFO ] YauaaVersion                            :   78:
+23:06:53,039 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+23:06:53,546 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 506 msec
+23:06:53,552 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+23:06:53,600 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    44 msec
+23:06:53,601 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+23:06:55,517 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1915 msec : Hashmap 472312, Ranges map:8031
+0.339 ms/op
+# Warmup Iteration   2: 0.290 ms/op
+# Warmup Iteration   3: 0.283 ms/op
+# Warmup Iteration   4: 0.285 ms/op
+# Warmup Iteration   5: 0.283 ms/op
+# Warmup Iteration   6: 0.284 ms/op
+# Warmup Iteration   7: 0.281 ms/op
+# Warmup Iteration   8: 0.281 ms/op
+# Warmup Iteration   9: 0.283 ms/op
+# Warmup Iteration  10: 0.284 ms/op
+# Warmup Iteration  11: 0.282 ms/op
+# Warmup Iteration  12: 0.283 ms/op
+# Warmup Iteration  13: 0.284 ms/op
+# Warmup Iteration  14: 0.285 ms/op
+# Warmup Iteration  15: 0.284 ms/op
+# Warmup Iteration  16: 0.285 ms/op
+# Warmup Iteration  17: 0.285 ms/op
+# Warmup Iteration  18: 0.286 ms/op
+# Warmup Iteration  19: 0.287 ms/op
+# Warmup Iteration  20: 0.285 ms/op
+Iteration   1: 0.288 ms/op
+Iteration   2: 0.287 ms/op
+Iteration   3: 0.286 ms/op
+Iteration   4: 0.285 ms/op
+Iteration   5: 0.287 ms/op
+Iteration   6: 0.286 ms/op
+Iteration   7: 0.285 ms/op
+Iteration   8: 0.287 ms/op
+Iteration   9: 0.286 ms/op
+Iteration  10: 0.286 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.iPhone":
+  0.286 ±(99.9%) 0.001 ms/op [Average]
+  (min, avg, max) = (0.285, 0.286, 0.288), stdev = 0.001
+  CI (99.9%): [0.285, 0.288] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.iPhoneFacebookApp
+
+# Run progress: 66.67% complete, ETA 00:25:13
+# Fork: 1 of 1
+# Warmup Iteration   1: 23:11:55,890 [INFO ] YauaaVersion                            :   63:
+23:11:55,894 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+23:11:55,894 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+23:11:55,894 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+23:11:55,894 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+23:11:55,894 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+23:11:55,894 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+23:11:55,895 [INFO ] YauaaVersion                            :   78:
+23:11:55,896 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+23:11:56,554 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 657 msec
+23:11:56,560 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+23:11:56,599 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    35 msec
+23:11:56,599 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+23:11:58,402 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1802 msec : Hashmap 472312, Ranges map:8031
+0.745 ms/op
+# Warmup Iteration   2: 0.627 ms/op
+# Warmup Iteration   3: 0.627 ms/op
+# Warmup Iteration   4: 0.625 ms/op
+# Warmup Iteration   5: 0.625 ms/op
+# Warmup Iteration   6: 0.627 ms/op
+# Warmup Iteration   7: 0.627 ms/op
+# Warmup Iteration   8: 0.632 ms/op
+# Warmup Iteration   9: 0.629 ms/op
+# Warmup Iteration  10: 0.633 ms/op
+# Warmup Iteration  11: 0.631 ms/op
+# Warmup Iteration  12: 0.623 ms/op
+# Warmup Iteration  13: 0.627 ms/op
+# Warmup Iteration  14: 0.635 ms/op
+# Warmup Iteration  15: 0.628 ms/op
+# Warmup Iteration  16: 0.631 ms/op
+# Warmup Iteration  17: 0.627 ms/op
+# Warmup Iteration  18: 0.634 ms/op
+# Warmup Iteration  19: 0.631 ms/op
+# Warmup Iteration  20: 0.630 ms/op
+Iteration   1: 0.631 ms/op
+Iteration   2: 0.634 ms/op
+Iteration   3: 0.635 ms/op
+Iteration   4: 0.631 ms/op
+Iteration   5: 0.635 ms/op
+Iteration   6: 0.630 ms/op
+Iteration   7: 0.631 ms/op
+Iteration   8: 0.629 ms/op
+Iteration   9: 0.632 ms/op
+Iteration  10: 0.634 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.iPhoneFacebookApp":
+  0.632 ±(99.9%) 0.003 ms/op [Average]
+  (min, avg, max) = (0.629, 0.632, 0.635), stdev = 0.002
+  CI (99.9%): [0.629, 0.635] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win10Chrome51
+
+# Run progress: 73.33% complete, ETA 00:20:10
+# Fork: 1 of 1
+# Warmup Iteration   1: 23:16:58,768 [INFO ] YauaaVersion                            :   63:
+23:16:58,771 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+23:16:58,771 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+23:16:58,771 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+23:16:58,771 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+23:16:58,771 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+23:16:58,772 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+23:16:58,772 [INFO ] YauaaVersion                            :   78:
+23:16:58,773 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+23:16:59,354 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 581 msec
+23:16:59,365 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+23:16:59,417 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    47 msec
+23:16:59,417 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+23:17:01,169 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1751 msec : Hashmap 472312, Ranges map:8031
+0.269 ms/op
+# Warmup Iteration   2: 0.236 ms/op
+# Warmup Iteration   3: 0.234 ms/op
+# Warmup Iteration   4: 0.229 ms/op
+# Warmup Iteration   5: 0.229 ms/op
+# Warmup Iteration   6: 0.232 ms/op
+# Warmup Iteration   7: 0.230 ms/op
+# Warmup Iteration   8: 0.230 ms/op
+# Warmup Iteration   9: 0.230 ms/op
+# Warmup Iteration  10: 0.233 ms/op
+# Warmup Iteration  11: 0.232 ms/op
+# Warmup Iteration  12: 0.232 ms/op
+# Warmup Iteration  13: 0.231 ms/op
+# Warmup Iteration  14: 0.231 ms/op
+# Warmup Iteration  15: 0.230 ms/op
+# Warmup Iteration  16: 0.232 ms/op
+# Warmup Iteration  17: 0.233 ms/op
+# Warmup Iteration  18: 0.234 ms/op
+# Warmup Iteration  19: 0.234 ms/op
+# Warmup Iteration  20: 0.232 ms/op
+Iteration   1: 0.232 ms/op
+Iteration   2: 0.234 ms/op
+Iteration   3: 0.234 ms/op
+Iteration   4: 0.234 ms/op
+Iteration   5: 0.235 ms/op
+Iteration   6: 0.234 ms/op
+Iteration   7: 0.232 ms/op
+Iteration   8: 0.233 ms/op
+Iteration   9: 0.233 ms/op
+Iteration  10: 0.232 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win10Chrome51":
+  0.233 ±(99.9%) 0.001 ms/op [Average]
+  (min, avg, max) = (0.232, 0.233, 0.235), stdev = 0.001
+  CI (99.9%): [0.232, 0.235] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win10Edge13
+
+# Run progress: 80.00% complete, ETA 00:15:08
+# Fork: 1 of 1
+# Warmup Iteration   1: 23:22:01,521 [INFO ] YauaaVersion                            :   63:
+23:22:01,524 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+23:22:01,525 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+23:22:01,525 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+23:22:01,525 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+23:22:01,525 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+23:22:01,525 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+23:22:01,525 [INFO ] YauaaVersion                            :   78:
+23:22:01,526 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+23:22:01,967 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 440 msec
+23:22:01,973 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+23:22:02,009 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    32 msec
+23:22:02,009 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+23:22:03,699 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1689 msec : Hashmap 472312, Ranges map:8031
+0.311 ms/op
+# Warmup Iteration   2: 0.264 ms/op
+# Warmup Iteration   3: 0.260 ms/op
+# Warmup Iteration   4: 0.259 ms/op
+# Warmup Iteration   5: 0.264 ms/op
+# Warmup Iteration   6: 0.262 ms/op
+# Warmup Iteration   7: 0.260 ms/op
+# Warmup Iteration   8: 0.259 ms/op
+# Warmup Iteration   9: 0.260 ms/op
+# Warmup Iteration  10: 0.260 ms/op
+# Warmup Iteration  11: 0.259 ms/op
+# Warmup Iteration  12: 0.260 ms/op
+# Warmup Iteration  13: 0.262 ms/op
+# Warmup Iteration  14: 0.261 ms/op
+# Warmup Iteration  15: 0.260 ms/op
+# Warmup Iteration  16: 0.263 ms/op
+# Warmup Iteration  17: 0.265 ms/op
+# Warmup Iteration  18: 0.264 ms/op
+# Warmup Iteration  19: 0.263 ms/op
+# Warmup Iteration  20: 0.264 ms/op
+Iteration   1: 0.263 ms/op
+Iteration   2: 0.264 ms/op
+Iteration   3: 0.264 ms/op
+Iteration   4: 0.263 ms/op
+Iteration   5: 0.264 ms/op
+Iteration   6: 0.262 ms/op
+Iteration   7: 0.266 ms/op
+Iteration   8: 0.265 ms/op
+Iteration   9: 0.265 ms/op
+Iteration  10: 0.263 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win10Edge13":
+  0.264 ±(99.9%) 0.002 ms/op [Average]
+  (min, avg, max) = (0.262, 0.264, 0.266), stdev = 0.001
+  CI (99.9%): [0.262, 0.266] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win10IE11
+
+# Run progress: 86.67% complete, ETA 00:10:05
+# Fork: 1 of 1
+# Warmup Iteration   1: 23:27:04,066 [INFO ] YauaaVersion                            :   63:
+23:27:04,069 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+23:27:04,069 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+23:27:04,069 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+23:27:04,069 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+23:27:04,069 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+23:27:04,070 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+23:27:04,070 [INFO ] YauaaVersion                            :   78:
+23:27:04,071 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+23:27:04,520 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 448 msec
+23:27:04,526 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+23:27:04,571 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    40 msec
+23:27:04,571 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+23:27:06,315 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1743 msec : Hashmap 472312, Ranges map:8031
+0.374 ms/op
+# Warmup Iteration   2: 0.310 ms/op
+# Warmup Iteration   3: 0.302 ms/op
+# Warmup Iteration   4: 0.304 ms/op
+# Warmup Iteration   5: 0.305 ms/op
+# Warmup Iteration   6: 0.303 ms/op
+# Warmup Iteration   7: 0.305 ms/op
+# Warmup Iteration   8: 0.305 ms/op
+# Warmup Iteration   9: 0.305 ms/op
+# Warmup Iteration  10: 0.305 ms/op
+# Warmup Iteration  11: 0.306 ms/op
+# Warmup Iteration  12: 0.305 ms/op
+# Warmup Iteration  13: 0.305 ms/op
+# Warmup Iteration  14: 0.308 ms/op
+# Warmup Iteration  15: 0.305 ms/op
+# Warmup Iteration  16: 0.305 ms/op
+# Warmup Iteration  17: 0.304 ms/op
+# Warmup Iteration  18: 0.306 ms/op
+# Warmup Iteration  19: 0.307 ms/op
+# Warmup Iteration  20: 0.308 ms/op
+Iteration   1: 0.306 ms/op
+Iteration   2: 0.306 ms/op
+Iteration   3: 0.305 ms/op
+Iteration   4: 0.306 ms/op
+Iteration   5: 0.306 ms/op
+Iteration   6: 0.307 ms/op
+Iteration   7: 0.309 ms/op
+Iteration   8: 0.306 ms/op
+Iteration   9: 0.306 ms/op
+Iteration  10: 0.307 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win10IE11":
+  0.306 ±(99.9%) 0.001 ms/op [Average]
+  (min, avg, max) = (0.305, 0.306, 0.309), stdev = 0.001
+  CI (99.9%): [0.305, 0.308] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 1.8.0_181, OpenJDK 64-Bit Server VM, 25.181-b13
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 10 s each
+# Measurement: 10 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win7ie11
+
+# Run progress: 93.33% complete, ETA 00:05:02
+# Fork: 1 of 1
+# Warmup Iteration   1: 23:32:06,674 [INFO ] YauaaVersion                            :   63:
+23:32:06,678 [INFO ] YauaaVersion                            :   64: /-----------------------------------------------------------\
+23:32:06,678 [INFO ] YauaaVersion                            :   90: | Yauaa 5.6 (v5.6 @ 2018-11-22T22:44:55Z)                   |
+23:32:06,678 [INFO ] YauaaVersion                            :   66: +-----------------------------------------------------------+
+23:32:06,678 [INFO ] YauaaVersion                            :   90: | For more information: https://yauaa.basjes.nl             |
+23:32:06,678 [INFO ] YauaaVersion                            :   90: | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0 |
+23:32:06,678 [INFO ] YauaaVersion                            :   77: \-----------------------------------------------------------/
+23:32:06,679 [INFO ] YauaaVersion                            :   78:
+23:32:06,680 [INFO ] UserAgentAnalyzerDirect                 :  233: Loading from: "classpath*:UserAgents/**/*.yaml"
+23:32:07,237 [INFO ] UserAgentAnalyzerDirect                 :  288: Loaded 78 files in 556 msec
+23:32:07,243 [INFO ] UserAgentAnalyzerDirect                 :  310: Building all matchers for all possible fields.
+23:32:07,282 [INFO ] UserAgentAnalyzerDirect                 :  361: Loading 1465 (dropped    0) matchers, 37 lookups, 3 lookupsets, 0 testcases from   59 files took    35 msec
+23:32:07,283 [INFO ] UserAgentAnalyzerDirect                 :  372: Initializing Analyzer data structures
+23:32:08,947 [INFO ] UserAgentAnalyzerDirect                 :  377: Built in 1663 msec : Hashmap 472312, Ranges map:8031
+0.339 ms/op
+# Warmup Iteration   2: 0.307 ms/op
+# Warmup Iteration   3: 0.301 ms/op
+# Warmup Iteration   4: 0.303 ms/op
+# Warmup Iteration   5: 0.306 ms/op
+# Warmup Iteration   6: 0.314 ms/op
+# Warmup Iteration   7: 0.305 ms/op
+# Warmup Iteration   8: 0.307 ms/op
+# Warmup Iteration   9: 0.309 ms/op
+# Warmup Iteration  10: 0.309 ms/op
+# Warmup Iteration  11: 0.308 ms/op
+# Warmup Iteration  12: 0.308 ms/op
+# Warmup Iteration  13: 0.307 ms/op
+# Warmup Iteration  14: 0.311 ms/op
+# Warmup Iteration  15: 0.310 ms/op
+# Warmup Iteration  16: 0.308 ms/op
+# Warmup Iteration  17: 0.309 ms/op
+# Warmup Iteration  18: 0.310 ms/op
+# Warmup Iteration  19: 0.308 ms/op
+# Warmup Iteration  20: 0.309 ms/op
+Iteration   1: 0.311 ms/op
+Iteration   2: 0.309 ms/op
+Iteration   3: 0.309 ms/op
+Iteration   4: 0.310 ms/op
+Iteration   5: 0.308 ms/op
+Iteration   6: 0.307 ms/op
+Iteration   7: 0.308 ms/op
+Iteration   8: 0.310 ms/op
+Iteration   9: 0.309 ms/op
+Iteration  10: 0.310 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win7ie11":
+  0.309 ±(99.9%) 0.002 ms/op [Average]
+  (min, avg, max) = (0.307, 0.309, 0.311), stdev = 0.001
+  CI (99.9%): [0.307, 0.311] (assumes normal distribution)
+
+
+# Run complete. Total time: 01:15:40
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+Benchmark                                  Mode  Cnt  Score   Error  Units
+AnalyzerBenchmarks.android6Chrome46        avgt   10  0.478 ± 0.002  ms/op
+AnalyzerBenchmarks.androidPhone            avgt   10  0.640 ± 0.002  ms/op
+AnalyzerBenchmarks.googleAdsBot            avgt   10  0.137 ± 0.001  ms/op
+AnalyzerBenchmarks.googleAdsBotMobile      avgt   10  0.309 ± 0.002  ms/op
+AnalyzerBenchmarks.googleBotMobileAndroid  avgt   10  0.530 ± 0.002  ms/op
+AnalyzerBenchmarks.googlebot               avgt   10  0.178 ± 0.001  ms/op
+AnalyzerBenchmarks.hackerSQL               avgt   10  0.123 ± 0.001  ms/op
+AnalyzerBenchmarks.hackerShellShock        avgt   10  0.100 ± 0.001  ms/op
+AnalyzerBenchmarks.iPad                    avgt   10  0.270 ± 0.004  ms/op
+AnalyzerBenchmarks.iPhone                  avgt   10  0.286 ± 0.001  ms/op
+AnalyzerBenchmarks.iPhoneFacebookApp       avgt   10  0.632 ± 0.003  ms/op
+AnalyzerBenchmarks.win10Chrome51           avgt   10  0.233 ± 0.001  ms/op
+AnalyzerBenchmarks.win10Edge13             avgt   10  0.264 ± 0.002  ms/op
+AnalyzerBenchmarks.win10IE11               avgt   10  0.306 ± 0.001  ms/op
+AnalyzerBenchmarks.win7ie11                avgt   10  0.309 ± 0.002  ms/op

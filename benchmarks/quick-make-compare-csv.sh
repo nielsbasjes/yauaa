@@ -19,7 +19,7 @@
 (
 echo -n "Name"
 
-find . -maxdepth 1 -type f -name "quick-speed-test-*.txt" -print0 | xargs -n1 -0 echo | \
+ls results/quick-speed-test-*.txt | \
     sed 's@^.*quick-speed-test-\(.*\).txt$@\1@g' | sort -V | \
     while read version
 do
@@ -27,11 +27,11 @@ do
 done
 echo ""
 
-ls quick-speed-test-*.txt | head -1 | xargs grep '| Test |' | cut -d'|' -f3 | sed 's/^ //g;s/ +$//' | \
+ls results/quick-speed-test-*.txt | head -1 | xargs grep '| Test |' | cut -d'|' -f3 | sed 's/^ //g;s/ +$//' | \
 while read BenchMarkName ;
 do
     echo -n "${BenchMarkName}"
-    ls quick-speed-test-*txt | xargs fgrep "| Test | ${BenchMarkName}  "  | \
+    ls results/quick-speed-test-*txt | xargs fgrep "| Test | ${BenchMarkName}  "  | \
     cut -d'|' -f5 | \
     sed 's/ *//g' | \
     xargs -n1 -iXXX echo -n ";XXX"

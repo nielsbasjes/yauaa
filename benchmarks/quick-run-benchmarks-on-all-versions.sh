@@ -23,7 +23,7 @@ git tag | \
 sed 's/v//' | \
 egrep -v '^(0\.|1\.|2\.|5\.1)' | while read version ;
 do
-  OUTPUT="quick-speed-test-${version}.txt"
+  OUTPUT="results/quick-speed-test-${version}.txt"
   if [ -f "${OUTPUT}" ];
   then
     echo "- Already have version ${version}"

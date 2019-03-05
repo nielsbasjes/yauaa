@@ -544,170 +544,18 @@
 <p>On my i7 system I see a speed ranging from 500 to 4000 useragents per second (depending on the length and ambiguities in the useragent).
 On average the speed is around 2000 per second or ~0.5ms each.
 A LRU cache is in place that does over 1M per second if they are in the cache.</p>
-<p>Please note that the current system take approx 400MiB of RAM just for the engine (without any caching!!).</p>
-<p>Output from the benchmark ( <a href="https://github.com/nielsbasjes/yauaa/blob/master/benchmarks/src/main/java/nl/basjes/parse/useragent/benchmarks/AnalyzerBenchmarks.java" target="_blank">using this code</a> ) on a Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz:</p>
-<table>
-<thead>
-<tr>
-<th>Benchmark</th>
-<th>Mode</th>
-<th>Cnt</th>
-<th>Score</th>
-<th></th>
-<th>Error</th>
-<th>Units</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>AnalyzerBenchmarks.android6Chrome46</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.499</td>
-<td>&#xB1;</td>
-<td>0.016</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.androidPhone</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.653</td>
-<td>&#xB1;</td>
-<td>0.011</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.googleAdsBot</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.135</td>
-<td>&#xB1;</td>
-<td>0.001</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.googleAdsBotMobile</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.321</td>
-<td>&#xB1;</td>
-<td>0.002</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.googleBotMobileAndroid</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.526</td>
-<td>&#xB1;</td>
-<td>0.003</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.googlebot</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.180</td>
-<td>&#xB1;</td>
-<td>0.005</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.hackerSQL</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.116</td>
-<td>&#xB1;</td>
-<td>0.001</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.hackerShellShock</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.108</td>
-<td>&#xB1;</td>
-<td>0.002</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.iPad</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.277</td>
-<td>&#xB1;</td>
-<td>0.001</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.iPhone</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.286</td>
-<td>&#xB1;</td>
-<td>0.002</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.iPhoneFacebookApp</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.650</td>
-<td>&#xB1;</td>
-<td>0.003</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.win10Chrome51</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.247</td>
-<td>&#xB1;</td>
-<td>0.002</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.win10Edge13</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.263</td>
-<td>&#xB1;</td>
-<td>0.008</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.win10IE11</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.310</td>
-<td>&#xB1;</td>
-<td>0.005</td>
-<td>ms/op</td>
-</tr>
-<tr>
-<td>AnalyzerBenchmarks.win7ie11</td>
-<td>avgt</td>
-<td>10</td>
-<td>0.301</td>
-<td>&#xB1;</td>
-<td>0.003</td>
-<td>ms/op</td>
-</tr>
-</tbody>
-</table>
+<p>Please note that the current system take approx 220MiB of RAM just for the engine (without any caching!!).</p>
 <p>In the canonical usecase of analysing clickstream data you will see a &lt;1ms hit per visitor (or better: per new non-cached useragent)
 and for all the other clicks the values are retrieved from this cache at a speed of &lt; 1 microsecond (i.e. close to 0).</p>
-<h1 id="historical-performance">Historical performance</h1>
 <p>The graph below gives you some insight of how the performance of Yauaa has progressed over time.</p>
 <p>You can clearly see the increase in the time needed when adding a lot more rules. 
 Also the periodic drops in time needed are clearly visible when a performance improvement was found.</p>
-<p>Between version 5.5 and 5.6 a lot of extra rules to detect more brands of mobile devices on Android (causing the needed time to reach ~ 3ms).
-Followed by a few steps in a rewrite of that part resulting in effectively the fastest version to date.</p>
-<p><img src="Performance-i7-6820HQ.png" alt="Graph of the performance on an Intel i7 6820"></p>
-<p>In addition I have been able to run (most of) the same benchmarks on a very old Intel Xeon X5650.
-According to <a href="https://www.cpubenchmark.net/compare/Intel-Xeon-X5650-vs-Intel-i7-6820HQ/1304vs2659" target="_blank">cpubenchmark.net</a> this Xeon has only 65% of the single thread speed of the i7.</p>
-<p><img src="Performance-Xeon-X5650.png" alt="Graph of the performance on an Intel i7 6820"></p>
+<p>Between version 5.5 and 5.6 a lot of extra rules to detect more brands of mobile devices on Android (at one point during development the needed time to reached ~ 3ms).
+Followed by a few steps in a rewrite of that part resulting in effectively the fastest versions to date.</p>
+<p>Output from the benchmark ( <a href="https://github.com/nielsbasjes/yauaa/blob/master/benchmarks/src/test/java/nl/basjes/parse/useragent/benchmarks/RunBenchmarks.java" target="_blank">using this code</a> ) on a Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz from version 3.0 onwards:</p>
+<p><script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script></p>
+<p><script type="text/javascript" src="PerformanceGraph.js"></script></p>
+<div id="curve_chart" style="height: 1000px"></div>
 
                                 
                                 </section>
@@ -751,7 +599,7 @@ According to <a href="https://www.cpubenchmark.net/compare/Intel-Xeon-X5650-vs-I
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Performance","level":"2.4","depth":1,"next":{"title":"Commandline","level":"2.5","depth":1,"path":"README-Commandline.md","ref":"README-Commandline.md","articles":[]},"previous":{"title":"Memory usage","level":"2.3","depth":1,"path":"README-MemoryUsage.md","ref":"README-MemoryUsage.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.8"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-Performance.md","mtime":"2018-12-07T11:04:39.577Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-02-13T12:00:12.183Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Performance","level":"2.4","depth":1,"next":{"title":"Commandline","level":"2.5","depth":1,"path":"README-Commandline.md","ref":"README-Commandline.md","articles":[]},"previous":{"title":"Memory usage","level":"2.3","depth":1,"path":"README-MemoryUsage.md","ref":"README-MemoryUsage.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.8"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-Performance.md","mtime":"2019-03-05T10:16:35.678Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-05T10:29:01.419Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

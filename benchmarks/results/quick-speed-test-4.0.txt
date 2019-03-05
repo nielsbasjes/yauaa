@@ -1,0 +1,193 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Yauaa : Analyzer Benchmarks 5.9-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ yauaa-benchmark ---
+[INFO] Deleting /home/nbasjes/workspace/Prive/yauaa_/benchmarks/target
+[INFO] 
+[INFO] --- git-commit-id-plugin:2.2.3:revision (get-the-git-infos) @ yauaa-benchmark ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.4.1:enforce (enforce-maven) @ yauaa-benchmark ---
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.8.2:prepare-agent (pre-unit-test) @ yauaa-benchmark ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ yauaa-benchmark ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ yauaa-benchmark ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 4 source files to /home/nbasjes/workspace/Prive/yauaa_/benchmarks/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ yauaa-benchmark ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/nbasjes/workspace/Prive/yauaa_/benchmarks/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:testCompile (default-testCompile) @ yauaa-benchmark ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to /home/nbasjes/workspace/Prive/yauaa_/benchmarks/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ yauaa-benchmark ---
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running nl.basjes.parse.useragent.benchmarks.RunBenchmarks
+21:07:27,033 [INFO ] UserAgentAnalyzerDirect                 :  216: 
+21:07:27,035 [INFO ] UserAgentAnalyzerDirect                 :  217: /------------------------------------------------------------\
+21:07:27,035 [INFO ] UserAgentAnalyzerDirect                 :  243: | Yauaa 4.0 (v4.0 @ 2018-02-18T10:30:38Z)                    |
+21:07:27,035 [INFO ] UserAgentAnalyzerDirect                 :  219: +------------------------------------------------------------+
+21:07:27,036 [INFO ] UserAgentAnalyzerDirect                 :  243: | For more information: https://github.com/nielsbasjes/yauaa |
+21:07:27,036 [INFO ] UserAgentAnalyzerDirect                 :  243: | Copyright (C) 2013-2018 Niels Basjes - License Apache 2.0  |
+21:07:27,036 [INFO ] UserAgentAnalyzerDirect                 :  230: \------------------------------------------------------------/
+21:07:27,036 [INFO ] UserAgentAnalyzerDirect                 :  231: 
+21:07:27,036 [INFO ] UserAgentAnalyzerDirect                 :  254: Loading from: "classpath*:UserAgents/**/*.yaml"
+21:07:27,514 [INFO ] UserAgentAnalyzerDirect                 :  287: Loaded 67 files
+21:07:27,518 [INFO ] UserAgentAnalyzerDirect                 :  302: Building all matchers
+21:07:31,308 [INFO ] UserAgentAnalyzerDirect                 :  351: Building 2521 (dropped    0) matchers from   63 files took  3787 msec resulted in   405281 hashmap entries
+21:07:31,308 [INFO ] UserAgentAnalyzerDirect                 :  354: Analyzer stats
+21:07:31,308 [INFO ] UserAgentAnalyzerDirect                 :  355: - Lookups         : 27
+21:07:31,308 [INFO ] UserAgentAnalyzerDirect                 :  356: - LookupSets      : 1
+21:07:31,308 [INFO ] UserAgentAnalyzerDirect                 :  357: - Matchers        : 2521 (total:2521 ; dropped: 0)
+21:07:31,309 [INFO ] UserAgentAnalyzerDirect                 :  358: - Hashmap size    : 405281
+21:07:31,309 [INFO ] UserAgentAnalyzerDirect                 :  359: - Ranges map size : 5821
+21:07:31,309 [INFO ] UserAgentAnalyzerDirect                 :  360: - Testcases       : 899
+21:07:31,310 [INFO ] UserAgentAnalyzerDirect                 :  978: Preheating JVM by running 10000 testcases.
+21:07:38,642 [INFO ] UserAgentAnalyzerDirect                 : 1004: Preheating JVM completed. (9868 of 10000 were proper results)
+21:07:40,200 [INFO ] RunBenchmarks                           :   61: Did 100 runs
+21:07:41,025 [INFO ] RunBenchmarks                           :   61: Did 200 runs
+21:07:41,832 [INFO ] RunBenchmarks                           :   61: Did 300 runs
+21:07:42,639 [INFO ] RunBenchmarks                           :   61: Did 400 runs
+21:07:43,438 [INFO ] RunBenchmarks                           :   61: Did 500 runs
+21:07:44,234 [INFO ] RunBenchmarks                           :   61: Did 600 runs
+21:07:45,051 [INFO ] RunBenchmarks                           :   61: Did 700 runs
+21:07:45,863 [INFO ] RunBenchmarks                           :   61: Did 800 runs
+21:07:46,670 [INFO ] RunBenchmarks                           :   61: Did 900 runs
+21:07:47,632 [INFO ] RunBenchmarks                           :   61: Did 1000 runs
+21:07:48,434 [INFO ] RunBenchmarks                           :   61: Did 1100 runs
+21:07:49,238 [INFO ] RunBenchmarks                           :   61: Did 1200 runs
+21:07:50,044 [INFO ] RunBenchmarks                           :   61: Did 1300 runs
+21:07:50,854 [INFO ] RunBenchmarks                           :   61: Did 1400 runs
+21:07:51,682 [INFO ] RunBenchmarks                           :   61: Did 1500 runs
+21:07:52,490 [INFO ] RunBenchmarks                           :   61: Did 1600 runs
+21:07:53,302 [INFO ] RunBenchmarks                           :   61: Did 1700 runs
+21:07:54,107 [INFO ] RunBenchmarks                           :   61: Did 1800 runs
+21:07:54,908 [INFO ] RunBenchmarks                           :   61: Did 1900 runs
+21:07:55,709 [INFO ] RunBenchmarks                           :   61: Did 2000 runs
+21:07:56,507 [INFO ] RunBenchmarks                           :   61: Did 2100 runs
+21:07:57,310 [INFO ] RunBenchmarks                           :   61: Did 2200 runs
+21:07:58,110 [INFO ] RunBenchmarks                           :   61: Did 2300 runs
+21:07:58,907 [INFO ] RunBenchmarks                           :   61: Did 2400 runs
+21:07:59,716 [INFO ] RunBenchmarks                           :   61: Did 2500 runs
+21:08:00,528 [INFO ] RunBenchmarks                           :   61: Did 2600 runs
+21:08:01,326 [INFO ] RunBenchmarks                           :   61: Did 2700 runs
+21:08:02,121 [INFO ] RunBenchmarks                           :   61: Did 2800 runs
+21:08:02,940 [INFO ] RunBenchmarks                           :   61: Did 2900 runs
+21:08:03,750 [INFO ] RunBenchmarks                           :   61: Did 3000 runs
+21:08:04,560 [INFO ] RunBenchmarks                           :   61: Did 3100 runs
+21:08:05,363 [INFO ] RunBenchmarks                           :   61: Did 3200 runs
+21:08:06,167 [INFO ] RunBenchmarks                           :   61: Did 3300 runs
+21:08:06,983 [INFO ] RunBenchmarks                           :   61: Did 3400 runs
+21:08:07,955 [INFO ] RunBenchmarks                           :   61: Did 3500 runs
+21:08:08,760 [INFO ] RunBenchmarks                           :   61: Did 3600 runs
+21:08:09,560 [INFO ] RunBenchmarks                           :   61: Did 3700 runs
+21:08:10,359 [INFO ] RunBenchmarks                           :   61: Did 3800 runs
+21:08:11,158 [INFO ] RunBenchmarks                           :   61: Did 3900 runs
+21:08:11,954 [INFO ] RunBenchmarks                           :   61: Did 4000 runs
+21:08:12,753 [INFO ] RunBenchmarks                           :   61: Did 4100 runs
+21:08:13,554 [INFO ] RunBenchmarks                           :   61: Did 4200 runs
+21:08:14,365 [INFO ] RunBenchmarks                           :   61: Did 4300 runs
+21:08:15,175 [INFO ] RunBenchmarks                           :   61: Did 4400 runs
+21:08:15,975 [INFO ] RunBenchmarks                           :   61: Did 4500 runs
+21:08:16,772 [INFO ] RunBenchmarks                           :   61: Did 4600 runs
+21:08:17,572 [INFO ] RunBenchmarks                           :   61: Did 4700 runs
+21:08:18,380 [INFO ] RunBenchmarks                           :   61: Did 4800 runs
+21:08:19,189 [INFO ] RunBenchmarks                           :   61: Did 4900 runs
+21:08:19,990 [INFO ] RunBenchmarks                           :   61: Did 5000 runs
+21:08:20,788 [INFO ] RunBenchmarks                           :   61: Did 5100 runs
+21:08:21,594 [INFO ] RunBenchmarks                           :   61: Did 5200 runs
+21:08:22,390 [INFO ] RunBenchmarks                           :   61: Did 5300 runs
+21:08:23,210 [INFO ] RunBenchmarks                           :   61: Did 5400 runs
+21:08:24,016 [INFO ] RunBenchmarks                           :   61: Did 5500 runs
+21:08:24,819 [INFO ] RunBenchmarks                           :   61: Did 5600 runs
+21:08:25,629 [INFO ] RunBenchmarks                           :   61: Did 5700 runs
+21:08:26,430 [INFO ] RunBenchmarks                           :   61: Did 5800 runs
+21:08:27,232 [INFO ] RunBenchmarks                           :   61: Did 5900 runs
+21:08:28,033 [INFO ] RunBenchmarks                           :   61: Did 6000 runs
+21:08:28,840 [INFO ] RunBenchmarks                           :   61: Did 6100 runs
+21:08:29,648 [INFO ] RunBenchmarks                           :   61: Did 6200 runs
+21:08:30,451 [INFO ] RunBenchmarks                           :   61: Did 6300 runs
+21:08:31,250 [INFO ] RunBenchmarks                           :   61: Did 6400 runs
+21:08:32,045 [INFO ] RunBenchmarks                           :   61: Did 6500 runs
+21:08:32,841 [INFO ] RunBenchmarks                           :   61: Did 6600 runs
+21:08:33,648 [INFO ] RunBenchmarks                           :   61: Did 6700 runs
+21:08:34,444 [INFO ] RunBenchmarks                           :   61: Did 6800 runs
+21:08:35,238 [INFO ] RunBenchmarks                           :   61: Did 6900 runs
+21:08:36,035 [INFO ] RunBenchmarks                           :   61: Did 7000 runs
+21:08:36,843 [INFO ] RunBenchmarks                           :   61: Did 7100 runs
+21:08:37,640 [INFO ] RunBenchmarks                           :   61: Did 7200 runs
+21:08:38,436 [INFO ] RunBenchmarks                           :   61: Did 7300 runs
+21:08:39,246 [INFO ] RunBenchmarks                           :   61: Did 7400 runs
+21:08:40,051 [INFO ] RunBenchmarks                           :   61: Did 7500 runs
+21:08:40,860 [INFO ] RunBenchmarks                           :   61: Did 7600 runs
+21:08:41,662 [INFO ] RunBenchmarks                           :   61: Did 7700 runs
+21:08:42,454 [INFO ] RunBenchmarks                           :   61: Did 7800 runs
+21:08:43,254 [INFO ] RunBenchmarks                           :   61: Did 7900 runs
+21:08:44,052 [INFO ] RunBenchmarks                           :   61: Did 8000 runs
+21:08:44,851 [INFO ] RunBenchmarks                           :   61: Did 8100 runs
+21:08:45,652 [INFO ] RunBenchmarks                           :   61: Did 8200 runs
+21:08:46,455 [INFO ] RunBenchmarks                           :   61: Did 8300 runs
+21:08:47,259 [INFO ] RunBenchmarks                           :   61: Did 8400 runs
+21:08:48,062 [INFO ] RunBenchmarks                           :   61: Did 8500 runs
+21:08:48,872 [INFO ] RunBenchmarks                           :   61: Did 8600 runs
+21:08:49,676 [INFO ] RunBenchmarks                           :   61: Did 8700 runs
+21:08:50,482 [INFO ] RunBenchmarks                           :   61: Did 8800 runs
+21:08:51,276 [INFO ] RunBenchmarks                           :   61: Did 8900 runs
+21:08:52,072 [INFO ] RunBenchmarks                           :   61: Did 9000 runs
+21:08:52,868 [INFO ] RunBenchmarks                           :   61: Did 9100 runs
+21:08:53,668 [INFO ] RunBenchmarks                           :   61: Did 9200 runs
+21:08:54,463 [INFO ] RunBenchmarks                           :   61: Did 9300 runs
+21:08:55,259 [INFO ] RunBenchmarks                           :   61: Did 9400 runs
+21:08:56,057 [INFO ] RunBenchmarks                           :   61: Did 9500 runs
+21:08:56,863 [INFO ] RunBenchmarks                           :   61: Did 9600 runs
+21:08:57,663 [INFO ] RunBenchmarks                           :   61: Did 9700 runs
+21:08:58,489 [INFO ] RunBenchmarks                           :   61: Did 9800 runs
+21:08:59,299 [INFO ] RunBenchmarks                           :   61: Did 9900 runs
+21:08:59,911 [WARN ] RunBenchmarks                           :   94: | Test | Android 6 Chrome 46            | Average(ms) |  0.614 | 3σ(ms) |  0.308 | min-max(ms): |  0.567 |  2.011 |
+21:08:59,912 [WARN ] RunBenchmarks                           :   94: | Test | Android Phone                  | Average(ms) |  0.759 | 3σ(ms) |  0.200 | min-max(ms): |  0.715 |  1.953 |
+21:08:59,912 [WARN ] RunBenchmarks                           :   94: | Test | Google AdsBot                  | Average(ms) |  0.220 | 3σ(ms) |  0.083 | min-max(ms): |  0.205 |  0.767 |
+21:08:59,912 [WARN ] RunBenchmarks                           :   94: | Test | Google AdsBot Mobile           | Average(ms) |  0.392 | 3σ(ms) |  0.119 | min-max(ms): |  0.368 |  0.939 |
+21:08:59,912 [WARN ] RunBenchmarks                           :   94: | Test | GoogleBot Mobile Android       | Average(ms) |  0.640 | 3σ(ms) |  0.173 | min-max(ms): |  0.604 |  1.409 |
+21:08:59,913 [WARN ] RunBenchmarks                           :   94: | Test | GoogleBot                      | Average(ms) |  0.262 | 3σ(ms) |  0.093 | min-max(ms): |  0.245 |  0.662 |
+21:08:59,913 [WARN ] RunBenchmarks                           :   94: | Test | Hacker SQL                     | Average(ms) |  0.196 | 3σ(ms) |  0.071 | min-max(ms): |  0.184 |  0.600 |
+21:08:59,913 [WARN ] RunBenchmarks                           :   94: | Test | Hacker ShellShock              | Average(ms) |  0.169 | 3σ(ms) |  0.062 | min-max(ms): |  0.159 |  0.573 |
+21:08:59,913 [WARN ] RunBenchmarks                           :   94: | Test | iPad                           | Average(ms) |  0.354 | 3σ(ms) |  0.117 | min-max(ms): |  0.333 |  1.208 |
+21:08:59,914 [WARN ] RunBenchmarks                           :   94: | Test | iPhone                         | Average(ms) |  0.347 | 3σ(ms) |  0.111 | min-max(ms): |  0.327 |  1.050 |
+21:08:59,914 [WARN ] RunBenchmarks                           :   94: | Test | iPhone FacebookApp             | Average(ms) |  0.738 | 3σ(ms) |  0.190 | min-max(ms): |  0.696 |  1.977 |
+21:08:59,915 [WARN ] RunBenchmarks                           :   94: | Test | Win 10 Chrome 51               | Average(ms) |  0.324 | 3σ(ms) |  0.114 | min-max(ms): |  0.304 |  1.087 |
+21:08:59,915 [WARN ] RunBenchmarks                           :   94: | Test | Win 10 Edge13                  | Average(ms) |  0.339 | 3σ(ms) |  0.105 | min-max(ms): |  0.319 |  0.782 |
+21:08:59,915 [WARN ] RunBenchmarks                           :   94: | Test | Win 7 IE11                     | Average(ms) |  0.374 | 3σ(ms) |  0.114 | min-max(ms): |  0.352 |  0.853 |
+21:08:59,916 [WARN ] RunBenchmarks                           :   94: | Test | Win 10 IE 11                   | Average(ms) |  0.362 | 3σ(ms) |  0.110 | min-max(ms): |  0.341 |  0.867 |
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 92.97 sec - in nl.basjes.parse.useragent.benchmarks.RunBenchmarks
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:3.0.0:check (checkstyle-check) @ yauaa-benchmark ---
+[INFO] Starting audit...
+Audit done.
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.8.2:report (post-unit-test) @ yauaa-benchmark ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 01:37 min
+[INFO] Finished at: 2019-03-04T21:09:01+01:00
+[INFO] Final Memory: 32M/580M
+[INFO] ------------------------------------------------------------------------

@@ -19,7 +19,7 @@
 (
 echo -n "Name"
 
-find . -maxdepth 1 -type f -name "version*.txt" -print0 | xargs -n1 -0 echo | \
+ls results/version*.txt | \
     sed 's@^.*version-\(.*\).txt$@\1@g' | sort -V | \
     while read version
 do
@@ -27,10 +27,10 @@ do
 done
 echo ""
 
-for BenchMarkName in $(ls version*.txt | head -1 | xargs grep '^AnalyzerBenchmarks.' | cut -d' ' -f1);
+for BenchMarkName in $(ls results/version*.txt | head -1 | xargs grep '^AnalyzerBenchmarks.' | cut -d' ' -f1);
 do
     echo -n "${BenchMarkName}"
-    grep "^${BenchMarkName} " version*txt | \
+    grep "^${BenchMarkName} " results/version*txt | \
     sed 's/  */ /g' |\
     sed 's@^.*version-\(.*\).txt:@\1 @g' |\
     sort -V | \

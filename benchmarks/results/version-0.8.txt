@@ -1,0 +1,1593 @@
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.android6Chrome46
+
+# Run progress: 0.00% complete, ETA 00:07:30
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:00:38,334 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:00:38,600 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:00:38,601 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:00:38,693 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took    88 msec resulted in     5892 extra hashmap entries
+10:00:38,700 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     6 msec resulted in     3232 extra hashmap entries
+10:00:38,721 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    20 msec resulted in     2138 extra hashmap entries
+10:00:38,787 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    65 msec resulted in    27170 extra hashmap entries
+10:00:38,792 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     4 msec resulted in     1672 extra hashmap entries
+10:00:38,793 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:00:38,794 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:00:38,796 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     1 msec resulted in      183 extra hashmap entries
+10:00:38,798 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     1 msec resulted in      529 extra hashmap entries
+10:00:38,801 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     2 msec resulted in      254 extra hashmap entries
+10:00:38,805 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     4 msec resulted in     3199 extra hashmap entries
+10:00:38,860 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    54 msec resulted in     6000 extra hashmap entries
+10:00:38,863 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     3 msec resulted in      925 extra hashmap entries
+10:00:38,880 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    15 msec resulted in     4134 extra hashmap entries
+10:00:38,882 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     1 msec resulted in       60 extra hashmap entries
+10:00:38,883 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     1 msec resulted in        2 extra hashmap entries
+10:00:38,885 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     1 msec resulted in       74 extra hashmap entries
+10:00:38,886 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:00:38,928 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    42 msec resulted in    12240 extra hashmap entries
+10:00:38,933 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     4 msec resulted in     4420 extra hashmap entries
+10:00:38,936 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     2 msec resulted in      371 extra hashmap entries
+10:00:38,937 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:00:38,939 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     2 msec resulted in       75 extra hashmap entries
+10:00:38,943 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     3 msec resulted in        0 extra hashmap entries
+10:00:39,813 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took   869 msec resulted in      159 extra hashmap entries
+10:00:39,814 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:00:39,816 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     1 msec resulted in       18 extra hashmap entries
+10:00:39,822 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took     6 msec resulted in     8040 extra hashmap entries
+10:00:39,889 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    66 msec resulted in    65876 extra hashmap entries
+10:00:39,894 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     4 msec resulted in     4400 extra hashmap entries
+10:00:39,920 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    26 msec resulted in     9927 extra hashmap entries
+10:00:39,921 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:00:39,921 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:00:39,922 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     0 msec resulted in      960 extra hashmap entries
+10:00:39,923 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:00:39,923 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:00:39,947 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    23 msec resulted in    19630 extra hashmap entries
+10:00:39,967 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    20 msec resulted in    19227 extra hashmap entries
+10:00:39,968 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:00:39,968 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:00:39,971 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:00:39,977 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     5 msec resulted in     4400 extra hashmap entries
+10:00:39,977 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:00:39,980 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     2 msec resulted in     1340 extra hashmap entries
+10:00:39,983 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:00:39,984 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1382 msec resulted in   211450 hashmap entries
+10:00:39,984 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:00:39,984 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:00:39,984 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:00:39,984 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:00:39,984 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+2.100 ms/op
+# Warmup Iteration   2: 0.997 ms/op
+# Warmup Iteration   3: 0.858 ms/op
+# Warmup Iteration   4: 0.819 ms/op
+# Warmup Iteration   5: 0.762 ms/op
+# Warmup Iteration   6: 0.745 ms/op
+# Warmup Iteration   7: 0.804 ms/op
+# Warmup Iteration   8: 0.823 ms/op
+# Warmup Iteration   9: 0.769 ms/op
+# Warmup Iteration  10: 0.733 ms/op
+# Warmup Iteration  11: 0.732 ms/op
+# Warmup Iteration  12: 0.719 ms/op
+# Warmup Iteration  13: 0.752 ms/op
+# Warmup Iteration  14: 0.722 ms/op
+# Warmup Iteration  15: 0.731 ms/op
+# Warmup Iteration  16: 0.733 ms/op
+# Warmup Iteration  17: 0.741 ms/op
+# Warmup Iteration  18: 0.780 ms/op
+# Warmup Iteration  19: 0.726 ms/op
+# Warmup Iteration  20: 0.724 ms/op
+Iteration   1: 0.734 ms/op
+Iteration   2: 0.719 ms/op
+Iteration   3: 0.718 ms/op
+Iteration   4: 0.716 ms/op
+Iteration   5: 0.715 ms/op
+Iteration   6: 0.709 ms/op
+Iteration   7: 0.716 ms/op
+Iteration   8: 0.718 ms/op
+Iteration   9: 0.720 ms/op
+Iteration  10: 0.709 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.android6Chrome46":
+  0.717 ±(99.9%) 0.011 ms/op [Average]
+  (min, avg, max) = (0.709, 0.717, 0.734), stdev = 0.007
+  CI (99.9%): [0.707, 0.728] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.androidPhone
+
+# Run progress: 6.67% complete, ETA 00:07:27
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:01:10,271 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:01:10,532 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:01:10,533 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:01:10,659 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took   121 msec resulted in     5892 extra hashmap entries
+10:01:10,666 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     6 msec resulted in     3232 extra hashmap entries
+10:01:10,691 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    24 msec resulted in     2138 extra hashmap entries
+10:01:10,766 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    75 msec resulted in    27170 extra hashmap entries
+10:01:10,772 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     4 msec resulted in     1672 extra hashmap entries
+10:01:10,772 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:01:10,773 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:01:10,774 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     1 msec resulted in      183 extra hashmap entries
+10:01:10,776 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     1 msec resulted in      529 extra hashmap entries
+10:01:10,779 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     2 msec resulted in      254 extra hashmap entries
+10:01:10,784 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     4 msec resulted in     3199 extra hashmap entries
+10:01:10,840 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    55 msec resulted in     6000 extra hashmap entries
+10:01:10,844 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     4 msec resulted in      925 extra hashmap entries
+10:01:10,867 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    22 msec resulted in     4134 extra hashmap entries
+10:01:10,869 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     1 msec resulted in       60 extra hashmap entries
+10:01:10,872 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     2 msec resulted in        2 extra hashmap entries
+10:01:10,874 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     2 msec resulted in       74 extra hashmap entries
+10:01:10,875 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:01:10,941 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    65 msec resulted in    12240 extra hashmap entries
+10:01:10,949 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     7 msec resulted in     4420 extra hashmap entries
+10:01:10,954 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     4 msec resulted in      371 extra hashmap entries
+10:01:10,954 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:01:10,960 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     4 msec resulted in       75 extra hashmap entries
+10:01:10,966 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     5 msec resulted in        0 extra hashmap entries
+10:01:12,103 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took  1136 msec resulted in      159 extra hashmap entries
+10:01:12,104 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:01:12,105 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     0 msec resulted in       18 extra hashmap entries
+10:01:12,113 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took     7 msec resulted in     8040 extra hashmap entries
+10:01:12,184 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    71 msec resulted in    65876 extra hashmap entries
+10:01:12,189 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     4 msec resulted in     4400 extra hashmap entries
+10:01:12,214 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    24 msec resulted in     9927 extra hashmap entries
+10:01:12,215 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:01:12,216 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:01:12,216 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     0 msec resulted in      960 extra hashmap entries
+10:01:12,217 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:01:12,218 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:01:12,239 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    21 msec resulted in    19630 extra hashmap entries
+10:01:12,257 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    17 msec resulted in    19227 extra hashmap entries
+10:01:12,258 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:01:12,258 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:01:12,260 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:01:12,265 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     4 msec resulted in     4400 extra hashmap entries
+10:01:12,266 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:01:12,270 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     3 msec resulted in     1340 extra hashmap entries
+10:01:12,273 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:01:12,273 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1740 msec resulted in   211450 hashmap entries
+10:01:12,273 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:01:12,273 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:01:12,273 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:01:12,274 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:01:12,274 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+3.079 ms/op
+# Warmup Iteration   2: 1.240 ms/op
+# Warmup Iteration   3: 1.010 ms/op
+# Warmup Iteration   4: 0.946 ms/op
+# Warmup Iteration   5: 0.998 ms/op
+# Warmup Iteration   6: 0.999 ms/op
+# Warmup Iteration   7: 0.997 ms/op
+# Warmup Iteration   8: 0.918 ms/op
+# Warmup Iteration   9: 0.864 ms/op
+# Warmup Iteration  10: 0.864 ms/op
+# Warmup Iteration  11: 0.881 ms/op
+# Warmup Iteration  12: 0.864 ms/op
+# Warmup Iteration  13: 0.856 ms/op
+# Warmup Iteration  14: 0.865 ms/op
+# Warmup Iteration  15: 0.926 ms/op
+# Warmup Iteration  16: 0.901 ms/op
+# Warmup Iteration  17: 0.858 ms/op
+# Warmup Iteration  18: 0.861 ms/op
+# Warmup Iteration  19: 0.854 ms/op
+# Warmup Iteration  20: 0.869 ms/op
+Iteration   1: 0.865 ms/op
+Iteration   2: 0.865 ms/op
+Iteration   3: 0.855 ms/op
+Iteration   4: 0.877 ms/op
+Iteration   5: 0.874 ms/op
+Iteration   6: 0.864 ms/op
+Iteration   7: 0.859 ms/op
+Iteration   8: 0.865 ms/op
+Iteration   9: 0.870 ms/op
+Iteration  10: 0.865 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.androidPhone":
+  0.866 ±(99.9%) 0.010 ms/op [Average]
+  (min, avg, max) = (0.855, 0.866, 0.877), stdev = 0.007
+  CI (99.9%): [0.856, 0.876] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googleAdsBot
+
+# Run progress: 13.33% complete, ETA 00:06:57
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:01:42,542 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:01:42,825 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:01:42,826 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:01:42,917 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took    87 msec resulted in     5892 extra hashmap entries
+10:01:42,921 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     4 msec resulted in     3232 extra hashmap entries
+10:01:42,936 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    14 msec resulted in     2138 extra hashmap entries
+10:01:42,976 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    40 msec resulted in    27170 extra hashmap entries
+10:01:42,979 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     2 msec resulted in     1672 extra hashmap entries
+10:01:42,980 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:01:42,980 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:01:42,982 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     0 msec resulted in      183 extra hashmap entries
+10:01:42,983 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     0 msec resulted in      529 extra hashmap entries
+10:01:42,985 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     1 msec resulted in      254 extra hashmap entries
+10:01:42,987 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     2 msec resulted in     3199 extra hashmap entries
+10:01:43,053 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    65 msec resulted in     6000 extra hashmap entries
+10:01:43,057 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     3 msec resulted in      925 extra hashmap entries
+10:01:43,075 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    17 msec resulted in     4134 extra hashmap entries
+10:01:43,076 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     0 msec resulted in       60 extra hashmap entries
+10:01:43,078 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     1 msec resulted in        2 extra hashmap entries
+10:01:43,080 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     1 msec resulted in       74 extra hashmap entries
+10:01:43,081 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:01:43,137 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    55 msec resulted in    12240 extra hashmap entries
+10:01:43,143 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     5 msec resulted in     4420 extra hashmap entries
+10:01:43,146 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     2 msec resulted in      371 extra hashmap entries
+10:01:43,146 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:01:43,150 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     2 msec resulted in       75 extra hashmap entries
+10:01:43,154 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     3 msec resulted in        0 extra hashmap entries
+10:01:44,055 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took   900 msec resulted in      159 extra hashmap entries
+10:01:44,056 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:01:44,057 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     0 msec resulted in       18 extra hashmap entries
+10:01:44,068 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took    10 msec resulted in     8040 extra hashmap entries
+10:01:44,134 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    65 msec resulted in    65876 extra hashmap entries
+10:01:44,138 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     4 msec resulted in     4400 extra hashmap entries
+10:01:44,164 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    25 msec resulted in     9927 extra hashmap entries
+10:01:44,165 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:01:44,166 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:01:44,167 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     0 msec resulted in      960 extra hashmap entries
+10:01:44,168 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:01:44,169 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:01:44,193 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    23 msec resulted in    19630 extra hashmap entries
+10:01:44,210 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    16 msec resulted in    19227 extra hashmap entries
+10:01:44,211 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:01:44,211 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:01:44,213 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:01:44,218 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     4 msec resulted in     4400 extra hashmap entries
+10:01:44,218 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:01:44,222 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     2 msec resulted in     1340 extra hashmap entries
+10:01:44,225 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:01:44,225 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1398 msec resulted in   211450 hashmap entries
+10:01:44,225 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:01:44,225 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:01:44,225 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:01:44,225 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:01:44,226 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+0.652 ms/op
+# Warmup Iteration   2: 0.372 ms/op
+# Warmup Iteration   3: 0.352 ms/op
+# Warmup Iteration   4: 0.309 ms/op
+# Warmup Iteration   5: 0.307 ms/op
+# Warmup Iteration   6: 0.306 ms/op
+# Warmup Iteration   7: 0.307 ms/op
+# Warmup Iteration   8: 0.311 ms/op
+# Warmup Iteration   9: 0.303 ms/op
+# Warmup Iteration  10: 0.323 ms/op
+# Warmup Iteration  11: 0.307 ms/op
+# Warmup Iteration  12: 0.311 ms/op
+# Warmup Iteration  13: 0.310 ms/op
+# Warmup Iteration  14: 0.311 ms/op
+# Warmup Iteration  15: 0.307 ms/op
+# Warmup Iteration  16: 0.317 ms/op
+# Warmup Iteration  17: 0.309 ms/op
+# Warmup Iteration  18: 0.315 ms/op
+# Warmup Iteration  19: 0.319 ms/op
+# Warmup Iteration  20: 0.317 ms/op
+Iteration   1: 0.313 ms/op
+Iteration   2: 0.315 ms/op
+Iteration   3: 0.312 ms/op
+Iteration   4: 0.311 ms/op
+Iteration   5: 0.318 ms/op
+Iteration   6: 0.309 ms/op
+Iteration   7: 0.313 ms/op
+Iteration   8: 0.305 ms/op
+Iteration   9: 0.305 ms/op
+Iteration  10: 0.304 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googleAdsBot":
+  0.310 ±(99.9%) 0.007 ms/op [Average]
+  (min, avg, max) = (0.304, 0.310, 0.318), stdev = 0.005
+  CI (99.9%): [0.303, 0.317] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googleAdsBotMobile
+
+# Run progress: 20.00% complete, ETA 00:06:24
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:02:14,490 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:02:14,748 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:02:14,749 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:02:14,840 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took    88 msec resulted in     5892 extra hashmap entries
+10:02:14,845 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     4 msec resulted in     3232 extra hashmap entries
+10:02:14,861 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    15 msec resulted in     2138 extra hashmap entries
+10:02:14,912 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    50 msec resulted in    27170 extra hashmap entries
+10:02:14,915 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     2 msec resulted in     1672 extra hashmap entries
+10:02:14,915 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:02:14,916 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:02:14,917 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     1 msec resulted in      183 extra hashmap entries
+10:02:14,919 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     1 msec resulted in      529 extra hashmap entries
+10:02:14,921 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     1 msec resulted in      254 extra hashmap entries
+10:02:14,924 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     2 msec resulted in     3199 extra hashmap entries
+10:02:15,001 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    76 msec resulted in     6000 extra hashmap entries
+10:02:15,006 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     4 msec resulted in      925 extra hashmap entries
+10:02:15,030 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    22 msec resulted in     4134 extra hashmap entries
+10:02:15,032 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     1 msec resulted in       60 extra hashmap entries
+10:02:15,035 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     3 msec resulted in        2 extra hashmap entries
+10:02:15,038 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     2 msec resulted in       74 extra hashmap entries
+10:02:15,039 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:02:15,110 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    70 msec resulted in    12240 extra hashmap entries
+10:02:15,118 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     8 msec resulted in     4420 extra hashmap entries
+10:02:15,123 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     3 msec resulted in      371 extra hashmap entries
+10:02:15,123 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:02:15,127 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     3 msec resulted in       75 extra hashmap entries
+10:02:15,133 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     5 msec resulted in        0 extra hashmap entries
+10:02:16,274 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took  1140 msec resulted in      159 extra hashmap entries
+10:02:16,274 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:02:16,276 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     0 msec resulted in       18 extra hashmap entries
+10:02:16,284 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took     8 msec resulted in     8040 extra hashmap entries
+10:02:16,362 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    77 msec resulted in    65876 extra hashmap entries
+10:02:16,367 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     4 msec resulted in     4400 extra hashmap entries
+10:02:16,392 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    24 msec resulted in     9927 extra hashmap entries
+10:02:16,393 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:02:16,394 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:02:16,395 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     0 msec resulted in      960 extra hashmap entries
+10:02:16,395 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:02:16,396 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:02:16,417 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    20 msec resulted in    19630 extra hashmap entries
+10:02:16,435 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    17 msec resulted in    19227 extra hashmap entries
+10:02:16,435 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:02:16,436 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:02:16,438 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:02:16,444 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     5 msec resulted in     4400 extra hashmap entries
+10:02:16,445 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:02:16,448 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     3 msec resulted in     1340 extra hashmap entries
+10:02:16,451 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:02:16,451 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1702 msec resulted in   211450 hashmap entries
+10:02:16,451 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:02:16,451 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:02:16,451 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:02:16,452 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:02:16,452 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+1.831 ms/op
+# Warmup Iteration   2: 0.732 ms/op
+# Warmup Iteration   3: 0.612 ms/op
+# Warmup Iteration   4: 0.611 ms/op
+# Warmup Iteration   5: 0.600 ms/op
+# Warmup Iteration   6: 0.611 ms/op
+# Warmup Iteration   7: 0.624 ms/op
+# Warmup Iteration   8: 0.613 ms/op
+# Warmup Iteration   9: 0.579 ms/op
+# Warmup Iteration  10: 0.578 ms/op
+# Warmup Iteration  11: 0.577 ms/op
+# Warmup Iteration  12: 0.600 ms/op
+# Warmup Iteration  13: 0.586 ms/op
+# Warmup Iteration  14: 0.583 ms/op
+# Warmup Iteration  15: 0.586 ms/op
+# Warmup Iteration  16: 0.582 ms/op
+# Warmup Iteration  17: 0.625 ms/op
+# Warmup Iteration  18: 0.598 ms/op
+# Warmup Iteration  19: 0.585 ms/op
+# Warmup Iteration  20: 0.582 ms/op
+Iteration   1: 0.583 ms/op
+Iteration   2: 0.584 ms/op
+Iteration   3: 0.591 ms/op
+Iteration   4: 0.592 ms/op
+Iteration   5: 0.584 ms/op
+Iteration   6: 0.580 ms/op
+Iteration   7: 0.587 ms/op
+Iteration   8: 0.585 ms/op
+Iteration   9: 0.588 ms/op
+Iteration  10: 0.588 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googleAdsBotMobile":
+  0.586 ±(99.9%) 0.005 ms/op [Average]
+  (min, avg, max) = (0.580, 0.586, 0.592), stdev = 0.004
+  CI (99.9%): [0.581, 0.591] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googleBotMobileAndroid
+
+# Run progress: 26.67% complete, ETA 00:05:53
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:02:46,719 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:02:46,999 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:02:47,000 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:02:47,118 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took   113 msec resulted in     5892 extra hashmap entries
+10:02:47,124 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     5 msec resulted in     3232 extra hashmap entries
+10:02:47,147 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    22 msec resulted in     2138 extra hashmap entries
+10:02:47,218 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    70 msec resulted in    27170 extra hashmap entries
+10:02:47,222 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     2 msec resulted in     1672 extra hashmap entries
+10:02:47,223 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:02:47,224 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:02:47,226 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     1 msec resulted in      183 extra hashmap entries
+10:02:47,227 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     1 msec resulted in      529 extra hashmap entries
+10:02:47,229 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     1 msec resulted in      254 extra hashmap entries
+10:02:47,232 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     2 msec resulted in     3199 extra hashmap entries
+10:02:47,284 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    51 msec resulted in     6000 extra hashmap entries
+10:02:47,288 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     3 msec resulted in      925 extra hashmap entries
+10:02:47,305 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    16 msec resulted in     4134 extra hashmap entries
+10:02:47,307 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     1 msec resulted in       60 extra hashmap entries
+10:02:47,310 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     2 msec resulted in        2 extra hashmap entries
+10:02:47,312 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     2 msec resulted in       74 extra hashmap entries
+10:02:47,313 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:02:47,361 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    47 msec resulted in    12240 extra hashmap entries
+10:02:47,367 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     5 msec resulted in     4420 extra hashmap entries
+10:02:47,370 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     2 msec resulted in      371 extra hashmap entries
+10:02:47,370 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:02:47,374 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     2 msec resulted in       75 extra hashmap entries
+10:02:47,378 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     4 msec resulted in        0 extra hashmap entries
+10:02:48,512 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took  1133 msec resulted in      159 extra hashmap entries
+10:02:48,512 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:02:48,514 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     0 msec resulted in       18 extra hashmap entries
+10:02:48,520 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took     6 msec resulted in     8040 extra hashmap entries
+10:02:48,608 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    86 msec resulted in    65876 extra hashmap entries
+10:02:48,614 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     6 msec resulted in     4400 extra hashmap entries
+10:02:48,641 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    25 msec resulted in     9927 extra hashmap entries
+10:02:48,642 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:02:48,642 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:02:48,644 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     1 msec resulted in      960 extra hashmap entries
+10:02:48,644 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:02:48,645 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:02:48,666 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    20 msec resulted in    19630 extra hashmap entries
+10:02:48,682 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    16 msec resulted in    19227 extra hashmap entries
+10:02:48,683 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:02:48,683 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:02:48,685 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     1 msec resulted in      690 extra hashmap entries
+10:02:48,690 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     4 msec resulted in     4400 extra hashmap entries
+10:02:48,691 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:02:48,694 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     2 msec resulted in     1340 extra hashmap entries
+10:02:48,697 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:02:48,697 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1696 msec resulted in   211450 hashmap entries
+10:02:48,697 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:02:48,697 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:02:48,698 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:02:48,698 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:02:48,698 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+3.062 ms/op
+# Warmup Iteration   2: 1.043 ms/op
+# Warmup Iteration   3: 0.923 ms/op
+# Warmup Iteration   4: 0.880 ms/op
+# Warmup Iteration   5: 0.803 ms/op
+# Warmup Iteration   6: 0.835 ms/op
+# Warmup Iteration   7: 0.875 ms/op
+# Warmup Iteration   8: 0.901 ms/op
+# Warmup Iteration   9: 0.788 ms/op
+# Warmup Iteration  10: 0.775 ms/op
+# Warmup Iteration  11: 0.773 ms/op
+# Warmup Iteration  12: 0.814 ms/op
+# Warmup Iteration  13: 0.767 ms/op
+# Warmup Iteration  14: 0.773 ms/op
+# Warmup Iteration  15: 0.767 ms/op
+# Warmup Iteration  16: 0.779 ms/op
+# Warmup Iteration  17: 0.852 ms/op
+# Warmup Iteration  18: 0.791 ms/op
+# Warmup Iteration  19: 0.768 ms/op
+# Warmup Iteration  20: 0.777 ms/op
+Iteration   1: 0.774 ms/op
+Iteration   2: 0.777 ms/op
+Iteration   3: 0.775 ms/op
+Iteration   4: 0.771 ms/op
+Iteration   5: 0.765 ms/op
+Iteration   6: 0.766 ms/op
+Iteration   7: 0.764 ms/op
+Iteration   8: 0.775 ms/op
+Iteration   9: 0.767 ms/op
+Iteration  10: 0.769 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googleBotMobileAndroid":
+  0.770 ±(99.9%) 0.007 ms/op [Average]
+  (min, avg, max) = (0.764, 0.770, 0.777), stdev = 0.005
+  CI (99.9%): [0.763, 0.777] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googlebot
+
+# Run progress: 33.33% complete, ETA 00:05:21
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:03:18,961 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:03:19,310 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:03:19,311 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:03:19,420 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took   106 msec resulted in     5892 extra hashmap entries
+10:03:19,425 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     4 msec resulted in     3232 extra hashmap entries
+10:03:19,443 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    17 msec resulted in     2138 extra hashmap entries
+10:03:19,486 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    42 msec resulted in    27170 extra hashmap entries
+10:03:19,489 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     2 msec resulted in     1672 extra hashmap entries
+10:03:19,490 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:03:19,490 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:03:19,492 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     0 msec resulted in      183 extra hashmap entries
+10:03:19,493 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     1 msec resulted in      529 extra hashmap entries
+10:03:19,495 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     1 msec resulted in      254 extra hashmap entries
+10:03:19,497 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     2 msec resulted in     3199 extra hashmap entries
+10:03:19,547 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    49 msec resulted in     6000 extra hashmap entries
+10:03:19,550 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     3 msec resulted in      925 extra hashmap entries
+10:03:19,567 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    16 msec resulted in     4134 extra hashmap entries
+10:03:19,569 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     1 msec resulted in       60 extra hashmap entries
+10:03:19,571 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     1 msec resulted in        2 extra hashmap entries
+10:03:19,573 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     1 msec resulted in       74 extra hashmap entries
+10:03:19,573 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:03:19,628 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    54 msec resulted in    12240 extra hashmap entries
+10:03:19,635 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     6 msec resulted in     4420 extra hashmap entries
+10:03:19,638 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     2 msec resulted in      371 extra hashmap entries
+10:03:19,638 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:03:19,641 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     2 msec resulted in       75 extra hashmap entries
+10:03:19,646 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     4 msec resulted in        0 extra hashmap entries
+10:03:20,632 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took   985 msec resulted in      159 extra hashmap entries
+10:03:20,633 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:03:20,635 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     2 msec resulted in       18 extra hashmap entries
+10:03:20,650 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took    14 msec resulted in     8040 extra hashmap entries
+10:03:20,726 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    75 msec resulted in    65876 extra hashmap entries
+10:03:20,731 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     4 msec resulted in     4400 extra hashmap entries
+10:03:20,754 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    22 msec resulted in     9927 extra hashmap entries
+10:03:20,755 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:03:20,755 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:03:20,756 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     0 msec resulted in      960 extra hashmap entries
+10:03:20,757 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:03:20,758 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:03:20,781 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    23 msec resulted in    19630 extra hashmap entries
+10:03:20,800 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    18 msec resulted in    19227 extra hashmap entries
+10:03:20,801 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:03:20,801 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:03:20,804 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:03:20,809 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     4 msec resulted in     4400 extra hashmap entries
+10:03:20,809 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:03:20,813 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     3 msec resulted in     1340 extra hashmap entries
+10:03:20,816 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:03:20,816 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1504 msec resulted in   211450 hashmap entries
+10:03:20,817 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:03:20,817 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:03:20,817 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:03:20,817 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:03:20,817 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+1.191 ms/op
+# Warmup Iteration   2: 0.498 ms/op
+# Warmup Iteration   3: 0.430 ms/op
+# Warmup Iteration   4: 0.446 ms/op
+# Warmup Iteration   5: 0.398 ms/op
+# Warmup Iteration   6: 0.418 ms/op
+# Warmup Iteration   7: 0.400 ms/op
+# Warmup Iteration   8: 0.408 ms/op
+# Warmup Iteration   9: 0.402 ms/op
+# Warmup Iteration  10: 0.407 ms/op
+# Warmup Iteration  11: 0.421 ms/op
+# Warmup Iteration  12: 0.419 ms/op
+# Warmup Iteration  13: 0.412 ms/op
+# Warmup Iteration  14: 0.428 ms/op
+# Warmup Iteration  15: 0.398 ms/op
+# Warmup Iteration  16: 0.408 ms/op
+# Warmup Iteration  17: 0.396 ms/op
+# Warmup Iteration  18: 0.403 ms/op
+# Warmup Iteration  19: 0.399 ms/op
+# Warmup Iteration  20: 0.405 ms/op
+Iteration   1: 0.399 ms/op
+Iteration   2: 0.404 ms/op
+Iteration   3: 0.409 ms/op
+Iteration   4: 0.406 ms/op
+Iteration   5: 0.399 ms/op
+Iteration   6: 0.409 ms/op
+Iteration   7: 0.405 ms/op
+Iteration   8: 0.406 ms/op
+Iteration   9: 0.401 ms/op
+Iteration  10: 0.404 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.googlebot":
+  0.404 ±(99.9%) 0.006 ms/op [Average]
+  (min, avg, max) = (0.399, 0.404, 0.409), stdev = 0.004
+  CI (99.9%): [0.398, 0.410] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.hackerSQL
+
+# Run progress: 40.00% complete, ETA 00:04:49
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:03:51,071 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:03:51,346 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:03:51,347 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:03:51,444 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took    93 msec resulted in     5892 extra hashmap entries
+10:03:51,448 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     4 msec resulted in     3232 extra hashmap entries
+10:03:51,462 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    13 msec resulted in     2138 extra hashmap entries
+10:03:51,504 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    41 msec resulted in    27170 extra hashmap entries
+10:03:51,507 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     2 msec resulted in     1672 extra hashmap entries
+10:03:51,508 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:03:51,509 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:03:51,510 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     0 msec resulted in      183 extra hashmap entries
+10:03:51,511 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     1 msec resulted in      529 extra hashmap entries
+10:03:51,513 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     1 msec resulted in      254 extra hashmap entries
+10:03:51,516 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     2 msec resulted in     3199 extra hashmap entries
+10:03:51,569 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    52 msec resulted in     6000 extra hashmap entries
+10:03:51,573 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     4 msec resulted in      925 extra hashmap entries
+10:03:51,591 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    17 msec resulted in     4134 extra hashmap entries
+10:03:51,593 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     1 msec resulted in       60 extra hashmap entries
+10:03:51,595 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     1 msec resulted in        2 extra hashmap entries
+10:03:51,597 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     1 msec resulted in       74 extra hashmap entries
+10:03:51,598 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:03:51,646 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    47 msec resulted in    12240 extra hashmap entries
+10:03:51,652 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     5 msec resulted in     4420 extra hashmap entries
+10:03:51,655 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     2 msec resulted in      371 extra hashmap entries
+10:03:51,655 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:03:51,658 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     2 msec resulted in       75 extra hashmap entries
+10:03:51,662 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     4 msec resulted in        0 extra hashmap entries
+10:03:52,869 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took  1205 msec resulted in      159 extra hashmap entries
+10:03:52,870 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:03:52,872 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     1 msec resulted in       18 extra hashmap entries
+10:03:52,883 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took    10 msec resulted in     8040 extra hashmap entries
+10:03:52,978 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    94 msec resulted in    65876 extra hashmap entries
+10:03:52,982 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     4 msec resulted in     4400 extra hashmap entries
+10:03:53,008 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    24 msec resulted in     9927 extra hashmap entries
+10:03:53,008 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:03:53,009 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:03:53,009 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     0 msec resulted in      960 extra hashmap entries
+10:03:53,010 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:03:53,011 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:03:53,037 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    25 msec resulted in    19630 extra hashmap entries
+10:03:53,055 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    17 msec resulted in    19227 extra hashmap entries
+10:03:53,055 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:03:53,055 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:03:53,058 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:03:53,063 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     4 msec resulted in     4400 extra hashmap entries
+10:03:53,064 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:03:53,067 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     2 msec resulted in     1340 extra hashmap entries
+10:03:53,069 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:03:53,070 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1722 msec resulted in   211450 hashmap entries
+10:03:53,070 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:03:53,070 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:03:53,070 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:03:53,070 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:03:53,070 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+0.472 ms/op
+# Warmup Iteration   2: 0.322 ms/op
+# Warmup Iteration   3: 0.319 ms/op
+# Warmup Iteration   4: 0.299 ms/op
+# Warmup Iteration   5: 0.302 ms/op
+# Warmup Iteration   6: 0.300 ms/op
+# Warmup Iteration   7: 0.302 ms/op
+# Warmup Iteration   8: 0.307 ms/op
+# Warmup Iteration   9: 0.296 ms/op
+# Warmup Iteration  10: 0.302 ms/op
+# Warmup Iteration  11: 0.304 ms/op
+# Warmup Iteration  12: 0.303 ms/op
+# Warmup Iteration  13: 0.303 ms/op
+# Warmup Iteration  14: 0.301 ms/op
+# Warmup Iteration  15: 0.303 ms/op
+# Warmup Iteration  16: 0.298 ms/op
+# Warmup Iteration  17: 0.300 ms/op
+# Warmup Iteration  18: 0.298 ms/op
+# Warmup Iteration  19: 0.299 ms/op
+# Warmup Iteration  20: 0.304 ms/op
+Iteration   1: 0.307 ms/op
+Iteration   2: 0.305 ms/op
+Iteration   3: 0.304 ms/op
+Iteration   4: 0.308 ms/op
+Iteration   5: 0.304 ms/op
+Iteration   6: 0.305 ms/op
+Iteration   7: 0.319 ms/op
+Iteration   8: 0.310 ms/op
+Iteration   9: 0.303 ms/op
+Iteration  10: 0.299 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.hackerSQL":
+  0.306 ±(99.9%) 0.008 ms/op [Average]
+  (min, avg, max) = (0.299, 0.306, 0.319), stdev = 0.005
+  CI (99.9%): [0.298, 0.314] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.hackerShellShock
+
+# Run progress: 46.67% complete, ETA 00:04:17
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:04:23,314 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:04:23,572 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:04:23,572 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:04:23,665 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took    89 msec resulted in     5892 extra hashmap entries
+10:04:23,669 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     4 msec resulted in     3232 extra hashmap entries
+10:04:23,686 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    16 msec resulted in     2138 extra hashmap entries
+10:04:23,734 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    47 msec resulted in    27170 extra hashmap entries
+10:04:23,737 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     2 msec resulted in     1672 extra hashmap entries
+10:04:23,738 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:04:23,738 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:04:23,740 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     0 msec resulted in      183 extra hashmap entries
+10:04:23,741 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     1 msec resulted in      529 extra hashmap entries
+10:04:23,743 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     1 msec resulted in      254 extra hashmap entries
+10:04:23,746 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     2 msec resulted in     3199 extra hashmap entries
+10:04:23,796 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    49 msec resulted in     6000 extra hashmap entries
+10:04:23,800 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     3 msec resulted in      925 extra hashmap entries
+10:04:23,817 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    16 msec resulted in     4134 extra hashmap entries
+10:04:23,819 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     1 msec resulted in       60 extra hashmap entries
+10:04:23,821 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     1 msec resulted in        2 extra hashmap entries
+10:04:23,823 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     1 msec resulted in       74 extra hashmap entries
+10:04:23,823 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:04:23,880 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    57 msec resulted in    12240 extra hashmap entries
+10:04:23,887 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     6 msec resulted in     4420 extra hashmap entries
+10:04:23,891 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     2 msec resulted in      371 extra hashmap entries
+10:04:23,891 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:04:23,894 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     2 msec resulted in       75 extra hashmap entries
+10:04:23,899 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     4 msec resulted in        0 extra hashmap entries
+10:04:25,061 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took  1161 msec resulted in      159 extra hashmap entries
+10:04:25,062 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:04:25,064 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     1 msec resulted in       18 extra hashmap entries
+10:04:25,072 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took     7 msec resulted in     8040 extra hashmap entries
+10:04:25,143 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    70 msec resulted in    65876 extra hashmap entries
+10:04:25,147 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     4 msec resulted in     4400 extra hashmap entries
+10:04:25,170 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    22 msec resulted in     9927 extra hashmap entries
+10:04:25,171 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:04:25,171 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:04:25,173 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     1 msec resulted in      960 extra hashmap entries
+10:04:25,173 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:04:25,174 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:04:25,195 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    20 msec resulted in    19630 extra hashmap entries
+10:04:25,213 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    17 msec resulted in    19227 extra hashmap entries
+10:04:25,214 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:04:25,214 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:04:25,217 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:04:25,222 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     5 msec resulted in     4400 extra hashmap entries
+10:04:25,223 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:04:25,226 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     3 msec resulted in     1340 extra hashmap entries
+10:04:25,229 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:04:25,230 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1657 msec resulted in   211450 hashmap entries
+10:04:25,230 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:04:25,230 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:04:25,230 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:04:25,230 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:04:25,230 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+0.510 ms/op
+# Warmup Iteration   2: 0.305 ms/op
+# Warmup Iteration   3: 0.305 ms/op
+# Warmup Iteration   4: 0.290 ms/op
+# Warmup Iteration   5: 0.290 ms/op
+# Warmup Iteration   6: 0.292 ms/op
+# Warmup Iteration   7: 0.292 ms/op
+# Warmup Iteration   8: 0.288 ms/op
+# Warmup Iteration   9: 0.294 ms/op
+# Warmup Iteration  10: 0.290 ms/op
+# Warmup Iteration  11: 0.293 ms/op
+# Warmup Iteration  12: 0.292 ms/op
+# Warmup Iteration  13: 0.293 ms/op
+# Warmup Iteration  14: 0.291 ms/op
+# Warmup Iteration  15: 0.302 ms/op
+# Warmup Iteration  16: 0.293 ms/op
+# Warmup Iteration  17: 0.300 ms/op
+# Warmup Iteration  18: 0.299 ms/op
+# Warmup Iteration  19: 0.297 ms/op
+# Warmup Iteration  20: 0.291 ms/op
+Iteration   1: 0.294 ms/op
+Iteration   2: 0.295 ms/op
+Iteration   3: 0.296 ms/op
+Iteration   4: 0.295 ms/op
+Iteration   5: 0.298 ms/op
+Iteration   6: 0.295 ms/op
+Iteration   7: 0.296 ms/op
+Iteration   8: 0.293 ms/op
+Iteration   9: 0.294 ms/op
+Iteration  10: 0.294 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.hackerShellShock":
+  0.295 ±(99.9%) 0.002 ms/op [Average]
+  (min, avg, max) = (0.293, 0.295, 0.298), stdev = 0.001
+  CI (99.9%): [0.293, 0.297] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.iPad
+
+# Run progress: 53.33% complete, ETA 00:03:45
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:04:55,487 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:04:55,799 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:04:55,800 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:04:55,896 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took    92 msec resulted in     5892 extra hashmap entries
+10:04:55,901 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     4 msec resulted in     3232 extra hashmap entries
+10:04:55,917 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    16 msec resulted in     2138 extra hashmap entries
+10:04:55,967 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    49 msec resulted in    27170 extra hashmap entries
+10:04:55,971 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     3 msec resulted in     1672 extra hashmap entries
+10:04:55,972 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:04:55,973 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:04:55,974 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     1 msec resulted in      183 extra hashmap entries
+10:04:55,976 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     1 msec resulted in      529 extra hashmap entries
+10:04:55,978 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     1 msec resulted in      254 extra hashmap entries
+10:04:55,980 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     2 msec resulted in     3199 extra hashmap entries
+10:04:56,032 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    51 msec resulted in     6000 extra hashmap entries
+10:04:56,036 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     3 msec resulted in      925 extra hashmap entries
+10:04:56,052 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    15 msec resulted in     4134 extra hashmap entries
+10:04:56,054 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     1 msec resulted in       60 extra hashmap entries
+10:04:56,056 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     1 msec resulted in        2 extra hashmap entries
+10:04:56,059 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     2 msec resulted in       74 extra hashmap entries
+10:04:56,060 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:04:56,110 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    49 msec resulted in    12240 extra hashmap entries
+10:04:56,116 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     6 msec resulted in     4420 extra hashmap entries
+10:04:56,119 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     2 msec resulted in      371 extra hashmap entries
+10:04:56,120 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:04:56,123 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     2 msec resulted in       75 extra hashmap entries
+10:04:56,127 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     3 msec resulted in        0 extra hashmap entries
+10:04:57,035 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took   907 msec resulted in      159 extra hashmap entries
+10:04:57,036 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:04:57,037 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     0 msec resulted in       18 extra hashmap entries
+10:04:57,045 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took     7 msec resulted in     8040 extra hashmap entries
+10:04:57,129 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    84 msec resulted in    65876 extra hashmap entries
+10:04:57,135 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     4 msec resulted in     4400 extra hashmap entries
+10:04:57,163 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    27 msec resulted in     9927 extra hashmap entries
+10:04:57,164 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:04:57,164 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:04:57,165 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     0 msec resulted in      960 extra hashmap entries
+10:04:57,166 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:04:57,167 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:04:57,192 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    25 msec resulted in    19630 extra hashmap entries
+10:04:57,213 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    20 msec resulted in    19227 extra hashmap entries
+10:04:57,213 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:04:57,214 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:04:57,217 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:04:57,223 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     5 msec resulted in     4400 extra hashmap entries
+10:04:57,223 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:04:57,227 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     3 msec resulted in     1340 extra hashmap entries
+10:04:57,230 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     3 msec resulted in     3270 extra hashmap entries
+10:04:57,231 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1430 msec resulted in   211450 hashmap entries
+10:04:57,231 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:04:57,231 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:04:57,231 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:04:57,231 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:04:57,231 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+3.960 ms/op
+# Warmup Iteration   2: 0.957 ms/op
+# Warmup Iteration   3: 0.608 ms/op
+# Warmup Iteration   4: 0.605 ms/op
+# Warmup Iteration   5: 0.565 ms/op
+# Warmup Iteration   6: 0.574 ms/op
+# Warmup Iteration   7: 0.577 ms/op
+# Warmup Iteration   8: 0.578 ms/op
+# Warmup Iteration   9: 0.592 ms/op
+# Warmup Iteration  10: 0.539 ms/op
+# Warmup Iteration  11: 0.540 ms/op
+# Warmup Iteration  12: 0.535 ms/op
+# Warmup Iteration  13: 0.535 ms/op
+# Warmup Iteration  14: 0.547 ms/op
+# Warmup Iteration  15: 0.535 ms/op
+# Warmup Iteration  16: 0.537 ms/op
+# Warmup Iteration  17: 0.535 ms/op
+# Warmup Iteration  18: 0.531 ms/op
+# Warmup Iteration  19: 0.575 ms/op
+# Warmup Iteration  20: 0.539 ms/op
+Iteration   1: 0.533 ms/op
+Iteration   2: 0.538 ms/op
+Iteration   3: 0.534 ms/op
+Iteration   4: 0.537 ms/op
+Iteration   5: 0.542 ms/op
+Iteration   6: 0.533 ms/op
+Iteration   7: 0.532 ms/op
+Iteration   8: 0.535 ms/op
+Iteration   9: 0.533 ms/op
+Iteration  10: 0.533 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.iPad":
+  0.535 ±(99.9%) 0.005 ms/op [Average]
+  (min, avg, max) = (0.532, 0.535, 0.542), stdev = 0.003
+  CI (99.9%): [0.530, 0.540] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.iPhone
+
+# Run progress: 60.00% complete, ETA 00:03:12
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:05:27,485 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:05:27,737 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:05:27,738 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:05:27,845 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took   102 msec resulted in     5892 extra hashmap entries
+10:05:27,852 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     6 msec resulted in     3232 extra hashmap entries
+10:05:27,874 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    21 msec resulted in     2138 extra hashmap entries
+10:05:27,945 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    70 msec resulted in    27170 extra hashmap entries
+10:05:27,949 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     4 msec resulted in     1672 extra hashmap entries
+10:05:27,950 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:05:27,951 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:05:27,953 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     1 msec resulted in      183 extra hashmap entries
+10:05:27,956 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     1 msec resulted in      529 extra hashmap entries
+10:05:27,959 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     2 msec resulted in      254 extra hashmap entries
+10:05:27,963 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     3 msec resulted in     3199 extra hashmap entries
+10:05:28,048 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    84 msec resulted in     6000 extra hashmap entries
+10:05:28,054 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     5 msec resulted in      925 extra hashmap entries
+10:05:28,085 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    30 msec resulted in     4134 extra hashmap entries
+10:05:28,088 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     2 msec resulted in       60 extra hashmap entries
+10:05:28,091 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     2 msec resulted in        2 extra hashmap entries
+10:05:28,094 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     2 msec resulted in       74 extra hashmap entries
+10:05:28,095 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:05:28,186 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    90 msec resulted in    12240 extra hashmap entries
+10:05:28,194 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     7 msec resulted in     4420 extra hashmap entries
+10:05:28,198 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     3 msec resulted in      371 extra hashmap entries
+10:05:28,198 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:05:28,202 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     2 msec resulted in       75 extra hashmap entries
+10:05:28,207 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     4 msec resulted in        0 extra hashmap entries
+10:05:29,133 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took   925 msec resulted in      159 extra hashmap entries
+10:05:29,133 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:05:29,134 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     0 msec resulted in       18 extra hashmap entries
+10:05:29,142 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took     7 msec resulted in     8040 extra hashmap entries
+10:05:29,213 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    70 msec resulted in    65876 extra hashmap entries
+10:05:29,218 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     4 msec resulted in     4400 extra hashmap entries
+10:05:29,244 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    25 msec resulted in     9927 extra hashmap entries
+10:05:29,245 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:05:29,245 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:05:29,246 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     0 msec resulted in      960 extra hashmap entries
+10:05:29,246 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:05:29,247 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:05:29,268 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    20 msec resulted in    19630 extra hashmap entries
+10:05:29,286 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    17 msec resulted in    19227 extra hashmap entries
+10:05:29,287 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:05:29,287 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:05:29,290 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:05:29,295 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     4 msec resulted in     4400 extra hashmap entries
+10:05:29,295 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:05:29,298 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     2 msec resulted in     1340 extra hashmap entries
+10:05:29,301 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:05:29,301 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1563 msec resulted in   211450 hashmap entries
+10:05:29,301 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:05:29,301 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:05:29,302 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:05:29,302 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:05:29,302 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+3.466 ms/op
+# Warmup Iteration   2: 1.917 ms/op
+# Warmup Iteration   3: 0.715 ms/op
+# Warmup Iteration   4: 0.613 ms/op
+# Warmup Iteration   5: 0.585 ms/op
+# Warmup Iteration   6: 0.576 ms/op
+# Warmup Iteration   7: 0.571 ms/op
+# Warmup Iteration   8: 0.582 ms/op
+# Warmup Iteration   9: 0.593 ms/op
+# Warmup Iteration  10: 0.540 ms/op
+# Warmup Iteration  11: 0.548 ms/op
+# Warmup Iteration  12: 0.540 ms/op
+# Warmup Iteration  13: 0.543 ms/op
+# Warmup Iteration  14: 0.561 ms/op
+# Warmup Iteration  15: 0.549 ms/op
+# Warmup Iteration  16: 0.547 ms/op
+# Warmup Iteration  17: 0.551 ms/op
+# Warmup Iteration  18: 0.547 ms/op
+# Warmup Iteration  19: 0.584 ms/op
+# Warmup Iteration  20: 0.559 ms/op
+Iteration   1: 0.549 ms/op
+Iteration   2: 0.547 ms/op
+Iteration   3: 0.550 ms/op
+Iteration   4: 0.545 ms/op
+Iteration   5: 0.561 ms/op
+Iteration   6: 0.548 ms/op
+Iteration   7: 0.553 ms/op
+Iteration   8: 0.546 ms/op
+Iteration   9: 0.551 ms/op
+Iteration  10: 0.545 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.iPhone":
+  0.550 ±(99.9%) 0.007 ms/op [Average]
+  (min, avg, max) = (0.545, 0.550, 0.561), stdev = 0.005
+  CI (99.9%): [0.542, 0.557] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.iPhoneFacebookApp
+
+# Run progress: 66.67% complete, ETA 00:02:40
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:05:59,597 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:05:59,945 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:05:59,946 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:06:00,067 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took   118 msec resulted in     5892 extra hashmap entries
+10:06:00,071 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     4 msec resulted in     3232 extra hashmap entries
+10:06:00,089 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    17 msec resulted in     2138 extra hashmap entries
+10:06:00,136 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    46 msec resulted in    27170 extra hashmap entries
+10:06:00,139 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     2 msec resulted in     1672 extra hashmap entries
+10:06:00,139 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:06:00,140 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:06:00,141 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     1 msec resulted in      183 extra hashmap entries
+10:06:00,143 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     1 msec resulted in      529 extra hashmap entries
+10:06:00,145 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     1 msec resulted in      254 extra hashmap entries
+10:06:00,148 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     2 msec resulted in     3199 extra hashmap entries
+10:06:00,209 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    60 msec resulted in     6000 extra hashmap entries
+10:06:00,215 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     5 msec resulted in      925 extra hashmap entries
+10:06:00,240 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    24 msec resulted in     4134 extra hashmap entries
+10:06:00,243 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     1 msec resulted in       60 extra hashmap entries
+10:06:00,246 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     3 msec resulted in        2 extra hashmap entries
+10:06:00,249 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     2 msec resulted in       74 extra hashmap entries
+10:06:00,250 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:06:00,329 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    78 msec resulted in    12240 extra hashmap entries
+10:06:00,339 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     9 msec resulted in     4420 extra hashmap entries
+10:06:00,343 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     4 msec resulted in      371 extra hashmap entries
+10:06:00,344 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:06:00,349 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     4 msec resulted in       75 extra hashmap entries
+10:06:00,356 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     6 msec resulted in        0 extra hashmap entries
+10:06:01,376 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took  1019 msec resulted in      159 extra hashmap entries
+10:06:01,377 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:06:01,379 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     1 msec resulted in       18 extra hashmap entries
+10:06:01,387 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took     7 msec resulted in     8040 extra hashmap entries
+10:06:01,457 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    70 msec resulted in    65876 extra hashmap entries
+10:06:01,462 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     4 msec resulted in     4400 extra hashmap entries
+10:06:01,487 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    24 msec resulted in     9927 extra hashmap entries
+10:06:01,488 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:06:01,488 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:06:01,489 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     0 msec resulted in      960 extra hashmap entries
+10:06:01,490 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:06:01,490 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:06:01,512 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    21 msec resulted in    19630 extra hashmap entries
+10:06:01,530 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    17 msec resulted in    19227 extra hashmap entries
+10:06:01,531 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:06:01,531 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:06:01,534 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:06:01,539 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     5 msec resulted in     4400 extra hashmap entries
+10:06:01,540 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:06:01,543 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     3 msec resulted in     1340 extra hashmap entries
+10:06:01,546 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:06:01,546 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1600 msec resulted in   211450 hashmap entries
+10:06:01,546 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:06:01,547 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:06:01,547 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:06:01,547 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:06:01,547 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+3.603 ms/op
+# Warmup Iteration   2: 1.199 ms/op
+# Warmup Iteration   3: 0.956 ms/op
+# Warmup Iteration   4: 0.927 ms/op
+# Warmup Iteration   5: 0.988 ms/op
+# Warmup Iteration   6: 1.037 ms/op
+# Warmup Iteration   7: 0.917 ms/op
+# Warmup Iteration   8: 0.883 ms/op
+# Warmup Iteration   9: 0.895 ms/op
+# Warmup Iteration  10: 0.881 ms/op
+# Warmup Iteration  11: 0.879 ms/op
+# Warmup Iteration  12: 0.902 ms/op
+# Warmup Iteration  13: 0.965 ms/op
+# Warmup Iteration  14: 0.885 ms/op
+# Warmup Iteration  15: 0.893 ms/op
+# Warmup Iteration  16: 0.885 ms/op
+# Warmup Iteration  17: 0.891 ms/op
+# Warmup Iteration  18: 0.890 ms/op
+# Warmup Iteration  19: 0.889 ms/op
+# Warmup Iteration  20: 0.887 ms/op
+Iteration   1: 0.885 ms/op
+Iteration   2: 0.886 ms/op
+Iteration   3: 0.881 ms/op
+Iteration   4: 0.891 ms/op
+Iteration   5: 0.879 ms/op
+Iteration   6: 0.888 ms/op
+Iteration   7: 0.878 ms/op
+Iteration   8: 0.879 ms/op
+Iteration   9: 0.872 ms/op
+Iteration  10: 0.893 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.iPhoneFacebookApp":
+  0.883 ±(99.9%) 0.010 ms/op [Average]
+  (min, avg, max) = (0.872, 0.883, 0.893), stdev = 0.006
+  CI (99.9%): [0.873, 0.893] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win10Chrome51
+
+# Run progress: 73.33% complete, ETA 00:02:08
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:06:31,812 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:06:32,078 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:06:32,078 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:06:32,170 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took    88 msec resulted in     5892 extra hashmap entries
+10:06:32,175 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     4 msec resulted in     3232 extra hashmap entries
+10:06:32,191 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    15 msec resulted in     2138 extra hashmap entries
+10:06:32,236 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    45 msec resulted in    27170 extra hashmap entries
+10:06:32,239 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     2 msec resulted in     1672 extra hashmap entries
+10:06:32,240 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:06:32,241 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:06:32,242 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     0 msec resulted in      183 extra hashmap entries
+10:06:32,243 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     1 msec resulted in      529 extra hashmap entries
+10:06:32,245 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     1 msec resulted in      254 extra hashmap entries
+10:06:32,248 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     2 msec resulted in     3199 extra hashmap entries
+10:06:32,328 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    79 msec resulted in     6000 extra hashmap entries
+10:06:32,332 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     3 msec resulted in      925 extra hashmap entries
+10:06:32,350 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    17 msec resulted in     4134 extra hashmap entries
+10:06:32,352 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     1 msec resulted in       60 extra hashmap entries
+10:06:32,354 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     1 msec resulted in        2 extra hashmap entries
+10:06:32,356 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     1 msec resulted in       74 extra hashmap entries
+10:06:32,356 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:06:32,413 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    56 msec resulted in    12240 extra hashmap entries
+10:06:32,419 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     5 msec resulted in     4420 extra hashmap entries
+10:06:32,422 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     2 msec resulted in      371 extra hashmap entries
+10:06:32,422 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:06:32,425 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     2 msec resulted in       75 extra hashmap entries
+10:06:32,429 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     4 msec resulted in        0 extra hashmap entries
+10:06:33,504 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took  1073 msec resulted in      159 extra hashmap entries
+10:06:33,505 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:06:33,506 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     1 msec resulted in       18 extra hashmap entries
+10:06:33,517 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took    10 msec resulted in     8040 extra hashmap entries
+10:06:33,601 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    83 msec resulted in    65876 extra hashmap entries
+10:06:33,606 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     5 msec resulted in     4400 extra hashmap entries
+10:06:33,635 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    28 msec resulted in     9927 extra hashmap entries
+10:06:33,636 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:06:33,636 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:06:33,637 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     0 msec resulted in      960 extra hashmap entries
+10:06:33,638 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:06:33,639 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:06:33,665 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    26 msec resulted in    19630 extra hashmap entries
+10:06:33,685 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    19 msec resulted in    19227 extra hashmap entries
+10:06:33,686 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:06:33,686 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:06:33,689 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:06:33,695 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     5 msec resulted in     4400 extra hashmap entries
+10:06:33,695 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:06:33,699 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     3 msec resulted in     1340 extra hashmap entries
+10:06:33,702 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:06:33,702 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1623 msec resulted in   211450 hashmap entries
+10:06:33,702 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:06:33,703 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:06:33,703 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:06:33,703 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:06:33,703 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+1.782 ms/op
+# Warmup Iteration   2: 0.721 ms/op
+# Warmup Iteration   3: 0.595 ms/op
+# Warmup Iteration   4: 0.551 ms/op
+# Warmup Iteration   5: 0.521 ms/op
+# Warmup Iteration   6: 0.515 ms/op
+# Warmup Iteration   7: 0.512 ms/op
+# Warmup Iteration   8: 0.525 ms/op
+# Warmup Iteration   9: 0.530 ms/op
+# Warmup Iteration  10: 0.522 ms/op
+# Warmup Iteration  11: 0.504 ms/op
+# Warmup Iteration  12: 0.513 ms/op
+# Warmup Iteration  13: 0.516 ms/op
+# Warmup Iteration  14: 0.510 ms/op
+# Warmup Iteration  15: 0.518 ms/op
+# Warmup Iteration  16: 0.519 ms/op
+# Warmup Iteration  17: 0.509 ms/op
+# Warmup Iteration  18: 0.509 ms/op
+# Warmup Iteration  19: 0.510 ms/op
+# Warmup Iteration  20: 0.507 ms/op
+Iteration   1: 0.533 ms/op
+Iteration   2: 0.523 ms/op
+Iteration   3: 0.519 ms/op
+Iteration   4: 0.514 ms/op
+Iteration   5: 0.511 ms/op
+Iteration   6: 0.506 ms/op
+Iteration   7: 0.522 ms/op
+Iteration   8: 0.511 ms/op
+Iteration   9: 0.518 ms/op
+Iteration  10: 0.510 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win10Chrome51":
+  0.517 ±(99.9%) 0.012 ms/op [Average]
+  (min, avg, max) = (0.506, 0.517, 0.533), stdev = 0.008
+  CI (99.9%): [0.505, 0.529] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win10Edge13
+
+# Run progress: 80.00% complete, ETA 00:01:36
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:07:03,980 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:07:04,239 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:07:04,240 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:07:04,360 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took   115 msec resulted in     5892 extra hashmap entries
+10:07:04,366 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     5 msec resulted in     3232 extra hashmap entries
+10:07:04,386 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    19 msec resulted in     2138 extra hashmap entries
+10:07:04,451 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    64 msec resulted in    27170 extra hashmap entries
+10:07:04,455 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     3 msec resulted in     1672 extra hashmap entries
+10:07:04,457 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:07:04,457 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:07:04,459 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     1 msec resulted in      183 extra hashmap entries
+10:07:04,461 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     1 msec resulted in      529 extra hashmap entries
+10:07:04,464 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     2 msec resulted in      254 extra hashmap entries
+10:07:04,469 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     3 msec resulted in     3199 extra hashmap entries
+10:07:04,542 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    73 msec resulted in     6000 extra hashmap entries
+10:07:04,545 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     3 msec resulted in      925 extra hashmap entries
+10:07:04,562 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    15 msec resulted in     4134 extra hashmap entries
+10:07:04,563 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     0 msec resulted in       60 extra hashmap entries
+10:07:04,565 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     1 msec resulted in        2 extra hashmap entries
+10:07:04,567 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     1 msec resulted in       74 extra hashmap entries
+10:07:04,567 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:07:04,618 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    50 msec resulted in    12240 extra hashmap entries
+10:07:04,624 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     5 msec resulted in     4420 extra hashmap entries
+10:07:04,627 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     2 msec resulted in      371 extra hashmap entries
+10:07:04,627 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:07:04,631 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     2 msec resulted in       75 extra hashmap entries
+10:07:04,635 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     4 msec resulted in        0 extra hashmap entries
+10:07:05,710 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took  1074 msec resulted in      159 extra hashmap entries
+10:07:05,711 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:07:05,712 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     0 msec resulted in       18 extra hashmap entries
+10:07:05,720 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took     7 msec resulted in     8040 extra hashmap entries
+10:07:05,788 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    68 msec resulted in    65876 extra hashmap entries
+10:07:05,793 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     4 msec resulted in     4400 extra hashmap entries
+10:07:05,820 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    26 msec resulted in     9927 extra hashmap entries
+10:07:05,821 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:07:05,821 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:07:05,822 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     0 msec resulted in      960 extra hashmap entries
+10:07:05,822 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:07:05,823 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:07:05,845 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    21 msec resulted in    19630 extra hashmap entries
+10:07:05,863 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    17 msec resulted in    19227 extra hashmap entries
+10:07:05,863 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:07:05,863 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:07:05,866 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:07:05,871 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     4 msec resulted in     4400 extra hashmap entries
+10:07:05,872 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:07:05,874 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     2 msec resulted in     1340 extra hashmap entries
+10:07:05,877 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:07:05,878 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1637 msec resulted in   211450 hashmap entries
+10:07:05,878 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:07:05,878 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:07:05,878 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:07:05,878 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:07:05,878 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+2.329 ms/op
+# Warmup Iteration   2: 0.771 ms/op
+# Warmup Iteration   3: 0.589 ms/op
+# Warmup Iteration   4: 0.607 ms/op
+# Warmup Iteration   5: 0.558 ms/op
+# Warmup Iteration   6: 0.568 ms/op
+# Warmup Iteration   7: 0.563 ms/op
+# Warmup Iteration   8: 0.577 ms/op
+# Warmup Iteration   9: 0.580 ms/op
+# Warmup Iteration  10: 0.572 ms/op
+# Warmup Iteration  11: 0.547 ms/op
+# Warmup Iteration  12: 0.545 ms/op
+# Warmup Iteration  13: 0.549 ms/op
+# Warmup Iteration  14: 0.546 ms/op
+# Warmup Iteration  15: 0.567 ms/op
+# Warmup Iteration  16: 0.554 ms/op
+# Warmup Iteration  17: 0.547 ms/op
+# Warmup Iteration  18: 0.546 ms/op
+# Warmup Iteration  19: 0.551 ms/op
+# Warmup Iteration  20: 0.572 ms/op
+Iteration   1: 0.566 ms/op
+Iteration   2: 0.552 ms/op
+Iteration   3: 0.541 ms/op
+Iteration   4: 0.540 ms/op
+Iteration   5: 0.545 ms/op
+Iteration   6: 0.552 ms/op
+Iteration   7: 0.546 ms/op
+Iteration   8: 0.546 ms/op
+Iteration   9: 0.545 ms/op
+Iteration  10: 0.553 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win10Edge13":
+  0.548 ±(99.9%) 0.011 ms/op [Average]
+  (min, avg, max) = (0.540, 0.548, 0.566), stdev = 0.007
+  CI (99.9%): [0.537, 0.560] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win10IE11
+
+# Run progress: 86.67% complete, ETA 00:01:04
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:07:36,145 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:07:36,424 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:07:36,424 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:07:36,522 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took    94 msec resulted in     5892 extra hashmap entries
+10:07:36,527 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     4 msec resulted in     3232 extra hashmap entries
+10:07:36,542 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    14 msec resulted in     2138 extra hashmap entries
+10:07:36,589 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    47 msec resulted in    27170 extra hashmap entries
+10:07:36,592 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     2 msec resulted in     1672 extra hashmap entries
+10:07:36,593 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:07:36,594 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:07:36,595 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     0 msec resulted in      183 extra hashmap entries
+10:07:36,596 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     0 msec resulted in      529 extra hashmap entries
+10:07:36,598 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     1 msec resulted in      254 extra hashmap entries
+10:07:36,601 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     2 msec resulted in     3199 extra hashmap entries
+10:07:36,642 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    41 msec resulted in     6000 extra hashmap entries
+10:07:36,646 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     3 msec resulted in      925 extra hashmap entries
+10:07:36,665 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    17 msec resulted in     4134 extra hashmap entries
+10:07:36,667 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     1 msec resulted in       60 extra hashmap entries
+10:07:36,669 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     1 msec resulted in        2 extra hashmap entries
+10:07:36,671 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     1 msec resulted in       74 extra hashmap entries
+10:07:36,671 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:07:36,722 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    50 msec resulted in    12240 extra hashmap entries
+10:07:36,728 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     5 msec resulted in     4420 extra hashmap entries
+10:07:36,731 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     2 msec resulted in      371 extra hashmap entries
+10:07:36,732 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:07:36,734 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     2 msec resulted in       75 extra hashmap entries
+10:07:36,739 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     4 msec resulted in        0 extra hashmap entries
+10:07:37,746 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took  1006 msec resulted in      159 extra hashmap entries
+10:07:37,747 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:07:37,748 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     0 msec resulted in       18 extra hashmap entries
+10:07:37,756 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took     7 msec resulted in     8040 extra hashmap entries
+10:07:37,835 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    78 msec resulted in    65876 extra hashmap entries
+10:07:37,840 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     4 msec resulted in     4400 extra hashmap entries
+10:07:37,865 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    24 msec resulted in     9927 extra hashmap entries
+10:07:37,866 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:07:37,866 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:07:37,867 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     1 msec resulted in      960 extra hashmap entries
+10:07:37,868 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:07:37,869 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     1 msec resulted in      309 extra hashmap entries
+10:07:37,894 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    23 msec resulted in    19630 extra hashmap entries
+10:07:37,912 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    18 msec resulted in    19227 extra hashmap entries
+10:07:37,913 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:07:37,913 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:07:37,916 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:07:37,922 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     5 msec resulted in     4400 extra hashmap entries
+10:07:37,922 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:07:37,926 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     3 msec resulted in     1340 extra hashmap entries
+10:07:37,929 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:07:37,929 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1504 msec resulted in   211450 hashmap entries
+10:07:37,930 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:07:37,930 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:07:37,930 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:07:37,930 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:07:37,930 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+2.564 ms/op
+# Warmup Iteration   2: 0.653 ms/op
+# Warmup Iteration   3: 0.568 ms/op
+# Warmup Iteration   4: 0.498 ms/op
+# Warmup Iteration   5: 0.553 ms/op
+# Warmup Iteration   6: 0.490 ms/op
+# Warmup Iteration   7: 0.474 ms/op
+# Warmup Iteration   8: 0.489 ms/op
+# Warmup Iteration   9: 0.506 ms/op
+# Warmup Iteration  10: 0.495 ms/op
+# Warmup Iteration  11: 0.497 ms/op
+# Warmup Iteration  12: 0.474 ms/op
+# Warmup Iteration  13: 0.477 ms/op
+# Warmup Iteration  14: 0.480 ms/op
+# Warmup Iteration  15: 0.479 ms/op
+# Warmup Iteration  16: 0.490 ms/op
+# Warmup Iteration  17: 0.483 ms/op
+# Warmup Iteration  18: 0.479 ms/op
+# Warmup Iteration  19: 0.475 ms/op
+# Warmup Iteration  20: 0.478 ms/op
+Iteration   1: 0.472 ms/op
+Iteration   2: 0.481 ms/op
+Iteration   3: 0.516 ms/op
+Iteration   4: 0.478 ms/op
+Iteration   5: 0.473 ms/op
+Iteration   6: 0.476 ms/op
+Iteration   7: 0.477 ms/op
+Iteration   8: 0.485 ms/op
+Iteration   9: 0.478 ms/op
+Iteration  10: 0.472 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win10IE11":
+  0.481 ±(99.9%) 0.019 ms/op [Average]
+  (min, avg, max) = (0.472, 0.481, 0.516), stdev = 0.013
+  CI (99.9%): [0.461, 0.500] (assumes normal distribution)
+
+
+# JMH version: 1.19
+# VM version: JDK 1.8.0_131, VM 25.131-b11
+# VM invoker: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win7ie11
+
+# Run progress: 93.33% complete, ETA 00:00:32
+# Fork: 1 of 1
+# Warmup Iteration   1: 10:08:08,201 [INFO ] UserAgentAnalyzer                       :   99: Loading from: "classpath*:UserAgents/**/*.yaml"
+10:08:08,456 [INFO ] UserAgentAnalyzer                       :  133: Loaded 49 files
+10:08:08,456 [INFO ] UserAgentAnalyzer                       :  148: Building all matchers
+10:08:08,556 [INFO ] UserAgentAnalyzer                       :  175: Building   29 matchers from Android.yaml                    took    95 msec resulted in     5892 extra hashmap entries
+10:08:08,563 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Anonymized.yaml                 took     5 msec resulted in     3232 extra hashmap entries
+10:08:08,588 [INFO ] UserAgentAnalyzer                       :  175: Building   21 matchers from Apple.yaml                      took    24 msec resulted in     2138 extra hashmap entries
+10:08:08,664 [INFO ] UserAgentAnalyzer                       :  175: Building  195 matchers from AppleTypes.yaml                 took    75 msec resulted in    27170 extra hashmap entries
+10:08:08,668 [INFO ] UserAgentAnalyzer                       :  175: Building   12 matchers from AppleTypesBasic.yaml            took     3 msec resulted in     1672 extra hashmap entries
+10:08:08,669 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from AppleWebview.yaml               took     0 msec resulted in       20 extra hashmap entries
+10:08:08,670 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Apps.yaml                       took     0 msec resulted in        4 extra hashmap entries
+10:08:08,672 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Bada.yaml                       took     1 msec resulted in      183 extra hashmap entries
+10:08:08,674 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from BlackBerry.yaml                 took     1 msec resulted in      529 extra hashmap entries
+10:08:08,677 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from BrokenUseragents.yaml           took     2 msec resulted in      254 extra hashmap entries
+10:08:08,681 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from CPUTypes.yaml                   took     3 msec resulted in     3199 extra hashmap entries
+10:08:08,746 [INFO ] UserAgentAnalyzer                       :  175: Building   18 matchers from Facebook.yaml                   took    64 msec resulted in     6000 extra hashmap entries
+10:08:08,752 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from GameConsoles.yaml               took     5 msec resulted in      925 extra hashmap entries
+10:08:08,779 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GeckoFirefox.yaml               took    25 msec resulted in     4134 extra hashmap entries
+10:08:08,780 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from GoogleChrome.yaml               took     1 msec resulted in       60 extra hashmap entries
+10:08:08,784 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers-SQLInjections.yaml      took     2 msec resulted in        2 extra hashmap entries
+10:08:08,786 [INFO ] UserAgentAnalyzer                       :  175: Building   14 matchers from Hackers.yaml                    took     2 msec resulted in       74 extra hashmap entries
+10:08:08,787 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from ISOLanguageCode.yaml            took     0 msec resulted in       50 extra hashmap entries
+10:08:08,845 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from InternetExplorer.yaml           took    57 msec resulted in    12240 extra hashmap entries
+10:08:08,851 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from Konqueror.yaml                  took     5 msec resulted in     4420 extra hashmap entries
+10:08:08,854 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Linux.yaml                      took     2 msec resulted in      371 extra hashmap entries
+10:08:08,854 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Maxthon.yaml                    took     0 msec resulted in       20 extra hashmap entries
+10:08:08,857 [INFO ] UserAgentAnalyzer                       :  175: Building   31 matchers from Mobile.yaml                     took     2 msec resulted in       75 extra hashmap entries
+10:08:08,861 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from MobileBrand-tests.yaml          took     3 msec resulted in        0 extra hashmap entries
+10:08:09,865 [INFO ] UserAgentAnalyzer                       :  175: Building 1020 matchers from MobileBrands.yaml               took  1004 msec resulted in      159 extra hashmap entries
+10:08:09,866 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from Mozilla-Testcases.yaml          took     0 msec resulted in       21 extra hashmap entries
+10:08:09,867 [INFO ] UserAgentAnalyzer                       :  175: Building   22 matchers from Nokia.yaml                      took     0 msec resulted in       18 extra hashmap entries
+10:08:09,877 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from Opera.yaml                      took     9 msec resulted in     8040 extra hashmap entries
+10:08:09,963 [INFO ] UserAgentAnalyzer                       :  175: Building  288 matchers from OperatingSystemDeviceNames.yaml took    86 msec resulted in    65876 extra hashmap entries
+10:08:09,969 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from OtherOS.yaml                    took     4 msec resulted in     4400 extra hashmap entries
+10:08:09,995 [INFO ] UserAgentAnalyzer                       :  175: Building   32 matchers from Robots.yaml                     took    26 msec resulted in     9927 extra hashmap entries
+10:08:09,996 [INFO ] UserAgentAnalyzer                       :  175: Building   11 matchers from Safari.yaml                     took     0 msec resulted in        3 extra hashmap entries
+10:08:09,996 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from Samsung.yaml                    took     0 msec resulted in       32 extra hashmap entries
+10:08:09,997 [INFO ] UserAgentAnalyzer                       :  175: Building    3 matchers from SecurityFlag.yaml               took     0 msec resulted in      960 extra hashmap entries
+10:08:09,998 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from SettopBox.yaml                  took     0 msec resulted in       70 extra hashmap entries
+10:08:09,998 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from SpecialBrowsers.yaml            took     0 msec resulted in      309 extra hashmap entries
+10:08:10,021 [INFO ] UserAgentAnalyzer                       :  175: Building   15 matchers from TV.yaml                         took    21 msec resulted in    19630 extra hashmap entries
+10:08:10,039 [INFO ] UserAgentAnalyzer                       :  175: Building   10 matchers from URL.yaml                        took    18 msec resulted in    19227 extra hashmap entries
+10:08:10,040 [INFO ] UserAgentAnalyzer                       :  175: Building    6 matchers from UUID.yaml                       took     0 msec resulted in      404 extra hashmap entries
+10:08:10,040 [INFO ] UserAgentAnalyzer                       :  175: Building    2 matchers from Watches.yaml                    took     0 msec resulted in       10 extra hashmap entries
+10:08:10,043 [INFO ] UserAgentAnalyzer                       :  175: Building    8 matchers from Windows.yaml                    took     2 msec resulted in      690 extra hashmap entries
+10:08:10,049 [INFO ] UserAgentAnalyzer                       :  175: Building    4 matchers from WindowsCE.yaml                  took     5 msec resulted in     4400 extra hashmap entries
+10:08:10,050 [INFO ] UserAgentAnalyzer                       :  175: Building    1 matchers from WindowsOEMCodes.yaml            took     0 msec resulted in        0 extra hashmap entries
+10:08:10,053 [INFO ] UserAgentAnalyzer                       :  175: Building    9 matchers from WindowsPhone.yaml               took     3 msec resulted in     1340 extra hashmap entries
+10:08:10,056 [INFO ] UserAgentAnalyzer                       :  175: Building    5 matchers from eBook.yaml                      took     2 msec resulted in     3270 extra hashmap entries
+10:08:10,056 [INFO ] UserAgentAnalyzer                       :  185: Building 1902 matchers from   45 files took  1599 msec resulted in   211450 hashmap entries
+10:08:10,056 [INFO ] UserAgentAnalyzer                       :  188: Analyzer stats
+10:08:10,057 [INFO ] UserAgentAnalyzer                       :  189: Lookups      : 21
+10:08:10,057 [INFO ] UserAgentAnalyzer                       :  190: Matchers     : 1902
+10:08:10,057 [INFO ] UserAgentAnalyzer                       :  191: Hashmap size : 211450
+10:08:10,057 [INFO ] UserAgentAnalyzer                       :  192: Testcases    : 573
+1.982 ms/op
+# Warmup Iteration   2: 1.173 ms/op
+# Warmup Iteration   3: 0.774 ms/op
+# Warmup Iteration   4: 0.541 ms/op
+# Warmup Iteration   5: 0.522 ms/op
+# Warmup Iteration   6: 0.583 ms/op
+# Warmup Iteration   7: 0.508 ms/op
+# Warmup Iteration   8: 0.489 ms/op
+# Warmup Iteration   9: 0.507 ms/op
+# Warmup Iteration  10: 0.504 ms/op
+# Warmup Iteration  11: 0.519 ms/op
+# Warmup Iteration  12: 0.487 ms/op
+# Warmup Iteration  13: 0.486 ms/op
+# Warmup Iteration  14: 0.484 ms/op
+# Warmup Iteration  15: 0.482 ms/op
+# Warmup Iteration  16: 0.484 ms/op
+# Warmup Iteration  17: 0.494 ms/op
+# Warmup Iteration  18: 0.489 ms/op
+# Warmup Iteration  19: 0.478 ms/op
+# Warmup Iteration  20: 0.478 ms/op
+Iteration   1: 0.486 ms/op
+Iteration   2: 0.484 ms/op
+Iteration   3: 0.496 ms/op
+Iteration   4: 0.506 ms/op
+Iteration   5: 0.477 ms/op
+Iteration   6: 0.480 ms/op
+Iteration   7: 0.484 ms/op
+Iteration   8: 0.478 ms/op
+Iteration   9: 0.483 ms/op
+Iteration  10: 0.492 ms/op
+
+
+Result "nl.basjes.parse.useragent.benchmarks.AnalyzerBenchmarks.win7ie11":
+  0.487 ±(99.9%) 0.014 ms/op [Average]
+  (min, avg, max) = (0.477, 0.487, 0.506), stdev = 0.009
+  CI (99.9%): [0.473, 0.500] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:08:02
+
+Benchmark                                  Mode  Cnt  Score   Error  Units
+AnalyzerBenchmarks.android6Chrome46        avgt   10  0.717 ± 0.011  ms/op
+AnalyzerBenchmarks.androidPhone            avgt   10  0.866 ± 0.010  ms/op
+AnalyzerBenchmarks.googleAdsBot            avgt   10  0.310 ± 0.007  ms/op
+AnalyzerBenchmarks.googleAdsBotMobile      avgt   10  0.586 ± 0.005  ms/op
+AnalyzerBenchmarks.googleBotMobileAndroid  avgt   10  0.770 ± 0.007  ms/op
+AnalyzerBenchmarks.googlebot               avgt   10  0.404 ± 0.006  ms/op
+AnalyzerBenchmarks.hackerSQL               avgt   10  0.306 ± 0.008  ms/op
+AnalyzerBenchmarks.hackerShellShock        avgt   10  0.295 ± 0.002  ms/op
+AnalyzerBenchmarks.iPad                    avgt   10  0.535 ± 0.005  ms/op
+AnalyzerBenchmarks.iPhone                  avgt   10  0.550 ± 0.007  ms/op
+AnalyzerBenchmarks.iPhoneFacebookApp       avgt   10  0.883 ± 0.010  ms/op
+AnalyzerBenchmarks.win10Chrome51           avgt   10  0.517 ± 0.012  ms/op
+AnalyzerBenchmarks.win10Edge13             avgt   10  0.548 ± 0.011  ms/op
+AnalyzerBenchmarks.win10IE11               avgt   10  0.481 ± 0.019  ms/op
+AnalyzerBenchmarks.win7ie11                avgt   10  0.487 ± 0.014  ms/op

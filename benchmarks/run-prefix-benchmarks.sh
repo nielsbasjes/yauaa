@@ -29,12 +29,12 @@ function build {
 
 function run {
   version=$1
-  if [ -f "version-${version}.txt" ];
+  if [ -f "results/version-${version}.txt" ];
   then
     echo "- Already have version ${version}"
   else
     mvn clean package -Dyauaa.version="${version}"
-    java -jar target/benchmarks.jar > "version-${version}.txt"
+    java -jar target/benchmarks.jar > "results/version-${version}.txt"
     echo '/ ============================================== ' && \
     echo "| Building version ${version}" && \
     echo '\ ============================================== ' && \
@@ -42,7 +42,7 @@ function run {
     echo '/ ============================================== ' && \
     echo "| Testing version ${version}" && \
     echo '\ ============================================== ' && \
-    java -jar target/benchmarks.jar > "version-${version}.txt"
+    java -jar target/benchmarks.jar > "results/version-${version}.txt"
   fi
 }
 
