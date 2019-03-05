@@ -19,6 +19,6 @@ Followed by a few steps in a rewrite of that part resulting in effectively the f
 
 Output from the benchmark ( [using this code](https://github.com/nielsbasjes/yauaa/blob/master/benchmarks/src/test/java/nl/basjes/parse/useragent/benchmarks/RunBenchmarks.java) ) on a Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz from version 3.0 onwards:
 
+<div id="curve_chart" style="height: 1000px"></div>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="PerformanceGraph.js"></script>
-<div id="curve_chart" style="height: 1000px"></div>
