@@ -572,10 +572,35 @@ config:
       AgentLanguageCode                    : 'nl-nl'
       AgentSecurity                        : 'Strong security'
 
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; G7 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
-## MPIE G7
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; G7 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei G7'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KOT49H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
 
 - test:
     input:
@@ -1309,25 +1334,154 @@ config:
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
 
 
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; A1 Build/KTU84Q) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Safari/537.36'
-##Micromax Canvas A1
+# Very very vague device names --> Brand is unreliable
 
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 5.1; en-US; A3 Build/LMY47D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/10.8.0.718 U3/0.8.0 Mobile Safari/534.30'
-#Movka A3
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; A1 Build/KTU84Q) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'A1'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.4'
+      OperatingSystemNameVersion           : 'Android 4.4.4'
+      OperatingSystemVersionBuild          : 'KTU84Q'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '33.0'
+      LayoutEngineVersionMajor             : '33'
+      LayoutEngineNameVersion              : 'Blink 33.0'
+      LayoutEngineNameVersionMajor         : 'Blink 33'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '33.0.0.0'
+      AgentVersionMajor                    : '33'
+      AgentNameVersion                     : 'Chrome Webview 33.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 33'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
 
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; B1 Build/KVT49L) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; B3 Simply Build/LMY47V; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.121 Mobile Safari/537.36'
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; nl-be; PO 8217 TAD-90022 Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 5.1; en-US; A3 Build/LMY47D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/10.8.0.718 U3/0.8.0 Mobile Safari/534.30'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'A3'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1'
+      OperatingSystemNameVersion           : 'Android 5.1'
+      OperatingSystemVersionBuild          : 'LMY47D'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'UCBrowser U3'
+      LayoutEngineVersion                  : '0.8.0'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'UCBrowser U3 0.8.0'
+      LayoutEngineNameVersionMajor         : 'UCBrowser U3 0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'UCBrowser'
+      AgentVersion                         : '10.8.0.718'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'UCBrowser 10.8.0.718'
+      AgentNameVersionMajor                : 'UCBrowser 10'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; B1 Build/KVT49L) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'B1'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemVersionBuild          : 'KVT49L'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; B3 Simply Build/LMY47V; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.121 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'CAT B3 Simply'
+      DeviceBrand                          : 'CAT'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1.1'
+      OperatingSystemNameVersion           : 'Android 5.1.1'
+      OperatingSystemVersionBuild          : 'LMY47V'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '43.0'
+      LayoutEngineVersionMajor             : '43'
+      LayoutEngineNameVersion              : 'Blink 43.0'
+      LayoutEngineNameVersionMajor         : 'Blink 43'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '43.0.2357.121'
+      AgentVersionMajor                    : '43'
+      AgentNameVersion                     : 'Chrome Webview 43.0.2357.121'
+      AgentNameVersionMajor                : 'Chrome Webview 43'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; nl-be; PO 8217 TAD-90022 Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'PO 8217 TAD-90022'
+      DeviceBrand                          : 'PO'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.2.2'
+      OperatingSystemNameVersion           : 'Android 4.2.2'
+      OperatingSystemVersionBuild          : 'JDQ39'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'Dutch (Belgium)'
+      AgentLanguageCode                    : 'nl-be'
+      AgentSecurity                        : 'Strong security'
 
 
 - test: # NO brand specified !!!
