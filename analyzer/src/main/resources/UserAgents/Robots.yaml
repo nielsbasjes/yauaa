@@ -4595,18 +4595,82 @@ config:
       AgentInformationUrl                  : 'http://www.linkedin.com'
 
 
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 larbin@unspecified.mail'
-#
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; Yahoo Link Preview; https://help.yahoo.com/kb/mail/yahoo-link-preview-SLN23615.html)'
-#
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; +http://tweetedtimes.com)'
-#
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 larbin@unspecified.mail'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '5.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Netscape 5.0'
+      AgentNameVersionMajor                : 'Netscape 5'
+      AgentInformationEmail                : 'larbin@unspecified.mail'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Yahoo Link Preview; https://help.yahoo.com/kb/mail/yahoo-link-preview-SLN23615.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Yahoo'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '5.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Netscape 5.0'
+      AgentNameVersionMajor                : 'Netscape 5'
+      AgentInformationUrl                  : 'https://help.yahoo.com/kb/mail/yahoo-link-preview-SLN23615.html'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; +http://tweetedtimes.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Tweetedtimes'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '5.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Netscape 5.0'
+      AgentNameVersionMajor                : 'Netscape 5'
+      AgentInformationUrl                  : 'http://tweetedtimes.com'
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; proximic; +http://www.proximic.com/info/spider.php)'
