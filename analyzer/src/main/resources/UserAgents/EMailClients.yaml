@@ -577,6 +577,28 @@ config:
 #- test: #TODO: Implement
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko Firefox/11.0 (via ggpht.com GoogleImageProxy)'
+#    expected:
+#      DeviceClass                          : 'Desktop'
+#      DeviceName                           : 'Desktop'
+#      DeviceBrand                          : 'Ggpht'
+#      DeviceCpuBits                        : '32'
+#      OperatingSystemClass                 : 'Desktop'
+#      OperatingSystemName                  : 'Windows NT'
+#      OperatingSystemVersion               : 'XP'
+#      OperatingSystemNameVersion           : 'Windows XP'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'Mozilla'
+#      LayoutEngineVersion                  : '5.0'
+#      LayoutEngineVersionMajor             : '5'
+#      LayoutEngineNameVersion              : 'Mozilla 5.0'
+#      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'Firefox'
+#      AgentVersion                         : '11.0'
+#      AgentVersionMajor                    : '11'
+#      AgentNameVersion                     : 'Firefox 11.0'
+#      AgentNameVersionMajor                : 'Firefox 11'
+#      AgentInformationUrl                  : 'ggpht.com'
 
 # Chrome 71 on Ubuntu 16.04:
 # Google Docs document: Insert --> Image --> By Url .
@@ -934,18 +956,94 @@ config:
       AgentNameVersion                     : 'SkypeUriPreview Preview 0.5'
       AgentNameVersionMajor                : 'SkypeUriPreview Preview 0'
 
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'OneNote/16.0.8431.2110 (Windows/10.0; Desktop x64; nl-NL; Desktop app; Dell Inc./Latitude 7480)'
+
+- matcher:
+    variable:
+    - 'Dell: agent.product.comments.entry.product.name[1]="Dell"@'
+    extract:
+    - 'DeviceClass                          : 1000 : "Desktop"'
+    - 'DeviceName                           : 1000 : @Dell^'
+    - 'DeviceBrand                          : 1000 : @Dell'
 
 
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'OneNote/16.0.8431.2110 (Windows/10.0; Desktop x64; nl-NL; Desktop app; Dell Inc./Latitude E7470)'
+- test:
+    input:
+      user_agent_string: 'OneNote/16.0.8431.2110 (Windows/10.0; Desktop x64; nl-NL; Desktop app; Dell Inc./Latitude 7480)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Dell Inc. /Latitude 7480' #FIXME: Get rid of the '/'
+      DeviceBrand                          : 'Dell Inc.'
+      DeviceCpu                            : 'x64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'OneNote'
+      AgentVersion                         : '16.0.8431.2110'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'OneNote 16.0.8431.2110'
+      AgentNameVersionMajor                : 'OneNote 16'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
 
 
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'OneNote/16.0.4639.1000 (Windows/10.0; Desktop WOW64; nl-NL; Desktop app; Dell Inc./Latitude 7480)'
+- test:
+    input:
+      user_agent_string: 'OneNote/16.0.8431.2110 (Windows/10.0; Desktop x64; nl-NL; Desktop app; Dell Inc./Latitude E7470)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Dell Inc. /Latitude E7470'
+      DeviceBrand                          : 'Dell Inc.'
+      DeviceCpu                            : 'x64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'OneNote'
+      AgentVersion                         : '16.0.8431.2110'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'OneNote 16.0.8431.2110'
+      AgentNameVersionMajor                : 'OneNote 16'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+
+
+- test:
+    input:
+      user_agent_string: 'OneNote/16.0.4639.1000 (Windows/10.0; Desktop WOW64; nl-NL; Desktop app; Dell Inc./Latitude 7480)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Dell Inc. /Latitude 7480'
+      DeviceBrand                          : 'Dell Inc.'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'OneNote'
+      AgentVersion                         : '16.0.4639.1000'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'OneNote 16.0.4639.1000'
+      AgentNameVersionMajor                : 'OneNote 16'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
 
 
