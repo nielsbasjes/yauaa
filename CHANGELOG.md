@@ -15,8 +15,10 @@ v5.9-SNAPSHOT
 - Detection for very old Windows Phones, Nikto
 - Updated UDF dependencies
   - Apache Flink  1.7.2
-  - Apache Beam   2.10.0
+  - Apache Beam   2.11.0
   - Apache Nifi   1.9.0
+  - Apache Hadoop 3.2.0
+  - Apache Hive   3.1.1
 - Massive improvement in detection of URLs.
 - New more realistic performance benchmark test
 
