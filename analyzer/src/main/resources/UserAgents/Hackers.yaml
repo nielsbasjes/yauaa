@@ -600,6 +600,8 @@ config:
 - matcher:
     require:
     - 'agent~"${"'
+    - 'IsNull[agent.product.version="${pom.version}"]'
+    - 'IsNull[agent.product.comments.entry.product.version="${pom.version}"]'
     extract:
     - '__Set_ALL_Fields__                  :   4999 :"<<<null>>>"' # Must be at least 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :  10000 :"Hacker"'

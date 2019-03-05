@@ -733,3 +733,26 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
+
+- test: #TODO: Implement
+    input:
+      user_agent_string: 'Mozilla/3.0 (compatible; Indy Library)'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'Mozilla 3.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 3'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Netscape 3.0'
+      AgentNameVersionMajor                : 'Netscape 3'

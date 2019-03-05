@@ -31,10 +31,12 @@ config:
       'Daumoa'                     : 'Daom'
       'DejaClick'                  : 'DejaClick'
       'Echoping'                   : 'Echoping'
+      'exal'                       : 'exal'
       'Facebot Twitterbot'         : 'Facebook'
       'GnowitNewsbot'              : 'GnowitNewsbot'
       'Guzzle'                     : 'Guzzle'
       'GuzzleHttp'                 : 'Guzzle'
+      'heritrix'                   : 'heritrix'
       'lua-resty-http'             : 'LedgeTech'
       'Mappy'                      : 'Mappy'
       'MegaIndex.ru'               : 'MegaIndex.ru'
@@ -969,6 +971,107 @@ config:
 #    - 'AgentClass            :  100:"Robot"'
 #    - 'AgentName             :  100:@RobotName'
 #    - 'AgentVersion          :  100:@RobotName'
+
+# ==================================
+- matcher:
+    variable:
+    - 'RobotName:agent.(1-10)keyvalue.key~"spider"'
+    extract:
+    - '__Set_ALL_Fields__                  :     99 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :    100 :"Robot"'
+    - 'DeviceName                          :    100 :@RobotName'
+    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    100 :"Cloud"'
+    - 'OperatingSystemName                 :    100 :"Cloud"'
+    - 'OperatingSystemVersion              :    100 :"??"'
+    - 'LayoutEngineClass                   :    100 :"Robot"'
+    - 'LayoutEngineName                    :    100 :@RobotName'
+    - 'LayoutEngineVersion                 :    100 :@RobotName'
+    - 'AgentClass                          :    100 :"Robot"'
+    - 'AgentName                           :    100 :@RobotName'
+    - 'AgentVersion                        :    100 :@RobotName'
+
+- matcher:
+    variable:
+    - 'RobotName:agent.(1-10)keyvalue.key~"crawl"'
+    extract:
+    - '__Set_ALL_Fields__                  :     99 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :    100 :"Robot"'
+    - 'DeviceName                          :    100 :@RobotName'
+    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    100 :"Cloud"'
+    - 'OperatingSystemName                 :    100 :"Cloud"'
+    - 'OperatingSystemVersion              :    100 :"??"'
+    - 'LayoutEngineClass                   :    100 :"Robot"'
+    - 'LayoutEngineName                    :    100 :@RobotName'
+    - 'LayoutEngineVersion                 :    100 :@RobotName'
+    - 'AgentClass                          :    100 :"Robot"'
+    - 'AgentName                           :    100 :@RobotName'
+    - 'AgentVersion                        :    100 :@RobotName'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1-10)keyvalue.key[1]="cubot"]'
+    variable:
+    - 'RobotName:agent.(1-10)keyvalue.key~"bot"'
+    extract:
+    - '__Set_ALL_Fields__                  :     99 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :    100 :"Robot"'
+    - 'DeviceName                          :    100 :@RobotName'
+    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    100 :"Cloud"'
+    - 'OperatingSystemName                 :    100 :"Cloud"'
+    - 'OperatingSystemVersion              :    100 :"??"'
+    - 'LayoutEngineClass                   :    100 :"Robot"'
+    - 'LayoutEngineName                    :    100 :@RobotName'
+    - 'LayoutEngineVersion                 :    100 :@RobotName'
+    - 'AgentClass                          :    100 :"Robot"'
+    - 'AgentName                           :    100 :@RobotName'
+    - 'AgentVersion                        :    100 :@RobotName'
+
+- matcher:
+    variable:
+    - 'RobotName:agent.(1-10)keyvalue.key~"scan"'
+    extract:
+    - '__Set_ALL_Fields__                  :     99 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :    100 :"Robot"'
+    - 'DeviceName                          :    100 :@RobotName'
+    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    100 :"Cloud"'
+    - 'OperatingSystemName                 :    100 :"Cloud"'
+    - 'OperatingSystemVersion              :    100 :"??"'
+    - 'LayoutEngineClass                   :    100 :"Robot"'
+    - 'LayoutEngineName                    :    100 :@RobotName'
+    - 'LayoutEngineVersion                 :    100 :@RobotName'
+    - 'AgentClass                          :    100 :"Robot"'
+    - 'AgentName                           :    100 :@RobotName'
+    - 'AgentVersion                        :    100 :@RobotName'
+
+#- matcher:
+#    variable:
+#    - 'RobotName:agent.(1-10)keyvalue.key~"checker"'
+#    extract:
+#    - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+#    - 'DeviceClass           :  100:"Robot"'
+#    - 'DeviceName            :  100:@RobotName'
+#    - 'DeviceCpu             : 1000:"<<<null>>>"'
+#    - 'DeviceCpuBits         : 1000:"<<<null>>>"'
+#    - 'OperatingSystemClass  :  100:"Cloud"'
+#    - 'OperatingSystemName   :  100:"Cloud"'
+#    - 'OperatingSystemVersion:  100:"Cloud"'
+#    - 'LayoutEngineClass     :  100:"Robot"'
+#    - 'LayoutEngineName      :  100:@RobotName'
+#    - 'LayoutEngineVersion   :  100:@RobotName'
+#    - 'AgentClass            :  100:"Robot"'
+#    - 'AgentName             :  100:@RobotName'
+#    - 'AgentVersion          :  100:@RobotName'
+
+
+# ==================================
 
 - matcher:
     variable:
@@ -5206,21 +5309,64 @@ config:
       AgentVersionMajor                    : '??'
       AgentInformationUrl                  : 'pegasusmonitoring.com'
 
-#- test: #TODO Implement
-#    input:
-#      user_agent_string: 'Toweyabot: toweya.com'
+- test:
+    input:
+      user_agent_string: 'Toweyabot: toweya.com'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Toweyabot'
+      DeviceBrand                          : 'Toweya'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Toweyabot'
+      LayoutEngineVersion                  : 'Toweyabot'
+      LayoutEngineVersionMajor             : 'Toweyabot'
+      LayoutEngineNameVersion              : 'Toweyabot'
+      LayoutEngineNameVersionMajor         : 'Toweyabot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Toweyabot'
+      AgentVersion                         : 'Toweyabot'
+      AgentVersionMajor                    : 'Toweyabot'
+      AgentNameVersion                     : 'Toweyabot'
+      AgentNameVersionMajor                : 'Toweyabot'
+      AgentInformationUrl                  : 'toweya.com'
 
 
+- test:
+    input:
+      user_agent_string: 'Zwemkleding.nl image downloader'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Zwemkleding'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Unknown'
+      AgentName                            : 'Unknown'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentInformationUrl                  : 'Zwemkleding.nl'
 
-#- test: #TODO Implement
-#    input:
-#      user_agent_string: 'Zwemkleding.nl image downloader'
+
 #- test: #TODO Implement
 #    input:
 #      user_agent_string: 'WinHTTP'
+#
+#
 #- test: #TODO Implement
 #    input:
 #      user_agent_string: 'G-i-g-a-b-o-t'
+
+
 #- test: #TODO Implement
 #    input:
 #      user_agent_string: 'Google-Shopping-Quality'
@@ -5230,13 +5376,55 @@ config:
 # https://github.com/internetarchive/heritrix3
 # https://github.com/internetarchive/heritrix3/blob/master/modules/src/main/java/org/archive/modules/CrawlMetadata.java#L115
 #         setUserAgentTemplate("Mozilla/5.0 (compatible; heritrix/@VERSION@ +@OPERATOR_CONTACT_URL@)");
-#- test: #TODO Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; heritrix/${pom.version} +http://www.google.com)'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; heritrix/${pom.version} +http://www.google.com)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Heritrix'
+      DeviceBrand                           : 'Heritrix'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'heritrix'
+      LayoutEngineVersion                   : '${pom.version}'
+      LayoutEngineVersionMajor              : '${pom'
+      LayoutEngineNameVersion               : 'heritrix ${pom.version}'
+      LayoutEngineNameVersionMajor          : 'heritrix ${pom'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'heritrix'
+      AgentVersion                          : '${pom.version}'
+      AgentVersionMajor                     : '${pom'
+      AgentNameVersion                      : 'heritrix ${pom.version}'
+      AgentNameVersionMajor                 : 'heritrix ${pom'
+      AgentInformationUrl                   : 'http://www.google.com'
 
-#- test: #TODO Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; exal/${pom.version} +http://www.google.com)'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; exal/${pom.version} +http://www.google.com)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Exal'
+      DeviceBrand                           : 'Exal'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'exal'
+      LayoutEngineVersion                   : '${pom.version}'
+      LayoutEngineVersionMajor              : '${pom'
+      LayoutEngineNameVersion               : 'exal ${pom.version}'
+      LayoutEngineNameVersionMajor          : 'exal ${pom'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'exal'
+      AgentVersion                          : '${pom.version}'
+      AgentVersionMajor                     : '${pom'
+      AgentNameVersion                      : 'exal ${pom.version}'
+      AgentNameVersionMajor                 : 'exal ${pom'
+      AgentInformationUrl                   : 'http://www.google.com'
 
 
 #- test: #TODO Implement
@@ -5263,3 +5451,23 @@ config:
 #- test: #TODO Implement
 #    input:
 #      user_agent_string: 'FastCurl_1.0_0.6'
+
+#- test: #TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)'
+#
+#
+#- test: #TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; linkCheckV3.0)'
+#
+
+#- test: #TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (datafeeds fetcher aanbiedingvandedag.nl)'
+#
+#
+#- test: #TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/4.0 (compatible; Kapow Technologies RoboSuite)'
+#

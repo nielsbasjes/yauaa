@@ -120,10 +120,14 @@ config:
     - 'EdgeHtmlVersion                     : agent.product.name="Edge"^.version'
     - 'EdgeHtmlVersionFirstWord            : @EdgeHtmlVersion[-1]'
     extract:
+    - 'DeviceClass                         :      1 :"Desktop"'
+    - 'DeviceName                          :      1 :"Desktop"'
+    - 'OperatingSystemClass                :      1 :"Desktop"'
+    - 'OperatingSystemName                 :      1 :"Windows NT"'
+    - 'OperatingSystemVersion              :      1 :"10.0"'
     - 'LayoutEngineClass                   :   2015 :"Browser"'
     - 'LayoutEngineName                    :   2015 :"EdgeHTML"'
     - 'LayoutEngineVersion                 :   2015 :@EdgeHtmlVersionFirstWord'
-
     - 'AgentClass                          :   2016 :"Browser"'
     - 'AgentName                           :   2016 :"Edge"'
     - 'AgentVersion                        :   2016 :LookUp[EdgeHtmlVersionToEdgeVersion;@EdgeHtmlVersionFirstWord;"??"]'
@@ -133,10 +137,14 @@ config:
     - 'EdgeHtmlVersion                     : agent.product.name="Edge"^.version'
     - 'EdgeHtmlVersionFirstWord            : @EdgeHtmlVersion[-1]'
     extract:
+    - 'DeviceClass                         :      1 :"Desktop"'
+    - 'DeviceName                          :      1 :"Desktop"'
+    - 'OperatingSystemClass                :      1 :"Desktop"'
+    - 'OperatingSystemName                 :      1 :"Windows NT"'
+    - 'OperatingSystemVersion              :      1 :"10.0"'
     - 'LayoutEngineClass                   :   2015 :"Browser"'
     - 'LayoutEngineName                    :   2015 :"EdgeHTML"'
     - 'LayoutEngineVersion                 :   2015 :@EdgeHtmlVersionFirstWord'
-
     - 'AgentClass                          :   2017 :"Browser"'
     - 'AgentName                           :   2017 :"Edge"'
     - 'AgentVersion                        :   2017 :LookUp[EdgeHtmlVersionToEdgeVersion;@EdgeHtmlVersion]'
@@ -146,6 +154,11 @@ config:
     require:
     - 'agent.product.name="Edge"^.version[2]!="0"'
     extract:
+    - 'DeviceClass                         :      1 :"Desktop"'
+    - 'DeviceName                          :      1 :"Desktop"'
+    - 'OperatingSystemClass                :      1 :"Desktop"'
+    - 'OperatingSystemName                 :      1 :"Windows NT"'
+    - 'OperatingSystemVersion              :      1 :"10.0"'
     - 'OperatingSystemVersionBuild         :    100 :agent.product.name="Edge"^.version[2]'
 
 
@@ -754,3 +767,28 @@ config:
       WebviewAppVersionMajor               : '??'
 
 
+# Manipulated to make it look like Windows 7. Edge only runs on Windows 10
+- test:
+    input:
+      user_agent_string: 'Windows 7 (Internet explorer 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows NT 10.0'
+      OperatingSystemVersionBuild          : '10586'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'EdgeHTML'
+      LayoutEngineVersion                  : '13'
+      LayoutEngineVersionMajor             : '13'
+      LayoutEngineNameVersion              : 'EdgeHTML 13'
+      LayoutEngineNameVersionMajor         : 'EdgeHTML 13'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '25.10586'
+      AgentVersionMajor                    : '25'
+      AgentNameVersion                     : 'Edge 25.10586'
+      AgentNameVersionMajor                : 'Edge 25'
