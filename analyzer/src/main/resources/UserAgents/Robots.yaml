@@ -4722,11 +4722,32 @@ config:
       AgentNameVersionMajor                : 'proximic ??'
       AgentInformationUrl                  : 'https://www.comscore.com/Web-Crawler'
 
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; changedetection/7.0; +http://www.changedetection.com/bot.html)'
-#
-#
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; changedetection/7.0; +http://www.changedetection.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Changedetection'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'changedetection'
+      AgentVersion                         : '7.0'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'changedetection 7.0'
+      AgentNameVersionMajor                : 'changedetection 7'
+      AgentInformationUrl                  : 'http://www.changedetection.com/bot.html'
+
 
 - test:
     input:
