@@ -326,7 +326,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         }
     }
 
-    static boolean isSystemField(String fieldname) {
+    public static boolean isSystemField(String fieldname) {
         return  SET_ALL_FIELDS.equals(fieldname) ||
                 SYNTAX_ERROR.equals(fieldname) ||
                 USERAGENT_FIELDNAME.equals(fieldname);

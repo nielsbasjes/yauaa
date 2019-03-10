@@ -26,6 +26,8 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
 import org.logstash.Event;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
@@ -38,12 +40,11 @@ import java.util.Map;
 @LogstashPlugin(name = "yauaa")
 public class Yauaa implements Filter {
 
-//    private static final Logger LOG = LoggerFactory.getLogger(Yauaa.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Yauaa.class);
 
     private UserAgentAnalyzer userAgentAnalyzer;
 
     private List<String> requestedFieldNames = new ArrayList<>();
-
 
     public static final PluginConfigSpec<String> SOURCE_CONFIG =
         Configuration.requiredStringSetting("source");
@@ -58,6 +59,8 @@ public class Yauaa implements Filter {
         // constructors should validate configuration options
         sourceField = config.get(SOURCE_CONFIG);
         outputFields = config.get(FIELDS_CONFIG);
+
+        checkConfiguration();
 
         UserAgentAnalyzerBuilder<?, ?> userAgentAnalyzerBuilder =
             UserAgentAnalyzer
@@ -96,4 +99,80 @@ public class Yauaa implements Filter {
     public Collection<PluginConfigSpec<?>> configSchema() {
         return Arrays.asList(SOURCE_CONFIG, FIELDS_CONFIG);
     }
+
+    private void checkConfiguration() {
+        List<String> configProblems = new ArrayList<>();
+
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .delayInitialization()
+            .dropTests()
+            .hideMatcherLoadStats()
+            .build();
+
+        List<String> allFieldNames = uaa.getAllPossibleFieldNamesSorted();
+
+        if (sourceField == null) {
+            configProblems.add("The \"source\" has not been specified.\n");
+        } else {
+            if (sourceField.isEmpty()) {
+                configProblems.add("The \"source\" is empty.\n");
+            }
+        }
+
+        if (outputFields == null) {
+            configProblems.add("The list of needed \"fields\" has not been specified.\n");
+        } else {
+            if (outputFields.isEmpty()) {
+                configProblems.add("The list of needed \"fields\" is empty.\n");
+            }
+            for (String outputField: outputFields.keySet()) {
+                if (!allFieldNames.contains(outputField)) {
+                    configProblems.add("The requested field \"" + outputField + "\" does not exist.\n");
+                }
+            }
+        }
+
+        if (configProblems.isEmpty()) {
+            return; // All is fine
+        }
+
+        StringBuilder errorMessage = new StringBuilder();
+
+        int maxNameLength = 0;
+        for (String field: allFieldNames) {
+            maxNameLength = Math.max(maxNameLength, field.length());
+        }
+
+        errorMessage.append("\nThe Yauaa filter config is invalid.\n");
+        errorMessage.append("The problems we found:\n");
+
+        configProblems.forEach(problem -> errorMessage.append("- ").append(problem).append('\n'));
+
+        errorMessage.append("\n");
+        errorMessage.append("Example of a generic valid config:\n");
+        errorMessage.append("\n");
+        errorMessage.append("filter {\n");
+        errorMessage.append("   yauaa {\n");
+        errorMessage.append("       source => \"useragent\"\n");
+        errorMessage.append("       fields => {\n");
+
+        for (String field: allFieldNames) {
+            if (!UserAgent.isSystemField(field)) {
+                errorMessage.append("           \"").append(field).append("\"");
+                for (int i = field.length(); i < maxNameLength; i++) {
+                    errorMessage.append(' ');
+                }
+                errorMessage.append("  => \"userAgent").append(field).append("\"\n");
+            }
+        }
+        errorMessage.append("       }\n");
+        errorMessage.append("   }\n");
+        errorMessage.append("}\n");
+        errorMessage.append("\n");
+
+        LOG.error("{}", errorMessage);
+        throw new IllegalArgumentException(errorMessage.toString());
+    }
+
 }
