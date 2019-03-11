@@ -21,6 +21,8 @@ v5.9-SNAPSHOT
   - Apache Hive   3.1.1
 - Massive improvement in detection of URLs.
 - New more realistic performance benchmark test
+- Renamed DeviceClass "Spy" to "Robot Imitator" 
+- More consistently add the DeviceBrand to the DeviceName
 
 v5.8
 ===

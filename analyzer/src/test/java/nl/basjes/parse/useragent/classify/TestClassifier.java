@@ -31,7 +31,7 @@ import static nl.basjes.parse.useragent.classify.DeviceClass.Phone;
 import static nl.basjes.parse.useragent.classify.DeviceClass.Robot;
 import static nl.basjes.parse.useragent.classify.DeviceClass.RobotMobile;
 import static nl.basjes.parse.useragent.classify.DeviceClass.SetTopBox;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Spy;
+import static nl.basjes.parse.useragent.classify.DeviceClass.RobotImitator;
 import static nl.basjes.parse.useragent.classify.DeviceClass.TV;
 import static nl.basjes.parse.useragent.classify.DeviceClass.Tablet;
 import static nl.basjes.parse.useragent.classify.DeviceClass.Unclassified;
@@ -63,7 +63,7 @@ public class TestClassifier {
         verifyEnum("Handheld Game Console");
         verifyEnum("Robot");
         verifyEnum("Robot Mobile");
-        verifyEnum("Spy");
+        verifyEnum("Robot Imitator");
         verifyEnum("Hacker");
         verifyEnum("Unknown");
     }
@@ -92,7 +92,7 @@ public class TestClassifier {
         verifyDeviceClass(HandheldGameConsole,   true,   true,  true, false);
         verifyDeviceClass(Robot,                 false, false, false, false);
         verifyDeviceClass(RobotMobile,           false,  true, false, false);
-        verifyDeviceClass(Spy,                   false, false, false,  true);
+        verifyDeviceClass(RobotImitator,         false, false, false,  true);
         verifyDeviceClass(Hacker,                false, false, false,  true);
         verifyDeviceClass(Unknown,               false, false, false, false);
         verifyDeviceClass(Unclassified,          false, false, false, false);

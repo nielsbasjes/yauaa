@@ -1,0 +1,606 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2019 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# These are examples of robot/spider/bot useragents that imitate a different robot we have seen.
+
+config:
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.product.name="Googlebot"'
+    - 'IsNull[agent.product.comments.entry.url="http://www.google.com/bot.html"]'
+    - 'IsNull[agent.product.comments.entry.url="https://www.google.com/bot.html"]'
+    - 'IsNull[agent.product.comments.entry.url~"googlebot.com"]'
+    extract:
+    - 'DeviceClass                         :   3201 : "Robot Imitator"'
+    - 'DeviceName                          :   3201 : "Googlebot Imitator"'
+    - 'OperatingSystemClass                :   3201 : "Cloud"'
+    - 'OperatingSystemName                 :   3201 : "Cloud"'
+    - 'OperatingSystemVersion              :   3201 : "??"'
+    - 'LayoutEngineName                    :   3201 : "Googlebot Imitator"'
+    - 'AgentName                           :   3201 : "Googlebot Imitator"'
+
+- matcher:
+    require:
+    - 'agent.product.name="Googlebot"'
+    - 'IsNull[agent.product.comments.entry.url="http://www.google.com/bot.html"]'
+    - 'IsNull[agent.product.comments.entry.url="https://www.google.com/bot.html"]'
+    extract:
+    - 'DeviceClass                         :   3201 : "Robot Imitator"'
+    - 'DeviceName                          :   3201 : "Googlebot Imitator"'
+    - 'OperatingSystemClass                :   3201 : "Cloud"'
+    - 'OperatingSystemName                 :   3201 : "Cloud"'
+    - 'OperatingSystemVersion              :   3201 : "??"'
+    - 'LayoutEngineName                    :   3201 : "Googlebot Imitator"'
+    - 'AgentName                           :   3201 : "Googlebot Imitator"'
+
+
+- matcher:
+    require:
+    # Although this is a domain related to the GoogleBot, this is NOT used by Google this way.
+    - 'agent.product.comments.entry.url~"googlebot.com"'
+    extract:
+    - 'DeviceClass                         :   3201 : "Robot Imitator"'
+    - 'DeviceName                          :   3201 : "Googlebot Imitator"'
+    - 'DeviceBrand                         :   3201 : "Unknown"'
+    - 'OperatingSystemClass                :   3201 : "Cloud"'
+    - 'OperatingSystemName                 :   3201 : "Cloud"'
+    - 'OperatingSystemVersion              :   3201 : "??"'
+    - 'LayoutEngineName                    :   3201 : "Googlebot Imitator"'
+    - 'AgentName                           :   3201 : "Googlebot Imitator"'
+
+
+# Robots imitating googlebot
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1 +http://www.googlebot.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Googlebot Imitator'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'http://www.googlebot.com/bot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Googlebot/2.1 (+http://www.googlebot.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Googlebot Imitator'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot Imitator Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'http://www.googlebot.com/bot.html'
+
+
+# Googlebots that are NOT from Google ...
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://import.io)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Import Googlebot Imitator'
+      DeviceBrand                          : 'Import'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'http://import.io'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; https://deepcrawl.com/bot)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Deepcrawl Googlebot Imitator'
+      DeviceBrand                          : 'Deepcrawl'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'https://deepcrawl.com/bot'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1;)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Googlebot Imitator'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Googlebot Imitator'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+
+#- test: #TODO: Implement
+#    input:
+#      user_agent_string: 'Googlebot'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; startmebot/1.0; +https://start.me/bot)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Start Googlebot Imitator'
+      DeviceBrand                          : 'Start'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'https://start.me/bot'
+
+- test:
+    input:
+      user_agent_string: 'OnPageBot (compatible; Googlebot 2.1; +https://bot.onpage.org/)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Onpage Googlebot Imitator'
+      DeviceBrand                          : 'Onpage'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'https://bot.onpage.org'
+
+- test: #TODO: Try to extract the "ArchiveTeam" part
+    input:
+      user_agent_string: 'ArchiveTeam; Googlebot/2.1'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Googlebot Imitator'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+
+- test:
+    input:
+      user_agent_string: 'secssobrowser (compatible; Googlebot/2.1; +https://sts.secsso.net)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Secsso Googlebot Imitator'
+      DeviceBrand                          : 'Secsso'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'https://sts.secsso.net'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://localhost)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Googlebot Imitator'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'http://localhost'
+
+- test:
+    input:
+      user_agent_string: 'BuckyOHare/1.3 (Googlebot/2.1; +https://hypefactors.com/webcrawler)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Hypefactors Googlebot Imitator'
+      DeviceBrand                          : 'Hypefactors'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1' #TODO: BuckyOHare 1.3
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'https://hypefactors.com/webcrawler'
+
+- test:
+    input:
+      user_agent_string: 'Happening.im (Client) Googlebot/2.1'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Happening Googlebot Imitator'
+      DeviceBrand                          : 'Happening'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'Happening.im'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; +https://whatis.contentkingapp.com/)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Contentkingapp Googlebot Imitator'
+      DeviceBrand                          : 'Contentkingapp'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'https://whatis.contentkingapp.com'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; +https://www.contentkingapp.com/)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Contentkingapp Googlebot Imitator'
+      DeviceBrand                          : 'Contentkingapp'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'https://www.contentkingapp.com'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; BeforeYouClick/1.0; +https://beforeyouclick.info/bot)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Beforeyouclick Googlebot Imitator'
+      DeviceBrand                          : 'Beforeyouclick'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1' #FIXME: BeforeYouClick/1.0
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'https://beforeyouclick.info/bot'
+
+
+- test:
+    input:
+      user_agent_string: 'Ryderspider/1.0 (Googlebot/2.1)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Googlebot Imitator'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1' #FIXME: Ryderspider/1.0
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; https://www.deepcrawl.com/bot)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Deepcrawl Googlebot Imitator'
+      DeviceBrand                          : 'Deepcrawl'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'https://www.deepcrawl.com/bot'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/1.0; +http://www.migliorsitoweb.it)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Migliorsitoweb Googlebot Imitator'
+      DeviceBrand                          : 'Migliorsitoweb'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                   : '1.0'
+      LayoutEngineVersionMajor              : '1'
+      LayoutEngineNameVersion               : 'Googlebot Imitator 1.0'
+      LayoutEngineNameVersionMajor          : 'Googlebot Imitator 1'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Googlebot Imitator'
+      AgentVersion                          : '1.0'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'Googlebot Imitator 1.0'
+      AgentNameVersionMajor                 : 'Googlebot Imitator 1'
+      AgentInformationUrl                   : 'http://www.migliorsitoweb.it'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; actually this is http://ismyblogworking.com/)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Ismyblogworking Googlebot Imitator'
+      DeviceBrand                          : 'Ismyblogworking'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'http://ismyblogworking.com'
+      __SyntaxError__                      : 'true'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; http://deepcrawl.co.uk/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Deepcrawl Googlebot Imitator'
+      DeviceBrand                          : 'Deepcrawl'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentInformationUrl                  : 'http://deepcrawl.co.uk/bot.html'
+
+#- test: #TODO: Implement
+#    input:
+#      user_agent_string: 'Googlebot/Nutch-1.7'

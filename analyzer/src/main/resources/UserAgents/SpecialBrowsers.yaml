@@ -17,6 +17,21 @@
 
 config:
 
+# These are known robots that do not have words like bot, crawler, spider in their name.
+- set:
+    name: 'NamedSpecials'
+    values:
+    - 'IntelliJ IDEA'
+
+- matcher:
+    require:
+    - 'agent.(1)text?NamedSpecials'
+    extract:
+    - '__Set_ALL_Fields__                  :     14 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'AgentClass                          :     15 :"Special"'
+    - 'AgentName                           :     15 :agent'
+    - 'AgentVersion                        :     15 :"??"'
+
 - matcher:
     require:
     - 'IsNull[agent.(1)product.(1)name="Mozilla"]'
@@ -267,7 +282,7 @@ config:
       user_agent_string: 'http://Anonymouse.org/ (Unix)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Robot'
+      DeviceName                           : 'Anonymouse Robot'
       DeviceBrand                          : 'Anonymouse'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
@@ -432,6 +447,28 @@ config:
       AgentVersionMajor                    : '162'
       AgentNameVersion                     : 'IntelliJ IDEA 162.1447.26'
       AgentNameVersionMajor                : 'IntelliJ IDEA 162'
+
+
+- test: #TODO Implement
+    input:
+      user_agent_string: 'IntelliJ IDEA'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'IntelliJ IDEA'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'IntelliJ IDEA ??'
+      AgentNameVersionMajor                : 'IntelliJ IDEA ??'
 
 
 - matcher:
@@ -1271,7 +1308,7 @@ config:
       user_agent_string: 'Iframely/0.8.5 (+http://iframely.com/;)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Robot'
+      DeviceName                           : 'Iframely Robot'
       DeviceBrand                          : 'Iframely'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'

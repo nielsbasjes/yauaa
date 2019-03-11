@@ -940,6 +940,17 @@ config:
                 email.getConfidence());
         }
 
+        if (deviceBrand.getConfidence() < 0) {
+            // If no brand is known then try to extract something that looks like a Brand from things like URL and Email addresses.
+            String newDeviceBrand = determineDeviceBrand(userAgent);
+            if (newDeviceBrand != null) {
+                userAgent.setForced(
+                    DEVICE_BRAND,
+                    newDeviceBrand,
+                    1);
+            }
+        }
+
         // Make sure the DeviceName always starts with the DeviceBrand
         UserAgent.AgentField deviceName = userAgent.get(DEVICE_NAME);
         if (deviceName.getConfidence() >= 0) {
@@ -961,16 +972,6 @@ config:
                 deviceName.getConfidence());
         }
 
-        if (deviceBrand.getConfidence() < 0) {
-            // If no brand is known then try to extract something that looks like a Brand from things like URL and Email addresses.
-            String newDeviceBrand = determineDeviceBrand(userAgent);
-            if (newDeviceBrand != null) {
-                userAgent.setForced(
-                    DEVICE_BRAND,
-                    newDeviceBrand,
-                    1);
-            }
-        }
 
         return userAgent;
     }

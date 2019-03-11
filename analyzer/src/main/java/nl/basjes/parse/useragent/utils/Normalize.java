@@ -95,7 +95,7 @@ public final class Normalize {
                 }
             }
         }
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     public static String cleanupDeviceBrandName(String deviceBrand, String deviceName) {

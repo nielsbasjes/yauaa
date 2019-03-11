@@ -136,7 +136,7 @@ fragment TLD :  'aaa' | 'aarp' | 'abb' | 'abc' | 'able' | 'ac' | 'aco' | 'ad' | 
 
 fragment OtherTLDLikeEnds :  'htm' | 'html' | 'php';
 
-fragment UrlHostname:  [a-zA-Z\-_] [a-zA-Z0-9\-_]+ ('.'[a-zA-Z0-9\-_]+)* '.' ( TLD | OtherTLDLikeEnds ) ;
+fragment UrlHostname:  'localhost' | ( [a-zA-Z\-_] [a-zA-Z0-9\-_]+ ('.'[a-zA-Z0-9\-_]+)* '.' ( TLD | OtherTLDLikeEnds )) ;
 fragment UrlPathA     :  ('/'|'?') [a-zA-Z] [a-zA-Z0-9\-_~=?&%+.:/#]* ;
 fragment UrlPathN     :  ('/'|'?') [0-9][a-zA-Z0-9\-_]* '/' [a-zA-Z0-9\-_~=?&%+.:/#]* ;
 fragment BasicURL    :  ((('http'|'ftp') 's'? ':')? '//' )? UrlHostname (':'[0-9]+)? (UrlPathA|UrlPathN)? ;

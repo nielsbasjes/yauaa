@@ -75,7 +75,7 @@ DeviceClass
 | Voice                 | A voice driven device (i.e. ask a question and the page is read aloud) |
 | Robot                 | Robots that visit the site |
 | Robot Mobile          | Robots that visit the site indicating they want to be seen as a Mobile visitor |
-| Spy                   | Robots that visit the site pretending they are robots like google, but they are not |
+| Robot Imitator        | Robots that visit the site pretending they are robots like google, but they are not. Note that in most cases they ARE Robots. |
 | Hacker                | In case scripting is detected in the useragent string, also fallback in really broken situations |
 
 OperatingSystemClass

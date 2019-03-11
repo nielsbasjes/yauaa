@@ -77,7 +77,7 @@ public enum DeviceClass {
     /**
      * Robots that visit the site pretending they are robots like google, but they are not.
      */
-    Spy("Spy"),
+    RobotImitator("Robot Imitator"),
     /**
      * In case scripting is detected in the useragent string, also fallback in really broken situations.
      */
