@@ -7,7 +7,7 @@ v5.9-SNAPSHOT
 - Detection for Google Go, Google Docs, Google Docs Script
 - New class of Device and Agent: Voice
 - Added experimental filter for logstash
-- Detection for CAT, General Mobile, Wileyfox, ZTE, Fairphone, Gigaset, PlayStation 3
+- Detection for CAT, General Mobile, Wileyfox, ZTE, Fairphone, Gigaset, PlayStation 3, Kobo Desktop Edition
 - Improved Robot detection, most of them are now "Cloud" instead of "normal" hardware/os.
 - Updated the way yaml files are loaded. An analyzer without any rules will fail faster.
 - An imperfect fallback is attempted when the classloader cannot find the yaml files via a wildcard (happens on Android, OSGi, ...).
