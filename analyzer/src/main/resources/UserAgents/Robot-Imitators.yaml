@@ -75,6 +75,21 @@ config:
     - 'LayoutEngineName                    :   3201 : "Googlebot Imitator"'
     - 'AgentName                           :   3201 : "Googlebot Imitator"'
 
+- matcher:
+    require:
+    - 'agent.product.name="Googlebot"'
+    - 'IsNull[agent.product.comments.entry.url="http://www.google.com/bot.html"]'
+    - 'IsNull[agent.product.comments.entry.url="https://www.google.com/bot.html"]'
+    extract:
+    - 'DeviceClass                         :   3201 : "Robot Imitator"'
+    - 'DeviceName                          :   3201 : "Googlebot Imitator"'
+    - 'OperatingSystemClass                :   3201 : "Cloud"'
+    - 'OperatingSystemName                 :   3201 : "Cloud"'
+    - 'OperatingSystemVersion              :   3201 : "??"'
+    - 'LayoutEngineName                    :   3201 : "Googlebot Imitator"'
+    - 'AgentName                           :   3203 : agent.text'
+    - 'AgentVersion                        :   3203 : "??"'
+
 
 - matcher:
     require:
@@ -298,7 +313,7 @@ config:
       AgentNameVersionMajor                : 'Googlebot Imitator 2'
       AgentInformationUrl                  : 'https://bot.onpage.org'
 
-- test: #TODO: Try to extract the "ArchiveTeam" part
+- test:
     input:
       user_agent_string: 'ArchiveTeam; Googlebot/2.1'
     expected:
@@ -316,11 +331,11 @@ config:
       LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
       LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
       AgentClass                           : 'Robot'
-      AgentName                            : 'Googlebot Imitator'
-      AgentVersion                         : '2.1'
-      AgentVersionMajor                    : '2'
-      AgentNameVersion                     : 'Googlebot Imitator 2.1'
-      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentName                            : 'ArchiveTeam'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'ArchiveTeam ??'
+      AgentNameVersionMajor                : 'ArchiveTeam ??'
 
 - test:
     input:
