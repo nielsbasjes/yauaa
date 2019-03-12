@@ -18,6 +18,8 @@
 config:
 
 - matcher:
+    variable:
+    - 'Google:agent.product.comments.entry.product.name[1]="Googlebot"'
     require:
     - 'agent.product.comments.entry.url="http://www.google.com/bot.html"'
     extract:
@@ -32,10 +34,12 @@ config:
     - 'LayoutEngineName                    :   3000 :"Googlebot"'
     - 'LayoutEngineVersion                 :   3000 :"Googlebot"'
     - 'AgentClass                          :   3000 :"Robot"'
-    - 'AgentName                           :   3000 :agent.product.comments.entry.product.name{"Googlebot"@'
-    - 'AgentVersion                        :   3000 :agent.product.comments.entry.product.name{"Googlebot"^.version'
+    - 'AgentName                           :   3000 :@Google@'
+    - 'AgentVersion                        :   3000 :@Google^.version'
 
 - matcher:
+    variable:
+    - 'Google:agent.(1)product.name[1]="Googlebot"'
     extract:
     - '__Set_ALL_Fields__                  :   3009 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   3010 :"Robot"'
@@ -48,8 +52,8 @@ config:
     - 'LayoutEngineName                    :   3010 :"Googlebot"'
     - 'LayoutEngineVersion                 :   3010 :"Googlebot"'
     - 'AgentClass                          :   3010 :"Robot"'
-    - 'AgentName                           :   3010 :agent.(1)product.name{"Googlebot"@'
-    - 'AgentVersion                        :   3010 :agent.(1)product.name{"Googlebot"^.version'
+    - 'AgentName                           :   3010 :@Google@'
+    - 'AgentVersion                        :   3010 :@Google^.version'
 
 # ------------------------------------------------------------
 

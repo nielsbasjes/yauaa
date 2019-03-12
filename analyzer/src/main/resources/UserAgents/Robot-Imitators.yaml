@@ -34,6 +34,33 @@ config:
     - 'LayoutEngineName                    :   3201 : "Googlebot Imitator"'
     - 'AgentName                           :   3201 : "Googlebot Imitator"'
 
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.product.name="Googlebot"'
+    - 'IsNull[agent.product.comments.entry.url="http://www.google.com/bot.html"]'
+    - 'IsNull[agent.product.comments.entry.url="https://www.google.com/bot.html"]'
+    - 'IsNull[agent.product.comments.entry.url~"googlebot.com"]'
+    variable:
+    - 'RealAgent: agent.(1)product.(1)name!="Mozilla"'
+    extract:
+    - 'AgentName                           :   3202 : @RealAgent'
+    - 'AgentVersion                        :   3202 : @RealAgent^.version'
+
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.product.name="Googlebot"'
+    - 'IsNull[agent.product.comments.entry.url="http://www.google.com/bot.html"]'
+    - 'IsNull[agent.product.comments.entry.url="https://www.google.com/bot.html"]'
+    - 'IsNull[agent.product.comments.entry.url~"googlebot.com"]'
+    variable:
+    - 'RealAgent: agent.(1)product.comments.entry.product.(1)name!="GoogleBot"'
+    extract:
+    - 'AgentName                           :   3202 : @RealAgent'
+    - 'AgentVersion                        :   3202 : @RealAgent^.version'
+
+
 - matcher:
     require:
     - 'agent.product.name="Googlebot"'
@@ -239,11 +266,11 @@ config:
       LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
       LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
       AgentClass                           : 'Robot'
-      AgentName                            : 'Googlebot Imitator'
-      AgentVersion                         : '2.1'
-      AgentVersionMajor                    : '2'
-      AgentNameVersion                     : 'Googlebot Imitator 2.1'
-      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentName                            : 'startmebot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'startmebot 1.0'
+      AgentNameVersionMajor                : 'startmebot 1'
       AgentInformationUrl                  : 'https://start.me/bot'
 
 - test:
@@ -363,11 +390,11 @@ config:
       LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
       LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
       AgentClass                           : 'Robot'
-      AgentName                            : 'Googlebot Imitator'
-      AgentVersion                         : '2.1'
-      AgentVersionMajor                    : '2'
-      AgentNameVersion                     : 'Googlebot Imitator 2.1' #TODO: BuckyOHare 1.3
-      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentName                            : 'BuckyOHare'
+      AgentVersion                         : '1.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'BuckyOHare 1.3'
+      AgentNameVersionMajor                : 'BuckyOHare 1'
       AgentInformationUrl                  : 'https://hypefactors.com/webcrawler'
 
 - test:
@@ -464,11 +491,11 @@ config:
       LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
       LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
       AgentClass                           : 'Robot'
-      AgentName                            : 'Googlebot Imitator'
-      AgentVersion                         : '2.1'
-      AgentVersionMajor                    : '2'
-      AgentNameVersion                     : 'Googlebot Imitator 2.1' #FIXME: BeforeYouClick/1.0
-      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentName                            : 'BeforeYouClick'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'BeforeYouClick 1.0'
+      AgentNameVersionMajor                : 'BeforeYouClick 1'
       AgentInformationUrl                  : 'https://beforeyouclick.info/bot'
 
 
@@ -490,11 +517,11 @@ config:
       LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
       LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
       AgentClass                           : 'Robot'
-      AgentName                            : 'Googlebot Imitator'
-      AgentVersion                         : '2.1'
-      AgentVersionMajor                    : '2'
-      AgentNameVersion                     : 'Googlebot Imitator 2.1' #FIXME: Ryderspider/1.0
-      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentName                            : 'Ryderspider'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Ryderspider 1.0'
+      AgentNameVersionMajor                : 'Ryderspider 1'
 
 
 - test:
@@ -567,11 +594,11 @@ config:
       LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
       LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
       AgentClass                           : 'Robot'
-      AgentName                            : 'Googlebot Imitator'
-      AgentVersion                         : '2.1'
-      AgentVersionMajor                    : '2'
-      AgentNameVersion                     : 'Googlebot Imitator 2.1'
-      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+      AgentName                            : 'actually this is'                                #  Really silly, but can't do better
+      AgentVersion                         : 'http://ismyblogworking.com'
+      AgentVersionMajor                    : 'http://ismyblogworking.com'
+      AgentNameVersion                     : 'actually this is http://ismyblogworking.com'
+      AgentNameVersionMajor                : 'actually this is http://ismyblogworking.com'
       AgentInformationUrl                  : 'http://ismyblogworking.com'
       __SyntaxError__                      : 'true'
 
@@ -604,3 +631,23 @@ config:
 #- test: #TODO: Implement
 #    input:
 #      user_agent_string: 'Googlebot/Nutch-1.7'
+#    expected:
+#      DeviceClass                          : 'Robot Imitator'
+#      DeviceName                           : 'Google BOT Imitator'
+#      DeviceBrand                          : 'Google'
+#      OperatingSystemClass                 : 'Cloud'
+#      OperatingSystemName                  : 'Cloud'
+#      OperatingSystemVersion               : '??'
+#      OperatingSystemNameVersion           : 'Cloud ??'
+#      LayoutEngineClass                    : 'Robot'
+#      LayoutEngineName                     : 'Googlebot Imitator'
+#      LayoutEngineVersion                  : 'Googlebot'
+#      LayoutEngineVersionMajor             : 'Googlebot'
+#      LayoutEngineNameVersion              : 'Googlebot Imitator Googlebot'
+#      LayoutEngineNameVersionMajor         : 'Googlebot Imitator Googlebot'
+#      AgentClass                           : 'Robot'
+#      AgentName                            : 'Googlebot Imitator'
+#      AgentVersion                         : 'Nutch-1.7'
+#      AgentVersionMajor                    : 'Nutch'
+#      AgentNameVersion                     : 'Googlebot Imitator Nutch-1.7'
+#      AgentNameVersionMajor                : 'Googlebot Imitator Nutch'
