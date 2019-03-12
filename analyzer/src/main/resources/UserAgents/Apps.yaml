@@ -1164,6 +1164,21 @@ config:
       AgentNameVersion                     : 'SafeBrowser 1.11.0.38'
       AgentNameVersionMajor                : 'SafeBrowser 1'
 
+#
+# This is used by iOS to know which app to call for which URL.
+# https://shinesolutions.com/2017/06/15/universal-linking-a-few-things-to-be-prepared-for/
+#
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="swcd"'
+    extract:
+    - 'LayoutEngineClass                   :    100 : "Unknown"' # This thing downloads a single specific Json file.
+    - 'LayoutEngineName                    :    100 : "Unknown"'
+    - 'LayoutEngineVersion                 :    100 : "??"'
+    - 'AgentClass                          :    100 : "Special"'
+    - 'AgentName                           :    100 : "Apple iOS Universal Links updater"'
+    - 'AgentVersion                        :    100 : agent.product.(1)name="Darwin"^.version'
+
 - test:
     input:
       user_agent_string: 'swcd (unknown version) CFNetwork/758.5.3 Darwin/15.6.0'
@@ -1175,16 +1190,17 @@ config:
       OperatingSystemName                  : 'Darwin (iOS)'
       OperatingSystemVersion               : '15.6.0'
       OperatingSystemNameVersion           : 'Darwin (iOS) 15.6.0'
-      LayoutEngineClass                    : 'Mobile App'
-      LayoutEngineName                     : 'swcd'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
       LayoutEngineVersion                  : '??'
       LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'swcd ??'
-      LayoutEngineNameVersionMajor         : 'swcd ??'
-      AgentClass                           : 'Mobile App'
-      AgentName                            : 'swcd'
-      AgentVersion                         : '??'
-      AgentVersionMajor                    : '??'
-      AgentNameVersion                     : 'swcd ??'
-      AgentNameVersionMajor                : 'swcd ??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Apple iOS Universal Links updater'
+      AgentVersion                         : '15.6.0'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Apple iOS Universal Links updater 15.6.0'
+      AgentNameVersionMajor                : 'Apple iOS Universal Links updater 15'
+
 

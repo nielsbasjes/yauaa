@@ -23,6 +23,7 @@ v5.9-SNAPSHOT
 - New more realistic performance benchmark test
 - Renamed DeviceClass "Spy" to "Robot Imitator" 
 - More consistently add the DeviceBrand to the DeviceName
+- Detect Apple iOS Universal Links updater
 
 v5.8
 ===
