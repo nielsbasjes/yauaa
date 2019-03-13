@@ -152,10 +152,10 @@ public class ParseService {
         StringBuilder sb = new StringBuilder(4096);
         try {
             sb.append("<!DOCTYPE html>");
-            sb.append("<html><head profile=\"http://www.w3.org/2005/10/profile\">");
+            sb.append("<html lang=\"en\" ><head profile=\"http://www.w3.org/2005/10/profile\">");
+            sb.append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
             sb.append("<meta name=viewport content=\"width=device-width, initial-scale=1\">");
             insertFavIcons(sb);
-            sb.append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
             sb.append("<meta name=\"theme-color\" content=\"dodgerblue\" />");
 
             // While initializing automatically reload the page.
@@ -304,7 +304,7 @@ public class ParseService {
     }
 
     private void insertFavIcons(StringBuilder sb) {
-        sb.append("<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon.png\">");
+        sb.append("<link rel=\"apple-touch-icon\" href=\"/apple-touch-icon.png\">");
         sb.append("<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon-32x32.png\">");
         sb.append("<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/favicon-16x16.png\">");
         sb.append("<link rel=\"manifest\" href=\"/manifest.json\">");
