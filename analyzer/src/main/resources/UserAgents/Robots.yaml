@@ -5546,3 +5546,54 @@ config:
 #    input:
 #      user_agent_string: 'Mozilla/4.0 (compatible; Kapow Technologies RoboSuite)'
 #
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; NetcraftSurveyAgent/1.0; +info\\@netcraft.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Netcraft Robot'
+      DeviceBrand                          : 'Netcraft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'NetcraftSurveyAgent'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'NetcraftSurveyAgent 1.0'
+      AgentNameVersionMajor                : 'NetcraftSurveyAgent 1'
+      AgentInformationEmail                : 'info@netcraft.com'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Wazzup1.1.100; http://50.22.201.16/Wazzup)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Wazzup'
+      AgentVersion                         : '1.1.100'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Wazzup 1.1.100'
+      AgentNameVersionMajor                : 'Wazzup 1'
+      AgentInformationUrl                  : 'http://50.22.201.16/Wazzup'

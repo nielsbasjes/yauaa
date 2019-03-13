@@ -60,8 +60,11 @@ public final class EvilManualUseragentStringHacks {
 
         result = replaceString(result, "Ant.com Toolbar", "Ant.com_Toolbar");
 
-        // We have seen problems causes by " Version/4.0Mobile Safari/530.17"
+        // We have seen problem cases like " Version/4.0Mobile Safari/530.17"
         result = MISSING_SPACE.matcher(result).replaceAll("$1 $2");
+
+        // We have seen problem cases like "Wazzup1.1.100"
+        result = replaceString(result, "Wazzup", "Wazzup ");
 
         // This one is a single useragent that hold significant traffic
         result = replaceString(result, " (Macintosh); ", " (Macintosh; ");
