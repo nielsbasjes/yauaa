@@ -238,6 +238,25 @@ config:
 
 - matcher:
     require:
+    - 'agent~"netsparker"'
+    extract:
+    - 'DeviceClass                         :  10000 :"Hacker"'
+    - 'DeviceBrand                         :  10000 :"Hacker"'
+    - 'DeviceName                          :  10000 :"Hacker"'
+    - 'DeviceVersion                       :  10000 :"Hacker"'
+    - 'OperatingSystemClass                :  10000 :"Hacker"'
+    - 'OperatingSystemName                 :  10000 :"Hacker"'
+    - 'OperatingSystemVersion              :  10000 :"Hacker"'
+    - 'LayoutEngineClass                   :  10000 :"Hacker"'
+    - 'LayoutEngineName                    :  10000 :"Hacker"'
+    - 'LayoutEngineVersion                 :  10000 :"Hacker"'
+    - 'AgentClass                          :  10000 :"Hacker"'
+    - 'AgentName                           :  10000 :"Hacker"'
+    - 'AgentVersion                        :  10000 :"Hacker"'
+    - 'HackerToolkit                       :  10000 :"Netsparker"'
+
+- matcher:
+    require:
     - 'agent~"#exec"'
     extract:
     - 'DeviceClass                         :  10000 :"Hacker"'
@@ -376,6 +395,35 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Serverside include'
       HackerToolkit                        : 'Nessus'
+
+
+- test:
+    input:
+      user_agent_string: '"''\""--></style></scRipt><scRipt>netsparker(0x0000D3)</scRipt>"'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerAttackVector                   : 'Javascript'
+      HackerToolkit                        : 'Netsparker'
+
 
 - matcher:
     require:
