@@ -1330,10 +1330,58 @@ config:
       AgentNameVersionMajor                : 'Chrome 34'
       AgentSecurity                        : 'Strong security'
 
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.1.1; nl-nl; POV_TV-HDMI-200BT Build/JRO03H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
 
-#- test: # TODO: Implement
-#    input:
-#      user_agent_string: 'Opera/9.80 (Linux armv6l; Opera TV Store/5581; (SonyBDP/BDV13)) Presto/2.12.362 Version/12.11'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.1.1; nl-nl; POV_TV-HDMI-200BT Build/JRO03H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Point OF View Smart TV'
+      DeviceBrand                          : 'Point OF View'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.1.1'
+      OperatingSystemNameVersion           : 'Android 4.1.1'
+      OperatingSystemVersionBuild          : 'JRO03H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Linux armv6l; Opera TV Store/5581; (SonyBDP/BDV13)) Presto/2.12.362 Version/12.11'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Sony BDV13'
+      DeviceBrand                          : 'Sony'
+      DeviceCpu                            : 'ARMv6l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'ARMv6l'
+      OperatingSystemNameVersion           : 'Linux ARMv6l'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.362'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.362'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.11'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.11'
+      AgentNameVersionMajor                : 'Opera 12'
