@@ -4814,7 +4814,7 @@ config:
 
 
 # https://networklogger.net/
-# FIXME: This product only exists for Desktop OSX, yet it uses "Darwin" which indicates iOS...
+# NOTE: This product only exists for Desktop OSX, yet it uses "Darwin" which indicates iOS...
 - test:
     input:
       user_agent_string: 'Network%20Logger%20Pro/6.1 CFNetwork/976 Darwin/18.2.0 (x86_64)'
@@ -5115,8 +5115,35 @@ config:
 #Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) ASProxy/5.2
 
 # FIXME: These are NOT bingbot --> Robot Imitators!!
-#Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) AppEngine-Google; (+http://code.google.com/appengine; appid: s~doingfly)
-#Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) AppEngine-Google; (+http://code.google.com/appengine; appid: s~i-am-proxy-hrd)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) AppEngine-Google; (+http://code.google.com/appengine; appid: s~doingfly)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Appengine'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud ??'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'doingfly'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'doingfly ??'
+      AgentNameVersionMajor                : 'doingfly ??'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+#- test:
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) AppEngine-Google; (+http://code.google.com/appengine; appid: s~i-am-proxy-hrd)'
+#
 
 - test:
     input:
@@ -5260,7 +5287,7 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'MetaURI API 2.0'
       AgentNameVersionMajor                : 'MetaURI API 2'
-      AgentInformationUrl                  : 'metauri.com'         #  5021 | FAILED; Should be '<<absent>>'
+      AgentInformationUrl                  : 'metauri.com'
 
 
 # This is a robot ! (Based on traffic pattern). Only seen situation of 'App3leWebKit' (with a '3')
