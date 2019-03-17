@@ -3503,7 +3503,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 8'
 
 
-- test: # FIXME: The */* should be ignored
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.3) Gecko/2000000000 Firefox/8.8.8, */*'
     expected:
@@ -3524,11 +3524,11 @@ config:
       LayoutEngineNameVersionMajor         : 'Gecko 12'
       LayoutEngineBuild                    : '2000000000'
       AgentClass                           : 'Browser'
-      AgentName                            : '*'
-      AgentVersion                         : '*'
-      AgentVersionMajor                    : '*'
-      AgentNameVersion                     : '*'
-      AgentNameVersionMajor                : '*'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '8.8.8,'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Firefox 8.8.8,'
+      AgentNameVersionMajor                : 'Firefox 8'
 
 
 - test:
