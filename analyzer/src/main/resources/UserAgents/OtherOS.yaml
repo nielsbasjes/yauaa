@@ -734,16 +734,28 @@ config:
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
 
-- test: #TODO: Implement
+- matcher:
+    require:
+    - 'agent.product.comments.entry[1]="Indy"'
+    extract:
+    - 'DeviceClass                         :      1 : "Desktop"'
+    - 'DeviceName                          :      1 : "Indy"'
+    - 'DeviceBrand                         :      1 : "Silicon Graphics"'
+    - 'OperatingSystemClass                :      1 : "Desktop"'
+    - 'OperatingSystemName                 :      1 : "Irix"'
+    - 'OperatingSystemVersion              :      1 : "??"'
+
+- test:
     input:
       user_agent_string: 'Mozilla/3.0 (compatible; Indy Library)'
     expected:
-      DeviceClass                          : 'Unknown'
-      DeviceName                           : 'Unknown'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Silicon Graphics Indy'
+      DeviceBrand                          : 'Silicon Graphics'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Irix'
       OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Irix ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Mozilla'
       LayoutEngineVersion                  : '3.0'
