@@ -22,9 +22,9 @@ import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupPrefixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathFixedValueContext;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -122,7 +122,7 @@ public class TreeExpressionEvaluator implements Serializable {
             }
 
             @Override
-            public String visitPathFixedValue(UserAgentTreeWalkerParser.PathFixedValueContext ctx) {
+            public String visitPathFixedValue(PathFixedValueContext ctx) {
                 return ctx.value.getText();
             }
         }.visit(requiredPattern);

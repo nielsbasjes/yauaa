@@ -28,9 +28,9 @@ import static nl.basjes.parse.useragent.classify.DeviceClass.HandheldGameConsole
 import static nl.basjes.parse.useragent.classify.DeviceClass.Mobile;
 import static nl.basjes.parse.useragent.classify.DeviceClass.Phone;
 import static nl.basjes.parse.useragent.classify.DeviceClass.Robot;
+import static nl.basjes.parse.useragent.classify.DeviceClass.RobotImitator;
 import static nl.basjes.parse.useragent.classify.DeviceClass.RobotMobile;
 import static nl.basjes.parse.useragent.classify.DeviceClass.SetTopBox;
-import static nl.basjes.parse.useragent.classify.DeviceClass.RobotImitator;
 import static nl.basjes.parse.useragent.classify.DeviceClass.TV;
 import static nl.basjes.parse.useragent.classify.DeviceClass.Tablet;
 import static nl.basjes.parse.useragent.classify.DeviceClass.Unclassified;

@@ -44,7 +44,6 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrevN;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
@@ -56,12 +55,14 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsN
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathWalkContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepBackToFullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEndsWithValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEqualsValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepIsInSetContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext2Context;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext3Context;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext4Context;
@@ -381,7 +382,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitPathVariable(UserAgentTreeWalkerParser.PathVariableContext ctx) {
+        public Void visitPathVariable(PathVariableContext ctx) {
             fromHereItCannotBeInHashMapAnymore();
             visitNext(ctx.nextStep);
             return null; // Void
@@ -488,7 +489,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitStepIsInSet(UserAgentTreeWalkerParser.StepIsInSetContext ctx) {
+        public Void visitStepIsInSet(StepIsInSetContext ctx) {
             fromHereItCannotBeInHashMapAnymore();
 
             String lookupSetName = ctx.set.getText();

@@ -18,8 +18,11 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeFirstWordsContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeLastWordsContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeSingleWordContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeStartToEndContext;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -91,28 +94,28 @@ public final class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordR
     }
 
     @Override
-    public Range visitWordRangeStartToEnd(UserAgentTreeWalkerParser.WordRangeStartToEndContext ctx) {
+    public Range visitWordRangeStartToEnd(WordRangeStartToEndContext ctx) {
         return new Range(
             Integer.parseInt(ctx.firstWord.getText()),
             Integer.parseInt(ctx.lastWord.getText()));
     }
 
     @Override
-    public Range visitWordRangeFirstWords(UserAgentTreeWalkerParser.WordRangeFirstWordsContext ctx) {
+    public Range visitWordRangeFirstWords(WordRangeFirstWordsContext ctx) {
         return new Range(
             1,
             Integer.parseInt(ctx.lastWord.getText()));
     }
 
     @Override
-    public Range visitWordRangeLastWords(UserAgentTreeWalkerParser.WordRangeLastWordsContext ctx) {
+    public Range visitWordRangeLastWords(WordRangeLastWordsContext ctx) {
         return new Range(
             Integer.parseInt(ctx.firstWord.getText()),
             -1);
     }
 
     @Override
-    public Range visitWordRangeSingleWord(UserAgentTreeWalkerParser.WordRangeSingleWordContext ctx) {
+    public Range visitWordRangeSingleWord(WordRangeSingleWordContext ctx) {
         int wordNumber = Integer.parseInt(ctx.singleWord.getText());
         return new Range(
             wordNumber,
