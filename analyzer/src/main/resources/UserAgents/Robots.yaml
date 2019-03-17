@@ -37,6 +37,7 @@ config:
       'Guzzle'                     : 'Guzzle'
       'GuzzleHttp'                 : 'Guzzle'
       'heritrix'                   : 'heritrix'
+      'Kapow Technologies RoboSuite' : 'Kapow'
       'lua-resty-http'             : 'LedgeTech'
       'Mappy'                      : 'Mappy'
       'MegaIndex.ru'               : 'MegaIndex.ru'
@@ -5114,7 +5115,7 @@ config:
 #Mozilla/5.0 (compatible;bingbot/2.0;+http://www.bing.com/bingbot.htm)
 #Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) ASProxy/5.2
 
-# FIXME: These are NOT bingbot --> Robot Imitators!!
+# These are NOT bingbot
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) AppEngine-Google; (+http://code.google.com/appengine; appid: s~doingfly)'
@@ -5140,10 +5141,31 @@ config:
       AgentNameVersionMajor                : 'doingfly ??'
       AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
 
-#- test:
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) AppEngine-Google; (+http://code.google.com/appengine; appid: s~i-am-proxy-hrd)'
-#
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) AppEngine-Google; (+http://code.google.com/appengine; appid: s~i-am-proxy-hrd)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Appengine'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud ??'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'i-am-proxy-hrd'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'i-am-proxy-hrd ??'
+      AgentNameVersionMajor                : 'i-am-proxy-hrd ??'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
 
 - test:
     input:
@@ -5173,7 +5195,9 @@ config:
 
 
 
-#- test: # FIXME: Implement (current rules classify this one wrong)
+# https://www.linkedin.com/company/swayy/about/
+# Founded in 2013 and taken over in 2015.
+#- test: # FIXME: (Lowprio) Implement (current rules classify this one wrong)
 #    input:
 #      user_agent_string: 'Swayy/2.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html; +http://www.swayy.co)'
 #    expected:
@@ -5181,9 +5205,9 @@ config:
 #      DeviceName                           : 'Google'
 #      DeviceBrand                          : 'Google'
 #      OperatingSystemClass                 : 'Cloud'
-#      OperatingSystemName                  : 'Google'
-#      OperatingSystemVersion               : 'Google'
-#      OperatingSystemNameVersion           : 'Google'
+#      OperatingSystemName                  : 'Google Cloud'
+#      OperatingSystemVersion               : '??'
+#      OperatingSystemNameVersion           : 'Google Cloud ??'
 #      LayoutEngineClass                    : 'Robot'
 #      LayoutEngineName                     : 'Googlebot'
 #      LayoutEngineVersion                  : 'Googlebot'
@@ -5191,12 +5215,12 @@ config:
 #      LayoutEngineNameVersion              : 'Googlebot'
 #      LayoutEngineNameVersionMajor         : 'Googlebot'
 #      AgentClass                           : 'Robot'
-#      AgentName                            : 'Googlebot'
-#      AgentVersion                         : '2.1'
+#      AgentName                            : 'Swayy'
+#      AgentVersion                         : '2.0'
 #      AgentVersionMajor                    : '2'
-#      AgentNameVersion                     : 'Googlebot 2.1'
-#      AgentNameVersionMajor                : 'Googlebot 2'
-#      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+#      AgentNameVersion                     : 'Swayy 2.0'
+#      AgentNameVersionMajor                : 'Swayy 2'
+#      AgentInformationUrl                  : 'http://www.swayy.co'
 
 
 # Download managers:
@@ -5219,6 +5243,30 @@ config:
 #- test: # TODO: Implement. Looking at the traffic pattern --> this is a robot.
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en)'
+#    expected:
+#      DeviceClass                          : 'Phone'
+#      DeviceName                           : 'Apple iPhone'
+#      DeviceBrand                          : 'Apple'
+#      DeviceVersion                        : 'iPhone'
+#      OperatingSystemClass                 : 'Mobile'
+#      OperatingSystemName                  : 'iOS'
+#      OperatingSystemVersion               : '??'
+#      OperatingSystemNameVersion           : 'iOS ??'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'Mozilla'
+#      LayoutEngineVersion                  : '5.0'
+#      LayoutEngineVersionMajor             : '5'
+#      LayoutEngineNameVersion              : 'Mozilla 5.0'
+#      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'Netscape'
+#      AgentVersion                         : '5.0'
+#      AgentVersionMajor                    : '5'
+#      AgentNameVersion                     : 'Netscape 5.0'
+#      AgentNameVersionMajor                : 'Netscape 5'
+#      AgentLanguage                        : 'English'
+#      AgentLanguageCode                    : 'en'
+#      AgentSecurity                        : 'Strong security'
 
 
 # FIXME: DeviceClass = Unknown
@@ -5583,10 +5631,30 @@ config:
       AgentNameVersionMajor                : 'datafeeds fetcher aanbiedingvandedag'
       AgentInformationUrl                  : 'aanbiedingvandedag.nl'
 
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/4.0 (compatible; Kapow Technologies RoboSuite)'
-#
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; Kapow Technologies RoboSuite)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Kapow Technologies RoboSuite'
+      DeviceBrand                          : 'Kapow'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Kapow Technologies RoboSuite'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Kapow Technologies RoboSuite ??'
+      LayoutEngineNameVersionMajor         : 'Kapow Technologies RoboSuite ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Kapow Technologies RoboSuite'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Kapow Technologies RoboSuite ??'
+      AgentNameVersionMajor                : 'Kapow Technologies RoboSuite ??'
+
 
 - test:
     input:

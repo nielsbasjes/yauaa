@@ -22,6 +22,7 @@ config:
     - 'Google:agent.product.comments.entry.product.name[1]="Googlebot"'
     require:
     - 'agent.product.comments.entry.url="http://www.google.com/bot.html"'
+    - 'IsNull[agent.product.comments.entry.url!="http://www.google.com/bot.html"]'
     extract:
     - '__Set_ALL_Fields__                  :   2999 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   3000 :"Robot"'
@@ -616,7 +617,7 @@ config:
     - 'LayoutEngineName                    :   4000 : "Cloud"'
     - 'LayoutEngineVersion                 :   4000 : "??"'
     - 'AgentClass                          :   4000 :"Robot"'
-    - 'AgentName                           :   4000 :agent.product.(1)comments.(2)entry.(1)keyvalue.(1)version[1]="s"@[2]'
+    - 'AgentName                           :   4000 :agent.product.(1)comments.(2)entry.(1)keyvalue.(1)version[1]="s"@[2-]'
     - 'AgentVersion                        :   4000 :"??"'
 
 - matcher:
@@ -635,7 +636,7 @@ config:
     - 'LayoutEngineName                    :   4000 : "Cloud"'
     - 'LayoutEngineVersion                 :   4000 : "??"'
     - 'AgentClass                          :   4000 :"Robot"'
-    - 'AgentName                           :   4000 :agent.product.(1)comments.(2)entry.(1)keyvalue.(2)text[1]="s"@[2]'
+    - 'AgentName                           :   4000 :agent.product.(1)comments.(2)entry.(1)keyvalue.(2)text[1]="s"@[2-]'
     - 'AgentVersion                        :   4000 :"??"'
 
 - matcher:
