@@ -1089,6 +1089,20 @@ config:
     - 'AgentName                           :   1000 :"PhantomJS"'
     - 'AgentVersion                        :   1000 :@PhantomJSVersion'
 
+# http://casperjs.org/ : Navigation scripting & testing for PhantomJS and SlimerJS
+- matcher:
+    variable:
+    - 'CasperJSVersion:agent.product.name="CasperJS"^.version'
+    extract:
+    - 'DeviceClass                         :   1001 :"Robot"'
+    - 'DeviceBrand                         :   1001 :"CasperJS"'
+    - 'DeviceName                          :   1001 :"CasperJS"'
+    - 'DeviceCpu                           :   1001 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   1001 :"<<<null>>>"'
+    - 'AgentClass                          :   1001 :"Robot"'
+    - 'AgentName                           :   1001 :"CasperJS"'
+    - 'AgentVersion                        :   1001 :@CasperJSVersion'
+
 # ------------------------------------------------------------
 
 - test:
@@ -1166,12 +1180,12 @@ config:
       AgentNameVersionMajor                : 'PhantomJS 2'
 
 - test:
-    input:
+    input: # http://casperjs.org/ : Navigation scripting & testing for PhantomJS and SlimerJS
       user_agent_string: 'Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) CasperJS/1.1.0+PhantomJS/2.1.1 Safari/538.1'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'PhantomJs'
-      DeviceBrand                          : 'PhantomJs'
+      DeviceName                           : 'CasperJs'
+      DeviceBrand                          : 'CasperJs'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Linux'
       OperatingSystemVersion               : 'Intel x86_64'
@@ -1180,14 +1194,14 @@ config:
       LayoutEngineName                     : 'PhantomJS'
       LayoutEngineVersion                  : '2.1.1'
       LayoutEngineVersionMajor             : '2'
-      LayoutEngineNameVersion              : 'PhantomJS 2.1.1' # TODO: Or should this be CasperJS ??
+      LayoutEngineNameVersion              : 'PhantomJS 2.1.1'
       LayoutEngineNameVersionMajor         : 'PhantomJS 2'
       AgentClass                           : 'Robot'
-      AgentName                            : 'PhantomJS'
-      AgentVersion                         : '2.1.1'
-      AgentVersionMajor                    : '2'
-      AgentNameVersion                     : 'PhantomJS 2.1.1'
-      AgentNameVersionMajor                : 'PhantomJS 2'
+      AgentName                            : 'CasperJS'
+      AgentVersion                         : '1.1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'CasperJS 1.1.0'
+      AgentNameVersionMajor                : 'CasperJS 1'
 
 # DejaClick  (last occurance was in 2015)
 - test:

@@ -23,7 +23,7 @@ v5.9-SNAPSHOT
 - New more realistic performance benchmark test
 - Renamed DeviceClass "Spy" to "Robot Imitator" 
 - More consistently add the DeviceBrand to the DeviceName
-- Detect Apple iOS Universal Links updater, Netsparker
+- Detect Apple iOS Universal Links updater, Netsparker, CasperJs
 
 v5.8
 ===
