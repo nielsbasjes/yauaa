@@ -58,6 +58,9 @@ QUOTE3:       '\\\\'    -> skip;
 QUOTE4:       '\''      -> skip;
 BAD_ESC_TAB:  '\\t'     -> skip;
 
+MIME_TYPE_1:  'application/json'   -> skip;
+MIME_TYPE_2:  '*/*'                -> skip;
+
 SPACE :       (' '| '\u2002' | '\u0220' |'\t'|'+') -> skip;
 
 fragment UserAgent
