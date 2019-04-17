@@ -8,8 +8,8 @@ mvn clean verify -PpackageForRelease -Prelease
 mvn clean
 
 # Prepare the versions for the release
-RELEASEVERSION=5.9
-NEXTVERSION=5.10
+RELEASEVERSION=5.10
+NEXTVERSION=5.11
 
 # Creating and publishing the new Tagging
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION} -Plogstash
