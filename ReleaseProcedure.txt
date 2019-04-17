@@ -4,7 +4,7 @@ So we do it manually.
 # Ensure all has been committed
 
 # Ensure it all works
-mvn clean verify
+mvn clean verify -PpackageForRelease -Prelease
 mvn clean
 
 # Prepare the versions for the release
@@ -12,7 +12,7 @@ RELEASEVERSION=5.9
 NEXTVERSION=5.10
 
 # Creating and publishing the new Tagging
-mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION}
+mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION} -Plogstash
 
 # Update the version number in all of the examples in the generated documentation website.
 sed -i "s@YauaaVersion: \+\"[0-9\.]\+\"@YauaaVersion: \"${RELEASEVERSION}\"@g" src/book.js
@@ -33,7 +33,7 @@ mvn clean deploy -PpackageForRelease -Prelease -Pdeploy-sonatype
 
 # Now check SONATYPE
 
-mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${NEXTVERSION}-SNAPSHOT
+mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${NEXTVERSION}-SNAPSHOT -Plogstash
 
 # Update ReleaseProcedure.txt (versions near the top)
 
