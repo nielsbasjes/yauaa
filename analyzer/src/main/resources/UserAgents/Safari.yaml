@@ -184,7 +184,7 @@ config:
     - 'agent.product.name="Version"' # Performance trick
     extract:
     - 'AgentClass                          :     58 :"Browser"'
-    - 'AgentName                           :     58 :@Agent.name'
+    - 'AgentName                           :     58 :@Agent.name!="Mobile"'
     - 'AgentVersion                        :     58 :@Agent.version'
 
 - matcher:
@@ -199,7 +199,7 @@ config:
     - 'agent.product.name="Version"' # Performance trick
     extract:
     - 'AgentClass                          :     58 :"Browser"'
-    - 'AgentName                           :     58 :@Agent.name'
+    - 'AgentName                           :     58 :@Agent.name!="Mobile"'
     - 'AgentVersion                        :     58 :@Agent.version'
 
 #Safari:

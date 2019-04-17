@@ -869,7 +869,7 @@ config:
     - 'Product: agent.product.(1)name="Mobile"^>>.name="Safari"^<'
     extract:
     - 'AgentClass                          :   2049 :"Browser"'
-    - 'AgentName                           :   2049 :@Product.name'
+    - 'AgentName                           :   2049 :@Product.name!="Version"'
     - 'AgentVersion                        :   2049 :@Product.version'
 
 - matcher:
@@ -879,7 +879,7 @@ config:
     - 'Product: agent.product.(1)name="Mobile"^>>.name="Mobile Safari"^<'
     extract:
     - 'AgentClass                          :   2049 :"Browser"'
-    - 'AgentName                           :   2049 :@Product.name'
+    - 'AgentName                           :   2049 :@Product.name!="Version"'
     - 'AgentVersion                        :   2049 :@Product.version'
 
 - test:
@@ -2604,3 +2604,104 @@ config:
       WebviewAppVersion                    : '1'
       WebviewAppVersionMajor               : '1'
       WebviewAppNameVersionMajor           : 'Cheetah Mobile Browser 1'
+
+# Manually created edge case: Here the 'Version' is NOT the name of the browser.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16B92 Version/12.1 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '16B92'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.1'
+      OperatingSystemNameVersion           : 'iOS 12.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '12.1'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Safari 12.1'
+      AgentNameVersionMajor                : 'Safari 12'
+
+
+# Sometimes the name of the agent is the first comment of the "(Mobile) Safari" product.
+- matcher:
+    variable:
+    - 'Safari:agent.product.(1)name="Safari"^'
+    - 'Product:@Safari.comments.(1)entry.product'
+    extract:
+    - 'AgentClass                          :     59 :"Browser"'
+    - 'AgentName                           :     59 :@Product.name'
+    - 'AgentVersion                        :     59 :@Product.version'
+
+- matcher:
+    variable:
+    - 'Safari:agent.product.(1)name="Mobile Safari"^'
+    - 'Product:@Safari.comments.(1)entry.product'
+    extract:
+    - 'AgentClass                          :     59 :"Browser"'
+    - 'AgentName                           :     59 :@Product.name'
+    - 'AgentVersion                        :     59 :@Product.version'
+
+# Apparently the Airwatch Browser is a browser within the VMWare "Workspace ONE"/"AirWatch" system.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16B92 Version/12.1 Safari/605.1.15 (AirWatch Browser v7.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '16B92'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.1'
+      OperatingSystemNameVersion           : 'iOS 12.1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AirWatch Browser'
+      AgentVersion                         : 'v7.1'
+      AgentVersionMajor                    : 'v7'
+      AgentNameVersion                     : 'AirWatch Browser v7.1'
+      AgentNameVersionMajor                : 'AirWatch Browser v7'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 9_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13C75 Version/7.0 Safari/9537.53 (AirWatch Browser v4509)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '13C75'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '9.2'
+      OperatingSystemNameVersion           : 'iOS 9.2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '601.1.46'
+      LayoutEngineVersionMajor             : '601'
+      LayoutEngineNameVersion              : 'AppleWebKit 601.1.46'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 601'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AirWatch Browser'
+      AgentVersion                         : 'v4509'
+      AgentVersionMajor                    : 'v4509'
+      AgentNameVersion                     : 'AirWatch Browser v4509'
+      AgentNameVersionMajor                : 'AirWatch Browser v4509'
+

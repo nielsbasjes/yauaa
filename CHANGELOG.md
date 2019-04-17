@@ -24,6 +24,7 @@ v5.9-SNAPSHOT
 - Renamed DeviceClass "Spy" to "Robot Imitator" 
 - More consistently add the DeviceBrand to the DeviceName
 - Detect Apple iOS Universal Links updater, Netsparker, CasperJs
+- Fix the AirWatch scenario
 
 v5.8
 ===
