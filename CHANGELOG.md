@@ -1,6 +1,10 @@
 This is intended as an overview of the major changes
 
-v5.9-SNAPSHOT
+v5.10-SNAPSHOT
+===
+- Document Scala usage.
+
+v5.9
 ===
 - Speedup in handling IsNull cases.
 - Speedup in skipping the untouched Matchers.

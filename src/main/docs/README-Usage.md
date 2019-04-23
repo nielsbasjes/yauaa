@@ -66,3 +66,38 @@ Note that you should really instantiate it only once per thread (and use a Threa
 Be aware of there is a bug in Eclipse which will show you errors in perfectly valid Java code: 
 https://bugs.eclipse.org/bugs/show_bug.cgi?id=527475 
 The errors you see are related to the inheritance model used by the Builders in this project and the fact that Eclipse does not interpret it correctly. 
+
+# Scala usage
+When using this library from a Scala application the way the Builders have been constructed turns out to be very unfriendly to use.
+
+[Julien BENOIT](https://github.com/jbenoit2011) found two 'workable' solutions of constructing the analyzer from a Scala based application:
+
+Solution 1, with `asInstanceOf` method:
+
+    val uaa = UserAgentAnalyzer.newBuilder
+      .withCache(10000)           .asInstanceOf[UserAgentAnalyzerDirectBuilder[_, _]]
+      .hideMatcherLoadStats       .asInstanceOf[UserAgentAnalyzerDirectBuilder[_, _]]
+      .withField("DeviceClass")   .asInstanceOf[UserAgentAnalyzerDirectBuilder[_, _]]
+      .build                      .asInstanceOf[UserAgentAnalyzer]
+
+Solution 2, with pattern matching:
+
+    val uaa = UserAgentAnalyzer
+      .newBuilder
+      .withCache(10000) match {
+      case b: UserAgentAnalyzerDirectBuilder[_, _] =>
+        b.hideMatcherLoadStats match {
+          case c: UserAgentAnalyzerDirectBuilder[_, _] =>
+            c.withField("DeviceClass") match {
+              case d: UserAgentAnalyzerDirectBuilder[_, _] =>
+                d.build match {
+                  case e: UserAgentAnalyzer => e
+                  case _ => throw new Exception("User-Agent analyzer cannot be built")
+                }
+              case _ => throw new Exception("User-Agent analyzer cannot be built")
+            }
+          case _ => throw new Exception("User-Agent analyzer cannot be built")
+        }
+      case _ => throw new Exception("User-Agent analyzer cannot be built")
+    }
+  
