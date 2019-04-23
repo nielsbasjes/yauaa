@@ -382,6 +382,36 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; ONEPLUS A6003 Build/PKQ1.180716.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/73.0.3683.90 Mobile Safari/537.36 Instagram 89.0.0.21.101 Android (28/9; 420dpi; 1080x2074; OnePlus; ONEPLUS A6003; OnePlus6; qcom; nl_BE; 150338067)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Oneplus A6003'
+      DeviceBrand                          : 'Oneplus'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemVersionBuild          : 'PKQ1.180716.001'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '73.0'
+      LayoutEngineVersionMajor             : '73'
+      LayoutEngineNameVersion              : 'Blink 73.0'
+      LayoutEngineNameVersionMajor         : 'Blink 73'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '73.0.3683.90'
+      AgentVersionMajor                    : '73'
+      AgentNameVersion                     : 'Chrome Webview 73.0.3683.90'
+      AgentNameVersionMajor                : 'Chrome Webview 73'
+      WebviewAppName                       : 'Instagram'
+      WebviewAppVersion                    : '89.0.0.21.101'
+      WebviewAppVersionMajor               : '89'
+      WebviewAppNameVersionMajor           : 'Instagram 89'
+# TODO: Extracting the language from  agent.(7)product.(1)comments.(8)entry.(1)text="nl_BE" is possible but digging this deep will also impact all useragents that do not have this.
+
+- test:
+    input:
       user_agent_string: 'iTunes/12.7.4 (Macintosh; OS X 10.13.4) AppleWebKit/605.1.33.1.4'
     expected:
       DeviceClass                          : 'Desktop'
