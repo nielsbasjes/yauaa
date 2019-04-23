@@ -594,7 +594,35 @@ Note that you should really instantiate it only once per thread (and use a Threa
 <p>Be aware of there is a bug in Eclipse which will show you errors in perfectly valid Java code: 
 <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=527475" target="_blank">https://bugs.eclipse.org/bugs/show_bug.cgi?id=527475</a> 
 The errors you see are related to the inheritance model used by the Builders in this project and the fact that Eclipse does not interpret it correctly. </p>
-
+<h1 id="scala-usage">Scala usage</h1>
+<p>When using this library from a Scala application the way the Builders have been constructed turns out to be very unfriendly to use.</p>
+<p><a href="https://github.com/jbenoit2011" target="_blank">Julien BENOIT</a> found two &apos;workable&apos; solutions of constructing the analyzer from a Scala based application:</p>
+<p>Solution 1, with <code>asInstanceOf</code> method:</p>
+<pre><code>val uaa = UserAgentAnalyzer.newBuilder
+  .withCache(10000)           .asInstanceOf[UserAgentAnalyzerDirectBuilder[_, _]]
+  .hideMatcherLoadStats       .asInstanceOf[UserAgentAnalyzerDirectBuilder[_, _]]
+  .withField(&quot;DeviceClass&quot;)   .asInstanceOf[UserAgentAnalyzerDirectBuilder[_, _]]
+  .build                      .asInstanceOf[UserAgentAnalyzer]
+</code></pre><p>Solution 2, with pattern matching:</p>
+<pre><code>val uaa = UserAgentAnalyzer
+  .newBuilder
+  .withCache(10000) match {
+  case b: UserAgentAnalyzerDirectBuilder[_, _] =&gt;
+    b.hideMatcherLoadStats match {
+      case c: UserAgentAnalyzerDirectBuilder[_, _] =&gt;
+        c.withField(&quot;DeviceClass&quot;) match {
+          case d: UserAgentAnalyzerDirectBuilder[_, _] =&gt;
+            d.build match {
+              case e: UserAgentAnalyzer =&gt; e
+              case _ =&gt; throw new Exception(&quot;User-Agent analyzer cannot be built&quot;)
+            }
+          case _ =&gt; throw new Exception(&quot;User-Agent analyzer cannot be built&quot;)
+        }
+      case _ =&gt; throw new Exception(&quot;User-Agent analyzer cannot be built&quot;)
+    }
+  case _ =&gt; throw new Exception(&quot;User-Agent analyzer cannot be built&quot;)
+}
+</code></pre>
                                 
                                 </section>
                             
@@ -637,7 +665,7 @@ The errors you see are related to the inheritance model used by the Builders in 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Basic usage","level":"2.1","depth":1,"next":{"title":"Limitations of the engine","level":"2.2","depth":1,"path":"README-Limitations.md","ref":"README-Limitations.md","articles":[]},"previous":{"title":"Try it online","level":"1.3","depth":1,"path":"TryIt.md","ref":"TryIt.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.9"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-Usage.md","mtime":"2019-01-26T07:36:54.344Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-04-17T16:03:08.223Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Basic usage","level":"2.1","depth":1,"next":{"title":"Limitations of the engine","level":"2.2","depth":1,"path":"README-Limitations.md","ref":"README-Limitations.md","articles":[]},"previous":{"title":"Try it online","level":"1.3","depth":1,"path":"TryIt.md","ref":"TryIt.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.9"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-Usage.md","mtime":"2019-04-23T14:38:16.508Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-04-23T14:38:37.018Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
