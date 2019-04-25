@@ -25,7 +25,6 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.Table;
-import org.apache.flink.table.api.TableEnvironment;
 import org.apache.flink.table.api.java.StreamTableEnvironment;
 import org.apache.flink.types.Row;
 import org.junit.Test;
@@ -70,7 +69,7 @@ public class TestTableFunction {
         DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
 
         // The table environment
-        StreamTableEnvironment tableEnv = TableEnvironment.getTableEnvironment(senv);
+        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
 
         // Give the stream a Table Name
         tableEnv.registerDataStream("AgentStream", inputStream, "useragent, expectedDeviceClass, expectedAgentNameVersionMajor");

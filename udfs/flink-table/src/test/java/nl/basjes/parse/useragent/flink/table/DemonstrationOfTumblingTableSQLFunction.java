@@ -28,7 +28,6 @@ import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks;
 import org.apache.flink.streaming.api.functions.source.SourceFunction;
 import org.apache.flink.streaming.api.watermark.Watermark;
 import org.apache.flink.table.api.Table;
-import org.apache.flink.table.api.TableEnvironment;
 import org.apache.flink.table.api.java.StreamTableEnvironment;
 import org.apache.flink.types.Row;
 import org.junit.Ignore;
@@ -124,7 +123,7 @@ public class DemonstrationOfTumblingTableSQLFunction {
             .assignTimestampsAndWatermarks(new UAWatermarker());
 
         // The table environment
-        StreamTableEnvironment tableEnv = TableEnvironment.getTableEnvironment(senv);
+        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
 
         // Give the stream a Table Name
         tableEnv.registerDataStream("AgentStream", inputStream, "EventTime.rowtime, useragent, expectedDeviceClass, expectedAgentNameVersionMajor");

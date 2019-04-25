@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 v5.10-SNAPSHOT
 ===
 - Document Scala usage.
+- Updated UDF dependencies
+  - Apache Flink  1.8.0
 
 v5.9
 ===
