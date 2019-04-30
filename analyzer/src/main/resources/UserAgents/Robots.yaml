@@ -2418,6 +2418,28 @@ config:
     - 'AgentName                           :   5001 : "SpeedCurve WebpageTest"'
     - 'AgentVersion                        :   5001 : @PTSTVersion'
 
+- matcher:
+    require:
+    - 'agent.product.(1)version="SpeedCurve"'
+    - 'agent.product.name{"Mobile"'
+    - 'agent.product.name}"Safari"'
+    variable:
+    - 'PTSTVersion:agent.product.name="PTST"^.(2)version'
+    extract:
+    - '__Set_ALL_Fields__                  :   5999 : "<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   6001 : "Robot Mobile"'
+    - 'DeviceName                          :   6001 : "SpeedCurve WebpageTest"'
+    - 'DeviceBrand                         :   6001 : "SpeedCurve"'
+    - 'OperatingSystemClass                :   6001 : "Cloud"'
+    - 'OperatingSystemName                 :   6001 : "Cloud"'
+    - 'OperatingSystemVersion              :   6001 : "??"'
+    - 'LayoutEngineClass                   :   6001 : "Robot"'
+    - 'LayoutEngineName                    :   6001 : "SpeedCurve WebpageTest"'
+    - 'LayoutEngineVersion                 :   6001 : @PTSTVersion'
+    - 'AgentClass                          :   6001 : "Robot"'
+    - 'AgentName                           :   6001 : "SpeedCurve WebpageTest"'
+    - 'AgentVersion                        :   6001 : @PTSTVersion'
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; Moto G (4) Build/MPJ24.139-64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Mobile Safari/537.36 PTST/180521.140508'
@@ -2519,7 +2541,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B137 Safari/601.1 PTST/SpeedCurve/180620.180643'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Robot Mobile'
       DeviceName                           : 'SpeedCurve WebpageTest'
       DeviceBrand                          : 'SpeedCurve'
       OperatingSystemClass                 : 'Cloud'
@@ -2543,7 +2565,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 PTST/SpeedCurve/180620.180643'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Robot Mobile'
       DeviceName                           : 'SpeedCurve WebpageTest'
       DeviceBrand                          : 'SpeedCurve'
       OperatingSystemClass                 : 'Cloud'
