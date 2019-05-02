@@ -2421,8 +2421,7 @@ config:
 - matcher:
     require:
     - 'agent.product.(1)version="SpeedCurve"'
-    - 'agent.product.name{"Mobile"'
-    - 'agent.product.name}"Safari"'
+    - 'agent.product.name[1-1]="Mobile"'
     variable:
     - 'PTSTVersion:agent.product.name="PTST"^.(2)version'
     extract:
@@ -2439,6 +2438,27 @@ config:
     - 'AgentClass                          :   6001 : "Robot"'
     - 'AgentName                           :   6001 : "SpeedCurve WebpageTest"'
     - 'AgentVersion                        :   6001 : @PTSTVersion'
+
+- matcher:
+    require:
+    - 'agent.product.(1)version="SpeedCurve"'
+    - 'agent.(1)product.(1)comments.(2)entry[1-1]="Android"'
+    variable:
+    - 'PTSTVersion:agent.product.name="PTST"^.(2)version'
+    extract:
+    - '__Set_ALL_Fields__                  :   6999 : "<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   7001 : "Robot Mobile"'
+    - 'DeviceName                          :   7001 : "SpeedCurve WebpageTest"'
+    - 'DeviceBrand                         :   7001 : "SpeedCurve"'
+    - 'OperatingSystemClass                :   7001 : "Cloud"'
+    - 'OperatingSystemName                 :   7001 : "Cloud"'
+    - 'OperatingSystemVersion              :   7001 : "??"'
+    - 'LayoutEngineClass                   :   7001 : "Robot"'
+    - 'LayoutEngineName                    :   7001 : "SpeedCurve WebpageTest"'
+    - 'LayoutEngineVersion                 :   7001 : @PTSTVersion'
+    - 'AgentClass                          :   7001 : "Robot"'
+    - 'AgentName                           :   7001 : "SpeedCurve WebpageTest"'
+    - 'AgentVersion                        :   7001 : @PTSTVersion'
 
 - test:
     input:
@@ -2585,6 +2605,29 @@ config:
       AgentNameVersion                     : 'SpeedCurve WebpageTest 180620.180643'
       AgentNameVersionMajor                : 'SpeedCurve WebpageTest 180620'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.3; Nexus 10 Build/JSS15Q) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Safari/537.36 PTST/SpeedCurve/190429.170455'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'SpeedCurve WebpageTest'
+      DeviceBrand                          : 'SpeedCurve'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpeedCurve WebpageTest'
+      LayoutEngineVersion                  : '190429.170455'
+      LayoutEngineVersionMajor             : '190429'
+      LayoutEngineNameVersion              : 'SpeedCurve WebpageTest 190429.170455'
+      LayoutEngineNameVersionMajor         : 'SpeedCurve WebpageTest 190429'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SpeedCurve WebpageTest'
+      AgentVersion                         : '190429.170455'
+      AgentVersionMajor                    : '190429'
+      AgentNameVersion                     : 'SpeedCurve WebpageTest 190429.170455'
+      AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190429'
 
 - test:
     input:
