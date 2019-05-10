@@ -635,6 +635,18 @@ config:
     - 'AgentName                           :   2050 :"Edge"'
     - 'AgentVersion                        :   2050 :agent.product.name="EdgiOS"^.version'
 
+# Blink based Edge browser on Desktop # FIXME: Get the actual Chromium based Edge specifications
+- matcher:
+    extract:
+    - 'LayoutEngineClass                   :   2015 :"Browser"'
+    - 'LayoutEngineName                    :   2015 :"Blink"'
+    - 'LayoutEngineVersion                 :   2015 :agent.product.name="Chrome"^.version[-2]'
+
+    - 'AgentClass                          :   2015 :"Browser"'
+    - 'AgentName                           :   2015 :"Edge"'
+    - 'AgentVersion                        :   2015 :agent.product.name="Edg"^.version'
+
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6 Build/N6F27M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.145 Mobile Safari/537.36 EdgA/41.0.0.1136'
@@ -792,3 +804,62 @@ config:
       AgentVersionMajor                    : '25'
       AgentNameVersion                     : 'Edge 25.10586'
       AgentNameVersionMajor                : 'Edge 25'
+
+
+# Source: https://venturebeat.com/2019/04/08/microsoft-launches-first-chromium-edge-builds-for-windows-10/
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.48 Safari/537.36 Edg/74.1.96.24'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '74.0'
+      LayoutEngineVersionMajor             : '74'
+      LayoutEngineNameVersion              : 'Blink 74.0'
+      LayoutEngineNameVersionMajor         : 'Blink 74'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '74.1.96.24'
+      AgentVersionMajor                    : '74'
+      AgentNameVersion                     : 'Edge 74.1.96.24'
+      AgentNameVersionMajor                : 'Edge 74'
+
+
+# Source: https://www.ghacks.net/2019/04/21/new-microsoft-edge-may-change-user-agent-automatically/
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3763.0 Safari/537.36 Edg/75.0.131.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '75.0'
+      LayoutEngineVersionMajor             : '75'
+      LayoutEngineNameVersion              : 'Blink 75.0'
+      LayoutEngineNameVersionMajor         : 'Blink 75'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '75.0.131.0'
+      AgentVersionMajor                    : '75'
+      AgentNameVersion                     : 'Edge 75.0.131.0'
+      AgentNameVersionMajor                : 'Edge 75'
+
+
+

@@ -6,6 +6,7 @@ v5.10-SNAPSHOT
 - Updated UDF dependencies
   - Apache Flink  1.8.0
 - Improved SpeedCurve Robot detection (thanks to Ben Rogers)
+- Detection for Chromium/Blink based Edge on Windows 10
 
 v5.9
 ===
