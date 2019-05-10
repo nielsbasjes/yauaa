@@ -2420,51 +2420,23 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)version="SpeedCurve"'
+    - 'agent.product.name="PTST"'
     - 'agent.product.name[1-1]="Mobile"'
-    variable:
-    - 'PTSTVersion:agent.product.name="PTST"^.(2)version'
     extract:
-    - '__Set_ALL_Fields__                  :   5999 : "<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   6001 : "Robot Mobile"'
-    - 'DeviceName                          :   6001 : "SpeedCurve WebpageTest"'
-    - 'DeviceBrand                         :   6001 : "SpeedCurve"'
-    - 'OperatingSystemClass                :   6001 : "Cloud"'
-    - 'OperatingSystemName                 :   6001 : "Cloud"'
-    - 'OperatingSystemVersion              :   6001 : "??"'
-    - 'LayoutEngineClass                   :   6001 : "Robot"'
-    - 'LayoutEngineName                    :   6001 : "SpeedCurve WebpageTest"'
-    - 'LayoutEngineVersion                 :   6001 : @PTSTVersion'
-    - 'AgentClass                          :   6001 : "Robot"'
-    - 'AgentName                           :   6001 : "SpeedCurve WebpageTest"'
-    - 'AgentVersion                        :   6001 : @PTSTVersion'
+    - 'DeviceClass                         :   5002 : "Robot Mobile"'
 
 - matcher:
     require:
-    - 'agent.product.(1)version="SpeedCurve"'
-    - 'agent.(1)product.(1)comments.(2)entry[1-1]="Android"'
-    variable:
-    - 'PTSTVersion:agent.product.name="PTST"^.(2)version'
+    - 'agent.product.name="PTST"'
+    - 'agent.(1)product.(1)comments.entry[1]="Android"'
     extract:
-    - '__Set_ALL_Fields__                  :   6999 : "<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   7001 : "Robot Mobile"'
-    - 'DeviceName                          :   7001 : "SpeedCurve WebpageTest"'
-    - 'DeviceBrand                         :   7001 : "SpeedCurve"'
-    - 'OperatingSystemClass                :   7001 : "Cloud"'
-    - 'OperatingSystemName                 :   7001 : "Cloud"'
-    - 'OperatingSystemVersion              :   7001 : "??"'
-    - 'LayoutEngineClass                   :   7001 : "Robot"'
-    - 'LayoutEngineName                    :   7001 : "SpeedCurve WebpageTest"'
-    - 'LayoutEngineVersion                 :   7001 : @PTSTVersion'
-    - 'AgentClass                          :   7001 : "Robot"'
-    - 'AgentName                           :   7001 : "SpeedCurve WebpageTest"'
-    - 'AgentVersion                        :   7001 : @PTSTVersion'
+    - 'DeviceClass                         :   5002 : "Robot Mobile"'
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; Moto G (4) Build/MPJ24.139-64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Mobile Safari/537.36 PTST/180521.140508'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Robot Mobile'
       DeviceName                           : 'WebpageTest'
       DeviceBrand                          : 'WebpageTest'
       OperatingSystemClass                 : 'Cloud'
@@ -2605,6 +2577,7 @@ config:
       AgentNameVersion                     : 'SpeedCurve WebpageTest 180620.180643'
       AgentNameVersionMajor                : 'SpeedCurve WebpageTest 180620'
 
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.3; Nexus 10 Build/JSS15Q) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Safari/537.36 PTST/SpeedCurve/190429.170455'
@@ -2629,6 +2602,7 @@ config:
       AgentNameVersion                     : 'SpeedCurve WebpageTest 190429.170455'
       AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190429'
 
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36 PTST/SpeedCurve/180620.180643'
@@ -2652,6 +2626,310 @@ config:
       AgentVersionMajor                    : '180620'
       AgentNameVersion                     : 'SpeedCurve WebpageTest 180620.180643'
       AgentNameVersionMajor                : 'SpeedCurve WebpageTest 180620'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B137 Safari/601.1 PTST/SpeedCurve/190429.170455'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'SpeedCurve WebpageTest'
+      DeviceBrand                          : 'SpeedCurve'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpeedCurve WebpageTest'
+      LayoutEngineVersion                  : '190429.170455'
+      LayoutEngineVersionMajor             : '190429'
+      LayoutEngineNameVersion              : 'SpeedCurve WebpageTest 190429.170455'
+      LayoutEngineNameVersionMajor         : 'SpeedCurve WebpageTest 190429'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SpeedCurve WebpageTest'
+      AgentVersion                         : '190429.170455'
+      AgentVersionMajor                    : '190429'
+      AgentNameVersion                     : 'SpeedCurve WebpageTest 190429.170455'
+      AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190429'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 PTST/SpeedCurve/190429.170455'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'SpeedCurve WebpageTest'
+      DeviceBrand                          : 'SpeedCurve'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpeedCurve WebpageTest'
+      LayoutEngineVersion                  : '190429.170455'
+      LayoutEngineVersionMajor             : '190429'
+      LayoutEngineNameVersion              : 'SpeedCurve WebpageTest 190429.170455'
+      LayoutEngineNameVersionMajor         : 'SpeedCurve WebpageTest 190429'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SpeedCurve WebpageTest'
+      AgentVersion                         : '190429.170455'
+      AgentVersionMajor                    : '190429'
+      AgentNameVersion                     : 'SpeedCurve WebpageTest 190429.170455'
+      AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190429'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0 PTST/SpeedCurve/190429.170455'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'SpeedCurve WebpageTest'
+      DeviceBrand                          : 'SpeedCurve'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpeedCurve WebpageTest'
+      LayoutEngineVersion                  : '190429.170455'
+      LayoutEngineVersionMajor             : '190429'
+      LayoutEngineNameVersion              : 'SpeedCurve WebpageTest 190429.170455'
+      LayoutEngineNameVersionMajor         : 'SpeedCurve WebpageTest 190429'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SpeedCurve WebpageTest'
+      AgentVersion                         : '190429.170455'
+      AgentVersionMajor                    : '190429'
+      AgentNameVersion                     : 'SpeedCurve WebpageTest 190429.170455'
+      AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190429'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 PTST/SpeedCurve/190424.110410'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'SpeedCurve WebpageTest'
+      DeviceBrand                          : 'SpeedCurve'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpeedCurve WebpageTest'
+      LayoutEngineVersion                  : '190424.110410'
+      LayoutEngineVersionMajor             : '190424'
+      LayoutEngineNameVersion              : 'SpeedCurve WebpageTest 190424.110410'
+      LayoutEngineNameVersionMajor         : 'SpeedCurve WebpageTest 190424'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SpeedCurve WebpageTest'
+      AgentVersion                         : '190424.110410'
+      AgentVersionMajor                    : '190424'
+      AgentNameVersion                     : 'SpeedCurve WebpageTest 190424.110410'
+      AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190424'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1.1; Nexus 6 Build/LYZ28E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36 PTST/SpeedCurve/190429.17045'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'SpeedCurve WebpageTest'
+      DeviceBrand                          : 'SpeedCurve'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpeedCurve WebpageTest'
+      LayoutEngineVersion                  : '190429.17045'
+      LayoutEngineVersionMajor             : '190429'
+      LayoutEngineNameVersion              : 'SpeedCurve WebpageTest 190429.17045'
+      LayoutEngineNameVersionMajor         : 'SpeedCurve WebpageTest 190429'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SpeedCurve WebpageTest'
+      AgentVersion                         : '190429.17045'
+      AgentVersionMajor                    : '190429'
+      AgentNameVersion                     : 'SpeedCurve WebpageTest 190429.17045'
+      AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190429'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.3; Nexus 7 Build/JSS15Q) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Safari/537.36 PTST/SpeedCurve/190429.170455'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'SpeedCurve WebpageTest'
+      DeviceBrand                          : 'SpeedCurve'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpeedCurve WebpageTest'
+      LayoutEngineVersion                  : '190429.170455'
+      LayoutEngineVersionMajor             : '190429'
+      LayoutEngineNameVersion              : 'SpeedCurve WebpageTest 190429.170455'
+      LayoutEngineNameVersionMajor         : 'SpeedCurve WebpageTest 190429'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SpeedCurve WebpageTest'
+      AgentVersion                         : '190429.170455'
+      AgentVersionMajor                    : '190429'
+      AgentNameVersion                     : 'SpeedCurve WebpageTest 190429.170455'
+      AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190429'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0.0; Pixel Build/OPR3.170623.007) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.116 Mobile Safari/537.36 PTST/SpeedCurve/190429.170455'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'SpeedCurve WebpageTest'
+      DeviceBrand                          : 'SpeedCurve'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpeedCurve WebpageTest'
+      LayoutEngineVersion                  : '190429.170455'
+      LayoutEngineVersionMajor             : '190429'
+      LayoutEngineNameVersion              : 'SpeedCurve WebpageTest 190429.170455'
+      LayoutEngineNameVersionMajor         : 'SpeedCurve WebpageTest 190429'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SpeedCurve WebpageTest'
+      AgentVersion                         : '190429.170455'
+      AgentVersionMajor                    : '190429'
+      AgentNameVersion                     : 'SpeedCurve WebpageTest 190429.170455'
+      AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190429'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.116 Mobile Safari/537.36 PTST/SpeedCurve/190429.170455'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'SpeedCurve WebpageTest'
+      DeviceBrand                          : 'SpeedCurve'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpeedCurve WebpageTest'
+      LayoutEngineVersion                  : '190429.170455'
+      LayoutEngineVersionMajor             : '190429'
+      LayoutEngineNameVersion              : 'SpeedCurve WebpageTest 190429.170455'
+      LayoutEngineNameVersionMajor         : 'SpeedCurve WebpageTest 190429'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SpeedCurve WebpageTest'
+      AgentVersion                         : '190429.170455'
+      AgentVersionMajor                    : '190429'
+      AgentNameVersion                     : 'SpeedCurve WebpageTest 190429.170455'
+      AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190429'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.0; en-us; GT-I9300 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 PTST/SpeedCurve/190429.170455'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'SpeedCurve WebpageTest'
+      DeviceBrand                          : 'SpeedCurve'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpeedCurve WebpageTest'
+      LayoutEngineVersion                  : '190429.170455'
+      LayoutEngineVersionMajor             : '190429'
+      LayoutEngineNameVersion              : 'SpeedCurve WebpageTest 190429.170455'
+      LayoutEngineNameVersionMajor         : 'SpeedCurve WebpageTest 190429'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SpeedCurve WebpageTest'
+      AgentVersion                         : '190429.170455'
+      AgentVersionMajor                    : '190429'
+      AgentNameVersion                     : 'SpeedCurve WebpageTest 190429.170455'
+      AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190429'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36 PTST/SpeedCurve/190429.170455'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'SpeedCurve WebpageTest'
+      DeviceBrand                          : 'SpeedCurve'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpeedCurve WebpageTest'
+      LayoutEngineVersion                  : '190429.170455'
+      LayoutEngineVersionMajor             : '190429'
+      LayoutEngineNameVersion              : 'SpeedCurve WebpageTest 190429.170455'
+      LayoutEngineNameVersionMajor         : 'SpeedCurve WebpageTest 190429'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SpeedCurve WebpageTest'
+      AgentVersion                         : '190429.170455'
+      AgentVersionMajor                    : '190429'
+      AgentNameVersion                     : 'SpeedCurve WebpageTest 190429.170455'
+      AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190429'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0; SAMSUNG SM-G930F Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Mobile Safari/537.36 PTST/SpeedCurve/190429.170455'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'SpeedCurve WebpageTest'
+      DeviceBrand                          : 'SpeedCurve'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpeedCurve WebpageTest'
+      LayoutEngineVersion                  : '190429.170455'
+      LayoutEngineVersionMajor             : '190429'
+      LayoutEngineNameVersion              : 'SpeedCurve WebpageTest 190429.170455'
+      LayoutEngineNameVersionMajor         : 'SpeedCurve WebpageTest 190429'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SpeedCurve WebpageTest'
+      AgentVersion                         : '190429.170455'
+      AgentVersionMajor                    : '190429'
+      AgentNameVersion                     : 'SpeedCurve WebpageTest 190429.170455'
+      AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190429'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; SM-G892A Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Mobile Safari/537.36 PTST/SpeedCurve/190429.170455'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'SpeedCurve WebpageTest'
+      DeviceBrand                          : 'SpeedCurve'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpeedCurve WebpageTest'
+      LayoutEngineVersion                  : '190429.170455'
+      LayoutEngineVersionMajor             : '190429'
+      LayoutEngineNameVersion              : 'SpeedCurve WebpageTest 190429.170455'
+      LayoutEngineNameVersionMajor         : 'SpeedCurve WebpageTest 190429'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'SpeedCurve WebpageTest'
+      AgentVersion                         : '190429.170455'
+      AgentVersionMajor                    : '190429'
+      AgentNameVersion                     : 'SpeedCurve WebpageTest 190429.170455'
+      AgentNameVersionMajor                : 'SpeedCurve WebpageTest 190429'
+
 
 - test:
     input:
@@ -2678,6 +2956,7 @@ config:
       AgentNameVersionMajor                : 'YandexBot 3'
       AgentInformationUrl                  : 'http://yandex.com/bots'
 
+
 - matcher:
     variable:
     - 'RobotName:agent.product.comments.entry.product.name="YandexMobileBot"'
@@ -2699,6 +2978,7 @@ config:
     - 'AgentClass                          :    111 :"Robot"'
     - 'AgentName                           :    111 :@RobotName'
     - 'AgentVersion                        :    111 :@RobotVersion'
+
 
 - test:
     input:

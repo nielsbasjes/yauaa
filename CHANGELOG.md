@@ -5,6 +5,7 @@ v5.10-SNAPSHOT
 - Document Scala usage.
 - Updated UDF dependencies
   - Apache Flink  1.8.0
+- Improved SpeedCurve Robot detection (thanks to Ben Rogers)
 
 v5.9
 ===
