@@ -58,8 +58,11 @@ One important effect is that this speeds up the system because it will kick any 
 The above example showed an approximate 40% speed increase (i.e. times dropped from ~1ms to ~0.6ms).
 
 # IMPORTANT: This library is single threaded !
-Because the analyzer code is not reentrant the main method has been synchronized on the instance. 
-So if you are in a multi threaded situation you should create a separate instance per thread or accept the speed limitation of the shared instance.
+Because the internal analyzer code is not reentrant the main method has been synchronized on the instance. 
+So from the prespective of you the application developer this library is thread safe.
+
+If you are in a multi threaded situation you should create a separate instance per thread or accept the speed limitation of the shared synchronized instance.
+
 Note that you should really instantiate it only once per thread (and use a ThreadPool or something similar) because starting a new instance takes several seconds.
 
 # Eclipse users 
