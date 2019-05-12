@@ -1,4 +1,4 @@
-Yauaa: Yet Another UserAgent Analyzer
+Yauaa: Yet Another UserAgent Analyzer XXX Sonar test
 ========================================
 [![Travis Build status](https://api.travis-ci.org/nielsbasjes/yauaa.png?branch=master)](https://travis-ci.org/nielsbasjes/yauaa)
 [![Coverage Status](https://coveralls.io/repos/github/nielsbasjes/yauaa/badge.svg?branch=master)](https://coveralls.io/github/nielsbasjes/yauaa?branch=master)
