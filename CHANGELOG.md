@@ -5,9 +5,10 @@ v5.10-SNAPSHOT
 - Document Scala usage.
 - Updated UDF dependencies
   - Apache Flink  1.8.0
+  - Apache Beam   2.12.0
 - Improved SpeedCurve Robot detection (thanks to Ben Rogers)
 - Detection for Chromium/Blink based Edge on Windows 10
-- Detect Sogou Explorer (Sogou Browser?)
+- Detect Sogou Explorer (Sogou Browser)
 
 v5.9
 ===
