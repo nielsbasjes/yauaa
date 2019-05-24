@@ -2,7 +2,8 @@ This is intended as an overview of the major changes
 
 v5.11
 ===
-- Finalized Chromium/Blink based Edge both for Windows 10 and Mac
+- Finalized detection of Chromium/Blink based Edge both for Windows 10 and Mac
+- Detect Liebao Browser
 
 v5.10
 ===

@@ -61,6 +61,7 @@ config:
       "Colibri"         : "Colibri"
       "Midori"          : "Midori"
       "SE"              : "Sogou Explorer"
+      "LBBROWSER"       : "Liebao Browser" # Created by Kingsoft
 
 - lookup:
     name: 'KnownWebviewAppNames'
@@ -1927,3 +1928,29 @@ config:
       AgentVersionMajor                    : '71'
       AgentNameVersion                     : 'Chromium 71.0.3578.80'
       AgentNameVersionMajor                : 'Chromium 71'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '42.0'
+      LayoutEngineVersionMajor             : '42'
+      LayoutEngineNameVersion              : 'Blink 42.0'
+      LayoutEngineNameVersionMajor         : 'Blink 42'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Liebao Browser'
+      AgentVersion                         : '42.0.2311.154'
+      AgentVersionMajor                    : '42'
+      AgentNameVersion                     : 'Liebao Browser 42.0.2311.154'
+      AgentNameVersionMajor                : 'Liebao Browser 42'
