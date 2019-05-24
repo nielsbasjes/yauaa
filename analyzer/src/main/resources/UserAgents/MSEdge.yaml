@@ -861,5 +861,58 @@ config:
       AgentNameVersion                     : 'Edge 75.0.131.0'
       AgentNameVersionMajor                : 'Edge 75'
 
+# https://www.microsoftedgeinsider.com/en-us/download/
+# Useragent from the canary version of 2019-05-24 on Windows 10
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3800.0 Safari/537.36 Edg/76.0.168.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '76.0'
+      LayoutEngineVersionMajor             : '76'
+      LayoutEngineNameVersion              : 'Blink 76.0'
+      LayoutEngineNameVersionMajor         : 'Blink 76'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '76.0.168.0'
+      AgentVersionMajor                    : '76'
+      AgentNameVersion                     : 'Edge 76.0.168.0'
+      AgentNameVersionMajor                : 'Edge 76'
 
 
+# https://www.microsoftedgeinsider.com/en-us/download/
+# Useragent from the canary version of 2019-05-24 on Windows 10
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3800.0 Safari/537.36 Edg/76.0.168.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.14.5'
+      OperatingSystemNameVersion           : 'Mac OS X 10.14.5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '76.0'
+      LayoutEngineVersionMajor             : '76'
+      LayoutEngineNameVersion              : 'Blink 76.0'
+      LayoutEngineNameVersionMajor         : 'Blink 76'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '76.0.168.0'
+      AgentVersionMajor                    : '76'
+      AgentNameVersion                     : 'Edge 76.0.168.0'
+      AgentNameVersionMajor                : 'Edge 76'

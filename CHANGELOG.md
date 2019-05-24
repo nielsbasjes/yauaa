@@ -1,6 +1,10 @@
 This is intended as an overview of the major changes
 
-v5.10-SNAPSHOT
+v5.11
+===
+- Finalized Chromium/Blink based Edge both for Windows 10 and Mac
+
+v5.10
 ===
 - Document Scala usage.
 - Updated UDF dependencies
