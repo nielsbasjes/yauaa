@@ -4,6 +4,7 @@ v5.11
 ===
 - Finalized detection of Chromium/Blink based Edge both for Windows 10 and Mac
 - Detect Liebao Browser
+- Make compiler a bit stricter, fixed the warnings.
 
 v5.10
 ===

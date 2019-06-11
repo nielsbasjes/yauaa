@@ -51,7 +51,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     }
 
     public static class KryoSerializer extends UserAgentAnalyzerDirect.KryoSerializer {
-        public KryoSerializer(Kryo kryo, Class type) {
+        public KryoSerializer(Kryo kryo, Class<?> type) {
             super(kryo, type);
         }
     }
@@ -522,7 +522,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     }
 
     @SuppressWarnings("unchecked")
-    public static UserAgentAnalyzerTesterBuilder<? extends UserAgentAnalyzerTester, ? extends UserAgentAnalyzerTesterBuilder> newBuilder() {
+    public static UserAgentAnalyzerTesterBuilder<? extends UserAgentAnalyzerTester, ? extends UserAgentAnalyzerTesterBuilder<?, ?>> newBuilder() {
         return new UserAgentAnalyzerTesterBuilder<>(new UserAgentAnalyzerTester());
     }
 

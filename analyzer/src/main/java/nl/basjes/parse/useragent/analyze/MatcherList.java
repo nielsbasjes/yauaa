@@ -41,7 +41,7 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
     }
 
     public static class KryoSerializer extends FieldSerializer<MatcherList> {
-        public KryoSerializer(Kryo kryo, Class type) {
+        public KryoSerializer(Kryo kryo, Class<?> type) {
             super(kryo, type);
         }
 

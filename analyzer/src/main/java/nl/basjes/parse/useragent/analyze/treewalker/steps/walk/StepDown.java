@@ -53,7 +53,7 @@ public class StepDown extends Step {
     }
 
     public static final class KryoSerializer extends FieldSerializer<StepDown> {
-        public KryoSerializer(Kryo kryo, Class type) {
+        public KryoSerializer(Kryo kryo, Class<?> type) {
             super(kryo, type);
         }
 

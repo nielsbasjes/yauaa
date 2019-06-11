@@ -337,14 +337,20 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
+        <version>3.8.0</version>
         <configuration>
           <compilerVersion>${jdkLevel}</compilerVersion>
           <source>${jdkLevel}</source>
           <target>${jdkLevel}</target>
-          <compilerArgument>
-            -Xlint:unchecked
-          </compilerArgument>
+          <compilerArgs>
+            <!-- Enable almost all warnings.-->
+            <!-- FIXME: Why does the hive udf fail with "An unknown compilation problem occurred" when using -Xlint:classfile,processing ? -->
+            <!-- Ignore the 'serial' warnings about not having a serialVersionUID -->
+            <arg>-Xlint:all,-classfile,-processing,-serial</arg>
+            <arg>-Werror</arg>
+          </compilerArgs>
+          <showWarnings>true</showWarnings>
+          <showDeprecation>true</showDeprecation>
         </configuration>
       </plugin>
 

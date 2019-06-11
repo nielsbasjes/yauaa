@@ -160,7 +160,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
     }
 
     public static class KryoSerializer extends FieldSerializer<UserAgentAnalyzerDirect> {
-        public KryoSerializer(Kryo kryo, Class type) {
+        public KryoSerializer(Kryo kryo, Class<?> type) {
             super(kryo, type);
         }
 

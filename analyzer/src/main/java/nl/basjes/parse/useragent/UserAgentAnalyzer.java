@@ -36,7 +36,7 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
     }
 
     public static class KryoSerializer extends UserAgentAnalyzerDirect.KryoSerializer {
-        public KryoSerializer(Kryo kryo, Class type) {
+        public KryoSerializer(Kryo kryo, Class<?> type) {
             super(kryo, type);
         }
     }

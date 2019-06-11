@@ -59,11 +59,11 @@ public class TestAnnotationBadUsages {
 
     // ----------------------------------------------------------------
 
+    @SuppressWarnings({"unchecked", "rawtypes"}) // Here we deliberately created some bad code to check the behavior.
     public static class MapperWithoutGenericType
         implements UserAgentAnnotationMapper, Serializable {
         private final transient UserAgentAnnotationAnalyzer userAgentAnalyzer;
 
-        @SuppressWarnings("unchecked") // Here we deliberately created some bad code to check the behavior.
         public MapperWithoutGenericType() {
             userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
             userAgentAnalyzer.initialize(this);

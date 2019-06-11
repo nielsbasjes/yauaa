@@ -322,7 +322,7 @@ public abstract class MatcherAction implements Serializable {
         int calculateInformPath(MatcherAction action, String treeName, ParserRuleContext tree);
     }
 
-    private static final Map<Class, CalculateInformPathFunction> CALCULATE_INFORM_PATH = new HashMap<>();
+    private static final Map<Class<?>, CalculateInformPathFunction> CALCULATE_INFORM_PATH = new HashMap<>();
 
     static {
         // -------------

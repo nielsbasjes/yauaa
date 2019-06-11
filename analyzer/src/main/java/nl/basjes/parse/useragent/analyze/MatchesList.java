@@ -76,7 +76,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
     }
 
     public static class KryoSerializer extends FieldSerializer<MatchesList> {
-        public KryoSerializer(Kryo kryo, Class type) {
+        public KryoSerializer(Kryo kryo, Class<?> type) {
             super(kryo, type);
         }
 
