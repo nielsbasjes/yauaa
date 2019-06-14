@@ -33,7 +33,7 @@ public class TestResourceLoading {
         expectedEx.expect(InvalidParserConfigurationException.class);
         expectedEx.expectMessage(expectedMessage);
 
-        UserAgentAnalyzerTester uaa = new UserAgentAnalyzerTester(resourceString);
+        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester.newBuilder().dropDefaultResources().keepTests().addResources(resourceString).build();
         Assert.assertTrue(uaa.runTests(false, false));
     }
 

@@ -17,6 +17,8 @@
 
 package nl.basjes.parse.useragent;
 
+import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
+import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -24,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 public class TestConcatenation {
 
     private UserAgent createUserAgent() {
-        UserAgent         userAgent = new UserAgent();
+        UserAgent userAgent = new UserAgent();
         userAgent.setForced("MinusOne", "MinusOne", -1);
         userAgent.setForced("Zero", "Zero", 0);
         userAgent.setForced("One", "One", 1);
@@ -33,111 +35,117 @@ public class TestConcatenation {
         return userAgent;
     }
 
-    private UserAgentAnalyzer createUserAgentAnalyzer() {
-        return UserAgentAnalyzer.newBuilder().dropTests().dropDefaultResources().addResources("AllSteps.yaml").build();
-    }
-
-
     @Test
     public void testFieldConcatenation() {
-        UserAgentAnalyzer uaa       = createUserAgentAnalyzer();
-        UserAgent         userAgent = createUserAgent();
+        FieldCalculator fc;
+        UserAgent       userAgent = createUserAgent();
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined1", "One", "Two");
+        fc = new ConcatNONDuplicatedCalculator("Combined1", "One", "Two");
+        fc.calculate(userAgent);
         assertEquals("One Two", userAgent.getValue("Combined1"));
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined2", "One", "One");
+        fc = new ConcatNONDuplicatedCalculator("Combined2", "One", "One");
+        fc.calculate(userAgent);
         assertEquals("One", userAgent.getValue("Combined2"));
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined3", "MinusOne", "One");
+        fc = new ConcatNONDuplicatedCalculator("Combined3", "MinusOne", "One");
+        fc.calculate(userAgent);
         assertEquals("MinusOne One", userAgent.getValue("Combined3"));
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined4", "One", "MinusOne");
+        fc = new ConcatNONDuplicatedCalculator("Combined4", "One", "MinusOne");
+        fc.calculate(userAgent);
         assertEquals("One MinusOne", userAgent.getValue("Combined4"));
     }
 
     @Test
     public void testFieldConcatenationNulls() {
-        UserAgentAnalyzer uaa       = createUserAgentAnalyzer();
-        UserAgent         userAgent = createUserAgent();
+        FieldCalculator fc;
+        UserAgent       userAgent = createUserAgent();
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined3", "MinusOne", null);
+        fc = new ConcatNONDuplicatedCalculator("Combined3", "MinusOne", null);
+        fc.calculate(userAgent);
         assertEquals("Unknown", userAgent.getValue("Combined3"));
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined4", null, "MinusOne");
+        fc = new ConcatNONDuplicatedCalculator("Combined4", null, "MinusOne");
+        fc.calculate(userAgent);
         assertEquals("Unknown", userAgent.getValue("Combined4"));
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined3", null, "One");
+        fc = new ConcatNONDuplicatedCalculator("Combined3", null, "One");
+        fc.calculate(userAgent);
         assertEquals("One", userAgent.getValue("Combined3"));
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined4", "One", null);
+        fc = new ConcatNONDuplicatedCalculator("Combined4", "One", null);
+        fc.calculate(userAgent);
         assertEquals("One", userAgent.getValue("Combined4"));
     }
 
     @Test
     public void testFieldConcatenationSamePrefix() {
-        UserAgentAnalyzer uaa       = createUserAgentAnalyzer();
-        UserAgent         userAgent = createUserAgent();
+        FieldCalculator fc;
+        UserAgent       userAgent = createUserAgent();
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined1", "One", "Two");
+        fc = new ConcatNONDuplicatedCalculator("Combined1", "One", "Two");
+        fc.calculate(userAgent);
         assertEquals("One Two", userAgent.getValue("Combined1"));
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined2", "One", "One");
+        fc = new ConcatNONDuplicatedCalculator("Combined2", "One", "One");
+        fc.calculate(userAgent);
         assertEquals("One", userAgent.getValue("Combined2"));
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined3", "One", "One Two");
+        fc = new ConcatNONDuplicatedCalculator("Combined3", "One", "One Two");
+        fc.calculate(userAgent);
         assertEquals("One Two", userAgent.getValue("Combined3"));
     }
 
 
     @Test
     public void testFieldConcatenationNonExistent() {
-        UserAgentAnalyzer uaa       = createUserAgentAnalyzer();
-        UserAgent         userAgent = createUserAgent();
+        FieldCalculator fc;
+        UserAgent       userAgent = createUserAgent();
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined2", "One", "NonExistent");
+        fc = new ConcatNONDuplicatedCalculator("Combined2", "One", "NonExistent");
+        fc.calculate(userAgent);
         assertEquals("One", userAgent.getValue("Combined2"));
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined3", "NonExistent", "Two");
+        fc = new ConcatNONDuplicatedCalculator("Combined3", "NonExistent", "Two");
+        fc.calculate(userAgent);
         assertEquals("Two", userAgent.getValue("Combined3"));
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined4", "NonExistent1", "NonExistent2");
+        fc = new ConcatNONDuplicatedCalculator("Combined4", "NonExistent1", "NonExistent2");
+        fc.calculate(userAgent);
         assertEquals("Unknown", userAgent.getValue("Combined4"));
     }
 
     @Test
     public void testFieldConcatenationNull() {
-        UserAgentAnalyzer uaa       = createUserAgentAnalyzer();
-        UserAgent         userAgent = createUserAgent();
+        FieldCalculator fc;
+        UserAgent       userAgent = createUserAgent();
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined2", "One", null);
+        fc = new ConcatNONDuplicatedCalculator("Combined2", "One", null);
+        fc.calculate(userAgent);
         assertEquals("One", userAgent.getValue("Combined2"));
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined3", null, "Two");
+        fc = new ConcatNONDuplicatedCalculator("Combined3", null, "Two");
+        fc.calculate(userAgent);
         assertEquals("Two", userAgent.getValue("Combined3"));
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined4", null, null);
+        fc = new ConcatNONDuplicatedCalculator("Combined4", null, null);
+        fc.calculate(userAgent);
         assertEquals("Unknown", userAgent.getValue("Combined4"));
     }
 
     @Test
     public void testFieldConcatenationNoConfidence() {
-        UserAgentAnalyzer uaa       = createUserAgentAnalyzer();
-        UserAgent         userAgent = createUserAgent();
+        FieldCalculator fc;
+        UserAgent       userAgent = createUserAgent();
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined2", "One", "MinusOne");
+        fc = new ConcatNONDuplicatedCalculator("Combined2", "One", "MinusOne");
+        fc.calculate(userAgent);
         assertEquals("One MinusOne", userAgent.getValue("Combined2"));
 
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Combined3", "MinusOne", "Two");
+        fc = new ConcatNONDuplicatedCalculator("Combined3", "MinusOne", "Two");
+        fc.calculate(userAgent);
         assertEquals("MinusOne Two", userAgent.getValue("Combined3"));
     }
 
-    @Test
-    public void testFieldConcatenationUnwanted() {
-        UserAgentAnalyzer uaa       = UserAgentAnalyzer.newBuilder().dropTests().withField("DeviceClass").build();
-        UserAgent         userAgent = createUserAgent();
-
-        uaa.concatFieldValuesNONDuplicated(userAgent, "Unwanted", "One", "Two");
-        assertEquals("Unknown", userAgent.getValue("Unwanted"));
-    }
 }

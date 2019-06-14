@@ -42,29 +42,79 @@ import java.util.Objects;
 public class UserAgent extends UserAgentBaseListener implements Serializable, DefaultANTLRErrorListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgent.class);
-    public static final String DEVICE_CLASS = "DeviceClass";
-    public static final String DEVICE_BRAND = "DeviceBrand";
-    public static final String DEVICE_NAME = "DeviceName";
-    public static final String DEVICE_VERSION = "DeviceVersion";
-    public static final String OPERATING_SYSTEM_CLASS = "OperatingSystemClass";
-    public static final String OPERATING_SYSTEM_NAME = "OperatingSystemName";
-    public static final String OPERATING_SYSTEM_VERSION = "OperatingSystemVersion";
-    public static final String LAYOUT_ENGINE_CLASS = "LayoutEngineClass";
-    public static final String LAYOUT_ENGINE_NAME = "LayoutEngineName";
-    public static final String LAYOUT_ENGINE_VERSION = "LayoutEngineVersion";
-    public static final String LAYOUT_ENGINE_VERSION_MAJOR = "LayoutEngineVersionMajor";
-    public static final String AGENT_CLASS = "AgentClass";
-    public static final String AGENT_NAME = "AgentName";
-    public static final String AGENT_VERSION = "AgentVersion";
-    public static final String AGENT_VERSION_MAJOR = "AgentVersionMajor";
+    public static final String DEVICE_CLASS                            = "DeviceClass";
+    public static final String DEVICE_NAME                             = "DeviceName";
+    public static final String DEVICE_BRAND                            = "DeviceBrand";
+    public static final String DEVICE_CPU                              = "DeviceCpu";
+    public static final String DEVICE_CPU_BITS                         = "DeviceCpuBits";
+    public static final String DEVICE_FIRMWARE_VERSION                 = "DeviceFirmwareVersion";
+    public static final String DEVICE_VERSION                          = "DeviceVersion";
 
-    public static final String SYNTAX_ERROR        = "__SyntaxError__";
-    public static final String USERAGENT_FIELDNAME = "Useragent";
+    public static final String OPERATING_SYSTEM_CLASS                  = "OperatingSystemClass";
+    public static final String OPERATING_SYSTEM_NAME                   = "OperatingSystemName";
+    public static final String OPERATING_SYSTEM_VERSION                = "OperatingSystemVersion";
+    public static final String OPERATING_SYSTEM_VERSION_MAJOR          = "OperatingSystemVersionMajor";
+    public static final String OPERATING_SYSTEM_NAME_VERSION           = "OperatingSystemNameVersion";
+    public static final String OPERATING_SYSTEM_NAME_VERSION_MAJOR     = "OperatingSystemNameVersionMajor";
+    public static final String OPERATING_SYSTEM_VERSION_BUILD          = "OperatingSystemVersionBuild";
 
-    public static final String SET_ALL_FIELDS = "__Set_ALL_Fields__";
-    public static final String NULL_VALUE = "<<<null>>>";
-    public static final String UNKNOWN_VALUE = "Unknown";
-    public static final String UNKNOWN_VERSION = "??";
+    public static final String LAYOUT_ENGINE_CLASS                     = "LayoutEngineClass";
+    public static final String LAYOUT_ENGINE_NAME                      = "LayoutEngineName";
+    public static final String LAYOUT_ENGINE_VERSION                   = "LayoutEngineVersion";
+    public static final String LAYOUT_ENGINE_VERSION_MAJOR             = "LayoutEngineVersionMajor";
+    public static final String LAYOUT_ENGINE_NAME_VERSION              = "LayoutEngineNameVersion";
+    public static final String LAYOUT_ENGINE_NAME_VERSION_MAJOR        = "LayoutEngineNameVersionMajor";
+    public static final String LAYOUT_ENGINE_BUILD                     = "LayoutEngineBuild";
+
+    public static final String AGENT_CLASS                             = "AgentClass";
+    public static final String AGENT_NAME                              = "AgentName";
+    public static final String AGENT_VERSION                           = "AgentVersion";
+    public static final String AGENT_VERSION_MAJOR                     = "AgentVersionMajor";
+    public static final String AGENT_NAME_VERSION                      = "AgentNameVersion";
+    public static final String AGENT_NAME_VERSION_MAJOR                = "AgentNameVersionMajor";
+    public static final String AGENT_BUILD                             = "AgentBuild";
+    public static final String AGENT_LANGUAGE                          = "AgentLanguage";
+    public static final String AGENT_LANGUAGE_CODE                     = "AgentLanguageCode";
+    public static final String AGENT_INFORMATION_EMAIL                 = "AgentInformationEmail";
+    public static final String AGENT_INFORMATION_URL                   = "AgentInformationUrl";
+    public static final String AGENT_SECURITY                          = "AgentSecurity";
+    public static final String AGENT_UUID                              = "AgentUuid";
+
+    public static final String WEBVIEW_APP_NAME                        = "WebviewAppName";
+    public static final String WEBVIEW_APP_VERSION                     = "WebviewAppVersion";
+    public static final String WEBVIEW_APP_VERSION_MAJOR               = "WebviewAppVersionMajor";
+    public static final String WEBVIEW_APP_NAME_VERSION_MAJOR          = "WebviewAppNameVersionMajor";
+
+    public static final String FACEBOOK_CARRIER                        = "FacebookCarrier";
+    public static final String FACEBOOK_DEVICE_CLASS                   = "FacebookDeviceClass";
+    public static final String FACEBOOK_DEVICE_NAME                    = "FacebookDeviceName";
+    public static final String FACEBOOK_DEVICE_VERSION                 = "FacebookDeviceVersion";
+    public static final String FACEBOOK_F_B_O_P                        = "FacebookFBOP";
+    public static final String FACEBOOK_F_B_S_S                        = "FacebookFBSS";
+    public static final String FACEBOOK_OPERATING_SYSTEM_NAME          = "FacebookOperatingSystemName";
+    public static final String FACEBOOK_OPERATING_SYSTEM_VERSION       = "FacebookOperatingSystemVersion";
+
+    public static final String ANONYMIZED                              = "Anonymized";
+
+    public static final String HACKER_ATTACK_VECTOR                    = "HackerAttackVector";
+    public static final String HACKER_TOOLKIT                          = "HackerToolkit";
+
+    public static final String KOBO_AFFILIATE                          = "KoboAffiliate";
+    public static final String KOBO_PLATFORM_ID                        = "KoboPlatformId";
+
+    public static final String IE_COMPATIBILITY_VERSION                = "IECompatibilityVersion";
+    public static final String IE_COMPATIBILITY_VERSION_MAJOR          = "IECompatibilityVersionMajor";
+    public static final String IE_COMPATIBILITY_NAME_VERSION           = "IECompatibilityNameVersion";
+    public static final String IE_COMPATIBILITY_NAME_VERSION_MAJOR     = "IECompatibilityNameVersionMajor";
+
+    public static final String SYNTAX_ERROR                            = "__SyntaxError__";
+    public static final String USERAGENT_FIELDNAME                     = "Useragent";
+
+    public static final String SET_ALL_FIELDS                          = "__Set_ALL_Fields__";
+    public static final String NULL_VALUE                              = "<<<null>>>";
+    public static final String UNKNOWN_VALUE                           = "Unknown";
+    public static final String UNKNOWN_VERSION                         = "??";
+    public static final String UNKNOWN_NAME_VERSION                    = "Unknown ??";
 
     public static final List<String> STANDARD_FIELDS = Collections.unmodifiableList(Arrays.asList(
         DEVICE_CLASS,
@@ -73,14 +123,21 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         OPERATING_SYSTEM_CLASS,
         OPERATING_SYSTEM_NAME,
         OPERATING_SYSTEM_VERSION,
+        OPERATING_SYSTEM_VERSION_MAJOR,
+        OPERATING_SYSTEM_NAME_VERSION,
+        OPERATING_SYSTEM_NAME_VERSION_MAJOR,
         LAYOUT_ENGINE_CLASS,
         LAYOUT_ENGINE_NAME,
         LAYOUT_ENGINE_VERSION,
         LAYOUT_ENGINE_VERSION_MAJOR,
+        LAYOUT_ENGINE_NAME_VERSION,
+        LAYOUT_ENGINE_NAME_VERSION_MAJOR,
         AGENT_CLASS,
         AGENT_NAME,
         AGENT_VERSION,
-        AGENT_VERSION_MAJOR
+        AGENT_VERSION_MAJOR,
+        AGENT_NAME_VERSION,
+        AGENT_NAME_VERSION_MAJOR
     ));
 
     private boolean hasSyntaxError;
@@ -293,18 +350,25 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         allFields.put(OPERATING_SYSTEM_CLASS,        new AgentField(UNKNOWN_VALUE)); // Cloud, Desktop, Mobile, Embedded
         allFields.put(OPERATING_SYSTEM_NAME,         new AgentField(UNKNOWN_VALUE)); // ( Linux / Android / Windows ...)
         allFields.put(OPERATING_SYSTEM_VERSION,      new AgentField(UNKNOWN_VERSION)); // 1.2 / 43 / ...
+        allFields.put(OPERATING_SYSTEM_VERSION_MAJOR, new AgentField(UNKNOWN_VERSION)); // 1.2 / 43 / ...
+        allFields.put(OPERATING_SYSTEM_NAME_VERSION,      new AgentField(UNKNOWN_NAME_VERSION));
+        allFields.put(OPERATING_SYSTEM_NAME_VERSION_MAJOR, new AgentField(UNKNOWN_NAME_VERSION));
 
         // Engine : Class (=None/Hacker/Robot/Browser) - Name - Version
         allFields.put(LAYOUT_ENGINE_CLASS,           new AgentField(UNKNOWN_VALUE)); // None / Hacker / Robot / Browser /
         allFields.put(LAYOUT_ENGINE_NAME,            new AgentField(UNKNOWN_VALUE)); // ( GoogleBot / Bing / ...) / (Trident / Gecko / ...)
         allFields.put(LAYOUT_ENGINE_VERSION,         new AgentField(UNKNOWN_VERSION)); // 1.2 / 43 / ...
         allFields.put(LAYOUT_ENGINE_VERSION_MAJOR,   new AgentField(UNKNOWN_VERSION)); // 1 / 43 / ...
+        allFields.put(LAYOUT_ENGINE_NAME_VERSION,      new AgentField(UNKNOWN_NAME_VERSION));
+        allFields.put(LAYOUT_ENGINE_NAME_VERSION_MAJOR, new AgentField(UNKNOWN_NAME_VERSION));
 
         // Agent: Class (=Hacker/Robot/Browser) - Name - Version
         allFields.put(AGENT_CLASS,                   new AgentField(UNKNOWN_VALUE)); // Hacker / Robot / Browser /
         allFields.put(AGENT_NAME,                    new AgentField(UNKNOWN_VALUE)); // ( GoogleBot / Bing / ...) / ( Firefox / Chrome / ... )
         allFields.put(AGENT_VERSION,                 new AgentField(UNKNOWN_VERSION)); // 1.2 / 43 / ...
         allFields.put(AGENT_VERSION_MAJOR,           new AgentField(UNKNOWN_VERSION)); // 1 / 43 / ...
+        allFields.put(AGENT_NAME_VERSION,      new AgentField(UNKNOWN_NAME_VERSION));
+        allFields.put(AGENT_NAME_VERSION_MAJOR, new AgentField(UNKNOWN_NAME_VERSION));
     }
 
     public void setUserAgentString(String newUserAgentString) {
@@ -563,68 +627,70 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     protected static final List<String> PRE_SORTED_FIELDS_LIST = new ArrayList<>(32);
 
     static {
-        PRE_SORTED_FIELDS_LIST.add("DeviceClass");
-        PRE_SORTED_FIELDS_LIST.add("DeviceName");
-        PRE_SORTED_FIELDS_LIST.add("DeviceBrand");
-        PRE_SORTED_FIELDS_LIST.add("DeviceCpu");
-        PRE_SORTED_FIELDS_LIST.add("DeviceCpuBits");
-        PRE_SORTED_FIELDS_LIST.add("DeviceFirmwareVersion");
-        PRE_SORTED_FIELDS_LIST.add("DeviceVersion");
+        PRE_SORTED_FIELDS_LIST.add(DEVICE_CLASS);
+        PRE_SORTED_FIELDS_LIST.add(DEVICE_NAME);
+        PRE_SORTED_FIELDS_LIST.add(DEVICE_BRAND);
+        PRE_SORTED_FIELDS_LIST.add(DEVICE_CPU);
+        PRE_SORTED_FIELDS_LIST.add(DEVICE_CPU_BITS);
+        PRE_SORTED_FIELDS_LIST.add(DEVICE_FIRMWARE_VERSION);
+        PRE_SORTED_FIELDS_LIST.add(DEVICE_VERSION);
 
-        PRE_SORTED_FIELDS_LIST.add("OperatingSystemClass");
-        PRE_SORTED_FIELDS_LIST.add("OperatingSystemName");
-        PRE_SORTED_FIELDS_LIST.add("OperatingSystemVersion");
-        PRE_SORTED_FIELDS_LIST.add("OperatingSystemNameVersion");
-        PRE_SORTED_FIELDS_LIST.add("OperatingSystemVersionBuild");
+        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_CLASS);
+        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_NAME);
+        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_VERSION);
+        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_VERSION_MAJOR);
+        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_NAME_VERSION);
+        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_NAME_VERSION_MAJOR);
+        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_VERSION_BUILD);
 
-        PRE_SORTED_FIELDS_LIST.add("LayoutEngineClass");
-        PRE_SORTED_FIELDS_LIST.add("LayoutEngineName");
-        PRE_SORTED_FIELDS_LIST.add("LayoutEngineVersion");
-        PRE_SORTED_FIELDS_LIST.add("LayoutEngineVersionMajor");
-        PRE_SORTED_FIELDS_LIST.add("LayoutEngineNameVersion");
-        PRE_SORTED_FIELDS_LIST.add("LayoutEngineNameVersionMajor");
-        PRE_SORTED_FIELDS_LIST.add("LayoutEngineBuild");
+        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_CLASS);
+        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_NAME);
+        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_VERSION);
+        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_VERSION_MAJOR);
+        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_NAME_VERSION);
+        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_NAME_VERSION_MAJOR);
+        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_BUILD);
 
-        PRE_SORTED_FIELDS_LIST.add("AgentClass");
-        PRE_SORTED_FIELDS_LIST.add("AgentName");
-        PRE_SORTED_FIELDS_LIST.add("AgentVersion");
-        PRE_SORTED_FIELDS_LIST.add("AgentVersionMajor");
-        PRE_SORTED_FIELDS_LIST.add("AgentNameVersion");
-        PRE_SORTED_FIELDS_LIST.add("AgentNameVersionMajor");
-        PRE_SORTED_FIELDS_LIST.add("AgentBuild");
-        PRE_SORTED_FIELDS_LIST.add("AgentLanguage");
-        PRE_SORTED_FIELDS_LIST.add("AgentLanguageCode");
-        PRE_SORTED_FIELDS_LIST.add("AgentInformationEmail");
-        PRE_SORTED_FIELDS_LIST.add("AgentInformationUrl");
-        PRE_SORTED_FIELDS_LIST.add("AgentSecurity");
-        PRE_SORTED_FIELDS_LIST.add("AgentUuid");
+        PRE_SORTED_FIELDS_LIST.add(AGENT_CLASS);
+        PRE_SORTED_FIELDS_LIST.add(AGENT_NAME);
+        PRE_SORTED_FIELDS_LIST.add(AGENT_VERSION);
+        PRE_SORTED_FIELDS_LIST.add(AGENT_VERSION_MAJOR);
+        PRE_SORTED_FIELDS_LIST.add(AGENT_NAME_VERSION);
+        PRE_SORTED_FIELDS_LIST.add(AGENT_NAME_VERSION_MAJOR);
+        PRE_SORTED_FIELDS_LIST.add(AGENT_BUILD);
+        PRE_SORTED_FIELDS_LIST.add(AGENT_LANGUAGE);
+        PRE_SORTED_FIELDS_LIST.add(AGENT_LANGUAGE_CODE);
+        PRE_SORTED_FIELDS_LIST.add(AGENT_INFORMATION_EMAIL);
+        PRE_SORTED_FIELDS_LIST.add(AGENT_INFORMATION_URL);
+        PRE_SORTED_FIELDS_LIST.add(AGENT_SECURITY);
+        PRE_SORTED_FIELDS_LIST.add(AGENT_UUID);
 
-        PRE_SORTED_FIELDS_LIST.add("WebviewAppName");
-        PRE_SORTED_FIELDS_LIST.add("WebviewAppVersion");
-        PRE_SORTED_FIELDS_LIST.add("WebviewAppVersionMajor");
-        PRE_SORTED_FIELDS_LIST.add("WebviewAppNameVersionMajor");
+        PRE_SORTED_FIELDS_LIST.add(WEBVIEW_APP_NAME);
+        PRE_SORTED_FIELDS_LIST.add(WEBVIEW_APP_VERSION);
+        PRE_SORTED_FIELDS_LIST.add(WEBVIEW_APP_VERSION_MAJOR);
+        PRE_SORTED_FIELDS_LIST.add(WEBVIEW_APP_NAME_VERSION_MAJOR);
 
-        PRE_SORTED_FIELDS_LIST.add("FacebookCarrier");
-        PRE_SORTED_FIELDS_LIST.add("FacebookDeviceClass");
-        PRE_SORTED_FIELDS_LIST.add("FacebookDeviceName");
-        PRE_SORTED_FIELDS_LIST.add("FacebookDeviceVersion");
-        PRE_SORTED_FIELDS_LIST.add("FacebookFBOP");
-        PRE_SORTED_FIELDS_LIST.add("FacebookFBSS");
-        PRE_SORTED_FIELDS_LIST.add("FacebookOperatingSystemName");
-        PRE_SORTED_FIELDS_LIST.add("FacebookOperatingSystemVersion");
+        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_CARRIER);
+        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_DEVICE_CLASS);
+        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_DEVICE_NAME);
+        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_DEVICE_VERSION);
+        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_F_B_O_P);
+        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_F_B_S_S);
+        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_OPERATING_SYSTEM_NAME);
+        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_OPERATING_SYSTEM_VERSION);
 
-        PRE_SORTED_FIELDS_LIST.add("Anonymized");
+        PRE_SORTED_FIELDS_LIST.add(ANONYMIZED);
 
-        PRE_SORTED_FIELDS_LIST.add("HackerAttackVector");
-        PRE_SORTED_FIELDS_LIST.add("HackerToolkit");
+        PRE_SORTED_FIELDS_LIST.add(HACKER_ATTACK_VECTOR);
+        PRE_SORTED_FIELDS_LIST.add(HACKER_TOOLKIT);
 
-        PRE_SORTED_FIELDS_LIST.add("KoboAffiliate");
-        PRE_SORTED_FIELDS_LIST.add("KoboPlatformId");
+        PRE_SORTED_FIELDS_LIST.add(KOBO_AFFILIATE);
+        PRE_SORTED_FIELDS_LIST.add(KOBO_PLATFORM_ID);
 
-        PRE_SORTED_FIELDS_LIST.add("IECompatibilityVersion");
-        PRE_SORTED_FIELDS_LIST.add("IECompatibilityVersionMajor");
-        PRE_SORTED_FIELDS_LIST.add("IECompatibilityNameVersion");
-        PRE_SORTED_FIELDS_LIST.add("IECompatibilityNameVersionMajor");
+        PRE_SORTED_FIELDS_LIST.add(IE_COMPATIBILITY_VERSION);
+        PRE_SORTED_FIELDS_LIST.add(IE_COMPATIBILITY_VERSION_MAJOR);
+        PRE_SORTED_FIELDS_LIST.add(IE_COMPATIBILITY_NAME_VERSION);
+        PRE_SORTED_FIELDS_LIST.add(IE_COMPATIBILITY_NAME_VERSION_MAJOR);
 
         PRE_SORTED_FIELDS_LIST.add(SYNTAX_ERROR);
     }

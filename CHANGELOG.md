@@ -7,6 +7,9 @@ v5.11
 - Make compiler a bit stricter, fixed the warnings.
 - Updated UDF dependencies
   - Apache Beam   2.13.0
+- Added two new fields: OperatingSystemVersionMajor and OperatingSystemNameVersionMajor
+- Fix detection of iOS in specific edge case
+- Modularized and optimized the postprocessing of the found fields.
 
 v5.10
 ===

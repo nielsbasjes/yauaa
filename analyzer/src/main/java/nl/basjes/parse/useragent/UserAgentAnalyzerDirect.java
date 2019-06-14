@@ -21,7 +21,6 @@ import com.esotericsoftware.kryo.DefaultSerializer;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
-import com.google.common.net.InternetDomainName;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.Matcher;
@@ -29,9 +28,12 @@ import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.MatcherList;
 import nl.basjes.parse.useragent.analyze.UselessMatcherException;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
+import nl.basjes.parse.useragent.calculate.CalculateDeviceBrand;
+import nl.basjes.parse.useragent.calculate.CalculateDeviceName;
+import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
+import nl.basjes.parse.useragent.calculate.FieldCalculator;
+import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
-import nl.basjes.parse.useragent.utils.Normalize;
-import nl.basjes.parse.useragent.utils.VersionSplitter;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,8 +49,6 @@ import org.yaml.snakeyaml.reader.UnicodeReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -64,23 +64,38 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.HACKER_ATTACK_VECTOR;
+import static nl.basjes.parse.useragent.UserAgent.HACKER_TOOLKIT;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.PRE_SORTED_FIELDS_LIST;
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
+import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME;
+import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getExactlyOneNodeTuple;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getStringValues;
@@ -386,10 +401,8 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
             lookups = cleanedLookups;
         }
 
-        int totalNumberOfMatchers = 0;
         int skippedMatchers = 0;
         if (matcherConfigs != null) {
-            long fullStart = System.nanoTime();
             for (Map.Entry<String, Resource> resourceEntry : resources.entrySet()) {
                 Resource resource = resourceEntry.getValue();
                 String configFilename = resource.getFilename();
@@ -403,7 +416,6 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
                 for (MappingNode map : matcherConfig) {
                     try {
                         allMatchers.add(new Matcher(this, lookups, lookupSets, wantedFieldNames, map, configFilename));
-                        totalNumberOfMatchers++;
                     } catch (UselessMatcherException ume) {
                         skippedMatchers++;
                     }
@@ -424,8 +436,6 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
                     }
                 }
             }
-            long fullStop = System.nanoTime();
-
         }
     }
 
@@ -667,14 +677,10 @@ config:
                     case "input":
                         for (NodeTuple inputTuple : getValueAsMappingNode(tuple, filename).getValue()) {
                             String inputName = getKeyAsString(inputTuple, filename);
-                            switch (inputName) {
-                                case "user_agent_string":
-                                    String inputString = getValueAsString(inputTuple, filename);
-                                    input = new HashMap<>();
-                                    input.put(inputName, inputString);
-                                    break;
-                                default:
-                                    break;
+                            if ("user_agent_string".equals(inputName)) {
+                                String inputString = getValueAsString(inputTuple, filename);
+                                input = new HashMap<>();
+                                input.put(inputName, inputString);
                             }
                         }
                         break;
@@ -800,8 +806,8 @@ config:
         userAgent.set(AGENT_NAME,                   "Hacker",           confidence);
         userAgent.set(AGENT_VERSION,                "Hacker",           confidence);
         userAgent.set(AGENT_VERSION_MAJOR,          "Hacker",           confidence);
-        userAgent.set("HackerToolkit",              "Unknown",          confidence);
-        userAgent.set("HackerAttackVector",         "Buffer overflow",  confidence);
+        userAgent.set(HACKER_TOOLKIT,              "Unknown",          confidence);
+        userAgent.set(HACKER_ATTACK_VECTOR,         "Buffer overflow",  confidence);
         return userAgent;
     }
 
@@ -818,7 +824,7 @@ config:
         String useragentString = userAgent.getUserAgentString();
         if (useragentString != null && useragentString.length() > userAgentMaxLength) {
             setAsHacker(userAgent, 100);
-            userAgent.setForced("HackerAttackVector", "Buffer overflow", 100);
+            userAgent.setForced(HACKER_ATTACK_VECTOR, "Buffer overflow", 100);
             return hardCodedPostProcessing(userAgent);
         }
 
@@ -857,8 +863,8 @@ config:
             // If this occurs then someone has found a previously undetected problem.
             // So this is a safety for something that 'can' but 'should not' occur.
             userAgent.reset();
-            userAgent = setAsHacker(userAgent, 10000);
-            userAgent.setForced("HackerAttackVector", "Yauaa Exploit", 10000);
+            setAsHacker(userAgent, 10000);
+            userAgent.setForced(HACKER_ATTACK_VECTOR, "Yauaa Exploit", 10000);
             return hardCodedPostProcessing(userAgent);
         }
     }
@@ -869,13 +875,14 @@ config:
         HARD_CODED_GENERATED_FIELDS.add(SYNTAX_ERROR);
         HARD_CODED_GENERATED_FIELDS.add(AGENT_VERSION_MAJOR);
         HARD_CODED_GENERATED_FIELDS.add(LAYOUT_ENGINE_VERSION_MAJOR);
-        HARD_CODED_GENERATED_FIELDS.add("AgentNameVersion");
-        HARD_CODED_GENERATED_FIELDS.add("AgentNameVersionMajor");
-        HARD_CODED_GENERATED_FIELDS.add("LayoutEngineNameVersion");
-        HARD_CODED_GENERATED_FIELDS.add("LayoutEngineNameVersionMajor");
-        HARD_CODED_GENERATED_FIELDS.add("OperatingSystemNameVersion");
-        HARD_CODED_GENERATED_FIELDS.add("WebviewAppVersionMajor");
-        HARD_CODED_GENERATED_FIELDS.add("WebviewAppNameVersionMajor");
+        HARD_CODED_GENERATED_FIELDS.add(AGENT_NAME_VERSION);
+        HARD_CODED_GENERATED_FIELDS.add(AGENT_NAME_VERSION_MAJOR);
+        HARD_CODED_GENERATED_FIELDS.add(LAYOUT_ENGINE_NAME_VERSION);
+        HARD_CODED_GENERATED_FIELDS.add(LAYOUT_ENGINE_NAME_VERSION_MAJOR);
+        HARD_CODED_GENERATED_FIELDS.add(OPERATING_SYSTEM_NAME_VERSION);
+        HARD_CODED_GENERATED_FIELDS.add(OPERATING_SYSTEM_NAME_VERSION_MAJOR);
+        HARD_CODED_GENERATED_FIELDS.add(WEBVIEW_APP_VERSION_MAJOR);
+        HARD_CODED_GENERATED_FIELDS.add(WEBVIEW_APP_NAME_VERSION_MAJOR);
     }
 
     public boolean isWantedField(String fieldName) {
@@ -885,210 +892,38 @@ config:
         return wantedFieldNames.contains(fieldName);
     }
 
+    List<FieldCalculator> fieldCalculators = new ArrayList<>();
+
     private UserAgent hardCodedPostProcessing(UserAgent userAgent) {
         // If it is really really bad ... then it is a Hacker.
         if ("true".equals(userAgent.getValue(SYNTAX_ERROR))) {
             if (userAgent.get(DEVICE_CLASS).getConfidence() == -1) {
-                userAgent.set(DEVICE_CLASS, "Hacker", 10);
-                userAgent.set(DEVICE_BRAND, "Hacker", 10);
-                userAgent.set(DEVICE_NAME, "Hacker", 10);
-                userAgent.set(DEVICE_VERSION, "Hacker", 10);
-                userAgent.set(OPERATING_SYSTEM_CLASS, "Hacker", 10);
-                userAgent.set(OPERATING_SYSTEM_NAME, "Hacker", 10);
-                userAgent.set(OPERATING_SYSTEM_VERSION, "Hacker", 10);
-                userAgent.set(LAYOUT_ENGINE_CLASS, "Hacker", 10);
-                userAgent.set(LAYOUT_ENGINE_NAME, "Hacker", 10);
-                userAgent.set(LAYOUT_ENGINE_VERSION, "Hacker", 10);
+                userAgent.set(DEVICE_CLASS,                "Hacker", 10);
+                userAgent.set(DEVICE_BRAND,                "Hacker", 10);
+                userAgent.set(DEVICE_NAME,                 "Hacker", 10);
+                userAgent.set(DEVICE_VERSION,              "Hacker", 10);
+                userAgent.set(OPERATING_SYSTEM_CLASS,      "Hacker", 10);
+                userAgent.set(OPERATING_SYSTEM_NAME,       "Hacker", 10);
+                userAgent.set(OPERATING_SYSTEM_VERSION,    "Hacker", 10);
+                userAgent.set(LAYOUT_ENGINE_CLASS,         "Hacker", 10);
+                userAgent.set(LAYOUT_ENGINE_NAME,          "Hacker", 10);
+                userAgent.set(LAYOUT_ENGINE_VERSION,       "Hacker", 10);
                 userAgent.set(LAYOUT_ENGINE_VERSION_MAJOR, "Hacker", 10);
-                userAgent.set(AGENT_CLASS, "Hacker", 10);
-                userAgent.set(AGENT_NAME, "Hacker", 10);
-                userAgent.set(AGENT_VERSION, "Hacker", 10);
-                userAgent.set(AGENT_VERSION_MAJOR, "Hacker", 10);
-                userAgent.set("HackerToolkit", "Unknown", 10);
-                userAgent.set("HackerAttackVector", "Unknown", 10);
+                userAgent.set(AGENT_CLASS,                 "Hacker", 10);
+                userAgent.set(AGENT_NAME,                  "Hacker", 10);
+                userAgent.set(AGENT_VERSION,               "Hacker", 10);
+                userAgent.set(AGENT_VERSION_MAJOR,         "Hacker", 10);
+                userAgent.set(HACKER_TOOLKIT,              "Unknown", 10);
+                userAgent.set(HACKER_ATTACK_VECTOR,        "Unknown", 10);
             }
         }
 
-        // !!!!!!!!!! NOTE !!!!!!!!!!!!
-        // IF YOU ADD ANY EXTRA FIELDS YOU MUST ADD THEM TO THE BUILDER TOO !!!!
-        addMajorVersionField(userAgent, AGENT_VERSION, AGENT_VERSION_MAJOR);
-        addMajorVersionField(userAgent, LAYOUT_ENGINE_VERSION, LAYOUT_ENGINE_VERSION_MAJOR);
-        addMajorVersionField(userAgent, "WebviewAppVersion", "WebviewAppVersionMajor");
-
-        concatFieldValuesNONDuplicated(userAgent, "AgentNameVersion",               AGENT_NAME,             AGENT_VERSION);
-        concatFieldValuesNONDuplicated(userAgent, "AgentNameVersionMajor",          AGENT_NAME,             AGENT_VERSION_MAJOR);
-        concatFieldValuesNONDuplicated(userAgent, "WebviewAppNameVersionMajor",     "WebviewAppName",       "WebviewAppVersionMajor");
-        concatFieldValuesNONDuplicated(userAgent, "LayoutEngineNameVersion",        LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION);
-        concatFieldValuesNONDuplicated(userAgent, "LayoutEngineNameVersionMajor",   LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION_MAJOR);
-        concatFieldValuesNONDuplicated(userAgent, "OperatingSystemNameVersion",     OPERATING_SYSTEM_NAME,  OPERATING_SYSTEM_VERSION);
-
-        // The device brand field is a mess.
-        UserAgent.AgentField deviceBrand = userAgent.get(DEVICE_BRAND);
-        if (deviceBrand.getConfidence() >= 0) {
-            userAgent.setForced(
-                DEVICE_BRAND,
-                Normalize.brand(deviceBrand.getValue()),
-                deviceBrand.getConfidence());
+        // Calculate all fields that are constructed from the found ones.
+        for (FieldCalculator fieldCalculator: fieldCalculators) {
+            fieldCalculator.calculate(userAgent);
         }
-
-        // The email address is a mess
-        UserAgent.AgentField email = userAgent.get("AgentInformationEmail");
-        if (email != null && email.getConfidence() >= 0) {
-            userAgent.setForced(
-                "AgentInformationEmail",
-                Normalize.email(email.getValue()),
-                email.getConfidence());
-        }
-
-        if (deviceBrand.getConfidence() < 0) {
-            // If no brand is known then try to extract something that looks like a Brand from things like URL and Email addresses.
-            String newDeviceBrand = determineDeviceBrand(userAgent);
-            if (newDeviceBrand != null) {
-                userAgent.setForced(
-                    DEVICE_BRAND,
-                    newDeviceBrand,
-                    1);
-            }
-        }
-
-        // Make sure the DeviceName always starts with the DeviceBrand
-        UserAgent.AgentField deviceName = userAgent.get(DEVICE_NAME);
-        if (deviceName.getConfidence() >= 0) {
-            deviceBrand = userAgent.get(DEVICE_BRAND);
-            String deviceNameValue = deviceName.getValue();
-            String deviceBrandValue = deviceBrand.getValue();
-            if (deviceName.getConfidence() >= 0 &&
-                deviceBrand.getConfidence() >= 0 &&
-                !deviceBrandValue.equals("Unknown")) {
-                // In some cases it does start with the brand but without a separator following the brand
-                deviceNameValue = Normalize.cleanupDeviceBrandName(deviceBrandValue, deviceNameValue);
-            } else {
-                deviceNameValue = Normalize.brand(deviceNameValue);
-            }
-
-            userAgent.setForced(
-                DEVICE_NAME,
-                deviceNameValue,
-                deviceName.getConfidence());
-        }
-
 
         return userAgent;
-    }
-
-    private String extractCompanyFromHostName(String hostname) {
-        try {
-            InternetDomainName domainName = InternetDomainName.from(hostname);
-            return Normalize.brand(domainName.topPrivateDomain().parts().get(0));
-        } catch (RuntimeException e) {
-            return null;
-        }
-    }
-
-    private String determineDeviceBrand(UserAgent userAgent) {
-        // If no brand is known but we do have a URL then we assume the hostname to be the brand.
-        // We put this AFTER the creation of the DeviceName because we choose to not have
-        // this brandname in the DeviceName.
-
-        UserAgent.AgentField informationUrl = userAgent.get("AgentInformationUrl");
-        if (informationUrl != null && informationUrl.getConfidence() >= 0) {
-            String hostname = informationUrl.getValue();
-            try {
-                URL url = new URL(hostname);
-                hostname = url.getHost();
-            } catch (MalformedURLException e) {
-                // Ignore any exception and continue.
-            }
-            hostname = extractCompanyFromHostName(hostname);
-            if (hostname != null) {
-                return hostname;
-            }
-        }
-
-        UserAgent.AgentField informationEmail = userAgent.get("AgentInformationEmail");
-        if (informationEmail != null && informationEmail.getConfidence() >= 0) {
-            String hostname = informationEmail.getValue();
-            int atOffset = hostname.indexOf('@');
-            if (atOffset >= 0) {
-                hostname = hostname.substring(atOffset+1);
-            }
-            hostname = extractCompanyFromHostName(hostname);
-            if (hostname != null) {
-                return hostname;
-            }
-        }
-
-        return null;
-    }
-
-    void concatFieldValuesNONDuplicated(UserAgent userAgent, String targetName, String firstName, String secondName) {
-        if (!isWantedField(targetName)) {
-            return;
-        }
-        UserAgent.AgentField firstField = userAgent.get(firstName);
-        UserAgent.AgentField secondField = userAgent.get(secondName);
-
-        String first = null;
-        long firstConfidence = -1;
-        String second = null;
-        long secondConfidence = -1;
-
-        if (firstField != null) {
-            first = firstField.getValue();
-            firstConfidence = firstField.getConfidence();
-        }
-        if (secondField != null) {
-            second = secondField.getValue();
-            secondConfidence = secondField.getConfidence();
-        }
-
-        if (first == null && second == null) {
-            return; // Nothing to do
-        }
-
-        if (second == null) {
-            if (firstConfidence >= 0) {
-                userAgent.set(targetName, first, firstConfidence);
-            }
-            return; // Nothing to do
-        } else {
-            if (first == null) {
-                if (secondConfidence >= 0) {
-                    userAgent.set(targetName, second, secondConfidence);
-                }
-                return;
-            }
-        }
-
-        if (first.equals(second)) {
-            userAgent.set(targetName, first, firstConfidence);
-        } else {
-            if (second.startsWith(first)) {
-                userAgent.set(targetName, second, secondConfidence);
-            } else {
-                userAgent.set(targetName, first + " " + second, Math.max(firstField.getConfidence(), secondField.getConfidence()));
-            }
-        }
-    }
-
-    private void addMajorVersionField(UserAgent userAgent, String versionName, String majorVersionName) {
-        if (!isWantedField(majorVersionName)) {
-            return;
-        }
-        UserAgent.AgentField agentVersionMajor = userAgent.get(majorVersionName);
-        if (agentVersionMajor == null || agentVersionMajor.getConfidence() == -1) {
-            UserAgent.AgentField agentVersion = userAgent.get(versionName);
-            if (agentVersion != null) {
-                String version = agentVersion.getValue();
-                if (version != null) {
-                    version = VersionSplitter.getInstance().getSingleSplit(agentVersion.getValue(), 1);
-                }
-                userAgent.set(
-                    majorVersionName,
-                    version,
-                    agentVersion.getConfidence());
-            }
-        }
     }
 
     public Set<Range> getRequiredInformRanges(String treeName) {
@@ -1200,12 +1035,11 @@ config:
 
     public static class GetAllPathsAnalyzer implements Analyzer {
         private final List<String> values = new ArrayList<>(128);
-        private final UserAgentTreeFlattener flattener;
 
         private final UserAgent result;
 
         GetAllPathsAnalyzer(String useragent) {
-            flattener = new UserAgentTreeFlattener(this);
+            UserAgentTreeFlattener flattener = new UserAgentTreeFlattener(this);
             result = flattener.parse(useragent);
         }
 
@@ -1460,8 +1294,20 @@ config:
         }
 
         private void addGeneratedFields(String result, String... dependencies) {
-            if (uaa.wantedFieldNames.contains(result)) {
+            if (uaa.isWantedField(result)) {
                 Collections.addAll(uaa.wantedFieldNames, dependencies);
+            }
+        }
+
+        private void addCalculatedMajorVersionField(String result, String dependency) {
+            if (uaa.isWantedField(result)) {
+                uaa.fieldCalculators.add(new MajorVersionCalculator(dependency, result));
+            }
+        }
+
+        private void addCalculatedConcatNONDuplicated(String result, String first, String second) {
+            if (uaa.isWantedField(result)) {
+                uaa.fieldCalculators.add(new ConcatNONDuplicatedCalculator(result, first, second));
             }
         }
 
@@ -1472,25 +1318,47 @@ config:
         public UAA build() {
             failIfAlreadyBuilt();
             if (uaa.wantedFieldNames != null) {
-                addGeneratedFields("AgentNameVersion", AGENT_NAME, AGENT_VERSION);
-                addGeneratedFields("AgentNameVersionMajor", AGENT_NAME, AGENT_VERSION_MAJOR);
-                addGeneratedFields("WebviewAppNameVersionMajor", "WebviewAppName", "WebviewAppVersionMajor");
-                addGeneratedFields("LayoutEngineNameVersion", LAYOUT_ENGINE_NAME, LAYOUT_ENGINE_VERSION);
-                addGeneratedFields("LayoutEngineNameVersionMajor", LAYOUT_ENGINE_NAME, LAYOUT_ENGINE_VERSION_MAJOR);
-                addGeneratedFields("OperatingSystemNameVersion", OPERATING_SYSTEM_NAME, OPERATING_SYSTEM_VERSION);
-                addGeneratedFields(DEVICE_NAME, DEVICE_BRAND);
-                addGeneratedFields(AGENT_VERSION_MAJOR, AGENT_VERSION);
-                addGeneratedFields(LAYOUT_ENGINE_VERSION_MAJOR, LAYOUT_ENGINE_VERSION);
-                addGeneratedFields("WebviewAppVersionMajor", "WebviewAppVersion");
+                addGeneratedFields(AGENT_NAME_VERSION,                  AGENT_NAME,            AGENT_VERSION);
+                addGeneratedFields(AGENT_NAME_VERSION_MAJOR,            AGENT_NAME,            AGENT_VERSION_MAJOR);
+                addGeneratedFields(WEBVIEW_APP_NAME_VERSION_MAJOR,      WEBVIEW_APP_NAME,      WEBVIEW_APP_VERSION_MAJOR);
+                addGeneratedFields(LAYOUT_ENGINE_NAME_VERSION,          LAYOUT_ENGINE_NAME,    LAYOUT_ENGINE_VERSION);
+                addGeneratedFields(LAYOUT_ENGINE_NAME_VERSION_MAJOR,    LAYOUT_ENGINE_NAME,    LAYOUT_ENGINE_VERSION_MAJOR);
+                addGeneratedFields(OPERATING_SYSTEM_NAME_VERSION,       OPERATING_SYSTEM_NAME, OPERATING_SYSTEM_VERSION);
+                addGeneratedFields(OPERATING_SYSTEM_NAME_VERSION_MAJOR, OPERATING_SYSTEM_NAME, OPERATING_SYSTEM_VERSION_MAJOR);
+                addGeneratedFields(DEVICE_NAME,                         DEVICE_BRAND);
+                addGeneratedFields(AGENT_VERSION_MAJOR,                 AGENT_VERSION);
+                addGeneratedFields(LAYOUT_ENGINE_VERSION_MAJOR,         LAYOUT_ENGINE_VERSION);
+                addGeneratedFields(WEBVIEW_APP_VERSION_MAJOR,           WEBVIEW_APP_VERSION);
 
                 // If we do not have a Brand we try to extract it from URL/Email iff present.
-                addGeneratedFields(DEVICE_BRAND, "AgentInformationUrl", "AgentInformationEmail");
+                addGeneratedFields(DEVICE_BRAND, AGENT_INFORMATION_URL, AGENT_INFORMATION_EMAIL);
 
                 // Special field that affects ALL fields.
                 uaa.wantedFieldNames.add(SET_ALL_FIELDS);
 
                 // This is always needed to determine the Hacker fallback
                 uaa.wantedFieldNames.add(DEVICE_CLASS);
+            }
+
+            addCalculatedMajorVersionField(AGENT_VERSION_MAJOR,                     AGENT_VERSION);
+            addCalculatedMajorVersionField(LAYOUT_ENGINE_VERSION_MAJOR,             LAYOUT_ENGINE_VERSION);
+            addCalculatedMajorVersionField(WEBVIEW_APP_VERSION_MAJOR,               WEBVIEW_APP_VERSION);
+            addCalculatedMajorVersionField(OPERATING_SYSTEM_VERSION_MAJOR,          OPERATING_SYSTEM_VERSION);
+
+            addCalculatedConcatNONDuplicated(AGENT_NAME_VERSION,                    AGENT_NAME,             AGENT_VERSION);
+            addCalculatedConcatNONDuplicated(AGENT_NAME_VERSION_MAJOR,              AGENT_NAME,             AGENT_VERSION_MAJOR);
+            addCalculatedConcatNONDuplicated(WEBVIEW_APP_NAME_VERSION_MAJOR,        WEBVIEW_APP_NAME,       WEBVIEW_APP_VERSION_MAJOR);
+            addCalculatedConcatNONDuplicated(LAYOUT_ENGINE_NAME_VERSION,            LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION);
+            addCalculatedConcatNONDuplicated(LAYOUT_ENGINE_NAME_VERSION_MAJOR,      LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION_MAJOR);
+            addCalculatedConcatNONDuplicated(OPERATING_SYSTEM_NAME_VERSION,         OPERATING_SYSTEM_NAME,  OPERATING_SYSTEM_VERSION);
+
+            addCalculatedMajorVersionField(OPERATING_SYSTEM_NAME_VERSION_MAJOR,     OPERATING_SYSTEM_NAME_VERSION);
+
+            if (uaa.isWantedField(DEVICE_BRAND)) {
+                uaa.fieldCalculators.add(new CalculateDeviceBrand());
+            }
+            if (uaa.isWantedField(DEVICE_NAME)) {
+                uaa.fieldCalculators.add(new CalculateDeviceName());
             }
 
             boolean mustDropTestsLater = !uaa.willKeepTests();

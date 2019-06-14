@@ -20,3 +20,9 @@ config:
 - test:
     expected:
       Something : 'Something'
+
+
+# We need at least 1 matcher (or this test will fail for the wrong reason.
+- matcher:
+    extract:
+      - 'Key : 42 : "Value"'

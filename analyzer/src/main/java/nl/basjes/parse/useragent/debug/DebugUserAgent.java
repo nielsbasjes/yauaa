@@ -72,6 +72,11 @@ public class DebugUserAgent extends UserAgent { // NOSONAR: No need to override 
             sb.append("+----------------\n");
             for (String fieldName : result.getAvailableFieldNamesSorted()) {
                 AgentField field = result.get(fieldName);
+
+                if (field == null) {
+                    LOG.error("Should not happen");
+                }
+
                 if (field.getConfidence() >= 0) {
                     String marker = "";
                     if (highlightNames.contains(fieldName)) {

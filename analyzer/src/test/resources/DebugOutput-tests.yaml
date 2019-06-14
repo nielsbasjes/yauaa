@@ -105,7 +105,8 @@ config:
 
 - test:
     options:
-    - 'verbose'
+    - 'only'
+#    - 'verbose'
     input:
       name: 'Syntax error'
       user_agent_string: '${123+456}'
@@ -117,7 +118,9 @@ config:
       OperatingSystemClass                 : 'Hacker'
       OperatingSystemName                  : 'Hacker'
       OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
       OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
       LayoutEngineClass                    : 'Hacker'
       LayoutEngineName                     : 'Hacker'
       LayoutEngineVersion                  : 'Hacker'

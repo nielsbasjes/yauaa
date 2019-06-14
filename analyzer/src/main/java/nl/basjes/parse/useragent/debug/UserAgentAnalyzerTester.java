@@ -40,15 +40,15 @@ import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzerTester.class);
 
-    public UserAgentAnalyzerTester() {
-        super();
-        keepTests();
-    }
+//    public UserAgentAnalyzerTester() {
+//        super();
+//        keepTests();
+//    }
 
-    public UserAgentAnalyzerTester(String resourceString) {
-        this();
-        loadResources(resourceString);
-    }
+//    public UserAgentAnalyzerTester(String resourceString) {
+//        this();
+//        loadResources(resourceString);
+//    }
 
     public static class KryoSerializer extends UserAgentAnalyzerDirect.KryoSerializer {
         public KryoSerializer(Kryo kryo, Class<?> type) {

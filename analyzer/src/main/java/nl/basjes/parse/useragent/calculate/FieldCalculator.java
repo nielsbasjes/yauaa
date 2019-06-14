@@ -15,23 +15,12 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent;
+package nl.basjes.parse.useragent.calculate;
 
-import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
-import org.junit.Test;
+import nl.basjes.parse.useragent.UserAgent;
 
-import static org.junit.Assert.assertTrue;
+import java.io.Serializable;
 
-public class DocumentationExample {
-
-    @Test
-    public void runDocumentationExample() {
-        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
-            .newBuilder()
-            .dropDefaultResources()
-            .addResources("classpath*:DocumentationExample.yaml")
-            .build();
-        assertTrue(uaa.runTests(false, true));
-    }
-
+public interface FieldCalculator extends Serializable {
+    void calculate(UserAgent userAgent);
 }
