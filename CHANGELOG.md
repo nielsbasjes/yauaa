@@ -5,6 +5,8 @@ v5.11
 - Finalized detection of Chromium/Blink based Edge both for Windows 10 and Mac
 - Detect Liebao Browser
 - Make compiler a bit stricter, fixed the warnings.
+- Updated UDF dependencies
+  - Apache Beam   2.13.0
 
 v5.10
 ===
