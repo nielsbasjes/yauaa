@@ -60,6 +60,29 @@ The above example showed an approximate 40% speed increase (i.e. times dropped f
 In the nl.basjes.parse.useragent.UserAgent many (not all!!) of the provided variables are provided as a constant String.
 You can choose to use these and avoid subtle typos in the requested attribute names.
 
+# Building your project with -Xlint:all
+If you are trying to get rid of all possible problems in your application and set the compiler flag -Xlint:all you will see warnings relating to the Kryo serialization system.
+
+    [WARNING] COMPILATION WARNING :
+    [INFO] -------------------------------------------------------------
+    [WARNING] Cannot find annotation method 'value()' in type 'com.esotericsoftware.kryo.DefaultSerializer': class file for com.esotericsoftware.kryo.DefaultSerializer not found
+    [WARNING] Cannot find annotation method 'value()' in type 'com.esotericsoftware.kryo.DefaultSerializer'
+    [INFO] 2 warnings
+
+The Yauaa analyzer has been prepared in such a way that it can be serialized using both the standard Java serialization and the Kryo serialization library.
+The Kryo library has been configured as a "provided" dependency because many do not need it, and (to avoid version conflicts) those who do need it have this dependency already.
+
+If your project does not use Kryo and you have this warning then there are several ways to work around this:
+
+1. Disable the Xlint check that triggers this warning. Apparently this is the "classfile" so try to use **-Xlint:all,-classfile** instead.
+2. Add the otherwise needless Kryo library as a dependency to your project.
+
+       <dependency>
+         <groupId>com.esotericsoftware</groupId>
+         <artifactId>kryo</artifactId>
+         <version>4.0.2</version>
+       </dependency>
+
 # IMPORTANT: This library is single threaded !
 Because the internal analyzer code is not reentrant the main method has been synchronized on the instance. 
 So from the prespective of you the application developer this library is thread safe.
