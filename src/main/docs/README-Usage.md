@@ -57,6 +57,9 @@ This can be achieved by creating the analyzer in Java like this:
 One important effect is that this speeds up the system because it will kick any rules that do not help in getting the desired fields.
 The above example showed an approximate 40% speed increase (i.e. times dropped from ~1ms to ~0.6ms).
 
+In the nl.basjes.parse.useragent.UserAgent many (not all!!) of the provided variables are provided as a constant String.
+You can choose to use these and avoid subtle typos in the requested attribute names.
+
 # IMPORTANT: This library is single threaded !
 Because the internal analyzer code is not reentrant the main method has been synchronized on the instance. 
 So from the prespective of you the application developer this library is thread safe.
