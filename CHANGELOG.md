@@ -10,6 +10,7 @@ v5.11
 - Added two new fields: OperatingSystemVersionMajor and OperatingSystemNameVersionMajor
 - Fix detection of iOS in specific edge case
 - Modularized and optimized the postprocessing of the found fields.
+- Updated Kryo
 
 v5.10
 ===
