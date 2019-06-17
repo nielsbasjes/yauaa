@@ -75,12 +75,13 @@ The Kryo library has been configured as a "provided" dependency because many do 
 If your project does not use Kryo and you have this warning then there are several ways to work around this:
 
 1. Disable the Xlint check that triggers this warning. Apparently this is the "classfile" so try to use **-Xlint:all,-classfile** instead.
-2. Add the otherwise needless Kryo library as a dependency to your project.
+2. Add the otherwise needless Kryo library as a "provided" dependency to your project.
 
        <dependency>
          <groupId>com.esotericsoftware</groupId>
          <artifactId>kryo</artifactId>
          <version>4.0.2</version>
+         <scope>provided</scope>
        </dependency>
 
 # IMPORTANT: This library is single threaded !
