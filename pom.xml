@@ -298,9 +298,14 @@
 
     <profile>
       <id>EnableReportPlugins</id>
+      <activation>
+        <property>
+          <name>EnableReportPlugins</name>
+        </property>
+        <jdk>1.8</jdk>
+      </activation>
       <build>
         <plugins>
-
           <plugin>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
@@ -329,31 +334,85 @@
       </properties>
     </profile>
 
+    <profile>
+      <id>Build with JDK 8</id>
+      <activation>
+        <jdk>1.8</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.0</version>
+            <configuration>
+              <compilerVersion>${jdkLevel}</compilerVersion>
+              <source>${jdkLevel}</source>
+              <target>${jdkLevel}</target>
+              <compilerArgs>
+                <!-- Enable almost all warnings.-->
+                <!-- FIXME: Why does the hive udf fail with "An unknown compilation problem occurred" when using -Xlint:classfile,processing ? -->
+                <!-- Ignore the 'serial' warnings about not having a serialVersionUID -->
+                <arg>-Xlint:all,-classfile,-processing,-serial</arg>
+                <arg>-Werror</arg>
+              </compilerArgs>
+              <showWarnings>true</showWarnings>
+              <showDeprecation>true</showDeprecation>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>Build with JDK 11+</id>
+      <activation>
+        <jdk>[1.11,)</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.0</version>
+            <configuration>
+              <compilerVersion>${jdkLevel}</compilerVersion>
+              <source>${jdkLevel}</source>
+              <target>${jdkLevel}</target>
+              <compilerArgs>
+                <!-- Enable almost all warnings.-->
+                <!-- FIXME: Why does the hive udf fail with "An unknown compilation problem occurred" when using -Xlint:classfile,processing ? -->
+                <!-- Ignore the 'serial' warnings about not having a serialVersionUID -->
+                <arg>-Xlint:all,-classfile,-processing,-serial</arg>
+                <arg>-Werror</arg>
+                <arg>-implicit:class</arg>
+              </compilerArgs>
+              <showWarnings>true</showWarnings>
+              <showDeprecation>true</showDeprecation>
+              <release>8</release>
+            </configuration>
+          </plugin>
+
+          <!-- Never run Coveralls under JDK 11 ... it won't work -->
+          <plugin>
+            <groupId>org.eluder.coveralls</groupId>
+            <artifactId>coveralls-maven-plugin</artifactId>
+            <version>4.3.0</version>
+            <configuration>
+              <skip>true</skip>
+            </configuration>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+
+
   </profiles>
 
   <build>
     <defaultGoal>clean package</defaultGoal>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
-        <configuration>
-          <compilerVersion>${jdkLevel}</compilerVersion>
-          <source>${jdkLevel}</source>
-          <target>${jdkLevel}</target>
-          <compilerArgs>
-            <!-- Enable almost all warnings.-->
-            <!-- FIXME: Why does the hive udf fail with "An unknown compilation problem occurred" when using -Xlint:classfile,processing ? -->
-            <!-- Ignore the 'serial' warnings about not having a serialVersionUID -->
-            <arg>-Xlint:all,-classfile,-processing,-serial</arg>
-            <arg>-Werror</arg>
-          </compilerArgs>
-          <showWarnings>true</showWarnings>
-          <showDeprecation>true</showDeprecation>
-        </configuration>
-      </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>

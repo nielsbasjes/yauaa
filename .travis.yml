@@ -19,13 +19,14 @@ language: java
 
 jdk:
   - oraclejdk8
+  - openjdk11
 
 addons:
   sonarcloud:
     organization: "nielsbasjes-github"
 
 script:
-  - mvn test -PEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
+  - mvn test -DEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
 
 cache:
   directories:
