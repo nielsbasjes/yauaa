@@ -24,7 +24,7 @@ echo "function drawChart() {"
 echo "    var data = google.visualization.arrayToDataTable(["
 
 echo -n "['Version'"
-ls results/quick-speed-test-*.txt | head -1 | xargs grep '| Test |' | cut -d'|' -f3 | sed 's/^ //g;s/ +$//' | \
+ls results/quick-speed-test-*.txt | sort --version-sort | head -1 | xargs grep '| Test |' | cut -d'|' -f3 | sed 's/^ //g;s/ +$//' | \
 while read BenchMarkName ;
 do
     echo -n ",'${BenchMarkName}'"
@@ -32,11 +32,11 @@ done
 echo "],"
 
 
-ls results/quick-speed-test-*txt | while read FileName ;
+ls results/quick-speed-test-*txt | sort --version-sort | while read FileName ;
 do
     VERSION=$(echo "${FileName}" | sed 's@^.*quick-speed-test-\(.*\).txt$@\1@g' )
     echo -n "['v${VERSION}'"
-    ls results/quick-speed-test-*.txt | head -1 | xargs grep '| Test |' | cut -d'|' -f3 | sed 's/^ //g;s/ +$//' | \
+    ls results/quick-speed-test-*.txt | sort --version-sort | head -1 | xargs grep '| Test |' | cut -d'|' -f3 | sed 's/^ //g;s/ +$//' | \
     while read BenchMarkName ;
     do
         fgrep "| Test | ${BenchMarkName}  " "${FileName}" | \
