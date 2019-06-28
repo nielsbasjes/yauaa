@@ -19,6 +19,8 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.value;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parse.EvilManualUseragentStringHacks;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import static nl.basjes.parse.useragent.parse.EvilManualUseragentStringHacks.replaceString;
@@ -26,7 +28,7 @@ import static nl.basjes.parse.useragent.parse.EvilManualUseragentStringHacks.rep
 public class StepCleanVersion extends Step {
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree<MatcherTree> tree, String value) {
         String actualValue = getActualValue(tree, value);
 
         // Sanitize the provided value

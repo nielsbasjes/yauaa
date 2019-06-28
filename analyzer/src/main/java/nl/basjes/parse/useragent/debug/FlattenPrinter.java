@@ -36,7 +36,7 @@ public class FlattenPrinter implements Analyzer {
     }
 
 //    @Override
-//    public void inform(MatcherTree path, String value, ParseTree ctx) {
+//    public void inform(MatcherTree path, String value, ParseTree<Void> ctx) {
 //        outputStream.println(path);
 //    }
 

@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.value;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepConcatPrefix extends Step {
@@ -35,7 +36,7 @@ public class StepConcatPrefix extends Step {
     }
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree<MatcherTree> tree, String value) {
         String actualValue = getActualValue(tree, value);
         String filteredValue = prefix + actualValue;
         return walkNextStep(tree, filteredValue);

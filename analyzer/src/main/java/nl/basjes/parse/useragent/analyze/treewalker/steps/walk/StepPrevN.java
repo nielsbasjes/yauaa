@@ -19,12 +19,13 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.walk;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepPrevN extends Step {
 
     private static final int SIZE = 20;
-    private transient ParseTree[] children = null;
+    private transient ParseTree<MatcherTree>[] children = null;
 
     private final int steps;
 
@@ -37,15 +38,16 @@ public class StepPrevN extends Step {
         this.steps = steps;
     }
 
-    private ParseTree prev(ParseTree tree) {
-        ParseTree parent = up(tree);
+    @SuppressWarnings({"unchecked", "raw"})
+    private ParseTree<MatcherTree>  prev(ParseTree<MatcherTree>  tree) {
+        ParseTree<MatcherTree>  parent = up(tree);
 
         if (children== null) {
-            children = new ParseTree[SIZE];
+            children = (ParseTree<MatcherTree>[])new ParseTree<?>[SIZE];
         }
 
         int lastChildIndex = -1;
-        ParseTree child = null;
+        ParseTree<MatcherTree>  child = null;
         int i;
         for (i = 0; i < parent.getChildCount(); i++) {
             if (!treeIsSeparator(child)) {
@@ -64,8 +66,8 @@ public class StepPrevN extends Step {
     }
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
-        ParseTree prevTree = prev(tree);
+    public WalkResult walk(ParseTree<MatcherTree>  tree, String value) {
+        ParseTree<MatcherTree>  prevTree = prev(tree);
         if (prevTree == null) {
             return null;
         }

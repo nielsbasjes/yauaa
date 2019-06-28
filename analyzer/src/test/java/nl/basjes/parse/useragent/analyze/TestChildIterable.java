@@ -30,27 +30,27 @@ public class TestChildIterable {
 
     @Test(expected = NoSuchElementException.class)
     public void testEdgeNoChildren(){
-        ChildIterable ci = new ChildIterable(true, 1, 5, x -> (true));
+        ChildIterable<Object> ci = new ChildIterable<>(true, 1, 5, x -> (true));
 
-        ParserRuleContext prc = new ParserRuleContext();
+        ParserRuleContext<Object> prc = new ParserRuleContext<>();
 
-        Iterator<ParseTree> iterator = ci.iterator(prc);
+        Iterator<ParseTree<Object>> iterator = ci.iterator(prc);
 
         iterator.next();
     }
 
     @Test(expected = NoSuchElementException.class)
     public void testEdgeFewChildrens(){
-        ChildIterable ci = new ChildIterable(true, 1, 5, x -> (true));
+        ChildIterable<Object> ci = new ChildIterable<>(true, 1, 5, x -> (true));
 
-        ParserRuleContext prc = new ParserRuleContext();
+        ParserRuleContext<Object> prc = new ParserRuleContext<>();
         prc.children = new ArrayList<>();
-        prc.children.add(new ParserRuleContext());
-        prc.children.add(new ParserRuleContext());
-        prc.children.add(new ParserRuleContext());
-        prc.children.add(new ParserRuleContext());
+        prc.children.add(new ParserRuleContext<>());
+        prc.children.add(new ParserRuleContext<>());
+        prc.children.add(new ParserRuleContext<>());
+        prc.children.add(new ParserRuleContext<>());
 
-        Iterator<ParseTree> iterator = ci.iterator(prc);
+        Iterator<ParseTree<Object>> iterator = ci.iterator(prc);
 
         int i = 0;
         while (i < 10) {

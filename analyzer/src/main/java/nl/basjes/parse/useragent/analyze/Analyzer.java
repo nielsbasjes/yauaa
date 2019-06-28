@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 public interface Analyzer extends Serializable {
-//    void inform(MatcherTree matcherTree, String value, ParseTree ctx);
+//    void inform(MatcherTree matcherTree, String value, ParseTree<Void> ctx);
 
     void informMeAbout(MatcherAction matcherAction, MatcherTree matcherTree);
 

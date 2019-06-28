@@ -34,13 +34,8 @@ import nl.basjes.parse.useragent.calculate.CalculateDeviceName;
 import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
-import nl.basjes.parse.useragent.parse.AgentPathFragment;
-import nl.basjes.parse.useragent.parse.PathMatcherTree;
 import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
-import org.antlr.v4.runtime.tree.ParseTree;
-import nl.basjes.parse.useragent.utils.Normalize;
-import nl.basjes.parse.useragent.utils.VersionSplitter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -425,7 +420,6 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
                 for (MappingNode map : matcherConfig) {
                     try {
                         allMatchers.add(new Matcher(this, wantedFieldNames, map, configFilename));
-                        totalNumberOfMatchers++;
                     } catch (UselessMatcherException ume) {
                         skippedMatchers++;
                     }
@@ -949,7 +943,7 @@ config:
     }
 
 //    @Override
-//    public void inform(MatcherTree matcherTree, String value, ParseTree ctx) {
+//    public void inform(MatcherTree matcherTree, String value, ParseTree<Void> ctx) {
 //        String key = matcherTree.toString(); // FIXME
 //        inform(key, key, value, ctx);
 //        inform(key + "=\"" + value + '"', key, value, ctx);
@@ -965,7 +959,7 @@ config:
 //        }
 //    }
 
-//    private void inform(String match, String key, String value, ParseTree ctx) {
+//    private void inform(String match, String key, String value, ParseTree<Void> ctx) {
 //        Set<MatcherAction> relevantActions = null; // FIXME informMatcherActions.get(match.toLowerCase(Locale.ENGLISH));
 //        if (verbose) {
 //            if (relevantActions == null) {
@@ -1073,7 +1067,7 @@ config:
             return result;
         }
 
-//        public void inform(MatcherTree matcherTree, String value, ParseTree ctx) {
+//        public void inform(MatcherTree matcherTree, String value, ParseTree<Void> ctx) {
 //            String path = matcherTree.toString();
 //            values.add(path);
 //            values.add(path + "=\"" + value + "\"");

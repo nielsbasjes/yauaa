@@ -21,6 +21,7 @@ import nl.basjes.collections.PrefixMap;
 import nl.basjes.collections.prefixmap.StringPrefixMap;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.Map;
@@ -43,7 +44,7 @@ public class StepIsInLookupPrefix extends Step {
     }
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree<MatcherTree> tree, String value) {
         String input = getActualValue(tree, value);
 
         String result = prefixMap.getLongestMatch(input);

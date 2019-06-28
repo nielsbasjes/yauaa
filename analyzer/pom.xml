@@ -33,12 +33,28 @@
 
   <url>https://yauaa.basjes.nl</url>
 
+  <properties>
+    <antlr.version>4.7.2</antlr.version>
+    <parameterized-antlr4-visitor.version>0.1-${antlr.version}-SNAPSHOT</parameterized-antlr4-visitor.version>
+
+  </properties>
+
   <dependencies>
+
+    <!-- ================================================================ -->
+    <!-- FOR THESE DEPENDENCIES THE ORDERING OF THEM IS VERY IMPORTANT !!!-->
+    <dependency>
+      <groupId>nl.basjes.antlr</groupId>
+      <artifactId>parameterized-antlr4-visitor</artifactId>
+      <version>${parameterized-antlr4-visitor.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>org.antlr</groupId>
       <artifactId>antlr4-runtime</artifactId>
       <version>${antlr.version}</version>
     </dependency>
+    <!-- ================================================================ -->
 
     <dependency>
       <groupId>org.springframework</groupId>
@@ -166,6 +182,7 @@
             <configuration>
               <artifactSet>
                 <includes>
+                  <include>nl.basjes.antlr:parameterized-antlr4-visitor</include>
                   <include>org.antlr:antlr4-runtime</include>
                   <include>org.springframework:spring-core</include>
                   <include>org.yaml:snakeyaml</include>
@@ -277,6 +294,14 @@
         <groupId>org.antlr</groupId>
         <artifactId>antlr4-maven-plugin</artifactId>
         <version>${antlr.version}</version>
+        <dependencies>
+          <!--  Override the Java code generation with a custom implementation -->
+          <dependency>
+            <groupId>nl.basjes.antlr</groupId>
+            <artifactId>parameterized-antlr4-visitor</artifactId>
+            <version>${parameterized-antlr4-visitor.version}</version>
+          </dependency>
+        </dependencies>
         <executions>
           <execution>
             <id>antlr</id>

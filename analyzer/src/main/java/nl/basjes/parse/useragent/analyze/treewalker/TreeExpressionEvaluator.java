@@ -59,7 +59,7 @@ public class TreeExpressionEvaluator implements Serializable {
     }
 
 
-    public TreeExpressionEvaluator(ParserRuleContext requiredPattern,
+    public TreeExpressionEvaluator(ParserRuleContext<MatcherTree> requiredPattern,
                                    Matcher matcher,
                                    boolean verbose) {
         this.requiredPatternText = requiredPattern.getText();
@@ -76,11 +76,11 @@ public class TreeExpressionEvaluator implements Serializable {
         return fixedValue;
     }
 
-    private String calculateFixedValue(ParserRuleContext requiredPattern) {
-        return new UserAgentTreeWalkerBaseVisitor<String>() {
+    private String calculateFixedValue(ParserRuleContext<MatcherTree> requiredPattern) {
+        return new UserAgentTreeWalkerBaseVisitor<String, MatcherTree>() {
 
             @Override
-            protected boolean shouldVisitNextChild(RuleNode node, String currentResult) {
+            protected boolean shouldVisitNextChild(RuleNode<MatcherTree> node, String currentResult) {
                 return currentResult == null;
             }
 
@@ -90,15 +90,15 @@ public class TreeExpressionEvaluator implements Serializable {
             }
 
             @Override
-            public String visitMatcherPathLookup(MatcherPathLookupContext ctx) {
+            public String visitMatcherPathLookup(MatcherPathLookupContext<MatcherTree> ctx) {
                 return visitLookups(ctx.matcher(), ctx.lookup, ctx.defaultValue);
             }
             @Override
-            public String visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext ctx) {
+            public String visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext<MatcherTree> ctx) {
                 return visitLookups(ctx.matcher(), ctx.lookup, ctx.defaultValue);
             }
 
-            private String visitLookups(ParseTree matcherTree, Token lookup, Token defaultValue) {
+            private String visitLookups(ParseTree<MatcherTree> matcherTree, Token lookup, Token defaultValue) {
                 String value = visit(matcherTree);
                 if (value == null) {
                     return null;
@@ -123,15 +123,15 @@ public class TreeExpressionEvaluator implements Serializable {
             }
 
             @Override
-            public String visitPathFixedValue(PathFixedValueContext ctx) {
+            public String visitPathFixedValue(PathFixedValueContext<MatcherTree> ctx) {
                 return ctx.value.getText();
             }
-        }.visit(requiredPattern);
+        }.visit(requiredPattern, null);
     }
 
     // ------------------------------------------
 
-    public WalkResult evaluate(ParseTree tree, MatcherTree key, String value) {
+    public WalkResult evaluate(ParseTree<MatcherTree> tree, MatcherTree key, String value) {
         if (verbose) {
             LOG.info("Evaluate: {} => {}", key, value);
             LOG.info("Pattern : {}", requiredPatternText);

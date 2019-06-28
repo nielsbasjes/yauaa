@@ -348,7 +348,7 @@ public class TestTreewalkerRequire {
 
 
 //        @Override
-//        public void inform(MatcherTree path, String value, ParseTree ctx) {
+//        public void inform(MatcherTree path, String value, ParseTree<Void> ctx) {
 //            // Not used during tests
 //        }
 

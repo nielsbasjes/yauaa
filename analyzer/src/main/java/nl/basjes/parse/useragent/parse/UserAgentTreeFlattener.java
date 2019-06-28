@@ -100,10 +100,10 @@ public class UserAgentTreeFlattener implements Serializable {
          * @param matcherTree       The current node in the matcher tree.
          * @param useragentTree     The current node in the parseTree
          */
-        void findMatch(MatcherTree matcherTree, ParseTree useragentTree);
+        void findMatch(MatcherTree matcherTree, ParseTree<MatcherTree> useragentTree);
     }
 
-    private static final Map<Class, FindMatch> MATCH_FINDERS = new HashMap<>();
+    private static final Map<Class<?>, FindMatch> MATCH_FINDERS = new HashMap<>();
 
     static {
         // In case of a parse error the 'parsed' version of agent can be incomplete
@@ -151,14 +151,14 @@ public class UserAgentTreeFlattener implements Serializable {
     }
 
 
-    private static void match(AgentPathFragment fragment, MatcherTree mTree, ParseTree uaTree) {
+    private static void match(AgentPathFragment fragment, MatcherTree mTree, ParseTree<MatcherTree> uaTree) {
         match(fragment, mTree, uaTree, null);
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentTreeFlattener.class);
 
 
-    private static void match(AgentPathFragment fragment, MatcherTree mTree, ParseTree uaTree, String value) {
+    private static void match(AgentPathFragment fragment, MatcherTree mTree, ParseTree<MatcherTree> uaTree, String value) {
 //        LOG.warn("[match] F:{} | MT:{} | PT:{} | V:{} |", fragment, mTree, AntlrUtils.getSourceText(uaTree), value);
 
         if (mTree == null) {// || uaTree == null) {
@@ -176,17 +176,17 @@ public class UserAgentTreeFlattener implements Serializable {
         }
 
         // For each of the possible child fragments
-        for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor>> agentPathFragment: mTree.getChildren().entrySet()) {
+        for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> agentPathFragment: mTree.getChildren().entrySet()) {
 
             // Find the subnodes for which we actually patterns
             List<MatcherTree>               relevantMatcherSubTrees     = agentPathFragment.getValue().getKey();
-            Iterator<? extends ParseTree>   children                    = agentPathFragment.getValue().getValue().visit(uaTree);
+            Iterator<? extends ParseTree<MatcherTree>>   children                    = agentPathFragment.getValue().getValue().visit(uaTree);
 
             for (MatcherTree matcherSubTree: relevantMatcherSubTrees) {
                 if (!children.hasNext()) {
                     break;
                 }
-                ParseTree parseSubTree = children.next();
+                ParseTree<MatcherTree> parseSubTree = children.next();
                 if (matcherSubTree == null) {
                     continue;
                 }
@@ -203,7 +203,7 @@ public class UserAgentTreeFlattener implements Serializable {
         }
     }
 
-    private static void verifyMatchProductVersion(MatcherTree mTree, ParseTree uaTree) {
+    private static void verifyMatchProductVersion(MatcherTree mTree, ParseTree<MatcherTree> uaTree) {
         match(VERSION, mTree, uaTree);
 //        if (uaTree.getChildCount() != 1) {
 //            // These are the specials with multiple children like keyvalue, etc.
@@ -294,7 +294,7 @@ public class UserAgentTreeFlattener implements Serializable {
         }
 
         // Parse the userAgent into tree
-        UserAgentContext userAgentTree = parseUserAgent(userAgent);
+        UserAgentContext<MatcherTree> userAgentTree = parseUserAgent(userAgent);
 
         // Match the agent against the
         match(AGENT, analyzer.getMatcherTreeRoot(), userAgentTree, userAgent.getUserAgentString());
@@ -310,19 +310,19 @@ public class UserAgentTreeFlattener implements Serializable {
 
     // =================================================================================
 
-//    private String inform(ParseTree ctx, AgentPathFragment path) {
+//    private String inform(ParseTree<Void> ctx, AgentPathFragment path) {
 //        return inform(ctx, path, getSourceText((ParserRuleContext)ctx));
 //    }
 
-//    private String inform(ParseTree ctx, AgentPathFragment name, String value) {
+//    private String inform(ParseTree<Void> ctx, AgentPathFragment name, String value) {
 //        return inform(ctx, ctx, name, value, false);
 //    }
 
-//    private String inform(ParseTree ctx, AgentPathFragment name, String value, boolean fakeChild) {
+//    private String inform(ParseTree<Void> ctx, AgentPathFragment name, String value, boolean fakeChild) {
 //        return inform(ctx, ctx, name, value, fakeChild);
 //    }
 
-//    private String inform(ParseTree stateCtx, ParseTree ctx, AgentPathFragment name, String value, boolean fakeChild) {
+//    private String inform(ParseTree<Void> stateCtx, ParseTree<Void> ctx, AgentPathFragment name, String value, boolean fakeChild) {
 //        AgentPathFragment path = name;
 //        if (stateCtx == null) {
 //            analyzer.inform(path, value, ctx);
@@ -353,7 +353,7 @@ public class UserAgentTreeFlattener implements Serializable {
 
 //  =================================================================================
 
-    private UserAgentContext parseUserAgent(UserAgent userAgent) {
+    private UserAgentContext<MatcherTree> parseUserAgent(UserAgent userAgent) {
         String userAgentString = EvilManualUseragentStringHacks.fixIt(userAgent.getUserAgentString());
 
         CodePointCharStream input = CharStreams.fromString(userAgentString);
@@ -361,7 +361,7 @@ public class UserAgentTreeFlattener implements Serializable {
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-        UserAgentParser parser = new UserAgentParser(tokens);
+        UserAgentParser<MatcherTree> parser = new UserAgentParser<>(tokens);
 
         if (!verbose) {
             lexer.removeErrorListeners();
@@ -376,19 +376,19 @@ public class UserAgentTreeFlattener implements Serializable {
     //  =================================================================================
 
 
-//    private void informSubstrings(ParserRuleContext ctx, AgentPathFragment name) {
+//    private void informSubstrings(ParserRuleContext<Void> ctx, AgentPathFragment name) {
 //        informSubstrings(ctx, name, false);
 //    }
 
-//    private void informSubstrings(ParserRuleContext ctx, AgentPathFragment name, boolean fakeChild) {
+//    private void informSubstrings(ParserRuleContext<Void> ctx, AgentPathFragment name, boolean fakeChild) {
 //        informSubstrings(ctx, name, fakeChild, WordSplitter.getInstance());
 //    }
 
-//    private void informSubVersions(ParserRuleContext ctx, AgentPathFragment name) {
+//    private void informSubVersions(ParserRuleContext<Void> ctx, AgentPathFragment name) {
 //        informSubstrings(ctx, name, false, VersionSplitter.getInstance());
 //    }
 
-//    private void informSubstrings(ParserRuleContext ctx, AgentPathFragment name, boolean fakeChild, Splitter splitter) {
+//    private void informSubstrings(ParserRuleContext<Void> ctx, AgentPathFragment name, boolean fakeChild, Splitter splitter) {
 //        String text = getSourceText(ctx);
 //        String path = inform(ctx, name, text, fakeChild);
 //        Set<Range> ranges = analyzer.getRequiredInformRanges(path);

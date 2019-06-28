@@ -53,7 +53,7 @@ public class MatcherExtractAction extends MatcherAction {
         resultAgentField = newResultAgentField;
     }
 
-    protected ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser) {
+    protected ParserRuleContext<MatcherTree> parseWalkerExpression(UserAgentTreeWalkerParser<MatcherTree> parser) {
         return parser.matcherExtract();
     }
 

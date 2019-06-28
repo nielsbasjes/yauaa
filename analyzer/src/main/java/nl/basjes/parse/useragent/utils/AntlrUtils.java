@@ -25,14 +25,14 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public final class AntlrUtils {
     private AntlrUtils() {}
 
-    public static String getSourceText(ParseTree ctx) {
+    public static String getSourceText(ParseTree<?> ctx) {
         if (ctx instanceof ParserRuleContext) {
-            return getSourceText((ParserRuleContext) ctx);
+            return getSourceText((ParserRuleContext<?>) ctx);
         }
         return ctx.getText();
     }
 
-    public static String getSourceText(ParserRuleContext ctx){
+    public static String getSourceText(ParserRuleContext<?> ctx){
         if (ctx.start == null || ctx.stop == null) {
             return ctx.getText();
         }

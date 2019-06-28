@@ -61,7 +61,7 @@ public class MatcherTree implements Serializable {
     // IFF fragment == EQUALS or STARTSWITH
     private String matchString = "";
 
-    private EnumMap<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor>> children;
+    private EnumMap<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> children;
 
     public MatcherTree(AgentPathFragment fragment, int index) {
         this.fragment = fragment;
@@ -119,9 +119,9 @@ public class MatcherTree implements Serializable {
 
     public MatcherTree getOrCreateChild(AgentPathFragment newChildFragment, int newChildIndex) {
 //        LOG.info("[getOrCreateChild]>: {} --- {} --- {}", this, newChildFragment, newChildIndex);
-        Pair<List<MatcherTree>, UserAgentGetChildrenVisitor> childrenn = children
+        Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>> childrenn = children
             .computeIfAbsent(newChildFragment, k ->
-                Pair.of(new ArrayList<>(10), new UserAgentGetChildrenVisitor(newChildFragment, 0, 20)));
+                Pair.of(new ArrayList<>(10), new UserAgentGetChildrenVisitor<>(newChildFragment, 0, 20)));
         List<MatcherTree> childrenList =  childrenn.getKey();
 
         MatcherTree child = null;
@@ -153,7 +153,7 @@ public class MatcherTree implements Serializable {
         return childList.get(childIndex);
     }
 
-    public EnumMap<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor>> getChildren() {
+    public EnumMap<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> getChildren() {
         return children;
     }
 
@@ -178,7 +178,7 @@ public class MatcherTree implements Serializable {
             results.add(fragmentName + "                           -- { actions : "+ actions.size()+" }");
         }
 
-        for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor>> childrenPerType : children.entrySet()) {
+        for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> childrenPerType : children.entrySet()) {
             for (MatcherTree child : childrenPerType.getValue().getKey()) {
                 if (child != null) {
                     final String fn = fragmentName;
@@ -197,13 +197,13 @@ public class MatcherTree implements Serializable {
                 return false;
             }
             MatcherTree thisShouldBeThis = siblings.get(index);
-            if (thisShouldBeThis == null || thisShouldBeThis != this) {
+            if (thisShouldBeThis != this) {
                 LOG.error("Verify FAIL: Parent ({}) has the wrong {} child at {} for {}", parent, fragment, index, this);
                 return false;
             }
         }
 
-        for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor>> childrenPerType : children.entrySet()) {
+        for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> childrenPerType : children.entrySet()) {
             List<MatcherTree> childrenPerTypeValue = childrenPerType.getValue().getKey();
             for (MatcherTree child : childrenPerTypeValue) {
                 if (child != null) {
@@ -218,7 +218,7 @@ public class MatcherTree implements Serializable {
 
     public long size() {
         long size = 1;
-        for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor>> childrenPerType : children.entrySet()) {
+        for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> childrenPerType : children.entrySet()) {
             for (MatcherTree child : childrenPerType.getValue().getKey()) {
                 if (child != null) {
                     size += child.size();

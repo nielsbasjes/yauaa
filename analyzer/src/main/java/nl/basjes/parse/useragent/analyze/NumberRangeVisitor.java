@@ -17,8 +17,11 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.lang3.NotImplementedException;
 
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeAllContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeContext;
@@ -28,16 +31,16 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberR
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeStartToEndContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeStartToOpenEndContext;
 
-public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<NumberRangeList> {
+public final class NumberRangeVisitor<P> extends UserAgentTreeWalkerBaseVisitor<NumberRangeList, P> {
 
     private static final Integer DEFAULT_MIN = 1;
     private static final Integer DEFAULT_MAX = 10;
 
-    private NumberRangeVisitor() {
-    }
+//    private NumberRangeVisitor() {
+//    }
 
-    private static Integer getMaxRange(NumberRangeContext ctx) {
-        ParserRuleContext parent = ctx.getParent();
+    private static Integer getMaxRange(NumberRangeContext<?> ctx) {
+        ParserRuleContext<?> parent = ctx.getParent();
 
         switch (parent.getClass().getSimpleName()) {
             // Hardcoded maximum values because of the parsing rules
@@ -62,46 +65,45 @@ public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<Num
         }
     }
 
-    static final NumberRangeVisitor NUMBER_RANGE_VISITOR = new NumberRangeVisitor();
-
-    public static NumberRangeList getList(NumberRangeContext ctx) {
-        return NUMBER_RANGE_VISITOR.visit(ctx);
+    @Override
+    public NumberRangeList visit(ParseTree<P> tree, P parameter) {
+        throw new NotImplementedException("Wrong visit usage");
     }
 
     @Override
-    public NumberRangeList visitNumberRangeStartToEnd(NumberRangeStartToEndContext ctx) {
+    public NumberRangeList visitNumberRangeStartToEnd(NumberRangeStartToEndContext<P> ctx) {
         return new NumberRangeList(
                 Integer.parseInt(ctx.rangeStart.getText()),
                 Integer.parseInt(ctx.rangeEnd.getText()));
     }
 
     @Override
-    public NumberRangeList visitNumberRangeOpenStartToEnd(NumberRangeOpenStartToEndContext ctx) {
+    public NumberRangeList visitNumberRangeOpenStartToEnd(NumberRangeOpenStartToEndContext<P> ctx) {
         return new NumberRangeList(
             1,
             Integer.parseInt(ctx.rangeEnd.getText()));
     }
 
     @Override
-    public NumberRangeList visitNumberRangeStartToOpenEnd(NumberRangeStartToOpenEndContext ctx) {
+    public NumberRangeList visitNumberRangeStartToOpenEnd(NumberRangeStartToOpenEndContext<P> ctx) {
         return new NumberRangeList(
             Integer.parseInt(ctx.rangeStart.getText()),
             getMaxRange(ctx));
     }
 
     @Override
-    public NumberRangeList visitNumberRangeSingleValue(NumberRangeSingleValueContext ctx) {
+    public NumberRangeList visitNumberRangeSingleValue(NumberRangeSingleValueContext<P> ctx) {
         int value = Integer.parseInt(ctx.count.getText());
         return new NumberRangeList(value, value);
     }
 
     @Override
-    public NumberRangeList visitNumberRangeAll(NumberRangeAllContext ctx) {
+    public NumberRangeList visitNumberRangeAll(NumberRangeAllContext<P> ctx) {
         return new NumberRangeList(DEFAULT_MIN, getMaxRange(ctx));
     }
 
     @Override
-    public NumberRangeList visitNumberRangeEmpty(NumberRangeEmptyContext ctx) {
+    public NumberRangeList visitNumberRangeEmpty(NumberRangeEmptyContext<P> ctx) {
         return new NumberRangeList(DEFAULT_MIN, getMaxRange(ctx));
     }
 }

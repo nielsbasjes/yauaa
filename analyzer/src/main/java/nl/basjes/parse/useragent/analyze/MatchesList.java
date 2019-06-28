@@ -38,17 +38,17 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
     public static final class Match implements Serializable {
         private transient MatcherTree key;
         private transient String      value;
-        private transient ParseTree   result;
+        private transient ParseTree<MatcherTree>   result;
 
         // Private constructor for serialization systems ONLY (like Kyro)
         private Match() {
         }
 
-        public Match(MatcherTree key, String value, ParseTree result) {
+        public Match(MatcherTree key, String value, ParseTree<MatcherTree> result) {
             fill(key, value, result);
         }
 
-        public void fill(MatcherTree nKey, String nValue, ParseTree nResult) {
+        public void fill(MatcherTree nKey, String nValue, ParseTree<MatcherTree> nResult) {
             this.key = nKey;
             this.value = nValue;
             this.result = nResult;
@@ -62,7 +62,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
             return value;
         }
 
-        public ParseTree getResult() {
+        public ParseTree<MatcherTree> getResult() {
             return result;
         }
     }
@@ -128,7 +128,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
         size = 0;
     }
 
-    public boolean add(ParseTree result, MatcherTree key, String value) {
+    public boolean add(ParseTree<MatcherTree> result, MatcherTree key, String value) {
         if (size >= maxSize) {
             increaseCapacity();
         }

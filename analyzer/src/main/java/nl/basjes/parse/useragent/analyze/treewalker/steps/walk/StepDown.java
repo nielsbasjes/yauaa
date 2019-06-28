@@ -27,6 +27,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown.UserAgentGetChildrenVisitor;
 import nl.basjes.parse.useragent.parse.AgentPathFragment;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -38,13 +39,13 @@ public class StepDown extends Step {
     private final     int                         start;
     private final     int                         end;
     private final     AgentPathFragment           name;
-    private transient UserAgentGetChildrenVisitor userAgentGetChildrenVisitor;
+    private transient UserAgentGetChildrenVisitor<MatcherTree> userAgentGetChildrenVisitor;
 
     /**
      * Initialize the transient default values
      */
     private void setDefaultFieldValues() {
-        userAgentGetChildrenVisitor = new UserAgentGetChildrenVisitor(name, start, end);
+        userAgentGetChildrenVisitor = new UserAgentGetChildrenVisitor<>(name, start, end);
     }
 
     private void readObject(java.io.ObjectInputStream stream)
@@ -73,8 +74,10 @@ public class StepDown extends Step {
         name = null;
     }
 
-    public StepDown(NumberRangeContext numberRange, AgentPathFragment name) {
-        this(NumberRangeVisitor.getList(numberRange), name);
+    private static final NumberRangeVisitor<MatcherTree> NUMBER_RANGE_VISITOR = new NumberRangeVisitor<>();
+
+    public StepDown(NumberRangeContext<MatcherTree> numberRange, AgentPathFragment name) {
+        this(NUMBER_RANGE_VISITOR.visit(numberRange), name);
     }
 
     private StepDown(NumberRangeList numberRange, AgentPathFragment name) {
@@ -85,10 +88,10 @@ public class StepDown extends Step {
     }
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
-        Iterator<? extends ParseTree> children = userAgentGetChildrenVisitor.visit(tree);
+    public WalkResult walk(ParseTree<MatcherTree> tree, String value) {
+        Iterator<? extends ParseTree<MatcherTree>> children = userAgentGetChildrenVisitor.visit(tree);
         while (children.hasNext()) {
-            ParseTree child = children.next();
+            ParseTree<MatcherTree> child = children.next();
             WalkResult childResult = walkNextStep(child, null);
             if (childResult != null) {
                 return childResult;
