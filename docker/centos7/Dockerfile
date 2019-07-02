@@ -28,6 +28,7 @@ RUN yum install -y curl wget git tar expect rpm-build rpm-sign vim-enhanced bash
 # --------------------------------
 # Java Development
 RUN yum install -y java-1.8.0-openjdk-devel
+RUN yum install -y java-11-openjdk-devel
 ENV JAVA_HOME /usr/lib/jvm/java
 
 # --------------------------------
