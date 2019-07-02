@@ -90,7 +90,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>27.0.1-jre</version>
+      <version>28.0-jre</version>
     </dependency>
 
     <dependency>
@@ -117,7 +117,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.0.2</version>
+        <version>3.1.2</version>
         <configuration>
           <excludes>
             <exclude>UserAgents/*.sh</exclude>
@@ -136,7 +136,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.0.0</version>
 
         <configuration>
           <minimizeJar>true</minimizeJar>
@@ -221,7 +220,7 @@
 
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.7</version>
+        <version>1.8</version>
         <executions>
           <execution>
             <phase>initialize</phase>
@@ -321,11 +320,10 @@
         </configuration>
       </plugin>
 
-
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>1.5.0</version>
+        <version>1.6.0</version>
         <executions>
           <execution>
             <id>Generate Matchers and Lookups</id>
@@ -343,7 +341,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <version>1.8</version>
+        <version>3.0.0</version>
         <executions>
           <execution>
             <id>add-source</id>
@@ -365,7 +363,7 @@
       <plugin>
         <groupId>org.pitest</groupId>
         <artifactId>pitest-maven</artifactId>
-        <version>1.2.2</version>
+        <version>1.4.9</version>
         <configuration>
 
           <threads>4</threads>

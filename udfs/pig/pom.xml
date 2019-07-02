@@ -53,6 +53,12 @@
       <artifactId>pig</artifactId>
       <version>${pig.version}</version>
       <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -76,7 +82,6 @@
 
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.6</version>
         <executions>
           <execution>
             <id>make-super-jar</id>

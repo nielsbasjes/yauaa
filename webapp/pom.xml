@@ -35,7 +35,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <appengine.maven.plugin>1.3.1</appengine.maven.plugin>
+    <appengine.maven.plugin>2.0.0</appengine.maven.plugin>
     <main.class>nl.basjes.parse.useragent.servlet.ParseService</main.class>
 
     <docker.image.prefix>nl.basjes</docker.image.prefix>
@@ -118,7 +118,6 @@
 
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.1.0</version>
         <configuration>
           <failOnMissingWebXml>false</failOnMissingWebXml>
           <archiveClasses>true</archiveClasses>
@@ -145,7 +144,7 @@
       <plugin>
         <groupId>com.spotify</groupId>
         <artifactId>dockerfile-maven-plugin</artifactId>
-        <version>1.3.6</version>
+        <version>1.4.10</version>
         <configuration>
           <repository>${docker.image.prefix}/${project.artifactId}</repository>
           <buildArgs>

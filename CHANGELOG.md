@@ -6,7 +6,9 @@ v5.11
 - Detect Liebao Browser
 - Make compiler a bit stricter, fixed the warnings.
 - Updated UDF dependencies
+  - Apache Flink  1.8.1
   - Apache Beam   2.13.0
+  - Apache Drill  1.16.0
 - Added two new fields: OperatingSystemVersionMajor and OperatingSystemNameVersionMajor
 - Fix detection of iOS in specific edge case
 - Modularized and optimized the postprocessing of the found fields.
