@@ -84,6 +84,42 @@ If your project does not use Kryo and you have this warning then there are sever
          <scope>provided</scope>
        </dependency>
 
+#Troubles with logging dependencies
+The Yauaa engine uses SLF4J as the primary logging framework.
+
+A few small pieces from Spring are also included and these expect Apache (Jakarta) Commons logging like org.apache.commons.logging.LogFactory.
+
+It all depends on your exact context what the best solution is for you to make all of this logging work as intended.
+
+Essentially you can redirect all JCL logging into SLF4J and then into the actual logging system with something as simple as this
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.7.25</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.25</version>
+    </dependency>
+
+or (if you really have to) can redirect all SLF4J into JCL by adding something like this
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-jcl</artifactId>
+      <version>1.7.25</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.2</version>
+    </dependency>
+
+I strongly recommend you check https://www.slf4j.org/legacy.html for more detailed information to find out what is best for your project.
+
 # IMPORTANT: This library is single threaded !
 Because the internal analyzer code is not reentrant the main method has been synchronized on the instance. 
 So from the prespective of you the application developer this library is thread safe.
