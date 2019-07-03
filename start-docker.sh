@@ -62,10 +62,30 @@ else # boot2docker uid and gid
   GROUP_ID=50
 fi
 
-${DOCKER_BUILD} -t "${PROJECTNAME}-${OS}-${USER_NAME}" - <<UserSpecificDocker
+EXTRA_DOCKER_STEPS=""
+
+if [ -f ${HOME}/.gitconfig ];
+then
+  cp ${HOME}/.gitconfig ___git_config_for_docker
+  EXTRA_DOCKER_STEPS="ADD ___git_config_for_docker /home/${USER}/.gitconfig"
+fi
+
+cat - > ___UserSpecificDockerfile << UserSpecificDocker
 FROM ${PROJECTNAME}-${OS}
+${EXTRA_DOCKER_STEPS}
 RUN bash /scripts/configure-for-user.sh "${USER_NAME}" "${USER_ID}" "${GROUP_ID}" "$(fgrep vboxsf /etc/group)"
 UserSpecificDocker
+
+${DOCKER_BUILD} -t "${PROJECTNAME}-${OS}-${USER_NAME}" -f ___UserSpecificDockerfile .
+
+buildStatus=$?
+
+if [ ${buildStatus} -ne 0 ];
+then
+    exit ${buildStatus}
+fi
+
+rm -f ___git_config_for_docker ___UserSpecificDockerfile
 
 # Do NOT Map the real ~/.m2 directory !!!
 [ -d "${PWD}/docker/_m2"    ] || mkdir "${PWD}/docker/_m2"
