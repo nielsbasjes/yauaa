@@ -13,6 +13,8 @@ v5.11
 - Fix detection of iOS in specific edge case
 - Modularized and optimized the postprocessing of the found fields.
 - Updated Kryo
+- Updated all dependencies and build plugins.
+- Now builds under both the JDK 8 and JDK 11
 
 v5.10
 ===
