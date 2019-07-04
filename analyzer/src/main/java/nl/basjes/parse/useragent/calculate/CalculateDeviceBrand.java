@@ -40,15 +40,6 @@ public class CalculateDeviceBrand implements FieldCalculator {
                 deviceBrand.getConfidence());
         }
 
-        // The email address is a mess
-        UserAgent.AgentField email = userAgent.get(AGENT_INFORMATION_EMAIL);
-        if (email != null && email.getConfidence() >= 0) {
-            userAgent.setForced(
-                AGENT_INFORMATION_EMAIL,
-                Normalize.email(email.getValue()),
-                email.getConfidence());
-        }
-
         if (deviceBrand.getConfidence() < 0) {
             // If no brand is known then try to extract something that looks like a Brand from things like URL and Email addresses.
             String newDeviceBrand = determineDeviceBrand(userAgent);

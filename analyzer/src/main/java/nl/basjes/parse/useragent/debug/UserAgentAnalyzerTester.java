@@ -487,6 +487,12 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             (fullStop - fullStart)/1000000,
             testcount,
             ((double)(fullStop - fullStart)) / (testcount * 1000000L));
+
+        if (testcount == 0) {
+            LOG.error("NO tests were run at all!!!");
+            allPass = false;
+        }
+
         return allPass;
     }
 
@@ -523,7 +529,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
     @SuppressWarnings("unchecked")
     public static UserAgentAnalyzerTesterBuilder<? extends UserAgentAnalyzerTester, ? extends UserAgentAnalyzerTesterBuilder<?, ?>> newBuilder() {
-        return new UserAgentAnalyzerTesterBuilder<>(new UserAgentAnalyzerTester());
+        return new UserAgentAnalyzerTesterBuilder<>(new UserAgentAnalyzerTester()).keepTests();
     }
 
     public static class UserAgentAnalyzerTesterBuilder<UAA extends UserAgentAnalyzerTester, B extends UserAgentAnalyzerTesterBuilder<UAA, B>>

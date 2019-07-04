@@ -26,9 +26,9 @@ public class MajorVersionCalculator implements FieldCalculator {
     private String versionName;
     private String majorVersionName;
 
-    public MajorVersionCalculator(String versionName, String majorVersionName) {
-        this.versionName = versionName;
+    public MajorVersionCalculator(String majorVersionName, String versionName) {
         this.majorVersionName = majorVersionName;
+        this.versionName = versionName;
     }
 
     // Private constructor for serialization systems ONLY (like Kyro)
@@ -52,5 +52,10 @@ public class MajorVersionCalculator implements FieldCalculator {
                     agentVersion.getConfidence());
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Calculate " + versionName + " --> " + majorVersionName;
     }
 }

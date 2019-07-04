@@ -28,6 +28,7 @@ import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.MatcherList;
 import nl.basjes.parse.useragent.analyze.UselessMatcherException;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
+import nl.basjes.parse.useragent.calculate.CalculateAgentEmail;
 import nl.basjes.parse.useragent.calculate.CalculateDeviceBrand;
 import nl.basjes.parse.useragent.calculate.CalculateDeviceName;
 import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
@@ -165,6 +166,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
      */
     private void initTransientFields() {
         matcherConfigs = new HashMap<>(64);
+        touchedMatchers = new MatcherList(16);
     }
 
     private void readObject(java.io.ObjectInputStream stream)
@@ -1293,21 +1295,29 @@ config:
             return (B)this;
         }
 
-        private void addGeneratedFields(String result, String... dependencies) {
+        private void addSpecialDependencies(String result, String... dependencies) {
             if (uaa.isWantedField(result)) {
-                Collections.addAll(uaa.wantedFieldNames, dependencies);
+                if (uaa.wantedFieldNames != null) {
+                    Collections.addAll(uaa.wantedFieldNames, dependencies);
+                }
             }
         }
 
         private void addCalculatedMajorVersionField(String result, String dependency) {
             if (uaa.isWantedField(result)) {
-                uaa.fieldCalculators.add(new MajorVersionCalculator(dependency, result));
+                uaa.fieldCalculators.add(new MajorVersionCalculator(result, dependency));
+                if (uaa.wantedFieldNames != null) {
+                    Collections.addAll(uaa.wantedFieldNames, dependency);
+                }
             }
         }
 
         private void addCalculatedConcatNONDuplicated(String result, String first, String second) {
             if (uaa.isWantedField(result)) {
                 uaa.fieldCalculators.add(new ConcatNONDuplicatedCalculator(result, first, second));
+                if (uaa.wantedFieldNames != null) {
+                    Collections.addAll(uaa.wantedFieldNames, first, second);
+                }
             }
         }
 
@@ -1317,22 +1327,9 @@ config:
          */
         public UAA build() {
             failIfAlreadyBuilt();
+
+            // In case we only want specific fields we must all these special cases too
             if (uaa.wantedFieldNames != null) {
-                addGeneratedFields(AGENT_NAME_VERSION,                  AGENT_NAME,            AGENT_VERSION);
-                addGeneratedFields(AGENT_NAME_VERSION_MAJOR,            AGENT_NAME,            AGENT_VERSION_MAJOR);
-                addGeneratedFields(WEBVIEW_APP_NAME_VERSION_MAJOR,      WEBVIEW_APP_NAME,      WEBVIEW_APP_VERSION_MAJOR);
-                addGeneratedFields(LAYOUT_ENGINE_NAME_VERSION,          LAYOUT_ENGINE_NAME,    LAYOUT_ENGINE_VERSION);
-                addGeneratedFields(LAYOUT_ENGINE_NAME_VERSION_MAJOR,    LAYOUT_ENGINE_NAME,    LAYOUT_ENGINE_VERSION_MAJOR);
-                addGeneratedFields(OPERATING_SYSTEM_NAME_VERSION,       OPERATING_SYSTEM_NAME, OPERATING_SYSTEM_VERSION);
-                addGeneratedFields(OPERATING_SYSTEM_NAME_VERSION_MAJOR, OPERATING_SYSTEM_NAME, OPERATING_SYSTEM_VERSION_MAJOR);
-                addGeneratedFields(DEVICE_NAME,                         DEVICE_BRAND);
-                addGeneratedFields(AGENT_VERSION_MAJOR,                 AGENT_VERSION);
-                addGeneratedFields(LAYOUT_ENGINE_VERSION_MAJOR,         LAYOUT_ENGINE_VERSION);
-                addGeneratedFields(WEBVIEW_APP_VERSION_MAJOR,           WEBVIEW_APP_VERSION);
-
-                // If we do not have a Brand we try to extract it from URL/Email iff present.
-                addGeneratedFields(DEVICE_BRAND, AGENT_INFORMATION_URL, AGENT_INFORMATION_EMAIL);
-
                 // Special field that affects ALL fields.
                 uaa.wantedFieldNames.add(SET_ALL_FIELDS);
 
@@ -1340,26 +1337,37 @@ config:
                 uaa.wantedFieldNames.add(DEVICE_CLASS);
             }
 
-            addCalculatedMajorVersionField(AGENT_VERSION_MAJOR,                     AGENT_VERSION);
-            addCalculatedMajorVersionField(LAYOUT_ENGINE_VERSION_MAJOR,             LAYOUT_ENGINE_VERSION);
-            addCalculatedMajorVersionField(WEBVIEW_APP_VERSION_MAJOR,               WEBVIEW_APP_VERSION);
-            addCalculatedMajorVersionField(OPERATING_SYSTEM_VERSION_MAJOR,          OPERATING_SYSTEM_VERSION);
-
-            addCalculatedConcatNONDuplicated(AGENT_NAME_VERSION,                    AGENT_NAME,             AGENT_VERSION);
             addCalculatedConcatNONDuplicated(AGENT_NAME_VERSION_MAJOR,              AGENT_NAME,             AGENT_VERSION_MAJOR);
+            addCalculatedConcatNONDuplicated(AGENT_NAME_VERSION,                    AGENT_NAME,             AGENT_VERSION);
+            addCalculatedMajorVersionField(AGENT_VERSION_MAJOR,                     AGENT_VERSION);
+
             addCalculatedConcatNONDuplicated(WEBVIEW_APP_NAME_VERSION_MAJOR,        WEBVIEW_APP_NAME,       WEBVIEW_APP_VERSION_MAJOR);
-            addCalculatedConcatNONDuplicated(LAYOUT_ENGINE_NAME_VERSION,            LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION);
+            addCalculatedMajorVersionField(WEBVIEW_APP_VERSION_MAJOR,               WEBVIEW_APP_VERSION);
+
             addCalculatedConcatNONDuplicated(LAYOUT_ENGINE_NAME_VERSION_MAJOR,      LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION_MAJOR);
-            addCalculatedConcatNONDuplicated(OPERATING_SYSTEM_NAME_VERSION,         OPERATING_SYSTEM_NAME,  OPERATING_SYSTEM_VERSION);
+            addCalculatedConcatNONDuplicated(LAYOUT_ENGINE_NAME_VERSION,            LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION);
+            addCalculatedMajorVersionField(LAYOUT_ENGINE_VERSION_MAJOR,             LAYOUT_ENGINE_VERSION);
 
             addCalculatedMajorVersionField(OPERATING_SYSTEM_NAME_VERSION_MAJOR,     OPERATING_SYSTEM_NAME_VERSION);
+            addCalculatedConcatNONDuplicated(OPERATING_SYSTEM_NAME_VERSION,         OPERATING_SYSTEM_NAME,  OPERATING_SYSTEM_VERSION);
+            addCalculatedMajorVersionField(OPERATING_SYSTEM_VERSION_MAJOR,          OPERATING_SYSTEM_VERSION);
+
+            if (uaa.isWantedField(DEVICE_NAME)) {
+                uaa.fieldCalculators.add(new CalculateDeviceName());
+                addSpecialDependencies(DEVICE_NAME, DEVICE_BRAND);
+            }
 
             if (uaa.isWantedField(DEVICE_BRAND)) {
                 uaa.fieldCalculators.add(new CalculateDeviceBrand());
+                // If we do not have a Brand we try to extract it from URL/Email iff present.
+                addSpecialDependencies(DEVICE_BRAND, AGENT_INFORMATION_URL, AGENT_INFORMATION_EMAIL);
             }
-            if (uaa.isWantedField(DEVICE_NAME)) {
-                uaa.fieldCalculators.add(new CalculateDeviceName());
+
+            if (uaa.isWantedField(AGENT_INFORMATION_EMAIL)) {
+                uaa.fieldCalculators.add(new CalculateAgentEmail());
             }
+
+            Collections.reverse(uaa.fieldCalculators);
 
             boolean mustDropTestsLater = !uaa.willKeepTests();
             if (preheatIterations != 0) {

@@ -52,7 +52,7 @@ public abstract class AbstractSerializationTest {
 
         UserAgentAnalyzerTesterBuilder<?, ?> uaab = UserAgentAnalyzerTester
             .newBuilder()
-            .dropTests()
+            .keepTests()
             .dropDefaultResources()
             .addResources("classpath*:AllSteps.yaml")
             .addResources("classpath*:AllFields-tests.yaml")
