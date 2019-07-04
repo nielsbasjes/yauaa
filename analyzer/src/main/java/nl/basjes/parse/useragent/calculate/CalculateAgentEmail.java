@@ -17,16 +17,10 @@
 
 package nl.basjes.parse.useragent.calculate;
 
-import com.google.common.net.InternetDomainName;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
-import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
-import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 
 public class CalculateAgentEmail implements FieldCalculator {
     @Override
