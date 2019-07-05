@@ -26,6 +26,8 @@ GROUP_ID=$3
 groupadd --non-unique -g "${GROUP_ID}" "${USER_NAME}"
 useradd -g "${GROUP_ID}" -u "${USER_ID}" -k /root -m "${USER_NAME}"
 
+chown "${USER_NAME}" "/home/${USER_NAME}"
+
 {
 echo "export HOME=/home/${USER_NAME}"
 echo "export USER=${USER_NAME}"
