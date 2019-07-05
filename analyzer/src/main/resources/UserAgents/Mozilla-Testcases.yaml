@@ -165,6 +165,267 @@ config:
       AgentNameVersion                     : 'Firefox 1.0'
       AgentNameVersionMajor                : 'Firefox 1'
 
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#Windows
+
+# Windows NT on x86
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; rv:10.0) Gecko/20100101 Firefox/10.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '10.0'
+      LayoutEngineVersionMajor             : '10'
+      LayoutEngineNameVersion              : 'Gecko 10.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 10'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Firefox 10.0'
+      AgentNameVersionMajor                : 'Firefox 10'
+
+# Windows NT, Win64 on x64
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '10.0'
+      LayoutEngineVersionMajor             : '10'
+      LayoutEngineNameVersion              : 'Gecko 10.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 10'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Firefox 10.0'
+      AgentNameVersionMajor                : 'Firefox 10'
+
+# Windows NT, WOW64
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:10.0) Gecko/20100101 Firefox/10.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '10.0'
+      LayoutEngineVersionMajor             : '10'
+      LayoutEngineNameVersion              : 'Gecko 10.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 10'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Firefox 10.0'
+      AgentNameVersionMajor                : 'Firefox 10'
+
+# After https://bugzilla.mozilla.org/show_bug.cgi?id=1559747 (removes the WOW64 part)
+# Already tested
+# - test:
+#     input:
+#       user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0'
+
+
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#Linux
+
+# Linux desktop, i686
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel i686'
+      OperatingSystemVersionMajor          : 'Intel i686'
+      OperatingSystemNameVersion           : 'Linux Intel i686'
+      OperatingSystemNameVersionMajor      : 'Linux Intel i686'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '10.0'
+      LayoutEngineVersionMajor             : '10'
+      LayoutEngineNameVersion              : 'Gecko 10.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 10'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Firefox 10.0'
+      AgentNameVersionMajor                : 'Firefox 10'
+
+# Linux desktop, x86_64
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20100101 Firefox/10.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemVersionMajor          : 'Intel x86'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      OperatingSystemNameVersionMajor      : 'Linux Intel x86'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '10.0'
+      LayoutEngineVersionMajor             : '10'
+      LayoutEngineNameVersion              : 'Gecko 10.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 10'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Firefox 10.0'
+      AgentNameVersionMajor                : 'Firefox 10'
+
+# Linux desktop, i686 running on x86_64
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux i686 on x86_64; rv:10.0) Gecko/20100101 Firefox/10.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemVersionMajor          : 'Intel x86'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      OperatingSystemNameVersionMajor      : 'Linux Intel x86'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '10.0'
+      LayoutEngineVersionMajor             : '10'
+      LayoutEngineNameVersion              : 'Gecko 10.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 10'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Firefox 10.0'
+      AgentNameVersionMajor                : 'Firefox 10'
+
+
+# After https://bugzilla.mozilla.org/show_bug.cgi?id=1559747 (removes "i686 on " part)
+# Already tested
+# - test:
+#     input:
+#       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20100101 Firefox/10.0'
+
+# Nokia N900 Linux mobile, on the Fennec browser
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Maemo; Linux armv7l; rv:10.0) Gecko/20100101 Firefox/10.0 Fennec/10.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia N900'
+      DeviceBrand                          : 'Nokia'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Maemo'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Maemo ??'
+      OperatingSystemNameVersionMajor      : 'Maemo ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '10.0'
+      LayoutEngineVersionMajor             : '10'
+      LayoutEngineNameVersion              : 'Gecko 10.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 10'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Fennec'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Fennec 10.0'
+      AgentNameVersionMajor                : 'Fennec 10'
+
+
+# Additional example from https://bugzilla.mozilla.org/show_bug.cgi?id=1559747
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '69.0'
+      LayoutEngineVersionMajor             : '69'
+      LayoutEngineNameVersion              : 'Gecko 69.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 69'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '69.0'
+      AgentVersionMajor                    : '69'
+      AgentNameVersion                     : 'Firefox 69.0'
+      AgentNameVersionMajor                : 'Firefox 69'
+
+
+
+
 #-----------------------------------------------
 # http://miketaylr.github.io/arewedetectableyet
 #-----------------------------------------------

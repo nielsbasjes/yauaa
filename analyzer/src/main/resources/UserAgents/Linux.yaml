@@ -43,6 +43,17 @@ config:
     - 'OperatingSystemName                 :      5 :"Linux"'
     - 'OperatingSystemVersion              :      6 :LookUp[CPUArchitectures;agent.(1-2)product.(1)comments.entry.product.name="Linux"^.version]'
 
+# Some say something like "Linux i686 on x86_64". In this case the 'on' variant is the one we want.
+- matcher:
+    require:
+      -  'IsNull[agent.(1-2)product.comments.entry.text="Android"]'
+    extract:
+    - 'DeviceClass                         :      5 :"Desktop"'
+    - 'DeviceName                          :      5 :"Linux Desktop"'
+    - 'OperatingSystemClass                :      5 :"Desktop"'
+    - 'OperatingSystemName                 :      5 :"Linux"'
+    - 'OperatingSystemVersion              :      7 :LookUp[CPUArchitectures;agent.(1-2)product.(1)comments.entry.product.name="Linux"^>.name="on"^.version]'
+
 - matcher:
     require:
     -  'IsNull[agent.(1-2)product.comments.entry.text="Android"]'

@@ -525,9 +525,21 @@ config:
 
 - matcher:
     extract:
+    - 'DeviceClass                         :    359 :"Phone"'
+    - 'DeviceBrand                         :    359 :"Nokia"'
+    - 'DeviceName                          :      7 :"N900"' # Best guess, one of the few devices that actually ran on Meamo
+    - 'OperatingSystemClass                :    359 :"Mobile"'
+    - 'OperatingSystemName                 :    359 :agent.product.comments.entry="Maemo"'
+    - 'OperatingSystemVersion              :    359 :"??"'
+
+- matcher:
+    extract:
     - 'DeviceClass                         :    360 :"Phone"'
     - 'DeviceBrand                         :    360 :"Nokia"'
     - 'DeviceName                          :    360 :agent.product.(1)name="Maemo Browser"^.(3)version'
+    - 'OperatingSystemClass                :    359 :"Mobile"'
+    - 'OperatingSystemName                 :    359 :"Maemo"'
+    - 'OperatingSystemVersion              :    359 :"??"'
 
 - test:
     input:
@@ -538,12 +550,12 @@ config:
       DeviceName                           : 'Nokia N900'
       DeviceCpu                            : 'ARMv7l'
       DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Linux'
-      OperatingSystemVersion               : 'ARMv7l'
-      OperatingSystemVersionMajor          : 'ARMv7l'
-      OperatingSystemNameVersion           : 'Linux ARMv7l'
-      OperatingSystemNameVersionMajor      : 'Linux ARMv7l'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Maemo'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Maemo ??'
+      OperatingSystemNameVersionMajor      : 'Maemo ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
       LayoutEngineVersion                  : '1.9.2.3pre'

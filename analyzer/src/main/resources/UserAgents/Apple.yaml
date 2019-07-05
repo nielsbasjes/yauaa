@@ -77,22 +77,22 @@ config:
 
 - matcher:
     variable:
-      - 'OS:agent.(1)product.(1)comments.entry.product.name="CPU iOS"'
+    - 'OS:agent.(1)product.(1)comments.entry.product.name="CPU iOS"'
     extract:
-      - 'OperatingSystemClass                :    100 :"Mobile"'
-      - 'OperatingSystemName                 :    100 :"iOS"'
-      - 'OperatingSystemVersion              :    100 :CleanVersion[@OS^.version]'
+    - 'OperatingSystemClass                :    100 :"Mobile"'
+    - 'OperatingSystemName                 :    100 :"iOS"'
+    - 'OperatingSystemVersion              :    100 :CleanVersion[@OS^.version]'
 
 - matcher:
     require:
-      - 'IsNull[agent.(1)product.(1)comments.entry.product.name="like Mac OS X"]'
+    - 'IsNull[agent.(1)product.(1)comments.entry.product.name="like Mac OS X"]'
     extract:
-      - 'DeviceClass                         :     20 :"Desktop"'
-      - 'DeviceBrand                         :     20 :"Apple"'
-      - 'DeviceName                          :     20 :"Apple Macintosh"'
-      - 'OperatingSystemClass                :     20 :"Desktop"'
-      - 'OperatingSystemName                 :     20 :"Mac OS X"'
-      - 'OperatingSystemVersion              :     20 :CleanVersion[agent.(1)product.(1)comments.entry.product.name="OS X"^.version]'
+    - 'DeviceClass                         :     20 :"Desktop"'
+    - 'DeviceBrand                         :     20 :"Apple"'
+    - 'DeviceName                          :     20 :"Apple Macintosh"'
+    - 'OperatingSystemClass                :     20 :"Desktop"'
+    - 'OperatingSystemName                 :     20 :"Mac OS X"'
+    - 'OperatingSystemVersion              :     20 :CleanVersion[agent.(1)product.(1)comments.entry.product.name="OS X"^.version]'
 
 - matcher:
     require:

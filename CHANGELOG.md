@@ -15,6 +15,8 @@ v5.11
 - Updated Kryo
 - Updated all dependencies and build plugins.
 - Now builds under both the JDK 8 and JDK 11
+- Improve detection of Maemo / Nokia N900
+- Extra testcases for Firefox (They implemented some small useragent changes)
 
 v5.10
 ===
