@@ -97,8 +97,9 @@ public class UserAgentTreeFlattener implements Serializable {
     public interface FindMatch {
         /**
          * Traverse the two trees in sync and send info to any matcher that is found.
-         * @param matcherTree       The current node in the matcher tree.
-         * @param useragentTree     The current node in the parseTree
+         *
+         * @param matcherTree   The current node in the matcher tree.
+         * @param useragentTree The current node in the parseTree
          */
         void findMatch(MatcherTree matcherTree, ParseTree<MatcherTree> useragentTree);
     }
@@ -176,13 +177,13 @@ public class UserAgentTreeFlattener implements Serializable {
         }
 
         // For each of the possible child fragments
-        for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> agentPathFragment: mTree.getChildren().entrySet()) {
+        for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> agentPathFragment : mTree.getChildren().entrySet()) {
 
-            // Find the subnodes for which we actually patterns
-            List<MatcherTree>               relevantMatcherSubTrees     = agentPathFragment.getValue().getKey();
-            Iterator<? extends ParseTree<MatcherTree>>   children                    = agentPathFragment.getValue().getValue().visit(uaTree);
+            // Find the subnodes for which we actually have patterns
+            List<MatcherTree>                          relevantMatcherSubTrees = agentPathFragment.getValue().getKey();
+            Iterator<? extends ParseTree<MatcherTree>> children                = agentPathFragment.getValue().getValue().visit(uaTree);
 
-            for (MatcherTree matcherSubTree: relevantMatcherSubTrees) {
+            for (MatcherTree matcherSubTree : relevantMatcherSubTrees) {
                 if (!children.hasNext()) {
                     break;
                 }
@@ -219,41 +220,6 @@ public class UserAgentTreeFlattener implements Serializable {
 //
 //        match(VERSION, mTree, child);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     // FIXME: Later ... private constructor for serialization systems ONLY (like Kyro)
@@ -357,7 +323,7 @@ public class UserAgentTreeFlattener implements Serializable {
         String userAgentString = EvilManualUseragentStringHacks.fixIt(userAgent.getUserAgentString());
 
         CodePointCharStream input = CharStreams.fromString(userAgentString);
-        UserAgentLexer lexer = new UserAgentLexer(input);
+        UserAgentLexer      lexer = new UserAgentLexer(input);
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 

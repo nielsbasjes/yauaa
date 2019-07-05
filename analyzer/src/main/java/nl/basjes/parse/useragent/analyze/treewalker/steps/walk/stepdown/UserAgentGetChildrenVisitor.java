@@ -50,6 +50,7 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.UuIdContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.VersionWordsContext;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -168,41 +169,46 @@ public class UserAgentGetChildrenVisitor<P> extends UserAgentBaseVisitor<Iterato
     }
 
     @Override
-    public Iterator<? extends ParseTree<P>> visitUserAgent(UserAgentContext<P> ctx, P dummy) {
+    public Iterator<? extends ParseTree<P>> visit(ParseTree<P> tree, P parameter) {
+        throw new NotImplementedException("Wrong visit usage");
+    }
+
+    @Override
+    public Iterator<? extends ParseTree<P>> visitUserAgent(UserAgentContext<P> ctx) {
         Iterator<? extends ParseTree<P>>  children = getChildrenByName(ctx);
         if (children.hasNext()) {
             return children;
         }
-        return visitChildren(ctx, null);
+        return visitChildren(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree<P>> visitRootElements(RootElementsContext<P> ctx, P dummy) {
+    public Iterator<? extends ParseTree<P>> visitRootElements(RootElementsContext<P> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree<P>> visitProduct(ProductContext<P> ctx, P dummy) {
+    public Iterator<? extends ParseTree<P>> visitProduct(ProductContext<P> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree<P>> visitProductNameNoVersion(ProductNameNoVersionContext<P> ctx, P dummy) {
+    public Iterator<? extends ParseTree<P>> visitProductNameNoVersion(ProductNameNoVersionContext<P> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree<P>> visitCommentProduct(CommentProductContext<P> ctx, P dummy) {
+    public Iterator<? extends ParseTree<P>> visitCommentProduct(CommentProductContext<P> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree<P>> visitProductName(ProductNameContext<P> ctx, P dummy) {
+    public Iterator<? extends ParseTree<P>> visitProductName(ProductNameContext<P> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree<P>> visitProductNameKeyValue(ProductNameKeyValueContext<P> ctx, P dummy) {
+    public Iterator<? extends ParseTree<P>> visitProductNameKeyValue(ProductNameKeyValueContext<P> ctx) {
         switch (name) {
             case KEY:
                 return Collections.singletonList((ParserRuleContext<P>) ctx.key).iterator();
@@ -235,32 +241,32 @@ public class UserAgentGetChildrenVisitor<P> extends UserAgentBaseVisitor<Iterato
     }
 
     @Override
-    public Iterator<? extends ParseTree<P>> visitProductVersion(ProductVersionContext<P> ctx, P dummy) {
+    public Iterator<? extends ParseTree<P>> visitProductVersion(ProductVersionContext<P> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree<P>> visitProductVersionWithCommas(ProductVersionWithCommasContext<P> ctx, P dummy) {
+    public Iterator<? extends ParseTree<P>> visitProductVersionWithCommas(ProductVersionWithCommasContext<P> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree<P>> visitKeyValue(KeyValueContext<P> ctx, P dummy) {
+    public Iterator<? extends ParseTree<P>> visitKeyValue(KeyValueContext<P> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree<P>> visitKeyWithoutValue(KeyWithoutValueContext<P> ctx, P dummy) {
+    public Iterator<? extends ParseTree<P>> visitKeyWithoutValue(KeyWithoutValueContext<P> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree<P>> visitCommentBlock(CommentBlockContext<P> ctx, P dummy) {
+    public Iterator<? extends ParseTree<P>> visitCommentBlock(CommentBlockContext<P> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree<P>> visitCommentEntry(CommentEntryContext<P> ctx, P dummy) {
+    public Iterator<? extends ParseTree<P>> visitCommentEntry(CommentEntryContext<P> ctx) {
         return getChildrenByName(ctx);
     }
 }
