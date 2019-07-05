@@ -315,6 +315,7 @@ public abstract class MatcherAction implements Serializable {
     public interface CalculateInformPathFunction {
         /**
          * Applies this function to the given arguments.
+         * @param action The applicable action.
          * @param treeName The name of the current tree.
          * @param tree The actual location in the parseTree
          * @return the number of informs done
