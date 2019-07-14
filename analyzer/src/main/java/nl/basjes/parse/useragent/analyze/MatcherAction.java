@@ -91,7 +91,6 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.Matcher
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathFixedValueContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathWalkContext;
-import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEndsWithValueContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEqualsValueContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotEqualsValueContext;
@@ -358,7 +357,7 @@ public abstract class MatcherAction implements Serializable {
         /**
          * Applies this function to the given arguments.
          * @param action The applicable action.
-         * @param treeName The name of the current tree.
+//         * @param treeName The name of the current tree.
          * @param tree The actual location in the parseTree
          * @return the number of informs done
          */

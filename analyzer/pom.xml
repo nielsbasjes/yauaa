@@ -33,12 +33,6 @@
 
   <url>https://yauaa.basjes.nl</url>
 
-  <properties>
-    <antlr.version>4.7.2</antlr.version>
-    <parameterized-antlr4-visitor.version>0.1-${antlr.version}-SNAPSHOT</parameterized-antlr4-visitor.version>
-
-  </properties>
-
   <dependencies>
 
     <!-- ================================================================ -->
@@ -46,13 +40,13 @@
     <dependency>
       <groupId>nl.basjes.antlr</groupId>
       <artifactId>parameterized-antlr4-visitor</artifactId>
-      <version>${parameterized-antlr4-visitor.version}</version>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.antlr</groupId>
       <artifactId>antlr4-runtime</artifactId>
-      <version>${antlr.version}</version>
+      <version>${antlr4.version}</version>
     </dependency>
     <!-- ================================================================ -->
 
@@ -157,6 +151,10 @@
               <pattern>org.springframework</pattern>
               <shadedPattern>nl.basjes.shaded.org.springframework</shadedPattern>
             </relocation>
+            <!-- NOTE: We will get the warning about overlapping classes.                                                          -->
+            <!-- This is unavoidable because we are deliberately replacing some classe from the                                    -->
+            <!-- original antlr4-runtime with modified versions.                                                                   -->
+            <!-- [WARNING] antlr4-runtime-4.7.2.jar, parameterized-antlr4-visitor-5.12-SNAPSHOT.jar define 13 overlapping classes: -->
             <relocation>
               <pattern>org.antlr</pattern>
               <shadedPattern>nl.basjes.shaded.org.antlr</shadedPattern>
@@ -293,13 +291,13 @@
       <plugin>
         <groupId>org.antlr</groupId>
         <artifactId>antlr4-maven-plugin</artifactId>
-        <version>${antlr.version}</version>
+        <version>${antlr4.version}</version>
         <dependencies>
-          <!--  Override the Java code generation with a custom implementation -->
+          <!--  THIS IS WHERE THE MAGIC HAPPENS -->
           <dependency>
             <groupId>nl.basjes.antlr</groupId>
             <artifactId>parameterized-antlr4-visitor</artifactId>
-            <version>${parameterized-antlr4-visitor.version}</version>
+            <version>${project.version}</version>
           </dependency>
         </dependencies>
         <executions>

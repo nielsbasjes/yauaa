@@ -17,7 +17,6 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;

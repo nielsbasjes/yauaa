@@ -43,9 +43,12 @@
     <maven.compiler.source>${jdkLevel}</maven.compiler.source>
     <maven.compiler.target>${jdkLevel}</maven.compiler.target>
 
+    <!-- FIXME: Antlr version twice -->
     <antlr.version>4.7.2</antlr.version>
     <snakeyaml.version>1.24</snakeyaml.version>
     <google-guava.version>28.0-jre</google-guava.version>
+    <!-- You cannot simply upgrade this because of the customize visitor!!! -->
+    <antlr4.version>4.7.2</antlr4.version>
 
     <!-- ============================================== -->
     <!-- ================ UDF Versions ================ -->
@@ -539,6 +542,8 @@
             <exclude>**/analyzer/src/main/code-gen/UserAgents/ISOLanguageCode/*.md</exclude>
             <exclude>**/analyzer/src/main/code-gen/Antlr/PublicSuffix/public_suffix_list.dat</exclude>
             <exclude>**/analyzer/src/main/code-gen/Antlr/PublicSuffix/PublicSuffix.g4.fragment</exclude>
+            <!-- The files copied from the Antlr4 project have a different license -->
+            <exclude>antlr4-pvisitor/**</exclude>
             <!-- Test and demo input files -->
             <exclude>**/testfiles/**</exclude>
             <exclude>**/*.log</exclude>
@@ -671,11 +676,12 @@
 
   <modules>
     <module>devtools</module>
+    <module>antlr4-pvisitor</module>
     <module>analyzer</module>
-    <module>udfs</module>
-    <module>webapp</module>
+<!--    <module>udfs</module>-->
+<!--    <module>webapp</module>-->
     <module>commandline</module>
-    <module>benchmarks</module>
+<!--    <module>benchmarks</module>-->
   </modules>
 
   <licenses>

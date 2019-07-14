@@ -18,7 +18,6 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeFirstWordsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeLastWordsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeSingleWordContext;
