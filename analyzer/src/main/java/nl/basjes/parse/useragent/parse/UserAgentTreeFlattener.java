@@ -170,13 +170,34 @@ public class UserAgentTreeFlattener implements Serializable {
                 return null; // Nothing can be here.
             }
 
-            informMatcherActions(uaTree, mTree, null);
+            informMatcherActions(uaTree, mTree, value);
 
             // For each of the possible child fragments
             for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> agentPathFragment : mTree.getChildren().entrySet()) {
 
                 // Find the subnodes for which we actually have patterns
                 List<MatcherTree>                          relevantMatcherSubTrees = agentPathFragment.getValue().getKey();
+
+                switch (agentPathFragment.getKey()) {
+                    case EQUALS:
+                    case WORDRANGE:
+                    case STARTSWITH:
+                        String informValue = value == null ? AntlrUtils.getSourceText(uaTree) : value;
+                        for (MatcherTree subTree : relevantMatcherSubTrees) {
+                            Set<MatcherAction> matcherActions = subTree.getActions();
+                            if(!matcherActions.isEmpty()) {
+                                if (subTree.matches(informValue)) {
+                                    matcherActions.forEach(action ->
+                                        // LOG.info("[Inform] A:{} | MT:{} | V:{} |", action, mTree, informValue);
+                                        action.inform(subTree, uaTree, informValue)
+                                    );
+                                }
+                            }
+                        }
+                        continue;
+                    default:
+                }
+
                 Iterator<? extends ParseTree<MatcherTree>> children                = agentPathFragment.getValue().getValue().visit(uaTree);
 
                 // FIXME: This should be done MUCH better (i.e. without copying into a new list)

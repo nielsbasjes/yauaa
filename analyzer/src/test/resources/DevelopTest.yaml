@@ -28,13 +28,16 @@ config:
 #    - 'verbose'
 #    variable:
 #    - 'Foo: agent.product.name^.version'
-#    require:
-#    - 'agent.(6)product.name{"StartsWithThis"'    #path{value
+    require:
+      - 'agent.(1)product.(1)name="Foo"'
+
+    #    - 'agent.(6)product.name{"StartsWithThis"'    #path{value
 #    - 'agent.(4-5)product.name="IsThisExactly"'   #path=value
 #    - 'agent.(2-3)product.name[-3]="123"'         #path[n]=value
 #    - 'agent.(1)product.name'                     #path          exists
     extract:
 #    - 'Foo: 1 : @Foo^.comments.entry.product.version'
+      - 'Fixed                :    1 : "Fixed"'
       - 'Agent                :    1 : agent'
       - 'AgentProduct1        :    1 : agent.(1)product'
       - 'AgentProduct2        :    1 : agent.(2)product'
@@ -50,6 +53,7 @@ config:
        user_agent_string                    : 'Foo/1.0 (FooComment/2) Bar/3 (BarComment/4)'
     expected:
 #        Foo : 'Foos'
+      Fixed                             : 'Fixed'
       Agent                                 : 'Foo/1.0 (FooComment/2) Bar/3 (BarComment/4)'
       AgentProduct1                         : 'Foo/1.0 (FooComment/2)'
       AgentProduct2                         : 'Bar/3 (BarComment/4)'
