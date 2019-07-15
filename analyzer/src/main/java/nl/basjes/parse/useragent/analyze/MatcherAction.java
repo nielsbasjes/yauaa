@@ -314,7 +314,7 @@ public abstract class MatcherAction implements Serializable {
             matcher.gotMyFirstStartingPoint();
         }
 
-        LOG.info("Action inform: {} --> {} --> {}", key, result, value);
+        LOG.info("Action inform: >>>{}<<< about >>>{}<<< --> {} --> {}", matchExpression, key, result, value);
 
         matches.add(result, key, value);
     }

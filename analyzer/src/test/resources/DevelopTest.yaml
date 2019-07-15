@@ -35,13 +35,13 @@ config:
 #    - 'agent.(1)product.name'                     #path          exists
     extract:
 #    - 'Foo: 1 : @Foo^.comments.entry.product.version'
-#      - 'Agent                :    1 : agent'
-#      - 'AgentProduct1        :    1 : agent.(1)product'
-#      - 'AgentProduct2        :    1 : agent.(2)product'
-#      - 'AgentProduct         :    1 : agent.(1)product'
+      - 'Agent                :    1 : agent'
+      - 'AgentProduct1        :    1 : agent.(1)product'
+      - 'AgentProduct2        :    1 : agent.(2)product'
+      - 'AgentProduct         :    1 : agent.(1)product'
       - 'AgentProductName     :    1 : agent.(1)product.(1)name'
       - 'AgentProductVersion  :    1 : agent.(1)product.(1)version'
-#      - 'AgentProductComments :    1 : agent.(1)product.(1)version^.comments.entry.product.name="FooComment"'
+      - 'AgentProductComments :    1 : agent.(1)product.(1)version^.comments.entry.product.name="FooComment"'
 
 - test:
 #    options:
