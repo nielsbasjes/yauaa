@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.parse;
 
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown.UserAgentGetChildrenVisitor;
+import nl.basjes.parse.useragent.utils.WordSplitter;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +44,7 @@ public class MatcherTree implements Serializable {
     private MatcherTree parent = null;
 
     private void setParent(MatcherTree nParent) {
-        this.fragmentName = ".(" + (index+1) + ")" + fragment.name().toLowerCase(ENGLISH);
+        this.fragmentName = ".(" + index + ")" + fragment.name().toLowerCase(ENGLISH);
         this.parent = nParent;
     }
 
@@ -61,7 +62,14 @@ public class MatcherTree implements Serializable {
     // IFF fragment == EQUALS or STARTSWITH
     private String matchString = "";
 
+    // Assume "agent.(5)product" and this node is "agent"
+    // Then the enum 'product' is the index in the children.
+    // The result is a list of child trees and a precomputed visitor for 'product'
+    // Because we want '(5)product' we must do a get(5) on the list to find the correct subtree to recurse into
     private EnumMap<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> children;
+
+    // Each node in the tree has an optional set of actions that need to be fired if this is found.
+    private Set<MatcherAction> actions = new HashSet<>();
 
     public MatcherTree(AgentPathFragment fragment, int index) {
         this.fragment = fragment;
@@ -102,7 +110,20 @@ public class MatcherTree implements Serializable {
 //        LOG.warn("Setting startWith to path {}", this);
     }
 
-    private Set<MatcherAction> actions = new HashSet<>();
+    public boolean matches(String informValue) {
+        switch (fragment) {
+            case WORDRANGE:
+                String value = WordSplitter.getInstance().getSplitRange(informValue, firstWord, lastWord);
+                return matchString.equals(value);
+            case EQUALS:
+                return matchString.equals(informValue);
+            case STARTSWITH:
+                return informValue.startsWith(matchString);
+            default:
+                return true;
+        }
+    }
+
 
     public Set<MatcherAction> getActions() {
         return actions;
@@ -175,7 +196,9 @@ public class MatcherTree implements Serializable {
         List<String> results = new ArrayList<>();
 
         if (children.isEmpty() || !actions.isEmpty()) {
-            results.add(fragmentName + "                           -- { actions : "+ actions.size()+" }");
+            results.add(fragmentName
+                + "                           -- { actions : "+ actions.size()+" }"
+            );
         }
 
         for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> childrenPerType : children.entrySet()) {
@@ -227,4 +250,5 @@ public class MatcherTree implements Serializable {
         }
         return size;
     }
+
 }

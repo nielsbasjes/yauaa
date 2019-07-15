@@ -21,12 +21,14 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown.UserAgentGetChildrenVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentLexer;
 import nl.basjes.parse.useragent.parser.UserAgentParser;
 import nl.basjes.parse.useragent.parser.UserAgentParser.Base64Context;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentBlockContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentEntryContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentProductContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.CommentSeparatorContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.EmailAddressContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.EmptyWordContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.KeyNameContext;
@@ -48,6 +50,7 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionSingleWordContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWithCommasContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.ProductVersionWordsContext;
+import nl.basjes.parse.useragent.parser.UserAgentParser.RootElementsContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.RootTextContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionWithCommasContext;
@@ -59,13 +62,15 @@ import nl.basjes.parse.useragent.utils.AntlrUtils;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.RuleNode;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -88,138 +93,145 @@ import static nl.basjes.parse.useragent.parse.AgentPathFragment.VERSION;
 
 // FIXME: Checkstyle cleanup
 // CHECKSTYLE.OFF: LineLength
-
+//@SuppressWarnings({"ALL"})
 public class UserAgentTreeFlattener implements Serializable {
 
     private final Analyzer analyzer;
 
-    @FunctionalInterface
-    public interface FindMatch {
-        /**
-         * Traverse the two trees in sync and send info to any matcher that is found.
-         *
-         * @param matcherTree   The current node in the matcher tree.
-         * @param useragentTree The current node in the parseTree
-         */
-        void findMatch(MatcherTree matcherTree, ParseTree<MatcherTree> useragentTree);
-    }
+    private static class MatchFinder extends UserAgentBaseVisitor<Void, MatcherTree> {
 
-    private static final Map<Class<?>, FindMatch> MATCH_FINDERS = new HashMap<>();
+        // CHECKSTYLE.OFF: NoWhitespaceAfter
+        // CHECKSTYLE.OFF: NoWhitespaceBefore
+        // CHECKSTYLE.OFF: WhitespaceAfter
+        // CHECKSTYLE.OFF: MethodParamPad
+        // CHECKSTYLE.OFF: ParenPad
+        // CHECKSTYLE.OFF: LeftCurly
 
-    static {
-        // In case of a parse error the 'parsed' version of agent can be incomplete
-// FIXME (perhaps)       MATCH_FINDERS.put(UserAgentContext.class,                  (mTree, uaTree) -> match(TEXT,      mTree, uaTree, ((ParseTree)uaTree).start.getTokenSource().getInputStream().toString()));
+        // The root case
+        @Override        public Void visitUserAgent(                    UserAgentContext                    <MatcherTree> uaTree, MatcherTree mTree) { return match(AGENT,    uaTree, mTree, null); }
 
-        MATCH_FINDERS.put(RootTextContext.class,                   (mTree, uaTree) -> match(TEXT,      mTree, uaTree));
-        MATCH_FINDERS.put(ProductContext.class,                    (mTree, uaTree) -> match(PRODUCT,   mTree, uaTree));
-        MATCH_FINDERS.put(CommentProductContext.class,             (mTree, uaTree) -> match(PRODUCT,   mTree, uaTree));
-        MATCH_FINDERS.put(ProductNameNoVersionContext.class,       (mTree, uaTree) -> match(PRODUCT,   mTree, uaTree));
-        MATCH_FINDERS.put(ProductNameEmailContext.class,           (mTree, uaTree) -> match(NAME,      mTree, uaTree));
-        MATCH_FINDERS.put(ProductNameUrlContext.class,             (mTree, uaTree) -> match(NAME,      mTree, uaTree));
-        MATCH_FINDERS.put(ProductNameWordsContext.class,           (mTree, uaTree) -> match(NAME,      mTree, uaTree));
-        MATCH_FINDERS.put(ProductNameVersionContext.class,         (mTree, uaTree) -> match(NAME,      mTree, uaTree));
-        MATCH_FINDERS.put(ProductNameUuidContext.class,            (mTree, uaTree) -> match(NAME,      mTree, uaTree));
-        MATCH_FINDERS.put(ProductVersionSingleWordContext.class,   (mTree, uaTree) -> match(VERSION,   mTree, uaTree));
-        MATCH_FINDERS.put(SingleVersionContext.class,              (mTree, uaTree) -> match(VERSION,   mTree, uaTree));
-        MATCH_FINDERS.put(SingleVersionWithCommasContext.class,    (mTree, uaTree) -> match(VERSION,   mTree, uaTree));
-        MATCH_FINDERS.put(ProductVersionWordsContext.class,        (mTree, uaTree) -> match(VERSION,   mTree, uaTree));
-        MATCH_FINDERS.put(KeyValueProductVersionNameContext.class, (mTree, uaTree) -> match(VERSION,   mTree, uaTree));
-        MATCH_FINDERS.put(CommentBlockContext.class,               (mTree, uaTree) -> match(COMMENTS,  mTree, uaTree));
-        MATCH_FINDERS.put(CommentEntryContext.class,               (mTree, uaTree) -> match(ENTRY,     mTree, uaTree));
+        @Override        public Void visitRootText(                     RootTextContext                     <MatcherTree> uaTree, MatcherTree mTree) { return match(TEXT,     uaTree, mTree, null); }
+        @Override        public Void visitProduct(                      ProductContext                      <MatcherTree> uaTree, MatcherTree mTree) { return match(PRODUCT,  uaTree, mTree, null); }
+        @Override        public Void visitCommentProduct(               CommentProductContext               <MatcherTree> uaTree, MatcherTree mTree) { return match(PRODUCT,  uaTree, mTree, null); }
+        @Override        public Void visitProductNameNoVersion(         ProductNameNoVersionContext         <MatcherTree> uaTree, MatcherTree mTree) { return match(PRODUCT,  uaTree, mTree, null); }
+        @Override        public Void visitProductName(                  ProductNameContext                  <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, null); }
+        @Override        public Void visitProductNameEmail(             ProductNameEmailContext             <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, null); }
+        @Override        public Void visitProductNameUrl(               ProductNameUrlContext               <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, null); }
+        @Override        public Void visitProductNameWords(             ProductNameWordsContext             <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, null); }
+        @Override        public Void visitProductNameVersion(           ProductNameVersionContext           <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, null); }
+        @Override        public Void visitProductNameUuid(              ProductNameUuidContext              <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, null); }
+        @Override        public Void visitProductVersionSingleWord(     ProductVersionSingleWordContext     <MatcherTree> uaTree, MatcherTree mTree) { return match(VERSION,  uaTree, mTree, null); }
+        @Override        public Void visitSingleVersion(                SingleVersionContext                <MatcherTree> uaTree, MatcherTree mTree) { return match(VERSION,  uaTree, mTree, null); }
+        @Override        public Void visitSingleVersionWithCommas(      SingleVersionWithCommasContext      <MatcherTree> uaTree, MatcherTree mTree) { return match(VERSION,  uaTree, mTree, null); }
+        @Override        public Void visitProductVersionWords(          ProductVersionWordsContext          <MatcherTree> uaTree, MatcherTree mTree) { return match(VERSION,  uaTree, mTree, null); }
+        @Override        public Void visitKeyValueProductVersionName(   KeyValueProductVersionNameContext   <MatcherTree> uaTree, MatcherTree mTree) { return match(VERSION,  uaTree, mTree, null); }
+        @Override        public Void visitCommentBlock(                 CommentBlockContext                 <MatcherTree> uaTree, MatcherTree mTree) { return match(COMMENTS, uaTree, mTree, null); }
+        @Override        public Void visitCommentEntry(                 CommentEntryContext                 <MatcherTree> uaTree, MatcherTree mTree) { return match(ENTRY,    uaTree, mTree, null); }
+        @Override        public Void visitMultipleWords(                MultipleWordsContext                <MatcherTree> uaTree, MatcherTree mTree) { return match(TEXT,     uaTree, mTree, null); }
+        @Override        public Void visitKeyValue(                     KeyValueContext                     <MatcherTree> uaTree, MatcherTree mTree) { return match(KEYVALUE, uaTree, mTree, null); }
+        @Override        public Void visitKeyWithoutValue(              KeyWithoutValueContext              <MatcherTree> uaTree, MatcherTree mTree) { return match(KEYVALUE, uaTree, mTree, null); }
+        @Override        public Void visitKeyName(                      KeyNameContext                      <MatcherTree> uaTree, MatcherTree mTree) { return match(KEY,      uaTree, mTree, null); }
+        @Override        public Void visitKeyValueVersionName(          KeyValueVersionNameContext          <MatcherTree> uaTree, MatcherTree mTree) { return match(VERSION,  uaTree, mTree, null); }
+        @Override        public Void visitVersionWords(                 VersionWordsContext                 <MatcherTree> uaTree, MatcherTree mTree) { return match(TEXT,     uaTree, mTree, null); }
+        @Override        public Void visitSiteUrl(                      SiteUrlContext                      <MatcherTree> uaTree, MatcherTree mTree) { return match(URL,      uaTree, mTree, uaTree.url.getText());   }
+        @Override        public Void visitUuId(                         UuIdContext                         <MatcherTree> uaTree, MatcherTree mTree) { return match(UUID,     uaTree, mTree, uaTree.uuid.getText());  }
+        @Override        public Void visitEmailAddress(                 EmailAddressContext                 <MatcherTree> uaTree, MatcherTree mTree) { return match(EMAIL,    uaTree, mTree, uaTree.email.getText()); }
+        @Override        public Void visitBase64(                       Base64Context                       <MatcherTree> uaTree, MatcherTree mTree) { return match(BASE64,   uaTree, mTree, uaTree.value.getText()); }
+        @Override        public Void visitEmptyWord(                    EmptyWordContext                    <MatcherTree> uaTree, MatcherTree mTree) { return match(TEXT,     uaTree, mTree, "");   }
 
-        MATCH_FINDERS.put(MultipleWordsContext.class,              (mTree, uaTree) -> match(TEXT,      mTree, uaTree));
-        MATCH_FINDERS.put(KeyValueContext.class,                   (mTree, uaTree) -> match(KEYVALUE,  mTree, uaTree));
-        MATCH_FINDERS.put(KeyWithoutValueContext.class,            (mTree, uaTree) -> match(KEYVALUE,  mTree, uaTree));
-        MATCH_FINDERS.put(KeyNameContext.class,                    (mTree, uaTree) -> match(KEY,       mTree, uaTree));
-        MATCH_FINDERS.put(KeyValueVersionNameContext.class,        (mTree, uaTree) -> match(VERSION,   mTree, uaTree));
-        MATCH_FINDERS.put(VersionWordsContext.class,               (mTree, uaTree) -> match(TEXT,      mTree, uaTree));
-        MATCH_FINDERS.put(SiteUrlContext.class,                    (mTree, uaTree) -> match(URL,       mTree, uaTree, ((SiteUrlContext)uaTree).url.getText()));
-        MATCH_FINDERS.put(UuIdContext.class,                       (mTree, uaTree) -> match(UUID,      mTree, uaTree, ((UuIdContext)uaTree).uuid.getText()));
-        MATCH_FINDERS.put(EmailAddressContext.class,               (mTree, uaTree) -> match(EMAIL,     mTree, uaTree, ((EmailAddressContext)uaTree).email.getText()));
-        MATCH_FINDERS.put(Base64Context.class,                     (mTree, uaTree) -> match(BASE64,    mTree, uaTree, ((Base64Context)uaTree).value.getText()));
-        MATCH_FINDERS.put(EmptyWordContext.class,                  (mTree, uaTree) -> match(TEXT,      mTree, uaTree, ""));
+        // FIXME: Fakechild = false ...  inform(ctx, "name.(1)keyvalue", ctx.getText(), false);
+        // FIXME: Fakechild = true....
+        @Override        public Void visitProductNameKeyValue(          ProductNameKeyValueContext          <MatcherTree> uaTree, MatcherTree mTree) { return match(TEXT,     uaTree, mTree, "");   }
+        @Override        public Void visitProductVersion(               ProductVersionContext               <MatcherTree> uaTree, MatcherTree mTree) { return match(VERSION,  uaTree, mTree, null); }
+        @Override        public Void visitProductVersionWithCommas(     ProductVersionWithCommasContext     <MatcherTree> uaTree, MatcherTree mTree) { return match(VERSION,  uaTree, mTree, null); }
+        // SAME AS DEFAULT IMPLEMENTATION
+        @Override        public Void visitRootElements(                 RootElementsContext                 <MatcherTree> uaTree, MatcherTree mTree) { return visitChildren(uaTree, mTree); }
+        @Override        public Void visitCommentSeparator(             CommentSeparatorContext             <MatcherTree> uaTree, MatcherTree mTree) { return visitChildren(uaTree, mTree); }
 
-        MATCH_FINDERS.put(ProductNameKeyValueContext.class,        (mTree, uaTree) ->
-            // FIXME: Fakechild = false ...  inform(ctx, "name.(1)keyvalue", ctx.getText(), false);
-            match(NAME, mTree, uaTree, "") // FIXME: Fakechild = true....
-        );
-
-        MATCH_FINDERS.put(ProductVersionContext.class,              UserAgentTreeFlattener::verifyMatchProductVersion);
-        MATCH_FINDERS.put(ProductVersionWithCommasContext.class,    UserAgentTreeFlattener::verifyMatchProductVersion);
-
-        MATCH_FINDERS.put(ProductNameContext.class,                 (mTree, uaTree) -> match(NAME,      mTree, uaTree));
-
-    }
-
-
-    private static void match(AgentPathFragment fragment, MatcherTree mTree, ParseTree<MatcherTree> uaTree) {
-        match(fragment, mTree, uaTree, null);
-    }
-
-    private static final Logger LOG = LoggerFactory.getLogger(UserAgentTreeFlattener.class);
-
-
-    private static void match(AgentPathFragment fragment, MatcherTree mTree, ParseTree<MatcherTree> uaTree, String value) {
-//        LOG.warn("[match] F:{} | MT:{} | PT:{} | V:{} |", fragment, mTree, AntlrUtils.getSourceText(uaTree), value);
-
-        if (mTree == null) {// || uaTree == null) {
-            return; // Nothing can be here.
-        }
-
-        // Inform the actions at THIS level that need to be informed.
-        Set<MatcherAction> matcherActions = mTree.getActions();
-        if (!matcherActions.isEmpty()) {
-            String informValue = value == null ? AntlrUtils.getSourceText(uaTree) : value;
-            matcherActions.forEach(action ->
-                // LOG.info("[Inform] A:{} | MT:{} | V:{} |", action, mTree, informValue);
-                action.inform(mTree, uaTree, informValue)
-            );
-        }
-
-        // For each of the possible child fragments
-        for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> agentPathFragment : mTree.getChildren().entrySet()) {
-
-            // Find the subnodes for which we actually have patterns
-            List<MatcherTree>                          relevantMatcherSubTrees = agentPathFragment.getValue().getKey();
-            Iterator<? extends ParseTree<MatcherTree>> children                = agentPathFragment.getValue().getValue().visit(uaTree);
-
-            for (MatcherTree matcherSubTree : relevantMatcherSubTrees) {
-                if (!children.hasNext()) {
-                    break;
-                }
-                ParseTree<MatcherTree> parseSubTree = children.next();
-                if (matcherSubTree == null) {
-                    continue;
-                }
-                if (parseSubTree == null) {
-                    continue;
-                }
-                FindMatch matchFinder = MATCH_FINDERS.get(parseSubTree.getClass());
-                if (matchFinder != null) {
-                    matchFinder.findMatch(matcherSubTree, parseSubTree);
-                } else {
-                    LOG.error("No matchFinder for class {}", parseSubTree.getClass().getCanonicalName());
+        private void informMatcherActions(ParseTree<MatcherTree> uaTree, MatcherTree mTree, String value) {
+            // Inform the actions at THIS level that need to be informed.
+            Set<MatcherAction> matcherActions = mTree.getActions();
+            if(!matcherActions.isEmpty()) {
+                String informValue = value == null ? AntlrUtils.getSourceText(uaTree) : value;
+                if (mTree.matches(informValue)) {
+                    matcherActions.forEach(action ->
+                        // LOG.info("[Inform] A:{} | MT:{} | V:{} |", action, mTree, informValue);
+                        action.inform(mTree, uaTree, informValue)
+                    );
                 }
             }
         }
+
+
+        private Void match(AgentPathFragment uaTreeFragment, RuleNode<MatcherTree> uaTree, MatcherTree mTree, String value) {
+//        LOG.warn("[match] F:{} | MT:{} | PT:{} | V:{} |", fragment, mTree, AntlrUtils.getSourceText(uaTree), value);
+
+            if (mTree == null) {// || uaTree == null) {
+                return null; // Nothing can be here.
+            }
+
+            informMatcherActions(uaTree, mTree, null);
+
+            // For each of the possible child fragments
+            for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> agentPathFragment : mTree.getChildren().entrySet()) {
+
+                // Find the subnodes for which we actually have patterns
+                List<MatcherTree>                          relevantMatcherSubTrees = agentPathFragment.getValue().getKey();
+                Iterator<? extends ParseTree<MatcherTree>> children                = agentPathFragment.getValue().getValue().visit(uaTree);
+
+                // FIXME: This should be done MUCH better (i.e. without copying into a new list)
+                List<ParseTree<MatcherTree>> childrenList = new ArrayList<>(32);
+                for (int i = 0 ; i < 32 ; i++) {
+                    childrenList.add(0, null);  // FIXME: YUCK ! YUCK ! YUCK ! YUCK !
+                }
+
+                int index = 0;
+                while (children.hasNext()) {
+                    index++;
+                    final ParseTree<MatcherTree> next = children.next();
+                    childrenList.add(index, next);
+                }
+
+                int maxIndex = Math.min(index, relevantMatcherSubTrees.size()-1);
+                for (int i = 1 ; i <= maxIndex ; i ++) {
+                    MatcherTree mSubTree = relevantMatcherSubTrees.get(i);
+                    if (mSubTree == null) {
+                        continue;
+                    }
+                    ParseTree<MatcherTree> uaSubTree = childrenList.get(i);
+                    if (uaSubTree == null) {
+                        continue;
+                    }
+
+                    uaSubTree.accept(this, mSubTree);
+                }
+            }
+            return null;
+        }
+
+        private Void verifyMatchProductVersion(RuleNode<MatcherTree> uaTree, MatcherTree mTree) {
+            return match(VERSION, uaTree, mTree, null);
+//            if (uaTree.getChildCount() != 1) {
+////                 These are the specials with multiple children like keyvalue, etc.
+//                return match(VERSION, uaTree, mTree,  null);
+//            }
+//
+//            ParserRuleContext<MatcherTree> child = (ParserRuleContext<MatcherTree>) uaTree.getChild(0);
+////             Only for the SingleVersion edition we want to have splits of the version.
+//            if (child instanceof SingleVersionContext || child instanceof SingleVersionWithCommasContext) {
+//                return null;
+//            }
+//
+//            return match(VERSION, child, mTree, null);
+        }
+
     }
 
-    private static void verifyMatchProductVersion(MatcherTree mTree, ParseTree<MatcherTree> uaTree) {
-        match(VERSION, mTree, uaTree);
-//        if (uaTree.getChildCount() != 1) {
-//            // These are the specials with multiple children like keyvalue, etc.
-//            match(VERSION, mTree, uaTree);
-//            return;
-//        }
-//
-//        ParserRuleContext child = (ParserRuleContext)uaTree.getChild(0);
-//        // Only for the SingleVersion edition we want to have splits of the version.
-//        if (child instanceof SingleVersionContext || child instanceof SingleVersionWithCommasContext) {
-//            return;
-//        }
-//
-//        match(VERSION, mTree, child);
-    }
+
+
+
+    private static final Logger LOG = LoggerFactory.getLogger(UserAgentTreeFlattener.class);
+
 
 
     // FIXME: Later ... private constructor for serialization systems ONLY (like Kyro)
@@ -262,8 +274,9 @@ public class UserAgentTreeFlattener implements Serializable {
         // Parse the userAgent into tree
         UserAgentContext<MatcherTree> userAgentTree = parseUserAgent(userAgent);
 
-        // Match the agent against the
-        match(AGENT, analyzer.getMatcherTreeRoot(), userAgentTree, userAgent.getUserAgentString());
+        // Match the agent against the patterns
+        new MatchFinder().visit(userAgentTree, analyzer.getMatcherTreeRoot());
+//        match(AGENT, , userAgent.getUserAgentString());
 
 //        if (userAgent.hasSyntaxError()) {
 //            inform(null, SYNTAX_ERROR, "true");

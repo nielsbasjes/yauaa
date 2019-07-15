@@ -120,7 +120,7 @@ public class CalculateDeviceBrand implements FieldCalculator {
 
     @Override
     public String toString() {
-        return "Calculate " + DEVICE_BRAND;
+        return "Clean " + DEVICE_BRAND;
     }
 
 }

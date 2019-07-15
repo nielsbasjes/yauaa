@@ -132,7 +132,7 @@ public class TestYamlBasedExpressions {
 
     @Test
     public void runDevelopTest() { //FIXME: Remove
-        UserAgentAnalyzerTester uaa = createTester("classpath*:DevelopTest.yaml");
+        UserAgentAnalyzerTester uaa = createTester("DevelopTest.yaml");
         uaa.setVerbose(true);
         uaa.initializeMatchers();
 

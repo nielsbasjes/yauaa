@@ -109,7 +109,7 @@ public abstract class MatcherAction implements Serializable {
 
 
     private Matcher     matcher;
-    private MatchesList matches;
+    private MatchesList matches = new MatchesList(0);
     private boolean     mustHaveMatches = false;
 
     boolean mustHaveMatches() {
@@ -313,6 +313,9 @@ public abstract class MatcherAction implements Serializable {
         if (mustHaveMatches && matches.isEmpty()) {
             matcher.gotMyFirstStartingPoint();
         }
+
+        LOG.info("Action inform: {} --> {} --> {}", key, result, value);
+
         matches.add(result, key, value);
     }
 
@@ -421,7 +424,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownAgentContext<MatcherTree> thisTree = ((StepDownAgentContext<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(AGENT, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(AGENT, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;
@@ -431,7 +434,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownProductContext<MatcherTree> thisTree = ((StepDownProductContext<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(PRODUCT, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(PRODUCT, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;
@@ -441,7 +444,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownNameContext<MatcherTree> thisTree = ((StepDownNameContext<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(NAME, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(NAME, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;
@@ -451,7 +454,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownVersionContext<MatcherTree> thisTree = ((StepDownVersionContext<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(VERSION, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(VERSION, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;
@@ -461,7 +464,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownCommentsContext<MatcherTree> thisTree = ((StepDownCommentsContext<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(COMMENTS, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(COMMENTS, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;
@@ -472,7 +475,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownEntryContext<MatcherTree> thisTree = ((StepDownEntryContext<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(ENTRY, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(ENTRY, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;
@@ -482,7 +485,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownTextContext<MatcherTree> thisTree = ((StepDownTextContext<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(TEXT, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(TEXT, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;
@@ -493,7 +496,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownUrlContext<MatcherTree> thisTree = ((StepDownUrlContext<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(URL, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(URL, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;
@@ -504,7 +507,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownEmailContext<MatcherTree> thisTree = ((StepDownEmailContext<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(EMAIL, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(EMAIL, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;
@@ -514,7 +517,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownBase64Context<MatcherTree> thisTree = ((StepDownBase64Context<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(BASE64, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(BASE64, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;
@@ -524,7 +527,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownUuidContext<MatcherTree> thisTree = ((StepDownUuidContext<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(UUID, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(UUID, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;
@@ -534,7 +537,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownKeyvalueContext<MatcherTree> thisTree = ((StepDownKeyvalueContext<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(KEYVALUE, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(KEYVALUE, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;
@@ -545,7 +548,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownKeyContext<MatcherTree> thisTree = ((StepDownKeyContext<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(KEY, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(KEY, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;
@@ -556,7 +559,7 @@ public abstract class MatcherAction implements Serializable {
             StepDownValueContext<MatcherTree> thisTree = ((StepDownValueContext<MatcherTree>) tree);
             int total = 0;
             for (int i : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(VALUE, i-1);
+                MatcherTree nextMatcherTree = pathMatcherTree.getOrCreateChild(VALUE, i);
                 total+= calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
             }
             return total;

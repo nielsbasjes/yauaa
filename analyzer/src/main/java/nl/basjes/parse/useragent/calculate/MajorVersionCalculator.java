@@ -56,6 +56,6 @@ public class MajorVersionCalculator implements FieldCalculator {
 
     @Override
     public String toString() {
-        return "Calculate " + versionName + " --> " + majorVersionName;
+        return "Major: " + versionName + " --> " + majorVersionName;
     }
 }

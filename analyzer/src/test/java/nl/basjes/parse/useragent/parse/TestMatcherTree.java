@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent.parse;
 import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
+import nl.basjes.parse.useragent.analyze.MatcherExtractAction;
 import nl.basjes.parse.useragent.analyze.MatcherRequireAction;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -75,7 +76,7 @@ public class TestMatcherTree {
             .getOrCreateChild(PRODUCT, 2)
             .getOrCreateChild(NAME, 1)
             .getOrCreateChild(STARTSWITH, 0)
-                .makeItStartsWith("ItStartsWithThis");
+            .makeItStartsWith("ItStartsWithThis");
 
         root
             .getOrCreateChild(PRODUCT, 2)
@@ -138,7 +139,32 @@ public class TestMatcherTree {
             .makeItEquals("IsEqualTo");
         expected.add("agent.(2)product.(1)name=\"IsEqualTo\"");
 
-        root.verifyTree();
+        root
+            .getOrCreateChild(PRODUCT, 2)
+            .getOrCreateChild(NAME, 1)
+            .getOrCreateChild(EQUALS, 0)
+            .addMatcherAction(new MatcherExtractAction("foo", 42, "\"Something\"", new Matcher(null)));
+        root
+            .getOrCreateChild(PRODUCT, 2)
+            .addMatcherAction(new MatcherExtractAction("foo", 42, "\"Something\"", new Matcher(null)));
+        root
+            .getOrCreateChild(PRODUCT, 2)
+            .getOrCreateChild(NAME, 1)
+            .addMatcherAction(new MatcherExtractAction("foo", 42, "\"Something\"", new Matcher(null)));
+        root
+            .getOrCreateChild(PRODUCT, 2)
+            .getOrCreateChild(NAME, 1)
+            .getOrCreateChild(EQUALS, 0)
+            .addMatcherAction(new MatcherExtractAction("foo", 42, "\"Something\"", new Matcher(null)));
+
+        root
+            .getOrCreateChild(PRODUCT, 2)
+            .getOrCreateChild(NAME, 1)
+            .getOrCreateChild(EQUALS, 0)
+            .makeItEquals("IsEqualTo");
+        expected.add("agent.(2)product.(1)name=\"IsEqualTo\"");
+
+        assertTrue(root.verifyTree());
 
         List<String> result = root.getChildrenStrings();
 
@@ -147,7 +173,6 @@ public class TestMatcherTree {
         });
 
         expected.forEach(e -> assertTrue("Missing " + e, result.contains(e)));
-
     }
 
 }

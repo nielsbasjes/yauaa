@@ -126,7 +126,7 @@ public class TreeExpressionEvaluator implements Serializable {
             public String visitPathFixedValue(PathFixedValueContext<MatcherTree> ctx) {
                 return ctx.value.getText();
             }
-        }.visit(requiredPattern, null);
+        }.visit(requiredPattern);
     }
 
     // ------------------------------------------

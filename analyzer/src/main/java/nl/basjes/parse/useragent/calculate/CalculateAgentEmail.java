@@ -37,7 +37,7 @@ public class CalculateAgentEmail implements FieldCalculator {
 
     @Override
     public String toString() {
-        return "Calculate " + AGENT_INFORMATION_EMAIL;
+        return "Clean " + AGENT_INFORMATION_EMAIL;
     }
 
 }

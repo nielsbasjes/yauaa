@@ -64,7 +64,7 @@ public class CalculateDeviceName implements FieldCalculator {
 
     @Override
     public String toString() {
-        return "Calculate " + DEVICE_NAME;
+        return "Clean " + DEVICE_NAME;
     }
 
 }

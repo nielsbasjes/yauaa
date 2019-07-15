@@ -803,26 +803,25 @@ config:
     }
 
     private UserAgent setAsHacker(UserAgent userAgent, int confidence) {
-        userAgent.set(DEVICE_CLASS,                 "Hacker",           confidence);
-        userAgent.set(DEVICE_BRAND,                 "Hacker",           confidence);
-        userAgent.set(DEVICE_NAME,                  "Hacker",           confidence);
-        userAgent.set(DEVICE_VERSION,               "Hacker",           confidence);
-        userAgent.set(OPERATING_SYSTEM_CLASS,       "Hacker",           confidence);
-        userAgent.set(OPERATING_SYSTEM_NAME,        "Hacker",           confidence);
-        userAgent.set(OPERATING_SYSTEM_VERSION,     "Hacker",           confidence);
-        userAgent.set(LAYOUT_ENGINE_CLASS,          "Hacker",           confidence);
-        userAgent.set(LAYOUT_ENGINE_NAME,           "Hacker",           confidence);
-        userAgent.set(LAYOUT_ENGINE_VERSION,        "Hacker",           confidence);
-        userAgent.set(LAYOUT_ENGINE_VERSION_MAJOR,  "Hacker",           confidence);
-        userAgent.set(AGENT_CLASS,                  "Hacker",           confidence);
-        userAgent.set(AGENT_NAME,                   "Hacker",           confidence);
-        userAgent.set(AGENT_VERSION,                "Hacker",           confidence);
-        userAgent.set(AGENT_VERSION_MAJOR,          "Hacker",           confidence);
-        userAgent.set(HACKER_TOOLKIT,              "Unknown",          confidence);
-        userAgent.set(HACKER_ATTACK_VECTOR,         "Buffer overflow",  confidence);
+        userAgent.set(DEVICE_CLASS,                 "Hacker",  confidence);
+        userAgent.set(DEVICE_BRAND,                 "Hacker",  confidence);
+        userAgent.set(DEVICE_NAME,                  "Hacker",  confidence);
+        userAgent.set(DEVICE_VERSION,               "Hacker",  confidence);
+        userAgent.set(OPERATING_SYSTEM_CLASS,       "Hacker",  confidence);
+        userAgent.set(OPERATING_SYSTEM_NAME,        "Hacker",  confidence);
+        userAgent.set(OPERATING_SYSTEM_VERSION,     "Hacker",  confidence);
+        userAgent.set(LAYOUT_ENGINE_CLASS,          "Hacker",  confidence);
+        userAgent.set(LAYOUT_ENGINE_NAME,           "Hacker",  confidence);
+        userAgent.set(LAYOUT_ENGINE_VERSION,        "Hacker",  confidence);
+        userAgent.set(LAYOUT_ENGINE_VERSION_MAJOR,  "Hacker",  confidence);
+        userAgent.set(AGENT_CLASS,                  "Hacker",  confidence);
+        userAgent.set(AGENT_NAME,                   "Hacker",  confidence);
+        userAgent.set(AGENT_VERSION,                "Hacker",  confidence);
+        userAgent.set(AGENT_VERSION_MAJOR,          "Hacker",  confidence);
+        userAgent.set(HACKER_TOOLKIT,               "Unknown", confidence);
+        userAgent.set(HACKER_ATTACK_VECTOR,         "Unknown", confidence);
         return userAgent;
     }
-
 
     private transient MatcherList touchedMatchers = null;
 
@@ -856,7 +855,7 @@ config:
             }
         }
 
-// FIXME: Reenable safetynet       try {
+// FIXME: Reenable safety net       try {
         userAgent = flattener.parse(userAgent);
 
         // Fire all Analyzers with any input
@@ -910,23 +909,7 @@ config:
         // If it is really really bad ... then it is a Hacker.
         if ("true".equals(userAgent.getValue(SYNTAX_ERROR))) {
             if (userAgent.get(DEVICE_CLASS).getConfidence() == -1) {
-                userAgent.set(DEVICE_CLASS,                "Hacker", 10);
-                userAgent.set(DEVICE_BRAND,                "Hacker", 10);
-                userAgent.set(DEVICE_NAME,                 "Hacker", 10);
-                userAgent.set(DEVICE_VERSION,              "Hacker", 10);
-                userAgent.set(OPERATING_SYSTEM_CLASS,      "Hacker", 10);
-                userAgent.set(OPERATING_SYSTEM_NAME,       "Hacker", 10);
-                userAgent.set(OPERATING_SYSTEM_VERSION,    "Hacker", 10);
-                userAgent.set(LAYOUT_ENGINE_CLASS,         "Hacker", 10);
-                userAgent.set(LAYOUT_ENGINE_NAME,          "Hacker", 10);
-                userAgent.set(LAYOUT_ENGINE_VERSION,       "Hacker", 10);
-                userAgent.set(LAYOUT_ENGINE_VERSION_MAJOR, "Hacker", 10);
-                userAgent.set(AGENT_CLASS,                 "Hacker", 10);
-                userAgent.set(AGENT_NAME,                  "Hacker", 10);
-                userAgent.set(AGENT_VERSION,               "Hacker", 10);
-                userAgent.set(AGENT_VERSION_MAJOR,         "Hacker", 10);
-                userAgent.set(HACKER_TOOLKIT,              "Unknown", 10);
-                userAgent.set(HACKER_ATTACK_VECTOR,        "Unknown", 10);
+                setAsHacker(userAgent, 10);
             }
         }
 

@@ -168,7 +168,7 @@ public class WalkList implements Serializable {
         this.lookupSets = lookupSets;
         this.verbose = verbose;
         // Generate the walkList from the requiredPattern
-        new WalkListBuilder().visit(requiredPattern, null);
+        new WalkListBuilder().visit(requiredPattern);
         linkSteps();
 
         int i = 1;
