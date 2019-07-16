@@ -33,9 +33,11 @@ public enum AgentPathFragment {
     BASE64("base64"),
     VALUE("value"),
 
+    // Extract substring
+    WORDRANGE("WordRange"), // Special
+
     // Compare entries
     EQUALS("Equals"),
-    WORDRANGE("WordRange"),
     STARTSWITH("StartsWith");
 
     private final String name;

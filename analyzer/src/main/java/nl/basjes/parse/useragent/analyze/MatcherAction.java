@@ -73,12 +73,10 @@ import static nl.basjes.parse.useragent.parse.AgentPathFragment.BASE64;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.COMMENTS;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.EMAIL;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.ENTRY;
-import static nl.basjes.parse.useragent.parse.AgentPathFragment.EQUALS;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEY;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEYVALUE;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.NAME;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.PRODUCT;
-import static nl.basjes.parse.useragent.parse.AgentPathFragment.STARTSWITH;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.TEXT;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.URL;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.UUID;
@@ -314,7 +312,10 @@ public abstract class MatcherAction implements Serializable {
             matcher.gotMyFirstStartingPoint();
         }
 
-        LOG.info("Action inform: >>>{}<<< about >>>{}<<< --> {} --> {}", matchExpression, key, result, value);
+        LOG.info("Action inform: >>>{}<<<", matchExpression);
+        LOG.info("         about >>>{}<<<", key);
+        LOG.info("   tree source >>>{}<<<", result);
+        LOG.info("         value >>>{}<<<", value);
 
         matches.add(result, key, value);
     }
@@ -567,26 +568,24 @@ public abstract class MatcherAction implements Serializable {
 
         CALCULATE_INFORM_PATH.put(StepEqualsValueContext.class,         (action, pathMatcherTree, tree) -> {
             StepEqualsValueContext<MatcherTree> thisTree        = ((StepEqualsValueContext<MatcherTree>)tree);
-            MatcherTree            nextMatcherTree = pathMatcherTree.getOrCreateChild(EQUALS, 0);
-            nextMatcherTree.makeItEquals(thisTree.value.getText());
-            nextMatcherTree.addMatcherAction(action);
+            pathMatcherTree.addEqualsMatcherAction(thisTree.value.getText(), action);
             return 1;
         });
 
         CALCULATE_INFORM_PATH.put(StepStartsWithValueContext.class,     (action, pathMatcherTree, tree) -> {
             StepStartsWithValueContext<MatcherTree> thisTree        = ((StepStartsWithValueContext<MatcherTree>)tree);
-            MatcherTree                nextMatcherTree = pathMatcherTree.getOrCreateChild(STARTSWITH, 0);
-            nextMatcherTree.makeItStartsWith(thisTree.value.getText());
-            nextMatcherTree.addMatcherAction(action);
+            pathMatcherTree.addStartsWithMatcherAction(thisTree.value.getText(), action);
             return 1;
         });
 
         CALCULATE_INFORM_PATH.put(StepWordRangeContext.class,           (action, pathMatcherTree, tree) -> {
             StepWordRangeContext<MatcherTree> thisTree        = ((StepWordRangeContext<MatcherTree>)tree);
-            Range                range           = WORD_RANGE_VISITOR.visit(thisTree.wordRange());
-            MatcherTree          nextMatcherTree = pathMatcherTree.getOrCreateChild(WORDRANGE, 0);
-            nextMatcherTree.makeItWordRange(range.getFirst(), range.getLast());
-            return calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
+            Range            range           = WORD_RANGE_VISITOR.visit(thisTree.wordRange());
+            pathMatcherTree.addWordRangeMatcherAction(range, action);
+//            MatcherTree                       nextMatcherTree = pathMatcherTree.getOrCreateChild(WORDRANGE, 0);
+//            nextMatcherTree.makeItWordRange(range.getFirst(), range.getLast());
+            return 1; // FIXME: Unsure if this is correct
+            //            return calculateInformPath(action, nextMatcherTree, thisTree.nextStep);
         });
     }
 

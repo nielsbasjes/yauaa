@@ -72,17 +72,17 @@ public class TestMatcherTree {
             .getOrCreateChild(PRODUCT, 3)
             .getOrCreateChild(VERSION, 2);
 
-        root
-            .getOrCreateChild(PRODUCT, 2)
-            .getOrCreateChild(NAME, 1)
-            .getOrCreateChild(STARTSWITH, 0)
-            .makeItStartsWith("ItStartsWithThis");
+//        root
+//            .getOrCreateChild(PRODUCT, 2)
+//            .getOrCreateChild(NAME, 1)
+//            .getOrCreateChild(STARTSWITH, 0)
+//            .makeItStartsWith("ItStartsWithThis");
 
-        root
-            .getOrCreateChild(PRODUCT, 2)
-            .getOrCreateChild(NAME, 1)
-            .getOrCreateChild(EQUALS, 0)
-            .makeItEquals("IsEqualTo");
+//        root
+//            .getOrCreateChild(PRODUCT, 2)
+//            .getOrCreateChild(NAME, 1)
+//            .getOrCreateChild(EQUALS, 0)
+//            .makeItEquals("IsEqualTo");
 
 //        LOG.info("1: {}", child1.toString());
 //        LOG.info("2: {}", child2.toString());
@@ -95,8 +95,89 @@ public class TestMatcherTree {
     }
 
 
+//    @Test
+//    public void testBasicTreeConstruction() {
+//
+//        UserAgentAnalyzerDirect userAgentAnalyzerDirect = UserAgentAnalyzerDirect.newBuilder().build();
+//        Matcher         matcher = new Matcher(userAgentAnalyzerDirect);
+//        MatcherAction   action  = new MatcherRequireAction("agent.product.name", matcher);
+//
+//        List<String> expected = new ArrayList<>();
+//
+//        MatcherTree root = new MatcherTree(AGENT, 1);
+//
+//        root
+//            .getOrCreateChild(PRODUCT, 1)
+//            .getOrCreateChild(COMMENTS, 2)
+//            .getOrCreateChild(ENTRY, 10);
+//        expected.add("agent.(1)product.(2)comments.(10)entry");
+//
+//        root
+//            .getOrCreateChild(PRODUCT, 1)
+//            .getOrCreateChild(COMMENTS, 2)
+//            .getOrCreateChild(ENTRY, 5);
+//        expected.add("agent.(1)product.(2)comments.(5)entry");
+//
+//        root
+//            .getOrCreateChild(PRODUCT, 1)
+//            .getOrCreateChild(COMMENTS, 2)
+//            .getOrCreateChild(ENTRY, 1);
+//        expected.add("agent.(1)product.(2)comments.(1)entry");
+//
+//        root
+//            .getOrCreateChild(PRODUCT, 2)
+//            .getOrCreateChild(NAME, 1)
+//            .getOrCreateChild(STARTSWITH, 0)
+//            .makeItStartsWith("ItStartsWithThis");
+//        expected.add("agent.(2)product.(1)name{\"ItStartsWithThis\"");
+//
+//
+//        root
+//            .getOrCreateChild(PRODUCT, 2)
+//            .getOrCreateChild(NAME, 1)
+//            .getOrCreateChild(EQUALS, 0)
+//            .makeItEquals("IsEqualTo");
+//        expected.add("agent.(2)product.(1)name=\"IsEqualTo\"");
+//
+//        root
+//            .getOrCreateChild(PRODUCT, 2)
+//            .getOrCreateChild(NAME, 1)
+//            .getOrCreateChild(EQUALS, 0)
+//            .addMatcherAction(new MatcherExtractAction("foo", 42, "\"Something\"", new Matcher(null)));
+//        root
+//            .getOrCreateChild(PRODUCT, 2)
+//            .addMatcherAction(new MatcherExtractAction("foo", 42, "\"Something\"", new Matcher(null)));
+//        root
+//            .getOrCreateChild(PRODUCT, 2)
+//            .getOrCreateChild(NAME, 1)
+//            .addMatcherAction(new MatcherExtractAction("foo", 42, "\"Something\"", new Matcher(null)));
+//        root
+//            .getOrCreateChild(PRODUCT, 2)
+//            .getOrCreateChild(NAME, 1)
+//            .getOrCreateChild(EQUALS, 0)
+//            .addMatcherAction(new MatcherExtractAction("foo", 42, "\"Something\"", new Matcher(null)));
+//
+//        root
+//            .getOrCreateChild(PRODUCT, 2)
+//            .getOrCreateChild(NAME, 1)
+//            .getOrCreateChild(EQUALS, 0)
+//            .makeItEquals("IsEqualTo");
+//        expected.add("agent.(2)product.(1)name=\"IsEqualTo\"");
+//
+//        assertTrue(root.verifyTree());
+//
+//        List<String> result = root.getChildrenStrings();
+//
+//        result.forEach(s -> {
+//            LOG.info("==> {}", s);
+//        });
+//
+//        expected.forEach(e -> assertTrue("Missing " + e, result.contains(e)));
+//    }
+
+
     @Test
-    public void testBasicTreeConstruction() {
+    public void testMultiSubstringConstruction() {
 
         UserAgentAnalyzerDirect userAgentAnalyzerDirect = UserAgentAnalyzerDirect.newBuilder().build();
         Matcher         matcher = new Matcher(userAgentAnalyzerDirect);
@@ -112,57 +193,37 @@ public class TestMatcherTree {
             .getOrCreateChild(ENTRY, 10);
         expected.add("agent.(1)product.(2)comments.(10)entry");
 
-        root
-            .getOrCreateChild(PRODUCT, 1)
-            .getOrCreateChild(COMMENTS, 2)
-            .getOrCreateChild(ENTRY, 5);
-        expected.add("agent.(1)product.(2)comments.(5)entry");
 
-        root
-            .getOrCreateChild(PRODUCT, 1)
-            .getOrCreateChild(COMMENTS, 2)
-            .getOrCreateChild(ENTRY, 1);
-        expected.add("agent.(1)product.(2)comments.(1)entry");
-
-        root
-            .getOrCreateChild(PRODUCT, 2)
-            .getOrCreateChild(NAME, 1)
-            .getOrCreateChild(STARTSWITH, 0)
-            .makeItStartsWith("ItStartsWithThis");
-        expected.add("agent.(2)product.(1)name{\"ItStartsWithThis\"");
+//
+//        root
+//            .getOrCreateChild(PRODUCT, 2)
+//            .getOrCreateChild(NAME, 1)
+//            .getOrCreateChildEquals(EQUALS, "One")
+//        expected.add("agent.(2)product.(1)name=\"One\"");
+//
+//        root
+//            .getOrCreateChild(PRODUCT, 2)
+//            .getOrCreateChild(NAME, 1)
+//            .getOrCreateChildEquals(EQUALS, "Two");
+//        expected.add("agent.(2)product.(1)name=\"Two\"");
 
 
-        root
-            .getOrCreateChild(PRODUCT, 2)
-            .getOrCreateChild(NAME, 1)
-            .getOrCreateChild(EQUALS, 0)
-            .makeItEquals("IsEqualTo");
-        expected.add("agent.(2)product.(1)name=\"IsEqualTo\"");
 
-        root
-            .getOrCreateChild(PRODUCT, 2)
-            .getOrCreateChild(NAME, 1)
-            .getOrCreateChild(EQUALS, 0)
-            .addMatcherAction(new MatcherExtractAction("foo", 42, "\"Something\"", new Matcher(null)));
-        root
-            .getOrCreateChild(PRODUCT, 2)
-            .addMatcherAction(new MatcherExtractAction("foo", 42, "\"Something\"", new Matcher(null)));
-        root
-            .getOrCreateChild(PRODUCT, 2)
-            .getOrCreateChild(NAME, 1)
-            .addMatcherAction(new MatcherExtractAction("foo", 42, "\"Something\"", new Matcher(null)));
-        root
-            .getOrCreateChild(PRODUCT, 2)
-            .getOrCreateChild(NAME, 1)
-            .getOrCreateChild(EQUALS, 0)
-            .addMatcherAction(new MatcherExtractAction("foo", 42, "\"Something\"", new Matcher(null)));
+//        root
+//            .getOrCreateChild(PRODUCT, 2)
+//            .getOrCreateChild(NAME, 1)
+//            .getOrCreateChild(STARTSWITH, 0)
+//            .makeItStartsWith("One");
+//        expected.add("agent.(2)product.(1)name{\"One\"");
+//
+//        root
+//            .getOrCreateChild(PRODUCT, 2)
+//            .getOrCreateChild(NAME, 1)
+//            .getOrCreateChild(STARTSWITH, 0)
+//            .makeItStartsWith("Two");
+//        expected.add("agent.(2)product.(1)name{\"Two\"");
 
-        root
-            .getOrCreateChild(PRODUCT, 2)
-            .getOrCreateChild(NAME, 1)
-            .getOrCreateChild(EQUALS, 0)
-            .makeItEquals("IsEqualTo");
-        expected.add("agent.(2)product.(1)name=\"IsEqualTo\"");
+
 
         assertTrue(root.verifyTree());
 

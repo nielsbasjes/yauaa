@@ -19,7 +19,6 @@ package nl.basjes.parse.useragent.parse;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.analyze.Analyzer;
-import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown.UserAgentGetChildrenVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentLexer;
@@ -58,11 +57,9 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.SiteUrlContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UserAgentContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UuIdContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.VersionWordsContext;
-import nl.basjes.parse.useragent.utils.AntlrUtils;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.apache.commons.lang3.tuple.Pair;
@@ -74,7 +71,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
@@ -148,21 +144,6 @@ public class UserAgentTreeFlattener implements Serializable {
         @Override        public Void visitRootElements(                 RootElementsContext                 <MatcherTree> uaTree, MatcherTree mTree) { return visitChildren(uaTree, mTree); }
         @Override        public Void visitCommentSeparator(             CommentSeparatorContext             <MatcherTree> uaTree, MatcherTree mTree) { return visitChildren(uaTree, mTree); }
 
-        private void informMatcherActions(ParseTree<MatcherTree> uaTree, MatcherTree mTree, String value) {
-            // Inform the actions at THIS level that need to be informed.
-            Set<MatcherAction> matcherActions = mTree.getActions();
-            if(!matcherActions.isEmpty()) {
-                String informValue = value == null ? AntlrUtils.getSourceText(uaTree) : value;
-                if (mTree.matches(informValue)) {
-                    matcherActions.forEach(action ->
-                        // LOG.info("[Inform] A:{} | MT:{} | V:{} |", action, mTree, informValue);
-                        action.inform(mTree, uaTree, informValue)
-                    );
-                }
-            }
-        }
-
-
         private Void match(AgentPathFragment uaTreeFragment, RuleNode<MatcherTree> uaTree, MatcherTree mTree, String value) {
 //        LOG.warn("[match] F:{} | MT:{} | PT:{} | V:{} |", fragment, mTree, AntlrUtils.getSourceText(uaTree), value);
 
@@ -170,33 +151,13 @@ public class UserAgentTreeFlattener implements Serializable {
                 return null; // Nothing can be here.
             }
 
-            informMatcherActions(uaTree, mTree, value);
+            mTree.fireMatchingActions(uaTree, value);
 
             // For each of the possible child fragments
             for (Map.Entry<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> agentPathFragment : mTree.getChildren().entrySet()) {
 
                 // Find the subnodes for which we actually have patterns
                 List<MatcherTree>                          relevantMatcherSubTrees = agentPathFragment.getValue().getKey();
-
-                switch (agentPathFragment.getKey()) {
-                    case EQUALS:
-                    case WORDRANGE:
-                    case STARTSWITH:
-                        String informValue = value == null ? AntlrUtils.getSourceText(uaTree) : value;
-                        for (MatcherTree subTree : relevantMatcherSubTrees) {
-                            Set<MatcherAction> matcherActions = subTree.getActions();
-                            if(!matcherActions.isEmpty()) {
-                                if (subTree.matches(informValue)) {
-                                    matcherActions.forEach(action ->
-                                        // LOG.info("[Inform] A:{} | MT:{} | V:{} |", action, mTree, informValue);
-                                        action.inform(subTree, uaTree, informValue)
-                                    );
-                                }
-                            }
-                        }
-                        continue;
-                    default:
-                }
 
                 Iterator<? extends ParseTree<MatcherTree>> children                = agentPathFragment.getValue().getValue().visit(uaTree);
 

@@ -17,8 +17,8 @@
 config:
 # ========================================================================
   - matcher:
-#      options:
-#        - 'verbose'
+      options:
+        - 'verbose'
       require:
         - 'agent.(1)product.(1)name="Name"'
         - 'agent.(1)product.(1)version="V1"'
@@ -43,8 +43,8 @@ config:
         - 'Test1:1:"Ok"'
 
   - test:
-#      options:
-#        - 'verbose'
+      options:
+        - 'verbose'
       input:
         name: 'Comment fields'
         user_agent_string:  'Name V1/V2 (Versi0nName 1.0 (comment); (nested comment) ; em@il.nl ; http://web.site ; keyText=text ; keyEmail=em@il.nl ; keyWeb=http://web.site ; keyUuid={A43F3165-FAC1-11E1-8828-00123F6EDBB1})'
@@ -70,106 +70,106 @@ config:
         AgentVersionMajor                    : '??'
 
 
-# ========================================================================
-
-  - matcher:
-#      options:
-#        - 'verbose'
-      require:
-        - 'agent="TextName 1 (a) Versi0nName 2 (b) em@il.name 3 (c) http://url.name "'
-        - 'agent.(1)product.(1)name="TextName"'
-        - 'agent.(1)product.(1)version="1"'
-        - 'agent.(1)product.(1)comments.entry.(1)text="a"'
-        - 'agent.(2)product="Versi0nName 2 (b)"'
-        - 'agent.(2)product.(1)name="Versi0nName"'
-        - 'agent.(2)product.(1)version="2"'
-        - 'agent.(2)product.(1)comments.entry.(1)text="b"'
-        - 'agent.(3)product.(1)name="em@il.name"'
-        - 'agent.(3)product.(1)name.(1)email="em@il.name"'
-        - 'agent.(3)product.(1)version="3"'
-        - 'agent.(3)product.(1)comments.entry.(1)text="c"'
-      extract:
-        - 'Test2:1:"Ok"'
-
-  - test:
-#      options:
-#        - 'init'
-#        - 'verbose'
-      input:
-        name: 'Product name variations'
-        user_agent_string:  'TextName 1 (a) Versi0nName 2 (b) em@il.name 3 (c) http://url.name '
-      expected:
-        Test2: "Ok"
-
-        DeviceClass                          : 'Unknown'
-        DeviceName                           : 'Unknown'
-        DeviceBrand                          : 'Unknown'
-        OperatingSystemClass                 : 'Unknown'
-        OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : '??'
-        OperatingSystemVersionMajor          : '??'
-        OperatingSystemNameVersion           : 'Unknown ??'
-        OperatingSystemNameVersionMajor      : 'Unknown ??'
-        LayoutEngineClass                    : 'Unknown'
-        LayoutEngineName                     : 'Unknown'
-        LayoutEngineVersion                  : '??'
-        LayoutEngineVersionMajor             : '??'
-        AgentClass                           : 'Unknown'
-        AgentName                            : 'Unknown'
-        AgentVersion                         : '??'
-        AgentVersionMajor                    : '??'
-
-# ========================================================================
-
-  - matcher:
-#      options:
-#        - 'verbose'
-      require:
-        - 'agent.(1)product.(1)name.(1)keyvalue.(1)key="keyText"'
-        - 'agent.(1)product.(1)name.(1)keyvalue.(2)text="text"'
-        - 'agent.(1)product.(1)comments.entry.(1)text="a"'
-
-        - 'agent.(2)product.(1)name.(1)keyvalue.(1)key="keyEmail"'
-        - 'agent.(2)product.(1)name.(1)keyvalue.(2)email="em@il.nl"'
-        - 'agent.(2)product.(1)comments.entry.(1)text="b"'
-
-        - 'agent.(3)product.(1)name.(1)keyvalue.(1)key="keyWeb"'
-        - 'agent.(3)product.(1)name.(1)keyvalue.(2)url="http://web.site"'
-        - 'agent.(3)product.(1)comments.entry.(1)text="c"'
-
-        - 'agent.(4)product.(1)name.(1)keyvalue.(1)key="keyUuid"'
-        - 'agent.(4)product.(1)name.(1)keyvalue.(2)uuid="A43F3165-FAC1-11E1-8828-00123F6EDBB1"'
-        - 'agent.(4)product.(1)comments.entry.(1)text="d"'
-      extract:
-        - 'Test3:1:"Ok"'
-
-
-  - test:
-#      options:
-#        - 'init'
-#        - 'verbose'
-      input:
-        name: 'Product name variations (KeyValue)'
-        user_agent_string:  'keyText=text (a) keyEmail=em@il.nl (b) keyWeb=http://web.site (c) keyUuid={A43F3165-FAC1-11E1-8828-00123F6EDBB1} (d)'
-      expected:
-        Test3: "Ok"
-
-        DeviceClass                          : 'Unknown'
-        DeviceName                           : 'Unknown'
-        DeviceBrand                          : 'Unknown'
-        OperatingSystemClass                 : 'Unknown'
-        OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : '??'
-        OperatingSystemVersionMajor          : '??'
-        OperatingSystemNameVersion           : 'Unknown ??'
-        OperatingSystemNameVersionMajor      : 'Unknown ??'
-        LayoutEngineClass                    : 'Unknown'
-        LayoutEngineName                     : 'Unknown'
-        LayoutEngineVersion                  : '??'
-        LayoutEngineVersionMajor             : '??'
-        AgentClass                           : 'Unknown'
-        AgentName                            : 'Unknown'
-        AgentVersion                         : '??'
-        AgentVersionMajor                    : '??'
-
-# ========================================================================
+## ========================================================================
+#
+#  - matcher:
+##      options:
+##        - 'verbose'
+#      require:
+#        - 'agent="TextName 1 (a) Versi0nName 2 (b) em@il.name 3 (c) http://url.name "'
+#        - 'agent.(1)product.(1)name="TextName"'
+#        - 'agent.(1)product.(1)version="1"'
+#        - 'agent.(1)product.(1)comments.entry.(1)text="a"'
+#        - 'agent.(2)product="Versi0nName 2 (b)"'
+#        - 'agent.(2)product.(1)name="Versi0nName"'
+#        - 'agent.(2)product.(1)version="2"'
+#        - 'agent.(2)product.(1)comments.entry.(1)text="b"'
+#        - 'agent.(3)product.(1)name="em@il.name"'
+#        - 'agent.(3)product.(1)name.(1)email="em@il.name"'
+#        - 'agent.(3)product.(1)version="3"'
+#        - 'agent.(3)product.(1)comments.entry.(1)text="c"'
+#      extract:
+#        - 'Test2:1:"Ok"'
+#
+#  - test:
+##      options:
+##        - 'init'
+##        - 'verbose'
+#      input:
+#        name: 'Product name variations'
+#        user_agent_string:  'TextName 1 (a) Versi0nName 2 (b) em@il.name 3 (c) http://url.name '
+#      expected:
+#        Test2: "Ok"
+#
+#        DeviceClass                          : 'Unknown'
+#        DeviceName                           : 'Unknown'
+#        DeviceBrand                          : 'Unknown'
+#        OperatingSystemClass                 : 'Unknown'
+#        OperatingSystemName                  : 'Unknown'
+#        OperatingSystemVersion               : '??'
+#        OperatingSystemVersionMajor          : '??'
+#        OperatingSystemNameVersion           : 'Unknown ??'
+#        OperatingSystemNameVersionMajor      : 'Unknown ??'
+#        LayoutEngineClass                    : 'Unknown'
+#        LayoutEngineName                     : 'Unknown'
+#        LayoutEngineVersion                  : '??'
+#        LayoutEngineVersionMajor             : '??'
+#        AgentClass                           : 'Unknown'
+#        AgentName                            : 'Unknown'
+#        AgentVersion                         : '??'
+#        AgentVersionMajor                    : '??'
+#
+## ========================================================================
+#
+#  - matcher:
+##      options:
+##        - 'verbose'
+#      require:
+#        - 'agent.(1)product.(1)name.(1)keyvalue.(1)key="keyText"'
+#        - 'agent.(1)product.(1)name.(1)keyvalue.(2)text="text"'
+#        - 'agent.(1)product.(1)comments.entry.(1)text="a"'
+#
+#        - 'agent.(2)product.(1)name.(1)keyvalue.(1)key="keyEmail"'
+#        - 'agent.(2)product.(1)name.(1)keyvalue.(2)email="em@il.nl"'
+#        - 'agent.(2)product.(1)comments.entry.(1)text="b"'
+#
+#        - 'agent.(3)product.(1)name.(1)keyvalue.(1)key="keyWeb"'
+#        - 'agent.(3)product.(1)name.(1)keyvalue.(2)url="http://web.site"'
+#        - 'agent.(3)product.(1)comments.entry.(1)text="c"'
+#
+#        - 'agent.(4)product.(1)name.(1)keyvalue.(1)key="keyUuid"'
+#        - 'agent.(4)product.(1)name.(1)keyvalue.(2)uuid="A43F3165-FAC1-11E1-8828-00123F6EDBB1"'
+#        - 'agent.(4)product.(1)comments.entry.(1)text="d"'
+#      extract:
+#        - 'Test3:1:"Ok"'
+#
+#
+#  - test:
+##      options:
+##        - 'init'
+##        - 'verbose'
+#      input:
+#        name: 'Product name variations (KeyValue)'
+#        user_agent_string:  'keyText=text (a) keyEmail=em@il.nl (b) keyWeb=http://web.site (c) keyUuid={A43F3165-FAC1-11E1-8828-00123F6EDBB1} (d)'
+#      expected:
+#        Test3: "Ok"
+#
+#        DeviceClass                          : 'Unknown'
+#        DeviceName                           : 'Unknown'
+#        DeviceBrand                          : 'Unknown'
+#        OperatingSystemClass                 : 'Unknown'
+#        OperatingSystemName                  : 'Unknown'
+#        OperatingSystemVersion               : '??'
+#        OperatingSystemVersionMajor          : '??'
+#        OperatingSystemNameVersion           : 'Unknown ??'
+#        OperatingSystemNameVersionMajor      : 'Unknown ??'
+#        LayoutEngineClass                    : 'Unknown'
+#        LayoutEngineName                     : 'Unknown'
+#        LayoutEngineVersion                  : '??'
+#        LayoutEngineVersionMajor             : '??'
+#        AgentClass                           : 'Unknown'
+#        AgentName                            : 'Unknown'
+#        AgentVersion                         : '??'
+#        AgentVersionMajor                    : '??'
+#
+## ========================================================================

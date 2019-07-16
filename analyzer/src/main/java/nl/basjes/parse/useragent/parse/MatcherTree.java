@@ -18,8 +18,12 @@
 package nl.basjes.parse.useragent.parse;
 
 import nl.basjes.parse.useragent.analyze.MatcherAction;
+import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
+import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown.UserAgentGetChildrenVisitor;
+import nl.basjes.parse.useragent.utils.AntlrUtils;
 import nl.basjes.parse.useragent.utils.WordSplitter;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +31,13 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import static java.util.Locale.ENGLISH;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.EQUALS;
@@ -69,7 +76,17 @@ public class MatcherTree implements Serializable {
     private EnumMap<AgentPathFragment, Pair<List<MatcherTree>, UserAgentGetChildrenVisitor<MatcherTree>>> children;
 
     // Each node in the tree has an optional set of actions that need to be fired if this is found.
+    // Fire always
     private Set<MatcherAction> actions = new HashSet<>();
+
+    // Fire if equals
+    private Map<String, List<MatcherAction>> equalsActions = new TreeMap<>();
+
+    // Fire if equals
+    private Map<String, List<MatcherAction>> startsWithActions = new TreeMap<>();
+
+    // Fire for each range of words
+    private Map<Range, List<MatcherAction>> wordRangeActions = new HashMap<>();
 
     public MatcherTree(AgentPathFragment fragment, int index) {
         this.fragment = fragment;
@@ -77,53 +94,18 @@ public class MatcherTree implements Serializable {
         this.index = index;
 
         children = new EnumMap<>(AgentPathFragment.class);
+    }
 
-//        for (AgentPathFragment childFragment: AgentPathFragment.values()) {
-//            children.put(childFragment, new ArrayList<>());
+//    public void makeItWordRange(int nFirstWord, int nLastWord) {
+//        if (this.fragment != WORDRANGE) {
+//            throw new IllegalArgumentException("When you specify a first/last word it MUST be WORDRANGE");
 //        }
-    }
+//        this.firstWord = nFirstWord;
+//        this.lastWord = nLastWord;
+//        this.fragmentName = "[" + firstWord + "-" + lastWord + "]";
+//    }
 
-    public void makeItWordRange(int nFirstWord, int nLastWord) {
-        if (this.fragment != WORDRANGE) {
-            throw new IllegalArgumentException("When you specify a first/last word it MUST be WORDRANGE");
-        }
-        this.firstWord = nFirstWord;
-        this.lastWord = nLastWord;
-        this.fragmentName = "[" + firstWord + "-" + lastWord + "]";
-    }
-
-    public void makeItEquals(String nMatchString) {
-        if (fragment != EQUALS) {
-            throw new IllegalArgumentException("When you specify a matchString it MUST be either EQUALS or STARTSWITH 1"); // FIXME
-        }
-        this.matchString= nMatchString;
-        fragmentName = "=\"" + matchString + "\"";
-//        LOG.warn("Setting equals to path {}", this);
-    }
-
-    public void makeItStartsWith(String nMatchString) {
-        if (fragment != STARTSWITH) {
-            throw new IllegalArgumentException("When you specify a matchString it MUST be either EQUALS or STARTSWITH 2 "); // FIXME
-        }
-        this.matchString= nMatchString;
-        fragmentName = "{\"" + matchString + "\"";
-//        LOG.warn("Setting startWith to path {}", this);
-    }
-
-    public boolean matches(String informValue) {
-        switch (fragment) {
-            case WORDRANGE:
-                String value = WordSplitter.getInstance().getSplitRange(informValue, firstWord, lastWord);
-                return matchString.equals(value);
-            case EQUALS:
-                return matchString.equals(informValue);
-            case STARTSWITH:
-                return informValue.startsWith(matchString);
-            default:
-                return true;
-        }
-    }
-
+    boolean hasAnyActions = false;
 
     public Set<MatcherAction> getActions() {
         return actions;
@@ -131,12 +113,61 @@ public class MatcherTree implements Serializable {
 
     public void addMatcherAction(MatcherAction action) {
         actions.add(action);
-//        LOG.warn("Adding to path \"{}\" action:    {}", this, action.getMatchExpression());
+        hasAnyActions = true;
     }
 
-//    public void addMatcherAction(Set<MatcherAction> newActions) {
-//        actions.addAll(newActions);
-//    }
+    public void addEqualsMatcherAction(String nMatchString, MatcherAction action) {
+        List<MatcherAction> actionList = equalsActions.computeIfAbsent(nMatchString, e -> new ArrayList<>());
+        actionList.add(action);
+        hasAnyActions = true;
+    }
+
+    public void addStartsWithMatcherAction(String nMatchString, MatcherAction action) {
+        List<MatcherAction> actionList = startsWithActions.computeIfAbsent(nMatchString, e -> new ArrayList<>());
+        actionList.add(action);
+        hasAnyActions = true;
+    }
+
+    public void addWordRangeMatcherAction(Range range, MatcherAction action) {
+        List<MatcherAction> actionList = wordRangeActions.computeIfAbsent(range, e -> new ArrayList<>());
+        actionList.add(action);
+        hasAnyActions = true;
+    }
+
+    public void fireMatchingActions(ParseTree<MatcherTree> uaTree, String value) {
+        if (!hasAnyActions) {
+            return; // Nothing to fire
+        }
+        // Inform the actions at THIS level that need to be informed.
+        String informValue = value == null ? AntlrUtils.getSourceText(uaTree) : value;
+
+        actions.forEach(action ->
+            action.inform(this, uaTree, informValue)
+        );
+
+        equalsActions.forEach((text, actionList) -> {
+            if (informValue.equals(text)) {
+                actionList.forEach(action ->
+                    action.inform(this, uaTree, informValue)
+                );
+            }
+        });
+
+        startsWithActions.forEach((text, actionList) -> {
+            if (informValue.startsWith(text)) {
+                actionList.forEach(action ->
+                    action.inform(this, uaTree, informValue)
+                );
+            }
+        });
+
+        wordRangeActions.forEach((wordRange, actionList) -> {
+            String words = WordSplitter.getInstance().getSplitRange(informValue, wordRange);
+            actionList.forEach(action ->
+                action.inform(this, uaTree, words)
+            );
+        });
+    }
 
     public MatcherTree getOrCreateChild(AgentPathFragment newChildFragment, int newChildIndex) {
 //        LOG.info("[getOrCreateChild]>: {} --- {} --- {}", this, newChildFragment, newChildIndex);
