@@ -2983,3 +2983,95 @@ config:
       AgentNameVersion                     : 'Sogou Explorer 2.X'
       AgentNameVersionMajor                : 'Sogou Explorer 2'
 
+# Testcase found on https://docs.microsoft.com/en-us/azure/kusto/query/parse-useragentfunction
+#  { "Browser": { "Family": "AdobeAIR", "MajorVersion": "2", "MinorVersion": "5", "Patch": "1" } }
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; en-US) AppleWebKit/531.9 (KHTML, like Gecko) AdobeAIR/2.5.1'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Windows ??'
+      OperatingSystemNameVersionMajor       : 'Windows ??'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'AppleWebKit'
+      LayoutEngineVersion                   : '531.9'
+      LayoutEngineVersionMajor              : '531'
+      LayoutEngineNameVersion               : 'AppleWebKit 531.9'
+      LayoutEngineNameVersionMajor          : 'AppleWebKit 531'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'AdobeAIR'
+      AgentVersion                          : '2.5.1'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'AdobeAIR 2.5.1'
+      AgentNameVersionMajor                 : 'AdobeAIR 2'
+      AgentLanguage                         : 'English (United States)'
+      AgentLanguageCode                     : 'en-us'
+      AgentSecurity                         : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Android; U; nl-NL) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0'
+    expected:
+      DeviceClass                           : 'Mobile'
+      DeviceName                            : 'Android Mobile'
+      DeviceBrand                           : 'Unknown'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Android'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Android ??'
+      OperatingSystemNameVersionMajor       : 'Android ??'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'AppleWebKit'
+      LayoutEngineVersion                   : '533.19.4'
+      LayoutEngineVersionMajor              : '533'
+      LayoutEngineNameVersion               : 'AppleWebKit 533.19.4'
+      LayoutEngineNameVersionMajor          : 'AppleWebKit 533'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'AdobeAIR'
+      AgentVersion                          : '18.0'
+      AgentVersionMajor                     : '18'
+      AgentNameVersion                      : 'AdobeAIR 18.0'
+      AgentNameVersionMajor                 : 'AdobeAIR 18'
+      AgentLanguage                         : 'Dutch (Netherlands)'
+      AgentLanguageCode                     : 'nl-nl'
+      AgentSecurity                         : 'Strong security'
+
+
+# Testcase found on https://docs.microsoft.com/en-us/azure/kusto/query/parse-useragentfunction
+# { "Browser": { "Family": "Nokia OSS Browser", "MajorVersion": "3", "MinorVersion": "1", "Patch": "" }, "OperatingSystem": { "Family": "Symbian OS", "MajorVersion": "9", "MinorVersion": "2", "Patch": "", "PatchMinor": "" }, "Device": { "Family": "Nokia N81", "Brand": "Nokia", "Model": "N81-3" } }
+# https://en.wikipedia.org/wiki/Nokia_Browser_for_Symbian
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 NokiaN81-3/10.0.032 Profile/MIDP-2.0 Configuration/CLDC-1.1 ) AppleWebKit/413 (KHTML, like Gecko) Safari/4'
+    expected:
+      DeviceClass                           : 'Phone'
+      DeviceName                            : 'Nokia Symbian Phone'
+      DeviceBrand                           : 'Nokia'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'SymbianOS'
+      OperatingSystemVersion                : '9.2'
+      OperatingSystemVersionMajor           : '9'
+      OperatingSystemNameVersion            : 'SymbianOS 9.2'
+      OperatingSystemNameVersionMajor       : 'SymbianOS 9'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'AppleWebKit'
+      LayoutEngineVersion                   : '413'
+      LayoutEngineVersionMajor              : '413'
+      LayoutEngineNameVersion               : 'AppleWebKit 413'
+      LayoutEngineNameVersionMajor          : 'AppleWebKit 413'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Safari'
+      AgentVersion                          : '4'
+      AgentVersionMajor                     : '4'
+      AgentNameVersion                      : 'Safari 4' # FIXME: "Safari" on "Symbian" is really "Nokia Browser" ??
+      AgentNameVersionMajor                 : 'Safari 4'
+      AgentSecurity                         : 'Strong security'
+

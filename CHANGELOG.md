@@ -2,7 +2,11 @@ This is intended as an overview of the major changes
 
 v5.12-SNAPSHOT
 ===
-- Detect KaiOS and Lyf phones
+- New detections
+    - Agent: AdobeAir
+    - OS: KaiOS
+    - Brands: Lyf
+    - Robots: Naver Yeti, TrueClicks
 
 v5.11
 ===
