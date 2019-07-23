@@ -125,7 +125,7 @@ config:
     - 'AgentName                           :   2006 :@Browser'
     - 'AgentVersion                        :   2006 :@Browser^.version'
 
-    # In some obscure cases we have a parse problem that sends everything inside a comment block
+# In some obscure cases we have a parse problem that sends everything inside a comment block
 - matcher:
     extract:
     - 'LayoutEngineClass                   :   1900 :"Browser"'
@@ -144,7 +144,15 @@ config:
     - 'AgentName                           :   1900 :@Gecko.name'
     - 'AgentVersion                        :   1900 :@Gecko.version'
 
-#
+# TODO: Make more generic with lookup (if needed)
+- matcher:
+    variable:
+    - 'Browser: agent.(2-5)product.name="IceDragon"^'
+    extract:
+    - 'AgentClass                          :   2006 :"Browser"'
+    - 'AgentName                           :   2006 :"Comodo IceDragon"'
+    - 'AgentVersion                        :   2006 :@Browser^.version'
+
 #Gecko:
 - test:
     input:
