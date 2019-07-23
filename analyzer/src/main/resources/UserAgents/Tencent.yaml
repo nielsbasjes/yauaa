@@ -1215,3 +1215,31 @@ config:
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
       NetworkType                          : 'cmnet'
+
+# This seems hacked together manually: Nested useragent, "QQDownload"
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; GTB6.5; QQDownload 534; Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1) ; SLCC2; .NET CLR 2.0.50727; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 3.0.30729)'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpuBits                         : '32'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : '7'
+      OperatingSystemVersionMajor           : '7'
+      OperatingSystemNameVersion            : 'Windows 7'
+      OperatingSystemNameVersionMajor       : 'Windows 7'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Trident'
+      LayoutEngineVersion                   : '4.0'
+      LayoutEngineVersionMajor              : '4'
+      LayoutEngineNameVersion               : 'Trident 4.0'
+      LayoutEngineNameVersionMajor          : 'Trident 4'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Internet Explorer'
+      AgentVersion                          : '8.0'
+      AgentVersionMajor                     : '8'
+      AgentNameVersion                      : 'Internet Explorer 8.0'
+      AgentNameVersionMajor                 : 'Internet Explorer 8'
