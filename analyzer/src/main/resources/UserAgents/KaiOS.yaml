@@ -1,0 +1,309 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2019 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+# LYF: Indian Smartphone company https://www.mylyf.com/ https://en.wikipedia.org/wiki/LYF
+# KaiOS: OS for small phones (used by LYF, Nokia, ... ) based on Firefox OS
+# https://en.wikipedia.org/wiki/KaiOS  https://www.kaiostech.com/
+
+
+- matcher:
+    variable:
+    - 'Device: agent.(1)product.(1)comments.entry.(1)product.name="LYF"'
+    extract:
+    - 'DeviceName                          :   1010 :@Device^.(1)version'
+    - 'DeviceBrand                         :   1010 :"Lyf"'
+    - 'DeviceFirmwareVersion               :     20 :@Device^.(2)version'
+
+- matcher:
+    variable:
+    - 'Device: agent.(1)product.(1)comments.entry.(1)product.name="$LYF"'
+    extract:
+    - 'DeviceName                          :   1010 :@Device^.(1)version'
+    - 'DeviceBrand                         :   1010 :"Lyf"'
+    - 'DeviceFirmwareVersion               :     20 :@Device^.(2)version'
+
+- matcher:
+    variable:
+    - 'OS: agent.product.name="KaiOS"^'
+    - 'Agent: @OS<'
+    extract:
+    - 'DeviceClass                         :   1000 :"Phone"'
+    - 'OperatingSystemClass                :   1020 :"Mobile"'
+    - 'OperatingSystemName                 :   1020 :"KaiOS"'
+    - 'OperatingSystemVersion              :   1020 :@OS.version'
+    - 'AgentClass                          :   3000 :"Browser"'
+    - 'AgentName                           :   3000 :@Agent.name'
+    - 'AgentVersion                        :   3000 :@Agent.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Mobile; LYF/F101K/LYF-F101K-000-01-39-130818;Android; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'LYF F101K'
+      DeviceBrand                          : 'LYF'
+      DeviceFirmwareVersion                : 'LYF-F101K-000-01-39-130818'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'KaiOS'
+      OperatingSystemVersion               : '2.0'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'KaiOS 2.0'
+      OperatingSystemNameVersionMajor      : 'KaiOS 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '48.0'
+      LayoutEngineVersionMajor             : '48'
+      LayoutEngineNameVersion              : 'Gecko 48.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 48'
+      LayoutEngineBuild                    : '48.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '48.0'
+      AgentVersionMajor                    : '48'
+      AgentNameVersion                     : 'Firefox 48.0'
+      AgentNameVersionMajor                : 'Firefox 48'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Mobile; LYF/F120B/LYF-F120B-001-02-04-230818;Android; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5,gzip(gfe)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'LYF F120B'
+      DeviceBrand                          : 'LYF'
+      DeviceFirmwareVersion                : 'LYF-F120B-001-02-04-230818'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'KaiOS'
+      OperatingSystemVersion               : '2.5'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'KaiOS 2.5'
+      OperatingSystemNameVersionMajor      : 'KaiOS 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '48.0'
+      LayoutEngineVersionMajor             : '48'
+      LayoutEngineNameVersion              : 'Gecko 48.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 48'
+      LayoutEngineBuild                    : '48.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '48.0'
+      AgentVersionMajor                    : '48'
+      AgentNameVersion                     : 'Firefox 48.0'
+      AgentNameVersionMajor                : 'Firefox 48'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Mobile; $LYF/$F30C/$LYF_F30C-000-08-02-130917; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'LYF $F30C'
+      DeviceBrand                          : 'LYF'
+      DeviceFirmwareVersion                : '$LYF_F30C-000-08-02-130917'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'KaiOS'
+      OperatingSystemVersion               : '2.0'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'KaiOS 2.0'
+      OperatingSystemNameVersionMajor      : 'KaiOS 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '48.0'
+      LayoutEngineVersionMajor             : '48'
+      LayoutEngineNameVersion              : 'Gecko 48.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 48'
+      LayoutEngineBuild                    : '48.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '48.0'
+      AgentVersionMajor                    : '48'
+      AgentNameVersion                     : 'Firefox 48.0'
+      AgentNameVersionMajor                : 'Firefox 48'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Mobile; $LYF/$F30C/$LYF_F30C-000-09-09-010218; Android; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'LYF $F30C'
+      DeviceBrand                          : 'LYF'
+      DeviceFirmwareVersion                : '$LYF_F30C-000-09-09-010218'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'KaiOS'
+      OperatingSystemVersion               : '2.0'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'KaiOS 2.0'
+      OperatingSystemNameVersionMajor      : 'KaiOS 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '48.0'
+      LayoutEngineVersionMajor             : '48'
+      LayoutEngineNameVersion              : 'Gecko 48.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 48'
+      LayoutEngineBuild                    : '48.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '48.0'
+      AgentVersionMajor                    : '48'
+      AgentNameVersion                     : 'Firefox 48.0'
+      AgentNameVersionMajor                : 'Firefox 48'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Mobile; LYF/LF-2403N/LYF-LF2403N-000-01-24-280917; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'LYF LF-2403N'
+      DeviceBrand                          : 'LYF'
+      DeviceFirmwareVersion                : 'LYF-LF2403N-000-01-24-280917'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'KaiOS'
+      OperatingSystemVersion               : '2.0'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'KaiOS 2.0'
+      OperatingSystemNameVersionMajor      : 'KaiOS 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '48.0'
+      LayoutEngineVersionMajor             : '48'
+      LayoutEngineNameVersion              : 'Gecko 48.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 48'
+      LayoutEngineBuild                    : '48.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '48.0'
+      AgentVersionMajor                    : '48'
+      AgentNameVersion                     : 'Firefox 48.0'
+      AgentNameVersionMajor                : 'Firefox 48'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Mobile; LYF/LF-2403N/LYF-LF2403N-001-02-14-230818;Android; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'LYF LF-2403N'
+      DeviceBrand                          : 'LYF'
+      DeviceFirmwareVersion                : 'LYF-LF2403N-001-02-14-230818'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'KaiOS'
+      OperatingSystemVersion               : '2.5'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'KaiOS 2.5'
+      OperatingSystemNameVersionMajor      : 'KaiOS 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '48.0'
+      LayoutEngineVersionMajor             : '48'
+      LayoutEngineNameVersion              : 'Gecko 48.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 48'
+      LayoutEngineBuild                    : '48.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '48.0'
+      AgentVersionMajor                    : '48'
+      AgentNameVersion                     : 'Firefox 48.0'
+      AgentNameVersionMajor                : 'Firefox 48'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Mobile; Nokia_8110_4G; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia 8110 4G'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'KaiOS'
+      OperatingSystemVersion               : '2.5'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'KaiOS 2.5'
+      OperatingSystemNameVersionMajor      : 'KaiOS 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '48.0'
+      LayoutEngineVersionMajor             : '48'
+      LayoutEngineNameVersion              : 'Gecko 48.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 48'
+      LayoutEngineBuild                    : '48.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '48.0'
+      AgentVersionMajor                    : '48'
+      AgentNameVersion                     : 'Firefox 48.0'
+      AgentNameVersionMajor                : 'Firefox 48'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Mobile; rv:48.0; A405DL) Gecko/48.0 Firefox/48.0 KAIOS/2.5'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Alcatel A405DL'
+      DeviceBrand                          : 'Alcatel'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'KaiOS'
+      OperatingSystemVersion               : '2.5'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'KaiOS 2.5'
+      OperatingSystemNameVersionMajor      : 'KaiOS 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '48.0'
+      LayoutEngineVersionMajor             : '48'
+      LayoutEngineNameVersion              : 'Gecko 48.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 48'
+      LayoutEngineBuild                    : '48.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '48.0'
+      AgentVersionMajor                    : '48'
+      AgentNameVersion                     : 'Firefox 48.0'
+      AgentNameVersionMajor                : 'Firefox 48'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Mobile; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'KaiOS'
+      OperatingSystemVersion               : '2.5'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'KaiOS 2.5'
+      OperatingSystemNameVersionMajor      : 'KaiOS 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '48.0'
+      LayoutEngineVersionMajor             : '48'
+      LayoutEngineNameVersion              : 'Gecko 48.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 48'
+      LayoutEngineBuild                    : '48.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '48.0'
+      AgentVersionMajor                    : '48'
+      AgentNameVersion                     : 'Firefox 48.0'
+      AgentNameVersionMajor                : 'Firefox 48'

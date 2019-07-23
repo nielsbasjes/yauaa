@@ -1,5 +1,9 @@
 This is intended as an overview of the major changes
 
+v5.12-SNAPSHOT
+===
+- Detect KaiOS and Lyf phones
+
 v5.11
 ===
 - Finalized detection of Chromium/Blink based Edge both for Windows 10 and Mac
