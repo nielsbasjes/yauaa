@@ -314,7 +314,7 @@ public abstract class MatcherAction implements Serializable {
 
         LOG.info("Action inform: >>>{}<<<", matchExpression);
         LOG.info("         about >>>{}<<<", key);
-        LOG.info("   tree source >>>{}<<<", result);
+//        LOG.info("   tree source >>>{}<<<", result);
         LOG.info("         value >>>{}<<<", value);
 
         matches.add(result, key, value);

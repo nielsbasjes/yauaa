@@ -742,34 +742,6 @@ config:
         ranges.add(range);
     }
 
-    // We do not want to put ALL lengths in the hashmap for performance reasons
-    public static final int MAX_PREFIX_HASH_MATCH = 3;
-
-    // Calculate the max length we will put in the hashmap.
-    public static int firstCharactersForPrefixHashLength(String input, int maxChars) {
-        return Math.min(maxChars, Math.min(MAX_PREFIX_HASH_MATCH, input.length()));
-    }
-
-    public static String firstCharactersForPrefixHash(String input, int maxChars) {
-        return input.substring(0, firstCharactersForPrefixHashLength(input, maxChars));
-    }
-
-    // These are the paths for which we have prefix requests.
-    private final Map<String, Set<Integer>> informMatcherActionPrefixesLengths = new HashMap<>(1000);
-
-    @Override
-    public void informMeAboutPrefix(MatcherAction matcherAction, MatcherTree matcherTree, String prefix) {
-        String treeName = matcherTree.toString(); // FIXME:
-//        this.informMeAbout(matcherAction, treeName + "{\"" + firstCharactersForPrefixHash(prefix, MAX_PREFIX_HASH_MATCH) + "\"");
-        Set<Integer> lengths = informMatcherActionPrefixesLengths.computeIfAbsent(treeName, k -> new HashSet<>(4));
-        lengths.add(firstCharactersForPrefixHashLength(prefix, MAX_PREFIX_HASH_MATCH));
-    }
-
-    @Override
-    public Set<Integer> getRequiredPrefixLengths(String treeName) {
-        return informMatcherActionPrefixesLengths.get(treeName);
-    }
-
     public void informMeAbout(MatcherAction matcherAction, MatcherTree matcherTree) {
         LOG.info("[informMeAbout] tree: {}   -->  action {}", matcherTree, matcherAction);
 
@@ -1035,7 +1007,7 @@ config:
 
         private final UserAgent result;
 
-        private final MatcherTree matcherTreeRoot = new MatcherTree(AGENT, 1);
+        private final MatcherTree matcherTreeRoot = null; // FIXME: createInfiniteFullTree();
 
         GetAllPathsAnalyzer(String useragent) {
             UserAgentTreeFlattener flattener = new UserAgentTreeFlattener(this);
@@ -1066,17 +1038,6 @@ config:
         }
 
         public Set<Range> getRequiredInformRanges(String treeName) {
-            // Not needed to only get all paths
-            return Collections.emptySet();
-        }
-
-        @Override
-        public void informMeAboutPrefix(MatcherAction matcherAction, MatcherTree matcherTree, String prefix) {
-            // Not needed to only get all paths
-        }
-
-        @Override
-        public Set<Integer> getRequiredPrefixLengths(String treeName) {
             // Not needed to only get all paths
             return Collections.emptySet();
         }

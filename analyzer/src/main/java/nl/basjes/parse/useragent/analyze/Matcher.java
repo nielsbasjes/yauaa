@@ -335,10 +335,6 @@ public class Matcher implements Serializable {
         analyzer.informMeAbout(matcherAction, matcherTree);
     }
 
-    public void informMeAboutPrefix(MatcherAction matcherAction, MatcherTree matcherTree, String prefix) {
-        analyzer.informMeAboutPrefix(matcherAction, matcherTree, prefix);
-    }
-
     private final Map<String, Set<MatcherAction>> informMatcherActionsAboutVariables = new HashMap<>(8);
 
     void informMeAboutVariable(MatcherAction matcherAction, String variableName) {

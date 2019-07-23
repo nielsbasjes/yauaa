@@ -104,15 +104,16 @@ public class UserAgentTreeFlattener implements Serializable {
         // CHECKSTYLE.OFF: LeftCurly
 
         // The root case
-        @Override        public Void visitUserAgent(                    UserAgentContext                    <MatcherTree> uaTree, MatcherTree mTree) { return match(AGENT,    uaTree, mTree, null); }
+        // In case of a parse error the 'parsed' version of agent can be incomplete
+        @Override        public Void visitUserAgent(                    UserAgentContext                    <MatcherTree> uaTree, MatcherTree mTree) { return match(AGENT,    uaTree, mTree, uaTree.start.getTokenSource().getInputStream().toString()); }
 
         @Override        public Void visitRootText(                     RootTextContext                     <MatcherTree> uaTree, MatcherTree mTree) { return match(TEXT,     uaTree, mTree, null); }
         @Override        public Void visitProduct(                      ProductContext                      <MatcherTree> uaTree, MatcherTree mTree) { return match(PRODUCT,  uaTree, mTree, null); }
         @Override        public Void visitCommentProduct(               CommentProductContext               <MatcherTree> uaTree, MatcherTree mTree) { return match(PRODUCT,  uaTree, mTree, null); }
         @Override        public Void visitProductNameNoVersion(         ProductNameNoVersionContext         <MatcherTree> uaTree, MatcherTree mTree) { return match(PRODUCT,  uaTree, mTree, null); }
         @Override        public Void visitProductName(                  ProductNameContext                  <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, null); }
-        @Override        public Void visitProductNameEmail(             ProductNameEmailContext             <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, null); }
-        @Override        public Void visitProductNameUrl(               ProductNameUrlContext               <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, null); }
+        @Override        public Void visitProductNameEmail(             ProductNameEmailContext             <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, uaTree.emailAddress().getText()); }
+        @Override        public Void visitProductNameUrl(               ProductNameUrlContext               <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, uaTree.siteUrl().getText()); }
         @Override        public Void visitProductNameWords(             ProductNameWordsContext             <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, null); }
         @Override        public Void visitProductNameVersion(           ProductNameVersionContext           <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, null); }
         @Override        public Void visitProductNameUuid(              ProductNameUuidContext              <MatcherTree> uaTree, MatcherTree mTree) { return match(NAME,     uaTree, mTree, null); }
@@ -137,7 +138,16 @@ public class UserAgentTreeFlattener implements Serializable {
 
         // FIXME: Fakechild = false ...  inform(ctx, "name.(1)keyvalue", ctx.getText(), false);
         // FIXME: Fakechild = true....
-        @Override        public Void visitProductNameKeyValue(          ProductNameKeyValueContext          <MatcherTree> uaTree, MatcherTree mTree) { return match(TEXT,     uaTree, mTree, "");   }
+//        @Override
+//        public void enterProductNameKeyValue(ProductNameKeyValueContext ctx) {
+//            inform(ctx, "name.(1)keyvalue", ctx.getText(), false);
+//            informSubstrings(ctx, NAME, true);
+//        }
+
+
+        @Override        public Void visitProductNameKeyValue(          ProductNameKeyValueContext          <MatcherTree> uaTree, MatcherTree mTree) {
+            return match(TEXT,     uaTree, mTree, null);
+        }
         @Override        public Void visitProductVersion(               ProductVersionContext               <MatcherTree> uaTree, MatcherTree mTree) { return match(VERSION,  uaTree, mTree, null); }
         @Override        public Void visitProductVersionWithCommas(     ProductVersionWithCommasContext     <MatcherTree> uaTree, MatcherTree mTree) { return match(VERSION,  uaTree, mTree, null); }
         // SAME AS DEFAULT IMPLEMENTATION

@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,6 +41,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import static java.util.Locale.ENGLISH;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.EQUALS;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.STARTSWITH;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.WORDRANGE;

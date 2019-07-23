@@ -33,10 +33,6 @@ public interface Analyzer extends Serializable {
 
     Set<Range> getRequiredInformRanges(String treeName);
 
-    void informMeAboutPrefix(MatcherAction matcherAction, MatcherTree matcherTree, String prefix);
-
-    Set<Integer> getRequiredPrefixLengths(String treeName);
-
     default void receivedInput(Matcher matcher) {
         // Nothing to do
     }

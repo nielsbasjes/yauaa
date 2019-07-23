@@ -100,7 +100,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static nl.basjes.parse.useragent.UserAgentAnalyzerDirect.MAX_PREFIX_HASH_MATCH;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.BASE64;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.COMMENTS;
@@ -632,22 +631,8 @@ public class WalkList implements Serializable {
 
         @Override
         public Void visitStepStartsWithValue(StepStartsWithValueContext<MatcherTree> ctx) {
-            boolean skipIfShortEnough = stillGoingToHashMap();
             fromHereItCannotBeInHashMapAnymore();
-            String value = ctx.value.getText();
-
-            boolean addTheStep = true;
-            if (skipIfShortEnough) {
-                // If the compare value is short enough that the ENTIRE value was in the hashmap then
-                // the actual compare is not longer required
-                if (value.length() <= MAX_PREFIX_HASH_MATCH) {
-                    addTheStep = false;
-                }
-            }
-
-            if (addTheStep) {
-                add(new StepStartsWith(value));
-            }
+            add(new StepStartsWith(ctx.value.getText()));
             visitNext(ctx.nextStep);
             return null; // Void
         }
