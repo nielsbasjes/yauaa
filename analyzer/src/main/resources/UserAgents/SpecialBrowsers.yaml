@@ -3075,3 +3075,31 @@ config:
       AgentNameVersionMajor                : 'Safari 4'
       AgentSecurity                        : 'Strong security'
 
+
+# When publishing build artifacts to a maven repo this useragent is used by Apache Maven
+- test:
+    input:
+      user_agent_string: 'Apache-Maven/3.5.0 (Java 1.8.0_222; Linux 4.4.0-154-generic)'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Apache Maven' # Hmmm
+      DeviceBrand                           : 'Apache'       # Hmmm
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Linux'
+      OperatingSystemVersion                : '4.4.0-154-generic'
+      OperatingSystemVersionMajor           : '4'
+      OperatingSystemNameVersion            : 'Linux 4.4.0-154-generic'
+      OperatingSystemNameVersionMajor       : 'Linux 4'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Special'
+      AgentName                             : 'Apache-Maven'
+      AgentVersion                          : '3.5.0'
+      AgentVersionMajor                     : '3'
+      AgentNameVersion                      : 'Apache-Maven 3.5.0'
+      AgentNameVersionMajor                 : 'Apache-Maven 3'
+
