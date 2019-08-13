@@ -11,6 +11,16 @@ This is a java library that tries to parse and analyze the useragent string and 
 
 The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa.basjes.nl)
 
+EMR Compatible Build
+===========================
+!!!!!! IMPORTANT !!!!!!!
+For building emr compatible udf please checkout hive-tez-5.11 and run
+
+```mvn -Dmaven.test.skip=true -pl :yauaa-hive -am clean package```
+
+Built jar can be found in udfs/hive/target/yauaa-hive-5.11.jar. You can see example usage [here](https://yauaa.basjes.nl/UDF-ApacheHive.html).
+
+
 HIGH Profile release notes:
 ===========================
 
@@ -26,7 +36,7 @@ The detection system for the DeviceBrand has been rewritten and as a consequence
 Version 5.5
 ---
 With Google Chrome 70 the useragent string pattern has been changed on Android ( https://www.chromestatus.com/feature/4558585463832576 ) .
-As a consequence the detection of the DeviceBrand failed and you always get "Unknown". 
+As a consequence the detection of the DeviceBrand failed and you always get "Unknown".
 This has been fixed in Yauaa 5.5.
 
 Version 5.1 is bad.
@@ -35,7 +45,7 @@ If you are using version 5.1 you should upgrade IMMEDIATELY because 5.1 crashes 
 
     Mozilla/1.2.3 (http://basjes.nl)
 
-Blog post 
+Blog post
 =========
 A bit more background about this useragent parser can be found in this blog which I wrote about it: [https://techlab.bol.com/making-sense-user-agent-string/](https://partnerprogramma.bol.com/click/click?p=1&t=url&s=2171&f=TXL&url=https%3A%2F%2Ftechlab.bol.com%2Fmaking-sense-user-agent-string%2F&name=yauaa)
 
