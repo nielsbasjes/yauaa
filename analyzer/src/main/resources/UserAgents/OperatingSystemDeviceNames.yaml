@@ -51,6 +51,7 @@ config:
     - 'SunOS'
     - 'Solaris'
     - 'illumOS'
+    - 'Raspbian'
     - 'MeeGo'
     - 'Symbian'
     - 'SymbianOS'
@@ -3357,6 +3358,116 @@ config:
     - 'DeviceBrand                         :    112 :"Unknown"'
     - 'OperatingSystemClass                :    153 :"Desktop"'
     - 'OperatingSystemName                 :    153 :"illumOS"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+
+
+# =======================================================================
+# Raspbian
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Raspberry PI"'
+    - 'DeviceBrand                         :    111 :"Raspberry"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"Rasbian"'
+    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.(1)product.(1)comments.entry.product.name="Raspbian"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.(1)product.(1)comments.entry.product.name="Raspbian"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Raspberry PI"'
+    - 'DeviceBrand                         :    111 :"Raspberry"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"Rasbian"'
+    - 'OperatingSystemVersion              :    151 :CleanVersion[@Version]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry="Raspbian"'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Raspberry PI"'
+    - 'DeviceBrand                         :    111 :"Raspberry"'
+    - 'OperatingSystemClass                :    151 :"Desktop"'
+    - 'OperatingSystemName                 :    151 :"Rasbian"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[1-1]="Raspbian"'
+    extract:
+    - 'DeviceClass                         :    108 :"Desktop"'
+    - 'DeviceName                          :    108 :"Raspberry PI"'
+    - 'DeviceBrand                         :    108 :"Raspberry"'
+    - 'OperatingSystemClass                :    148 :"Desktop"'
+    - 'OperatingSystemName                 :    148 :"Rasbian"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[2-2]="Raspbian"'
+    extract:
+    - 'DeviceClass                         :    108 :"Desktop"'
+    - 'DeviceName                          :    108 :"Raspberry PI"'
+    - 'DeviceBrand                         :    108 :"Raspberry"'
+    - 'OperatingSystemClass                :    148 :"Desktop"'
+    - 'OperatingSystemName                 :    148 :"Rasbian"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Raspberry PI"'
+    - 'DeviceBrand                         :    111 :"Raspberry"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"Rasbian"'
+    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.product.name="Raspbian"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version: agent.product.name="Raspbian"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Raspberry PI"'
+    - 'DeviceBrand                         :    111 :"Raspberry"'
+    - 'OperatingSystemClass                :    150 :"Desktop"'
+    - 'OperatingSystemName                 :    150 :"Rasbian"'
+    - 'OperatingSystemVersion              :    151 :CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="Raspbian"'
+    extract:
+    - 'DeviceClass                         :    111 :"Desktop"'
+    - 'DeviceName                          :    111 :"Raspberry PI"'
+    - 'DeviceBrand                         :    111 :"Raspberry"'
+    - 'OperatingSystemClass                :    152 :"Desktop"'
+    - 'OperatingSystemName                 :    152 :"Rasbian"'
+    - 'OperatingSystemVersion              :    149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="Raspbian"'
+    extract:
+    - 'DeviceClass                         :    112 :"Desktop"'
+    - 'DeviceName                          :    112 :"Raspberry PI"'
+    - 'DeviceBrand                         :    112 :"Raspberry"'
+    - 'OperatingSystemClass                :    153 :"Desktop"'
+    - 'OperatingSystemName                 :    153 :"Rasbian"'
     - 'OperatingSystemVersion              :    149 :"??"'
 
 

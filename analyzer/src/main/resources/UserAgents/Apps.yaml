@@ -618,9 +618,9 @@ config:
     require:
     - 'IsNull[LookUp[AliAppNames;@AliApp.name]]'
     extract:
-    - 'AgentClass                          :   2018 :"Browser Webview"'
-    - 'WebviewAppName                      :   2018 :Concat["Alibaba ";NormalizeBrand[@AliApp.name]]'
-    - 'WebviewAppVersion                   :   2018 :@AliApp.version'
+    - 'AgentClass                          :   2118 :"Browser Webview"'
+    - 'WebviewAppName                      :   2118 :Concat["Alibaba ";NormalizeBrand[@AliApp.name]]'
+    - 'WebviewAppVersion                   :   2118 :@AliApp.version'
 
 - matcher:
     variable:
@@ -628,27 +628,27 @@ config:
     require:
     - 'IsNull[LookUp[AliAppNames;@AliApp.name]]'
     extract:
-    - 'AgentClass                          :   2018 :"Browser Webview"'
-    - 'WebviewAppName                      :   2018 :Concat["Alibaba ";NormalizeBrand[@AliApp.name]]'
-    - 'WebviewAppVersion                   :   2018 :@AliApp.version'
+    - 'AgentClass                          :   2118 :"Browser Webview"'
+    - 'WebviewAppName                      :   2118 :Concat["Alibaba ";NormalizeBrand[@AliApp.name]]'
+    - 'WebviewAppVersion                   :   2118 :@AliApp.version'
 
 - matcher:
     variable:
     - 'AliApp:agent.product.name[1]="AliApp"^.comments.(1)entry.(1)product'
     - 'AliAppName:LookUp[AliAppNames;@AliApp.name]'
     extract:
-    - 'AgentClass                          :   2019 :"Browser Webview"'
-    - 'WebviewAppName                      :   2019 :Concat["Alibaba ";@AliAppName]'
-    - 'WebviewAppVersion                   :   2019 :@AliApp.version'
+    - 'AgentClass                          :   2119 :"Browser Webview"'
+    - 'WebviewAppName                      :   2119 :Concat["Alibaba ";@AliAppName]'
+    - 'WebviewAppVersion                   :   2119 :@AliApp.version'
 
 - matcher:
     variable:
     - 'AliApp:agent.product.name[2]="AliApp"^.comments.(1)entry.(1)product'
     - 'AliAppName:LookUp[AliAppNames;@AliApp.name]'
     extract:
-    - 'AgentClass                          :   2019 :"Browser Webview"'
-    - 'WebviewAppName                      :   2019 :Concat["Alibaba ";@AliAppName]'
-    - 'WebviewAppVersion                   :   2019 :@AliApp.version'
+    - 'AgentClass                          :   2119 :"Browser Webview"'
+    - 'WebviewAppName                      :   2119 :Concat["Alibaba ";@AliAppName]'
+    - 'WebviewAppVersion                   :   2119 :@AliApp.version'
 
 - test:
     input:

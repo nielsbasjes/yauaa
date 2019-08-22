@@ -4,6 +4,7 @@ v5.12-SNAPSHOT
 ===
 - New detections
   - Agent: AdobeAir, Whale, Tungsten, Kinza, Iridium, Superbird, Avast, Comodo Dragon & IceDragon
+  - Device: Raspberry PI
   - OS: KaiOS
   - Brands: Lyf
   - Robots: Naver Yeti, TrueClicks

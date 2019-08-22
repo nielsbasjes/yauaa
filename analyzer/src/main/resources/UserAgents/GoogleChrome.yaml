@@ -40,9 +40,8 @@ config:
       "Amigo"           : "Amigo"       # https://amigo.mail.ru/
       "MRCHROME"        : "Amigo"       # https://amigo.mail.ru/
       "MRPULSE"         : "Pulse"       # https://amigo.mail.ru/
+      # Also matches "Ubuntu Chromium", "snap Chromium" (Chromium running from within a snap), "Raspbian Chromium", ...
       "Chromium"        : "Chromium"
-      "Ubuntu Chromium" : "Chromium"
-      "snap Chromium"   : "Chromium"    # Chromium running from within a snap (Linux installation system)
       "Epiphany"        : "Epiphany"
       "UCBrowser"       : "UCBrowser"
       "Viera"           : "Viera"
@@ -361,8 +360,16 @@ config:
     - 'Browser: LookUp[SpecialChromeBrowserNames;agent.product.(1)name]'
     extract:
     - 'AgentClass                          :     38 :"Browser"'
-    - 'AgentName                           :     38 :@Browser'
-    - 'AgentVersion                        :     38 :@Browser^.version'
+    - 'AgentName                           :   2038 :@Browser'
+    - 'AgentVersion                        :   2038 :@Browser^.version'
+
+- matcher:
+    variable:
+    - 'Browser: LookUp[SpecialChromeBrowserNames;agent.product.(1)name[2-]]'
+    extract:
+    - 'AgentClass                          :     38 :"Browser"'
+    - 'AgentName                           :   2037 :@Browser'
+    - 'AgentVersion                        :   2037 :@Browser^.version'
 
 - matcher:
     variable:
@@ -1220,11 +1227,11 @@ config:
       LayoutEngineNameVersion              : 'Trident 6.0'
       LayoutEngineNameVersionMajor         : 'Trident 6'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Internet Explorer'
-      AgentVersion                         : '10.0'
-      AgentVersionMajor                    : '10'
-      AgentNameVersion                     : 'Internet Explorer 10.0'
-      AgentNameVersionMajor                : 'Internet Explorer 10'
+      AgentName                            : 'UCBrowser'
+      AgentVersion                         : '4.2.1.541'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'UCBrowser 4.2.1.541'
+      AgentNameVersionMajor                : 'UCBrowser 4'
 
 
 - test:
