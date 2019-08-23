@@ -33,23 +33,29 @@
 
   <url>https://yauaa.basjes.nl</url>
 
-  <properties>
-    <antlr.version>4.7.2</antlr.version>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>org.antlr</groupId>
       <artifactId>antlr4-runtime</artifactId>
       <version>${antlr.version}</version>
-<!--      <scope>provided</scope>-->
     </dependency>
 
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
       <version>${spring.version}</version>
-<!--      <scope>provided</scope>-->
+    </dependency>
+
+    <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <version>${snakeyaml.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${google-guava.version}</version>
     </dependency>
 
     <dependency>
@@ -81,20 +87,6 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>${slf4j.version}</version>
       <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.yaml</groupId>
-      <artifactId>snakeyaml</artifactId>
-      <version>1.24</version>
-<!--      <scope>provided</scope>-->
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>28.0-jre</version>
-<!--      <scope>provided</scope>-->
     </dependency>
 
     <dependency>
@@ -155,7 +147,6 @@
         <configuration>
           <minimizeJar>true</minimizeJar>
           <createDependencyReducedPom>true</createDependencyReducedPom>
-<!--          <keepDependenciesWithProvidedScope>true</keepDependenciesWithProvidedScope>-->
           <relocations>
             <relocation>
               <pattern>org.springframework</pattern>
@@ -214,21 +205,21 @@
             </configuration>
           </execution>
 
-<!--          <execution>-->
-<!--            <id>Inject dependency-reduced-pom.xml to the final jar file</id>-->
-<!--            <phase>package</phase>-->
-<!--            <goals>-->
-<!--              <goal>exec</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <executable>./inject-dependency-reduced-pom-into-jar.sh</executable>-->
-<!--              <arguments>-->
-<!--                <argument>${project.groupId}</argument>-->
-<!--                <argument>${project.artifactId}</argument>-->
-<!--                <argument>${project.version}</argument>-->
-<!--              </arguments>-->
-<!--            </configuration>-->
-<!--          </execution>-->
+          <execution>
+            <id>Inject dependency-reduced-pom.xml to the final jar file</id>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>./inject-dependency-reduced-pom-into-jar.sh</executable>
+              <arguments>
+                <argument>${project.groupId}</argument>
+                <argument>${project.artifactId}</argument>
+                <argument>${project.version}</argument>
+              </arguments>
+            </configuration>
+          </execution>
 
         </executions>
       </plugin>

@@ -30,6 +30,66 @@
   <artifactId>yauaa-udf-parent</artifactId>
   <name>Yauaa : UDF : </name>
 
+  <!-- ================================================================================================ -->
+  <!-- These 4 dependencies are excluded by all UDFs because of dependency/shading/ relocating problems -->
+  <!-- But they do need them for the compilation and testing ... -->
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>nl.basjes.parse.useragent</groupId>
+        <artifactId>yauaa</artifactId>
+        <version>${project.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr4-runtime</artifactId>
+      <version>${antlr.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <version>${snakeyaml.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${google-guava.version}</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  <!-- ======================================================= -->
+
   <modules>
     <module>logparser</module>
     <module>pig</module>
