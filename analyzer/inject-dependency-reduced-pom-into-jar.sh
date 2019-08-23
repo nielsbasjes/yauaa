@@ -51,3 +51,5 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 
 cat dependency-reduced-pom.xml | fgrep -v '<?xml version=' >> target/${DIR}/pom.xml
 jar -uf target/${artifactId}-${version}.jar -C target ${DIR}/pom.xml
+
+echo "Replaced the pom.xml with the dependency-reduced-pom.xml"

@@ -42,14 +42,14 @@
       <groupId>org.antlr</groupId>
       <artifactId>antlr4-runtime</artifactId>
       <version>${antlr.version}</version>
-      <optional>true</optional>
+<!--      <scope>provided</scope>-->
     </dependency>
 
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
       <version>${spring.version}</version>
-      <optional>true</optional>
+<!--      <scope>provided</scope>-->
     </dependency>
 
     <dependency>
@@ -87,14 +87,14 @@
       <groupId>org.yaml</groupId>
       <artifactId>snakeyaml</artifactId>
       <version>1.24</version>
-      <optional>true</optional>
+<!--      <scope>provided</scope>-->
     </dependency>
 
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>28.0-jre</version>
-      <optional>true</optional>
+<!--      <scope>provided</scope>-->
     </dependency>
 
     <dependency>
@@ -155,6 +155,7 @@
         <configuration>
           <minimizeJar>true</minimizeJar>
           <createDependencyReducedPom>true</createDependencyReducedPom>
+<!--          <keepDependenciesWithProvidedScope>true</keepDependenciesWithProvidedScope>-->
           <relocations>
             <relocation>
               <pattern>org.springframework</pattern>
@@ -213,21 +214,21 @@
             </configuration>
           </execution>
 
-          <execution>
-            <id>Inject dependency-reduced-pom.xml to the final jar file</id>
-            <phase>package</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>./inject-dependency-reduced-pom-into-jar.sh</executable>
-              <arguments>
-                <argument>${project.groupId}</argument>
-                <argument>${project.artifactId}</argument>
-                <argument>${project.version}</argument>
-              </arguments>
-            </configuration>
-          </execution>
+<!--          <execution>-->
+<!--            <id>Inject dependency-reduced-pom.xml to the final jar file</id>-->
+<!--            <phase>package</phase>-->
+<!--            <goals>-->
+<!--              <goal>exec</goal>-->
+<!--            </goals>-->
+<!--            <configuration>-->
+<!--              <executable>./inject-dependency-reduced-pom-into-jar.sh</executable>-->
+<!--              <arguments>-->
+<!--                <argument>${project.groupId}</argument>-->
+<!--                <argument>${project.artifactId}</argument>-->
+<!--                <argument>${project.version}</argument>-->
+<!--              </arguments>-->
+<!--            </configuration>-->
+<!--          </execution>-->
 
         </executions>
       </plugin>
