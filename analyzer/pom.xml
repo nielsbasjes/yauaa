@@ -126,20 +126,10 @@
         </configuration>
       </plugin>
 
-      <!-- Some of the dependencies (Antlr4, Spring and SnakeYaml) have proven to be problematic -->
+      <!-- Some of the dependencies (Antlr4, Guava, Spring and SnakeYaml) have proven to be problematic -->
       <!-- for downstream users who need different versions of these in the same application.    -->
       <!-- So for only these we include and relocate the used classes into the main jar.         -->
-
-      <!-- Turns out that a shaded jar still contains the original pom.xml that references the shaded dependencies. -->
-      <!-- As a consequence the downstream users (like the udfs in this project) still include the entire set of -->
-      <!-- dependencies. -->
-      <!-- So step 1 was to inject the dependency-reduced-pom.xml into the shaded jar. -->
-      <!-- This way building an external project no longer includes things like Antlr and Guava a second time. -->
-
-      <!-- However when building this project in a single run the other modules (like the udfs) reference -->
-      <!-- the pom.xml in the project instead of the one in the jar file. -->
-      <!-- The second change to get around that was to make those dependencies 'optional'. -->
-      <!-- This seems to fix it. -->
+      <!-- Documentation of the used shading construct: https://yauaa.basjes.nl/NOTES-shading-dependencies.html -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>

@@ -24,10 +24,10 @@
 * [Apache Pig](UDF-ApachePig.md)
 * [Logstash](UDF-Logstash.md)
 
-
 ### Internals
 * [Base design idea](Internals-BaseDesign.md)
 * [Making new rules](Internals-MakingNewRules.md)
+* [Shading Java dependencies](NOTES-shading-dependencies.md)
 
 ### Open Source
 * [Source code](https://github.com/nielsbasjes/yauaa/)
