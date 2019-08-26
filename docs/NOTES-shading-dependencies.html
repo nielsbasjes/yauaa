@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Basic usage · Yauaa: Yet Another UserAgent Analyzer</title>
+        <title>Shading Java dependencies · Yauaa: Yet Another UserAgent Analyzer</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -59,10 +59,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="README-Limitations.html" />
     
-    
-    <link rel="prev" href="TryIt.html" />
+    <link rel="prev" href="Internals-MakingNewRules.html" />
     
 
     </head>
@@ -139,7 +137,7 @@
         
         
     
-        <li class="chapter active" data-level="2.1" data-path="README-Usage.html">
+        <li class="chapter " data-level="2.1" data-path="README-Usage.html">
             
                 <a href="README-Usage.html">
             
@@ -374,7 +372,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.3" data-path="NOTES-shading-dependencies.html">
+        <li class="chapter active" data-level="4.3" data-path="NOTES-shading-dependencies.html">
             
                 <a href="NOTES-shading-dependencies.html">
             
@@ -538,7 +536,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Basic usage</a>
+        <a href="." >Shading Java dependencies</a>
     </h1>
 </div>
 
@@ -553,141 +551,130 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="using-the-analyzer">Using the analyzer</h1>
-<p>To use this analyzer you can use it either directly in your Java based applications or use one of 
-the User Defined Functions that are available for many of Apache bigdata tools (Pig, Hive, Flink, Beam, ...) as described <a href="UDFs.html">here</a>.</p>
-<h1 id="using-in-java-applications">Using in Java applications</h1>
-<p>To use the library you must first add it as a dependency to your application.
-The library has been published to <a href="https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa/5.11/jar" target="_blank">maven central</a> so that should work in almost any environment.</p>
-<p>If you use a maven based project simply add this dependency to your project.</p>
-<pre><code>&lt;dependency&gt;
-  &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
-  &lt;artifactId&gt;yauaa&lt;/artifactId&gt;
-  &lt;version&gt;5.11&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
+                                <h1 id="introduction">Introduction</h1>
+<p>This is a summary of the reasons WHY I have done the shading in this project the way it is now.</p>
+<p>If someone has suggestions/hint on how this can be done better I&apos;m really curious what the &apos;right&apos; way of doing this is.</p>
+<p>The base structure of this project is we have a module with the functionality and a set of &apos;UDFs&apos; 
+that wrap this functionality so that it can be used in external processing frameworks (like Pig, Flink, Hive, etc.)</p>
+<h1 id="base-goal">Base goal</h1>
+<p>This library and the UDFs should be easy to use for all downstream users that want to use this in their projects. </p>
+<h1 id="problem-1-problematic-dependencies">Problem 1: Problematic dependencies</h1>
+<p>Some of the dependencies (Antlr4, Guava, Spring and SnakeYaml) have proven to be problematic
+for downstream users who need different versions of these in the same application.</p>
+<h1 id="solution-1-shade-and-relocate">Solution 1: Shade and relocate</h1>
+<p>So for only these we include and relocate the used classes into the main jar.         </p>
+<p>In the pom.xml</p>
+<pre><code>&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+  &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
 
-<p>and in your application you can use it as simple as this</p>
-<pre><code>UserAgentAnalyzer uaa = UserAgentAnalyzer
-            .newBuilder()
-            .hideMatcherLoadStats()
-            .withCache(10000)
-            .build();
+  &lt;configuration&gt;
+    &lt;minimizeJar&gt;true&lt;/minimizeJar&gt;
+    &lt;createDependencyReducedPom&gt;true&lt;/createDependencyReducedPom&gt;
+    &lt;relocations&gt;
+      &lt;relocation&gt;
+        &lt;pattern&gt;org.springframework&lt;/pattern&gt;
+        &lt;shadedPattern&gt;nl.basjes.shaded.org.springframework&lt;/shadedPattern&gt;
+      &lt;/relocation&gt;
+      &lt;relocation&gt;
+        &lt;pattern&gt;org.antlr&lt;/pattern&gt;
+        &lt;shadedPattern&gt;nl.basjes.shaded.org.antlr&lt;/shadedPattern&gt;
+      &lt;/relocation&gt;
+      &lt;relocation&gt;
+        &lt;pattern&gt;org.yaml.snakeyaml&lt;/pattern&gt;
+        &lt;shadedPattern&gt;nl.basjes.shaded.org.yaml.snakeyaml&lt;/shadedPattern&gt;
+      &lt;/relocation&gt;
+      &lt;relocation&gt;
+        &lt;pattern&gt;com.google&lt;/pattern&gt;
+        &lt;shadedPattern&gt;nl.basjes.shaded.com.google&lt;/shadedPattern&gt;
+      &lt;/relocation&gt;
+    &lt;/relocations&gt;
+  &lt;/configuration&gt;
 
-UserAgent agent = uaa.parse(&quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11&quot;);
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;id&gt;inject-problematic-dependencies&lt;/id&gt;
+      &lt;phase&gt;package&lt;/phase&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;shade&lt;/goal&gt;
+      &lt;/goals&gt;
+      &lt;configuration&gt;
+        &lt;artifactSet&gt;
+          &lt;includes&gt;
+            &lt;include&gt;org.antlr:antlr4-runtime&lt;/include&gt;
+            &lt;include&gt;org.springframework:spring-core&lt;/include&gt;
+            &lt;include&gt;org.yaml:snakeyaml&lt;/include&gt;
+            &lt;include&gt;com.google.guava:guava&lt;/include&gt;
+          &lt;/includes&gt;
+        &lt;/artifactSet&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
 
-for (String fieldName: agent.getAvailableFieldNamesSorted()) {
-    System.out.println(fieldName + &quot; = &quot; + agent.getValue(fieldName));
-}
-</code></pre><p>Please instantiate a new UserAgentAnalyzer as few times as possible because the initialization step for a full UserAgentAnalyzer (i.e. all fields) usually takes something in the range of 2-5 seconds.
-If you need multiple instances of the UserAgentAnalyzer then you MUST create a new Builder instance for each of those.</p>
-<p>Note that not all fields are available after every parse. So be prepared to receive a &apos;null&apos; if you extract a specific name.</p>
-<h1 id="cache-size-setting">Cache size setting</h1>
-<p>I recommend you leave the cache to a size that is roughly the unique number of useragents your site finds
-in a limited timespan. Something like 15/30/60 minutes usually gives you a fine cache size.
-On a very busy website I see ~50K-60K distinct useragents per day and ~10K per hour. 
-So in my opinion a cache size of 5K-10K elements is a good choice.</p>
-<h1 id="limiting-to-only-certain-fields">Limiting to only certain fields</h1>
-<p>In some scenarios you only want a specific field and all others are unwanted.
-This can be achieved by creating the analyzer in Java like this:</p>
-<pre><code>UserAgentAnalyzer uaa;
+  &lt;/executions&gt;
+&lt;/plugin&gt;
+</code></pre><h1 id="problem-2-transitive-dependencies">Problem 2: Transitive dependencies</h1>
+<p>Turns out that a shaded jar still contains the original pom.xml that references the shaded dependencies. 
+As a consequence the downstream users (like the udfs in this project) still include the entire set of 
+dependencies (not used by the code) in addition to the shaded versions (used by the code).</p>
+<p>This is a known problem in the Maven shade plugin: <a href="https://issues.apache.org/jira/browse/MSHADE-36" target="_blank">https://issues.apache.org/jira/browse/MSHADE-36</a></p>
+<h1 id="solution-2-inject-the-dependency-reduced-pomxml-into-the-final-jar">Solution 2: Inject the dependency-reduced-pom.xml into the final jar</h1>
+<p>This way building an external project no longer includes things like Antlr and Guava a second time. </p>
+<p>Script: inject-dependency-reduced-pom-into-jar.sh:</p>
+<pre><code>#!/bin/bash
+groupId=$1
+artifactId=$2
+version=$3
 
-uaa = UserAgentAnalyzer
-        .newBuilder()
-        .withField(&quot;DeviceClass&quot;)
-        .withField(&quot;AgentNameVersionMajor&quot;)
-        .build();
-</code></pre><p>One important effect is that this speeds up the system because it will kick any rules that do not help in getting the desired fields.
-The above example showed an approximate 40% speed increase (i.e. times dropped from ~1ms to ~0.6ms).</p>
-<p>In the nl.basjes.parse.useragent.UserAgent many (not all!!) of the provided variables are provided as a constant String.
-You can choose to use these and avoid subtle typos in the requested attribute names.</p>
-<h1 id="building-your-project-with--xlintall">Building your project with -Xlint:all</h1>
-<p>If you are trying to get rid of all possible problems in your application and set the compiler flag -Xlint:all you will see warnings relating to the Kryo serialization system.</p>
-<pre><code>[WARNING] COMPILATION WARNING :
-[INFO] -------------------------------------------------------------
-[WARNING] Cannot find annotation method &apos;value()&apos; in type &apos;com.esotericsoftware.kryo.DefaultSerializer&apos;: class file for com.esotericsoftware.kryo.DefaultSerializer not found
-[WARNING] Cannot find annotation method &apos;value()&apos; in type &apos;com.esotericsoftware.kryo.DefaultSerializer&apos;
-[INFO] 2 warnings
-</code></pre><p>The Yauaa analyzer has been prepared in such a way that it can be serialized using both the standard Java serialization and the Kryo serialization library.
-The Kryo library has been configured as a &quot;provided&quot; dependency because many do not need it, and (to avoid version conflicts) those who do need it have this dependency already.</p>
-<p>If your project does not use Kryo and you have this warning then there are several ways to work around this:</p>
-<ol>
-<li>Disable the Xlint check that triggers this warning. Apparently this is the &quot;classfile&quot; so try to use <strong>-Xlint:all,-classfile</strong> instead.</li>
-<li><p>Add the otherwise needless Kryo library as a &quot;provided&quot; dependency to your project.</p>
-<pre><code>&lt;dependency&gt;
-  &lt;groupId&gt;com.esotericsoftware&lt;/groupId&gt;
-  &lt;artifactId&gt;kryo&lt;/artifactId&gt;
-  &lt;version&gt;4.0.2&lt;/version&gt;
-  &lt;scope&gt;provided&lt;/scope&gt;
-&lt;/dependency&gt;
-</code></pre></li>
-</ol>
-<h1 id="troubles-with-logging-dependencies">Troubles with logging dependencies</h1>
-<p>The Yauaa engine uses SLF4J as the primary logging framework.</p>
-<p>A few small pieces from Spring are also included and these expect Apache (Jakarta) Commons logging like org.apache.commons.logging.LogFactory.</p>
-<p>It all depends on your exact context what the best solution is for you to make all of this logging work as intended.</p>
-<p>Essentially you can redirect all JCL logging into SLF4J and then into the actual logging system with something as simple as this</p>
-<pre><code>&lt;dependency&gt;
-  &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
-  &lt;artifactId&gt;jcl-over-slf4j&lt;/artifactId&gt;
-  &lt;version&gt;1.7.25&lt;/version&gt;
-&lt;/dependency&gt;
+DIR=META-INF/maven/${groupId}/${artifactId}
+mkdir -p target/${DIR}
+cp dependency-reduced-pom.xml target/${DIR}/pom.xml
+jar -uf target/${artifactId}-${version}.jar -C target ${DIR}/pom.xml
+</code></pre><p>and in the pom.xml:</p>
+<pre><code>&lt;plugin&gt;
+  &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+  &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;1.6.0&lt;/version&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;id&gt;Inject dependency-reduced-pom.xml to the final jar file&lt;/id&gt;
+      &lt;phase&gt;package&lt;/phase&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;exec&lt;/goal&gt;
+      &lt;/goals&gt;
+      &lt;configuration&gt;
+        &lt;executable&gt;./inject-dependency-reduced-pom-into-jar.sh&lt;/executable&gt;
+        &lt;arguments&gt;
+          &lt;argument&gt;${project.groupId}&lt;/argument&gt;
+          &lt;argument&gt;${project.artifactId}&lt;/argument&gt;
+          &lt;argument&gt;${project.version}&lt;/argument&gt;
+        &lt;/arguments&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;
+</code></pre><h1 id="problem-3-the-other-modules-look-at-the-original-pomxml">Problem 3: The other modules look at the original pom.xml</h1>
+<p>So after solution 2 it is all fine for external projects using the created jar file because they look at 
+the pom.xml in that jar file.</p>
+<p>The remaining problem is that any other module in this (multi module) project will look at the original pom.xml 
+instead of the cleaned one in the jar file.</p>
+<p>As a consequence the Hive UDF jar file contains</p>
+<pre><code>$ unzip -l udfs/hive/target/yauaa-hive-5.12-SNAPSHOT-udf.jar  | fgrep org/springframework/core/io/ResourceLoader.class
+  494  2019-08-23 12:26 nl/basjes/shaded/org/springframework/core/io/ResourceLoader.class
+  487  2019-02-13 05:32 org/springframework/core/io/ResourceLoader.class
+</code></pre><h1 id="solution-3-manually-exclude-them">Solution 3: Manually exclude them</h1>
+<p>So we exclude these 4 shaded dependencies in all modules in this project so they are no longer included double in the final jars.</p>
+<h1 id="problem-4-no-such-classfile-">Problem 4: No such classfile ...</h1>
+<p>Which gives rise to a new problem: When building/developing these modules the code will complain about missing dependencies.
+The dependencies have been shaded, relocated and excluded ... which means that any code looking for the &apos;orginal&apos; 
+class name will find it to be missing.</p>
+<h1 id="solution-4-include-as-provided">Solution 4: Include as &apos;provided&apos;</h1>
+<p>The final step I had to take was to include these 4 dependencies again as &apos;provided&apos; in all modules in this project. </p>
+<h1 id="additional-notes">Additional notes</h1>
+<ul>
+<li>Immediately setting these dependencies to &apos;provided&apos; causes them not to be included by the shade plugin.</li>
+<li>Using the optional setting on the dependency caused &quot;missing classes&quot; errors in IntelliJ</li>
+</ul>
 
-&lt;dependency&gt;
-  &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
-  &lt;artifactId&gt;slf4j-simple&lt;/artifactId&gt;
-  &lt;version&gt;1.7.25&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre><p>or (if you really have to) can redirect all SLF4J into JCL by adding something like this</p>
-<pre><code>&lt;dependency&gt;
-  &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
-  &lt;artifactId&gt;slf4j-jcl&lt;/artifactId&gt;
-  &lt;version&gt;1.7.25&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;commons-logging&lt;/groupId&gt;
-  &lt;artifactId&gt;commons-logging&lt;/artifactId&gt;
-  &lt;version&gt;1.2&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre><p>I strongly recommend you check <a href="https://www.slf4j.org/legacy.html" target="_blank">https://www.slf4j.org/legacy.html</a> for more detailed information to find out what is best for your project.</p>
-<h1 id="important-this-library-is-single-threaded-">IMPORTANT: This library is single threaded !</h1>
-<p>Because the internal analyzer code is not reentrant the main method has been synchronized on the instance. 
-So from the prespective of you the application developer this library is thread safe.</p>
-<p>If you are in a multi threaded situation you should create a separate instance per thread or accept the speed limitation of the shared synchronized instance.</p>
-<p>Note that you should really instantiate it only once per thread (and use a ThreadPool or something similar) because starting a new instance takes several seconds.</p>
-<h1 id="eclipse-users">Eclipse users</h1>
-<p>Be aware of there is a bug in Eclipse which will show you errors in perfectly valid Java code: 
-<a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=527475" target="_blank">https://bugs.eclipse.org/bugs/show_bug.cgi?id=527475</a> 
-The errors you see are related to the inheritance model used by the Builders in this project and the fact that Eclipse does not interpret it correctly. </p>
-<h1 id="scala-usage">Scala usage</h1>
-<p>When using this library from a Scala application the way the Builders have been constructed turns out to be very unfriendly to use.</p>
-<p><a href="https://github.com/jbenoit2011" target="_blank">Julien BENOIT</a> found two &apos;workable&apos; solutions of constructing the analyzer from a Scala based application:</p>
-<p>Solution 1, with <code>asInstanceOf</code> method:</p>
-<pre><code>val uaa = UserAgentAnalyzer.newBuilder
-  .withCache(10000)           .asInstanceOf[UserAgentAnalyzerDirectBuilder[_, _]]
-  .hideMatcherLoadStats       .asInstanceOf[UserAgentAnalyzerDirectBuilder[_, _]]
-  .withField(&quot;DeviceClass&quot;)   .asInstanceOf[UserAgentAnalyzerDirectBuilder[_, _]]
-  .build                      .asInstanceOf[UserAgentAnalyzer]
-</code></pre><p>Solution 2, with pattern matching:</p>
-<pre><code>val uaa = UserAgentAnalyzer
-  .newBuilder
-  .withCache(10000) match {
-  case b: UserAgentAnalyzerDirectBuilder[_, _] =&gt;
-    b.hideMatcherLoadStats match {
-      case c: UserAgentAnalyzerDirectBuilder[_, _] =&gt;
-        c.withField(&quot;DeviceClass&quot;) match {
-          case d: UserAgentAnalyzerDirectBuilder[_, _] =&gt;
-            d.build match {
-              case e: UserAgentAnalyzer =&gt; e
-              case _ =&gt; throw new Exception(&quot;User-Agent analyzer cannot be built&quot;)
-            }
-          case _ =&gt; throw new Exception(&quot;User-Agent analyzer cannot be built&quot;)
-        }
-      case _ =&gt; throw new Exception(&quot;User-Agent analyzer cannot be built&quot;)
-    }
-  case _ =&gt; throw new Exception(&quot;User-Agent analyzer cannot be built&quot;)
-}
-</code></pre>
                                 
                                 </section>
                             
@@ -714,14 +701,10 @@ The errors you see are related to the inheritance model used by the Builders in 
 
             
                 
-                <a href="TryIt.html" class="navigation navigation-prev " aria-label="Previous page: Try it online">
+                <a href="Internals-MakingNewRules.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Making new rules">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="README-Limitations.html" class="navigation navigation-next " aria-label="Next page: Limitations of the engine">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -730,7 +713,7 @@ The errors you see are related to the inheritance model used by the Builders in 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Basic usage","level":"2.1","depth":1,"next":{"title":"Limitations of the engine","level":"2.2","depth":1,"path":"README-Limitations.md","ref":"README-Limitations.md","articles":[]},"previous":{"title":"Try it online","level":"1.3","depth":1,"path":"TryIt.md","ref":"TryIt.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap","livereload"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.11"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-Usage.md","mtime":"2019-07-05T09:04:48.391Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-26T08:12:44.344Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Shading Java dependencies","level":"4.3","depth":1,"next":{"title":"Source code","level":"5.1","depth":1,"url":"https://github.com/nielsbasjes/yauaa/","ref":"https://github.com/nielsbasjes/yauaa/","articles":[]},"previous":{"title":"Making new rules","level":"4.2","depth":1,"path":"Internals-MakingNewRules.md","ref":"Internals-MakingNewRules.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap","livereload"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.11"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"NOTES-shading-dependencies.md","mtime":"2019-08-26T08:11:30.396Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-26T08:12:44.344Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
