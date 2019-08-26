@@ -8,6 +8,9 @@ v5.12-SNAPSHOT
   - OS: KaiOS
   - Brands: Lyf
   - Robots: Naver Yeti, TrueClicks
+- Updated UDF dependencies
+  - Apache Flink  1.9.0
+  - Apache Beam   2.15.0
 
 v5.11
 ===
