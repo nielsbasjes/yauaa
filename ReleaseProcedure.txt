@@ -29,7 +29,7 @@ git tag -a v${RELEASEVERSION} -m"Tag Version ${RELEASEVERSION}"
 #VERIFY If this all looks good
 
 # These two profiles are defined in ~/.m2/settings.xml
-mvn clean deploy -PpackageForRelease -Prelease -Pdeploy-sonatype
+mvn clean deploy -PpackageForRelease -Prelease -PdeployToSonatype
 
 # Now check SONATYPE
 
@@ -46,5 +46,5 @@ git push origin v${RELEASEVERSION}
 #######################
 
 # Publishing a SNAPSHOT version
-mvn clean deploy -PpackageForRelease -Pdeploy-sonatype
+mvn clean deploy -PpackageForRelease -PdeployToSonatype
 
