@@ -1,7 +1,7 @@
 Source of the original icon:
 http://www.freeiconspng.com/img/30148
 
-The rest was generated using 
+The rest was generated using
 https://realfavicongenerator.net/
 
 Code fragment needed in the <head>

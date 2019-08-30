@@ -1,6 +1,6 @@
 Using the analyzer
 ==================
-To use this analyzer you can use it either directly in your Java based applications or use one of 
+To use this analyzer you can use it either directly in your Java based applications or use one of
 the User Defined Functions that are available for many of Apache bigdata tools (Pig, Hive, Flink, Beam, ...) as described [here](UDFs.md).
 
 Using in Java applications
@@ -39,7 +39,7 @@ Note that not all fields are available after every parse. So be prepared to rece
 # Cache size setting
 I recommend you leave the cache to a size that is roughly the unique number of useragents your site finds
 in a limited timespan. Something like 15/30/60 minutes usually gives you a fine cache size.
-On a very busy website I see ~50K-60K distinct useragents per day and ~10K per hour. 
+On a very busy website I see ~50K-60K distinct useragents per day and ~10K per hour.
 So in my opinion a cache size of 5K-10K elements is a good choice.
 
 # Limiting to only certain fields
@@ -121,17 +121,17 @@ or (if you really have to) can redirect all SLF4J into JCL by adding something l
 I strongly recommend you check https://www.slf4j.org/legacy.html for more detailed information to find out what is best for your project.
 
 # IMPORTANT: This library is single threaded !
-Because the internal analyzer code is not reentrant the main method has been synchronized on the instance. 
+Because the internal analyzer code is not reentrant the main method has been synchronized on the instance.
 So from the prespective of you the application developer this library is thread safe.
 
 If you are in a multi threaded situation you should create a separate instance per thread or accept the speed limitation of the shared synchronized instance.
 
 Note that you should really instantiate it only once per thread (and use a ThreadPool or something similar) because starting a new instance takes several seconds.
 
-# Eclipse users 
-Be aware of there is a bug in Eclipse which will show you errors in perfectly valid Java code: 
-https://bugs.eclipse.org/bugs/show_bug.cgi?id=527475 
-The errors you see are related to the inheritance model used by the Builders in this project and the fact that Eclipse does not interpret it correctly. 
+# Eclipse users
+Be aware of there is a bug in Eclipse which will show you errors in perfectly valid Java code:
+https://bugs.eclipse.org/bugs/show_bug.cgi?id=527475
+The errors you see are related to the inheritance model used by the Builders in this project and the fact that Eclipse does not interpret it correctly.
 
 # Scala usage
 When using this library from a Scala application the way the Builders have been constructed turns out to be very unfriendly to use.
@@ -166,4 +166,4 @@ Solution 2, with pattern matching:
         }
       case _ => throw new Exception("User-Agent analyzer cannot be built")
     }
-  
+

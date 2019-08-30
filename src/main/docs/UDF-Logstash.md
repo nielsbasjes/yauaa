@@ -17,7 +17,7 @@ rake bootstrap
 cd ..
 ```
 
-The install the build jar file into your local maven repository 
+The install the build jar file into your local maven repository
 
 ```
 mvn install:install-file        \
@@ -25,7 +25,7 @@ mvn install:install-file        \
      -DartifactId=logstash-core \
      -Dpackaging=jar            \
      -Dversion=6.6.1            \
-     -Dfile=./logstash/logstash-core/build/libs/logstash-core-6.6.1.jar 
+     -Dfile=./logstash/logstash-core/build/libs/logstash-core-6.6.1.jar
 ```
 
 Then go to where you downloaded the Yauaa sources and run
@@ -34,7 +34,7 @@ Then go to where you downloaded the Yauaa sources and run
 mvn clean package -Plogstash -DskipTests=true
 ```
 
-After several minutes you'll find the filter gem with a name similar to this 
+After several minutes you'll find the filter gem with a name similar to this
 
 <pre><code>./udfs/logstash/target/logstash-filter-yauaa-{{ book.YauaaVersion }}.gem</code></pre>
 
@@ -50,7 +50,7 @@ logstash-plugin install ./udfs/logstash/target/logstash-filter-yauaa-{{ book.Yau
 You need to specify
 
 1. The source field
-2. For each Yauaa field you need the logstash field in which it needs to be placed. 
+2. For each Yauaa field you need the logstash field in which it needs to be placed.
 
 
     filter {

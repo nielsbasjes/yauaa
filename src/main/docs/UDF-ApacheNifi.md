@@ -36,7 +36,7 @@ After you have added this nar file you will find the ParseUserAgent processor in
 
 3. The output FlowFile will now have additional attributes for all of the selected attributes that are named
    Useragent.SelectedField.
-   
+
        Key: 'Useragent.DeviceClass'
                Value: 'Phone'
        Key: 'Useragent.OperatingSystemNameVersion'

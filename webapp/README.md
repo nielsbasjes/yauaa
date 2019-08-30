@@ -4,7 +4,7 @@ First make sure the entire software is built
 
     (cd .. && mvn clean package )
 
-Then in this directory build the image 
+Then in this directory build the image
 
     mvn dockerfile:build
 

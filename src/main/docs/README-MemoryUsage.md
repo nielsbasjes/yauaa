@@ -9,11 +9,11 @@ To get an idea of the relative memory impact of the rules needed for a specific 
 
 This table was constructed by running all testcases against the engine where we only request 1 field.
 Then after forcing a GC in the JVM we retrieve the memory footprint.
-The DeviceClass field is always extracted and as such can be seen as the baseline against not having 
+The DeviceClass field is always extracted and as such can be seen as the baseline against not having
 this engine running at all.
 
 Because most rules determine several fields there is a lot of overlap in the rules used.
-If you keep all rules we see that version 5.6 uses about 37 MiB of memory for all rules 
+If you keep all rules we see that version 5.6 uses about 37 MiB of memory for all rules
 on top of the rules for the DeviceClass (which is always extracted).
 
 Extracting everything will currently have a memory impact (without caching!) of about 218 MiB

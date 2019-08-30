@@ -22,20 +22,20 @@ Simply install the normal build tools for a Java project (i.e. maven and jdk) an
 ## Example usage
 
 First the jar file must be 'known'
-Either by doing 
+Either by doing
 
 <pre><code>ADD JAR hdfs:///yauaa-hive-{{ book.YauaaVersion }}-udf.jar</code></pre>
 
-or by defining it as a [permanent function](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL#LanguageManualDDL-PermanentFunctions) 
+or by defining it as a [permanent function](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL#LanguageManualDDL-PermanentFunctions)
 
-<pre><code>CREATE FUNCTION ParseUserAgent 
-AS 'nl.basjes.parse.useragent.hive.ParseUserAgent' 
+<pre><code>CREATE FUNCTION ParseUserAgent
+AS 'nl.basjes.parse.useragent.hive.ParseUserAgent'
 USING JAR 'hdfs:///yauaa-hive-{{ book.YauaaVersion }}-udf.jar';
 </code></pre>
 
 or installing it locally with the Hive Server
 
-***TODO: Document installation*** 
+***TODO: Document installation***
 
 Verify if it has been installed
 
@@ -77,7 +77,7 @@ Usage example:
     INSERT INTO TABLE useragents VALUES ('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
     INSERT INTO TABLE useragents VALUES ('Mozilla/5.0 (Linux\; Android 5.1\; Nexus 10 Build/LMY47D) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.109 Safari/537.36');
     INSERT INTO TABLE useragents VALUES ('Mozilla/5.0 (X11\; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36');
-    INSERT INTO TABLE useragents VALUES ('Mozilla/5.0 (Windows NT 10.0\; Win64\; x64\; Xbox\; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10553'); 
+    INSERT INTO TABLE useragents VALUES ('Mozilla/5.0 (Windows NT 10.0\; Win64\; x64\; Xbox\; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10553');
     SELECT ParseUserAgent(useragent).DeviceClass, ParseUserAgent(useragent).OperatingsystemNameVersion, ParseUserAgent(useragent).AgentName, ParseUserAgent(useragent).AgentNameVersionMajor from useragents;
     +---------------+-----------------------------+------------+------------------------+
     |  deviceclass  | operatingsystemnameversion  | agentname  | agentnameversionmajor  |

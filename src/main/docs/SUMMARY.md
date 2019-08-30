@@ -2,14 +2,14 @@
 
 ### Yauaa
 * [Introduction](README.md)
-* [The output to expect](README-Output.md)      
+* [The output to expect](README-Output.md)
 * [Try it online](TryIt.md)
 
 ###Using Yauaa
-* [Basic usage](README-Usage.md)  
-* [Limitations of the engine](README-Limitations.md)  
-* [Memory usage](README-MemoryUsage.md)  
-* [Performance](README-Performance.md) 
+* [Basic usage](README-Usage.md)
+* [Limitations of the engine](README-Limitations.md)
+* [Memory usage](README-MemoryUsage.md)
+* [Performance](README-Performance.md)
 * [Commandline](README-Commandline.md)
 
 ### User Defined Functions

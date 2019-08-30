@@ -24,17 +24,17 @@ Simply install the normal build tools for a Java project (i.e. maven and jdk) an
 
 # Getting commandline help
 
-    $ java -jar yauaa-commandline-*.jar 
-    
+    $ java -jar yauaa-commandline-*.jar
+
     /------------------------------------------------------------\
     | Yauaa 2.0-SNAPSHOT (v1.4-63 @ 2017-08-05T07:22:55Z)        |
     +------------------------------------------------------------+
     | For more information: https://github.com/nielsbasjes/yauaa |
     | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0  |
     \------------------------------------------------------------/
-    
+
     Errors: No input specified.
-    
+
     Usage: java jar <jar containing this class> <options>
      -bad             : Output only cases that have a problem (default: false)
      -cache N         : The number of elements that can be cached (LRU). (default:
@@ -78,7 +78,7 @@ Running in this mode will also show some statistics via stderr.
     | For more information: https://github.com/nielsbasjes/yauaa |
     | Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0  |
     \------------------------------------------------------------/
-    
+
     Loading from: "classpath*:UserAgents/**/*.yaml"
     Loaded 56 files
     Building all matchers

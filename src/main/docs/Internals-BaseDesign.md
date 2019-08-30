@@ -35,7 +35,7 @@ In 2014 an RFC for HTTP was released ([RFC 7231 section 5.5.3](https://tools.iet
 
     ... implementations are encouraged not to use the product
     tokens of other implementations in order to declare compatibility
-    with them, as this circumvents the purpose of the field. 
+    with them, as this circumvents the purpose of the field.
 
 ... encouraged ...
 

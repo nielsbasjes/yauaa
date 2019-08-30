@@ -62,7 +62,7 @@ v5.9
   - Apache Hive   3.1.1
 - Massive improvement in detection of URLs.
 - New more realistic performance benchmark test
-- Renamed DeviceClass "Spy" to "Robot Imitator" 
+- Renamed DeviceClass "Spy" to "Robot Imitator"
 - More consistently add the DeviceBrand to the DeviceName
 - Detect Apple iOS Universal Links updater, Netsparker, CasperJs
 - Fix the AirWatch scenario
@@ -137,7 +137,7 @@ v5.1
 - Windows NT 7/8/8.1/10 on ARM cpu = Windows Phone --> Mobile device, not Desktop
 - Get the DeviceBrand from the URL/Email if no other is available
 - Split version field by a '-' too.
-- Fix bug in UCBrowser detection (too often reported as Tablet) 
+- Fix bug in UCBrowser detection (too often reported as Tablet)
 - More language-region codes detected
 - Many bug fixes found on the input provided by https://github.com/DaimonPl (Thank you)
 - Better detection and naming of the Amazon, HP, PocketBook, Manta and Prestigio devices
@@ -190,7 +190,7 @@ v4.2
 - Changed CPU classification regarding Intel/AMD x86_64 and Intel Itanium x64
 - Fixed several problem cases with Internet Explorer
 - Added more complete Docker scripting for the webapp.
- 
+
 v4.1
 ===
 - Added newer Apple devices like iPhone 8 and X

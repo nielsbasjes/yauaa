@@ -13,7 +13,7 @@ If you use a maven based project simply add this dependency to your project.
 </code></pre>
 
 ## Example usage
-Assume you have a DataSet or DataStream with your records. 
+Assume you have a DataSet or DataStream with your records.
 In most cases I see (clickstream data) these records (In this example this class is called "TestRecord") contain the useragent string in a field and the parsed results must be added to these fields.
 
 Now you must do two things:
@@ -28,13 +28,13 @@ Note that the name of the two setters is not important, the system looks at the 
         public String getUserAgentString(TestRecord record) {
             return record.useragent;
         }
-    
+
         @SuppressWarnings("unused")
         @YauaaField("DeviceClass")
         public void setDC(TestRecord record, String value) {
             record.deviceClass = value;
         }
-    
+
         @SuppressWarnings("unused")
         @YauaaField("AgentNameVersion")
         public void setANV(TestRecord record, String value) {
@@ -55,13 +55,13 @@ So the earlier example will look something like this:
         public String getUserAgentString(TestRecord record) {
             return record.useragent;
         }
-    
+
         @SuppressWarnings("unused")
         @YauaaField("DeviceClass")
         public void setDC(TestRecord record, String value) {
             record.deviceClass = value;
         }
-    
+
         @SuppressWarnings("unused")
         @YauaaField("AgentNameVersion")
         public void setANV(TestRecord record, String value) {

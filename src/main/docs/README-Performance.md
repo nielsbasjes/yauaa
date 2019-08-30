@@ -11,7 +11,7 @@ and for all the other clicks the values are retrieved from this cache at a speed
 
 The graph below gives you some insight of how the performance of Yauaa has progressed over time.
 
-You can clearly see the increase in the time needed when adding a lot more rules. 
+You can clearly see the increase in the time needed when adding a lot more rules.
 Also the periodic drops in time needed are clearly visible when a performance improvement was found.
 
 Between version 5.5 and 5.6 a lot of extra rules to detect more brands of mobile devices on Android (at one point during development the needed time to reached ~ 3ms).

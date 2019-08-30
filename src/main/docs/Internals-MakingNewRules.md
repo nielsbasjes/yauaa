@@ -239,7 +239,7 @@ Not equals | != | agent.(1)product.version!="1.0" | agent.(1)product.(2)version 
 Contains | ~ | agent.product.name~"ar" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that contains "ar"
 Starts with | { | agent.product.name{"b" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that starts with "b"
 Ends with | }| agent.product.name}"z" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that ends with "z"
-(Key)set contains | ? | agent.product.name?mySetOfValues | agent.(3)product.(1)name | The name of the third product was present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated  
+(Key)set contains | ? | agent.product.name?mySetOfValues | agent.(3)product.(1)name | The name of the third product was present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated
 
 Extracting substrings
 
@@ -295,7 +295,7 @@ If a child sibling or check fails the backtracking continues until the entire pa
 
 I created a test that shows all of the debug output of this example: [unit test](https://github.com/nielsbasjes/yauaa/tree/master/analyzer/src/test/java/nl/basjes/parse/useragent/DocumentationExample.java) and [yaml file](https://github.com/nielsbasjes/yauaa/tree/master/analyzer/src/test/resources/DocumentationExample.yaml)
 
-This can also be run from the commandline using: 
+This can also be run from the commandline using:
 
     mvn -Dtest=DocumentationExample -DfailIfNoTests=false test
 
