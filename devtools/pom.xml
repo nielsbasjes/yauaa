@@ -30,17 +30,12 @@
 
   <name>Yauaa : Codequality tools</name>
 
-  <properties>
-    <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
-  </properties>
-
   <build>
     <plugins>
       <!-- Never deploy this to a maven repo -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>
-        <version>3.0.0-M1</version>
         <configuration>
           <skip>true</skip>
         </configuration>

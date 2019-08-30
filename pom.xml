@@ -200,7 +200,6 @@
             <!-- explicitly define maven-deploy-plugin after other to force exec order -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.8.2</version>
             <executions>
               <execution>
                 <id>deploy</id>
@@ -283,7 +282,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-enforcer-plugin</artifactId>
-            <version>3.0.0-M2</version>
             <executions>
               <execution>
                 <id>dependency-convergence</id>
@@ -352,7 +350,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.1</version>
             <configuration>
               <compilerVersion>${jdkLevel}</compilerVersion>
               <source>${jdkLevel}</source>
@@ -382,7 +379,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.1</version>
             <configuration>
               <compilerVersion>${jdkLevel}</compilerVersion>
               <source>${jdkLevel}</source>
@@ -453,7 +449,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0-M2</version>
         <executions>
           <execution>
             <id>enforce-maven</id>
@@ -645,17 +640,19 @@
           <version>3.6.0.1398</version>
         </plugin>
 
+        <plugin><artifactId>maven-assembly-plugin</artifactId><version>3.1.1</version></plugin>
         <plugin><artifactId>maven-clean-plugin</artifactId><version>3.1.0</version></plugin>
         <plugin><artifactId>maven-compiler-plugin</artifactId><version>3.8.1</version></plugin>
-        <plugin><artifactId>maven-deploy-plugin</artifactId><version>3.0.0-M1</version></plugin>
+<!--        <plugin><artifactId>maven-deploy-plugin</artifactId><version>3.0.0-M1</version></plugin>-->
+        <plugin><artifactId>maven-deploy-plugin</artifactId><version>2.8.2</version></plugin>
+        <plugin><artifactId>maven-enforcer-plugin</artifactId><version>3.0.0-M2</version></plugin>
         <plugin><artifactId>maven-install-plugin</artifactId><version>3.0.0-M1</version></plugin>
+        <plugin><artifactId>maven-jar-plugin</artifactId><version>3.1.2</version></plugin>
         <plugin><artifactId>maven-resources-plugin</artifactId><version>3.1.0</version></plugin>
+        <plugin><artifactId>maven-shade-plugin</artifactId><version>3.2.1</version></plugin>
         <plugin><artifactId>maven-site-plugin</artifactId><version>3.7.1</version></plugin>
         <plugin><artifactId>maven-surefire-plugin</artifactId><version>3.0.0-M3</version></plugin>
-        <plugin><artifactId>maven-shade-plugin</artifactId><version>3.2.1</version></plugin>
-        <plugin><artifactId>maven-jar-plugin</artifactId><version>3.1.2</version></plugin>
         <plugin><artifactId>maven-war-plugin</artifactId><version>3.2.3</version></plugin>
-        <plugin><artifactId>maven-assembly-plugin</artifactId><version>3.1.1</version></plugin>
 
       </plugins>
     </pluginManagement>
