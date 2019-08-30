@@ -180,6 +180,66 @@
       </plugin>
 
       <plugin>
+        <groupId>com.alexecollins.maven.plugin</groupId>
+        <artifactId>script-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <id>Verify jar contents to ensure the shading of dependencies went right</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+
+            <configuration>
+              <language>beanshell</language>
+              <script>
+                import java.io.*;
+                import java.util.jar.*;
+                import java.util.Arrays;
+                import org.codehaus.plexus.util.*;
+
+                System.out.println("Verifying if the shading went correctly");
+
+                String[] libraryWanted = {
+                  "nl/basjes/parse/useragent/utils/YauaaVersion.class",
+                  "nl/basjes/shaded/org/antlr/v4/runtime/Parser.class",
+                  "nl/basjes/shaded/org/springframework/core/io/support/PathMatchingResourcePatternResolver.class",
+                };
+
+                String[] libraryUnwanted = {
+                  "org/antlr/v4/runtime/Parser.class",
+                  "org/springframework/core/io/support/PathMatchingResourcePatternResolver.class",
+                  "org/slf4j/LoggerFactory.class",
+                };
+
+                JarFile libraryJarFile = new JarFile( new File( "${project.basedir}/target", "yauaa-${project.version}.jar" ) );
+
+                for ( String path : libraryWanted ) {
+                  if ( libraryJarFile.getEntry( path ) == null ) {
+                    throw new IllegalStateException( "Library: wanted path is missing: " + path );
+                  }
+                }
+
+                for ( String path : libraryUnwanted ) {
+                  if ( libraryJarFile.getEntry( path ) != null ) {
+                    throw new IllegalStateException( "Library: unwanted path is present: " + path );
+                  }
+                }
+              </script>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache-extras.beanshell</groupId>
+            <artifactId>bsh</artifactId>
+            <version>2.0b6</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.6.0</version>
