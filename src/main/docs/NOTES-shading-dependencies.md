@@ -4,12 +4,12 @@ This is a summary of the reasons WHY I have done the shading in this project the
 
 If someone has suggestions/hint on how this can be done better I'm really curious what the 'right' way of doing this is.
 
-The base structure of this project is we have a module with the functionality and a set of 'UDFs' 
+The base structure of this project is we have a module with the functionality and a set of 'UDFs'
 that wrap this functionality so that it can be used in external processing frameworks (like Pig, Flink, Hive, etc.)
 
 Base goal
 ===
-This library and the UDFs should be easy to use for all downstream users that want to use this in their projects. 
+This library and the UDFs should be easy to use for all downstream users that want to use this in their projects.
 
 Problem 1: Problematic dependencies
 ===
@@ -18,14 +18,14 @@ for downstream users who need different versions of these in the same applicatio
 
 Solution 1: Shade and relocate
 ===
-So for only these we include and relocate the used classes into the main jar.         
+So for only these we include and relocate the used classes into the main jar.
 
 In the pom.xml
 
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-shade-plugin</artifactId>
-  
+
       <configuration>
         <minimizeJar>true</minimizeJar>
         <createDependencyReducedPom>true</createDependencyReducedPom>
@@ -48,7 +48,7 @@ In the pom.xml
           </relocation>
         </relocations>
       </configuration>
-  
+
       <executions>
         <execution>
           <id>inject-problematic-dependencies</id>
@@ -67,21 +67,23 @@ In the pom.xml
             </artifactSet>
           </configuration>
         </execution>
-  
+
       </executions>
     </plugin>
 
 Problem 2: Transitive dependencies
 ===
-Turns out that a shaded jar still contains the original pom.xml that references the shaded dependencies. 
-As a consequence the downstream users (like the udfs in this project) still include the entire set of 
+Turns out that a shaded jar still contains the original pom.xml that references the shaded dependencies.
+As a consequence the downstream users (like the udfs in this project) still include the entire set of
 dependencies (not used by the code) in addition to the shaded versions (used by the code).
 
 This is a known problem in the Maven shade plugin: https://issues.apache.org/jira/browse/MSHADE-36
- 
+
+For which I've put up a pull request: https://github.com/apache/maven-shade-plugin/pull/25
+
 Solution 2: Inject the dependency-reduced-pom.xml into the final jar
 ===
-This way building an external project no longer includes things like Antlr and Guava a second time. 
+This way building an external project no longer includes things like Antlr and Guava a second time.
 
 Script: inject-dependency-reduced-pom-into-jar.sh:
 
@@ -122,11 +124,11 @@ and in the pom.xml:
 
 
 Problem 3: The other modules look at the original pom.xml
-=== 
-So after solution 2 it is all fine for external projects using the created jar file because they look at 
+===
+So after solution 2 it is all fine for external projects using the created jar file because they look at
 the pom.xml in that jar file.
 
-The remaining problem is that any other module in this (multi module) project will look at the original pom.xml 
+The remaining problem is that any other module in this (multi module) project will look at the original pom.xml
 instead of the cleaned one in the jar file.
 
 As a consequence the Hive UDF jar file contains
@@ -135,6 +137,10 @@ As a consequence the Hive UDF jar file contains
       494  2019-08-23 12:26 nl/basjes/shaded/org/springframework/core/io/ResourceLoader.class
       487  2019-02-13 05:32 org/springframework/core/io/ResourceLoader.class
 
+I filed a bug report/ missing feature for this in the Maven shade plugin: https://issues.apache.org/jira/browse/MSHADE-326
+
+For which I've put up a pull request: https://github.com/apache/maven-shade-plugin/pull/26
+
 Solution 3: Manually exclude them
 ===
 So we exclude these 4 shaded dependencies in all modules in this project so they are no longer included double in the final jars.
@@ -142,12 +148,12 @@ So we exclude these 4 shaded dependencies in all modules in this project so they
 Problem 4: No such classfile ...
 ===
 Which gives rise to a new problem: When building/developing these modules the code will complain about missing dependencies.
-The dependencies have been shaded, relocated and excluded ... which means that any code looking for the 'orginal' 
+The dependencies have been shaded, relocated and excluded ... which means that any code looking for the 'orginal'
 class name will find it to be missing.
 
 Solution 4: Include as 'provided'
 ===
-The final step I had to take was to include these 4 dependencies again as 'provided' in all modules in this project. 
+The final step I had to take was to include these 4 dependencies again as 'provided' in all modules in this project.
 
 Additional notes
 ===
