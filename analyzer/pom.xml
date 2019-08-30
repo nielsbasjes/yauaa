@@ -133,10 +133,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.2-SNAPSHOT</version>
 
         <configuration>
           <minimizeJar>true</minimizeJar>
           <createDependencyReducedPom>true</createDependencyReducedPom>
+          <useDependencyReducedPomInJar>true</useDependencyReducedPomInJar>
+          <hideReducedDependenciesInReactor>true</hideReducedDependenciesInReactor>
           <relocations>
             <relocation>
               <pattern>org.springframework</pattern>
@@ -254,23 +257,6 @@
               <executable>./regen-all.sh</executable>
             </configuration>
           </execution>
-
-          <execution>
-            <id>Inject dependency-reduced-pom.xml to the final jar file</id>
-            <phase>package</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>./inject-dependency-reduced-pom-into-jar.sh</executable>
-              <arguments>
-                <argument>${project.groupId}</argument>
-                <argument>${project.artifactId}</argument>
-                <argument>${project.version}</argument>
-              </arguments>
-            </configuration>
-          </execution>
-
         </executions>
       </plugin>
 

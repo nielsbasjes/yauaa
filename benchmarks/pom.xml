@@ -74,36 +74,10 @@
       <version>1.2</version>
     </dependency>
 
-    <!-- ================================================================================================ -->
-    <!-- These 4 dependencies are excluded by all UDFs because of dependency/shading/ relocating problems -->
-    <!-- But they do need them for the compilation and testing ... -->
-    <!-- Documentation of the used shading construct: https://yauaa.basjes.nl/NOTES-shading-dependencies.html -->
-    <dependency>
+     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
       <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.antlr</groupId>
-          <artifactId>antlr4-runtime</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-core</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.yaml</groupId>
-          <artifactId>snakeyaml</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.google.guava</groupId>
-          <artifactId>guava</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <dependency>
