@@ -407,32 +407,6 @@ config:
 
 - test:
     input:
-      user_agent_string: 'curl/7.19.4%20(i386-redhat-linux-gnu)%20libcurl/7.19.4%20NSS/3.12.2.0%20zlib/1.2.3%20libidn/0.6.14%20libssh2/0.18'
-    expected:
-      DeviceClass                          : 'Unknown'
-      DeviceName                           : 'Unknown'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel i386'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Unknown ??'
-      OperatingSystemNameVersionMajor      : 'Unknown ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'curl'
-      AgentVersion                         : '7.19.4'
-      AgentVersionMajor                    : '7'
-      AgentNameVersion                     : 'curl 7.19.4'
-      AgentNameVersionMajor                : 'curl 7'
-
-- test:
-    input:
       user_agent_string: 'Chromeless 1.3.0'
     expected:
       DeviceClass                          : 'Unknown'

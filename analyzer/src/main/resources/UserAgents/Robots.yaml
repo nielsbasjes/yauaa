@@ -56,6 +56,9 @@ config:
       'Watchmouse'                 : 'Watchmouse' # 'watch' causes it to be seen as a wristwatch
       'Vagabondo'                  : 'Wise-Guys'
       'YaK'                        : 'Linkfluence'
+      'wget'                       : 'wget'
+      'curl'                       : 'curl'
+      'Apache Nifi'                : 'Apache'
 
 - matcher:
     variable:
@@ -6442,6 +6445,7 @@ config:
       AgentNameVersionMajor                : 'Yeti 1'
       AgentInformationUrl                  : 'http://naver.me/spd'
 
+
 - test:
     input:
       user_agent_string: 'TrueClicks/LinkTester'
@@ -6467,3 +6471,142 @@ config:
       AgentVersionMajor                    : 'LinkTester'
       AgentNameVersion                     : 'TrueClicks LinkTester'
       AgentNameVersionMajor                : 'TrueClicks LinkTester'
+
+
+- test:
+    input:
+      user_agent_string: 'curl/7.47.0'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Curl'
+      DeviceBrand                           : 'Curl'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'curl'
+      LayoutEngineVersion                   : '7.47.0'
+      LayoutEngineVersionMajor              : '7'
+      LayoutEngineNameVersion               : 'curl 7.47.0'
+      LayoutEngineNameVersionMajor          : 'curl 7'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'curl'
+      AgentVersion                          : '7.47.0'
+      AgentVersionMajor                     : '7'
+      AgentNameVersion                      : 'curl 7.47.0'
+      AgentNameVersionMajor                 : 'curl 7'
+
+
+- test:
+    input:
+      user_agent_string: 'curl/7.19.4%20(i386-redhat-linux-gnu)%20libcurl/7.19.4%20NSS/3.12.2.0%20zlib/1.2.3%20libidn/0.6.14%20libssh2/0.18'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Curl'
+      DeviceBrand                           : 'Curl'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'curl'
+      LayoutEngineVersion                   : '7.19.4'
+      LayoutEngineVersionMajor              : '7'
+      LayoutEngineNameVersion               : 'curl 7.19.4'
+      LayoutEngineNameVersionMajor          : 'curl 7'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'curl'
+      AgentVersion                          : '7.19.4'
+      AgentVersionMajor                     : '7'
+      AgentNameVersion                      : 'curl 7.19.4'
+      AgentNameVersionMajor                 : 'curl 7'
+
+
+- test:
+    input:
+      user_agent_string: 'Wget/1.17.1 (linux-gnu)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Wget'
+      DeviceBrand                           : 'Wget'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Wget'
+      LayoutEngineVersion                   : '1.17.1'
+      LayoutEngineVersionMajor              : '1'
+      LayoutEngineNameVersion               : 'Wget 1.17.1'
+      LayoutEngineNameVersionMajor          : 'Wget 1'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Wget'
+      AgentVersion                          : '1.17.1'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'Wget 1.17.1'
+      AgentNameVersionMajor                 : 'Wget 1'
+
+
+  # Default useragent for the Apache Nifi InvokeHTTP processor after https://issues.apache.org/jira/browse/NIFI-6666
+- test:
+    input:
+      user_agent_string: 'Apache Nifi/1.10.0-SNAPSHOT (git:rel/nifi-1.9.0-347-gec3ea46; Java/1.8.0_222; Linux 4.4.0-159-generic; amd64; https://nifi.apache.org/)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Apache Nifi'
+      DeviceBrand                           : 'Apache'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Apache Nifi'
+      LayoutEngineVersion                   : '1.10.0-SNAPSHOT'
+      LayoutEngineVersionMajor              : '1'
+      LayoutEngineNameVersion               : 'Apache Nifi 1.10.0-SNAPSHOT'
+      LayoutEngineNameVersionMajor          : 'Apache Nifi 1'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Apache Nifi'
+      AgentVersion                          : '1.10.0-SNAPSHOT'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'Apache Nifi 1.10.0-SNAPSHOT'
+      AgentNameVersionMajor                 : 'Apache Nifi 1'
+      AgentInformationUrl                   : 'https://nifi.apache.org'
+
+
+# Simplified alternative useragent for the Apache Nifi InvokeHTTP processor after https://issues.apache.org/jira/browse/NIFI-6666
+- test:
+    input:
+      user_agent_string: 'Apache Nifi/1.10.0-SNAPSHOT (Java/1.8.0_222; Linux 4.4.0-159-generic; amd64; https://nifi.apache.org/)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Apache Nifi'
+      DeviceBrand                           : 'Apache'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Apache Nifi'
+      LayoutEngineVersion                   : '1.10.0-SNAPSHOT'
+      LayoutEngineVersionMajor              : '1'
+      LayoutEngineNameVersion               : 'Apache Nifi 1.10.0-SNAPSHOT'
+      LayoutEngineNameVersionMajor          : 'Apache Nifi 1'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Apache Nifi'
+      AgentVersion                          : '1.10.0-SNAPSHOT'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'Apache Nifi 1.10.0-SNAPSHOT'
+      AgentNameVersionMajor                 : 'Apache Nifi 1'
+      AgentInformationUrl                   : 'https://nifi.apache.org'

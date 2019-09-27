@@ -1,6 +1,12 @@
 This is intended as an overview of the major changes
 
-v5.12-SNAPSHOT
+v5.13-SNAPSHOT
+===
+- New/improved detections
+  - Agent: Apache Nifi, Wget, Curl
+
+
+v5.12
 ===
 - New detections
   - Agent: AdobeAir, Whale, Tungsten, Kinza, Iridium, Superbird, Avast, Comodo Dragon & IceDragon
