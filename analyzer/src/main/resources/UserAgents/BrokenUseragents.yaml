@@ -807,9 +807,31 @@ config:
 #      WebviewAppVersion                    : '??'
 #      WebviewAppVersionMajor               : '??'
 
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Java1.0.21.0'
+- test:
+    input:
+      user_agent_string: 'Java1.0.21.0'
+    expected:
+      DeviceClass                           : 'Unknown'
+      DeviceName                            : 'Unknown'
+      DeviceBrand                           : 'Unknown'
+      OperatingSystemClass                  : 'Unknown'
+      OperatingSystemName                   : 'Unknown'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Unknown ??'
+      OperatingSystemNameVersionMajor       : 'Unknown ??'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Special'
+      AgentName                             : 'Java'
+      AgentVersion                          : '1.0.21.0'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'Java 1.0.21.0'
+      AgentNameVersionMajor                 : 'Java 1'
 
 - test:
     input:
@@ -1540,10 +1562,49 @@ config:
 #    input:
 #      user_agent_string: 'device_id={763835ca-1b38-48ef-9693-ad6bef1c60b6}&brand=bebook&model=neo&access=wlan'
 
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (LG-T385 AppleWebkit/531 Browser/Phantom/V2.0 Widget/LGMW/3.0 MMS/LG-MMS-V1.0/1.2 Java/ASVM/1.1 Profile/MIDP-2.1 Configuration/CLDC-1.1)'
-#
+- matcher:
+    variable:
+      - 'Browser: agent.product.comments.entry.product.name="Browser"'
+    extract:
+      - 'AgentClass                     : 100 : "Browser"'
+      - 'AgentName                      : 100 : @Browser^.(1)version'
+      - 'AgentVersion                   : 100 : @Browser^.(2)version'
+
+- matcher:
+    variable:
+      - 'Device: agent.(1)product.(1)comments.(1)entry.(1)product'
+    require:
+      - '@Device~"AppleWebkit"'
+    extract:
+      - 'DeviceBrand                     : 400 : LookUpPrefix[MobileBrandPrefixes;@Device]'
+      - 'DeviceName                      : 400 : @Device.name'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (LG-T385 AppleWebkit/531 Browser/Phantom/V2.0 Widget/LGMW/3.0 MMS/LG-MMS-V1.0/1.2 Java/ASVM/1.1 Profile/MIDP-2.1 Configuration/CLDC-1.1)'
+    expected:
+      DeviceClass                           : 'Unknown'
+      DeviceName                            : 'LG T385'
+      DeviceBrand                           : 'LG'
+      OperatingSystemClass                  : 'Unknown'
+      OperatingSystemName                   : 'Unknown'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Unknown ??'
+      OperatingSystemNameVersionMajor       : 'Unknown ??'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Mozilla'
+      LayoutEngineVersion                   : '5.0'
+      LayoutEngineVersionMajor              : '5'
+      LayoutEngineNameVersion               : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor          : 'Mozilla 5'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Phantom'
+      AgentVersion                          : 'V2.0'
+      AgentVersionMajor                     : 'V2'
+      AgentNameVersion                      : 'Phantom V2.0'
+      AgentNameVersionMajor                 : 'Phantom V2'
+
 
 - test:
     input:
@@ -1556,8 +1617,8 @@ config:
       OperatingSystemName                  : 'Unknown'
       OperatingSystemVersion               : '??'
       OperatingSystemVersionMajor          : '??'
-# FIXME:      OperatingSystemNameVersion           : 'Unknown ??'
-# FIXME:      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Trident'
       LayoutEngineVersion                  : '7.0'
@@ -1749,11 +1810,11 @@ config:
       LayoutEngineVersion                  : '??'
       LayoutEngineVersionMajor             : '??'
       AgentClass                           : 'Special'
-      AgentName                            : '      ltx71' # FIXME: Should strip the 0x2002 'spaces'
+      AgentName                            : 'ltx71'
       AgentVersion                         : '??'
       AgentVersionMajor                    : '??'
-      AgentNameVersion                     : '      ltx71 ??'
-      AgentNameVersionMajor                : '      ltx71 ??'
+      AgentNameVersion                     : 'ltx71 ??'
+      AgentNameVersionMajor                : 'ltx71 ??'
       AgentInformationUrl                  : 'http://ltx71.com'
 
 
@@ -2216,7 +2277,7 @@ config:
       AgentNameVersionMajor                : 'Internet Explorer 10'
 
 # Android phone running a custom rom called "Zoe ROM"
-- test: # FIXME: Check the Agent
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android Zoe ROM 7.7 - CM7.2 - SDSL v4; pl-pl; LG-GT540 Build/GWK74; -=Zoe ROM=-) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
     expected:

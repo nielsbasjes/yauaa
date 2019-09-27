@@ -23,12 +23,28 @@ import nl.basjes.parse.useragent.utils.Normalize;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 
 public class CalculateDeviceBrand implements FieldCalculator {
+
+    private final Set<String> unwantedUrlBrands;
+    private final Set<String> unwantedEmailBrands;
+
+    public CalculateDeviceBrand() {
+        unwantedUrlBrands = new HashSet<>();
+        unwantedUrlBrands.add("Github");
+        unwantedUrlBrands.add("Gitlab");
+
+        unwantedEmailBrands = new HashSet<>();
+        unwantedEmailBrands.add("Gmail");
+        unwantedEmailBrands.add("Outlook");
+    }
+
     @Override
     public void calculate(UserAgent userAgent) {
         // The device brand field is a mess.
@@ -67,7 +83,7 @@ public class CalculateDeviceBrand implements FieldCalculator {
             } catch (MalformedURLException e) {
                 // Ignore any exception and continue.
             }
-            hostname = extractCompanyFromHostName(hostname);
+            hostname = extractCompanyFromHostName(hostname, unwantedUrlBrands);
             if (hostname != null) {
                 return hostname;
             }
@@ -80,7 +96,7 @@ public class CalculateDeviceBrand implements FieldCalculator {
             if (atOffset >= 0) {
                 hostname = hostname.substring(atOffset+1);
             }
-            hostname = extractCompanyFromHostName(hostname);
+            hostname = extractCompanyFromHostName(hostname, unwantedEmailBrands);
             if (hostname != null) {
                 return hostname;
             }
@@ -89,11 +105,14 @@ public class CalculateDeviceBrand implements FieldCalculator {
         return null;
     }
 
-
-    private String extractCompanyFromHostName(String hostname) {
+    private String extractCompanyFromHostName(String hostname, Set<String> blackList) {
         try {
             InternetDomainName domainName = InternetDomainName.from(hostname);
-            return Normalize.brand(domainName.topPrivateDomain().parts().get(0));
+            String brand = Normalize.brand(domainName.topPrivateDomain().parts().get(0));
+            if (blackList.contains(brand)) {
+                return null;
+            }
+            return brand;
         } catch (RuntimeException e) {
             return null;
         }

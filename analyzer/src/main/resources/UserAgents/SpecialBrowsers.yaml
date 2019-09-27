@@ -2530,7 +2530,7 @@ config:
 
 - matcher:
     extract:
-    - 'AgentClass                          :   2011 :"Browser"' # TODO: Or should this be 'Special'??
+    - 'AgentClass                          :   2011 :"Browser"'
     - 'AgentName                           :   2011 :"Kodi"'
     - 'AgentVersion                        :   2011 :agent.product.name="Kodi"^.version'
 
@@ -2594,9 +2594,7 @@ config:
       AgentNameVersionMajor                : 'Chrome 51'
 
 
-
-
-# TODO: Review this. tb-gmx is the real useragent. Perhaps this is Thunderbird??
+# TODO: Review this. tb-gmx is the real useragent. Perhaps this is Thunderbird via gmx.net free email website in Germany ??
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; tb-gmx/2.6.12; (gmx/1.5.0.0); rv:11.0) like Gecko'
@@ -2626,8 +2624,7 @@ config:
       AgentNameVersionMajor                : 'Internet Explorer 11'
 
 
-
-# TODO: Review this. tb-webde is the real useragent. Perhaps this is Thunderbird??
+# TODO: Review this. tb-webde is the real useragent. Perhaps this is Thunderbird via web.de free email website in Germany ??
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; tb-webde/2.7.4; (webde/1.4.0.0); rv:11.0) like Gecko'
@@ -3020,7 +3017,11 @@ config:
 
 
 # Testcase found on https://docs.microsoft.com/en-us/azure/kusto/query/parse-useragentfunction
-# { "Browser": { "Family": "Nokia OSS Browser", "MajorVersion": "3", "MinorVersion": "1", "Patch": "" }, "OperatingSystem": { "Family": "Symbian OS", "MajorVersion": "9", "MinorVersion": "2", "Patch": "", "PatchMinor": "" }, "Device": { "Family": "Nokia N81", "Brand": "Nokia", "Model": "N81-3" } }
+#   {
+#     "Browser": { "Family": "Nokia OSS Browser", "MajorVersion": "3", "MinorVersion": "1", "Patch": "" },
+#     "OperatingSystem": { "Family": "Symbian OS", "MajorVersion": "9", "MinorVersion": "2", "Patch": "", "PatchMinor": "" },
+#     "Device": { "Family": "Nokia N81", "Brand": "Nokia", "Model": "N81-3" }
+#   }
 # https://en.wikipedia.org/wiki/Nokia_Browser_for_Symbian
 - test:
     input:
@@ -3056,8 +3057,8 @@ config:
       user_agent_string: 'Apache-Maven/3.5.0 (Java 1.8.0_222; Linux 4.4.0-154-generic)'
     expected:
       DeviceClass                           : 'Desktop'
-      DeviceName                            : 'Apache Maven' # Hmmm
-      DeviceBrand                           : 'Apache'       # Hmmm
+      DeviceName                            : 'Apache Maven'
+      DeviceBrand                           : 'Apache'
       OperatingSystemClass                  : 'Desktop'
       OperatingSystemName                   : 'Linux'
       OperatingSystemVersion                : '4.4.0-154-generic'

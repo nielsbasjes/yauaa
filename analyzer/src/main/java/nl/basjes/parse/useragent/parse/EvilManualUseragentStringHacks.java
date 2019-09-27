@@ -46,6 +46,9 @@ public final class EvilManualUseragentStringHacks {
 
         result = MULTIPLE_SPACES .matcher(result).replaceAll(" ");
 
+        // The first one is a special kind of space: https://unicodemap.org/details/0x2002/index.html
+        result = replaceString(result, "\u2002", " ");
+
         if (result.charAt(0) == ' ') {
             result = result.trim();
         }
@@ -62,6 +65,9 @@ public final class EvilManualUseragentStringHacks {
 
         // We have seen problem cases like " Version/4.0Mobile Safari/530.17"
         result = MISSING_SPACE.matcher(result).replaceAll("$1 $2");
+
+        // We have seen problem cases like "Java1.0.21.0"
+        result = replaceString(result, "Java", "Java ");
 
         // We have seen problem cases like "Wazzup1.1.100"
         result = replaceString(result, "Wazzup", "Wazzup ");

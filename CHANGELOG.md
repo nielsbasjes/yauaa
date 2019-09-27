@@ -3,8 +3,10 @@ This is intended as an overview of the major changes
 v5.13-SNAPSHOT
 ===
 - New/improved detections
-  - Agent: Apache Nifi, Wget, Curl
-
+  - Agent: Apache Nifi, Wget, Curl, Latest Edge
+- Fixes:
+  - Many TODO items (mostly corner cases).
+  - Domains like Github and Gmail are no longer used as "DeviceBrand" when they occur in URL or Email.
 
 v5.12
 ===

@@ -105,6 +105,7 @@ config:
       "16.16299" : "41.16299.15"
       "17.17134" : "42.17134"
       "18.17763" : "44.17763"
+      "18.18362" : "44.18362.1.0"
       # In addition if the Windows 10 build is not in this list we assume the base version is using the latest major
       "12"       : "20.??"
       "13"       : "28.??"
@@ -685,7 +686,12 @@ config:
     - 'AgentName                           :   2050 :"Edge"'
     - 'AgentVersion                        :   2050 :agent.product.name="EdgiOS"^.version'
 
-# Blink based Edge browser on Desktop # FIXME: Get the actual Chromium based Edge specifications
+# Blink based Edge browser on Desktop
+# https://blogs.windows.com/msedgedev/2019/04/08/microsoft-edge-preview-channel-details/
+# Looking at the examples it __seems__
+# - the "Chrome" version is actually the Blink version.
+# - the "Edg"    version is actually the Edge version.
+# FIXME: Get the actual Chromium based Edge specifications
 - matcher:
     extract:
     - 'LayoutEngineClass                   :   2015 :"Browser"'

@@ -2350,8 +2350,8 @@ config:
       user_agent_string: 'Typhoeus - https://github.com/typhoeus/typhoeus'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Github Robot'
-      DeviceBrand                          : 'Github' # TODO: Funny yet unavoidable
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
@@ -3826,8 +3826,8 @@ config:
       user_agent_string: 'Mozilla/5.0 (compatible; Go-http-client/1.1; +centurybot9@gmail.com)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Gmail Robot'
-      DeviceBrand                          : 'Gmail' # TODO: Wrong, funny and unavoidable
+      DeviceName                           : 'Robot'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
@@ -5046,9 +5046,31 @@ config:
       AgentNameVersion                     : 'lua-resty-http 0.07'
       AgentNameVersionMajor                : 'lua-resty-http 0'
 
-#- test: #TODO Implement
-#    input:
-#      user_agent_string: 'PHP/5.3.28'
+- test: #TODO Implement
+    input:
+      user_agent_string: 'PHP/5.3.28'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'PHP'
+      DeviceBrand                           : 'PHP'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'PHP'
+      LayoutEngineVersion                   : '5.3.28'
+      LayoutEngineVersionMajor              : '5'
+      LayoutEngineNameVersion               : 'PHP 5.3.28'
+      LayoutEngineNameVersionMajor          : 'PHP 5'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'PHP'
+      AgentVersion                          : '5.3.28'
+      AgentVersionMajor                     : '5'
+      AgentNameVersion                      : 'PHP 5.3.28'
+      AgentNameVersionMajor                 : 'PHP 5'
 
 #- test: #TODO Implement
 #    input:

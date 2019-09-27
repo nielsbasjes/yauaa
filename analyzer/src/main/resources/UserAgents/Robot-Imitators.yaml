@@ -21,6 +21,18 @@ config:
 
 - matcher:
     require:
+    - 'agent.text="Googlebot"'
+    extract:
+    - 'DeviceClass                         :   3201 : "Robot Imitator"'
+    - 'DeviceName                          :   3201 : "Googlebot Imitator"'
+    - 'OperatingSystemClass                :   3201 : "Cloud"'
+    - 'OperatingSystemName                 :   3201 : "Cloud"'
+    - 'OperatingSystemVersion              :   3201 : "??"'
+    - 'LayoutEngineName                    :   3201 : "Googlebot Imitator"'
+    - 'AgentName                           :   3201 : "Googlebot Imitator"'
+
+- matcher:
+    require:
     - 'agent.product.comments.entry.product.name="Googlebot"'
     - 'IsNull[agent.product.comments.entry.url="http://www.google.com/bot.html"]'
     - 'IsNull[agent.product.comments.entry.url="https://www.google.com/bot.html"]'
@@ -271,9 +283,36 @@ config:
       AgentNameVersion                     : 'Googlebot Imitator 2.1'
       AgentNameVersionMajor                : 'Googlebot Imitator 2'
 
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'Googlebot'
+
+- test:
+    input:
+      user_agent_string: 'Googlebot'
+    expected:
+      DeviceClass                           : 'Robot Imitator'
+      DeviceName                            : 'Hacker Googlebot Imitator'
+      DeviceBrand                           : 'Hacker'
+      DeviceVersion                         : 'Hacker'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Googlebot Imitator'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Googlebot Imitator ??'
+      LayoutEngineNameVersionMajor          : 'Googlebot Imitator ??'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Googlebot Imitator'
+      AgentVersion                          : '??'
+      AgentVersionMajor                     : '??'
+      AgentNameVersion                      : 'Googlebot Imitator ??'
+      AgentNameVersionMajor                 : 'Googlebot Imitator ??'
+      HackerAttackVector                    : 'Unknown'
+      HackerToolkit                         : 'Unknown'
+
 
 - test:
     input:
@@ -690,8 +729,8 @@ config:
 #      user_agent_string: 'Googlebot/Nutch-1.7'
 #    expected:
 #      DeviceClass                          : 'Robot Imitator'
-#      DeviceName                           : 'Google BOT Imitator'
-#      DeviceBrand                          : 'Google'
+#      DeviceName                           : 'Googlebot Imitator'
+#      DeviceBrand                          : 'Apache'
 #      OperatingSystemClass                 : 'Cloud'
 #      OperatingSystemName                  : 'Cloud'
 #      OperatingSystemVersion               : '??'

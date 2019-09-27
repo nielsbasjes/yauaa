@@ -21,10 +21,22 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.AgentField;
 import nl.basjes.parse.useragent.utils.Normalize;
 
+import java.util.regex.Pattern;
+
+import static java.util.regex.Pattern.CASE_INSENSITIVE;
+import static java.util.regex.Pattern.LITERAL;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
 
 public class CalculateDeviceName implements FieldCalculator {
+
+
+    private static final Pattern CLEAN_1_PATTERN = Pattern.compile("AppleWebKit", CASE_INSENSITIVE | LITERAL);
+
+    private String removeBadSubStrings(String input) {
+        input =  CLEAN_1_PATTERN.matcher(input).replaceAll("");
+        return input;
+    }
 
     @Override
     public void calculate(UserAgent userAgent) {
@@ -32,7 +44,7 @@ public class CalculateDeviceName implements FieldCalculator {
         AgentField deviceName = userAgent.get(DEVICE_NAME);
         if (deviceName.getConfidence() >= 0) {
             AgentField deviceBrand = userAgent.get(DEVICE_BRAND);
-            String deviceNameValue = deviceName.getValue();
+            String deviceNameValue = removeBadSubStrings(deviceName.getValue());
             String deviceBrandValue = deviceBrand.getValue();
             if (deviceName.getConfidence() >= 0 &&
                 deviceBrand.getConfidence() >= 0 &&
