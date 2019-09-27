@@ -210,6 +210,13 @@ public class TestErrorHandling {
             startsWith("Syntax error"));
     }
 
+    @Test
+    public void checkForVariableExistance() {
+        runTest(
+            "classpath*:BadDefinitions/Variable-NoSuchVariable.yaml",
+            startsWith("Syntax error"));
+    }
+
 
     @Test
     public void methodInputValidation(){

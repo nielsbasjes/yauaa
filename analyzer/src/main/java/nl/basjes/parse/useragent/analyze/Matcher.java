@@ -253,11 +253,26 @@ public class Matcher implements Serializable {
                 variableAction.setInterestedActions(interestedActions);
                 for (MatcherAction interestedAction : interestedActions) {
                     if (seenVariables.contains(interestedAction)) {
-                        throw new InvalidParserConfigurationException("Syntax error: The line >>" + interestedAction + "<< " +
+                        throw new InvalidParserConfigurationException(
+                            "Syntax error (" + matcherSourceLocation + "): The line >>" + interestedAction + "<< " +
                             "is referencing variable @"+variableAction.getVariableName()+ " which is not defined yet.");
                     }
                 }
             }
+        }
+
+        // Check if any variable was requested that was not defined.
+        Set<String> missingVariableNames = new HashSet<>();
+        Set<String> seenVariableNames = new HashSet<>();
+        seenVariables.forEach(m -> seenVariableNames.add(((MatcherVariableAction)m).getVariableName()));
+        for (String variableName: informMatcherActionsAboutVariables.keySet()) {
+            if (!seenVariableNames.contains(variableName)) {
+                missingVariableNames.add(variableName);
+            }
+        }
+        if (missingVariableNames.size() > 0) {
+            throw new InvalidParserConfigurationException(
+                "Syntax error (" + matcherSourceLocation + "): Used, yet undefined variables: " + missingVariableNames);
         }
 
         List<MatcherAction> allDynamicActions = new ArrayList<>(variableActions.size() + dynamicActions.size());

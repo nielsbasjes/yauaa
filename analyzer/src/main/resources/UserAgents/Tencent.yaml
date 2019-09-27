@@ -1099,7 +1099,7 @@ config:
     variable:
     - 'AgentLanguageCode                   :agent.product[-3]="NetType/WIFI Language">'
     require:
-    - 'IsNull[@NetTypeProduct.(2)version]'
+    - 'IsNull[@AgentLanguageCode.(2)version]'
     extract:
     - 'AgentLanguage                       :   3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
     - 'AgentLanguageCode                   :   3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
@@ -1115,7 +1115,7 @@ config:
     variable:
     - 'AgentLanguageCode                   :agent.product[-3]="NetType/cmnet Language">'
     require:
-    - 'IsNull[@NetTypeProduct.(2)version]'
+    - 'IsNull[@AgentLanguageCode.(2)version]'
     extract:
     - 'AgentLanguage                       :   3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
     - 'AgentLanguageCode                   :   3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'

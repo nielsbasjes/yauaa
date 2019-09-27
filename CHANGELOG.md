@@ -5,6 +5,7 @@ v5.13-SNAPSHOT
 - New/improved detections
   - Agent: Apache Nifi, Wget, Curl, Latest Edge
 - Fixes:
+  - Check if a used variable actually exists.
   - Many TODO items (mostly corner cases).
   - Domains like Github and Gmail are no longer used as "DeviceBrand" when they occur in URL or Email.
 
