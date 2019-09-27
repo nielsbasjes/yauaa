@@ -581,3 +581,95 @@ config:
       AgentVersionMajor                    : '70'
       AgentNameVersion                     : 'Chrome 70.0.3538.80'
       AgentNameVersionMajor                : 'Chrome 70'
+
+
+- matcher:
+    variable:
+      - 'DeviceProductName: IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(1)comments.entry]'
+    require:
+      - '@DeviceProductName[2]="MIUI"'
+    extract:
+      - 'DeviceBrand                         :    400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
+      - 'DeviceName                          :    400 :@DeviceProductName[-1]'
+
+- matcher:
+    variable:
+      - 'DeviceProductName: IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(1)comments.entry]'
+    require:
+      - '@DeviceProductName[3]="MIUI"'
+    extract:
+      - 'DeviceBrand                         :    400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
+      - 'DeviceName                          :    400 :@DeviceProductName[-2]'
+
+- matcher:
+    variable:
+      - 'DeviceProductName: IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(1)comments.entry]'
+    require:
+      - '@DeviceProductName[4]="MIUI"'
+    extract:
+      - 'DeviceBrand                         :    400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
+      - 'DeviceName                          :    400 :@DeviceProductName[-3]'
+
+- matcher:
+    variable:
+      - 'DeviceProductName: IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(1)comments.entry]'
+    require:
+      - '@DeviceProductName[5]="MIUI"'
+    extract:
+      - 'DeviceBrand                         :    400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
+      - 'DeviceName                          :    400 :@DeviceProductName[-4]'
+
+
+- test:
+    input:
+      user_agent_string: 'Dalvik/2.1.0 (Linux; U; Android 7.0; MI MAX MIUI/V10.2.1.0.NBCMIXM)'
+    expected:
+      DeviceClass                           : 'Mobile'
+      DeviceName                            : 'Xiaomi MI MAX'
+      DeviceBrand                           : 'Xiaomi'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Android'
+      OperatingSystemVersion                : '7.0'
+      OperatingSystemVersionMajor           : '7'
+      OperatingSystemNameVersion            : 'Android 7.0'
+      OperatingSystemNameVersionMajor       : 'Android 7'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Special'
+      AgentName                             : 'Dalvik'
+      AgentVersion                          : '2.1.0'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'Dalvik 2.1.0'
+      AgentNameVersionMajor                 : 'Dalvik 2'
+      AgentSecurity                         : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Dalvik/2.1.0 (Linux; U; Android 8.0.0; MI 5 MIUI/V10.2.2.0.OAAMIXM)'
+    expected:
+      DeviceClass                           : 'Mobile'
+      DeviceName                            : 'Xiaomi MI 5'
+      DeviceBrand                           : 'Xiaomi'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Android'
+      OperatingSystemVersion                : '8.0.0'
+      OperatingSystemVersionMajor           : '8'
+      OperatingSystemNameVersion            : 'Android 8.0.0'
+      OperatingSystemNameVersionMajor       : 'Android 8'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Special'
+      AgentName                             : 'Dalvik'
+      AgentVersion                          : '2.1.0'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'Dalvik 2.1.0'
+      AgentNameVersionMajor                 : 'Dalvik 2'
+      AgentSecurity                         : 'Strong security'

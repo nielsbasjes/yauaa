@@ -4,6 +4,7 @@ v5.13-SNAPSHOT
 ===
 - New/improved detections
   - Agent: Apache Nifi, Wget, Curl, Latest Edge
+  - Device: Improved Xiaomi detection.
 - Fixes:
   - Check if a used variable actually exists.
   - Many TODO items (mostly corner cases).
