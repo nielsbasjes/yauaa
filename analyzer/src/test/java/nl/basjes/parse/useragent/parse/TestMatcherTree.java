@@ -20,7 +20,6 @@ package nl.basjes.parse.useragent.parse;
 import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
-import nl.basjes.parse.useragent.analyze.MatcherExtractAction;
 import nl.basjes.parse.useragent.analyze.MatcherRequireAction;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -32,10 +31,7 @@ import java.util.List;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.COMMENTS;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.ENTRY;
-import static nl.basjes.parse.useragent.parse.AgentPathFragment.EQUALS;
-import static nl.basjes.parse.useragent.parse.AgentPathFragment.NAME;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.PRODUCT;
-import static nl.basjes.parse.useragent.parse.AgentPathFragment.STARTSWITH;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.VERSION;
 import static org.junit.Assert.assertTrue;
 

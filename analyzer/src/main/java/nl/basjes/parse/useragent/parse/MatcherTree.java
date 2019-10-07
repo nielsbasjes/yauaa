@@ -18,7 +18,6 @@
 package nl.basjes.parse.useragent.parse;
 
 import nl.basjes.parse.useragent.analyze.MatcherAction;
-import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown.UserAgentGetChildrenVisitor;
 import nl.basjes.parse.useragent.utils.AntlrUtils;
@@ -30,7 +29,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,13 +36,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 import static java.util.Locale.ENGLISH;
-import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
-import static nl.basjes.parse.useragent.parse.AgentPathFragment.EQUALS;
-import static nl.basjes.parse.useragent.parse.AgentPathFragment.STARTSWITH;
-import static nl.basjes.parse.useragent.parse.AgentPathFragment.WORDRANGE;
 
 public class MatcherTree implements Serializable {
 

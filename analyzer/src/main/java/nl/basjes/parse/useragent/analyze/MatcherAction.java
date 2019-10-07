@@ -82,7 +82,6 @@ import static nl.basjes.parse.useragent.parse.AgentPathFragment.URL;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.UUID;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.VALUE;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.VERSION;
-import static nl.basjes.parse.useragent.parse.AgentPathFragment.WORDRANGE;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;

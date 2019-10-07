@@ -44,11 +44,11 @@
     <maven.compiler.target>${jdkLevel}</maven.compiler.target>
 
     <!-- FIXME: Antlr version twice -->
-    <antlr.version>4.7.2</antlr.version>
     <snakeyaml.version>1.24</snakeyaml.version>
     <google-guava.version>28.0-jre</google-guava.version>
     <!-- You cannot simply upgrade this because of the customize visitor!!! -->
     <antlr4.version>4.7.2</antlr4.version>
+    <antlr4-pvisitor.version>0.1-${antlr4.version}</antlr4-pvisitor.version>
 
     <!-- ============================================== -->
     <!-- ================ UDF Versions ================ -->
@@ -676,7 +676,6 @@
 
   <modules>
     <module>devtools</module>
-    <module>antlr4-pvisitor</module>
     <module>analyzer</module>
 <!-- FIXME: Reenable the udfs and other stuff -->
 <!--    <module>udfs</module>-->

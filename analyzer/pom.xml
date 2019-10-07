@@ -39,8 +39,8 @@
     <!-- FOR THESE DEPENDENCIES THE ORDERING OF THEM IS VERY IMPORTANT !!!-->
     <dependency>
       <groupId>nl.basjes.antlr</groupId>
-      <artifactId>parameterized-antlr4-visitor</artifactId>
-      <version>${project.version}</version>
+      <artifactId>antlr4-pvisitor</artifactId>
+      <version>${antlr4-pvisitor.version}</version>
     </dependency>
 
     <dependency>
@@ -154,7 +154,7 @@
             <!-- NOTE: We will get the warning about overlapping classes.                                                          -->
             <!-- This is unavoidable because we are deliberately replacing some classe from the                                    -->
             <!-- original antlr4-runtime with modified versions.                                                                   -->
-            <!-- [WARNING] antlr4-runtime-4.7.2.jar, parameterized-antlr4-visitor-5.12-SNAPSHOT.jar define 13 overlapping classes: -->
+            <!-- [WARNING] antlr4-runtime-4.7.2.jar, antlr4-visitor-0.1-4.7.2.jar define 13 overlapping classes: -->
             <relocation>
               <pattern>org.antlr</pattern>
               <shadedPattern>nl.basjes.shaded.org.antlr</shadedPattern>
@@ -180,7 +180,7 @@
             <configuration>
               <artifactSet>
                 <includes>
-                  <include>nl.basjes.antlr:parameterized-antlr4-visitor</include>
+                  <include>nl.basjes.antlr:antlr4-pvisitor</include>
                   <include>org.antlr:antlr4-runtime</include>
                   <include>org.springframework:spring-core</include>
                   <include>org.yaml:snakeyaml</include>
@@ -296,8 +296,8 @@
           <!--  THIS IS WHERE THE MAGIC HAPPENS -->
           <dependency>
             <groupId>nl.basjes.antlr</groupId>
-            <artifactId>parameterized-antlr4-visitor</artifactId>
-            <version>${project.version}</version>
+            <artifactId>antlr4-pvisitor</artifactId>
+            <version>${antlr4-pvisitor.version}</version>
           </dependency>
         </dependencies>
         <executions>
