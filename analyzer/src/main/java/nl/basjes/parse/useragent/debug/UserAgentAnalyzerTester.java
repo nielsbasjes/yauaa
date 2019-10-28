@@ -89,7 +89,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         if (getTestCases() == null) {
             return allPass;
         }
-        DebugUserAgent agent = new DebugUserAgent();
+        DebugUserAgent agent = new DebugUserAgent(wantedFieldNames);
 
         List<TestResult> results = new ArrayList<>(32);
 
@@ -133,8 +133,6 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             testcount++;
             Map<String, String> input = test.get("input");
             Map<String, String> expected = test.get("expected");
-
-            @SuppressWarnings("unchecked")
 
             List<String> options = null;
             if (test.containsKey("options")) {

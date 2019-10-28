@@ -132,7 +132,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
     private boolean doingOnlyASingleTest = false;
 
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
-    List<String> wantedFieldNames = null; // NOSONAR: Only accessed via Builder.
+    protected List<String> wantedFieldNames = null; // NOSONAR: Only accessed via Builder.
 
     private final List<Map<String, Map<String, String>>> testCases = new ArrayList<>(2048);
 
@@ -788,7 +788,7 @@ config:
     }
 
     public UserAgent parse(String userAgentString) {
-        UserAgent userAgent = new UserAgent(userAgentString);
+        UserAgent userAgent = new UserAgent(userAgentString, wantedFieldNames);
         return parse(userAgent);
     }
 

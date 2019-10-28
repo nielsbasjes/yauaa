@@ -117,4 +117,10 @@ public class CalculateDeviceBrand implements FieldCalculator {
             return null;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Calculate " + DEVICE_BRAND;
+    }
+
 }

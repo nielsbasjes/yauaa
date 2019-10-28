@@ -22,6 +22,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
@@ -31,9 +34,9 @@ public class TestUseragent {
     private static final Logger LOG = LoggerFactory.getLogger(TestUseragent.class);
 
     @Test
-    public void testUseragent(){
-        String uaString = "Foo Bar";
-        UserAgent agent = new UserAgent(uaString);
+    public void testUseragent() {
+        String    uaString = "Foo Bar";
+        UserAgent agent    = new UserAgent(uaString);
         assertEquals(uaString, agent.get(UserAgent.USERAGENT_FIELDNAME).getValue());
         assertEquals(0, agent.get(UserAgent.USERAGENT_FIELDNAME).getConfidence());
         assertEquals(uaString, agent.getValue(UserAgent.USERAGENT_FIELDNAME));
@@ -46,10 +49,10 @@ public class TestUseragent {
         testUseragentValuesDebug(false);
     }
 
-    private void testUseragentValuesDebug(boolean debug){
-        String name = "Attribute";
-        String uaString = "Foo Bar";
-        UserAgent agent = new UserAgent(uaString);
+    private void testUseragentValuesDebug(boolean debug) {
+        String    name     = "Attribute";
+        String    uaString = "Foo Bar";
+        UserAgent agent    = new UserAgent(uaString);
         agent.setDebug(debug);
 
         // Setting unknown new attributes
@@ -155,11 +158,11 @@ public class TestUseragent {
     @Test
     public void comparingUserAgents() {
         UserAgent baseAgent = new UserAgent("Something 2");
-        UserAgent agent0 = new UserAgent("Something 2");
-        UserAgent agent1 = new UserAgent("Something 1");
-        UserAgent agent2 = new UserAgent("Something 2");
-        UserAgent agent3 = new UserAgent("Something 2");
-        UserAgent agent4 = new UserAgent("Something 2");
+        UserAgent agent0    = new UserAgent("Something 2");
+        UserAgent agent1    = new UserAgent("Something 1");
+        UserAgent agent2    = new UserAgent("Something 2");
+        UserAgent agent3    = new UserAgent("Something 2");
+        UserAgent agent4    = new UserAgent("Something 2");
 
         AgentField field0 = new AgentField("Foo");
         field0.setValue("One", 1);
@@ -201,7 +204,7 @@ public class TestUseragent {
     }
 
     @Test
-    public void comparingUserAgentFields(){
+    public void comparingUserAgentFields() {
         AgentField field0 = new AgentField("Foo");
         field0.setValue("One", 1);
 
@@ -243,4 +246,52 @@ public class TestUseragent {
 
     }
 
+    @Test
+    public void fullToString() {
+        UserAgent userAgent = new UserAgent("Some Agent");
+
+        assertEquals(
+            "  - user_agent_string: '\"Some Agent\"'\n" +
+            "    DeviceClass                      : 'Unknown'\n" +
+            "    DeviceName                       : 'Unknown'\n" +
+            "    DeviceBrand                      : 'Unknown'\n" +
+            "    OperatingSystemClass             : 'Unknown'\n" +
+            "    OperatingSystemName              : 'Unknown'\n" +
+            "    OperatingSystemVersion           : '??'\n" +
+            "    OperatingSystemVersionMajor      : '??'\n" +
+            "    OperatingSystemNameVersion       : 'Unknown ??'\n" +
+            "    OperatingSystemNameVersionMajor  : 'Unknown ??'\n" +
+            "    LayoutEngineClass                : 'Unknown'\n" +
+            "    LayoutEngineName                 : 'Unknown'\n" +
+            "    LayoutEngineVersion              : '??'\n" +
+            "    LayoutEngineVersionMajor         : '??'\n" +
+            "    LayoutEngineNameVersion          : 'Unknown ??'\n" +
+            "    LayoutEngineNameVersionMajor     : 'Unknown ??'\n" +
+            "    AgentClass                       : 'Unknown'\n" +
+            "    AgentName                        : 'Unknown'\n" +
+            "    AgentVersion                     : '??'\n" +
+            "    AgentVersionMajor                : '??'\n" +
+            "    AgentNameVersion                 : 'Unknown ??'\n" +
+            "    AgentNameVersionMajor            : 'Unknown ??'\n",
+            userAgent.toString());
+    }
+
+    @Test
+    public void limitedToString() {
+        List<String> wanted = Arrays.asList("DeviceClass", "AgentVersion", "SomethingElse");
+
+        // When only asking for a limited set of fields then the internal datastructures are
+        // initialized with only the known attributes for which we have 'non standard' default values.
+        UserAgent userAgent = new UserAgent("Some Agent", wanted);
+
+        assertEquals(
+            "  - user_agent_string: '\"Some Agent\"'\n" +
+            "    DeviceClass   : 'Unknown'\n" +
+            "    AgentVersion  : '??'\n",
+            userAgent.toString());
+
+        assertEquals("Unknown", userAgent.getValue("DeviceClass"));
+        assertEquals("??",      userAgent.getValue("AgentVersion"));
+        assertEquals("Unknown", userAgent.getValue("SomethingElse"));
+    }
 }

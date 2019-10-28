@@ -26,7 +26,7 @@ import org.junit.runners.Parameterized.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Set;
 
 import static org.junit.Assert.assertNotNull;
@@ -54,7 +54,7 @@ public class TestPredefinedBrowsersPerField {
 
     @Test
     public void validateAllPredefinedBrowsersForField() {
-        Set<String> singleFieldList = new HashSet<>();
+        Set<String> singleFieldList = Collections.singleton(fieldName);
         LOG.info("==============================================================");
         LOG.info("Validating when ONLY asking for {}", fieldName);
         LOG.info("--------------------------------------------------------------");
@@ -66,8 +66,6 @@ public class TestPredefinedBrowsersPerField {
                 .hideMatcherLoadStats()
                 .build();
 
-        singleFieldList.clear();
-        singleFieldList.add(fieldName);
         assertNotNull(userAgentAnalyzer);
         assertTrue(userAgentAnalyzer.runTests(false, true, singleFieldList, false, false));
     }

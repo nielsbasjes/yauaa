@@ -34,4 +34,10 @@ public class CalculateAgentEmail implements FieldCalculator {
                 email.getConfidence());
         }
     }
+
+    @Override
+    public String toString() {
+        return "Calculate " + AGENT_INFORMATION_EMAIL;
+    }
+
 }

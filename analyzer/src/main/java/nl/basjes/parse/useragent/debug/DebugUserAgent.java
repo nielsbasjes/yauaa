@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,10 @@ public class DebugUserAgent extends UserAgent { // NOSONAR: No need to override 
     private static final Logger LOG = LoggerFactory.getLogger(DebugUserAgent.class);
 
     private final transient List<Pair<UserAgent, Matcher>> appliedMatcherResults = new ArrayList<>(32);
+
+    public DebugUserAgent(Collection<String> wantedFieldNames) {
+        super(wantedFieldNames);
+    }
 
     @Override
     public void set(UserAgent newValuesUserAgent, Matcher appliedMatcher) {
