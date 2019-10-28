@@ -2826,3 +2826,56 @@ config:
       AgentNameVersionMajor                : 'Netscape 5'
 
 
+# https://github.com/nielsbasjes/yauaa/issues/176
+# Parse error due to value that looks like a BASE64
+- test:
+    input:
+      user_agent_string: 'Android/9/G960FXXU5CSF2/28/samsung/samsung/SM-G960F/starlte (mNetwork/1.13.0)'
+    expected:
+      DeviceClass                           : 'Mobile'
+      DeviceName                            : 'Samsung SM-G960F'
+      DeviceBrand                           : 'Samsung'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Android'
+      OperatingSystemVersion                : '9'
+      OperatingSystemVersionMajor           : '9'
+      OperatingSystemNameVersion            : 'Android 9'
+      OperatingSystemNameVersionMajor       : 'Android 9'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Stock Android Browser'
+      AgentVersion                          : '9'
+      AgentVersionMajor                     : '9'
+      AgentNameVersion                      : 'Stock Android Browser 9'
+      AgentNameVersionMajor                 : 'Stock Android Browser 9'
+
+- test:
+    input:
+      user_agent_string: 'Android/9.0/G960FXXU5CSF2/28/samsung/samsung/SM-G960F/starlte (mNetwork/1.13.0)'
+    expected:
+      DeviceClass                           : 'Mobile'
+      DeviceName                            : 'Samsung SM-G960F'
+      DeviceBrand                           : 'Samsung'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Android'
+      OperatingSystemVersion                : '9.0'
+      OperatingSystemVersionMajor           : '9'
+      OperatingSystemNameVersion            : 'Android 9.0'
+      OperatingSystemNameVersionMajor       : 'Android 9'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Stock Android Browser'
+      AgentVersion                          : '9.0'
+      AgentVersionMajor                     : '9'
+      AgentNameVersion                      : 'Stock Android Browser 9.0'
+      AgentNameVersionMajor                 : 'Stock Android Browser 9'

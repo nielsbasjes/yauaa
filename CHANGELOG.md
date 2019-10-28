@@ -9,6 +9,7 @@ v5.13-SNAPSHOT
   - Check if a used variable actually exists.
   - Many TODO items (mostly corner cases).
   - Domains like Github and Gmail are no longer used as "DeviceBrand" when they occur in URL or Email.
+  - Edgecase where much of the useragent was incorrectly seen as a BASE64 fragment.
 - Updated UDF dependencies
   - Apache Flink  1.9.1
   - Apache Beam   2.16.0

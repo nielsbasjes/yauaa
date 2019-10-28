@@ -347,3 +347,42 @@ config:
     extract:
     - 'DeviceBrand                         :   1299 :LookUpPrefix[MobileBrands;@DeviceModelLine]'
     - 'DeviceName                          :   1299 :@DeviceModelLine^.version'
+
+# ===================================================================================================
+
+# Single product very deep versioning situation
+- matcher:
+    variable:
+      - 'VersionTag: IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(4)version]'
+    require:
+      - 'IsNull[LookUp[MobileBrands;@VersionTag]]' # Only use this if the name IS NOT exactly the brand
+    extract:
+      - 'DeviceBrand                         :    313 :LookUpPrefix[MobileBrandPrefixes;@VersionTag]'
+      - 'DeviceName                          :    313 :@VersionTag'
+
+- matcher:
+    variable:
+      - 'VersionTag: IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(5)version]'
+    require:
+      - 'IsNull[LookUp[MobileBrands;@VersionTag]]' # Only use this if the name IS NOT exactly the brand
+    extract:
+      - 'DeviceBrand                         :    313 :LookUpPrefix[MobileBrandPrefixes;@VersionTag]'
+      - 'DeviceName                          :    313 :@VersionTag'
+
+- matcher:
+    variable:
+      - 'VersionTag: IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(6)version]'
+    require:
+      - 'IsNull[LookUp[MobileBrands;@VersionTag]]' # Only use this if the name IS NOT exactly the brand
+    extract:
+      - 'DeviceBrand                         :    313 :LookUpPrefix[MobileBrandPrefixes;@VersionTag]'
+      - 'DeviceName                          :    313 :@VersionTag'
+
+- matcher:
+    variable:
+      - 'VersionTag: IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(7)version]'
+    require:
+      - 'IsNull[LookUp[MobileBrands;@VersionTag]]' # Only use this if the name IS NOT exactly the brand
+    extract:
+      - 'DeviceBrand                         :    313 :LookUpPrefix[MobileBrandPrefixes;@VersionTag]'
+      - 'DeviceName                          :    313 :@VersionTag'

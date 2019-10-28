@@ -30,6 +30,8 @@ public final class EvilManualUseragentStringHacks {
         Pattern.compile("(/[0-9]+\\.[0-9]+)([A-Z][a-z][a-z][a-z]+ )");
     private static final Pattern MULTIPLE_SPACES =
         Pattern.compile("(?: {2,})");
+    private static final Pattern AVOID_BASE64_MATCH =
+        Pattern.compile("(android/[0-9]+)(/)", Pattern.CASE_INSENSITIVE);
 
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
@@ -65,6 +67,10 @@ public final class EvilManualUseragentStringHacks {
 
         // We have seen problem cases like " Version/4.0Mobile Safari/530.17"
         result = MISSING_SPACE.matcher(result).replaceAll("$1 $2");
+
+        // Sometimes a case like  "Android/9/something/" matches the pattern of Base84 which breaks everything
+        // So those cases we simply insert a space to avoid this match and without changing the resulting tree.
+        result = AVOID_BASE64_MATCH.matcher(result).replaceAll("$1 $2");
 
         // We have seen problem cases like "Java1.0.21.0"
         result = replaceString(result, "Java", "Java ");
