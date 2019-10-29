@@ -5,7 +5,7 @@ v5.13-SNAPSHOT
 - Analyzer improvement by allocating less AgentFields (i.e. less memory).
 - Update public suffix list for detecting hostnames.
 - New/improved detections
-  - Agent: Apache Nifi, Wget, Curl, Latest Edge
+  - Agent: Apache Nifi, Wget, Curl, Latest Edge, HeadlessChrome
   - Device: Improved Xiaomi detection.
 - Fixes:
   - Check if a used variable actually exists.

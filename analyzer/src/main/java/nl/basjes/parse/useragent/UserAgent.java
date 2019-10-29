@@ -653,12 +653,14 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         List<String> resultSet = new ArrayList<>(allFields.size()+10);
         allFields.forEach((fieldName, value) -> {
             if (!resultSet.contains(fieldName)) {
-                if (wantedFieldNames == null || wantedFieldNames.contains(fieldName)) {
-                    resultSet.add(fieldName);
-                } else {
-                    AgentField field = allFields.get(fieldName);
-                    if (field != null && field.confidence >= 0 && field.getValue() != null) {
+                AgentField field = allFields.get(fieldName);
+                if (field != null && field.getValue() != null) {
+                    if (wantedFieldNames == null || wantedFieldNames.contains(fieldName)) {
                         resultSet.add(fieldName);
+                    } else {
+                        if (field.confidence >= 0) {
+                            resultSet.add(fieldName);
+                        }
                     }
                 }
             }
