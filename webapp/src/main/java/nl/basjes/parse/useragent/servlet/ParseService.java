@@ -170,7 +170,7 @@ public class ParseService {
             sb.append("<div class=\"header\">");
             sb.append("<h1 class=\"title\">Yet Another UserAgent Analyzer.</h1>");
             sb.append("<p class=\"version\">").append(ANALYZER_VERSION).append("</p>");
-            sb.append("</div>\n");
+            sb.append("</div>");
 
             sb.append("<hr/>");
 
@@ -218,16 +218,16 @@ public class ParseService {
                 sb.append("<hr/>");
 
                 sb.append("<p class=\"logobar documentation\">Read the online documentation at <a href=\"https://yauaa.basjes.nl\">" +
-                    "https://yauaa.basjes.nl</a></p>\n");
+                    "https://yauaa.basjes.nl</a></p>");
                 sb.append("<p class=\"logobar bug\">");
                 addBugReportButton(sb, userAgent);
                 sb.append("</p>");
 
                 sb.append("<p class=\"logobar source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">" +
-                    "https://github.com/nielsbasjes/yauaa</a></p>\n");
+                    "https://github.com/nielsbasjes/yauaa</a></p>");
                 sb.append("<p class=\"logobar contribute\">Creating this free software is a lot of work. " +
                     "If this has business value for your then don't hesitate to " +
-                    "<a href=\"https://www.paypal.me/nielsbasjes\">contribute a little something back</a>.</p>\n");
+                    "<a href=\"https://www.paypal.me/nielsbasjes\">contribute a little something back</a>.</p>");
                 sb.append("<hr/>");
                 sb.append("<form class=\"logobar tryyourown\" action=\"\" method=\"post\">");
                 sb.append("<label for=\"useragent\">Manual testing of a useragent:</label>");
@@ -337,7 +337,7 @@ public class ParseService {
         result = result.replace("Operating System", "<b><u>Operating System</u></b>");
         result = result.replace("Layout Engine", "<b><u>Layout Engine</u></b>");
         result = result.replace("Agent", "<b><u>Agent</u></b>");
-        return result;
+        return result.trim();
     }
 
     private String doJSon(String userAgentString) {
