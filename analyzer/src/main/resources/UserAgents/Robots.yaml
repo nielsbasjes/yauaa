@@ -633,7 +633,7 @@ config:
     - 'RobotName:agent.product.name~"spider"'
     extract:
     - 'DeviceClass                         :    111 :"Robot"'
-    - 'DeviceName                          :    111 :@RobotName'
+    - 'DeviceName                          :   1111 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
     - 'OperatingSystemClass                :    111 :"Cloud"'
@@ -664,7 +664,7 @@ config:
     - 'RobotName:agent.product.name~"crawl"'
     extract:
     - 'DeviceClass                         :    111 :"Robot"'
-    - 'DeviceName                          :    111 :@RobotName'
+    - 'DeviceName                          :   1111 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
     - 'OperatingSystemClass                :    111 :"Cloud"'
@@ -695,7 +695,7 @@ config:
     - 'RobotName:agent.product.name~"bot"'
     extract:
     - 'DeviceClass                         :    111 :"Robot"'
-    - 'DeviceName                          :    111 :@RobotName'
+    - 'DeviceName                          :   1111 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
     - 'OperatingSystemClass                :    111 :"Cloud"'
@@ -726,7 +726,7 @@ config:
     - 'RobotName:agent.product.name~"scan"'
     extract:
     - 'DeviceClass                         :    111 :"Robot"'
-    - 'DeviceName                          :    111 :@RobotName'
+    - 'DeviceName                          :   1111 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
     - 'OperatingSystemClass                :    111 :"Cloud"'
@@ -785,11 +785,11 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1)product.comments.entry.product.name~"spider"'
+    - 'RobotName:agent.product.comments.entry.product.name~"spider"'
     extract:
     - '__Set_ALL_Fields__                  :     99 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :    100 :"Robot"'
-    - 'DeviceName                          :    100 :@RobotName'
+    - 'DeviceClass                         :   1100 :"Robot"'
+    - 'DeviceName                          :   1100 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
     - 'OperatingSystemClass                :   2500 :"Cloud"'
@@ -804,11 +804,11 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1)product.comments.entry.product.name~"crawl"'
+    - 'RobotName:agent.product.comments.entry.product.name~"crawl"'
     extract:
     - '__Set_ALL_Fields__                  :     99 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :    100 :"Robot"'
-    - 'DeviceName                          :    100 :@RobotName'
+    - 'DeviceClass                         :   1100 :"Robot"'
+    - 'DeviceName                          :   1100 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
     - 'OperatingSystemClass                :   2500 :"Cloud"'
@@ -823,13 +823,13 @@ config:
 
 - matcher:
     require:
-    - 'IsNull[agent.(1)product.comments.entry.product.name[1]="cubot"]'
+    - 'IsNull[agent.product.comments.entry.product.name[1]="cubot"]'
     variable:
-    - 'RobotName:agent.(1)product.comments.entry.product.name~"bot"'
+    - 'RobotName:agent.product.comments.entry.product.name~"bot"'
     extract:
     - '__Set_ALL_Fields__                  :     99 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :    100 :"Robot"'
-    - 'DeviceName                          :    100 :@RobotName'
+    - 'DeviceClass                         :   1100 :"Robot"'
+    - 'DeviceName                          :   1100 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
     - 'OperatingSystemClass                :   2500 :"Cloud"'
@@ -844,11 +844,11 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1)product.comments.entry.product.name~"scan"'
+    - 'RobotName:agent.product.comments.entry.product.name~"scan"'
     extract:
     - '__Set_ALL_Fields__                  :     99 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :    100 :"Robot"'
-    - 'DeviceName                          :    100 :@RobotName'
+    - 'DeviceClass                         :   1100 :"Robot"'
+    - 'DeviceName                          :   1100 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
     - 'OperatingSystemClass                :   2500 :"Cloud"'
@@ -863,7 +863,7 @@ config:
 
 #- matcher:
 #    variable:
-#    - 'RobotName:agent.(1)product.comments.entry.product.name~"checker"'
+#    - 'RobotName:agent.product.comments.entry.product.name~"checker"'
 #    extract:
 #    - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
 #    - 'DeviceClass           :  100:"Robot"'
@@ -882,16 +882,16 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1)product.comments.entry.text~"spider"'
+    - 'RobotName:agent.product.comments.entry.text~"spider"'
     extract:
     - '__Set_ALL_Fields__                  :     99 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :    100 :"Robot"'
-    - 'DeviceName                          :    100 :@RobotName'
+    - 'DeviceClass                         :   1100 :"Robot"'
+    - 'DeviceName                          :   1100 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :    100 :"Cloud"'
-    - 'OperatingSystemName                 :    100 :"Cloud"'
-    - 'OperatingSystemVersion              :    100 :"??"'
+    - 'OperatingSystemClass                :    101 :"Cloud"'
+    - 'OperatingSystemName                 :    101 :"Cloud"'
+    - 'OperatingSystemVersion              :    101 :"??"'
     - 'LayoutEngineClass                   :    100 :"Robot"'
     - 'LayoutEngineName                    :    100 :@RobotName'
     - 'LayoutEngineVersion                 :    100 :@RobotName'
@@ -901,16 +901,16 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1)product.comments.entry.text~"crawl"'
+    - 'RobotName:agent.product.comments.entry.text~"crawl"'
     extract:
     - '__Set_ALL_Fields__                  :     99 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :    100 :"Robot"'
-    - 'DeviceName                          :    100 :@RobotName'
+    - 'DeviceClass                         :   1100 :"Robot"'
+    - 'DeviceName                          :   1100 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :    100 :"Cloud"'
-    - 'OperatingSystemName                 :    100 :"Cloud"'
-    - 'OperatingSystemVersion              :    100 :"??"'
+    - 'OperatingSystemClass                :    101 :"Cloud"'
+    - 'OperatingSystemName                 :    101 :"Cloud"'
+    - 'OperatingSystemVersion              :    101 :"??"'
     - 'LayoutEngineClass                   :    100 :"Robot"'
     - 'LayoutEngineName                    :    100 :@RobotName'
     - 'LayoutEngineVersion                 :    100 :@RobotName'
@@ -920,18 +920,18 @@ config:
 
 - matcher:
     require:
-    - 'IsNull[agent.(1)product.comments.entry.text[1]="cubot"]'
+    - 'IsNull[agent.product.comments.entry.text[1]="cubot"]'
     variable:
-    - 'RobotName:agent.(1)product.comments.entry.text~"bot"'
+    - 'RobotName:agent.product.comments.entry.text~"bot"'
     extract:
     - '__Set_ALL_Fields__                  :     99 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :    100 :"Robot"'
-    - 'DeviceName                          :    100 :@RobotName'
+    - 'DeviceClass                         :   1100 :"Robot"'
+    - 'DeviceName                          :   1100 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :    100 :"Cloud"'
-    - 'OperatingSystemName                 :    100 :"Cloud"'
-    - 'OperatingSystemVersion              :    100 :"??"'
+    - 'OperatingSystemClass                :    101 :"Cloud"'
+    - 'OperatingSystemName                 :    101 :"Cloud"'
+    - 'OperatingSystemVersion              :    101 :"??"'
     - 'LayoutEngineClass                   :    100 :"Robot"'
     - 'LayoutEngineName                    :    100 :@RobotName'
     - 'LayoutEngineVersion                 :    100 :@RobotName'
@@ -941,16 +941,16 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1)product.comments.entry.text~"scan"'
+    - 'RobotName:agent.product.comments.entry.text~"scan"'
     extract:
     - '__Set_ALL_Fields__                  :     99 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :    100 :"Robot"'
-    - 'DeviceName                          :    100 :@RobotName'
+    - 'DeviceClass                         :   1100 :"Robot"'
+    - 'DeviceName                          :   1100 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :    100 :"Cloud"'
-    - 'OperatingSystemName                 :    100 :"Cloud"'
-    - 'OperatingSystemVersion              :    100 :"??"'
+    - 'OperatingSystemClass                :    101 :"Cloud"'
+    - 'OperatingSystemName                 :    101 :"Cloud"'
+    - 'OperatingSystemVersion              :    101 :"??"'
     - 'LayoutEngineClass                   :    100 :"Robot"'
     - 'LayoutEngineName                    :    100 :@RobotName'
     - 'LayoutEngineVersion                 :    100 :@RobotName'
@@ -960,7 +960,7 @@ config:
 
 #- matcher:
 #    variable:
-#    - 'RobotName:agent.(1)product.comments.entry.text~"checker"'
+#    - 'RobotName:agent.product.comments.entry.text~"checker"'
 #    extract:
 #    - '__Set_ALL_Fields__    :   99:"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
 #    - 'DeviceClass           :  100:"Robot"'
@@ -987,9 +987,9 @@ config:
     - 'DeviceName                          :    100 :@RobotName'
     - 'DeviceCpu                           :   1000 :"<<<null>>>"'
     - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :    100 :"Cloud"'
-    - 'OperatingSystemName                 :    100 :"Cloud"'
-    - 'OperatingSystemVersion              :    100 :"??"'
+    - 'OperatingSystemClass                :    101 :"Cloud"'
+    - 'OperatingSystemName                 :    101 :"Cloud"'
+    - 'OperatingSystemVersion              :    101 :"??"'
     - 'LayoutEngineClass                   :    100 :"Robot"'
     - 'LayoutEngineName                    :    100 :@RobotName'
     - 'LayoutEngineVersion                 :    100 :@RobotName'
@@ -1300,6 +1300,7 @@ config:
       AgentNameVersionMajor                : 'Site-Shot 2'
       AgentInformationUrl                  : 'http://www.site-shot.com'
 
+# Baidu
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)'
@@ -1327,7 +1328,67 @@ config:
       AgentNameVersionMajor                : 'Baiduspider 2'
       AgentInformationUrl                  : 'http://www.baidu.com/search/spider.html'
 
-#Yahoo
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Baiduspider-render/2.0; +http://www.baidu.com/search/spider.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Baidu Spider-Render'
+      DeviceBrand                          : 'Baidu'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Baiduspider-render'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Baiduspider-render 2.0'
+      LayoutEngineNameVersionMajor         : 'Baiduspider-render 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Baiduspider-render'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Baiduspider-render 2.0'
+      AgentNameVersionMajor                : 'Baiduspider-render 2'
+      AgentInformationUrl                  : 'http://www.baidu.com/search/spider.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux;u;Android 4.2.2;zh-cn;) AppleWebKit/534.46 (KHTML,like Gecko) Version/5.1 Mobile Safari/10600.6.3 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Baidu Spider'
+      DeviceBrand                           : 'Baidu'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Baiduspider'
+      LayoutEngineVersion                   : '2.0'
+      LayoutEngineVersionMajor              : '2'
+      LayoutEngineNameVersion               : 'Baiduspider 2.0'
+      LayoutEngineNameVersionMajor          : 'Baiduspider 2'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Baiduspider'
+      AgentVersion                          : '2.0'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'Baiduspider 2.0'
+      AgentNameVersionMajor                 : 'Baiduspider 2'
+      AgentLanguage                         : 'Chinese (S)'
+      AgentLanguageCode                     : 'zh-cn'
+      AgentInformationUrl                   : 'http://www.baidu.com/search/spider.html'
+      AgentSecurity                         : 'Strong security'
+
+
+  #Yahoo
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.text="Yahoo! Slurp"'
@@ -1662,11 +1723,11 @@ config:
       OperatingSystemNameVersion           : 'Cloud ??'
       OperatingSystemNameVersionMajor      : 'Cloud ??'
       LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '600.2.5'
-      LayoutEngineVersionMajor             : '600'
-      LayoutEngineNameVersion              : 'AppleWebKit 600.2.5'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      LayoutEngineName                     : 'Applebot'
+      LayoutEngineVersion                  : '0.1'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'Applebot 0.1'
+      LayoutEngineNameVersionMajor         : 'Applebot 0'
       AgentClass                           : 'Robot'
       AgentName                            : 'Applebot'
       AgentVersion                         : '0.1'
@@ -1718,12 +1779,12 @@ config:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Exalead Exabot-Thumbnails'
       DeviceBrand                          : 'Exalead'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Linux'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Linux ??'
-      OperatingSystemNameVersionMajor      : 'Linux ??'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'KHTML'
       LayoutEngineVersion                  : '3.5'
@@ -3102,7 +3163,7 @@ config:
     - 'RobotName:agent.product.comments.entry.product.name="YandexMobileBot"'
     - 'RobotVersion:@RobotName^.version'
     extract:
-    - 'DeviceClass                         :    111 :"Robot Mobile"'
+    - 'DeviceClass                         :   1111 :"Robot Mobile"'
     - 'DeviceName                          :    111 :@RobotName'
     - 'DeviceBrand                         :   1000 :"Yandex"'
     - 'DeviceVersion                       :   1000 :"<<<null>>>"'
@@ -3566,34 +3627,6 @@ config:
       AgentNameVersion                     : 'AlphaBot 3.2'
       AgentNameVersionMajor                : 'AlphaBot 3'
       AgentInformationUrl                  : 'http://alphaseobot.com/bot.html'
-
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (compatible; Baiduspider-render/2.0; +http://www.baidu.com/search/spider.html)'
-    expected:
-      DeviceClass                          : 'Robot'
-      DeviceName                           : 'Baidu Spider-Render'
-      DeviceBrand                          : 'Baidu'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Cloud'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Cloud ??'
-      OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'Baiduspider-render'
-      LayoutEngineVersion                  : '2.0'
-      LayoutEngineVersionMajor             : '2'
-      LayoutEngineNameVersion              : 'Baiduspider-render 2.0'
-      LayoutEngineNameVersionMajor         : 'Baiduspider-render 2'
-      AgentClass                           : 'Robot'
-      AgentName                            : 'Baiduspider-render'
-      AgentVersion                         : '2.0'
-      AgentVersionMajor                    : '2'
-      AgentNameVersion                     : 'Baiduspider-render 2.0'
-      AgentNameVersionMajor                : 'Baiduspider-render 2'
-      AgentInformationUrl                  : 'http://www.baidu.com/search/spider.html'
 
 
 - test:
@@ -5244,7 +5277,7 @@ config:
       user_agent_string: 'LinkedInBot/1.0 (compatible; Mozilla/5.0; Apache-HttpClient +http://www.linkedin.com)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Apache HttpClient +http://Www.linkedin.com'
+      DeviceName                           : 'Apache LinkedInbot'
       DeviceBrand                          : 'Apache'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
