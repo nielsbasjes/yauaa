@@ -552,7 +552,10 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             maxNameLength = Math.max(maxNameLength, fieldName.length());
         }
         for (String fieldName : fieldNames) {
-            maxValueLength = Math.max(maxValueLength, getValue(fieldName).length());
+            String value = getValue(fieldName);
+            if (value != null) {
+                maxValueLength = Math.max(maxValueLength, value.length());
+            }
         }
 
         for (String fieldName : fieldNames) {
@@ -563,7 +566,8 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             String value = getValue(fieldName);
             sb.append(": '").append(value).append('\'');
             if (showConfidence) {
-                for (int l = value.length(); l < maxValueLength + 5; l++) {
+                int l = value == null ? 0 : value.length();
+                for (; l < maxValueLength + 5; l++) {
                     sb.append(' ');
                 }
                 sb.append("# ").append(String.format("%5d", getConfidence(fieldName)));
