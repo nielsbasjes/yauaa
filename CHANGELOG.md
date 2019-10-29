@@ -3,6 +3,7 @@ This is intended as an overview of the major changes
 v5.13-SNAPSHOT
 ===
 - Analyzer improvement by allocating less AgentFields (i.e. less memory).
+- Update public suffix list for detecting hostnames.
 - New/improved detections
   - Agent: Apache Nifi, Wget, Curl, Latest Edge
   - Device: Improved Xiaomi detection.
