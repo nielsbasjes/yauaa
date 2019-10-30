@@ -132,7 +132,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
     private boolean doingOnlyASingleTest = false;
 
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
-    protected List<String> wantedFieldNames = null; // NOSONAR: Only accessed via Builder.
+    protected Set<String> wantedFieldNames = null; // NOSONAR: Only accessed via Builder.
 
     private final List<Map<String, Map<String, String>>> testCases = new ArrayList<>(2048);
 
@@ -1181,11 +1181,9 @@ config:
         public B withField(String fieldName) {
             failIfAlreadyBuilt();
             if (uaa.wantedFieldNames == null) {
-                uaa.wantedFieldNames = new ArrayList<>(32);
+                uaa.wantedFieldNames = new TreeSet<>(); // This avoids duplicates and maintains ordering.
             }
-            if (!uaa.wantedFieldNames.contains(fieldName)) {
-                uaa.wantedFieldNames.add(fieldName);
-            }
+            uaa.wantedFieldNames.add(fieldName);
             return (B)this;
         }
 

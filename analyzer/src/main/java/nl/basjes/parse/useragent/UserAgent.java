@@ -374,7 +374,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         setUserAgentString(userAgentString);
     }
 
-    public UserAgent(String userAgentString, List<String> wantedFieldNames) {
+    public UserAgent(String userAgentString, Collection<String> wantedFieldNames) {
         setWantedFieldNames(wantedFieldNames);
         init();
         setUserAgentString(userAgentString);

@@ -26,6 +26,7 @@ import org.yaml.snakeyaml.nodes.NodeTuple;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -102,7 +103,7 @@ public class Matcher implements Serializable {
     public Matcher(Analyzer analyzer,
                    Map<String, Map<String, String>> lookups,
                    Map<String, Set<String>> lookupSets,
-                   List<String> wantedFieldNames,
+                   Collection<String> wantedFieldNames,
                    MappingNode matcherConfig,
                    String filename) throws UselessMatcherException {
         this.analyzer = analyzer;
