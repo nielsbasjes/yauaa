@@ -419,7 +419,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
                 int startSkipped = skippedMatchers;
                 for (MappingNode map : matcherConfig) {
                     try {
-                        allMatchers.add(new Matcher(this, wantedFieldNames, map, configFilename));
+                        allMatchers.add(new Matcher(this, lookups, lookupSets, wantedFieldNames, map, configFilename));
                     } catch (UselessMatcherException ume) {
                         skippedMatchers++;
                     }
