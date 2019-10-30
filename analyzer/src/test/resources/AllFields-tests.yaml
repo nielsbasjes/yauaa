@@ -16,31 +16,61 @@
 #
 config:
 # ========================================================================
+
   - matcher:
       options:
         - 'verbose'
       require:
+        - 'agent.(1)product.(1)name'
         - 'agent.(1)product.(1)name="Name"'
-        - 'agent.(1)product.(1)version="V1"'
-        - 'agent.(1)product.(2)version="V2"'
-        - 'agent.(1)product.(1)comments.(1)entry.(1)product="Versi0nName 1.0 (comment)"'
-        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name="Versi0nName"'
-        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version="1.0"'
-        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)comments="(comment)"'
-        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)comments.entry.(1)text="comment"'
-        - 'agent.(1)product.(1)comments.(2)entry.(1)comments.entry.(1)text="nested comment"'
-        - 'agent.(1)product.(1)comments.(3)entry.(1)email="em@il.nl"'
-        - 'agent.(1)product.(1)comments.(4)entry.(1)url="http://web.site"'
-        - 'agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(1)key="keyText"'
-        - 'agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)text="text"'
-        - 'agent.(1)product.(1)comments.(6)entry.(1)keyvalue.(1)key="keyEmail"'
-        - 'agent.(1)product.(1)comments.(6)entry.(1)keyvalue.(2)email="em@il.nl"'
-        - 'agent.(1)product.(1)comments.(7)entry.(1)keyvalue.(1)key="keyWeb"'
-        - 'agent.(1)product.(1)comments.(7)entry.(1)keyvalue.(2)url="http://web.site"'
-        - 'agent.(1)product.(1)comments.(8)entry.(1)keyvalue.(1)key="keyUuid"'
-        - 'agent.(1)product.(1)comments.(8)entry.(1)keyvalue.(2)uuid="A43F3165-FAC1-11E1-8828-00123F6EDBB1"'
+#        - 'agent.(1)product.(1)version'
+#        - 'agent.(1)product.(2)version'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)comments'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)comments.entry.(1)text'
+#        - 'agent.(1)product.(1)comments.(2)entry.(1)comments.entry.(1)text'
+#        - 'agent.(1)product.(1)comments.(3)entry.(1)email'
+#        - 'agent.(1)product.(1)comments.(4)entry.(1)url'
+#        - 'agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(1)key'
+#        - 'agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)text'
+#        - 'agent.(1)product.(1)comments.(6)entry.(1)keyvalue.(1)key'
+#        - 'agent.(1)product.(1)comments.(6)entry.(1)keyvalue.(2)email'
+#        - 'agent.(1)product.(1)comments.(7)entry.(1)keyvalue.(1)key'
+#        - 'agent.(1)product.(1)comments.(7)entry.(1)keyvalue.(2)url'
+#        - 'agent.(1)product.(1)comments.(8)entry.(1)keyvalue.(1)key'
+#        - 'agent.(1)product.(1)comments.(8)entry.(1)keyvalue.(2)uuid'
       extract:
         - 'Test1:1:"Ok"'
+#
+#  - matcher:
+#      options:
+#        - 'verbose'
+#      require:
+#        - 'agent.(1)product.(1)name="Name"'
+#        - 'agent.(1)product.(1)version="V1"'
+#        - 'agent.(1)product.(2)version="V2"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product="Versi0nName 1.0 (comment)"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name="Versi0nName"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)version="1.0"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)comments="(comment)"'
+#        - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)comments.entry.(1)text="comment"'
+#        - 'agent.(1)product.(1)comments.(2)entry.(1)comments.entry.(1)text="nested comment"'
+#        - 'agent.(1)product.(1)comments.(3)entry.(1)email="em@il.nl"'
+#        - 'agent.(1)product.(1)comments.(4)entry.(1)url="http://web.site"'
+#        - 'agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(1)key="keyText"'
+#        - 'agent.(1)product.(1)comments.(5)entry.(1)keyvalue.(2)text="text"'
+#        - 'agent.(1)product.(1)comments.(6)entry.(1)keyvalue.(1)key="keyEmail"'
+#        - 'agent.(1)product.(1)comments.(6)entry.(1)keyvalue.(2)email="em@il.nl"'
+#        - 'agent.(1)product.(1)comments.(7)entry.(1)keyvalue.(1)key="keyWeb"'
+#        - 'agent.(1)product.(1)comments.(7)entry.(1)keyvalue.(2)url="http://web.site"'
+#        - 'agent.(1)product.(1)comments.(8)entry.(1)keyvalue.(1)key="keyUuid"'
+#        - 'agent.(1)product.(1)comments.(8)entry.(1)keyvalue.(2)uuid="A43F3165-FAC1-11E1-8828-00123F6EDBB1"'
+#      extract:
+#        - 'Test2:1:"Ok"'
+#
+
 
   - test:
       options:
@@ -50,24 +80,25 @@ config:
         user_agent_string:  'Name V1/V2 (Versi0nName 1.0 (comment); (nested comment) ; em@il.nl ; http://web.site ; keyText=text ; keyEmail=em@il.nl ; keyWeb=http://web.site ; keyUuid={A43F3165-FAC1-11E1-8828-00123F6EDBB1})'
       expected:
         Test1: "Ok"
+#        Test2: "Ok"
 
-        DeviceClass                          : 'Unknown'
-        DeviceName                           : 'Unknown'
-        DeviceBrand                          : 'Unknown'
-        OperatingSystemClass                 : 'Unknown'
-        OperatingSystemName                  : 'Unknown'
-        OperatingSystemVersion               : '??'
-        OperatingSystemVersionMajor          : '??'
-        OperatingSystemNameVersion           : 'Unknown ??'
-        OperatingSystemNameVersionMajor      : 'Unknown ??'
-        LayoutEngineClass                    : 'Unknown'
-        LayoutEngineName                     : 'Unknown'
-        LayoutEngineVersion                  : '??'
-        LayoutEngineVersionMajor             : '??'
-        AgentClass                           : 'Unknown'
-        AgentName                            : 'Unknown'
-        AgentVersion                         : '??'
-        AgentVersionMajor                    : '??'
+#        DeviceClass                          : 'Unknown'
+#        DeviceName                           : 'Unknown'
+#        DeviceBrand                          : 'Unknown'
+#        OperatingSystemClass                 : 'Unknown'
+#        OperatingSystemName                  : 'Unknown'
+#        OperatingSystemVersion               : '??'
+#        OperatingSystemVersionMajor          : '??'
+#        OperatingSystemNameVersion           : 'Unknown ??'
+#        OperatingSystemNameVersionMajor      : 'Unknown ??'
+#        LayoutEngineClass                    : 'Unknown'
+#        LayoutEngineName                     : 'Unknown'
+#        LayoutEngineVersion                  : '??'
+#        LayoutEngineVersionMajor             : '??'
+#        AgentClass                           : 'Unknown'
+#        AgentName                            : 'Unknown'
+#        AgentVersion                         : '??'
+#        AgentVersionMajor                    : '??'
 
 
 ## ========================================================================

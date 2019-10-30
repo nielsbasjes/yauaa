@@ -311,10 +311,11 @@ public abstract class MatcherAction implements Serializable {
             matcher.gotMyFirstStartingPoint();
         }
 
-        LOG.info("Action inform: >>>{}<<<", matchExpression);
-        LOG.info("         about >>>{}<<<", key);
+        LOG.info("{} was informed (part of matcher {}).", this.getClass().getSimpleName(), matcher.getMatcherSourceLocation());
+        LOG.info("  Desired    : >>>{}<<<", matchExpression);
+        LOG.info("  Found key  : >>>{}<<<", key);
+        LOG.info("  Found value: >>>{}<<<", value);
 //        LOG.info("   tree source >>>{}<<<", result);
-        LOG.info("         value >>>{}<<<", value);
 
         matches.add(result, key, value);
     }
