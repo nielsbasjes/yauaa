@@ -15,21 +15,23 @@
 # limitations under the License.
 #
 
-language: java
 
-dist: trusty
-
-jdk:
-  - oraclejdk8
-  - openjdk11
-
-addons:
-  sonarcloud:
-    organization: "nielsbasjes-github"
-
-script:
-  - mvn test -DEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
-
-cache:
-  directories:
-    - '$HOME/.m2/repository'
+## FIXME: Reenable travis
+#language: java
+#
+#dist: trusty
+#
+#jdk:
+#  - oraclejdk8
+#  - openjdk11
+#
+#addons:
+#  sonarcloud:
+#    organization: "nielsbasjes-github"
+#
+#script:
+#  - mvn test -DEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
+#
+#cache:
+#  directories:
+#    - '$HOME/.m2/repository'
