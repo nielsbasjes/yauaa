@@ -61,6 +61,7 @@ public class MatcherVariableAction extends MatcherAction {
 
     public void inform(MatcherTree key, WalkResult newlyFoundValue) {
         if (verbose) {
+            LOG.info("--------------------------------------------------");
             LOG.info("INFO  : VARIABLE ({}): {}", variableName, key);
             LOG.info("NEED  : VARIABLE ({}): {}", variableName, getMatchExpression());
         }
@@ -80,6 +81,9 @@ public class MatcherVariableAction extends MatcherAction {
                     action.inform(null, newlyFoundValue.getTree(), newlyFoundValue.getValue());
                 }
             }
+        }
+        if (verbose) {
+            LOG.info("--------------------------------------------------");
         }
     }
 

@@ -52,7 +52,7 @@ public class MatcherTree implements Serializable {
 
     // MY position with my parent.
     // Root element = agent (1)
-    private final AgentPathFragment fragment;
+    final AgentPathFragment fragment;
     private String                  fragmentName;
     private final int               index;
 

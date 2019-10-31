@@ -74,6 +74,7 @@ public class MatcherExtractAction extends MatcherAction {
 
     public void inform(MatcherTree key, WalkResult newlyFoundValue) {
         if (verbose) {
+            LOG.info("--------------------------------------------------");
             LOG.info("INFO  : EXTRACT ({}): {}", attribute, key);
             LOG.info("NEED  : EXTRACT ({}): {}", attribute, getMatchExpression());
         }
@@ -87,6 +88,9 @@ public class MatcherExtractAction extends MatcherAction {
             if (verbose) {
                 LOG.info("KEPT  : EXTRACT ({}): {}", attribute, key);
             }
+        }
+        if (verbose) {
+            LOG.info("--------------------------------------------------");
         }
     }
 

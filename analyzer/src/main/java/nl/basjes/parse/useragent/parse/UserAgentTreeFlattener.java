@@ -57,6 +57,7 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.SiteUrlContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UserAgentContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.UuIdContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.VersionWordsContext;
+import nl.basjes.parse.useragent.utils.AntlrUtils;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -155,7 +156,7 @@ public class UserAgentTreeFlattener implements Serializable {
         @Override        public Void visitCommentSeparator(             CommentSeparatorContext             <MatcherTree> uaTree, MatcherTree mTree) { return visitChildren(uaTree, mTree); }
 
         private Void match(AgentPathFragment uaTreeFragment, RuleNode<MatcherTree> uaTree, MatcherTree mTree, String value) {
-//        LOG.warn("[match] F:{} | MT:{} | PT:{} | V:{} |", fragment, mTree, AntlrUtils.getSourceText(uaTree), value);
+//            LOG.warn("[match] Fragment:{} \t| Match:{} \t| Useragent:{} \t| Value:{} |", uaTreeFragment, mTree, AntlrUtils.getSourceText(uaTree), value);
 
             if (mTree == null) {// || uaTree == null) {
                 return null; // Nothing can be here.
@@ -171,27 +172,39 @@ public class UserAgentTreeFlattener implements Serializable {
 
                 Iterator<? extends ParseTree<MatcherTree>> children                = agentPathFragment.getValue().getValue().visit(uaTree);
 
-                // FIXME: This should be done MUCH better (i.e. without copying into a new list)
-                List<ParseTree<MatcherTree>> childrenList = new ArrayList<>(32);
-                for (int i = 0 ; i < 32 ; i++) {
-                    childrenList.add(0, null);  // FIXME: YUCK ! YUCK ! YUCK ! YUCK !
-                }
+//                // ============================================
+//                // !!! Construct LIST FOR DEBUGGING !!!
+////                List<ParseTree<MatcherTree>> childrenList = new ArrayList<>(32);
+//                for (int i = 0 ; i < 32 ; i++) {
+//                    childrenList.add(0, null);  // FIXME: YUCK ! YUCK ! YUCK ! YUCK !
+//                }
+//                int i = 0;
+//                final Iterator<? extends ParseTree<MatcherTree>> childrenForList = agentPathFragment.getValue().getValue().visit(uaTree);
+//                while (childrenForList.hasNext()) {
+//                    i++;
+//                    final ParseTree<MatcherTree> next = childrenForList.next();
+//                    childrenList.add(i, next);
+//                }
+//                // ============================================
+
+                int maxMatcherIndex = relevantMatcherSubTrees.size()-1;
 
                 int index = 0;
-                while (children.hasNext()) {
-                    index++;
-                    final ParseTree<MatcherTree> next = children.next();
-                    childrenList.add(index, next);
+
+                // FIXME: Workaroud: For keyvalue we want the values to start at '2'...
+                if (mTree.fragment == KEYVALUE && agentPathFragment.getKey() != KEY) {
+                    index = 1;
                 }
 
-                int maxIndex = Math.min(index, relevantMatcherSubTrees.size()-1);
-                for (int i = 1 ; i <= maxIndex ; i ++) {
-                    MatcherTree mSubTree = relevantMatcherSubTrees.get(i);
-                    if (mSubTree == null) {
+                while (children.hasNext() && index < maxMatcherIndex) {
+                    index++;
+                    ParseTree<MatcherTree> uaSubTree = children.next();
+                    if (uaSubTree == null) {
                         continue;
                     }
-                    ParseTree<MatcherTree> uaSubTree = childrenList.get(i);
-                    if (uaSubTree == null) {
+
+                    MatcherTree mSubTree = relevantMatcherSubTrees.get(index);
+                    if (mSubTree == null) {
                         continue;
                     }
 

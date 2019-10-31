@@ -56,9 +56,11 @@ public class MatcherRequireAction extends MatcherAction {
     public void inform(MatcherTree key, WalkResult foundValue) {
         foundRequiredValue = true;
         if (verbose) {
+            LOG.info("--------------------------------------------------");
             LOG.info("Info REQUIRE: {}", key);
             LOG.info("NEED REQUIRE: {}", getMatchExpression());
             LOG.info("KEPT REQUIRE: {}", key);
+            LOG.info("--------------------------------------------------");
         }
     }
 
