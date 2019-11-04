@@ -17,6 +17,9 @@
 
 package nl.basjes.parse.useragent.servlet;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -30,6 +33,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -46,6 +50,7 @@ import java.util.Map;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
 
+@Api(tags="Yauaa", description = "Useragent parsing service")
 @SpringBootApplication
 @RestController
 public class ParseService {
@@ -63,7 +68,7 @@ public class ParseService {
             initStartMoment = System.currentTimeMillis();
             new Thread(() -> {
                 try {
-                    userAgentAnalyzer = UserAgentAnalyzer.newBuilder().hideMatcherLoadStats().build();
+                    userAgentAnalyzer = UserAgentAnalyzer.newBuilder().hideMatcherLoadStats().keepTests().build();
                     userAgentAnalyzer.initializeMatchers();
                     userAgentAnalyzerIsAvailable = true;
                 } catch (Exception e){
@@ -95,7 +100,10 @@ public class ParseService {
     private static class MissingUserAgentException extends RuntimeException {
     }
 
-    @GetMapping(value = "/", produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(
+        value = "/",
+        produces = MediaType.TEXT_HTML_VALUE
+    )
     public String getHtml(@RequestHeader("User-Agent") String userAgentString) {
         return doHTML(userAgentString);
     }
@@ -109,35 +117,97 @@ public class ParseService {
         return doHTML(userAgent);
     }
 
-    @GetMapping(value = "/preheat", produces = MediaType.TEXT_HTML_VALUE)
-    public String getHtmlPreHeat(@RequestHeader("User-Agent") String userAgentString) {
-        userAgentAnalyzer.preHeat();
-        return doHTML(userAgentString);
+//    @ApiOperation(value = "Fire all available test cases against the analyzer to heat up the JVM")
+    @GetMapping(
+        value = "/preheat",
+        produces = MediaType.TEXT_PLAIN_VALUE
+    )
+    public String getHtmlPreHeat() {
+        final int cacheSize = userAgentAnalyzer.getCacheSize();
+        userAgentAnalyzer.disableCaching();
+        long start = System.nanoTime();
+        final long testsDone = userAgentAnalyzer.preHeat();
+        long stop = System.nanoTime();
+        userAgentAnalyzer.setCacheSize(cacheSize);
+        if (testsDone == 0) {
+            return "No testcases available";
+        }
+        return "Ran " + testsDone + " tests in " + (stop - start)/1000000 + " ms.";
     }
 
-    @GetMapping(value = "/analyze/{userAgent}", produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(
+        value = "/analyze/{userAgent}",
+        produces = MediaType.TEXT_HTML_VALUE
+    )
     public String getHtmlPath(@PathVariable String userAgent) {
         return doHTML(userAgent);
     }
 
-    @GetMapping(value = "/json", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String getJSon(@RequestHeader("User-Agent") String userAgentString) {
-        return doJSon(userAgentString);
-    }
+    // =============== JSON OUTPUT ===============
 
-    @PostMapping(
-        value = "/json",
-        consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+    @ApiOperation(value = "Analyze the provided User-Agent",
+        notes = "Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
+            "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035")
+    @GetMapping(
+        value = "/api/analyze",
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public String getJSonPOST(@ModelAttribute("useragent") String userAgentString) {
+    public String getJSonGET(
+        @ApiParam("The standard browser request header User-Agent is used as the input that is to be analyzed.")
+        @RequestHeader("User-Agent")
+        String userAgentString) {
         return doJSon(userAgentString);
     }
 
-    @GetMapping(value = "/json/{userAgent}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String getJSonPath(@PathVariable String userAgent) {
-        return doJSon(userAgent);
+    @ApiOperation(value = "Analyze the provided User-Agent")
+    @PostMapping(
+        value = "/api/analyze",
+        consumes = MediaType.TEXT_PLAIN_VALUE,
+        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public String getJSonPOST(
+        @ApiParam("The entire POSTed value is used as the input that is to be analyzed.")
+        @RequestBody String userAgentString) {
+        return doJSon(userAgentString);
     }
+
+//    @ApiOperation(value = "Analyze the provided User-Agent and return the result as Json")
+//    @GetMapping(value = "/api/json/{userAgent}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//    public String getJSonPath(
+//        @ApiParam("The (url encoded) userAgent part in the request is used as the input that is to be analyzed.")
+//        @PathVariable String userAgent) {
+//        return doJSon(userAgent);
+//    }
+
+    // =============== XML OUTPUT ===============
+
+    @ApiOperation(value = "Analyze the provided User-Agent",
+        notes = "Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
+            "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035")
+    @GetMapping(
+        value = "/api/analyze",
+        produces = MediaType.APPLICATION_XML_VALUE
+    )
+    public String getXMLGET(
+        @ApiParam("The standard browser request header User-Agent is used as the input that is to be analyzed.")
+        @RequestHeader("User-Agent")
+            String userAgentString) {
+        return doXML(userAgentString);
+    }
+
+    @ApiOperation(value = "Analyze the provided User-Agent")
+    @PostMapping(
+        value = "/api/analyze",
+        consumes = MediaType.TEXT_PLAIN_VALUE,
+        produces = MediaType.APPLICATION_XML_VALUE
+    )
+    public String getXMLPOST(
+        @ApiParam("The entire POSTed value is used as the input that is to be analyzed.")
+        @RequestBody String userAgentString) {
+        return doXML(userAgentString);
+    }
+
+    // ===========================================
 
     private String doHTML(String userAgentString) {
         ensureStarted();
@@ -350,6 +420,18 @@ public class ParseService {
             return userAgent.toJson();
         }
         return "{}";
+    }
+
+    private String doXML(String userAgentString) {
+        if (userAgentString == null) {
+            throw new MissingUserAgentException();
+        }
+        ensureStarted();
+        if (userAgentAnalyzerIsAvailable) {
+            UserAgent userAgent = userAgentAnalyzer.parse(userAgentString);
+            return userAgent.toXML();
+        }
+        return "<Yauaa></Yauaa>";
     }
 
     private void addBugReportButton(StringBuilder sb, UserAgent userAgent) {

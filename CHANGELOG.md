@@ -4,6 +4,7 @@ v5.13-SNAPSHOT
 ===
 - Analyzer improvement by allocating less AgentFields (i.e. less memory).
 - Update public suffix list for detecting hostnames.
+- Added a basic API and Swagger UI to the demo webservlet
 - New/improved detections
   - Agent: Apache Nifi, Wget, Curl, Latest Edge, HeadlessChrome
   - Device: Improved Xiaomi detection.

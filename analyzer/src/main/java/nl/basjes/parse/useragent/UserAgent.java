@@ -586,7 +586,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     }
 
     public String toJson() {
-        List<String> fields = getAvailableFieldNames();
+        List<String> fields = getAvailableFieldNamesSorted();
         fields.add(USERAGENT_FIELDNAME);
         return toJson(fields);
     }
@@ -616,6 +616,34 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         }
 
         sb.append("}");
+        return sb.toString();
+    }
+
+    public String toXML() {
+        List<String> fields = getAvailableFieldNamesSorted();
+        fields.add(USERAGENT_FIELDNAME);
+        return toXML(fields);
+    }
+
+    public String toXML(List<String> fieldNames) {
+        StringBuilder sb = new StringBuilder(10240);
+        sb.append("<Yauaa>");
+
+        for (String fieldName : fieldNames) {
+            if (USERAGENT_FIELDNAME.equals(fieldName)) {
+                sb
+                    .append("<Useragent>")
+                    .append(StringEscapeUtils.escapeXml11(getUserAgentString()))
+                    .append("</Useragent>");
+            } else {
+                sb
+                    .append('<').append(StringEscapeUtils.escapeXml11(fieldName)).append('>')
+                    .append(StringEscapeUtils.escapeXml11(getValue(fieldName)))
+                    .append("</").append(StringEscapeUtils.escapeXml11(fieldName)).append('>');
+            }
+        }
+
+        sb.append("</Yauaa>");
         return sb.toString();
     }
 
