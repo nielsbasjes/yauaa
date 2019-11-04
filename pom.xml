@@ -43,6 +43,9 @@
     <maven.compiler.source>${jdkLevel}</maven.compiler.source>
     <maven.compiler.target>${jdkLevel}</maven.compiler.target>
 
+    <!-- In order for everything to work correctly we need atleast this version of maven. -->
+    <maven.minimal.version>3.5.2</maven.minimal.version>
+
     <antlr.version>4.7.2</antlr.version>
     <snakeyaml.version>1.24</snakeyaml.version>
     <google-guava.version>28.0-jre</google-guava.version>
@@ -225,7 +228,7 @@
             <artifactId>maven-deploy-plugin</artifactId>
             <executions>
               <execution>
-                <id>deploy</id>
+                <id>default-deploy</id>
                 <phase>deploy</phase>
                 <goals>
                   <goal>deploy</goal>
@@ -470,8 +473,11 @@
             <configuration>
               <rules>
                 <requireMavenVersion>
-                  <version>[3.3,)</version>
-                  <message>You must use a newer version of Maven</message>
+                  <version>[${maven.minimal.version},)</version>
+                  <message>You must use Maven version ${maven.minimal.version} or newer to build this project.</message>
+                  <!-- Reasons for this need:                            -->
+                  <!-- https://issues.apache.org/jira/browse/MDEPLOY-221 -->
+                  <!-- https://issues.apache.org/jira/browse/MNG-6581    -->
                 </requireMavenVersion>
               </rules>
             </configuration>
