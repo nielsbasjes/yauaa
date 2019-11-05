@@ -37,6 +37,7 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
+            .groupName("yauaa-v1")
             .select()
             .apis(withMethodAnnotation(ApiOperation.class))
             .build()
@@ -46,7 +47,8 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfo(
             "Yauaa - Yet Another UserAgent Analyzer",
-            "These basic calls allow you to retrieve the analysis output of Yauaa via a few REST interfaces.",
+            "These basic calls allow you to retrieve the analysis output of Yauaa via a few REST interfaces.<br/>" +
+            "<b>This MUST be treated as an <u>insecure</u> \"Proof of concept\" implementation.</b>",
             Version.PROJECT_VERSION,
             null,
             new Contact("Yauaa - Yet Another UserAgent Analyzer", "https://yauaa.basjes.nl", null),

@@ -586,8 +586,9 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     }
 
     public String toJson() {
-        List<String> fields = getAvailableFieldNamesSorted();
+        List<String> fields = new ArrayList<>();
         fields.add(USERAGENT_FIELDNAME);
+        fields.addAll(getAvailableFieldNamesSorted());
         return toJson(fields);
     }
 
@@ -620,30 +621,34 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     }
 
     public String toXML() {
-        List<String> fields = getAvailableFieldNamesSorted();
+        List<String> fields = new ArrayList<>();
         fields.add(USERAGENT_FIELDNAME);
+        fields.addAll(getAvailableFieldNamesSorted());
         return toXML(fields);
     }
 
     public String toXML(List<String> fieldNames) {
-        StringBuilder sb = new StringBuilder(10240);
-        sb.append("<Yauaa>");
+        StringBuilder sb =
+            new StringBuilder(10240)
+            .append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+            .append("<Yauaa>");
 
         for (String fieldName : fieldNames) {
             if (USERAGENT_FIELDNAME.equals(fieldName)) {
                 sb
                     .append("<Useragent>")
-                    .append(StringEscapeUtils.escapeXml11(getUserAgentString()))
+                    .append(StringEscapeUtils.escapeXml10(getUserAgentString()))
                     .append("</Useragent>");
             } else {
                 sb
-                    .append('<').append(StringEscapeUtils.escapeXml11(fieldName)).append('>')
-                    .append(StringEscapeUtils.escapeXml11(getValue(fieldName)))
-                    .append("</").append(StringEscapeUtils.escapeXml11(fieldName)).append('>');
+                    .append('<').append(StringEscapeUtils.escapeXml10(fieldName)).append('>')
+                    .append(StringEscapeUtils.escapeXml10(getValue(fieldName)))
+                    .append("</").append(StringEscapeUtils.escapeXml10(fieldName)).append('>');
             }
         }
 
         sb.append("</Yauaa>");
+
         return sb.toString();
     }
 

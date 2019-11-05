@@ -27,8 +27,12 @@ import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +42,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -50,17 +56,24 @@ import java.util.Map;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
 
-@Api(tags="Yauaa", description = "Useragent parsing service")
+@Api(tags = "Yauaa", description = "Useragent parsing service")
 @SpringBootApplication
 @RestController
 public class ParseService {
 
-    private static UserAgentAnalyzer userAgentAnalyzer               = null;
-    private static boolean           isInitializing                  = false;
-    private static long              initStartMoment;
-    private static boolean           userAgentAnalyzerIsAvailable    = false;
-    private static String            userAgentAnalyzerFailureMessage = null;
-    private static final String      ANALYZER_VERSION                = getVersion();
+    private static       UserAgentAnalyzer userAgentAnalyzer               = null;
+    private static       boolean           isInitializing                  = false;
+    private static       long              initStartMoment;
+    private static       boolean           userAgentAnalyzerIsAvailable    = false;
+    private static       String            userAgentAnalyzerFailureMessage = null;
+    private static final String            ANALYZER_VERSION                = getVersion();
+    private static final String            API_BASE_PATH                   = "/yauaa/v1";
+
+    private enum OutputType {
+        HTML,
+        JSON,
+        XML
+    };
 
     private static synchronized void ensureStarted() {
         if (!isInitializing && !userAgentAnalyzerIsAvailable && userAgentAnalyzerFailureMessage == null) {
@@ -71,13 +84,68 @@ public class ParseService {
                     userAgentAnalyzer = UserAgentAnalyzer.newBuilder().hideMatcherLoadStats().keepTests().build();
                     userAgentAnalyzer.initializeMatchers();
                     userAgentAnalyzerIsAvailable = true;
-                } catch (Exception e){
+                } catch (Exception e) {
                     userAgentAnalyzerFailureMessage =
                         e.getClass().getSimpleName() + "<br/>" +
                         e.getMessage().replaceAll("\n", "<br/>");
                 }
                 isInitializing = false;
             }).start();
+        }
+    }
+
+//    @ResponseStatus(
+//        code = HttpStatus.SERVICE_UNAVAILABLE,
+//        reason = "Yauaa is still starting"
+//    )
+    public static class YauaaIsBusyStarting extends RuntimeException {
+        private OutputType outputType;
+
+        public OutputType getOutputType() {
+            return outputType;
+        }
+
+        public YauaaIsBusyStarting(OutputType outputType) {
+            this.outputType = outputType;
+        }
+    }
+
+    private static void ensureStartedForApis(OutputType outputType) {
+        ensureStarted();
+        if (!userAgentAnalyzerIsAvailable) {
+            throw new YauaaIsBusyStarting(outputType);
+        }
+    }
+
+    @ControllerAdvice
+    public static class RestResponseEntityExceptionHandler
+        extends ResponseEntityExceptionHandler {
+
+        @ExceptionHandler({ YauaaIsBusyStarting.class })
+        public ResponseEntity<Object> handleYauaaIsStarting(
+            Exception ex, WebRequest request) {
+            final HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add("Retry-After", "5"); // Retry after 5 seconds.
+
+            YauaaIsBusyStarting yauaaIsBusyStarting = (YauaaIsBusyStarting) ex;
+
+            long timeSinceStart = System.currentTimeMillis() - initStartMoment;
+            String message;
+
+            switch (yauaaIsBusyStarting.outputType) {
+                case JSON:
+                    message = "{ \"status\": \"Starting\", \"timeInMs\": " + timeSinceStart + " }";
+                    break;
+                case XML:
+                    message = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><status>Starting</status><timeInMs>" + timeSinceStart + "</timeInMs>";
+                    break;
+                case HTML:
+                default:
+                    message = "Yauaa has been starting up for " + timeSinceStart + " seconds now.";
+                    break;
+            }
+
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -100,6 +168,8 @@ public class ParseService {
     private static class MissingUserAgentException extends RuntimeException {
     }
 
+    // =============== HTML (Human usable) OUTPUT ===============
+
     @GetMapping(
         value = "/",
         produces = MediaType.TEXT_HTML_VALUE
@@ -117,26 +187,12 @@ public class ParseService {
         return doHTML(userAgent);
     }
 
-//    @ApiOperation(value = "Fire all available test cases against the analyzer to heat up the JVM")
-    @GetMapping(
-        value = "/preheat",
-        produces = MediaType.TEXT_PLAIN_VALUE
+    @ApiOperation(
+        value = "Analyze the provided User-Agent",
+        notes = "The provided UserAgent is to be a single (url encoded) part of the url"
     )
-    public String getHtmlPreHeat() {
-        final int cacheSize = userAgentAnalyzer.getCacheSize();
-        userAgentAnalyzer.disableCaching();
-        long start = System.nanoTime();
-        final long testsDone = userAgentAnalyzer.preHeat();
-        long stop = System.nanoTime();
-        userAgentAnalyzer.setCacheSize(cacheSize);
-        if (testsDone == 0) {
-            return "No testcases available";
-        }
-        return "Ran " + testsDone + " tests in " + (stop - start)/1000000 + " ms.";
-    }
-
     @GetMapping(
-        value = "/analyze/{userAgent}",
+        value = API_BASE_PATH + "/analyze/{userAgent}",
         produces = MediaType.TEXT_HTML_VALUE
     )
     public String getHtmlPath(@PathVariable String userAgent) {
@@ -145,75 +201,128 @@ public class ParseService {
 
     // =============== JSON OUTPUT ===============
 
-    @ApiOperation(value = "Analyze the provided User-Agent",
-        notes = "Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
-            "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035")
+    @ApiOperation(
+        value = "Analyze the provided User-Agent",
+        notes = "<b>Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
+                "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035</b>"
+    )
     @GetMapping(
-        value = "/api/analyze",
+        value = API_BASE_PATH + "/analyze",
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public String getJSonGET(
         @ApiParam("The standard browser request header User-Agent is used as the input that is to be analyzed.")
         @RequestHeader("User-Agent")
-        String userAgentString) {
+        String userAgentString
+    ) {
         return doJSon(userAgentString);
     }
 
-    @ApiOperation(value = "Analyze the provided User-Agent")
+    @ApiOperation(
+        "Analyze the provided User-Agent"
+    )
     @PostMapping(
-        value = "/api/analyze",
+        value = API_BASE_PATH + "/analyze",
         consumes = MediaType.TEXT_PLAIN_VALUE,
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public String getJSonPOST(
         @ApiParam("The entire POSTed value is used as the input that is to be analyzed.")
-        @RequestBody String userAgentString) {
+        @RequestBody
+        String userAgentString
+    ) {
         return doJSon(userAgentString);
     }
 
-//    @ApiOperation(value = "Analyze the provided User-Agent and return the result as Json")
-//    @GetMapping(value = "/api/json/{userAgent}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    public String getJSonPath(
-//        @ApiParam("The (url encoded) userAgent part in the request is used as the input that is to be analyzed.")
-//        @PathVariable String userAgent) {
-//        return doJSon(userAgent);
-//    }
+    @ApiOperation(
+        "Analyze the provided User-Agent"
+    )
+    @GetMapping(
+        value = API_BASE_PATH + "/analyze/{userAgent}",
+        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public String getJSonPath(
+        @ApiParam("The provided UserAgent is to be a single (url encoded) part of the url")
+        @PathVariable String userAgent
+    ) {
+        return doJSon(userAgent);
+    }
 
     // =============== XML OUTPUT ===============
 
-    @ApiOperation(value = "Analyze the provided User-Agent",
-        notes = "Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
-            "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035")
+    @ApiOperation(
+        value = "Analyze the provided User-Agent",
+        notes = "<b>Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
+            "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035</b>"
+    )
     @GetMapping(
-        value = "/api/analyze",
+        value = API_BASE_PATH + "/analyze",
         produces = MediaType.APPLICATION_XML_VALUE
     )
     public String getXMLGET(
         @ApiParam("The standard browser request header User-Agent is used as the input that is to be analyzed.")
         @RequestHeader("User-Agent")
-            String userAgentString) {
+            String userAgentString
+    ) {
         return doXML(userAgentString);
     }
 
-    @ApiOperation(value = "Analyze the provided User-Agent")
+    @ApiOperation(
+        value = "Analyze the provided User-Agent"
+    )
     @PostMapping(
-        value = "/api/analyze",
+        value = API_BASE_PATH + "/analyze",
         consumes = MediaType.TEXT_PLAIN_VALUE,
         produces = MediaType.APPLICATION_XML_VALUE
     )
     public String getXMLPOST(
         @ApiParam("The entire POSTed value is used as the input that is to be analyzed.")
-        @RequestBody String userAgentString) {
+        @RequestBody String userAgentString
+    ) {
         return doXML(userAgentString);
+    }
+
+
+    @ApiOperation("Analyze the provided User-Agent")
+    @GetMapping(
+        value = API_BASE_PATH + "/analyze/{userAgent}",
+        produces = MediaType.APPLICATION_XML_VALUE
+    )
+    public String getXMLPath(
+        @ApiParam("The provided UserAgent is to be a single (url encoded) part of the url")
+        @PathVariable String userAgent
+    ) {
+        return doXML(userAgent);
+    }
+
+    // =============== Specials ===============
+
+    @ApiOperation(value = "Fire all available test cases against the analyzer to heat up the JVM")
+    @GetMapping(
+        value = API_BASE_PATH + "/preheat",
+        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public String getHtmlPreHeat() {
+        ensureStartedForApis(OutputType.HTML);
+        final int cacheSize = userAgentAnalyzer.getCacheSize();
+        userAgentAnalyzer.disableCaching();
+        long       start     = System.nanoTime();
+        final long testsDone = userAgentAnalyzer.preHeat();
+        long       stop      = System.nanoTime();
+        userAgentAnalyzer.setCacheSize(cacheSize);
+        if (testsDone == 0) {
+            return "{ \"status\": \"No testcases available\", \"testsDone\": 0 , \"timeInMs\" : -1 } ";
+        }
+        return "{ \"status\": \"Ran tests\", \"testsDone\": " + testsDone + " , \"timeInMs\" : " + (stop - start) / 1000000 + " } ";
     }
 
     // ===========================================
 
     private String doHTML(String userAgentString) {
         ensureStarted();
-        long start = System.nanoTime();
-        long startParse=0;
-        long stopParse=0;
+        long start      = System.nanoTime();
+        long startParse = 0;
+        long stopParse  = 0;
 
         if (userAgentString == null) {
             throw new MissingUserAgentException();
@@ -292,6 +401,8 @@ public class ParseService {
                 sb.append("<p class=\"logobar bug\">");
                 addBugReportButton(sb, userAgent);
                 sb.append("</p>");
+                sb.append("<p class=\"logobar swagger\">A simple Swagger based API has been created for testing purposes: " +
+                    "<a href=\"/swagger-ui.html\">Swagger UI</a></p>");
 
                 sb.append("<p class=\"logobar source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">" +
                     "https://github.com/nielsbasjes/yauaa</a></p>");
@@ -326,9 +437,9 @@ public class ParseService {
 
                 sb.append("<hr/>");
             } else {
-                long now = System.currentTimeMillis();
-                long millisBusy = now - initStartMoment;
-                String timeString = String.format("%3.1f", ((double)millisBusy/1000.0));
+                long   now        = System.currentTimeMillis();
+                long   millisBusy = now - initStartMoment;
+                String timeString = String.format("%3.1f", ((double) millisBusy / 1000.0));
 
                 if (userAgentAnalyzerFailureMessage == null) {
                     sb.append("<div class=\"notYetStartedBorder\">");
@@ -350,7 +461,7 @@ public class ParseService {
             sb.append("<p class=\"failureContent\">Exception: ").append(e.getClass().getSimpleName()).append("</p>");
             sb.append("<p class=\"failureContent\">Message: ").append(e.getMessage().replaceAll("\\n", "<br/>")).append("</p>");
             sb.append("</div>");
-        } finally{
+        } finally {
             long   stop              = System.nanoTime();
             double pageMilliseconds  = (stop - start) / 1000000.0;
             double parseMilliseconds = (stopParse - startParse) / 1000000.0;
@@ -414,7 +525,7 @@ public class ParseService {
         if (userAgentString == null) {
             throw new MissingUserAgentException();
         }
-        ensureStarted();
+        ensureStartedForApis(OutputType.JSON);
         if (userAgentAnalyzerIsAvailable) {
             UserAgent userAgent = userAgentAnalyzer.parse(userAgentString);
             return userAgent.toJson();
@@ -426,12 +537,12 @@ public class ParseService {
         if (userAgentString == null) {
             throw new MissingUserAgentException();
         }
-        ensureStarted();
+        ensureStartedForApis(OutputType.XML);
         if (userAgentAnalyzerIsAvailable) {
             UserAgent userAgent = userAgentAnalyzer.parse(userAgentString);
             return userAgent.toXML();
         }
-        return "<Yauaa></Yauaa>";
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Yauaa></Yauaa>";
     }
 
     private void addBugReportButton(StringBuilder sb, UserAgent userAgent) {
@@ -440,7 +551,7 @@ public class ParseService {
         try {
             StringBuilder reportUrl = new StringBuilder("https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=");
 
-            String report =  "I found a problem with this useragent.\n" +
+            String report = "I found a problem with this useragent.\n" +
                 "[Please update the output below to match what you expect it should be]\n" +
                 "\n```\n" +
                 userAgent.toYamlTestCase().replaceAll(" +:", "  :") +
@@ -458,6 +569,7 @@ public class ParseService {
     /**
      * <a href="https://cloud.google.com/appengine/docs/flexible/java/how-instances-are-managed#health_checking">
      * App Engine health checking</a> requires responding with 200 to {@code /_ah/health}.
+     *
      * @return Returns a non empty message body.
      */
     @RequestMapping("/_ah/health")
