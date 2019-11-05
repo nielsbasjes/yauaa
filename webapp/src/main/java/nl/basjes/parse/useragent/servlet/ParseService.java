@@ -22,6 +22,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.Version;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -73,7 +74,7 @@ public class ParseService {
         HTML,
         JSON,
         XML
-    };
+    }
 
     private static synchronized void ensureStarted() {
         if (!isInitializing && !userAgentAnalyzerIsAvailable && userAgentAnalyzerFailureMessage == null) {
@@ -187,17 +188,17 @@ public class ParseService {
         return doHTML(userAgent);
     }
 
-    @ApiOperation(
-        value = "Analyze the provided User-Agent",
-        notes = "The provided UserAgent is to be a single (url encoded) part of the url"
-    )
-    @GetMapping(
-        value = API_BASE_PATH + "/analyze/{userAgent}",
-        produces = MediaType.TEXT_HTML_VALUE
-    )
-    public String getHtmlPath(@PathVariable String userAgent) {
-        return doHTML(userAgent);
-    }
+//    @ApiOperation(
+//        value = "Analyze the provided User-Agent",
+//        notes = "The provided UserAgent is to be a single (url encoded) part of the url"
+//    )
+//    @GetMapping(
+//        value = API_BASE_PATH + "/analyze/{userAgent}",
+//        produces = MediaType.TEXT_HTML_VALUE
+//    )
+//    public String getHtmlPath(@PathVariable String userAgent) {
+//        return doHTML(userAgent);
+//    }
 
     // =============== JSON OUTPUT ===============
 
@@ -234,19 +235,19 @@ public class ParseService {
         return doJSon(userAgentString);
     }
 
-    @ApiOperation(
-        "Analyze the provided User-Agent"
-    )
-    @GetMapping(
-        value = API_BASE_PATH + "/analyze/{userAgent}",
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public String getJSonPath(
-        @ApiParam("The provided UserAgent is to be a single (url encoded) part of the url")
-        @PathVariable String userAgent
-    ) {
-        return doJSon(userAgent);
-    }
+//    @ApiOperation(
+//        "Analyze the provided User-Agent"
+//    )
+//    @GetMapping(
+//        value = API_BASE_PATH + "/analyze/{userAgent}",
+//        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+//    )
+//    public String getJSonPath(
+//        @ApiParam("The provided UserAgent is to be a single (url encoded) part of the url")
+//        @PathVariable String userAgent
+//    ) {
+//        return doJSon(userAgent);
+//    }
 
     // =============== XML OUTPUT ===============
 
@@ -283,17 +284,17 @@ public class ParseService {
     }
 
 
-    @ApiOperation("Analyze the provided User-Agent")
-    @GetMapping(
-        value = API_BASE_PATH + "/analyze/{userAgent}",
-        produces = MediaType.APPLICATION_XML_VALUE
-    )
-    public String getXMLPath(
-        @ApiParam("The provided UserAgent is to be a single (url encoded) part of the url")
-        @PathVariable String userAgent
-    ) {
-        return doXML(userAgent);
-    }
+//    @ApiOperation("Analyze the provided User-Agent")
+//    @GetMapping(
+//        value = API_BASE_PATH + "/analyze/{userAgent}",
+//        produces = MediaType.APPLICATION_XML_VALUE
+//    )
+//    public String getXMLPath(
+//        @ApiParam("The provided UserAgent is to be a single (url encoded) part of the url")
+//        @PathVariable String userAgent
+//    ) {
+//        return doXML(userAgent);
+//    }
 
     // =============== Specials ===============
 
@@ -477,9 +478,12 @@ public class ParseService {
 
             sb.append("<p class=\"speed\">").append(getMemoryUsage()).append("</p>");
 
-            sb.append("<p class=\"copyright\">Copyright (C) 2013-2019 <a href=\"https://niels.basjes.nl\">Niels Basjes</a></p>");
-            sb.append("</body>");
-            sb.append("</html>");
+            sb
+                .append("<p class=\"copyright\">")
+                .append(Version.COPYRIGHT.replace("Niels Basjes", "<a href=\"https://niels.basjes.nl\">Niels Basjes</a>"))
+                .append("</p>")
+                .append("</body>")
+                .append("</html>");
         }
         return sb.toString();
     }
