@@ -477,7 +477,7 @@ public class ParseService {
 
             sb.append("<p class=\"speed\">").append(getMemoryUsage()).append("</p>");
 
-            sb.append("<p class=\"copyright\">Copyright (C) 2013-2018 <a href=\"https://niels.basjes.nl\">Niels Basjes</a></p>");
+            sb.append("<p class=\"copyright\">Copyright (C) 2013-2019 <a href=\"https://niels.basjes.nl\">Niels Basjes</a></p>");
             sb.append("</body>");
             sb.append("</html>");
         }
