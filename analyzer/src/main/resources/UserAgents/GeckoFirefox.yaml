@@ -443,6 +443,39 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.4; en; rv:1.9.0.19) Gecko/2011091218 Camino/2.0.9 (like Firefox/3.0.19)'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Apple Macintosh'
+      DeviceBrand                           : 'Apple'
+      DeviceCpu                             : 'PowerPC'
+      DeviceCpuBits                         : '32'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Mac OS X'
+      OperatingSystemVersion                : '10.4'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Mac OS X 10.4'
+      OperatingSystemNameVersionMajor       : 'Mac OS X 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Gecko'
+      LayoutEngineVersion                   : '1.9.0.19'
+      LayoutEngineVersionMajor              : '1'
+      LayoutEngineNameVersion               : 'Gecko 1.9.0.19'
+      LayoutEngineNameVersionMajor          : 'Gecko 1'
+      LayoutEngineBuild                     : '2011091218'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Camino'
+      AgentVersion                          : '2.0.9'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'Camino 2.0.9'
+      AgentNameVersionMajor                 : 'Camino 2'
+      AgentLanguage                         : 'English'
+      AgentLanguageCode                     : 'en'
+      AgentSecurity                         : 'Strong security'
+
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.7; nl; rv:1.9.2.28) Gecko/20120308 Camino/2.1.2 (MultiLang) (like Firefox/3.6.28)'
     expected:
       DeviceClass                          : 'Desktop'

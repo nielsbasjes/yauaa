@@ -42,6 +42,7 @@ config:
       "MRPULSE"         : "Pulse"       # https://amigo.mail.ru/
       # Also matches "Ubuntu Chromium", "snap Chromium" (Chromium running from within a snap), "Raspbian Chromium", ...
       "Chromium"        : "Chromium"
+      "CrMo"            : "Chrome"      # https://bugs.chromium.org/p/chromium/issues/detail?id=116455
       "Epiphany"        : "Epiphany"
       "UCBrowser"       : "UCBrowser"
       "Viera"           : "Viera"
@@ -2376,3 +2377,37 @@ config:
       AgentVersionMajor                    : '80'
       AgentNameVersion                     : 'Coc Coc Browser 80.0.180'
       AgentNameVersionMajor                : 'Coc Coc Browser 80'
+
+
+# CrMo is really Chrome (before ~2013)
+# https://bugs.chromium.org/p/chromium/issues/detail?id=116455
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android-4.0.3; en-us; Galaxy Nexus Build/IML74K) AppleWebKit/535.7 (KHTML, like Gecko) CrMo/16.0.912.75 Mobile Safari/535.7'
+    expected:
+      DeviceClass                           : 'Phone'
+      DeviceName                            : 'Samsung Galaxy Nexus'
+      DeviceBrand                           : 'Samsung'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Android'
+      OperatingSystemVersion                : '4.0.3'
+      OperatingSystemVersionMajor           : '4'
+      OperatingSystemNameVersion            : 'Android 4.0.3'
+      OperatingSystemNameVersionMajor       : 'Android 4'
+      OperatingSystemVersionBuild           : 'IML74K'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'AppleWebKit'
+      LayoutEngineVersion                   : '535.7'
+      LayoutEngineVersionMajor              : '535'
+      LayoutEngineNameVersion               : 'AppleWebKit 535.7'
+      LayoutEngineNameVersionMajor          : 'AppleWebKit 535'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Chrome'
+      AgentVersion                          : '16.0.912.75'
+      AgentVersionMajor                     : '16'
+      AgentNameVersion                      : 'Chrome 16.0.912.75'
+      AgentNameVersionMajor                 : 'Chrome 16'
+      AgentLanguage                         : 'English (United States)'
+      AgentLanguageCode                     : 'en-us'
+      AgentSecurity                         : 'Strong security'
+

@@ -1600,6 +1600,22 @@ config:
     - 'AgentName                           :     20 :"DuckDuckGo"'
     - 'AgentVersion                        :     20 :agent.text[1-2]="DDG-Android"@[3-]'
 
+- matcher:
+    extract:
+    - '__Set_ALL_Fields__                  :     11 :"<<<null>>>"'
+    - 'DeviceClass                         :     12 :"Mobile"'
+    - 'DeviceBrand                         :     12 :"Unknown"'
+    - 'DeviceName                          :     12 :"Unknown"'
+    - 'OperatingSystemClass                :     12 :"Mobile"'
+    - 'OperatingSystemName                 :     12 :"Android"'
+    - 'OperatingSystemVersion              :     12 :"??"'
+    - 'LayoutEngineClass                   :     12 :"Unknown"'
+    - 'LayoutEngineName                    :     12 :"Unknown"'
+    - 'LayoutEngineVersion                 :     12 :"??"'
+    - 'AgentClass                          :     20 :"Browser"'
+    - 'AgentName                           :     20 :"DuckDuckGo"'
+    - 'AgentVersion                        :     20 :agent.product.name="DDG-Android"^.version'
+
 - test:
     input:
       user_agent_string: 'DDG-Android-3.0.14'

@@ -33,6 +33,9 @@ public final class EvilManualUseragentStringHacks {
     private static final Pattern AVOID_BASE64_MATCH =
         Pattern.compile("(android/[0-9]+)(/)", Pattern.CASE_INSENSITIVE);
 
+    private static final Pattern ANDROID_DASH_VERSION =
+        Pattern.compile("(android)-([0-9]+)", Pattern.CASE_INSENSITIVE);
+
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
      * Yes, all of this is pure evil but we "have to".
@@ -64,6 +67,9 @@ public final class EvilManualUseragentStringHacks {
         }
 
         result = replaceString(result, "Ant.com Toolbar", "Ant.com_Toolbar");
+
+        // Something like Android-4.0.3 is seen as a text instead of a product.
+        result = ANDROID_DASH_VERSION.matcher(result).replaceAll("$1 $2");
 
         // We have seen problem cases like " Version/4.0Mobile Safari/530.17"
         result = MISSING_SPACE.matcher(result).replaceAll("$1 $2");

@@ -335,6 +335,36 @@ config:
       AgentNameVersion                     : 'Arora 0.11.0'
       AgentNameVersionMajor                : 'Arora 0'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de-CH) AppleWebKit/523.15 (KHTML, like Gecko, Safari/419.3) Arora/0.2'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpuBits                         : '32'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : 'XP'
+      OperatingSystemVersionMajor           : 'XP'
+      OperatingSystemNameVersion            : 'Windows XP'
+      OperatingSystemNameVersionMajor       : 'Windows XP'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'AppleWebKit'
+      LayoutEngineVersion                   : '523.15'
+      LayoutEngineVersionMajor              : '523'
+      LayoutEngineNameVersion               : 'AppleWebKit 523.15'
+      LayoutEngineNameVersionMajor          : 'AppleWebKit 523'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Arora'
+      AgentVersion                          : '0.2'
+      AgentVersionMajor                     : '0'
+      AgentNameVersion                      : 'Arora 0.2'
+      AgentNameVersionMajor                 : 'Arora 0'
+      AgentLanguage                         : 'German (Switzerland)'
+      AgentLanguageCode                     : 'de-ch'
+      AgentSecurity                         : 'Strong security'
+
 # GnomeWeb (aka Epiphany)
 - test:
     input:
