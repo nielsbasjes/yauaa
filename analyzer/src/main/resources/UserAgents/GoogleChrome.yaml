@@ -301,6 +301,37 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; CrOS i686 9.10.0; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.253.0 Safari/532.5'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Google Chromebook'
+      DeviceBrand                           : 'Google'
+      DeviceCpu                             : 'Intel i686'
+      DeviceCpuBits                         : '32'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Chrome OS'
+      OperatingSystemVersion                : '9.10.0'
+      OperatingSystemVersionMajor           : '9'
+      OperatingSystemNameVersion            : 'Chrome OS 9.10.0'
+      OperatingSystemNameVersionMajor       : 'Chrome OS 9'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'AppleWebKit'
+      LayoutEngineVersion                   : '532.5'
+      LayoutEngineVersionMajor              : '532'
+      LayoutEngineNameVersion               : 'AppleWebKit 532.5'
+      LayoutEngineNameVersionMajor          : 'AppleWebKit 532'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Chrome'
+      AgentVersion                          : '4.0.253.0'
+      AgentVersionMajor                     : '4'
+      AgentNameVersion                      : 'Chrome 4.0.253.0'
+      AgentNameVersionMajor                 : 'Chrome 4'
+      AgentLanguage                         : 'English (United States)'
+      AgentLanguageCode                     : 'en-us'
+      AgentSecurity                         : 'Strong security'
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19'
     expected:
       DeviceClass                          : 'Phone'
