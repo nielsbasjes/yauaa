@@ -19,6 +19,7 @@ TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents"; pwd)
 OUTPUT="${TARGETDIR}/RobotBaseRules.yaml"
 
 if [ "Generate.sh" -ot "${OUTPUT}" ]; then
+    echo "Up to date: ${OUTPUT}";
     exit;
 fi
 
