@@ -227,8 +227,12 @@ public class ParseService {
         return doJSon(userAgentString);
     }
 
+    // -------------------------------------------------
+
     @ApiOperation(
-        "Analyze the provided User-Agent"
+        value = "Analyze the provided User-Agent",
+        notes = "<b>Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
+                "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035</b>"
     )
     @PostMapping(
         value = API_BASE_PATH + "/analyze",
@@ -245,20 +249,6 @@ public class ParseService {
     ) {
         return doJSon(userAgentString);
     }
-
-//    @ApiOperation(
-//        "Analyze the provided User-Agent"
-//    )
-//    @GetMapping(
-//        value = API_BASE_PATH + "/analyze/{userAgent}",
-//        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-//    )
-//    public String getJSonPath(
-//        @ApiParam("The provided UserAgent is to be a single (url encoded) part of the url")
-//        @PathVariable String userAgent
-//    ) {
-//        return doJSon(userAgent);
-//    }
 
     // =============== XML OUTPUT ===============
 
@@ -282,8 +272,12 @@ public class ParseService {
         return doXML(userAgentString);
     }
 
+    // -------------------------------------------------
+
     @ApiOperation(
-        value = "Analyze the provided User-Agent"
+        value = "Analyze the provided User-Agent",
+        notes = "<b>Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
+                "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035</b>"
     )
     @PostMapping(
         value = API_BASE_PATH + "/analyze",
@@ -300,22 +294,11 @@ public class ParseService {
         return doXML(userAgentString);
     }
 
-
-//    @ApiOperation("Analyze the provided User-Agent")
-//    @GetMapping(
-//        value = API_BASE_PATH + "/analyze/{userAgent}",
-//        produces = MediaType.APPLICATION_XML_VALUE
-//    )
-//    public String getXMLPath(
-//        @ApiParam("The provided UserAgent is to be a single (url encoded) part of the url")
-//        @PathVariable String userAgent
-//    ) {
-//        return doXML(userAgent);
-//    }
-
     // =============== Specials ===============
 
-    @ApiOperation(value = "Fire all available test cases against the analyzer to heat up the JVM")
+    @ApiOperation(
+        value = "Fire all available test cases against the analyzer to heat up the JVM"
+    )
     @GetMapping(
         value = API_BASE_PATH + "/preheat",
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
@@ -598,7 +581,6 @@ public class ParseService {
         // Message body required though ignored
         return "Still surviving.";
     }
-
 
     public static void main(String[] args) {
         SpringApplication.run(ParseService.class, args);
