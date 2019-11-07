@@ -573,7 +573,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
                 for (; l < maxValueLength + 5; l++) {
                     sb.append(' ');
                 }
-                sb.append("# ").append(String.format("%5d", getConfidence(fieldName)));
+                sb.append("# ").append(String.format("%8d", getConfidence(fieldName)));
             }
             if (comments != null) {
                 String comment = comments.get(fieldName);

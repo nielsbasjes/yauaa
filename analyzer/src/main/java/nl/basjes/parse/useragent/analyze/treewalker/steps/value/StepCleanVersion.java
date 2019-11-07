@@ -21,7 +21,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import static nl.basjes.parse.useragent.parse.EvilManualUseragentStringHacks.replaceString;
+import static nl.basjes.parse.useragent.utils.Normalize.replaceString;
 
 public class StepCleanVersion extends Step {
 

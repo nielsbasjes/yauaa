@@ -21,6 +21,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.regex.Pattern;
 
+import static nl.basjes.parse.useragent.utils.Normalize.replaceString;
+
 public final class EvilManualUseragentStringHacks {
     private EvilManualUseragentStringHacks() {}
 
@@ -127,36 +129,5 @@ public final class EvilManualUseragentStringHacks {
 
         return result; // 99.99% of the cases nothing will have changed.
     }
-
-    public static String replaceString(
-            final String input,
-            final String searchFor,
-            final String replaceWith
-    ){
-        //startIdx and idxSearchFor delimit various chunks of input; these
-        //chunks always end where searchFor begins
-        int startIdx = 0;
-        int idxSearchFor = input.indexOf(searchFor, startIdx);
-        if (idxSearchFor < 0) {
-            return input;
-        }
-        final StringBuilder result = new StringBuilder(input.length()+32);
-
-        while (idxSearchFor >= 0) {
-            //grab a part of input which does not include searchFor
-            result.append(input, startIdx, idxSearchFor);
-            //add replaceWith to take place of searchFor
-            result.append(replaceWith);
-
-            //reset the startIdx to just after the current match, to see
-            //if there are any further matches
-            startIdx = idxSearchFor + searchFor.length();
-            idxSearchFor = input.indexOf(searchFor, startIdx);
-        }
-        //the final chunk will go to the end of input
-        result.append(input.substring(startIdx));
-        return result.toString();
-    }
-
 
 }

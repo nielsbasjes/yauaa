@@ -29,8 +29,10 @@ config:
       'Dataprovider.com'           : 'Dataprovider.com'
       'Daum'                       : 'Daom'
       'Daumoa'                     : 'Daom'
+      'DashLinkPreviews' : 'DashLinkPreviews'
       'DejaClick'                  : 'DejaClick'
       'Echoping'                   : 'Echoping'
+      'evc-batch' : 'evc-batch'
       'exal'                       : 'exal'
       'Facebot Twitterbot'         : 'Facebook'
       'GnowitNewsbot'              : 'Gnowit'
@@ -605,6 +607,34 @@ config:
       AgentNameVersion                     : 'Baiduspider 2.0'
       AgentNameVersionMajor                : 'Baiduspider 2'
       AgentInformationUrl                  : 'http://www.baidu.com/search/spider.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Baidu Spider'
+      DeviceBrand                           : 'Baidu'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Baiduspider'
+      LayoutEngineVersion                   : '2.0'
+      LayoutEngineVersionMajor              : '2'
+      LayoutEngineNameVersion               : 'Baiduspider 2.0'
+      LayoutEngineNameVersionMajor          : 'Baiduspider 2'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Baiduspider'
+      AgentVersion                          : '2.0'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'Baiduspider 2.0'
+      AgentNameVersionMajor                 : 'Baiduspider 2'
+      AgentInformationUrl                   : 'http://www.baidu.com/search/spider.html'
 
 
 - test:
@@ -5557,6 +5587,34 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (compatible; heritrix/3.1.1 +http://www.baidu.com)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Heritrix'
+      DeviceBrand                           : 'Heritrix'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'heritrix'
+      LayoutEngineVersion                   : '3.1.1'
+      LayoutEngineVersionMajor              : '3'
+      LayoutEngineNameVersion               : 'heritrix 3.1.1'
+      LayoutEngineNameVersionMajor          : 'heritrix 3'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'heritrix'
+      AgentVersion                          : '3.1.1'
+      AgentVersionMajor                     : '3'
+      AgentNameVersion                      : 'heritrix 3.1.1'
+      AgentNameVersionMajor                 : 'heritrix 3'
+      AgentInformationUrl                   : 'http://www.baidu.com'
+
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (compatible; exal/${pom.version} +http://www.google.com)'
     expected:
       DeviceClass                          : 'Robot'
@@ -6239,3 +6297,520 @@ config:
       AgentNameVersion                     : 'Bytespider ??'
       AgentNameVersionMajor                : 'Bytespider ??'
       AgentInformationEmail                : 'bytespider@bytedance.com'
+
+# A screenshot creation bot.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Aprc/2.9.15-24; +https://aprc.it/) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3528.4 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Aprc Robot'
+      DeviceBrand                           : 'Aprc'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '70.0'
+      LayoutEngineVersionMajor              : '70'
+      LayoutEngineNameVersion               : 'Blink 70.0'
+      LayoutEngineNameVersionMajor          : 'Blink 70'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Chrome'
+      AgentVersion                          : '70.0.3528.4'
+      AgentVersionMajor                     : '70'
+      AgentNameVersion                      : 'Chrome 70.0.3528.4'
+      AgentNameVersionMajor                 : 'Chrome 70'
+      AgentInformationUrl                   : 'https://aprc.it'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; archive.org_bot; Archive-It; +http://archive-it.org/files/site-owners.html)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Archive-IT Archive.org BOT'
+      DeviceBrand                           : 'Archive-IT'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'archive.org_bot'
+      LayoutEngineVersion                   : 'archive.org_bot'
+      LayoutEngineVersionMajor              : 'archive'
+      LayoutEngineNameVersion               : 'archive.org_bot'
+      LayoutEngineNameVersionMajor          : 'archive.org_bot archive'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'archive.org_bot'
+      AgentVersion                          : 'archive.org_bot'
+      AgentVersionMajor                     : 'archive'
+      AgentNameVersion                      : 'archive.org_bot'
+      AgentNameVersionMajor                 : 'archive.org_bot archive'
+      AgentInformationUrl                   : 'http://archive-it.org/files/site-owners.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; coccocbot-image/1.0; +http://help.coccoc.com/searchengine)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Coccoc BOT-Image'
+      DeviceBrand                           : 'Coccoc'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'coccocbot-image'
+      LayoutEngineVersion                   : '1.0'
+      LayoutEngineVersionMajor              : '1'
+      LayoutEngineNameVersion               : 'coccocbot-image 1.0'
+      LayoutEngineNameVersionMajor          : 'coccocbot-image 1'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'coccocbot-image'
+      AgentVersion                          : '1.0'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'coccocbot-image 1.0'
+      AgentNameVersionMajor                 : 'coccocbot-image 1'
+      AgentInformationUrl                   : 'http://help.coccoc.com/searchengine'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; DashLinkPreviews/5.1;)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'DashLinkPreviews'
+      DeviceBrand                           : 'DashLinkPreviews'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'DashLinkPreviews'
+      LayoutEngineVersion                   : '5.1'
+      LayoutEngineVersionMajor              : '5'
+      LayoutEngineNameVersion               : 'DashLinkPreviews 5.1'
+      LayoutEngineNameVersionMajor          : 'DashLinkPreviews 5'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'DashLinkPreviews'
+      AgentVersion                          : '5.1'
+      AgentVersionMajor                     : '5'
+      AgentNameVersion                      : 'DashLinkPreviews 5.1'
+      AgentNameVersionMajor                 : 'DashLinkPreviews 5'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; DonkeyBot/a4.5; +https://www.dasdonkey.com)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Dasdonkey DonkeyBot'
+      DeviceBrand                           : 'Dasdonkey'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'DonkeyBot'
+      LayoutEngineVersion                   : 'a4.5'
+      LayoutEngineVersionMajor              : 'a4'
+      LayoutEngineNameVersion               : 'DonkeyBot a4.5'
+      LayoutEngineNameVersionMajor          : 'DonkeyBot a4'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'DonkeyBot'
+      AgentVersion                          : 'a4.5'
+      AgentVersionMajor                     : 'a4'
+      AgentNameVersion                      : 'DonkeyBot a4.5'
+      AgentNameVersionMajor                 : 'DonkeyBot a4'
+      AgentInformationUrl                   : 'https://www.dasdonkey.com'
+
+
+# https://www.eventures.vc/
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; evc-batch/2.0)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'EVC-Batch'
+      DeviceBrand                           : 'EVC-Batch'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'evc-batch'
+      LayoutEngineVersion                   : '2.0'
+      LayoutEngineVersionMajor              : '2'
+      LayoutEngineNameVersion               : 'evc-batch 2.0'
+      LayoutEngineNameVersionMajor          : 'evc-batch 2'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'evc-batch'
+      AgentVersion                          : '2.0'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'evc-batch 2.0'
+      AgentNameVersionMajor                 : 'evc-batch 2'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; GeedoBot/1.0; +http://www.geedo.com/bot.html)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Geedo BOT'
+      DeviceBrand                           : 'Geedo'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'GeedoBot'
+      LayoutEngineVersion                   : '1.0'
+      LayoutEngineVersionMajor              : '1'
+      LayoutEngineNameVersion               : 'GeedoBot 1.0'
+      LayoutEngineNameVersionMajor          : 'GeedoBot 1'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'GeedoBot'
+      AgentVersion                          : '1.0'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'GeedoBot 1.0'
+      AgentNameVersionMajor                 : 'GeedoBot 1'
+      AgentInformationUrl                   : 'http://www.geedo.com/bot.html'
+
+
+#- test: #TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; Google AppsViewer; http://drive.google.com)'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Jooblebot/2.0; Windows NT 6.1; WOW64; +http://jooble.org/jooble-bot) AppleWebKit/537.36 (KHTML, like Gecko) Safari/537.36'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Jooble BOT'
+      DeviceBrand                           : 'Jooble'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Jooblebot'
+      LayoutEngineVersion                   : '2.0'
+      LayoutEngineVersionMajor              : '2'
+      LayoutEngineNameVersion               : 'Jooblebot 2.0'
+      LayoutEngineNameVersionMajor          : 'Jooblebot 2'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Jooblebot'
+      AgentVersion                          : '2.0'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'Jooblebot 2.0'
+      AgentNameVersionMajor                 : 'Jooblebot 2'
+      AgentInformationUrl                   : 'http://jooble.org/jooble-bot'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MagiBot/1.0.0; Matarael; +https://magi.com/bots)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Magi BOT'
+      DeviceBrand                           : 'Magi'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'MagiBot'
+      LayoutEngineVersion                   : '1.0.0'
+      LayoutEngineVersionMajor              : '1'
+      LayoutEngineNameVersion               : 'MagiBot 1.0.0'
+      LayoutEngineNameVersionMajor          : 'MagiBot 1'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'MagiBot'
+      AgentVersion                          : '1.0.0'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'MagiBot 1.0.0'
+      AgentNameVersionMajor                 : 'MagiBot 1'
+      AgentInformationUrl                   : 'https://magi.com/bots'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Monsidobot/2.2; +http://monsido.com/bot.html; info@monsido.com)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Monsido BOT'
+      DeviceBrand                           : 'Monsido'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Monsidobot'
+      LayoutEngineVersion                   : '2.2'
+      LayoutEngineVersionMajor              : '2'
+      LayoutEngineNameVersion               : 'Monsidobot 2.2'
+      LayoutEngineNameVersionMajor          : 'Monsidobot 2'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Monsidobot'
+      AgentVersion                          : '2.2'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'Monsidobot 2.2'
+      AgentNameVersionMajor                 : 'Monsidobot 2'
+      AgentInformationEmail                 : 'info@monsido.com'
+      AgentInformationUrl                   : 'http://monsido.com/bot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; oBot/2.3.1; +http://www.xforce-security.com/crawler/)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Xforce-Security Obot'
+      DeviceBrand                           : 'Xforce-Security'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'oBot'
+      LayoutEngineVersion                   : '2.3.1'
+      LayoutEngineVersionMajor              : '2'
+      LayoutEngineNameVersion               : 'oBot 2.3.1'
+      LayoutEngineNameVersionMajor          : 'oBot 2'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'oBot'
+      AgentVersion                          : '2.3.1'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'oBot 2.3.1'
+      AgentNameVersionMajor                 : 'oBot 2'
+      AgentInformationUrl                   : 'http://www.xforce-security.com/crawler/'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; oBot/2.3.1; http://www.xforce-security.com/crawler/)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Xforce-Security Obot'
+      DeviceBrand                           : 'Xforce-Security'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'oBot'
+      LayoutEngineVersion                   : '2.3.1'
+      LayoutEngineVersionMajor              : '2'
+      LayoutEngineNameVersion               : 'oBot 2.3.1'
+      LayoutEngineNameVersionMajor          : 'oBot 2'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'oBot'
+      AgentVersion                          : '2.3.1'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'oBot 2.3.1'
+      AgentNameVersionMajor                 : 'oBot 2'
+      AgentInformationUrl                   : 'http://www.xforce-security.com/crawler/'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; redditbot/1.0; +http://www.reddit.com/feedback)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Reddit BOT'
+      DeviceBrand                           : 'Reddit'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'redditbot'
+      LayoutEngineVersion                   : '1.0'
+      LayoutEngineVersionMajor              : '1'
+      LayoutEngineNameVersion               : 'redditbot 1.0'
+      LayoutEngineNameVersionMajor          : 'redditbot 1'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'redditbot'
+      AgentVersion                          : '1.0'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'redditbot 1.0'
+      AgentNameVersionMajor                 : 'redditbot 1'
+      AgentInformationUrl                   : 'http://www.reddit.com/feedback'
+
+
+#- test: # FIXME: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; SiteGuru Linkchecker; +https://www.siteguru.co/crawler)'
+#    expected:
+#      DeviceClass                           : 'Robot'
+#      DeviceName                            : 'Siteguru Robot'
+#      DeviceBrand                           : 'Siteguru'
+#      OperatingSystemClass                  : 'Cloud'
+#      OperatingSystemName                   : 'Cloud'
+#      OperatingSystemVersion                : '??'
+#      OperatingSystemVersionMajor           : '??'
+#      OperatingSystemNameVersion            : 'Cloud ??'
+#      OperatingSystemNameVersionMajor       : 'Cloud ??'
+#      LayoutEngineClass                     : 'Robot'
+#      LayoutEngineName                      : 'Mozilla'
+#      LayoutEngineVersion                   : '5.0'
+#      LayoutEngineVersionMajor              : '5'
+#      LayoutEngineNameVersion               : 'Mozilla 5.0'
+#      LayoutEngineNameVersionMajor          : 'Mozilla 5'
+#      AgentClass                            : 'Robot'
+#      AgentName                             : 'SiteGuru Linkchecker'
+#      AgentVersion                          : '??'
+#      AgentVersionMajor                     : '??'
+#      AgentNameVersion                      : 'SiteGuru Linkchecker ??'
+#      AgentNameVersionMajor                 : 'SiteGuru Linkchecker ??'
+#      AgentInformationUrl                   : 'https://www.siteguru.co/crawler'
+
+
+#- test: # TODO Implement
+#    input: # See also https://github.com/chimbori/crux
+#      user_agent_string: 'Mozilla/5.0 (compatible; Snacktory; +https://github.com/karussell/snacktory)'
+#- test: # TODO Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; The Lounge IRC Client; +https://github.com/thelounge/thelounge)'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; special_archiver/3.4.0; +https://www.loc.gov/programs/web-archiving/for-site-owners/)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'LOC Robot'
+      DeviceBrand                           : 'LOC'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Mozilla'
+      LayoutEngineVersion                   : '5.0'
+      LayoutEngineVersionMajor              : '5'
+      LayoutEngineNameVersion               : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor          : 'Mozilla 5'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'special_archiver'
+      AgentVersion                          : '3.4.0'
+      AgentVersionMajor                     : '3'
+      AgentNameVersion                      : 'special_archiver 3.4.0'
+      AgentNameVersionMajor                 : 'special_archiver 3'
+      AgentInformationUrl                   : 'https://www.loc.gov/programs/web-archiving/for-site-owners/'
+
+
+#- test: # FIXME: THis seems wrong
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; theoldreader.com; 6 subscribers; feed-id=515553ed4dce57ce3406b82f)'
+#    expected:
+#      DeviceClass                           : 'Robot'
+#      DeviceName                            : 'Theoldreader Robot'
+#      DeviceBrand                           : 'Theoldreader'
+#      OperatingSystemClass                  : 'Cloud'
+#      OperatingSystemName                   : 'Cloud'
+#      OperatingSystemVersion                : '??'
+#      OperatingSystemVersionMajor           : '??'
+#      OperatingSystemNameVersion            : 'Cloud ??'
+#      OperatingSystemNameVersionMajor       : 'Cloud ??'
+#      LayoutEngineClass                     : 'Browser'
+#      LayoutEngineName                      : 'Mozilla'
+#      LayoutEngineVersion                   : '5.0'
+#      LayoutEngineVersionMajor              : '5'
+#      LayoutEngineNameVersion               : 'Mozilla 5.0'
+#      LayoutEngineNameVersionMajor          : 'Mozilla 5'
+#      AgentClass                            : 'Browser'
+#      AgentName                             : 'Netscape'
+#      AgentVersion                          : '5.0'
+#      AgentVersionMajor                     : '5'
+#      AgentNameVersion                      : 'Netscape 5.0'
+#      AgentNameVersionMajor                 : 'Netscape 5'
+#      AgentInformationUrl                   : 'theoldreader.com'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Yahoo Link Preview; https://help.yahoo.com/kb/mail/yahoo-link-preview-SLN23615.html) maild/1572655054-20'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Yahoo Robot'
+      DeviceBrand                           : 'Yahoo'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Mozilla'
+      LayoutEngineVersion                   : '5.0'
+      LayoutEngineVersionMajor              : '5'
+      LayoutEngineNameVersion               : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor          : 'Mozilla 5'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'maild'
+      AgentVersion                          : '1572655054-20'
+      AgentVersionMajor                     : '1572655054'
+      AgentNameVersion                      : 'maild 1572655054-20'
+      AgentNameVersionMajor                 : 'maild 1572655054'
+      AgentInformationUrl                   : 'https://help.yahoo.com/kb/mail/yahoo-link-preview-SLN23615.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Grabify.link - https://grabify.link/expander)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Grabify Robot'
+      DeviceBrand                           : 'Grabify'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Mozilla'
+      LayoutEngineVersion                   : '5.0'
+      LayoutEngineVersionMajor              : '5'
+      LayoutEngineNameVersion               : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor          : 'Mozilla 5'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Grabify.link'
+      AgentVersion                          : 'https://grabify.link/expander'
+      AgentVersionMajor                     : 'https://grabify.link/expander'
+      AgentNameVersion                      : 'Grabify.link https://grabify.link/expander'
+      AgentNameVersionMajor                 : 'Grabify.link https://grabify.link/expander'
+      AgentInformationUrl                   : 'https://grabify.link/expander'

@@ -101,7 +101,9 @@ public final class Normalize {
     public static String cleanupDeviceBrandName(String deviceBrand, String deviceName) {
         String lowerDeviceBrand = deviceBrand.toLowerCase(Locale.ENGLISH);
 
-        deviceName = deviceName.replaceAll("_", " ");
+        deviceName = replaceString(deviceName, "'", " ");
+        deviceName = replaceString(deviceName, "_", " ");
+
         deviceName = deviceName.replaceAll("- +", "-");
         deviceName = deviceName.replaceAll(" +-", "-");
         deviceName = deviceName.replaceAll(" +", " ");
@@ -110,7 +112,7 @@ public final class Normalize {
 
         // In some cases it does start with the brand but without a separator following the brand
         if (lowerDeviceName.startsWith(lowerDeviceBrand)) {
-            deviceName = deviceName.replaceAll("_", " ");
+            deviceName = replaceString(deviceName, "_", " ");
             // (?i) means: case insensitive
             deviceName = deviceName.replaceAll("(?i)^" + Pattern.quote(deviceBrand) + "([^ ].*)$", Matcher.quoteReplacement(deviceBrand)+" $1");
             deviceName = deviceName.replaceAll("( -| )+", " ");
@@ -120,11 +122,10 @@ public final class Normalize {
         String result = Normalize.brand(deviceName);
 
         if (result.contains("I")) {
-            result = result
-                .replace("Ipad", "iPad")
-                .replace("Ipod", "iPod")
-                .replace("Iphone", "iPhone")
-                .replace("IOS ", "iOS ");
+            result = replaceString(result, "Ipad", "iPad");
+            result = replaceString(result, "Ipod", "iPod");
+            result = replaceString(result, "Iphone", "iPhone");
+            result = replaceString(result, "IOS ", "iOS ");
         }
         return result;
     }
@@ -141,6 +142,36 @@ public final class Normalize {
         cleaned = cleaned.replaceAll(" dash ", "-");
         cleaned = cleaned.replaceAll(" ", "");
         return cleaned;
+    }
+
+    public static String replaceString(
+        final String input,
+        final String searchFor,
+        final String replaceWith
+    ){
+        //startIdx and idxSearchFor delimit various chunks of input; these
+        //chunks always end where searchFor begins
+        int startIdx = 0;
+        int idxSearchFor = input.indexOf(searchFor, startIdx);
+        if (idxSearchFor < 0) {
+            return input;
+        }
+        final StringBuilder result = new StringBuilder(input.length()+32);
+
+        while (idxSearchFor >= 0) {
+            //grab a part of input which does not include searchFor
+            result.append(input, startIdx, idxSearchFor);
+            //add replaceWith to take place of searchFor
+            result.append(replaceWith);
+
+            //reset the startIdx to just after the current match, to see
+            //if there are any further matches
+            startIdx = idxSearchFor + searchFor.length();
+            idxSearchFor = input.indexOf(searchFor, startIdx);
+        }
+        //the final chunk will go to the end of input
+        result.append(input.substring(startIdx));
+        return result.toString();
     }
 
 }

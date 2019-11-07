@@ -285,6 +285,33 @@ config:
       AgentNameVersion                     : 'Firefox 7.5b3349'
       AgentNameVersionMajor                : 'Firefox 7'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPad; CPU OS 11_2_2 like Mac OS X) AppleWebKit/604.4.7 (KHTML, like Gecko) FxiOS/10.4b8288 Mobile/15C202 Safari/604.4.7'
+    expected:
+      DeviceClass                           : 'Tablet'
+      DeviceName                            : 'Apple iPad'
+      DeviceBrand                           : 'Apple'
+      DeviceFirmwareVersion                 : '15C202'
+      DeviceVersion                         : 'iPad'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'iOS'
+      OperatingSystemVersion                : '11.2.2'
+      OperatingSystemVersionMajor           : '11'
+      OperatingSystemNameVersion            : 'iOS 11.2.2'
+      OperatingSystemNameVersionMajor       : 'iOS 11'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'AppleWebKit'
+      LayoutEngineVersion                   : '604.4.7'
+      LayoutEngineVersionMajor              : '604'
+      LayoutEngineNameVersion               : 'AppleWebKit 604.4.7'
+      LayoutEngineNameVersionMajor          : 'AppleWebKit 604'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Firefox'
+      AgentVersion                          : '10.4b8288'
+      AgentVersionMajor                     : '10'
+      AgentNameVersion                      : 'Firefox 10.4b8288'
+      AgentNameVersionMajor                 : 'Firefox 10'
 
 
 - test:
