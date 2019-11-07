@@ -274,7 +274,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         }
 
         public void reset() {
-            value = defaultValue;
+            value = null;
             confidence = -1;
         }
 
@@ -285,13 +285,16 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             return value;
         }
 
+        public boolean isDefaultValue() {
+            return confidence < 0 || value == null;
+        }
+
         public long getConfidence() {
             if (value == null) {
                 return -1; // Lie in case the value was wiped.
             }
             return confidence;
         }
-
 
         public boolean setValue(AgentField field) {
             return setValue(field.value, field.confidence);
@@ -302,7 +305,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
                 this.confidence = newConfidence;
 
                 if (NULL_VALUE.equals(newValue)) {
-                    this.value = defaultValue;
+                    this.value = null;
                 } else {
                     this.value = newValue;
                 }
@@ -315,7 +318,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             this.confidence = newConfidence;
 
             if (NULL_VALUE.equals(newValue)) {
-                this.value = defaultValue;
+                this.value = null;
             } else {
                 this.value = newValue;
             }

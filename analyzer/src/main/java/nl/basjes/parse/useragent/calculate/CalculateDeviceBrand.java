@@ -49,14 +49,14 @@ public class CalculateDeviceBrand implements FieldCalculator {
     public void calculate(UserAgent userAgent) {
         // The device brand field is a mess.
         UserAgent.AgentField deviceBrand = userAgent.get(DEVICE_BRAND);
-        if (deviceBrand.getConfidence() >= 0) {
+        if (!deviceBrand.isDefaultValue()) {
             userAgent.setForced(
                 DEVICE_BRAND,
                 Normalize.brand(deviceBrand.getValue()),
                 deviceBrand.getConfidence());
         }
 
-        if (deviceBrand.getConfidence() < 0) {
+        if (deviceBrand.isDefaultValue()) {
             // If no brand is known then try to extract something that looks like a Brand from things like URL and Email addresses.
             String newDeviceBrand = determineDeviceBrand(userAgent);
             if (newDeviceBrand != null) {

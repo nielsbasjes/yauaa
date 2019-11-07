@@ -111,15 +111,15 @@ config:
     variable:
     - 'Language: agent.(1)product.(1)comments.(1-5)entry.(1-5)product.(1)name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
     extract:
-    - 'AgentLanguageCode                   :   5010 :LookUp[ISOLanguageCodes;@Language]'
-    - 'AgentLanguage                       :   5010 :LookUp[ISOLanguageCodesName;@Language]'
+    - 'AgentLanguageCode                   : 501000 :LookUp[ISOLanguageCodes;@Language]'
+    - 'AgentLanguage                       : 501000 :LookUp[ISOLanguageCodesName;@Language]'
 
 - matcher:
     variable:
     - 'Language: agent.(1)product.(1)comments.(1-5)entry.(1-5)product.(1)name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
     extract:
-    - 'AgentLanguageCode                   :   5011 :LookUp[ISOLanguageCodes3;@Language]'
-    - 'AgentLanguage                       :   5011 :LookUp[ISOLanguageCodes3Name;@Language]'
+    - 'AgentLanguageCode                   : 501100 :LookUp[ISOLanguageCodes3;@Language]'
+    - 'AgentLanguage                       : 501100 :LookUp[ISOLanguageCodes3Name;@Language]'
 
 - matcher:
     require:

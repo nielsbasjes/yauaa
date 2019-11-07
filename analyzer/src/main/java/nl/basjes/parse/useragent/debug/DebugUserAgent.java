@@ -87,8 +87,11 @@ public class DebugUserAgent extends UserAgent { // NOSONAR: No need to override 
                     if (highlightNames.contains(fieldName)) {
                         marker = " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
                     }
-                    sb.append("| ").append(fieldName).append('(').append(field.getConfidence()).append(") = ")
-                        .append(field.getValue()).append(marker).append('\n');
+                    sb.append("| ").append(fieldName).append('(').append(field.getConfidence());
+                    if (field.isDefaultValue()) {
+                        sb.append(" => isDefaultValue");
+                    }
+                    sb.append(") = ").append(field.getValue()).append(marker).append('\n');
                 }
             }
             sb.append("+================\n");

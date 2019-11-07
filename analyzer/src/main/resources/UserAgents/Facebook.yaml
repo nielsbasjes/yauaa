@@ -166,22 +166,22 @@ config:
 
 - matcher:
     extract:
-    - 'AgentLanguage                       :   5002 :LookUp[ISOLanguageCodesName;agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version]'
-    - 'AgentLanguageCode                   :   5002 :LookUp[ISOLanguageCodes;agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version]'
+    - 'AgentLanguage                       : 500200 :LookUp[ISOLanguageCodesName;agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version]'
+    - 'AgentLanguageCode                   : 500200 :LookUp[ISOLanguageCodes;agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version]'
 
 - matcher:
     extract:
-    - 'AgentLanguage                       :   5001 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version'
-    - 'AgentLanguageCode                   :   5001 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version'
+    - 'AgentLanguage                       : 500100 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version'
+    - 'AgentLanguageCode                   : 500100 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBLC"^.version'
 
 - matcher:
     extract:
-    - 'FacebookCarrier                     :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBCR"^.version'
-    - 'Carrier                             :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBCR"^.version'
+    - 'FacebookCarrier                     : 300000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBCR"^.version'
+    - 'Carrier                             : 300000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBCR"^.version'
 
 - matcher:
     extract:
-    - 'FacebookFBOP                        :   3000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBOP"^.version'
+    - 'FacebookFBOP                        : 300000 :agent.product.(1-2)comments.entry.(1)product.(1)name="FBOP"^.version'
 
 - test:
     input:

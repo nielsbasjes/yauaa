@@ -6,7 +6,7 @@ v5.13-SNAPSHOT
 - Update public suffix list for detecting hostnames.
 - Added a basic API and Swagger UI to the demo webservlet
 - New/improved detections
-  - Agent: Apache Nifi, Wget, Curl, Latest Edge, HeadlessChrome, CrMo (=very old Chrome)
+  - Agent: Apache Nifi, Wget, Curl, Latest Edge, HeadlessChrome, CrMo (=very old Chrome), Bytedance Bytespider
   - Device: Improved Xiaomi detection.
 - Fixes:
   - Check if a used variable actually exists.
