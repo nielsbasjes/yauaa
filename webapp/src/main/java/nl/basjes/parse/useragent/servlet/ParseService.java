@@ -20,6 +20,8 @@ package nl.basjes.parse.useragent.servlet;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Example;
+import io.swagger.annotations.ExampleProperty;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.Version;
@@ -55,7 +57,9 @@ import java.util.Map;
 
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
+import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 
+@SuppressWarnings("deprecation") // The description field may be deprecated but in SpringFox it is still used.
 @Api(tags = "Yauaa", description = "Useragent parsing service")
 @SpringBootApplication
 @RestController
@@ -68,6 +72,10 @@ public class ParseService {
     private static       String            userAgentAnalyzerFailureMessage = null;
     private static final String            ANALYZER_VERSION                = getVersion();
     private static final String            API_BASE_PATH                   = "/yauaa/v1";
+
+    private static final String            EXAMPLE_USERAGENT               =
+        "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36";
 
     private enum OutputType {
         HTML,
@@ -211,7 +219,10 @@ public class ParseService {
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public String getJSonGET(
-        @ApiParam("The standard browser request header User-Agent is used as the input that is to be analyzed.")
+        @ApiParam(
+            value = "The standard browser request header User-Agent is used as the input that is to be analyzed.",
+            example = EXAMPLE_USERAGENT
+        )
         @RequestHeader("User-Agent")
         String userAgentString
     ) {
@@ -227,7 +238,10 @@ public class ParseService {
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public String getJSonPOST(
-        @ApiParam("The entire POSTed value is used as the input that is to be analyzed.")
+        @ApiParam(
+            value = "The entire POSTed value is used as the input that is to be analyzed.",
+            example = EXAMPLE_USERAGENT
+        )
         @RequestBody
         String userAgentString
     ) {
@@ -253,14 +267,17 @@ public class ParseService {
     @ApiOperation(
         value = "Analyze the provided User-Agent",
         notes = "<b>Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
-            "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035</b>"
+                "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035</b>"
     )
     @GetMapping(
         value = API_BASE_PATH + "/analyze",
-        produces = MediaType.APPLICATION_XML_VALUE
+        produces = APPLICATION_XML_VALUE
     )
     public String getXMLGET(
-        @ApiParam("The standard browser request header User-Agent is used as the input that is to be analyzed.")
+        @ApiParam(
+            value = "The standard browser request header User-Agent is used as the input that is to be analyzed.",
+            example = EXAMPLE_USERAGENT
+        )
         @RequestHeader("User-Agent")
             String userAgentString
     ) {
@@ -273,10 +290,13 @@ public class ParseService {
     @PostMapping(
         value = API_BASE_PATH + "/analyze",
         consumes = MediaType.TEXT_PLAIN_VALUE,
-        produces = MediaType.APPLICATION_XML_VALUE
+        produces = APPLICATION_XML_VALUE
     )
     public String getXMLPOST(
-        @ApiParam("The entire POSTed value is used as the input that is to be analyzed.")
+        @ApiParam(
+            value = "The entire POSTed value is used as the input that is to be analyzed.",
+            example = EXAMPLE_USERAGENT
+        )
         @RequestBody String userAgentString
     ) {
         return doXML(userAgentString);
