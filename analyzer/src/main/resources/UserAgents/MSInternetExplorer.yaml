@@ -375,6 +375,12 @@ config:
 
 - matcher:
     require:
+      - 'agent.(1)product.(1)comments.entry.(1)product.name="MSIE"'
+    extract:
+      - 'DeviceClass              :      1 :"Desktop"'
+
+- matcher:
+    require:
     - 'agent.(1)product.(1)comments.entry.(1)product="MSIE 7.0"'
     - 'agent.(1)product.(1)comments.(1)entry.(1)text="compatible"'
     - 'agent.(1)product.(1)comments.entry.(1)product[1-2]="Windows NT"'

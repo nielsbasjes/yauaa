@@ -1,0 +1,103 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2019 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+isConAff: &isConAff
+    DeviceClass                           : 'Robot'
+    DeviceName                            : 'Popular Product Price Robot'
+    DeviceBrand                           : 'Popular Product'
+    OperatingSystemClass                  : 'Cloud'
+    OperatingSystemName                   : 'Cloud'
+    OperatingSystemVersion                : '??'
+    OperatingSystemVersionMajor           : '??'
+    OperatingSystemNameVersion            : 'Cloud ??'
+    OperatingSystemNameVersionMajor       : 'Cloud ??'
+    LayoutEngineClass                     : 'Robot'
+    LayoutEngineName                      : 'Robot'
+    LayoutEngineVersion                   : '??'
+    LayoutEngineVersionMajor              : '??'
+    LayoutEngineNameVersion               : 'Robot ??'
+    LayoutEngineNameVersionMajor          : 'Robot ??'
+    AgentClass                            : 'Robot'
+    AgentName                             : 'Con Aff Robot'
+    AgentVersion                          : '??'
+    AgentVersionMajor                     : '??'
+    AgentNameVersion                      : 'Con Aff Robot ??'
+    AgentNameVersionMajor                 : 'Con Aff Robot ??'
+
+
+config:
+
+# con_aff/ seems to be an spider that scrambles several values
+# ~ 3000 useragents on a single day with a single visitor
+# cat con_aff.txt | sed 's@  \+[0-9]\+ @@'  | sed 's@Mozilla/[0-9]\.[0-9] @Mozilla/9.9 @g;s@10_[0-9]\+_[0-9]@10_9_9@g;s@x64 [0-9][0-9]\.[0-9]\+@x64 99.9@g;s@rv:[0-9][0-9]\.[0-9]@rv:99.9@g;s@Firefox/[0-9]\+\.[0-9]@Firefox/99.9@g;s@Gecko/2010010[0-9]@Gecko/20100101@g;s@Chrome/68\.0\.[0-9][0-9][0-9][0-9]\.1[0-9][0-9]@Chrome/68.0.9999.199@g;s@Safari/[0-9][0-9]7\.[0-9][0-9]@Safari/997.99@g' | sort -u
+
+- matcher:
+    variable:
+    - 'ConAff: agent.product.name="con_aff"'
+    require:
+    - 'IsNull[@ConAff^.version]'
+    extract:
+      - '__Set_ALL_Fields__                  :  99999 :"<<<null>>>"'
+      - 'DeviceClass                         : 100000 :"Robot"'
+      - 'DeviceName                          : 100000 :"Price Robot"'
+      - 'DeviceBrand                         : 100000 :"Popular product"'
+      - 'DeviceCpu                           : 100000 :"<<<null>>>"'
+      - 'OperatingSystemClass                : 100000 :"Cloud"'
+      - 'OperatingSystemName                 : 100000 :"Cloud"'
+      - 'OperatingSystemVersion              : 100000 :"??"'
+      - 'LayoutEngineClass                   : 100000 :"Robot"'
+      - 'LayoutEngineName                    : 100000 :"Robot"'
+      - 'LayoutEngineVersion                 : 100000 :"??"'
+      - 'AgentClass                          : 100000 :"Robot"'
+      - 'AgentName                           : 100000 :"Con Aff Robot"'
+      - 'AgentVersion                        : 100000 :"??"'
+
+- test:
+    input: # Simplified by aggregating the examples available
+      user_agent_string: 'Mozilla/9.9 (Macintosh; Intel Mac OS X 10_9_9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.9999.199 Safari/997.99 con_aff/'
+    expected: *isConAff
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/6.5 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3535.135 Safari/667.35 con_aff/'
+    expected: *isConAff
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/6.7 (Macintosh; Intel Mac OS X 10_10_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.5353.153 Safari/667.53 con_aff/'
+    expected: *isConAff
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/6.8 (Macintosh; Intel Mac OS X 10_13_8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.2626.126 Safari/667.26 con_aff/'
+    expected: *isConAff
+
+
+- test:
+    input: # Simplified by aggregating the examples available
+      user_agent_string: 'Mozilla/9.9 (Windows NT 10.0; Win64; x64 99.9; rv:99.9) Gecko/20100101 Firefox/99.9 con_aff/'
+    expected: *isConAff
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/6.7 (Windows NT 10.0; Win64; x64 17.1; rv:38.1) Gecko/20100101 Firefox/38.1 con_aff/'
+    expected: *isConAff
+- test:
+    input:
+      user_agent_string: 'Mozilla/6.3 (Windows NT 10.0; Win64; x64 17.12; rv:39.9) Gecko/20100109 Firefox/39.9 con_aff/'
+    expected: *isConAff
+
