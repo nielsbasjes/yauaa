@@ -158,7 +158,7 @@ public abstract class MatcherAction implements Serializable {
             setFixedValue(fixedValue);
             mustHaveMatches = false;
             matches = new MatchesList(0);
-            return 0 ; // Not interested in any patterns
+            return 0; // Not interested in any patterns
         }
 
         mustHaveMatches = !evaluator.usesIsNull();
