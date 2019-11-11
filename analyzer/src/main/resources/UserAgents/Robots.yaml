@@ -77,7 +77,7 @@ config:
 
 - matcher:
     variable:
-      - 'RobotProductName:agent.product.comments.entry.product.name?NamedSpecialLayoutEngines'
+      - 'RobotProductName:agent.(1)product.(1)comments.entry.(1)product.(1)name?NamedSpecialLayoutEngines'
       - 'RobotProductVersion:@RobotProductName^.version'
     extract:
       - 'DeviceClass                         : 300000 :"Robot"'
@@ -87,7 +87,7 @@ config:
 
 - matcher:
     variable:
-      - 'RobotProductName:agent.product.comments.entry.product.comments.entry.product.name?NamedSpecialLayoutEngines'
+      - 'RobotProductName:agent.(1)product.(1)comments.entry.(1)product.(1)comments.(1)entry.(1)product.(1)name?NamedSpecialLayoutEngines'
       - 'RobotProductVersion:@RobotProductName^.version'
     extract:
       - 'DeviceClass                         : 300000 :"Robot"'
