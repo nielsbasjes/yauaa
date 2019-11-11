@@ -39,9 +39,10 @@ public class MatcherRequireAction extends MatcherAction {
     }
 
     @Override
-    public void initialize() {
-        super.initialize();
-        evaluator.pruneTrailingStepsThatCannotFail();
+    public long initialize() {
+        long newEntries = super.initialize();
+        newEntries -= evaluator.pruneTrailingStepsThatCannotFail();
+        return newEntries;
     }
 
     protected void setFixedValue(String fixedValue) {

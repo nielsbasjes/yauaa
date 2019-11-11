@@ -215,8 +215,12 @@ public class Matcher implements Serializable {
     }
 
     public void initialize() {
+        long newEntries = 0;
+        long initStart = System.nanoTime();
         try {
-            variableActions.forEach(MatcherAction::initialize);
+            for (MatcherVariableAction variableAction : variableActions) {
+                newEntries += variableAction.initialize();
+            }
         } catch (InvalidParserConfigurationException e) {
             throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ")", e);
         }
@@ -224,7 +228,7 @@ public class Matcher implements Serializable {
         Set<MatcherAction> uselessRequireActions = new HashSet<>();
         for (MatcherAction dynamicAction : dynamicActions) {
             try {
-                dynamicAction.initialize();
+                newEntries += dynamicAction.initialize();
             } catch (InvalidParserConfigurationException e) {
                 if (!e.getMessage().startsWith("It is useless to put a fixed value")) {// Ignore fixed values in require
                     throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ")" + e.getMessage(), e);
@@ -283,6 +287,11 @@ public class Matcher implements Serializable {
         dynamicActions = allDynamicActions;
 
         actionsThatRequireInput = countActionsThatMustHaveMatches(dynamicActions);
+
+        long initFinish = System.nanoTime();
+        if (newEntries > 10000) {
+            LOG.warn("Large matcher: {} in {} ms:.({})", newEntries, (initFinish-initStart)/1000000, matcherSourceLocation);
+        }
 
         if (verbose) {
             LOG.info("---------------------------");

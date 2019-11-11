@@ -130,7 +130,7 @@ public abstract class MatcherAction implements Serializable {
         setVerbose(newMatcher.getVerbose());
     }
 
-    public void initialize() {
+    public long initialize() {
         InitErrorListener errorListener = new InitErrorListener();
 
         CodePointCharStream input = CharStreams.fromString(this.matchExpression);
@@ -158,7 +158,7 @@ public abstract class MatcherAction implements Serializable {
             setFixedValue(fixedValue);
             mustHaveMatches = false;
             matches = new MatchesList(0);
-            return; // Not interested in any patterns
+            return 0 ; // Not interested in any patterns
         }
 
         mustHaveMatches = !evaluator.usesIsNull();
@@ -175,6 +175,7 @@ public abstract class MatcherAction implements Serializable {
             listSize = 1;
         }
         this.matches = new MatchesList(listSize);
+        return informs;
     }
 
     protected abstract ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser);

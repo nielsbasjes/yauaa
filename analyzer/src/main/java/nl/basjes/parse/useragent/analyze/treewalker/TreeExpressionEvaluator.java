@@ -151,7 +151,7 @@ public class TreeExpressionEvaluator implements Serializable {
         return walkList;
     }
 
-    public void pruneTrailingStepsThatCannotFail() {
-        walkList.pruneTrailingStepsThatCannotFail();
+    public long pruneTrailingStepsThatCannotFail() {
+        return walkList.pruneTrailingStepsThatCannotFail();
     }
 }
