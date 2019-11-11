@@ -2879,3 +2879,31 @@ config:
       AgentVersionMajor                    : '9'
       AgentNameVersion                     : 'Stock Android Browser 9.0'
       AgentNameVersionMajor                : 'Stock Android Browser 9'
+
+- test: # Windows? Solaris?
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0; Solaris 9)'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Solaris 9'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpu                             : 'Intel x86_64'
+      DeviceCpuBits                         : '64'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Solaris'  # FIXME: Can we make this to show Windows ?
+      OperatingSystemVersion                : '9'
+      OperatingSystemVersionMajor           : '9'
+      OperatingSystemNameVersion            : 'Solaris 9'
+      OperatingSystemNameVersionMajor       : 'Solaris 9'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Trident'
+      LayoutEngineVersion                   : '6.0'
+      LayoutEngineVersionMajor              : '6'
+      LayoutEngineNameVersion               : 'Trident 6.0'
+      LayoutEngineNameVersionMajor          : 'Trident 6'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Internet Explorer'
+      AgentVersion                          : '10.0'
+      AgentVersionMajor                     : '10'
+      AgentNameVersion                      : 'Internet Explorer 10.0'
+      AgentNameVersionMajor                 : 'Internet Explorer 10'

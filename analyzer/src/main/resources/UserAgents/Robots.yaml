@@ -29,10 +29,10 @@ config:
       'Dataprovider.com'           : 'Dataprovider.com'
       'Daum'                       : 'Daom'
       'Daumoa'                     : 'Daom'
-      'DashLinkPreviews' : 'DashLinkPreviews'
+      'DashLinkPreviews'           : 'DashLinkPreviews'
       'DejaClick'                  : 'DejaClick'
       'Echoping'                   : 'Echoping'
-      'evc-batch' : 'evc-batch'
+      'evc-batch'                  : 'evc-batch'
       'exal'                       : 'exal'
       'Facebot Twitterbot'         : 'Facebook'
       'GnowitNewsbot'              : 'Gnowit'
@@ -55,6 +55,7 @@ config:
       'CBSBot'                     : 'CBS'
       'ScoutJet'                   : 'ScoutJet'
       'Site-Shot'                  : 'Site-Shot'
+      'TencentTraveler'            : 'Tencent'
       'TrueClicks'                 : 'TrueClicks'
       'Twitterbot'                 : 'Twitter'
       'Telegrambot'                : 'Telegram'
@@ -65,6 +66,34 @@ config:
       'wget'                       : 'wget'
       'curl'                       : 'curl'
       'Apache Nifi'                : 'Apache'
+
+
+- lookup:
+    name: 'NamedSpecialLayoutEngines'
+    map:
+      'EmbeddedWB'            : 'Delphi EmbeddedWB'
+      'Compatible-EmbeddedWB' : 'Delphi EmbeddedWB'
+      'Compatible EmbeddedWB' : 'Delphi EmbeddedWB'
+
+- matcher:
+    variable:
+      - 'RobotProductName:agent.product.comments.entry.product.name?NamedSpecialLayoutEngines'
+      - 'RobotProductVersion:@RobotProductName^.version'
+    extract:
+      - 'DeviceClass                         : 300000 :"Robot"'
+      - 'LayoutEngineClass                   : 300001 :"Robot"'
+      - 'LayoutEngineName                    : 300001 :LookUp[NamedSpecialLayoutEngines;@RobotProductName]'
+      - 'LayoutEngineVersion                 : 300001 :@RobotProductVersion'
+
+- matcher:
+    variable:
+      - 'RobotProductName:agent.product.comments.entry.product.comments.entry.product.name?NamedSpecialLayoutEngines'
+      - 'RobotProductVersion:@RobotProductName^.version'
+    extract:
+      - 'DeviceClass                         : 300000 :"Robot"'
+      - 'LayoutEngineClass                   : 300001 :"Robot"'
+      - 'LayoutEngineName                    : 300001 :LookUp[NamedSpecialLayoutEngines;@RobotProductName]'
+      - 'LayoutEngineVersion                 : 300001 :@RobotProductVersion'
 
 
 - matcher:
@@ -6888,3 +6917,74 @@ config:
       AgentNameVersion                      : 'Grabify.link https://grabify.link/expander'
       AgentNameVersionMajor                 : 'Grabify.link https://grabify.link/expander'
       AgentInformationUrl                   : 'https://grabify.link/expander'
+
+# https://www.distilnetworks.com/bot-directory/bot/tencent-traveler/
+#     Tencent is a Chinese investment holding company that provides online advertising services in China.
+#     Tencent Traveler bot allows Tencent to target its ads to certain consumers based on their search histories.
+#     Tencent scrapes users’ search histories in order to match them with company ads that would be of interest to them.
+#     You may want to consider blocking this bot if you are not interested in doing business in the Chinese market.
+# https://en.wikipedia.org/wiki/Tencent
+#     Tencent also launched Tencent Traveler, a web browser based on Trident.
+#     It became the third most-visited browser in China in 2008.
+# https://sourceforge.net/projects/embeddedwb/
+#     EWB is a freeware components package for Borland Delphi 5 to D2009. It allow you to create a Web Browser,
+#     Chat Client, web updater, Html/Xml Editors and more.
+# http://www.bsalsa.com/
+#     Site no longer exists (not reachable from Europe?)
+# https://developers.whatismybrowser.com/useragents/explore/software_name/delphi-embedded-web-browser/
+# https://bitbucket.org/wpostma/tembeddedwb/src/default/
+# https://github.com/ghquant/Delphi-EmbeddedWB
+# ---> I concluded: This is the TencentTraveler robot that is built using EmbeddedWB.
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; TencentTraveler ; EmbeddedWB 14.52 from: http://www.bsalsa.com/ EmbeddedWB 14.52; .NET CLR 2.0.50727; InfoPath.2; .NET CLR 3.0.04506.30; .NET CLR 3.0.04506.590; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Tencent Traveler'
+      DeviceBrand                           : 'Tencent'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Delphi EmbeddedWB'
+      LayoutEngineVersion                   : '14.52'
+      LayoutEngineVersionMajor              : '14'
+      LayoutEngineNameVersion               : 'Delphi EmbeddedWB 14.52'
+      LayoutEngineNameVersionMajor          : 'Delphi EmbeddedWB 14'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'TencentTraveler'
+      AgentVersion                          : '??'
+      AgentVersionMajor                     : '??'
+      AgentNameVersion                      : 'TencentTraveler ??'
+      AgentNameVersionMajor                 : 'TencentTraveler ??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Mozilla/4.0(Compatible Mozilla/4.0(Compatible-EmbeddedWB 14.57 http://bsalsa.com/ EmbeddedWB- 14.57 from: http://bsalsa.com/ ; .NET CLR 1.1.4322)'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpuBits                         : '32'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : 'XP'
+      OperatingSystemVersionMajor           : 'XP'
+      OperatingSystemNameVersion            : 'Windows XP'
+      OperatingSystemNameVersionMajor       : 'Windows XP'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Internet Explorer'
+      LayoutEngineVersion                   : '6.0'
+      LayoutEngineVersionMajor              : '6'
+      LayoutEngineNameVersion               : 'Internet Explorer 6.0'
+      LayoutEngineNameVersionMajor          : 'Internet Explorer 6'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Internet Explorer'
+      AgentVersion                          : '6.0'
+      AgentVersionMajor                     : '6'
+      AgentNameVersion                      : 'Internet Explorer 6.0'
+      AgentNameVersionMajor                 : 'Internet Explorer 6'
+
