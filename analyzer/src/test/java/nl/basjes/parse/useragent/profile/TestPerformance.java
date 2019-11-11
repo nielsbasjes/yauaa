@@ -69,7 +69,7 @@ public class TestPerformance {
         stop = System.nanoTime();
         long initializeMsecs = (stop - start) / 1000000;
         LOG.info("-- Initialization: {}ms", initializeMsecs);
-        assertTrue("The initialization went too fast, this should take several seconds", initializeMsecs > 1000);
+        assertTrue("The initialization went too fast, this should take several seconds", initializeMsecs > 300);
 
         LOG.info("Preheat");
         start = System.nanoTime();
