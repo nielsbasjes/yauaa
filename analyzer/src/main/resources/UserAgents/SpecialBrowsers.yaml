@@ -3094,3 +3094,112 @@ config:
       AgentNameVersion                     : 'Apache-Maven 3.5.0'
       AgentNameVersionMajor                : 'Apache-Maven 3'
 
+
+- matcher:
+    variable:
+    - 'HawkProduct:agent.product.name="Hawk"^'
+    extract:
+    - 'AgentVersion                        :     50 : @HawkProduct.(2)version'
+    - 'AgentName                           :     50 : Concat["Hawk ";@HawkProduct[2]]'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.text="wv"'
+    variable:
+    - 'HawkProduct:agent.product.name="Hawk"^'
+    extract:
+    - 'WebviewAppVersion                   :     50 : @HawkProduct.(2)version'
+    - 'WebviewAppName                      :     50 : Concat["Hawk ";@HawkProduct[2]]'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.2.2; nl-nl; AND1E Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Hawk/QuickBrowser/1.0.35'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Philips AND1E'
+      DeviceBrand                          : 'Philips'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.2.2'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'Android 4.2.2'
+      OperatingSystemNameVersionMajor      : 'Android 4'
+      OperatingSystemVersionBuild          : 'JDQ39'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Hawk QuickBrowser'
+      AgentVersion                         : '1.0.35'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Hawk QuickBrowser 1.0.35'
+      AgentNameVersionMajor                : 'Hawk QuickBrowser 1'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.1.0; 5059D Build/O11019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 Mobile Safari/537.36 Hawk/TurboBrowser/v3.0.1.35'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Alcatel 5059D'
+      DeviceBrand                          : 'Alcatel'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.1.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      OperatingSystemVersionBuild          : 'O11019'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '69.0'
+      LayoutEngineVersionMajor             : '69'
+      LayoutEngineNameVersion              : 'Blink 69.0'
+      LayoutEngineNameVersionMajor         : 'Blink 69'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '69.0.3497.100'
+      AgentVersionMajor                    : '69'
+      AgentNameVersion                     : 'Chrome Webview 69.0.3497.100'
+      AgentNameVersionMajor                : 'Chrome Webview 69'
+      WebviewAppName                       : 'Hawk TurboBrowser'
+      WebviewAppVersion                    : 'v3.0.1.35'
+      WebviewAppVersionMajor               : 'v3'
+      WebviewAppNameVersionMajor           : 'Hawk TurboBrowser v3'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.8) Gecko/20100215 Solaris/10.1 (GNU) Superswan/3.5.8 (Byte/me)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'SUN Microsystems Linux Desktop'
+      DeviceBrand                          : 'SUN Microsystems'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Solaris'
+      OperatingSystemVersion               : '10.1'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Solaris 10.1'
+      OperatingSystemNameVersionMajor      : 'Solaris 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.1.8'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.1.8'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20100215'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Superswan'
+      AgentVersion                         : '3.5.8'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Superswan 3.5.8'
+      AgentNameVersionMajor                : 'Superswan 3'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'

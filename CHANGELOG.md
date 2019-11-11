@@ -6,7 +6,7 @@ v5.13-SNAPSHOT
 - Update public suffix list for detecting hostnames.
 - Added a basic API and Swagger UI to the demo webservlet
 - New/improved detections
-  - Agent: Latest Edge, HeadlessChrome, CrMo (=very old Chrome)
+  - Agent: Latest Edge, HeadlessChrome, CrMo (=very old Chrome), Hawk
   - Robots: Apache Nifi, Wget, Curl, Bytedance Bytespider, Popular product "con_aff" robot., TencentTraveler, EmbeddedWB
   - Device: Improved Xiaomi detection., Improved RaspberryPi
 - Fixes:

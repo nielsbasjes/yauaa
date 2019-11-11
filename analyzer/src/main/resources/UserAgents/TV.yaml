@@ -1468,3 +1468,63 @@ config:
       AgentNameVersion                     : 'Opera 40.0.2207.0'
       AgentNameVersionMajor                : 'Opera 40'
 
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Linux armv7l; HbbTV/1.2.1 (; Philips; 40PUK680912; ; PhilipsTV; CE-HTML/1.0 NETTV/4.4.1 SmartTvA/3.0.0 Firmware/012.003.038.128 (PhilipsTV, 3.1.1,)en) ) Presto/2.12.407 Version/12.50'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Philips 40PUK680912'
+      DeviceBrand                          : 'Philips'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      DeviceFirmwareVersion                : '012.003.038.128'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'NETTV'
+      OperatingSystemVersion               : '4.4.1'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'NETTV 4.4.1'
+      OperatingSystemNameVersionMajor      : 'NETTV 4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.407'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.407'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.50'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.50'
+      AgentNameVersionMajor                : 'Opera 12'
+
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Linux armv7l; HbbTV/1.1.1 (; Philips; ; ; PHILIPSTV; ) CE-HTML/1.0 NETTV/4.3.1 PHILIPSTV/2.1.1 Firmware/003.011.000.001 (PhilipsTV, 2.1.1,) en) Presto/2.12.362 Version/12.11'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Philips Unspecified TV'
+      DeviceBrand                          : 'Philips'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      DeviceFirmwareVersion                : '003.011.000.001'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'NETTV'
+      OperatingSystemVersion               : '4.3.1'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'NETTV 4.3.1'
+      OperatingSystemNameVersionMajor      : 'NETTV 4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.362'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.362'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.11'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.11'
+      AgentNameVersionMajor                : 'Opera 12'
+
+
