@@ -24,178 +24,178 @@ config:
     variable:
     - 'RobotName:agent.product.name~"spider"'
     extract:
-    - 'DeviceClass                         :  11100 :"Robot"'
-    - 'DeviceName                          : 311100 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  11100 :"Cloud"'
-    - 'OperatingSystemName                 :  11100 :"Cloud"'
-    - 'OperatingSystemVersion              :  11100 :"??"'
-    - 'LayoutEngineClass                   :  11100 :"Robot"'
-    - 'LayoutEngineName                    :  11100 :@RobotName'
-    - 'LayoutEngineVersion                 :  11100 :"??"'
-    - 'AgentClass                          :  11100 :"Robot"'
-    - 'AgentName                           :  11100 :@RobotName'
-    - 'AgentVersion                        :  11100 :"??"'
+    - 'DeviceClass                         :    11100 :"Robot"'
+    - 'DeviceName                          :   311100 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    11100 :"Cloud"'
+    - 'OperatingSystemName                 :    11100 :"Cloud"'
+    - 'OperatingSystemVersion              :    11100 :"??"'
+    - 'LayoutEngineClass                   :    11100 :"Robot"'
+    - 'LayoutEngineName                    :    11100 :@RobotName'
+    - 'LayoutEngineVersion                 :    11100 :"??"'
+    - 'AgentClass                          :    11100 :"Robot"'
+    - 'AgentName                           :    11100 :@RobotName'
+    - 'AgentVersion                        :    11100 :"??"'
 
 - matcher:
     require:
     - 'agent.product.name~"spider"@~"mobile"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
     - 'agent.product.name~"spider"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
     - 'agent.text~"spider"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 
 - matcher:
     variable:
     - 'RobotProduct:agent.product.version~"spider"^'
     extract:
-    - 'DeviceClass                         :  10200 :"Robot"'
-    - 'DeviceName                          :  10200 :@RobotProduct.name'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10200 :"Cloud"'
-    - 'OperatingSystemName                 :  10200 :"Cloud"'
-    - 'OperatingSystemVersion              :  10200 :"??"'
-    - 'LayoutEngineClass                   :  10200 :"Robot"'
-    - 'LayoutEngineName                    :  10200 :@RobotProduct.name'
-    - 'LayoutEngineVersion                 :  10200 :@RobotProduct.(1)version'
-    - 'AgentClass                          :  10200 :"Robot"'
-    - 'AgentName                           :  10200 :@RobotProduct.name'
-    - 'AgentVersion                        :  10200 :@RobotProduct.(1)version'
+    - 'DeviceClass                         :    10200 :"Robot"'
+    - 'DeviceName                          :    10200 :@RobotProduct.name'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10200 :"Cloud"'
+    - 'OperatingSystemName                 :    10200 :"Cloud"'
+    - 'OperatingSystemVersion              :    10200 :"??"'
+    - 'LayoutEngineClass                   :    10200 :"Robot"'
+    - 'LayoutEngineName                    :    10200 :@RobotProduct.name'
+    - 'LayoutEngineVersion                 :    10200 :@RobotProduct.(1)version'
+    - 'AgentClass                          :    10200 :"Robot"'
+    - 'AgentName                           :    10200 :@RobotProduct.name'
+    - 'AgentVersion                        :    10200 :@RobotProduct.(1)version'
 
 
 - matcher:
     variable:
     - 'RobotVersion:agent.product.name~"spider"^.(1)version'
     extract:
-    - 'LayoutEngineVersion                 :  11200 :@RobotVersion'
-    - 'AgentVersion                        :  11200 :@RobotVersion'
+    - 'LayoutEngineVersion                 :    11200 :@RobotVersion'
+    - 'AgentVersion                        :    11200 :@RobotVersion'
 
 - matcher:
-
     variable:
-    - 'RobotName:agent.product.comments.entry.product.name~"spider"'
+    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.product.(1)name~"spider"'
     extract:
-    - '__Set_ALL_Fields__                  :   9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 110000 :"Robot"'
-    - 'DeviceName                          : 110000 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                : 250000 :"Cloud"'
-    - 'OperatingSystemName                 : 250000 :"Cloud"'
-    - 'OperatingSystemVersion              : 250000 :"??"'
-    - 'LayoutEngineClass                   : 250000 :"Robot"'
-    - 'LayoutEngineName                    : 250000 :@RobotName'
-    - 'LayoutEngineVersion                 : 250000 :@RobotName^.version'
-    - 'AgentClass                          : 250000 :"Robot"'
-    - 'AgentName                           : 250000 :@RobotName'
-    - 'AgentVersion                        : 250000 :@RobotName^.version'
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   110000 :"Robot"'
+    - 'DeviceName                          :   110000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   250000 :"Cloud"'
+    - 'OperatingSystemName                 :   250000 :"Cloud"'
+    - 'OperatingSystemVersion              :   250000 :"??"'
+    - 'LayoutEngineClass                   :   250000 :"Robot"'
+    - 'LayoutEngineName                    :   250000 :@RobotName'
+    - 'LayoutEngineVersion                 :   250000 :@RobotName^.version'
+    - 'AgentClass                          :   250000 :"Robot"'
+    - 'AgentName                           :   250000 :@RobotName'
+    - 'AgentVersion                        :   250000 :@RobotName^.version'
+
 
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
-    - 'agent.product.comments.entry.product.name~"spider"'
+    - 'agent.(1-4)product.(1-2)comments.entry.product.(1)name~"spider"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 
 - matcher:
     variable:
-    - 'RobotName:agent.product.comments.entry.text~"spider"'
+    - 'RobotName:agent.product.comments.entry.(1-4)text~"spider"'
     extract:
-    - '__Set_ALL_Fields__                  :   9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 110000 :"Robot"'
-    - 'DeviceName                          : 110000 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10000 :"Robot"'
-    - 'LayoutEngineName                    :  10000 :@RobotName'
-    - 'LayoutEngineVersion                 :  10000 :@RobotName'
-    - 'AgentClass                          :  10000 :"Robot"'
-    - 'AgentName                           :  10000 :@RobotName'
-    - 'AgentVersion                        :  10000 :@RobotName'
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   110000 :"Robot"'
+    - 'DeviceName                          :   110000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10000 :"Robot"'
+    - 'LayoutEngineName                    :    10000 :@RobotName'
+    - 'LayoutEngineVersion                 :    10000 :@RobotName'
+    - 'AgentClass                          :    10000 :"Robot"'
+    - 'AgentName                           :    10000 :@RobotName'
+    - 'AgentVersion                        :    10000 :@RobotName'
 
 - matcher:
     variable:
     - 'RobotName:agent.(1-10)keyvalue.key~"spider"'
     extract:
-    - '__Set_ALL_Fields__                  :   9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :  10000 :"Robot"'
-    - 'DeviceName                          :  10000 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10000 :"Cloud"'
-    - 'OperatingSystemName                 :  10000 :"Cloud"'
-    - 'OperatingSystemVersion              :  10000 :"??"'
-    - 'LayoutEngineClass                   :  10000 :"Robot"'
-    - 'LayoutEngineName                    :  10000 :@RobotName'
-    - 'LayoutEngineVersion                 :  10000 :@RobotName'
-    - 'AgentClass                          :  10000 :"Robot"'
-    - 'AgentName                           :  10000 :@RobotName'
-    - 'AgentVersion                        :  10000 :@RobotName'
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'DeviceName                          :    10000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10000 :"Cloud"'
+    - 'OperatingSystemName                 :    10000 :"Cloud"'
+    - 'OperatingSystemVersion              :    10000 :"??"'
+    - 'LayoutEngineClass                   :    10000 :"Robot"'
+    - 'LayoutEngineName                    :    10000 :@RobotName'
+    - 'LayoutEngineVersion                 :    10000 :@RobotName'
+    - 'AgentClass                          :    10000 :"Robot"'
+    - 'AgentName                           :    10000 :@RobotName'
+    - 'AgentVersion                        :    10000 :@RobotName'
 
 
 - matcher:
     variable:
     - 'RobotName:agent.text~"spider"'
     extract:
-    - 'DeviceClass                         :  10100 :"Robot"'
-    - 'DeviceName                          :  10100 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10100 :"Robot"'
-    - 'LayoutEngineName                    :  10100 :@RobotName'
-    - 'LayoutEngineVersion                 :  10100 :"??"'
-    - 'AgentClass                          :  10100 :"Robot"'
-    - 'AgentName                           :  10100 :@RobotName'
-    - 'AgentVersion                        :  10100 :"??"'
+    - 'DeviceClass                         :    10100 :"Robot"'
+    - 'DeviceName                          :    10100 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10100 :"Robot"'
+    - 'LayoutEngineName                    :    10100 :@RobotName'
+    - 'LayoutEngineVersion                 :    10100 :"??"'
+    - 'AgentClass                          :    10100 :"Robot"'
+    - 'AgentName                           :    10100 :@RobotName'
+    - 'AgentVersion                        :    10100 :"??"'
 
 - matcher:
     require:
     - 'agent.product.comments.entry.url~"spider"'
     extract:
-    - 'DeviceClass                         :  10100 :"Robot"'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10100 :"Robot"'
-    - 'AgentClass                          :  10100 :"Robot"'
+    - 'DeviceClass                         :    10100 :"Robot"'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10100 :"Robot"'
+    - 'AgentClass                          :    10100 :"Robot"'
 
 
 # =============== Robots with "crawl" in it =====================
@@ -204,178 +204,178 @@ config:
     variable:
     - 'RobotName:agent.product.name~"crawl"'
     extract:
-    - 'DeviceClass                         :  11100 :"Robot"'
-    - 'DeviceName                          : 311100 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  11100 :"Cloud"'
-    - 'OperatingSystemName                 :  11100 :"Cloud"'
-    - 'OperatingSystemVersion              :  11100 :"??"'
-    - 'LayoutEngineClass                   :  11100 :"Robot"'
-    - 'LayoutEngineName                    :  11100 :@RobotName'
-    - 'LayoutEngineVersion                 :  11100 :"??"'
-    - 'AgentClass                          :  11100 :"Robot"'
-    - 'AgentName                           :  11100 :@RobotName'
-    - 'AgentVersion                        :  11100 :"??"'
+    - 'DeviceClass                         :    11100 :"Robot"'
+    - 'DeviceName                          :   311100 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    11100 :"Cloud"'
+    - 'OperatingSystemName                 :    11100 :"Cloud"'
+    - 'OperatingSystemVersion              :    11100 :"??"'
+    - 'LayoutEngineClass                   :    11100 :"Robot"'
+    - 'LayoutEngineName                    :    11100 :@RobotName'
+    - 'LayoutEngineVersion                 :    11100 :"??"'
+    - 'AgentClass                          :    11100 :"Robot"'
+    - 'AgentName                           :    11100 :@RobotName'
+    - 'AgentVersion                        :    11100 :"??"'
 
 - matcher:
     require:
     - 'agent.product.name~"crawl"@~"mobile"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
     - 'agent.product.name~"crawl"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
     - 'agent.text~"crawl"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 
 - matcher:
     variable:
     - 'RobotProduct:agent.product.version~"crawl"^'
     extract:
-    - 'DeviceClass                         :  10200 :"Robot"'
-    - 'DeviceName                          :  10200 :@RobotProduct.name'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10200 :"Cloud"'
-    - 'OperatingSystemName                 :  10200 :"Cloud"'
-    - 'OperatingSystemVersion              :  10200 :"??"'
-    - 'LayoutEngineClass                   :  10200 :"Robot"'
-    - 'LayoutEngineName                    :  10200 :@RobotProduct.name'
-    - 'LayoutEngineVersion                 :  10200 :@RobotProduct.(1)version'
-    - 'AgentClass                          :  10200 :"Robot"'
-    - 'AgentName                           :  10200 :@RobotProduct.name'
-    - 'AgentVersion                        :  10200 :@RobotProduct.(1)version'
+    - 'DeviceClass                         :    10200 :"Robot"'
+    - 'DeviceName                          :    10200 :@RobotProduct.name'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10200 :"Cloud"'
+    - 'OperatingSystemName                 :    10200 :"Cloud"'
+    - 'OperatingSystemVersion              :    10200 :"??"'
+    - 'LayoutEngineClass                   :    10200 :"Robot"'
+    - 'LayoutEngineName                    :    10200 :@RobotProduct.name'
+    - 'LayoutEngineVersion                 :    10200 :@RobotProduct.(1)version'
+    - 'AgentClass                          :    10200 :"Robot"'
+    - 'AgentName                           :    10200 :@RobotProduct.name'
+    - 'AgentVersion                        :    10200 :@RobotProduct.(1)version'
 
 
 - matcher:
     variable:
     - 'RobotVersion:agent.product.name~"crawl"^.(1)version'
     extract:
-    - 'LayoutEngineVersion                 :  11200 :@RobotVersion'
-    - 'AgentVersion                        :  11200 :@RobotVersion'
+    - 'LayoutEngineVersion                 :    11200 :@RobotVersion'
+    - 'AgentVersion                        :    11200 :@RobotVersion'
 
 - matcher:
-
     variable:
-    - 'RobotName:agent.product.comments.entry.product.name~"crawl"'
+    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.product.(1)name~"crawl"'
     extract:
-    - '__Set_ALL_Fields__                  :   9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 110000 :"Robot"'
-    - 'DeviceName                          : 110000 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                : 250000 :"Cloud"'
-    - 'OperatingSystemName                 : 250000 :"Cloud"'
-    - 'OperatingSystemVersion              : 250000 :"??"'
-    - 'LayoutEngineClass                   : 250000 :"Robot"'
-    - 'LayoutEngineName                    : 250000 :@RobotName'
-    - 'LayoutEngineVersion                 : 250000 :@RobotName^.version'
-    - 'AgentClass                          : 250000 :"Robot"'
-    - 'AgentName                           : 250000 :@RobotName'
-    - 'AgentVersion                        : 250000 :@RobotName^.version'
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   110000 :"Robot"'
+    - 'DeviceName                          :   110000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   250000 :"Cloud"'
+    - 'OperatingSystemName                 :   250000 :"Cloud"'
+    - 'OperatingSystemVersion              :   250000 :"??"'
+    - 'LayoutEngineClass                   :   250000 :"Robot"'
+    - 'LayoutEngineName                    :   250000 :@RobotName'
+    - 'LayoutEngineVersion                 :   250000 :@RobotName^.version'
+    - 'AgentClass                          :   250000 :"Robot"'
+    - 'AgentName                           :   250000 :@RobotName'
+    - 'AgentVersion                        :   250000 :@RobotName^.version'
+
 
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
-    - 'agent.product.comments.entry.product.name~"crawl"'
+    - 'agent.(1-4)product.(1-2)comments.entry.product.(1)name~"crawl"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 
 - matcher:
     variable:
-    - 'RobotName:agent.product.comments.entry.text~"crawl"'
+    - 'RobotName:agent.product.comments.entry.(1-4)text~"crawl"'
     extract:
-    - '__Set_ALL_Fields__                  :   9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 110000 :"Robot"'
-    - 'DeviceName                          : 110000 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10000 :"Robot"'
-    - 'LayoutEngineName                    :  10000 :@RobotName'
-    - 'LayoutEngineVersion                 :  10000 :@RobotName'
-    - 'AgentClass                          :  10000 :"Robot"'
-    - 'AgentName                           :  10000 :@RobotName'
-    - 'AgentVersion                        :  10000 :@RobotName'
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   110000 :"Robot"'
+    - 'DeviceName                          :   110000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10000 :"Robot"'
+    - 'LayoutEngineName                    :    10000 :@RobotName'
+    - 'LayoutEngineVersion                 :    10000 :@RobotName'
+    - 'AgentClass                          :    10000 :"Robot"'
+    - 'AgentName                           :    10000 :@RobotName'
+    - 'AgentVersion                        :    10000 :@RobotName'
 
 - matcher:
     variable:
     - 'RobotName:agent.(1-10)keyvalue.key~"crawl"'
     extract:
-    - '__Set_ALL_Fields__                  :   9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :  10000 :"Robot"'
-    - 'DeviceName                          :  10000 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10000 :"Cloud"'
-    - 'OperatingSystemName                 :  10000 :"Cloud"'
-    - 'OperatingSystemVersion              :  10000 :"??"'
-    - 'LayoutEngineClass                   :  10000 :"Robot"'
-    - 'LayoutEngineName                    :  10000 :@RobotName'
-    - 'LayoutEngineVersion                 :  10000 :@RobotName'
-    - 'AgentClass                          :  10000 :"Robot"'
-    - 'AgentName                           :  10000 :@RobotName'
-    - 'AgentVersion                        :  10000 :@RobotName'
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'DeviceName                          :    10000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10000 :"Cloud"'
+    - 'OperatingSystemName                 :    10000 :"Cloud"'
+    - 'OperatingSystemVersion              :    10000 :"??"'
+    - 'LayoutEngineClass                   :    10000 :"Robot"'
+    - 'LayoutEngineName                    :    10000 :@RobotName'
+    - 'LayoutEngineVersion                 :    10000 :@RobotName'
+    - 'AgentClass                          :    10000 :"Robot"'
+    - 'AgentName                           :    10000 :@RobotName'
+    - 'AgentVersion                        :    10000 :@RobotName'
 
 
 - matcher:
     variable:
     - 'RobotName:agent.text~"crawl"'
     extract:
-    - 'DeviceClass                         :  10100 :"Robot"'
-    - 'DeviceName                          :  10100 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10100 :"Robot"'
-    - 'LayoutEngineName                    :  10100 :@RobotName'
-    - 'LayoutEngineVersion                 :  10100 :"??"'
-    - 'AgentClass                          :  10100 :"Robot"'
-    - 'AgentName                           :  10100 :@RobotName'
-    - 'AgentVersion                        :  10100 :"??"'
+    - 'DeviceClass                         :    10100 :"Robot"'
+    - 'DeviceName                          :    10100 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10100 :"Robot"'
+    - 'LayoutEngineName                    :    10100 :@RobotName'
+    - 'LayoutEngineVersion                 :    10100 :"??"'
+    - 'AgentClass                          :    10100 :"Robot"'
+    - 'AgentName                           :    10100 :@RobotName'
+    - 'AgentVersion                        :    10100 :"??"'
 
 - matcher:
     require:
     - 'agent.product.comments.entry.url~"crawl"'
     extract:
-    - 'DeviceClass                         :  10100 :"Robot"'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10100 :"Robot"'
-    - 'AgentClass                          :  10100 :"Robot"'
+    - 'DeviceClass                         :    10100 :"Robot"'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10100 :"Robot"'
+    - 'AgentClass                          :    10100 :"Robot"'
 
 
 # =============== Robots with "bot" in it =====================
@@ -384,126 +384,126 @@ config:
     variable:
     - 'RobotName:agent.product.name~"bot"'
     extract:
-    - 'DeviceClass                         :  11100 :"Robot"'
-    - 'DeviceName                          : 311100 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  11100 :"Cloud"'
-    - 'OperatingSystemName                 :  11100 :"Cloud"'
-    - 'OperatingSystemVersion              :  11100 :"??"'
-    - 'LayoutEngineClass                   :  11100 :"Robot"'
-    - 'LayoutEngineName                    :  11100 :@RobotName'
-    - 'LayoutEngineVersion                 :  11100 :"??"'
-    - 'AgentClass                          :  11100 :"Robot"'
-    - 'AgentName                           :  11100 :@RobotName'
-    - 'AgentVersion                        :  11100 :"??"'
+    - 'DeviceClass                         :    11100 :"Robot"'
+    - 'DeviceName                          :   311100 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    11100 :"Cloud"'
+    - 'OperatingSystemName                 :    11100 :"Cloud"'
+    - 'OperatingSystemVersion              :    11100 :"??"'
+    - 'LayoutEngineClass                   :    11100 :"Robot"'
+    - 'LayoutEngineName                    :    11100 :@RobotName'
+    - 'LayoutEngineVersion                 :    11100 :"??"'
+    - 'AgentClass                          :    11100 :"Robot"'
+    - 'AgentName                           :    11100 :@RobotName'
+    - 'AgentVersion                        :    11100 :"??"'
 
 - matcher:
     require:
     - 'agent.product.name~"bot"@~"mobile"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
     - 'agent.product.name~"bot"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
     - 'agent.text~"bot"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 
 - matcher:
     variable:
     - 'RobotProduct:agent.product.version~"bot"^'
     extract:
-    - 'DeviceClass                         :  10200 :"Robot"'
-    - 'DeviceName                          :  10200 :@RobotProduct.name'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10200 :"Cloud"'
-    - 'OperatingSystemName                 :  10200 :"Cloud"'
-    - 'OperatingSystemVersion              :  10200 :"??"'
-    - 'LayoutEngineClass                   :  10200 :"Robot"'
-    - 'LayoutEngineName                    :  10200 :@RobotProduct.name'
-    - 'LayoutEngineVersion                 :  10200 :@RobotProduct.(1)version'
-    - 'AgentClass                          :  10200 :"Robot"'
-    - 'AgentName                           :  10200 :@RobotProduct.name'
-    - 'AgentVersion                        :  10200 :@RobotProduct.(1)version'
+    - 'DeviceClass                         :    10200 :"Robot"'
+    - 'DeviceName                          :    10200 :@RobotProduct.name'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10200 :"Cloud"'
+    - 'OperatingSystemName                 :    10200 :"Cloud"'
+    - 'OperatingSystemVersion              :    10200 :"??"'
+    - 'LayoutEngineClass                   :    10200 :"Robot"'
+    - 'LayoutEngineName                    :    10200 :@RobotProduct.name'
+    - 'LayoutEngineVersion                 :    10200 :@RobotProduct.(1)version'
+    - 'AgentClass                          :    10200 :"Robot"'
+    - 'AgentName                           :    10200 :@RobotProduct.name'
+    - 'AgentVersion                        :    10200 :@RobotProduct.(1)version'
 
 
 - matcher:
     variable:
     - 'RobotVersion:agent.product.name~"bot"^.(1)version'
     extract:
-    - 'LayoutEngineVersion                 :  11200 :@RobotVersion'
-    - 'AgentVersion                        :  11200 :@RobotVersion'
+    - 'LayoutEngineVersion                 :    11200 :@RobotVersion'
+    - 'AgentVersion                        :    11200 :@RobotVersion'
 
 - matcher:
-
     require:
-    - 'IsNull[agent.product.comments.entry.product.name[1]="cubot"]'
+    - 'IsNull[agent.(1-8)product.comments.entry.(1-4)product.name[1]="cubot"]'
     variable:
-    - 'RobotName:agent.product.comments.entry.product.name~"bot"'
+    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.product.(1)name~"bot"'
     extract:
-    - '__Set_ALL_Fields__                  :   9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 110000 :"Robot"'
-    - 'DeviceName                          : 110000 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                : 250000 :"Cloud"'
-    - 'OperatingSystemName                 : 250000 :"Cloud"'
-    - 'OperatingSystemVersion              : 250000 :"??"'
-    - 'LayoutEngineClass                   : 250000 :"Robot"'
-    - 'LayoutEngineName                    : 250000 :@RobotName'
-    - 'LayoutEngineVersion                 : 250000 :@RobotName^.version'
-    - 'AgentClass                          : 250000 :"Robot"'
-    - 'AgentName                           : 250000 :@RobotName'
-    - 'AgentVersion                        : 250000 :@RobotName^.version'
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   110000 :"Robot"'
+    - 'DeviceName                          :   110000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   250000 :"Cloud"'
+    - 'OperatingSystemName                 :   250000 :"Cloud"'
+    - 'OperatingSystemVersion              :   250000 :"??"'
+    - 'LayoutEngineClass                   :   250000 :"Robot"'
+    - 'LayoutEngineName                    :   250000 :@RobotName'
+    - 'LayoutEngineVersion                 :   250000 :@RobotName^.version'
+    - 'AgentClass                          :   250000 :"Robot"'
+    - 'AgentName                           :   250000 :@RobotName'
+    - 'AgentVersion                        :   250000 :@RobotName^.version'
+
 
 - matcher:
     require:
-    - 'IsNull[agent.product.comments.entry.product.name[1]="cubot"]'
+    - 'IsNull[agent.(1-8)product.comments.entry.(1-4)product.name[1]="cubot"]'
     - 'agent.product.name="Mobile Safari"'
-    - 'agent.product.comments.entry.product.name~"bot"'
+    - 'agent.(1-4)product.(1-2)comments.entry.product.(1)name~"bot"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 
 - matcher:
     require:
-    - 'IsNull[agent.product.comments.entry.text[1]="cubot"]'
+    - 'IsNull[agent.(1-8)product.comments.entry.(1)text[1]="cubot"]'
     variable:
-    - 'RobotName:agent.product.comments.entry.text~"bot"'
+    - 'RobotName:agent.product.comments.entry.(1-4)text~"bot"'
     extract:
-    - '__Set_ALL_Fields__                  :   9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 110000 :"Robot"'
-    - 'DeviceName                          : 110000 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10000 :"Robot"'
-    - 'LayoutEngineName                    :  10000 :@RobotName'
-    - 'LayoutEngineVersion                 :  10000 :@RobotName'
-    - 'AgentClass                          :  10000 :"Robot"'
-    - 'AgentName                           :  10000 :@RobotName'
-    - 'AgentVersion                        :  10000 :@RobotName'
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   110000 :"Robot"'
+    - 'DeviceName                          :   110000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10000 :"Robot"'
+    - 'LayoutEngineName                    :    10000 :@RobotName'
+    - 'LayoutEngineVersion                 :    10000 :@RobotName'
+    - 'AgentClass                          :    10000 :"Robot"'
+    - 'AgentName                           :    10000 :@RobotName'
+    - 'AgentVersion                        :    10000 :@RobotName'
 
 - matcher:
     require:
@@ -511,58 +511,58 @@ config:
     variable:
     - 'RobotName:agent.(1-10)keyvalue.key~"bot"'
     extract:
-    - '__Set_ALL_Fields__                  :   9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :  10000 :"Robot"'
-    - 'DeviceName                          :  10000 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10000 :"Cloud"'
-    - 'OperatingSystemName                 :  10000 :"Cloud"'
-    - 'OperatingSystemVersion              :  10000 :"??"'
-    - 'LayoutEngineClass                   :  10000 :"Robot"'
-    - 'LayoutEngineName                    :  10000 :@RobotName'
-    - 'LayoutEngineVersion                 :  10000 :@RobotName'
-    - 'AgentClass                          :  10000 :"Robot"'
-    - 'AgentName                           :  10000 :@RobotName'
-    - 'AgentVersion                        :  10000 :@RobotName'
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'DeviceName                          :    10000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10000 :"Cloud"'
+    - 'OperatingSystemName                 :    10000 :"Cloud"'
+    - 'OperatingSystemVersion              :    10000 :"??"'
+    - 'LayoutEngineClass                   :    10000 :"Robot"'
+    - 'LayoutEngineName                    :    10000 :@RobotName'
+    - 'LayoutEngineVersion                 :    10000 :@RobotName'
+    - 'AgentClass                          :    10000 :"Robot"'
+    - 'AgentName                           :    10000 :@RobotName'
+    - 'AgentVersion                        :    10000 :@RobotName'
 
 
 - matcher:
     variable:
     - 'RobotName:agent.text~"bot"'
     extract:
-    - 'DeviceClass                         :  10100 :"Robot"'
-    - 'DeviceName                          :  10100 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10100 :"Robot"'
-    - 'LayoutEngineName                    :  10100 :@RobotName'
-    - 'LayoutEngineVersion                 :  10100 :"??"'
-    - 'AgentClass                          :  10100 :"Robot"'
-    - 'AgentName                           :  10100 :@RobotName'
-    - 'AgentVersion                        :  10100 :"??"'
+    - 'DeviceClass                         :    10100 :"Robot"'
+    - 'DeviceName                          :    10100 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10100 :"Robot"'
+    - 'LayoutEngineName                    :    10100 :@RobotName'
+    - 'LayoutEngineVersion                 :    10100 :"??"'
+    - 'AgentClass                          :    10100 :"Robot"'
+    - 'AgentName                           :    10100 :@RobotName'
+    - 'AgentVersion                        :    10100 :"??"'
 
 - matcher:
     require:
     - 'agent.product.comments.entry.url~"bot"'
     extract:
-    - 'DeviceClass                         :  10100 :"Robot"'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10100 :"Robot"'
-    - 'AgentClass                          :  10100 :"Robot"'
+    - 'DeviceClass                         :    10100 :"Robot"'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10100 :"Robot"'
+    - 'AgentClass                          :    10100 :"Robot"'
 
 
 # =============== Robots with "scan" in it =====================
@@ -571,178 +571,178 @@ config:
     variable:
     - 'RobotName:agent.product.name~"scan"'
     extract:
-    - 'DeviceClass                         :  11100 :"Robot"'
-    - 'DeviceName                          : 311100 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  11100 :"Cloud"'
-    - 'OperatingSystemName                 :  11100 :"Cloud"'
-    - 'OperatingSystemVersion              :  11100 :"??"'
-    - 'LayoutEngineClass                   :  11100 :"Robot"'
-    - 'LayoutEngineName                    :  11100 :@RobotName'
-    - 'LayoutEngineVersion                 :  11100 :"??"'
-    - 'AgentClass                          :  11100 :"Robot"'
-    - 'AgentName                           :  11100 :@RobotName'
-    - 'AgentVersion                        :  11100 :"??"'
+    - 'DeviceClass                         :    11100 :"Robot"'
+    - 'DeviceName                          :   311100 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    11100 :"Cloud"'
+    - 'OperatingSystemName                 :    11100 :"Cloud"'
+    - 'OperatingSystemVersion              :    11100 :"??"'
+    - 'LayoutEngineClass                   :    11100 :"Robot"'
+    - 'LayoutEngineName                    :    11100 :@RobotName'
+    - 'LayoutEngineVersion                 :    11100 :"??"'
+    - 'AgentClass                          :    11100 :"Robot"'
+    - 'AgentName                           :    11100 :@RobotName'
+    - 'AgentVersion                        :    11100 :"??"'
 
 - matcher:
     require:
     - 'agent.product.name~"scan"@~"mobile"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
     - 'agent.product.name~"scan"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
     - 'agent.text~"scan"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 
 - matcher:
     variable:
     - 'RobotProduct:agent.product.version~"scan"^'
     extract:
-    - 'DeviceClass                         :  10200 :"Robot"'
-    - 'DeviceName                          :  10200 :@RobotProduct.name'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10200 :"Cloud"'
-    - 'OperatingSystemName                 :  10200 :"Cloud"'
-    - 'OperatingSystemVersion              :  10200 :"??"'
-    - 'LayoutEngineClass                   :  10200 :"Robot"'
-    - 'LayoutEngineName                    :  10200 :@RobotProduct.name'
-    - 'LayoutEngineVersion                 :  10200 :@RobotProduct.(1)version'
-    - 'AgentClass                          :  10200 :"Robot"'
-    - 'AgentName                           :  10200 :@RobotProduct.name'
-    - 'AgentVersion                        :  10200 :@RobotProduct.(1)version'
+    - 'DeviceClass                         :    10200 :"Robot"'
+    - 'DeviceName                          :    10200 :@RobotProduct.name'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10200 :"Cloud"'
+    - 'OperatingSystemName                 :    10200 :"Cloud"'
+    - 'OperatingSystemVersion              :    10200 :"??"'
+    - 'LayoutEngineClass                   :    10200 :"Robot"'
+    - 'LayoutEngineName                    :    10200 :@RobotProduct.name'
+    - 'LayoutEngineVersion                 :    10200 :@RobotProduct.(1)version'
+    - 'AgentClass                          :    10200 :"Robot"'
+    - 'AgentName                           :    10200 :@RobotProduct.name'
+    - 'AgentVersion                        :    10200 :@RobotProduct.(1)version'
 
 
 - matcher:
     variable:
     - 'RobotVersion:agent.product.name~"scan"^.(1)version'
     extract:
-    - 'LayoutEngineVersion                 :  11200 :@RobotVersion'
-    - 'AgentVersion                        :  11200 :@RobotVersion'
+    - 'LayoutEngineVersion                 :    11200 :@RobotVersion'
+    - 'AgentVersion                        :    11200 :@RobotVersion'
 
 - matcher:
-
     variable:
-    - 'RobotName:agent.product.comments.entry.product.name~"scan"'
+    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.product.(1)name~"scan"'
     extract:
-    - '__Set_ALL_Fields__                  :   9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 110000 :"Robot"'
-    - 'DeviceName                          : 110000 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                : 250000 :"Cloud"'
-    - 'OperatingSystemName                 : 250000 :"Cloud"'
-    - 'OperatingSystemVersion              : 250000 :"??"'
-    - 'LayoutEngineClass                   : 250000 :"Robot"'
-    - 'LayoutEngineName                    : 250000 :@RobotName'
-    - 'LayoutEngineVersion                 : 250000 :@RobotName^.version'
-    - 'AgentClass                          : 250000 :"Robot"'
-    - 'AgentName                           : 250000 :@RobotName'
-    - 'AgentVersion                        : 250000 :@RobotName^.version'
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   110000 :"Robot"'
+    - 'DeviceName                          :   110000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   250000 :"Cloud"'
+    - 'OperatingSystemName                 :   250000 :"Cloud"'
+    - 'OperatingSystemVersion              :   250000 :"??"'
+    - 'LayoutEngineClass                   :   250000 :"Robot"'
+    - 'LayoutEngineName                    :   250000 :@RobotName'
+    - 'LayoutEngineVersion                 :   250000 :@RobotName^.version'
+    - 'AgentClass                          :   250000 :"Robot"'
+    - 'AgentName                           :   250000 :@RobotName'
+    - 'AgentVersion                        :   250000 :@RobotName^.version'
+
 
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
-    - 'agent.product.comments.entry.product.name~"scan"'
+    - 'agent.(1-4)product.(1-2)comments.entry.product.(1)name~"scan"'
     extract:
-    - 'DeviceClass                         : 311200 :"Robot Mobile"'
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
 
 - matcher:
     variable:
-    - 'RobotName:agent.product.comments.entry.text~"scan"'
+    - 'RobotName:agent.product.comments.entry.(1-4)text~"scan"'
     extract:
-    - '__Set_ALL_Fields__                  :   9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 110000 :"Robot"'
-    - 'DeviceName                          : 110000 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10000 :"Robot"'
-    - 'LayoutEngineName                    :  10000 :@RobotName'
-    - 'LayoutEngineVersion                 :  10000 :@RobotName'
-    - 'AgentClass                          :  10000 :"Robot"'
-    - 'AgentName                           :  10000 :@RobotName'
-    - 'AgentVersion                        :  10000 :@RobotName'
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   110000 :"Robot"'
+    - 'DeviceName                          :   110000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10000 :"Robot"'
+    - 'LayoutEngineName                    :    10000 :@RobotName'
+    - 'LayoutEngineVersion                 :    10000 :@RobotName'
+    - 'AgentClass                          :    10000 :"Robot"'
+    - 'AgentName                           :    10000 :@RobotName'
+    - 'AgentVersion                        :    10000 :@RobotName'
 
 - matcher:
     variable:
     - 'RobotName:agent.(1-10)keyvalue.key~"scan"'
     extract:
-    - '__Set_ALL_Fields__                  :   9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :  10000 :"Robot"'
-    - 'DeviceName                          :  10000 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10000 :"Cloud"'
-    - 'OperatingSystemName                 :  10000 :"Cloud"'
-    - 'OperatingSystemVersion              :  10000 :"??"'
-    - 'LayoutEngineClass                   :  10000 :"Robot"'
-    - 'LayoutEngineName                    :  10000 :@RobotName'
-    - 'LayoutEngineVersion                 :  10000 :@RobotName'
-    - 'AgentClass                          :  10000 :"Robot"'
-    - 'AgentName                           :  10000 :@RobotName'
-    - 'AgentVersion                        :  10000 :@RobotName'
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'DeviceName                          :    10000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10000 :"Cloud"'
+    - 'OperatingSystemName                 :    10000 :"Cloud"'
+    - 'OperatingSystemVersion              :    10000 :"??"'
+    - 'LayoutEngineClass                   :    10000 :"Robot"'
+    - 'LayoutEngineName                    :    10000 :@RobotName'
+    - 'LayoutEngineVersion                 :    10000 :@RobotName'
+    - 'AgentClass                          :    10000 :"Robot"'
+    - 'AgentName                           :    10000 :@RobotName'
+    - 'AgentVersion                        :    10000 :@RobotName'
 
 
 - matcher:
     variable:
     - 'RobotName:agent.text~"scan"'
     extract:
-    - 'DeviceClass                         :  10100 :"Robot"'
-    - 'DeviceName                          :  10100 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10100 :"Robot"'
-    - 'LayoutEngineName                    :  10100 :@RobotName'
-    - 'LayoutEngineVersion                 :  10100 :"??"'
-    - 'AgentClass                          :  10100 :"Robot"'
-    - 'AgentName                           :  10100 :@RobotName'
-    - 'AgentVersion                        :  10100 :"??"'
+    - 'DeviceClass                         :    10100 :"Robot"'
+    - 'DeviceName                          :    10100 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10100 :"Robot"'
+    - 'LayoutEngineName                    :    10100 :@RobotName'
+    - 'LayoutEngineVersion                 :    10100 :"??"'
+    - 'AgentClass                          :    10100 :"Robot"'
+    - 'AgentName                           :    10100 :@RobotName'
+    - 'AgentVersion                        :    10100 :"??"'
 
 - matcher:
     require:
     - 'agent.product.comments.entry.url~"scan"'
     extract:
-    - 'DeviceClass                         :  10100 :"Robot"'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10100 :"Robot"'
-    - 'AgentClass                          :  10100 :"Robot"'
+    - 'DeviceClass                         :    10100 :"Robot"'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10100 :"Robot"'
+    - 'AgentClass                          :    10100 :"Robot"'
 
 
 # =============== Robots with "checker" in it =====================
@@ -751,35 +751,35 @@ config:
     variable:
     - 'RobotName:agent.text~"checker"'
     extract:
-    - 'DeviceClass                         :  10100 :"Robot"'
-    - 'DeviceName                          :  10100 :@RobotName'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10100 :"Robot"'
-    - 'LayoutEngineName                    :  10100 :@RobotName'
-    - 'LayoutEngineVersion                 :  10100 :"??"'
-    - 'AgentClass                          :  10100 :"Robot"'
-    - 'AgentName                           :  10100 :@RobotName'
-    - 'AgentVersion                        :  10100 :"??"'
+    - 'DeviceClass                         :    10100 :"Robot"'
+    - 'DeviceName                          :    10100 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10100 :"Robot"'
+    - 'LayoutEngineName                    :    10100 :@RobotName'
+    - 'LayoutEngineVersion                 :    10100 :"??"'
+    - 'AgentClass                          :    10100 :"Robot"'
+    - 'AgentName                           :    10100 :@RobotName'
+    - 'AgentVersion                        :    10100 :"??"'
 
 - matcher:
     require:
     - 'agent.product.comments.entry.url~"checker"'
     extract:
-    - 'DeviceClass                         :  10100 :"Robot"'
-    - 'DeviceBrand                         :   1000 :"<<<null>>>"'
-    - 'DeviceVersion                       :   1000 :"<<<null>>>"'
-    - 'DeviceCpu                           : 100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       : 100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :  10100 :"Cloud"'
-    - 'OperatingSystemName                 :  10100 :"Cloud"'
-    - 'OperatingSystemVersion              :  10100 :"??"'
-    - 'LayoutEngineClass                   :  10100 :"Robot"'
-    - 'AgentClass                          :  10100 :"Robot"'
+    - 'DeviceClass                         :    10100 :"Robot"'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"??"'
+    - 'LayoutEngineClass                   :    10100 :"Robot"'
+    - 'AgentClass                          :    10100 :"Robot"'
 
 

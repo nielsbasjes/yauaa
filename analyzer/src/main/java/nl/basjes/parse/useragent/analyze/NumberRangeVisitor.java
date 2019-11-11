@@ -48,7 +48,7 @@ public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<Num
         // Did statistics on over 200K real useragents from 2015.
         // These are the maximum values from that test set (+ a little margin)
         MAX_RANGE.put("value",                2); // Max was 2
-        MAX_RANGE.put("version",              5); // Max was 4
+        MAX_RANGE.put("version",              4); // Max was 4
         MAX_RANGE.put("comments",             2); // Max was 2
         MAX_RANGE.put("entry",               20); // Max was much higher
         MAX_RANGE.put("product",             10); // Max was much higher

@@ -125,16 +125,15 @@ echo "
     - 'LayoutEngineVersion                 :    11200 :@RobotVersion'
     - 'AgentVersion                        :    11200 :@RobotVersion'
 
-- matcher:
-"
+- matcher:"
 
 if [[ ${tag} = "bot" ]]; then
 echo "    require:
-    - 'IsNull[agent.product.comments.entry.product.name[1]=\"cubot\"]'"
+    - 'IsNull[agent.(1-8)product.comments.entry.(1-4)product.name[1]=\"cubot\"]'"
 fi
 
 echo "    variable:
-    - 'RobotName:agent.product.comments.entry.product.name~\"${tag}\"'
+    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.product.(1)name~\"${tag}\"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :\"<<<null>>>\"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :\"Robot\"'
@@ -153,13 +152,14 @@ echo "    variable:
     - 'AgentName                           :   250000 :@RobotName'
     - 'AgentVersion                        :   250000 :@RobotName^.version'
 
+
 - matcher:
     require:"
 if [[ ${tag} = "bot" ]]; then
-echo "    - 'IsNull[agent.product.comments.entry.product.name[1]=\"cubot\"]'"
+echo "    - 'IsNull[agent.(1-8)product.comments.entry.(1-4)product.name[1]=\"cubot\"]'"
 fi
 echo "    - 'agent.product.name=\"Mobile Safari\"'
-    - 'agent.product.comments.entry.product.name~\"${tag}\"'
+    - 'agent.(1-4)product.(1-2)comments.entry.product.(1)name~\"${tag}\"'
     extract:
     - 'DeviceClass                         :   311200 :\"Robot Mobile\"'
 
@@ -167,10 +167,10 @@ echo "    - 'agent.product.name=\"Mobile Safari\"'
 - matcher:"
 if [[ ${tag} = "bot" ]]; then
 echo "    require:
-    - 'IsNull[agent.product.comments.entry.text[1]=\"cubot\"]'"
+    - 'IsNull[agent.(1-8)product.comments.entry.(1)text[1]=\"cubot\"]'"
 fi
 echo "    variable:
-    - 'RobotName:agent.product.comments.entry.text~\"${tag}\"'
+    - 'RobotName:agent.product.comments.entry.(1-4)text~\"${tag}\"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :\"<<<null>>>\"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :\"Robot\"'

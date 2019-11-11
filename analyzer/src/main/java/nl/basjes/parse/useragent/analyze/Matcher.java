@@ -289,7 +289,7 @@ public class Matcher implements Serializable {
         actionsThatRequireInput = countActionsThatMustHaveMatches(dynamicActions);
 
         long initFinish = System.nanoTime();
-        if (newEntries > 10000) {
+        if (newEntries > 3000) {
             LOG.warn("Large matcher: {} in {} ms:.({})", newEntries, (initFinish-initStart)/1000000, matcherSourceLocation);
         }
 

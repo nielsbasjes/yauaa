@@ -156,7 +156,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProductName:agent.product.comments.entry.product.name?NamedRobots'
+    - 'RobotProductName:agent.(1-4)product.comments.entry.product.name?NamedRobots'
     - 'RobotProductVersion:@RobotProductName^.version'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
@@ -176,7 +176,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProductName:agent.product.comments.entry.product.name?NamedRobots'
+    - 'RobotProductName:agent.(1-4)product.comments.entry.product.name?NamedRobots'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300000 :"Robot"'
@@ -195,7 +195,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProductName:agent.product.comments.entry.text?NamedRobots'
+    - 'RobotProductName:agent.(1-4)product.comments.entry.text?NamedRobots'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300000 :"Robot"'
@@ -223,7 +223,7 @@ config:
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
-    - 'agent.product.comments.entry.product.name?NamedRobots'
+    - 'agent.(1-4)product.comments.entry.product.name?NamedRobots'
     extract:
     - 'DeviceClass                         : 300100 :"Robot Mobile"'
 
@@ -231,7 +231,7 @@ config:
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
-    - 'agent.product.comments.entry.text?NamedRobots'
+    - 'agent.(1-4)product.comments.entry.text?NamedRobots'
     extract:
     - 'DeviceClass                         : 300100 :"Robot Mobile"'
 
@@ -261,7 +261,7 @@ config:
     require:
     - 'agent~"Phone"'
     variable:
-    - 'RobotProductName:agent.product.comments.entry.product.name?NamedRobots'
+    - 'RobotProductName:agent.(1-4)product.comments.entry.product.name?NamedRobots'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300100 :"Robot Mobile"'
@@ -282,7 +282,7 @@ config:
     require:
     - 'agent~"Phone"'
     variable:
-    - 'RobotProductName:agent.product.comments.entry.text?NamedRobots'
+    - 'RobotProductName:agent.(1-4)product.comments.entry.text?NamedRobots'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300100 :"Robot Mobile"'
@@ -324,7 +324,7 @@ config:
     require:
     - 'agent~"Android"'
     variable:
-    - 'RobotProductName:agent.product.comments.entry.product.name?NamedRobots'
+    - 'RobotProductName:agent.(1-4)product.comments.entry.product.name?NamedRobots'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300100 :"Robot Mobile"'
@@ -345,7 +345,7 @@ config:
     require:
     - 'agent~"Android"'
     variable:
-    - 'RobotProductName:agent.product.comments.entry.text?NamedRobots'
+    - 'RobotProductName:agent.(1-4)product.comments.entry.text?NamedRobots'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300100 :"Robot Mobile"'
@@ -1077,12 +1077,14 @@ config:
       AgentInformationUrl                  : 'http://www.haosou.com/help/help_3_2.html'
 
 - matcher:
+    require:
+    - 'agent.(1-4)product.comments.entry.text="Exabot-Thumbnails"'
     extract:
     - 'DeviceClass                         : 210000 :"Robot"'
-    - 'DeviceName                          : 210000 :agent.product.comments.entry.text="Exabot-Thumbnails"'
+    - 'DeviceName                          : 210000 :"Exabot-Thumbnails"'
     - 'DeviceBrand                         : 210000 :"Exalead"'
     - 'AgentClass                          : 210000 :"Robot"'
-    - 'AgentName                           : 210000 :agent.product.comments.entry.text="Exabot-Thumbnails"'
+    - 'AgentName                           : 210000 :"Exabot-Thumbnails"'
     - 'AgentVersion                        : 210000 :"??"'
 
 - test:
@@ -1834,7 +1836,7 @@ config:
 
 - matcher:
     variable:
-    - 'PTSTVersion:agent.product.comments.entry.product.name="PTST"^.version'
+    - 'PTSTVersion:agent.(1-4)product.comments.entry.product.name="PTST"^.version'
     extract:
     - '__Set_ALL_Fields__                  : 499900 : "<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 500000 : "Robot"'
@@ -2473,7 +2475,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.product.comments.entry.product.name="YandexMobileBot"'
+    - 'RobotName:agent.(1-6)product.comments.entry.product.name="YandexMobileBot"'
     - 'RobotVersion:@RobotName^.version'
     extract:
     - 'DeviceClass                         : 111100 :"Robot Mobile"'
@@ -5249,7 +5251,7 @@ config:
 # FDM = Free Download Manager --> https://www.freedownloadmanager.org/
 - matcher:
     require:
-    - 'agent.product.comments.entry.text="FDM"'
+    - 'agent.(1-4)product.comments.(1-10)entry.(1)text="FDM"'
     extract:
     - 'LayoutEngineClass                   : 300000 :"Robot"'
     - 'LayoutEngineName                    : 300000 :"Free Download Manager"'

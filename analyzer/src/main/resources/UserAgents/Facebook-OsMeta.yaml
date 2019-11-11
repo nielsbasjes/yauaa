@@ -377,9 +377,9 @@ config:
 
 - matcher:
     variable:
-    - 'InstagramOS: agent.product.name="Instagram"^.comments.entry.product.name="osmeta"^'
+    - 'InstagramOS: agent.(1-6)product.name="Instagram"^.comments.(1-4)entry.(1-4)product.name="osmeta"^'
     require:
-    - 'agent.product.comments.entry.product.name="osmeta"' # Performance optimizer
+    - 'agent.(1-4)product.comments.entry.(1)product.name="osmeta"' # Performance optimizer
     - 'agent.(1)product.(1)comments.entry[-2]="osmeta like"'
     extract:
     - 'DeviceClass                         :      2 :"Mobile"'

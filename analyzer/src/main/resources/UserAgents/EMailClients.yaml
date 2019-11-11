@@ -1024,7 +1024,7 @@ config:
 
 - matcher:
     variable:
-    - 'Dell: agent.product.comments.entry.product.name[1]="Dell"@'
+    - 'Dell: agent.(1-3)product.comments.entry.(1-4)product.name[1]="Dell"@'
     extract:
     - 'DeviceClass                         :   1000 : "Desktop"'
     - 'DeviceName                          :   1000 : CleanVersion[@Dell^]'

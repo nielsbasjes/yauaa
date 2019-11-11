@@ -1564,7 +1564,7 @@ config:
 
 - matcher:
     variable:
-    - 'Browser: agent.product.comments.entry.product.name="Browser"'
+    - 'Browser: agent.(1-5)product.comments.entry.(1-5)product.name="Browser"'
     extract:
     - 'AgentClass                          :    100 : "Browser"'
     - 'AgentName                           :    100 : @Browser^.(1)version'

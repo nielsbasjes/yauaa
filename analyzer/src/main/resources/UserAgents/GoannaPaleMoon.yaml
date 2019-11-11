@@ -97,15 +97,15 @@ config:
     extract:
     - 'LayoutEngineClass                   :   1901 :"Browser"'
     - 'LayoutEngineName                    :   1901 :"Goanna"'
-    - 'LayoutEngineVersion                 :   1901 :agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
-    - 'LayoutEngineBuild                   :   1901 :agent.product.comments.entry.product.name="Goanna"^.version'
+    - 'LayoutEngineVersion                 :   1901 :agent.(1)product.comments.entry.(1)keyvalue.key="rv"^.value'
+    - 'LayoutEngineBuild                   :   1901 :agent.(1-4)product.comments.entry.(1-4)product.name="Goanna"^.version'
     - 'AgentClass                          :   1896 :"Browser"'
     - 'AgentName                           :   1896 :"Goanna"'
     - 'AgentVersion                        :   1896 :agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
 
 - matcher:
     variable:
-    - 'Goanna: agent.product.comments.entry.product.name="Goanna"^>'
+    - 'Goanna: agent.(1-4)product.comments.entry.(1-4)product.name="Goanna"^>'
     extract:
     - 'AgentClass                          :   1901 :"Browser"'
     - 'AgentName                           :   1901 :@Goanna.name'

@@ -3,6 +3,7 @@ This is intended as an overview of the major changes
 v5.13-SNAPSHOT
 ===
 - Analyzer improvement by allocating less AgentFields (i.e. less memory).
+- Optimized rules to reduce startup time and memory usage.
 - Update public suffix list for detecting hostnames.
 - Added a basic API and Swagger UI to the demo webservlet
 - New/improved detections

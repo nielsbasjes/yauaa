@@ -19,10 +19,10 @@ config:
 
 - matcher:
     variable:
-    - 'Google:agent.product.comments.entry.product.name[1]="Googlebot"'
+    - 'Google:agent.(1-8)product.comments.entry.(1-2)product.(1)name[1]="Googlebot"'
     require:
-    - 'agent.product.comments.entry.url="http://www.google.com/bot.html"'
-    - 'IsNull[agent.product.comments.entry.url!="http://www.google.com/bot.html"]'
+    - 'agent.(1-8)product.comments.entry.(1-2)url="http://www.google.com/bot.html"'
+    - 'IsNull[agent.(1-8)product.comments.entry.(1-2)url!="http://www.google.com/bot.html"]'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300000 :"Robot"'

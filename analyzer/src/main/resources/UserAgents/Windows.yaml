@@ -19,8 +19,8 @@ config:
 # Sometimes it only says "Windows" with N/U/I...
 - matcher:
     require:
-    - 'agent.(1)product.comments.entry="Windows"'
-    - 'agent.(1)product.comments.entry="N"'
+    - 'agent.(1)product.(1)comments.entry="Windows"'
+    - 'agent.(1)product.(1)comments.entry="N"'
     extract:
     - 'DeviceClass                         :      1 :"Desktop"'
     - 'DeviceName                          :      1 :"Desktop"'
@@ -30,8 +30,8 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.comments.entry="Windows"'
-    - 'agent.(1)product.comments.entry="U"'
+    - 'agent.(1)product.(1)comments.entry="Windows"'
+    - 'agent.(1)product.(1)comments.entry="U"'
     extract:
     - 'DeviceClass                         :      1 :"Desktop"'
     - 'DeviceName                          :      1 :"Desktop"'
@@ -43,8 +43,8 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.comments.entry="Windows"'
-    - 'agent.(1)product.comments.entry="I"'
+    - 'agent.(1)product.(1)comments.entry="Windows"'
+    - 'agent.(1)product.(1)comments.entry="I"'
     extract:
     - 'DeviceClass                         :      1 :"Desktop"'
     - 'DeviceName                          :      1 :"Desktop"'
@@ -128,7 +128,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.text="mingw32"'
+    - 'agent.(1-2)product.(1-2)comments.entry.(1)text="mingw32"'
     extract:
     - 'DeviceClass                         :      1 :"Desktop"'
     - 'DeviceName                          :      1 :"Desktop"'
@@ -140,7 +140,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.product.(1-4)version="mingw32"'
+    - 'agent.(1-2)product.(1-2)comments.entry.(1-4)product.(1-4)version="mingw32"'
     extract:
     - 'DeviceClass                         :      1 :"Desktop"'
     - 'DeviceName                          :      1 :"Desktop"'

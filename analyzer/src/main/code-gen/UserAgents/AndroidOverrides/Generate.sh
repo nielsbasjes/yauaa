@@ -71,8 +71,8 @@ echo "
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.product.name[1]=\"Android\"'
-    - 'agent.product.comments.entry.product.name[1]=\"${tag}\"'
+    - 'agent.(1-2)product.comments.entry.(1-2)product.name[1]=\"Android\"'
+    - 'agent.(1-2)product.comments.entry.(1-2)product.name[1]=\"${tag}\"'
     extract:
     - 'DeviceClass                         :   1001 :\"${deviceClass}\"'
     - 'DeviceName                          :    100 :\"${deviceName}\"'

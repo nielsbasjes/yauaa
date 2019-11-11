@@ -171,7 +171,7 @@ config:
     extract:
     - 'AgentClass                          :   2012 :"Browser"'
     - 'AgentName                           :   2012 :"Opera Mini"'
-    - 'AgentVersion                        :   2012 :agent.product.comments.entry.product.(1)name="Opera Mini"^.version'
+    - 'AgentVersion                        :   2012 :agent.(1-4)product.comments.entry.product.(1)name="Opera Mini"^.version'
     - 'DeviceClass                         :      1 :"Mobile"'
 
 - test:
@@ -205,7 +205,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.product.name="Opera Tablet"'
+    - 'agent.(1-4)product.comments.entry.(1-4)product.name="Opera Tablet"'
     extract:
     - 'AgentClass                          :   2012 :"Browser"'
     - 'AgentName                           :   2012 :"Opera Tablet"'

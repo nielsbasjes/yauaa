@@ -2933,10 +2933,10 @@ config:
 
 - matcher:
     variable:
-    - 'SogouProduct: agent.product.comments.entry.(1)product.name="SE"'
+    - 'SogouProduct: agent.(1-4)product.comments.entry.(1)product.name="SE"'
     require:
-    - 'agent.product.comments.entry.product.name="MSIE"'
-    - 'agent.product.comments.entry.(2)product.name="MetaSr"'
+    - 'agent.(1-4)product.comments.entry.(1)product.name="MSIE"'
+    - 'agent.(1-4)product.comments.entry.(2)product.name="MetaSr"'
     extract:
     - 'AgentClass                          :   2100 : "Browser"'
     - 'AgentName                           :   2100 : "Sogou Explorer"'
@@ -3104,7 +3104,7 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.text="wv"'
+    - 'agent.(1-4)product.(1)comments.entry.(1)text="wv"'
     variable:
     - 'HawkProduct:agent.product.name="Hawk"^'
     extract:

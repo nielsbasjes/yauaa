@@ -131,14 +131,14 @@ config:
     - 'LayoutEngineClass                   :   1900 :"Browser"'
     - 'LayoutEngineName                    :   1900 :"Gecko"'
     - 'LayoutEngineVersion                 :   1900 :agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
-    - 'LayoutEngineBuild                   :   1900 :agent.product.comments.entry.product.name="Gecko"^.version'
+    - 'LayoutEngineBuild                   :   1900 :agent.(1-4)product.comments.entry.(1-4)product.name="Gecko"^.version'
     - 'AgentClass                          :   1895 :"Browser"'
     - 'AgentName                           :   1895 :"Gecko"'
     - 'AgentVersion                        :   1895 :agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
 
 - matcher:
     variable:
-    - 'Gecko: agent.product.comments.entry.product.name="Gecko"^>'
+    - 'Gecko: agent.(1-4)product.comments.entry.(1-4)product.name="Gecko"^>'
     extract:
     - 'AgentClass                          :   1900 :"Browser"'
     - 'AgentName                           :   1900 :@Gecko.name'

@@ -33,10 +33,10 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.product.name="Googlebot"'
-    - 'IsNull[agent.product.comments.entry.url="http://www.google.com/bot.html"]'
-    - 'IsNull[agent.product.comments.entry.url="https://www.google.com/bot.html"]'
-    - 'IsNull[agent.product.comments.entry.url~"googlebot.com"]'
+    - 'agent.(1-10)product.(1-2)comments.(1-8)entry.(1-4)product.(1)name="Googlebot"'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="http://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="https://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url~"googlebot.com"]'
     extract:
     - 'DeviceClass                         : 320100 : "Robot Imitator"'
     - 'DeviceName                          : 320100 : "Googlebot Imitator"'
@@ -49,10 +49,10 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.product.name="Googlebot"'
-    - 'IsNull[agent.product.comments.entry.url="http://www.google.com/bot.html"]'
-    - 'IsNull[agent.product.comments.entry.url="https://www.google.com/bot.html"]'
-    - 'IsNull[agent.product.comments.entry.url~"googlebot.com"]'
+    - 'agent.(1-10)product.(1-2)comments.(1-8)entry.(1-4)product.(1)name="Googlebot"'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="http://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="https://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url~"googlebot.com"]'
     variable:
     - 'RealAgent: agent.(1)product.(1)name!="Mozilla"'
     extract:
@@ -62,10 +62,10 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.product.name="Googlebot"'
-    - 'IsNull[agent.product.comments.entry.url="http://www.google.com/bot.html"]'
-    - 'IsNull[agent.product.comments.entry.url="https://www.google.com/bot.html"]'
-    - 'IsNull[agent.product.comments.entry.url~"googlebot.com"]'
+    - 'agent.(1-10)product.(1-2)comments.(1-8)entry.(1-4)product.(1)name="Googlebot"'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="http://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="https://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url~"googlebot.com"]'
     variable:
     - 'RealAgent: agent.(1)product.comments.entry.product.(1)name!="GoogleBot"'
     extract:
@@ -76,8 +76,8 @@ config:
 - matcher:
     require:
     - 'agent.product.name="Googlebot"'
-    - 'IsNull[agent.product.comments.entry.url="http://www.google.com/bot.html"]'
-    - 'IsNull[agent.product.comments.entry.url="https://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="http://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="https://www.google.com/bot.html"]'
     extract:
     - 'DeviceClass                         : 320100 : "Robot Imitator"'
     - 'DeviceName                          : 320100 : "Googlebot Imitator"'
@@ -90,8 +90,8 @@ config:
 - matcher:
     require:
     - 'agent.product.name="Googlebot"'
-    - 'IsNull[agent.product.comments.entry.url="http://www.google.com/bot.html"]'
-    - 'IsNull[agent.product.comments.entry.url="https://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="http://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="https://www.google.com/bot.html"]'
     extract:
     - 'DeviceClass                         : 320100 : "Robot Imitator"'
     - 'DeviceName                          : 320100 : "Googlebot Imitator"'

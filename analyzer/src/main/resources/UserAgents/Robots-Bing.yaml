@@ -70,6 +70,8 @@ isBingPreviewMobile: &isBingPreviewMobile
 config:
 
 - matcher:
+    variable:
+    - 'BingbotVersion:agent.product.(1)name="bingbot"^.version'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300000 :"Robot"'
@@ -81,12 +83,14 @@ config:
     - 'OperatingSystemNameVersion          : 300000 :"Microsoft Azure"'
     - 'LayoutEngineClass                   : 300000 :"Robot"'
     - 'LayoutEngineName                    : 300000 :"Bingbot"'
-    - 'LayoutEngineVersion                 : 300000 :agent.product.(1)name="bingbot"^.version'
+    - 'LayoutEngineVersion                 : 300000 :@BingbotVersion'
     - 'AgentClass                          : 300000 :"Robot"'
     - 'AgentName                           : 300000 :"Bingbot"'
-    - 'AgentVersion                        : 300000 :agent.product.(1)name="bingbot"^.version'
+    - 'AgentVersion                        : 300000 :@BingbotVersion'
 
 - matcher:
+    variable:
+    - 'BingbotVersion:agent.product.(1)comments.entry.product.(1)name="bingbot"^.version'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300000 :"Robot"'
@@ -98,13 +102,15 @@ config:
     - 'OperatingSystemNameVersion          : 300000 :"Microsoft Azure"'
     - 'LayoutEngineClass                   : 300000 :"Robot"'
     - 'LayoutEngineName                    : 300000 :"Bingbot"'
-    - 'LayoutEngineVersion                 : 300000 :agent.product.(1)comments.entry.product.(1)name="bingbot"^.version'
+    - 'LayoutEngineVersion                 : 300000 :@BingbotVersion'
     - 'AgentClass                          : 300000 :"Robot"'
     - 'AgentName                           : 300000 :"Bingbot"'
-    - 'AgentVersion                        : 300000 :agent.product.(1)comments.entry.product.(1)name="bingbot"^.version'
+    - 'AgentVersion                        : 300000 :@BingbotVersion'
 
 
 - matcher:
+    variable:
+    - 'msnbot:agent.product.(1)name[1]="msnbot"'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300000 :"Robot"'
@@ -115,13 +121,15 @@ config:
     - 'OperatingSystemVersion              : 300000 :"Microsoft Azure"'
     - 'OperatingSystemNameVersion          : 300000 :"Microsoft Azure"'
     - 'LayoutEngineClass                   : 300000 :"Robot"'
-    - 'LayoutEngineName                    : 300000 :agent.product.(1)name[1]="msnbot"@'
-    - 'LayoutEngineVersion                 : 300000 :agent.product.(1)name[1]="msnbot"^.version'
+    - 'LayoutEngineName                    : 300000 :@msnbot@'
+    - 'LayoutEngineVersion                 : 300000 :@msnbot^.version'
     - 'AgentClass                          : 300000 :"Robot"'
-    - 'AgentName                           : 300000 :agent.product.(1)name[1]="msnbot"@'
-    - 'AgentVersion                        : 300000 :agent.product.(1)name[1]="msnbot"^.version'
+    - 'AgentName                           : 300000 :@msnbot@'
+    - 'AgentVersion                        : 300000 :@msnbot^.version'
 
 - matcher:
+    variable:
+    - 'msnbot:agent.product.(1)comments.entry.product.(1)name[1]="msnbot"'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300000 :"Robot"'
@@ -132,14 +140,16 @@ config:
     - 'OperatingSystemVersion              : 300000 :"Microsoft Azure"'
     - 'OperatingSystemNameVersion          : 300000 :"Microsoft Azure"'
     - 'LayoutEngineClass                   : 300000 :"Robot"'
-    - 'LayoutEngineName                    : 300000 :agent.product.(1)comments.entry.product.(1)name[1]="msnbot"@'
-    - 'LayoutEngineVersion                 : 300000 :agent.product.(1)comments.entry.product.(1)name[1]="msnbot"^.version'
+    - 'LayoutEngineName                    : 300000 :@msnbot@'
+    - 'LayoutEngineVersion                 : 300000 :@msnbot^.version'
     - 'AgentClass                          : 300000 :"Robot"'
-    - 'AgentName                           : 300000 :agent.product.(1)comments.entry.product.(1)name[1]="msnbot"@'
-    - 'AgentVersion                        : 300000 :agent.product.(1)comments.entry.product.(1)name[1]="msnbot"^.version'
+    - 'AgentName                           : 300000 :@msnbot@'
+    - 'AgentVersion                        : 300000 :@msnbot^.version'
 
 
 - matcher:
+    variable:
+    - 'adidxbot:agent.product.(1)name[1]="adidxbot"'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300000 :"Robot"'
@@ -150,13 +160,15 @@ config:
     - 'OperatingSystemVersion              : 300000 :"Microsoft Azure"'
     - 'OperatingSystemNameVersion          : 300000 :"Microsoft Azure"'
     - 'LayoutEngineClass                   : 300000 :"Robot"'
-    - 'LayoutEngineName                    : 300000 :agent.product.(1)name[1]="adidxbot"@'
-    - 'LayoutEngineVersion                 : 300000 :agent.product.(1)name[1]="adidxbot"^.version'
+    - 'LayoutEngineName                    : 300000 :@adidxbot@'
+    - 'LayoutEngineVersion                 : 300000 :@adidxbot^.version'
     - 'AgentClass                          : 300000 :"Robot"'
-    - 'AgentName                           : 300000 :agent.product.(1)name[1]="adidxbot"@'
-    - 'AgentVersion                        : 300000 :agent.product.(1)name[1]="adidxbot"^.version'
+    - 'AgentName                           : 300000 :@adidxbot@'
+    - 'AgentVersion                        : 300000 :@adidxbot^.version'
 
 - matcher:
+    variable:
+    - 'adidxbot:agent.product.(1)comments.entry.product.(1)name[1]="adidxbot"'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300000 :"Robot"'
@@ -167,13 +179,15 @@ config:
     - 'OperatingSystemVersion              : 300000 :"Microsoft Azure"'
     - 'OperatingSystemNameVersion          : 300000 :"Microsoft Azure"'
     - 'LayoutEngineClass                   : 300000 :"Robot"'
-    - 'LayoutEngineName                    : 300000 :agent.product.(1)comments.entry.product.(1)name[1]="adidxbot"@'
-    - 'LayoutEngineVersion                 : 300000 :agent.product.(1)comments.entry.product.(1)name[1]="adidxbot"^.version'
+    - 'LayoutEngineName                    : 300000 :@adidxbot@'
+    - 'LayoutEngineVersion                 : 300000 :@adidxbot^.version'
     - 'AgentClass                          : 300000 :"Robot"'
-    - 'AgentName                           : 300000 :agent.product.(1)comments.entry.product.(1)name[1]="adidxbot"@'
-    - 'AgentVersion                        : 300000 :agent.product.(1)comments.entry.product.(1)name[1]="adidxbot"^.version'
+    - 'AgentName                           : 300000 :@adidxbot@'
+    - 'AgentVersion                        : 300000 :@adidxbot^.version'
 
 - matcher:
+    variable:
+    - 'BingPreviewVersion:agent.product.(1)name="BingPreview"^.version'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300000 :"Robot"'
@@ -185,14 +199,16 @@ config:
     - 'OperatingSystemNameVersion          : 300000 :"Microsoft Azure"'
     - 'LayoutEngineClass                   : 300000 :"Robot"'
     - 'LayoutEngineName                    : 300000 :"BingPreview"'
-    - 'LayoutEngineVersion                 : 300000 :agent.product.(1)name="BingPreview"^.version'
+    - 'LayoutEngineVersion                 : 300000 :@BingPreviewVersion'
     - 'AgentClass                          : 300000 :"Robot"'
     - 'AgentName                           : 300000 :"BingPreview"'
-    - 'AgentVersion                        : 300000 :agent.product.(1)name="BingPreview"^.version'
+    - 'AgentVersion                        : 300000 :@BingPreviewVersion'
 
 
 # There are cases where the 'bingpreview' is preceeded by 'like gecko'
 - matcher:
+    variable:
+    - 'BingPreviewVersion:agent.product.(1)name[3]="BingPreview"^.version'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300000 :"Robot"'
@@ -204,12 +220,14 @@ config:
     - 'OperatingSystemNameVersion          : 300000 :"Microsoft Azure"'
     - 'LayoutEngineClass                   : 300000 :"Robot"'
     - 'LayoutEngineName                    : 300000 :"BingPreview"'
-    - 'LayoutEngineVersion                 : 300000 :agent.product.(1)name[3]="BingPreview"^.version'
+    - 'LayoutEngineVersion                 : 300000 :@BingPreviewVersion'
     - 'AgentClass                          : 300000 :"Robot"'
     - 'AgentName                           : 300000 :"BingPreview"'
-    - 'AgentVersion                        : 300000 :agent.product.(1)name[3]="BingPreview"^.version'
+    - 'AgentVersion                        : 300000 :@BingPreviewVersion'
 
 - matcher:
+    variable:
+    - 'BingPreviewVersion:agent.product.(1)comments.entry.product.(1)name="BingPreview"^.version'
     extract:
     - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         : 300000 :"Robot"'
@@ -221,10 +239,10 @@ config:
     - 'OperatingSystemNameVersion          : 300000 :"Microsoft Azure"'
     - 'LayoutEngineClass                   : 300000 :"Robot"'
     - 'LayoutEngineName                    : 300000 :"BingPreview"'
-    - 'LayoutEngineVersion                 : 300000 :agent.product.(1)comments.entry.product.(1)name="BingPreview"^.version'
+    - 'LayoutEngineVersion                 : 300000 :@BingPreviewVersion'
     - 'AgentClass                          : 300000 :"Robot"'
     - 'AgentName                           : 300000 :"BingPreview"'
-    - 'AgentVersion                        : 300000 :agent.product.(1)comments.entry.product.(1)name="BingPreview"^.version'
+    - 'AgentVersion                        : 300000 :@BingPreviewVersion'
 
 - matcher:
     require:

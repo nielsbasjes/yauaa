@@ -343,7 +343,7 @@ config:
 # Very deep device information
 - matcher:
     variable:
-    - 'DeviceModelLine: IsInLookUpPrefix[MobileBrands;agent.(1-2)product.comments.entry.comments.entry.product.name]'
+    - 'DeviceModelLine: IsInLookUpPrefix[MobileBrands;agent.(1-2)product.(1)comments.entry.(1-2)comments.entry.(1)product.(1)name]'
     extract:
     - 'DeviceBrand                         :   1299 :LookUpPrefix[MobileBrands;@DeviceModelLine]'
     - 'DeviceName                          :   1299 :@DeviceModelLine^.version'
