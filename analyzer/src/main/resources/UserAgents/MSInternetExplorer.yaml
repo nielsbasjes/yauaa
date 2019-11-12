@@ -55,65 +55,67 @@ config:
     variable:
     - 'MSIEVersion: agent.product.comments.entry.(1-4)product.name="MSIEMobile"^.version'
     extract:
-    - 'LayoutEngineClass                   :   2011 :"Browser"'
-    - 'LayoutEngineName                    :   2011 :"Internet Explorer Mobile"'
-    - 'LayoutEngineVersion                 :   2011 :@MSIEVersion'
-    - 'AgentClass                          :   2003 :"Browser"'
-    - 'AgentName                           :   2003 :"Internet Explorer"'
-    - 'AgentVersion                        :   2003 :@MSIEVersion'
+    - 'LayoutEngineClass                   :     2011 :"Browser"'
+    - 'LayoutEngineName                    :     2011 :"Internet Explorer Mobile"'
+    - 'LayoutEngineVersion                 :     2011 :@MSIEVersion'
+    - 'AgentClass                          :     2003 :"Browser"'
+    - 'AgentName                           :     2003 :"Internet Explorer"'
+    - 'AgentVersion                        :     2003 :@MSIEVersion'
 
 - matcher:
     variable:
     - 'MSIEVersion: agent.product.comments.entry.(1-4)product.name="MSIE"^.version'
     extract:
-    - 'LayoutEngineClass                   :   2002 :"Browser"'
-    - 'LayoutEngineName                    :   2002 :"Internet Explorer"'
-    - 'LayoutEngineVersion                 :   2002 :@MSIEVersion'
-    - 'AgentClass                          :   2002 :"Browser"'
-    - 'AgentName                           :   2002 :"Internet Explorer"'
-    - 'AgentVersion                        :   2002 :@MSIEVersion'
+    - 'LayoutEngineClass                   :     2002 :"Browser"'
+    - 'LayoutEngineName                    :     2002 :"Internet Explorer"'
+    - 'LayoutEngineVersion                 :     2002 :@MSIEVersion'
+    - 'AgentClass                          :     2002 :"Browser"'
+    - 'AgentName                           :     2002 :"Internet Explorer"'
+    - 'AgentVersion                        :     2002 :@MSIEVersion'
 
 - matcher:
     variable:
     - 'MSIEVersion: agent.product.comments.entry.(1-4)product.name="MSIE"^.version'
     extract:
-    - 'LayoutEngineClass                   :   2009 :"Browser"'
-    - 'LayoutEngineName                    :   2009 :LookUp[MSIELayoutEngineName;@MSIEVersion[1]]'
-    - 'LayoutEngineVersion                 :   2009 :LookUp[MSIELayoutEngineVersion;@MSIEVersion[1]]'
-
-    - 'AgentClass                          :   2009 :"Browser"'
-    - 'AgentName                           :   2009 :"Internet Explorer"'
-    - 'AgentVersion                        :   2009 :@MSIEVersion'
-
-- matcher:
-    extract:
-    - 'LayoutEngineClass                   :   2010 :"Browser"'
-    - 'LayoutEngineName                    :   2010 :"Trident"'
-    - 'LayoutEngineVersion                 :   2010 :agent.(1-2)product.comments.entry.product.name="Trident"^.version'
-
-    - 'AgentClass                          :   2010 :"Browser"'
-    - 'AgentName                           :   2010 :LookUp[TridentAgentName;agent.(1-2)product.comments.entry.product.(1)name="Trident"^]'
-    - 'AgentVersion                        :   2010 :LookUp[TridentAgentVersion;agent.(1-2)product.comments.entry.product.(1)name="Trident"^]'
+    - 'LayoutEngineClass                   :     2009 :"Browser"'
+    - 'LayoutEngineName                    :     2009 :LookUp[MSIELayoutEngineName;@MSIEVersion[1]]'
+    - 'LayoutEngineVersion                 :     2009 :LookUp[MSIELayoutEngineVersion;@MSIEVersion[1]]'
+    - 'AgentClass                          :     2009 :"Browser"'
+    - 'AgentName                           :     2009 :"Internet Explorer"'
+    - 'AgentVersion                        :     2009 :@MSIEVersion'
 
 - matcher:
+    variable:
+    - 'TridentProduct:agent.(1-2)product.comments.entry.product.name="Trident"^'
     extract:
-    - 'LayoutEngineClass                   :   2009 :"Browser"'
-    - 'LayoutEngineName                    :   2009 :LookUp[MSIELayoutEngineName;agent.product.name="MSIE"^.version[1]]'
-    - 'LayoutEngineVersion                 :   2009 :LookUp[MSIELayoutEngineVersion;agent.product.name="MSIE"^.version[1]]'
-
-    - 'AgentClass                          :   2009 :"Browser"'
-    - 'AgentName                           :   2009 :"Internet Explorer"'
-    - 'AgentVersion                        :   2009 :agent.product.name="MSIE"^.version'
+    - 'LayoutEngineClass                   :     2010 :"Browser"'
+    - 'LayoutEngineName                    :     2010 :"Trident"'
+    - 'LayoutEngineVersion                 :     2010 :@TridentProduct.version'
+    - 'AgentClass                          :     2010 :"Browser"'
+    - 'AgentName                           :     2010 :LookUp[TridentAgentName;@TridentProduct]'
+    - 'AgentVersion                        :     2010 :LookUp[TridentAgentVersion;@TridentProduct]'
 
 - matcher:
+    variable:
+    - 'MSIEVersion:agent.product.name="MSIE"^.version[1]'
     extract:
-    - 'LayoutEngineClass                   :   2010 :"Browser"'
-    - 'LayoutEngineName                    :   2010 :"Trident"'
-    - 'LayoutEngineVersion                 :   2010 :agent.product.name="Trident"^.version'
+    - 'LayoutEngineClass                   :     2009 :"Browser"'
+    - 'LayoutEngineName                    :     2009 :LookUp[MSIELayoutEngineName;@MSIEVersion]'
+    - 'LayoutEngineVersion                 :     2009 :LookUp[MSIELayoutEngineVersion;@MSIEVersion]'
+    - 'AgentClass                          :     2009 :"Browser"'
+    - 'AgentName                           :     2009 :"Internet Explorer"'
+    - 'AgentVersion                        :     2009 :agent.product.name="MSIE"^.version'
 
-    - 'AgentClass                          :   2010 :"Browser"'
-    - 'AgentName                           :   2010 :LookUp[TridentAgentName;agent.product.name="Trident"^]'
-    - 'AgentVersion                        :   2010 :LookUp[TridentAgentVersion;agent.product.name="Trident"^]'
+- matcher:
+    variable:
+    - 'TridentProduct:agent.product.name="Trident"^'
+    extract:
+    - 'LayoutEngineClass                   :     2010 :"Browser"'
+    - 'LayoutEngineName                    :     2010 :"Trident"'
+    - 'LayoutEngineVersion                 :     2010 :@TridentProduct.version'
+    - 'AgentClass                          :     2010 :"Browser"'
+    - 'AgentName                           :     2010 :LookUp[TridentAgentName;@TridentProduct]'
+    - 'AgentVersion                        :     2010 :LookUp[TridentAgentVersion;@TridentProduct]'
 
 # IE 2.0:
 - test:
@@ -206,23 +208,23 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.product.name="Trident"'
+    - 'agent.(1-2)product.(1)comments.entry.(1)product.name="Trident"'
     extract:
-    - 'AgentClass                          :  10000 :"Browser Webview"'
-    - 'AgentName                           :  10000 :"Internet Explorer Webview"'
-    - 'AgentVersion                        :   2500 :agent.(1)product.(1)comments.entry.product.name="MSAppHost"^.version'
-    - 'WebviewAppName                      :      0 :"Unknown Webview App"'
-    - 'WebviewAppVersion                   :      0 :"??"'
+    - 'AgentClass                          :    10000 :"Browser Webview"'
+    - 'AgentName                           :    10000 :"Internet Explorer Webview"'
+    - 'AgentVersion                        :     2500 :agent.(1)product.(1)comments.entry.(1-2)product.name="MSAppHost"^.version'
+    - 'WebviewAppName                      :        0 :"Unknown Webview App"'
+    - 'WebviewAppVersion                   :        0 :"??"'
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry.product.name="Trident"'
+    - 'agent.(1-2)product.(1)comments.entry.(1)product.name="Trident"'
     extract:
-    - 'AgentClass                          :  10000 :"Browser Webview"'
-    - 'AgentName                           :  10000 :"Internet Explorer Webview"'
-    - 'AgentVersion                        :   2500 :agent.product.(1)name="MSAppHost"^.version'
-    - 'WebviewAppName                      :      0 :"Unknown Webview App"'
-    - 'WebviewAppVersion                   :      0 :"??"'
+    - 'AgentClass                          :    10000 :"Browser Webview"'
+    - 'AgentName                           :    10000 :"Internet Explorer Webview"'
+    - 'AgentVersion                        :     2500 :agent.product.name="MSAppHost"^.version'
+    - 'WebviewAppName                      :        0 :"Unknown Webview App"'
+    - 'WebviewAppVersion                   :        0 :"??"'
 
 - test:
     input:
@@ -320,28 +322,28 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)text="Win64"'
     extract:
-    - 'DeviceCpuBits                       :    200 :"64"'
+    - 'DeviceCpuBits                       :      200 :"64"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)text="IA64"'
     extract:
-    - 'DeviceCpu                           :    200 :"Intel Itanium 64"'
-    - 'DeviceCpuBits                       :    200 :"64"'
+    - 'DeviceCpu                           :      200 :"Intel Itanium 64"'
+    - 'DeviceCpuBits                       :      200 :"64"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)text="x64"'
     extract:
-    - 'DeviceCpu                           :    200 :"Intel x86_64"'
-    - 'DeviceCpuBits                       :    200 :"64"'
+    - 'DeviceCpu                           :      200 :"Intel x86_64"'
+    - 'DeviceCpuBits                       :      200 :"64"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)text="WOW64"'
     extract:
-    - 'DeviceCpu                           :    199 :"Intel x86_64"'
-    - 'DeviceCpuBits                       :    199 :"64"'
+    - 'DeviceCpu                           :      199 :"Intel x86_64"'
+    - 'DeviceCpuBits                       :      199 :"64"'
 
 
 # Internet Explorer Compatibility mode.
@@ -377,7 +379,7 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.name="MSIE"'
     extract:
-    - 'DeviceClass                         :      1 :"Desktop"'
+    - 'DeviceClass                         :        1 :"Desktop"'
 
 - matcher:
     require:
@@ -386,10 +388,10 @@ config:
     - 'agent.(1)product.(1)comments.entry.(1)product[1-2]="Windows NT"'
     - 'LookUp[CompatibilityTridentAgentVersion;agent.(1-4)product.comments.entry.(1-4)product.name="Trident"^]'
     extract:
-    - 'IECompatibilityVersion              :      1 :"7.0"'
-    - 'IECompatibilityVersionMajor         :      1 :"7"'
-    - 'IECompatibilityNameVersion          :      1 :"Internet Explorer 7.0"'
-    - 'IECompatibilityNameVersionMajor     :      1 :"Internet Explorer 7"'
+    - 'IECompatibilityVersion              :        1 :"7.0"'
+    - 'IECompatibilityVersionMajor         :        1 :"7"'
+    - 'IECompatibilityNameVersion          :        1 :"Internet Explorer 7.0"'
+    - 'IECompatibilityNameVersionMajor     :        1 :"Internet Explorer 7"'
 
 - matcher:
     require:
@@ -398,10 +400,10 @@ config:
     - 'agent.(1)product.(1)comments.entry.(1)product[1-2]="Windows NT"'
     - 'LookUp[CompatibilityTridentAgentVersion;agent.(1-4)product.comments.entry.(1-4)product.name="Trident"^]'
     extract:
-    - 'IECompatibilityVersion              :      1 :"8.0"'
-    - 'IECompatibilityVersionMajor         :      1 :"8"'
-    - 'IECompatibilityNameVersion          :      1 :"Internet Explorer 8.0"'
-    - 'IECompatibilityNameVersionMajor     :      1 :"Internet Explorer 8"'
+    - 'IECompatibilityVersion              :        1 :"8.0"'
+    - 'IECompatibilityVersionMajor         :        1 :"8"'
+    - 'IECompatibilityNameVersion          :        1 :"Internet Explorer 8.0"'
+    - 'IECompatibilityNameVersionMajor     :        1 :"Internet Explorer 8"'
 
 - test:
     input:
@@ -569,11 +571,11 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1-2)product.comments.entry.product.name="Trident"'
+    - 'agent.(1-2)product.comments.entry.(1-2)product.name="Trident"'
     extract:
-    - 'AgentClass                          :   2010 :"Browser"'
-    - 'AgentName                           :   2010 :"Internet Explorer"'
-    - 'AgentVersion                        :   2012 :agent.(1-2)product.comments.entry.keyvalue.key="rv"^.value'
+    - 'AgentClass                          :     2010 :"Browser"'
+    - 'AgentName                           :     2010 :"Internet Explorer"'
+    - 'AgentVersion                        :     2012 :agent.(1-2)product.comments.entry.keyvalue.key="rv"^.value'
 
 #Example 1 (IE 11)
 #UserAgent: "Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.1) like Gecko"
@@ -612,22 +614,26 @@ config:
 # That is impossible so we are forcing it into reporting "IE 10.0"
 
 - matcher:
+    variable:
+    - 'MSIEVersion: agent.(1-2)product.comments.entry.(1-2)product.name="MSIE"^.version'
     require:
-    - 'agent.(1-2)product.comments.entry.product.name="Trident"'
-    - 'agent.(1-2)product.comments.entry.product.name="MSIE"^.version[1]="10"'
+    - 'agent.(1-2)product.comments.entry.(1-2)product.name="Trident"'
+    - '@MSIEVersion[1]="10"'
     extract:
-    - 'AgentClass                          :   2010 :"Browser"'
-    - 'AgentName                           :   2010 :"Internet Explorer"'
-    - 'AgentVersion                        :   2013 :agent.(1-2)product.comments.entry.product.name="MSIE"^.version'
+    - 'AgentClass                          :     2010 :"Browser"'
+    - 'AgentName                           :     2010 :"Internet Explorer"'
+    - 'AgentVersion                        :     2013 :@MSIEVersion'
 
 - matcher:
+    variable:
+    - 'MSIEVersion: agent.(1-2)product.comments.entry.(1-2)product.name="MSIE"^.version'
     require:
-    - 'agent.(1-2)product.comments.entry.product.name="Trident"'
-    - 'agent.(1-2)product.comments.entry.product.name="MSIE"^.version[1]="11"'
+    - 'agent.(1-2)product.comments.entry.(1-2)product.name="Trident"'
+    - '@MSIEVersion[1]="11"'
     extract:
-    - 'AgentClass                          :   2010 :"Browser"'
-    - 'AgentName                           :   2010 :"Internet Explorer"'
-    - 'AgentVersion                        :   2013 :agent.(1-2)product.comments.entry.product.name="MSIE"^.version'
+    - 'AgentClass                          :     2010 :"Browser"'
+    - 'AgentName                           :     2010 :"Internet Explorer"'
+    - 'AgentVersion                        :     2013 :@MSIEVersion'
 
 #Example 3 (IE10)
 #UserAgent: "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/5.0)"

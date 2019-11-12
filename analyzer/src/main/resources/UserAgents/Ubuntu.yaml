@@ -21,31 +21,31 @@ config:
     variable:
     - 'UbuntuName:agent.text[1]~"buntu"'
     extract:
-    - 'DeviceClass                         :      1 :"Desktop"'
-    - 'DeviceName                          :      1 :"Linux Desktop"'
-    - 'OperatingSystemClass                :     96 :"Desktop"'
-    - 'OperatingSystemName                 :     96 :@UbuntuName'
-    - 'OperatingSystemVersion              :     96 :"??"'
+    - 'DeviceClass                         :        1 :"Desktop"'
+    - 'DeviceName                          :        1 :"Linux Desktop"'
+    - 'OperatingSystemClass                :       96 :"Desktop"'
+    - 'OperatingSystemName                 :       96 :@UbuntuName'
+    - 'OperatingSystemVersion              :       96 :"??"'
 
 - matcher:
     variable:
     - 'UbuntuName:agent.product.name[1]~"buntu"'
     extract:
-    - 'DeviceClass                         :      1 :"Desktop"'
-    - 'DeviceName                          :      1 :"Linux Desktop"'
-    - 'OperatingSystemClass                :     97 :"Desktop"'
-    - 'OperatingSystemName                 :     97 :@UbuntuName'
-    - 'OperatingSystemVersion              :     97 :"??"'
+    - 'DeviceClass                         :        1 :"Desktop"'
+    - 'DeviceName                          :        1 :"Linux Desktop"'
+    - 'OperatingSystemClass                :       97 :"Desktop"'
+    - 'OperatingSystemName                 :       97 :@UbuntuName'
+    - 'OperatingSystemVersion              :       97 :"??"'
 
 - matcher:
     variable:
     - 'UbuntuName:agent.product.comments.entry[1]~"buntu"'
     extract:
-    - 'DeviceClass                         :      1 :"Desktop"'
-    - 'DeviceName                          :      1 :"Linux Desktop"'
-    - 'OperatingSystemClass                :     97 :"Desktop"'
-    - 'OperatingSystemName                 :     97 :@UbuntuName'
-    - 'OperatingSystemVersion              :     97 :"??"'
+    - 'DeviceClass                         :        1 :"Desktop"'
+    - 'DeviceName                          :        1 :"Linux Desktop"'
+    - 'OperatingSystemClass                :       97 :"Desktop"'
+    - 'OperatingSystemName                 :       97 :@UbuntuName'
+    - 'OperatingSystemVersion              :       97 :"??"'
 
 - matcher:
     variable:
@@ -53,11 +53,11 @@ config:
     require:
     - 'IsNull[@UbuntuName@[2]="package"]'
     extract:
-    - 'DeviceClass                         :      1 :"Desktop"'
-    - 'DeviceName                          :      1 :"Linux Desktop"'
-    - 'OperatingSystemClass                :     98 :"Desktop"'
-    - 'OperatingSystemName                 :     98 :@UbuntuName'
-    - 'OperatingSystemVersion              :     98 :@UbuntuName.product.version'
+    - 'DeviceClass                         :        1 :"Desktop"'
+    - 'DeviceName                          :        1 :"Linux Desktop"'
+    - 'OperatingSystemClass                :       98 :"Desktop"'
+    - 'OperatingSystemName                 :       98 :@UbuntuName'
+    - 'OperatingSystemVersion              :       98 :@UbuntuName.product.version'
 
 - matcher:
     variable:
@@ -65,11 +65,11 @@ config:
     - 'UbuntuName:LookUpPrefix[UbuntuOSName;@UbuntuProduct]'
     - 'UbuntuVersion:LookUpPrefix[UbuntuOSVersion;@UbuntuProduct]'
     extract:
-    - 'DeviceClass                         :      1 :"Desktop"'
-    - 'DeviceName                          :      1 :"Linux Desktop"'
-    - 'OperatingSystemClass                :    204 :"Desktop"'
-    - 'OperatingSystemName                 :    204 :@UbuntuName'
-    - 'OperatingSystemVersion              :    204 :@UbuntuVersion'
+    - 'DeviceClass                         :        1 :"Desktop"'
+    - 'DeviceName                          :        1 :"Linux Desktop"'
+    - 'OperatingSystemClass                :      204 :"Desktop"'
+    - 'OperatingSystemName                 :      204 :@UbuntuName'
+    - 'OperatingSystemVersion              :      204 :@UbuntuVersion'
 
 - matcher:
     variable:
@@ -79,41 +79,41 @@ config:
     - 'IsNull[@UbuntuName@[2]]'
     - 'IsNull[@UbuntuVersion?UbuntuOSVersion]'
     extract:
-    - 'DeviceClass                         :      1 :"Desktop"'
-    - 'DeviceName                          :      1 :"Linux Desktop"'
-    - 'OperatingSystemClass                :    204 :"Desktop"'
-    - 'OperatingSystemName                 :    204 :@UbuntuName'
-    - 'OperatingSystemVersion              :    204 :@UbuntuName^.version'
+    - 'DeviceClass                         :        1 :"Desktop"'
+    - 'DeviceName                          :        1 :"Linux Desktop"'
+    - 'OperatingSystemClass                :      204 :"Desktop"'
+    - 'OperatingSystemName                 :      204 :@UbuntuName'
+    - 'OperatingSystemVersion              :      204 :@UbuntuName^.version'
 
 - matcher:
     variable:
     - 'UbuntuName:agent.product.name~"buntu"'
     - 'UbuntuVersion:@UbuntuName^.version'
     extract:
-    - 'DeviceClass                         :      1 :"Desktop"'
-    - 'DeviceName                          :      1 :"Linux Desktop"'
-    - 'OperatingSystemClass                :    203 :"Desktop"'
-    - 'OperatingSystemName                 :    203 :@UbuntuName[1]'
-    - 'OperatingSystemVersion              :    203 :LookUp[UbuntuOSVersion;@UbuntuVersion]'
+    - 'DeviceClass                         :        1 :"Desktop"'
+    - 'DeviceName                          :        1 :"Linux Desktop"'
+    - 'OperatingSystemClass                :      203 :"Desktop"'
+    - 'OperatingSystemName                 :      203 :@UbuntuName[1]'
+    - 'OperatingSystemVersion              :      203 :LookUp[UbuntuOSVersion;@UbuntuVersion]'
 
 - matcher:
     variable:
     - 'UbuntuName:agent.product.name~"buntu"'
     - 'UbuntuVersion:@UbuntuName^.comments.entry'
     extract:
-    - 'DeviceClass                         :      1 :"Desktop"'
-    - 'DeviceName                          :      1 :"Linux Desktop"'
-    - 'OperatingSystemClass                :    202 :"Desktop"'
-    - 'OperatingSystemName                 :    202 :@UbuntuName[1]'
-    - 'OperatingSystemVersion              :    202 :LookUp[UbuntuOSVersion;@UbuntuVersion]'
+    - 'DeviceClass                         :        1 :"Desktop"'
+    - 'DeviceName                          :        1 :"Linux Desktop"'
+    - 'OperatingSystemClass                :      202 :"Desktop"'
+    - 'OperatingSystemName                 :      202 :@UbuntuName[1]'
+    - 'OperatingSystemVersion              :      202 :LookUp[UbuntuOSVersion;@UbuntuVersion]'
 
 - matcher:
     extract:
-    - 'DeviceClass                         :      1 :"Desktop"'
-    - 'DeviceName                          :      1 :"Linux Desktop"'
-    - 'OperatingSystemClass                :    201 :"Desktop"'
-    - 'OperatingSystemName                 :    201 :"Ubuntu"'
-    - 'OperatingSystemVersion              :    201 :LookUp[UbuntuOSVersion;agent.(1-4)product.comments.entry.(1)text]'
+    - 'DeviceClass                         :        1 :"Desktop"'
+    - 'DeviceName                          :        1 :"Linux Desktop"'
+    - 'OperatingSystemClass                :      201 :"Desktop"'
+    - 'OperatingSystemName                 :      201 :"Ubuntu"'
+    - 'OperatingSystemVersion              :      201 :LookUp[UbuntuOSVersion;agent.(1-4)product.comments.entry.(1)text]'
 
 
 # NOTE: Most useragents in this file have modified version numbers.

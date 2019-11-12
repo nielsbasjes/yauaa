@@ -19,117 +19,117 @@ config:
 
 - matcher:
     variable:
-    - 'Google:agent.(1-8)product.comments.entry.(1-2)product.(1)name[1]="Googlebot"'
+    - 'Google:agent.(1-8)product.comments.entry.(1-2)product.name[1]="Googlebot"'
     require:
     - 'agent.(1-8)product.comments.entry.(1-2)url="http://www.google.com/bot.html"'
     - 'IsNull[agent.(1-8)product.comments.entry.(1-2)url!="http://www.google.com/bot.html"]'
     extract:
-    - '__Set_ALL_Fields__                  : 299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 300000 :"Robot"'
-    - 'DeviceBrand                         : 300000 :"Google"'
-    - 'DeviceName                          : 300000 :"Google"'
-    - 'OperatingSystemClass                : 300000 :"Cloud"'
-    - 'OperatingSystemName                 : 300000 :"Google"'
-    - 'OperatingSystemVersion              : 300000 :"Google"'
-    - 'LayoutEngineClass                   : 300000 :"Robot"'
-    - 'LayoutEngineName                    : 300000 :"Googlebot"'
-    - 'LayoutEngineVersion                 : 300000 :"Googlebot"'
-    - 'AgentClass                          : 300000 :"Robot"'
-    - 'AgentName                           : 300000 :@Google@'
-    - 'AgentVersion                        : 300000 :@Google^.version'
+    - '__Set_ALL_Fields__                  :   299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   300000 :"Robot"'
+    - 'DeviceBrand                         :   300000 :"Google"'
+    - 'DeviceName                          :   300000 :"Google"'
+    - 'OperatingSystemClass                :   300000 :"Cloud"'
+    - 'OperatingSystemName                 :   300000 :"Google"'
+    - 'OperatingSystemVersion              :   300000 :"Google"'
+    - 'LayoutEngineClass                   :   300000 :"Robot"'
+    - 'LayoutEngineName                    :   300000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :   300000 :"Googlebot"'
+    - 'AgentClass                          :   300000 :"Robot"'
+    - 'AgentName                           :   300000 :@Google@'
+    - 'AgentVersion                        :   300000 :@Google^.version'
 
 - matcher:
     variable:
     - 'Google:agent.(1)product.name[1]="Googlebot"'
     extract:
-    - '__Set_ALL_Fields__                  : 300900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 301000 :"Robot"'
-    - 'DeviceBrand                         : 301000 :"Google"'
-    - 'DeviceName                          : 301000 :"Google"'
-    - 'OperatingSystemClass                : 301000 :"Cloud"'
-    - 'OperatingSystemName                 : 301000 :"Google"'
-    - 'OperatingSystemVersion              : 301000 :"Google"'
-    - 'LayoutEngineClass                   : 301000 :"Robot"'
-    - 'LayoutEngineName                    : 301000 :"Googlebot"'
-    - 'LayoutEngineVersion                 : 301000 :"Googlebot"'
-    - 'AgentClass                          : 301000 :"Robot"'
-    - 'AgentName                           : 301000 :@Google@'
-    - 'AgentVersion                        : 301000 :@Google^.version'
+    - '__Set_ALL_Fields__                  :   300900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   301000 :"Robot"'
+    - 'DeviceBrand                         :   301000 :"Google"'
+    - 'DeviceName                          :   301000 :"Google"'
+    - 'OperatingSystemClass                :   301000 :"Cloud"'
+    - 'OperatingSystemName                 :   301000 :"Google"'
+    - 'OperatingSystemVersion              :   301000 :"Google"'
+    - 'LayoutEngineClass                   :   301000 :"Robot"'
+    - 'LayoutEngineName                    :   301000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :   301000 :"Googlebot"'
+    - 'AgentClass                          :   301000 :"Robot"'
+    - 'AgentName                           :   301000 :@Google@'
+    - 'AgentVersion                        :   301000 :@Google^.version'
 
 # ------------------------------------------------------------
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)name="AdsBot-Google"'
+    - 'agent.(1)product.name="AdsBot-Google"'
     extract:
-    - '__Set_ALL_Fields__                  : 301900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 302000 :"Robot"'
-    - 'DeviceBrand                         : 302000 :"Google"'
-    - 'DeviceName                          : 302000 :"Google"'
-    - 'OperatingSystemClass                : 302000 :"Cloud"'
-    - 'OperatingSystemName                 : 302000 :"Google"'
-    - 'OperatingSystemVersion              : 302000 :"Google"'
-    - 'LayoutEngineClass                   : 302000 :"Robot"'
-    - 'LayoutEngineName                    : 302000 :"Googlebot"'
-    - 'LayoutEngineVersion                 : 302000 :"Googlebot"'
-    - 'AgentClass                          : 302000 :"Robot"'
-    - 'AgentName                           : 302000 :"Googlebot"'
-    - 'AgentVersion                        : 302000 :"AdsBot-Google"'
+    - '__Set_ALL_Fields__                  :   301900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   302000 :"Robot"'
+    - 'DeviceBrand                         :   302000 :"Google"'
+    - 'DeviceName                          :   302000 :"Google"'
+    - 'OperatingSystemClass                :   302000 :"Cloud"'
+    - 'OperatingSystemName                 :   302000 :"Google"'
+    - 'OperatingSystemVersion              :   302000 :"Google"'
+    - 'LayoutEngineClass                   :   302000 :"Robot"'
+    - 'LayoutEngineName                    :   302000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :   302000 :"Googlebot"'
+    - 'AgentClass                          :   302000 :"Robot"'
+    - 'AgentName                           :   302000 :"Googlebot"'
+    - 'AgentVersion                        :   302000 :"AdsBot-Google"'
 
 - matcher:
     require:
     - 'agent.product.comments.entry.(1)text="AdsBot-Google"'
     extract:
-    - '__Set_ALL_Fields__                  : 301900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 302000 :"Robot"'
-    - 'DeviceBrand                         : 302000 :"Google"'
-    - 'DeviceName                          : 302000 :"Google"'
-    - 'OperatingSystemClass                : 302000 :"Cloud"'
-    - 'OperatingSystemName                 : 302000 :"Google"'
-    - 'OperatingSystemVersion              : 302000 :"Google"'
-    - 'LayoutEngineClass                   : 302000 :"Robot"'
-    - 'LayoutEngineName                    : 302000 :"Googlebot"'
-    - 'LayoutEngineVersion                 : 302000 :"Googlebot"'
-    - 'AgentClass                          : 302000 :"Robot"'
-    - 'AgentName                           : 302000 :"Googlebot"'
-    - 'AgentVersion                        : 302000 :"AdsBot-Google"'
+    - '__Set_ALL_Fields__                  :   301900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   302000 :"Robot"'
+    - 'DeviceBrand                         :   302000 :"Google"'
+    - 'DeviceName                          :   302000 :"Google"'
+    - 'OperatingSystemClass                :   302000 :"Cloud"'
+    - 'OperatingSystemName                 :   302000 :"Google"'
+    - 'OperatingSystemVersion              :   302000 :"Google"'
+    - 'LayoutEngineClass                   :   302000 :"Robot"'
+    - 'LayoutEngineName                    :   302000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :   302000 :"Googlebot"'
+    - 'AgentClass                          :   302000 :"Robot"'
+    - 'AgentName                           :   302000 :"Googlebot"'
+    - 'AgentVersion                        :   302000 :"AdsBot-Google"'
 
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)name="AdsBot-Google-Mobile"'
+    - 'agent.(1)product.name="AdsBot-Google-Mobile"'
     extract:
-    - '__Set_ALL_Fields__                  : 301900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 302000 :"Robot Mobile"'
-    - 'DeviceBrand                         : 302000 :"Google"'
-    - 'DeviceName                          : 302000 :"Google"'
-    - 'OperatingSystemClass                : 302000 :"Cloud"'
-    - 'OperatingSystemName                 : 302000 :"Google"'
-    - 'OperatingSystemVersion              : 302000 :"Google"'
-    - 'LayoutEngineClass                   : 302000 :"Robot"'
-    - 'LayoutEngineName                    : 302000 :"Googlebot"'
-    - 'LayoutEngineVersion                 : 302000 :"Googlebot"'
-    - 'AgentClass                          : 302000 :"Robot"'
-    - 'AgentName                           : 302000 :"Googlebot"'
-    - 'AgentVersion                        : 302000 :"AdsBot-Google-Mobile"'
+    - '__Set_ALL_Fields__                  :   301900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   302000 :"Robot Mobile"'
+    - 'DeviceBrand                         :   302000 :"Google"'
+    - 'DeviceName                          :   302000 :"Google"'
+    - 'OperatingSystemClass                :   302000 :"Cloud"'
+    - 'OperatingSystemName                 :   302000 :"Google"'
+    - 'OperatingSystemVersion              :   302000 :"Google"'
+    - 'LayoutEngineClass                   :   302000 :"Robot"'
+    - 'LayoutEngineName                    :   302000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :   302000 :"Googlebot"'
+    - 'AgentClass                          :   302000 :"Robot"'
+    - 'AgentName                           :   302000 :"Googlebot"'
+    - 'AgentVersion                        :   302000 :"AdsBot-Google-Mobile"'
 
 - matcher:
     require:
     - 'agent.product.comments.entry.(1)text="AdsBot-Google-Mobile"'
     extract:
-    - '__Set_ALL_Fields__                  : 301900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         : 302000 :"Robot Mobile"'
-    - 'DeviceBrand                         : 302000 :"Google"'
-    - 'DeviceName                          : 302000 :"Google"'
-    - 'OperatingSystemClass                : 302000 :"Cloud"'
-    - 'OperatingSystemName                 : 302000 :"Google"'
-    - 'OperatingSystemVersion              : 302000 :"Google"'
-    - 'LayoutEngineClass                   : 302000 :"Robot"'
-    - 'LayoutEngineName                    : 302000 :"Googlebot"'
-    - 'LayoutEngineVersion                 : 302000 :"Googlebot"'
-    - 'AgentClass                          : 302000 :"Robot"'
-    - 'AgentName                           : 302000 :"Googlebot"'
-    - 'AgentVersion                        : 302000 :"AdsBot-Google-Mobile"'
+    - '__Set_ALL_Fields__                  :   301900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   302000 :"Robot Mobile"'
+    - 'DeviceBrand                         :   302000 :"Google"'
+    - 'DeviceName                          :   302000 :"Google"'
+    - 'OperatingSystemClass                :   302000 :"Cloud"'
+    - 'OperatingSystemName                 :   302000 :"Google"'
+    - 'OperatingSystemVersion              :   302000 :"Google"'
+    - 'LayoutEngineClass                   :   302000 :"Robot"'
+    - 'LayoutEngineName                    :   302000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :   302000 :"Googlebot"'
+    - 'AgentClass                          :   302000 :"Robot"'
+    - 'AgentName                           :   302000 :"Googlebot"'
+    - 'AgentVersion                        :   302000 :"AdsBot-Google-Mobile"'
 
 
 # https://support.google.com/webmasters/answer/1061943?hl=en
@@ -251,26 +251,26 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.(1)product.(1)name="Googlebot"'
+    - 'agent.product.comments.entry.(1)product.name="Googlebot"'
     - 'agent.product.name="Mobile"'
     extract:
-    - 'AgentClass                                                :            1000000:"Robot Mobile"'
-    - 'DeviceClass                                                :            1000000:"Robot Mobile"'
+    - 'AgentClass                          :  1000000 :"Robot Mobile"'
+    - 'DeviceClass                         :  1000000 :"Robot Mobile"'
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.(1)product.(1)name="Googlebot"'
+    - 'agent.product.comments.entry.(1)product.name="Googlebot"'
     - 'agent.product.name="Mobile Safari"'
     extract:
-    - 'AgentClass                                                :            1000000:"Robot Mobile"'
-    - 'DeviceClass                                                :            1000000:"Robot Mobile"'
+    - 'AgentClass                          :  1000000 :"Robot Mobile"'
+    - 'DeviceClass                         :  1000000 :"Robot Mobile"'
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.(1)product.(1)name="Googlebot-Mobile"'
+    - 'agent.product.comments.entry.(1)product.name="Googlebot-Mobile"'
     extract:
-    - 'AgentClass                                                :            1000000:"Robot Mobile"'
-    - 'DeviceClass                                                :            1000000:"Robot Mobile"'
+    - 'AgentClass                          :  1000000 :"Robot Mobile"'
+    - 'DeviceClass                         :  1000000 :"Robot Mobile"'
 
 - test:
     input:
@@ -567,7 +567,7 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry~"testing"'
     extract:
-    - 'AgentClass                          : 100000 :"Testclient"'
+    - 'AgentClass                          :   100000 :"Testclient"'
 
 - test:
     input:
@@ -598,12 +598,12 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass                         : 311500 :"Robot"'
-    - 'DeviceName                          : 311500 :"Google Search Appliance"'
-    - 'DeviceBrand                         : 311500 :"Google"'
-    - 'AgentClass                          : 311500 :"Robot"'
-    - 'AgentName                           : 311500 :"Google Search Appliance"'
-    - 'GSAInstallationID                   : 311500 :agent.(1)product.(1)comments.(2)entry.(1)text[-1]="GID"@'
+    - 'DeviceClass                         :   311500 :"Robot"'
+    - 'DeviceName                          :   311500 :"Google Search Appliance"'
+    - 'DeviceBrand                         :   311500 :"Google"'
+    - 'AgentClass                          :   311500 :"Robot"'
+    - 'AgentName                           :   311500 :"Google Search Appliance"'
+    - 'GSAInstallationID                   :   311500 :agent.(1)product.(1)comments.(2)entry.(1)text[-1]="GID"@'
 
 - test:
     input:
@@ -635,51 +635,51 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)name="AppEngine-Google"'
+    - 'agent.product.name="AppEngine-Google"'
     - 'agent.product.(1)comments.(1)entry.(1)url="http://code.google.com/appengine"'
     - 'agent.product.(1)comments.(2)entry.(1)keyvalue.(1)key="appid"'
     extract:
-    - 'DeviceClass                         : 400000 :"Robot"'
-    - 'DeviceName                          : 400000 :"Google AppEngine"'
-    - 'DeviceBrand                         : 400000 :"Google"'
-    - 'OperatingSystemClass                : 400000 : "Cloud"'
-    - 'OperatingSystemName                 : 400000 : "Google Cloud"'
-    - 'OperatingSystemVersion              : 400000 : "??"'
-    - 'LayoutEngineClass                   : 400000 : "Cloud"'
-    - 'LayoutEngineName                    : 400000 : "Cloud"'
-    - 'LayoutEngineVersion                 : 400000 : "??"'
-    - 'AgentClass                          : 400000 :"Robot"'
-    - 'AgentName                           : 400000 :agent.product.(1)comments.(2)entry.(1)keyvalue.(1)version[1]="s"@[2-]'
-    - 'AgentVersion                        : 400000 :"??"'
+    - 'DeviceClass                         :   400000 :"Robot"'
+    - 'DeviceName                          :   400000 :"Google AppEngine"'
+    - 'DeviceBrand                         :   400000 :"Google"'
+    - 'OperatingSystemClass                :   400000 : "Cloud"'
+    - 'OperatingSystemName                 :   400000 : "Google Cloud"'
+    - 'OperatingSystemVersion              :   400000 : "??"'
+    - 'LayoutEngineClass                   :   400000 : "Cloud"'
+    - 'LayoutEngineName                    :   400000 : "Cloud"'
+    - 'LayoutEngineVersion                 :   400000 : "??"'
+    - 'AgentClass                          :   400000 :"Robot"'
+    - 'AgentName                           :   400000 :agent.product.(1)comments.(2)entry.(1)keyvalue.(1)version[1]="s"@[2-]'
+    - 'AgentVersion                        :   400000 :"??"'
 
 - matcher:
     require:
-    - 'agent.product.(1)name="AppEngine-Google"'
+    - 'agent.product.name="AppEngine-Google"'
     - 'agent.product.(1)comments.(1)entry.(1)url="http://code.google.com/appengine"'
     - 'agent.product.(1)comments.(2)entry.(1)keyvalue.(1)key="appid"'
     extract:
-    - 'DeviceClass                         : 400000 :"Robot"'
-    - 'DeviceName                          : 400000 :"Google AppEngine"'
-    - 'DeviceBrand                         : 400000 :"Google"'
-    - 'OperatingSystemClass                : 400000 : "Cloud"'
-    - 'OperatingSystemName                 : 400000 : "Google Cloud"'
-    - 'OperatingSystemVersion              : 400000 : "??"'
-    - 'LayoutEngineClass                   : 400000 : "Cloud"'
-    - 'LayoutEngineName                    : 400000 : "Cloud"'
-    - 'LayoutEngineVersion                 : 400000 : "??"'
-    - 'AgentClass                          : 400000 :"Robot"'
-    - 'AgentName                           : 400000 :agent.product.(1)comments.(2)entry.(1)keyvalue.(2)text[1]="s"@[2-]'
-    - 'AgentVersion                        : 400000 :"??"'
+    - 'DeviceClass                         :   400000 :"Robot"'
+    - 'DeviceName                          :   400000 :"Google AppEngine"'
+    - 'DeviceBrand                         :   400000 :"Google"'
+    - 'OperatingSystemClass                :   400000 : "Cloud"'
+    - 'OperatingSystemName                 :   400000 : "Google Cloud"'
+    - 'OperatingSystemVersion              :   400000 : "??"'
+    - 'LayoutEngineClass                   :   400000 : "Cloud"'
+    - 'LayoutEngineName                    :   400000 : "Cloud"'
+    - 'LayoutEngineVersion                 :   400000 : "??"'
+    - 'AgentClass                          :   400000 :"Robot"'
+    - 'AgentName                           :   400000 :agent.product.(1)comments.(2)entry.(1)keyvalue.(2)text[1]="s"@[2-]'
+    - 'AgentVersion                        :   400000 :"??"'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)name~"bot"'
-    - 'agent.(1)product.(1)name~"Google"'
+    - 'agent.(1)product.name~"bot"'
+    - 'agent.(1)product.name~"Google"'
     extract:
-    - 'DeviceBrand                         :  20000 :"Google"'
-    - 'OperatingSystemClass                :  20000 : "Cloud"'
-    - 'OperatingSystemName                 :  20000 : "Google Cloud"'
-    - 'OperatingSystemVersion              :  20000 : "??"'
+    - 'DeviceBrand                         :    20000 :"Google"'
+    - 'OperatingSystemClass                :    20000 : "Cloud"'
+    - 'OperatingSystemName                 :    20000 : "Google Cloud"'
+    - 'OperatingSystemVersion              :    20000 : "??"'
 
 #Google AppEngine apps
 - test:
@@ -747,40 +747,40 @@ config:
     - 'agent.product.(1)comments.entry.(1)product.name="Google-Shopping-Quality"'
     - 'agent.product.name="Mobile"'
     extract:
-    - 'DeviceClass                                                :            1000000:"Robot Mobile"'
-    - 'DeviceName                                                :            1000000:"Google"'
-    - 'DeviceBrand                                                :            1000000:"Google"'
-    - 'DeviceVersion                                                :            1000000:"Google-Shopping-Quality"'
-    - 'DeviceFirmwareVersion                                                :            1000000:"Google"'
-    - 'OperatingSystemClass                                                :            1000000:"Cloud"'
-    - 'OperatingSystemName                                                :            1000000:"Google Cloud"'
-    - 'OperatingSystemVersion                                                :            1000000:"??"'
-    - 'LayoutEngineClass                                                :            1000000:"Robot"'
-    - 'LayoutEngineName                                                :            1000000:"Googlebot"'
-    - 'LayoutEngineVersion                                                :            1000000:"Googlebot"'
-    - 'AgentClass                                                :            1000000:"Robot Mobile"'
-    - 'AgentName                                                :            1000000:"Google-Shopping-Quality"'
-    - 'AgentVersion                                                :            1000000:"??"'
+    - 'DeviceClass                         :  1000000 :"Robot Mobile"'
+    - 'DeviceName                          :  1000000 :"Google"'
+    - 'DeviceBrand                         :  1000000 :"Google"'
+    - 'DeviceVersion                       :  1000000 :"Google-Shopping-Quality"'
+    - 'DeviceFirmwareVersion               :  1000000 :"Google"'
+    - 'OperatingSystemClass                :  1000000 :"Cloud"'
+    - 'OperatingSystemName                 :  1000000 :"Google Cloud"'
+    - 'OperatingSystemVersion              :  1000000 :"??"'
+    - 'LayoutEngineClass                   :  1000000 :"Robot"'
+    - 'LayoutEngineName                    :  1000000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :  1000000 :"Googlebot"'
+    - 'AgentClass                          :  1000000 :"Robot Mobile"'
+    - 'AgentName                           :  1000000 :"Google-Shopping-Quality"'
+    - 'AgentVersion                        :  1000000 :"??"'
 
 - matcher:
     require:
     - 'agent.product.(1)comments.entry.(1)product.name="Google-Shopping-Quality"'
     - 'IsNull[agent.product.name="Mobile"]'
     extract:
-    - 'DeviceClass                                                :            1000000:"Robot"'
-    - 'DeviceName                                                :            1000000:"Google"'
-    - 'DeviceBrand                                                :            1000000:"Google"'
-    - 'DeviceVersion                                                :            1000000:"Google-Shopping-Quality"'
-    - 'DeviceFirmwareVersion                                                :            1000000:"Google"'
-    - 'OperatingSystemClass                                                :            1000000:"Cloud"'
-    - 'OperatingSystemName                                                :            1000000:"Google Cloud"'
-    - 'OperatingSystemVersion                                                :            1000000:"??"'
-    - 'LayoutEngineClass                                                :            1000000:"Robot"'
-    - 'LayoutEngineName                                                :            1000000:"Googlebot"'
-    - 'LayoutEngineVersion                                                :            1000000:"Googlebot"'
-    - 'AgentClass                                                :            1000000:"Robot"'
-    - 'AgentName                                                :            1000000:"Google-Shopping-Quality"'
-    - 'AgentVersion                                                :            1000000:"??"'
+    - 'DeviceClass                         :  1000000 :"Robot"'
+    - 'DeviceName                          :  1000000 :"Google"'
+    - 'DeviceBrand                         :  1000000 :"Google"'
+    - 'DeviceVersion                       :  1000000 :"Google-Shopping-Quality"'
+    - 'DeviceFirmwareVersion               :  1000000 :"Google"'
+    - 'OperatingSystemClass                :  1000000 :"Cloud"'
+    - 'OperatingSystemName                 :  1000000 :"Google Cloud"'
+    - 'OperatingSystemVersion              :  1000000 :"??"'
+    - 'LayoutEngineClass                   :  1000000 :"Robot"'
+    - 'LayoutEngineName                    :  1000000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :  1000000 :"Googlebot"'
+    - 'AgentClass                          :  1000000 :"Robot"'
+    - 'AgentName                           :  1000000 :"Google-Shopping-Quality"'
+    - 'AgentVersion                        :  1000000 :"??"'
 
 - test:
     input:
@@ -878,22 +878,22 @@ config:
     require:
     - 'agent.product.(1)comments.entry="Google Page Speed Insights"'
     extract:
-    - '__Set_ALL_Fields__                  :   9999 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                                                :            1000000:"Robot"'
-    - 'DeviceName                                                :            1000000:"Google"'
-    - 'DeviceBrand                                                :            1000000:"Google"'
-    - 'DeviceVersion                                                :            1000000:"Google Page Speed Insights"'
-    - 'DeviceFirmwareVersion                                                :            1000000:"Google"'
-    - 'OperatingSystemClass                                                :            1000000:"Cloud"'
-    - 'OperatingSystemName                                                :            1000000:"Google Cloud"'
-    - 'OperatingSystemVersion                                                :            1000000:"??"'
-    - 'OperatingSystemNameVersion                                                :            1000000:"Google Cloud ??"'
-    - 'LayoutEngineClass                                                :            1000000:"Robot"'
-    - 'LayoutEngineName                                                :            1000000:"Google Page Speed Insights"'
-    - 'LayoutEngineVersion                                                :            1000000:"??"'
-    - 'AgentClass                                                :            1000000:"Robot"'
-    - 'AgentName                                                :            1000000:"Google Page Speed Insights"'
-    - 'AgentVersion                                                :            1000000:"??"'
+    - '__Set_ALL_Fields__                  :     9999 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :  1000000 :"Robot"'
+    - 'DeviceName                          :  1000000 :"Google"'
+    - 'DeviceBrand                         :  1000000 :"Google"'
+    - 'DeviceVersion                       :  1000000 :"Google Page Speed Insights"'
+    - 'DeviceFirmwareVersion               :  1000000 :"Google"'
+    - 'OperatingSystemClass                :  1000000 :"Cloud"'
+    - 'OperatingSystemName                 :  1000000 :"Google Cloud"'
+    - 'OperatingSystemVersion              :  1000000 :"??"'
+    - 'OperatingSystemNameVersion          :  1000000 :"Google Cloud ??"'
+    - 'LayoutEngineClass                   :  1000000 :"Robot"'
+    - 'LayoutEngineName                    :  1000000 :"Google Page Speed Insights"'
+    - 'LayoutEngineVersion                 :  1000000 :"??"'
+    - 'AgentClass                          :  1000000 :"Robot"'
+    - 'AgentName                           :  1000000 :"Google Page Speed Insights"'
+    - 'AgentVersion                        :  1000000 :"??"'
 
 - test:
     input:
@@ -929,21 +929,21 @@ config:
     require:
     - 'agent.product.(1)comments.entry[1-2]="Google Web"'
     extract:
-    - '__Set_ALL_Fields__                  :   9999 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                                                :            1000000:"Robot"'
-    - 'DeviceName                                                :            1000000:"Google"'
-    - 'DeviceBrand                                                :            1000000:"Google"'
-    - 'DeviceVersion                                                :            1000000:agent.product.(1)comments.entry[1-3]="Google Web Preview"@'
-    - 'DeviceFirmwareVersion                                                :            1000000:"Google"'
-    - 'OperatingSystemClass                                                :            1000000:"Cloud"'
-    - 'OperatingSystemName                                                :            1000000:"Google"'
-    - 'OperatingSystemVersion                                                :            1000000:"Google"'
-    - 'LayoutEngineClass                                                :            1000000:"Robot"'
-    - 'LayoutEngineName                                                :            1000000:agent.product.(1)comments.entry[1-3]="Google Web Preview"@'
-    - 'LayoutEngineVersion                                                :            1000000:"??"'
-    - 'AgentClass                                                :            1000000:"Robot"'
-    - 'AgentName                                                :            1000000:agent.product.(1)comments.entry[1-3]="Google Web Preview"@'
-    - 'AgentVersion                                                :            1000000:"??"'
+    - '__Set_ALL_Fields__                  :     9999 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :  1000000 :"Robot"'
+    - 'DeviceName                          :  1000000 :"Google"'
+    - 'DeviceBrand                         :  1000000 :"Google"'
+    - 'DeviceVersion                       :  1000000 :agent.product.(1)comments.entry[1-3]="Google Web Preview"@'
+    - 'DeviceFirmwareVersion               :  1000000 :"Google"'
+    - 'OperatingSystemClass                :  1000000 :"Cloud"'
+    - 'OperatingSystemName                 :  1000000 :"Google"'
+    - 'OperatingSystemVersion              :  1000000 :"Google"'
+    - 'LayoutEngineClass                   :  1000000 :"Robot"'
+    - 'LayoutEngineName                    :  1000000 :agent.product.(1)comments.entry[1-3]="Google Web Preview"@'
+    - 'LayoutEngineVersion                 :  1000000 :"??"'
+    - 'AgentClass                          :  1000000 :"Robot"'
+    - 'AgentName                           :  1000000 :agent.product.(1)comments.entry[1-3]="Google Web Preview"@'
+    - 'AgentVersion                        :  1000000 :"??"'
 
 - test:
     input:
@@ -1011,18 +1011,18 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry="Google-Test"'
     extract:
-    - 'DeviceClass                         : 100000 :"Robot"'
-    - 'DeviceName                          : 100000 :"Robot"'
-    - 'DeviceBrand                         : 100000 :"Google"'
-    - 'OperatingSystemClass                : 100000 :"Cloud"'
-    - 'OperatingSystemName                 : 100000 :"Cloud"'
-    - 'OperatingSystemVersion              : 100000 :"??"'
-    - 'LayoutEngineClass                   : 100000 :"Robot"'
-    - 'LayoutEngineName                    : 100000 :"Google-Test"'
-    - 'LayoutEngineVersion                 : 100000 :"??"'
-    - 'AgentClass                          : 100000 :"Testclient"'
-    - 'AgentName                           : 100000 :"Google-Test"'
-    - 'AgentVersion                        : 100000 :"??"'
+    - 'DeviceClass                         :   100000 :"Robot"'
+    - 'DeviceName                          :   100000 :"Robot"'
+    - 'DeviceBrand                         :   100000 :"Google"'
+    - 'OperatingSystemClass                :   100000 :"Cloud"'
+    - 'OperatingSystemName                 :   100000 :"Cloud"'
+    - 'OperatingSystemVersion              :   100000 :"??"'
+    - 'LayoutEngineClass                   :   100000 :"Robot"'
+    - 'LayoutEngineName                    :   100000 :"Google-Test"'
+    - 'LayoutEngineVersion                 :   100000 :"??"'
+    - 'AgentClass                          :   100000 :"Testclient"'
+    - 'AgentName                           :   100000 :"Google-Test"'
+    - 'AgentVersion                        :   100000 :"??"'
 
 
 - test: # TODO: Figure out what kind of useragent this really is.

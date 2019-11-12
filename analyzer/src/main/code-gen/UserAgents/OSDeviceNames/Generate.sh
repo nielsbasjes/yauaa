@@ -81,7 +81,7 @@ echo "
     - 'DeviceBrand                         :    111 :\"${devbrand}\"'
     - 'OperatingSystemClass                :    150 :\"${osclass}\"'
     - 'OperatingSystemName                 :    150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.(1)product.(1)comments.entry.product.name=\"${ospattern}\"^.(1)version]'
+    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.(1)product.(1)comments.entry.(1-2)product.name=\"${ospattern}\"^.(1)version]'
 
 # Only if the second version field is NOT a type of CPU.
 - matcher:

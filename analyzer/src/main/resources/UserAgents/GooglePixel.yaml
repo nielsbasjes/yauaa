@@ -24,8 +24,8 @@ config:
     - 'agent.(1)product.(1)comments.(1)entry="Linux"'
     - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
     extract:
-    - 'DeviceBrand                         :    105 :"Google"'
-    - 'DeviceName                          :    105 :@Pixel@'
+    - 'DeviceBrand                         :      105 :"Google"'
+    - 'DeviceName                          :      105 :@Pixel@'
 
 - matcher:
     require:
@@ -33,7 +33,7 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product[1]="Pixel"'
     - 'agent.(1-2)product.(1)comments.entry.product.name="Build"^<[1]="Pixel"'
     extract:
-    - 'DeviceBrand                         :    105 :"Google"'
+    - 'DeviceBrand                         :      105 :"Google"'
 
 - matcher:
     require:
@@ -41,7 +41,7 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product[1]="Pixel"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"^<[1]="Pixel"'
     extract:
-    - 'DeviceBrand                         :    105 :"Google"'
+    - 'DeviceBrand                         :      105 :"Google"'
 
 - matcher:
     require:
@@ -49,7 +49,7 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product[1]="Pixel"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"^<[1]="Pixel"'
     extract:
-    - 'DeviceBrand                         :    105 :"Google"'
+    - 'DeviceBrand                         :      105 :"Google"'
 
 - matcher:
     require:
@@ -57,7 +57,7 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Pixel"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Build"@[1]="Pixel"'
     extract:
-    - 'DeviceBrand                         :    104 :"Google"'
+    - 'DeviceBrand                         :      104 :"Google"'
 
 - matcher:
     require:
@@ -65,7 +65,7 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Pixel"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[2]="Build"@[1]="Pixel"'
     extract:
-    - 'DeviceBrand                         :    103 :"Google"'
+    - 'DeviceBrand                         :      103 :"Google"'
 
 - matcher:
     require:
@@ -73,7 +73,7 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Pixel"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[3]="Build"@[1]="Pixel"'
     extract:
-    - 'DeviceBrand                         :    102 :"Google"'
+    - 'DeviceBrand                         :      102 :"Google"'
 
 - matcher:
     require:
@@ -81,7 +81,7 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Pixel"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[4]="Build"@[1]="Pixel"'
     extract:
-    - 'DeviceBrand                         :    101 :"Google"'
+    - 'DeviceBrand                         :      101 :"Google"'
 
 - matcher:
     require:
@@ -89,7 +89,7 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.product.name[1]="Pixel"'
     - 'agent.(1-2)product.(1)comments.entry.product.name[5]="Build"@[1]="Pixel"'
     extract:
-    - 'DeviceBrand                         :    100 :"Google"'
+    - 'DeviceBrand                         :      100 :"Google"'
 
 - test:
     input:

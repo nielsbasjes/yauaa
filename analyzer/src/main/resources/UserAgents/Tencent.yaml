@@ -36,65 +36,65 @@ config:
 
 #- matcher:
 #    require:
-#    - 'agent.product.(1)name="MQQBrowser"'
-#    - 'agent.product.(1)name="Safari"'
+#    - 'agent.product.name="MQQBrowser"'
+#    - 'agent.product.name="Safari"'
 #    extract:
 #    - 'DeviceClass                 :   99:"Tablet"'
 
 - matcher:
     require:
-    - 'agent.product.(1)name="Mobile MQQBrowser"'
-    - 'agent.product.(1)name="Safari"'
+    - 'agent.product.name="Mobile MQQBrowser"'
+    - 'agent.product.name="Safari"'
     extract:
-    - 'DeviceClass                         :   1100 :"Phone"'
+    - 'DeviceClass                         :     1100 :"Phone"'
 
 - matcher:
     require:
-    - 'IsNull[agent.product.(1)name="QQ"]'
-    - 'IsNull[agent.product.(1)name="MicroMessenger"]'
+    - 'IsNull[agent.product.name="QQ"]'
+    - 'IsNull[agent.product.name="MicroMessenger"]'
     extract:
-    - 'AgentClass                          :  15000 :"Browser"'
-    - 'AgentName                           :  15000 :"QQ Browser"'
-    - 'AgentVersion                        :  15000 :agent.product.(1)name="MQQBrowser"^.version'
-    - 'WebviewAppName                      :     12 :"<<<null>>>"'
-    - 'WebviewAppNameVersionMajor          :     12 :"<<<null>>>"'
-    - 'WebviewAppVersion                   :     12 :"<<<null>>>"'
-    - 'WebviewAppVersionMajor              :     12 :"<<<null>>>"'
+    - 'AgentClass                          :    15000 :"Browser"'
+    - 'AgentName                           :    15000 :"QQ Browser"'
+    - 'AgentVersion                        :    15000 :agent.product.name="MQQBrowser"^.version'
+    - 'WebviewAppName                      :       12 :"<<<null>>>"'
+    - 'WebviewAppNameVersionMajor          :       12 :"<<<null>>>"'
+    - 'WebviewAppVersion                   :       12 :"<<<null>>>"'
+    - 'WebviewAppVersionMajor              :       12 :"<<<null>>>"'
 
 - matcher:
     extract:
-    - 'AgentClass                          :  15001 :"Browser"'
-    - 'AgentName                           :  15001 :"QQ Client"'
-    - 'AgentVersion                        :  15001 :agent.product.(1)name="QQ"^.version'
-    - 'WebviewAppName                      :     12 :"<<<null>>>"'
-    - 'WebviewAppNameVersionMajor          :     12 :"<<<null>>>"'
-    - 'WebviewAppVersion                   :     12 :"<<<null>>>"'
-    - 'WebviewAppVersionMajor              :     12 :"<<<null>>>"'
+    - 'AgentClass                          :    15001 :"Browser"'
+    - 'AgentName                           :    15001 :"QQ Client"'
+    - 'AgentVersion                        :    15001 :agent.product.name="QQ"^.version'
+    - 'WebviewAppName                      :       12 :"<<<null>>>"'
+    - 'WebviewAppNameVersionMajor          :       12 :"<<<null>>>"'
+    - 'WebviewAppVersion                   :       12 :"<<<null>>>"'
+    - 'WebviewAppVersionMajor              :       12 :"<<<null>>>"'
 
 # For the " V1_AND_SQ_6.5.5_410_YYB_D QQ/6.5.5.2880 " case.
 - matcher:
     extract:
-    - 'AgentClass                          :  15002 :"Browser"'
-    - 'AgentName                           :  15002 :"QQ Client"'
-    - 'AgentVersion                        :  15002 :agent.product.(1)name}" QQ"^.version'
-    - 'WebviewAppName                      :     12 :"<<<null>>>"'
-    - 'WebviewAppNameVersionMajor          :     12 :"<<<null>>>"'
-    - 'WebviewAppVersion                   :     12 :"<<<null>>>"'
-    - 'WebviewAppVersionMajor              :     12 :"<<<null>>>"'
+    - 'AgentClass                          :    15002 :"Browser"'
+    - 'AgentName                           :    15002 :"QQ Client"'
+    - 'AgentVersion                        :    15002 :agent.product.name}" QQ"^.version'
+    - 'WebviewAppName                      :       12 :"<<<null>>>"'
+    - 'WebviewAppNameVersionMajor          :       12 :"<<<null>>>"'
+    - 'WebviewAppVersion                   :       12 :"<<<null>>>"'
+    - 'WebviewAppVersionMajor              :       12 :"<<<null>>>"'
 
 - matcher:
     extract:
-    - 'AgentClass                          :  15003 :"Mobile App"'
-    - 'AgentName                           :  15003 :"WeChat"'
-    - 'AgentVersion                        :  15003 :agent.product.(1)name="MicroMessenger"^.version'
-    - 'WebviewAppName                      :     12 :"<<<null>>>"'
-    - 'WebviewAppNameVersionMajor          :     12 :"<<<null>>>"'
-    - 'WebviewAppVersion                   :     12 :"<<<null>>>"'
-    - 'WebviewAppVersionMajor              :     12 :"<<<null>>>"'
+    - 'AgentClass                          :    15003 :"Mobile App"'
+    - 'AgentName                           :    15003 :"WeChat"'
+    - 'AgentVersion                        :    15003 :agent.product.name="MicroMessenger"^.version'
+    - 'WebviewAppName                      :       12 :"<<<null>>>"'
+    - 'WebviewAppNameVersionMajor          :       12 :"<<<null>>>"'
+    - 'WebviewAppVersion                   :       12 :"<<<null>>>"'
+    - 'WebviewAppVersionMajor              :       12 :"<<<null>>>"'
 
 - matcher:
     extract:
-    - 'NetworkType                         :      1 :agent.product.(1)name="NetType"^.version[1]'
+    - 'NetworkType                         :        1 :agent.product.name="NetType"^.version[1]'
 
 # This happens quite often:
 #       Core/UIWebView NetType/WIFI
@@ -106,13 +106,13 @@ config:
     require:
     - 'IsNull[@NetTypeProduct.(2)version]'
     extract:
-    - 'NetworkType                         :      2 :@NetTypeProduct>'
+    - 'NetworkType                         :        2 :@NetTypeProduct>'
 
 - matcher:
     variable:
     - 'NetTypeProduct:agent.product[-3]="Core/UIWebView NetType"'
     extract:
-    - 'NetworkType                         :      3 :@NetTypeProduct.(2)version'
+    - 'NetworkType                         :        3 :@NetTypeProduct.(2)version'
 
 - test:
     input:
@@ -1092,8 +1092,8 @@ config:
     variable:
     - 'AgentLanguageCode                   :agent.product[-3]="NetType/WIFI Language".(2)version'
     extract:
-    - 'AgentLanguage                       :   3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
-    - 'AgentLanguageCode                   :   3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
+    - 'AgentLanguage                       :     3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
+    - 'AgentLanguageCode                   :     3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
 
 - matcher:
     variable:
@@ -1101,15 +1101,15 @@ config:
     require:
     - 'IsNull[@AgentLanguageCode.(2)version]'
     extract:
-    - 'AgentLanguage                       :   3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
-    - 'AgentLanguageCode                   :   3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
+    - 'AgentLanguage                       :     3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
+    - 'AgentLanguageCode                   :     3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
 
 - matcher:
     variable:
     - 'AgentLanguageCode                   :agent.product[-3]="NetType/cmnet Language".(2)version'
     extract:
-    - 'AgentLanguage                       :   3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
-    - 'AgentLanguageCode                   :   3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
+    - 'AgentLanguage                       :     3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
+    - 'AgentLanguageCode                   :     3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
 
 - matcher:
     variable:
@@ -1117,8 +1117,8 @@ config:
     require:
     - 'IsNull[@AgentLanguageCode.(2)version]'
     extract:
-    - 'AgentLanguage                       :   3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
-    - 'AgentLanguageCode                   :   3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
+    - 'AgentLanguage                       :     3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
+    - 'AgentLanguageCode                   :     3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
 
 
 - test:

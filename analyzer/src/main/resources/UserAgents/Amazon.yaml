@@ -25,57 +25,57 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name{"KF"'
+    - 'agent.(1)product.(1)comments.entry.(1)product.name{"KF"'
     extract:
-    - 'DeviceClass                         :    500 :"Tablet"'
-    - 'DeviceBrand                         :    500 :"Amazon"'
-    - 'DeviceName                          :    500 :agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Build"@[1]{"KF"'
-    - 'DeviceCpu                           :    100 :"<<<null>>>"'
-    - 'OperatingSystemClass                :   1000 :"Mobile"'
-    - 'OperatingSystemName                 :   1000 :"FireOS"'
-    - 'OperatingSystemVersion              :   1000 :agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
+    - 'DeviceClass                         :      500 :"Tablet"'
+    - 'DeviceBrand                         :      500 :"Amazon"'
+    - 'DeviceName                          :      500 :agent.(1)product.(1)comments.entry.(1)product.name[2]="Build"@[1]{"KF"'
+    - 'DeviceCpu                           :      100 :"<<<null>>>"'
+    - 'OperatingSystemClass                :     1000 :"Mobile"'
+    - 'OperatingSystemName                 :     1000 :"FireOS"'
+    - 'OperatingSystemVersion              :     1000 :agent.(1)product.(1)comments.entry.(1)product.name="Android"^.version'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name{"SD"'
+    - 'agent.(1)product.(1)comments.entry.(1)product.name{"SD"'
     extract:
-    - 'DeviceClass                         :    500 :"Phone"'
-    - 'DeviceBrand                         :    500 :"Amazon"'
-    - 'DeviceName                          :    500 :agent.(1)product.(1)comments.entry.(1)product.(1)name[2]="Build"@[1]{"SD"'
-    - 'DeviceCpu                           :    100 :"<<<null>>>"'
-    - 'OperatingSystemClass                :   1000 :"Mobile"'
-    - 'OperatingSystemName                 :   1000 :"FireOS"'
-    - 'OperatingSystemVersion              :   1000 :agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
+    - 'DeviceClass                         :      500 :"Phone"'
+    - 'DeviceBrand                         :      500 :"Amazon"'
+    - 'DeviceName                          :      500 :agent.(1)product.(1)comments.entry.(1)product.name[2]="Build"@[1]{"SD"'
+    - 'DeviceCpu                           :      100 :"<<<null>>>"'
+    - 'OperatingSystemClass                :     1000 :"Mobile"'
+    - 'OperatingSystemName                 :     1000 :"FireOS"'
+    - 'OperatingSystemVersion              :     1000 :agent.(1)product.(1)comments.entry.(1)product.name="Android"^.version'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[1]="Amazon"'
+    - 'agent.(1)product.(1)comments.entry.(1)product.name[1]="Amazon"'
     extract:
-    - 'DeviceBrand                         :    500 :"Amazon"'
-    - 'DeviceCpu                           :    100 :"<<<null>>>"'
-    - 'OperatingSystemClass                :   1000 :"Mobile"'
-    - 'OperatingSystemName                 :   1000 :"FireOS"'
-    - 'OperatingSystemVersion              :   1000 :agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
+    - 'DeviceBrand                         :      500 :"Amazon"'
+    - 'DeviceCpu                           :      100 :"<<<null>>>"'
+    - 'OperatingSystemClass                :     1000 :"Mobile"'
+    - 'OperatingSystemName                 :     1000 :"FireOS"'
+    - 'OperatingSystemVersion              :     1000 :agent.(1)product.(1)comments.entry.(1)product.name="Android"^.version'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[1]="Fire"'
+    - 'agent.(1)product.(1)comments.entry.(1)product.name[1]="Fire"'
     extract:
-    - 'DeviceBrand                         :    500 :"Amazon"'
-    - 'DeviceCpu                           :    100 :"<<<null>>>"'
-    - 'OperatingSystemClass                :   1000 :"Mobile"'
-    - 'OperatingSystemName                 :   1000 :"FireOS"'
-    - 'OperatingSystemVersion              :   1000 :agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
+    - 'DeviceBrand                         :      500 :"Amazon"'
+    - 'DeviceCpu                           :      100 :"<<<null>>>"'
+    - 'OperatingSystemClass                :     1000 :"Mobile"'
+    - 'OperatingSystemName                 :     1000 :"FireOS"'
+    - 'OperatingSystemVersion              :     1000 :agent.(1)product.(1)comments.entry.(1)product.name="Android"^.version'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[1]="Kindle"'
+    - 'agent.(1)product.(1)comments.entry.(1)product.name[1]="Kindle"'
     extract:
-    - 'DeviceBrand                         :    500 :"Amazon"'
-    - 'DeviceCpu                           :    100 :"<<<null>>>"'
-    - 'OperatingSystemClass                :   1000 :"Mobile"'
-    - 'OperatingSystemName                 :   1000 :"FireOS"'
-    - 'OperatingSystemVersion              :   1000 :agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
+    - 'DeviceBrand                         :      500 :"Amazon"'
+    - 'DeviceCpu                           :      100 :"<<<null>>>"'
+    - 'OperatingSystemClass                :     1000 :"Mobile"'
+    - 'OperatingSystemName                 :     1000 :"FireOS"'
+    - 'OperatingSystemVersion              :     1000 :agent.(1)product.(1)comments.entry.(1)product.name="Android"^.version'
 
 # https://docs.aws.amazon.com/silk/latest/developerguide/user-agent.html
 # ---------------------------
@@ -111,65 +111,65 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)name="Safari"'
+    - 'agent.product.name="Safari"'
     extract:
-    - 'DeviceClass                         :     98 :"Tablet"'
-    - 'DeviceName                          :     98 :"Amazon Kindle Fire"'
-    - 'DeviceBrand                         :     98 :"Amazon"'
-    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
-    - 'AgentClass                          :   1000 :"Browser"'
-    - 'AgentName                           :   1000 :"Silk"'
-    - 'AgentVersion                        :   1000 :agent.product.(1)name="Silk"^.version'
+    - 'DeviceClass                         :       98 :"Tablet"'
+    - 'DeviceName                          :       98 :"Amazon Kindle Fire"'
+    - 'DeviceBrand                         :       98 :"Amazon"'
+    - 'DeviceCpu                           :     1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :     1000 :"<<<null>>>"'
+    - 'AgentClass                          :     1000 :"Browser"'
+    - 'AgentName                           :     1000 :"Silk"'
+    - 'AgentVersion                        :     1000 :agent.product.name="Silk"^.version'
 
 - matcher:
     require:
-    - 'agent.product.(1)name="Mobile Safari"'
+    - 'agent.product.name="Mobile Safari"'
     extract:
-    - 'DeviceClass                         :     98 :"Phone"'
-    - 'DeviceName                          :     98 :"Amazon Kindle Fire"'
-    - 'DeviceBrand                         :     98 :"Amazon"'
-    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
-    - 'AgentClass                          :   1000 :"Browser"'
-    - 'AgentName                           :   1000 :"Silk"'
-    - 'AgentVersion                        :   1000 :agent.product.(1)name="Silk"^.version'
+    - 'DeviceClass                         :       98 :"Phone"'
+    - 'DeviceName                          :       98 :"Amazon Kindle Fire"'
+    - 'DeviceBrand                         :       98 :"Amazon"'
+    - 'DeviceCpu                           :     1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :     1000 :"<<<null>>>"'
+    - 'AgentClass                          :     1000 :"Browser"'
+    - 'AgentName                           :     1000 :"Silk"'
+    - 'AgentVersion                        :     1000 :agent.product.name="Silk"^.version'
 
 - matcher:
     require:
-    - 'agent.product.(1)name="Safari"'
+    - 'agent.product.name="Safari"'
     extract:
-    - 'DeviceClass                         :     98 :"Tablet"'
-    - 'DeviceName                          :     98 :"Amazon Kindle Fire"'
-    - 'DeviceBrand                         :     98 :"Amazon"'
-    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
-    - 'AgentClass                          :   1000 :"Browser"'
-    - 'AgentName                           :   1000 :"Silk"'
-    - 'AgentVersion                        :   1000 :agent.product.(1)comments.entry.(1)product.(1)name="Silk"^.version'
+    - 'DeviceClass                         :       98 :"Tablet"'
+    - 'DeviceName                          :       98 :"Amazon Kindle Fire"'
+    - 'DeviceBrand                         :       98 :"Amazon"'
+    - 'DeviceCpu                           :     1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :     1000 :"<<<null>>>"'
+    - 'AgentClass                          :     1000 :"Browser"'
+    - 'AgentName                           :     1000 :"Silk"'
+    - 'AgentVersion                        :     1000 :agent.product.(1)comments.entry.(1)product.name="Silk"^.version'
 
 - matcher:
     require:
-    - 'agent.product.(1)name="Mobile Safari"'
+    - 'agent.product.name="Mobile Safari"'
     extract:
-    - 'DeviceClass                         :     98 :"Phone"'
-    - 'DeviceName                          :     98 :"Amazon Kindle Fire"'
-    - 'DeviceBrand                         :     98 :"Amazon"'
-    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
-    - 'AgentClass                          :   1000 :"Browser"'
-    - 'AgentName                           :   1000 :"Silk"'
-    - 'AgentVersion                        :   1000 :agent.product.(1)comments.entry.(1)product.(1)name="Silk"^.version'
+    - 'DeviceClass                         :       98 :"Phone"'
+    - 'DeviceName                          :       98 :"Amazon Kindle Fire"'
+    - 'DeviceBrand                         :       98 :"Amazon"'
+    - 'DeviceCpu                           :     1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :     1000 :"<<<null>>>"'
+    - 'AgentClass                          :     1000 :"Browser"'
+    - 'AgentName                           :     1000 :"Silk"'
+    - 'AgentVersion                        :     1000 :agent.product.(1)comments.entry.(1)product.name="Silk"^.version'
 
 - matcher:
     require:
-    - 'agent.product.(1)name="Silk"'
+    - 'agent.product.name="Silk"'
     extract:
-    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :   1000 :"Mobile"'
-    - 'OperatingSystemName                 :   1000 :"FireOS"'
-    - 'OperatingSystemVersion              :   1000 :agent.(1)product.(1)comments.entry.(1)product.(1)name="Android"^.version'
+    - 'DeviceCpu                           :     1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :     1000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :     1000 :"Mobile"'
+    - 'OperatingSystemName                 :     1000 :"FireOS"'
+    - 'OperatingSystemVersion              :     1000 :agent.(1)product.(1)comments.entry.(1)product.name="Android"^.version'
 
 - test:
     input:
@@ -508,34 +508,34 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass                         :     99 :"Tablet"'
-    - 'DeviceName                          :    100 :"Amazon Kindle Fire"'
-    - 'DeviceBrand                         :    100 :"Amazon"'
-    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
-    - 'AgentClass                          :    100 :"Browser"'
-    - 'AgentName                           :    100 :"Silk"'
-    - 'AgentVersion                        :    100 :agent.(1)product.(1)comments.entry.(1)product.(1)name="Silk"^.version'
+    - 'DeviceClass                         :       99 :"Tablet"'
+    - 'DeviceName                          :      100 :"Amazon Kindle Fire"'
+    - 'DeviceBrand                         :      100 :"Amazon"'
+    - 'DeviceCpu                           :     1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :     1000 :"<<<null>>>"'
+    - 'AgentClass                          :      100 :"Browser"'
+    - 'AgentName                           :      100 :"Silk"'
+    - 'AgentVersion                        :      100 :agent.(1)product.(1)comments.entry.(1)product.name="Silk"^.version'
 
 - matcher:
     require:
-    - 'agent.product.(1)name="Silk"'
+    - 'agent.product.name="Silk"'
     extract:
-    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :   1000 :"Mobile"'
-    - 'OperatingSystemName                 :   1000 :"FireOS"'
-    - 'OperatingSystemVersion              :     99 :"??"'
+    - 'DeviceCpu                           :     1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :     1000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :     1000 :"Mobile"'
+    - 'OperatingSystemName                 :     1000 :"FireOS"'
+    - 'OperatingSystemVersion              :       99 :"??"'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Silk"'
+    - 'agent.(1)product.(1)comments.entry.(1)product.name="Silk"'
     extract:
-    - 'DeviceCpu                           :   1000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       :   1000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :   1000 :"Mobile"'
-    - 'OperatingSystemName                 :   1000 :"FireOS"'
-    - 'OperatingSystemVersion              :     99 :"??"'
+    - 'DeviceCpu                           :     1000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :     1000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :     1000 :"Mobile"'
+    - 'OperatingSystemName                 :     1000 :"FireOS"'
+    - 'OperatingSystemVersion              :       99 :"??"'
 
 - test:
     input:

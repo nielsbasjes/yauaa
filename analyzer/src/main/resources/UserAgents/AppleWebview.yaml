@@ -47,15 +47,15 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)name="Mobile"'
-    - 'IsNull[agent.product.(1)name="Mobile"^>]'
-    - 'IsNull[agent.product.(1)name="Safari"]'
+    - 'agent.product.name="Mobile"'
+    - 'IsNull[agent.product.name="Mobile"^>]'
+    - 'IsNull[agent.product.name="Safari"]'
     extract:
-    - 'AgentClass                          :     50 :"Browser Webview"'
-    - 'AgentName                           :     50 :"UIWebView"'
-    - 'AgentVersion                        :     50 :agent.product.(1)name="AppleWebKit"^.version'
-    - 'WebviewAppName                      :      1 :"Unknown Webview App"'
-    - 'WebviewAppVersion                   :      1 :"??"'
+    - 'AgentClass                          :       50 :"Browser Webview"'
+    - 'AgentName                           :       50 :"UIWebView"'
+    - 'AgentVersion                        :       50 :agent.product.name="AppleWebKit"^.version'
+    - 'WebviewAppName                      :        1 :"Unknown Webview App"'
+    - 'WebviewAppVersion                   :        1 :"??"'
 
 # UIWebView --> No "Safari" at the end
 - test:
@@ -311,13 +311,13 @@ config:
 # This one doesn't follow the normal pattern for a webview
 - matcher:
     require:
-    - 'agent.product.(1)name="Mobile"'
+    - 'agent.product.name="Mobile"'
     extract:
-    - 'AgentClass                          :     41 :"Browser Webview"'
-    - 'AgentName                           :     41 :"UIWebView"'
-    - 'AgentVersion                        :     41 :agent.product.(1)name="AppleWebKit"^.version'
-    - 'WebviewAppName                      :      1 :"Google Search App"'
-    - 'WebviewAppVersion                   :      1 :agent.product.(1)name="GSA"^.version'
+    - 'AgentClass                          :       41 :"Browser Webview"'
+    - 'AgentName                           :       41 :"UIWebView"'
+    - 'AgentVersion                        :       41 :agent.product.name="AppleWebKit"^.version'
+    - 'WebviewAppName                      :        1 :"Google Search App"'
+    - 'WebviewAppVersion                   :        1 :agent.product.name="GSA"^.version'
 
 - test:
     input:

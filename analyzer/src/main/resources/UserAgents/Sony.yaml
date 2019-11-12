@@ -919,15 +919,15 @@ config:
 
 - matcher:
     extract:
-    - 'OperatingSystemName                 :   1100 :"Android"' # Most likely the TV edition of Android
-    - 'OperatingSystemVersion              :   1100 :agent.(1)product.(1)comments.entry.product.(1)name="Andr0id"^.version'
+    - 'OperatingSystemName                 :     1100 :"Android"' # Most likely the TV edition of Android
+    - 'OperatingSystemVersion              :     1100 :agent.(1)product.(1)comments.entry.(1)product.name="Andr0id"^.version'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.product.(1)name="Bravia"'
+    - 'agent.(1)product.(1)comments.entry.(1)product.name="Bravia"'
     extract:
-    - 'DeviceClass                         :   1100 :"TV"'
-    - 'OperatingSystemClass                :   1100 :"Embedded"'
+    - 'DeviceClass                         :     1100 :"TV"'
+    - 'OperatingSystemClass                :     1100 :"Embedded"'
 
 # Sony (Bravia) KD-49XF7596, Android 7.0 (Android TV ~ https://www.android.com/tv/) running Opera
 # Kernel 3.10.79 . Build:  BRAVIA_ATV3_4K_EU-user 7.0 NRD91N-S140  ~  1.6.0.56.31.1.00 release-keys

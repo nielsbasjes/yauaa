@@ -23,38 +23,38 @@ config:
 
 - matcher:
     require:
-    - 'agent.(2)product.(1)name="CFNetwork"'
+    - 'agent.(2)product.name="CFNetwork"'
     extract:
-    - 'DeviceClass                         :     10 :"Mobile"'
-    - 'DeviceBrand                         :     10 :"Apple"'
-    - 'DeviceName                          :     10 :"iOS Device"'
-    - 'OperatingSystemClass                :     10 :"Mobile"'
-    - 'OperatingSystemName                 :     10 :"Darwin (iOS)"'
-    - 'OperatingSystemVersion              :     10 :agent.(3)product.(1)name="Darwin"^.version'
-    - 'LayoutEngineClass                   :     10 :"Mobile App"'
-    - 'LayoutEngineName                    :     10 :agent.(1)product.(1)name'
-    - 'LayoutEngineVersion                 :     10 :agent.(1)product.(1)version'
-    - 'AgentClass                          :     10 :"Mobile App"'
-    - 'AgentName                           :     10 :agent.(1)product.(1)name'
-    - 'AgentVersion                        :     10 :agent.(1)product.(1)version'
+    - 'DeviceClass                         :       10 :"Mobile"'
+    - 'DeviceBrand                         :       10 :"Apple"'
+    - 'DeviceName                          :       10 :"iOS Device"'
+    - 'OperatingSystemClass                :       10 :"Mobile"'
+    - 'OperatingSystemName                 :       10 :"Darwin (iOS)"'
+    - 'OperatingSystemVersion              :       10 :agent.(3)product.name="Darwin"^.version'
+    - 'LayoutEngineClass                   :       10 :"Mobile App"'
+    - 'LayoutEngineName                    :       10 :agent.(1)product.name'
+    - 'LayoutEngineVersion                 :       10 :agent.(1)product.(1)version'
+    - 'AgentClass                          :       10 :"Mobile App"'
+    - 'AgentName                           :       10 :agent.(1)product.name'
+    - 'AgentVersion                        :       10 :agent.(1)product.(1)version'
 
 - matcher:
     require:
-    - 'agent.(2)product.(1)name="CFNetwork"'
+    - 'agent.(2)product.name="CFNetwork"'
     - 'agent.(1)product.(1)comments.(1)entry="unknown version"'
     extract:
-    - 'DeviceClass                         :     10 :"Mobile"'
-    - 'DeviceBrand                         :     10 :"Apple"'
-    - 'DeviceName                          :     10 :"iOS Device"'
-    - 'OperatingSystemClass                :     10 :"Mobile"'
-    - 'OperatingSystemName                 :     10 :"Darwin (iOS)"'
-    - 'OperatingSystemVersion              :     10 :agent.(3)product.(1)name="Darwin"^.version'
-    - 'LayoutEngineClass                   :     10 :"Mobile App"'
-    - 'LayoutEngineName                    :     10 :agent.(1)product.(1)name'
-    - 'LayoutEngineVersion                 :      6 :"??"'
-    - 'AgentClass                          :     10 :"Mobile App"'
-    - 'AgentName                           :     10 :agent.(1)product.(1)name'
-    - 'AgentVersion                        :      6 :"??"'
+    - 'DeviceClass                         :       10 :"Mobile"'
+    - 'DeviceBrand                         :       10 :"Apple"'
+    - 'DeviceName                          :       10 :"iOS Device"'
+    - 'OperatingSystemClass                :       10 :"Mobile"'
+    - 'OperatingSystemName                 :       10 :"Darwin (iOS)"'
+    - 'OperatingSystemVersion              :       10 :agent.(3)product.name="Darwin"^.version'
+    - 'LayoutEngineClass                   :       10 :"Mobile App"'
+    - 'LayoutEngineName                    :       10 :agent.(1)product.name'
+    - 'LayoutEngineVersion                 :        6 :"??"'
+    - 'AgentClass                          :       10 :"Mobile App"'
+    - 'AgentName                           :       10 :agent.(1)product.name'
+    - 'AgentVersion                        :        6 :"??"'
 
 - test:
     input:
@@ -400,9 +400,9 @@ config:
 
 - matcher:
     extract:
-    - 'AgentClass                          :     50 :"Special"'
-    - 'AgentName                           :     50 :"iTunes"'
-    - 'AgentVersion                        :     50 :agent.(1)product.(1)name="iTunes"^.version'
+    - 'AgentClass                          :       50 :"Special"'
+    - 'AgentName                           :       50 :"iTunes"'
+    - 'AgentVersion                        :       50 :agent.(1)product.name="iTunes"^.version'
 
 - test:
     input:
@@ -618,9 +618,9 @@ config:
     require:
     - 'IsNull[LookUp[AliAppNames;@AliApp.name]]'
     extract:
-    - 'AgentClass                          :   2118 :"Browser Webview"'
-    - 'WebviewAppName                      :   2118 :Concat["Alibaba ";NormalizeBrand[@AliApp.name]]'
-    - 'WebviewAppVersion                   :   2118 :@AliApp.version'
+    - 'AgentClass                          :     2118 :"Browser Webview"'
+    - 'WebviewAppName                      :     2118 :Concat["Alibaba ";NormalizeBrand[@AliApp.name]]'
+    - 'WebviewAppVersion                   :     2118 :@AliApp.version'
 
 - matcher:
     variable:
@@ -628,27 +628,27 @@ config:
     require:
     - 'IsNull[LookUp[AliAppNames;@AliApp.name]]'
     extract:
-    - 'AgentClass                          :   2118 :"Browser Webview"'
-    - 'WebviewAppName                      :   2118 :Concat["Alibaba ";NormalizeBrand[@AliApp.name]]'
-    - 'WebviewAppVersion                   :   2118 :@AliApp.version'
+    - 'AgentClass                          :     2118 :"Browser Webview"'
+    - 'WebviewAppName                      :     2118 :Concat["Alibaba ";NormalizeBrand[@AliApp.name]]'
+    - 'WebviewAppVersion                   :     2118 :@AliApp.version'
 
 - matcher:
     variable:
     - 'AliApp:agent.product.name[1]="AliApp"^.comments.(1)entry.(1)product'
     - 'AliAppName:LookUp[AliAppNames;@AliApp.name]'
     extract:
-    - 'AgentClass                          :   2119 :"Browser Webview"'
-    - 'WebviewAppName                      :   2119 :Concat["Alibaba ";@AliAppName]'
-    - 'WebviewAppVersion                   :   2119 :@AliApp.version'
+    - 'AgentClass                          :     2119 :"Browser Webview"'
+    - 'WebviewAppName                      :     2119 :Concat["Alibaba ";@AliAppName]'
+    - 'WebviewAppVersion                   :     2119 :@AliApp.version'
 
 - matcher:
     variable:
     - 'AliApp:agent.product.name[2]="AliApp"^.comments.(1)entry.(1)product'
     - 'AliAppName:LookUp[AliAppNames;@AliApp.name]'
     extract:
-    - 'AgentClass                          :   2119 :"Browser Webview"'
-    - 'WebviewAppName                      :   2119 :Concat["Alibaba ";@AliAppName]'
-    - 'WebviewAppVersion                   :   2119 :@AliApp.version'
+    - 'AgentClass                          :     2119 :"Browser Webview"'
+    - 'WebviewAppName                      :     2119 :Concat["Alibaba ";@AliAppName]'
+    - 'WebviewAppVersion                   :     2119 :@AliApp.version'
 
 - test:
     input:
@@ -1190,13 +1190,13 @@ config:
     require:
     - 'agent="google-speakr"'
     extract:
-    - '__Set_ALL_Fields__                  :   9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :  10000 :"Mobile"'
-    - 'AgentClass                          :  10000 :"Voice"'
-    - 'OperatingSystemClass                :  10000 :"Mobile"'
-    - 'OperatingSystemName                 :  10000 :"Android"'
-    - 'AgentClass                          :  10000 :"Voice"'
-    - 'AgentName                           :  10000 :"Google Go"'
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :    10000 :"Mobile"'
+    - 'AgentClass                          :    10000 :"Voice"'
+    - 'OperatingSystemClass                :    10000 :"Mobile"'
+    - 'OperatingSystemName                 :    10000 :"Android"'
+    - 'AgentClass                          :    10000 :"Voice"'
+    - 'AgentName                           :    10000 :"Google Go"'
 
 - test:
     input:
@@ -1275,14 +1275,14 @@ config:
 #
 - matcher:
     require:
-    - 'agent.(1)product.(1)name="swcd"'
+    - 'agent.(1)product.name="swcd"'
     extract:
-    - 'LayoutEngineClass                   :    100 : "Unknown"' # This thing downloads a single specific Json file.
-    - 'LayoutEngineName                    :    100 : "Unknown"'
-    - 'LayoutEngineVersion                 :    100 : "??"'
-    - 'AgentClass                          :    100 : "Special"'
-    - 'AgentName                           :    100 : "Apple iOS Universal Links updater"'
-    - 'AgentVersion                        :    100 : agent.product.(1)name="Darwin"^.version'
+    - 'LayoutEngineClass                   :      100 : "Unknown"' # This thing downloads a single specific Json file.
+    - 'LayoutEngineName                    :      100 : "Unknown"'
+    - 'LayoutEngineVersion                 :      100 : "??"'
+    - 'AgentClass                          :      100 : "Special"'
+    - 'AgentName                           :      100 : "Apple iOS Universal Links updater"'
+    - 'AgentVersion                        :      100 : agent.product.name="Darwin"^.version'
 
 - test:
     input:

@@ -24,8 +24,8 @@ config:
 #        - 'DeviceBrand           :   10:"Sun"'
 #        - 'DeviceName            :   10:"Sun"'
 #        - 'OperatingSystemClass  :   10:"Desktop"'
-#        - 'OperatingSystemName   :   10:agent.(1)product.(1)comments.entry.(1)product.(1)name="SunOS"'
-#        - 'OperatingSystemVersion:   10:agent.(1)product.(1)comments.entry.(1)product.(1)name="SunOS"^.version'
+#        - 'OperatingSystemName   :   10:agent.(1)product.(1)comments.entry.(1)product.name="SunOS"'
+#        - 'OperatingSystemVersion:   10:agent.(1)product.(1)comments.entry.(1)product.name="SunOS"^.version'
 
 - test:
     input:
@@ -58,19 +58,19 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass                         :     10 :"Desktop"'
-    - 'DeviceName                          :     10 :"Desktop"'
-    - 'OperatingSystemClass                :     10 :"Desktop"'
-    - 'OperatingSystemName                 :     10 :agent.product.comments.entry="OS/2"'
-    - 'OperatingSystemVersion              :     10 :"2.x"'
+    - 'DeviceClass                         :       10 :"Desktop"'
+    - 'DeviceName                          :       10 :"Desktop"'
+    - 'OperatingSystemClass                :       10 :"Desktop"'
+    - 'OperatingSystemName                 :       10 :agent.(1-4)product.comments.entry="OS/2"'
+    - 'OperatingSystemVersion              :       10 :"2.x"'
 
 - matcher:
     extract:
-    - 'DeviceClass                         :     20 :"Desktop"'
-    - 'DeviceName                          :     20 :"Desktop"'
-    - 'OperatingSystemClass                :     20 :"Desktop"'
-    - 'OperatingSystemName                 :     20 :agent.(1-4)product.comments.entry="OS/2"'
-    - 'OperatingSystemVersion              :     20 :agent.(1-4)product.comments.entry.product.name="Warp"^'
+    - 'DeviceClass                         :       20 :"Desktop"'
+    - 'DeviceName                          :       20 :"Desktop"'
+    - 'OperatingSystemClass                :       20 :"Desktop"'
+    - 'OperatingSystemName                 :       20 :agent.(1-4)product.comments.entry="OS/2"'
+    - 'OperatingSystemVersion              :       20 :agent.(1-4)product.comments.entry.product.name="Warp"^'
 
 - test:
     input:
@@ -783,14 +783,14 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.comments.entry[1]="Indy"'
+    - 'agent.(1-4)product.comments.entry[1]="Indy"'
     extract:
-    - 'DeviceClass                         :      1 : "Desktop"'
-    - 'DeviceName                          :      1 : "Indy"'
-    - 'DeviceBrand                         :      1 : "Silicon Graphics"'
-    - 'OperatingSystemClass                :      1 : "Desktop"'
-    - 'OperatingSystemName                 :      1 : "Irix"'
-    - 'OperatingSystemVersion              :      1 : "??"'
+    - 'DeviceClass                         :        1 : "Desktop"'
+    - 'DeviceName                          :        1 : "Indy"'
+    - 'DeviceBrand                         :        1 : "Silicon Graphics"'
+    - 'OperatingSystemClass                :        1 : "Desktop"'
+    - 'OperatingSystemName                 :        1 : "Irix"'
+    - 'OperatingSystemVersion              :        1 : "??"'
 
 - test:
     input:

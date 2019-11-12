@@ -17,103 +17,115 @@
 config:
 
 - matcher:
+    variable:
+    - 'Nintendo:agent.(1)product.(1)comments.(1)entry.(1-2)text[1]="Nintendo"@'
     extract:
-    - 'DeviceClass                         :   2014 :"Game Console"'
-    - 'DeviceBrand                         :   2014 :"Nintendo"'
-    - 'DeviceName                          :   2014 :agent.(1)product.(1)comments.(1)entry.text[1]="Nintendo"@'
-    - 'OperatingSystemClass                :    100 :"Game Console"'
-    - 'OperatingSystemName                 :    100 :"Nintendo"'
-    - 'OperatingSystemVersion              :    100 :agent.(1)product.(1)comments.(1)entry.text[1]="Nintendo"@'
+    - 'DeviceClass                         :     2014 :"Game Console"'
+    - 'DeviceBrand                         :     2014 :"Nintendo"'
+    - 'DeviceName                          :     2014 :@Nintendo'
+    - 'OperatingSystemClass                :      100 :"Game Console"'
+    - 'OperatingSystemName                 :      100 :"Nintendo"'
+    - 'OperatingSystemVersion              :      100 :@Nintendo'
 
 - matcher:
     extract:
-    - 'OperatingSystemClass                :   2014 :"Game Console"'
-    - 'OperatingSystemName                 :   2014 :"Nintendo NX"'
-    - 'OperatingSystemVersion              :   2014 :agent.(3)product.(1)name="NX"^.version'
+    - 'OperatingSystemClass                :     2014 :"Game Console"'
+    - 'OperatingSystemName                 :     2014 :"Nintendo NX"'
+    - 'OperatingSystemVersion              :     2014 :agent.(3)product.name="NX"^.version'
 
 - matcher:
     extract:
-    - 'AgentClass                          :   2014 :"Browser"'
-    - 'AgentName                           :   2014 :"NintendoBrowser"'
-    - 'AgentVersion                        :   2014 :agent.(4)product.(1)name="NintendoBrowser"^.version'
+    - 'AgentClass                          :     2014 :"Browser"'
+    - 'AgentName                           :     2014 :"NintendoBrowser"'
+    - 'AgentVersion                        :     2014 :agent.(4)product.name="NintendoBrowser"^.version'
 
 - matcher:
     variable:
-    - 'PlayStationTag: agent.(1)product.(1)comments.entry.product.name[1]="PlayStation"^'
+    - 'PlayStationTag: agent.(1)product.(1)comments.entry.(1-2)product.name[1]="PlayStation"^'
     - 'PlayStationName: Concat["PlayStation ";@PlayStationTag[2]]'
     extract:
-    - 'DeviceClass                         :   2014 :"Game Console"'
-    - 'DeviceBrand                         :   2014 :"Sony"'
-    - 'DeviceName                          :   2014 :@PlayStationName'
-    - 'OperatingSystemClass                :   2014 :"Game Console"'
-    - 'OperatingSystemName                 :   2014 :@PlayStationName'
-    - 'OperatingSystemVersion              :   2014 :@PlayStationTag[3-]'
+    - 'DeviceClass                         :     2014 :"Game Console"'
+    - 'DeviceBrand                         :     2014 :"Sony"'
+    - 'DeviceName                          :     2014 :@PlayStationName'
+    - 'OperatingSystemClass                :     2014 :"Game Console"'
+    - 'OperatingSystemName                 :     2014 :@PlayStationName'
+    - 'OperatingSystemVersion              :     2014 :@PlayStationTag[3-]'
 
 - matcher:
+    variable:
+    - 'Vita:agent.(1)product.(1)comments.entry.product.name="PlayStation Vita"^.version'
     extract:
-    - 'DeviceClass                         :   2014 :"Game Console"'
-    - 'DeviceBrand                         :   2014 :"Sony"'
-    - 'DeviceName                          :   2014 :"PlayStation Vita"'
-    - 'DeviceVersion                       :   2014 :agent.(1)product.(1)comments.entry.product.name="PlayStation Vita"^.version'
-    - 'OperatingSystemClass                :   2014 :"Game Console"'
-    - 'OperatingSystemName                 :   2014 :"PlayStation Vita"'
-    - 'OperatingSystemVersion              :   2014 :agent.(1)product.(1)comments.entry.product.name="PlayStation Vita"^.version'
+    - 'DeviceClass                         :     2014 :"Game Console"'
+    - 'DeviceBrand                         :     2014 :"Sony"'
+    - 'DeviceName                          :     2014 :"PlayStation Vita"'
+    - 'DeviceVersion                       :     2014 :@Vita'
+    - 'OperatingSystemClass                :     2014 :"Game Console"'
+    - 'OperatingSystemName                 :     2014 :"PlayStation Vita"'
+    - 'OperatingSystemVersion              :     2014 :@Vita'
 
 # https://www.nintendo.com/3ds/internetbrowser/specs/
 # https://www.3dbrew.org/wiki/Internet_Browser
 - matcher:
+    variable:
+    - 'Nintendo:agent.(1)product.(1)comments.entry.product.name[1]="Nintendo"^'
+    - 'Version:agent.product.name="Version"^.version'
     extract:
-    - 'DeviceClass                         :   2014 :"Game Console"'
-    - 'DeviceBrand                         :   2014 :"Nintendo"'
-    - 'DeviceName                          :   2014 :agent.(1)product.(1)comments.entry.product.name[1]="Nintendo"^'
-    - 'OperatingSystemClass                :   2014 :"Game Console"'
-    - 'OperatingSystemName                 :   2014 :"Nintendo"'
-    - 'OperatingSystemVersion              :   2014 :agent.(1)product.(1)comments.entry.product.name[1]="Nintendo"^'
-    - 'LayoutEngineClass                   :   2014 :"Browser"'
-    - 'LayoutEngineName                    :   2014 :"Netfront"'
-    - 'LayoutEngineVersion                 :   2014 :agent.product.(1)name="Version"^.version'
-    - 'AgentClass                          :   2014 :"Browser"'
-    - 'AgentName                           :   2014 :"Netfront"'
-    - 'AgentVersion                        :   2014 :agent.product.(1)name="Version"^.version'
+    - 'DeviceClass                         :     2014 :"Game Console"'
+    - 'DeviceBrand                         :     2014 :"Nintendo"'
+    - 'DeviceName                          :     2014 :@Nintendo'
+    - 'OperatingSystemClass                :     2014 :"Game Console"'
+    - 'OperatingSystemName                 :     2014 :"Nintendo"'
+    - 'OperatingSystemVersion              :     2014 :@Nintendo'
+    - 'LayoutEngineClass                   :     2014 :"Browser"'
+    - 'LayoutEngineName                    :     2014 :"Netfront"'
+    - 'LayoutEngineVersion                 :     2014 :@Version'
+    - 'AgentClass                          :     2014 :"Browser"'
+    - 'AgentName                           :     2014 :"Netfront"'
+    - 'AgentVersion                        :     2014 :@Version'
 
 - matcher:
+    variable:
+    - 'Nintendo:agent.(1)product.(1)comments.entry.(1-2)text[1]="Nintendo"@'
+    - 'Version:agent.product.name="Version"^.version'
     extract:
-    - 'DeviceClass                         :   2014 :"Game Console"'
-    - 'DeviceBrand                         :   2014 :"Nintendo"'
-    - 'DeviceName                          :   2014 :agent.(1)product.(1)comments.entry.text[1]="Nintendo"@'
-    - 'OperatingSystemClass                :   2014 :"Game Console"'
-    - 'OperatingSystemName                 :   2014 :"Nintendo"'
-    - 'OperatingSystemVersion              :   2014 :agent.(1)product.(1)comments.entry.text[1]="Nintendo"@'
-    - 'LayoutEngineClass                   :   2014 :"Browser"'
-    - 'LayoutEngineName                    :   2014 :"Netfront"'
-    - 'LayoutEngineVersion                 :   2014 :agent.product.(1)name="Version"^.version'
-    - 'AgentClass                          :   2014 :"Browser"'
-    - 'AgentName                           :   2014 :"Netfront"'
-    - 'AgentVersion                        :   2014 :agent.product.(1)name="Version"^.version'
+    - 'DeviceClass                         :     2014 :"Game Console"'
+    - 'DeviceBrand                         :     2014 :"Nintendo"'
+    - 'DeviceName                          :     2014 :@Nintendo'
+    - 'OperatingSystemClass                :     2014 :"Game Console"'
+    - 'OperatingSystemName                 :     2014 :"Nintendo"'
+    - 'OperatingSystemVersion              :     2014 :@Nintendo'
+    - 'LayoutEngineClass                   :     2014 :"Browser"'
+    - 'LayoutEngineName                    :     2014 :"Netfront"'
+    - 'LayoutEngineVersion                 :     2014 :@Version'
+    - 'AgentClass                          :     2014 :"Browser"'
+    - 'AgentName                           :     2014 :"Netfront"'
+    - 'AgentVersion                        :     2014 :@Version'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.text="Xbox"'
+    - 'agent.(1)product.(1)comments.entry.(1-5)text="Xbox"'
     extract:
-    - 'DeviceClass                         :   2010 :"Game Console"'
-    - 'DeviceBrand                         :   2010 :"Microsoft"'
-    - 'DeviceName                          :   2010 :"Xbox"'
-    - 'DeviceVersion                       :   2010 :"Xbox 360"'
-    - 'OperatingSystemClass                :    101 :"Game Console"'
-    - 'OperatingSystemName                 :     98 :"Xbox"'
-    - 'OperatingSystemVersion              :     98 :"Xbox 360"'
-    - 'OperatingSystemNameVersion          :     98 :"Xbox 360"'
+    - 'DeviceClass                         :     2010 :"Game Console"'
+    - 'DeviceBrand                         :     2010 :"Microsoft"'
+    - 'DeviceName                          :     2010 :"Xbox"'
+    - 'DeviceVersion                       :     2010 :"Xbox 360"'
+    - 'OperatingSystemClass                :      101 :"Game Console"'
+    - 'OperatingSystemName                 :       98 :"Xbox"'
+    - 'OperatingSystemVersion              :       98 :"Xbox 360"'
+    - 'OperatingSystemNameVersion          :       98 :"Xbox 360"'
 
 - matcher:
+    variable:
+    - 'Xbox:agent.(1)product.(1)comments.entry.(1-5)text="Xbox"^>'
     extract:
-    - 'DeviceClass                         :   2014 :"Game Console"'
-    - 'DeviceBrand                         :   2014 :"Microsoft"'
-    - 'DeviceName                          :   2014 :"Xbox"'
-    - 'DeviceVersion                       :   2014 :agent.(1)product.(1)comments.entry.text="Xbox"^>'
-    - 'OperatingSystemClass                :    101 :"Game Console"'
-    - 'OperatingSystemName                 :     99 :"Xbox"'
-    - 'OperatingSystemVersion              :     99 :agent.(1)product.(1)comments.entry.text="Xbox"^>'
-    - 'OperatingSystemNameVersion          :     99 :agent.(1)product.(1)comments.entry.text="Xbox"^>'
+    - 'DeviceClass                         :     2014 :"Game Console"'
+    - 'DeviceBrand                         :     2014 :"Microsoft"'
+    - 'DeviceName                          :     2014 :"Xbox"'
+    - 'DeviceVersion                       :     2014 :@Xbox'
+    - 'OperatingSystemClass                :      101 :"Game Console"'
+    - 'OperatingSystemName                 :       99 :"Xbox"'
+    - 'OperatingSystemVersion              :       99 :@Xbox'
+    - 'OperatingSystemNameVersion          :       99 :@Xbox'
 
 - test:
     input:
@@ -255,7 +267,7 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry[1-2]="Nintendo 3DS"'
     extract:
-    - 'DeviceClass                         :   2100 :"Handheld Game Console"'
+    - 'DeviceClass                         :     2100 :"Handheld Game Console"'
 
 - test:
     input:
@@ -439,17 +451,17 @@ config:
     require:
     - 'agent.(1)product.(1)comments.(1)entry="New Nintendo 3DS like iPhone"'
     extract:
-    - 'DeviceClass                         :   2014 :"Handheld Game Console"'
-    - 'DeviceBrand                         :   2014 :"Nintendo"'
-    - 'DeviceName                          :   2014 :"Nintendo New 3DS"'
+    - 'DeviceClass                         :     2014 :"Handheld Game Console"'
+    - 'DeviceBrand                         :     2014 :"Nintendo"'
+    - 'DeviceName                          :     2014 :"Nintendo New 3DS"'
 
 - matcher:
     require:
-    - 'agent.(4)product.(1)name="Mobile NintendoBrowser"'
+    - 'agent.(4)product.name="Mobile NintendoBrowser"'
     extract:
-    - 'AgentClass                          :     40 :"Browser"'
-    - 'AgentName                           :     40 :"NintendoBrowser"'
-    - 'AgentVersion                        :     40 :agent.(4)product.(1)name="Mobile NintendoBrowser"^.version'
+    - 'AgentClass                          :       40 :"Browser"'
+    - 'AgentName                           :       40 :"NintendoBrowser"'
+    - 'AgentVersion                        :       40 :agent.(4)product.name="Mobile NintendoBrowser"^.version'
 
 - test:
     input:
@@ -479,12 +491,12 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)name="PSP"'
+    - 'agent.(1)product.(1)comments.(1)entry.(1)product.name="PSP"'
     - 'agent.(1)product.(1)comments.(1)entry.(1)product.(1)comments.(1)entry.(1)text="PlayStation Portable"'
     extract:
-    - 'DeviceClass                         :    500 :"Handheld Game Console"'
-    - 'DeviceBrand                         :    500 :"Sony"'
-    - 'DeviceName                          :    500 :"PlayStation Portable"'
+    - 'DeviceClass                         :      500 :"Handheld Game Console"'
+    - 'DeviceBrand                         :      500 :"Sony"'
+    - 'DeviceName                          :      500 :"PlayStation Portable"'
 
 #http://console.maban.co.uk/
 #Sony PSP-Go

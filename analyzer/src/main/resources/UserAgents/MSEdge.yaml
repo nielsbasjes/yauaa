@@ -121,46 +121,46 @@ config:
     - 'EdgeHtmlVersion                     : agent.product.name="Edge"^.version'
     - 'EdgeHtmlVersionFirstWord            : @EdgeHtmlVersion[-1]'
     extract:
-    - 'DeviceClass                         :      1 :"Desktop"'
-    - 'DeviceName                          :      1 :"Desktop"'
-    - 'OperatingSystemClass                :      1 :"Desktop"'
-    - 'OperatingSystemName                 :      1 :"Windows NT"'
-    - 'OperatingSystemVersion              :      1 :"10.0"'
-    - 'LayoutEngineClass                   :   2015 :"Browser"'
-    - 'LayoutEngineName                    :   2015 :"EdgeHTML"'
-    - 'LayoutEngineVersion                 :   2015 :@EdgeHtmlVersionFirstWord'
-    - 'AgentClass                          :   2016 :"Browser"'
-    - 'AgentName                           :   2016 :"Edge"'
-    - 'AgentVersion                        :   2016 :LookUp[EdgeHtmlVersionToEdgeVersion;@EdgeHtmlVersionFirstWord;"??"]'
+    - 'DeviceClass                         :        1 :"Desktop"'
+    - 'DeviceName                          :        1 :"Desktop"'
+    - 'OperatingSystemClass                :        1 :"Desktop"'
+    - 'OperatingSystemName                 :        1 :"Windows NT"'
+    - 'OperatingSystemVersion              :        1 :"10.0"'
+    - 'LayoutEngineClass                   :     2015 :"Browser"'
+    - 'LayoutEngineName                    :     2015 :"EdgeHTML"'
+    - 'LayoutEngineVersion                 :     2015 :@EdgeHtmlVersionFirstWord'
+    - 'AgentClass                          :     2016 :"Browser"'
+    - 'AgentName                           :     2016 :"Edge"'
+    - 'AgentVersion                        :     2016 :LookUp[EdgeHtmlVersionToEdgeVersion;@EdgeHtmlVersionFirstWord;"??"]'
 
 - matcher:
     variable:
     - 'EdgeHtmlVersion                     : agent.product.name="Edge"^.version'
     - 'EdgeHtmlVersionFirstWord            : @EdgeHtmlVersion[-1]'
     extract:
-    - 'DeviceClass                         :      1 :"Desktop"'
-    - 'DeviceName                          :      1 :"Desktop"'
-    - 'OperatingSystemClass                :      1 :"Desktop"'
-    - 'OperatingSystemName                 :      1 :"Windows NT"'
-    - 'OperatingSystemVersion              :      1 :"10.0"'
-    - 'LayoutEngineClass                   :   2015 :"Browser"'
-    - 'LayoutEngineName                    :   2015 :"EdgeHTML"'
-    - 'LayoutEngineVersion                 :   2015 :@EdgeHtmlVersionFirstWord'
-    - 'AgentClass                          :   2017 :"Browser"'
-    - 'AgentName                           :   2017 :"Edge"'
-    - 'AgentVersion                        :   2017 :LookUp[EdgeHtmlVersionToEdgeVersion;@EdgeHtmlVersion]'
+    - 'DeviceClass                         :        1 :"Desktop"'
+    - 'DeviceName                          :        1 :"Desktop"'
+    - 'OperatingSystemClass                :        1 :"Desktop"'
+    - 'OperatingSystemName                 :        1 :"Windows NT"'
+    - 'OperatingSystemVersion              :        1 :"10.0"'
+    - 'LayoutEngineClass                   :     2015 :"Browser"'
+    - 'LayoutEngineName                    :     2015 :"EdgeHTML"'
+    - 'LayoutEngineVersion                 :     2015 :@EdgeHtmlVersionFirstWord'
+    - 'AgentClass                          :     2017 :"Browser"'
+    - 'AgentName                           :     2017 :"Edge"'
+    - 'AgentVersion                        :     2017 :LookUp[EdgeHtmlVersionToEdgeVersion;@EdgeHtmlVersion]'
 
 # If it is not '??' then the second part of the Edge version is the Windows 10 BUILD number
 - matcher:
     require:
     - 'agent.product.name="Edge"^.version[2]!="0"'
     extract:
-    - 'DeviceClass                         :      1 :"Desktop"'
-    - 'DeviceName                          :      1 :"Desktop"'
-    - 'OperatingSystemClass                :      1 :"Desktop"'
-    - 'OperatingSystemName                 :      1 :"Windows NT"'
-    - 'OperatingSystemVersion              :      1 :"10.0"'
-    - 'OperatingSystemVersionBuild         :    100 :agent.product.name="Edge"^.version[2]'
+    - 'DeviceClass                         :        1 :"Desktop"'
+    - 'DeviceName                          :        1 :"Desktop"'
+    - 'OperatingSystemClass                :        1 :"Desktop"'
+    - 'OperatingSystemName                 :        1 :"Windows NT"'
+    - 'OperatingSystemVersion              :        1 :"10.0"'
+    - 'OperatingSystemVersionBuild         :      100 :agent.product.name="Edge"^.version[2]'
 
 
 # Edge (IE >= 12):
@@ -664,13 +664,13 @@ config:
 # but means that we are shipping our own copy of the rendering engine in the app.
 - matcher:
     extract:
-    - 'LayoutEngineClass                   :   2015 :"Browser"'
-    - 'LayoutEngineName                    :   2015 :"Blink"'
-    - 'LayoutEngineVersion                 :   2015 :agent.product.name="Chrome"^.version[-2]'
+    - 'LayoutEngineClass                   :     2015 :"Browser"'
+    - 'LayoutEngineName                    :     2015 :"Blink"'
+    - 'LayoutEngineVersion                 :     2015 :agent.product.name="Chrome"^.version[-2]'
 
-    - 'AgentClass                          :   2015 :"Browser"'
-    - 'AgentName                           :   2015 :"Edge"'
-    - 'AgentVersion                        :   2015 :agent.product.name="EdgA"^.version'
+    - 'AgentClass                          :     2015 :"Browser"'
+    - 'AgentName                           :     2015 :"Edge"'
+    - 'AgentVersion                        :     2015 :agent.product.name="EdgA"^.version'
 
 # Specs say:
 # On iOS, we are using the WebKit engine, as provided by iOS in the WKWebView control.
@@ -678,13 +678,13 @@ config:
 # the version of Safari that is currently available for iOS.
 - matcher:
     extract:
-    - 'LayoutEngineClass                   :   2015 :"Browser"'
-    - 'LayoutEngineName                    :   2015 :"AppleWebKit"'
-    - 'LayoutEngineVersion                 :   2015 :agent.product.name="AppleWebKit"^.version'
+    - 'LayoutEngineClass                   :     2015 :"Browser"'
+    - 'LayoutEngineName                    :     2015 :"AppleWebKit"'
+    - 'LayoutEngineVersion                 :     2015 :agent.product.name="AppleWebKit"^.version'
 
-    - 'AgentClass                          :   2050 :"Browser"'
-    - 'AgentName                           :   2050 :"Edge"'
-    - 'AgentVersion                        :   2050 :agent.product.name="EdgiOS"^.version'
+    - 'AgentClass                          :     2050 :"Browser"'
+    - 'AgentName                           :     2050 :"Edge"'
+    - 'AgentVersion                        :     2050 :agent.product.name="EdgiOS"^.version'
 
 # Blink based Edge browser on Desktop
 # https://blogs.windows.com/msedgedev/2019/04/08/microsoft-edge-preview-channel-details/
@@ -694,13 +694,13 @@ config:
 # FIXME: Get the actual Chromium based Edge specifications
 - matcher:
     extract:
-    - 'LayoutEngineClass                   :   2015 :"Browser"'
-    - 'LayoutEngineName                    :   2015 :"Blink"'
-    - 'LayoutEngineVersion                 :   2015 :agent.product.name="Chrome"^.version[-2]'
+    - 'LayoutEngineClass                   :     2015 :"Browser"'
+    - 'LayoutEngineName                    :     2015 :"Blink"'
+    - 'LayoutEngineVersion                 :     2015 :agent.product.name="Chrome"^.version[-2]'
 
-    - 'AgentClass                          :   2015 :"Browser"'
-    - 'AgentName                           :   2015 :"Edge"'
-    - 'AgentVersion                        :   2015 :agent.product.name="Edg"^.version'
+    - 'AgentClass                          :     2015 :"Browser"'
+    - 'AgentName                           :     2015 :"Edge"'
+    - 'AgentVersion                        :     2015 :agent.product.name="Edg"^.version'
 
 
 - test:
@@ -793,23 +793,23 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.(1)name="Edge"'
+    - 'agent.product.name="Edge"'
     extract:
-    - 'AgentClass                          :  10000 :"Browser Webview"'
-    - 'AgentName                           :  10000 :"Edge Webview"'
-    - 'AgentVersion                        :   2500 :agent.(1)product.(1)comments.entry.product.name="MSAppHost"^.version'
-    - 'WebviewAppName                      :      0 :"Unknown Webview App"'
-    - 'WebviewAppVersion                   :      0 :"??"'
+    - 'AgentClass                          :    10000 :"Browser Webview"'
+    - 'AgentName                           :    10000 :"Edge Webview"'
+    - 'AgentVersion                        :     2500 :agent.(1)product.(1)comments.entry.(1-4)product.name="MSAppHost"^.version'
+    - 'WebviewAppName                      :        0 :"Unknown Webview App"'
+    - 'WebviewAppVersion                   :        0 :"??"'
 
 - matcher:
     require:
-    - 'agent.product.(1)name="Edge"'
+    - 'agent.product.name="Edge"'
     extract:
-    - 'AgentClass                          :  10000 :"Browser Webview"'
-    - 'AgentName                           :  10000 :"Edge Webview"'
-    - 'AgentVersion                        :   2500 :agent.product.(1)name="MSAppHost"^.version'
-    - 'WebviewAppName                      :      0 :"Unknown Webview App"'
-    - 'WebviewAppVersion                   :      0 :"??"'
+    - 'AgentClass                          :    10000 :"Browser Webview"'
+    - 'AgentName                           :    10000 :"Edge Webview"'
+    - 'AgentVersion                        :     2500 :agent.product.name="MSAppHost"^.version'
+    - 'WebviewAppName                      :        0 :"Unknown Webview App"'
+    - 'WebviewAppVersion                   :        0 :"??"'
 
 - test:
     input:

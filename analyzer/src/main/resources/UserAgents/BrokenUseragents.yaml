@@ -18,14 +18,14 @@ config:
 
 - matcher:
     variable:
-    - 'BeforeBrowser: agent.(1)product.(1)comments.entry.product.(1)name="Browser"^<'
+    - 'BeforeBrowser: agent.(1)product.(1)comments.entry.product.name="Browser"^<'
     require:
-    - 'agent.(1)product.(1)comments.entry.product.(1)name="Browser"^.(1)version="Browser"'
+    - 'agent.(1)product.(1)comments.entry.product.name="Browser"^.(1)version="Browser"'
     extract:
-    - 'DeviceClass                         :     50 :"Mobile"'
-    - 'DeviceBrand                         :   1000 :NormalizeBrand[@BeforeBrowser.name]'
-    - 'DeviceName                          :   1000 :@BeforeBrowser.(1)version'
-    - 'DeviceVersion                       :   1000 :@BeforeBrowser.(2)version'
+    - 'DeviceClass                         :       50 :"Mobile"'
+    - 'DeviceBrand                         :     1000 :NormalizeBrand[@BeforeBrowser.name]'
+    - 'DeviceName                          :     1000 :@BeforeBrowser.(1)version'
+    - 'DeviceVersion                       :     1000 :@BeforeBrowser.(2)version'
 
 - test:
     input:
@@ -116,12 +116,12 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)name[3]="Mozilla"'
-    - 'agent.(1)product.(1)name[1]{"PB"'
+    - 'agent.(1)product.name[3]="Mozilla"'
+    - 'agent.(1)product.name[1]{"PB"'
     extract:
-    - 'AgentClass                          :   3000 :"Browser"'
-    - 'AgentName                           :   3000 :"PirateBrowser"'
-    - 'AgentVersion                        :   3000 :agent.(1)product.(1)name[-2]'
+    - 'AgentClass                          :     3000 :"Browser"'
+    - 'AgentName                           :     3000 :"PirateBrowser"'
+    - 'AgentVersion                        :     3000 :agent.(1)product.name[-2]'
 
 - test:
     input:
@@ -357,9 +357,9 @@ config:
 # Is really SogouMSE,SogouMobileBrowser/4.0.0
 - matcher:
     extract:
-    - 'AgentClass                          :    100 :"Browser"'
-    - 'AgentName                           :   2100 :"SogouMobileBrowser"'
-    - 'AgentVersion                        :   2100 :agent.product.(1)name="SogouMSE,SogouMobileBrowser"^.version'
+    - 'AgentClass                          :      100 :"Browser"'
+    - 'AgentName                           :     2100 :"SogouMobileBrowser"'
+    - 'AgentVersion                        :     2100 :agent.product.name="SogouMSE,SogouMobileBrowser"^.version'
 
 - test:
     input:
@@ -598,8 +598,8 @@ config:
 
 - matcher:
     extract:
-    - 'AgentClass                          :      0 :"Special"'
-    - 'AgentName                           :      1 :agent.(1)text'
+    - 'AgentClass                          :        0 :"Special"'
+    - 'AgentName                           :        1 :agent.(1)text'
 
 #  - matcher:
 #      extract:
@@ -862,12 +862,12 @@ config:
     require:
     - 'agent.(1)url="wordpress.com"'
     extract:
-    - 'DeviceClass                         :     10 : "Robot"'
-    - 'DeviceName                          :     10 : "Robot"'
-    - 'AgentClass                          :     10 : "Special"'
-    - 'AgentName                           :     10 : agent.(1)url'
-    - 'AgentVersion                        :     10 : "??"'
-    - 'AgentInformationUrl                 : 511000 : agent.(2)url'
+    - 'DeviceClass                         :       10 : "Robot"'
+    - 'DeviceName                          :       10 : "Robot"'
+    - 'AgentClass                          :       10 : "Special"'
+    - 'AgentName                           :       10 : agent.(1)url'
+    - 'AgentVersion                        :       10 : "??"'
+    - 'AgentInformationUrl                 :   511000 : agent.(2)url'
 
 - test:
     input:
@@ -984,9 +984,9 @@ config:
 
 - matcher:
     extract:
-    - 'AgentClass                          :    100 :"Browser"'
-    - 'AgentName                           :    100 :"Abonti"'
-    - 'AgentVersion                        :    100 :agent.(1)product.(1)comments.entry.(1)product.(1)name="Abonti"^.version'
+    - 'AgentClass                          :      100 :"Browser"'
+    - 'AgentName                           :      100 :"Abonti"'
+    - 'AgentVersion                        :      100 :agent.(1)product.(1)comments.entry.(1)product.name="Abonti"^.version'
 
 - test:
     input:
@@ -1566,9 +1566,9 @@ config:
     variable:
     - 'Browser: agent.(1-5)product.comments.entry.(1-5)product.name="Browser"'
     extract:
-    - 'AgentClass                          :    100 : "Browser"'
-    - 'AgentName                           :    100 : @Browser^.(1)version'
-    - 'AgentVersion                        :    100 : @Browser^.(2)version'
+    - 'AgentClass                          :      100 : "Browser"'
+    - 'AgentName                           :      100 : @Browser^.(1)version'
+    - 'AgentVersion                        :      100 : @Browser^.(2)version'
 
 - matcher:
     variable:
@@ -1576,8 +1576,8 @@ config:
     require:
     - '@Device~"AppleWebkit"'
     extract:
-    - 'DeviceBrand                         :    400 : LookUpPrefix[MobileBrandPrefixes;@Device]'
-    - 'DeviceName                          :    400 : @Device.name'
+    - 'DeviceBrand                         :      400 : LookUpPrefix[MobileBrandPrefixes;@Device]'
+    - 'DeviceName                          :      400 : @Device.name'
 
 - test:
     input:
@@ -1725,12 +1725,12 @@ config:
 # Some useragents are broken in the sense that the last entry is just the word 'mobile' instead of "Mobile Safari". We assume these are phones too.
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.(1)product.(1)name="Android"'
+    - 'agent.(1-2)product.(1)comments.entry.(1)product.name="Android"'
     - 'agent.text="Mobile"'
     - 'IsNull[agent.text="Mobile"^>]'
     extract:
-    - 'DeviceClass                         :    500 :"Phone"'
-    - 'OperatingSystemClass                :    500 :"Mobile"'
+    - 'DeviceClass                         :      500 :"Phone"'
+    - 'OperatingSystemClass                :      500 :"Mobile"'
 
 - test:
     input:

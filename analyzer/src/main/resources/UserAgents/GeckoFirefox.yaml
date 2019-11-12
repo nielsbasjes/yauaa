@@ -23,14 +23,16 @@ config:
     - 'owasmime'
 
 - matcher:
+    variable:
+    - 'RV:agent.(1)product.comments.entry.(1)keyvalue.key="rv"^.value'
     extract:
-    - 'LayoutEngineClass                   :   2000 :"Browser"'
-    - 'LayoutEngineName                    :   2000 :"Gecko"'
-    - 'LayoutEngineVersion                 :   2000 :agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
-    - 'LayoutEngineBuild                   :   2000 :agent.(2-5)product.name="Gecko"^.version'
-    - 'AgentClass                          :   1995 :"Browser"'
-    - 'AgentName                           :   1995 :"Gecko"'
-    - 'AgentVersion                        :   1995 :agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
+    - 'LayoutEngineClass                   :     2000 :"Browser"'
+    - 'LayoutEngineName                    :     2000 :"Gecko"'
+    - 'LayoutEngineVersion                 :     2000 :@RV'
+    - 'LayoutEngineBuild                   :     2000 :agent.(2-5)product.name="Gecko"^.version'
+    - 'AgentClass                          :     1995 :"Browser"'
+    - 'AgentName                           :     1995 :"Gecko"'
+    - 'AgentVersion                        :     1995 :@RV'
 
 - matcher:
     variable:
@@ -38,9 +40,9 @@ config:
     require:
     - 'IsNull[@Gecko.name?BadGeckoNames]'
     extract:
-    - 'AgentClass                          :   2000 :"Browser"'
-    - 'AgentName                           :   2000 :@Gecko.name'
-    - 'AgentVersion                        :   2000 :@Gecko.version'
+    - 'AgentClass                          :     2000 :"Browser"'
+    - 'AgentName                           :     2000 :@Gecko.name'
+    - 'AgentVersion                        :     2000 :@Gecko.version'
 
 - matcher:
     variable:
@@ -48,9 +50,9 @@ config:
     require:
     - 'IsNull[@Gecko.name[-1]?BadGeckoNames]'
     extract:
-    - 'AgentClass                          :   2001 :"Browser"'
-    - 'AgentName                           :   2001 :@Gecko.name'
-    - 'AgentVersion                        :   2001 :@Gecko.version'
+    - 'AgentClass                          :     2001 :"Browser"'
+    - 'AgentName                           :     2001 :@Gecko.name'
+    - 'AgentVersion                        :     2001 :@Gecko.version'
 
 - matcher:
     variable:
@@ -59,9 +61,9 @@ config:
     - '@Gecko<.name="Firefox"'
     - 'IsNull[@Gecko.name[-1]?BadGeckoNames]'
     extract:
-    - 'AgentClass                          :   2002 :"Browser"'
-    - 'AgentName                           :   2002 :@Gecko.name'
-    - 'AgentVersion                        :   2002 :@Gecko.version'
+    - 'AgentClass                          :     2002 :"Browser"'
+    - 'AgentName                           :     2002 :@Gecko.name'
+    - 'AgentVersion                        :     2002 :@Gecko.version'
 
 - matcher:
     variable:
@@ -69,9 +71,9 @@ config:
     require:
     - 'agent.(3-6)product.name[2]="Firefox"' # Performance trick
     extract:
-    - 'AgentClass                          :   2002 :"Browser"'
-    - 'AgentName                           :   2002 :@Gecko.name[2]="Firefox"'
-    - 'AgentVersion                        :   2002 :@Gecko.version'
+    - 'AgentClass                          :     2002 :"Browser"'
+    - 'AgentName                           :     2002 :@Gecko.name[2]="Firefox"'
+    - 'AgentVersion                        :     2002 :@Gecko.version'
 
 - matcher:
     variable:
@@ -79,9 +81,9 @@ config:
     require:
     - 'agent.(3-6)product.name[3]="Firefox"' # Performance trick
     extract:
-    - 'AgentClass                          :   2002 :"Browser"'
-    - 'AgentName                           :   2002 :@Gecko.name[3]="Firefox"'
-    - 'AgentVersion                        :   2002 :@Gecko.version'
+    - 'AgentClass                          :     2002 :"Browser"'
+    - 'AgentName                           :     2002 :@Gecko.name[3]="Firefox"'
+    - 'AgentVersion                        :     2002 :@Gecko.version'
 
 - matcher:
     variable:
@@ -89,9 +91,9 @@ config:
     require:
     - 'agent.(4-7)product.name[2]="Firefox"' # Performance trick
     extract:
-    - 'AgentClass                          :   2003 :"Browser"'
-    - 'AgentName                           :   2003 :@Gecko.name[2]="Firefox"'
-    - 'AgentVersion                        :   2003 :@Gecko.version'
+    - 'AgentClass                          :     2003 :"Browser"'
+    - 'AgentName                           :     2003 :@Gecko.name[2]="Firefox"'
+    - 'AgentVersion                        :     2003 :@Gecko.version'
 
 - matcher:
     variable:
@@ -99,9 +101,9 @@ config:
     require:
     - 'agent.(4-7)product.name[3]="Firefox"' # Performance trick
     extract:
-    - 'AgentClass                          :   2003 :"Browser"'
-    - 'AgentName                           :   2003 :@Gecko.name[3]="Firefox"'
-    - 'AgentVersion                        :   2003 :@Gecko.version'
+    - 'AgentClass                          :     2003 :"Browser"'
+    - 'AgentName                           :     2003 :@Gecko.name[3]="Firefox"'
+    - 'AgentVersion                        :     2003 :@Gecko.version'
 
 - matcher:
     variable:
@@ -112,46 +114,48 @@ config:
     - 'IsNull[@Browser.name?OSPatterns]'
     - 'IsNull[@Browser.name~"toolbar"]'
     extract:
-    - 'AgentClass                          :   2005 :"Browser"'
-    - 'AgentName                           :   2005 :@Browser.name'
-    - 'AgentVersion                        :   2005 :@Browser.version'
+    - 'AgentClass                          :     2005 :"Browser"'
+    - 'AgentName                           :     2005 :@Browser.name'
+    - 'AgentVersion                        :     2005 :@Browser.version'
 
 # This extracts the correct name from "Gecko Kazehakase/0.5.4"
 - matcher:
     variable:
     - 'Browser: agent.(2-5)product.name[1]="Gecko"@[2-]'
     extract:
-    - 'AgentClass                          :   2006 :"Browser"'
-    - 'AgentName                           :   2006 :@Browser'
-    - 'AgentVersion                        :   2006 :@Browser^.version'
+    - 'AgentClass                          :     2006 :"Browser"'
+    - 'AgentName                           :     2006 :@Browser'
+    - 'AgentVersion                        :     2006 :@Browser^.version'
 
 # In some obscure cases we have a parse problem that sends everything inside a comment block
 - matcher:
+    variable:
+    - 'RV:agent.(1)product.comments.entry.(1)keyvalue.key="rv"^.value'
     extract:
-    - 'LayoutEngineClass                   :   1900 :"Browser"'
-    - 'LayoutEngineName                    :   1900 :"Gecko"'
-    - 'LayoutEngineVersion                 :   1900 :agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
-    - 'LayoutEngineBuild                   :   1900 :agent.(1-4)product.comments.entry.(1-4)product.name="Gecko"^.version'
-    - 'AgentClass                          :   1895 :"Browser"'
-    - 'AgentName                           :   1895 :"Gecko"'
-    - 'AgentVersion                        :   1895 :agent.(1)product.comments.entry.keyvalue.key="rv"^.value'
+    - 'LayoutEngineClass                   :     1900 :"Browser"'
+    - 'LayoutEngineName                    :     1900 :"Gecko"'
+    - 'LayoutEngineVersion                 :     1900 :@RV'
+    - 'LayoutEngineBuild                   :     1900 :agent.(1-4)product.comments.entry.(1-4)product.name="Gecko"^.version'
+    - 'AgentClass                          :     1895 :"Browser"'
+    - 'AgentName                           :     1895 :"Gecko"'
+    - 'AgentVersion                        :     1895 :@RV'
 
 - matcher:
     variable:
     - 'Gecko: agent.(1-4)product.comments.entry.(1-4)product.name="Gecko"^>'
     extract:
-    - 'AgentClass                          :   1900 :"Browser"'
-    - 'AgentName                           :   1900 :@Gecko.name'
-    - 'AgentVersion                        :   1900 :@Gecko.version'
+    - 'AgentClass                          :     1900 :"Browser"'
+    - 'AgentName                           :     1900 :@Gecko.name'
+    - 'AgentVersion                        :     1900 :@Gecko.version'
 
 # TODO: Make more generic with lookup (if needed)
 - matcher:
     variable:
     - 'Browser: agent.(2-5)product.name="IceDragon"^'
     extract:
-    - 'AgentClass                          :   2006 :"Browser"'
-    - 'AgentName                           :   2006 :"Comodo IceDragon"'
-    - 'AgentVersion                        :   2006 :@Browser^.version'
+    - 'AgentClass                          :     2006 :"Browser"'
+    - 'AgentName                           :     2006 :"Comodo IceDragon"'
+    - 'AgentVersion                        :     2006 :@Browser^.version'
 
 #Gecko:
 - test:

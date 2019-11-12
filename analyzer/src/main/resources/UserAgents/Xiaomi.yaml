@@ -20,11 +20,11 @@ config:
     require:
     - 'agent.product.version="MiuiBrowser"'
     extract:
-    - 'AgentName                           :   3000 :"MiuiBrowser"'
-    - 'AgentClass                          :   3000 :"Browser"'
-    - 'AgentVersion                        :   3000 :agent.product.version>'
-    - 'WebviewAppName                      :   3000 :"XiaoMi MiuiBrowser"'
-    - 'WebviewAppVersion                   :   3000 :agent.product.version>'
+    - 'AgentName                           :     3000 :"MiuiBrowser"'
+    - 'AgentClass                          :     3000 :"Browser"'
+    - 'AgentVersion                        :     3000 :agent.product.version>'
+    - 'WebviewAppName                      :     3000 :"XiaoMi MiuiBrowser"'
+    - 'WebviewAppVersion                   :     3000 :agent.product.version>'
 
 
 - test:
@@ -589,8 +589,8 @@ config:
     require:
     - '@DeviceProductName[2]="MIUI"'
     extract:
-    - 'DeviceBrand                         :    400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
-    - 'DeviceName                          :    400 :@DeviceProductName[-1]'
+    - 'DeviceBrand                         :      400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
+    - 'DeviceName                          :      400 :@DeviceProductName[-1]'
 
 - matcher:
     variable:
@@ -598,8 +598,8 @@ config:
     require:
     - '@DeviceProductName[3]="MIUI"'
     extract:
-    - 'DeviceBrand                         :    400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
-    - 'DeviceName                          :    400 :@DeviceProductName[-2]'
+    - 'DeviceBrand                         :      400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
+    - 'DeviceName                          :      400 :@DeviceProductName[-2]'
 
 - matcher:
     variable:
@@ -607,8 +607,8 @@ config:
     require:
     - '@DeviceProductName[4]="MIUI"'
     extract:
-    - 'DeviceBrand                         :    400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
-    - 'DeviceName                          :    400 :@DeviceProductName[-3]'
+    - 'DeviceBrand                         :      400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
+    - 'DeviceName                          :      400 :@DeviceProductName[-3]'
 
 - matcher:
     variable:
@@ -616,8 +616,8 @@ config:
     require:
     - '@DeviceProductName[5]="MIUI"'
     extract:
-    - 'DeviceBrand                         :    400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
-    - 'DeviceName                          :    400 :@DeviceProductName[-4]'
+    - 'DeviceBrand                         :      400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
+    - 'DeviceName                          :      400 :@DeviceProductName[-4]'
 
 
 - test:

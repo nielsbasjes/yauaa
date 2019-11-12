@@ -56,8 +56,8 @@ public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<Num
         MAX_RANGE.put("email",                2);
         MAX_RANGE.put("keyvalue",             3);
         MAX_RANGE.put("text",                 8);
-        MAX_RANGE.put("url",                  3);
-        MAX_RANGE.put("uuid",                 4);
+        MAX_RANGE.put("url",                  2);
+        MAX_RANGE.put("uuid",                 2);
     }
 
     private NumberRangeVisitor() {

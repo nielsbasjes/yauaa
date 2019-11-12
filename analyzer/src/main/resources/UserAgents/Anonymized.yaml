@@ -20,12 +20,12 @@ config:
     require:
     - 'agent.(1-2)product.(1)comments.entry.(1)text="masking-agent"'
     extract:
-    - 'Anonymized                          :     10 :"Anonymized"'
-    - 'DeviceClass                         :     10 :"Anonymized"'
-    - 'DeviceName                          :     10 :"Anonymized"'
-    - 'OperatingSystemClass                :      1 :"Anonymized"'
-    - 'OperatingSystemName                 :      1 :"Anonymized"'
-    - 'OperatingSystemVersion              :      1 :"Anonymized"'
+    - 'Anonymized                          :       10 :"Anonymized"'
+    - 'DeviceClass                         :       10 :"Anonymized"'
+    - 'DeviceName                          :       10 :"Anonymized"'
+    - 'OperatingSystemClass                :        1 :"Anonymized"'
+    - 'OperatingSystemName                 :        1 :"Anonymized"'
+    - 'OperatingSystemVersion              :        1 :"Anonymized"'
 
 - test:
     input:
@@ -59,40 +59,40 @@ config:
     require:
     - 'agent.(1)product.(1)comments.(1)entry="000000000"'
     extract:
-    - 'Anonymized                          :      1 :"Anonymized"'
-    - 'DeviceClass                         :     10 :"Anonymized"'
-    - 'DeviceName                          :     10 :"Anonymized"'
-    - 'OperatingSystemClass                :     10 :"Anonymized"'
-    - 'OperatingSystemName                 :     10 :"Anonymized"'
-    - 'OperatingSystemVersion              :     10 :"Anonymized"'
+    - 'Anonymized                          :        1 :"Anonymized"'
+    - 'DeviceClass                         :       10 :"Anonymized"'
+    - 'DeviceName                          :       10 :"Anonymized"'
+    - 'OperatingSystemClass                :       10 :"Anonymized"'
+    - 'OperatingSystemName                 :       10 :"Anonymized"'
+    - 'OperatingSystemVersion              :       10 :"Anonymized"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.(1)entry="0000000000"'
     extract:
-    - 'Anonymized                          :      1 :"Anonymized"'
-    - 'DeviceClass                         :     10 :"Anonymized"'
-    - 'DeviceName                          :     10 :"Anonymized"'
-    - 'OperatingSystemClass                :     10 :"Anonymized"'
-    - 'OperatingSystemName                 :     10 :"Anonymized"'
-    - 'OperatingSystemVersion              :     10 :"Anonymized"'
+    - 'Anonymized                          :        1 :"Anonymized"'
+    - 'DeviceClass                         :       10 :"Anonymized"'
+    - 'DeviceName                          :       10 :"Anonymized"'
+    - 'OperatingSystemClass                :       10 :"Anonymized"'
+    - 'OperatingSystemName                 :       10 :"Anonymized"'
+    - 'OperatingSystemVersion              :       10 :"Anonymized"'
 
 - matcher:
     require:
     - 'agent.product.name[-1]="anonymized"'
     extract:
-    - 'Anonymized                          :      1 :"Anonymized"'
-    - 'DeviceClass                         :     10 :"Anonymized"'
-    - 'DeviceName                          :     10 :"Anonymized"'
-    - 'OperatingSystemClass                :     10 :"Anonymized"'
-    - 'OperatingSystemName                 :     10 :"Anonymized"'
-    - 'OperatingSystemVersion              :     10 :"Anonymized"'
+    - 'Anonymized                          :        1 :"Anonymized"'
+    - 'DeviceClass                         :       10 :"Anonymized"'
+    - 'DeviceName                          :       10 :"Anonymized"'
+    - 'OperatingSystemClass                :       10 :"Anonymized"'
+    - 'OperatingSystemName                 :       10 :"Anonymized"'
+    - 'OperatingSystemVersion              :       10 :"Anonymized"'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[-1]="anonymized"'
+    - 'agent.(1)product.(1)comments.entry.(1)product.name[-1]="anonymized"'
     extract:
-    - 'Anonymized                          :      1 :"Anonymized"'
+    - 'Anonymized                          :        1 :"Anonymized"'
 
 - test:
     input:
@@ -271,7 +271,7 @@ config:
     - 'agent.product.version="599.0"' # Speedup trick
     - '@AppleWebKit^.version="599.0"'
     extract:
-    - 'Anonymized                          :     10 :"Anonymized"'
+    - 'Anonymized                          :       10 :"Anonymized"'
 
 - matcher:
     variable:
@@ -280,7 +280,7 @@ config:
     - 'agent.product.version="999"' # Speedup trick
     - '@AppleWebKit^.version="999"'
     extract:
-    - 'Anonymized                          :     10 :"Anonymized"'
+    - 'Anonymized                          :       10 :"Anonymized"'
 
 - test:
     input:
@@ -536,12 +536,12 @@ config:
     require:
     - 'agent.text~"custom"'
     extract:
-    - 'Anonymized                          :   1002 :"Anonymized"'
-    - 'DeviceClass                         :   1002 :"Anonymized"'
-    - 'DeviceName                          :   1002 :"Anonymized"'
-    - 'OperatingSystemClass                :   1002 :"Anonymized"'
-    - 'OperatingSystemName                 :   1002 :"Anonymized"'
-    - 'OperatingSystemVersion              :   1002 :"Anonymized"'
+    - 'Anonymized                          :     1002 :"Anonymized"'
+    - 'DeviceClass                         :     1002 :"Anonymized"'
+    - 'DeviceName                          :     1002 :"Anonymized"'
+    - 'OperatingSystemClass                :     1002 :"Anonymized"'
+    - 'OperatingSystemName                 :     1002 :"Anonymized"'
+    - 'OperatingSystemVersion              :     1002 :"Anonymized"'
 
 - test: # This seems a bit messy, but given the input the best possible
     input:
@@ -584,10 +584,10 @@ config:
     require:
     - 'agent.product.comments.entry="googleweblight"'
     extract:
-    - 'Anonymized                          :  10000 :"Anonymized"'
-    - 'DeviceClass                         :  10000 :"Anonymized"'
-    - 'DeviceName                          :  10000 :"Google Weblight"'
-    - 'DeviceBrand                         :  10000 :"Google"'
+    - 'Anonymized                          :    10000 :"Anonymized"'
+    - 'DeviceClass                         :    10000 :"Anonymized"'
+    - 'DeviceName                          :    10000 :"Google Weblight"'
+    - 'DeviceBrand                         :    10000 :"Google"'
 
   # This useragent was retrieved via https://googleweblight.com/i?u=https://try.yauaa.basjes.nl
   # using Firefox 68 on Ubuntu 16.04. Real useragent:    Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0

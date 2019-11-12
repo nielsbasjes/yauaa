@@ -19,19 +19,19 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1-2)product.comments.entry.text="N"'
+    - 'agent.(1-2)product.comments.entry.(1)text="N"'
     extract:
-    - 'AgentSecurity                       : 500000 :"No security"'
+    - 'AgentSecurity                       :   500000 :"No security"'
 - matcher:
     require:
-    - 'agent.(1-2)product.comments.entry.text="U"'
+    - 'agent.(1-2)product.comments.entry.(1)text="U"'
     extract:
-    - 'AgentSecurity                       : 500000 :"Strong security"'
+    - 'AgentSecurity                       :   500000 :"Strong security"'
 - matcher:
     require:
-    - 'agent.(1-2)product.comments.entry.text="I"'
+    - 'agent.(1-2)product.comments.entry.(1)text="I"'
     extract:
-    - 'AgentSecurity                       : 500000 :"Weak security"'
+    - 'AgentSecurity                       :   500000 :"Weak security"'
 
 - test:
     input:

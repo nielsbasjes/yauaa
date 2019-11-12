@@ -156,7 +156,7 @@ echo "    variable:
 - matcher:
     require:"
 if [[ ${tag} = "bot" ]]; then
-echo "    - 'IsNull[agent.(1-8)product.comments.entry.(1-4)product.name[1]=\"cubot\"]'"
+echo "    - 'IsNull[agent.(1-8)product.(1)comments.entry.(1-4)product.name[1]=\"cubot\"]'"
 fi
 echo "    - 'agent.product.name=\"Mobile Safari\"'
     - 'agent.(1-4)product.(1-2)comments.entry.product.(1)name~\"${tag}\"'
@@ -167,7 +167,7 @@ echo "    - 'agent.product.name=\"Mobile Safari\"'
 - matcher:"
 if [[ ${tag} = "bot" ]]; then
 echo "    require:
-    - 'IsNull[agent.(1-8)product.comments.entry.(1)text[1]=\"cubot\"]'"
+    - 'IsNull[agent.(1-8)product.(1)comments.entry.(1)text[1]=\"cubot\"]'"
 fi
 echo "    variable:
     - 'RobotName:agent.product.comments.entry.(1-4)text~\"${tag}\"'

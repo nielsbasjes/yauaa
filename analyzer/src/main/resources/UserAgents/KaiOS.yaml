@@ -26,30 +26,30 @@ config:
     variable:
     - 'Device: agent.(1)product.(1)comments.entry.(1)product.name="LYF"'
     extract:
-    - 'DeviceName                          :   1010 :@Device^.(1)version'
-    - 'DeviceBrand                         :   1010 :"Lyf"'
-    - 'DeviceFirmwareVersion               :     20 :@Device^.(2)version'
+    - 'DeviceName                          :     1010 :@Device^.(1)version'
+    - 'DeviceBrand                         :     1010 :"Lyf"'
+    - 'DeviceFirmwareVersion               :       20 :@Device^.(2)version'
 
 - matcher:
     variable:
     - 'Device: agent.(1)product.(1)comments.entry.(1)product.name="$LYF"'
     extract:
-    - 'DeviceName                          :   1010 :@Device^.(1)version'
-    - 'DeviceBrand                         :   1010 :"Lyf"'
-    - 'DeviceFirmwareVersion               :     20 :@Device^.(2)version'
+    - 'DeviceName                          :     1010 :@Device^.(1)version'
+    - 'DeviceBrand                         :     1010 :"Lyf"'
+    - 'DeviceFirmwareVersion               :       20 :@Device^.(2)version'
 
 - matcher:
     variable:
     - 'OS: agent.product.name="KaiOS"^'
     - 'Agent: @OS<'
     extract:
-    - 'DeviceClass                         :   1000 :"Phone"'
-    - 'OperatingSystemClass                :   1020 :"Mobile"'
-    - 'OperatingSystemName                 :   1020 :"KaiOS"'
-    - 'OperatingSystemVersion              :   1020 :@OS.version'
-    - 'AgentClass                          :   3000 :"Browser"'
-    - 'AgentName                           :   3000 :@Agent.name'
-    - 'AgentVersion                        :   3000 :@Agent.version'
+    - 'DeviceClass                         :     1000 :"Phone"'
+    - 'OperatingSystemClass                :     1020 :"Mobile"'
+    - 'OperatingSystemName                 :     1020 :"KaiOS"'
+    - 'OperatingSystemVersion              :     1020 :@OS.version'
+    - 'AgentClass                          :     3000 :"Browser"'
+    - 'AgentName                           :     3000 :@Agent.name'
+    - 'AgentVersion                        :     3000 :@Agent.version'
 
 - test:
     input:

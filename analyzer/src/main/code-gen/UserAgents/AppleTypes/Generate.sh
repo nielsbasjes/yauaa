@@ -142,7 +142,7 @@ echo "
 
 - matcher:
     require:
-    - 'agent.product.(1)name=\"${key}\"'
+    - 'agent.product.name=\"${key}\"'
     extract:
     - 'DeviceBrand                         :    111 :\"Apple\"'
     - 'DeviceClass                         :    111 :\"${deviceClass}\"'

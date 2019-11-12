@@ -131,17 +131,17 @@ config:
 
 - matcher:
     variable:
-    - 'InstagramAndroidComments: agent.product.(1)name="Instagram"^>.name="Android"^.comments'
+    - 'InstagramAndroidComments: agent.product.name="Instagram"^>.name="Android"^.comments'
     extract:
-    - 'DeviceBrand                         :    100 :@InstagramAndroidComments.(4)entry'
-    - 'DeviceName                          :    100 :@InstagramAndroidComments.(5)entry'
+    - 'DeviceBrand                         :      100 :@InstagramAndroidComments.(4)entry'
+    - 'DeviceName                          :      100 :@InstagramAndroidComments.(5)entry'
 
 - matcher:
     variable:
-    - 'InstagramAndroidComments: agent.product.(1)name="Instagram"^>.name="Android"^.comments'
+    - 'InstagramAndroidComments: agent.product.name="Instagram"^>.name="Android"^.comments'
     extract:
-    - 'DeviceBrand                         :    101 :@InstagramAndroidComments.(4)entry.product.name'
-    - 'DeviceName                          :    101 :@InstagramAndroidComments.(5)entry'
+    - 'DeviceBrand                         :      101 :@InstagramAndroidComments.(4)entry.product.name'
+    - 'DeviceName                          :      101 :@InstagramAndroidComments.(5)entry'
 
 - test:
     input:
@@ -367,13 +367,13 @@ config:
     variable:
     - 'OSMetaField: agent.(1)product.(1)comments.entry[-2]="osmeta like"'
     extract:
-    - 'DeviceClass                         :      2 :LookUp[AppleDeviceClass;@OSMetaField]'
-    - 'DeviceBrand                         :      2 :"Apple"'
-    - 'DeviceName                          :      2 :LookUp[AppleDeviceName;@OSMetaField]'
-    - 'DeviceVersion                       :      2 :LookUp[AppleDeviceVersion;@OSMetaField]'
-    - 'OperatingSystemClass                :     20 :"Mobile"'
-    - 'OperatingSystemName                 :     20 :"iOS"'
-    - 'OperatingSystemVersion              :     20 :"??"'
+    - 'DeviceClass                         :        2 :LookUp[AppleDeviceClass;@OSMetaField]'
+    - 'DeviceBrand                         :        2 :"Apple"'
+    - 'DeviceName                          :        2 :LookUp[AppleDeviceName;@OSMetaField]'
+    - 'DeviceVersion                       :        2 :LookUp[AppleDeviceVersion;@OSMetaField]'
+    - 'OperatingSystemClass                :       20 :"Mobile"'
+    - 'OperatingSystemName                 :       20 :"iOS"'
+    - 'OperatingSystemVersion              :       20 :"??"'
 
 - matcher:
     variable:
@@ -382,10 +382,10 @@ config:
     - 'agent.(1-4)product.comments.entry.(1)product.name="osmeta"' # Performance optimizer
     - 'agent.(1)product.(1)comments.entry[-2]="osmeta like"'
     extract:
-    - 'DeviceClass                         :      2 :"Mobile"'
-    - 'OperatingSystemClass                :     20 :"Mobile"'
-    - 'OperatingSystemName                 :     20 :@InstagramOS.(1)version'
-    - 'OperatingSystemVersion              :     20 :CleanVersion[@InstagramOS.(2)version]'
+    - 'DeviceClass                         :        2 :"Mobile"'
+    - 'OperatingSystemClass                :       20 :"Mobile"'
+    - 'OperatingSystemName                 :       20 :@InstagramOS.(1)version'
+    - 'OperatingSystemVersion              :       20 :CleanVersion[@InstagramOS.(2)version]'
 
 
 - test:
