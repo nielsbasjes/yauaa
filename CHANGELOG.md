@@ -1,6 +1,10 @@
 This is intended as an overview of the major changes
 
-v5.13-SNAPSHOT
+v5.14-SNAPSHOT
+===
+- ... nothing yet ...
+
+v5.13
 ===
 - Analyzer improvement by allocating less AgentFields (i.e. less memory).
 - Optimized rules to reduce startup time and memory usage.
