@@ -555,13 +555,13 @@
                                 
                                 <h1 id="user-defined-function-for-apache-hive">User Defined Function for Apache Hive</h1>
 <h2 id="getting-the-udf">Getting the UDF</h2>
-<p>You can get the prebuilt UDF from <a href="https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-hive/5.12/yauaa-hive-5.12-udf.jar" target="_blank">maven central</a>.</p>
+<p>You can get the prebuilt UDF from <a href="https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-hive/5.13/yauaa-hive-5.13-udf.jar" target="_blank">maven central</a>.</p>
 <p>If you use a maven based project simply add this dependency</p>
 <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
   &lt;artifactId&gt;yauaa-hive&lt;/artifactId&gt;
   &lt;classifier&gt;udf&lt;/classifier&gt;
-  &lt;version&gt;5.12&lt;/version&gt;
+  &lt;version&gt;5.13&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>
 
@@ -571,12 +571,12 @@
 </code></pre><h2 id="example-usage">Example usage</h2>
 <p>First the jar file must be &apos;known&apos;
 Either by doing</p>
-<pre><code>ADD JAR hdfs:///yauaa-hive-5.12-udf.jar</code></pre>
+<pre><code>ADD JAR hdfs:///yauaa-hive-5.13-udf.jar</code></pre>
 
 <p>or by defining it as a <a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL#LanguageManualDDL-PermanentFunctions" target="_blank">permanent function</a></p>
 <pre><code>CREATE FUNCTION ParseUserAgent
 AS &apos;nl.basjes.parse.useragent.hive.ParseUserAgent&apos;
-USING JAR &apos;hdfs:///yauaa-hive-5.12-udf.jar&apos;;
+USING JAR &apos;hdfs:///yauaa-hive-5.13-udf.jar&apos;;
 </code></pre>
 
 <p>or installing it locally with the Hive Server</p>
@@ -671,7 +671,7 @@ SELECT ParseUserAgent(useragent).DeviceClass, ParseUserAgent(useragent).Operatin
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Apache Hive","level":"3.7","depth":1,"next":{"title":"Apache Nifi","level":"3.8","depth":1,"path":"UDF-ApacheNifi.md","ref":"UDF-ApacheNifi.md","articles":[]},"previous":{"title":"Apache Flink (Table/SQL)","level":"3.6","depth":1,"path":"UDF-ApacheFlinkTable.md","ref":"UDF-ApacheFlinkTable.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.12"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"UDF-ApacheHive.md","mtime":"2019-08-30T14:04:53.229Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-30T20:44:06.718Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Apache Hive","level":"3.7","depth":1,"next":{"title":"Apache Nifi","level":"3.8","depth":1,"path":"UDF-ApacheNifi.md","ref":"UDF-ApacheNifi.md","articles":[]},"previous":{"title":"Apache Flink (Table/SQL)","level":"3.6","depth":1,"path":"UDF-ApacheFlinkTable.md","ref":"UDF-ApacheFlinkTable.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.13"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"UDF-ApacheHive.md","mtime":"2019-10-30T09:49:02.851Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-12T13:29:35.642Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
