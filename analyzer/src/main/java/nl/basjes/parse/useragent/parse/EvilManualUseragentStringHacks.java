@@ -117,7 +117,7 @@ public final class EvilManualUseragentStringHacks {
         // The Weibo useragent This one is a single useragent that hold significant traffic
         result = replaceString(result, "__", " ");
 
-        if (result.contains("%20")) {
+        if (result.contains("%20") || result.contains("%3B")) {
             try {
                 result = URLDecoder.decode(result, "UTF-8");
             } catch (UnsupportedEncodingException | IllegalArgumentException e) {
