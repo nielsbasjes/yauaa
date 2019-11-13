@@ -2,7 +2,9 @@ This is intended as an overview of the major changes
 
 v5.14-SNAPSHOT
 ===
-- ... nothing yet ...
+- Analyzer now handles a COMMA better.
+- New/improved detections
+  - Agent: EmbeddedBrowser
 
 v5.13
 ===
