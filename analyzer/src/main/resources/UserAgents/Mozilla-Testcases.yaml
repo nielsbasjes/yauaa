@@ -655,16 +655,16 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceClass                         :        2 :"Mobile"' # Cloud, Desktop, Mobile, Embedded
-    - 'OperatingSystemClass                :        2 :"Mobile"' # Cloud, Desktop, Mobile, Embedded
-    - 'OperatingSystemName                 :        2 :"Firefox OS"' # ( Linux / Android / Windows ...)
+    - 'DeviceClass                         :        2 :"Mobile"'
+    - 'OperatingSystemClass                :        2 :"Mobile"'
+    - 'OperatingSystemName                 :        2 :"Firefox OS"'
     - 'OperatingSystemVersion              :        2 :agent.product.name="Firefox"^.version'
 
 - matcher:
     extract:
-    - 'DeviceClass                         :        3 :"Mobile"' # Cloud, Desktop, Mobile, Embedded
-    - 'OperatingSystemClass                :        3 :"Mobile"' # Cloud, Desktop, Mobile, Embedded
-    - 'OperatingSystemName                 :        3 :"Firefox OS"' # ( Linux / Android / Windows ...)
+    - 'DeviceClass                         :        3 :"Mobile"'
+    - 'OperatingSystemClass                :        3 :"Mobile"'
+    - 'OperatingSystemName                 :        3 :"Firefox OS"'
     - 'OperatingSystemVersion              :        3 :LookUp[GeckoToFirefoxOSVersion;agent.product.name="Firefox"^.version]'
 
 #Form factor"              "Gecko user agent string

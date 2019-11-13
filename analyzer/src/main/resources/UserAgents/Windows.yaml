@@ -54,7 +54,7 @@ config:
 
 - matcher:
     variable:
-      - 'Product:agent.(1)product.comments.entry.product?WindowsDesktopOSName'
+    - 'Product:agent.(1)product.comments.entry.product?WindowsDesktopOSName'
     extract:
     - 'DeviceClass                         :      100 :"Desktop"'
     - 'DeviceName                          :      100 :"Desktop"'
@@ -70,7 +70,7 @@ config:
 
 - matcher:
     variable:
-      - 'Product:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
+    - 'Product:agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
     extract:
     - 'DeviceClass                         :       50 :"Desktop"'
     - 'DeviceName                          :       50 :"Desktop"'
@@ -82,7 +82,7 @@ config:
 
 - matcher:
     variable:
-      - 'Product: agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
+    - 'Product: agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
     require:
     - 'agent.(1)product.(1)comments.entry.product.name[1-2]="Tablet PC"'
     extract:
@@ -96,7 +96,7 @@ config:
 
 - matcher:
     variable:
-      - 'Text:agent.(1)product.comments.entry.(1-2)text?WindowsDesktopOSName'
+    - 'Text:agent.(1)product.comments.entry.(1-2)text?WindowsDesktopOSName'
     extract:
     - 'DeviceClass                         :      100 :"Desktop"'
     - 'DeviceName                          :      100 :"Desktop"'

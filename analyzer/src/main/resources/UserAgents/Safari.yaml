@@ -32,7 +32,7 @@ config:
 
 - matcher:
     variable:
-      - 'Product:agent.product.name="AppleWebKit"^>'
+    - 'Product:agent.product.name="AppleWebKit"^>'
     extract:
     - 'AgentClass                          :       14 :"Browser"'
     - 'AgentName                           :       14 :@Product.name!="Mobile"'
@@ -40,7 +40,7 @@ config:
 
 - matcher:
     variable:
-      - 'Product:agent.(1)product.(1)comments.entry.(1)product'
+    - 'Product:agent.(1)product.(1)comments.entry.(1)product'
     require:
     - 'agent.(1)product.name="Mozilla"'
     - 'agent.(1)product.(1)version="5.0"'

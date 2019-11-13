@@ -263,7 +263,7 @@ config:
 
 - matcher:
     variable:
-      - 'GoogleTV:agent.(1)product.(1)comments.entry.(1)product.name="GoogleTV"'
+    - 'GoogleTV:agent.(1)product.(1)comments.entry.(1)product.name="GoogleTV"'
     extract:
     - 'DeviceClass                         :      100 :"Set-top box"'
     - 'OperatingSystemClass                :      100 :"Embedded"'
@@ -430,7 +430,7 @@ config:
 
 - matcher:
     variable:
-      - 'Product:agent.product.name="Large Screen Safari"^>'
+    - 'Product:agent.product.name="Large Screen Safari"^>'
     extract:
     - 'DeviceClass                         :     1101 :"Set-top box"'
     - 'DeviceName                          :        9 :"Unknown Set-top box"'
@@ -590,7 +590,7 @@ config:
 
 - matcher:
     variable:
-      - 'Name: agent.(1)product.(1)comments.entry.product.name[2-3]="Android TV"@'
+    - 'Name: agent.(1)product.(1)comments.entry.product.name[2-3]="Android TV"@'
     extract:
     - 'OperatingSystemClass                :     1100 :"Embedded"'
     - 'DeviceClass                         :     1100 :"Set-top box"'

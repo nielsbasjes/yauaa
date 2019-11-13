@@ -711,9 +711,9 @@ config:
 
 - matcher:
     variable:
-      - 'Product:agent.product.name="Browser"^'
-      - 'ProductV1:@Product.(1)version'
-      - 'ProductV2:@Product.(2)version'
+    - 'Product:agent.product.name="Browser"^'
+    - 'ProductV1:@Product.(1)version'
+    - 'ProductV2:@Product.(2)version'
     require:
     - 'agent.product="Profile/MIDP-2.1"'
     extract:

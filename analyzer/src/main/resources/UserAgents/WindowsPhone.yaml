@@ -513,7 +513,7 @@ config:
 
 - matcher:
     variable:
-      - 'Product:agent.(1)product.comments.entry.product?WindowsPhoneOSName'
+    - 'Product:agent.(1)product.comments.entry.product?WindowsPhoneOSName'
     require:
     - 'agent.(1)product.comments.entry="ARM"'
     extract:
@@ -533,7 +533,7 @@ config:
 
 - matcher:
     variable:
-      - 'Product:agent.(1)product.comments.entry.(1-2)text?WindowsPhoneOSName'
+    - 'Product:agent.(1)product.comments.entry.(1-2)text?WindowsPhoneOSName'
     require:
     - 'agent.(1)product.comments.entry="ARM"'
     extract:
@@ -553,7 +553,7 @@ config:
 
 - matcher:
     variable:
-      - 'Product:agent.product?WindowsPhoneOSName'
+    - 'Product:agent.product?WindowsPhoneOSName'
     require:
     - 'agent.(1)product.comments.entry="ARM"'
     extract:
