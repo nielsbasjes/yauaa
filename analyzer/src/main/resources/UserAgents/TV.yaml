@@ -863,6 +863,16 @@ config:
     - 'DeviceName                          :      100 :"NetTV Device"'
     - 'DeviceBrand                         :      100 :"Unknown"'
 
+- matcher:
+    require:
+    - 'agent.product.name="NETTV"'
+    extract:
+    - 'OperatingSystemClass                :      100 :"Embedded"'
+    - 'DeviceClass                         :      100 :"TV"'
+    - 'DeviceName                          :      100 :"NetTV Device"'
+    - 'DeviceBrand                         :      100 :"Unknown"'
+
+
 - test:
     input:
       user_agent_string: 'Opera/9.80 (Linux armv7l; U;  CE-HTML/1.0 NETTV/4.1.1; en) Presto/2.10.287 Version/12.00'
@@ -965,7 +975,7 @@ config:
       user_agent_string: 'WebKit/4.2.5, (CE-HTML/1.0 NETTV/3.3.0 NewB) PHILIPS-AVM-2013/1.35 (Philips, BDP5700, wireless)'
     expected:
       DeviceClass                          : 'TV'
-      DeviceName                           : 'Philips BDP5700,'
+      DeviceName                           : 'Philips BDP5700'
       DeviceBrand                          : 'Philips'
       DeviceVersion                        : '1.35'
       OperatingSystemClass                 : 'Embedded'
@@ -980,9 +990,9 @@ config:
       LayoutEngineVersionMajor             : '??'
       AgentClass                           : 'Special'
       AgentName                            : 'WebKit'
-      AgentVersion                         : '4.2.5,'
+      AgentVersion                         : '4.2.5'
       AgentVersionMajor                    : '4'
-      AgentNameVersion                     : 'WebKit 4.2.5,'
+      AgentNameVersion                     : 'WebKit 4.2.5'
       AgentNameVersionMajor                : 'WebKit 4'
 
 # WebKit/4.1.9, (CE-HTML/1.0 NETTV/3.3.0 NewB) PHILIPS-AVM-2013/1.16 (Philips, HTB5260G, wireless)
@@ -1592,3 +1602,36 @@ config:
       WebviewAppVersion                    : '??'
       WebviewAppVersionMajor               : '??'
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+- matcher:
+    extract:
+    - 'DeviceBrand                         :      101 : agent.product.name="OMI"^.comments.(1)entry'
+    - 'DeviceName                          :      101 : agent.product.name="OMI"^.comments.(2)entry'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.Driver6.25 , _TV_MT5806/091.002.078.253 (Philips, PUS6704, wireless)  CE-HTML/1.0 NETTV/4.6.0.2 SignOn/2.0 SmartTvA/5.0.0 WH1.0 en'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Philips PUS6704'
+      DeviceBrand                          : 'Philips'
+      DeviceCpu                            : 'AArch64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'AArch64'
+      OperatingSystemVersionMajor          : 'AArch64'
+      OperatingSystemNameVersion           : 'Linux AArch64'
+      OperatingSystemNameVersionMajor      : 'Linux AArch64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '36.0.2128.0'
+      AgentVersionMajor                    : '36'
+      AgentNameVersion                     : 'Opera 36.0.2128.0'
+      AgentNameVersionMajor                : 'Opera 36'

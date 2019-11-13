@@ -229,7 +229,7 @@ GIBBERISH
 
 // A version is a WORD with at least 1 number in it (and that can contain a '-').
 VERSION
-    : (~[0-9+;{}()\\/ \t:=[\]"])*[0-9]+(~[+;{}()\\/ \t:=[\]"])*
+    : (~[0-9+;{}()\\/ \t:=[\]",])*[0-9]+([,][0-9]+)?(~[+;{}()\\/ \t:=[\]",])*
     | UNASSIGNEDVARIABLE
     ;
 
@@ -303,23 +303,23 @@ And then there are messy edge cases like "foo 1.0 rv:23 (bar)"
 */
 product
     : productName   (                                   productVersion )+
-                    (  COLON? (SLASH+|MINUS) EQUALS?    (productVersionWithCommas|productVersionSingleWord) )*
+                    (  COLON? (SLASH+|MINUS) EQUALS?    (productVersionWithCommas|productVersionSingleWord) COMMA? )*
                     (  SLASH? (SEMICOLON|MINUS)?        commentBlock
-                       ( SLASH+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) )* )*
+                       ( SLASH+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
                     (SLASH EOF)?
 
     | productName   (  SLASH? (SEMICOLON|MINUS)?        commentBlock
-                       ( SLASH+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) )* )+
+                       ( SLASH+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) COMMA?)* )+
                     (SLASH EOF)?
 
     | productName   (  COLON? (SLASH+|MINUS) productVersionWords
-                        ( SLASH* productVersionWithCommas )*
+                        ( SLASH* productVersionWithCommas COMMA?)*
                         SLASH? (SEMICOLON|MINUS)?       commentBlock ?    )+
                     (SLASH EOF)?
 
-    | productName   (  COLON? (SLASH+|MINUS) EQUALS?    (productVersionWithCommas|productVersionSingleWord) )+
+    | productName   (  COLON? (SLASH+|MINUS) EQUALS?    (productVersionWithCommas|productVersionSingleWord) COMMA?)+
                     (  SLASH? (SEMICOLON|MINUS)?        commentBlock
-                       ( SLASH+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) )* )*
+                       ( SLASH+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
                     (SLASH EOF)?
 
     | productName   (SLASH EOF)
@@ -327,21 +327,21 @@ product
 
 commentProduct
     : productName   (                       productVersionWithCommas )+
-                    (   SLASH+  EQUALS?     (productVersionWithCommas|productVersionSingleWord) )*
+                    (   SLASH+  EQUALS?     (productVersionWithCommas|productVersionSingleWord) COMMA?)*
                     (   SLASH?  MINUS?      commentBlock
-                        ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) )* )*
+                        ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
 
     | productName   (   SLASH? MINUS?       commentBlock
-                        ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) )* )+
+                        ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) COMMA?)* )+
 
     | productName   (   COLON? (SLASH+|MINUS) productVersionWords
-                        ( SLASH* productVersionWithCommas )*            )+
+                        ( SLASH* productVersionWithCommas COMMA?)*            )+
                     (   MINUS?              commentBlock
-                        ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) )* )*
+                        ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
 
-    | productName   (   (SLASH+|MINUS)  EQUALS?     (productVersionWithCommas) )+
+    | productName   (   (SLASH+|MINUS)  EQUALS?     (productVersionWithCommas) COMMA?)+
                     (   MINUS?              commentBlock
-                        ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) )* )*
+                        ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
     ;
 
 productVersionWords
