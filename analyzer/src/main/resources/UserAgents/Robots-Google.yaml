@@ -16,6 +16,27 @@
 #
 
 config:
+# All bot tags described here
+#     https://support.google.com/webmasters/answer/1061943?hl=en
+- lookup:
+      name: 'NamedGoogleRobots'
+      map:
+        # Token  --> Google Robot name
+        'APIs-Google'                  : 'APIs-Google'
+        'Mediapartners-Google'         : 'AdSense crawler'    # Normal/ Mobile
+        'AdsBot-Google-Mobile'         : 'AdsBot Mobile Web'  #  (Checks Android/iPhone web page ad quality)
+        'AdsBot-Google'                : 'AdsBot'             #  (Checks Desktop web page ad quality)
+        'Googlebot-Image'              : 'Googlebot Images'
+        'Googlebot-News'               : 'Googlebot News'
+        'Googlebot Video'              : 'Googlebot Video'
+        'Googlebot'                    : 'Googlebot (Desktop)' # Not in this list because of imitations
+        'AdsBot-Google-Mobile-Apps'    : 'Mobile Apps Android'
+        'FeedFetcher-Google'           : 'Feedfetcher'
+        'Google-Read-Aloud'            : 'Google Read Aloud'
+        'google-speakr'                : 'Google Read Aloud'
+        'DuplexWeb-Google'             : 'Duplex on the Web'
+        'Google Favicon'               : 'Google Favicon'
+
 
 - matcher:
     variable:
@@ -1086,3 +1107,119 @@ config:
 #      user_agent_string: 'Mozilla/5.0 (compatible; Google-Structured-Data-Testing-Tool +https://search.google.com/structured-data/testing-tool)'
 
 
+## https://support.google.com/adsense/answer/10532?hl=en
+## https://support.google.com/adsense/answer/99376
+## = Google Adsense Crawler
+## https://support.google.com/webmasters/answer/1061943?hl=en
+#- test:
+#    input:
+#      user_agent_string: 'Mediapartners-Google'
+#    expected:
+#      DeviceClass                           : 'Robot'
+#      DeviceName                            : 'Google'
+#      DeviceBrand                           : 'Google'
+#      OperatingSystemClass                  : 'Cloud'
+#      OperatingSystemName                   : 'Google'
+#      OperatingSystemVersion                : 'Google'
+#      OperatingSystemVersionMajor           : 'Google'
+#      OperatingSystemNameVersion            : 'Google'
+#      OperatingSystemNameVersionMajor       : 'Google'
+#      LayoutEngineClass                     : 'Robot'
+#      LayoutEngineName                      : 'Googlebot'
+#      LayoutEngineVersion                   : 'Googlebot'
+#      LayoutEngineVersionMajor              : 'Googlebot'
+#      LayoutEngineNameVersion               : 'Googlebot'
+#      LayoutEngineNameVersionMajor          : 'Googlebot'
+#      AgentClass                            : 'Robot'
+#      AgentName                             : 'AdSense crawler'
+#      AgentVersion                          : '??'
+#      AgentVersionMajor                     : '??'
+#      AgentNameVersion                      : 'AdSense crawler ??'
+#      AgentNameVersionMajor                 : 'AdSense crawler ??'
+#
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'APIs-Google (+https://developers.google.com/webmasters/APIs-Google.html)'
+
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0; SM-G920A) AppleWebKit (KHTML, like Gecko) Chrome Mobile Safari (compatible; AdsBot-Google-Mobile; +http://www.google.com/mobile/adsbot.html)'
+
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 (compatible; AdsBot-Google-Mobile; +http://www.google.com/mobile/adsbot.html)'
+
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'AdsBot-Google (+http://www.google.com/adsbot.html)'
+
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Googlebot-Image/1.0'
+
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Googlebot News'
+
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Googlebot-Video/1.0'
+
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36'
+
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Googlebot/2.1 (+http://www.google.com/bot.html)'
+
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+
+
+#- test: # TODO: Implement
+#    input: #  (Various mobile device types) (compatible; Mediapartners-Google/2.1; +http://www.google.com/bot.html)
+#      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Mediapartners-Google/2.1; +http://www.google.com/bot.html)'
+
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)'
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36 (compatible; Google-Read-Aloud; +https://support.google.com/webmasters/answer/1061943)'
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012; DuplexWeb-Google/1.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Mobile Safari/537.36'
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)  Chrome/49.0.2623.75 Safari/537.36 Google Favicon'
+
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/[WEBKIT_VERSION] (KHTML, like Gecko; Mediapartners-Google) Chrome/[CHROME_VERSION] Mobile Safari/[WEBKIT_VERSION]'
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/[WEBKIT_VERSION] (KHTML, like Gecko, Mediapartners-Google) Chrome/[CHROME_VERSION] Safari/[WEBKIT_VERSION]'
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/537.36 (KHTML, like Gecko; Mediapartners-Google) Chrome/41.0.2272.118 Mobile Safari/537.36'
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/537.36 (KHTML, like Gecko, Mediapartners-Google) Chrome/41.0.2272.118 Safari/537.36'
