@@ -614,7 +614,7 @@ config:
 
 - matcher:
     variable:
-    - 'AliApp:agent.product.name[1]="AliApp"^.comments.(1)entry.(1)product'
+    - 'AliApp                              :agent.product.name[1]="AliApp"^.comments.(1)entry.(1)product'
     require:
     - 'IsNull[LookUp[AliAppNames;@AliApp.name]]'
     extract:
@@ -624,7 +624,7 @@ config:
 
 - matcher:
     variable:
-    - 'AliApp:agent.product.name[2]="AliApp"^.comments.(1)entry.(1)product'
+    - 'AliApp                              :agent.product.name[2]="AliApp"^.comments.(1)entry.(1)product'
     require:
     - 'IsNull[LookUp[AliAppNames;@AliApp.name]]'
     extract:
@@ -634,8 +634,8 @@ config:
 
 - matcher:
     variable:
-    - 'AliApp:agent.product.name[1]="AliApp"^.comments.(1)entry.(1)product'
-    - 'AliAppName:LookUp[AliAppNames;@AliApp.name]'
+    - 'AliApp                              :agent.product.name[1]="AliApp"^.comments.(1)entry.(1)product'
+    - 'AliAppName                          :LookUp[AliAppNames;@AliApp.name]'
     extract:
     - 'AgentClass                          :     2119 :"Browser Webview"'
     - 'WebviewAppName                      :     2119 :Concat["Alibaba ";@AliAppName]'
@@ -643,8 +643,8 @@ config:
 
 - matcher:
     variable:
-    - 'AliApp:agent.product.name[2]="AliApp"^.comments.(1)entry.(1)product'
-    - 'AliAppName:LookUp[AliAppNames;@AliApp.name]'
+    - 'AliApp                              :agent.product.name[2]="AliApp"^.comments.(1)entry.(1)product'
+    - 'AliAppName                          :LookUp[AliAppNames;@AliApp.name]'
     extract:
     - 'AgentClass                          :     2119 :"Browser Webview"'
     - 'WebviewAppName                      :     2119 :Concat["Alibaba ";@AliAppName]'
@@ -1319,7 +1319,7 @@ config:
 
 - matcher:
     variable:
-    - 'Product:agent.(1-3)product.version="EmbeddedBrowser"^'
+    - 'Product                             :agent.(1-3)product.version="EmbeddedBrowser"^'
     extract:
     - 'AgentClass                          :      100 :"Mobile App"'
     - 'AgentName                           :      100 : Concat["EmbeddedBrowser ";@Product.name]'

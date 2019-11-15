@@ -32,7 +32,7 @@ config:
 
 - matcher:
     variable:
-    - 'Product:agent.product.name="AppleWebKit"^>'
+    - 'Product                             :agent.product.name="AppleWebKit"^>'
     extract:
     - 'AgentClass                          :       14 :"Browser"'
     - 'AgentName                           :       14 :@Product.name!="Mobile"'
@@ -40,7 +40,7 @@ config:
 
 - matcher:
     variable:
-    - 'Product:agent.(1)product.(1)comments.entry.(1)product'
+    - 'Product                             :agent.(1)product.(1)comments.entry.(1)product'
     require:
     - 'agent.(1)product.name="Mozilla"'
     - 'agent.(1)product.(1)version="5.0"'
@@ -146,8 +146,8 @@ config:
 
 - matcher:
     variable:
-    - 'Safari:agent.product.name="Mobile Safari"^'
-    - 'Agent:@Safari>'
+    - 'Safari                              :agent.product.name="Mobile Safari"^'
+    - 'Agent                               :@Safari>'
     require:
     - 'IsNull[@Agent.name="Version"]'
     - 'IsNull[@Agent.name="AppleWebKit"]'
@@ -161,8 +161,8 @@ config:
 
 - matcher:
     variable:
-    - 'Safari:agent.product.name="Safari"^'
-    - 'Agent:@Safari>'
+    - 'Safari                              :agent.product.name="Safari"^'
+    - 'Agent                               :@Safari>'
     require:
     - 'IsNull[@Agent.name="Version"]'
     - 'IsNull[@Agent.name="AppleWebKit"]'
@@ -178,9 +178,9 @@ config:
 
 - matcher:
     variable:
-    - 'Safari:agent.product.name="Mobile Safari"^'
-    - 'Version:@Safari<.name="Version"^'
-    - 'Agent:@Version<'
+    - 'Safari                              :agent.product.name="Mobile Safari"^'
+    - 'Version                             :@Safari<.name="Version"^'
+    - 'Agent                               :@Version<'
     require:
     - 'IsNull[@Agent.name="Version"]'
     - 'IsNull[@Agent.name="AppleWebKit"]'
@@ -193,9 +193,9 @@ config:
 
 - matcher:
     variable:
-    - 'Safari:agent.product.name="Safari"^'
-    - 'Version:@Safari<.name="Version"^'
-    - 'Agent:@Version<'
+    - 'Safari                              :agent.product.name="Safari"^'
+    - 'Version                             :@Safari<.name="Version"^'
+    - 'Agent                               :@Version<'
     require:
     - 'IsNull[@Agent.name="Version"]'
     - 'IsNull[@Agent.name="AppleWebKit"]'

@@ -383,7 +383,7 @@ config:
 
 - matcher:
     variable:
-    - 'Chrome:agent.product.name="Chrome"^'
+    - 'Chrome                              :agent.product.name="Chrome"^'
     require:
     - 'agent.product.name="Version"'
     extract:
@@ -395,7 +395,7 @@ config:
 
 - matcher:
     variable:
-    - 'Browser: LookUp[SpecialChromeBrowserNames;agent.product.name]'
+    - 'Browser                             :LookUp[SpecialChromeBrowserNames;agent.product.name]'
     extract:
     - 'AgentClass                          :       38 :"Browser"'
     - 'AgentName                           :     2038 :@Browser'
@@ -403,7 +403,7 @@ config:
 
 - matcher:
     variable:
-    - 'Browser: LookUp[SpecialChromeBrowserNames;agent.product.name[2-]]'
+    - 'Browser                             :LookUp[SpecialChromeBrowserNames;agent.product.name[2-]]'
     extract:
     - 'AgentClass                          :       38 :"Browser"'
     - 'AgentName                           :     2037 :@Browser'
@@ -411,7 +411,7 @@ config:
 
 - matcher:
     variable:
-    - 'WebViewProduct: agent.product.name="Chrome"^>>'
+    - 'WebViewProduct                      :agent.product.name="Chrome"^>>'
     require:
     - 'agent.product.name="Version"'
     extract:
@@ -426,7 +426,7 @@ config:
     - 'agent.product.name="Version"'
     - 'agent.product.name="Chrome"'
     variable:
-    - 'WebViewProduct: agent.product.name="Version"^>>.name="Chrome"^<'
+    - 'WebViewProduct                      :agent.product.name="Version"^>>.name="Chrome"^<'
     extract:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
@@ -441,7 +441,7 @@ config:
     - 'agent.product.name="Chrome"'
     - 'agent.product.name="Safari"'
     variable:
-    - 'WebViewProduct: agent.product.name="Version"^>.name="Chrome"^>>.name="Safari"^<'
+    - 'WebViewProduct                      :agent.product.name="Version"^>.name="Chrome"^>>.name="Safari"^<'
     extract:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
@@ -455,7 +455,7 @@ config:
     - 'agent.product.name="Chrome"'
     - 'agent.product.name="Mobile Safari"'
     variable:
-    - 'WebViewProduct: agent.product.name="Version"^>.name="Chrome"^>>.name="Mobile Safari"^<'
+    - 'WebViewProduct                      :agent.product.name="Version"^>.name="Chrome"^>>.name="Mobile Safari"^<'
     extract:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
@@ -465,7 +465,7 @@ config:
 
 - matcher:
     variable:
-    - 'WebViewProduct: agent.product.name="Chrome"^>>'
+    - 'WebViewProduct                      :agent.product.name="Chrome"^>>'
     require:
     - 'agent.product.name="Version"'
     extract:
@@ -477,7 +477,7 @@ config:
 
 - matcher:
     variable:
-    - 'WebViewProduct: agent.product.name="Version"^>>.name="Chrome"^<'
+    - 'WebViewProduct                      :agent.product.name="Version"^>>.name="Chrome"^<'
     extract:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
@@ -487,7 +487,7 @@ config:
 
 - matcher:
     variable:
-    - 'WebViewProduct: agent.product.name="Version"^>>.name="Chrome"^<'
+    - 'WebViewProduct                      :agent.product.name="Version"^>>.name="Chrome"^<'
     extract:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
@@ -665,28 +665,28 @@ config:
 
 - matcher:
     variable:
-    - 'ProductAfterChrome: agent.product.name="Chrome"^>'
+    - 'ProductAfterChrome                  :agent.product.name="Chrome"^>'
     extract:
     - 'AgentName                           :     2072 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.name]'
     - 'AgentVersion                        :     2072 :@ProductAfterChrome.(1)version'
 
 - matcher:
     variable:
-    - 'ProductAfterChrome: agent.product.name="Chrome"^>>'
+    - 'ProductAfterChrome                  :agent.product.name="Chrome"^>>'
     extract:
     - 'AgentName                           :     2071 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.name]'
     - 'AgentVersion                        :     2071 :@ProductAfterChrome.(1)version'
 
 - matcher:
     variable:
-    - 'ProductAfterChrome: agent.product.name="Chrome"^>>>'
+    - 'ProductAfterChrome                  :agent.product.name="Chrome"^>>>'
     extract:
     - 'AgentName                           :     2070 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.name]'
     - 'AgentVersion                        :     2070 :@ProductAfterChrome.(1)version'
 
 - matcher:
     variable:
-    - 'ProductAfterChrome: agent.product.name="Chrome"^>>>>'
+    - 'ProductAfterChrome                  :agent.product.name="Chrome"^>>>>'
     extract:
     - 'AgentName                           :     2069 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.name]'
     - 'AgentVersion                        :     2069 :@ProductAfterChrome.(1)version'
@@ -698,7 +698,7 @@ config:
 
 - matcher:
     variable:
-    - 'ProductBeforeChrome: agent.product.name="Chrome"^<'
+    - 'ProductBeforeChrome                 :agent.product.name="Chrome"^<'
     extract:
     - 'AgentName                           :     2087 :LookUp[SpecialChromeBrowserNames;@ProductBeforeChrome.name]'
     - 'AgentVersion                        :     2087 :@ProductBeforeChrome.(1)version'
@@ -706,7 +706,7 @@ config:
 
 - matcher:
     variable:
-    - 'ProductBeforeChrome: agent.product.name="Chrome"^<<'
+    - 'ProductBeforeChrome                 :agent.product.name="Chrome"^<<'
     extract:
     - 'AgentName                           :     2086 :LookUp[SpecialChromeBrowserNames;@ProductBeforeChrome.name]'
     - 'AgentVersion                        :     2086 :@ProductBeforeChrome.(1)version'
@@ -716,7 +716,7 @@ config:
     require:
     - 'agent.product.name="Safari"' # Performance trick
     variable:
-    - 'Product: agent.product.name="Chrome"^>>.name="Safari"^<'
+    - 'Product                             :agent.product.name="Chrome"^>>.name="Safari"^<'
     extract:
     - 'AgentClass                          :     2080 :"Browser"'
     - 'AgentName                           :     2080 :@Product.name'
@@ -726,7 +726,7 @@ config:
     require:
     - 'agent.product.name="Mobile Safari"' # Performance trick
     variable:
-    - 'Product: agent.product.name="Chrome"^>>.name="Mobile Safari"^<'
+    - 'Product                             :agent.product.name="Chrome"^>>.name="Mobile Safari"^<'
     extract:
     - 'AgentClass                          :     2080 :"Browser"'
     - 'AgentName                           :     2080 :@Product.name'
@@ -737,7 +737,7 @@ config:
     require:
     - 'agent.product.name="Safari"' # Performance trick
     variable:
-    - 'Product: agent.product.name="Chrome"^>>>.name="Safari"^<<'
+    - 'Product                             :agent.product.name="Chrome"^>>>.name="Safari"^<<'
     extract:
     - 'AgentClass                          :     2080 :"Browser"'
     - 'AgentName                           :     2080 :@Product.name'
@@ -747,7 +747,7 @@ config:
     require:
     - 'agent.product.name="Mobile Safari"' # Performance trick
     variable:
-    - 'Product: agent.product.name="Chrome"^>>>.name="Mobile Safari"^<<'
+    - 'Product                             :agent.product.name="Chrome"^>>>.name="Mobile Safari"^<<'
     extract:
     - 'AgentClass                          :     2080 :"Browser"'
     - 'AgentName                           :     2080 :@Product.name'
@@ -1977,9 +1977,9 @@ config:
 
 - matcher:
     variable:
-    - 'ChromeName:agent.product.name[1]="Chrome"'
-    - 'SafariName:agent.product.name="Iron Safari"'
-    - 'ProductName:@SafariName@[1]'
+    - 'ChromeName                          :agent.product.name[1]="Chrome"'
+    - 'SafariName                          :agent.product.name="Iron Safari"'
+    - 'ProductName                         :@SafariName@[1]'
     require:
     - 'IsNull[agent.product.name="Mobile Safari"]'
     extract:
@@ -1988,9 +1988,9 @@ config:
 
 - matcher:
     variable:
-    - 'ChromeName:agent.product.name[1]="Chrome"'
-    - 'SafariName:agent.product.name[3]="Safari"'
-    - 'ProductName:@SafariName@[2]'
+    - 'ChromeName                          :agent.product.name[1]="Chrome"'
+    - 'SafariName                          :agent.product.name[3]="Safari"'
+    - 'ProductName                         :@SafariName@[2]'
     require:
     - 'agent.product.name[1]="Mobile"' # Speedup trick
     - '@SafariName@[1]="Mobile"'

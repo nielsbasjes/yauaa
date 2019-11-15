@@ -266,7 +266,7 @@ config:
 # Versions like 599 and 999 are an indication of some kind of manipulation
 - matcher:
     variable:
-    - 'AppleWebKit                : agent.product.name="AppleWebKit"'
+    - 'AppleWebKit                         :agent.product.name="AppleWebKit"'
     require:
     - 'agent.product.version="599.0"' # Speedup trick
     - '@AppleWebKit^.version="599.0"'
@@ -275,7 +275,7 @@ config:
 
 - matcher:
     variable:
-    - 'AppleWebKit                : agent.product.name="AppleWebKit"'
+    - 'AppleWebKit                         :agent.product.name="AppleWebKit"'
     require:
     - 'agent.product.version="999"' # Speedup trick
     - '@AppleWebKit^.version="999"'

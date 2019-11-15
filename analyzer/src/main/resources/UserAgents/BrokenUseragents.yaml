@@ -18,7 +18,7 @@ config:
 
 - matcher:
     variable:
-    - 'BeforeBrowser: agent.(1)product.(1)comments.entry.product.name="Browser"^<'
+    - 'BeforeBrowser                       :agent.(1)product.(1)comments.entry.product.name="Browser"^<'
     require:
     - 'agent.(1)product.(1)comments.entry.product.name="Browser"^.(1)version="Browser"'
     extract:
@@ -1564,7 +1564,7 @@ config:
 
 - matcher:
     variable:
-    - 'Browser: agent.(1-5)product.comments.entry.(1-5)product.name="Browser"'
+    - 'Browser                             :agent.(1-5)product.comments.entry.(1-5)product.name="Browser"'
     extract:
     - 'AgentClass                          :      100 : "Browser"'
     - 'AgentName                           :      100 : @Browser^.(1)version'
@@ -1572,7 +1572,7 @@ config:
 
 - matcher:
     variable:
-    - 'Device: agent.(1)product.(1)comments.(1)entry.(1)product'
+    - 'Device                              :agent.(1)product.(1)comments.(1)entry.(1)product'
     require:
     - '@Device~"AppleWebkit"'
     extract:

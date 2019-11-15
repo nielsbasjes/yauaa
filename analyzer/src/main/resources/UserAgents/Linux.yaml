@@ -97,7 +97,7 @@ config:
 
 - matcher:
     variable:
-    - 'LinuxVersion:agent.(1-2)product.(1)comments.entry.product.name="Linux"^.(1)version'
+    - 'LinuxVersion                        :agent.(1-2)product.(1)comments.entry.product.name="Linux"^.(1)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@LinuxVersion]]'
     extract:
@@ -106,7 +106,7 @@ config:
 
 - matcher:
     variable:
-    - 'Linux:agent.(1-2)product.(1)comments.entry.product.name="Linux"^'
+    - 'Linux                               :agent.(1-2)product.(1)comments.entry.product.name="Linux"^'
     extract:
     - 'DeviceCpu                           :       15 :LookUp[CPUArchitectures;@Linux.(2)version]'
     - 'OperatingSystemVersion              :       15 :@Linux.(1)version'
@@ -527,7 +527,7 @@ config:
 
 - matcher:
     variable:
-    - 'MozillaVersion:agent.(1)product.name="Mozilla"^.version'
+    - 'MozillaVersion                      :agent.(1)product.name="Mozilla"^.version'
     extract:
     - 'LayoutEngineClass                   :        3 :"Browser"'
     - 'LayoutEngineName                    :        3 :"Mozilla"'
@@ -764,7 +764,7 @@ config:
 
 - matcher:
     variable:
-    - 'UbuntuProductName: agent.(1)product.(1)comments.entry.(1)product.name~"buntu"'
+    - 'UbuntuProductName                   :agent.(1)product.(1)comments.entry.(1)product.name~"buntu"'
     extract:
     - 'OperatingSystemName                 :      100 :@UbuntuProductName'
     - 'OperatingSystemVersion              :      100 :@UbuntuProductName^.version="14.04.1"'

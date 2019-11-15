@@ -24,7 +24,7 @@ config:
 
 - matcher:
     variable:
-    - 'RV:agent.(1)product.comments.entry.(1)keyvalue.key="rv"^.value'
+    - 'RV                                  :agent.(1)product.comments.entry.(1)keyvalue.key="rv"^.value'
     extract:
     - 'LayoutEngineClass                   :     2010 :"Browser"'
     - 'LayoutEngineName                    :     2010 :"Goanna"'
@@ -36,7 +36,7 @@ config:
 
 - matcher:
     variable:
-    - 'Goanna: agent.(2-5)product.name="Goanna"^>'
+    - 'Goanna                              :agent.(2-5)product.name="Goanna"^>'
     require:
     - 'IsNull[@Goanna.name?BadGoannaNames]'
     extract:
@@ -46,7 +46,7 @@ config:
 
 - matcher:
     variable:
-    - 'Goanna: agent.(2-5)product.name="Goanna"^>>'
+    - 'Goanna                              :agent.(2-5)product.name="Goanna"^>>'
     require:
     - 'IsNull[@Goanna.name[-1]?BadGoannaNames]'
     extract:
@@ -56,7 +56,7 @@ config:
 
 - matcher:
     variable:
-    - 'Goanna: agent.(2-5)product.name="Goanna"^>'
+    - 'Goanna                              :agent.(2-5)product.name="Goanna"^>'
     require:
     - 'agent.(3-6)product.name[2]="Firefox"' # Performance trick
     extract:
@@ -66,7 +66,7 @@ config:
 
 - matcher:
     variable:
-    - 'Goanna: agent.(2-5)product.name="Goanna"^>'
+    - 'Goanna                              :agent.(2-5)product.name="Goanna"^>'
     require:
     - 'agent.(3-6)product.name[3]="Firefox"' # Performance trick
     extract:
@@ -76,7 +76,7 @@ config:
 
 - matcher:
     variable:
-    - 'Goanna: agent.(2-5)product.name="Goanna"^>>'
+    - 'Goanna                              :agent.(2-5)product.name="Goanna"^>>'
     require:
     - 'agent.(4-7)product.name[2]="Firefox"' # Performance trick
     extract:
@@ -86,7 +86,7 @@ config:
 
 - matcher:
     variable:
-    - 'Goanna: agent.(2-5)product.name="Goanna"^>>'
+    - 'Goanna                              :agent.(2-5)product.name="Goanna"^>>'
     require:
     - 'agent.(4-7)product.name[3]="Firefox"' # Performance trick
     extract:
@@ -97,7 +97,7 @@ config:
     # In some obscure cases we have a parse problem that sends everything inside a comment block
 - matcher:
     variable:
-    - 'RV:agent.(1)product.comments.entry.(1)keyvalue.key="rv"^.value'
+    - 'RV                                  :agent.(1)product.comments.entry.(1)keyvalue.key="rv"^.value'
     extract:
     - 'LayoutEngineClass                   :     1901 :"Browser"'
     - 'LayoutEngineName                    :     1901 :"Goanna"'
@@ -109,7 +109,7 @@ config:
 
 - matcher:
     variable:
-    - 'Goanna: agent.(1-4)product.comments.entry.(1-4)product.name="Goanna"^>'
+    - 'Goanna                              :agent.(1-4)product.comments.entry.(1-4)product.name="Goanna"^>'
     extract:
     - 'AgentClass                          :     1901 :"Browser"'
     - 'AgentName                           :     1901 :@Goanna.name'

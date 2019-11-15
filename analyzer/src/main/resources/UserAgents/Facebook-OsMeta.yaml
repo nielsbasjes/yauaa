@@ -131,14 +131,14 @@ config:
 
 - matcher:
     variable:
-    - 'InstagramAndroidComments: agent.product.name="Instagram"^>.name="Android"^.comments'
+    - 'InstagramAndroidComments            :agent.product.name="Instagram"^>.name="Android"^.comments'
     extract:
     - 'DeviceBrand                         :      100 :@InstagramAndroidComments.(4)entry'
     - 'DeviceName                          :      100 :@InstagramAndroidComments.(5)entry'
 
 - matcher:
     variable:
-    - 'InstagramAndroidComments: agent.product.name="Instagram"^>.name="Android"^.comments'
+    - 'InstagramAndroidComments            :agent.product.name="Instagram"^>.name="Android"^.comments'
     extract:
     - 'DeviceBrand                         :      101 :@InstagramAndroidComments.(4)entry.product.name'
     - 'DeviceName                          :      101 :@InstagramAndroidComments.(5)entry'
@@ -365,7 +365,7 @@ config:
 
 - matcher:
     variable:
-    - 'OSMetaField: agent.(1)product.(1)comments.entry[-2]="osmeta like"'
+    - 'OSMetaField                         :agent.(1)product.(1)comments.entry[-2]="osmeta like"'
     extract:
     - 'DeviceClass                         :        2 :LookUp[AppleDeviceClass;@OSMetaField]'
     - 'DeviceBrand                         :        2 :"Apple"'
@@ -377,7 +377,7 @@ config:
 
 - matcher:
     variable:
-    - 'InstagramOS: agent.(1-6)product.name="Instagram"^.comments.(1-4)entry.(1-4)product.name="osmeta"^'
+    - 'InstagramOS                         :agent.(1-6)product.name="Instagram"^.comments.(1-4)entry.(1-4)product.name="osmeta"^'
     require:
     - 'agent.(1-4)product.comments.entry.(1)product.name="osmeta"' # Performance optimizer
     - 'agent.(1)product.(1)comments.entry[-2]="osmeta like"'

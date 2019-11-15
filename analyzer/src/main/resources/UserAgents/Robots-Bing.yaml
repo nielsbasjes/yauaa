@@ -71,7 +71,7 @@ config:
 
 - matcher:
     variable:
-    - 'BingbotVersion:agent.product.name="bingbot"^.version'
+    - 'BingbotVersion                      :agent.product.name="bingbot"^.version'
     extract:
     - '__Set_ALL_Fields__                  :   299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   300000 :"Robot"'
@@ -90,7 +90,7 @@ config:
 
 - matcher:
     variable:
-    - 'BingbotVersion:agent.product.(1)comments.entry.(1-4)product.name="bingbot"^.version'
+    - 'BingbotVersion                      :agent.product.(1)comments.entry.(1-4)product.name="bingbot"^.version'
     extract:
     - '__Set_ALL_Fields__                  :   299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   300000 :"Robot"'
@@ -110,7 +110,7 @@ config:
 
 - matcher:
     variable:
-    - 'msnbot:agent.product.name[1]="msnbot"'
+    - 'msnbot                              :agent.product.name[1]="msnbot"'
     extract:
     - '__Set_ALL_Fields__                  :   299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   300000 :"Robot"'
@@ -129,7 +129,7 @@ config:
 
 - matcher:
     variable:
-    - 'msnbot:agent.product.(1)comments.entry.(1-4)product.name[1]="msnbot"'
+    - 'msnbot                              :agent.product.(1)comments.entry.(1-4)product.name[1]="msnbot"'
     extract:
     - '__Set_ALL_Fields__                  :   299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   300000 :"Robot"'
@@ -149,7 +149,7 @@ config:
 
 - matcher:
     variable:
-    - 'adidxbot:agent.product.name[1]="adidxbot"'
+    - 'adidxbot                            :agent.product.name[1]="adidxbot"'
     extract:
     - '__Set_ALL_Fields__                  :   299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   300000 :"Robot"'
@@ -168,7 +168,7 @@ config:
 
 - matcher:
     variable:
-    - 'adidxbot:agent.product.(1)comments.entry.(1-4)product.name[1]="adidxbot"'
+    - 'adidxbot                            :agent.product.(1)comments.entry.(1-4)product.name[1]="adidxbot"'
     extract:
     - '__Set_ALL_Fields__                  :   299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   300000 :"Robot"'
@@ -187,7 +187,7 @@ config:
 
 - matcher:
     variable:
-    - 'BingPreviewVersion:agent.product.name="BingPreview"^.version'
+    - 'BingPreviewVersion                  :agent.product.name="BingPreview"^.version'
     extract:
     - '__Set_ALL_Fields__                  :   299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   300000 :"Robot"'
@@ -208,7 +208,7 @@ config:
 # There are cases where the 'bingpreview' is preceeded by 'like gecko'
 - matcher:
     variable:
-    - 'BingPreviewVersion:agent.product.name[3]="BingPreview"^.version'
+    - 'BingPreviewVersion                  :agent.product.name[3]="BingPreview"^.version'
     extract:
     - '__Set_ALL_Fields__                  :   299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   300000 :"Robot"'
@@ -227,7 +227,7 @@ config:
 
 - matcher:
     variable:
-    - 'BingPreviewVersion:agent.product.(1)comments.entry.(1-4)product.name="BingPreview"^.version'
+    - 'BingPreviewVersion                  :agent.product.(1)comments.entry.(1-4)product.name="BingPreview"^.version'
     extract:
     - '__Set_ALL_Fields__                  :   299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   300000 :"Robot"'

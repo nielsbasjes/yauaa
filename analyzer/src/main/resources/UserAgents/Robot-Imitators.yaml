@@ -54,7 +54,7 @@ config:
     - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="https://www.google.com/bot.html"]'
     - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url~"googlebot.com"]'
     variable:
-    - 'RealAgent: agent.(1)product.name!="Mozilla"'
+    - 'RealAgent                           :agent.(1)product.name!="Mozilla"'
     extract:
     - 'AgentName                           :   320200 : @RealAgent'
     - 'AgentVersion                        :   320200 : @RealAgent^.version'
@@ -67,7 +67,7 @@ config:
     - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="https://www.google.com/bot.html"]'
     - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url~"googlebot.com"]'
     variable:
-    - 'RealAgent: agent.(1)product.comments.entry.product.name!="GoogleBot"'
+    - 'RealAgent                           :agent.(1)product.comments.entry.product.name!="GoogleBot"'
     extract:
     - 'AgentName                           :   320200 : @RealAgent'
     - 'AgentVersion                        :   320200 : @RealAgent^.version'

@@ -60,7 +60,7 @@ config:
 
 - matcher:
     variable:
-    - 'ProductBuild: agent.(1-2)product.(1)comments.entry.(1-4)product.name="Build"^'
+    - 'ProductBuild                        :agent.(1-2)product.(1)comments.entry.(1-4)product.name="Build"^'
     require:
     - 'agent.(1-2)product.comments.entry.(1-4)product.name[1]="Android"'
     extract:
@@ -145,7 +145,7 @@ config:
 
 - matcher:
     variable:
-    - 'CrOSProduct                   :agent.(1)product.(1)comments.entry.product.name="CrOS"^'
+    - 'CrOSProduct                         :agent.(1)product.(1)comments.entry.product.name="CrOS"^'
     extract:
     - 'DeviceClass                         :     2015 :"Desktop"'
     - 'DeviceBrand                         :     2015 :"Google"'

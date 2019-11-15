@@ -18,7 +18,7 @@ config:
 
 - matcher:
     variable:
-    - 'KoboAppVersion: agent.product.name="KoboApp"^.version'
+    - 'KoboAppVersion                      :agent.product.name="KoboApp"^.version'
     extract:
     - 'LayoutEngineClass                   :      150 :"eReader"'
     - 'LayoutEngineName                    :      150 :"KoboApp"'
@@ -337,7 +337,7 @@ config:
 
 - matcher:
     variable:
-    - 'PocketBookVersion: agent.product.name="PocketBook"^.version'
+    - 'PocketBookVersion                   :agent.product.name="PocketBook"^.version'
     extract:
     - 'DeviceClass                         :      150 :"eReader"'
     - 'DeviceName                          :      150 :"PocketBook"'
@@ -352,7 +352,7 @@ config:
 
 - matcher:
     variable:
-    - 'PocketBookProduct: agent.product.name="PocketBook"^'
+    - 'PocketBookProduct                   :agent.product.name="PocketBook"^'
     extract:
     - 'DeviceFirmwareVersion               :      150 :@PocketBookProduct.comments.entry.product.name="FW"^.version'
 

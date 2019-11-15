@@ -668,14 +668,14 @@ config:
 
 - matcher:
     variable:
-    - 'Product: agent.(1)product.(1)comments.entry.(1)product{"HM "'
+    - 'Product                             :agent.(1)product.(1)comments.entry.(1)product{"HM "'
     extract:
     - 'DeviceName                          :     1010 :LookUp[XiaomiModels;@Product[1];"Redmi Note 4"]'
     - 'DeviceBrand                         :     1010 :"Xiaomi"'
 
 - matcher:
     variable:
-    - 'Product: agent.(1)product.(1)comments.entry.(1)product.name{"201"'
+    - 'Product                             :agent.(1)product.(1)comments.entry.(1)product.name{"201"'
     extract:
     - 'DeviceName                          :     3000 :LookUpPrefix[XiaomiModels;@Product[1];"Redmi 1"]'
     - 'DeviceBrand                         :     3000 :"Xiaomi"'

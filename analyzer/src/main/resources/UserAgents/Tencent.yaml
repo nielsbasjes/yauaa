@@ -102,7 +102,7 @@ config:
 # The effect is that the parse tree gets a bit messy because everything is text (no numbers)
 - matcher:
     variable:
-    - 'NetTypeProduct:agent.product[-3]="Core/UIWebView NetType"'
+    - 'NetTypeProduct                      :agent.product[-3]="Core/UIWebView NetType"'
     require:
     - 'IsNull[@NetTypeProduct.(2)version]'
     extract:
@@ -110,7 +110,7 @@ config:
 
 - matcher:
     variable:
-    - 'NetTypeProduct:agent.product[-3]="Core/UIWebView NetType"'
+    - 'NetTypeProduct                      :agent.product[-3]="Core/UIWebView NetType"'
     extract:
     - 'NetworkType                         :        3 :@NetTypeProduct.(2)version'
 

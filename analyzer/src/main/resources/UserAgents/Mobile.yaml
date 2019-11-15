@@ -85,7 +85,7 @@ config:
 
 - matcher:
     variable:
-    - 'BrowserVersion:agent.product.name="Browser"^.version'
+    - 'BrowserVersion                      :agent.product.name="Browser"^.version'
     require:
     - 'agent.product.(1)version{"AppleWebKit"'
     - '@BrowserVersion{"AppleWebKit"'
@@ -617,7 +617,7 @@ config:
 
 - matcher:
     variable:
-    - 'Version:agent.product.name="UCBrowser"^.version'
+    - 'Version                             :agent.product.name="UCBrowser"^.version'
     extract:
     - 'LayoutEngineClass                   :      131 :"Browser"'
     - 'LayoutEngineName                    :      131 :"UCBrowser"'

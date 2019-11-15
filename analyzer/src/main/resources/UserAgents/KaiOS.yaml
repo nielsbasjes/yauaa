@@ -24,7 +24,7 @@ config:
 
 - matcher:
     variable:
-    - 'Device: agent.(1)product.(1)comments.entry.(1)product.name="LYF"'
+    - 'Device                              :agent.(1)product.(1)comments.entry.(1)product.name="LYF"'
     extract:
     - 'DeviceName                          :     1010 :@Device^.(1)version'
     - 'DeviceBrand                         :     1010 :"Lyf"'
@@ -32,7 +32,7 @@ config:
 
 - matcher:
     variable:
-    - 'Device: agent.(1)product.(1)comments.entry.(1)product.name="$LYF"'
+    - 'Device                              :agent.(1)product.(1)comments.entry.(1)product.name="$LYF"'
     extract:
     - 'DeviceName                          :     1010 :@Device^.(1)version'
     - 'DeviceBrand                         :     1010 :"Lyf"'
@@ -40,8 +40,8 @@ config:
 
 - matcher:
     variable:
-    - 'OS: agent.product.name="KaiOS"^'
-    - 'Agent: @OS<'
+    - 'OS                                  :agent.product.name="KaiOS"^'
+    - 'Agent                               :@OS<'
     extract:
     - 'DeviceClass                         :     1000 :"Phone"'
     - 'OperatingSystemClass                :     1020 :"Mobile"'

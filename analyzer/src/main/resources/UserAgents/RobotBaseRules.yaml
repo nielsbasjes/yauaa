@@ -22,7 +22,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.product.name~"spider"'
+    - 'RobotName                           :agent.product.name~"spider"'
     extract:
     - 'DeviceClass                         :    11100 :"Robot"'
     - 'DeviceName                          :   311100 :@RobotName'
@@ -63,7 +63,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProduct:agent.product.version~"spider"^'
+    - 'RobotProduct                        :agent.product.version~"spider"^'
     extract:
     - 'DeviceClass                         :    10200 :"Robot"'
     - 'DeviceName                          :    10200 :@RobotProduct.name'
@@ -84,14 +84,14 @@ config:
 
 - matcher:
     variable:
-    - 'RobotVersion:agent.product.name~"spider"^.(1)version'
+    - 'RobotVersion                        :agent.product.name~"spider"^.(1)version'
     extract:
     - 'LayoutEngineVersion                 :    11200 :@RobotVersion'
     - 'AgentVersion                        :    11200 :@RobotVersion'
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"spider"'
+    - 'RobotName                           :agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"spider"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :"Robot"'
@@ -121,7 +121,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.product.comments.entry.(1-4)text~"spider"'
+    - 'RobotName                           :agent.product.comments.entry.(1-4)text~"spider"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :"Robot"'
@@ -142,7 +142,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1-10)keyvalue.key~"spider"'
+    - 'RobotName                           :agent.(1-10)keyvalue.key~"spider"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :    10000 :"Robot"'
@@ -164,7 +164,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.text~"spider"'
+    - 'RobotName                           :agent.text~"spider"'
     extract:
     - 'DeviceClass                         :    10100 :"Robot"'
     - 'DeviceName                          :    10100 :@RobotName'
@@ -202,7 +202,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.product.name~"crawl"'
+    - 'RobotName                           :agent.product.name~"crawl"'
     extract:
     - 'DeviceClass                         :    11100 :"Robot"'
     - 'DeviceName                          :   311100 :@RobotName'
@@ -243,7 +243,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProduct:agent.product.version~"crawl"^'
+    - 'RobotProduct                        :agent.product.version~"crawl"^'
     extract:
     - 'DeviceClass                         :    10200 :"Robot"'
     - 'DeviceName                          :    10200 :@RobotProduct.name'
@@ -264,14 +264,14 @@ config:
 
 - matcher:
     variable:
-    - 'RobotVersion:agent.product.name~"crawl"^.(1)version'
+    - 'RobotVersion                        :agent.product.name~"crawl"^.(1)version'
     extract:
     - 'LayoutEngineVersion                 :    11200 :@RobotVersion'
     - 'AgentVersion                        :    11200 :@RobotVersion'
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"crawl"'
+    - 'RobotName                           :agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"crawl"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :"Robot"'
@@ -301,7 +301,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.product.comments.entry.(1-4)text~"crawl"'
+    - 'RobotName                           :agent.product.comments.entry.(1-4)text~"crawl"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :"Robot"'
@@ -322,7 +322,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1-10)keyvalue.key~"crawl"'
+    - 'RobotName                           :agent.(1-10)keyvalue.key~"crawl"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :    10000 :"Robot"'
@@ -344,7 +344,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.text~"crawl"'
+    - 'RobotName                           :agent.text~"crawl"'
     extract:
     - 'DeviceClass                         :    10100 :"Robot"'
     - 'DeviceName                          :    10100 :@RobotName'
@@ -382,7 +382,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.product.name~"bot"'
+    - 'RobotName                           :agent.product.name~"bot"'
     extract:
     - 'DeviceClass                         :    11100 :"Robot"'
     - 'DeviceName                          :   311100 :@RobotName'
@@ -423,7 +423,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProduct:agent.product.version~"bot"^'
+    - 'RobotProduct                        :agent.product.version~"bot"^'
     extract:
     - 'DeviceClass                         :    10200 :"Robot"'
     - 'DeviceName                          :    10200 :@RobotProduct.name'
@@ -444,7 +444,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotVersion:agent.product.name~"bot"^.(1)version'
+    - 'RobotVersion                        :agent.product.name~"bot"^.(1)version'
     extract:
     - 'LayoutEngineVersion                 :    11200 :@RobotVersion'
     - 'AgentVersion                        :    11200 :@RobotVersion'
@@ -453,7 +453,7 @@ config:
     require:
     - 'IsNull[agent.(1-8)product.comments.entry.(1-4)product.name[1]="cubot"]'
     variable:
-    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"bot"'
+    - 'RobotName                           :agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"bot"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :"Robot"'
@@ -486,7 +486,7 @@ config:
     require:
     - 'IsNull[agent.(1-8)product.(1)comments.entry.(1)text[1]="cubot"]'
     variable:
-    - 'RobotName:agent.product.comments.entry.(1-4)text~"bot"'
+    - 'RobotName                           :agent.product.comments.entry.(1-4)text~"bot"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :"Robot"'
@@ -509,7 +509,7 @@ config:
     require:
     - 'IsNull[agent.(1-10)keyvalue.key[1]="cubot"]'
     variable:
-    - 'RobotName:agent.(1-10)keyvalue.key~"bot"'
+    - 'RobotName                           :agent.(1-10)keyvalue.key~"bot"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :    10000 :"Robot"'
@@ -531,7 +531,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.text~"bot"'
+    - 'RobotName                           :agent.text~"bot"'
     extract:
     - 'DeviceClass                         :    10100 :"Robot"'
     - 'DeviceName                          :    10100 :@RobotName'
@@ -569,7 +569,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.product.name~"scan"'
+    - 'RobotName                           :agent.product.name~"scan"'
     extract:
     - 'DeviceClass                         :    11100 :"Robot"'
     - 'DeviceName                          :   311100 :@RobotName'
@@ -610,7 +610,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProduct:agent.product.version~"scan"^'
+    - 'RobotProduct                        :agent.product.version~"scan"^'
     extract:
     - 'DeviceClass                         :    10200 :"Robot"'
     - 'DeviceName                          :    10200 :@RobotProduct.name'
@@ -631,14 +631,14 @@ config:
 
 - matcher:
     variable:
-    - 'RobotVersion:agent.product.name~"scan"^.(1)version'
+    - 'RobotVersion                        :agent.product.name~"scan"^.(1)version'
     extract:
     - 'LayoutEngineVersion                 :    11200 :@RobotVersion'
     - 'AgentVersion                        :    11200 :@RobotVersion'
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"scan"'
+    - 'RobotName                           :agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"scan"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :"Robot"'
@@ -668,7 +668,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.product.comments.entry.(1-4)text~"scan"'
+    - 'RobotName                           :agent.product.comments.entry.(1-4)text~"scan"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :"Robot"'
@@ -689,7 +689,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1-10)keyvalue.key~"scan"'
+    - 'RobotName                           :agent.(1-10)keyvalue.key~"scan"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :    10000 :"Robot"'
@@ -711,7 +711,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.text~"scan"'
+    - 'RobotName                           :agent.text~"scan"'
     extract:
     - 'DeviceClass                         :    10100 :"Robot"'
     - 'DeviceName                          :    10100 :@RobotName'
@@ -749,7 +749,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.text~"checker"'
+    - 'RobotName                           :agent.text~"checker"'
     extract:
     - 'DeviceClass                         :    10100 :"Robot"'
     - 'DeviceName                          :    10100 :@RobotName'

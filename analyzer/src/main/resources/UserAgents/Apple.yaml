@@ -20,7 +20,7 @@ config:
     require:
     - 'agent.(1-2)product.(1)comments.entry[-2]="iPhone OS"'
     variable:
-    - 'AppleTag:agent.(1-2)product.comments.entry[1]?AppleDeviceClass'
+    - 'AppleTag                            :agent.(1-2)product.comments.entry[1]?AppleDeviceClass'
     extract:
     - 'DeviceClass                         :      102 :LookUp[AppleDeviceClass;@AppleTag]'
     - 'DeviceBrand                         :      102 :"Apple"'
@@ -31,7 +31,7 @@ config:
     require:
     - 'agent.(1-2)product.(1)comments.entry[-3]="CPU iPhone OS"'
     variable:
-    - 'AppleTag:agent.(1-2)product.comments.entry[1]?AppleDeviceClass'
+    - 'AppleTag                            :agent.(1-2)product.comments.entry[1]?AppleDeviceClass'
     extract:
     - 'DeviceClass                         :      102 :LookUp[AppleDeviceClass;@AppleTag]'
     - 'DeviceBrand                         :      102 :"Apple"'
@@ -42,7 +42,7 @@ config:
     require:
     - 'agent.(1-2)product.(1)comments.entry[-2]="iPhone OS"'
     variable:
-    - 'AppleTag:agent.(1-2)product.comments.entry[-2]?AppleDeviceClass'
+    - 'AppleTag                            :agent.(1-2)product.comments.entry[-2]?AppleDeviceClass'
     extract:
     - 'DeviceClass                         :      103 :LookUp[AppleDeviceClass;@AppleTag]'
     - 'DeviceBrand                         :      103 :"Apple"'
@@ -53,7 +53,7 @@ config:
     require:
     - 'agent.(1-2)product.(1)comments.entry[-3]="CPU iPhone OS"'
     variable:
-    - 'AppleTag:agent.(1-2)product.comments.entry[-2]?AppleDeviceClass'
+    - 'AppleTag                            :agent.(1-2)product.comments.entry[-2]?AppleDeviceClass'
     extract:
     - 'DeviceClass                         :      103 :LookUp[AppleDeviceClass;@AppleTag]'
     - 'DeviceBrand                         :      103 :"Apple"'
@@ -62,7 +62,7 @@ config:
 
 - matcher:
     variable:
-    - 'OS:agent.(1-2)product.(1)comments.entry.product.name="iPhone OS"'
+    - 'OS                                  :agent.(1-2)product.(1)comments.entry.product.name="iPhone OS"'
     extract:
     - 'DeviceClass                         :      100 :"Phone"'
     - 'DeviceBrand                         :      100 :"Apple"'
@@ -73,7 +73,7 @@ config:
 
 - matcher:
     variable:
-    - 'OS:agent.(1-2)product.(1)comments.entry.product.name="CPU iOS"'
+    - 'OS                                  :agent.(1-2)product.(1)comments.entry.product.name="CPU iOS"'
     extract:
     - 'OperatingSystemClass                :      100 :"Mobile"'
     - 'OperatingSystemName                 :      100 :"iOS"'
@@ -263,7 +263,7 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU"^'
+    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU"^'
     require:
     - '@CPUProduct>="like Mac OS X"'
     extract:
@@ -274,7 +274,7 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU OS"^'
+    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU OS"^'
     require:
     - '@CPUProduct>="like Mac OS X"'
     extract:
@@ -282,7 +282,7 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU OS"^'
+    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU OS"^'
     require:
     - '@CPUProduct>="like Mac OS X"'
     extract:
@@ -292,7 +292,7 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU OS"^'
+    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU OS"^'
     require:
     - '@CPUProduct>="like Mac OS X"'
     extract:
@@ -303,7 +303,7 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU iPhone OS"^'
+    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU iPhone OS"^'
     require:
     - '@CPUProduct>="like Mac OS X"'
     extract:
@@ -311,7 +311,7 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU iPhone OS"^'
+    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU iPhone OS"^'
     require:
     - '@CPUProduct>="like Mac OS X"'
     extract:
@@ -321,7 +321,7 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU iPad OS"^'
+    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU iPad OS"^'
     require:
     - '@CPUProduct>="like Mac OS X"'
     extract:
@@ -329,7 +329,7 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU iPad OS"^'
+    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU iPad OS"^'
     require:
     - '@CPUProduct>="like Mac OS X"'
     extract:
@@ -1113,7 +1113,7 @@ config:
 
 - matcher:
     variable:
-    - 'NextProduct: agent.(2-5)product.name="Mobile"^>'
+    - 'NextProduct                         :agent.(2-5)product.name="Mobile"^>'
     extract:
     - 'AgentClass                          :       39 :"Mobile App"'
     - 'AgentName                           :       39 :@NextProduct.name'

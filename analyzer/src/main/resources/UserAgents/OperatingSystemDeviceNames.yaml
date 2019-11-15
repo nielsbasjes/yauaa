@@ -83,7 +83,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="ASPLinux"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="ASPLinux"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -143,7 +143,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="ASPLinux"^.(2)version'
+    - 'Version                             :agent.product.name="ASPLinux"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -193,7 +193,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="CentOS"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="CentOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -253,7 +253,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="CentOS"^.(2)version'
+    - 'Version                             :agent.product.name="CentOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -303,7 +303,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Red Hat"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Red Hat"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -362,7 +362,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Red Hat"^.(2)version'
+    - 'Version                             :agent.product.name="Red Hat"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -412,7 +412,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Debian"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Debian"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -472,7 +472,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Debian"^.(2)version'
+    - 'Version                             :agent.product.name="Debian"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -522,7 +522,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Debian GNU"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Debian GNU"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -581,7 +581,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Debian GNU"^.(2)version'
+    - 'Version                             :agent.product.name="Debian GNU"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -631,7 +631,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Fedora"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Fedora"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -691,7 +691,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Fedora"^.(2)version'
+    - 'Version                             :agent.product.name="Fedora"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -741,7 +741,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="FoxOS"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="FoxOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -801,7 +801,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="FoxOS"^.(2)version'
+    - 'Version                             :agent.product.name="FoxOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -851,7 +851,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Joli OS"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Joli OS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -910,7 +910,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Joli OS"^.(2)version'
+    - 'Version                             :agent.product.name="Joli OS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -960,7 +960,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="JoliCloud"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="JoliCloud"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1020,7 +1020,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="JoliCloud"^.(2)version'
+    - 'Version                             :agent.product.name="JoliCloud"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1070,7 +1070,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Linpus"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Linpus"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1130,7 +1130,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Linpus"^.(2)version'
+    - 'Version                             :agent.product.name="Linpus"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1180,7 +1180,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Linspire"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Linspire"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1240,7 +1240,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Linspire"^.(2)version'
+    - 'Version                             :agent.product.name="Linspire"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1290,7 +1290,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Mandriva Linux"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Mandriva Linux"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1349,7 +1349,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Mandriva Linux"^.(2)version'
+    - 'Version                             :agent.product.name="Mandriva Linux"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1399,7 +1399,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Mandriva"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Mandriva"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1459,7 +1459,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Mandriva"^.(2)version'
+    - 'Version                             :agent.product.name="Mandriva"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1509,7 +1509,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Mint"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Mint"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1569,7 +1569,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Mint"^.(2)version'
+    - 'Version                             :agent.product.name="Mint"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1619,7 +1619,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Linux Mint"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Linux Mint"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1678,7 +1678,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Linux Mint"^.(2)version'
+    - 'Version                             :agent.product.name="Linux Mint"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1728,7 +1728,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Edition Linux Mint"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Edition Linux Mint"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1788,7 +1788,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Edition Linux Mint"^.(2)version'
+    - 'Version                             :agent.product.name="Edition Linux Mint"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1838,7 +1838,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Moblin"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Moblin"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1898,7 +1898,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Moblin"^.(2)version'
+    - 'Version                             :agent.product.name="Moblin"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -1948,7 +1948,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="NaverBot"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="NaverBot"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2008,7 +2008,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="NaverBot"^.(2)version'
+    - 'Version                             :agent.product.name="NaverBot"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2058,7 +2058,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="PCLinuxOS"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="PCLinuxOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2118,7 +2118,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="PCLinuxOS"^.(2)version'
+    - 'Version                             :agent.product.name="PCLinuxOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2168,7 +2168,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Slackware"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Slackware"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2228,7 +2228,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Slackware"^.(2)version'
+    - 'Version                             :agent.product.name="Slackware"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2278,7 +2278,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="SUSE"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="SUSE"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2338,7 +2338,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="SUSE"^.(2)version'
+    - 'Version                             :agent.product.name="SUSE"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2388,7 +2388,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Ubuntu"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Ubuntu"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2448,7 +2448,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Ubuntu"^.(2)version'
+    - 'Version                             :agent.product.name="Ubuntu"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2498,7 +2498,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Kubuntu"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Kubuntu"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2558,7 +2558,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Kubuntu"^.(2)version'
+    - 'Version                             :agent.product.name="Kubuntu"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2608,7 +2608,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Xubuntu"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Xubuntu"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2668,7 +2668,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Xubuntu"^.(2)version'
+    - 'Version                             :agent.product.name="Xubuntu"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2718,7 +2718,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Ultimate Edition"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Ultimate Edition"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2777,7 +2777,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Ultimate Edition"^.(2)version'
+    - 'Version                             :agent.product.name="Ultimate Edition"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2827,7 +2827,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Yoper"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Yoper"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2887,7 +2887,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Yoper"^.(2)version'
+    - 'Version                             :agent.product.name="Yoper"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2937,7 +2937,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="SugarLabs"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="SugarLabs"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -2997,7 +2997,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="SugarLabs"^.(2)version'
+    - 'Version                             :agent.product.name="SugarLabs"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3047,7 +3047,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="SunOS"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="SunOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3107,7 +3107,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="SunOS"^.(2)version'
+    - 'Version                             :agent.product.name="SunOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3157,7 +3157,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Solaris"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Solaris"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3217,7 +3217,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Solaris"^.(2)version'
+    - 'Version                             :agent.product.name="Solaris"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3267,7 +3267,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="illumOS"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="illumOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3327,7 +3327,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="illumOS"^.(2)version'
+    - 'Version                             :agent.product.name="illumOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3377,7 +3377,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Raspbian"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Raspbian"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3437,7 +3437,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Raspbian"^.(2)version'
+    - 'Version                             :agent.product.name="Raspbian"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3487,7 +3487,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="MeeGo"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="MeeGo"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3547,7 +3547,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="MeeGo"^.(2)version'
+    - 'Version                             :agent.product.name="MeeGo"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3597,7 +3597,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Symbian"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Symbian"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3657,7 +3657,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Symbian"^.(2)version'
+    - 'Version                             :agent.product.name="Symbian"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3707,7 +3707,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="SymbianOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3767,7 +3767,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="SymbianOS"^.(2)version'
+    - 'Version                             :agent.product.name="SymbianOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3817,7 +3817,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Symbian OS"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Symbian OS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3876,7 +3876,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Symbian OS"^.(2)version'
+    - 'Version                             :agent.product.name="Symbian OS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3926,7 +3926,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="PalmSource"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="PalmSource"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -3986,7 +3986,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="PalmSource"^.(2)version'
+    - 'Version                             :agent.product.name="PalmSource"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4036,7 +4036,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="DragonFly"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="DragonFly"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4096,7 +4096,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="DragonFly"^.(2)version'
+    - 'Version                             :agent.product.name="DragonFly"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4146,7 +4146,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="FreeBSD"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="FreeBSD"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4206,7 +4206,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="FreeBSD"^.(2)version'
+    - 'Version                             :agent.product.name="FreeBSD"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4256,7 +4256,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="NetBSD"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="NetBSD"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4316,7 +4316,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="NetBSD"^.(2)version'
+    - 'Version                             :agent.product.name="NetBSD"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4366,7 +4366,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="OpenBSD"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="OpenBSD"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4426,7 +4426,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="OpenBSD"^.(2)version'
+    - 'Version                             :agent.product.name="OpenBSD"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4476,7 +4476,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="hpwOS"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="hpwOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4536,7 +4536,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="hpwOS"^.(2)version'
+    - 'Version                             :agent.product.name="hpwOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4586,7 +4586,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Haiku"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Haiku"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4646,7 +4646,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Haiku"^.(2)version'
+    - 'Version                             :agent.product.name="Haiku"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4696,7 +4696,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="Intel Haiku"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Intel Haiku"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4755,7 +4755,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="Intel Haiku"^.(2)version'
+    - 'Version                             :agent.product.name="Intel Haiku"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4805,7 +4805,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="BeOS"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="BeOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4865,7 +4865,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="BeOS"^.(2)version'
+    - 'Version                             :agent.product.name="BeOS"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4915,7 +4915,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name="UNIX BSD/SYSV system"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="UNIX BSD/SYSV system"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
@@ -4975,7 +4975,7 @@ config:
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name="UNIX BSD/SYSV system"^.(2)version'
+    - 'Version                             :agent.product.name="UNIX BSD/SYSV system"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:

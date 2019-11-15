@@ -19,7 +19,7 @@ config:
 
 - matcher:
     variable:
-    - 'UbuntuName:agent.text[1]~"buntu"'
+    - 'UbuntuName                          :agent.text[1]~"buntu"'
     extract:
     - 'DeviceClass                         :        1 :"Desktop"'
     - 'DeviceName                          :        1 :"Linux Desktop"'
@@ -29,7 +29,7 @@ config:
 
 - matcher:
     variable:
-    - 'UbuntuName:agent.product.name[1]~"buntu"'
+    - 'UbuntuName                          :agent.product.name[1]~"buntu"'
     extract:
     - 'DeviceClass                         :        1 :"Desktop"'
     - 'DeviceName                          :        1 :"Linux Desktop"'
@@ -39,7 +39,7 @@ config:
 
 - matcher:
     variable:
-    - 'UbuntuName:agent.product.comments.entry[1]~"buntu"'
+    - 'UbuntuName                          :agent.product.comments.entry[1]~"buntu"'
     extract:
     - 'DeviceClass                         :        1 :"Desktop"'
     - 'DeviceName                          :        1 :"Linux Desktop"'
@@ -49,7 +49,7 @@ config:
 
 - matcher:
     variable:
-    - 'UbuntuName:agent.product.comments.entry[1]~"buntu"'
+    - 'UbuntuName                          :agent.product.comments.entry[1]~"buntu"'
     require:
     - 'IsNull[@UbuntuName@[2]="package"]'
     extract:
@@ -61,9 +61,9 @@ config:
 
 - matcher:
     variable:
-    - 'UbuntuProduct:agent.product.name[1]~"buntu"^'
-    - 'UbuntuName:LookUpPrefix[UbuntuOSName;@UbuntuProduct]'
-    - 'UbuntuVersion:LookUpPrefix[UbuntuOSVersion;@UbuntuProduct]'
+    - 'UbuntuProduct                       :agent.product.name[1]~"buntu"^'
+    - 'UbuntuName                          :LookUpPrefix[UbuntuOSName;@UbuntuProduct]'
+    - 'UbuntuVersion                       :LookUpPrefix[UbuntuOSVersion;@UbuntuProduct]'
     extract:
     - 'DeviceClass                         :        1 :"Desktop"'
     - 'DeviceName                          :        1 :"Linux Desktop"'
@@ -73,8 +73,8 @@ config:
 
 - matcher:
     variable:
-    - 'UbuntuName:agent.product.name[1]~"buntu"'
-    - 'UbuntuVersion:@UbuntuName^.version'
+    - 'UbuntuName                          :agent.product.name[1]~"buntu"'
+    - 'UbuntuVersion                       :@UbuntuName^.version'
     require:
     - 'IsNull[@UbuntuName@[2]]'
     - 'IsNull[@UbuntuVersion?UbuntuOSVersion]'
@@ -87,8 +87,8 @@ config:
 
 - matcher:
     variable:
-    - 'UbuntuName:agent.product.name~"buntu"'
-    - 'UbuntuVersion:@UbuntuName^.version'
+    - 'UbuntuName                          :agent.product.name~"buntu"'
+    - 'UbuntuVersion                       :@UbuntuName^.version'
     extract:
     - 'DeviceClass                         :        1 :"Desktop"'
     - 'DeviceName                          :        1 :"Linux Desktop"'
@@ -98,8 +98,8 @@ config:
 
 - matcher:
     variable:
-    - 'UbuntuName:agent.product.name~"buntu"'
-    - 'UbuntuVersion:@UbuntuName^.comments.entry'
+    - 'UbuntuName                          :agent.product.name~"buntu"'
+    - 'UbuntuVersion                       :@UbuntuName^.comments.entry'
     extract:
     - 'DeviceClass                         :        1 :"Desktop"'
     - 'DeviceName                          :        1 :"Linux Desktop"'

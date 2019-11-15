@@ -43,7 +43,7 @@ config:
 # ---
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"GT-N"'
+    - 'DeviceTag                           :agent.product.comments.entry{"GT-N"'
     extract:
     - 'DeviceClass                         :     1010 :"Phone"'
     - 'DeviceBrand                         :     1010 :"Samsung"'
@@ -51,7 +51,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"Samsung GT-N"'
+    - 'DeviceTag                           :agent.product.comments.entry{"Samsung GT-N"'
     extract:
     - 'DeviceClass                         :     1010 :"Phone"'
     - 'DeviceBrand                         :     1010 :"Samsung"'
@@ -59,7 +59,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"GT-N8"'
+    - 'DeviceTag                           :agent.product.comments.entry{"GT-N8"'
     extract:
     - 'DeviceClass                         :     1011 :"Tablet"'
     - 'DeviceBrand                         :     1011 :"Samsung"'
@@ -67,7 +67,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"Samsung GT-N8"'
+    - 'DeviceTag                           :agent.product.comments.entry{"Samsung GT-N8"'
     extract:
     - 'DeviceClass                         :     1011 :"Tablet"'
     - 'DeviceBrand                         :     1011 :"Samsung"'
@@ -75,7 +75,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"GT-N5"'
+    - 'DeviceTag                           :agent.product.comments.entry{"GT-N5"'
     extract:
     - 'DeviceClass                         :     1011 :"Tablet"'
     - 'DeviceBrand                         :     1011 :"Samsung"'
@@ -83,7 +83,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"Samsung GT-N5"'
+    - 'DeviceTag                           :agent.product.comments.entry{"Samsung GT-N5"'
     extract:
     - 'DeviceClass                         :     1011 :"Tablet"'
     - 'DeviceBrand                         :     1011 :"Samsung"'
@@ -91,7 +91,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"GT-I"'
+    - 'DeviceTag                           :agent.product.comments.entry{"GT-I"'
     extract:
     - 'DeviceClass                         :     1010 :"Phone"'
     - 'DeviceBrand                         :     1010 :"Samsung"'
@@ -99,7 +99,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"Samsung GT-I"'
+    - 'DeviceTag                           :agent.product.comments.entry{"Samsung GT-I"'
     extract:
     - 'DeviceClass                         :     1010 :"Phone"'
     - 'DeviceBrand                         :     1010 :"Samsung"'
@@ -110,7 +110,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"SM-N"'
+    - 'DeviceTag                           :agent.product.comments.entry{"SM-N"'
     extract:
     - 'DeviceClass                         :     1010 :"Phone"'
     - 'DeviceBrand                         :     1010 :"Samsung"'
@@ -118,7 +118,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"Samsung SM-N"'
+    - 'DeviceTag                           :agent.product.comments.entry{"Samsung SM-N"'
     extract:
     - 'DeviceClass                         :     1010 :"Phone"'
     - 'DeviceBrand                         :     1010 :"Samsung"'
@@ -128,7 +128,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"GT-P"'
+    - 'DeviceTag                           :agent.product.comments.entry{"GT-P"'
     extract:
     - 'DeviceClass                         :     1010 :"Tablet"'
     - 'DeviceBrand                         :     1010 :"Samsung"'
@@ -136,25 +136,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"Samsung GT-P"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Tablet"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      101 :@DeviceTag'
-
-# ---
-
-- matcher:
-    variable:
-    - 'DeviceTag:agent.product.comments.entry{"SM-T"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Tablet"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      101 :@DeviceTag'
-
-- matcher:
-    variable:
-    - 'DeviceTag:agent.product.comments.entry{"Samsung SM-T"'
+    - 'DeviceTag                           :agent.product.comments.entry{"Samsung GT-P"'
     extract:
     - 'DeviceClass                         :     1010 :"Tablet"'
     - 'DeviceBrand                         :     1010 :"Samsung"'
@@ -164,7 +146,25 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"GT-S"'
+    - 'DeviceTag                           :agent.product.comments.entry{"SM-T"'
+    extract:
+    - 'DeviceClass                         :     1010 :"Tablet"'
+    - 'DeviceBrand                         :     1010 :"Samsung"'
+    - 'DeviceName                          :      101 :@DeviceTag'
+
+- matcher:
+    variable:
+    - 'DeviceTag                           :agent.product.comments.entry{"Samsung SM-T"'
+    extract:
+    - 'DeviceClass                         :     1010 :"Tablet"'
+    - 'DeviceBrand                         :     1010 :"Samsung"'
+    - 'DeviceName                          :      101 :@DeviceTag'
+
+# ---
+
+- matcher:
+    variable:
+    - 'DeviceTag                           :agent.product.comments.entry{"GT-S"'
     extract:
     - 'DeviceClass                         :     1010 :"Phone"'
     - 'DeviceBrand                         :     1010 :"Samsung"'
@@ -172,7 +172,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"Samsung GT-S"'
+    - 'DeviceTag                           :agent.product.comments.entry{"Samsung GT-S"'
     extract:
     - 'DeviceClass                         :     1010 :"Phone"'
     - 'DeviceBrand                         :     1010 :"Samsung"'
@@ -183,7 +183,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"SM-P"'
+    - 'DeviceTag                           :agent.product.comments.entry{"SM-P"'
     extract:
     - 'DeviceClass                         :     1010 :"Tablet"'
     - 'DeviceBrand                         :     1010 :"Samsung"'
@@ -191,7 +191,7 @@ config:
 
 - matcher:
     variable:
-    - 'DeviceTag:agent.product.comments.entry{"Samsung SM-P"'
+    - 'DeviceTag                           :agent.product.comments.entry{"Samsung SM-P"'
     extract:
     - 'DeviceClass                         :     1010 :"Tablet"'
     - 'DeviceBrand                         :     1010 :"Samsung"'
@@ -464,7 +464,7 @@ config:
 
 - matcher:
     variable:
-    - 'AgentVersion:agent.product.name="NetFront"^.version'
+    - 'AgentVersion                        :agent.product.name="NetFront"^.version'
     extract:
     - 'LayoutEngineClass                   :        7 :"Browser"'
     - 'LayoutEngineName                    :        7 :"Netfront"'

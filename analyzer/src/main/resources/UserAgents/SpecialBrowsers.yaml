@@ -69,7 +69,7 @@ config:
 
 - matcher:
     variable:
-    - 'WebKitGTK:agent.product.name="WebKitGTK"^'
+    - 'WebKitGTK                           :agent.product.name="WebKitGTK"^'
     extract:
     - 'LayoutEngineClass                   :      100 :"Browser"'
     - 'LayoutEngineName                    :      100 :"WebKitGTK"'
@@ -77,7 +77,7 @@ config:
 
 - matcher:
     variable:
-    - 'WebKitGTK:agent.product.name="WebKitGTK"^'
+    - 'WebKitGTK                           :agent.product.name="WebKitGTK"^'
     extract:
     - 'LayoutEngineClass                   :      100 :"Browser"'
     - 'LayoutEngineName                    :      100 :"WebKitGTK"'
@@ -88,7 +88,7 @@ config:
 
 - matcher:
     variable:
-    - 'WebKitGTK:agent.product.name="WebKitGTK"^'
+    - 'WebKitGTK                           :agent.product.name="WebKitGTK"^'
     extract:
     - 'LayoutEngineClass                   :      100 :"Browser"'
     - 'LayoutEngineName                    :      100 :"WebKitGTK"'
@@ -711,7 +711,7 @@ config:
 
 - matcher:
     variable:
-    - 'Product:agent.product.name="Browser"^'
+    - 'Product                             :agent.product.name="Browser"^'
     - 'ProductV1:@Product.(1)version'
     - 'ProductV2:@Product.(2)version'
     require:
@@ -867,7 +867,7 @@ config:
     require:
     - 'agent.product.name="Version"' # Performance trick
     variable:
-    - 'Product: agent.product.name="Mobile"^>>.name="Version"^<'
+    - 'Product                             :agent.product.name="Mobile"^>>.name="Version"^<'
     extract:
     - 'AgentClass                          :      100 :"Browser"'
     - 'AgentName                           :      100 :@Product.name'
@@ -906,7 +906,7 @@ config:
     require:
     - 'agent.product.name="Safari"' # Performance trick
     variable:
-    - 'Product: agent.product.name="Mobile"^>>.name="Safari"^<'
+    - 'Product                             :agent.product.name="Mobile"^>>.name="Safari"^<'
     extract:
     - 'AgentClass                          :     2049 :"Browser"'
     - 'AgentName                           :     2049 :@Product.name!="Version"'
@@ -916,7 +916,7 @@ config:
     require:
     - 'agent.product.name="Mobile Safari"' # Performance trick
     variable:
-    - 'Product: agent.product.name="Mobile"^>>.name="Mobile Safari"^<'
+    - 'Product                             :agent.product.name="Mobile"^>>.name="Mobile Safari"^<'
     extract:
     - 'AgentClass                          :     2049 :"Browser"'
     - 'AgentName                           :     2049 :@Product.name!="Version"'
@@ -989,7 +989,7 @@ config:
     require:
     - 'agent.product.name="Safari"' # Performance trick
     variable:
-    - 'Product: agent.product.name="Mobile"^>.name="Safari"^>'
+    - 'Product                             :agent.product.name="Mobile"^>.name="Safari"^>'
     extract:
     - 'AgentClass                          :     2049 :"Browser"'
     - 'AgentName                           :     2049 :@Product.name'
@@ -999,7 +999,7 @@ config:
     require:
     - 'agent.product.name="Mobile Safari"' # Performance trick
     variable:
-    - 'Product: agent.product.name="Mobile"^>.name="Mobile Safari"^>'
+    - 'Product                             :agent.product.name="Mobile"^>.name="Mobile Safari"^>'
     extract:
     - 'AgentClass                          :     2049 :"Browser"'
     - 'AgentName                           :     2049 :@Product.name'
@@ -1847,7 +1847,7 @@ config:
 
 - matcher:
     variable:
-    - 'IBrowseVersion : agent.(1)product.(1)comments.entry.(1)product.name="IBrowse"^.version'
+    - 'IBrowseVersion                      :agent.(1)product.(1)comments.entry.(1)product.name="IBrowse"^.version'
     extract:
     - 'DeviceClass                         :      100 :"Desktop"'
     - 'DeviceBrand                         :      100 :"Amiga"'
@@ -2802,8 +2802,8 @@ config:
 # Sometimes the name of the agent is the first comment of the "(Mobile) Safari" product.
 - matcher:
     variable:
-    - 'Safari:agent.product.name="Safari"^'
-    - 'Product:@Safari.comments.(1)entry.(1)product'
+    - 'Safari                              :agent.product.name="Safari"^'
+    - 'Product                             :@Safari.comments.(1)entry.(1)product'
     extract:
     - 'AgentClass                          :       59 :"Browser"'
     - 'AgentName                           :       59 :@Product.name'
@@ -2811,8 +2811,8 @@ config:
 
 - matcher:
     variable:
-    - 'Safari:agent.product.name="Mobile Safari"^'
-    - 'Product:@Safari.comments.(1)entry.(1)product'
+    - 'Safari                              :agent.product.name="Mobile Safari"^'
+    - 'Product                             :@Safari.comments.(1)entry.(1)product'
     extract:
     - 'AgentClass                          :       59 :"Browser"'
     - 'AgentName                           :       59 :@Product.name'
@@ -2936,7 +2936,7 @@ config:
 
 - matcher:
     variable:
-    - 'SogouProduct: agent.(1-4)product.comments.entry.(1)product.name="SE"'
+    - 'SogouProduct                        :agent.(1-4)product.comments.entry.(1)product.name="SE"'
     require:
     - 'agent.(1-4)product.comments.entry.(1)product.name="MSIE"'
     - 'agent.(1-4)product.comments.entry.(2)product.name="MetaSr"'
@@ -3100,7 +3100,7 @@ config:
 
 - matcher:
     variable:
-    - 'HawkProduct:agent.product.name="Hawk"^'
+    - 'HawkProduct                         :agent.product.name="Hawk"^'
     extract:
     - 'AgentVersion                        :       50 : @HawkProduct.(2)version'
     - 'AgentName                           :       50 : Concat["Hawk ";@HawkProduct[2]]'
@@ -3109,7 +3109,7 @@ config:
     require:
     - 'agent.(1-4)product.(1)comments.entry.(1)text="wv"'
     variable:
-    - 'HawkProduct:agent.product.name="Hawk"^'
+    - 'HawkProduct                         :agent.product.name="Hawk"^'
     extract:
     - 'WebviewAppVersion                   :       50 : @HawkProduct.(2)version'
     - 'WebviewAppName                      :       50 : Concat["Hawk ";@HawkProduct[2]]'

@@ -53,7 +53,7 @@ config:
 
 - matcher:
     variable:
-    - 'MSIEVersion: agent.product.comments.entry.(1-4)product.name="MSIEMobile"^.version'
+    - 'MSIEVersion                         :agent.product.comments.entry.(1-4)product.name="MSIEMobile"^.version'
     extract:
     - 'LayoutEngineClass                   :     2011 :"Browser"'
     - 'LayoutEngineName                    :     2011 :"Internet Explorer Mobile"'
@@ -64,7 +64,7 @@ config:
 
 - matcher:
     variable:
-    - 'MSIEVersion: agent.product.comments.entry.(1-4)product.name="MSIE"^.version'
+    - 'MSIEVersion                         :agent.product.comments.entry.(1-4)product.name="MSIE"^.version'
     extract:
     - 'LayoutEngineClass                   :     2002 :"Browser"'
     - 'LayoutEngineName                    :     2002 :"Internet Explorer"'
@@ -75,7 +75,7 @@ config:
 
 - matcher:
     variable:
-    - 'MSIEVersion: agent.product.comments.entry.(1-4)product.name="MSIE"^.version'
+    - 'MSIEVersion                         :agent.product.comments.entry.(1-4)product.name="MSIE"^.version'
     extract:
     - 'LayoutEngineClass                   :     2009 :"Browser"'
     - 'LayoutEngineName                    :     2009 :LookUp[MSIELayoutEngineName;@MSIEVersion[1]]'
@@ -86,7 +86,7 @@ config:
 
 - matcher:
     variable:
-    - 'TridentProduct:agent.(1-2)product.comments.entry.product.name="Trident"^'
+    - 'TridentProduct                      :agent.(1-2)product.comments.entry.product.name="Trident"^'
     extract:
     - 'LayoutEngineClass                   :     2010 :"Browser"'
     - 'LayoutEngineName                    :     2010 :"Trident"'
@@ -97,7 +97,7 @@ config:
 
 - matcher:
     variable:
-    - 'MSIEVersion:agent.product.name="MSIE"^.version[1]'
+    - 'MSIEVersion                         :agent.product.name="MSIE"^.version[1]'
     extract:
     - 'LayoutEngineClass                   :     2009 :"Browser"'
     - 'LayoutEngineName                    :     2009 :LookUp[MSIELayoutEngineName;@MSIEVersion]'
@@ -108,7 +108,7 @@ config:
 
 - matcher:
     variable:
-    - 'TridentProduct:agent.product.name="Trident"^'
+    - 'TridentProduct                      :agent.product.name="Trident"^'
     extract:
     - 'LayoutEngineClass                   :     2010 :"Browser"'
     - 'LayoutEngineName                    :     2010 :"Trident"'
@@ -615,7 +615,7 @@ config:
 
 - matcher:
     variable:
-    - 'MSIEVersion: agent.(1-2)product.comments.entry.(1-2)product.name="MSIE"^.version'
+    - 'MSIEVersion                         :agent.(1-2)product.comments.entry.(1-2)product.name="MSIE"^.version'
     require:
     - 'agent.(1-2)product.comments.entry.(1-2)product.name="Trident"'
     - '@MSIEVersion[1]="10"'
@@ -626,7 +626,7 @@ config:
 
 - matcher:
     variable:
-    - 'MSIEVersion: agent.(1-2)product.comments.entry.(1-2)product.name="MSIE"^.version'
+    - 'MSIEVersion                         :agent.(1-2)product.comments.entry.(1-2)product.name="MSIE"^.version'
     require:
     - 'agent.(1-2)product.comments.entry.(1-2)product.name="Trident"'
     - '@MSIEVersion[1]="11"'

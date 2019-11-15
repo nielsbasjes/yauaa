@@ -18,7 +18,7 @@ config:
 
 - matcher:
     variable:
-    - 'Nintendo:agent.(1)product.(1)comments.(1)entry.(1-2)text[1]="Nintendo"@'
+    - 'Nintendo                            :agent.(1)product.(1)comments.(1)entry.(1-2)text[1]="Nintendo"@'
     extract:
     - 'DeviceClass                         :     2014 :"Game Console"'
     - 'DeviceBrand                         :     2014 :"Nintendo"'
@@ -41,8 +41,8 @@ config:
 
 - matcher:
     variable:
-    - 'PlayStationTag: agent.(1)product.(1)comments.entry.(1-2)product.name[1]="PlayStation"^'
-    - 'PlayStationName: Concat["PlayStation ";@PlayStationTag[2]]'
+    - 'PlayStationTag                      :agent.(1)product.(1)comments.entry.(1-2)product.name[1]="PlayStation"^'
+    - 'PlayStationName                     :Concat["PlayStation ";@PlayStationTag[2]]'
     extract:
     - 'DeviceClass                         :     2014 :"Game Console"'
     - 'DeviceBrand                         :     2014 :"Sony"'
@@ -53,7 +53,7 @@ config:
 
 - matcher:
     variable:
-    - 'Vita:agent.(1)product.(1)comments.entry.product.name="PlayStation Vita"^.version'
+    - 'Vita                                :agent.(1)product.(1)comments.entry.product.name="PlayStation Vita"^.version'
     extract:
     - 'DeviceClass                         :     2014 :"Game Console"'
     - 'DeviceBrand                         :     2014 :"Sony"'
@@ -67,8 +67,8 @@ config:
 # https://www.3dbrew.org/wiki/Internet_Browser
 - matcher:
     variable:
-    - 'Nintendo:agent.(1)product.(1)comments.entry.product.name[1]="Nintendo"^'
-    - 'Version:agent.product.name="Version"^.version'
+    - 'Nintendo                            :agent.(1)product.(1)comments.entry.product.name[1]="Nintendo"^'
+    - 'Version                             :agent.product.name="Version"^.version'
     extract:
     - 'DeviceClass                         :     2014 :"Game Console"'
     - 'DeviceBrand                         :     2014 :"Nintendo"'
@@ -85,8 +85,8 @@ config:
 
 - matcher:
     variable:
-    - 'Nintendo:agent.(1)product.(1)comments.entry.(1-2)text[1]="Nintendo"@'
-    - 'Version:agent.product.name="Version"^.version'
+    - 'Nintendo                            :agent.(1)product.(1)comments.entry.(1-2)text[1]="Nintendo"@'
+    - 'Version                             :agent.product.name="Version"^.version'
     extract:
     - 'DeviceClass                         :     2014 :"Game Console"'
     - 'DeviceBrand                         :     2014 :"Nintendo"'
@@ -116,7 +116,7 @@ config:
 
 - matcher:
     variable:
-    - 'Xbox:agent.(1)product.(1)comments.entry.(1-5)text="Xbox"^>'
+    - 'Xbox                                :agent.(1)product.(1)comments.entry.(1-5)text="Xbox"^>'
     extract:
     - 'DeviceClass                         :     2014 :"Game Console"'
     - 'DeviceBrand                         :     2014 :"Microsoft"'

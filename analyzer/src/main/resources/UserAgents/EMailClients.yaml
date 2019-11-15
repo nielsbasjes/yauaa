@@ -34,7 +34,7 @@ config:
     require:
     - 'agent.(1)product.name="Microsoft Office"'
     variable:
-    - 'OfficeAppName: agent.(1)product.(1)comments.entry.(1)product.name{"Microsoft "'
+    - 'OfficeAppName                       :agent.(1)product.(1)comments.entry.(1)product.name{"Microsoft "'
     extract:
     - 'DeviceClass                         :        1 : "Desktop"'
     - 'AgentClass                          :       10 : "Special"'
@@ -45,7 +45,7 @@ config:
     require:
     - 'agent.(1)product.name="Microsoft Office"'
     variable:
-    - 'OfficeAppName: LookUp[MSOfficeApplicationNames;agent.(1)product.(1)comments.entry.(1)product.name]'
+    - 'OfficeAppName                       :LookUp[MSOfficeApplicationNames;agent.(1)product.(1)comments.entry.(1)product.name]'
     extract:
     - 'DeviceClass                         :        1 : "Desktop"'
     - 'AgentClass                          :       10 : "Special"'
@@ -1024,7 +1024,7 @@ config:
 
 - matcher:
     variable:
-    - 'Dell: agent.(1-3)product.comments.entry.(1-4)product.name[1]="Dell"@'
+    - 'Dell                                :agent.(1-3)product.comments.entry.(1-4)product.name[1]="Dell"@'
     extract:
     - 'DeviceClass                         :     1000 : "Desktop"'
     - 'DeviceName                          :     1000 : CleanVersion[@Dell^]'

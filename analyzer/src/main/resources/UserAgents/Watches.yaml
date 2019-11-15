@@ -354,7 +354,7 @@ config:
 
 - matcher:
     variable:
-    - 'Comments:agent.product.name="SmartWatch"^.(1)comments'
+    - 'Comments                            :agent.product.name="SmartWatch"^.(1)comments'
     extract:
     - 'DeviceClass                         :     1100 :"Watch"'
     - 'DeviceBrand                         :     1100 :NormalizeBrand[@Comments.(1)entry.(1-2)text]'
