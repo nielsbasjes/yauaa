@@ -97,12 +97,16 @@ config:
     - 'AgentName                           :     2014 :"Chrome"'
     - 'AgentVersion                        :     2014 :agent.product.name="Chrome"^.version'
 
-  # Chrome on iOS
+  # Chrome on iOS is the only Chrome that does not use Blink
 - matcher:
     extract:
     - 'AgentClass                          :     2014 :"Browser"'
     - 'AgentName                           :     2014 :"Chrome"'
     - 'AgentVersion                        :     2014 :agent.product.name="CriOS"^.version'
+    - 'LayoutEngineClass                   :     1000 :"Browser"'
+    - 'LayoutEngineName                    :     1000 :"AppleWebKit"'
+    - 'LayoutEngineVersion                 :     1000 :agent.product.name="AppleWebKit"^.version'
+
 
   # Chrome uses Blink starting with version 28
   # See https://en.wikipedia.org/wiki/Blink_(web_engine)
