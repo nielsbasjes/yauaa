@@ -1313,17 +1313,17 @@ config:
 
 - matcher:
     extract:
-      - 'AgentClass                          :      100 :"Mobile App"'
-      - 'AgentName                           :      100 : "EmbeddedBrowser"'
-      - 'AgentVersion                        :      100 : agent.product.name="EmbeddedBrowser"^.(2)version'
+    - 'AgentClass                          :      100 :"Mobile App"'
+    - 'AgentName                           :      100 : "EmbeddedBrowser"'
+    - 'AgentVersion                        :      100 : agent.product.name="EmbeddedBrowser"^.(2)version'
 
 - matcher:
     variable:
-      - 'Product:agent.(1-3)product.version="EmbeddedBrowser"^'
+    - 'Product:agent.(1-3)product.version="EmbeddedBrowser"^'
     extract:
-      - 'AgentClass                          :      100 :"Mobile App"'
-      - 'AgentName                           :      100 : Concat["EmbeddedBrowser ";@Product.name]'
-      - 'AgentVersion                        :      100 : "??"'
+    - 'AgentClass                          :      100 :"Mobile App"'
+    - 'AgentName                           :      100 : Concat["EmbeddedBrowser ";@Product.name]'
+    - 'AgentVersion                        :      100 : "??"'
 
 
 - test:
@@ -1391,30 +1391,30 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 NordEclair/ EmbeddedBrowser (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 DeviceUID: 4AEB9FB8-F815-4150-9B25-7CAED49F185C'
     expected:
-      DeviceClass                           : 'Phone'
-      DeviceName                            : 'Apple iPhone'
-      DeviceBrand                           : 'Apple'
-      DeviceFirmwareVersion                 : '15E148'
-      DeviceVersion                         : 'iPhone'
-      OperatingSystemClass                  : 'Mobile'
-      OperatingSystemName                   : 'iOS'
-      OperatingSystemVersion                : '12.3.1'
-      OperatingSystemVersionMajor           : '12'
-      OperatingSystemNameVersion            : 'iOS 12.3.1'
-      OperatingSystemNameVersionMajor       : 'iOS 12'
-      LayoutEngineClass                     : 'Browser'
-      LayoutEngineName                      : 'AppleWebKit'
-      LayoutEngineVersion                   : '605.1.15'
-      LayoutEngineVersionMajor              : '605'
-      LayoutEngineNameVersion               : 'AppleWebKit 605.1.15'
-      LayoutEngineNameVersionMajor          : 'AppleWebKit 605'
-      AgentClass                            : 'Mobile App'
-      AgentName                             : 'EmbeddedBrowser NordEclair'
-      AgentVersion                          : '??'
-      AgentVersionMajor                     : '??'
-      AgentNameVersion                      : 'EmbeddedBrowser NordEclair ??'
-      AgentNameVersionMajor                 : 'EmbeddedBrowser NordEclair ??'
-      AgentUuid                             : '4AEB9FB8-F815-4150-9B25-7CAED49F185C'
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.3.1'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.3.1'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'EmbeddedBrowser NordEclair'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'EmbeddedBrowser NordEclair ??'
+      AgentNameVersionMajor                : 'EmbeddedBrowser NordEclair ??'
+      AgentUuid                            : '4AEB9FB8-F815-4150-9B25-7CAED49F185C'
 
 
 #- test: # TODO: Verify

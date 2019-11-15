@@ -135,28 +135,28 @@ echo "
     require:
     - 'agent.product.comments.entry.(1)text=\"${key}\"'
     extract:
-    - 'DeviceBrand                         :    110 :\"Apple\"'
-    - 'DeviceClass                         :    110 :\"${deviceClass}\"'
-    - 'DeviceName                          :    110 :\"${deviceName}\"'
-    - 'DeviceVersion                       :    110 :\"${deviceVersion}\"'
+    - 'DeviceBrand                         :      110 :\"Apple\"'
+    - 'DeviceClass                         :      110 :\"${deviceClass}\"'
+    - 'DeviceName                          :      110 :\"${deviceName}\"'
+    - 'DeviceVersion                       :      110 :\"${deviceVersion}\"'
 
 - matcher:
     require:
     - 'agent.product.name=\"${key}\"'
     extract:
-    - 'DeviceBrand                         :    111 :\"Apple\"'
-    - 'DeviceClass                         :    111 :\"${deviceClass}\"'
-    - 'DeviceName                          :    111 :\"${deviceName}\"'
-    - 'DeviceVersion                       :    111 :\"${deviceVersion}\"'
+    - 'DeviceBrand                         :      111 :\"Apple\"'
+    - 'DeviceClass                         :      111 :\"${deviceClass}\"'
+    - 'DeviceName                          :      111 :\"${deviceName}\"'
+    - 'DeviceVersion                       :      111 :\"${deviceVersion}\"'
 
 - matcher:
     require:
     - 'agent.text=\"${key}\"'
     extract:
-    - 'DeviceBrand                         :    111 :\"Apple\"'
-    - 'DeviceClass                         :    111 :\"${deviceClass}\"'
-    - 'DeviceName                          :    111 :\"${deviceName}\"'
-    - 'DeviceVersion                       :    111 :\"${deviceVersion}\"'
+    - 'DeviceBrand                         :      111 :\"Apple\"'
+    - 'DeviceClass                         :      111 :\"${deviceClass}\"'
+    - 'DeviceName                          :      111 :\"${deviceName}\"'
+    - 'DeviceVersion                       :      111 :\"${deviceVersion}\"'
 "
 done
 ) | uniq > ${OUTPUT}
