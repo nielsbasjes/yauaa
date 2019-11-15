@@ -91,7 +91,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.product.name~"spider"'
+    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"spider"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :"Robot"'
@@ -114,7 +114,7 @@ config:
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
-    - 'agent.(1-4)product.(1-2)comments.entry.product.name~"spider"'
+    - 'agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"spider"'
     extract:
     - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
@@ -271,7 +271,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.product.name~"crawl"'
+    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"crawl"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :"Robot"'
@@ -294,7 +294,7 @@ config:
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
-    - 'agent.(1-4)product.(1-2)comments.entry.product.name~"crawl"'
+    - 'agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"crawl"'
     extract:
     - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
@@ -453,7 +453,7 @@ config:
     require:
     - 'IsNull[agent.(1-8)product.comments.entry.(1-4)product.name[1]="cubot"]'
     variable:
-    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.product.name~"bot"'
+    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"bot"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :"Robot"'
@@ -477,7 +477,7 @@ config:
     require:
     - 'IsNull[agent.(1-8)product.(1)comments.entry.(1-4)product.name[1]="cubot"]'
     - 'agent.product.name="Mobile Safari"'
-    - 'agent.(1-4)product.(1-2)comments.entry.product.name~"bot"'
+    - 'agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"bot"'
     extract:
     - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
@@ -638,7 +638,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.product.name~"scan"'
+    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"scan"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :"Robot"'
@@ -661,7 +661,7 @@ config:
 - matcher:
     require:
     - 'agent.product.name="Mobile Safari"'
-    - 'agent.(1-4)product.(1-2)comments.entry.product.name~"scan"'
+    - 'agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~"scan"'
     extract:
     - 'DeviceClass                         :   311200 :"Robot Mobile"'
 

@@ -133,7 +133,7 @@ echo "    require:
 fi
 
 echo "    variable:
-    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.product.(1)name~\"${tag}\"'
+    - 'RobotName:agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~\"${tag}\"'
     extract:
     - '__Set_ALL_Fields__                  :     9900 :\"<<<null>>>\"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   110000 :\"Robot\"'
@@ -159,7 +159,7 @@ if [[ ${tag} = "bot" ]]; then
 echo "    - 'IsNull[agent.(1-8)product.(1)comments.entry.(1-4)product.name[1]=\"cubot\"]'"
 fi
 echo "    - 'agent.product.name=\"Mobile Safari\"'
-    - 'agent.(1-4)product.(1-2)comments.entry.product.(1)name~\"${tag}\"'
+    - 'agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name~\"${tag}\"'
     extract:
     - 'DeviceClass                         :   311200 :\"Robot Mobile\"'
 

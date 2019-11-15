@@ -60,9 +60,9 @@ config:
 
 - matcher:
     variable:
-    - 'ProductBuild: agent.(1-2)product.(1)comments.entry.product.name="Build"^'
+    - 'ProductBuild: agent.(1-2)product.(1)comments.entry.(1-4)product.name="Build"^'
     require:
-    - 'agent.(1-2)product.comments.entry.product.name[1]="Android"'
+    - 'agent.(1-2)product.comments.entry.(1-4)product.name[1]="Android"'
     extract:
     - 'DeviceClass                         :       51 :"Mobile"'
     - 'DeviceName                          :       51 :@ProductBuild<'
