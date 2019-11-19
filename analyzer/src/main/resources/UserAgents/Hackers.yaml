@@ -16,47 +16,75 @@
 #
 config:
 
-- matcher:
-    require:
-    - 'agent~"() {"'
-    extract:
-    - 'DeviceClass                         :    10000 :"Hacker"'
-    - 'DeviceBrand                         :    10000 :"Hacker"'
-    - 'DeviceName                          :    10000 :"Hacker"'
-    - 'DeviceVersion                       :    10000 :"Hacker"'
-    - 'OperatingSystemClass                :    10000 :"Hacker"'
-    - 'OperatingSystemName                 :    10000 :"Hacker"'
-    - 'OperatingSystemVersion              :    10000 :"Hacker"'
-    - 'OperatingSystemVersionBuild         :    10000 :"Hacker"'
-    - 'LayoutEngineClass                   :    10000 :"Hacker"'
-    - 'LayoutEngineName                    :    10000 :"Hacker"'
-    - 'LayoutEngineVersion                 :    10000 :"Hacker"'
-    - 'AgentClass                          :    10000 :"Hacker"'
-    - 'AgentName                           :    10000 :"Hacker"'
-    - 'AgentVersion                        :    10000 :"Hacker"'
-    - 'HackerAttackVector                  :    10000 :"Shell Shock"'
-    - 'HackerToolkit                       :        1 :"Unknown"'
+- lookup:
+    name: 'HackerAttackVectors'
+    map:
+      "() {"                  : "Shell Shock"
+      "('') {"                : "Shell Shock"
+      "<script>"              : "Javascript"
+      "#exec"                 : "Serverside execute"
+      "#include"              : "Serverside include"
+      "nslookup"              : "Serverside execute"
+      "JDatabaseDriverMysqli" : "Remote exec Joomla"
+      "SELECT "               : "SQL Injection"
+      "SELECT("               : "SQL Injection"
+      "CASE WHEN"             : "SQL Injection"
+      "UNION ALL"             : "SQL Injection"
+      " OR "                  : "SQL Injection"
+      " OR NOT"               : "SQL Injection"
+      "WAITFOR "              : "SQL Injection"
+      "ORDER BY"              : "SQL Injection"
+      "FROM DUAL"             : "SQL Injection"
+      "DECLARE "              : "SQL Injection"
+      "VARCHAR"               : "SQL Injection"
+      "1=1"                   : "SQL Injection"
+
+- lookup:
+    name: 'HackerToolKits'
+    map:
+      "nessus"                : "Nessus"
+      "netsparker"            : "Netsparker"
+      "nmap"                  : "Nmap"
 
 - matcher:
     require:
-    - 'agent{"('''') {"'
+    - 'IsNull[agent~"MSIE or Firefox"]'
     extract:
-    - 'DeviceClass                         :    10000 :"Hacker"'
-    - 'DeviceBrand                         :    10000 :"Hacker"'
-    - 'DeviceName                          :    10000 :"Hacker"'
-    - 'DeviceVersion                       :    10000 :"Hacker"'
-    - 'OperatingSystemClass                :    10000 :"Hacker"'
-    - 'OperatingSystemName                 :    10000 :"Hacker"'
-    - 'OperatingSystemVersion              :    10000 :"Hacker"'
-    - 'OperatingSystemVersionBuild         :    10000 :"Hacker"'
-    - 'LayoutEngineClass                   :    10000 :"Hacker"'
-    - 'LayoutEngineName                    :    10000 :"Hacker"'
-    - 'LayoutEngineVersion                 :    10000 :"Hacker"'
-    - 'AgentClass                          :    10000 :"Hacker"'
-    - 'AgentName                           :    10000 :"Hacker"'
-    - 'AgentVersion                        :    10000 :"Hacker"'
-    - 'HackerAttackVector                  :    10000 :"Shell Shock"'
-    - 'HackerToolkit                       :        1 :"Unknown"'
+    - '__Set_ALL_Fields__                  :    999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   1000000 :"Hacker"'
+    - 'DeviceBrand                         :   1000000 :"Hacker"'
+    - 'DeviceName                          :   1000000 :"Hacker"'
+    - 'DeviceVersion                       :   1000000 :"Hacker"'
+    - 'OperatingSystemClass                :   1000000 :"Hacker"'
+    - 'OperatingSystemName                 :   1000000 :"Hacker"'
+    - 'OperatingSystemVersion              :   1000000 :"Hacker"'
+    - 'LayoutEngineClass                   :   1000000 :"Hacker"'
+    - 'LayoutEngineName                    :   1000000 :"Hacker"'
+    - 'LayoutEngineVersion                 :   1000000 :"Hacker"'
+    - 'AgentClass                          :   1000000 :"Hacker"'
+    - 'AgentName                           :   1000000 :"Hacker"'
+    - 'AgentVersion                        :   1000000 :"Hacker"'
+    - 'HackerToolkit                       :    999901 :"Unknown"'
+    - 'HackerAttackVector                  :   1000000 :LookUpContains[HackerAttackVectors;agent]'
+
+- matcher:
+    extract:
+    - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :  1000000 :"Hacker"'
+    - 'DeviceBrand                         :  1000000 :"Hacker"'
+    - 'DeviceName                          :  1000000 :"Hacker"'
+    - 'DeviceVersion                       :  1000000 :"Hacker"'
+    - 'OperatingSystemClass                :  1000000 :"Hacker"'
+    - 'OperatingSystemName                 :  1000000 :"Hacker"'
+    - 'OperatingSystemVersion              :  1000000 :"Hacker"'
+    - 'LayoutEngineClass                   :  1000000 :"Hacker"'
+    - 'LayoutEngineName                    :  1000000 :"Hacker"'
+    - 'LayoutEngineVersion                 :  1000000 :"Hacker"'
+    - 'AgentClass                          :  1000000 :"Hacker"'
+    - 'AgentName                           :  1000000 :"Hacker"'
+    - 'AgentVersion                        :  1000000 :"Hacker"'
+    - 'HackerToolkit                       :  1000000 :LookUpContains[HackerToolKits;agent]'
+    - 'HackerAttackVector                  :   999901 :"Unknown"'
 
 - test:
     input:
@@ -72,7 +100,6 @@ config:
       OperatingSystemVersionMajor          : 'Hacker'
       OperatingSystemNameVersion           : 'Hacker'
       OperatingSystemNameVersionMajor      : 'Hacker'
-      OperatingSystemVersionBuild          : 'Hacker'
       LayoutEngineClass                    : 'Hacker'
       LayoutEngineName                     : 'Hacker'
       LayoutEngineVersion                  : 'Hacker'
@@ -102,7 +129,6 @@ config:
       OperatingSystemVersionMajor          : 'Hacker'
       OperatingSystemNameVersion           : 'Hacker'
       OperatingSystemNameVersionMajor      : 'Hacker'
-      OperatingSystemVersionBuild          : 'Hacker'
       LayoutEngineClass                    : 'Hacker'
       LayoutEngineName                     : 'Hacker'
       LayoutEngineVersion                  : 'Hacker'
@@ -132,7 +158,6 @@ config:
       OperatingSystemVersionMajor          : 'Hacker'
       OperatingSystemNameVersion           : 'Hacker'
       OperatingSystemNameVersionMajor      : 'Hacker'
-      OperatingSystemVersionBuild          : 'Hacker'
       LayoutEngineClass                    : 'Hacker'
       LayoutEngineName                     : 'Hacker'
       LayoutEngineVersion                  : 'Hacker'
@@ -162,7 +187,6 @@ config:
       OperatingSystemVersionMajor          : 'Hacker'
       OperatingSystemNameVersion           : 'Hacker'
       OperatingSystemNameVersionMajor      : 'Hacker'
-      OperatingSystemVersionBuild          : 'Hacker'
       LayoutEngineClass                    : 'Hacker'
       LayoutEngineName                     : 'Hacker'
       LayoutEngineVersion                  : 'Hacker'
@@ -177,26 +201,6 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Shell Shock'
       HackerToolkit                        : 'Unknown'
-
-- matcher:
-    require:
-    - 'agent~"<script>"'
-    extract:
-    - 'DeviceClass                         :    10000 :"Hacker"'
-    - 'DeviceBrand                         :    10000 :"Hacker"'
-    - 'DeviceName                          :    10000 :"Hacker"'
-    - 'DeviceVersion                       :    10000 :"Hacker"'
-    - 'OperatingSystemClass                :    10000 :"Hacker"'
-    - 'OperatingSystemName                 :    10000 :"Hacker"'
-    - 'OperatingSystemVersion              :    10000 :"Hacker"'
-    - 'LayoutEngineClass                   :    10000 :"Hacker"'
-    - 'LayoutEngineName                    :    10000 :"Hacker"'
-    - 'LayoutEngineVersion                 :    10000 :"Hacker"'
-    - 'AgentClass                          :    10000 :"Hacker"'
-    - 'AgentName                           :    10000 :"Hacker"'
-    - 'AgentVersion                        :    10000 :"Hacker"'
-    - 'HackerAttackVector                  :    10000 :"Javascript"'
-    - 'HackerToolkit                       :        1 :"Unknown"'
 
 - test:
     input:
@@ -226,104 +230,6 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Javascript'
       HackerToolkit                        : 'Unknown'
-
-- matcher:
-    require:
-    - 'agent~"nessus"'
-    extract:
-    - 'DeviceClass                         :    10000 :"Hacker"'
-    - 'DeviceBrand                         :    10000 :"Hacker"'
-    - 'DeviceName                          :    10000 :"Hacker"'
-    - 'DeviceVersion                       :    10000 :"Hacker"'
-    - 'OperatingSystemClass                :    10000 :"Hacker"'
-    - 'OperatingSystemName                 :    10000 :"Hacker"'
-    - 'OperatingSystemVersion              :    10000 :"Hacker"'
-    - 'LayoutEngineClass                   :    10000 :"Hacker"'
-    - 'LayoutEngineName                    :    10000 :"Hacker"'
-    - 'LayoutEngineVersion                 :    10000 :"Hacker"'
-    - 'AgentClass                          :    10000 :"Hacker"'
-    - 'AgentName                           :    10000 :"Hacker"'
-    - 'AgentVersion                        :    10000 :"Hacker"'
-    - 'HackerToolkit                       :    10000 :"Nessus"'
-
-- matcher:
-    require:
-    - 'agent~"netsparker"'
-    extract:
-    - 'DeviceClass                         :    10000 :"Hacker"'
-    - 'DeviceBrand                         :    10000 :"Hacker"'
-    - 'DeviceName                          :    10000 :"Hacker"'
-    - 'DeviceVersion                       :    10000 :"Hacker"'
-    - 'OperatingSystemClass                :    10000 :"Hacker"'
-    - 'OperatingSystemName                 :    10000 :"Hacker"'
-    - 'OperatingSystemVersion              :    10000 :"Hacker"'
-    - 'LayoutEngineClass                   :    10000 :"Hacker"'
-    - 'LayoutEngineName                    :    10000 :"Hacker"'
-    - 'LayoutEngineVersion                 :    10000 :"Hacker"'
-    - 'AgentClass                          :    10000 :"Hacker"'
-    - 'AgentName                           :    10000 :"Hacker"'
-    - 'AgentVersion                        :    10000 :"Hacker"'
-    - 'HackerToolkit                       :    10000 :"Netsparker"'
-
-- matcher:
-    require:
-    - 'agent~"#exec"'
-    extract:
-    - 'DeviceClass                         :    10000 :"Hacker"'
-    - 'DeviceBrand                         :    10000 :"Hacker"'
-    - 'DeviceName                          :    10000 :"Hacker"'
-    - 'DeviceVersion                       :    10000 :"Hacker"'
-    - 'OperatingSystemClass                :    10000 :"Hacker"'
-    - 'OperatingSystemName                 :    10000 :"Hacker"'
-    - 'OperatingSystemVersion              :    10000 :"Hacker"'
-    - 'LayoutEngineClass                   :    10000 :"Hacker"'
-    - 'LayoutEngineName                    :    10000 :"Hacker"'
-    - 'LayoutEngineVersion                 :    10000 :"Hacker"'
-    - 'AgentClass                          :    10000 :"Hacker"'
-    - 'AgentName                           :    10000 :"Hacker"'
-    - 'AgentVersion                        :    10000 :"Hacker"'
-    - 'HackerAttackVector                  :    10000 :"Serverside execute"'
-    - 'HackerToolkit                       :        1 :"Unknown"'
-
-- matcher:
-    require:
-    - 'agent~"#include"'
-    extract:
-    - 'DeviceClass                         :    10000 :"Hacker"'
-    - 'DeviceBrand                         :    10000 :"Hacker"'
-    - 'DeviceName                          :    10000 :"Hacker"'
-    - 'DeviceVersion                       :    10000 :"Hacker"'
-    - 'OperatingSystemClass                :    10000 :"Hacker"'
-    - 'OperatingSystemName                 :    10000 :"Hacker"'
-    - 'OperatingSystemVersion              :    10000 :"Hacker"'
-    - 'LayoutEngineClass                   :    10000 :"Hacker"'
-    - 'LayoutEngineName                    :    10000 :"Hacker"'
-    - 'LayoutEngineVersion                 :    10000 :"Hacker"'
-    - 'AgentClass                          :    10000 :"Hacker"'
-    - 'AgentName                           :    10000 :"Hacker"'
-    - 'AgentVersion                        :    10000 :"Hacker"'
-    - 'HackerAttackVector                  :    10000 :"Serverside include"'
-    - 'HackerToolkit                       :        1 :"Unknown"'
-
-- matcher:
-    require:
-    - 'agent~"nslookup"'
-    extract:
-    - 'DeviceClass                         :    10000 :"Hacker"'
-    - 'DeviceBrand                         :    10000 :"Hacker"'
-    - 'DeviceName                          :    10000 :"Hacker"'
-    - 'DeviceVersion                       :    10000 :"Hacker"'
-    - 'OperatingSystemClass                :    10000 :"Hacker"'
-    - 'OperatingSystemName                 :    10000 :"Hacker"'
-    - 'OperatingSystemVersion              :    10000 :"Hacker"'
-    - 'LayoutEngineClass                   :    10000 :"Hacker"'
-    - 'LayoutEngineName                    :    10000 :"Hacker"'
-    - 'LayoutEngineVersion                 :    10000 :"Hacker"'
-    - 'AgentClass                          :    10000 :"Hacker"'
-    - 'AgentName                           :    10000 :"Hacker"'
-    - 'AgentVersion                        :    10000 :"Hacker"'
-    - 'HackerAttackVector                  :    10000 :"Serverside execute"'
-    - 'HackerToolkit                       :        1 :"Unknown"'
 
 - test:
     input:
@@ -441,27 +347,6 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Javascript'
       HackerToolkit                        : 'Netsparker'
-
-
-- matcher:
-    require:
-    - 'agent~"JDatabaseDriverMysqli"'
-    extract:
-    - 'DeviceClass                         :    10000 :"Hacker"'
-    - 'DeviceBrand                         :    10000 :"Hacker"'
-    - 'DeviceName                          :    10000 :"Hacker"'
-    - 'DeviceVersion                       :    10000 :"Hacker"'
-    - 'OperatingSystemClass                :    10000 :"Hacker"'
-    - 'OperatingSystemName                 :    10000 :"Hacker"'
-    - 'OperatingSystemVersion              :    10000 :"Hacker"'
-    - 'LayoutEngineClass                   :    10000 :"Hacker"'
-    - 'LayoutEngineName                    :    10000 :"Hacker"'
-    - 'LayoutEngineVersion                 :    10000 :"Hacker"'
-    - 'AgentClass                          :    10000 :"Hacker"'
-    - 'AgentName                           :    10000 :"Hacker"'
-    - 'AgentVersion                        :    10000 :"Hacker"'
-    - 'HackerAttackVector                  :    10000 :"Remote exec Joomla"'
-    - 'HackerToolkit                       :        1 :"Unknown"'
 
 # If there are NO products found this is either manipulated or a Hacker.
 - matcher:
@@ -801,17 +686,21 @@ config:
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
 
+- lookup:
+    name: 'IfAllMissingThenHacker'
+    map:
+      "a" : "a"
+      "e" : "e"
+      "o" : "o"
+      "u" : "u"
+      "i" : "i"
+      "/" : "/"
 
 - matcher:
 #    options:
 #    - 'verbose'
     require:
-    - 'IsNull[agent~"a"]'
-    - 'IsNull[agent~"e"]'
-    - 'IsNull[agent~"o"]'
-    - 'IsNull[agent~"u"]'
-    - 'IsNull[agent~"i"]'
-    - 'IsNull[agent~"/"]'
+    - 'IsNull[LookUpContains[IfAllMissingThenHacker;agent]]'
     extract:
     - 'DeviceClass                         :        9 :"Hacker"'
     - 'DeviceName                          :        9 :"Hacker"'
@@ -899,7 +788,7 @@ config:
       DeviceClass                          : 'Hacker'
       DeviceName                           : 'Hacker'
       DeviceBrand                          : 'Hacker'
-      DeviceCpu                            : 'Hacker'
+#      DeviceCpu                            : 'Hacker'
       DeviceVersion                        : 'Hacker'
       OperatingSystemClass                 : 'Hacker'
       OperatingSystemName                  : 'Hacker'
@@ -913,16 +802,16 @@ config:
       LayoutEngineVersionMajor             : 'Hacker'
       LayoutEngineNameVersion              : 'Hacker'
       LayoutEngineNameVersionMajor         : 'Hacker'
-      LayoutEngineBuild                    : 'Hacker'
+#      LayoutEngineBuild                    : 'Hacker'
       AgentClass                           : 'Hacker'
       AgentName                            : 'Hacker'
       AgentVersion                         : 'Hacker'
       AgentVersionMajor                    : 'Hacker'
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
-      AgentLanguage                        : 'Hacker'
-      AgentLanguageCode                    : 'Hacker'
-      AgentSecurity                        : 'Hacker'
+#      AgentLanguage                        : 'Hacker'
+#      AgentLanguageCode                    : 'Hacker'
+#      AgentSecurity                        : 'Hacker'
       HackerAttackVector                   : 'SQL Injection'
       HackerToolkit                        : 'Unknown'
 
@@ -1137,7 +1026,6 @@ config:
     - 'OperatingSystemClass                :    10000 :"Hacker"'
     - 'OperatingSystemName                 :    10000 :"Hacker"'
     - 'OperatingSystemVersion              :    10000 :"Hacker"'
-    - 'OperatingSystemVersionBuild         :    10000 :"Hacker"'
     - 'LayoutEngineClass                   :    10000 :"Hacker"'
     - 'LayoutEngineName                    :    10000 :"Hacker"'
     - 'LayoutEngineVersion                 :    10000 :"Hacker"'
@@ -1162,7 +1050,6 @@ config:
       OperatingSystemVersionMajor          : 'Hacker'
       OperatingSystemNameVersion           : 'Hacker'
       OperatingSystemNameVersionMajor      : 'Hacker'
-      OperatingSystemVersionBuild          : 'Hacker'
       LayoutEngineClass                    : 'Hacker'
       LayoutEngineName                     : 'Hacker'
       LayoutEngineVersion                  : 'Hacker'
@@ -1193,7 +1080,6 @@ config:
       OperatingSystemVersionMajor          : 'Hacker'
       OperatingSystemNameVersion           : 'Hacker'
       OperatingSystemNameVersionMajor      : 'Hacker'
-      OperatingSystemVersionBuild          : 'Hacker'
       LayoutEngineClass                    : 'Hacker'
       LayoutEngineName                     : 'Hacker'
       LayoutEngineVersion                  : 'Hacker'
@@ -1224,7 +1110,6 @@ config:
       OperatingSystemVersionMajor          : 'Hacker'
       OperatingSystemNameVersion           : 'Hacker'
       OperatingSystemNameVersionMajor      : 'Hacker'
-      OperatingSystemVersionBuild          : 'Hacker'
       LayoutEngineClass                    : 'Hacker'
       LayoutEngineName                     : 'Hacker'
       LayoutEngineVersion                  : 'Hacker'
@@ -1255,7 +1140,6 @@ config:
       OperatingSystemVersionMajor          : 'Hacker'
       OperatingSystemNameVersion           : 'Hacker'
       OperatingSystemNameVersionMajor      : 'Hacker'
-      OperatingSystemVersionBuild          : 'Hacker'
       LayoutEngineClass                    : 'Hacker'
       LayoutEngineName                     : 'Hacker'
       LayoutEngineVersion                  : 'Hacker'
@@ -1286,7 +1170,6 @@ config:
       OperatingSystemVersionMajor          : 'Hacker'
       OperatingSystemNameVersion           : 'Hacker'
       OperatingSystemNameVersionMajor      : 'Hacker'
-      OperatingSystemVersionBuild          : 'Hacker'
       LayoutEngineClass                    : 'Hacker'
       LayoutEngineName                     : 'Hacker'
       LayoutEngineVersion                  : 'Hacker'
@@ -1301,4 +1184,34 @@ config:
       AgentNameVersionMajor                : 'Nikto 2'
       HackerAttackVector                   : 'Nikto test:multiple_index'
       HackerToolkit                        : 'Nikto'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      AgentInformationUrl                  : 'https://nmap.org/book/nse.html'
+      HackerToolkit                        : 'Nmap'
+      HackerAttackVector: 'Unknown'     #   999901 | FAILED; Should be '<<absent>>'
 

@@ -79,6 +79,7 @@ matcher         : basePath                                                      
                 | 'NormalizeBrand'   BLOCKOPEN matcher BLOCKCLOSE                                         #matcherNormalizeBrand
                 | 'CleanVersion'     BLOCKOPEN matcher BLOCKCLOSE                                         #matcherCleanVersion
                 | 'LookUp'           BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookup
+                | 'LookUpContains'   BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookupContains
                 | 'LookUpPrefix'     BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookupPrefix
                 | 'IsInLookUpPrefix' BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsInLookupPrefix
                 | matcher wordRange                                                                     #matcherWordRange

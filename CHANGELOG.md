@@ -2,7 +2,9 @@ This is intended as an overview of the major changes
 
 v5.14-SNAPSHOT
 ===
-- Analyzer now handles a COMMA better.
+- Analyzer:
+  - Handles a COMMA better.
+  - New LookUpContains function primarily used to speedup Hacker pattern matching.
 - Bugs:
   - LayoutEngine for Chrome on iOS is AppleWebKit (not Blink)
 - New/improved detections

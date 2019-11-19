@@ -29,6 +29,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookupContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookupPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepBackToFull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion;
@@ -52,6 +53,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormali
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContainsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathContext;
@@ -289,6 +291,25 @@ public class WalkList implements Serializable {
             add(new StepLookup(lookupName, lookup, defaultValue));
             return null; // Void
         }
+
+        @Override
+        public Void visitMatcherPathLookupContains(MatcherPathLookupContainsContext ctx) {
+            visit(ctx.matcher());
+
+            fromHereItCannotBeInHashMapAnymore();
+
+            String lookupName = ctx.lookup.getText();
+            Map<String, String> lookup = getLookup(lookupName);
+
+            String defaultValue = null;
+            if (ctx.defaultValue != null) {
+                defaultValue = ctx.defaultValue.getText();
+            }
+
+            add(new StepLookupContains(lookupName, lookup, defaultValue));
+            return null; // Void
+        }
+
 
         @Override
         public Void visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext ctx) {

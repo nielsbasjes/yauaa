@@ -38,6 +38,12 @@ config:
     map:
       "F":   "Foo"
 
+- lookup:
+    name: 'MyContains'
+    map:
+      "o":   "Foo"
+
+
 - matcher:
     variable:
     - 'Foo: agent.product.name^.name'
@@ -75,6 +81,8 @@ config:
       - 'LookUpBar2         :   1 : LookUp           [MyLookup;@Bar[1]]'
       - 'LookUpPrefix1      :   1 : LookUpPrefix     [MyPrefixes;@Bar;"No Bar"]'
       - 'LookUpPrefix2      :   1 : LookUpPrefix     [MyPrefixes;@Foo]'
+      - 'LookUpContains1    :   1 : LookUpContains   [MyContains;@Bar;"No Bar"]'
+      - 'LookUpContains2    :   1 : LookUpContains   [MyContains;@Foo]'
       - 'IsInLookUpPrefix   :   1 : IsInLookUpPrefix [MyPrefixes;@Foo]'
       - 'IsInSet            :   1 : @Foo?MySet'
 
@@ -94,5 +102,7 @@ config:
       LookUpBar2                           : 'Bar'
       LookUpPrefix1                        : 'No Bar'
       LookUpPrefix2                        : 'Foo'
+      LookUpContains1                      : 'No Bar'
+      LookUpContains2                      : 'Foo'
       IsInLookUpPrefix                     : 'Foo'
       IsInSet                              : 'Foo'
