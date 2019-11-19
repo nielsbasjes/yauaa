@@ -84,6 +84,7 @@ config:
       - 'LookUpContains1    :   1 : LookUpContains   [MyContains;@Bar;"No Bar"]'
       - 'LookUpContains2    :   1 : LookUpContains   [MyContains;@Foo]'
       - 'IsInLookUpPrefix   :   1 : IsInLookUpPrefix [MyPrefixes;@Foo]'
+      - 'IsInLookUpContains :   1 : IsInLookUpContains[MyContains;@Foo]'
       - 'IsInSet            :   1 : @Foo?MySet'
 
 - test:
@@ -105,4 +106,5 @@ config:
       LookUpContains1                      : 'No Bar'
       LookUpContains2                      : 'Foo'
       IsInLookUpPrefix                     : 'Foo'
+      IsInLookUpContains                   : 'Foo'
       IsInSet                              : 'Foo'

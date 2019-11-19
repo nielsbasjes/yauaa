@@ -263,6 +263,7 @@ LookUp the value against a lookup table | LookUp[lookupname;expression] | LookUp
 LookUp the value against a lookup table (with fallback in case no match) | LookUp[lookupname;expression;defaultvalue] | LookUp[OSNames;agent.product.entry.text;"Unknown"]
 LookUp the lookupname in the lookup table that the value contains | LookUpContains[lookupname;expression] | LookUpContains[OSNames;agent.product.entry.text]
 LookUp the lookupname in the lookup table that the value contains (with fallback in case no match) | LookUpContains[lookupname;expression;defaultvalue] | LookUpContains[OSNames;agent.product.entry.text;"Unknown"]
+LookUp the lookupname in the lookup table that the value contains and return the original value if a matching prefix is present. | IsInLookUpContains[lookupname;expression] | IsInLookUpContains[OSNames;agent.product.entry.text]
 LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value. | LookUpPrefix[lookupname;expression] | LookUpPrefix[OSNames;agent.product.entry.text]
 LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value (with fallback in case no match). | LookUpPrefix[lookupname;expression;defaultvalue] | LookUpPrefix[OSNames;agent.product.entry.text;"Unknown"]
 LookUp the value against a lookup table and return the original value if a matching prefix is present. | IsInLookUpPrefix[lookupname;expression] | IsInLookUpPrefix[OSNames;agent.product.entry.text]

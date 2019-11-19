@@ -27,6 +27,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsInSet;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookupContains;
@@ -51,6 +52,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatP
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContainsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContainsContext;
@@ -310,6 +312,18 @@ public class WalkList implements Serializable {
             return null; // Void
         }
 
+        @Override
+        public Void visitMatcherPathIsInLookupContains(MatcherPathIsInLookupContainsContext ctx) {
+            visit(ctx.matcher());
+
+            fromHereItCannotBeInHashMapAnymore();
+
+            String lookupName = ctx.lookup.getText();
+            Map<String, String> lookup = getLookup(lookupName);
+
+            add(new StepIsInLookupContains(lookupName, lookup));
+            return null; // Void
+        }
 
         @Override
         public Void visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext ctx) {
@@ -328,7 +342,6 @@ public class WalkList implements Serializable {
             add(new StepLookupPrefix(lookupName, lookup, defaultValue));
             return null; // Void
         }
-
 
         @Override
         public Void visitMatcherPathIsInLookupPrefix(MatcherPathIsInLookupPrefixContext ctx) {

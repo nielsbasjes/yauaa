@@ -4,7 +4,7 @@ v5.14-SNAPSHOT
 ===
 - Analyzer:
   - Handles a COMMA better.
-  - New LookUpContains function primarily used to speedup Hacker pattern matching.
+  - New LookUpContains and IsInLookUpContains functions used to speedup Hacker and Robot pattern matching.
 - Bugs:
   - LayoutEngine for Chrome on iOS is AppleWebKit (not Blink)
 - New/improved detections
