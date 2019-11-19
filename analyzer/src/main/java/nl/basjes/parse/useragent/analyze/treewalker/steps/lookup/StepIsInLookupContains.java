@@ -21,13 +21,13 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class StepIsInLookupContains extends Step {
 
-    private final String      lookupName;
-    private final Set<String> lookupKeys;
+    private final String          lookupName;
+    private final HashSet<String> lookupKeys;
 
     // Private constructor for serialization systems ONLY (like Kyro)
     private StepIsInLookupContains() {
@@ -37,7 +37,7 @@ public class StepIsInLookupContains extends Step {
 
     public StepIsInLookupContains(String lookupName, Map<String, String> lookup) {
         this.lookupName = lookupName;
-        this.lookupKeys = lookup.keySet();
+        this.lookupKeys = new HashSet<>(lookup.keySet());
     }
 
     @Override
