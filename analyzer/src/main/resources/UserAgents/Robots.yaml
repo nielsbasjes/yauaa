@@ -23,8 +23,11 @@ config:
 - lookup:
     name: 'NamedRobots'
     map:
+      'Apache Nifi'                : 'Apache'
       'App3leWebKit'               : 'App3leWebKit'
+      'Buck'                       : 'Hypefactors'
       'Catchpoint'                 : 'Catchpoint'
+      'curl'                       : 'curl'
       'magpie-crawler'             : 'Brandwatch' # 'watch' causes it to be seen as a wristwatch
       'Dataprovider.com'           : 'Dataprovider.com'
       'Daum'                       : 'Daom'
@@ -64,9 +67,7 @@ config:
       'Vagabondo'                  : 'Wise-Guys'
       'YaK'                        : 'Linkfluence'
       'wget'                       : 'wget'
-      'curl'                       : 'curl'
-      'Apache Nifi'                : 'Apache'
-
+      'zgrab'                      : 'zgrab'
 
 - lookup:
     name: 'NamedSpecialLayoutEngines'
@@ -4393,6 +4394,7 @@ config:
       AgentNameVersion                     : 'PHP 5.3.28'
       AgentNameVersionMajor                : 'PHP 5'
 
+# https://any23.apache.org/ --> Anything To Triples (any23) is a library, a web service and a command line tool that extracts structured data in RDF format from a variety of Web documents.24x
 #- test: #TODO Implement
 #    input:
 #      user_agent_string: 'Any23-CLI'
@@ -4418,6 +4420,10 @@ config:
 #    input:
 #      user_agent_string: 'WhatsApp'
 
+# https://www.site24x7.com/ --> All-in-One Monitoring Solution
+#- test: #TODO Implement
+#    input:
+#      user_agent_string: 'Site24x7'
 
 - test:
     input:
@@ -5101,7 +5107,6 @@ config:
 #Microsoft Office Mobile/15.0
 #libwww-perl/5.805
 #Python-urllib/2.7
-#Mozilla/3.0 (compatible; Indy Library)
 #Google-HTTP-Java-Client/1.17.0-rc (gzip)
 #SilkCentral Central/3.6+simulating+Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.0)
 #Mozilla/4.0 (compatible; Synapse)
@@ -6990,3 +6995,113 @@ config:
       AgentNameVersion                     : 'Internet Explorer 6.0'
       AgentNameVersionMajor                : 'Internet Explorer 6'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 zgrab/0.x'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Zgrab'
+      DeviceBrand                          : 'Zgrab'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'zgrab'
+      LayoutEngineVersion                  : '0.x'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'zgrab 0.x'
+      LayoutEngineNameVersionMajor         : 'zgrab 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'zgrab'
+      AgentVersion                         : '0.x'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'zgrab 0.x'
+      AgentNameVersionMajor                : 'zgrab 0'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Nimbostratus-Bot/v1.3.2; http://cloudsystemnetworks.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Cloudsystemnetworks Nimbostratus-BOT'
+      DeviceBrand                          : 'Cloudsystemnetworks'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Nimbostratus-Bot'
+      LayoutEngineVersion                  : 'v1.3.2'
+      LayoutEngineVersionMajor             : 'v1'
+      LayoutEngineNameVersion              : 'Nimbostratus-Bot v1.3.2'
+      LayoutEngineNameVersionMajor         : 'Nimbostratus-Bot v1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Nimbostratus-Bot'
+      AgentVersion                         : 'v1.3.2'
+      AgentVersionMajor                    : 'v1'
+      AgentNameVersion                     : 'Nimbostratus-Bot v1.3.2'
+      AgentNameVersionMajor                : 'Nimbostratus-Bot v1'
+      AgentInformationUrl                  : 'http://cloudsystemnetworks.com'
+
+
+- test:
+    input:
+      user_agent_string: 'Buck/2.2; (+https://app.hypefactors.com/media-monitoring/about.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Hypefactors Buck'
+      DeviceBrand                          : 'Hypefactors'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Buck'
+      LayoutEngineVersion                  : '2.2'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Buck 2.2'
+      LayoutEngineNameVersionMajor         : 'Buck 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Buck'
+      AgentVersion                         : '2.2'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Buck 2.2'
+      AgentNameVersionMajor                : 'Buck 2'
+      AgentInformationUrl                  : 'https://app.hypefactors.com/media-monitoring/about.html'
+
+
+#- test:
+#    input:
+#      user_agent_string: 'bumb.ly/0.01 (bumb.ly crawler; https://crawler.bumb.ly; crawler@bumb.ly)'
+#    expected:
+#      DeviceClass                          : 'Robot'
+#      DeviceName                           : 'Bumb Crawler'
+#      DeviceBrand                          : 'Bumb'
+#      OperatingSystemClass                 : 'Cloud'
+#      OperatingSystemName                  : 'Cloud'
+#      OperatingSystemVersion               : '??'
+#      OperatingSystemVersionMajor          : '??'
+#      OperatingSystemNameVersion           : 'Cloud ??'
+#      OperatingSystemNameVersionMajor      : 'Cloud ??'
+#      LayoutEngineClass                    : 'Robot'
+#      LayoutEngineName                     : 'crawler'
+#      LayoutEngineVersion                  : 'crawler'
+#      LayoutEngineVersionMajor             : 'crawler'
+#      LayoutEngineNameVersion              : 'crawler'
+#      LayoutEngineNameVersionMajor         : 'crawler'
+#      AgentClass                           : 'Robot'
+#      AgentName                            : 'bumb.ly'
+#      AgentVersion                         : 'crawler'
+#      AgentVersionMajor                    : 'bumb.ly crawler'
+#      AgentNameVersion                     : 'bumb.ly crawler'
+#      AgentNameVersionMajor                : 'bumb.ly crawler'
+#      AgentInformationEmail                : 'crawler@bumb.ly'
+#      AgentInformationUrl                  : 'bumb.ly'
