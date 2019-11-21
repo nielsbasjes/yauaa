@@ -25,7 +25,7 @@ public class StepNotEquals extends Step {
 
     private final String desiredValue;
 
-    // Private constructor for serialization systems ONLY (like Kyro)
+    // Private constructor for serialization systems ONLY (like Kryo)
     private StepNotEquals() {
         desiredValue = null;
     }

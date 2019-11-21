@@ -29,7 +29,7 @@ public class StepIsInLookupContains extends Step {
     private final String          lookupName;
     private final HashSet<String> lookupKeys;
 
-    // Private constructor for serialization systems ONLY (like Kyro)
+    // Private constructor for serialization systems ONLY (like Kryo)
     private StepIsInLookupContains() {
         lookupName = null;
         lookupKeys = null;

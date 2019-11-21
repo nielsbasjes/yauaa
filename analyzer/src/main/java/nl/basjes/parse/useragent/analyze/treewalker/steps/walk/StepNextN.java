@@ -25,7 +25,7 @@ public class StepNextN extends Step {
 
     private final int steps;
 
-    // Private constructor for serialization systems ONLY (like Kyro)
+    // Private constructor for serialization systems ONLY (like Kryo)
     private StepNextN() {
         steps = -1;
     }

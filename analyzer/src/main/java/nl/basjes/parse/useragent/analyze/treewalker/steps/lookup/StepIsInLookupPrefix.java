@@ -30,7 +30,7 @@ public class StepIsInLookupPrefix extends Step {
     private final String            lookupName;
     private final PrefixMap<String> prefixMap;
 
-    // Private constructor for serialization systems ONLY (like Kyro)
+    // Private constructor for serialization systems ONLY (like Kryo)
     private StepIsInLookupPrefix() {
         lookupName = null;
         prefixMap = null;

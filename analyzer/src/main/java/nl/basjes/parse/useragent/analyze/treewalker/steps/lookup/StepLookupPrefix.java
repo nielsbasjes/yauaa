@@ -31,7 +31,7 @@ public class StepLookupPrefix extends Step {
     private final String            defaultValue;
     private final PrefixMap<String> prefixMap;
 
-    // Private constructor for serialization systems ONLY (like Kyro)
+    // Private constructor for serialization systems ONLY (like Kryo)
     private StepLookupPrefix() {
         lookupName = null;
         defaultValue = null;

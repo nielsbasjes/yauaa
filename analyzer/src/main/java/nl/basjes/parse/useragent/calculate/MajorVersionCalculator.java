@@ -31,7 +31,7 @@ public class MajorVersionCalculator implements FieldCalculator {
         this.versionName = versionName;
     }
 
-    // Private constructor for serialization systems ONLY (like Kyro)
+    // Private constructor for serialization systems ONLY (like Kryo)
     private MajorVersionCalculator() { }
 
     @Override

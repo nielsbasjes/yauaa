@@ -57,7 +57,7 @@ public class Matcher implements Serializable {
     // Used for error reporting: The filename and line number where the config was located.
     private String matcherSourceLocation;
 
-    // Private constructor for serialization systems ONLY (like Kyro)
+    // Private constructor for serialization systems ONLY (like Kryo)
     private Matcher() {
         this.analyzer = null;
         this.fixedStringActions = new ArrayList<>();

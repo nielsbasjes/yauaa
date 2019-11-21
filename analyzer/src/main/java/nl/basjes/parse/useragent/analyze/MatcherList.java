@@ -36,7 +36,7 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
 
     private Matcher[] allElements;
 
-    // Private constructor for serialization systems ONLY (like Kyro)
+    // Private constructor for serialization systems ONLY (like Kryo)
     private MatcherList() {
     }
 

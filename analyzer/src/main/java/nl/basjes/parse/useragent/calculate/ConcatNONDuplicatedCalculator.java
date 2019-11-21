@@ -31,7 +31,7 @@ public class ConcatNONDuplicatedCalculator implements FieldCalculator {
         this.secondName = secondName;
     }
 
-    // Private constructor for serialization systems ONLY (like Kyro)
+    // Private constructor for serialization systems ONLY (like Kryo)
     private ConcatNONDuplicatedCalculator() { }
 
     @Override

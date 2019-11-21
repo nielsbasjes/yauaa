@@ -39,7 +39,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
         private transient String value;
         private transient ParseTree result;
 
-        // Private constructor for serialization systems ONLY (like Kyro)
+        // Private constructor for serialization systems ONLY (like Kryo)
         private Match() {
         }
 
@@ -71,7 +71,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
 
     private Match[] allElements;
 
-    // Private constructor for serialization systems ONLY (like Kyro)
+    // Private constructor for serialization systems ONLY (like Kryo)
     private MatchesList() {
     }
 

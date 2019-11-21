@@ -129,7 +129,7 @@ public class WalkList implements Serializable {
         }
     }
 
-    // Private constructor for serialization systems ONLY (like Kyro)
+    // Private constructor for serialization systems ONLY (like Kryo)
     private WalkList() {
         lookups = null;
         lookupSets = null;
