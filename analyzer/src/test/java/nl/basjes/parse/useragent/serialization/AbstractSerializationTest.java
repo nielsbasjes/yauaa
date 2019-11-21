@@ -57,7 +57,6 @@ public abstract class AbstractSerializationTest {
             .addResources("classpath*:AllSteps.yaml")
             .addResources("classpath*:AllFields-tests.yaml")
             .addResources("classpath*:AllPossibleSteps.yaml")
-            .addResources("classpath*:DocumentationExample.yaml")
             .hideMatcherLoadStats();
 
         if (immediate) {
