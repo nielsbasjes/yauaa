@@ -86,7 +86,7 @@ MINIMAL_MEMORY_GiB=2
 
 function warnIfLowMemory {
     MINIMAL_MEMORY=$((MINIMAL_MEMORY_GiB*1024*1024)) # Convert to KiB
-    INSTALLED_MEMORY=$(fgrep MemTotal /proc/meminfo | awk '{print $2}')
+    INSTALLED_MEMORY=$(grep -F MemTotal /proc/meminfo | awk '{print $2}')
     if [ $((INSTALLED_MEMORY)) -le $((MINIMAL_MEMORY)) ];
     then
         cat << "End-of-message"

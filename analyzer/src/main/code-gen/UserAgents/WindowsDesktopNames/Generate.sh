@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents"; pwd)
+TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents" || exit 1; pwd)
 
 INPUT=WindowsDesktop.csv
 OUTPUT="${TARGETDIR}/WindowsDesktopLookups.yaml"
@@ -53,7 +53,7 @@ echo "config:"
 echo "- lookup:"
 echo "    name: 'WindowsDesktopOSName'"
 echo "    map:"
-fgrep -v '#' "${INPUT}" | grep  . | while read line
+grep -F -v '#' "${INPUT}" | grep  . | while read -r line
 do
     tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
     osname=$(     echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f2)
@@ -63,7 +63,7 @@ done
 echo "- lookup:"
 echo "    name: 'WindowsDesktopOSVersion'"
 echo "    map:"
-fgrep -v '#' "${INPUT}" | grep  . | while read line
+grep -F -v '#' "${INPUT}" | grep  . | while read -r line
 do
     tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
     osversion=$(  echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f3)
@@ -73,7 +73,7 @@ done
 echo "- lookup:"
 echo "    name: 'WindowsDesktopOSNameVersion'"
 echo "    map:"
-fgrep -v '#' "${INPUT}" | grep  . | while read line
+grep -F -v '#' "${INPUT}" | grep  . | while read -r line
 do
     tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
     osnameversion=$(  echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f4)
@@ -83,14 +83,14 @@ done
 echo "- lookup:"
 echo "    name: 'WindowsDesktopOSCpuBits'"
 echo "    map:"
-fgrep -v '#' "${INPUT}" | grep  . | while read line
+grep -F -v '#' "${INPUT}" | grep  . | while read -r line
 do
     tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
     cpubits=$(    echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f5)
-    if [ ! -z "${cpubits}" ];
+    if [ -n "${cpubits}" ];
     then
         echo "      \"${tag}\" : \"${cpubits}\""
     fi
 done
 
-) > ${OUTPUT}
+) >"${OUTPUT}"

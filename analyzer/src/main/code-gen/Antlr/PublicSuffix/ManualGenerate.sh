@@ -20,7 +20,7 @@ INPUT="${SCRIPTDIR}/public_suffix_list.dat"
 OUTPUT="${TARGETDIR}/PublicSuffix.g4.fragment"
 
 if [ ! -f "${INPUT}" ]; then
-    cd "${SCRIPTDIR}"
+    cd "${SCRIPTDIR}" || exit 1
     wget https://publicsuffix.org/list/public_suffix_list.dat
 fi
 
@@ -38,8 +38,8 @@ echo "Generating: ${OUTPUT}";
 
 echo "// The 2, 3 and 4 letter TLDs extracted from https://publicsuffix.org/list/public_suffix_list.dat on $(date)"
 echo -n "fragment TLD : "
-cat "${INPUT}" | fgrep -v '//' | grep . | sed 's@.*\.\([a-z]\+\)$@\1@g' | egrep '^[a-z]{2,4}$' | sort -u | \
-while read suffix
+grep -F -v '//' "${INPUT}" | grep . | sed 's@.*\.\([a-z]\+\)$@\1@g' | grep -E '^[a-z]{2,4}$' | sort -u | \
+while read -r suffix
 do
   echo -n " '${suffix}' |"
 done
@@ -70,7 +70,7 @@ echo "//"
 
 
 
-) | sed 's@|;@;@g'> ${OUTPUT}
+) | sed 's@|;@;@g'> "${OUTPUT}"
 
 
 echo "";

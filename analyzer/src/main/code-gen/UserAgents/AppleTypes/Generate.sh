@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents"; pwd)
+TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents" || exit 1; pwd)
 
 INPUT=AppleTypes.csv
 OUTPUT="${TARGETDIR}/AppleTypes.yaml"
@@ -59,7 +59,7 @@ echo "      \"iPad\"       : \"Tablet\""
 echo "      \"iPod\"       : \"Phone\""
 echo "      \"iPod touch\" : \"Phone\""
 
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
+grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
 do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
@@ -82,7 +82,7 @@ echo "      \"iPhone\"     : \"Apple iPhone\""
 echo "      \"iPad\"       : \"Apple iPad\""
 echo "      \"iPod\"       : \"Apple iPod\""
 echo "      \"iPod touch\" : \"Apple iPod touch\""
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
+grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
 do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
@@ -107,7 +107,7 @@ echo "      \"iPhone\"     : \"iPhone\""
 echo "      \"iPad\"       : \"iPad\""
 echo "      \"iPod\"       : \"iPod\""
 echo "      \"iPod touch\" : \"iPod touch\""
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
+grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
 do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
@@ -124,7 +124,7 @@ do
     fi
 done
 
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
+grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
 do
     key=$(echo "${line}" | cut -d'|' -f1)
     deviceClass=$(echo "${line}" | cut -d'|' -f2)
@@ -159,4 +159,4 @@ echo "
     - 'DeviceVersion                       :      111 :\"${deviceVersion}\"'
 "
 done
-) | uniq > ${OUTPUT}
+) | uniq > "${OUTPUT}"

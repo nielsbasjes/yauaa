@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents"; pwd)
+TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents" || exit 1; pwd)
 
 INPUT=UbuntuVersions.csv
 OUTPUT="${TARGETDIR}/UbuntuVersionLookups.yaml"
@@ -53,7 +53,7 @@ echo "config:"
 echo "- lookup:"
 echo "    name: 'UbuntuOSName'"
 echo "    map:"
-fgrep -v '#' "${INPUT}" | grep  . | while read line
+grep -F -v '#' "${INPUT}" | grep  . | while read -r line
 do
     firstname=$(   echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1 | cut -d' ' -f1)
     name=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
@@ -69,7 +69,7 @@ done
 echo "- lookup:"
 echo "    name: 'UbuntuOSVersion'"
 echo "    map:"
-fgrep -v '#' "${INPUT}" | grep  . | while read line
+grep -F -v '#' "${INPUT}" | grep  . | while read -r line
 do
     firstname=$(   echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1 | cut -d' ' -f1)
     name=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1)
@@ -82,4 +82,4 @@ do
     echo "      \"ubuntu${version}\"    : \"${version}\""
 done
 
-) > ${OUTPUT}
+) >"${OUTPUT}"

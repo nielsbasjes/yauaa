@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-TARGETDIR=$(cd "${SCRIPTDIR}/.."; pwd)
+TARGETDIR=$(cd "${SCRIPTDIR}/.." || exit 1; pwd)
 
 INPUT=AllPossibleSteps.csv
 INPUTTESTS=AllPossibleStepsTests.yaml
@@ -59,7 +59,7 @@ echo "#  Extract all fields possible"
 echo "# ============================="
 echo ""
 
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
+grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
 do
     match="${line//agent/agent!=\"\"}"
     echo "- matcher:"
@@ -77,7 +77,7 @@ echo "- matcher:"
 echo "    extract:"
 echo "      - 'MustBeOk  :1:\"Not OK\"'"
 
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
+grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
 do
     match="${line//agent/agent!=\"\"}"
     echo "- matcher:"
@@ -89,14 +89,14 @@ done
 
 echo "- matcher:"
 echo "    require:"
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
+grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
 do
     match="${line//agent/agent!=\"\"}"
     echo "      - 'IsNull[${match}.version.version]'"
 done
 echo "    extract:"
 echo "    - 'MustBeOk :2:\"OK\"'"
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
+grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
 do
     match="${line//agent/agent!=\"\"}"
     echo "    - 'MUST_BE_NULL_${line}.version.version  :2:\"<<<null>>>\"'"
@@ -104,4 +104,4 @@ done
 
 cat "${INPUTTESTS}"
 
-) > ${OUTPUT}
+) >"${OUTPUT}"

@@ -20,7 +20,7 @@ VERSION="latest"
 #WARFILE="target/yauaa-webapp-${VERSION}.war"
 WARFILE="target/yauaa-webapp-*.war"
 
-docker build --build-arg WAR_FILE=${WARFILE} -t yauaa:${VERSION} .
+docker build --build-arg WAR_FILE="${WARFILE}" -t yauaa:${VERSION} .
 docker run -p 8080:8080  yauaa:${VERSION}
 #Detached:  docker run -d -p 8080:8080  yauaa:${VERSION}
 

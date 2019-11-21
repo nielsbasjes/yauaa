@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents"; pwd)
+TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents" || exit 1; pwd)
 
 INPUT=WindowsOEMCodes.csv
 OUTPUT="${TARGETDIR}/WindowsOEMCodes.yaml"
@@ -52,16 +52,16 @@ echo "#"
 echo "config:"
 echo "- matcher:"
 echo "    extract:"
-echo "    - 'DeviceBrand                         :    200 :LookUp[WindowsOEMCodes;agent.(1)product.comments.entry.(1)text]'"
+echo "    - 'DeviceBrand                         :      200 :LookUp[WindowsOEMCodes;agent.(1)product.comments.entry.(1)text]'"
 echo ""
 echo "- lookup:"
 echo "    name: 'WindowsOEMCodes'"
 echo "    map:"
-fgrep -v '#' "${INPUT}" | grep . | while read line
+grep -F -v '#' "${INPUT}" | grep . | while read -r line
 do
     code=$(echo "${line}" | cut -d' ' -f1)
     value=$(echo "${line}" | cut -d' ' -f2- | sed 's/^ *//')
     echo "      \"${code}\" : \"${value}\""
 done
 
-) > ${OUTPUT}
+) >"${OUTPUT}"

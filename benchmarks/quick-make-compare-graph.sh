@@ -25,21 +25,21 @@ echo "    var data = google.visualization.arrayToDataTable(["
 
 echo -n "['Version'"
 ls results/quick-speed-test-*.txt | sort --version-sort | head -1 | xargs grep '| Test |' | cut -d'|' -f3 | sed 's/^ //g;s/ +$//' | \
-while read BenchMarkName ;
+while read -r BenchMarkName ;
 do
     echo -n ",'${BenchMarkName}'"
 done
 echo "],"
 
 
-ls results/quick-speed-test-*txt | sort --version-sort | while read FileName ;
+ls results/quick-speed-test-*txt | sort --version-sort | while read -r FileName ;
 do
     VERSION=$(echo "${FileName}" | sed 's@^.*quick-speed-test-\(.*\).txt$@\1@g' )
     echo -n "['v${VERSION}'"
     ls results/quick-speed-test-*.txt | sort --version-sort | head -1 | xargs grep '| Test |' | cut -d'|' -f3 | sed 's/^ //g;s/ +$//' | \
-    while read BenchMarkName ;
+    while read -r BenchMarkName ;
     do
-        fgrep "| Test | ${BenchMarkName}  " "${FileName}" | \
+        grep -F "| Test | ${BenchMarkName}  " "${FileName}" | \
         cut -d'|' -f5 | \
         sed 's/ *//g' | \
         xargs -n1 -iXXX echo -n ",XXX"

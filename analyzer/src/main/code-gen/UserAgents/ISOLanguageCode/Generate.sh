@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents"; pwd)
+TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents" || exit 1; pwd)
 
 INPUT1=ISOLanguageCodes.csv
 INPUT2=iso-639-3.tab
@@ -108,12 +108,12 @@ echo "# ------------------------------------------------------------------------
 echo "- lookup:"
 echo "    name: 'ISOLanguageCodes'"
 echo "    map:"
-fgrep -v '#' "${INPUT1}" | grep . | while read line
+grep -F -v '#' "${INPUT1}" | grep . | while read -r line
 do
     CODE=$(echo "${line}" | cut -d' ' -f1)
     echo "      \"${CODE}\" : \"${CODE}\""
     if [[ ${CODE} = *"-"* ]]; then
-        echo "      \"$(echo ${CODE} | sed 's/-/_/g')\" : \"${CODE}\""
+        echo "      \"${CODE//-/_}\" : \"${CODE}\""
     fi
 done
 
@@ -121,13 +121,13 @@ echo "# ------------------------------------------------------------------------
 echo "- lookup:"
 echo "    name: 'ISOLanguageCodesName'"
 echo "    map:"
-fgrep -v '#' "${INPUT1}" | grep . | while read line
+grep -F -v '#' "${INPUT1}" | grep . | while read -r line
 do
     CODE=$(echo "${line}" | cut -d' ' -f1)
     NAME=$(echo "${line}" | cut -d' ' -f2-)
     echo "      \"${CODE}\" : \"${NAME}\""
     if [[ ${CODE} = *"-"* ]]; then
-        echo "      \"$(echo ${CODE} | sed 's/-/_/g')\" : \"${NAME}\""
+        echo "      \"${CODE//-/_}\" : \"${NAME}\""
     fi
 done
 
@@ -135,7 +135,7 @@ echo "# ------------------------------------------------------------------------
 echo "- lookup:"
 echo "    name: 'ISOLanguageCodes3'"
 echo "    map:"
-grep -v -f unwanted-language-codes.txt "${INPUT2}" | while read line
+grep -v -f unwanted-language-codes.txt "${INPUT2}" | while read -r line
 do
     CODE=$(echo "${line}" | cut -d'	' -f1)
     echo "      \"${CODE}\" : \"${CODE}\""
@@ -145,7 +145,7 @@ echo "# ------------------------------------------------------------------------
 echo "- lookup:"
 echo "    name: 'ISOLanguageCodes3Name'"
 echo "    map:"
-grep -v -f unwanted-language-codes.txt "${INPUT2}" | while read line
+grep -v -f unwanted-language-codes.txt "${INPUT2}" | while read -r line
 do
     CODE=$(echo "${line}" | cut -d'	' -f1)
     NAME=$(echo "${line}" | cut -d'	' -f7)
@@ -153,4 +153,4 @@ do
 done
 echo "# -----------------------------------------------------------------------------"
 
-) > ${OUTPUT}
+) >"${OUTPUT}"

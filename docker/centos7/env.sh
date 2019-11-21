@@ -23,9 +23,9 @@ export JDK_VERSION="???"
 
 function __INTERNAL__SwitchJDK {
     JDK=$1
-    echo -e ${IRed}${On_Black}'Setting JDK to version '${JDK}${Color_Off}
-    sudo alternatives --set java java-${JDK}-openjdk.x86_64;
-    sudo alternatives --set javac java-${JDK}-openjdk.x86_64;
+    echo -e "${IRed}${On_Black}'Setting JDK to version '${JDK}${Color_Off}"
+    sudo alternatives --set java "java-${JDK}-openjdk.x86_64";
+    sudo alternatives --set javac "java-${JDK}-openjdk.x86_64";
     export JDK_VERSION="JDK ${JDK}"
 }
 echo "Use switch-jdk8 or switch-jdk11 to select the desired JDK"

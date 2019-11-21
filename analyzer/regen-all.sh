@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-find src -type f -name Generate.sh | sed 's@/Generate.sh@@' | while read dir ;
+find src -type f -name Generate.sh | sed 's@/Generate.sh@@' | while read -r dir ;
 do
-  ( cd "${dir}" ; ./Generate.sh )
+  ( cd "${dir}" || exit 1 ; ./Generate.sh )
 done

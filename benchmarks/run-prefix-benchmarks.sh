@@ -22,8 +22,8 @@ function build {
   then
     echo "- Already have version ${version}"
   else
-    git checkout ${hash}
-    ( cd .. && mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${version} && mvn clean install -DskipTests=true -Drat.skip=true && git checkout . )
+    git checkout "${hash}"
+    ( cd .. && mvn versions:set -DgenerateBackupPoms=false -DnewVersion="${version}" && mvn clean install -DskipTests=true -Drat.skip=true && git checkout . )
   fi
 }
 

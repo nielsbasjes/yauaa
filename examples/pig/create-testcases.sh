@@ -18,7 +18,7 @@
 
 find ../../analyzer/src/main/resources/UserAgents/ -type f -name '*.yaml' -print0 | \
     xargs -0 cat | \
-    fgrep user_agent | \
+    grep -F user_agent | \
     cut -d':' -f2- | \
     sed 's@^ *@@g' | \
     sed 's@^"@@' | \

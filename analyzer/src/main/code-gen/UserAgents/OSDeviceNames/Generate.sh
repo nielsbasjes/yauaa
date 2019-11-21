@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents"; pwd)
+TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents" || exit 1; pwd)
 
 INPUT=OperatingSystemDeviceNames.csv
 OUTPUT="${TARGETDIR}/OperatingSystemDeviceNames.yaml"
@@ -53,14 +53,14 @@ echo "config:"
 echo "- set:"
 echo "    name: 'OSPatterns'"
 echo "    values:"
-fgrep -v '#' "${INPUT}" | grep . | sed 's/ *|/|/g;s/| */|/g' | while read line
+grep -F -v '#' "${INPUT}" | grep . | sed 's/ *|/|/g;s/| */|/g' | while read -r line
 do
     ospattern=$(echo "${line}" | cut -d'|' -f1)
     echo "    - '${ospattern}'"
 done
 echo ""
 
-fgrep -v '#' "${INPUT}" | grep . | sed 's/ *|/|/g;s/| */|/g' | while read line
+grep -F -v '#' "${INPUT}" | grep . | sed 's/ *|/|/g;s/| */|/g' | while read -r line
 do
     ospattern=$(echo "${line}" | cut -d'|' -f1)
     osname=$(   echo "${line}" | cut -d'|' -f2)
@@ -69,45 +69,45 @@ do
     devbrand=$( echo "${line}" | cut -d'|' -f5)
     osclass=$(  echo "${line}" | cut -d'|' -f6)
 
-    ospatternWords=$(echo ${ospattern} | sed 's@[^ ]\+@x@g;s@ @@g')
+    ospatternWords=$(echo "${ospattern}" | sed 's@[^ ]\+@x@g;s@ @@g')
 echo "
 # =======================================================================
 # ${ospattern}
 
 - matcher:
     extract:
-    - 'DeviceClass                         :    111 :\"${devclass}\"'
-    - 'DeviceName                          :    111 :\"${devname}\"'
-    - 'DeviceBrand                         :    111 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :    150 :\"${osclass}\"'
-    - 'OperatingSystemName                 :    150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.(1)product.(1)comments.entry.(1-2)product.name=\"${ospattern}\"^.(1)version]'
+    - 'DeviceClass                         :      111 :\"${devclass}\"'
+    - 'DeviceName                          :      111 :\"${devname}\"'
+    - 'DeviceBrand                         :      111 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      150 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      150 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1)comments.entry.(1-2)product.name=\"${ospattern}\"^.(1)version]'
 
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.(1)product.(1)comments.entry.product.name=\"${ospattern}\"^.(2)version'
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name=\"${ospattern}\"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
-    - 'DeviceClass                         :    111 :\"${devclass}\"'
-    - 'DeviceName                          :    111 :\"${devname}\"'
-    - 'DeviceBrand                         :    111 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :    150 :\"${osclass}\"'
-    - 'OperatingSystemName                 :    150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    151 :CleanVersion[@Version]'
+    - 'DeviceClass                         :      111 :\"${devclass}\"'
+    - 'DeviceName                          :      111 :\"${devname}\"'
+    - 'DeviceBrand                         :      111 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      150 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      150 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@Version]'
 
 # Exact match
 - matcher:
     require:
     - 'agent.product.(1)comments.entry=\"${ospattern}\"'
     extract:
-    - 'DeviceClass                         :    111 :\"${devclass}\"'
-    - 'DeviceName                          :    111 :\"${devname}\"'
-    - 'DeviceBrand                         :    111 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :    151 :\"${osclass}\"'
-    - 'OperatingSystemName                 :    151 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    149 :\"??\"'
+    - 'DeviceClass                         :      111 :\"${devclass}\"'
+    - 'DeviceName                          :      111 :\"${devname}\"'
+    - 'DeviceBrand                         :      111 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      151 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      151 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      149 :\"??\"'
 "
 
 case ${ospatternWords} in
@@ -118,23 +118,23 @@ echo "
     require:
     - 'agent.product.(1)comments.entry[1-1]=\"${ospattern}\"'
     extract:
-    - 'DeviceClass                         :    108 :\"${devclass}\"'
-    - 'DeviceName                          :    108 :\"${devname}\"'
-    - 'DeviceBrand                         :    108 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :    148 :\"${osclass}\"'
-    - 'OperatingSystemName                 :    148 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    149 :\"??\"'
+    - 'DeviceClass                         :      108 :\"${devclass}\"'
+    - 'DeviceName                          :      108 :\"${devname}\"'
+    - 'DeviceBrand                         :      108 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      148 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      148 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      149 :\"??\"'
 
 - matcher:
     require:
     - 'agent.product.(1)comments.entry[2-2]=\"${ospattern}\"'
     extract:
-    - 'DeviceClass                         :    108 :\"${devclass}\"'
-    - 'DeviceName                          :    108 :\"${devname}\"'
-    - 'DeviceBrand                         :    108 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :    148 :\"${osclass}\"'
-    - 'OperatingSystemName                 :    148 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    149 :\"??\"'
+    - 'DeviceClass                         :      108 :\"${devclass}\"'
+    - 'DeviceName                          :      108 :\"${devname}\"'
+    - 'DeviceBrand                         :      108 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      148 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      148 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      149 :\"??\"'
 "
 ;;
 
@@ -145,22 +145,22 @@ echo "
     require:
     - 'agent.product.(1)comments.entry[1-2]=\"${ospattern}\"'
     extract:
-    - 'DeviceClass                         :    109 :\"${devclass}\"'
-    - 'DeviceName                          :    109 :\"${devname}\"'
-    - 'DeviceBrand                         :    109 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :    149 :\"${osclass}\"'
-    - 'OperatingSystemName                 :    149 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    149 :\"??\"'
+    - 'DeviceClass                         :      109 :\"${devclass}\"'
+    - 'DeviceName                          :      109 :\"${devname}\"'
+    - 'DeviceBrand                         :      109 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      149 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      149 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      149 :\"??\"'
 - matcher:
     require:
     - 'agent.product.(1)comments.entry[2-3]=\"${ospattern}\"'
     extract:
-    - 'DeviceClass                         :    109 :\"${devclass}\"'
-    - 'DeviceName                          :    109 :\"${devname}\"'
-    - 'DeviceBrand                         :    109 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :    149 :\"${osclass}\"'
-    - 'OperatingSystemName                 :    149 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    149 :\"??\"'
+    - 'DeviceClass                         :      109 :\"${devclass}\"'
+    - 'DeviceName                          :      109 :\"${devname}\"'
+    - 'DeviceBrand                         :      109 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      149 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      149 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      149 :\"??\"'
 "
 ;;
 
@@ -171,23 +171,23 @@ echo "
     require:
     - 'agent.product.(1)comments.entry[1-3]=\"${ospattern}\"'
     extract:
-    - 'DeviceClass                         :    110 :\"${devclass}\"'
-    - 'DeviceName                          :    110 :\"${devname}\"'
-    - 'DeviceBrand                         :    110 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :    150 :\"${osclass}\"'
-    - 'OperatingSystemName                 :    150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    149 :\"??\"'
+    - 'DeviceClass                         :      110 :\"${devclass}\"'
+    - 'DeviceName                          :      110 :\"${devname}\"'
+    - 'DeviceBrand                         :      110 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      150 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      150 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      149 :\"??\"'
 
 - matcher:
     require:
     - 'agent.product.(1)comments.entry[2-4]=\"${ospattern}\"'
     extract:
-    - 'DeviceClass                         :    110 :\"${devclass}\"'
-    - 'DeviceName                          :    110 :\"${devname}\"'
-    - 'DeviceBrand                         :    110 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :    150 :\"${osclass}\"'
-    - 'OperatingSystemName                 :    150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    149 :\"??\"'
+    - 'DeviceClass                         :      110 :\"${devclass}\"'
+    - 'DeviceName                          :      110 :\"${devname}\"'
+    - 'DeviceBrand                         :      110 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      150 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      150 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      149 :\"??\"'
 "
 ;;
 esac
@@ -195,50 +195,50 @@ esac
 echo "
 - matcher:
     extract:
-    - 'DeviceClass                         :    111 :\"${devclass}\"'
-    - 'DeviceName                          :    111 :\"${devname}\"'
-    - 'DeviceBrand                         :    111 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :    150 :\"${osclass}\"'
-    - 'OperatingSystemName                 :    150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    150 :CleanVersion[agent.product.name=\"${ospattern}\"^.(1)version]'
+    - 'DeviceClass                         :      111 :\"${devclass}\"'
+    - 'DeviceName                          :      111 :\"${devname}\"'
+    - 'DeviceBrand                         :      111 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      150 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      150 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.product.name=\"${ospattern}\"^.(1)version]'
 
 # Only if the second version field is NOT a type of CPU.
 - matcher:
     variable:
-    - 'Version: agent.product.name=\"${ospattern}\"^.(2)version'
+    - 'Version                             :agent.product.name=\"${ospattern}\"^.(2)version'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
-    - 'DeviceClass                         :    111 :\"${devclass}\"'
-    - 'DeviceName                          :    111 :\"${devname}\"'
-    - 'DeviceBrand                         :    111 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :    150 :\"${osclass}\"'
-    - 'OperatingSystemName                 :    150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    151 :CleanVersion[@Version]'
+    - 'DeviceClass                         :      111 :\"${devclass}\"'
+    - 'DeviceName                          :      111 :\"${devname}\"'
+    - 'DeviceBrand                         :      111 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      150 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      150 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@Version]'
 
 - matcher:
     require:
     - 'agent.product.name[-1]=\"${ospattern}\"'
     extract:
-    - 'DeviceClass                         :    111 :\"${devclass}\"'
-    - 'DeviceName                          :    111 :\"${devname}\"'
-    - 'DeviceBrand                         :    111 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :    152 :\"${osclass}\"'
-    - 'OperatingSystemName                 :    152 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    149 :\"??\"'
+    - 'DeviceClass                         :      111 :\"${devclass}\"'
+    - 'DeviceName                          :      111 :\"${devname}\"'
+    - 'DeviceBrand                         :      111 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      152 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      152 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      149 :\"??\"'
 
 - matcher:
     require:
     - 'agent.product.name[-2]=\"${ospattern}\"'
     extract:
-    - 'DeviceClass                         :    112 :\"${devclass}\"'
-    - 'DeviceName                          :    112 :\"${devname}\"'
-    - 'DeviceBrand                         :    112 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :    153 :\"${osclass}\"'
-    - 'OperatingSystemName                 :    153 :\"${osname}\"'
-    - 'OperatingSystemVersion              :    149 :\"??\"'
+    - 'DeviceClass                         :      112 :\"${devclass}\"'
+    - 'DeviceName                          :      112 :\"${devname}\"'
+    - 'DeviceBrand                         :      112 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      153 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      153 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      149 :\"??\"'
 
 "
 done
 
-) > ${OUTPUT}
+) >"${OUTPUT}"

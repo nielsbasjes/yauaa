@@ -28,8 +28,8 @@ echo "=========================="
 echo "Doing basic commit validation"
 
 echo -n "= Single line commit message: "
-COMMIT_LINES=$(cat ${COMMIT_MSG_FILE} | wc -l)
-if [ ${COMMIT_LINES} -eq 1 ];
+COMMIT_LINES=$(cat "${COMMIT_MSG_FILE}" | wc -l)
+if [ "${COMMIT_LINES}" -eq 1 ];
 then
   echo "Ok"
 else
@@ -58,7 +58,7 @@ fi
 #fi
 
 # Fail if there is a DONOTCOMMIT in one of the files to be committed
-git-diff-index -p -M --cached HEAD -- | grep '^+' | fgrep DONOTCOMMIT && die Blocking commit because string DONOTCOMMIT detected in patch
+git-diff-index -p -M --cached HEAD -- | grep '^+' | grep -F DONOTCOMMIT && die Blocking commit because string DONOTCOMMIT detected in patch
 
 echo "=========================="
 

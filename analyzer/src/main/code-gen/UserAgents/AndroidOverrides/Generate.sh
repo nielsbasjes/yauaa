@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents"; pwd)
+TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents" || exit 1; pwd)
 
 INPUT=AndroidDeviceOverrides.csv
 OUTPUT="${TARGETDIR}/AndroidDeviceOverrides.yaml"
@@ -51,7 +51,7 @@ echo "#"
 
 echo "config:"
 
-fgrep -v '#' "${INPUT}" | grep '[a-z]' | while read line
+grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
 do
     tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1 )
     deviceName=$( echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f2 )
@@ -65,39 +65,39 @@ echo "
     require:
     - 'agent.product.name=\"${tag}\"'
     extract:
-    - 'DeviceClass                         :   1001 :\"${deviceClass}\"'
-    - 'DeviceName                          :    100 :\"${deviceName}\"'
-    - 'DeviceBrand                         :    100 :\"${deviceBrand}\"'
+    - 'DeviceClass                         :     1001 :\"${deviceClass}\"'
+    - 'DeviceName                          :      100 :\"${deviceName}\"'
+    - 'DeviceBrand                         :      100 :\"${deviceBrand}\"'
 
 - matcher:
     require:
     - 'agent.(1-2)product.(1)comments.entry.(1-2)product.name[1]=\"Android\"'
     - 'agent.(1-2)product.(1)comments.entry.(1-2)product.name[1]=\"${tag}\"'
     extract:
-    - 'DeviceClass                         :   1001 :\"${deviceClass}\"'
-    - 'DeviceName                          :    100 :\"${deviceName}\"'
-    - 'DeviceBrand                         :    100 :\"${deviceBrand}\"'
+    - 'DeviceClass                         :     1001 :\"${deviceClass}\"'
+    - 'DeviceName                          :      100 :\"${deviceName}\"'
+    - 'DeviceBrand                         :      100 :\"${deviceBrand}\"'
 
 - matcher:
     require:
     - 'IsNull[agent.product.name=\"Chrome\"]'
     extract:
-    - 'DeviceClass                         :   1001 :\"${deviceClass}\"'
-    - 'DeviceName                          :    100 :\"${deviceName}\"'
-    - 'DeviceBrand                         :    100 :\"${deviceBrand}\"'
-    - 'OperatingSystemVersionBuild         :     12 :agent.(1)product.(1)comments.entry[1-$((tagWords+1))]=\"${tag} Build\"@[$((tagWords+2))]'
+    - 'DeviceClass                         :     1001 :\"${deviceClass}\"'
+    - 'DeviceName                          :      100 :\"${deviceName}\"'
+    - 'DeviceBrand                         :      100 :\"${deviceBrand}\"'
+    - 'OperatingSystemVersionBuild         :       12 :agent.(1)product.(1)comments.entry[1-$((tagWords+1))]=\"${tag} Build\"@[$((tagWords+2))]'
 
 - matcher:
     require:
     - 'IsNull[agent.product.name=\"Chrome\"]'
     extract:
-    - 'DeviceClass                         :   1001 :\"${deviceClass}\"'
-    - 'DeviceName                          :    100 :\"${deviceName}\"'
-    - 'DeviceBrand                         :    100 :\"${deviceBrand}\"'
-    - 'OperatingSystemVersionBuild         :     11 :agent.(1)product.(1)comments.entry[1-$((tagWords))]=\"${tag}\"@[$((tagWords+1))]'
+    - 'DeviceClass                         :     1001 :\"${deviceClass}\"'
+    - 'DeviceName                          :      100 :\"${deviceName}\"'
+    - 'DeviceBrand                         :      100 :\"${deviceBrand}\"'
+    - 'OperatingSystemVersionBuild         :       11 :agent.(1)product.(1)comments.entry[1-$((tagWords))]=\"${tag}\"@[$((tagWords+1))]'
 
 "
 
 done
 
-) > ${OUTPUT}
+) >"${OUTPUT}"

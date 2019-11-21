@@ -21,7 +21,7 @@ echo -n "Name"
 
 ls results/version*.txt | sort --version-sort | \
     sed 's@^.*version-\(.*\).txt$@\1@g' | sort -V | \
-    while read version
+    while read -r version
 do
     echo -n ";v${version}"
 done

@@ -22,10 +22,10 @@ USER=$(id -un)
 CONTAINER_NAME=${PROJECTNAME}-${OS}-${USER}-$$
 DOCKER_BUILD="docker build"
 
-if [ ! -z ${INSIDE_DOCKER+x} ];
+if [ -n "${INSIDE_DOCKER+x}" ];
 then
   echo "Nothing to do: You are already INSIDE the docker environment"
-  exit -1;
+  exit 1;
 fi
 
 if [[ "$(docker images -q ${PROJECTNAME}-${OS} 2> /dev/null)" == "" ]]; then
@@ -64,16 +64,16 @@ fi
 
 EXTRA_DOCKER_STEPS=""
 
-if [ -f ${HOME}/.gitconfig ];
+if [ -f "${HOME}/.gitconfig" ];
 then
-  cp ${HOME}/.gitconfig ___git_config_for_docker
+  cp "${HOME}/.gitconfig" ___git_config_for_docker
   EXTRA_DOCKER_STEPS="ADD ___git_config_for_docker /home/${USER}/.gitconfig"
 fi
 
 cat - > ___UserSpecificDockerfile << UserSpecificDocker
 FROM ${PROJECTNAME}-${OS}
 ${EXTRA_DOCKER_STEPS}
-RUN bash /scripts/configure-for-user.sh "${USER_NAME}" "${USER_ID}" "${GROUP_ID}" "$(fgrep vboxsf /etc/group)"
+RUN bash /scripts/configure-for-user.sh "${USER_NAME}" "${USER_ID}" "${GROUP_ID}" "$(grep -F vboxsf /etc/group)"
 UserSpecificDocker
 
 ${DOCKER_BUILD} -t "${PROJECTNAME}-${OS}-${USER_NAME}" -f ___UserSpecificDockerfile .

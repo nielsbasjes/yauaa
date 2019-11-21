@@ -21,7 +21,7 @@
 
 git tag | \
 sed 's/v//' | \
-egrep -v '^(0\.|1\.|2\.|5\.1$)' | while read version ;
+grep -E -v '^(0\.|1\.|2\.|5\.1$)' | while read -r version ;
 do
   OUTPUT="results/quick-speed-test-${version}.txt"
   if [ -f "${OUTPUT}" ];

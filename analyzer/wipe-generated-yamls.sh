@@ -16,4 +16,4 @@
 # limitations under the License.
 #
 
-find src/main/resources/UserAgents/ -type f -name '*.yaml' | xargs fgrep -l 'THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY' | xargs -r rm
+find src/main/resources/UserAgents/ -type f -name '*.yaml' -print0 | xargs -0 grep -F -l 'THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY' | xargs -r rm

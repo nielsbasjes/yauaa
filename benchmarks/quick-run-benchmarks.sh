@@ -17,7 +17,7 @@
 #
 
 ( cd .. && mvn clean install -DskipTests=true -Drat.skip=true ) || exit
-version=$(fgrep '<version>' pom.xml | head -1 | sed 's@.*>\(.*\)<.*$@\1@g')
+version=$(grep -F '<version>' pom.xml | head -1 | sed 's@.*>\(.*\)<.*$@\1@g')
 echo "Testing version ${version}" && \
 mvn clean test -Dyauaa.version="${version}" -Dtest=RunBenchmarks > "results/quick-speed-test-${version}-$(date +%Y%m%d-%H%M%S).txt"
 

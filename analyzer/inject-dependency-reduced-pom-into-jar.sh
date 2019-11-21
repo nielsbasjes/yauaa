@@ -22,7 +22,7 @@ version=$3
 
 DIR=META-INF/maven/${groupId}/${artifactId}
 
-mkdir -p target/${DIR}
+mkdir -p "target/${DIR}"
 
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!--
@@ -47,9 +47,9 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!-- | as a workaround for https://issues.apache.org/jira/browse/MSHADE-36  | -->
 <!-- +======================================================================+ -->
 
-" > target/${DIR}/pom.xml
+" > "target/${DIR}/pom.xml"
 
-cat dependency-reduced-pom.xml | fgrep -v '<?xml version=' >> target/${DIR}/pom.xml
-jar -uf target/${artifactId}-${version}.jar -C target ${DIR}/pom.xml
+grep -F -v '<?xml version=' dependency-reduced-pom.xml >> "target/${DIR}/pom.xml"
+jar -uf "target/${artifactId}-${version}.jar" -C "target ${DIR}/pom.xml"
 
 echo "Replaced the pom.xml with the dependency-reduced-pom.xml"

@@ -17,6 +17,6 @@
 #
 
 ( cd .. && mvn clean install -DskipTests=true && mvn test ) || exit
-version=$(fgrep '<version>' pom.xml | head -1 | sed 's@.*>\(.*\)<.*$@\1@g')
+version=$(grep -F '<version>' pom.xml | head -1 | sed 's@.*>\(.*\)<.*$@\1@g')
 echo "Testing version ${version}" && \
 java -jar target/benchmarks.jar > "results/version-${version}-$(date +%Y%m%d-%H%M%S).txt"

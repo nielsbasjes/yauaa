@@ -21,17 +21,17 @@ echo -n "Name"
 
 ls results/quick-speed-test-*.txt | sort --version-sort | \
     sed 's@^.*quick-speed-test-\(.*\).txt$@\1@g' | sort -V | \
-    while read version
+    while read -r version
 do
     echo -n ";v${version}"
 done
 echo ""
 
 ls results/quick-speed-test-*.txt | sort --version-sort | head -1 | xargs grep '| Test |' | cut -d'|' -f3 | sed 's/^ //g;s/ +$//' | \
-while read BenchMarkName ;
+while read -r BenchMarkName ;
 do
     echo -n "${BenchMarkName}"
-    ls results/quick-speed-test-*txt | sort --version-sort | xargs fgrep "| Test | ${BenchMarkName}  "  | \
+    ls results/quick-speed-test-*txt | sort --version-sort | xargs grep -F "| Test | ${BenchMarkName}  "  | \
     cut -d'|' -f5 | \
     sed 's/ *//g' | \
     xargs -n1 -iXXX echo -n ";XXX"
