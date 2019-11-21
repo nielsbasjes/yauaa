@@ -14,21 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-MATCH_OPTIONS: &MATCH_OPTIONS
-  options:
-    - 'verbose'
-
-TEST_OPTIONS: &TEST_OPTIONS
-  options:
-    - 'verbose'
-    - 'init'
-
 config:
 
-
 - matcher:
-#    options:
-#    - 'verbose'
     variable:
     - 'VariableProductName : agent.product.name[3-]'
     extract:
@@ -38,8 +26,6 @@ config:
     - 'ProductName3                 : 1:  @VariableProductName[3] '
 
 - matcher:
-#    options:
-#    - 'verbose'
     variable:
     - 'ProductThree : agent.product.version="3"^'
     - 'ProductThreeCommentTwo : @ProductThree.version="3"^'

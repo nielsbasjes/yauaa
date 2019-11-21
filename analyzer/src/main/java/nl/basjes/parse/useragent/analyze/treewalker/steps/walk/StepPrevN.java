@@ -28,7 +28,7 @@ public class StepPrevN extends Step {
 
     private final int steps;
 
-    // Private constructor for serialization systems ONLY (like Kryo)
+    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepPrevN() {
         steps = -1;
     }

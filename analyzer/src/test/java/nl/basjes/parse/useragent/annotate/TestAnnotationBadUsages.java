@@ -21,16 +21,12 @@ import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 
 import static org.junit.Assert.assertNull;
 
 public class TestAnnotationBadUsages {
-
-    private static final Logger LOG = LoggerFactory.getLogger(TestAnnotationBadUsages.class);
 
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
@@ -62,15 +58,10 @@ public class TestAnnotationBadUsages {
     @SuppressWarnings({"unchecked", "rawtypes"}) // Here we deliberately created some bad code to check the behavior.
     public static class MapperWithoutGenericType
         implements UserAgentAnnotationMapper, Serializable {
-        private final transient UserAgentAnnotationAnalyzer userAgentAnalyzer;
 
-        public MapperWithoutGenericType() {
-            userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
+        MapperWithoutGenericType() {
+            UserAgentAnnotationAnalyzer userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
             userAgentAnalyzer.initialize(this);
-        }
-
-        public Object enrich(Object record) {
-            return record;
         }
 
         @Override

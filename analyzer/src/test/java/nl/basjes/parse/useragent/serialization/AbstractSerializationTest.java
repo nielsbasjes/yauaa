@@ -45,7 +45,7 @@ public abstract class AbstractSerializationTest {
         serializeAndDeserializeUAA(false);
     }
 
-    public void serializeAndDeserializeUAA(boolean immediate) throws IOException, ClassNotFoundException {
+    private void serializeAndDeserializeUAA(boolean immediate) throws IOException, ClassNotFoundException {
         LOG.info("==============================================================");
         LOG.info("Create");
         LOG.info("--------------------------------------------------------------");

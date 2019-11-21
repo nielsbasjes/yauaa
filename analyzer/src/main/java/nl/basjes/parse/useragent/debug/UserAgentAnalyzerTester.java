@@ -84,10 +84,9 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                             Collection<String> onlyValidateFieldNames,
                             boolean measureSpeed,
                             boolean showPassedTests) {
-        boolean allPass = true;
         initializeMatchers();
         if (getTestCases() == null) {
-            return allPass;
+            return true;
         }
         DebugUserAgent agent = new DebugUserAgent(wantedFieldNames);
 
@@ -128,6 +127,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             LOG.info("+-------------------------------------------------------------------------------------------");
         }
 
+        boolean allPass = true;
         int testcount = 0;
         for (Map<String, Map<String, String>> test : getTestCases()) {
             testcount++;
@@ -533,7 +533,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
     public static class UserAgentAnalyzerTesterBuilder<UAA extends UserAgentAnalyzerTester, B extends UserAgentAnalyzerTesterBuilder<UAA, B>>
         extends UserAgentAnalyzerBuilder<UAA, B> {
 
-        public UserAgentAnalyzerTesterBuilder(UAA newUaa) {
+        UserAgentAnalyzerTesterBuilder(UAA newUaa) {
             super(newUaa);
         }
 

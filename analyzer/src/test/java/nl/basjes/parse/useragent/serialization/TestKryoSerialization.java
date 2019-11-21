@@ -27,7 +27,7 @@ import java.nio.ByteBuffer;
 
 public class TestKryoSerialization extends AbstractSerializationTest {
 
-    byte[] serialize(UserAgentAnalyzerTester uaa) throws IOException {
+    byte[] serialize(UserAgentAnalyzerTester uaa) {
         Kryo             kryo             = new Kryo();
         ByteBufferOutput byteBufferOutput = new ByteBufferOutput(1_000_000, -1);
         kryo.writeClassAndObject(byteBufferOutput, uaa);
@@ -40,7 +40,7 @@ public class TestKryoSerialization extends AbstractSerializationTest {
         return arr;
     }
 
-    UserAgentAnalyzerTester deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
+    UserAgentAnalyzerTester deserialize(byte[] bytes) {
         Kryo            kryo            = new Kryo();
         ByteBufferInput byteBufferInput = new ByteBufferInput(bytes);
         return (UserAgentAnalyzerTester) kryo.readClassAndObject(byteBufferInput);

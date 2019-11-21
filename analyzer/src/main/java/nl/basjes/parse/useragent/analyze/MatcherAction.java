@@ -71,7 +71,7 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepSta
 public abstract class MatcherAction implements Serializable {
 
     private String matchExpression;
-    protected TreeExpressionEvaluator evaluator;
+    TreeExpressionEvaluator evaluator;
 
     TreeExpressionEvaluator getEvaluatorForUnitTesting() {
         return evaluator;
@@ -321,7 +321,7 @@ public abstract class MatcherAction implements Serializable {
     // ============================================================================================================
 
     @FunctionalInterface
-    public interface CalculateInformPathFunction {
+    private interface CalculateInformPathFunction {
         /**
          * Applies this function to the given arguments.
          * @param action The applicable action.

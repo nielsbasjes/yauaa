@@ -25,7 +25,7 @@ public class StepConcatPostfix extends Step {
 
     private final String postfix;
 
-    // Private constructor for serialization systems ONLY (like Kryo)
+    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepConcatPostfix() {
         postfix = null;
     }

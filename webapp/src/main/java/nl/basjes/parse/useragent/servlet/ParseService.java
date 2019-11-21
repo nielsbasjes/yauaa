@@ -105,7 +105,7 @@ public class ParseService {
 //        reason = "Yauaa is still starting"
 //    )
     public static class YauaaIsBusyStarting extends RuntimeException {
-        private OutputType outputType;
+        private final OutputType outputType;
 
         public OutputType getOutputType() {
             return outputType;

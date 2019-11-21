@@ -74,6 +74,8 @@ public class CalculateDeviceBrand implements FieldCalculator {
         // We put this AFTER the creation of the DeviceName because we choose to not have
         // this brandname in the DeviceName.
 
+        String deviceBrand = null;
+
         UserAgent.AgentField informationUrl = userAgent.get(AGENT_INFORMATION_URL);
         if (informationUrl != null && informationUrl.getConfidence() >= 0) {
             String hostname = informationUrl.getValue();
@@ -83,10 +85,11 @@ public class CalculateDeviceBrand implements FieldCalculator {
             } catch (MalformedURLException e) {
                 // Ignore any exception and continue.
             }
-            hostname = extractCompanyFromHostName(hostname, unwantedUrlBrands);
-            if (hostname != null) {
-                return hostname;
-            }
+            deviceBrand = extractCompanyFromHostName(hostname, unwantedUrlBrands);
+        }
+
+        if (deviceBrand != null) {
+            return deviceBrand;
         }
 
         UserAgent.AgentField informationEmail = userAgent.get(AGENT_INFORMATION_EMAIL);
@@ -96,13 +99,10 @@ public class CalculateDeviceBrand implements FieldCalculator {
             if (atOffset >= 0) {
                 hostname = hostname.substring(atOffset+1);
             }
-            hostname = extractCompanyFromHostName(hostname, unwantedEmailBrands);
-            if (hostname != null) {
-                return hostname;
-            }
+            deviceBrand = extractCompanyFromHostName(hostname, unwantedEmailBrands);
         }
 
-        return null;
+        return deviceBrand;
     }
 
     private String extractCompanyFromHostName(String hostname, Set<String> blackList) {

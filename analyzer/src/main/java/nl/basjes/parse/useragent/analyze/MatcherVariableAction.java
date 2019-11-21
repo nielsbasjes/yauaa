@@ -33,7 +33,7 @@ public class MatcherVariableAction extends MatcherAction {
     private final String expression;
     private Set<MatcherAction> interestedActions;
 
-    // private constructor for serialization systems ONLY (like Kryo)
+    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private MatcherVariableAction() {
         variableName = null;
         expression = null;

@@ -26,9 +26,9 @@ import java.util.List;
 
 public abstract class Splitter {
 
-    public abstract boolean isSeparator(char c);
+    protected abstract boolean isSeparator(char c);
 
-    public abstract boolean isEndOfStringSeparator(char c);
+    protected abstract boolean isEndOfStringSeparator(char c);
 
     /**
      * Find the start offset of next split

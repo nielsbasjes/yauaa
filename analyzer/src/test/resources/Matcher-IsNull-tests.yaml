@@ -14,14 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-MATCH_OPTIONS: &MATCH_OPTIONS
-  options:
-#    - 'verbose'
-
-TEST_OPTIONS: &TEST_OPTIONS
-  options:
-#    - 'verbose'
-#    - 'init'
 
 config:
   - matcher:
@@ -30,8 +22,6 @@ config:
       - 'NoProductAndNoURL  : 0:"Unmatched"'
 
   - matcher:
-#      options:
-#      - 'verbose'
       require:
       - 'IsNull[agent~"a"]'
       - 'IsNull[agent~"e"]'
@@ -42,8 +32,6 @@ config:
       - 'NoNormalLetters : 1:"Matched"'
 
   - matcher:
-#      options:
-#      - 'verbose'
       require:
       - 'IsNull[agent.product.version]'
       - 'IsNull[agent.url]'
@@ -51,9 +39,6 @@ config:
       - 'NoProductAndNoURL : 1:"Matched"'
 
   - test:
-#      options:
-#      - 'verbose'
-#      - 'only'
       input:
         name: 'Validating IsNull (Hacker 1)'
         user_agent_string: '!(()&&!|*|*|'

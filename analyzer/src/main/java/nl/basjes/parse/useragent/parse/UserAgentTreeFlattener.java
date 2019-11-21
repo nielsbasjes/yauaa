@@ -101,7 +101,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         String path;
         ParseTree ctx = null;
 
-        // private constructor for serialization systems ONLY (like Kryo)
+        @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
         private State() {
             name = null;
         }
@@ -162,7 +162,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
     private transient ParseTreeProperty<State> state;
 
-    // private constructor for serialization systems ONLY (like Kryo)
+    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private UserAgentTreeFlattener() {
         analyzer = null;
     }

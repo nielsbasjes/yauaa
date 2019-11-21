@@ -39,7 +39,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
         private transient String value;
         private transient ParseTree result;
 
-        // Private constructor for serialization systems ONLY (like Kryo)
+        @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
         private Match() {
         }
 
@@ -71,7 +71,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
 
     private Match[] allElements;
 
-    // Private constructor for serialization systems ONLY (like Kryo)
+    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private MatchesList() {
     }
 
@@ -127,14 +127,13 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
         size = 0;
     }
 
-    public boolean add(String key, String value, ParseTree result) {
+    public void add(String key, String value, ParseTree result) {
         if (size >= maxSize) {
             increaseCapacity();
         }
 
         allElements[size].fill(key, value, result);
         size++;
-        return true;
     }
 
     @Override

@@ -290,7 +290,7 @@ public final class Main {
             parser.printUsage(System.err);
             returnValue = 1;
         } catch (final Exception e) {
-            LOG.error("IOException: {}", e);
+            LOG.error("IOException: {}", e.getMessage());
             returnValue = 1;
         }
         System.exit(returnValue);

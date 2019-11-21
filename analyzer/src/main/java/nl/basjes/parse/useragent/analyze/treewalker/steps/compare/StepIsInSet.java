@@ -28,7 +28,7 @@ public class StepIsInSet extends Step {
     private final String listName;
     private final Set<String> list;
 
-    // Private constructor for serialization systems ONLY (like Kryo)
+    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepIsInSet() {
         listName = null;
         list = null;

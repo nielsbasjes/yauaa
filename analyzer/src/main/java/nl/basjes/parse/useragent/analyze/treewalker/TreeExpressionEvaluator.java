@@ -48,7 +48,7 @@ public class TreeExpressionEvaluator implements Serializable {
     private final WalkList walkList;
     private final String fixedValue;
 
-    // Private constructor for serialization systems ONLY (like Kryo)
+    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private TreeExpressionEvaluator() {
         requiredPatternText = null;
         matcher = null;

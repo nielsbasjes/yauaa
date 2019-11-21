@@ -328,8 +328,8 @@ public class TestTreewalkerRequire {
 
     public static class TestAnalyzer implements Analyzer {
 
-        private Map<String, Map<String, String>> lookups;
-        private Map<String, Set<String>> lookupSets;
+        private final Map<String, Map<String, String>> lookups;
+        private final Map<String, Set<String>> lookupSets;
 
         @Override
         public Map<String, Map<String, String>> getLookups() {

@@ -52,7 +52,7 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
      * @param newCacheSize The size of the new LRU cache. As size of 0 will disable caching.
      */
     public void setCacheSize(int newCacheSize) {
-        cacheSize = newCacheSize > 0 ? newCacheSize : 0;
+        cacheSize = Math.max(newCacheSize, 0);
         initializeCache();
     }
 

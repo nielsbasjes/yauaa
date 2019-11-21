@@ -36,7 +36,7 @@ public class DebugUserAgent extends UserAgent { // NOSONAR: No need to override 
 
     private final transient List<Pair<UserAgent, Matcher>> appliedMatcherResults = new ArrayList<>(32);
 
-    public DebugUserAgent(Collection<String> wantedFieldNames) {
+    DebugUserAgent(Collection<String> wantedFieldNames) {
         super(wantedFieldNames);
     }
 
@@ -52,11 +52,11 @@ public class DebugUserAgent extends UserAgent { // NOSONAR: No need to override 
         super.reset();
     }
 
-    public int getNumberOfAppliedMatches() {
+    int getNumberOfAppliedMatches() {
         return appliedMatcherResults.size();
     }
 
-    public String toMatchTrace(List<String> highlightNames) {
+    String toMatchTrace(List<String> highlightNames) {
         StringBuilder sb = new StringBuilder(4096);
         sb.append('\n');
         sb.append("+=========================================+\n");
@@ -79,19 +79,19 @@ public class DebugUserAgent extends UserAgent { // NOSONAR: No need to override 
                 AgentField field = result.get(fieldName);
 
                 if (field == null) {
-                    LOG.error("Should not happen");
-                }
-
-                if (field.getConfidence() >= 0) {
-                    String marker = "";
-                    if (highlightNames.contains(fieldName)) {
-                        marker = " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
+                    LOG.error("Should not happen: No such field: {}", fieldName);
+                } else {
+                    if (field.getConfidence() >= 0) {
+                        String marker = "";
+                        if (highlightNames.contains(fieldName)) {
+                            marker = " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
+                        }
+                        sb.append("| ").append(fieldName).append('(').append(field.getConfidence());
+                        if (field.isDefaultValue()) {
+                            sb.append(" => isDefaultValue");
+                        }
+                        sb.append(") = ").append(field.getValue()).append(marker).append('\n');
                     }
-                    sb.append("| ").append(fieldName).append('(').append(field.getConfidence());
-                    if (field.isDefaultValue()) {
-                        sb.append(" => isDefaultValue");
-                    }
-                    sb.append(") = ").append(field.getValue()).append(marker).append('\n');
                 }
             }
             sb.append("+================\n");
@@ -99,7 +99,7 @@ public class DebugUserAgent extends UserAgent { // NOSONAR: No need to override 
         return sb.toString();
     }
 
-    public boolean analyzeMatchersResult() {
+    boolean analyzeMatchersResult() {
         boolean passed = true;
         for (String fieldName : getAvailableFieldNamesSorted()) {
             Map<Long, String> receivedValues = new HashMap<>(32);

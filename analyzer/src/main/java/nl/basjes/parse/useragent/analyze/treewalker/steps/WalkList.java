@@ -79,6 +79,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrevContex
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepStartsWithValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepUpContext;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -129,7 +130,7 @@ public class WalkList implements Serializable {
         }
     }
 
-    // Private constructor for serialization systems ONLY (like Kryo)
+    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private WalkList() {
         lookups = null;
         lookupSets = null;
@@ -276,6 +277,13 @@ public class WalkList implements Serializable {
             return null; // Void
         }
 
+        private String extractText(Token token) {
+            if (token == null) {
+                return null;
+            }
+            return token.getText();
+        }
+
         @Override
         public Void visitMatcherPathLookup(MatcherPathLookupContext ctx) {
             visit(ctx.matcher());
@@ -285,12 +293,7 @@ public class WalkList implements Serializable {
             String lookupName = ctx.lookup.getText();
             Map<String, String> lookup = getLookup(lookupName);
 
-            String defaultValue = null;
-            if (ctx.defaultValue != null) {
-                defaultValue = ctx.defaultValue.getText();
-            }
-
-            add(new StepLookup(lookupName, lookup, defaultValue));
+            add(new StepLookup(lookupName, lookup, extractText(ctx.defaultValue)));
             return null; // Void
         }
 
@@ -303,14 +306,23 @@ public class WalkList implements Serializable {
             String lookupName = ctx.lookup.getText();
             Map<String, String> lookup = getLookup(lookupName);
 
-            String defaultValue = null;
-            if (ctx.defaultValue != null) {
-                defaultValue = ctx.defaultValue.getText();
-            }
-
-            add(new StepLookupContains(lookupName, lookup, defaultValue));
+            add(new StepLookupContains(lookupName, lookup, extractText(ctx.defaultValue)));
             return null; // Void
         }
+
+        @Override
+        public Void visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext ctx) {
+            visit(ctx.matcher());
+
+            fromHereItCannotBeInHashMapAnymore();
+
+            String lookupName = ctx.lookup.getText();
+            Map<String, String> lookup = getLookup(lookupName);
+
+            add(new StepLookupPrefix(lookupName, lookup, extractText(ctx.defaultValue)));
+            return null; // Void
+        }
+
 
         @Override
         public Void visitMatcherPathIsInLookupContains(MatcherPathIsInLookupContainsContext ctx) {
@@ -325,23 +337,6 @@ public class WalkList implements Serializable {
             return null; // Void
         }
 
-        @Override
-        public Void visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext ctx) {
-            visit(ctx.matcher());
-
-            fromHereItCannotBeInHashMapAnymore();
-
-            String lookupName = ctx.lookup.getText();
-            Map<String, String> lookup = getLookup(lookupName);
-
-            String defaultValue = null;
-            if (ctx.defaultValue != null) {
-                defaultValue = ctx.defaultValue.getText();
-            }
-
-            add(new StepLookupPrefix(lookupName, lookup, defaultValue));
-            return null; // Void
-        }
 
         @Override
         public Void visitMatcherPathIsInLookupPrefix(MatcherPathIsInLookupPrefixContext ctx) {

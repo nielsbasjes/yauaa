@@ -25,7 +25,7 @@ public class StepEquals extends Step {
 
     private final String desiredValue;
 
-    // Private constructor for serialization systems ONLY (like Kryo)
+    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepEquals() {
         desiredValue = null;
     }

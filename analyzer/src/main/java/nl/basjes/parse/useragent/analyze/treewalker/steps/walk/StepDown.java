@@ -65,7 +65,7 @@ public class StepDown extends Step {
         }
     }
 
-    // Private constructor for serialization systems ONLY (like Kryo)
+    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepDown() {
         start = -1;
         end = -1;

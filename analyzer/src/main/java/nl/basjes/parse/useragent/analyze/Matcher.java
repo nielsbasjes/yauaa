@@ -57,7 +57,7 @@ public class Matcher implements Serializable {
     // Used for error reporting: The filename and line number where the config was located.
     private String matcherSourceLocation;
 
-    // Private constructor for serialization systems ONLY (like Kryo)
+    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private Matcher() {
         this.analyzer = null;
         this.fixedStringActions = new ArrayList<>();
@@ -101,8 +101,6 @@ public class Matcher implements Serializable {
     }
 
     public Matcher(Analyzer analyzer,
-                   Map<String, Map<String, String>> lookups,
-                   Map<String, Set<String>> lookupSets,
                    Collection<String> wantedFieldNames,
                    MappingNode matcherConfig,
                    String filename) throws UselessMatcherException {
@@ -400,8 +398,8 @@ public class Matcher implements Serializable {
         return verbose;
     }
 
-    boolean alreadyNotifiedAnalyzerWeReceivedInput = false;
-    public void receivedInput() {
+    private boolean alreadyNotifiedAnalyzerWeReceivedInput = false;
+    void receivedInput() {
         if (alreadyNotifiedAnalyzerWeReceivedInput) {
             return;
         }
