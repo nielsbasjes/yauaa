@@ -36,9 +36,9 @@ echo "Generating: ${OUTPUT}";
 (
 
 
-echo "// The 2, 3 and 4 letter TLDs extracted from https://publicsuffix.org/list/public_suffix_list.dat on $(date)"
+echo "// The TLDs extracted from https://publicsuffix.org/list/public_suffix_list.dat on $(date)"
 echo -n "fragment TLD : "
-grep -F -v '//' "${INPUT}" | grep . | sed 's@.*\.\([a-z]\+\)$@\1@g' | grep -E '^[a-z]{2,4}$' | sort -u | \
+grep -F -v '//' "${INPUT}" | grep . | sed 's@.*\.\([a-z]\+\)$@\1@g' | grep -E '^[a-z]+$' | sort -u | \
 while read -r suffix
 do
   echo -n " '${suffix}' |"
