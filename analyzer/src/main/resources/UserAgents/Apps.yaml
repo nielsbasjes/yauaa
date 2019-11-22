@@ -1431,3 +1431,30 @@ config:
 #- test: # TODO: Verify
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 12.4.1; en_US; ) AppleWebKit/0.0 (KHTML, like Gecko) Version/0.0; GmmClient:google_ios/com.google.Maps/5.27.8/Mobile/ios:iPhone10,5/iOS-AppStore'
+
+- test:
+    input: # QR Scanner app
+      user_agent_string: 'ZXing (Android)'
+    expected:
+      DeviceClass                           : 'Mobile'
+      DeviceName                            : 'Android Mobile'
+      DeviceBrand                           : 'Unknown'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Android'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Android ??'
+      OperatingSystemNameVersionMajor       : 'Android ??'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Special'
+      AgentName                             : 'ZXing'
+      AgentVersion                          : 'Android'
+      AgentVersionMajor                     : 'Android'
+      AgentNameVersion                      : 'ZXing Android'
+      AgentNameVersionMajor                 : 'ZXing Android'
+
