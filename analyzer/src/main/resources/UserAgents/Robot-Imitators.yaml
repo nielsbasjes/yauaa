@@ -747,3 +747,27 @@ config:
 #      AgentVersionMajor                    : 'Nutch'
 #      AgentNameVersion                     : 'Googlebot Imitator Nutch-1.7'
 #      AgentNameVersionMajor                : 'Googlebot Imitator Nutch'
+
+#- test: # FIXME: This is really an imitator because of the missing ')' at the end.
+#    input:
+#      user_agent_string: 'Googlebot/2.1 (+http://www.google.com/bot.html'
+
+#- test: # FIXME: This is really an imitator because of the missing ')' at the end.
+#    input:
+#      user_agent_string: 'Googlebot/2.1 (+http://www.google.com/bot.html'
+
+#- test: # FIXME: This is really an imitator because of the missing spaces.
+#    input:
+#      user_agent_string: 'Mozilla/5.0(compatible;Googlebot/2.1; +http://www.google.com/bot.html)'
+
+#- test: #TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; compatible; Googlebot/2.0; +http://www.google.com/bot.html)'
+
+#- test: #TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/75.0.3761.0 Safari/537.36'
+
+#- test: #TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html) https://deepcrawl.com/bot'
