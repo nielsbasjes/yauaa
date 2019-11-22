@@ -17,32 +17,39 @@
 
 package nl.basjes.parse.useragent.calculate;
 
-import com.google.common.net.InternetDomainName;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
+import nl.basjes.parse.useragent.utils.HostnameExtracter;
+import nl.basjes.parse.useragent.utils.publicsuffix.PublicSuffixMatcher;
+import nl.basjes.parse.useragent.utils.publicsuffix.PublicSuffixMatcherLoader;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
+import static nl.basjes.parse.useragent.utils.HostnameExtracter.extractHostname;
+import static org.apache.http.conn.util.DomainType.ICANN;
 
 public class CalculateDeviceBrand implements FieldCalculator {
 
     private final Set<String> unwantedUrlBrands;
     private final Set<String> unwantedEmailBrands;
 
+    private transient PublicSuffixMatcher publicSuffixMatcher;
+
     public CalculateDeviceBrand() {
         unwantedUrlBrands = new HashSet<>();
+        unwantedUrlBrands.add("Localhost");
         unwantedUrlBrands.add("Github");
         unwantedUrlBrands.add("Gitlab");
 
         unwantedEmailBrands = new HashSet<>();
+        unwantedEmailBrands.add("Localhost");
         unwantedEmailBrands.add("Gmail");
         unwantedEmailBrands.add("Outlook");
+        publicSuffixMatcher = PublicSuffixMatcherLoader.getDefault();
     }
 
     @Override
@@ -78,13 +85,7 @@ public class CalculateDeviceBrand implements FieldCalculator {
 
         UserAgent.AgentField informationUrl = userAgent.get(AGENT_INFORMATION_URL);
         if (informationUrl != null && informationUrl.getConfidence() >= 0) {
-            String hostname = informationUrl.getValue();
-            try {
-                URL url = new URL(hostname);
-                hostname = url.getHost();
-            } catch (MalformedURLException e) {
-                // Ignore any exception and continue.
-            }
+            String hostname = extractHostname(informationUrl.getValue());
             deviceBrand = extractCompanyFromHostName(hostname, unwantedUrlBrands);
         }
 
@@ -106,9 +107,19 @@ public class CalculateDeviceBrand implements FieldCalculator {
     }
 
     private String extractCompanyFromHostName(String hostname, Set<String> blackList) {
+        if (hostname == null) {
+            return null;
+        }
+        if (publicSuffixMatcher == null) { // Because it is not Serializable --> transient
+            publicSuffixMatcher = PublicSuffixMatcherLoader.getDefault();
+        }
+
         try {
-            InternetDomainName domainName = InternetDomainName.from(hostname);
-            String brand = Normalize.brand(domainName.topPrivateDomain().parts().get(0));
+            String root = publicSuffixMatcher.getDomainRoot(hostname, ICANN);
+            if (root == null){
+                return null;
+            }
+            String brand = Normalize.brand(root.split("\\.", 2)[0]);
             if (blackList.contains(brand)) {
                 return null;
             }

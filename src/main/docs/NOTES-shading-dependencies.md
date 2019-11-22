@@ -13,7 +13,7 @@ This library and the UDFs should be easy to use for all downstream users that wa
 
 Problem 1: Problematic dependencies
 ===
-Some of the dependencies (Antlr4, Guava, Spring and SnakeYaml) have proven to be problematic
+Some of the dependencies (Antlr4, Spring and SnakeYaml) have proven to be problematic
 for downstream users who need different versions of these in the same application.
 
 Solution 1: Shade and relocate
@@ -42,10 +42,6 @@ In the pom.xml
             <pattern>org.yaml.snakeyaml</pattern>
             <shadedPattern>nl.basjes.shaded.org.yaml.snakeyaml</shadedPattern>
           </relocation>
-          <relocation>
-            <pattern>com.google</pattern>
-            <shadedPattern>nl.basjes.shaded.com.google</shadedPattern>
-          </relocation>
         </relocations>
       </configuration>
 
@@ -62,7 +58,6 @@ In the pom.xml
                 <include>org.antlr:antlr4-runtime</include>
                 <include>org.springframework:spring-core</include>
                 <include>org.yaml:snakeyaml</include>
-                <include>com.google.guava:guava</include>
               </includes>
             </artifactSet>
           </configuration>
@@ -83,7 +78,7 @@ For which I've put up a pull request: https://github.com/apache/maven-shade-plug
 
 Solution 2: Inject the dependency-reduced-pom.xml into the final jar
 ===
-This way building an external project no longer includes things like Antlr and Guava a second time.
+This way building an external project no longer includes things like Antlr a second time.
 
 Script: inject-dependency-reduced-pom-into-jar.sh:
 

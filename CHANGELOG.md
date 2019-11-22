@@ -2,6 +2,7 @@ This is intended as an overview of the major changes
 
 v5.14-SNAPSHOT
 ===
+- Replace Guava with Apache HTTPComponents for Public Suffix matching
 - Analyzer:
   - Handles a COMMA better.
   - New LookUpContains and IsInLookUpContains functions used to speedup Hacker and Robot pattern matching.
