@@ -50,6 +50,14 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 " > "target/${DIR}/pom.xml"
 
 grep -F -v '<?xml version=' dependency-reduced-pom.xml >> "target/${DIR}/pom.xml"
-jar -uf "target/${artifactId}-${version}.jar" -C "target ${DIR}/pom.xml"
+jar -uf "target/${artifactId}-${version}.jar" -C "target" "${DIR}/pom.xml"
 
-echo "Replaced the pom.xml with the dependency-reduced-pom.xml"
+STATUS=$?
+
+if [ "${STATUS}" -eq 0 ];
+then
+  echo "Replaced the pom.xml with the dependency-reduced-pom.xml"
+else
+  echo "Something went wrong when trying to replace the pom.xml with the dependency-reduced-pom.xml"
+fi
+exit "${STATUS}"
