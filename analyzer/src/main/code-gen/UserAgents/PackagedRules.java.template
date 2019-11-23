@@ -21,9 +21,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class PackagedRules {
-    public static final String RulesList = "###file-list###";
+    public static final List<String> RULE_FILES_LIST = Arrays.asList(
+        "###file-list###"
+    );
 
     public static List<String> getRuleFileNames() {
-        return Arrays.asList(RulesList.split(","));
+        return RULE_FILES_LIST;
     }
 }
