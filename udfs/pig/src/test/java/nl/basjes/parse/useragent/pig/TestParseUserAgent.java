@@ -25,14 +25,14 @@ import org.apache.pig.data.Tuple;
 import org.apache.pig.data.TupleFactory;
 import org.apache.pig.impl.logicalLayer.FrontendException;
 import org.apache.pig.impl.logicalLayer.schema.Schema;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.apache.pig.builtin.mock.Storage.resetData;
 import static org.apache.pig.builtin.mock.Storage.tuple;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 // CHECKSTYLE.OFF: ParenPad
 public class TestParseUserAgent {
@@ -175,18 +175,21 @@ public class TestParseUserAgent {
 
     private void checkResult(Tuple data, Schema schema, String fieldName, String value) throws FrontendException, ExecException {
 
-        assertNotEquals("Field named "+fieldName +" is missing in the schema", schema.getField(fieldName), null);
+        assertNotEquals(schema.getField(fieldName), null,
+            "Field named "+fieldName +" is missing in the schema");
 
         int position = schema.getPosition(fieldName);
         if (position == -1 && value != null) {
             fail("Field named "+fieldName +" is missing");
         }
 
-        assertEquals("Field named "+fieldName +" should be \""+value+"\".", value, data.get(position));
+        assertEquals(value, data.get(position),
+            "Field named "+fieldName +" should be \""+value+"\".");
     }
 
     private void checkAbsent(Schema schema, String fieldName) throws FrontendException {
-        assertNull("Field named " + fieldName + " is present in the schema", schema.getField(fieldName));
+        assertNull(schema.getField(fieldName),
+            "Field named " + fieldName + " is present in the schema");
     }
 
     @Test

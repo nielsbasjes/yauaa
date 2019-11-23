@@ -20,8 +20,8 @@ package nl.basjes.parse.useragent.nifi;
 import org.apache.nifi.util.MockFlowFile;
 import org.apache.nifi.util.TestRunner;
 import org.apache.nifi.util.TestRunners;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.Map;
 
 import static nl.basjes.parse.useragent.nifi.ParseUserAgent.PROPERTY_PREFIX;
 import static nl.basjes.parse.useragent.nifi.ParseUserAgent.ATTRIBUTE_PREFIX;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // CHECKSTYLE.OFF: ParenPad
 public class TestParseUserAgent {
@@ -38,7 +38,8 @@ public class TestParseUserAgent {
         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36";
 
     private TestRunner runner;
-    @Before
+
+    @BeforeEach
     public void before(){
         // Generate a test runner to mock a processor in a flow
         runner = TestRunners.newTestRunner(new ParseUserAgent());
@@ -104,7 +105,7 @@ public class TestParseUserAgent {
 
         // If you need to read or do additional tests on results you can access the content
         List<MockFlowFile> results = runner.getFlowFilesForRelationship(ParseUserAgent.SUCCESS);
-        assertEquals("1 match", 1, results.size());
+        assertEquals(1, results.size(), "Must be 1 match");
         MockFlowFile result = results.get(0);
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceClass",                      "Desktop"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceName",                       "Linux Desktop"       );
@@ -177,7 +178,7 @@ public class TestParseUserAgent {
 
         // If you need to read or do additional tests on results you can access the content
         List<MockFlowFile> results = runner.getFlowFilesForRelationship(ParseUserAgent.SUCCESS);
-        assertEquals("1 match", 1, results.size());
+        assertEquals(1, results.size(), "Must be 1 match");
         MockFlowFile result = results.get(0);
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceClass",            "Desktop"      );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "OperatingSystemName",    "Linux"        );
@@ -248,10 +249,10 @@ public class TestParseUserAgent {
         runner.assertQueueEmpty();
 
         List<MockFlowFile> results = runner.getFlowFilesForRelationship(ParseUserAgent.SUCCESS);
-        assertEquals("None at success", 0, results.size());
+        assertEquals(0, results.size(), "None at success");
 
         results = runner.getFlowFilesForRelationship(ParseUserAgent.MISSING);
-        assertEquals("1 match", 1, results.size());
+        assertEquals(1, results.size(), "Must be 1 match");
         MockFlowFile result = results.get(0);
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "DeviceClass"                    );
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "OperatingSystemName"            );

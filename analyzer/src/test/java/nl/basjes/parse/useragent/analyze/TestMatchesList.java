@@ -18,15 +18,16 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestMatchesList {
 
@@ -52,56 +53,64 @@ public class TestMatchesList {
         assertNull(match2.getResult());
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testTooMany() {
         MatchesList list = new MatchesList(5);
         list.add("one", "two", null);
         list.add("three", "four", null);
         Iterator<Match> iterator = list.iterator();
 
-        Match match1 = iterator.next(); // Ok
-        Match match2 = iterator.next(); // Ok
-        Match match3 = iterator.next(); // Should throw
+        iterator.next(); // Ok
+        iterator.next(); // Ok
+        assertThrows(NoSuchElementException.class, iterator::next); // Should throw
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testUnsupportedAdd() {
-        new MatchesList(1).add(null);
+        assertThrows(UnsupportedOperationException.class, () ->
+            new MatchesList(1).add(null));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testUnsupportedAddAll() {
-        new MatchesList(1).addAll(null);
+        assertThrows(UnsupportedOperationException.class, () ->
+            new MatchesList(1).addAll(null));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testUnsupportedRemove() {
-        new MatchesList(1).remove(null);
+        assertThrows(UnsupportedOperationException.class, () ->
+            new MatchesList(1).remove(null));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testUnsupportedRemoveAll() {
-        new MatchesList(1).removeAll(null);
+        assertThrows(UnsupportedOperationException.class, () ->
+            new MatchesList(1).removeAll(null));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testUnsupportedRetainAll() {
-        new MatchesList(1).retainAll(null);
+        assertThrows(UnsupportedOperationException.class, () ->
+            new MatchesList(1).retainAll(null));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testUnsupportedContains() {
-        assertFalse(new MatchesList(1).contains(null));
+        assertThrows(UnsupportedOperationException.class, () ->
+            assertFalse(new MatchesList(1).contains(null)));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testUnsupportedContainsAll() {
-        new MatchesList(1).containsAll(null);
+        assertThrows(UnsupportedOperationException.class, () ->
+            new MatchesList(1).containsAll(null));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testUnsupportedToArray() {
-        new MatchesList(1).toArray(null);
+        assertThrows(UnsupportedOperationException.class, () ->
+            new MatchesList(1).toArray(null));
     }
 
 }

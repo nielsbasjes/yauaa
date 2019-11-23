@@ -22,7 +22,6 @@ import com.esotericsoftware.kryo.io.ByteBufferInput;
 import com.esotericsoftware.kryo.io.ByteBufferOutput;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 
 public class TestKryoSerialization extends AbstractSerializationTest {

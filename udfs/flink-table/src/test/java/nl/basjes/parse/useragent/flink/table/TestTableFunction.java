@@ -27,14 +27,14 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.java.StreamTableEnvironment;
 import org.apache.flink.types.Row;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.apache.flink.api.common.typeinfo.Types.STRING;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestTableFunction {
 
@@ -90,8 +90,8 @@ public class TestTableFunction {
         DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
 
         resultSet.map((MapFunction<Row, String>) row -> {
-            assertEquals("Wrong DeviceClass: "           + row.getField(0), row.getField(3), row.getField(1));
-            assertEquals("Wrong AgentNameVersionMajor: " + row.getField(0), row.getField(4), row.getField(2));
+            assertEquals(row.getField(3), row.getField(1), "Wrong DeviceClass: "           + row.getField(0));
+            assertEquals(row.getField(4), row.getField(2), "Wrong AgentNameVersionMajor: " + row.getField(0));
             return row.getField(0).toString();
         }).print();
 

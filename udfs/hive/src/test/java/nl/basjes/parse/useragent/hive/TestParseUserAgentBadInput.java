@@ -22,34 +22,31 @@ import org.apache.hadoop.hive.ql.metadata.HiveException;
 import org.apache.hadoop.hive.ql.udf.generic.GenericUDF.DeferredJavaObject;
 import org.apache.hadoop.hive.ql.udf.generic.GenericUDF.DeferredObject;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector;
-import org.apache.hadoop.hive.serde2.objectinspector.StandardStructObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.primitive.PrimitiveObjectInspectorFactory;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestParseUserAgentBadInput {
-
-    @Rule
-    public final transient ExpectedException expectedEx = ExpectedException.none();
 
     private ParseUserAgent parseUserAgent = new ParseUserAgent();
 
     @Test
     public void testBadInputType() throws HiveException {
-        expectedEx.expect(UDFArgumentException.class);
-        expectedEx.expectMessage("The argument must be a string");
-        StandardStructObjectInspector resultInspector = (StandardStructObjectInspector) parseUserAgent
+        Exception exception = assertThrows(UDFArgumentException.class, () ->
+            parseUserAgent
             .initialize(new ObjectInspector[]{
                 PrimitiveObjectInspectorFactory.javaBooleanObjectInspector
-            });
+            }));
+        assertEquals("The argument must be a string", exception.getMessage());
+
     }
 
     @Test
     public void testBadInputNull() throws HiveException {
-        StandardStructObjectInspector resultInspector = (StandardStructObjectInspector) parseUserAgent
+        parseUserAgent
             .initialize(new ObjectInspector[]{
                 PrimitiveObjectInspectorFactory.javaStringObjectInspector
             });

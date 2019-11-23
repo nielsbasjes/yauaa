@@ -30,13 +30,13 @@ import org.apache.flink.streaming.api.watermark.Watermark;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.java.StreamTableEnvironment;
 import org.apache.flink.types.Row;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import static org.apache.flink.api.common.typeinfo.Types.LONG;
 import static org.apache.flink.api.common.typeinfo.Types.SQL_TIMESTAMP;
 import static org.apache.flink.api.common.typeinfo.Types.STRING;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DemonstrationOfTumblingTableSQLFunction {
 
@@ -90,8 +90,8 @@ public class DemonstrationOfTumblingTableSQLFunction {
     // ============================================================================================================
 
     public static class UAWatermarker implements AssignerWithPeriodicWatermarks<Tuple4<Long, String, String, String>> {
-        private final long maxOutOfOrderness = MINUTE;
-        private long currentMaxTimestamp;
+        private static final long MAX_OUT_OF_ORDERNESS = MINUTE;
+        private long              currentMaxTimestamp;
 
         @Override
         public long extractTimestamp(Tuple4<Long, String, String, String> element, long previousElementTimestamp) {
@@ -103,14 +103,14 @@ public class DemonstrationOfTumblingTableSQLFunction {
         @Override
         public Watermark getCurrentWatermark() {
             // return the watermark as current highest timestamp minus the out-of-orderness bound
-            return new Watermark(currentMaxTimestamp - maxOutOfOrderness);
+            return new Watermark(currentMaxTimestamp - MAX_OUT_OF_ORDERNESS);
         }
     }
 
     // ============================================================================================================
 
     // This "test" takes too long to run in the build.
-    @Ignore
+    @Disabled
     @Test
     public void runDemonstration() throws Exception {
         // The base input stream
@@ -167,8 +167,10 @@ public class DemonstrationOfTumblingTableSQLFunction {
         resultSet.print();
 
         resultSet.map((MapFunction<Row, String>) row -> {
-            assertEquals("Wrong DeviceClass: " + row.getField(0), row.getField(3), row.getField(1));
-            assertEquals("Wrong AgentNameVersionMajor: " + row.getField(0), row.getField(4), row.getField(2));
+            assertEquals(row.getField(3), row.getField(1),
+                "Wrong DeviceClass: " + row.getField(0));
+            assertEquals(row.getField(4), row.getField(2),
+                "Wrong AgentNameVersionMajor: " + row.getField(0));
             return row.getField(0).toString();
         });
 

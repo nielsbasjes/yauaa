@@ -21,15 +21,16 @@ import nl.basjes.parse.useragent.analyze.TestTreewalkerRequire.TestMatcher;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestTreewalkerExtract {
 
@@ -214,13 +215,13 @@ public class TestTreewalkerExtract {
         checkPath(path, expectedHashEntries, expectedWalkList);
     }
 
-    @Test(expected = InvalidParserConfigurationException.class)
+    @Test
     public void validateParseError() {
         String path = "agent.product.(1)name[3]\"Safari\"";
 
         TestMatcher matcher = new TestMatcher(new HashMap<>(), new HashMap<>());
         MatcherExtractAction action = new MatcherExtractAction("Dummy", 42, path, matcher);
-        action.initialize();
+        assertThrows(InvalidParserConfigurationException.class, action::initialize);
     }
 
     private void checkPath(String path, String[] expectedHashEntries, String[] expectedWalkList) {
@@ -242,9 +243,9 @@ public class TestTreewalkerExtract {
 
         // Validate the expected hash entries (i.e. the first part of the path)
         for (String expect : expectedHashEntries) {
-            assertTrue("\nMissing:\n" + expect + sb.toString(), matcher.receivedValues.contains(expect));
+            assertTrue(matcher.receivedValues.contains(expect), "\nMissing:\n" + expect + sb.toString());
         }
-        assertEquals("Found wrong number of entries", expectedHashEntries.length, matcher.receivedValues.size());
+        assertEquals(expectedHashEntries.length, matcher.receivedValues.size(), "Found wrong number of entries");
 
         // Validate the expected walk list entries (i.e. the dynamic part of the path)
         TreeExpressionEvaluator evaluator = action.getEvaluatorForUnitTesting();
@@ -252,8 +253,8 @@ public class TestTreewalkerExtract {
 
         Step step = walkList.getFirstStep();
         for (String walkStep : expectedWalkList) {
-            assertNotNull("Missing step:" + walkStep, step);
-            assertEquals("Wrong step (" + step.toString() + " should be " + walkStep + ")", walkStep, step.toString());
+            assertNotNull(step, "Missing step:" + walkStep);
+            assertEquals(walkStep, step.toString(), "Wrong step (" + step.toString() + " should be " + walkStep + ")");
             step = step.getNextStep();
         }
         assertNull(step);

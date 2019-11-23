@@ -27,12 +27,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestJavaSerialization extends AbstractSerializationTest {
 
     byte[] serialize(UserAgentAnalyzerTester uaa) throws IOException {
-        byte[] bytes;
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             ObjectOutput out = new ObjectOutputStream(bos);
             out.writeObject(uaa);

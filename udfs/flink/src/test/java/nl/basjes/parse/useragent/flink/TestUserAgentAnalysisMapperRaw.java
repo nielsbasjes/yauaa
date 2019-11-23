@@ -19,9 +19,10 @@ package nl.basjes.parse.useragent.flink;
 
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.annotate.YauaaField;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestUserAgentAnalysisMapperRaw {
     public static class TestMapper extends UserAgentAnalysisMapper<TestRecord> {
@@ -30,11 +31,13 @@ public class TestUserAgentAnalysisMapperRaw {
             return record.useragent;
         }
 
+        @SuppressWarnings("unused")
         @YauaaField("DeviceClass")
         public void setDeviceClass(TestRecord record, String value) {
             record.deviceClass = value;
         }
 
+        @SuppressWarnings("unused")
         @YauaaField("AgentNameVersion")
         public void setAgentNameVersion(TestRecord record, String value) {
             record.agentNameVersion = value;
@@ -69,15 +72,17 @@ public class TestUserAgentAnalysisMapperRaw {
             return record.useragent;
         }
 
+        @SuppressWarnings("unused")
         @YauaaField("NielsBasjes")
         public void setImpossibleField(TestRecord record, String value) {
             record.agentNameVersion = value;
         }
     }
 
-    @Test(expected = InvalidParserConfigurationException.class)
+    @Test
     public void testImpossibleField() {
         TestImpossibleFieldMapper mapper = new TestImpossibleFieldMapper();
-        mapper.open(null);
+        assertThrows(InvalidParserConfigurationException.class, () ->
+            mapper.open(null));
     }
 }

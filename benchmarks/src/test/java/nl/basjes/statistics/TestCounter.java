@@ -17,11 +17,12 @@
 
 package nl.basjes.statistics;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+// CHECKSTYLE.OFF: ParenPad
 public class TestCounter {
 
     private static final String  BAD_COUNT         = "Bad count";
@@ -52,25 +53,24 @@ public class TestCounter {
     public void testEmptyCounter() {
         final Counter c1 = new Counter();
 
-        assertEquals(BAD_COUNT,    0,          c1.getN());
-        assertEquals(BAD_MIN,      Double.NaN, c1.getMin(),      MAX_ERROR);
-        assertEquals(BAD_MEAN,     Double.NaN, c1.getMean(),     MAX_ERROR);
-        assertEquals(BAD_MAX,      Double.NaN, c1.getMax(),      MAX_ERROR);
-        assertEquals(BAD_SUM,      Double.NaN, c1.getSum(),      MAX_ERROR);
-        assertEquals(BAD_STDDEV,   Double.NaN, c1.getStdDev(),   MAX_ERROR);
-        assertEquals(BAD_VARIANCE, Double.NaN, c1.getVariance(), MAX_ERROR);
-        assertEquals(BAD_STDDEV,   Double.NaN, c1.getStdDev(),   MAX_ERROR);
+        assertEquals(0,          c1.getN(),                   BAD_COUNT    );
+        assertEquals(Double.NaN, c1.getMin(),      MAX_ERROR, BAD_MIN      );
+        assertEquals(Double.NaN, c1.getMean(),     MAX_ERROR, BAD_MEAN     );
+        assertEquals(Double.NaN, c1.getMax(),      MAX_ERROR, BAD_MAX      );
+        assertEquals(Double.NaN, c1.getSum(),      MAX_ERROR, BAD_SUM      );
+        assertEquals(Double.NaN, c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
+        assertEquals(Double.NaN, c1.getVariance(), MAX_ERROR, BAD_VARIANCE );
+        assertEquals(Double.NaN, c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
 
-        final Counter nullCounter = null;
-        c1.increment(nullCounter);
-        assertEquals(BAD_COUNT,    0,          c1.getN());
-        assertEquals(BAD_MIN,      Double.NaN, c1.getMin(),      MAX_ERROR);
-        assertEquals(BAD_MEAN,     Double.NaN, c1.getMean(),     MAX_ERROR);
-        assertEquals(BAD_MAX,      Double.NaN, c1.getMax(),      MAX_ERROR);
-        assertEquals(BAD_SUM,      Double.NaN, c1.getSum(),      MAX_ERROR);
-        assertEquals(BAD_STDDEV,   Double.NaN, c1.getStdDev(),   MAX_ERROR);
-        assertEquals(BAD_VARIANCE, Double.NaN, c1.getVariance(), MAX_ERROR);
-        assertEquals(BAD_STDDEV,   Double.NaN, c1.getStdDev(),   MAX_ERROR);
+        c1.increment((Counter)null);
+        assertEquals(0,          c1.getN(),                   BAD_COUNT    );
+        assertEquals(Double.NaN, c1.getMin(),      MAX_ERROR, BAD_MIN      );
+        assertEquals(Double.NaN, c1.getMean(),     MAX_ERROR, BAD_MEAN     );
+        assertEquals(Double.NaN, c1.getMax(),      MAX_ERROR, BAD_MAX      );
+        assertEquals(Double.NaN, c1.getSum(),      MAX_ERROR, BAD_SUM      );
+        assertEquals(Double.NaN, c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
+        assertEquals(Double.NaN, c1.getVariance(), MAX_ERROR, BAD_VARIANCE );
+        assertEquals(Double.NaN, c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
 
     }
 
@@ -79,40 +79,40 @@ public class TestCounter {
     @Test
     public void testCounterBasics() {
         final Counter c1 = new Counter();
-        assertEquals(BAD_COUNT,      0,        c1.getN());
+        assertEquals(   0,        c1.getN(),                   BAD_COUNT    );
 
         c1.increment(10);
 
-        assertEquals(BAD_COUNT,       1,        c1.getN());
-        assertEquals(BAD_MIN,        10,        c1.getMin(),      MAX_ERROR);
-        assertEquals(BAD_MEAN,       10,        c1.getMean(),     MAX_ERROR);
-        assertEquals(BAD_MAX,        10,        c1.getMax(),      MAX_ERROR);
-        assertEquals(BAD_SUM,        10,        c1.getSum(),      MAX_ERROR);
-        assertEquals(BAD_STDDEV,      0,        c1.getStdDev(),   MAX_ERROR);
-        assertEquals(BAD_VARIANCE,    0,        c1.getVariance(), MAX_ERROR);
-        assertEquals(BAD_STDDEV,      0,        c1.getStdDev(),   MAX_ERROR);
+        assertEquals(   1,        c1.getN(),                   BAD_COUNT    );
+        assertEquals(  10,        c1.getMin(),      MAX_ERROR, BAD_MIN      );
+        assertEquals(  10,        c1.getMean(),     MAX_ERROR, BAD_MEAN     );
+        assertEquals(  10,        c1.getMax(),      MAX_ERROR, BAD_MAX      );
+        assertEquals(  10,        c1.getSum(),      MAX_ERROR, BAD_SUM      );
+        assertEquals(   0,        c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
+        assertEquals(   0,        c1.getVariance(), MAX_ERROR, BAD_VARIANCE );
+        assertEquals(   0,        c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
 
         c1.increment(20);
 
-        assertEquals(BAD_COUNT,       2,        c1.getN());
-        assertEquals(BAD_MIN,        10,        c1.getMin(),      MAX_ERROR);
-        assertEquals(BAD_MEAN,       15,        c1.getMean(),     MAX_ERROR);
-        assertEquals(BAD_MAX,        20,        c1.getMax(),      MAX_ERROR);
-        assertEquals(BAD_SUM,        30,        c1.getSum(),      MAX_ERROR);
-        assertEquals(BAD_STDDEV,      7.07107,  c1.getStdDev(),   MAX_ERROR);
-        assertEquals(BAD_VARIANCE,   50,        c1.getVariance(), MAX_ERROR);
-        assertEquals(BAD_STDDEV,      7.07107,  c1.getStdDev(),   MAX_ERROR);
+        assertEquals(   2,        c1.getN(),                   BAD_COUNT    );
+        assertEquals(  10,        c1.getMin(),      MAX_ERROR, BAD_MIN      );
+        assertEquals(  15,        c1.getMean(),     MAX_ERROR, BAD_MEAN     );
+        assertEquals(  20,        c1.getMax(),      MAX_ERROR, BAD_MAX      );
+        assertEquals(  30,        c1.getSum(),      MAX_ERROR, BAD_SUM      );
+        assertEquals(   7.07107,  c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
+        assertEquals(  50,        c1.getVariance(), MAX_ERROR, BAD_VARIANCE );
+        assertEquals(   7.07107,  c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
 
         c1.increment(70);
 
-        assertEquals(BAD_COUNT,       3,        c1.getN());
-        assertEquals(BAD_MIN,        10,        c1.getMin(),      MAX_ERROR);
-        assertEquals(BAD_MEAN,       33.33333,  c1.getMean(),     MAX_ERROR);
-        assertEquals(BAD_MAX,        70,        c1.getMax(),      MAX_ERROR);
-        assertEquals(BAD_SUM,       100,        c1.getSum(),      MAX_ERROR);
-        assertEquals(BAD_STDDEV,     32.14550,  c1.getStdDev(),   MAX_ERROR);
-        assertEquals(BAD_VARIANCE, 1033.33333,  c1.getVariance(), MAX_ERROR);
-        assertEquals(BAD_STDDEV,     32.14550,  c1.getStdDev(),   MAX_ERROR);
+        assertEquals(   3,        c1.getN(),                   BAD_COUNT    );
+        assertEquals(  10,        c1.getMin(),      MAX_ERROR, BAD_MIN      );
+        assertEquals(  33.33333,  c1.getMean(),     MAX_ERROR, BAD_MEAN     );
+        assertEquals(  70,        c1.getMax(),      MAX_ERROR, BAD_MAX      );
+        assertEquals( 100,        c1.getSum(),      MAX_ERROR, BAD_SUM      );
+        assertEquals(  32.14550,  c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
+        assertEquals(1033.33333,  c1.getVariance(), MAX_ERROR, BAD_VARIANCE );
+        assertEquals(  32.14550,  c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
     }
 
     // ------------------------------------------
@@ -136,66 +136,66 @@ public class TestCounter {
         c1.increment(2);
         c1.increment(3);
 
-        assertEquals(BAD_COUNT,       3,      c1.getN());
-        assertEquals(BAD_MIN,         1,      c1.getMin(),      MAX_ERROR);
-        assertEquals(BAD_MEAN,        2,      c1.getMean(),     MAX_ERROR);
-        assertEquals(BAD_MAX,         3,      c1.getMax(),      MAX_ERROR);
-        assertEquals(BAD_SUM,         6,      c1.getSum(),      MAX_ERROR);
-        assertEquals(BAD_STDDEV,      1,      c1.getStdDev(),   MAX_ERROR);
-        assertEquals(BAD_VARIANCE,    1,      c1.getVariance(), MAX_ERROR);
-        assertEquals(BAD_STDDEV,      1,      c1.getStdDev(),   MAX_ERROR);
+        assertEquals(   3,      c1.getN(),                   BAD_COUNT    );
+        assertEquals(   1,      c1.getMin(),      MAX_ERROR, BAD_MIN      );
+        assertEquals(   2,      c1.getMean(),     MAX_ERROR, BAD_MEAN     );
+        assertEquals(   3,      c1.getMax(),      MAX_ERROR, BAD_MAX      );
+        assertEquals(   6,      c1.getSum(),      MAX_ERROR, BAD_SUM      );
+        assertEquals(   1,      c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
+        assertEquals(   1,      c1.getVariance(), MAX_ERROR, BAD_VARIANCE );
+        assertEquals(   1,      c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
 
         final Counter c2 = new Counter();
         c2.increment(0);
-        assertEquals(BAD_COUNT,       1,      c2.getN());
-        assertEquals(BAD_MIN,         0,      c2.getMin(),      MAX_ERROR);
-        assertEquals(BAD_MEAN,        0,      c2.getMean(),     MAX_ERROR);
-        assertEquals(BAD_MAX,         0,      c2.getMax(),      MAX_ERROR);
-        assertEquals(BAD_SUM,         0,      c2.getSum(),      MAX_ERROR);
-        assertEquals(BAD_STDDEV,      0,      c2.getStdDev(),   MAX_ERROR);
-        assertEquals(BAD_VARIANCE,    0,      c2.getVariance(), MAX_ERROR);
-        assertEquals(BAD_STDDEV,      0,      c2.getStdDev(),   MAX_ERROR);
+        assertEquals(   1,      c2.getN(),                   BAD_COUNT    );
+        assertEquals(   0,      c2.getMin(),      MAX_ERROR, BAD_MIN      );
+        assertEquals(   0,      c2.getMean(),     MAX_ERROR, BAD_MEAN     );
+        assertEquals(   0,      c2.getMax(),      MAX_ERROR, BAD_MAX      );
+        assertEquals(   0,      c2.getSum(),      MAX_ERROR, BAD_SUM      );
+        assertEquals(   0,      c2.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
+        assertEquals(   0,      c2.getVariance(), MAX_ERROR, BAD_VARIANCE );
+        assertEquals(   0,      c2.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
 
         c2.increment(10);
-        assertEquals(BAD_COUNT,       2,      c2.getN());
-        assertEquals(BAD_MIN,         0,      c2.getMin(),      MAX_ERROR);
-        assertEquals(BAD_MEAN,        5,      c2.getMean(),     MAX_ERROR);
-        assertEquals(BAD_MAX,        10,      c2.getMax(),      MAX_ERROR);
-        assertEquals(BAD_SUM,        10,      c2.getSum(),      MAX_ERROR);
-        assertEquals(BAD_STDDEV,      7.0711, c2.getStdDev(),   MAX_ERROR);
-        assertEquals(BAD_VARIANCE,   50,      c2.getVariance(), MAX_ERROR);
-        assertEquals(BAD_STDDEV,      7.0711, c2.getStdDev(),   MAX_ERROR);
+        assertEquals(   2,      c2.getN(),                   BAD_COUNT    );
+        assertEquals(   0,      c2.getMin(),      MAX_ERROR, BAD_MIN      );
+        assertEquals(   5,      c2.getMean(),     MAX_ERROR, BAD_MEAN     );
+        assertEquals(  10,      c2.getMax(),      MAX_ERROR, BAD_MAX      );
+        assertEquals(  10,      c2.getSum(),      MAX_ERROR, BAD_SUM      );
+        assertEquals(   7.0711, c2.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
+        assertEquals(  50,      c2.getVariance(), MAX_ERROR, BAD_VARIANCE );
+        assertEquals(   7.0711, c2.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
 
         c2.increment(20);
-        assertEquals(BAD_COUNT,       3,      c2.getN());
-        assertEquals(BAD_MIN,         0,      c2.getMin(),      MAX_ERROR);
-        assertEquals(BAD_MEAN,       10,      c2.getMean(),     MAX_ERROR);
-        assertEquals(BAD_MAX,        20,      c2.getMax(),      MAX_ERROR);
-        assertEquals(BAD_SUM,        30,      c2.getSum(),      MAX_ERROR);
-        assertEquals(BAD_STDDEV,     10,      c2.getStdDev(),   MAX_ERROR);
-        assertEquals(BAD_VARIANCE,  100,      c2.getVariance(), MAX_ERROR);
-        assertEquals(BAD_STDDEV,     10,      c2.getStdDev(),   MAX_ERROR);
+        assertEquals(   3,      c2.getN(),                   BAD_COUNT    );
+        assertEquals(   0,      c2.getMin(),      MAX_ERROR, BAD_MIN      );
+        assertEquals(   10,     c2.getMean(),     MAX_ERROR, BAD_MEAN     );
+        assertEquals(   20,     c2.getMax(),      MAX_ERROR, BAD_MAX      );
+        assertEquals(   30,     c2.getSum(),      MAX_ERROR, BAD_SUM      );
+        assertEquals(   10,     c2.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
+        assertEquals(   100,    c2.getVariance(), MAX_ERROR, BAD_VARIANCE );
+        assertEquals(   10,     c2.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
 
         c1.increment(c2);
-        assertEquals(BAD_COUNT,       6,      c1.getN());
-        assertEquals(BAD_MIN,         0,      c1.getMin(),      MAX_ERROR);
-        assertEquals(BAD_MEAN,        6,      c1.getMean(),     MAX_ERROR);
-        assertEquals(BAD_MAX,        20,      c1.getMax(),      MAX_ERROR);
-        assertEquals(BAD_STDDEV,      7.7201, c1.getStdDev(),   MAX_ERROR);
-        assertEquals(BAD_VARIANCE,   59.6,    c1.getVariance(), MAX_ERROR);
-        assertEquals(BAD_STDDEV,      7.7201, c1.getStdDev(),   MAX_ERROR);
+        assertEquals(   6,      c1.getN(),                   BAD_COUNT    );
+        assertEquals(   0,      c1.getMin(),      MAX_ERROR, BAD_MIN      );
+        assertEquals(   6,      c1.getMean(),     MAX_ERROR, BAD_MEAN     );
+        assertEquals(  20,      c1.getMax(),      MAX_ERROR, BAD_MAX      );
+        assertEquals(   7.7201, c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
+        assertEquals(  59.6,    c1.getVariance(), MAX_ERROR, BAD_VARIANCE );
+        assertEquals(   7.7201, c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
 
         // SELF MERGE MUST WORK!!
         // (Note that the variance of 1,2,3,0,10,20
         //          is different from 1,2,3,0,10,20,1,2,3,0,10,20)
         c1.increment(c1);
-        assertEquals(BAD_COUNT,      12,      c1.getN());
-        assertEquals(BAD_MIN,         0,      c1.getMin(),      MAX_ERROR);
-        assertEquals(BAD_MEAN,        6,      c1.getMean(),     MAX_ERROR);
-        assertEquals(BAD_MAX,        20,      c1.getMax(),      MAX_ERROR);
-        assertEquals(BAD_STDDEV,      7.3608, c1.getStdDev(),   MAX_ERROR);
-        assertEquals(BAD_VARIANCE,   54.1818, c1.getVariance(), MAX_ERROR);
-        assertEquals(BAD_STDDEV,      7.3608, c1.getStdDev(),   MAX_ERROR);
+        assertEquals(  12,      c1.getN(),                   BAD_COUNT    );
+        assertEquals(   0,      c1.getMin(),      MAX_ERROR, BAD_MIN      );
+        assertEquals(   6,      c1.getMean(),     MAX_ERROR, BAD_MEAN     );
+        assertEquals(  20,      c1.getMax(),      MAX_ERROR, BAD_MAX      );
+        assertEquals(   7.3608, c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
+        assertEquals(  54.1818, c1.getVariance(), MAX_ERROR, BAD_VARIANCE );
+        assertEquals(   7.3608, c1.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
 
         // DOUBLE SELF MERGE MUST WORK!!
         // (Note that the variance of
@@ -203,13 +203,13 @@ public class TestCounter {
         //  is different from
         //  1,2,3,0,10,20,1,2,3,0,10,20,1,2,3,0,10,20,1,2,3,0,10,20)
         c1.increment(c1);
-        assertEquals(BAD_COUNT,      24,      c1.getN());
-        assertEquals(BAD_MIN,         0,      c1.getMin(),      MAX_ERROR);
-        assertEquals(BAD_MEAN,        6,      c1.getMean(),     MAX_ERROR);
-        assertEquals(BAD_MAX,        20,      c1.getMax(),      MAX_ERROR);
-        assertEquals(BAD_STDDEV,      7.1990, c1.getStdDev(),   MAX_ERROR);
-        assertEquals(BAD_VARIANCE,   51.8261, c1.getVariance(), MAX_ERROR);
-        assertEquals(BAD_STDDEV,      7.1990, c1.getStdDev(),   MAX_ERROR);
+        assertEquals(  24,      c1.getN(), BAD_COUNT      );
+        assertEquals(   0,      c1.getMin(),      MAX_ERROR, BAD_MIN         );
+        assertEquals(   6,      c1.getMean(),     MAX_ERROR, BAD_MEAN        );
+        assertEquals(  20,      c1.getMax(),      MAX_ERROR, BAD_MAX        );
+        assertEquals(   7.1990, c1.getStdDev(),   MAX_ERROR, BAD_STDDEV      );
+        assertEquals(  51.8261, c1.getVariance(), MAX_ERROR, BAD_VARIANCE   );
+        assertEquals(   7.1990, c1.getStdDev(),   MAX_ERROR, BAD_STDDEV      );
     }
 
     // ------------------------------------------
@@ -228,7 +228,7 @@ public class TestCounter {
 
         c1.increment(c2);
 
-        assertTrue(BAD, counterIsSameAsReferenceCounter(c1));
+        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
     }
 
     // ------------------------------------------
@@ -247,7 +247,7 @@ public class TestCounter {
 
         c1.increment(c2);
 
-        assertTrue(BAD, counterIsSameAsReferenceCounter(c1));
+        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
     }
 
     // ------------------------------------------
@@ -266,7 +266,7 @@ public class TestCounter {
         c1.increment(3);
         c1.increment(20);
 
-        assertTrue(BAD, counterIsSameAsReferenceCounter(c1));
+        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
     }
 
     // ------------------------------------------
@@ -288,7 +288,7 @@ public class TestCounter {
         c1.increment(c2);
         c1.increment(c3);
 
-        assertTrue(BAD, counterIsSameAsReferenceCounter(c1));
+        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
     }
 
     // ------------------------------------------
@@ -310,7 +310,7 @@ public class TestCounter {
         c1.increment(c3);
         c1.increment(10);
 
-        assertTrue(BAD, counterIsSameAsReferenceCounter(c1));
+        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
     }
 
     // ------------------------------------------
@@ -338,7 +338,7 @@ public class TestCounter {
         c1.increment(10);
         c1.increment(c5);
 
-        assertTrue(BAD, counterIsSameAsReferenceCounter(c1));
+        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
     }
 
     // ------------------------------------------
@@ -366,7 +366,7 @@ public class TestCounter {
         c1.increment(10);
         c1.increment(c5.toBytes());
 
-        assertTrue(BAD, counterIsSameAsReferenceCounter(c1));
+        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
     }
 
     // ------------------------------------------
@@ -385,7 +385,7 @@ public class TestCounter {
 
         c1.increment(c2);
 
-        assertTrue(BAD, counterIsSameAsReferenceCounter(c1));
+        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
     }
 
     // ------------------------------------------
@@ -404,7 +404,7 @@ public class TestCounter {
 
         c1.increment(c2);
 
-        assertTrue(BAD, counterIsSameAsReferenceCounter(c1));
+        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
     }
 
     // ------------------------------------------
@@ -420,7 +420,7 @@ public class TestCounter {
         c.increment(10);
         c.increment(20);
 
-        assertTrue(BAD, counterIsSameAsReferenceCounter(c));
+        assertTrue(counterIsSameAsReferenceCounter(c), BAD);
     }
 
     // ------------------------------------------
@@ -436,7 +436,7 @@ public class TestCounter {
         c.increment(1);
         c.increment(0);
 
-        assertTrue(BAD, counterIsSameAsReferenceCounter(c));
+        assertTrue(counterIsSameAsReferenceCounter(c), BAD);
     }
 
     // ------------------------------------------
@@ -445,7 +445,7 @@ public class TestCounter {
     public void testCounterSerialization() {
         byte[] serializedBytes = REFERENCE_COUNTER.toBytes();
         Counter deserialized = new Counter(serializedBytes);
-        assertTrue(BAD, counterIsSameAsReferenceCounter(deserialized));
+        assertTrue(counterIsSameAsReferenceCounter(deserialized), BAD);
     }
 
     // ------------------------------------------
@@ -460,14 +460,14 @@ public class TestCounter {
     // ------------------------------------------
 
     private boolean counterIsSameAsReferenceCounter(final Counter c) {
-        assertEquals(BAD_COUNT,    REFERENCE_COUNTER.getN(),         c.getN());
-        assertEquals(BAD_MIN,      REFERENCE_COUNTER.getMin(),       c.getMin(),      MAX_ERROR);
-        assertEquals(BAD_MEAN,     REFERENCE_COUNTER.getMean(),      c.getMean(),     MAX_ERROR);
-        assertEquals(BAD_MAX,      REFERENCE_COUNTER.getMax(),       c.getMax(),      MAX_ERROR);
-        assertEquals(BAD_SUM,      REFERENCE_COUNTER.getSum(),       c.getSum(),      MAX_ERROR);
-        assertEquals(BAD_STDDEV,   REFERENCE_COUNTER.getStdDev(),    c.getStdDev(),   MAX_ERROR);
-        assertEquals(BAD_VARIANCE, REFERENCE_COUNTER.getVariance(),  c.getVariance(), MAX_ERROR);
-        assertEquals(BAD_STDDEV,   REFERENCE_COUNTER.getStdDev(),    c.getStdDev(),   MAX_ERROR);
+        assertEquals(REFERENCE_COUNTER.getN(),         c.getN(),                   BAD_COUNT    );
+        assertEquals(REFERENCE_COUNTER.getMin(),       c.getMin(),      MAX_ERROR, BAD_MIN      );
+        assertEquals(REFERENCE_COUNTER.getMean(),      c.getMean(),     MAX_ERROR, BAD_MEAN     );
+        assertEquals(REFERENCE_COUNTER.getMax(),       c.getMax(),      MAX_ERROR, BAD_MAX      );
+        assertEquals(REFERENCE_COUNTER.getSum(),       c.getSum(),      MAX_ERROR, BAD_SUM      );
+        assertEquals(REFERENCE_COUNTER.getStdDev(),    c.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
+        assertEquals(REFERENCE_COUNTER.getVariance(),  c.getVariance(), MAX_ERROR, BAD_VARIANCE );
+        assertEquals(REFERENCE_COUNTER.getStdDev(),    c.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
         return true;
     }
 

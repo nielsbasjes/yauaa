@@ -18,20 +18,17 @@
 package nl.basjes.parse.useragent.annotate;
 
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
 
-import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestAnnotationSystemAnonymous {
 
-    @Rule
-    public ExpectedException expectedEx = ExpectedException.none();
     TestRecord record = new TestRecord();
 
     public static class TestRecord implements Serializable {
@@ -57,8 +54,6 @@ public class TestAnnotationSystemAnonymous {
 
     @Test
     public void testAnnotationBasedParser(){
-        expectedEx = ExpectedException.none();
-
         record =
             new MyMapper<TestRecord>() {
                 @Override
@@ -66,11 +61,13 @@ public class TestAnnotationSystemAnonymous {
                     return testRecord.useragent;
                 }
 
+                @SuppressWarnings("unused")
                 @YauaaField("DeviceClass")
                 public void setDeviceClass(TestRecord testRecord, String value) {
                     testRecord.deviceClass = value;
                 }
 
+                @SuppressWarnings("unused")
                 @YauaaField("AgentNameVersion")
                 public void setAgentNameVersion(TestRecord testRecord, String value) {
                     testRecord.agentNameVersion = value;
@@ -92,124 +89,141 @@ public class TestAnnotationSystemAnonymous {
 
     @Test
     public void testImpossibleField() {
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage("We cannot provide these fields:[NielsBasjes]");
-        record =
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () -> record =
             new MyErrorMapper() {
+                @SuppressWarnings("unused")
                 @YauaaField("NielsBasjes")
                 public void setImpossibleField(TestRecord testRecord, String value) {
                     fail("May NEVER call this method");
                 }
-            } .enrich(record);
+            } .enrich(record));
+        assertEquals("We cannot provide these fields:[NielsBasjes]", exception.getMessage());
     }
 
     // ----------------------------------------------------------------
 
     @Test
     public void testWrongReturnType() {
-        expectedEx.expectMessage(containsString("the method [wrongSetter] " +
-            "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
-            "[ public void wrongSetter(TestRecord record, String value) ]"));
-        record =
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () -> record =
             new MyErrorMapper() {
+                @SuppressWarnings("unused")
                 @YauaaField("DeviceClass")
                 public boolean wrongSetter(TestRecord testRecord, Double value) {
                     fail("May NEVER call this method");
                     return false;
                 }
-            } .enrich(record);
+            } .enrich(record));
+        assertTrue(exception.getMessage().contains("the method [wrongSetter] " +
+            "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
+            "[ public void wrongSetter(TestRecord record, String value) ]"));
     }
 
     // ----------------------------------------------------------------
 
     @Test
     public void testInaccessibleSetter() {
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage("Method annotated with YauaaField is not public: inaccessibleSetter");
-        record =
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () -> record =
             new MyErrorMapper() {
+                @SuppressWarnings("unused")
                 @YauaaField("DeviceClass")
                 private void inaccessibleSetter(TestRecord testRecord, String value) {
                     fail("May NEVER call this method");
                 }
-            } .enrich(record);
+            } .enrich(record));
+        assertEquals("Method annotated with YauaaField is not public: inaccessibleSetter", exception.getMessage());
     }
 
     // ----------------------------------------------------------------
 
     @Test
     public void testTooManyParameters() {
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage(containsString("the method [wrongSetter] " +
-            "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
-            "[ public void wrongSetter(TestRecord record, String value) ]"));
-        record =
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () ->
+            record =
             new MyErrorMapper() {
+                @SuppressWarnings("unused")
                 @YauaaField("DeviceClass")
                 public void wrongSetter(TestRecord testRecord, String value, String extra) {
                     fail("May NEVER call this method");
                 }
-            } .enrich(record);
+            } .enrich(record));
+        assertTrue(exception.getMessage().contains("the method [wrongSetter] " +
+            "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
+            "[ public void wrongSetter(TestRecord record, String value) ]"));
     }
 
     // ----------------------------------------------------------------
 
     @Test
     public void testWrongTypeParameters1() {
-        expectedEx.expectMessage(containsString("the method [wrongSetter] " +
-            "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
-            "[ public void wrongSetter(TestRecord record, String value) ]"));
-        record =
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () ->
+            record =
             new MyErrorMapper() {
+                @SuppressWarnings("unused")
                 @YauaaField("DeviceClass")
                 public void wrongSetter(String string, String value) {
                     fail("May NEVER call this method");
                 }
-            } .enrich(record);
+            } .enrich(record));
+        assertTrue(exception.getMessage().contains("the method [wrongSetter] " +
+            "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
+            "[ public void wrongSetter(TestRecord record, String value) ]"));
     }
 
     // ----------------------------------------------------------------
 
     @Test
     public void testWrongTypeParameters2() {
-        expectedEx.expectMessage(containsString("the method [wrongSetter] " +
-            "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
-            "[ public void wrongSetter(TestRecord record, String value) ]"));
-        record =
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () ->
+            record =
             new MyErrorMapper() {
+                @SuppressWarnings("unused")
                 @YauaaField("DeviceClass")
                 public void wrongSetter(TestRecord testRecord, Double value) {
                     fail("May NEVER call this method");
                 }
-            } .enrich(record);
+            } .enrich(record));
+        assertTrue(exception.getMessage().contains("the method [wrongSetter] " +
+            "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
+            "[ public void wrongSetter(TestRecord record, String value) ]"));
     }
 
     // ----------------------------------------------------------------
 
     @Test
     public void testMissingAnnotations() {
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage("You MUST specify at least 1 field to extract.");
-        record =
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () ->
+            record =
             new MyErrorMapper() {
+                @SuppressWarnings("unused")
                 public void setWasNotAnnotated(TestRecord testRecord, String value) {
                     fail("May NEVER call this method");
                 }
-            } .enrich(record);
+            } .enrich(record));
+        assertEquals("You MUST specify at least 1 field to extract.", exception.getMessage());
     }
 
     // ----------------------------------------------------------------
 
     @Test
     public void testSetterFailure() {
-        expectedEx.expectMessage("A problem occurred while calling the requested setter");
-        record =
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () ->
+            record =
             new MyErrorMapper() {
+                @SuppressWarnings("unused")
                 @YauaaField("DeviceClass")
                 public void failingSetter(TestRecord testRecord, String value) {
                     throw new IllegalStateException("Just testing the error handling");
                 }
-            } .enrich(record);
+            } .enrich(record));
+        assertEquals("A problem occurred while calling the requested setter", exception.getMessage());
     }
 
     // ----------------------------------------------------------------

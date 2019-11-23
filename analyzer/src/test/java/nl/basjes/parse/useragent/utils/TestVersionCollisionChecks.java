@@ -19,67 +19,62 @@ package nl.basjes.parse.useragent.utils;
 
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.core.AllOf.allOf;
-import static org.hamcrest.core.StringContains.containsString;
-import static org.hamcrest.core.StringEndsWith.endsWith;
-import static org.hamcrest.core.StringStartsWith.startsWith;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestVersionCollisionChecks {
-    @Rule
-    public final ExpectedException expectedEx = ExpectedException.none();
-
     @Test
     public void testBadVersion(){
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage(containsString("Found unexpected config entry: bad"));
 
-        UserAgentAnalyzer uaa = UserAgentAnalyzer
+        InvalidParserConfigurationException exception =
+
+            assertThrows(InvalidParserConfigurationException.class, () ->
+                UserAgentAnalyzer
             .newBuilder()
             .dropDefaultResources()
             .addResources("classpath*:Versions/BadVersion.yaml")
             .delayInitialization()
-            .build();
+            .build());
+        assertTrue(exception.getMessage().contains("Found unexpected config entry: bad"));
     }
 
     @Test
     public void testBadVersionNotMap(){
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage(containsString("The value should be a string but it is a sequence"));
-
-        UserAgentAnalyzer uaa = UserAgentAnalyzer
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () -> UserAgentAnalyzer
             .newBuilder()
             .dropDefaultResources()
             .addResources("classpath*:Versions/BadVersionNotMap.yaml")
             .delayInitialization()
-            .build();
+            .build());
+        assertTrue(exception.getMessage().contains("The value should be a string but it is a sequence"));
+
     }
 
     @Test
     public void testDifferentVersion(){
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage(containsString("Two different Yauaa versions have been loaded:"));
-
-        UserAgentAnalyzer uaa = UserAgentAnalyzer
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () -> UserAgentAnalyzer
             .newBuilder()
             .delayInitialization()
             .addResources("classpath*:Versions/DifferentVersion.yaml")
-            .build();
+            .build());
+        assertTrue(exception.getMessage().contains("Two different Yauaa versions have been loaded:"));
+
     }
 
     @Test
     public void testDoubleLoadedResources(){
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage(allOf(startsWith("Trying to load "), endsWith(" resources for the second time")));
-
-        UserAgentAnalyzer uaa = UserAgentAnalyzer
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () -> UserAgentAnalyzer
             .newBuilder()
             .delayInitialization()
             .addResources("classpath*:UserAgents/**/*.yaml")
-            .build();
+            .build());
+        assertTrue(exception.getMessage().startsWith("Trying to load "));
+        assertTrue(exception.getMessage().endsWith(" resources for the second time"));
     }
 
 }

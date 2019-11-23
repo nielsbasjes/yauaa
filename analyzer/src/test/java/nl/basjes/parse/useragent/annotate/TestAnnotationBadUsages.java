@@ -18,25 +18,25 @@
 package nl.basjes.parse.useragent.annotate;
 
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestAnnotationBadUsages {
 
-    @Rule
-    public ExpectedException expectedEx = ExpectedException.none();
-
     @Test
     public void testNullInitAnalyzer(){
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage("[Initialize] The mapper instance is null.");
         UserAgentAnnotationAnalyzer<String> userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
-        userAgentAnalyzer.initialize(null);
+
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () ->
+                userAgentAnalyzer.initialize(null));
+
+        assertEquals("[Initialize] The mapper instance is null.", exception.getMessage());
     }
 
     @Test
@@ -47,10 +47,13 @@ public class TestAnnotationBadUsages {
 
     @Test
     public void testNoInit(){
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage("[Map] The mapper instance is null.");
         UserAgentAnnotationAnalyzer<String> userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
-        assertNull(userAgentAnalyzer.map("Foo"));
+
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () ->
+                assertNull(userAgentAnalyzer.map("Foo")));
+
+        assertEquals("[Map] The mapper instance is null.", exception.getMessage());
     }
 
     // ----------------------------------------------------------------
@@ -72,9 +75,10 @@ public class TestAnnotationBadUsages {
 
     @Test
     public void testMissingTypeParameter(){
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage("Couldn't find the used generic type of the UserAgentAnnotationMapper.");
-        new MapperWithoutGenericType();
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, MapperWithoutGenericType::new);
+
+        assertEquals("Couldn't find the used generic type of the UserAgentAnnotationMapper.", exception.getMessage());
     }
 
 }

@@ -19,11 +19,11 @@ package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestDeveloperTools {
 
@@ -73,7 +73,7 @@ public class TestDeveloperTools {
                 break;
             }
         }
-        assertTrue("Did not see the expected match.", ok);
+        assertTrue(ok, "Did not see the expected match.");
 
         ok = false;
         for (Match match : uaa.getUsedMatches(useragent)) {
@@ -83,7 +83,7 @@ public class TestDeveloperTools {
                 break;
             }
         }
-        assertTrue("Did not see the expected match.", ok);
+        assertTrue(ok, "Did not see the expected match.");
     }
 
 

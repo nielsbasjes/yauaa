@@ -21,15 +21,14 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
 import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // CHECKSTYLE.OFF: ParenPad
 public class TestBuilder {
@@ -179,58 +178,59 @@ public class TestBuilder {
     }
 
 
-
-    @Rule
-    public final ExpectedException expectedEx = ExpectedException.none();
-
     @Test
     public void testAskingForImpossibleField() {
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage("We cannot provide these fields:[FirstNonexistentField, SecondNonexistentField]");
+        InvalidParserConfigurationException exception = assertThrows(InvalidParserConfigurationException.class, () ->
+            UserAgentAnalyzer
+                .newBuilder()
+                .withoutCache()
+                .hideMatcherLoadStats()
+                .delayInitialization()
+                .withField("FirstNonexistentField")
+                .withField("DeviceClass")
+                .withField("SecondNonexistentField")
+                .build());
 
-        UserAgentAnalyzer
-            .newBuilder()
-            .withoutCache()
-            .hideMatcherLoadStats()
-            .delayInitialization()
-            .withField("FirstNonexistentField")
-            .withField("DeviceClass")
-            .withField("SecondNonexistentField")
-            .build();
+        assertEquals("We cannot provide these fields:[FirstNonexistentField, SecondNonexistentField]", exception.getMessage());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testDualBuilderUsageNoSecondInstance() {
         UserAgentAnalyzerBuilder<?, ?> builder =
             UserAgentAnalyzer.newBuilder().delayInitialization();
 
-        assertNotNull("We should get a first instance from a single builder.", builder.build());
+        assertNotNull(builder.build(), "We should get a first instance from a single builder.");
         // And calling build() again should fail with an exception
-        builder.build();
+
+        assertThrows(IllegalStateException.class, builder::build);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testDualBuilderUsageUseSetterAfterBuild() {
         UserAgentAnalyzerBuilder<?, ?> builder =
             UserAgentAnalyzer.newBuilder().delayInitialization();
 
-        assertNotNull("We should get a first instance from a single builder.", builder.build());
+        assertNotNull(builder.build(), "We should get a first instance from a single builder.");
 
         // And calling a setter after the build() should fail with an exception
-        builder.withCache(1234);
+        assertThrows(IllegalStateException.class, () ->
+            builder.withCache(1234)
+        );
     }
 
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testLoadMoreResources() {
         UserAgentAnalyzerBuilder<?, ?> builder =
             UserAgentAnalyzer.newBuilder().delayInitialization().withField("DeviceClass");
 
         UserAgentAnalyzer uaa = builder.build();
-        assertNotNull("We should get a first instance from a single builder.", uaa);
+        assertNotNull(uaa, "We should get a first instance from a single builder.");
 
         uaa.initializeMatchers();
-        uaa.loadResources("Something extra");
+        assertThrows(IllegalStateException.class, () ->
+            uaa.loadResources("Something extra")
+        );
     }
 
     @Test

@@ -18,26 +18,21 @@
 package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.Set;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Parameterized.class)
 public class TestPredefinedBrowsersPerField {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestPredefinedBrowsersPerField.class);
 
-    @Parameters(name = "Test {index} -> Only field: \"{0}\"")
     public static Iterable<String> data() {
         return UserAgentAnalyzer
             .newBuilder()
@@ -47,13 +42,9 @@ public class TestPredefinedBrowsersPerField {
             .getAllPossibleFieldNamesSorted();
     }
 
-    // CHECKSTYLE.OFF: VisibilityModifier doesn't work like that for @Parameter variables
-    @Parameter
-    public String fieldName;
-    // CHECKSTYLE.ON
-
-    @Test
-    public void validateAllPredefinedBrowsersForField() {
+    @ParameterizedTest(name = "Test {index} -> Only field: \"{0}\"")
+    @MethodSource("data")
+    public void validateAllPredefinedBrowsersForField(String fieldName) {
         Set<String> singleFieldList = Collections.singleton(fieldName);
         LOG.info("==============================================================");
         LOG.info("Validating when ONLY asking for {}", fieldName);
@@ -69,6 +60,5 @@ public class TestPredefinedBrowsersPerField {
         assertNotNull(userAgentAnalyzer);
         assertTrue(userAgentAnalyzer.runTests(false, true, singleFieldList, false, false));
     }
-
 
 }

@@ -18,10 +18,10 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static nl.basjes.parse.useragent.UserAgentAnalyzer.DEFAULT_USER_AGENT_MAX_LENGTH;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestBasics {
 
@@ -30,25 +30,25 @@ public class TestBasics {
         UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder().build();
         userAgentAnalyzer.loadResources("classpath*:AllFields-tests.yaml");
 
-        assertEquals("Incorrect default cache size", 10000, userAgentAnalyzer.getCacheSize());
+        assertEquals(10000, userAgentAnalyzer.getCacheSize(), "Incorrect default cache size");
 
         userAgentAnalyzer.setCacheSize(50);
-        assertEquals("Incorrect cache size", 50, userAgentAnalyzer.getCacheSize());
+        assertEquals(50, userAgentAnalyzer.getCacheSize(), "Incorrect default cache size");
 
         userAgentAnalyzer.setCacheSize(50000);
-        assertEquals("Incorrect cache size", 50000, userAgentAnalyzer.getCacheSize());
+        assertEquals(50000, userAgentAnalyzer.getCacheSize(), "Incorrect default cache size");
 
         userAgentAnalyzer.setCacheSize(-5);
-        assertEquals("Incorrect cache size", 0, userAgentAnalyzer.getCacheSize());
+        assertEquals(0, userAgentAnalyzer.getCacheSize(), "Incorrect default cache size");
 
         userAgentAnalyzer.setCacheSize(50);
-        assertEquals("Incorrect cache size", 50, userAgentAnalyzer.getCacheSize());
+        assertEquals(50, userAgentAnalyzer.getCacheSize(), "Incorrect default cache size");
 
         userAgentAnalyzer.setCacheSize(50000);
-        assertEquals("Incorrect cache size", 50000, userAgentAnalyzer.getCacheSize());
+        assertEquals(50000, userAgentAnalyzer.getCacheSize(), "Incorrect default cache size");
 
         userAgentAnalyzer.setUserAgentMaxLength(555);
-        assertEquals("Incorrect user agent max length", 555, userAgentAnalyzer.getUserAgentMaxLength());
+        assertEquals(555, userAgentAnalyzer.getUserAgentMaxLength(), "Incorrect user agent max length");
     }
 
     @Test
@@ -56,13 +56,13 @@ public class TestBasics {
         UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder().build();
         userAgentAnalyzer.loadResources("classpath*:AllFields-tests.yaml");
 
-        assertEquals("Incorrect default user agent max length", DEFAULT_USER_AGENT_MAX_LENGTH, userAgentAnalyzer.getUserAgentMaxLength());
+        assertEquals(DEFAULT_USER_AGENT_MAX_LENGTH, userAgentAnalyzer.getUserAgentMaxLength(), "Incorrect default user agent max length");
 
         userAgentAnalyzer.setUserAgentMaxLength(250);
-        assertEquals("Incorrect default user agent max length", 250, userAgentAnalyzer.getUserAgentMaxLength());
+        assertEquals(250, userAgentAnalyzer.getUserAgentMaxLength(), "Incorrect default user agent max length");
 
         userAgentAnalyzer.setUserAgentMaxLength(-100);
-        assertEquals("Incorrect default user agent max length", DEFAULT_USER_AGENT_MAX_LENGTH, userAgentAnalyzer.getUserAgentMaxLength());
+        assertEquals(DEFAULT_USER_AGENT_MAX_LENGTH, userAgentAnalyzer.getUserAgentMaxLength(), "Incorrect default user agent max length");
     }
 
 }

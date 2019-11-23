@@ -26,14 +26,14 @@ import org.apache.flink.api.java.io.LocalCollectionOutputFormat;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.LocalStreamEnvironment;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.hasItems;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestUserAgentAnalysisMapperInline {
     @Test
@@ -59,11 +59,13 @@ public class TestUserAgentAnalysisMapperInline {
                     return record.useragent;
                 }
 
+                @SuppressWarnings("unused")
                 @YauaaField("DeviceClass")
                 public void setDeviceClass(TestRecord record, String value) {
                     record.deviceClass = value;
                 }
 
+                @SuppressWarnings("unused")
                 @YauaaField("AgentNameVersion")
                 public void setAgentNameVersion(TestRecord record, String value) {
                     record.agentNameVersion = value;
@@ -120,11 +122,13 @@ public class TestUserAgentAnalysisMapperInline {
                     return record.useragent;
                 }
 
+                @SuppressWarnings("unused")
                 @YauaaField("DeviceClass")
                 public void setDeviceClass(TestRecord record, String value) {
                     record.deviceClass = value;
                 }
 
+                @SuppressWarnings("unused")
                 @YauaaField("AgentNameVersion")
                 public void setAgentNameVersion(TestRecord record, String value) {
                     record.agentNameVersion = value;

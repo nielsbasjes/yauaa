@@ -21,20 +21,25 @@ import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzerTesterBuilder;
 import org.hamcrest.Matcher;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class TestResourceLoading {
-    @Rule
-    public final ExpectedException expectedEx = ExpectedException.none();
 
     private void runTest(String resourceString, Matcher<String> expectedMessage) {
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage(expectedMessage);
-
-        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester.newBuilder().dropDefaultResources().keepTests().addResources(resourceString).build();
-        Assert.assertTrue(uaa.runTests(false, false));
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () -> {
+                UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
+                    .newBuilder()
+                    .dropDefaultResources()
+                    .keepTests()
+                    .addResources(resourceString)
+                    .build();
+                assertTrue(uaa.runTests(false, false));
+            });
+        assertTrue(expectedMessage.matches(exception.getMessage()));
     }
 
     @Test
@@ -46,7 +51,7 @@ public class TestResourceLoading {
             .addResources("classpath*:BadDefinitions/EmptyFile.yaml")
             .addResources("classpath*:AllSteps.yaml")
             .build();
-        Assert.assertTrue(uaa.runTests(false, false));
+        assertTrue(uaa.runTests(false, false));
     }
 
     @Test
@@ -62,7 +67,7 @@ public class TestResourceLoading {
             .withCache(10000)
             .build();
 
-        Assert.assertTrue(uaa.runTests(false, false));
+        assertTrue(uaa.runTests(false, false));
     }
 
 }

@@ -18,7 +18,7 @@
 package nl.basjes.parse.useragent.classify;
 
 import nl.basjes.parse.useragent.UserAgent;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.classify.DeviceClass.Anonymized;
@@ -43,7 +43,7 @@ import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isDeliberat
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isHuman;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isMobile;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isNormalConsumerDevice;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestClassifier {
 
@@ -102,14 +102,14 @@ public class TestClassifier {
         UserAgent userAgent = new UserAgent();
 
         userAgent.set(DEVICE_CLASS, deviceClass.getValue(), 1);
-        assertEquals("For the DeviceClass " + deviceClass.toString() + " the isHuman() was incorrect.",
-            human, isHuman(userAgent));
-        assertEquals("For the DeviceClass " + deviceClass.toString() + " the isMobile() was incorrect.",
-            mobile, isMobile(userAgent));
-        assertEquals("For the DeviceClass " + deviceClass.toString() + " the isNormalConsumerDevice() was incorrect.",
-            normal, isNormalConsumerDevice(userAgent));
-        assertEquals("For the DeviceClass " + deviceClass.toString() + " the isDeliberateMisuse() was incorrect.",
-            misuse, isDeliberateMisuse(userAgent));
+        assertEquals(human, isHuman(userAgent),
+            "For the DeviceClass " + deviceClass.toString() + " the isHuman() was incorrect.");
+        assertEquals(mobile, isMobile(userAgent),
+            "For the DeviceClass " + deviceClass.toString() + " the isMobile() was incorrect.");
+        assertEquals(normal, isNormalConsumerDevice(userAgent),
+            "For the DeviceClass " + deviceClass.toString() + " the isNormalConsumerDevice() was incorrect.");
+        assertEquals(misuse, isDeliberateMisuse(userAgent),
+            "For the DeviceClass " + deviceClass.toString() + " the isDeliberateMisuse() was incorrect.");
     }
 
 }

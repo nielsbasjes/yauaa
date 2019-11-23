@@ -21,12 +21,12 @@ import nl.basjes.parse.core.Parser;
 import nl.basjes.parse.core.test.DissectorTester;
 import nl.basjes.parse.core.test.TestRecord;
 import nl.basjes.parse.httpdlog.HttpdLoglineParser;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestDissectUserAgent {
 
@@ -170,7 +170,7 @@ public class TestDissectUserAgent {
     }
 
     private void assertPossible(List<String> possible, String element) {
-        assertTrue("The output " + element + " is missing.", possible.contains(element));
+        assertTrue(possible.contains(element), "The output " + element + " is missing.");
     }
 
     @Test

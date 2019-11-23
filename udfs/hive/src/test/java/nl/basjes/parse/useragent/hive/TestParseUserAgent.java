@@ -23,10 +23,10 @@ import org.apache.hadoop.hive.ql.udf.generic.GenericUDF.DeferredObject;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.StandardStructObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.primitive.PrimitiveObjectInspectorFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestParseUserAgent {
 
@@ -56,7 +56,7 @@ public class TestParseUserAgent {
     @Test
     public void testExplain() {
         ParseUserAgent parseUserAgent = new ParseUserAgent();
-        assertTrue("Wrong explanation", parseUserAgent.getDisplayString(null).contains("UserAgent"));
+        assertTrue(parseUserAgent.getDisplayString(null).contains("UserAgent"), "Wrong explanation");
     }
 
 }

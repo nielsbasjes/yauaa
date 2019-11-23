@@ -18,8 +18,8 @@
 package nl.basjes.parse.useragent.profile;
 
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +44,7 @@ public class TestMemoryFootprint {
             iterationsDone, memory, bytesToMegabytes(memory), averageNanos, averageNanos / 1000000.0));
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void checkForMemoryLeaks() { //NOSONAR: Do not complain about ignored performance test
         UserAgentAnalyzer uaa = UserAgentAnalyzer
@@ -72,7 +72,7 @@ public class TestMemoryFootprint {
     }
 
 
-    @Ignore
+    @Disabled
     @Test
     public void assesMemoryImpactPerFieldName() { //NOSONAR: Do not complain about ignored performance test
         // Get the Java runtime
@@ -136,7 +136,7 @@ public class TestMemoryFootprint {
             label, memory, bytesToMegabytes(memory), bytesToMegabytes(runtime.totalMemory())));
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void profileMemoryFootprint() { //NOSONAR: Do not complain about ignored performance test
         printCurrentMemoryProfile("Before ");

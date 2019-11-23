@@ -19,18 +19,17 @@ package nl.basjes.parse.useragent.profile;
 
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestPerformance {
     private static final Logger LOG = LoggerFactory.getLogger(TestPerformance.class);
 
-    @Ignore
+    @Disabled
     @Test
     public void validateAllPredefinedBrowsersPerformance() { //NOSONAR: Do not complain about ignored performance test
         UserAgentAnalyzerTester uaa =
@@ -38,7 +37,7 @@ public class TestPerformance {
             .showMatcherLoadStats()
             .immediateInitialization()
             .build();
-        Assert.assertTrue(uaa.runTests(false, false, null, true, true));
+        assertTrue(uaa.runTests(false, false, null, true, true));
     }
 
     @Test
@@ -61,7 +60,7 @@ public class TestPerformance {
         stop = System.nanoTime();
         long listFieldNamesMsecs = (stop - start) / 1000000;
         LOG.info("-- List fieldnames: {}ms", listFieldNamesMsecs);
-        assertTrue("Just listing the field names should only take a few ms", listFieldNamesMsecs < 500);
+        assertTrue(listFieldNamesMsecs < 500, "Just listing the field names should only take a few ms");
 
         LOG.info("Initializing the datastructures");
         start = System.nanoTime();

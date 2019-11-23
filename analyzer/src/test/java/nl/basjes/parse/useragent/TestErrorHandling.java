@@ -21,31 +21,30 @@ import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.parse.EvilManualUseragentStringHacks;
 import org.hamcrest.Matcher;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.hamcrest.core.StringStartsWith.startsWith;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestErrorHandling {
-    @Rule
-    public final ExpectedException expectedEx = ExpectedException.none();
 
     private void runTest(String resourceString, Matcher<String> expectedMessage) {
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage(expectedMessage);
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () -> {
+                UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
+                    .newBuilder()
+                    .dropDefaultResources()
+                    .keepTests()
+                    .addResources(resourceString)
+                    .build();
+                assertTrue(uaa.runTests(false, false));
+            });
 
-        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
-            .newBuilder()
-            .dropDefaultResources()
-            .keepTests()
-            .addResources(resourceString)
-            .build();
-        Assert.assertTrue(uaa.runTests(false, false));
+        assertTrue(expectedMessage.matches(exception.getMessage()));
     }
 
     @Test

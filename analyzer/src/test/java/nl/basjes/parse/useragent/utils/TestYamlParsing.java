@@ -19,28 +19,23 @@ package nl.basjes.parse.useragent.utils;
 
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.core.StringContains.containsString;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestYamlParsing {
 
-    @Rule
-    public final ExpectedException expectedEx = ExpectedException.none();
-
     private void runTest(String inputFilename, String message) {
-        expectedEx.expect(InvalidParserConfigurationException.class);
-        expectedEx.expectMessage(containsString(message));
-
-        UserAgentAnalyzer uaa = UserAgentAnalyzer
+        InvalidParserConfigurationException exception =
+            assertThrows(InvalidParserConfigurationException.class, () -> UserAgentAnalyzer
             .newBuilder()
             .dropDefaultResources()
             .keepTests()
             .addResources("classpath*:YamlParsingTests/" + inputFilename)
             .delayInitialization()
-            .build();
+            .build());
+        assertTrue(exception.getMessage().contains(message));
     }
 
     @Test

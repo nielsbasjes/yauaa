@@ -20,15 +20,17 @@ package nl.basjes.parse.useragent.analyze;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown.ChildIterable;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class TestChildIterable {
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testEdgeNoChildren(){
         ChildIterable ci = new ChildIterable(true, 1, 5, x -> (true));
 
@@ -36,10 +38,10 @@ public class TestChildIterable {
 
         Iterator<ParseTree> iterator = ci.iterator(prc);
 
-        iterator.next();
+        assertThrows(NoSuchElementException.class, iterator::next);
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testEdgeFewChildrens(){
         ChildIterable ci = new ChildIterable(true, 1, 5, x -> (true));
 
@@ -52,12 +54,13 @@ public class TestChildIterable {
 
         Iterator<ParseTree> iterator = ci.iterator(prc);
 
-        int i = 0;
-        while (i < 10) {
-            i++;
-            iterator.next();
-        }
-
+        assertThrows(NoSuchElementException.class, () -> {
+            int i = 0;
+            while (i < 10) {
+                i++;
+                iterator.next();
+            }
+        });
     }
 
 }
