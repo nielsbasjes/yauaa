@@ -20,7 +20,11 @@ package nl.basjes.parse.useragent.utils;
 import java.io.Serializable;
 import java.net.URI;
 
-public class HostnameExtracter implements Serializable {
+public final class HostnameExtracter implements Serializable {
+
+    private HostnameExtracter() {
+        // Nothing
+    }
 
     public static String extractHostname(String uriString) {
         if (uriString == null || uriString.isEmpty()) {

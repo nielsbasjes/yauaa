@@ -42,7 +42,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -52,6 +52,10 @@ import java.util.List;
  */
 @Contract(threading = ThreadingBehavior.SAFE)
 public final class PublicSuffixMatcherLoader {
+
+    private PublicSuffixMatcherLoader() {
+        // Nothing
+    }
 
     public static PublicSuffixMatcher load(final InputStream in) throws IOException {
         Args.notNull(in, "InputStream");
@@ -74,17 +78,17 @@ public final class PublicSuffixMatcherLoader {
         }
     }
 
-    private static volatile PublicSuffixMatcher DEFAULT_INSTANCE;
+    private static volatile PublicSuffixMatcher defaultInstance;
 
     public static PublicSuffixMatcher getDefault() {
-        if (DEFAULT_INSTANCE == null) {
+        if (defaultInstance == null) {
             synchronized (PublicSuffixMatcherLoader.class) {
-                if (DEFAULT_INSTANCE == null){
+                if (defaultInstance == null){
                     final URL url = PublicSuffixMatcherLoader.class.getResource(
                             "/mozilla/public-suffix-list.txt");
                     if (url != null) {
                         try {
-                            DEFAULT_INSTANCE = load(url);
+                            defaultInstance = load(url);
                         } catch (final IOException ex) {
                             // Should never happen
                             final Logger log = LoggerFactory.getLogger(PublicSuffixMatcherLoader.class);
@@ -93,12 +97,12 @@ public final class PublicSuffixMatcherLoader {
                             }
                         }
                     } else {
-                        DEFAULT_INSTANCE = new PublicSuffixMatcher(DomainType.ICANN, Arrays.asList("com"), null);
+                        defaultInstance = new PublicSuffixMatcher(DomainType.ICANN, Collections.singletonList("com"), null);
                     }
                 }
             }
         }
-        return DEFAULT_INSTANCE;
+        return defaultInstance;
     }
 
 }

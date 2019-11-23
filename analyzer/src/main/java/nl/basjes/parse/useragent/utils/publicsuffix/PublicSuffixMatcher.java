@@ -84,13 +84,13 @@ public final class PublicSuffixMatcher {
         this.exceptions = new ConcurrentHashMap<>();
         for (final PublicSuffixList list: lists) {
             final DomainType domainType = list.getType();
-            final List<String> rules = list.getRules();
-            for (final String rule: rules) {
+            final List<String> typeRules = list.getRules();
+            for (final String rule: typeRules) {
                 this.rules.put(rule, domainType);
             }
-            final List<String> exceptions = list.getExceptions();
-            if (exceptions != null) {
-                for (final String exception: exceptions) {
+            final List<String> typeExceptions = list.getExceptions();
+            if (typeExceptions != null) {
+                for (final String exception: typeExceptions) {
                     this.exceptions.put(exception, domainType);
                 }
             }
@@ -121,7 +121,7 @@ public final class PublicSuffixMatcher {
      * Returns registrable part of the domain for the given domain name or {@code null}
      * if given domain represents a public suffix.
      *
-     * @param domain
+     * @param domain The domain/hostname for which we need the root
      * @return domain root
      */
     public String getDomainRoot(final String domain) {
@@ -132,7 +132,7 @@ public final class PublicSuffixMatcher {
      * Returns registrable part of the domain for the given domain name or {@code null}
      * if given domain represents a public suffix.
      *
-     * @param domain
+     * @param domain The domain/hostname for which we need the root
      * @param expectedType expected domain type or {@code null} if any.
      * @return domain root
      *
@@ -145,8 +145,7 @@ public final class PublicSuffixMatcher {
         if (domain.startsWith(".")) {
             return null;
         }
-        final String normalized = domain.toLowerCase(Locale.ROOT);
-        String segment = normalized;
+        String segment = domain.toLowerCase(Locale.ROOT);
         String result = null;
         while (segment != null) {
             // An exception rule takes priority over any other matching rule.
@@ -189,7 +188,7 @@ public final class PublicSuffixMatcher {
     /**
      * Tests whether the given domain matches any of entry from the public suffix list.
      *
-     * @param domain
+     * @param domain The domain/hostname for which we need the check
      * @param expectedType expected domain type or {@code null} if any.
      * @return {@code true} if the given domain matches any of the public suffixes.
      *

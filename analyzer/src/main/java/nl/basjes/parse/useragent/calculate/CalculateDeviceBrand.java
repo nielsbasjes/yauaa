@@ -19,7 +19,6 @@ package nl.basjes.parse.useragent.calculate;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
-import nl.basjes.parse.useragent.utils.HostnameExtracter;
 import nl.basjes.parse.useragent.utils.publicsuffix.PublicSuffixMatcher;
 import nl.basjes.parse.useragent.utils.publicsuffix.PublicSuffixMatcherLoader;
 
