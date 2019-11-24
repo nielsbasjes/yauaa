@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.json.BasicJsonTester;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
@@ -97,6 +98,11 @@ public class TestParseServlet {
         assertThat(response.getBody()).contains("<td>Name Version</td><td>" + EXPECT_AGENT_NAME_VERSION + "</td>");
     }
 
+    // ==========================================================================================
+    // JSON
+
+    private BasicJsonTester json = new BasicJsonTester(getClass());
+
     @Test
     public void testGetToJSon() {
         HttpHeaders headers = new HttpHeaders();
@@ -109,7 +115,9 @@ public class TestParseServlet {
 
         assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
 
-        assertThat(response.getBody()).contains("\"AgentNameVersion\":\"" + EXPECT_AGENT_NAME_VERSION + "\"");
+        assertThat(json.from(response.getBody()))
+            .extractingJsonPathStringValue("@.AgentNameVersion")
+            .isEqualTo(EXPECT_AGENT_NAME_VERSION);
     }
 
 
@@ -125,9 +133,13 @@ public class TestParseServlet {
 
         assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
 
-        assertThat(response.getBody()).contains("\"AgentNameVersion\":\"" + EXPECT_AGENT_NAME_VERSION + "\"");
+        assertThat(json.from(response.getBody()))
+            .extractingJsonPathStringValue("@.AgentNameVersion")
+            .isEqualTo(EXPECT_AGENT_NAME_VERSION);
     }
 
+    // ==========================================================================================
+    // XML
 
     @Test
     public void testGetToXML() {
