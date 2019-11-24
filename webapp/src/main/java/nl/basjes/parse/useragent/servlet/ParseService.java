@@ -45,6 +45,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.annotation.PostConstruct;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -98,6 +99,11 @@ public class ParseService {
                 isInitializing = false;
             }).start();
         }
+    }
+
+    @PostConstruct
+    public void automaticStartup() {
+        ensureStarted();
     }
 
     public static class YauaaIsBusyStarting extends RuntimeException {
