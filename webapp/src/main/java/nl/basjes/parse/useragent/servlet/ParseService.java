@@ -100,10 +100,6 @@ public class ParseService {
         }
     }
 
-//    @ResponseStatus(
-//        code = HttpStatus.SERVICE_UNAVAILABLE,
-//        reason = "Yauaa is still starting"
-//    )
     public static class YauaaIsBusyStarting extends RuntimeException {
         private final OutputType outputType;
 
@@ -129,7 +125,8 @@ public class ParseService {
 
         @ExceptionHandler({ YauaaIsBusyStarting.class })
         public ResponseEntity<Object> handleYauaaIsStarting(
-            Exception ex, WebRequest request) {
+            Exception ex,
+            @SuppressWarnings("unused") WebRequest request) {
             final HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add("Retry-After", "5"); // Retry after 5 seconds.
 
@@ -138,7 +135,7 @@ public class ParseService {
             long timeSinceStart = System.currentTimeMillis() - initStartMoment;
             String message;
 
-            switch (yauaaIsBusyStarting.outputType) {
+            switch (yauaaIsBusyStarting.getOutputType()) {
                 case JSON:
                     message = "{ \"status\": \"Starting\", \"timeInMs\": " + timeSinceStart + " }";
                     break;
