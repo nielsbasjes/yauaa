@@ -16,19 +16,148 @@
  */
 package nl.basjes.parse.useragent.servlet;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = ParseService.class)
-@WebAppConfiguration
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Collections;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
+import static org.springframework.http.MediaType.APPLICATION_XML;
+import static org.springframework.http.MediaType.TEXT_HTML;
+import static org.springframework.http.MediaType.TEXT_PLAIN;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestParseServlet {
 
+    @LocalServerPort
+    private int port;
+
+    @Autowired
+    private TestRestTemplate restTemplate;
+
+    @Before
+    public void ensureServiceHasStarted() throws InterruptedException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(APPLICATION_JSON_UTF8));
+        headers.set("User-Agent", "Are we there yet?");
+
+        HttpEntity<String> request = new HttpEntity<>("Are we there yet?", headers);
+
+        HttpStatus statusCode = null;
+        while (statusCode != HttpStatus.OK) {
+            Thread.sleep(100);
+            ResponseEntity<String> response = this.restTemplate.exchange(getURI(), GET, request, String.class);
+            statusCode = response.getStatusCode();
+        }
+    }
+
+
+    private static final String USERAGENT = "Mozilla/5.0 (X11; Linux x86_64) " +
+        "AppleWebKit/537.36 (KHTML, like Gecko) " +
+        "Chrome/78.0.3904.97 Safari/537.36";
+
+    private static final String EXPECT_AGENT_NAME_VERSION = "Chrome 78.0.3904.97";
+
+    private URI getURI() {
+        try {
+            return new URI("http://localhost:" + port + "/yauaa/v1/analyze");
+        } catch (URISyntaxException e) {
+            return null;
+        }
+    }
+
     @Test
-    public void contextLoads() {
+    public void testGetHtml() throws URISyntaxException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(TEXT_HTML));
+        headers.set("User-Agent", USERAGENT);
+
+        HttpEntity<String> request = new HttpEntity<>("Niels Basjes", headers);
+
+        ResponseEntity<String> response = this.restTemplate
+            .exchange(new URI("http://localhost:" + port + "/"), GET, request, String.class);
+
+        assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
+
+        assertThat(response.getBody()).contains("<td>Name Version</td><td>" + EXPECT_AGENT_NAME_VERSION + "</td>");
+    }
+
+    @Test
+    public void testGetToJSon() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(APPLICATION_JSON_UTF8));
+        headers.set("User-Agent", USERAGENT);
+
+        HttpEntity<String> request = new HttpEntity<>("Niels Basjes", headers);
+
+        ResponseEntity<String> response = this.restTemplate.exchange(getURI(), GET, request, String.class);
+
+        assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
+
+        assertThat(response.getBody()).contains("\"AgentNameVersion\":\"" + EXPECT_AGENT_NAME_VERSION + "\"");
+    }
+
+
+    @Test
+    public void testPostToJSon() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(TEXT_PLAIN);
+        headers.setAccept(Collections.singletonList(APPLICATION_JSON_UTF8));
+
+        HttpEntity<String> request = new HttpEntity<>(USERAGENT, headers);
+
+        ResponseEntity<String> response = this.restTemplate.postForEntity(getURI(), request, String.class);
+
+        assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
+
+        assertThat(response.getBody()).contains("\"AgentNameVersion\":\"" + EXPECT_AGENT_NAME_VERSION + "\"");
+    }
+
+
+    @Test
+    public void testGetToXML() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(APPLICATION_XML));
+        headers.set("User-Agent", USERAGENT);
+
+        HttpEntity<String> request = new HttpEntity<>("Niels Basjes", headers);
+
+        ResponseEntity<String> response = this.restTemplate.exchange(getURI(), GET, request, String.class);
+
+        assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
+
+        assertThat(response.getBody()).contains("<AgentNameVersion>" + EXPECT_AGENT_NAME_VERSION + "</AgentNameVersion>");
+    }
+
+
+    @Test
+    public void testPostToXML() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(TEXT_PLAIN);
+        headers.setAccept(Collections.singletonList(APPLICATION_XML));
+
+        HttpEntity<String> request = new HttpEntity<>(USERAGENT, headers);
+
+        ResponseEntity<String> response = this.restTemplate.postForEntity(getURI(), request, String.class);
+
+        assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
+
+        assertThat(response.getBody()).contains("<AgentNameVersion>" + EXPECT_AGENT_NAME_VERSION + "</AgentNameVersion>");
     }
 
 }
