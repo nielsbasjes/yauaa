@@ -922,6 +922,9 @@ config:
 
         // Calculate all fields that are constructed from the found ones.
         for (FieldCalculator fieldCalculator: fieldCalculators) {
+            if (verbose) {
+                LOG.info("Running FieldCalculator: {}", fieldCalculator.toString());
+            }
             fieldCalculator.calculate(userAgent);
         }
 
