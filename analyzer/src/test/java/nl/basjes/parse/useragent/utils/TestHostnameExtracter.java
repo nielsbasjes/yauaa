@@ -29,6 +29,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class TestHostnameExtracter {
 
     @Test
+    public void testHostnameExtractBadData(){
+        assertNull(extractHostname(null));
+        assertNull(extractHostname(""));
+        assertNull(extractHostname(":::::"));
+    }
+
+    @Test
     public void testHostnameExtract(){
         assertEquals("www.basjes.nl", extractHostname("https://www.basjes.nl/test"));
         assertEquals("www.basjes.nl", extractHostname("//www.basjes.nl/test"));
