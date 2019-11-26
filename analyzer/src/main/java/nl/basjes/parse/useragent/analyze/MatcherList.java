@@ -121,11 +121,6 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
         };
     }
 
-    @Override
-    public Object[] toArray() {
-        return Arrays.copyOf(this.allElements, this.size);
-    }
-
     private static final int CAPACITY_INCREASE = 3;
 
     private void increaseCapacity() {
@@ -178,6 +173,11 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
 
     @Override
     public boolean containsAll(Collection<?> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Object[] toArray() {
         throw new UnsupportedOperationException();
     }
 

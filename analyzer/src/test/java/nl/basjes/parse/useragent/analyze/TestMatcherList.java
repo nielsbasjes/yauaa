@@ -68,14 +68,6 @@ public class TestMatcherList {
         match2 = iterator.next();
         assertNotNull(match2);
         assertFalse(iterator.hasNext());
-
-
-//        assertEquals("one", match1.getKey());
-//        assertEquals("two", match1.getValue());
-//        assertNull(match1.getResult());
-//        assertEquals("three", match2.getKey());
-//        assertEquals("four", match2.getValue());
-//        assertNull(match2.getResult());
     }
 
     @Test
@@ -127,9 +119,14 @@ public class TestMatcherList {
     }
 
     @Test
-    public void testUnsupportedToArray() {
+    public void testUnsupportedToArray1() {
+        assertThrows(UnsupportedOperationException.class, () ->
+            new MatcherList(1).toArray());
+    }
+
+    @Test
+    public void testUnsupportedToArray2() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatcherList(1).toArray(null));
     }
-
 }
