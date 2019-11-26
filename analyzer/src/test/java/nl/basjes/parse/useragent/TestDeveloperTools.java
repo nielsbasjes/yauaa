@@ -63,6 +63,7 @@ public class TestDeveloperTools {
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36");
         assertTrue(useragent.toString().contains("'Google Nexus 6'"));
         assertTrue(useragent.toJson().contains("\"DeviceName\":\"Google Nexus 6\""));
+        assertTrue(useragent.toXML().contains("<DeviceName>Google Nexus 6</DeviceName>"));
         assertTrue(useragent.toYamlTestCase(true).contains("'Google Nexus 6'"));
 
         boolean ok = false;
