@@ -474,24 +474,14 @@ public class Matcher implements Serializable {
         for (MatcherAction action : dynamicActions) {
             if (action instanceof MatcherRequireAction) {
                 sb.append("        ").append(action.getMatchExpression()).append('\n');
-                final MatchesList matches = action.getMatches();
-                if (matches == null) {
-                    sb.append("        --> []\n");
-                } else {
-                    sb.append("        -->").append(matches.toStrings()).append('\n');
-                }
+                sb.append("        -->").append(action.getMatches().toStrings()).append('\n');
             }
         }
         sb.append("    EXTRACT:\n");
         for (MatcherAction action : dynamicActions) {
             if (action instanceof MatcherExtractAction) {
                 sb.append("        ").append(action.toString()).append('\n');
-                final MatchesList matches = action.getMatches();
-                if (matches == null) {
-                    sb.append("        --> []\n");
-                } else {
-                    sb.append("        -->").append(matches.toStrings()).append('\n');
-                }
+                sb.append("        -->").append(action.getMatches()).append('\n');
             }
         }
         for (MatcherAction action : fixedStringActions) {
