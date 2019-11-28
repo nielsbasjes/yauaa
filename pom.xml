@@ -32,10 +32,6 @@
 
   <url>https://yauaa.basjes.nl</url>
 
-<!--  <prerequisites>-->
-<!--    <maven>3.3</maven>-->
-<!--  </prerequisites>-->
-
   <properties>
     <jdkLevel>1.8</jdkLevel>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -47,7 +43,7 @@
     <maven.minimal.version>3.5.2</maven.minimal.version>
 
     <antlr.version>4.7.2</antlr.version>
-    <snakeyaml.version>1.24</snakeyaml.version>
+    <snakeyaml.version>1.25</snakeyaml.version>
 
     <!-- ============================================== -->
     <!-- ================ UDF Versions ================ -->
@@ -58,22 +54,23 @@
 
     <!-- Apache Beam -->
     <beam.version>2.16.0</beam.version>
+    <hamcrest-all.version>1.3</hamcrest-all.version>
 
     <!-- Apache Drill -->
     <drill.version>1.16.0</drill.version>
     <netty.version>4.1.32.Final</netty.version>
 
     <!-- Apache Hadoop -->
-    <hadoop.version>3.2.0</hadoop.version>
+    <hadoop.version>3.2.1</hadoop.version>
 
     <!-- Apache Pig-->
     <pig.version>0.17.0</pig.version>
 
     <!-- Apache Hive -->
-    <hive.version>3.1.1</hive.version>
+    <hive.version>3.1.2</hive.version>
 
     <!-- Apache Nifi -->
-    <nifi.version>1.9.2</nifi.version>
+    <nifi.version>1.10.0</nifi.version>
     <nifi-nar-maven-plugin.version>1.2.0</nifi-nar-maven-plugin.version>
 
     <!-- LogParser -->
@@ -85,14 +82,15 @@
     <!-- ============================================== -->
 
     <checkstyle-plugin.version>3.1.0</checkstyle-plugin.version>
-    <checkstyle.version>8.23</checkstyle.version>
+    <checkstyle.version>8.26</checkstyle.version>
     <slf4j.version>1.7.28</slf4j.version>
     <rat.version>0.13</rat.version>
     <jacoco.version>0.8.4</jacoco.version>
-    <junit5.version>5.5.0</junit5.version>
+    <junit5.version>5.6.0-M1</junit5.version>
+    <hamcrest-core.version>2.2</hamcrest-core.version>
 
-    <spring.version>5.1.9.RELEASE</spring.version>
-    <spring-boot.version>2.1.7.RELEASE</spring-boot.version>
+    <spring.version>5.2.1.RELEASE</spring.version>
+    <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
     <spring-boot-legacy.version>2.1.0.RELEASE</spring-boot-legacy.version>
     <springfox-swagger.version>2.9.2</springfox-swagger.version>
 
@@ -126,6 +124,11 @@
     <version.url>${project.url}</version.url>
   </properties>
 
+  <!-- Enable this only to run:  mvn versions:display-dependency-updates versions:display-plugin-updates  -->
+  <!-- <prerequisites>                            -->
+  <!--   <maven>${maven.minimal.version}</maven>  -->
+  <!-- </prerequisites>                           -->
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -155,7 +158,7 @@
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
-      <version>2.1</version>
+      <version>${hamcrest-core.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -662,7 +665,7 @@
         <plugin>
           <groupId>org.sonarsource.scanner.maven</groupId>
           <artifactId>sonar-maven-plugin</artifactId>
-          <version>3.6.0.1398</version>
+          <version>3.7.0.1746</version>
         </plugin>
 
         <plugin><artifactId>maven-assembly-plugin</artifactId><version>3.1.1</version></plugin>

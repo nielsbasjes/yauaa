@@ -56,7 +56,9 @@ import java.util.Map;
 
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
+import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
 @SuppressWarnings("deprecation") // The description field may be deprecated but in SpringFox it is still used.
 @Api(tags = "Yauaa", description = "Useragent parsing service")
@@ -217,7 +219,7 @@ public class ParseService {
     )
     @GetMapping(
         value = API_BASE_PATH + "/analyze",
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+        produces = APPLICATION_JSON_VALUE
     )
     public String getJSonGET(
         @ApiParam(
@@ -239,8 +241,8 @@ public class ParseService {
     )
     @PostMapping(
         value = API_BASE_PATH + "/analyze",
-        consumes = MediaType.TEXT_PLAIN_VALUE,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+        consumes = TEXT_PLAIN_VALUE,
+        produces = APPLICATION_JSON_VALUE
     )
     public String getJSonPOST(
         @ApiParam(
@@ -284,7 +286,7 @@ public class ParseService {
     )
     @PostMapping(
         value = API_BASE_PATH + "/analyze",
-        consumes = MediaType.TEXT_PLAIN_VALUE,
+        consumes = TEXT_PLAIN_VALUE,
         produces = APPLICATION_XML_VALUE
     )
     public String getXMLPOST(
@@ -304,7 +306,7 @@ public class ParseService {
     )
     @GetMapping(
         value = API_BASE_PATH + "/preheat",
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+        produces = APPLICATION_JSON_VALUE
     )
     public String getHtmlPreHeat() {
         ensureStartedForApis(OutputType.HTML);

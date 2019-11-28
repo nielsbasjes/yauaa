@@ -11,6 +11,10 @@ v5.14-SNAPSHOT
   - LayoutEngine for Chrome on iOS is AppleWebKit (not Blink)
 - New/improved detections
   - Agent: EmbeddedBrowser
+- Updated UDF dependencies
+  - Apache Nifi   1.10.0
+  - Apache Hive   3.1.2
+  - Apache Hadoop 3.2.1
 
 v5.13
 ===

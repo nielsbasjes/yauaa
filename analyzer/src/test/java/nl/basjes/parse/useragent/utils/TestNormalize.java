@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// CHECKSTYLE.OFF: LineLength
 public class TestNormalize {
 
     @Test
@@ -94,18 +93,18 @@ public class TestNormalize {
 
     @Test
     public void checkEmailNormalization() {
-        assertEquals("support@zite.com",                           Normalize.email("support [at] zite [dot] com"));
-        assertEquals("austin@affectv.co.uk",                       Normalize.email("austin at affectv dot co dot uk"));
-        assertEquals("epicurus@gmail.com",                         Normalize.email("epicurus at gmail dot com"));
-        assertEquals("buibui.bot@moquadv.com",                     Normalize.email("buibui[dot]bot[\\xc3\\xa07]moquadv[dot]com"));
-        assertEquals("maxpoint.crawler@maxpointinteractive.com",   Normalize.email("maxpoint.crawler at maxpointinteractive dot com"));
-        assertEquals("help@moz.com",                               Normalize.email("help@moz.com"));
-        assertEquals("crawler@example.com",                        Normalize.email("crawler at example dot com"));
-        assertEquals("yelpbot@yelp.com",                           Normalize.email("yelpbot at yelp dot com"));
-        assertEquals("support@zite.com",                           Normalize.email("support [at] zite [dot] com"));
-        assertEquals("support@safedns.com",                        Normalize.email("support [at] safedns [dot] com"));
-        assertEquals("search_comments@sensis.com.au",              Normalize.email("search_comments\\at\\sensis\\dot\\com\\dot\\au"));
-        assertEquals("mms-mmaudvidcrawler-support@yahoo-inc.com",  Normalize.email("mms dash mmaudvidcrawler dash support at yahoo dash inc dot com"));
+        assertEquals("support@zite.com",                   Normalize.email("support [at] zite [dot] com"));
+        assertEquals("austin@affectv.co.uk",               Normalize.email("austin at affectv dot co dot uk"));
+        assertEquals("epicurus@gmail.com",                 Normalize.email("epicurus at gmail dot com"));
+        assertEquals("buibui.bot@moquadv.com",             Normalize.email("buibui[dot]bot[\\xc3\\xa07]moquadv[dot]com"));
+        assertEquals("maxpoint.crawler@maxpoint.com",      Normalize.email("maxpoint.crawler at maxpoint dot com"));
+        assertEquals("help@moz.com",                       Normalize.email("help@moz.com"));
+        assertEquals("crawler@example.com",                Normalize.email("crawler at example dot com"));
+        assertEquals("yelpbot@yelp.com",                   Normalize.email("yelpbot at yelp dot com"));
+        assertEquals("support@zite.com",                   Normalize.email("support [at] zite [dot] com"));
+        assertEquals("support@safedns.com",                Normalize.email("support [at] safedns [dot] com"));
+        assertEquals("search_comments@sensis.com.au",      Normalize.email("search_comments\\at\\sensis\\dot\\com\\dot\\au"));
+        assertEquals("mms-crawler-support@yahoo-inc.com",  Normalize.email("mms dash crawler dash support at yahoo dash inc dot com"));
     }
 
     @Test

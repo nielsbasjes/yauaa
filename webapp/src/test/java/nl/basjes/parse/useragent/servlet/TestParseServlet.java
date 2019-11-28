@@ -36,7 +36,7 @@ import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_XML;
 import static org.springframework.http.MediaType.TEXT_HTML;
 import static org.springframework.http.MediaType.TEXT_PLAIN;
@@ -54,7 +54,7 @@ public class TestParseServlet {
     @Before
     public void ensureServiceHasStarted() throws InterruptedException {
         HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(APPLICATION_JSON_UTF8));
+        headers.setAccept(Collections.singletonList(APPLICATION_JSON));
         headers.set("User-Agent", "Are we there yet?");
 
         HttpEntity<String> request = new HttpEntity<>("Are we there yet?", headers);
@@ -106,7 +106,7 @@ public class TestParseServlet {
     @Test
     public void testGetToJSon() {
         HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(APPLICATION_JSON_UTF8));
+        headers.setAccept(Collections.singletonList(APPLICATION_JSON));
         headers.set("User-Agent", USERAGENT);
 
         HttpEntity<String> request = new HttpEntity<>("Niels Basjes", headers);
@@ -125,7 +125,7 @@ public class TestParseServlet {
     public void testPostToJSon() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(TEXT_PLAIN);
-        headers.setAccept(Collections.singletonList(APPLICATION_JSON_UTF8));
+        headers.setAccept(Collections.singletonList(APPLICATION_JSON));
 
         HttpEntity<String> request = new HttpEntity<>(USERAGENT, headers);
 
