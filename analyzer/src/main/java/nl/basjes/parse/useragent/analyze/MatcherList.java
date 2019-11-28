@@ -23,6 +23,7 @@ import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -133,13 +134,11 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
         maxSize = newMaxSize;
     }
 
-//    public List<String> toStrings() {
-//        List<String> result = new ArrayList<>(size);
-//        for (Match match: this) {
-//            result.add("{ \"" + match.key + "\"=\"" + match.value + "\" }");
-//        }
-//        return result;
-//    }
+    // Needed for debugging
+    @Override
+    public Object[] toArray() {
+        return Arrays.copyOf(this.allElements, this.size);
+    }
 
 // ============================================================
 // Everything else is NOT supported
@@ -172,11 +171,6 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
 
     @Override
     public boolean containsAll(Collection<?> collection) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Object[] toArray() {
         throw new UnsupportedOperationException();
     }
 

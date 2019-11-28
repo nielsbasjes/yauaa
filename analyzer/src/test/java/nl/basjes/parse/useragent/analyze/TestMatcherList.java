@@ -83,6 +83,19 @@ public class TestMatcherList {
     }
 
     @Test
+    public void testToArray() {
+        MatcherList list = new MatcherList(5);
+        list.add(new Matcher(null));
+        list.add(new Matcher(null));
+
+        final Object[] array = list.toArray();
+        assertNotNull(array);
+        assertEquals(2, array.length);
+        assertTrue(array[0] instanceof Matcher);
+        assertTrue(array[1] instanceof Matcher);
+    }
+
+    @Test
     public void testUnsupportedAddAll() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatcherList(1).addAll(null));
@@ -119,13 +132,7 @@ public class TestMatcherList {
     }
 
     @Test
-    public void testUnsupportedToArray1() {
-        assertThrows(UnsupportedOperationException.class, () ->
-            new MatcherList(1).toArray());
-    }
-
-    @Test
-    public void testUnsupportedToArray2() {
+    public void testUnsupportedToArray() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatcherList(1).toArray(null));
     }
