@@ -54,6 +54,14 @@ config:
     extract:
     - 'Impossible: 2:CleanVersion[LookUp[Dummy;agent.(1)product.(1)name="Bla"]]'
 
+# Partial match
+- matcher:
+    options:
+      - 'verbose'
+    extract:
+      - 'Impossible: 2:CleanVersion[LookUp[Dummy;agent.(1)product.(1)name="Bla"]]'
+      - 'Impossible2: 2:CleanVersion[LookUp[Dummy;agent.(1)product.(1)name="Word"]]'
+
 - matcher:
     options:
     - 'verbose'
@@ -89,7 +97,6 @@ config:
       user_agent_string: 'Word/1 ( One Two Three )'
     expected:
       Name:              'Word'
-      WordMatchFlipFlop: 'Two'
 
 - matcher:
     options:
@@ -107,7 +114,6 @@ config:
 
 - test:
     options:
-    - 'only'
     - 'verbose'
     input:
       name: 'Syntax error'
