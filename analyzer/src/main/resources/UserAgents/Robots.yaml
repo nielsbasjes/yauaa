@@ -59,6 +59,7 @@ config:
       'CBSBot'                     : 'CBS'
       'ScoutJet'                   : 'ScoutJet'
       'Site-Shot'                  : 'Site-Shot'
+      'Swayy'                      : 'Swayy'
       'TencentTraveler'            : 'Tencent'
       'TrueClicks'                 : 'TrueClicks'
       'Twitterbot'                 : 'Twitter'
@@ -83,9 +84,9 @@ config:
     - 'RobotProductVersion                 :@RobotProductName^.version'
     extract:
     - 'DeviceClass                         :   300000 :"Robot"'
-    - 'LayoutEngineClass                   :   300001 :"Robot"'
-    - 'LayoutEngineName                    :   300001 :LookUp[NamedSpecialLayoutEngines;@RobotProductName]'
-    - 'LayoutEngineVersion                 :   300001 :@RobotProductVersion'
+    - 'LayoutEngineClass                   :   300002 :"Robot"'
+    - 'LayoutEngineName                    :   300002 :LookUp[NamedSpecialLayoutEngines;@RobotProductName]'
+    - 'LayoutEngineVersion                 :   300002 :@RobotProductVersion'
 
 - matcher:
     variable:
@@ -93,9 +94,9 @@ config:
     - 'RobotProductVersion                 :@RobotProductName^.version'
     extract:
     - 'DeviceClass                         :   300000 :"Robot"'
-    - 'LayoutEngineClass                   :   300001 :"Robot"'
-    - 'LayoutEngineName                    :   300001 :LookUp[NamedSpecialLayoutEngines;@RobotProductName]'
-    - 'LayoutEngineVersion                 :   300001 :@RobotProductVersion'
+    - 'LayoutEngineClass                   :   300002 :"Robot"'
+    - 'LayoutEngineName                    :   300002 :LookUp[NamedSpecialLayoutEngines;@RobotProductName]'
+    - 'LayoutEngineVersion                 :   300002 :@RobotProductVersion'
 
 
 - matcher:
@@ -103,38 +104,38 @@ config:
     - 'RobotProductName                    :agent.product.name?NamedRobots'
     - 'RobotProductVersion                 :@RobotProductName^.version'
     extract:
-    - '__Set_ALL_Fields__                  :   299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   300000 :"Robot"'
-    - 'DeviceBrand                         :   300000 :LookUp[NamedRobots;@RobotProductName]'
-    - 'DeviceName                          :   300000 :@RobotProductName'
-    - 'OperatingSystemClass                :   300000 :"Cloud"'
-    - 'OperatingSystemName                 :   300000 :"Cloud"'
-    - 'OperatingSystemVersion              :   300000 :"??"'
-    - 'LayoutEngineClass                   :   300000 :"Robot"'
-    - 'LayoutEngineName                    :   300000 :@RobotProductName'
-    - 'LayoutEngineVersion                 :   300000 :@RobotProductVersion'
-    - 'AgentClass                          :   300000 :"Robot"'
-    - 'AgentName                           :   300000 :@RobotProductName'
-    - 'AgentVersion                        :   300000 :@RobotProductVersion'
+    - '__Set_ALL_Fields__                  :   299901 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   300001 :"Robot"'
+    - 'DeviceBrand                         :   300001 :LookUp[NamedRobots;@RobotProductName]'
+    - 'DeviceName                          :   300001 :@RobotProductName'
+    - 'OperatingSystemClass                :   300001 :"Cloud"'
+    - 'OperatingSystemName                 :   300001 :"Cloud"'
+    - 'OperatingSystemVersion              :   300001 :"??"'
+    - 'LayoutEngineClass                   :   300001 :"Robot"'
+    - 'LayoutEngineName                    :   300001 :@RobotProductName'
+    - 'LayoutEngineVersion                 :   300001 :@RobotProductVersion'
+    - 'AgentClass                          :   300001 :"Robot"'
+    - 'AgentName                           :   300001 :@RobotProductName'
+    - 'AgentVersion                        :   300001 :@RobotProductVersion'
 
 
 - matcher:
     variable:
     - 'RobotProductName                    :agent.product.name?NamedRobots'
     extract:
-    - '__Set_ALL_Fields__                  :   299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   300000 :"Robot"'
-    - 'DeviceBrand                         :   300000 :LookUp[NamedRobots;@RobotProductName]'
-    - 'DeviceName                          :   300000 :@RobotProductName'
-    - 'OperatingSystemClass                :   300000 :"Cloud"'
-    - 'OperatingSystemName                 :   300000 :"Cloud"'
-    - 'OperatingSystemVersion              :   300000 :"??"'
-    - 'LayoutEngineClass                   :   300000 :"Robot"'
-    - 'LayoutEngineName                    :   300000 :@RobotProductName'
-    - 'LayoutEngineVersion                 :   299900 :"??"'
-    - 'AgentClass                          :   300000 :"Robot"'
-    - 'AgentName                           :   300000 :@RobotProductName'
-    - 'AgentVersion                        :   299900 :"??"'
+    - '__Set_ALL_Fields__                  :   299901 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   300001 :"Robot"'
+    - 'DeviceBrand                         :   300001 :LookUp[NamedRobots;@RobotProductName]'
+    - 'DeviceName                          :   300001 :@RobotProductName'
+    - 'OperatingSystemClass                :   300001 :"Cloud"'
+    - 'OperatingSystemName                 :   300001 :"Cloud"'
+    - 'OperatingSystemVersion              :   300001 :"??"'
+    - 'LayoutEngineClass                   :   300001 :"Robot"'
+    - 'LayoutEngineName                    :   300001 :@RobotProductName'
+    - 'LayoutEngineVersion                 :   299901 :"??"'
+    - 'AgentClass                          :   300001 :"Robot"'
+    - 'AgentName                           :   300001 :@RobotProductName'
+    - 'AgentVersion                        :   299901 :"??"'
 
 
 - matcher:
@@ -2895,7 +2896,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (compatible; alexa site audit/1.0; +http://www.alexa.com/help/webmasters; )'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Alexa Robot'
+      DeviceName                           : 'Alexa Site Audit'
       DeviceBrand                          : 'Alexa'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
@@ -2903,13 +2904,13 @@ config:
       OperatingSystemVersionMajor          : '??'
       OperatingSystemNameVersion           : 'Cloud ??'
       OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Browser'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'alexa site audit'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'alexa site audit 1.0'
+      LayoutEngineNameVersionMajor         : 'alexa site audit 1'
+      AgentClass                           : 'Robot'
       AgentName                            : 'alexa site audit'
       AgentVersion                         : '1.0'
       AgentVersionMajor                    : '1'
@@ -3420,7 +3421,6 @@ config:
       AgentNameVersion                     : 'PingdomPageSpeed 1.0'
       AgentNameVersionMajor                : 'PingdomPageSpeed 1'
 
-#FIXME: Facebook external hit ?!?!
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/601.2.4 (KHTML, like Gecko) Version/9.0.1 Safari/601.2.4 facebookexternalhit/1.1 Facebot Twitterbot/1.0'
@@ -4369,7 +4369,7 @@ config:
       AgentNameVersion                     : 'lua-resty-http 0.07'
       AgentNameVersionMajor                : 'lua-resty-http 0'
 
-- test: #TODO Implement
+- test:
     input:
       user_agent_string: 'PHP/5.3.28'
     expected:
@@ -5219,37 +5219,34 @@ config:
       AgentNameVersionMajor                : 'WatchMouse 27333'
       AgentInformationUrl                  : 'itmil01.watchmouse.net' # Two urls, one is picked ...
 
-
-
-
 # https://www.linkedin.com/company/swayy/about/
 # Founded in 2013 and taken over in 2015.
-#- test: # FIXME: (Lowprio) Implement (current rules classify this one wrong)
-#    input:
-#      user_agent_string: 'Swayy/2.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html; +http://www.swayy.co)'
-#    expected:
-#      DeviceClass                          : 'Robot'
-#      DeviceName                           : 'Google'
-#      DeviceBrand                          : 'Google'
-#      OperatingSystemClass                 : 'Cloud'
-#      OperatingSystemName                  : 'Google Cloud'
-#      OperatingSystemVersion               : '??'
-#      OperatingSystemNameVersion           : 'Google Cloud ??'
-#      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
-#      LayoutEngineClass                    : 'Robot'
-#      LayoutEngineName                     : 'Googlebot'
-#      LayoutEngineVersion                  : 'Googlebot'
-#      LayoutEngineVersionMajor             : 'Googlebot'
-#      LayoutEngineNameVersion              : 'Googlebot'
-#      LayoutEngineNameVersionMajor         : 'Googlebot'
-#      AgentClass                           : 'Robot'
-#      AgentName                            : 'Swayy'
-#      AgentVersion                         : '2.0'
-#      AgentVersionMajor                    : '2'
-#      AgentNameVersion                     : 'Swayy 2.0'
-#      AgentNameVersionMajor                : 'Swayy 2'
-#      AgentInformationUrl                  : 'http://www.swayy.co'
-
+- test:
+    input:
+      user_agent_string: 'Swayy/2.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html; +http://www.swayy.co)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Swayy'
+      DeviceBrand                           : 'Swayy'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Swayy'
+      LayoutEngineVersion                   : '2.0'
+      LayoutEngineVersionMajor              : '2'
+      LayoutEngineNameVersion               : 'Swayy 2.0'
+      LayoutEngineNameVersionMajor          : 'Swayy 2'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Swayy'
+      AgentVersion                          : '2.0'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'Swayy 2.0'
+      AgentNameVersionMajor                 : 'Swayy 2'
+      AgentInformationUrl                   : 'http://www.google.com/bot.html'
 
 # Download managers:
 
@@ -6779,32 +6776,32 @@ config:
       AgentInformationUrl                  : 'http://www.reddit.com/feedback'
 
 
-#- test: # FIXME: Implement
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (compatible; SiteGuru Linkchecker; +https://www.siteguru.co/crawler)'
-#    expected:
-#      DeviceClass                           : 'Robot'
-#      DeviceName                            : 'Siteguru Robot'
-#      DeviceBrand                           : 'Siteguru'
-#      OperatingSystemClass                  : 'Cloud'
-#      OperatingSystemName                   : 'Cloud'
-#      OperatingSystemVersion                : '??'
-#      OperatingSystemVersionMajor           : '??'
-#      OperatingSystemNameVersion            : 'Cloud ??'
-#      OperatingSystemNameVersionMajor       : 'Cloud ??'
-#      LayoutEngineClass                     : 'Robot'
-#      LayoutEngineName                      : 'Mozilla'
-#      LayoutEngineVersion                   : '5.0'
-#      LayoutEngineVersionMajor              : '5'
-#      LayoutEngineNameVersion               : 'Mozilla 5.0'
-#      LayoutEngineNameVersionMajor          : 'Mozilla 5'
-#      AgentClass                            : 'Robot'
-#      AgentName                             : 'SiteGuru Linkchecker'
-#      AgentVersion                          : '??'
-#      AgentVersionMajor                     : '??'
-#      AgentNameVersion                      : 'SiteGuru Linkchecker ??'
-#      AgentNameVersionMajor                 : 'SiteGuru Linkchecker ??'
-#      AgentInformationUrl                   : 'https://www.siteguru.co/crawler'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; SiteGuru Linkchecker; +https://www.siteguru.co/crawler)'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'SiteGuru Linkchecker'
+      DeviceBrand                           : 'Siteguru'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'SiteGuru Linkchecker'
+      LayoutEngineVersion                   : 'SiteGuru Linkchecker'
+      LayoutEngineVersionMajor              : 'SiteGuru Linkchecker'
+      LayoutEngineNameVersion               : 'SiteGuru Linkchecker'
+      LayoutEngineNameVersionMajor          : 'SiteGuru Linkchecker'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'SiteGuru Linkchecker'
+      AgentVersion                          : 'SiteGuru Linkchecker'
+      AgentVersionMajor                     : 'SiteGuru Linkchecker'
+      AgentNameVersion                      : 'SiteGuru Linkchecker'
+      AgentNameVersionMajor                 : 'SiteGuru Linkchecker'
+      AgentInformationUrl                   : 'https://www.siteguru.co/crawler'
 
 
 #- test: # TODO Implement
@@ -6828,13 +6825,13 @@ config:
       OperatingSystemVersionMajor          : '??'
       OperatingSystemNameVersion           : 'Cloud ??'
       OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Browser'
+      LayoutEngineClass                    : 'Robot'
       LayoutEngineName                     : 'Mozilla'
       LayoutEngineVersion                  : '5.0'
       LayoutEngineVersionMajor             : '5'
       LayoutEngineNameVersion              : 'Mozilla 5.0'
       LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Browser'
+      AgentClass                           : 'Robot'
       AgentName                            : 'special_archiver'
       AgentVersion                         : '3.4.0'
       AgentVersionMajor                    : '3'
@@ -7333,12 +7330,12 @@ config:
 #    input:
 #      user_agent_string: 'Vibora, Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36'
 
-- test:
+- test: # This one does not conform to any of the normal patterns so the result is a bit dodgy.
     input:
       user_agent_string: 'Visited by http://tools.geek-tools.org'
     expected:
       DeviceClass                           : 'Robot'
-      DeviceName                            : 'Geek-Tools Robot'
+      DeviceName                            : 'Geek-Tools Visited BY'
       DeviceBrand                           : 'Geek-Tools'
       OperatingSystemClass                  : 'Cloud'
       OperatingSystemName                   : 'Cloud'
@@ -7346,13 +7343,13 @@ config:
       OperatingSystemVersionMajor           : '??'
       OperatingSystemNameVersion            : 'Cloud ??'
       OperatingSystemNameVersionMajor       : 'Cloud ??'
-      LayoutEngineClass                     : 'Unknown'
-      LayoutEngineName                      : 'Unknown'
-      LayoutEngineVersion                   : '??'
-      LayoutEngineVersionMajor              : '??'
-      LayoutEngineNameVersion               : 'Unknown ??'
-      LayoutEngineNameVersionMajor          : 'Unknown ??'
-      AgentClass                            : 'Special'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Visited by'
+      LayoutEngineVersion                   : 'http://tools.geek-tools.org'
+      LayoutEngineVersionMajor              : 'http://tools.geek-tools.org'
+      LayoutEngineNameVersion               : 'Visited by http://tools.geek-tools.org'
+      LayoutEngineNameVersionMajor          : 'Visited by http://tools.geek-tools.org'
+      AgentClass                            : 'Robot'
       AgentName                             : 'Visited by'
       AgentVersion                          : 'http://tools.geek-tools.org'
       AgentVersionMajor                     : 'http://tools.geek-tools.org'
