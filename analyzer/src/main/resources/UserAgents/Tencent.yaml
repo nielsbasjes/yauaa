@@ -114,6 +114,40 @@ config:
     extract:
     - 'NetworkType                         :        3 :@NetTypeProduct.(2)version'
 
+# This happens sometimes:
+#     Process/tools NetType/portalmmm.nl Language/zh_CN
+# which is parsed as
+#    - 'agent.(8)product="Process/tools NetType/portalmmm.nl"'
+#    - 'agent.(8)product.(1)name="Process"'
+#    - 'agent.(8)product.(1)version="tools NetType"'
+#    - 'agent.(8)product.(2)version="portalmmm.nl"'
+#    - 'agent.(8)product.(2)version.(1)url="portalmmm.nl"'
+- matcher:
+    variable:
+    - 'NetTypeVersion                      :agent.product.version[2]="NetType"'
+    extract:
+    - 'NetworkType                         :        4 :@NetTypeVersion>'
+
+
+# This happens sometimes:
+#     Process/tools NetType/NON_NETWORK Language/zh_CN
+# which is parsed as
+#    - 'agent.(10)product="Process/tools NetType/"'
+#    - 'agent.(10)product.(1)name="Process"'
+#    - 'agent.(10)product.(1)version="tools NetType"'
+#    - 'agent.(11)product="NON_NETWORK Language/zh_CN"'
+#    - 'agent.(11)product.(1)name="NON_NETWORK Language"'
+#    - 'agent.(11)product.(1)version="zh_CN"'
+# Improving the parser to read this correctly seems very hard.
+- matcher:
+    variable:
+    - 'NetTypeVersion                      :agent.product.version[2]="NetType"'
+    require:
+    - 'IsNull[@NetTypeVersion>]'
+    extract:
+    - 'NetworkType                         :        4 :@NetTypeVersion^>.name[-2]'
+
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.4.2; zh-cn; PE-TL20 Build/HuaweiPE-TL20) AppleWebKit/533.1 (KHTML, like Gecko)Version/4.0 MQQBrowser/5.4 TBS/025440 Mobile Safari/533.1 MicroMessenger/6.2.5.53_r2565f18.621 NetType/WIFI Language/zh_CN'
@@ -143,7 +177,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 - test:
     input:
@@ -174,7 +208,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-      NetworkType                          : 'cmnet'
+      NetworkType                          : 'Cmnet'
 
 - test:
     input:
@@ -234,7 +268,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-      NetworkType                          : 'cmnet'
+      NetworkType                          : 'Cmnet'
 
 
 - test:
@@ -266,7 +300,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 
 - test:
@@ -295,7 +329,7 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'WeChat 6.1.0.66_r1062275.542'
       AgentNameVersionMajor                : 'WeChat 6'
-      NetworkType                          : 'cmnet'
+      NetworkType                          : 'Cmnet'
 
 
 - test:
@@ -327,7 +361,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-      NetworkType                          : '3gnet'
+      NetworkType                          : '3GNET'
 
 
 - test:
@@ -390,7 +424,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 
 - test:
@@ -422,7 +456,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 
 - test:
@@ -454,7 +488,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-      NetworkType                          : 'cmnet'
+      NetworkType                          : 'Cmnet'
 
 - test:
     input:
@@ -483,7 +517,7 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'WeChat 6.5.2.501'
       AgentNameVersionMajor                : 'WeChat 6'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 - test:
     input:
@@ -543,7 +577,7 @@ config:
       AgentNameVersionMajor                : 'WeChat 6'
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 
 - test:
@@ -605,7 +639,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 
 - test:
@@ -697,7 +731,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 - test:
     input:
@@ -727,7 +761,7 @@ config:
       AgentNameVersionMajor                : 'WeChat 6'
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 
 - test:
@@ -758,7 +792,7 @@ config:
       AgentNameVersionMajor                : 'WeChat 6'
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 
 - test:
@@ -817,7 +851,7 @@ config:
       AgentNameVersionMajor                : 'WeChat 6'
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 
 - test:
@@ -846,7 +880,7 @@ config:
       AgentVersionMajor                    : '7'
       AgentNameVersion                     : 'QQ Client 7.1.8.3240'
       AgentNameVersionMajor                : 'QQ Client 7'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 
 - test:
@@ -875,7 +909,7 @@ config:
       AgentVersionMajor                    : '7'
       AgentNameVersion                     : 'QQ Client 7.2.0.3270'
       AgentNameVersionMajor                : 'QQ Client 7'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 
 # Phone classified as Unknown --> Caused by a new example of tagging iPhone versions.
@@ -993,7 +1027,7 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'QQ Client 6.6.9.412'
       AgentNameVersionMajor                : 'QQ Client 6'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 - test:
     input:
@@ -1052,7 +1086,7 @@ config:
       AgentVersionMajor                    : '7'
       AgentNameVersion                     : 'QQ Client 7.2.8.478'
       AgentNameVersionMajor                : 'QQ Client 7'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 - test:
     input:
@@ -1081,7 +1115,7 @@ config:
       AgentVersionMajor                    : '7'
       AgentNameVersion                     : 'QQ Client 7.5.8.422'
       AgentNameVersionMajor                : 'QQ Client 7'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 
 # This happens quite often:
@@ -1182,7 +1216,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-      NetworkType                          : 'WIFI'
+      NetworkType                          : 'Wifi'
 
 
 - test:
@@ -1214,7 +1248,7 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
       AgentSecurity                        : 'Strong security'
-      NetworkType                          : 'cmnet'
+      NetworkType                          : 'Cmnet'
 
 # This seems hacked together manually: Nested useragent, "QQDownload"
 - test:
@@ -1243,3 +1277,198 @@ config:
       AgentVersionMajor                    : '8'
       AgentNameVersion                     : 'Internet Explorer 8.0'
       AgentNameVersionMajor                : 'Internet Explorer 8'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16C101 MicroMessenger/7.0.5(0x17000523) NetType/2G Language/zh_CN'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '16C101'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.1.2'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.1.2'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '7.0.5'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'WeChat 7.0.5'
+      AgentNameVersionMajor                : 'WeChat 7'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      NetworkType                          : '2G'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; vivo Y66L Build/MMB29M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/62.0.3202.84 Mobile Safari/537.36  TTWebView/0621100004002 JsSdk/2 NewsArticle/7.2.7 NetType/4g  TTWebView/0621100004002'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Vivo Y66L'
+      DeviceBrand                          : 'Vivo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemVersionMajor          : '6'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemNameVersionMajor      : 'Android 6'
+      OperatingSystemVersionBuild          : 'MMB29M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '62.0'
+      LayoutEngineVersionMajor             : '62'
+      LayoutEngineNameVersion              : 'Blink 62.0'
+      LayoutEngineNameVersionMajor         : 'Blink 62'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '62.0.3202.84'
+      AgentVersionMajor                    : '62'
+      AgentNameVersion                     : 'Chrome Webview 62.0.3202.84'
+      AgentNameVersionMajor                : 'Chrome Webview 62'
+      WebviewAppName                       : 'Ttwebview'
+      WebviewAppVersion                    : '0621100004002'
+      WebviewAppVersionMajor               : '0621100004002'
+      WebviewAppNameVersionMajor           : 'Ttwebview 0621100004002'
+      NetworkType                          : '4G'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; VOG-L29 Build/HUAWEIVOG-L29; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.116 Mobile Safari/537.36 JsSdk/2 NewsArticle/7.3.6 NetType/4g TTPreload'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei VOG-L29'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersionBuild          : 'HUAWEIVOG-L29'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '77.0'
+      LayoutEngineVersionMajor             : '77'
+      LayoutEngineNameVersion              : 'Blink 77.0'
+      LayoutEngineNameVersionMajor         : 'Blink 77'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '77.0.3865.116'
+      AgentVersionMajor                    : '77'
+      AgentNameVersion                     : 'Chrome Webview 77.0.3865.116'
+      AgentNameVersionMajor                : 'Chrome Webview 77'
+      WebviewAppName                       : 'Jssdk'
+      WebviewAppVersion                    : '2'
+      WebviewAppVersionMajor               : '2'
+      WebviewAppNameVersionMajor           : 'Jssdk 2'
+      NetworkType                          : '4G'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0.0; ANE-AL00 Build/HUAWEIANE-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/045005 Mobile Safari/537.36 MMWEBID/2744 MicroMessenger/7.0.7.1521(0x2700073A) Process/tools NetType/NON_NETWORK Language/zh_CN'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei ANE-AL00'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.0.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      OperatingSystemVersionBuild          : 'HUAWEIANE-AL00'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '66.0'
+      LayoutEngineVersionMajor             : '66'
+      LayoutEngineNameVersion              : 'Blink 66.0'
+      LayoutEngineNameVersionMajor         : 'Blink 66'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '7.0.7.1521'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'WeChat 7.0.7.1521'
+      AgentNameVersionMajor                : 'WeChat 7'
+      NetworkType                          : 'NON_Network'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1; HUAWEI TIT-AL00 Build/HUAWEITIT-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/62.0.3202.84 Mobile Safari/537.36 JsSdk/2 NewsArticle/7.4.3 NetType/wifi  TTWebView/0621110013013'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei TIT-AL00'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'Android 5.1'
+      OperatingSystemNameVersionMajor      : 'Android 5'
+      OperatingSystemVersionBuild          : 'HUAWEITIT-AL00'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '62.0'
+      LayoutEngineVersionMajor             : '62'
+      LayoutEngineNameVersion              : 'Blink 62.0'
+      LayoutEngineNameVersionMajor         : 'Blink 62'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '62.0.3202.84'
+      AgentVersionMajor                    : '62'
+      AgentNameVersion                     : 'Chrome Webview 62.0.3202.84'
+      AgentNameVersionMajor                : 'Chrome Webview 62'
+      WebviewAppName                       : 'Jssdk'
+      WebviewAppVersion                    : '2'
+      WebviewAppVersionMajor               : '2'
+      WebviewAppNameVersionMajor           : 'Jssdk 2'
+      NetworkType                          : 'Wifi'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.1; OPPO A37m Build/LMY47I; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 Mobile Safari/537.36 MMWEBID/4907 MicroMessenger/7.0.7.1521(0x27000736) Process/tools NetType/portalmmm.nl Language/zh_CN'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Oppo A37M'
+      DeviceBrand                          : 'Oppo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'Android 5.1'
+      OperatingSystemNameVersionMajor      : 'Android 5'
+      OperatingSystemVersionBuild          : 'LMY47I'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '69.0'
+      LayoutEngineVersionMajor             : '69'
+      LayoutEngineNameVersion              : 'Blink 69.0'
+      LayoutEngineNameVersionMajor         : 'Blink 69'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '7.0.7.1521'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'WeChat 7.0.7.1521'
+      AgentNameVersionMajor                : 'WeChat 7'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown'
+      NetworkType                          : 'Portalmmm.nl'
+
+

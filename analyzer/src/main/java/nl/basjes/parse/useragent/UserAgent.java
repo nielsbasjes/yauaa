@@ -114,6 +114,8 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     public static final String SYNTAX_ERROR                            = "__SyntaxError__";
     public static final String USERAGENT_FIELDNAME                     = "Useragent";
 
+    public static final String NETWORK_TYPE                            = "NetworkType";
+
     public static final String SET_ALL_FIELDS                          = "__Set_ALL_Fields__";
     public static final String NULL_VALUE                              = "<<<null>>>";
     public static final String UNKNOWN_VALUE                           = "Unknown";

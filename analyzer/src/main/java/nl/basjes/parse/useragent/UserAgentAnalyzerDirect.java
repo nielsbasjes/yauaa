@@ -31,6 +31,7 @@ import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.calculate.CalculateAgentEmail;
 import nl.basjes.parse.useragent.calculate.CalculateDeviceBrand;
 import nl.basjes.parse.useragent.calculate.CalculateDeviceName;
+import nl.basjes.parse.useragent.calculate.CalculateNetworkType;
 import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
@@ -84,6 +85,7 @@ import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.NETWORK_TYPE;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION;
@@ -1352,6 +1354,10 @@ config:
             addCalculatedMajorVersionField(OPERATING_SYSTEM_NAME_VERSION_MAJOR,     OPERATING_SYSTEM_NAME_VERSION);
             addCalculatedConcatNONDuplicated(OPERATING_SYSTEM_NAME_VERSION,         OPERATING_SYSTEM_NAME,  OPERATING_SYSTEM_VERSION);
             addCalculatedMajorVersionField(OPERATING_SYSTEM_VERSION_MAJOR,          OPERATING_SYSTEM_VERSION);
+
+            if (uaa.isWantedField(NETWORK_TYPE)) {
+                uaa.fieldCalculators.add(new CalculateNetworkType());
+            }
 
             if (uaa.isWantedField(DEVICE_NAME)) {
                 uaa.fieldCalculators.add(new CalculateDeviceName());
