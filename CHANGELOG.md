@@ -9,6 +9,7 @@ v5.14-SNAPSHOT
   - New LookUpContains and IsInLookUpContains functions used to speedup Hacker and Robot pattern matching.
 - Bugs:
   - LayoutEngine for Chrome on iOS is AppleWebKit (not Blink)
+  - Matchers with only IsNull rules did not fire after deserialization with Kryo.
 - New/improved detections
   - Agent: EmbeddedBrowser
 - Updated UDF dependencies

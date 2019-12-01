@@ -69,7 +69,7 @@ config:
     - '@Foo}"oo"'
 
     extract:
-      - 'Test               :   1 : "Ok"'
+      - 'FixedString        :   1 : "Ok"'
       - 'Concat12           :   1 : Concat           [">";@Bar;"<"]'
       - 'Concat1            :   1 : Concat           [">";@Bar    ]'
       - 'Concat2            :   1 : Concat           [    @Bar;"<"]'
@@ -86,12 +86,13 @@ config:
       - 'IsInLookUpPrefix   :   1 : IsInLookUpPrefix [MyPrefixes;@Foo]'
       - 'IsInLookUpContains :   1 : IsInLookUpContains[MyContains;@Foo]'
       - 'IsInSet            :   1 : @Foo?MySet'
+      - 'AgentInformationUrl:   1 : "::::"'
 
 - test:
     input:
        user_agent_string                   : 'Foo/1.0 (BAR bars /2_0_0)'
     expected:
-      Test                                 : 'Ok'
+      FixedString                          : 'Ok'
       Concat12                             : '>BAR bars<'
       Concat1                              : '>BAR bars'
       Concat2                              : 'BAR bars<'
@@ -108,3 +109,5 @@ config:
       IsInLookUpPrefix                     : 'Foo'
       IsInLookUpContains                   : 'Foo'
       IsInSet                              : 'Foo'
+      DeviceBrand                          : "Unknown"
+      AgentInformationUrl                  : "::::"

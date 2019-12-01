@@ -1,0 +1,73 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2019 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+
+
+# The lookup does not match the test input
+- lookup:
+    name: 'MismatchLookup'
+    map:
+      "Does not match" : "Does not match"
+
+
+  # The lookup matches the test input
+- lookup:
+    name: 'MatchLookup'
+    map:
+      "My input" : "My input"
+
+
+# IsNull where the input does NOT exist --> Should pass
+- matcher:
+    require:
+      - 'IsNull[LookUpContains[MatchLookup;agent.product.name]]'
+    extract:
+      - 'NotExistMatch                      :        1 :"Success"'
+
+
+# IsNull where the input does NOT exist --> Should pass
+- matcher:
+    require:
+      - 'IsNull[LookUpContains[MismatchLookup;agent.product.name]]'
+    extract:
+      - 'NotExistMismatch                   :        1 :"Success"'
+
+
+# IsNull where the input exists and the lookup passes --> Should FAIL
+- matcher:
+    require:
+      - 'IsNull[LookUpContains[MatchLookup;agent]]'
+    extract:
+      - 'ExistMatch                         :        1 :"Fail"'
+
+
+# IsNull where the input exists and the lookup fails --> Should pass
+- matcher:
+    require:
+      - 'IsNull[LookUpContains[MismatchLookup;agent]]'
+    extract:
+      - 'ExistMismatch                      :        1 :"Success"'
+
+
+- test:
+    input:
+      user_agent_string: 'My input'
+    expected:
+      NotExistMatch                         : 'Success'
+      NotExistMismatch                      : 'Success'
+#      ExistMatch                         : 'Fail'
+      ExistMismatch                         : 'Success'

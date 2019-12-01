@@ -131,4 +131,12 @@ public class TestYamlBasedExpressions {
         assertTrue(uaa.runTests(false, false));
     }
 
+
+    @Test
+    public void runIsNullLookupTest() {
+        UserAgentAnalyzerTester uaa = createTester("IsNullLookup.yaml");
+        uaa.setVerbose(true);
+        assertTrue(uaa.runTests(false, true));
+    }
+
 }

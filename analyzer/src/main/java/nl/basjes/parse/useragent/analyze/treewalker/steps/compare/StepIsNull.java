@@ -28,7 +28,7 @@ public class StepIsNull extends Step {
         WalkResult actualValue = walkNextStep(tree, value);
 
         if (actualValue == null || actualValue.getValue() == null) {
-            return new WalkResult(tree, "<<<Null Value>>>");
+            return new WalkResult(tree, "<<<IsNull Success Value>>>");
         }
         return null;
     }

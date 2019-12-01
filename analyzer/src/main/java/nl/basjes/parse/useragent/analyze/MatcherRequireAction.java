@@ -66,8 +66,9 @@ public class MatcherRequireAction extends MatcherAction {
     public boolean obtainResult() {
         if (isValidIsNull()) {
             foundRequiredValue = true;
+        } else {
+            processInformedMatches();
         }
-        processInformedMatches();
         return foundRequiredValue;
     }
 

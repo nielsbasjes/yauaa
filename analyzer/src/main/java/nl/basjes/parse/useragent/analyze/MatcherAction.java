@@ -291,7 +291,10 @@ public abstract class MatcherAction implements Serializable {
      * @return If it is impossible that this can be valid it returns true, else false.
      */
     boolean cannotBeValid() {
-        return mustHaveMatches == matches.isEmpty();
+        if (mustHaveMatches) {
+            return matches.isEmpty();
+        }
+        return false;
     }
 
     /**

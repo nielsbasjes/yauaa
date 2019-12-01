@@ -121,7 +121,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnalyzerDirect.class);
     private final List<Matcher> allMatchers = new ArrayList<>(5000);
-    private final MatcherList zeroInputMatchers = new MatcherList(100);
+    private final List<Matcher> zeroInputMatchers = new ArrayList<>(100);
 
     protected List<Matcher> getAllMatchers() {
         return allMatchers;
@@ -168,7 +168,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
      */
     private void initTransientFields() {
         matcherConfigs = new HashMap<>(64);
-        touchedMatchers = new MatcherList(16);
+        touchedMatchers = new MatcherList(32);
     }
 
     private void readObject(java.io.ObjectInputStream stream)
@@ -836,6 +836,9 @@ config:
 
     @Override
     public void receivedInput(Matcher matcher) {
+        if (zeroInputMatchers.contains(matcher)) {
+            return;
+        }
         touchedMatchers.add(matcher);
     }
 
@@ -867,11 +870,17 @@ config:
         try {
             userAgent = flattener.parse(userAgent);
 
+            if (verbose) {
+                LOG.info("=========== Checking all Touched Matchers: {}", touchedMatchers.size());
+            }
             // Fire all Analyzers with any input
             for (Matcher matcher : touchedMatchers) {
                 matcher.analyze(userAgent);
             }
 
+            if (verbose) {
+                LOG.info("=========== Checking all Zero Input Matchers: {}", zeroInputMatchers.size());
+            }
             // Fire all Analyzers that should not get input
             for (Matcher matcher : zeroInputMatchers) {
                 matcher.analyze(userAgent);

@@ -359,7 +359,7 @@ public class Matcher implements Serializable {
 
         if (verbose) {
             LOG.info("");
-            LOG.info("--- Matcher ------------------------");
+            LOG.info("--- Matcher.({}) ------------------------", matcherSourceLocation);
             LOG.info("ANALYSE ----------------------------");
             boolean good = true;
             for (MatcherAction action : dynamicActions) {
@@ -474,14 +474,18 @@ public class Matcher implements Serializable {
         for (MatcherAction action : dynamicActions) {
             if (action instanceof MatcherRequireAction) {
                 sb.append("        ").append(action.getMatchExpression()).append('\n');
-                sb.append("        -->").append(action.getMatches().toStrings()).append('\n');
+                if (action.getMatches() != null) {
+                    sb.append("        -->").append(action.getMatches().toStrings()).append('\n');
+                }
             }
         }
         sb.append("    EXTRACT:\n");
         for (MatcherAction action : dynamicActions) {
             if (action instanceof MatcherExtractAction) {
                 sb.append("        ").append(action.toString()).append('\n');
-                sb.append("        -->").append(action.getMatches()).append('\n');
+                if (action.getMatches() != null) {
+                    sb.append("        -->").append(action.getMatches()).append('\n');
+                }
             }
         }
         for (MatcherAction action : fixedStringActions) {

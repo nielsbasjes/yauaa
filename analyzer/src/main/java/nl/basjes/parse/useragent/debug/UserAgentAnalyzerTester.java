@@ -525,7 +525,6 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         return allMatches;
     }
 
-    @SuppressWarnings("unchecked")
     public static UserAgentAnalyzerTesterBuilder<? extends UserAgentAnalyzerTester, ? extends UserAgentAnalyzerTesterBuilder<?, ?>> newBuilder() {
         return new UserAgentAnalyzerTesterBuilder<>(new UserAgentAnalyzerTester()).keepTests();
     }

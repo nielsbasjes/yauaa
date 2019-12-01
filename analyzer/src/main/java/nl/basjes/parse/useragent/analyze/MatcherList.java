@@ -47,6 +47,10 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
 
         @Override
         public void write(Kryo kryo, Output output, MatcherList object) {
+            if (object.size > 0) {
+                throw new IllegalStateException("Cannot serialize MatcherList with a non-zero size.");
+            }
+
             output.write(object.maxSize);
         }
 

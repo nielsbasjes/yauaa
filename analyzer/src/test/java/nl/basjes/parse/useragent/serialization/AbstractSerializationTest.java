@@ -37,15 +37,20 @@ public abstract class AbstractSerializationTest {
 
     @Test
     public void serializeAndDeserializeFull() throws IOException, ClassNotFoundException {
-        serializeAndDeserializeUAA(true);
+        serializeAndDeserializeUAA(true, false);
+    }
+
+    @Test
+    public void serializeAndDeserializeFullTestsBefore() throws IOException, ClassNotFoundException {
+        serializeAndDeserializeUAA(true, true);
     }
 
     @Test
     public void serializeAndDeserializeFast() throws IOException, ClassNotFoundException {
-        serializeAndDeserializeUAA(false);
+        serializeAndDeserializeUAA(false, false);
     }
 
-    private void serializeAndDeserializeUAA(boolean immediate) throws IOException, ClassNotFoundException {
+    private void serializeAndDeserializeUAA(boolean immediate, boolean runTestsBefore) throws IOException, ClassNotFoundException {
         LOG.info("==============================================================");
         LOG.info("Create");
         LOG.info("--------------------------------------------------------------");
@@ -57,6 +62,7 @@ public abstract class AbstractSerializationTest {
             .addResources("classpath*:AllSteps.yaml")
             .addResources("classpath*:AllFields-tests.yaml")
             .addResources("classpath*:AllPossibleSteps.yaml")
+            .addResources("classpath*:IsNullLookup.yaml")
             .hideMatcherLoadStats();
 
         if (immediate) {
@@ -64,6 +70,11 @@ public abstract class AbstractSerializationTest {
         }
 
         UserAgentAnalyzerTester uaa = uaab.build();
+
+        if (runTestsBefore) {
+            LOG.info("--------------------------------------------------------------");
+            assertTrue(uaa.runTests(false, false, null, false, false));
+        }
 
         LOG.info("--------------------------------------------------------------");
         LOG.info("Serialize");
