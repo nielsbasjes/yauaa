@@ -19,7 +19,6 @@ package nl.basjes.parse.useragent.calculate;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
-import nl.basjes.parse.useragent.utils.publicsuffix.PublicSuffixMatcher;
 import nl.basjes.parse.useragent.utils.publicsuffix.PublicSuffixMatcherLoader;
 
 import java.util.HashSet;
@@ -36,8 +35,6 @@ public class CalculateDeviceBrand implements FieldCalculator {
     private final Set<String> unwantedUrlBrands;
     private final Set<String> unwantedEmailBrands;
 
-    private transient PublicSuffixMatcher publicSuffixMatcher;
-
     public CalculateDeviceBrand() {
         unwantedUrlBrands = new HashSet<>();
         unwantedUrlBrands.add("Localhost");
@@ -48,7 +45,6 @@ public class CalculateDeviceBrand implements FieldCalculator {
         unwantedEmailBrands.add("Localhost");
         unwantedEmailBrands.add("Gmail");
         unwantedEmailBrands.add("Outlook");
-        publicSuffixMatcher = PublicSuffixMatcherLoader.getDefault();
     }
 
     @Override
@@ -106,26 +102,16 @@ public class CalculateDeviceBrand implements FieldCalculator {
     }
 
     private String extractCompanyFromHostName(String hostname, Set<String> blackList) {
-        if (hostname == null) {
-            return null;
-        }
-        if (publicSuffixMatcher == null) { // Because it is not Serializable --> transient
-            publicSuffixMatcher = PublicSuffixMatcherLoader.getDefault();
-        }
+        String root = PublicSuffixMatcherLoader.getDefault().getDomainRoot(hostname, ICANN);
 
-        try {
-            String root = publicSuffixMatcher.getDomainRoot(hostname, ICANN);
-            if (root == null){
-                return null;
-            }
-            String brand = Normalize.brand(root.split("\\.", 2)[0]);
-            if (blackList.contains(brand)) {
-                return null;
-            }
-            return brand;
-        } catch (RuntimeException e) {
+        if (root == null){
             return null;
         }
+        String brand = Normalize.brand(root.split("\\.", 2)[0]);
+        if (blackList.contains(brand)) {
+            return null;
+        }
+        return brand;
     }
 
     @Override
