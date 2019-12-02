@@ -45,7 +45,7 @@ public class Matcher implements Serializable {
 
     private final Analyzer analyzer;
     private final List<MatcherVariableAction> variableActions;
-    private List<MatcherAction> dynamicActions;
+    private final List<MatcherAction> dynamicActions;
     private final List<MatcherAction> fixedStringActions;
 
     private UserAgent newValuesUserAgent = null;
@@ -244,8 +244,8 @@ public class Matcher implements Serializable {
             }
         }
 
-        fixedStringActions.forEach(action -> dynamicActions.remove(action));
-        uselessRequireActions.forEach(action -> dynamicActions.remove(action));
+        fixedStringActions.forEach(dynamicActions::remove);
+        uselessRequireActions.forEach(dynamicActions::remove);
 
         // Verify that a variable only contains the variables that have been defined BEFORE it (also not referencing itself).
         // If all is ok we link them
@@ -279,10 +279,8 @@ public class Matcher implements Serializable {
                 "Syntax error (" + matcherSourceLocation + "): Used, yet undefined variables: " + missingVariableNames);
         }
 
-        List<MatcherAction> allDynamicActions = new ArrayList<>(variableActions.size() + dynamicActions.size());
-        allDynamicActions.addAll(variableActions);
-        allDynamicActions.addAll(dynamicActions);
-        dynamicActions = allDynamicActions;
+        // Make sure the variable actions are BEFORE the rest in the list
+        dynamicActions.addAll(0, variableActions);
 
         actionsThatRequireInput = countActionsThatMustHaveMatches(dynamicActions);
 
