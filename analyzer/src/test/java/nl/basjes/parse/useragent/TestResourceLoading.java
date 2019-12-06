@@ -56,7 +56,7 @@ public class TestResourceLoading {
 
     @Test
     public void checkIfLoadingAllFilesSeparatelyWorks() {
-        UserAgentAnalyzerTesterBuilder<?, ?> uaaB = UserAgentAnalyzerTester
+        UserAgentAnalyzerTesterBuilder uaaB = UserAgentAnalyzerTester
             .newBuilder()
             .hideMatcherLoadStats()
             .dropDefaultResources();

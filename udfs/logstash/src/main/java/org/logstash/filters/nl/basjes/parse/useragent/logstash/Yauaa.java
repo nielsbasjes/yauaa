@@ -62,7 +62,7 @@ public class Yauaa implements Filter {
 
         checkConfiguration();
 
-        UserAgentAnalyzerBuilder<?, ?> userAgentAnalyzerBuilder =
+        UserAgentAnalyzerBuilder userAgentAnalyzerBuilder =
             UserAgentAnalyzer
                 .newBuilder()
                 .delayInitialization()

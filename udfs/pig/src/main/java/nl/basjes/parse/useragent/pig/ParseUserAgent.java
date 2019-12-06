@@ -42,7 +42,7 @@ public class ParseUserAgent extends org.apache.pig.EvalFunc<Tuple>  {
     private boolean initialized = false;
     private void initialize() {
         if (!initialized) {
-            UserAgentAnalyzerBuilder<?, ?> analyzerBuilder = UserAgentAnalyzer
+            UserAgentAnalyzerBuilder analyzerBuilder = UserAgentAnalyzer
                     .newBuilder()
                     .hideMatcherLoadStats()
                     .delayInitialization();

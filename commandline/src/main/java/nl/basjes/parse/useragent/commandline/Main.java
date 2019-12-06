@@ -119,7 +119,7 @@ public final class Main {
                 }
             }
 
-            UserAgentAnalyzerTesterBuilder<?, ?> builder = UserAgentAnalyzerTester.newBuilder();
+            UserAgentAnalyzerTesterBuilder builder = UserAgentAnalyzerTester.newBuilder();
             builder.hideMatcherLoadStats();
             builder.withCache(commandlineOptions.cacheSize);
             if (commandlineOptions.fields != null) {

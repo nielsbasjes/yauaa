@@ -43,7 +43,7 @@ public class UserAgentDissector extends Dissector {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentDissector.class);
 
-    private transient UserAgentAnalyzerBuilder<?, ?> userAgentAnalyzerBuilder;
+    private transient UserAgentAnalyzerBuilder userAgentAnalyzerBuilder;
     private static UserAgentAnalyzer userAgentAnalyzer = null;
     private static final String INPUT_TYPE = "HTTP.USERAGENT";
 
@@ -57,7 +57,7 @@ public class UserAgentDissector extends Dissector {
         return INPUT_TYPE;
     }
 
-    private UserAgentAnalyzerBuilder<?, ?> getUserAgentAnalyzerBuilder() {
+    private UserAgentAnalyzerBuilder getUserAgentAnalyzerBuilder() {
         if (userAgentAnalyzerBuilder == null) {
             userAgentAnalyzerBuilder = UserAgentAnalyzer
                 .newBuilder()
@@ -110,7 +110,7 @@ public class UserAgentDissector extends Dissector {
         List<String> result = new ArrayList<>();
 
         // First the standard fields in the standard order, then the non-standard fields alphabetically
-        final UserAgentAnalyzerBuilder<?, ?> builder = UserAgentAnalyzer.newBuilder();
+        final UserAgentAnalyzerBuilder builder = UserAgentAnalyzer.newBuilder();
         extraResources.forEach(builder::addResources);
 
         allPossibleFieldNames = builder.build().getAllPossibleFieldNamesSorted();
@@ -148,7 +148,7 @@ public class UserAgentDissector extends Dissector {
     public void prepareForRun() {
         // Build the internal datastructures
         LOG.info("Preparing UserAgentAnalyzer to extract {}", requestedFieldNames.isEmpty()? "all fields" : requestedFieldNames);
-        final UserAgentAnalyzerBuilder<?, ?> builder = getUserAgentAnalyzerBuilder();
+        final UserAgentAnalyzerBuilder builder = getUserAgentAnalyzerBuilder();
 
         extraResources.forEach(r -> LOG.warn("Loading extra resource: {}", r));
         extraResources.forEach(builder::addResources);
