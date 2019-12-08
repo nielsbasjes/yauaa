@@ -96,13 +96,13 @@ Essentially you can redirect all JCL logging into SLF4J and then into the actual
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
-      <version>1.7.28</version>
+      <version>1.7.29</version>
     </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>1.7.28</version>
+      <version>1.7.29</version>
     </dependency>
 
 or (if you really have to) can redirect all SLF4J into JCL by adding something like this
@@ -110,7 +110,7 @@ or (if you really have to) can redirect all SLF4J into JCL by adding something l
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-jcl</artifactId>
-      <version>1.7.28</version>
+      <version>1.7.29</version>
     </dependency>
     <dependency>
       <groupId>commons-logging</groupId>
