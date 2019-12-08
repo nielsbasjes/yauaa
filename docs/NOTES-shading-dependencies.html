@@ -559,7 +559,7 @@ that wrap this functionality so that it can be used in external processing frame
 <h1 id="base-goal">Base goal</h1>
 <p>This library and the UDFs should be easy to use for all downstream users that want to use this in their projects.</p>
 <h1 id="problem-1-problematic-dependencies">Problem 1: Problematic dependencies</h1>
-<p>Some of the dependencies (Antlr4, Guava, Spring and SnakeYaml) have proven to be problematic
+<p>Some of the dependencies (Antlr4, Spring and SnakeYaml) have proven to be problematic
 for downstream users who need different versions of these in the same application.</p>
 <h1 id="solution-1-shade-and-relocate">Solution 1: Shade and relocate</h1>
 <p>So for only these we include and relocate the used classes into the main jar.</p>
@@ -584,10 +584,6 @@ for downstream users who need different versions of these in the same applicatio
         &lt;pattern&gt;org.yaml.snakeyaml&lt;/pattern&gt;
         &lt;shadedPattern&gt;nl.basjes.shaded.org.yaml.snakeyaml&lt;/shadedPattern&gt;
       &lt;/relocation&gt;
-      &lt;relocation&gt;
-        &lt;pattern&gt;com.google&lt;/pattern&gt;
-        &lt;shadedPattern&gt;nl.basjes.shaded.com.google&lt;/shadedPattern&gt;
-      &lt;/relocation&gt;
     &lt;/relocations&gt;
   &lt;/configuration&gt;
 
@@ -604,7 +600,6 @@ for downstream users who need different versions of these in the same applicatio
             &lt;include&gt;org.antlr:antlr4-runtime&lt;/include&gt;
             &lt;include&gt;org.springframework:spring-core&lt;/include&gt;
             &lt;include&gt;org.yaml:snakeyaml&lt;/include&gt;
-            &lt;include&gt;com.google.guava:guava&lt;/include&gt;
           &lt;/includes&gt;
         &lt;/artifactSet&gt;
       &lt;/configuration&gt;
@@ -619,7 +614,7 @@ dependencies (not used by the code) in addition to the shaded versions (used by 
 <p>This is a known problem in the Maven shade plugin: <a href="https://issues.apache.org/jira/browse/MSHADE-36" target="_blank">https://issues.apache.org/jira/browse/MSHADE-36</a></p>
 <p>For which I&apos;ve put up a pull request: <a href="https://github.com/apache/maven-shade-plugin/pull/25" target="_blank">https://github.com/apache/maven-shade-plugin/pull/25</a></p>
 <h1 id="solution-2-inject-the-dependency-reduced-pomxml-into-the-final-jar">Solution 2: Inject the dependency-reduced-pom.xml into the final jar</h1>
-<p>This way building an external project no longer includes things like Antlr and Guava a second time.</p>
+<p>This way building an external project no longer includes things like Antlr a second time.</p>
 <p>Script: inject-dependency-reduced-pom-into-jar.sh:</p>
 <pre><code>#!/bin/bash
 groupId=$1
@@ -716,7 +711,7 @@ class name will find it to be missing.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Shading Java dependencies","level":"4.3","depth":1,"next":{"title":"Source code","level":"5.1","depth":1,"url":"https://github.com/nielsbasjes/yauaa/","ref":"https://github.com/nielsbasjes/yauaa/","articles":[]},"previous":{"title":"Making new rules","level":"4.2","depth":1,"path":"Internals-MakingNewRules.md","ref":"Internals-MakingNewRules.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.13"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"NOTES-shading-dependencies.md","mtime":"2019-10-30T09:49:02.851Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-12T13:29:35.642Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Shading Java dependencies","level":"4.3","depth":1,"next":{"title":"Source code","level":"5.1","depth":1,"url":"https://github.com/nielsbasjes/yauaa/","ref":"https://github.com/nielsbasjes/yauaa/","articles":[]},"previous":{"title":"Making new rules","level":"4.2","depth":1,"path":"Internals-MakingNewRules.md","ref":"Internals-MakingNewRules.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.13"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"NOTES-shading-dependencies.md","mtime":"2019-11-22T14:26:33.883Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-08T20:35:02.342Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

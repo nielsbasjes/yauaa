@@ -922,6 +922,21 @@ The FIRST matching pattern is used for the end result.</p>
 <td style="text-align:left">LookUp[OSNames;agent.product.entry.text;&quot;Unknown&quot;]</td>
 </tr>
 <tr>
+<td style="text-align:left">LookUp the lookupname in the lookup table that the value contains</td>
+<td style="text-align:left">LookUpContains[lookupname;expression]</td>
+<td style="text-align:left">LookUpContains[OSNames;agent.product.entry.text]</td>
+</tr>
+<tr>
+<td style="text-align:left">LookUp the lookupname in the lookup table that the value contains (with fallback in case no match)</td>
+<td style="text-align:left">LookUpContains[lookupname;expression;defaultvalue]</td>
+<td style="text-align:left">LookUpContains[OSNames;agent.product.entry.text;&quot;Unknown&quot;]</td>
+</tr>
+<tr>
+<td style="text-align:left">LookUp the lookupname in the lookup table that the value contains and return the original value if a matching prefix is present.</td>
+<td style="text-align:left">IsInLookUpContains[lookupname;expression]</td>
+<td style="text-align:left">IsInLookUpContains[OSNames;agent.product.entry.text]</td>
+</tr>
+<tr>
 <td style="text-align:left">LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value.</td>
 <td style="text-align:left">LookUpPrefix[lookupname;expression]</td>
 <td style="text-align:left">LookUpPrefix[OSNames;agent.product.entry.text]</td>
@@ -1339,7 +1354,7 @@ extract:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Making new rules","level":"4.2","depth":1,"next":{"title":"Shading Java dependencies","level":"4.3","depth":1,"path":"NOTES-shading-dependencies.md","ref":"NOTES-shading-dependencies.md","articles":[]},"previous":{"title":"Base design idea","level":"4.1","depth":1,"path":"Internals-BaseDesign.md","ref":"Internals-BaseDesign.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.13"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"Internals-MakingNewRules.md","mtime":"2019-10-30T09:49:02.851Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-12T13:29:35.642Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Making new rules","level":"4.2","depth":1,"next":{"title":"Shading Java dependencies","level":"4.3","depth":1,"path":"NOTES-shading-dependencies.md","ref":"NOTES-shading-dependencies.md","articles":[]},"previous":{"title":"Base design idea","level":"4.1","depth":1,"path":"Internals-BaseDesign.md","ref":"Internals-BaseDesign.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.13"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"Internals-MakingNewRules.md","mtime":"2019-11-19T12:19:44.630Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-08T20:35:02.342Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
