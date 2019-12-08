@@ -136,7 +136,16 @@ The errors you see are related to the inheritance model used by the Builders in 
 # Scala usage
 When using this library from a Scala application the way the Builders have been constructed turns out to be very unfriendly to use.
 
-[Julien BENOIT](https://github.com/jbenoit2011) found two 'workable' solutions of constructing the analyzer from a Scala based application:
+Starting with Yauaa version 5.14 the rewritten builders (contributed by [Robert Stoll](https://github.com/tegonal))
+will become available which will make it a lot easier for Scala users to use:
+
+    val uaa = UserAgentAnalyzer.newBuilder
+      .withCache(10000)
+      .hideMatcherLoadStats
+      .withField("DeviceClass")
+      .build
+
+For older versions [Julien BENOIT](https://github.com/jbenoit2011) found two 'workable' solutions of constructing the analyzer from a Scala based application:
 
 Solution 1, with `asInstanceOf` method:
 
