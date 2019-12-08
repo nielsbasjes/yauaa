@@ -2,6 +2,7 @@ This is intended as an overview of the major changes
 
 v5.14-SNAPSHOT
 ===
+- The Builders no longer expose any generic parameters to ease use by Scala users (contributed by Robert Stoll  https://github.com/tegonal).
 - Replace Guava with Apache HTTPComponents for Public Suffix matching
 - Migrate to JUnit 5 for everything except specific UDFs
 - Analyzer:
