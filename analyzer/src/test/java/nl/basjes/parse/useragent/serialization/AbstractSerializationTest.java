@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class AbstractSerializationTest {
@@ -36,21 +37,37 @@ public abstract class AbstractSerializationTest {
     abstract UserAgentAnalyzerTester deserialize(byte[] bytes) throws IOException, ClassNotFoundException;
 
     @Test
-    public void serializeAndDeserializeFull() throws IOException, ClassNotFoundException {
-        serializeAndDeserializeUAA(true, false);
+    public void serializeAndDeserializeFullNOTestsBeforeRealTests() throws IOException, ClassNotFoundException {
+        serializeAndDeserializeUAA(true, false, false);
     }
 
     @Test
-    public void serializeAndDeserializeFullTestsBefore() throws IOException, ClassNotFoundException {
-        serializeAndDeserializeUAA(true, true);
+    public void serializeAndDeserializeFullTestsBeforeRealTests() throws IOException, ClassNotFoundException {
+        serializeAndDeserializeUAA(true, true, false);
     }
 
     @Test
-    public void serializeAndDeserializeFast() throws IOException, ClassNotFoundException {
-        serializeAndDeserializeUAA(false, false);
+    public void serializeAndDeserializeFastRealTests() throws IOException, ClassNotFoundException {
+        serializeAndDeserializeUAA(false, false, false);
     }
 
-    private void serializeAndDeserializeUAA(boolean immediate, boolean runTestsBefore) throws IOException, ClassNotFoundException {
+    @Test
+    public void serializeAndDeserializeFullNOTestsBeforeTestRules() throws IOException, ClassNotFoundException {
+        serializeAndDeserializeUAA(true, false, true);
+    }
+
+    @Test
+    public void serializeAndDeserializeFullTestsBeforeTestRules() throws IOException, ClassNotFoundException {
+        serializeAndDeserializeUAA(true, true, true);
+    }
+
+    @Test
+    public void serializeAndDeserializeFastTestRules() throws IOException, ClassNotFoundException {
+        serializeAndDeserializeUAA(false, false, true);
+    }
+
+
+    private void serializeAndDeserializeUAA(boolean immediate, boolean runTestsBefore, boolean useTestRules) throws IOException, ClassNotFoundException {
         LOG.info("==============================================================");
         LOG.info("Create");
         LOG.info("--------------------------------------------------------------");
@@ -58,29 +75,41 @@ public abstract class AbstractSerializationTest {
         UserAgentAnalyzerTesterBuilder<?, ?> uaab = UserAgentAnalyzerTester
             .newBuilder()
             .keepTests()
-            .dropDefaultResources()
-            .addResources("classpath*:AllSteps.yaml")
-            .addResources("classpath*:AllFields-tests.yaml")
-            .addResources("classpath*:AllPossibleSteps.yaml")
-            .addResources("classpath*:IsNullLookup.yaml")
+            .withCache(1234)
             .hideMatcherLoadStats();
+
+        if (useTestRules) {
+            uaab.dropDefaultResources()
+                .addResources("classpath*:AllSteps.yaml")
+                .addResources("classpath*:AllFields-tests.yaml")
+                .addResources("classpath*:AllPossibleSteps.yaml")
+                .addResources("classpath*:IsNullLookup.yaml");
+        }
 
         if (immediate) {
             uaab.immediateInitialization();
         }
 
-        UserAgentAnalyzerTester uaa = uaab.build();
+        UserAgentAnalyzerTester uaaBefore = uaab.build();
+
+        String uaaBeforeString = uaaBefore.toString();
 
         if (runTestsBefore) {
             LOG.info("--------------------------------------------------------------");
-            assertTrue(uaa.runTests(false, false, null, false, false));
+            assertTrue(uaaBefore.runTests(false, false, null, false, false), "Tests BEFORE serialization failed");
+
+            // Get rid of the data of the last tested useragent
+            uaaBefore.reset();
+
+            String uaaBeforeAfterTestsString = uaaBefore.toString();
+            assertEquals(uaaBeforeString, uaaBeforeAfterTestsString);
         }
 
         LOG.info("--------------------------------------------------------------");
         LOG.info("Serialize");
 
         long   serializeStartNs = System.nanoTime();
-        byte[] bytes            = serialize(uaa);
+        byte[] bytes            = serialize(uaaBefore);
         long   serializeStopNs  = System.nanoTime();
 
         LOG.info("Serialize took {} ns ({} ms)", serializeStopNs - serializeStartNs, (serializeStopNs - serializeStartNs) / 1_000_000);
@@ -89,15 +118,22 @@ public abstract class AbstractSerializationTest {
         LOG.info("Deserialize");
 
         long deserializeStartNs = System.nanoTime();
-        uaa = deserialize(bytes);
+        UserAgentAnalyzerTester uaaAfter = deserialize(bytes);
         long deserializeStopNs = System.nanoTime();
 
         LOG.info("Done");
         LOG.info("Deserialize took {} ns ({} ms)", deserializeStopNs - deserializeStartNs, (deserializeStopNs - deserializeStartNs) / 1_000_000);
+
+        String uaaAfterString = uaaAfter.toString();
+
+        assertEquals(uaaBeforeString, uaaAfterString);
+
+        assertEquals(1234, uaaAfter.getCacheSize());
+
         LOG.info("==============================================================");
         LOG.info("Validating when getting all fields");
         LOG.info("--------------------------------------------------------------");
-        assertTrue(uaa.runTests(false, false, null, false, false));
+        assertTrue(uaaAfter.runTests(false, false, null, false, false), "Tests AFTER serialization failed");
         LOG.info("==============================================================");
     }
 

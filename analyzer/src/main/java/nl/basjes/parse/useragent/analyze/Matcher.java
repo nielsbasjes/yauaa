@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -53,6 +54,10 @@ public class Matcher implements Serializable {
     private long actionsThatRequireInput;
     private boolean verbose;
     private boolean permanentVerbose;
+
+    public String getMatcherSourceLocation() {
+        return matcherSourceLocation;
+    }
 
     // Used for error reporting: The filename and line number where the config was located.
     private String matcherSourceLocation;
@@ -343,7 +348,7 @@ public class Matcher implements Serializable {
 
     void informMeAboutVariable(MatcherAction matcherAction, String variableName) {
         Set<MatcherAction> analyzerSet = informMatcherActionsAboutVariables
-            .computeIfAbsent(variableName, k -> new HashSet<>());
+            .computeIfAbsent(variableName, k -> new LinkedHashSet<>());
         analyzerSet.add(matcherAction);
     }
 

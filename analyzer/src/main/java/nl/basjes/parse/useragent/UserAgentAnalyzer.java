@@ -19,6 +19,8 @@ package nl.basjes.parse.useragent;
 
 import com.esotericsoftware.kryo.DefaultSerializer;
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import org.apache.commons.collections4.map.LRUMap;
 
 import java.io.Serializable;
@@ -28,7 +30,7 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
     public static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
     private int cacheSize = DEFAULT_PARSE_CACHE_SIZE;
-    private LRUMap<String, UserAgent> parseCache = null;
+    private transient LRUMap<String, UserAgent> parseCache = null;
 
     protected UserAgentAnalyzer() {
         super();
@@ -38,6 +40,19 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
     public static class KryoSerializer extends UserAgentAnalyzerDirect.KryoSerializer {
         public KryoSerializer(Kryo kryo, Class<?> type) {
             super(kryo, type);
+        }
+
+        @Override
+        public void write(Kryo kryo, Output output, UserAgentAnalyzerDirect object) {
+            output.write(((UserAgentAnalyzer)object).cacheSize);
+        }
+
+        @Override
+        public UserAgentAnalyzerDirect read(Kryo kryo, Input input, Class<UserAgentAnalyzerDirect> type) {
+            final UserAgentAnalyzer uaa = (UserAgentAnalyzer) super.read(kryo, input, type);
+            uaa.cacheSize = input.read();
+            uaa.initializeCache();
+            return uaa;
         }
     }
 
@@ -131,5 +146,12 @@ public class UserAgentAnalyzer extends UserAgentAnalyzerDirect implements Serial
         public UAA build() {
             return super.build();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "UserAgentAnalyzer{" +
+            "cacheSize=" + cacheSize +
+            ", "+ super.toString()+"} ";
     }
 }

@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -134,9 +135,11 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             Map<String, String> input = test.get("input");
             Map<String, String> expected = test.get("expected");
 
+            boolean dump = false;
             List<String> options = null;
             if (test.containsKey("options")) {
                 options = new ArrayList<>(test.get("options").keySet());
+                dump = options.contains("dump");
             }
             Map<String, String> metaData = test.get("metaData");
             String filename = metaData.get("filename");
@@ -320,9 +323,18 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
                 }
             }
 
+            if (dump) {
+                LOG.info("##########################################################################################");
+                LOG.info("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+                dumpAllPaths(userAgentString);
+                LOG.info(agent.toMatchTrace(Collections.emptyList()));
+                LOG.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                LOG.info("##########################################################################################");
+            }
+
             if (!init && pass && !showAll) {
                 if (showPassedTests) {
-                    LOG.info(testLogLine);
+                    LOG.info("{}", testLogLine);
                 }
                 continue;
             }
@@ -340,34 +352,7 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
             }
 
             if (init || !pass) {
-                sb.setLength(0);
-                sb.append('\n');
-                sb.append('\n');
-                sb.append("- matcher:\n");
-                sb.append("#    options:\n");
-                sb.append("#    - 'verbose'\n");
-                sb.append("    require:\n");
-                for (String path : getAllPaths(userAgentString)) {
-                    if (path.contains("=\"")) {
-                        sb.append("#    - '").append(path).append("'\n");
-                    }
-                }
-                sb.append("    extract:\n");
-                sb.append("#    - 'DeviceClass                         :      1 :' \n");
-                sb.append("#    - 'DeviceBrand                         :      1 :' \n");
-                sb.append("#    - 'DeviceName                          :      1 :' \n");
-                sb.append("#    - 'OperatingSystemClass                :      1 :' \n");
-                sb.append("#    - 'OperatingSystemName                 :      1 :' \n");
-                sb.append("#    - 'OperatingSystemVersion              :      1 :' \n");
-                sb.append("#    - 'LayoutEngineClass                   :      1 :' \n");
-                sb.append("#    - 'LayoutEngineName                    :      1 :' \n");
-                sb.append("#    - 'LayoutEngineVersion                 :      1 :' \n");
-                sb.append("#    - 'AgentClass                          :      1 :' \n");
-                sb.append("#    - 'AgentName                           :      1 :' \n");
-                sb.append("#    - 'AgentVersion                        :      1 :' \n");
-                sb.append('\n');
-                sb.append('\n');
-                LOG.info(sb.toString());
+                dumpAllPaths(userAgentString);
             }
 
             sb.setLength(0);
@@ -494,6 +479,37 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
         return allPass;
     }
 
+    private void dumpAllPaths(String userAgentString) {
+        StringBuilder sb = new StringBuilder(4096);
+        sb.append('\n');
+        sb.append('\n');
+        sb.append("- matcher:\n");
+        sb.append("#    options:\n");
+        sb.append("#    - 'verbose'\n");
+        sb.append("    require:\n");
+        for (String path : getAllPaths(userAgentString)) {
+            if (path.contains("=\"")) {
+                sb.append("#    - '").append(path).append("'\n");
+            }
+        }
+        sb.append("    extract:\n");
+        sb.append("#    - 'DeviceClass                         :      1 :' \n");
+        sb.append("#    - 'DeviceBrand                         :      1 :' \n");
+        sb.append("#    - 'DeviceName                          :      1 :' \n");
+        sb.append("#    - 'OperatingSystemClass                :      1 :' \n");
+        sb.append("#    - 'OperatingSystemName                 :      1 :' \n");
+        sb.append("#    - 'OperatingSystemVersion              :      1 :' \n");
+        sb.append("#    - 'LayoutEngineClass                   :      1 :' \n");
+        sb.append("#    - 'LayoutEngineName                    :      1 :' \n");
+        sb.append("#    - 'LayoutEngineVersion                 :      1 :' \n");
+        sb.append("#    - 'AgentClass                          :      1 :' \n");
+        sb.append("#    - 'AgentName                           :      1 :' \n");
+        sb.append("#    - 'AgentVersion                        :      1 :' \n");
+        sb.append('\n');
+        sb.append('\n');
+        LOG.info(sb.toString());
+    }
+
     // ===============================================================================================================
 
     /**
@@ -544,4 +560,8 @@ public class UserAgentAnalyzerTester extends UserAgentAnalyzer {
 
     }
 
+    @Override
+    public String toString() {
+        return "UserAgentAnalyzerTester{" + super.toString() + "} ";
+    }
 }

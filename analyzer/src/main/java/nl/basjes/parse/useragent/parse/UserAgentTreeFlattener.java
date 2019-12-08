@@ -505,4 +505,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     public void enterEmptyWord(EmptyWordContext ctx) {
         inform(ctx, TEXT, "");
     }
+
+    @Override
+    public String toString() {
+        return "UserAgentTreeFlattener{" +
+            " verbose=" + verbose +
+            "} ";
+    }
 }

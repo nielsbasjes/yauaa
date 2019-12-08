@@ -10,6 +10,7 @@ v5.14-SNAPSHOT
 - Bugs:
   - LayoutEngine for Chrome on iOS is AppleWebKit (not Blink)
   - Matchers with only IsNull rules did not fire after deserialization with Kryo.
+  - Fixed nasty problem in the serialization of various classes. Added many toString implementations to track it down.
 - New/improved detections
   - Agent: EmbeddedBrowser
 - Updated UDF dependencies

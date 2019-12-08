@@ -86,7 +86,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -531,7 +531,7 @@ public class WalkList implements Serializable {
             if (lookupSet == null) {
                 Map<String, String> lookup = lookups.get(lookupSetName);
                 if (lookup != null) {
-                    lookupSet = new HashSet<>(lookup.keySet());
+                    lookupSet = new LinkedHashSet<>(lookup.keySet());
                 }
             }
             if (lookupSet == null) {

@@ -64,6 +64,12 @@ public class DebugUserAgent extends UserAgent { // NOSONAR: No need to override 
         sb.append("+=========================================+\n");
         sb.append('\n');
 
+        appliedMatcherResults.sort((o1, o2) -> {
+            Matcher m1 = o1.getValue();
+            Matcher m2 = o2.getValue();
+            return m1.getMatcherSourceLocation().compareTo(m2.getMatcherSourceLocation());
+        });
+
         for (Pair<UserAgent, Matcher> pair: appliedMatcherResults){
             sb.append('\n');
             sb.append("+================\n");

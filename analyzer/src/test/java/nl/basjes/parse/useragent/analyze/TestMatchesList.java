@@ -66,6 +66,21 @@ public class TestMatchesList {
     }
 
     @Test
+    public void testSizeAfterClear() {
+        MatchesList list = new MatchesList(5);
+        list.add("one", "two", null);
+        list.add("three", "four", null);
+
+        assertEquals(2, list.size());
+        assertEquals("MatchesList(2) [{ \"one\"=\"two\" }, { \"three\"=\"four\" }]", list.toString());
+
+        list.clear();
+
+        assertEquals(0, list.size());
+        assertEquals("MatchesList(0) []", list.toString());
+    }
+
+    @Test
     public void testUnsupportedAdd() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatchesList(1).add(null));

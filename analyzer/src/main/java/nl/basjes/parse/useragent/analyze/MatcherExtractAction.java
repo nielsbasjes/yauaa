@@ -120,9 +120,49 @@ public class MatcherExtractAction extends MatcherAction {
     @Override
     public String toString() {
         if (isFixedValue()) {
-            return "FIXED  : (" + attribute + ", " + confidence + ") =   \"" + fixedValue + "\"";
+            return "Extract FIXED.("+matcher.getMatcherSourceLocation()+"): (" + attribute + ", " + confidence + ") =   \"" + fixedValue + "\"";
         } else {
-            return "DYNAMIC: (" + attribute + ", " + confidence + "):    " + expression;
+            return "Extract DYNAMIC.("+matcher.getMatcherSourceLocation()+"): (" + attribute + ", " + confidence + "):    " + expression;
         }
     }
+
+    @Override
+    public int compareTo(MatcherAction o) {
+        int result = super.compareTo(o);
+        if (result != 0) {
+            return result;
+        }
+
+        if (!(o instanceof MatcherExtractAction)) {
+            return 1;
+        }
+
+        MatcherExtractAction mae = (MatcherExtractAction) o;
+
+        if (fixedValue==null) {
+            result = (mae.fixedValue == null)?0:1;
+            if (result != 0) {
+                return result;
+            }
+        } else {
+            result = fixedValue.compareTo(mae.fixedValue);
+            if (result != 0) {
+                return result;
+            }
+        }
+
+        result = attribute.compareTo(mae.attribute);
+        if (result != 0) {
+            return result;
+        }
+
+        result = Long.compare(confidence, mae.confidence);
+        if (result != 0) {
+            return result;
+        }
+
+        result = expression.compareTo(mae.expression);
+        return result;
+    }
+
 }

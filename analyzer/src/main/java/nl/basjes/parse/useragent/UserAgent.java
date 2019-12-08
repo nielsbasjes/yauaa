@@ -36,7 +36,7 @@ import java.util.BitSet;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -359,7 +359,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     private void setWantedFieldNames(Collection<String> newWantedFieldNames) {
         if (newWantedFieldNames != null) {
             if (!newWantedFieldNames.isEmpty()) {
-                wantedFieldNames = new HashSet<>(newWantedFieldNames);
+                wantedFieldNames = new LinkedHashSet<>(newWantedFieldNames);
             }
         }
     }

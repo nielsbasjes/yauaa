@@ -56,7 +56,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Formatter;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -127,7 +128,7 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         return allMatchers;
     }
 
-    private final Map<String, Set<MatcherAction>> informMatcherActions = new HashMap<>(INFORM_ACTIONS_HASHMAP_CAPACITY);
+    private final Map<String, Set<MatcherAction>> informMatcherActions = new LinkedHashMap<>(INFORM_ACTIONS_HASHMAP_CAPACITY);
     private transient Map<String, List<MappingNode>> matcherConfigs = new HashMap<>();
 
     private boolean showMatcherStats = false;
@@ -142,8 +143,8 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
         return testCases;
     }
 
-    private Map<String, Map<String, String>> lookups = new HashMap<>(128);
-    private final Map<String, Set<String>> lookupSets = new HashMap<>(128);
+    private Map<String, Map<String, String>> lookups = new LinkedHashMap<>(128);
+    private final Map<String, Set<String>> lookupSets = new LinkedHashMap<>(128);
 
     @Override
     public Map<String, Map<String, String>> getLookups() {
@@ -394,9 +395,9 @@ public class UserAgentAnalyzerDirect implements Analyzer, Serializable {
 
         if (lookups != null && !lookups.isEmpty()) {
             // All compares are done in a case insensitive way. So we lowercase ALL keys of the lookups beforehand.
-            Map<String, Map<String, String>> cleanedLookups = new HashMap<>(lookups.size());
+            Map<String, Map<String, String>> cleanedLookups = new LinkedHashMap<>(lookups.size());
             for (Map.Entry<String, Map<String, String>> lookupsEntry : lookups.entrySet()) {
-                Map<String, String> cleanedLookup = new HashMap<>(lookupsEntry.getValue().size());
+                Map<String, String> cleanedLookup = new LinkedHashMap<>(lookupsEntry.getValue().size());
                 for (Map.Entry<String, String> entry : lookupsEntry.getValue().entrySet()) {
                     cleanedLookup.put(entry.getKey().toLowerCase(), entry.getValue());
                 }
@@ -650,7 +651,7 @@ config:
 
     private void loadYamlLookupSets(MappingNode entry, String filename) {
         String name = null;
-        Set<String> lookupSet = new HashSet<>();
+        Set<String> lookupSet = new LinkedHashSet<>();
 
         for (NodeTuple tuple : entry.getValue()) {
             switch (getKeyAsString(tuple, filename)) {
@@ -685,7 +686,7 @@ config:
 
             Map<String, String> input = null;
             List<String> options = null;
-            Map<String, String> expected = new HashMap<>();
+            Map<String, String> expected = new LinkedHashMap<>();
             for (NodeTuple tuple : entry.getValue()) {
                 String name = getKeyAsString(tuple, filename);
                 switch (name) {
@@ -727,14 +728,14 @@ config:
                 testCases.clear();
             }
 
-            Map<String, Map<String, String>> testCase = new HashMap<>();
+            Map<String, Map<String, String>> testCase = new LinkedHashMap<>();
 
             testCase.put("input", input);
             if (!expected.isEmpty()) {
                 testCase.put("expected", expected);
             }
             if (options != null) {
-                Map<String, String> optionsMap = new HashMap<>(options.size());
+                Map<String, String> optionsMap = new LinkedHashMap<>(options.size());
                 for (String option: options) {
                     optionsMap.put(option, option);
                 }
@@ -750,7 +751,7 @@ config:
     private final Map<String, Set<Range>> informMatcherActionRanges = new HashMap<>(10000);
     @Override
     public void lookingForRange(String treeName, Range range) {
-        Set<Range> ranges = informMatcherActionRanges.computeIfAbsent(treeName, k -> new HashSet<>(4));
+        Set<Range> ranges = informMatcherActionRanges.computeIfAbsent(treeName, k -> new LinkedHashSet<>(4));
         ranges.add(range);
     }
 
@@ -772,7 +773,7 @@ config:
     @Override
     public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
         this.informMeAbout(matcherAction, treeName + "{\"" + firstCharactersForPrefixHash(prefix, MAX_PREFIX_HASH_MATCH) + "\"");
-        Set<Integer> lengths = informMatcherActionPrefixesLengths.computeIfAbsent(treeName, k -> new HashSet<>(4));
+        Set<Integer> lengths = informMatcherActionPrefixesLengths.computeIfAbsent(treeName, k -> new LinkedHashSet<>(4));
         lengths.add(firstCharactersForPrefixHashLength(prefix, MAX_PREFIX_HASH_MATCH));
     }
 
@@ -784,7 +785,7 @@ config:
     public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
         String hashKey = keyPattern.toLowerCase();
         Set<MatcherAction> analyzerSet = informMatcherActions
-            .computeIfAbsent(hashKey, k -> new HashSet<>());
+            .computeIfAbsent(hashKey, k -> new LinkedHashSet<>());
         analyzerSet.add(matcherAction);
     }
 
@@ -842,6 +843,21 @@ config:
         touchedMatchers.add(matcher);
     }
 
+    /**
+     * Resets the state of the Analyzer to the default state.
+     */
+    public void reset() {
+        // Reset all Matchers
+        for (Matcher matcher : touchedMatchers) {
+            matcher.reset();
+        }
+        touchedMatchers.clear();
+
+        for (Matcher matcher : zeroInputMatchers) {
+            matcher.reset();
+        }
+    }
+
     public synchronized UserAgent parse(UserAgent userAgent) {
         initializeMatchers();
         String useragentString = userAgent.getUserAgentString();
@@ -852,14 +868,7 @@ config:
         }
 
         // Reset all Matchers
-        for (Matcher matcher : touchedMatchers) {
-            matcher.reset();
-        }
-        touchedMatchers.clear();
-
-        for (Matcher matcher : zeroInputMatchers) {
-            matcher.reset();
-        }
+        reset();
 
         if (userAgent.isDebug()) {
             for (Matcher matcher : allMatchers) {
@@ -1404,5 +1413,29 @@ config:
             return uaa;
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return "UserAgentAnalyzerDirect{" +
+            "\nallMatchers=" + allMatchers +
+            "\n, zeroInputMatchers=" + zeroInputMatchers +
+            "\n, informMatcherActions=" + informMatcherActions +
+            "\n, showMatcherStats=" + showMatcherStats +
+            "\n, doingOnlyASingleTest=" + doingOnlyASingleTest +
+            "\n, wantedFieldNames=" + wantedFieldNames +
+            "\n, testCases=" + testCases +
+            "\n, lookups=" + lookups +
+            "\n, lookupSets=" + lookupSets +
+            "\n, flattener=" + flattener +
+            "\n, userAgentMaxLength=" + userAgentMaxLength +
+            "\n, loadTests=" + loadTests +
+            "\n, delayInitialization=" + delayInitialization +
+            "\n, matchersHaveBeenInitialized=" + matchersHaveBeenInitialized +
+//            "\n, informMatcherActionRanges=" + ToString.toString(informMatcherActionRanges) +
+//            "\n, informMatcherActionPrefixesLengths=" + ToString.toString(informMatcherActionPrefixesLengths) +
+            "\n, verbose=" + verbose +
+            "\n, fieldCalculators=" + fieldCalculators +
+            "\n}";
     }
 }

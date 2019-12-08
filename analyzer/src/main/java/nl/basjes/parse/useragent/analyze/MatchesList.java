@@ -35,8 +35,8 @@ import java.util.NoSuchElementException;
 public final class MatchesList implements Collection<MatchesList.Match>, Serializable {
 
     public static final class Match implements Serializable {
-        private transient String key;
-        private transient String value;
+        private String key;
+        private String value;
         private transient ParseTree result;
 
         @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
@@ -66,10 +66,10 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
         }
     }
 
-    private int size;
     private int maxSize;
 
-    private Match[] allElements;
+    private transient int size;
+    private transient Match[] allElements;
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private MatchesList() {
@@ -98,6 +98,12 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
 
     }
 
+    private void readObject(java.io.ObjectInputStream stream)
+        throws java.io.IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        initialize();
+    }
+
     public MatchesList(int newMaxSize) {
         maxSize = newMaxSize;
         initialize();
@@ -109,7 +115,6 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
         for (int i = 0; i < maxSize; i++) {
             allElements[i] = new Match(null, null, null);
         }
-
     }
 
     @Override
@@ -180,6 +185,11 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
             result.add("{ \"" + match.key + "\"=\"" + match.value + "\" }");
         }
         return result;
+    }
+
+    public String toString() {
+//        return "MatchesList("+maxSize+","+size+"){allElements="+(allElements==null?"<<null>>":("array of "+ allElements.length))+"} " + toStrings().toString() + " ";
+        return "MatchesList("+size+") " + toStrings().toString();
     }
 
 // ============================================================

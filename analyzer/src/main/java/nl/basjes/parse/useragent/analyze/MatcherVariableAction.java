@@ -30,18 +30,15 @@ public class MatcherVariableAction extends MatcherAction {
 
     private final String variableName;
     private transient WalkResult foundValue = null;
-    private final String expression;
     private Set<MatcherAction> interestedActions;
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private MatcherVariableAction() {
         variableName = null;
-        expression = null;
     }
 
     public MatcherVariableAction(String variableName, String config, Matcher matcher) {
         this.variableName = variableName;
-        expression = config;
         init(config, matcher);
     }
 
@@ -95,10 +92,45 @@ public class MatcherVariableAction extends MatcherAction {
 
     @Override
     public String toString() {
-        return "VARIABLE: (" + variableName + "): " + expression;
+        return "Variable.("+matcher.getMatcherSourceLocation()+"): (" + variableName + "): " + getMatchExpression();
     }
 
     public void setInterestedActions(Set<MatcherAction> newInterestedActions) {
         this.interestedActions = newInterestedActions;
     }
+
+    @Override
+    public int compareTo(MatcherAction o) {
+        int result = super.compareTo(o);
+        if (result != 0) {
+            return result;
+        }
+
+        if (!(o instanceof MatcherVariableAction)) {
+            return 1;
+        }
+
+        MatcherVariableAction mva = (MatcherVariableAction) o;
+
+        result = variableName.compareTo(mva.variableName);
+        if (result != 0) {
+            return result;
+        }
+
+        if (interestedActions == null) {
+            if (mva.interestedActions != null) {
+                return 1;
+            }
+        } else {
+            result = interestedActions.toString().compareTo(mva.interestedActions.toString());
+            if (result != 0) {
+                return result;
+            }
+        }
+
+        // FIXME: Compare interestedActions
+
+        return 0;
+    }
+
 }

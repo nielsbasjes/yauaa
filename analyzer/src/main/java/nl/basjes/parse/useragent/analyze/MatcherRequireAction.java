@@ -80,9 +80,22 @@ public class MatcherRequireAction extends MatcherAction {
 
     @Override
     public String toString() {
-        return "Require: " + getMatchExpression();
+        return "Require.("+matcher.getMatcherSourceLocation()+"): " + getMatchExpression();
     }
 
+    @Override
+    public int compareTo(MatcherAction o) {
+        int result = super.compareTo(o);
+        if (result != 0) {
+            return result;
+        }
+
+        if (!(o instanceof MatcherExtractAction)) {
+            return 1;
+        }
+
+        return 0;
+    }
 }
 
 

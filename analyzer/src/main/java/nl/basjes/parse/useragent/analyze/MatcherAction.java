@@ -68,7 +68,7 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEqu
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotEqualsValueContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepStartsWithValueContext;
 
-public abstract class MatcherAction implements Serializable {
+public abstract class MatcherAction implements Serializable, Comparable<MatcherAction> {
 
     private String matchExpression;
     TreeExpressionEvaluator evaluator;
@@ -79,8 +79,7 @@ public abstract class MatcherAction implements Serializable {
 
     private static final Logger LOG = LoggerFactory.getLogger(MatcherAction.class);
 
-
-    private Matcher matcher;
+    protected Matcher matcher;
     private MatchesList matches;
     private boolean mustHaveMatches = false;
 
@@ -443,5 +442,39 @@ public abstract class MatcherAction implements Serializable {
 
     public MatchesList getMatches() {
         return matches;
+    }
+
+    @Override
+    public int compareTo(MatcherAction o) {
+        int result = 0;
+        if (o == this) {
+            return result;
+        }
+
+        result = o.matcher.getMatcherSourceLocation().compareTo(matcher.getMatcherSourceLocation());
+        if (result != 0) {
+            return result;
+        }
+
+        result = o.matchExpression.compareTo(matchExpression);
+        if (result != 0) {
+            return result;
+        }
+
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "MatcherAction{" +
+            "matchExpression='" + matchExpression + '\'' +
+            ", evaluator=" + evaluator +
+//            ", matcher=" + matcher +
+            ", matches=" + matches +
+            ", mustHaveMatches=" + mustHaveMatches +
+            ", verbose=" + verbose +
+            ", verbosePermanent=" + verbosePermanent +
+            ", verboseTemporary=" + verboseTemporary +
+            '}';
     }
 }
