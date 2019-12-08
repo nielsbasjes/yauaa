@@ -98,39 +98,4 @@ public class MatcherVariableAction extends MatcherAction {
     public void setInterestedActions(Set<MatcherAction> newInterestedActions) {
         this.interestedActions = newInterestedActions;
     }
-
-    @Override
-    public int compareTo(MatcherAction o) {
-        int result = super.compareTo(o);
-        if (result != 0) {
-            return result;
-        }
-
-        if (!(o instanceof MatcherVariableAction)) {
-            return 1;
-        }
-
-        MatcherVariableAction mva = (MatcherVariableAction) o;
-
-        result = variableName.compareTo(mva.variableName);
-        if (result != 0) {
-            return result;
-        }
-
-        if (interestedActions == null) {
-            if (mva.interestedActions != null) {
-                return 1;
-            }
-        } else {
-            result = interestedActions.toString().compareTo(mva.interestedActions.toString());
-            if (result != 0) {
-                return result;
-            }
-        }
-
-        // FIXME: Compare interestedActions
-
-        return 0;
-    }
-
 }
