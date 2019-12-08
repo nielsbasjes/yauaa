@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
@@ -33,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 // CHECKSTYLE.OFF: ParenPad
 public class TestBuilder {
 
-    private void runTestCase(UserAgentAnalyzerDirect userAgentAnalyzer) {
+    private void runTestCase(AbstractUserAgentAnalyzerDirect userAgentAnalyzer) {
         UserAgent parsedAgent = userAgentAnalyzer.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36");
 
@@ -196,7 +197,7 @@ public class TestBuilder {
 
     @Test
     public void testDualBuilderUsageNoSecondInstance() {
-        UserAgentAnalyzerBuilder<?, ?> builder =
+        UserAgentAnalyzerBuilder builder =
             UserAgentAnalyzer.newBuilder().delayInitialization();
 
         assertNotNull(builder.build(), "We should get a first instance from a single builder.");
@@ -207,7 +208,7 @@ public class TestBuilder {
 
     @Test
     public void testDualBuilderUsageUseSetterAfterBuild() {
-        UserAgentAnalyzerBuilder<?, ?> builder =
+        UserAgentAnalyzerBuilder builder =
             UserAgentAnalyzer.newBuilder().delayInitialization();
 
         assertNotNull(builder.build(), "We should get a first instance from a single builder.");
@@ -221,7 +222,7 @@ public class TestBuilder {
 
     @Test
     public void testLoadMoreResources() {
-        UserAgentAnalyzerBuilder<?, ?> builder =
+        UserAgentAnalyzerBuilder builder =
             UserAgentAnalyzer.newBuilder().delayInitialization().withField("DeviceClass");
 
         UserAgentAnalyzer uaa = builder.build();

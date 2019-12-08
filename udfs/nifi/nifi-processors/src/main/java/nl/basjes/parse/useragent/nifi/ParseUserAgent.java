@@ -121,7 +121,7 @@ public class ParseUserAgent extends AbstractProcessor {
     @OnScheduled
     public void onSchedule(ProcessContext context) {
         if (uaa == null) {
-            UserAgentAnalyzerBuilder<? extends UserAgentAnalyzer, ? extends UserAgentAnalyzerBuilder<?, ?>> builder =
+            UserAgentAnalyzerBuilder builder =
                 UserAgentAnalyzer
                 .newBuilder()
                 .hideMatcherLoadStats()

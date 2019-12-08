@@ -72,7 +72,7 @@ public abstract class AbstractSerializationTest {
         LOG.info("Create");
         LOG.info("--------------------------------------------------------------");
 
-        UserAgentAnalyzerTesterBuilder<?, ?> uaab = UserAgentAnalyzerTester
+        UserAgentAnalyzerTesterBuilder uaab = UserAgentAnalyzerTester
             .newBuilder()
             .keepTests()
             .withCache(1234)
