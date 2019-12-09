@@ -85,18 +85,30 @@
     <module>pig</module>
     <module>flink</module>
     <module>flink-table</module>
-    <module>beam</module>
     <module>hive</module>
     <module>drill</module>
     <module>nifi</module>
   </modules>
 
   <profiles>
+
+    <!-- A few modules fail to build under JDK 13. -->
+    <profile>
+      <id>Disable under JDK 13</id>
+      <activation>
+        <jdk>[,11]</jdk>
+      </activation>
+      <modules>
+        <module>beam</module>
+      </modules>
+    </profile>
+
+
     <profile>
       <id>logstash</id>
       <modules>
         <module>logstash</module>
-    </modules>
+      </modules>
     </profile>
   </profiles>
 
