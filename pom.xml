@@ -187,6 +187,30 @@
                   </rules>
                 </configuration>
               </execution>
+              <execution>
+                <id>Ensure-releasing-using-JDK-1.8</id>
+                <phase>validate</phase>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <!-- This MUST be done via a property of else it won't work -->
+                    <!-- https://stackoverflow.com/questions/33442256/maven-enforcer-plugin-and-child-pom -->
+                    <requireProperty>
+                      <property>BuildingWithJDK</property>
+                      <regex>1\.8</regex>
+                      <regexMessage>.
+
+                        ----------------------------------------------
+                        We are ONLY releasing Yauaa built using Java 8
+                        ----------------------------------------------
+                      </regexMessage>
+                    </requireProperty>
+                  </rules>
+                  <fail>true</fail>
+                </configuration>
+              </execution>
             </executions>
           </plugin>
 
@@ -371,6 +395,9 @@
       <activation>
         <jdk>1.8</jdk>
       </activation>
+      <properties>
+        <BuildingWithJDK>1.8</BuildingWithJDK>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -400,6 +427,9 @@
       <activation>
         <jdk>[1.11,)</jdk>
       </activation>
+      <properties>
+        <BuildingWithJDK>11</BuildingWithJDK>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -437,6 +467,15 @@
       </build>
     </profile>
 
+    <profile>
+      <id>Build with JDK 13</id>
+      <activation>
+        <jdk>[1.11,)</jdk>
+      </activation>
+      <properties>
+        <BuildingWithJDK>13</BuildingWithJDK>
+      </properties>
+      </profile>
 
   </profiles>
 
