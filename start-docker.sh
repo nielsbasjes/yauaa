@@ -29,7 +29,7 @@ then
 fi
 
 if [[ "$(docker images -q ${PROJECTNAME}-${OS} 2> /dev/null)" == "" ]]; then
-  DOCKER_BUILD="docker build"
+#  DOCKER_BUILD="docker build"
 cat << "Welcome-message"
 
  _____      _   _   _                                             _                                      _
@@ -46,7 +46,7 @@ cat << "Welcome-message"
  This will take a few minutes...
 Welcome-message
 else
-  DOCKER_BUILD="docker build -q"
+#  DOCKER_BUILD="docker build -q"
   echo "Loading Yauaa development environment"
 fi
 
