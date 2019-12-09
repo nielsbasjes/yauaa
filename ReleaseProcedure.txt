@@ -19,6 +19,8 @@ sed -i "s@YauaaVersion: \+\"[0-9\.]\+\"@YauaaVersion: \"${RELEASEVERSION}\"@g" s
 git diff src
 gitbook build ./src ./docs
 
+# Update the top of the CHANGELOG.md
+
 git status
 git commit -m"Version ${RELEASEVERSION}" -a
 
