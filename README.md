@@ -13,27 +13,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 
 HIGH Profile release notes:
 ===========================
-
-Version 5.8
+Version 5.14
 ---
-The detection for Microsoft Edge now no longer reports the 'EdgeHtml' version as if it is the version of 'Edge' itself. Microsoft made a mess of things again.
-
-Version 5.6
----
-In version 5.6 the number of detected DeviceBrands is greatly increased.
-The detection system for the DeviceBrand has been rewritten and as a consequence both the memory usage and the time needed for the analysis have been decreased.
-
-Version 5.5
----
-With Google Chrome 70 the useragent string pattern has been changed on Android ( https://www.chromestatus.com/feature/4558585463832576 ) .
-As a consequence the detection of the DeviceBrand failed and you always get "Unknown".
-This has been fixed in Yauaa 5.5.
-
-Version 5.1 is bad.
----
-If you are using version 5.1 you should upgrade IMMEDIATELY because 5.1 crashes over specific useragent patterns caused by a simple packaging mistake.
-
-    Mozilla/1.2.3 (http://basjes.nl)
+- The Builders no longer expose any generics. This is a small (breaking) API change with major benefits for people using other JVM languages (like Scala).
+- The serialization had issues in specific scenarios that have been fixed.
 
 Blog post
 =========
