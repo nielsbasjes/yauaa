@@ -561,19 +561,12 @@
 <p>This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.</p>
 <p>The full documentation can be found here <a href="https://yauaa.basjes.nl" target="_blank">https://yauaa.basjes.nl</a></p>
 <h1 id="high-profile-release-notes">HIGH Profile release notes:</h1>
-<h2 id="version-58">Version 5.8</h2>
-<p>The detection for Microsoft Edge now no longer reports the &apos;EdgeHtml&apos; version as if it is the version of &apos;Edge&apos; itself. Microsoft made a mess of things again.</p>
-<h2 id="version-56">Version 5.6</h2>
-<p>In version 5.6 the number of detected DeviceBrands is greatly increased.
-The detection system for the DeviceBrand has been rewritten and as a consequence both the memory usage and the time needed for the analysis have been decreased.</p>
-<h2 id="version-55">Version 5.5</h2>
-<p>With Google Chrome 70 the useragent string pattern has been changed on Android ( <a href="https://www.chromestatus.com/feature/4558585463832576" target="_blank">https://www.chromestatus.com/feature/4558585463832576</a> ) .
-As a consequence the detection of the DeviceBrand failed and you always get &quot;Unknown&quot;.
-This has been fixed in Yauaa 5.5.</p>
-<h2 id="version-51-is-bad">Version 5.1 is bad.</h2>
-<p>If you are using version 5.1 you should upgrade IMMEDIATELY because 5.1 crashes over specific useragent patterns caused by a simple packaging mistake.</p>
-<pre><code>Mozilla/1.2.3 (http://basjes.nl)
-</code></pre><h1 id="blog-post">Blog post</h1>
+<h2 id="version-514">Version 5.14</h2>
+<ul>
+<li>The Builders no longer expose any generics. This is a small (breaking) API change with major benefits for people using other JVM languages (like Scala).</li>
+<li>The serialization had issues in specific scenarios that have been fixed.</li>
+</ul>
+<h1 id="blog-post">Blog post</h1>
 <p>A bit more background about this useragent parser can be found in this blog which I wrote about it: <a href="https://partnerprogramma.bol.com/click/click?p=1&amp;t=url&amp;s=2171&amp;f=TXL&amp;url=https%3A%2F%2Ftechlab.bol.com%2Fmaking-sense-user-agent-string%2F&amp;name=yauaa" target="_blank">https://techlab.bol.com/making-sense-user-agent-string/</a></p>
 <h1 id="example-output">Example output</h1>
 <p>As an example the useragent of my phone:</p>
@@ -740,7 +733,7 @@ limitations under the License.
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"The output to expect","level":"1.2","depth":1,"path":"README-Output.md","ref":"README-Output.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.14"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README.md","mtime":"2019-10-30T09:49:02.851Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-09T14:39:06.863Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"The output to expect","level":"1.2","depth":1,"path":"README-Output.md","ref":"README-Output.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.14"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README.md","mtime":"2019-12-10T12:59:44.378Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-10T13:01:31.369Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
