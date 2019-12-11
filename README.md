@@ -13,6 +13,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 
 HIGH Profile release notes:
 ===========================
+Version 5.14.1
+---
+- Quick patch to go to the latest __stable__ version of SLF4J.
+
 Version 5.14
 ---
 - The Builders no longer expose any generics. This is a small (breaking) API change with major benefits for people using other JVM languages (like Scala).

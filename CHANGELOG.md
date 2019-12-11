@@ -4,6 +4,9 @@ v5.15-SNAPSHOT
 ===
 ...
 
+v5.14.1
+===
+- Use the latest STABLE slf4j version 1.7.29
 
 v5.14
 ===
