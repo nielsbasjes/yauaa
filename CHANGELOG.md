@@ -2,7 +2,8 @@ This is intended as an overview of the major changes
 
 v5.15-SNAPSHOT
 ===
-...
+- New/improved detections
+  - Brand: Huawei/Honor
 
 v5.14.1
 ===

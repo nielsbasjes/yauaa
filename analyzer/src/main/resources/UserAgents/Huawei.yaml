@@ -171,3 +171,32 @@ config:
       AgentVersionMajor                    : '61'
       AgentNameVersion                     : 'Chrome 61.0.3163.98'
       AgentNameVersionMajor                : 'Chrome 61'
+
+
+- test:
+    input:
+      user_agent_string: 'Dalvik/2.1.0 (Linux; U; Android 9; HLK-AL00 Build/HONORHLK-AL00)'
+    expected:
+      DeviceClass                           : 'Mobile'
+      DeviceName                            : 'Huawei HLK-AL00'
+      DeviceBrand                           : 'Huawei'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Android'
+      OperatingSystemVersion                : '9'
+      OperatingSystemVersionMajor           : '9'
+      OperatingSystemNameVersion            : 'Android 9'
+      OperatingSystemNameVersionMajor       : 'Android 9'
+      OperatingSystemVersionBuild           : 'HONORHLK-AL00'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Special'
+      AgentName                             : 'Dalvik'
+      AgentVersion                          : '2.1.0'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'Dalvik 2.1.0'
+      AgentNameVersionMajor                 : 'Dalvik 2'
+      AgentSecurity                         : 'Strong security'
