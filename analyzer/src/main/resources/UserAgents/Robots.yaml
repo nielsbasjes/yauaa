@@ -1205,7 +1205,7 @@ config:
       user_agent_string: 'NetLyzer FastProbe (See http://netlyzer.com/report/www.bol.com for info)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Netlyzer Robot'
+      DeviceName                           : 'Netlyzer FastProbe'
       DeviceBrand                          : 'Netlyzer'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
@@ -1213,11 +1213,13 @@ config:
       OperatingSystemVersionMajor          : '??'
       OperatingSystemNameVersion           : 'Cloud ??'
       OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'NetLyzer FastProbe'
       LayoutEngineVersion                  : '??'
       LayoutEngineVersionMajor             : '??'
-      AgentClass                           : 'Special'
+      LayoutEngineNameVersion              : 'NetLyzer FastProbe ??'
+      LayoutEngineNameVersionMajor         : 'NetLyzer FastProbe ??'
+      AgentClass                           : 'Robot'
       AgentName                            : 'NetLyzer FastProbe'
       AgentVersion                         : '??'
       AgentVersionMajor                    : '??'
@@ -7572,6 +7574,60 @@ config:
       AgentNameVersion                     : 'TagVisit 0.1'
       AgentNameVersionMajor                : 'TagVisit 0'
       AgentInformationUrl                  : 'http://tag-visit.com/CSwZNAIbW1ZbF3BeNDI/bot'
+
+- test:
+    input:
+      user_agent_string: 'kube-probe/1.10'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Kube-Probe'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'kube-probe'
+      LayoutEngineVersion                  : '1.10'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'kube-probe 1.10'
+      LayoutEngineNameVersionMajor         : 'kube-probe 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'kube-probe'
+      AgentVersion                         : '1.10'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'kube-probe 1.10'
+      AgentNameVersionMajor                : 'kube-probe 1'
+
+
+- test:
+    input:
+      user_agent_string: 'kube-probe/1.13+'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Kube-Probe'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'kube-probe'
+      LayoutEngineVersion                  : '1.13'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'kube-probe 1.13'
+      LayoutEngineNameVersionMajor         : 'kube-probe 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'kube-probe'
+      AgentVersion                         : '1.13'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'kube-probe 1.13'
+      AgentNameVersionMajor                : 'kube-probe 1'
+
 
 
 # FIXME: Two examples of robots

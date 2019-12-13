@@ -4,6 +4,7 @@ v5.15-SNAPSHOT
 ===
 - New/improved detections
   - Brand: Huawei/Honor
+  - Robots: 'probe' implies Robot
 
 v5.14.1
 ===
