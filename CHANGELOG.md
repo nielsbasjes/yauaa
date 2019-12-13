@@ -2,9 +2,12 @@ This is intended as an overview of the major changes
 
 v5.15-SNAPSHOT
 ===
+- Analyzer:
+  - Better url extraction.
 - New/improved detections
   - Brand: Huawei/Honor
-  - Robots: 'probe' implies Robot
+  - Robots: 'probe' and 'alyzer' both imply 'Robot'
+
 
 v5.14.1
 ===

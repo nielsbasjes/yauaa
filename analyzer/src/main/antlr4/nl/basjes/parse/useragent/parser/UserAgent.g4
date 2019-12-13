@@ -144,10 +144,12 @@ fragment IPv4Addres     : ( [1-9]([0-9][0-9]?)?'.'[1-9]([0-9][0-9]?)?'.'[1-9]([0
 fragment UrlHostname    :  'localhost' | ( [a-zA-Z\-_] [a-zA-Z0-9\-_]+ ('.'[a-zA-Z0-9\-_]+)* '.' ( TLD | OtherTLDLikeEnds )) ;
 fragment UrlPathA       :  ('/'|'?') [a-zA-Z] [a-zA-Z0-9\-_~=?&%+.:/#]* ;
 fragment UrlPathN       :  ('/'|'?') [0-9][a-zA-Z0-9\-_]* '/' [a-zA-Z0-9\-_~=?&%+.:/#]* ;
+fragment UrlPathP       :  ('/'|'?') [a-zA-Z0-9\-_~=?&%+.:/#]* ;
+fragment ProtoURL       :  ((('http'|'ftp') 's'? ':')  '//' )  UrlHostname (':'[0-9]+)? UrlPathP ;
 fragment BasicURL       :  ((('http'|'ftp') 's'? ':')? '//' )? UrlHostname (':'[0-9]+)? (UrlPathA|UrlPathN)? ;
 fragment IPv4URL        :  ((('http'|'ftp') 's'? ':')? '//' )  IPv4Addres  (':'[0-9]+)? (UrlPathA|UrlPathN)? ;
 
-fragment AllURLs        : BasicURL | IPv4URL;
+fragment AllURLs        : ProtoURL | BasicURL | IPv4URL;
 
 URL
     : ( AllURLs | '<' AllURLs '>' | '<a href="' AllURLs '">'~[<]+'</a>' )
