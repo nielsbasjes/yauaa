@@ -578,10 +578,10 @@ config:
       AgentNameVersion                     : 'iTunes 12.7.4'
       AgentNameVersionMajor                : 'iTunes 12'
 
+
 - test:
     input:
       user_agent_string: 'iTunes/12.7 (Windows; Microsoft Windows 8.1 x64 Home Premium Edition (Build 9600); x64) AppleWebKit/7604.1038.1006.6'
-
     expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
@@ -606,6 +606,7 @@ config:
       AgentVersionMajor                    : '12'
       AgentNameVersion                     : 'iTunes 12.7'
       AgentNameVersionMajor                : 'iTunes 12'
+
 
 - lookup:
     name: 'AliAppNames'
@@ -753,13 +754,7 @@ config:
       WebviewAppNameVersionMajor           : 'Alibaba AliApp 0'
 
 
-
-
 - test:
-#    options:
-#    - 'verbose'
-#    - 'init'
-#    - 'only'
     input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iOS 11_2_6 like Mac OS X) AppleWebKit/604.5.6 (KHTML, like Gecko) Mobile/15D100 ChannelId(3) Nebula AliApp(CLOUDMAIL/2.6.8)'
     expected:
@@ -792,10 +787,6 @@ config:
 
 
 - test:
-#    options:
-#    - 'verbose'
-#    - 'init'
-#    - 'only'
     input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15F79 AliApp(DingTalk/4.5.1) com.laiwang.DingTalk/10127809 Channel/201200 language/zh-Hans-CN'
     expected:
@@ -830,13 +821,7 @@ config:
       WebviewAppNameVersionMajor           : 'Alibaba DingTalk 4'
 
 
-
-
 - test:
-#    options:
-#    - 'verbose'
-#    - 'init'
-#    - 'only'
     input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac OS X; zh-CN) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/15B202 UCBrowser/11.8.1.1043 Mobile AliApp(TUnionSDK/0.1.20)'
     expected:
@@ -871,13 +856,7 @@ config:
       WebviewAppNameVersionMajor           : 'Alibaba AliApp 0'
 
 
-
-
 - test:
-#    options:
-#    - 'verbose'
-#    - 'init'
-#    - 'only'
     input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac OS X; zh-CN) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/14G60 UCBrowser/11.4.7.931 Mobile AliApp(TUnionSDK/0.1.12) AliApp(TUnionSDK/0.1.12)'
     expected:
@@ -947,13 +926,7 @@ config:
       WebviewAppNameVersionMajor           : 'Alibaba AlipayClient 9'
 
 
-
-
 - test:
-#    options:
-#    - 'verbose'
-#    - 'init'
-#    - 'only'
     input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iOS 11_2_6 like Mac OS X) AppleWebKit/604.5.6 (KHTML, like Gecko) Mobile/15D100 ChannelId(2) Nebula AliApp(CLOUDMAIL/5.1.0)'
     expected:
@@ -985,13 +958,7 @@ config:
       WebviewAppNameVersionMajor           : 'Alibaba Cloudmail 5'
 
 
-
-
 - test:
-#    options:
-#    - 'verbose'
-#    - 'init'
-#    - 'only'
     input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_4_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/15G77 UCBrowser/12.1.2.1096 Mobile AliApp(TUnionSDK/0.1.20.3)'
     expected:
@@ -1026,13 +993,7 @@ config:
       WebviewAppNameVersionMajor           : 'Alibaba AliApp 0'
 
 
-
-
 - test:
-#    options:
-#    - 'verbose'
-#    - 'init'
-#    - 'only'
     input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15F79 AliApp(DingTalk/4.5.1) com.laiwang.DingTalk/10127809 Channel/201200 language/en-DE'
     expected:
@@ -1067,13 +1028,7 @@ config:
       WebviewAppNameVersionMajor           : 'Alibaba DingTalk 4'
 
 
-
-
 - test:
-#    options:
-#    - 'verbose'
-#    - 'init'
-#    - 'only'
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; SM-N9008 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 AliApp(AP/8.5.3.012601) AlipayClient/8.5.3.012601'
     expected:
@@ -1105,13 +1060,7 @@ config:
       WebviewAppNameVersionMajor           : 'Alibaba AlipayClient 8'
 
 
-
-
 - test:
-#    options:
-#    - 'verbose'
-#    - 'init'
-#    - 'only'
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.4; M353 Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36 AliApp(AP/8.5.3.012601) AlipayClient/8.5.3.012601'
     expected:
@@ -1141,6 +1090,7 @@ config:
       WebviewAppVersion                    : '8.5.3.012601'
       WebviewAppVersionMajor               : '8'
       WebviewAppNameVersionMajor           : 'Alibaba AlipayClient 8'
+
 
 - test:
     input:
@@ -1194,6 +1144,7 @@ config:
     - 'OperatingSystemName                 :    10000 :"Android"'
     - 'AgentClass                          :    10000 :"Voice"'
     - 'AgentName                           :    10000 :"Google Go"'
+
 
 - test:
     input:
