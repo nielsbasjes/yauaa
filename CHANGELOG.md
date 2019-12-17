@@ -7,7 +7,7 @@ v5.15-SNAPSHOT
   - The Tencent/Alibaba NetType and Language tags are now better extracted.
 - New/improved detections
   - Brand: Huawei/Honor
-  - Robots: 'probe' and 'alyzer' both imply 'Robot'
+  - Robots: 'probe' and 'alyzer' both imply 'Robot', new Bing useragents.
 
 
 v5.14.1
