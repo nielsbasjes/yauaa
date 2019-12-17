@@ -659,3 +659,62 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Nokia) like Gecko BingPreview/1.0b'
     expected: *isBingPreviewMobile
+
+# ===========================
+# From https://blogs.bing.com/webmaster/december-2019/Announcing-future-user-agents-for-Bingbot
+#  Desktop
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) Chrome/80.0.345.0 Safari/537.36 Edg/80.0.345.0'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Microsoft BingBot'
+      DeviceBrand                           : 'Microsoft'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Microsoft Cloud'
+      OperatingSystemVersion                : 'Microsoft Azure'
+      OperatingSystemVersionMajor           : 'Microsoft Azure'
+      OperatingSystemNameVersion            : 'Microsoft Azure'
+      OperatingSystemNameVersionMajor       : 'Microsoft Azure'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Bingbot'
+      LayoutEngineVersion                   : '2.0'
+      LayoutEngineVersionMajor              : '2'
+      LayoutEngineNameVersion               : 'Bingbot 2.0'
+      LayoutEngineNameVersionMajor          : 'Bingbot 2'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Bingbot'
+      AgentVersion                          : '2.0'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'Bingbot 2.0'
+      AgentNameVersionMajor                 : 'Bingbot 2'
+      AgentInformationUrl                   : 'http://www.bing.com/bingbot.htm'
+
+
+# Mobile
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.345.0 Mobile Safari/537.36 Edg/80.0.345.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
+    expected:
+      DeviceClass                           : 'Robot Mobile'
+      DeviceName                            : 'Microsoft BingBot'
+      DeviceBrand                           : 'Microsoft'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Microsoft Cloud'
+      OperatingSystemVersion                : 'Microsoft Azure'
+      OperatingSystemVersionMajor           : 'Microsoft Azure'
+      OperatingSystemNameVersion            : 'Microsoft Azure'
+      OperatingSystemNameVersionMajor       : 'Microsoft Azure'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Bingbot'
+      LayoutEngineVersion                   : '2.0'
+      LayoutEngineVersionMajor              : '2'
+      LayoutEngineNameVersion               : 'Bingbot 2.0'
+      LayoutEngineNameVersionMajor          : 'Bingbot 2'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Bingbot'
+      AgentVersion                          : '2.0'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'Bingbot 2.0'
+      AgentNameVersionMajor                 : 'Bingbot 2'
+      AgentInformationUrl                   : 'http://www.bing.com/bingbot.htm'
