@@ -4,6 +4,7 @@ v5.15-SNAPSHOT
 ===
 - Analyzer:
   - Better url extraction.
+  - The Tencent/Alibaba NetType and Language tags are now better extracted.
 - New/improved detections
   - Brand: Huawei/Honor
   - Robots: 'probe' and 'alyzer' both imply 'Robot'

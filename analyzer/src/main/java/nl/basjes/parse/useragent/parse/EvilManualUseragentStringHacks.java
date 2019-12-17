@@ -38,6 +38,11 @@ public final class EvilManualUseragentStringHacks {
     private static final Pattern ANDROID_DASH_VERSION =
         Pattern.compile("(android)-([0-9]+)", Pattern.CASE_INSENSITIVE);
 
+    private static final Pattern TENCENT_NETTYPE_FIX  =
+        Pattern.compile("(NetType)/([0-9a-z._-]+)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern TENCENT_LANGUAGE_FIX =
+        Pattern.compile("(Language)/([a-z_-]+)", Pattern.CASE_INSENSITIVE);
+
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
      * Yes, all of this is pure evil but we "have to".
@@ -59,6 +64,17 @@ public final class EvilManualUseragentStringHacks {
         if (result.charAt(0) == ' ') {
             result = result.trim();
         }
+
+        // The NetType and Language tags as used by Tencent re hard to parse.
+        // Some example snippets from Tencent/Alibaba style agents:
+        //    Core/UIWebView NetType/WIFI
+        //    Core/UIWebView NetType/2G
+        //    Process/tools NetType/portalmmm.nl Language/zh_CN
+        //    Process/tools NetType/NON_NETWORK Language/zh_CN
+        //
+        // The 'fix' is to force an extra comment block in there.
+        result = TENCENT_NETTYPE_FIX.matcher(result).replaceAll("() $1/$2()");
+        result = TENCENT_LANGUAGE_FIX.matcher(result).replaceAll("() $1/$2()");
 
         result = replaceString(result, "SSL/TLS", "SSL TLS");
 

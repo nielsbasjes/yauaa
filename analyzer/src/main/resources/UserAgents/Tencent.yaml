@@ -94,59 +94,7 @@ config:
 
 - matcher:
     extract:
-    - 'NetworkType                         :        1 :agent.product.name="NetType"^.version[1]'
-
-# This happens quite often:
-#       Core/UIWebView NetType/WIFI
-#       Core/UIWebView NetType/2G
-# The effect is that the parse tree gets a bit messy because everything is text (no numbers)
-- matcher:
-    variable:
-    - 'NetTypeProduct                      :agent.product[-3]="Core/UIWebView NetType"'
-    require:
-    - 'IsNull[@NetTypeProduct.(2)version]'
-    extract:
-    - 'NetworkType                         :        2 :@NetTypeProduct>'
-
-- matcher:
-    variable:
-    - 'NetTypeProduct                      :agent.product[-3]="Core/UIWebView NetType"'
-    extract:
-    - 'NetworkType                         :        3 :@NetTypeProduct.(2)version'
-
-# This happens sometimes:
-#     Process/tools NetType/portalmmm.nl Language/zh_CN
-# which is parsed as
-#    - 'agent.(8)product="Process/tools NetType/portalmmm.nl"'
-#    - 'agent.(8)product.(1)name="Process"'
-#    - 'agent.(8)product.(1)version="tools NetType"'
-#    - 'agent.(8)product.(2)version="portalmmm.nl"'
-#    - 'agent.(8)product.(2)version.(1)url="portalmmm.nl"'
-- matcher:
-    variable:
-    - 'NetTypeVersion                      :agent.product.version[2]="NetType"'
-    extract:
-    - 'NetworkType                         :        4 :@NetTypeVersion>'
-
-
-# This happens sometimes:
-#     Process/tools NetType/NON_NETWORK Language/zh_CN
-# which is parsed as
-#    - 'agent.(10)product="Process/tools NetType/"'
-#    - 'agent.(10)product.(1)name="Process"'
-#    - 'agent.(10)product.(1)version="tools NetType"'
-#    - 'agent.(11)product="NON_NETWORK Language/zh_CN"'
-#    - 'agent.(11)product.(1)name="NON_NETWORK Language"'
-#    - 'agent.(11)product.(1)version="zh_CN"'
-# Improving the parser to read this correctly seems very hard.
-- matcher:
-    variable:
-    - 'NetTypeVersion                      :agent.product.version[2]="NetType"'
-    require:
-    - 'IsNull[@NetTypeVersion>]'
-    extract:
-    - 'NetworkType                         :        4 :@NetTypeVersion^>.name[-2]'
-
+    - 'NetworkType                         :        1 :agent.(1-15)product.name="NetType"^.version'
 
 - test:
     input:
@@ -1470,3 +1418,32 @@ config:
       NetworkType                          : 'Portalmmm.nl'
 
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; MI 9 SE Build/PKQ1.181121.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/74.0.3729.136 Mobile Safari/537.36 MMWEBID/9817 MicroMessenger/7.0.9.1560(0x27000935) Process/tools NetType/WIFI Language/zh_CN ABI/arm64'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Xiaomi MI 9 SE'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersionBuild          : 'PKQ1.181121.001'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '74.0'
+      LayoutEngineVersionMajor             : '74'
+      LayoutEngineNameVersion              : 'Blink 74.0'
+      LayoutEngineNameVersionMajor         : 'Blink 74'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '7.0.9.1560'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'WeChat 7.0.9.1560'
+      AgentNameVersionMajor                : 'WeChat 7'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      NetworkType                          : 'Wifi'
