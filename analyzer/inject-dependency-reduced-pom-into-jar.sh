@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Yet Another UserAgent Analyzer
-# Copyright (C) 2013-2019 Niels Basjes
+# Copyright (C) 2013-2020 Niels Basjes
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ mkdir -p "target/${DIR}"
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!--
   ~ Yet Another UserAgent Analyzer
-  ~ Copyright (C) 2013-2019 Niels Basjes
+  ~ Copyright (C) 2013-2020 Niels Basjes
   ~
   ~ Licensed under the Apache License, Version 2.0 (the \"License\");
   ~ you may not use this file except in compliance with the License.
