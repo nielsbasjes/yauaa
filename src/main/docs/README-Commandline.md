@@ -9,11 +9,12 @@ So at this time: **BETA** quality.
 You can get the prebuild jar from maven central.
 If you use a maven based project simply add this dependency
 
-    <dependency>
-      <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa-commandline</artifactId>
-      <version>5.1</version>
-    </dependency>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
+  &lt;artifactId&gt;yauaa-commandline&lt;/artifactId&gt;
+  &lt;version&gt;{{ book.YauaaVersion }}&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
 
 ## Building
 Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:

@@ -4,16 +4,17 @@ some APIs that allow you to try things out.
 
 This servlet can be downloaded via
 
-<pre><code><dependency>
-  <groupId>nl.basjes.parse.useragent</groupId>
-  <artifactId>yauaa-webapp</artifactId>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
+  &lt;artifactId&gt;yauaa-webapp&lt;/artifactId&gt;
   &lt;version&gt;{{ book.YauaaVersion }}&lt;/version&gt;
-  <type>war</type>
-</dependency>
+  &lt;type&gt;war&lt;/type&gt;
+&lt;/dependency&gt;
 </code></pre>
 
 NOTE that this is a **DEMONSTRATION** servlet!
-I is simply the library in a servlet, no optimizations or smart memory settings have been done at all.
+
+It is simply the library in a servlet, no optimizations or smart memory settings have been done at all.
 
 # Docker
 Starting with version 5.14.1 the webservlet is also published to the central docker registry.
