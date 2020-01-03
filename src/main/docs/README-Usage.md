@@ -145,34 +145,3 @@ will become available which will make it a lot easier for Scala users to use:
       .withField("DeviceClass")
       .build
 
-For older versions [Julien BENOIT](https://github.com/jbenoit2011) found two 'workable' solutions of constructing the analyzer from a Scala based application:
-
-Solution 1, with `asInstanceOf` method:
-
-    val uaa = UserAgentAnalyzer.newBuilder
-      .withCache(10000)           .asInstanceOf[UserAgentAnalyzerDirectBuilder[_, _]]
-      .hideMatcherLoadStats       .asInstanceOf[UserAgentAnalyzerDirectBuilder[_, _]]
-      .withField("DeviceClass")   .asInstanceOf[UserAgentAnalyzerDirectBuilder[_, _]]
-      .build                      .asInstanceOf[UserAgentAnalyzer]
-
-Solution 2, with pattern matching:
-
-    val uaa = UserAgentAnalyzer
-      .newBuilder
-      .withCache(10000) match {
-      case b: UserAgentAnalyzerDirectBuilder[_, _] =>
-        b.hideMatcherLoadStats match {
-          case c: UserAgentAnalyzerDirectBuilder[_, _] =>
-            c.withField("DeviceClass") match {
-              case d: UserAgentAnalyzerDirectBuilder[_, _] =>
-                d.build match {
-                  case e: UserAgentAnalyzer => e
-                  case _ => throw new Exception("User-Agent analyzer cannot be built")
-                }
-              case _ => throw new Exception("User-Agent analyzer cannot be built")
-            }
-          case _ => throw new Exception("User-Agent analyzer cannot be built")
-        }
-      case _ => throw new Exception("User-Agent analyzer cannot be built")
-    }
-
