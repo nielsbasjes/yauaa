@@ -5,6 +5,7 @@ Yauaa: Yet Another UserAgent Analyzer
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=nielsbasjes_yauaa&metric=alert_status)](https://sonarcloud.io/dashboard?id=nielsbasjes_yauaa)
 [![License](https://img.shields.io/:license-apache-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Maven Central](https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22)
+[![Docker Hub](https://img.shields.io/docker/pulls/nielsbasjes/yauaa)](https://hub.docker.com/r/nielsbasjes/yauaa)
 [![If this project has business value for you then don't hesitate to support me with a small donation.](https://img.shields.io/badge/Donations-via%20Paypal-blue.svg)](https://www.paypal.me/nielsbasjes)
 
 This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.
