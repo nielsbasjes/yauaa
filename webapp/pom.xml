@@ -37,8 +37,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <appengine.maven.plugin>2.0.0</appengine.maven.plugin>
     <main.class>nl.basjes.parse.useragent.servlet.ParseService</main.class>
-
-    <docker.image.prefix>nl.basjes</docker.image.prefix>
   </properties>
 
   <dependencies>
@@ -237,13 +235,55 @@
       </plugin>
 
       <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>copy-dockerfile</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/docker/</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>com.spotify</groupId>
         <artifactId>dockerfile-maven-plugin</artifactId>
-        <version>1.4.10</version>
+        <version>1.4.13</version>
+        <executions>
+          <execution>
+            <id>build</id>
+            <phase>package</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>deploy</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>push</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
-          <repository>${docker.image.prefix}/${project.artifactId}</repository>
+          <dockerfile>target/Dockerfile</dockerfile>
+          <contextDirectory>target</contextDirectory>
+          <repository>nielsbasjes/yauaa</repository>
+          <tag>${project.version}</tag>
           <buildArgs>
-            <JAR_FILE>target/${project.build.finalName}.war</JAR_FILE>
+            <WAR_FILE>${project.build.finalName}.war</WAR_FILE>
           </buildArgs>
         </configuration>
       </plugin>
