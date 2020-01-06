@@ -16,11 +16,7 @@
 # limitations under the License.
 #
 
-VERSION="latest"
-#WARFILE="target/yauaa-webapp-${VERSION}.war"
-WARFILE="target/yauaa-webapp-*.war"
+VERSION=$(fgrep "<version>" pom.xml | sed 's@^.*<version>\(.*\)</version>.*$@\1@g')
 
-docker build --build-arg WAR_FILE="${WARFILE}" -t yauaa:${VERSION} .
-docker run -p 8080:8080  yauaa:${VERSION}
-#Detached:  docker run -d -p 8080:8080  yauaa:${VERSION}
+docker run -p 8080:8080 nielsbasjes/yauaa:${VERSION}
 

@@ -17,6 +17,16 @@ HIGH Profile release notes:
 Version 5.14.1
 ---
 - Quick patch to go to the latest __stable__ version of SLF4J.
+- A ready to run docker image is now available: ([more info](https://yauaa.basjes.nl/README-WebServlet.html)).
+
+  With docker installed do
+
+      docker pull nielsbasjes/yauaa
+      docker run -p8080:8080 nielsbasjes/yauaa
+
+   and then open
+
+      http://localhost:8080/
 
 Version 5.14
 ---

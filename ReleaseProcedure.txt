@@ -44,6 +44,9 @@ git commit -m"Start development for ${NEXTVERSION}" -a
 git push
 git push origin v${RELEASEVERSION}
 
+# Publish the docker image
+docker tag nielsbasjes/yauaa:${RELEASEVERSION} nielsbasjes/yauaa:latest
+docker push nielsbasjes/yauaa:${RELEASEVERSION} nielsbasjes/yauaa:latest
 
 #######################
 
