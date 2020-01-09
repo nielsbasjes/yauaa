@@ -139,6 +139,7 @@ metadata:
   namespace: yauaa
   annotations:
     kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   rules:
     - host: yauaa.example.nl
