@@ -16,7 +16,5 @@
 # limitations under the License.
 #
 
-VERSION=$(fgrep "<version>" pom.xml | sed 's@^.*<version>\(.*\)</version>.*$@\1@g')
-
-docker run --rm -p 8080:8080 nielsbasjes/yauaa:${VERSION}
+docker run --rm -p 8080:8080 nielsbasjes/yauaa:latest
 

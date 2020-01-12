@@ -16,6 +16,6 @@
 #
 FROM openjdk:8-jdk-alpine
 ARG WAR_FILE
-ADD ${WAR_FILE} yauaa.war
+ADD ${WAR_FILE} ${project.build.finalName}.war
 EXPOSE 8080
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/yauaa.war"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/${project.build.finalName}.war"]
