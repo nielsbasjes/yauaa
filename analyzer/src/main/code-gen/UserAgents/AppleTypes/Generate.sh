@@ -58,6 +58,10 @@ echo "      \"iPhone\"     : \"Phone\""
 echo "      \"iPad\"       : \"Tablet\""
 echo "      \"iPod\"       : \"Phone\""
 echo "      \"iPod touch\" : \"Phone\""
+echo "      \"Apple-iPhone\"     : \"Phone\""
+echo "      \"Apple-iPad\"       : \"Tablet\""
+echo "      \"Apple-iPod\"       : \"Phone\""
+echo "      \"Apple-iPod touch\" : \"Phone\""
 
 grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
 do
@@ -68,9 +72,12 @@ do
     deviceName=$(echo "${line}" | cut -d'|' -f3)
     deviceVersion=$(echo "${line}" | cut -d'|' -f4-)
     echo "      \"${key}\" : \"${deviceClass}\""
-    echo "      \"${keyC}\" : \"${deviceClass}\""
-    if [[ ${keyS} != *","* ]]; then
+    if [[ ${key} == *","* ]]; then
+      echo "      \"${keyC}\" : \"${deviceClass}\""
+      echo "      \"Apple-${keyC}\" : \"${deviceClass}\""
+      if [[ ${keyS} != *","* ]]; then
         echo "      \"${keyS}\" : \"${deviceClass}\""
+      fi
     fi
 done
 
@@ -82,6 +89,10 @@ echo "      \"iPhone\"     : \"Apple iPhone\""
 echo "      \"iPad\"       : \"Apple iPad\""
 echo "      \"iPod\"       : \"Apple iPod\""
 echo "      \"iPod touch\" : \"Apple iPod touch\""
+echo "      \"Apple-iPhone\"     : \"Apple iPhone\""
+echo "      \"Apple-iPad\"       : \"Apple iPad\""
+echo "      \"Apple-iPod\"       : \"Apple iPod\""
+echo "      \"Apple-iPod touch\" : \"Apple iPod touch\""
 grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
 do
     key=$(echo "${line}" | cut -d'|' -f1)
@@ -93,6 +104,7 @@ do
     echo "      \"${key}\" : \"${deviceName}\""
     if [[ ${key} == *","* ]]; then
         echo "      \"${keyC}\" : \"${deviceName}\""
+        echo "      \"Apple-${keyC}\" : \"${deviceName}\""
         if [[ ${keyS} != *","* ]]; then
             echo "      \"${keyS}\" : \"${deviceName}\""
         fi
@@ -107,6 +119,10 @@ echo "      \"iPhone\"     : \"iPhone\""
 echo "      \"iPad\"       : \"iPad\""
 echo "      \"iPod\"       : \"iPod\""
 echo "      \"iPod touch\" : \"iPod touch\""
+echo "      \"Apple-iPhone\"     : \"iPhone\""
+echo "      \"Apple-iPad\"       : \"iPad\""
+echo "      \"Apple-iPod\"       : \"iPod\""
+echo "      \"Apple-iPod touch\" : \"iPod touch\""
 grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
 do
     key=$(echo "${line}" | cut -d'|' -f1)
@@ -118,45 +134,46 @@ do
     echo "      \"${key}\" : \"${deviceVersion}\""
     if [[ ${key} == *","* ]]; then
         echo "      \"${keyC}\" : \"${deviceVersion}\""
+        echo "      \"Apple-${keyC}\" : \"${deviceVersion}\""
         if [[ ${keyS} != *","* ]]; then
             echo "      \"${keyS}\" : \"${deviceVersion}\""
         fi
     fi
 done
 
-grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
-do
-    key=$(echo "${line}" | cut -d'|' -f1)
-    deviceClass=$(echo "${line}" | cut -d'|' -f2)
-    deviceName=$(echo "${line}" | cut -d'|' -f3)
-    deviceVersion=$(echo "${line}" | cut -d'|' -f4-)
-echo "
-- matcher:
-    require:
-    - 'agent.product.comments.entry.(1)text=\"${key}\"'
-    extract:
-    - 'DeviceBrand                         :      110 :\"Apple\"'
-    - 'DeviceClass                         :      110 :\"${deviceClass}\"'
-    - 'DeviceName                          :      110 :\"${deviceName}\"'
-    - 'DeviceVersion                       :      110 :\"${deviceVersion}\"'
-
-- matcher:
-    require:
-    - 'agent.product.name=\"${key}\"'
-    extract:
-    - 'DeviceBrand                         :      111 :\"Apple\"'
-    - 'DeviceClass                         :      111 :\"${deviceClass}\"'
-    - 'DeviceName                          :      111 :\"${deviceName}\"'
-    - 'DeviceVersion                       :      111 :\"${deviceVersion}\"'
-
-- matcher:
-    require:
-    - 'agent.text=\"${key}\"'
-    extract:
-    - 'DeviceBrand                         :      111 :\"Apple\"'
-    - 'DeviceClass                         :      111 :\"${deviceClass}\"'
-    - 'DeviceName                          :      111 :\"${deviceName}\"'
-    - 'DeviceVersion                       :      111 :\"${deviceVersion}\"'
-"
-done
+#grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
+#do
+#    key=$(echo "${line}" | cut -d'|' -f1)
+#    deviceClass=$(echo "${line}" | cut -d'|' -f2)
+#    deviceName=$(echo "${line}" | cut -d'|' -f3)
+#    deviceVersion=$(echo "${line}" | cut -d'|' -f4-)
+#echo "
+#- matcher:
+#    require:
+#    - 'agent.product.comments.entry.(1)text=\"${key}\"'
+#    extract:
+#    - 'DeviceBrand                         :      110 :\"Apple\"'
+#    - 'DeviceClass                         :      110 :\"${deviceClass}\"'
+#    - 'DeviceName                          :      110 :\"${deviceName}\"'
+#    - 'DeviceVersion                       :      110 :\"${deviceVersion}\"'
+#
+#- matcher:
+#    require:
+#    - 'agent.product.name=\"${key}\"'
+#    extract:
+#    - 'DeviceBrand                         :      111 :\"Apple\"'
+#    - 'DeviceClass                         :      111 :\"${deviceClass}\"'
+#    - 'DeviceName                          :      111 :\"${deviceName}\"'
+#    - 'DeviceVersion                       :      111 :\"${deviceVersion}\"'
+#
+#- matcher:
+#    require:
+#    - 'agent.text=\"${key}\"'
+#    extract:
+#    - 'DeviceBrand                         :      111 :\"Apple\"'
+#    - 'DeviceClass                         :      111 :\"${deviceClass}\"'
+#    - 'DeviceName                          :      111 :\"${deviceName}\"'
+#    - 'DeviceVersion                       :      111 :\"${deviceVersion}\"'
+#"
+#done
 ) | uniq > "${OUTPUT}"

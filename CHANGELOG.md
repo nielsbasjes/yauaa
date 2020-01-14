@@ -6,6 +6,7 @@ v5.15-SNAPSHOT
   - Better url extraction.
   - The Tencent/Alibaba NetType and Language tags are now better extracted.
 - New/improved detections
+  - Devices: Improve detection of Apple devices
   - Brand: Huawei/Honor
   - Robots: 'probe' and 'alyzer' both imply 'Robot', new Bing useragents.
 
