@@ -151,10 +151,10 @@ config:
     - 'FBMD                                :agent.product.(1-2)comments.entry.(1)product.name="FBMD"^.version'
     - 'FBDV                                :agent.product.(1-2)comments.entry.(1)product.name="FBDV"^.version'
     extract:
+    - 'DeviceBrand                         :      201 :"Apple"'
     - 'DeviceClass                         :      198 :LookUp[AppleDeviceClass;@FBMD]'
     - 'DeviceName                          :      201 :LookUp[AppleDeviceName;@FBMD]'
     - 'DeviceVersion                       :      201 :LookUp[AppleDeviceVersion;@FBDV]'
-    - 'DeviceBrand                         :      201 :"Apple"'
 
 - matcher:
     extract:
