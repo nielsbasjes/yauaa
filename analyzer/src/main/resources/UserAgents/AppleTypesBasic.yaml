@@ -181,7 +181,7 @@ config:
 
 - matcher:
     variable:
-    - 'Input                               :agent.(1)product.comments.entry.(1)text?AppleDeviceClass'
+    - 'Input                               :agent.(1)product.(1)comments.entry.(1)text?AppleDeviceClass'
     extract:
     - 'DeviceBrand                         :      110 :"Apple"'
     - 'DeviceClass                         :      110 :LookUp[AppleDeviceClass;@Input]'
@@ -190,7 +190,7 @@ config:
 
 - matcher:
     variable:
-    - 'Input                               :agent.(2-)product.comments.entry.(1)text?AppleDeviceClass'
+    - 'Input                               :agent.(2-)product.(1)comments.entry.(1)text?AppleDeviceClass'
     extract:
     - 'DeviceBrand                         :      131 :"Apple"'
     - 'DeviceClass                         :      131 :LookUp[AppleDeviceClass;@Input]'
@@ -199,7 +199,7 @@ config:
 
 - matcher:
     variable:
-    - 'Input                               :agent.(1)product.comments.entry.product.name?AppleDeviceClass'
+    - 'Input                               :agent.(1)product.(1)comments.entry.(1)product.name?AppleDeviceClass'
     extract:
     - 'DeviceBrand                         :      112 :"Apple"'
     - 'DeviceClass                         :      112 :LookUp[AppleDeviceClass;@Input]'
@@ -208,7 +208,7 @@ config:
 
 - matcher:
     variable:
-    - 'Input                               :agent.(1)product.comments.entry.product.name?AppleDeviceClass'
+    - 'Input                               :agent.(1)product.(1)comments.entry.(1)product.name?AppleDeviceClass'
     extract:
     - 'DeviceBrand                         :      110 :"Apple"'
     - 'DeviceClass                         :      110 :LookUp[AppleDeviceClass;@Input]'
@@ -217,7 +217,7 @@ config:
 
 - matcher:
     variable:
-    - 'Input                               :agent.(2-)product.comments.entry.product.name?AppleDeviceClass'
+    - 'Input                               :agent.(2-)product.(1)comments.entry.(1)product.name?AppleDeviceClass'
     extract:
     - 'DeviceBrand                         :      132 :"Apple"'
     - 'DeviceClass                         :      132 :LookUp[AppleDeviceClass;@Input]'
@@ -226,7 +226,7 @@ config:
 
 - matcher:
     variable:
-    - 'Input                               :agent.(2-)product.comments.entry.product.name?AppleDeviceClass'
+    - 'Input                               :agent.(2-)product.(1)comments.entry.(1)product.name?AppleDeviceClass'
     extract:
     - 'DeviceBrand                         :      130 :"Apple"'
     - 'DeviceClass                         :      130 :LookUp[AppleDeviceClass;@Input]'
