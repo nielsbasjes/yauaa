@@ -1,0 +1,514 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2020 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+  # https://electronjs.org/
+  # Build cross platform desktop apps with JavaScript, HTML, and CSS
+  # Electron is a toolkit to build Desktop applications with.
+  # So something using this is a browser based app using this toolkit.
+  # The rendering engine should therefor remain what is specified (i.e. the based on the used browser)
+
+- matcher:
+    variable:
+    - 'Electron                            :agent.product.name="Electron"^'
+    - 'WebApp                              :@Electron<<'
+    - 'WebAppName : @WebApp.name'
+    require:
+    - '@WebAppName!="AppleWebKit"'
+    extract:
+    - 'AgentClass                          :     3000 :"Desktop App"'
+    - 'AgentName                           :     3000 :@WebAppName'
+    - 'AgentVersion                        :     2999 :@WebApp.version'
+
+- matcher:
+    variable:
+      - 'Electron                            :agent.product.name="Electron"^'
+      - 'WebApp                              :@Electron<<'
+      - 'WebAppName : @WebApp.name'
+    require:
+      - '@WebAppName="AppleWebKit"'
+    extract:
+      - 'AgentClass                          :     3000 :"Desktop App"'
+      - 'AgentName                           :     3000 :"Electron app"'
+      - 'AgentVersion                        :     2999 :@Electron.version'
+
+
+  # Cypress ( https://www.cypress.io/ ) is a tool to test websites
+  # https://github.com/cypress-io/cypress
+  # https://electronjs.org/apps/cypress
+  # https://www.cypress.io/blog/2019/09/26/testing-electron-js-applications-using-cypress-alpha-release/
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/3.8.1 Chrome/78.0.3904.130 Electron/7.1.4 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Apple Macintosh'
+      DeviceBrand                           : 'Apple'
+      DeviceCpu                             : 'Intel'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Mac OS X'
+      OperatingSystemVersion                : '10.15.2'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Mac OS X 10.15.2'
+      OperatingSystemNameVersionMajor       : 'Mac OS X 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '78.0'
+      LayoutEngineVersionMajor              : '78'
+      LayoutEngineNameVersion               : 'Blink 78.0'
+      LayoutEngineNameVersionMajor          : 'Blink 78'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'Cypress'
+      AgentVersion                          : '3.8.1'
+      AgentVersionMajor                     : '3'
+      AgentNameVersion                      : 'Cypress 3.8.1'
+      AgentNameVersionMajor                 : 'Cypress 3'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Mailspring/1.7.2 Chrome/69.0.3497.128 Electron/4.2.2 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Apple Macintosh'
+      DeviceBrand                           : 'Apple'
+      DeviceCpu                             : 'Intel'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Mac OS X'
+      OperatingSystemVersion                : '10.12.6'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Mac OS X 10.12.6'
+      OperatingSystemNameVersionMajor       : 'Mac OS X 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '69.0'
+      LayoutEngineVersionMajor              : '69'
+      LayoutEngineNameVersion               : 'Blink 69.0'
+      LayoutEngineNameVersionMajor          : 'Blink 69'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'Mailspring'
+      AgentVersion                          : '1.7.2'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'Mailspring 1.7.2'
+      AgentNameVersionMajor                 : 'Mailspring 1'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.128 Electron/4.0.8 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Apple Macintosh'
+      DeviceBrand                           : 'Apple'
+      DeviceCpu                             : 'Intel'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Mac OS X'
+      OperatingSystemVersion                : '10.14.5'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Mac OS X 10.14.5'
+      OperatingSystemNameVersionMajor       : 'Mac OS X 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '69.0'
+      LayoutEngineVersionMajor              : '69'
+      LayoutEngineNameVersion               : 'Blink 69.0'
+      LayoutEngineNameVersionMajor          : 'Blink 69'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'Electron app'
+      AgentVersion                          : '4.0.8'
+      AgentVersionMajor                     : '4'
+      AgentNameVersion                      : 'Electron app 4.0.8'
+      AgentNameVersionMajor                 : 'Electron app 4'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) WhatsApp/0.3.5149 Chrome/69.0.3497.128 Electron/4.1.4 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Apple Macintosh'
+      DeviceBrand                           : 'Apple'
+      DeviceCpu                             : 'Intel'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Mac OS X'
+      OperatingSystemVersion                : '10.14.6'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Mac OS X 10.14.6'
+      OperatingSystemNameVersionMajor       : 'Mac OS X 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '69.0'
+      LayoutEngineVersionMajor              : '69'
+      LayoutEngineNameVersion               : 'Blink 69.0'
+      LayoutEngineNameVersionMajor          : 'Blink 69'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'WhatsApp'
+      AgentVersion                          : '0.3.5149'
+      AgentVersionMajor                     : '0'
+      AgentNameVersion                      : 'WhatsApp 0.3.5149'
+      AgentNameVersionMajor                 : 'WhatsApp 0'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Teams/1.2.00.28258 Chrome/66.0.3359.181 Electron/3.1.11 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Apple Macintosh'
+      DeviceBrand                           : 'Apple'
+      DeviceCpu                             : 'Intel'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Mac OS X'
+      OperatingSystemVersion                : '10.15.0'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Mac OS X 10.15.0'
+      OperatingSystemNameVersionMajor       : 'Mac OS X 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '66.0'
+      LayoutEngineVersionMajor              : '66'
+      LayoutEngineNameVersion               : 'Blink 66.0'
+      LayoutEngineNameVersionMajor          : 'Blink 66'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'Teams'
+      AgentVersion                          : '1.2.00.28258'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'Teams 1.2.00.28258'
+      AgentNameVersionMajor                 : 'Teams 1'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) BlueMail/1.0.26 Chrome/61.0.3163.100 Electron/2.0.18 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpu                             : 'Intel x86_64'
+      DeviceCpuBits                         : '64'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : '10.0'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Windows 10.0'
+      OperatingSystemNameVersionMajor       : 'Windows 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '61.0'
+      LayoutEngineVersionMajor              : '61'
+      LayoutEngineNameVersion               : 'Blink 61.0'
+      LayoutEngineNameVersionMajor          : 'Blink 61'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'BlueMail'
+      AgentVersion                          : '1.0.26'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'BlueMail 1.0.26'
+      AgentNameVersionMajor                 : 'BlueMail 1'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Electron/1.7.15 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpu                             : 'Intel x86_64'
+      DeviceCpuBits                         : '64'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : '10.0'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Windows 10.0'
+      OperatingSystemNameVersionMajor       : 'Windows 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '58.0'
+      LayoutEngineVersionMajor              : '58'
+      LayoutEngineNameVersion               : 'Blink 58.0'
+      LayoutEngineNameVersionMajor          : 'Blink 58'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'Electron app'
+      AgentVersion                          : '1.7.15'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'Electron app 1.7.15'
+      AgentNameVersionMajor                 : 'Electron app 1'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Collaboration/1.0.4 Chrome/61.0.3163.100 Electron/2.0.0-beta.5 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpu                             : 'Intel x86_64'
+      DeviceCpuBits                         : '64'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : '10.0'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Windows 10.0'
+      OperatingSystemNameVersionMajor       : 'Windows 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '61.0'
+      LayoutEngineVersionMajor              : '61'
+      LayoutEngineNameVersion               : 'Blink 61.0'
+      LayoutEngineNameVersionMajor          : 'Blink 61'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'Collaboration'
+      AgentVersion                          : '1.0.4'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'Collaboration 1.0.4'
+      AgentNameVersionMajor                 : 'Collaboration 1'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ls-client/1.5.14 Chrome/73.0.3683.121 Electron/5.0.8 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpu                             : 'Intel x86_64'
+      DeviceCpuBits                         : '64'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : '10.0'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Windows 10.0'
+      OperatingSystemNameVersionMajor       : 'Windows 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '73.0'
+      LayoutEngineVersionMajor              : '73'
+      LayoutEngineNameVersion               : 'Blink 73.0'
+      LayoutEngineNameVersionMajor          : 'Blink 73'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'ls-client'
+      AgentVersion                          : '1.5.14'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'ls-client 1.5.14'
+      AgentNameVersionMajor                 : 'ls-client 1'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Notion/1.0.8 Chrome/61.0.3163.100 Electron/2.0.5 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpu                             : 'Intel x86_64'
+      DeviceCpuBits                         : '64'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : '10.0'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Windows 10.0'
+      OperatingSystemNameVersionMajor       : 'Windows 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '61.0'
+      LayoutEngineVersionMajor              : '61'
+      LayoutEngineNameVersion               : 'Blink 61.0'
+      LayoutEngineNameVersionMajor          : 'Blink 61'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'Notion'
+      AgentVersion                          : '1.0.8'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'Notion 1.0.8'
+      AgentNameVersionMajor                 : 'Notion 1'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) WhatsApp/0.3.5374 Chrome/69.0.3497.128 Electron/4.1.4 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpu                             : 'Intel x86_64'
+      DeviceCpuBits                         : '64'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : '10.0'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Windows 10.0'
+      OperatingSystemNameVersionMajor       : 'Windows 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '69.0'
+      LayoutEngineVersionMajor              : '69'
+      LayoutEngineNameVersion               : 'Blink 69.0'
+      LayoutEngineNameVersionMajor          : 'Blink 69'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'WhatsApp'
+      AgentVersion                          : '0.3.5374'
+      AgentVersionMajor                     : '0'
+      AgentNameVersion                      : 'WhatsApp 0.3.5374'
+      AgentNameVersionMajor                 : 'WhatsApp 0'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.128 Electron/4.0.8 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpu                             : 'Intel x86_64'
+      DeviceCpuBits                         : '64'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : '10.0'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Windows 10.0'
+      OperatingSystemNameVersionMajor       : 'Windows 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '69.0'
+      LayoutEngineVersionMajor              : '69'
+      LayoutEngineNameVersion               : 'Blink 69.0'
+      LayoutEngineNameVersionMajor          : 'Blink 69'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'Electron app'
+      AgentVersion                          : '4.0.8'
+      AgentVersionMajor                     : '4'
+      AgentNameVersion                      : 'Electron app 4.0.8'
+      AgentNameVersionMajor                 : 'Electron app 4'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Shift/4.0.2 Chrome/69.0.3497.128 Electron/4.0.8 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpu                             : 'Intel x86_64'
+      DeviceCpuBits                         : '64'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : '10.0'
+      OperatingSystemVersionMajor           : '10'
+      OperatingSystemNameVersion            : 'Windows 10.0'
+      OperatingSystemNameVersionMajor       : 'Windows 10'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '69.0'
+      LayoutEngineVersionMajor              : '69'
+      LayoutEngineNameVersion               : 'Blink 69.0'
+      LayoutEngineNameVersionMajor          : 'Blink 69'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'Shift'
+      AgentVersion                          : '4.0.2'
+      AgentVersionMajor                     : '4'
+      AgentNameVersion                      : 'Shift 4.0.2'
+      AgentNameVersionMajor                 : 'Shift 4'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.128 Electron/4.0.8 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpu                             : 'Intel x86_64'
+      DeviceCpuBits                         : '64'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : '7'
+      OperatingSystemVersionMajor           : '7'
+      OperatingSystemNameVersion            : 'Windows 7'
+      OperatingSystemNameVersionMajor       : 'Windows 7'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '69.0'
+      LayoutEngineVersionMajor              : '69'
+      LayoutEngineNameVersion               : 'Blink 69.0'
+      LayoutEngineNameVersionMajor          : 'Blink 69'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'Electron app'
+      AgentVersion                          : '4.0.8'
+      AgentVersionMajor                     : '4'
+      AgentNameVersion                      : 'Electron app 4.0.8'
+      AgentNameVersionMajor                 : 'Electron app 4'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) LeetHotel/1.0.0 Chrome/73.0.3683.121 Electron/5.0.6 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpu                             : 'Intel x86_64'
+      DeviceCpuBits                         : '64'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : '8.1'
+      OperatingSystemVersionMajor           : '8'
+      OperatingSystemNameVersion            : 'Windows 8.1'
+      OperatingSystemNameVersionMajor       : 'Windows 8'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '73.0'
+      LayoutEngineVersionMajor              : '73'
+      LayoutEngineNameVersion               : 'Blink 73.0'
+      LayoutEngineNameVersionMajor          : 'Blink 73'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'LeetHotel'
+      AgentVersion                          : '1.0.0'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'LeetHotel 1.0.0'
+      AgentNameVersionMajor                 : 'LeetHotel 1'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.128 Electron/4.0.8 Safari/537.36'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Linux Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpu                             : 'Intel x86_64'
+      DeviceCpuBits                         : '64'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Linux'
+      OperatingSystemVersion                : 'Intel x86_64'
+      OperatingSystemVersionMajor           : 'Intel x86'
+      OperatingSystemNameVersion            : 'Linux Intel x86_64'
+      OperatingSystemNameVersionMajor       : 'Linux Intel x86'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Blink'
+      LayoutEngineVersion                   : '69.0'
+      LayoutEngineVersionMajor              : '69'
+      LayoutEngineNameVersion               : 'Blink 69.0'
+      LayoutEngineNameVersionMajor          : 'Blink 69'
+      AgentClass                            : 'Desktop App'
+      AgentName                             : 'Electron app'
+      AgentVersion                          : '4.0.8'
+      AgentVersionMajor                     : '4'
+      AgentNameVersion                      : 'Electron app 4.0.8'
+      AgentNameVersionMajor                 : 'Electron app 4'
+
+
