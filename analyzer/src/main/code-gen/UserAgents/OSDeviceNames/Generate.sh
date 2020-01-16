@@ -69,7 +69,7 @@ do
     devbrand=$( echo "${line}" | cut -d'|' -f5)
     osclass=$(  echo "${line}" | cut -d'|' -f6)
 
-    ospatternWords=$(echo "${ospattern}" | sed 's@[^ ]\+@x@g;s@ @@g')
+    ospatternWords=$(echo "${ospattern}" | wc -w)
 echo "
 # =======================================================================
 # ${ospattern}
@@ -111,7 +111,7 @@ echo "
 "
 
 case ${ospatternWords} in
-'x')
+1)
 echo "
 # One word
 - matcher:
@@ -138,7 +138,7 @@ echo "
 "
 ;;
 
-'xx')
+2)
 echo "
 # Two words
 - matcher:
@@ -164,7 +164,7 @@ echo "
 "
 ;;
 
-'xxx')
+3)
 echo "
 # Three words
 - matcher:
