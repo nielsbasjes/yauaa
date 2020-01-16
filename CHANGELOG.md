@@ -11,6 +11,8 @@ v5.15-SNAPSHOT
   - Devices: Improve detection of Apple devices
   - Brand: Huawei/Honor
   - Robots: 'probe' and 'alyzer' both imply 'Robot', new Bing useragents.
+- Updated UDF dependencies
+  - Apache Beam   2.17.0
 - Build
   - Improve scripting for generated files
 
