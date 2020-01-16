@@ -25,6 +25,30 @@ config:
         - 'NoWalking:1:agent'
 
   - matcher:
+      extract:
+        - 'UpOnAgent                    : 1 :agent^'
+
+  - matcher:
+      extract:
+        - 'UpUpOnAgent                  : 1 :agent^^'
+
+  - matcher:
+      extract:
+        - 'PrevOnAgent                  : 1 :agent<'
+
+  - matcher:
+      extract:
+        - 'PrevPrevOnAgent              : 1 :agent<<'
+
+  - matcher:
+      extract:
+        - 'NextOnAgent                  : 1 :agent>'
+
+  - matcher:
+      extract:
+        - 'NextNextOnAgent              : 1 :agent>>'
+
+  - matcher:
       options:
         - 'verbose'
       extract:

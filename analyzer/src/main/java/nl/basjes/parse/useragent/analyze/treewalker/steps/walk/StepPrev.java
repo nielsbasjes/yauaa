@@ -26,6 +26,10 @@ public class StepPrev extends Step {
     private ParseTree prev(ParseTree tree) {
         ParseTree parent = up(tree);
 
+        if (parent == null) {
+            return null;
+        }
+
         ParseTree prevChild = null;
         ParseTree child = null;
         int i;

@@ -25,6 +25,11 @@ public class StepNext extends Step {
 
     private ParseTree next(ParseTree tree) {
         ParseTree parent = up(tree);
+
+        if (parent == null) {
+            return null;
+        }
+
         ParseTree child;
         boolean foundCurrent = false;
         for (int i = 0; i < parent.getChildCount(); i++) {

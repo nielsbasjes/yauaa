@@ -36,6 +36,11 @@ public class StepNextN extends Step {
 
     private ParseTree next(ParseTree tree) {
         ParseTree parent = up(tree);
+
+        if (parent == null) {
+            return null;
+        }
+
         ParseTree child;
         boolean foundCurrent = false;
         int stepsToDo = steps;

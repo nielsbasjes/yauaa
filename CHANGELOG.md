@@ -4,6 +4,7 @@ v5.15-SNAPSHOT
 ===
 - Analyzer:
   - Better url extraction.
+  - Fix NPE when defining invalid rules (walk left/right/up from the top of the tree)
   - The Tencent/Alibaba NetType and Language tags are now better extracted.
 - New/improved detections
   - Devices: Improve detection of Apple devices

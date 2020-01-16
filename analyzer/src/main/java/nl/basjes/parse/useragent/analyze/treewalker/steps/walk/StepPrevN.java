@@ -40,6 +40,10 @@ public class StepPrevN extends Step {
     private ParseTree prev(ParseTree tree) {
         ParseTree parent = up(tree);
 
+        if (parent == null) {
+            return null;
+        }
+
         if (children== null) {
             children = new ParseTree[SIZE];
         }
