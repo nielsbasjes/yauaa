@@ -16,9 +16,11 @@
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 TARGETDIR=$(cd "${SCRIPTDIR}/.." || exit 1; pwd)
 
-INPUT=AllPossibleSteps.csv
-INPUTTESTS=AllPossibleStepsTests.yaml
+INPUT="${SCRIPTDIR}/AllPossibleSteps.csv"
+INPUTTESTS="${SCRIPTDIR}/AllPossibleStepsTests.yaml"
 OUTPUT="${TARGETDIR}/AllPossibleSteps.yaml"
+
+[ "$1" = "--force" ] && rm "${OUTPUT}"
 
 if [ "Generate.sh" -ot "${OUTPUT}" ]; then
     if [ "${INPUTTESTS}" -ot "${OUTPUT}" ]; then

@@ -16,10 +16,12 @@
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents" || exit 1; pwd)
 
-INPUT1=ISOLanguageCodes.csv
-INPUT2=iso-639-3.tab
-INPUT3=unwanted-language-codes.txt
+INPUT1="${SCRIPTDIR}/ISOLanguageCodes.csv"
+INPUT2="${SCRIPTDIR}/iso-639-3.tab"
+INPUT3="${SCRIPTDIR}/unwanted-language-codes.txt"
 OUTPUT="${TARGETDIR}/ISOLanguageCode.yaml"
+
+[ "$1" = "--force" ] && rm "${OUTPUT}"
 
 if [ "Generate.sh" -ot "${OUTPUT}" ]; then
     if [ "${INPUT1}" -ot "${OUTPUT}" ] && [ "${INPUT2}" -ot "${OUTPUT}" ] && [ "${INPUT3}" -ot "${OUTPUT}" ] ; then

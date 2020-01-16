@@ -11,7 +11,8 @@ v5.15-SNAPSHOT
   - Devices: Improve detection of Apple devices
   - Brand: Huawei/Honor
   - Robots: 'probe' and 'alyzer' both imply 'Robot', new Bing useragents.
-
+- Build
+  - Improve scripting for generated files
 
 v5.14.1
 ===
