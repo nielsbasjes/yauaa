@@ -62,11 +62,10 @@ public class TestParseServlet {
         HttpStatus statusCode = null;
         while (statusCode != HttpStatus.OK) {
             Thread.sleep(100);
-            ResponseEntity<String> response = this.restTemplate.exchange(getURI(), GET, request, String.class);
+            ResponseEntity<String> response = this.restTemplate.exchange(getAliveURI(), GET, request, String.class);
             statusCode = response.getStatusCode();
         }
     }
-
 
     private static final String USERAGENT = "Mozilla/5.0 (X11; Linux x86_64) " +
         "AppleWebKit/537.36 (KHTML, like Gecko) " +
@@ -74,9 +73,17 @@ public class TestParseServlet {
 
     private static final String EXPECT_AGENT_NAME_VERSION = "Chrome 78.0.3904.97";
 
-    private URI getURI() {
+    private URI getAliveURI() {
+        return getURI("/running");
+    }
+
+    private URI getAnalyzeURI() {
+        return getURI("/yauaa/v1/analyze");
+    }
+
+    private URI getURI(String path) {
         try {
-            return new URI("http://localhost:" + port + "/yauaa/v1/analyze");
+            return new URI("http://localhost:" + port + path);
         } catch (URISyntaxException e) {
             return null;
         }
@@ -91,7 +98,7 @@ public class TestParseServlet {
         HttpEntity<String> request = new HttpEntity<>("Niels Basjes", headers);
 
         ResponseEntity<String> response = this.restTemplate
-            .exchange(new URI("http://localhost:" + port + "/"), GET, request, String.class);
+            .exchange(getURI("/"), GET, request, String.class);
 
         assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
 
@@ -111,7 +118,7 @@ public class TestParseServlet {
 
         HttpEntity<String> request = new HttpEntity<>("Niels Basjes", headers);
 
-        ResponseEntity<String> response = this.restTemplate.exchange(getURI(), GET, request, String.class);
+        ResponseEntity<String> response = this.restTemplate.exchange(getAnalyzeURI(), GET, request, String.class);
 
         assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
 
@@ -129,7 +136,7 @@ public class TestParseServlet {
 
         HttpEntity<String> request = new HttpEntity<>(USERAGENT, headers);
 
-        ResponseEntity<String> response = this.restTemplate.postForEntity(getURI(), request, String.class);
+        ResponseEntity<String> response = this.restTemplate.postForEntity(getAnalyzeURI(), request, String.class);
 
         assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
 
@@ -149,7 +156,7 @@ public class TestParseServlet {
 
         HttpEntity<String> request = new HttpEntity<>("Niels Basjes", headers);
 
-        ResponseEntity<String> response = this.restTemplate.exchange(getURI(), GET, request, String.class);
+        ResponseEntity<String> response = this.restTemplate.exchange(getAnalyzeURI(), GET, request, String.class);
 
         assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
 
@@ -165,7 +172,7 @@ public class TestParseServlet {
 
         HttpEntity<String> request = new HttpEntity<>(USERAGENT, headers);
 
-        ResponseEntity<String> response = this.restTemplate.postForEntity(getURI(), request, String.class);
+        ResponseEntity<String> response = this.restTemplate.postForEntity(getAnalyzeURI(), request, String.class);
 
         assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
 

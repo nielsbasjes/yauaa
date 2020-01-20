@@ -69,7 +69,20 @@ spec:
         image: nielsbasjes/yauaa:latest
         ports:
         - containerPort: 8080
+          name: yauaa
           protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /running
+            port: yauaa
+          initialDelaySeconds: 2
+          periodSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /running
+            port: yauaa
+          initialDelaySeconds: 10
+          periodSeconds: 10
 
 ---
 

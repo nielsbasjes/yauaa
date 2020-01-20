@@ -81,7 +81,8 @@ public class ParseService {
     private enum OutputType {
         HTML,
         JSON,
-        XML
+        XML,
+        TXT
     }
 
     private static synchronized void ensureStarted() {
@@ -144,6 +145,9 @@ public class ParseService {
             String message;
 
             switch (yauaaIsBusyStarting.getOutputType()) {
+                case TXT:
+                    message = "NO";
+                    break;
                 case JSON:
                     message = "{ \"status\": \"Starting\", \"timeInMs\": " + timeSinceStart + " }";
                     break;
@@ -575,6 +579,12 @@ public class ParseService {
         }
     }
 
+    @RequestMapping("/running")
+    public String isRunning() {
+        ensureStartedForApis(OutputType.TXT);
+        return "YES";
+    }
+
     /**
      * <a href="https://cloud.google.com/appengine/docs/flexible/java/how-instances-are-managed#health_checking">
      * App Engine health checking</a> requires responding with 200 to {@code /_ah/health}.
@@ -582,9 +592,9 @@ public class ParseService {
      * @return Returns a non empty message body.
      */
     @RequestMapping("/_ah/health")
-    public String healthy() {
-        // Message body required though ignored
-        return "Still surviving.";
+    public String isHealthy() {
+        ensureStartedForApis(OutputType.TXT);
+        return "YES";
     }
 
     public static void main(String[] args) {
