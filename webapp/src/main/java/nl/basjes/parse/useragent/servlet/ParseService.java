@@ -67,7 +67,6 @@ import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 public class ParseService {
 
     private static       UserAgentAnalyzer userAgentAnalyzer               = null;
-    private static       boolean           isInitializing                  = false;
     private static       long              initStartMoment;
     private static       boolean           userAgentAnalyzerIsAvailable    = false;
     private static       String            userAgentAnalyzerFailureMessage = null;
@@ -85,9 +84,9 @@ public class ParseService {
         TXT
     }
 
-    private static synchronized void ensureStarted() {
-        if (!isInitializing && !userAgentAnalyzerIsAvailable && userAgentAnalyzerFailureMessage == null) {
-            isInitializing = true;
+    @PostConstruct
+    public void automaticStartup() {
+        if (!userAgentAnalyzerIsAvailable && userAgentAnalyzerFailureMessage == null) {
             initStartMoment = System.currentTimeMillis();
             new Thread(() -> {
                 try {
@@ -97,16 +96,10 @@ public class ParseService {
                 } catch (Exception e) {
                     userAgentAnalyzerFailureMessage =
                         e.getClass().getSimpleName() + "<br/>" +
-                        e.getMessage().replaceAll("\n", "<br/>");
+                            e.getMessage().replaceAll("\n", "<br/>");
                 }
-                isInitializing = false;
             }).start();
         }
-    }
-
-    @PostConstruct
-    public void automaticStartup() {
-        ensureStarted();
     }
 
     public static class YauaaIsBusyStarting extends RuntimeException {
@@ -122,7 +115,6 @@ public class ParseService {
     }
 
     private static void ensureStartedForApis(OutputType outputType) {
-        ensureStarted();
         if (!userAgentAnalyzerIsAvailable) {
             throw new YauaaIsBusyStarting(outputType);
         }
@@ -201,18 +193,6 @@ public class ParseService {
     public String getHtmlPOST(@ModelAttribute("useragent") String userAgent) {
         return doHTML(userAgent);
     }
-
-//    @ApiOperation(
-//        value = "Analyze the provided User-Agent",
-//        notes = "The provided UserAgent is to be a single (url encoded) part of the url"
-//    )
-//    @GetMapping(
-//        value = API_BASE_PATH + "/analyze/{userAgent}",
-//        produces = MediaType.TEXT_HTML_VALUE
-//    )
-//    public String getHtmlPath(@PathVariable String userAgent) {
-//        return doHTML(userAgent);
-//    }
 
     // =============== JSON OUTPUT ===============
 
@@ -329,7 +309,6 @@ public class ParseService {
     // ===========================================
 
     private String doHTML(String userAgentString) {
-        ensureStarted();
         long start      = System.nanoTime();
         long startParse = 0;
         long stopParse  = 0;
@@ -348,7 +327,7 @@ public class ParseService {
             sb.append("<meta name=\"theme-color\" content=\"dodgerblue\" />");
 
             // While initializing automatically reload the page.
-            if (isInitializing) {
+            if (!userAgentAnalyzerIsAvailable) {
                 sb.append("<meta http-equiv=\"refresh\" content=\"1\" >");
             }
             sb.append("<link rel=\"stylesheet\" href=\"style.css\">");
