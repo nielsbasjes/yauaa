@@ -7774,3 +7774,59 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'python-requests 2.19.1'
       AgentNameVersionMajor                : 'python-requests 2'
+
+# Found in the accesslogs of my own docker registry
+- test:
+    input:
+      user_agent_string: 'docker/19.03.5 go/go1.12.12 git-commit/633a0ea kernel/3.10.0-1062.9.1.el7.x86_64 os/linux arch/amd64 UpstreamClient(Go-http-client/1.1)'
+    expected:
+      DeviceClass                           : 'Unknown'
+      DeviceName                            : 'Unknown'
+      DeviceBrand                           : 'Unknown'
+      OperatingSystemClass                  : 'Unknown'
+      OperatingSystemName                   : 'Unknown' # FIXME: Extract 'linux'
+      OperatingSystemVersion                : '??'      # FIXME: Extract '3.10.0-1062.9.1.el7.x86_64' --> el7 == Redhat/CentOS 7,  DeviceCPU = amd64
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Unknown ??'
+      OperatingSystemNameVersionMajor       : 'Unknown ??'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Special'
+      AgentName                             : 'docker'
+      AgentVersion                          : '19.03.5'
+      AgentVersionMajor                     : '19'
+      AgentNameVersion                      : 'docker 19.03.5'
+      AgentNameVersionMajor                 : 'docker 19'
+
+
+# Found locally in ~/.docker/config.json
+- test:
+    input:
+      user_agent_string: 'Docker-Client/19.03.5 (linux)'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Linux Desktop'
+      DeviceBrand                           : 'Unknown'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Linux'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Linux ??'
+      OperatingSystemNameVersionMajor       : 'Linux ??'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Special'
+      AgentName                             : 'Docker-Client'
+      AgentVersion                          : '19.03.5'
+      AgentVersionMajor                     : '19'
+      AgentNameVersion                      : 'Docker-Client 19.03.5'
+      AgentNameVersionMajor                 : 'Docker-Client 19'
+
