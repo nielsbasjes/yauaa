@@ -92,6 +92,10 @@ echo "
 - matcher:
     extract:
     - 'DeviceCpu                           :      106 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry.(1-2)product.(1-2)version]'
+
+- matcher:
+    extract:
+    - 'DeviceCpu                           :      100 :LookUp[CPUArchitectures;agent.product.(1-2)version]'
 "
 
 echo "- lookup:"

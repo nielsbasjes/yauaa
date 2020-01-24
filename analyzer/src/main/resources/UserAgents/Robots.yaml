@@ -7775,6 +7775,13 @@ config:
       AgentNameVersion                     : 'python-requests 2.19.1'
       AgentNameVersionMajor                : 'python-requests 2'
 
+- matcher:
+    extract:
+#      - 'DeviceClass             : 10 : "Cloud"'
+      - 'OperatingSystemClass             : 10 : "Cloud"'
+      - 'OperatingSystemName     : 10 : "Linux"'
+      - 'OperatingSystemVersion  : 10 : agent.product.name="kernel"^.version'
+
 # Found in the accesslogs of my own docker registry
 - test:
     input:
@@ -7783,12 +7790,13 @@ config:
       DeviceClass                           : 'Unknown'
       DeviceName                            : 'Unknown'
       DeviceBrand                           : 'Unknown'
-      OperatingSystemClass                  : 'Unknown'
-      OperatingSystemName                   : 'Unknown' # FIXME: Extract 'linux'
-      OperatingSystemVersion                : '??'      # FIXME: Extract '3.10.0-1062.9.1.el7.x86_64' --> el7 == Redhat/CentOS 7,  DeviceCPU = amd64
-      OperatingSystemVersionMajor           : '??'
-      OperatingSystemNameVersion            : 'Unknown ??'
-      OperatingSystemNameVersionMajor       : 'Unknown ??'
+      DeviceCpu                             : 'AMD64'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Linux'
+      OperatingSystemVersion                : '3.10.0-1062.9.1.el7.x86_64'
+      OperatingSystemVersionMajor           : '3'
+      OperatingSystemNameVersion            : 'Linux 3.10.0-1062.9.1.el7.x86_64'
+      OperatingSystemNameVersionMajor       : 'Linux 3'
       LayoutEngineClass                     : 'Unknown'
       LayoutEngineName                      : 'Unknown'
       LayoutEngineVersion                   : '??'
@@ -7801,7 +7809,6 @@ config:
       AgentVersionMajor                     : '19'
       AgentNameVersion                      : 'docker 19.03.5'
       AgentNameVersionMajor                 : 'docker 19'
-
 
 # Found locally in ~/.docker/config.json
 - test:
