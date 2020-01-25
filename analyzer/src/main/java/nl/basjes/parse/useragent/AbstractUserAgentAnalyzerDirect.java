@@ -29,6 +29,7 @@ import nl.basjes.parse.useragent.analyze.MatcherList;
 import nl.basjes.parse.useragent.analyze.UselessMatcherException;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.calculate.CalculateAgentEmail;
+import nl.basjes.parse.useragent.calculate.CalculateAgentName;
 import nl.basjes.parse.useragent.calculate.CalculateDeviceBrand;
 import nl.basjes.parse.useragent.calculate.CalculateDeviceName;
 import nl.basjes.parse.useragent.calculate.CalculateNetworkType;
@@ -1368,6 +1369,10 @@ config:
             addCalculatedMajorVersionField(OPERATING_SYSTEM_NAME_VERSION_MAJOR,     OPERATING_SYSTEM_NAME_VERSION);
             addCalculatedConcatNONDuplicated(OPERATING_SYSTEM_NAME_VERSION,         OPERATING_SYSTEM_NAME,  OPERATING_SYSTEM_VERSION);
             addCalculatedMajorVersionField(OPERATING_SYSTEM_VERSION_MAJOR,          OPERATING_SYSTEM_VERSION);
+
+            if (uaa.isWantedField(AGENT_NAME)) {
+                uaa.fieldCalculators.add(new CalculateAgentName());
+            }
 
             if (uaa.isWantedField(NETWORK_TYPE)) {
                 uaa.fieldCalculators.add(new CalculateNetworkType());
