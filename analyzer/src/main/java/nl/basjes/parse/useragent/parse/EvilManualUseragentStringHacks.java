@@ -56,7 +56,7 @@ public final class EvilManualUseragentStringHacks {
         }
         String result = useragent;
 
-        result = MULTIPLE_SPACES .matcher(result).replaceAll(" ");
+        result = MULTIPLE_SPACES.matcher(result).replaceAll(" ");
 
         // The first one is a special kind of space: https://unicodemap.org/details/0x2002/index.html
         result = replaceString(result, "\u2002", " ");
@@ -116,7 +116,7 @@ public final class EvilManualUseragentStringHacks {
         result = replaceString(result, "; /", "; Unknown/");
 
         // Repair certain cases of broken useragents (like we see for the Facebook app a lot)
-        if (MISSING_PRODUCT_AT_START.matcher(result).matches()){
+        if (MISSING_PRODUCT_AT_START.matcher(result).matches()) {
             // We simply prefix a fake product name to continue parsing.
             result = "Mozilla/5.0 " + result;
         } else {
@@ -133,10 +133,13 @@ public final class EvilManualUseragentStringHacks {
         // The Weibo useragent This one is a single useragent that hold significant traffic
         result = replaceString(result, "__", " ");
 
-        if (result.contains("%20") ||
-            result.contains("%3B") ||
-            result.contains("%25") ||
-            result.contains("%2F")) {
+        if (
+            (result.indexOf('%') != -1) &&
+                (result.contains("%20") ||
+                 result.contains("%3B") ||
+                 result.contains("%25") ||
+                 result.contains("%2F") ||
+                 result.contains("%28"))) {
             try {
                 result = URLDecoder.decode(result, "UTF-8");
             } catch (UnsupportedEncodingException | IllegalArgumentException e) {
