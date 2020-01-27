@@ -711,26 +711,15 @@ public class ParseService {
     @ApiResponses({
         @ApiResponse(
             code = 200, // HttpStatus.OK
-            message = "The analyzer is running",
-            examples = @Example(
-                value = {
-                    @ExampleProperty(mediaType = TEXT_PLAIN_VALUE, value = "YES")
-                }
-            )
+            message = "The analyzer is running"
         ),
         @ApiResponse(
             code = 500, // HttpStatus.INTERNAL_SERVER_ERROR,
-            message = "The analyzer is starting up",
-            examples = @Example(
-                value = {
-                    @ExampleProperty(mediaType = TEXT_PLAIN_VALUE, value = "NO")
-                }
-            )
+            message = "The analyzer is starting up"
         )
     })
     @GetMapping(
-        path = "/running",
-        produces = TEXT_PLAIN_VALUE
+        path = "/running"
     )
     public String isRunning() {
         ensureStartedForApis(OutputType.TXT);

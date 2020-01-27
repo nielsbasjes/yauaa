@@ -19,6 +19,8 @@ package nl.basjes.parse.useragent.servlet;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.BasicJsonTester;
@@ -45,6 +47,8 @@ import static org.springframework.http.MediaType.TEXT_PLAIN;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestParseServlet {
 
+    private static final Logger LOG = LoggerFactory.getLogger(TestParseServlet.class);
+
     @LocalServerPort
     private int port;
 
@@ -60,11 +64,16 @@ public class TestParseServlet {
         HttpEntity<String> request = new HttpEntity<>("Are we there yet?", headers);
 
         HttpStatus statusCode = null;
+        LOG.info("Is running?");
         while (statusCode != HttpStatus.OK) {
+            if (statusCode != null) {
+                LOG.info("No, not yet running (last code = {}).", statusCode);
+            }
             Thread.sleep(100);
             ResponseEntity<String> response = this.restTemplate.exchange(getAliveURI(), GET, request, String.class);
             statusCode = response.getStatusCode();
         }
+        LOG.info("Yes, it is running!");
     }
 
     private static final String USERAGENT = "Mozilla/5.0 (X11; Linux x86_64) " +
