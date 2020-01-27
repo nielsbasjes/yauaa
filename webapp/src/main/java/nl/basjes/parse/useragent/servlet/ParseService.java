@@ -20,6 +20,10 @@ package nl.basjes.parse.useragent.servlet;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Example;
+import io.swagger.annotations.ExampleProperty;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.Version;
@@ -39,7 +43,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
@@ -56,6 +59,7 @@ import java.util.Map;
 
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
@@ -76,6 +80,60 @@ public class ParseService {
     private static final String            EXAMPLE_USERAGENT               =
         "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36";
+
+    private static final String EXAMPLE_JSON = "{\n" +
+        "  \"Useragent\": \"Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36\",\n" +
+        "  \"DeviceClass\": \"Phone\",\n" +
+        "  \"DeviceName\": \"Google Nexus 6\",\n" +
+        "  \"DeviceBrand\": \"Google\",\n" +
+        "  \"OperatingSystemClass\": \"Mobile\",\n" +
+        "  \"OperatingSystemName\": \"Android\",\n" +
+        "  \"OperatingSystemVersion\": \"7.0\",\n" +
+        "  \"OperatingSystemVersionMajor\": \"7\",\n" +
+        "  \"OperatingSystemNameVersion\": \"Android 7.0\",\n" +
+        "  \"OperatingSystemNameVersionMajor\": \"Android 7\",\n" +
+        "  \"OperatingSystemVersionBuild\": \"NBD90Z\",\n" +
+        "  \"LayoutEngineClass\": \"Browser\",\n" +
+        "  \"LayoutEngineName\": \"Blink\",\n" +
+        "  \"LayoutEngineVersion\": \"53.0\",\n" +
+        "  \"LayoutEngineVersionMajor\": \"53\",\n" +
+        "  \"LayoutEngineNameVersion\": \"Blink 53.0\",\n" +
+        "  \"LayoutEngineNameVersionMajor\": \"Blink 53\",\n" +
+        "  \"AgentClass\": \"Browser\",\n" +
+        "  \"AgentName\": \"Chrome\",\n" +
+        "  \"AgentVersion\": \"53.0.2785.124\",\n" +
+        "  \"AgentVersionMajor\": \"53\",\n" +
+        "  \"AgentNameVersion\": \"Chrome 53.0.2785.124\",\n" +
+        "  \"AgentNameVersionMajor\": \"Chrome 53\"\n" +
+        "}";
+
+    private static final String EXAMPLE_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        "  <Yauaa>\n" +
+        "    <Useragent>Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36</Useragent>\n" +
+        "    <DeviceClass>Phone</DeviceClass>\n" +
+        "    <DeviceName>Google Nexus 6</DeviceName>\n" +
+        "    <DeviceBrand>Google</DeviceBrand>\n" +
+        "    <OperatingSystemClass>Mobile</OperatingSystemClass>\n" +
+        "    <OperatingSystemName>Android</OperatingSystemName>\n" +
+        "    <OperatingSystemVersion>7.0</OperatingSystemVersion>\n" +
+        "    <OperatingSystemVersionMajor>7</OperatingSystemVersionMajor>\n" +
+        "    <OperatingSystemNameVersion>Android 7.0</OperatingSystemNameVersion>\n" +
+        "    <OperatingSystemNameVersionMajor>Android 7</OperatingSystemNameVersionMajor>\n" +
+        "    <OperatingSystemVersionBuild>NBD90Z</OperatingSystemVersionBuild>\n" +
+        "    <LayoutEngineClass>Browser</LayoutEngineClass>\n" +
+        "    <LayoutEngineName>Blink</LayoutEngineName>\n" +
+        "    <LayoutEngineVersion>53.0</LayoutEngineVersion>\n" +
+        "    <LayoutEngineVersionMajor>53</LayoutEngineVersionMajor>\n" +
+        "    <LayoutEngineNameVersion>Blink 53.0</LayoutEngineNameVersion>\n" +
+        "    <LayoutEngineNameVersionMajor>Blink 53</LayoutEngineNameVersionMajor>\n" +
+        "    <AgentClass>Browser</AgentClass>\n" +
+        "    <AgentName>Chrome</AgentName>\n" +
+        "    <AgentVersion>53.0.2785.124</AgentVersion>\n" +
+        "    <AgentVersionMajor>53</AgentVersionMajor>\n" +
+        "    <AgentNameVersion>Chrome 53.0.2785.124</AgentNameVersion>\n" +
+        "    <AgentNameVersionMajor>Chrome 53</AgentNameVersionMajor>\n" +
+        "  </Yauaa>";
+
 
     private enum OutputType {
         HTML,
@@ -152,7 +210,7 @@ public class ParseService {
                     break;
             }
 
-            return new ResponseEntity<>(message, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(message, httpHeaders, INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -201,6 +259,16 @@ public class ParseService {
         notes = "<b>Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
                 "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035</b>"
     )
+    @ApiResponses({
+        @ApiResponse(
+            code = 200, // HttpStatus.OK
+            message = "The agent was successfully analyzed",
+            examples = @Example({
+                @ExampleProperty(mediaType = APPLICATION_JSON_VALUE, value = EXAMPLE_JSON),
+                @ExampleProperty(mediaType = APPLICATION_XML_VALUE, value = EXAMPLE_XML)
+            })
+        )
+    })
     @GetMapping(
         value = API_BASE_PATH + "/analyze",
         produces = APPLICATION_JSON_VALUE
@@ -219,22 +287,32 @@ public class ParseService {
     // -------------------------------------------------
 
     @ApiOperation(
-        value = "Analyze the provided User-Agent",
-        notes = "<b>Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
-                "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035</b>"
+        value = "Analyze the provided User-Agent"
     )
     @PostMapping(
         value = API_BASE_PATH + "/analyze",
         consumes = TEXT_PLAIN_VALUE,
         produces = APPLICATION_JSON_VALUE
     )
+    @ApiResponses({
+        @ApiResponse(
+            code = 200, // HttpStatus.OK
+            message = "The agent was successfully analyzed",
+            examples = @Example({
+                @ExampleProperty(mediaType = APPLICATION_JSON_VALUE, value = EXAMPLE_JSON),
+                @ExampleProperty(mediaType = APPLICATION_XML_VALUE, value = EXAMPLE_XML)
+            })
+        )
+    })
     public String getJSonPOST(
         @ApiParam(
+            name ="Request body",
+            type = "Map",
+            defaultValue = EXAMPLE_USERAGENT,
             value = "The entire POSTed value is used as the input that is to be analyzed.",
-            example = EXAMPLE_USERAGENT
+            examples = @Example(@ExampleProperty(mediaType = TEXT_PLAIN_VALUE, value = EXAMPLE_USERAGENT))
         )
-        @RequestBody
-        String userAgentString
+        @RequestBody String userAgentString
     ) {
         return doJSon(userAgentString);
     }
@@ -246,6 +324,18 @@ public class ParseService {
         notes = "<b>Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
                 "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035</b>"
     )
+    @ApiResponses({
+        @ApiResponse(
+            code = 200, // HttpStatus.OK
+            message = "The agent was successfully analyzed",
+            examples = @Example(
+                value = {
+                    @ExampleProperty(mediaType = APPLICATION_JSON_VALUE, value = EXAMPLE_JSON),
+                    @ExampleProperty(mediaType = APPLICATION_XML_VALUE, value = EXAMPLE_XML)
+                }
+            )
+        )
+    })
     @GetMapping(
         value = API_BASE_PATH + "/analyze",
         produces = APPLICATION_XML_VALUE
@@ -264,9 +354,7 @@ public class ParseService {
     // -------------------------------------------------
 
     @ApiOperation(
-        value = "Analyze the provided User-Agent",
-        notes = "<b>Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
-                "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035</b>"
+        value = "Analyze the provided User-Agent"
     )
     @PostMapping(
         value = API_BASE_PATH + "/analyze",
@@ -275,8 +363,11 @@ public class ParseService {
     )
     public String getXMLPOST(
         @ApiParam(
+            name ="Request body",
+            type = "Map",
+            defaultValue = EXAMPLE_USERAGENT,
             value = "The entire POSTed value is used as the input that is to be analyzed.",
-            example = EXAMPLE_USERAGENT
+            examples = @Example(@ExampleProperty(mediaType = TEXT_PLAIN_VALUE, value = EXAMPLE_USERAGENT))
         )
         @RequestBody String userAgentString
     ) {
@@ -288,6 +379,21 @@ public class ParseService {
     @ApiOperation(
         value = "Fire all available test cases against the analyzer to heat up the JVM"
     )
+    @ApiResponses({
+        @ApiResponse(
+            code = 200, // HttpStatus.OK
+            message = "The number of reported tests were done to preheat the engine",
+            examples = @Example(
+                value = {
+                    @ExampleProperty(mediaType = APPLICATION_JSON_VALUE, value = "{\n" +
+                        "  \"status\": \"Ran tests\",\n" +
+                        "  \"testsDone\": 2337,\n" +
+                        "  \"timeInMs\": 3123\n" +
+                        "}"),
+                }
+            )
+        )
+    })
     @GetMapping(
         value = API_BASE_PATH + "/preheat",
         produces = APPLICATION_JSON_VALUE
@@ -558,7 +664,74 @@ public class ParseService {
         }
     }
 
-    @RequestMapping("/running")
+
+    @ApiOperation(
+        value = "Is the analyzer running? YES or NO",
+        notes = "This endpoint is intended for checking if the service has been started up.<br>" +
+            "So if you are deploying this on Kubernetes you can use this endpoint for both " +
+            "the <b>readinessProbe</b> and the <b>livenessProbe</b> for your deployment:" +
+            "<pre>" +
+            "apiVersion: apps/v1</br>" +
+            "kind: Deployment</br>" +
+            "metadata:</br>" +
+            "&nbsp;&nbsp;name: yauaa</br>" +
+            "spec:</br>" +
+            "&nbsp;&nbsp;selector:</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;matchLabels:</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app: yauaa</br>" +
+            "&nbsp;&nbsp;&nbsp;replicas: 3</br>" +
+            "&nbsp;&nbsp;&nbsp;template:</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;metadata:</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;labels:</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app: yauaa</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spec:</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containers:</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: yauaa</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image: nielsbasjes/yauaa:latest</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imagePullPolicy: Always</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ports:</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- containerPort: 8080</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: yauaa</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protocol: TCP</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;readinessProbe:</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;httpGet:</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path: /running</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port: yauaa</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initialDelaySeconds: 2</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;periodSeconds: 3</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;livenessProbe:</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;httpGet:</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path: /running</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port: yauaa</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initialDelaySeconds: 10</br>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;periodSeconds: 30</br>" +
+            "</pre>" +
+            ""
+    )
+    @ApiResponses({
+        @ApiResponse(
+            code = 200, // HttpStatus.OK
+            message = "The analyzer is running",
+            examples = @Example(
+                value = {
+                    @ExampleProperty(mediaType = TEXT_PLAIN_VALUE, value = "YES")
+                }
+            )
+        ),
+        @ApiResponse(
+            code = 500, // HttpStatus.INTERNAL_SERVER_ERROR,
+            message = "The analyzer is starting up",
+            examples = @Example(
+                value = {
+                    @ExampleProperty(mediaType = TEXT_PLAIN_VALUE, value = "NO")
+                }
+            )
+        )
+    })
+    @GetMapping(
+        path = "/running",
+        produces = TEXT_PLAIN_VALUE
+    )
     public String isRunning() {
         ensureStartedForApis(OutputType.TXT);
         return "YES";
@@ -570,7 +743,10 @@ public class ParseService {
      *
      * @return Returns a non empty message body.
      */
-    @RequestMapping("/_ah/health")
+    @GetMapping(
+        path = "/_ah/health",
+        produces = TEXT_PLAIN_VALUE
+    )
     public String isHealthy() {
         ensureStartedForApis(OutputType.TXT);
         return "YES";

@@ -39,6 +39,16 @@
     <main.class>nl.basjes.parse.useragent.servlet.ParseService</main.class>
   </properties>
 
+  <!-- FIXME: Remove this when springfox 3.0.0 has been released! -->
+  <repositories>
+    <repository>
+      <id>jcenter-snapshots</id>
+      <name>jcenter</name>
+      <url>http://oss.jfrog.org/artifactory/oss-snapshot-local/</url>
+    </repository>
+  </repositories>
+
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -98,6 +108,18 @@
     <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger-ui</artifactId>
+      <version>${springfox-swagger.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-spring-web</artifactId>
+      <version>${springfox-swagger.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-spring-webmvc</artifactId>
       <version>${springfox-swagger.version}</version>
     </dependency>
 

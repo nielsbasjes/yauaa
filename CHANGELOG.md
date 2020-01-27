@@ -16,6 +16,8 @@ v5.15-SNAPSHOT
   - Apache Beam   2.17.0
 - Build
   - Improve scripting for generated files
+- Demonstration WebServlet
+  - Updated to SpringFox 3.0.0-SNAPSHOT to support better examples in the Swagger UI.
 
 v5.14.1
 ===
