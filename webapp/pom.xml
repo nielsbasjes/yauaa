@@ -37,6 +37,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <appengine.maven.plugin>2.2.0</appengine.maven.plugin>
     <main.class>nl.basjes.parse.useragent.servlet.ParseService</main.class>
+
+    <!-- By default we disable building the docker image and reenable it if docker is present. -->
+    <docker.skip>true</docker.skip>
   </properties>
 
   <!-- FIXME: Remove this when springfox 3.0.0 has been released! -->
@@ -196,6 +199,48 @@
     <!-- ================================================================================================ -->
 
   </dependencies>
+
+  <!-- From https://www.dontpanicblog.co.uk/2017/02/28/activate-the-maven-docker-plugin/ -->
+  <profiles>
+    <profile>
+      <id>enableDocker-linux</id>
+      <properties>
+        <docker.skip>false</docker.skip>
+      </properties>
+      <activation>
+        <!-- Activate on Linux systems. Assume presence of docker.pid file indicates Docker is available -->
+        <file>
+          <exists>/var/run/docker.pid</exists>
+        </file>
+      </activation>
+    </profile>
+
+    <profile>
+      <id>enableDocker-win10</id>
+      <properties>
+        <docker.skip>false</docker.skip>
+      </properties>
+      <activation>
+        <!-- Activate on Windows 10 systems with native Docker. Check for docker.exe in default install directory -->
+        <file>
+          <exists>C:\Program Files\Docker\Docker\resources\bin\docker.exe</exists>
+        </file>
+      </activation>
+    </profile>
+
+    <profile>
+      <id>enableDocker-toolbox</id>
+      <properties>
+        <docker.skip>false</docker.skip>
+      </properties>
+      <activation>
+        <!-- Activate on Windows (Docker Toolbox) systems. Assume presence of DOCKER_HOST indicates Docker is available -->
+        <property>
+          <name>env.DOCKER_HOST</name>
+        </property>
+      </activation>
+    </profile>
+  </profiles>
 
   <build>
     <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory>
