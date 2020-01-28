@@ -20,6 +20,30 @@ VERSION=$1
 
 [ -z "$VERSION" ] && echo "Usage: $0 <logstash version>" && exit 1
 
+#https://wiki.archlinux.org/index.php/Color_Bash_Prompt
+# Reset
+export Color_Off='\e[0m'      # Text Reset
+
+# High Intensity
+export IRed='\e[0;91m'        # Red
+export IYellow='\e[0;93m'     # Yellow
+export IBlue='\e[0;94m'       # Blue
+export IWhite='\e[0;97m'      # White
+
+# Bold High Intensity
+export BIRed='\e[1;91m'       # Red
+export BIBlue='\e[1;94m'      # Blue
+
+echo -e "${IRed}"
+echo -e "${IWhite}[${IRed}WARN${IWhite}] ${IYellow}/========================================================================\\"
+echo -e "${IWhite}[${IRed}WARN${IWhite}] ${IYellow}|                        ${BIRed}Running nasty workaround !${IYellow}                      |"
+echo -e "${IWhite}[${IRed}WARN${IWhite}] ${IYellow}| Waiting for https://github.com/elastic/logstash/issues/11002           |"
+echo -e "${IWhite}[${IRed}WARN${IWhite}] ${IYellow}|     \"${BIBlue}Publish Logstash Java dependencies to Maven central${IYellow}\"              |"
+echo -e "${IWhite}[${IRed}WARN${IWhite}] ${IYellow}| Downloading full logstash distribution to get the logstash-core.jar.   |"
+echo -e "${IWhite}[${IRed}WARN${IWhite}] ${IYellow}\\========================================================================/"
+echo -e "${Color_Off}"
+
+
 [ -f ${HOME}/.m2/repository/org/logstash/logstash-core/${VERSION}/logstash-core-${VERSION}.jar ] && echo "Logstash ${VERSION} was already downloaded" && exit 0;
 
 cd /tmp || exit 1
