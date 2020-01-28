@@ -28,7 +28,7 @@
   </parent>
   <artifactId>yauaa-logstash</artifactId>
 
-  <name>Yauaa : UDF : Logstash Filter</name>
+  <name>Yauaa : UDF : Elastic Logstash : Filter</name>
   <description>A parsing and analyzing library to get information from a useragent string.</description>
 
   <url>https://yauaa.basjes.nl</url>
@@ -47,15 +47,9 @@
     <filter.name>yauaa</filter.name>
     <!-- The java classname of the filter class. -->
     <filter.class>Yauaa</filter.class>
-
-    <logstash.version>7.5.2</logstash.version>
   </properties>
 
-
   <dependencies>
-
-    <!-- Not in maven central yet. So do this first: -->
-    <!-- mvn install:install-file -DgroupId=org.logstash -DartifactId=logstash-core -Dpackaging=jar -Dversion=6.6.1 -Dfile=logstash-core-6.6.1.jar -->
 
     <dependency>
       <groupId>org.logstash</groupId>
@@ -196,7 +190,6 @@
               <outputFile>${project.build.directory}/vendor/jar-dependencies/${filter.package.dir}/logstash-filter-${filter.name}/${project.version}/logstash-filter-${filter.name}-${project.version}.jar</outputFile>
             </configuration>
           </execution>
-
         </executions>
       </plugin>
 
@@ -206,20 +199,21 @@
         <version>1.6.0</version>
         <executions>
           <execution>
+            <id>Build the final gem</id>
+            <phase>package</phase>
             <goals>
               <goal>exec</goal>
             </goals>
-            <phase>package</phase>
+            <configuration>
+              <executable>gem</executable>
+              <workingDirectory>${project.build.directory}</workingDirectory>
+              <arguments>
+                <argument>build</argument>
+                <argument>logstash-filter-${filter.name}.gemspec</argument>
+              </arguments>
+            </configuration>
           </execution>
         </executions>
-        <configuration>
-          <executable>gem</executable>
-          <workingDirectory>${project.build.directory}</workingDirectory>
-          <arguments>
-            <argument>build</argument>
-            <argument>logstash-filter-${filter.name}.gemspec</argument>
-          </arguments>
-        </configuration>
       </plugin>
 
       <plugin>
