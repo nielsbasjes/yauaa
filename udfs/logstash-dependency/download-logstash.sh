@@ -34,7 +34,7 @@ mvn install:install-file        \
      -DgroupId=org.logstash     \
      -DartifactId=logstash-core \
      -Dpackaging=jar            \
-     -Dversion=${VERSION}            \
+     -Dversion=${VERSION}       \
      -Dfile=logstash-core.jar
 
 echo "Logstash ${VERSION}: Cleanup"

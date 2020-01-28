@@ -5,38 +5,20 @@ The logstash UDF java api is still experimental.
 
 See https://github.com/logstash-plugins/logstash-filter-java_filter_example and https://github.com/elastic/logstash/issues/9215 for more information.
 
-The only way you can get this filter right now is to build it yourself.
+Starting with version 5.15 you can get the prebuilt filter from
+[maven central](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-logstash/{{ book.YauaaVersion }}/logstash-filter-yauaa-{{ book.YauaaVersion }}.gem).
 
-Because at this time none of the required dependencies are in maven central you first need to build logstash yourself.
+# Building has side effects !
+Because at this time none of the required dependencies are in maven central this build does something rarely seen:
 
-```
-git clone --branch 6.6 --single-branch https://github.com/elastic/logstash.git
-cd logstash
-./gradlew assemble
-rake bootstrap
-cd ..
-```
+It downloads the logstash distribution, extracts the logstash-core.jar and installs it locally for maven
+to use as dependency.
 
-The install the build jar file into your local maven repository
+So your local maven repo will get a jar injected that is not normally available via Maven central or something similar.
 
-```
-mvn install:install-file        \
-     -DgroupId=org.logstash     \
-     -DartifactId=logstash-core \
-     -Dpackaging=jar            \
-     -Dversion=6.6.1            \
-     -Dfile=./logstash/logstash-core/build/libs/logstash-core-6.6.1.jar
-```
-
-Then go to where you downloaded the Yauaa sources and run
-
-```
-mvn clean package -Plogstash -DskipTests=true
-```
-
-After several minutes you'll find the filter gem with a name similar to this
-
-<pre><code>./udfs/logstash/target/logstash-filter-yauaa-{{ book.YauaaVersion }}.gem</code></pre>
+See these for more details:
+- https://github.com/nielsbasjes/yauaa/issues/146
+- https://github.com/elastic/logstash/issues/11002
 
 ## Installing the filter
 
