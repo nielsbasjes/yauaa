@@ -19,6 +19,8 @@ v5.15-SNAPSHOT
   - Only build the docker image for the webservlet if docker is available.
 - Demonstration WebServlet
   - Updated to SpringFox 3.0.0-SNAPSHOT to support better examples in the Swagger UI.
+- Updated UDF dependencies
+  - Logstash 7.5.2
 
 v5.14.1
 ===

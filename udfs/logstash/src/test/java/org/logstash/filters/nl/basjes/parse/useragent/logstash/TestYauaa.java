@@ -19,9 +19,11 @@ package org.logstash.filters.nl.basjes.parse.useragent.logstash;
 
 import co.elastic.logstash.api.Configuration;
 import co.elastic.logstash.api.Context;
-import co.elastic.logstash.api.v0.Filter;
+import co.elastic.logstash.api.Event;
+import co.elastic.logstash.api.Filter;
 import org.junit.jupiter.api.Test;
-import org.logstash.Event;
+import org.logstash.plugins.ConfigurationImpl;
+import org.logstash.plugins.ContextImpl;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -33,6 +35,7 @@ import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestYauaa {
 
@@ -48,18 +51,18 @@ public class TestYauaa {
         configMap.put("source", sourceField);
         configMap.put("fields", fieldMappings);
 
-        Configuration config = new Configuration(configMap);
+        Configuration config = new ConfigurationImpl(configMap);
 
-        Context context = new Context();
-        Filter  filter  = new Yauaa(config, context);
+        Context context = new ContextImpl(null, null);
+        Filter  filter  = new Yauaa("testNormalUse", config, context);
 
-        Event e = new Event();
+        Event e = new org.logstash.Event();
         e.setField(sourceField,
             "Mozilla/5.0 (X11; Linux x86_64) " +
                 "AppleWebKit/537.36 (KHTML, like Gecko) " +
                 "Chrome/48.0.2564.82 Safari/537.36");
 
-        Collection<Event> results = filter.filter(Collections.singletonList(e));
+        Collection<Event> results = filter.filter(Collections.singletonList(e), null);
 
         assertEquals(1, results.size());
         assertEquals("Desktop", e.getField("DC"));
@@ -70,9 +73,10 @@ public class TestYauaa {
     public void testBadConfigNothing() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Map<String, Object> configMap = new HashMap<>();
-            Configuration       config    = new Configuration(configMap);
-            Context             context   = new Context();
-            Filter              filter    = new Yauaa(config, context);
+            Configuration       config    = new ConfigurationImpl(configMap);
+            Context             context   = new ContextImpl(null, null);
+            Filter              filter    = new Yauaa("bad", config, context);
+            fail("Should never get here: " + filter);
         });
         assertTrue(
             allOf(
@@ -91,10 +95,11 @@ public class TestYauaa {
             Map<String, Object> configMap = new HashMap<>();
             configMap.put("fields", fieldMappings);
 
-            Configuration config = new Configuration(configMap);
+            Configuration config = new ConfigurationImpl(configMap);
 
-            Context context = new Context();
-            Filter  filter  = new Yauaa(config, context);
+            Context context = new ContextImpl(null, null);
+            Filter  filter  = new Yauaa("bad", config, context);
+            fail("Should never get here: " + filter);
         });
         assertTrue(exception.getMessage().contains("The \"source\" has not been specified."));
     }
@@ -110,10 +115,11 @@ public class TestYauaa {
             configMap.put("source", ""); // EMPTY STRING
             configMap.put("fields", fieldMappings);
 
-            Configuration config = new Configuration(configMap);
+            Configuration config = new ConfigurationImpl(configMap);
 
-            Context context = new Context();
-            Filter  filter  = new Yauaa(config, context);
+            Context context = new ContextImpl(null, null);
+            Filter  filter  = new Yauaa("bad", config, context);
+            fail("Should never get here: " + filter);
         });
         assertTrue(exception.getMessage().contains("The \"source\" is empty."));
     }
@@ -124,10 +130,11 @@ public class TestYauaa {
             Map<String, Object> configMap = new HashMap<>();
             configMap.put("source", "foo");
 
-            Configuration config = new Configuration(configMap);
+            Configuration config = new ConfigurationImpl(configMap);
 
-            Context context = new Context();
-            Filter  filter  = new Yauaa(config, context);
+            Context context = new ContextImpl(null, null);
+            Filter  filter  = new Yauaa("bad", config, context);
+            fail("Should never get here: " + filter);
         });
         assertTrue(exception.getMessage().contains("The list of needed \"fields\" has not been specified."));
     }
@@ -142,10 +149,11 @@ public class TestYauaa {
             configMap.put("source", "foo");
             configMap.put("fields", fieldMappings);
 
-            Configuration config = new Configuration(configMap);
+            Configuration config = new ConfigurationImpl(configMap);
 
-            Context context = new Context();
-            Filter  filter  = new Yauaa(config, context);
+            Context context = new ContextImpl(null, null);
+            Filter  filter  = new Yauaa("bad", config, context);
+            fail("Should never get here: " + filter);
         });
         assertTrue(exception.getMessage().contains("The list of needed \"fields\" is empty."));
     }
@@ -162,10 +170,11 @@ public class TestYauaa {
             configMap.put("source", "foo");
             configMap.put("fields", fieldMappings);
 
-            Configuration config = new Configuration(configMap);
+            Configuration config = new ConfigurationImpl(configMap);
 
-            Context context = new Context();
-            Filter  filter  = new Yauaa(config, context);
+            Context context = new ContextImpl(null, null);
+            Filter  filter  = new Yauaa("bad", config, context);
+            fail("Should never get here: " + filter);
         });
         assertTrue(exception.getMessage().contains("The requested field \"NoSuchField\" does not exist."));
     }
@@ -180,10 +189,11 @@ public class TestYauaa {
             Map<String, Object> configMap = new HashMap<>();
             configMap.put("fields", fieldMappings);
 
-            Configuration config = new Configuration(configMap);
+            Configuration config = new ConfigurationImpl(configMap);
 
-            Context context = new Context();
-            Filter  filter  = new Yauaa(config, context);
+            Context context = new ContextImpl(null, null);
+            Filter  filter  = new Yauaa("bad", config, context);
+            fail("Should never get here: " + filter);
         });
         assertTrue(
             allOf(
@@ -203,10 +213,11 @@ public class TestYauaa {
             configMap.put("source", "");
             configMap.put("fields", fieldMappings);
 
-            Configuration config = new Configuration(configMap);
+            Configuration config = new ConfigurationImpl(configMap);
 
-            Context context = new Context();
-            Filter  filter  = new Yauaa(config, context);
+            Context context = new ContextImpl(null, null);
+            Filter  filter  = new Yauaa("bad", config, context);
+            fail("Should never get here: " + filter);
         });
         assertTrue(
             allOf(

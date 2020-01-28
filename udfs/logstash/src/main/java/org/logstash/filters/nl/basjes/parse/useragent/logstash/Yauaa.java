@@ -19,21 +19,21 @@ package org.logstash.filters.nl.basjes.parse.useragent.logstash;
 
 import co.elastic.logstash.api.Configuration;
 import co.elastic.logstash.api.Context;
+import co.elastic.logstash.api.Event;
+import co.elastic.logstash.api.FilterMatchListener;
 import co.elastic.logstash.api.LogstashPlugin;
 import co.elastic.logstash.api.PluginConfigSpec;
-import co.elastic.logstash.api.v0.Filter;
+import co.elastic.logstash.api.Filter;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
-import org.logstash.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,23 +42,30 @@ public class Yauaa implements Filter {
 
     private static final Logger LOG = LoggerFactory.getLogger(Yauaa.class);
 
+    private String id;
     private UserAgentAnalyzer userAgentAnalyzer;
 
     private List<String> requestedFieldNames = new ArrayList<>();
 
     public static final PluginConfigSpec<String> SOURCE_CONFIG =
-        Configuration.requiredStringSetting("source");
+        PluginConfigSpec.stringSetting("source");
 
-    public static final PluginConfigSpec<Map<String, String>> FIELDS_CONFIG =
-        Configuration.hashSetting("fields");
+    public static final PluginConfigSpec<Map<String, Object>> FIELDS_CONFIG =
+        PluginConfigSpec.hashSetting("fields");
 
     private String sourceField;
     private Map<String, String> outputFields;
 
-    public Yauaa(Configuration config, Context context) {
+    public Yauaa(String id, Configuration config, Context context) {
+        this.id = id;
         // constructors should validate configuration options
         sourceField = config.get(SOURCE_CONFIG);
-        outputFields = config.get(FIELDS_CONFIG);
+        final Map<String, Object> requestedFields = config.get(FIELDS_CONFIG);
+
+        if (requestedFields != null) {
+            outputFields = new HashMap<>();
+            requestedFields.forEach((key, value) -> outputFields.put(key, value.toString()));
+        }
 
         checkConfiguration();
 
@@ -79,7 +86,12 @@ public class Yauaa implements Filter {
     }
 
     @Override
-    public Collection<Event> filter(Collection<Event> events) {
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public Collection<Event> filter(Collection<Event> events, FilterMatchListener filterMatchListener) {
         for (Event event : events) {
             Object rawField = event.getField(sourceField);
             if (rawField instanceof String) {
