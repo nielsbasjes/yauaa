@@ -34,25 +34,24 @@ export IWhite='\e[0;97m'      # White
 export BIRed='\e[1;91m'       # Red
 export BIBlue='\e[1;94m'      # Blue
 
-echo -e "${IRed}"
-echo -e "${IWhite}[${IRed}WARN${IWhite}] ${IYellow}/========================================================================\\"
-echo -e "${IWhite}[${IRed}WARN${IWhite}] ${IYellow}|                        ${BIRed}Running nasty workaround !${IYellow}                      |"
-echo -e "${IWhite}[${IRed}WARN${IWhite}] ${IYellow}| Waiting for https://github.com/elastic/logstash/issues/11002           |"
-echo -e "${IWhite}[${IRed}WARN${IWhite}] ${IYellow}|     \"${BIBlue}Publish Logstash Java dependencies to Maven central${IYellow}\"              |"
-echo -e "${IWhite}[${IRed}WARN${IWhite}] ${IYellow}| Downloading full logstash distribution to get the logstash-core.jar.   |"
-echo -e "${IWhite}[${IRed}WARN${IWhite}] ${IYellow}\\========================================================================/"
+echo -e "${IWhite}[${BIRed}WARN${IWhite}] ${IYellow}/========================================================================\\"
+echo -e "${IWhite}[${BIRed}WARN${IWhite}] ${IYellow}|                        ${BIRed}Running nasty workaround !${IYellow}                      |"
+echo -e "${IWhite}[${BIRed}WARN${IWhite}] ${IYellow}| Waiting for https://github.com/elastic/logstash/issues/11002           |"
+echo -e "${IWhite}[${BIRed}WARN${IWhite}] ${IYellow}|     \"${BIBlue}Publish Logstash Java dependencies to Maven central${IYellow}\"              |"
+echo -e "${IWhite}[${BIRed}WARN${IWhite}] ${IYellow}| Downloading full logstash distribution to get the logstash-core.jar.   |"
+echo -e "${IWhite}[${BIRed}WARN${IWhite}] ${IYellow}\\========================================================================/"
 echo -e "${Color_Off}"
 
 
-[ -f ${HOME}/.m2/repository/org/logstash/logstash-core/${VERSION}/logstash-core-${VERSION}.jar ] && echo "Logstash ${VERSION} was already downloaded" && exit 0;
+[ -f ${HOME}/.m2/repository/org/logstash/logstash-core/${VERSION}/logstash-core-${VERSION}.jar ] && echo -e "${IYellow}Logstash ${VERSION} was already downloaded${Color_Off}" && exit 0;
 
 cd /tmp || exit 1
 
-echo "Logstash ${VERSION}: Downloading"
+echo -e "${IYellow}Logstash ${VERSION}: Downloading${Color_Off}"
 
 curl https://artifacts.elastic.co/downloads/logstash/logstash-oss-${VERSION}.tar.gz | tar xzf - --to-stdout logstash-${VERSION}/logstash-core/lib/jars/logstash-core.jar > logstash-core.jar
 
-echo "Logstash ${VERSION}: Installing"
+echo -e "${IYellow}Logstash ${VERSION}: Installing${Color_Off}"
 
 mvn install:install-file        \
      -DgroupId=org.logstash     \
@@ -61,8 +60,8 @@ mvn install:install-file        \
      -Dversion=${VERSION}       \
      -Dfile=logstash-core.jar
 
-echo "Logstash ${VERSION}: Cleanup"
+echo -e "${IYellow}Logstash ${VERSION}: Cleanup${Color_Off}"
 
 rm -rf logstash-core.jar
 
-echo "Logstash ${VERSION}: Done"
+echo -e "${IYellow}Logstash ${VERSION}: Done${Color_Off}"
