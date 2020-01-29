@@ -145,3 +145,17 @@ will become available which will make it a lot easier for Scala users to use:
       .withField("DeviceClass")
       .build
 
+# Snapshots
+
+Occasionally I publish a snapshot version.
+If you want to use such a version then the repository can be configured in your maven with something like this
+
+    <repositories>
+      <repository>
+        <id>sonatype-oss-snapshots</id>
+        <name>Sonatype OSS Snapshots</name>
+        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        <releases><enabled>false</enabled></releases>
+        <snapshots><enabled>true</enabled></snapshots>
+      </repository>
+    </repositories>
