@@ -13,8 +13,9 @@ v5.15-SNAPSHOT
   - Brand: Huawei/Honor
   - Robots: 'probe' and 'alyzer' both imply 'Robot', new Bing useragents.
 - Updated UDF dependencies
-  - Apache Beam   2.17.0
-  - Logstash 7.5.2
+  - Apache Beam      2.17.0
+  - Apache Nifi      1.11.0
+  - Elastic Logstash 7.5.2
 - Build
   - Improve scripting for generated files
   - Only build the docker image for the webservlet if docker is available.
