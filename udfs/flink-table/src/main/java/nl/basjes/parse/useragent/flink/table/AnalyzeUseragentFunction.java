@@ -25,6 +25,7 @@ import org.apache.flink.table.functions.ScalarFunction;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static nl.basjes.parse.useragent.UserAgentAnalyzer.DEFAULT_PARSE_CACHE_SIZE;
 
@@ -79,15 +80,12 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
             .build();
     }
 
-    // An eval function can only return a SINGLE value (i.e. String)
-    // So in this simple brute force implementation we provide the input and the requested output field.
-    // Because the parse result is cached the performance impact of getting multiple fields is "not too bad".
-    public String eval(String userAgentString, String fieldName) {
-        return userAgentAnalyzer.parse(userAgentString).getValue(fieldName);
+    public Map<String, String> eval(String userAgentString) {
+        return userAgentAnalyzer.parse(userAgentString).toMap(extractedFields);
     }
 
     @Override
     public TypeInformation<?> getResultType(Class<?>[] bla) {
-        return Types.STRING;
+        return Types.MAP(Types.STRING, Types.STRING);
     }
 }

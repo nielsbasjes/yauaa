@@ -126,7 +126,7 @@ public class DemonstrationOfTumblingTableSQLFunction {
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
 
         // Give the stream a Table Name
-        tableEnv.registerDataStream("AgentStream", inputStream, "EventTime.rowtime, useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
+        tableEnv.registerDataStream("AgentStream", inputStream, "eventTime.rowtime, useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
 
         // register the function
         tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
@@ -136,24 +136,31 @@ public class DemonstrationOfTumblingTableSQLFunction {
 
         String sqlQuery = String.format(
             "SELECT" +
-            "   TUMBLE_START(EventTime, INTERVAL '%d' %s) as wStart," +
-            "   DeviceClass," +
-            "   AgentNameVersionMajor," +
+            "   TUMBLE_START(eventTime, INTERVAL '%d' %s) AS wStart," +
+            "   deviceClass," +
+            "   agentNameVersionMajor," +
             "   expectedDeviceClass," +
             "   expectedAgentNameVersionMajor," +
             "   Count('') " +
             "FROM ( "+
             "    SELECT " +
-            "       EventTime, " +
-            "       ParseUserAgent(useragent, 'DeviceClass'          )  as DeviceClass," +
-            "       ParseUserAgent(useragent, 'AgentNameVersionMajor')  as AgentNameVersionMajor," +
+            "       eventTime, " +
+            "       parsedUserAgent['DeviceClass'          ]  AS deviceClass," +
+            "       parsedUserAgent['AgentNameVersionMajor']  AS agentNameVersionMajor," +
             "       expectedDeviceClass," +
             "       expectedAgentNameVersionMajor" +
-            "    FROM AgentStream " +
+            "    FROM ( "+
+            "        SELECT " +
+            "           eventTime, " +
+            "           ParseUserAgent(useragent) AS parsedUserAgent," +
+            "           expectedDeviceClass," +
+            "           expectedAgentNameVersionMajor" +
+            "        FROM AgentStream " +
+            "    )" +
             ")" +
-            "GROUP BY TUMBLE(EventTime, INTERVAL '%d' %s), " +
-                "       DeviceClass," +
-                "       AgentNameVersionMajor," +
+            "GROUP BY TUMBLE(eventTime, INTERVAL '%d' %s), " +
+                "       deviceClass," +
+                "       agentNameVersionMajor," +
                 "       expectedDeviceClass," +
                 "       expectedAgentNameVersionMajor",
             windowIntervalCount, windowIntervalScale,
@@ -167,11 +174,23 @@ public class DemonstrationOfTumblingTableSQLFunction {
         resultSet.print();
 
         resultSet.map((MapFunction<Row, String>) row -> {
-            assertEquals(row.getField(3), row.getField(1),
-                "Wrong DeviceClass: " + row.getField(0));
-            assertEquals(row.getField(4), row.getField(2),
-                "Wrong AgentNameVersionMajor: " + row.getField(0));
-            return row.getField(0).toString();
+            Object useragent                      = row.getField(0);
+            Object deviceClass                    = row.getField(1);
+            Object agentNameVersionMajor          = row.getField(2);
+            Object expectedDeviceClass            = row.getField(3);
+            Object expectedAgentNameVersionMajor  = row.getField(4);
+
+            assertEquals(
+                expectedDeviceClass,
+                deviceClass,
+                "Wrong DeviceClass: " + useragent);
+
+            assertEquals(
+                expectedAgentNameVersionMajor,
+                agentNameVersionMajor,
+                "Wrong AgentNameVersionMajor: " + useragent);
+
+            return useragent.toString();
         });
 
         senv.execute();

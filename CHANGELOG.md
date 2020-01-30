@@ -14,14 +14,15 @@ v5.15-SNAPSHOT
   - Robots: 'probe' and 'alyzer' both imply 'Robot', new Bing useragents.
 - Updated UDF dependencies
   - Apache Beam   2.17.0
+  - Logstash 7.5.2
 - Build
   - Improve scripting for generated files
   - Only build the docker image for the webservlet if docker is available.
   - Automatically download the logstash dependency from the elastic website.
 - Demonstration WebServlet
   - Updated to SpringFox 3.0.0-SNAPSHOT to support better examples in the Swagger UI.
-- Updated UDF dependencies
-  - Logstash 7.5.2
+- UDF changes
+  - Flink Table function now returns a Map<String, String> with all the values in a single call.
 
 v5.14.1
 ===

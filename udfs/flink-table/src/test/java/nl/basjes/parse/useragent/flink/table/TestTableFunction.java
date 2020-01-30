@@ -32,9 +32,12 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
+import static org.apache.flink.api.common.typeinfo.Types.MAP;
 import static org.apache.flink.api.common.typeinfo.Types.STRING;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestTableFunction {
 
@@ -63,7 +66,58 @@ public class TestTableFunction {
 
 
     @Test
-    public void testFunction() throws Exception {
+    public void testFunctionExtractDirect() throws Exception {
+        // The base input stream
+        StreamExecutionEnvironment                       senv        = StreamExecutionEnvironment.getExecutionEnvironment();
+        DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
+
+        // The table environment
+        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
+
+        // Give the stream a Table Name
+        tableEnv.registerDataStream("AgentStream", inputStream, "useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
+
+        // register the function
+        tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
+
+
+        // The downside of doing it this way is that the parsing function (i.e. parsing and converting all results into a map)
+        // is called for each field you want. So in this simple case twice.
+        String sqlQuery =
+            "SELECT useragent,"+
+            "       ParseUserAgent(useragent)['DeviceClass'          ]  as DeviceClass," +
+            "       ParseUserAgent(useragent)['AgentNameVersionMajor']  as AgentNameVersionMajor," +
+            "       expectedDeviceClass," +
+            "       expectedAgentNameVersionMajor " +
+            "FROM AgentStream";
+        Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
+
+        TypeInformation<Row> tupleType = new RowTypeInfo(STRING, STRING, STRING, STRING, STRING);
+        DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
+
+        resultSet.map((MapFunction<Row, String>) row -> {
+            Object useragent                      = row.getField(0);
+            Object deviceClass                    = row.getField(1);
+            Object agentNameVersionMajor          = row.getField(2);
+            Object expectedDeviceClass            = row.getField(3);
+            Object expectedAgentNameVersionMajor  = row.getField(4);
+
+            assertTrue(useragent                     instanceof String);
+            assertTrue(deviceClass                   instanceof String);
+            assertTrue(agentNameVersionMajor         instanceof String);
+            assertTrue(expectedDeviceClass           instanceof String);
+            assertTrue(expectedAgentNameVersionMajor instanceof String);
+
+            assertEquals(expectedDeviceClass,           deviceClass,           "Wrong DeviceClass: "           + useragent);
+            assertEquals(expectedAgentNameVersionMajor, agentNameVersionMajor, "Wrong AgentNameVersionMajor: " + useragent);
+            return useragent.toString();
+        }).printToErr();
+
+        senv.execute();
+    }
+
+    @Test
+    public void testMapFunctionExtractInSQLSubSelect() throws Exception {
         // The base input stream
         StreamExecutionEnvironment                       senv        = StreamExecutionEnvironment.getExecutionEnvironment();
         DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
@@ -79,59 +133,139 @@ public class TestTableFunction {
 
         String sqlQuery =
             "SELECT useragent,"+
-            "       ParseUserAgent(useragent, 'DeviceClass'          )  as DeviceClass," +
-            "       ParseUserAgent(useragent, 'AgentNameVersionMajor')  as AgentNameVersionMajor," +
+            "       parsedUseragent['DeviceClass']              AS deviceClass," +
+            "       parsedUseragent['AgentNameVersionMajor']    AS agentNameVersionMajor," +
             "       expectedDeviceClass," +
             "       expectedAgentNameVersionMajor " +
-            "FROM AgentStream";
+            "FROM ( " +
+            "   SELECT useragent," +
+            "          ParseUserAgent(useragent) AS parsedUseragent," +
+            "          expectedDeviceClass," +
+            "          expectedAgentNameVersionMajor " +
+            "   FROM   AgentStream " +
+            ")";
+
         Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
 
         TypeInformation<Row> tupleType = new RowTypeInfo(STRING, STRING, STRING, STRING, STRING);
         DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
 
         resultSet.map((MapFunction<Row, String>) row -> {
-            assertEquals(row.getField(3), row.getField(1), "Wrong DeviceClass: "           + row.getField(0));
-            assertEquals(row.getField(4), row.getField(2), "Wrong AgentNameVersionMajor: " + row.getField(0));
-            return row.getField(0).toString();
-        }).print();
+            Object useragent                      = row.getField(0);
+            Object deviceClass                    = row.getField(1);
+            Object agentNameVersionMajor          = row.getField(2);
+            Object expectedDeviceClass            = row.getField(3);
+            Object expectedAgentNameVersionMajor  = row.getField(4);
+
+            assertTrue(useragent                     instanceof String);
+            assertTrue(deviceClass                   instanceof String);
+            assertTrue(agentNameVersionMajor         instanceof String);
+            assertTrue(expectedDeviceClass           instanceof String);
+            assertTrue(expectedAgentNameVersionMajor instanceof String);
+
+            assertEquals(expectedDeviceClass,           deviceClass,           "Wrong DeviceClass: "           + useragent);
+            assertEquals(expectedAgentNameVersionMajor, agentNameVersionMajor, "Wrong AgentNameVersionMajor: " + useragent);
+            return useragent.toString();
+        }).printToErr();
 
         senv.execute();
     }
 
+    @Test
+    public void testMapFunctionReturnMap() throws Exception {
+        // The base input stream
+        StreamExecutionEnvironment                       senv        = StreamExecutionEnvironment.getExecutionEnvironment();
+        DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
+
+        // The table environment
+        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
+
+        // Give the stream a Table Name
+        tableEnv.registerDataStream("AgentStream", inputStream, "useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
+
+        // register the function
+        tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
+
+        String sqlQuery =
+            "SELECT useragent," +
+            "       ParseUserAgent(useragent)        AS parsedUseragent," +
+            "       expectedDeviceClass              AS expectedDeviceClass," +
+            "       expectedAgentNameVersionMajor    AS expectedAgentNameVersionMajor " +
+            "FROM   AgentStream";
+
+        Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
+
+        TypeInformation<Row> tupleType = new RowTypeInfo(STRING, MAP(STRING, STRING), STRING, STRING);
+        DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
+
+        resultSet.map((MapFunction<Row, String>) row -> {
+            Object useragent                     = row.getField(0);
+            Object parsedUseragent               = row.getField(1);
+            Object expectedDeviceClass           = row.getField(2);
+            Object expectedAgentNameVersionMajor = row.getField(3);
+
+            assertTrue(useragent                     instanceof String);
+            assertTrue(parsedUseragent               instanceof Map<?, ?>);
+            assertTrue(expectedDeviceClass           instanceof String);
+            assertTrue(expectedAgentNameVersionMajor instanceof String);
+
+            assertEquals(
+                expectedDeviceClass,
+                ((Map<?, ?>)parsedUseragent).get("DeviceClass"),
+                "Wrong DeviceClass: "           + useragent);
+
+            assertEquals(
+                expectedAgentNameVersionMajor,
+                ((Map<?, ?>)parsedUseragent).get("AgentNameVersionMajor"),
+                "Wrong AgentNameVersionMajor: " + useragent);
+
+            return useragent.toString();
+        }).printToErr();
+
+        senv.execute();
+    }
 
     private static final String USERAGENT =
         "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36";
 
     @Test
-    public void testFunctionList() {
+    public void testMapFunctionList() {
         AnalyzeUseragentFunction function = new AnalyzeUseragentFunction(Arrays.asList("DeviceClass", "AgentNameVersionMajor"));
         function.open(null);
-        assertEquals("Desktop",   function.eval(USERAGENT, "DeviceClass"));
-        assertEquals("Chrome 70", function.eval(USERAGENT, "AgentNameVersionMajor"));
+        final Map<String, String> result = function.eval(USERAGENT);
+        assertEquals(2,           result.size());
+        assertEquals("Desktop",   result.get("DeviceClass"));
+        assertEquals("Chrome 70", result.get("AgentNameVersionMajor"));
     }
 
     @Test
-    public void testFunctionListNoCache() {
+    public void testMapFunctionListNoCache() {
         AnalyzeUseragentFunction function = new AnalyzeUseragentFunction(0, Arrays.asList("DeviceClass", "AgentNameVersionMajor"));
         function.open(null);
-        assertEquals("Desktop",   function.eval(USERAGENT, "DeviceClass"));
-        assertEquals("Chrome 70", function.eval(USERAGENT, "AgentNameVersionMajor"));
+        final Map<String, String> result = function.eval(USERAGENT);
+        assertEquals(2,           result.size());
+        assertEquals("Desktop",   result.get("DeviceClass"));
+        assertEquals("Chrome 70", result.get("AgentNameVersionMajor"));
     }
 
     @Test
-    public void testFunctionArray() {
+    public void testMapFunctionArray() {
         AnalyzeUseragentFunction function = new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor");
         function.open(null);
-        assertEquals("Desktop",   function.eval(USERAGENT, "DeviceClass"));
-        assertEquals("Chrome 70", function.eval(USERAGENT, "AgentNameVersionMajor"));
+        final Map<String, String> result = function.eval(USERAGENT);
+        assertEquals(2,           result.size());
+        assertEquals("Desktop",   result.get("DeviceClass"));
+        assertEquals("Chrome 70", result.get("AgentNameVersionMajor"));
     }
 
     @Test
-    public void testFunctionArrayNoCache() {
+    public void testMapFunctionArrayNoCache() {
         AnalyzeUseragentFunction function = new AnalyzeUseragentFunction(0, "DeviceClass", "AgentNameVersionMajor");
         function.open(null);
-        assertEquals("Desktop",   function.eval(USERAGENT, "DeviceClass"));
-        assertEquals("Chrome 70", function.eval(USERAGENT, "AgentNameVersionMajor"));
+        final Map<String, String> result = function.eval(USERAGENT);
+        assertEquals(2,           result.size());
+        assertEquals("Desktop",   result.get("DeviceClass"));
+        assertEquals("Chrome 70", result.get("AgentNameVersionMajor"));
     }
 
 }

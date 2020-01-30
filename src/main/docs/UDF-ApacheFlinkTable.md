@@ -12,11 +12,19 @@ If you use a maven based project simply add this dependency to your project.
 &lt;/dependency&gt;
 </code></pre>
 
+
+## IMPORTANT: Breaking API change
+In version 5.15 this function was rewritten and as a consequence the API has changed.
+
+The function now returns a `Map<String, String>` with all the requested values in one go.
+
 ## Syntax
 Assume you register this function under the name `ParseUserAgent`
 Then the generic usage in your SQL is
 
-<pre><code>ParseUserAgent(&lt;useragent&gt;, &lt;requested fieldname&gt;)</code></pre>
+<pre><code>ParseUserAgent(&lt;useragent&gt;)</code></pre>
+
+This returns a `Map<String, String>` with all the requested values in one go.
 
 ## Example usage (Java)
 Assume you have a either a BatchTableEnvironment or a StreamTableEnvironment in which you have defined your records as a table.
@@ -29,7 +37,7 @@ Now you must do four things:
 
 * Determine the names of the fields you need.
 * Register the function with the full list of all the fields you want under the name you want.
-* Use the function in your SQL to extract one field at a time.
+* Use the function in your SQL to do the parsing and extract the fields from that.
 * Run the query
 
 
@@ -39,9 +47,35 @@ Now you must do four things:
     // Define the query.
     String sqlQuery =
         "SELECT useragent,"+
-        "       ParseUserAgent(useragent, 'DeviceClass')            as DeviceClass," +
-        "       ParseUserAgent(useragent, 'AgentNameVersionMajor')  as AgentNameVersionMajor" +
+        "       ParseUserAgent(useragent)   as parsedUseragent" +
         "FROM AgentStream";
 
     Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
+
+    // A String and the Map with all results
+    TypeInformation<Row> tupleType = new RowTypeInfo(STRING, MAP(STRING, STRING));
+    DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
+
+or something like this
+
+    // Register the function with all the desired fieldnames and optionally the size of the cache
+    tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction(15000, "DeviceClass", "AgentNameVersionMajor"));
+
+    // Define the query.
+    String sqlQuery =
+        "SELECT useragent,"+
+        "       parsedUseragent['DeviceClass']              AS deviceClass," +
+        "       parsedUseragent['AgentNameVersionMajor']    AS agentNameVersionMajor " +
+        "FROM ( " +
+        "   SELECT useragent," +
+        "          ParseUserAgent(useragent) AS parsedUseragent" +
+        "   FROM   AgentStream " +
+        ")";
+
+    Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
+
+    // 3 Strings
+    TypeInformation<Row> tupleType = new RowTypeInfo(STRING, STRING, STRING);
+    DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
+
 
