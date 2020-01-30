@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestDeveloperTools {
@@ -62,8 +63,19 @@ public class TestDeveloperTools {
         UserAgent useragent = uaa.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36");
         assertTrue(useragent.toString().contains("'Google Nexus 6'"));
+
         assertTrue(useragent.toJson().contains("\"DeviceName\":\"Google Nexus 6\""));
+        assertTrue(useragent.toJson("DeviceName").contains("\"DeviceName\":\"Google Nexus 6\""));
+        assertFalse(useragent.toJson("DeviceClass").contains("\"DeviceName\":\"Google Nexus 6\""));
+
         assertTrue(useragent.toXML().contains("<DeviceName>Google Nexus 6</DeviceName>"));
+        assertTrue(useragent.toXML("DeviceName").contains("<DeviceName>Google Nexus 6</DeviceName>"));
+        assertFalse(useragent.toXML("DeviceClass").contains("<DeviceName>Google Nexus 6</DeviceName>"));
+
+        assertEquals("Google Nexus 6", useragent.toMap().get("DeviceName"));
+        assertEquals("Google Nexus 6", useragent.toMap("DeviceName").get("DeviceName"));
+        assertNull(useragent.toMap("DeviceClass").get("DeviceName"));
+
         assertTrue(useragent.toYamlTestCase(true).contains("'Google Nexus 6'"));
 
         boolean ok = false;

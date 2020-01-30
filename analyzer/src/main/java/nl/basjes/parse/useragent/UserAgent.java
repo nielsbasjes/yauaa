@@ -590,11 +590,39 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         return sb.toString();
     }
 
+    public Map<String, String> toMap() {
+        List<String> fields = new ArrayList<>();
+        fields.add(USERAGENT_FIELDNAME);
+        fields.addAll(getAvailableFieldNamesSorted());
+        return toMap(fields);
+    }
+
+    public Map<String, String> toMap(String... fieldNames) {
+        return toMap(Arrays.asList(fieldNames));
+    }
+
+    public Map<String, String> toMap(List<String> fieldNames) {
+        Map<String, String> result = new TreeMap<>();
+
+        for (String fieldName : fieldNames) {
+            if (USERAGENT_FIELDNAME.equals(fieldName)) {
+                result.put(USERAGENT_FIELDNAME, getUserAgentString());
+            } else {
+                result.put(fieldName, getValue(fieldName));
+            }
+        }
+        return result;
+    }
+
     public String toJson() {
         List<String> fields = new ArrayList<>();
         fields.add(USERAGENT_FIELDNAME);
         fields.addAll(getAvailableFieldNamesSorted());
         return toJson(fields);
+    }
+
+    public String toJson(String... fieldNames) {
+        return toJson(Arrays.asList(fieldNames));
     }
 
     public String toJson(List<String> fieldNames) {
@@ -632,6 +660,10 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         return toXML(fields);
     }
 
+    public String toXML(String... fieldNames) {
+        return toXML(Arrays.asList(fieldNames));
+    }
+
     public String toXML(List<String> fieldNames) {
         StringBuilder sb =
             new StringBuilder(10240)
@@ -662,9 +694,11 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     public String toString() {
         return toString(getAvailableFieldNamesSorted());
     }
+
     public String toString(String... fieldNames) {
         return toString(Arrays.asList(fieldNames));
     }
+
     public String toString(List<String> fieldNames) {
         StringBuilder sb = new StringBuilder("  - user_agent_string: '\"" + userAgentString + "\"'\n");
         int maxLength = 0;
