@@ -216,6 +216,7 @@ config:
       AgentNameVersion                     : 'Internet Explorer 11.0'
       AgentNameVersionMajor                : 'Internet Explorer 11'
 
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows 8.1; Trident/7.0; rv:11.0) like Gecko'
@@ -242,6 +243,7 @@ config:
       AgentVersionMajor                    : '11'
       AgentNameVersion                     : 'Internet Explorer 11.0'
       AgentNameVersionMajor                : 'Internet Explorer 11'
+
 
 - test:
     input:
@@ -272,6 +274,37 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; Windows NT 9.0; en-US)'
+    expected:
+      DeviceClass                           : 'Desktop'
+      DeviceName                            : 'Desktop'
+      DeviceBrand                           : 'Unknown'
+      DeviceCpuBits                         : '32'
+      OperatingSystemClass                  : 'Desktop'
+      OperatingSystemName                   : 'Windows NT'
+      OperatingSystemVersion                : '9.0'
+      OperatingSystemVersionMajor           : '9'
+      OperatingSystemNameVersion            : 'Windows NT 9.0'
+      OperatingSystemNameVersionMajor       : 'Windows NT 9'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Mozilla'
+      LayoutEngineVersion                   : '5.0'
+      LayoutEngineVersionMajor              : '5'
+      LayoutEngineNameVersion               : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor          : 'Mozilla 5'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Windows NT'
+      AgentVersion                          : '9.0'
+      AgentVersionMajor                     : '9'
+      AgentNameVersion                      : 'Windows NT 9.0'
+      AgentNameVersionMajor                 : 'Windows NT 9'
+      AgentLanguage                         : 'English (United States)'
+      AgentLanguageCode                     : 'en-us'
+
 
 - test:
     input:
