@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Yet Another UserAgent Analyzer
   ~ Copyright (C) 2013-2020 Niels Basjes
@@ -16,9 +16,8 @@
   ~ limitations under the License.
   -->
 
-<project
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -26,209 +25,18 @@
     <groupId>nl.basjes.parse.useragent</groupId>
     <version>5.15-SNAPSHOT</version>
   </parent>
-  <artifactId>yauaa-logstash</artifactId>
+  <artifactId>yauaa-logstash-parent</artifactId>
+  <packaging>pom</packaging>
+  <name>Yauaa : UDF : Elastic LogStash : </name>
 
-  <name>Yauaa : UDF : Elastic Logstash : Filter</name>
   <description>A parsing and analyzing library to get information from a useragent string.</description>
 
   <url>https://yauaa.basjes.nl</url>
 
-  <properties>
-    <!-- The java package of the filter class. -->
-    <!-- FIXME: For some strange reason if we simply use the "nl.basjes.".. package the filter does not run. -->
-    <filter.package>org.logstash.filters.nl.basjes.parse.useragent.logstash</filter.package>
-    <filter.package.dir>org/logstash/filters/nl/basjes/parse/useragent/logstash</filter.package.dir>
-
-    <!-- IMPORTANT: The name and the class of the filter must be the SAME where -->
-    <!-- the filter.name is lowercase with '_' -->
-    <!-- the filter.class is CamelCase  -->
-
-    <!-- The name of the filter, must be the same as used in the @LogstashPlugin(name = "xxx") in the filter class. -->
-    <filter.name>yauaa</filter.name>
-    <!-- The java classname of the filter class. -->
-    <filter.class>Yauaa</filter.class>
-  </properties>
-
-  <dependencies>
-
-    <dependency>
-      <groupId>org.logstash</groupId>
-      <artifactId>logstash-core</artifactId>
-      <version>${logstash.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
-      <version>2.9.1</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>2.9.1</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>${slf4j.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jruby</groupId>
-      <artifactId>jruby-complete</artifactId>
-      <version>9.1.13.0</version>
-      <scope>test</scope>
-    </dependency>
-
-  </dependencies>
-
-  <build>
-    <plugins>
-
-      <plugin>
-        <groupId>com.google.code.maven-replacer-plugin</groupId>
-        <artifactId>maven-replacer-plugin</artifactId>
-        <version>1.4.1</version>
-        <executions>
-
-          <execution>
-            <id>Generate filter file</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>replace</goal>
-            </goals>
-            <configuration>
-              <file>src/main/code-gen/FILTER_NAME.rb</file>
-              <outputFile>${project.build.directory}/lib/logstash/filters/${filter.name}.rb</outputFile>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>Generate jars file</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>replace</goal>
-            </goals>
-            <configuration>
-              <file>src/main/code-gen/logstash-filter-FILTER_NAME_jars.rb</file>
-              <outputFile>${project.build.directory}/lib/logstash-filter-${filter.name}_jars.rb</outputFile>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>Generate gemspec file</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>replace</goal>
-            </goals>
-            <configuration>
-              <file>src/main/code-gen/logstash-filter-FILTER_NAME.gemspec</file>
-              <outputFile>${project.build.directory}/logstash-filter-${filter.name}.gemspec</outputFile>
-            </configuration>
-          </execution>
-
-        </executions>
-        <configuration>
-          <replacements>
-            <replacement>
-              <token>FILTER_PACKAGE</token>
-              <value>${filter.package}</value>
-            </replacement>
-            <replacement>
-              <token>FILTER_NAME</token>
-              <value>${filter.name}</value>
-            </replacement>
-            <replacement>
-              <token>FILTER_VERSION</token>
-              <value>${project.version}</value>
-            </replacement>
-            <replacement>
-              <token>FILTER_CLASS</token>
-              <value>${filter.class}</value>
-            </replacement>
-            <replacement>
-              <token>PROJECT_NAME</token>
-              <value>${project.artifactId}</value>
-            </replacement>
-          </replacements>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>create-shaded-jar</id>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <artifactSet>
-                <includes>
-                  <include>*:*</include>
-                </includes>
-              </artifactSet>
-              <outputFile>${project.build.directory}/vendor/jar-dependencies/${filter.package.dir}/logstash-filter-${filter.name}/${project.version}/logstash-filter-${filter.name}-${project.version}.jar</outputFile>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>1.6.0</version>
-        <executions>
-          <execution>
-            <id>Build the final gem</id>
-            <phase>package</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>gem</executable>
-              <workingDirectory>${project.build.directory}</workingDirectory>
-              <arguments>
-                <argument>build</argument>
-                <argument>logstash-filter-${filter.name}.gemspec</argument>
-              </arguments>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-      </plugin>
-
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-      </plugin>
-
-    </plugins>
-
-  </build>
+  <modules>
+    <module>logstash-dependency</module>
+    <module>logstash-filter</module>
+  </modules>
 
   <licenses>
     <license>
@@ -251,7 +59,7 @@
   </developers>
 
   <scm>
-    <url>https://yauaa.basjes.nl</url>
+    <url>https://github.com/nielsbasjes/yauaa</url>
     <connection>scm:git:https://github.com/nielsbasjes/yauaa.git</connection>
     <developerConnection>scm:git:.</developerConnection>
   </scm>

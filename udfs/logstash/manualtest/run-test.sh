@@ -28,7 +28,7 @@ VERSION=$(fgrep logstash.version "${DIR}/../../../pom.xml" | cut -d'>' -f2 | cut
 
 [ -d "logstash-${VERSION}" ] || ( echo "Logstash ${VERSION}: Unpacking" ; tar xzf "logstash-${VERSION}.tar.gz" )
 
-FILTERGEM=$(find "${DIR}/../target/" -maxdepth 1 | grep 'logstash-filter-yauaa-.*.gem')
+FILTERGEM=$(find "${DIR}/../logstash-filter/target/" -maxdepth 1 | grep 'logstash-filter-yauaa-.*.gem')
 
 echo "Testing ${FILTERGEM}"
 
