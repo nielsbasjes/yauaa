@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.version         = 'FILTER_VERSION'
   s.licenses        = ['Apache-2.0']
   s.summary         = "Logstash filter for Yauaa."
-  s.description     = ""
+  s.description     = "Yet Another UserAgent Analyzer"
   s.authors         = ['Niels Basjes']
   s.email           = 'niels@basjes.nl'
   s.homepage        = "https://yauaa.basjes.nl"
@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
 
   # Gem dependencies
   s.add_runtime_dependency "logstash-core-plugin-api", ">= 1.60", "<= 2.99"
-  s.add_runtime_dependency 'jar-dependencies'
+  s.add_runtime_dependency 'jar-dependencies', '~> 0'
 
-  s.add_development_dependency 'logstash-devutils'
+  s.add_development_dependency 'logstash-devutils', '~> 0'
 end
