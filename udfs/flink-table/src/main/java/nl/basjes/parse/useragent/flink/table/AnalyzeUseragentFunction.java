@@ -23,6 +23,7 @@ import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.table.functions.FunctionContext;
 import org.apache.flink.table.functions.ScalarFunction;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +68,7 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
      */
     public AnalyzeUseragentFunction(int cacheSize, List<String> desiredFields) {
         this.cacheSize = cacheSize;
-        this.extractedFields = desiredFields;
+        this.extractedFields = new ArrayList<>(desiredFields);
     }
 
     @Override
@@ -78,6 +79,10 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
             .withCache(cacheSize)
             .immediateInitialization()
             .build();
+
+        if (extractedFields.size() == 0) {
+            extractedFields.addAll(userAgentAnalyzer.getAllPossibleFieldNamesSorted());
+        }
     }
 
     public Map<String, String> eval(String userAgentString) {

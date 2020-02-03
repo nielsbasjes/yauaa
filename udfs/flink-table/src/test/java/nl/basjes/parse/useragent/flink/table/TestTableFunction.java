@@ -268,4 +268,14 @@ public class TestTableFunction {
         assertEquals("Chrome 70", result.get("AgentNameVersionMajor"));
     }
 
+    @Test
+    public void testMapFunctionAskNothingGetAll() {
+        AnalyzeUseragentFunction function = new AnalyzeUseragentFunction();
+        function.open(null);
+        final Map<String, String> result = function.eval(USERAGENT);
+        assertTrue(2 <= result.size());
+        assertEquals("Desktop",   result.get("DeviceClass"));
+        assertEquals("Chrome 70", result.get("AgentNameVersionMajor"));
+    }
+
 }
