@@ -248,10 +248,10 @@ public class TestUseragent {
 
     @Test
     public void fullToString() {
-        UserAgent userAgent = new UserAgent("Some Agent");
+        UserAgent userAgent = new UserAgent("Some'Agent");
 
         assertEquals(
-            "  - user_agent_string: '\"Some Agent\"'\n" +
+            "  - user_agent_string: 'Some''Agent'\n" +
             "    DeviceClass                      : 'Unknown'\n" +
             "    DeviceName                       : 'Unknown'\n" +
             "    DeviceBrand                      : 'Unknown'\n" +
@@ -285,7 +285,7 @@ public class TestUseragent {
         UserAgent userAgent = new UserAgent("Some Agent", wanted);
 
         assertEquals(
-            "  - user_agent_string: '\"Some Agent\"'\n" +
+            "  - user_agent_string: 'Some Agent'\n" +
             "    DeviceClass   : 'Unknown'\n" +
             "    AgentVersion  : '??'\n",
             userAgent.toString());
