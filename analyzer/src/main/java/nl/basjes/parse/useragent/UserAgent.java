@@ -545,10 +545,10 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         StringBuilder sb = new StringBuilder(10240);
         sb.append("\n");
         sb.append("- test:\n");
-        sb.append("#    options:\n");
-        sb.append("#    - 'verbose'\n");
-        sb.append("#    - 'init'\n");
-        sb.append("#    - 'only'\n");
+//        sb.append("#    options:\n");
+//        sb.append("#    - 'verbose'\n");
+//        sb.append("#    - 'init'\n");
+//        sb.append("#    - 'only'\n");
         sb.append("    input:\n");
         sb.append("      user_agent_string: '").append(escapeYaml(userAgentString)).append("'\n");
         sb.append("    expected:\n");
