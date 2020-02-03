@@ -20,6 +20,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 cd "${DIR}" || exit 1
 
+mkdir -p __testrun && cd __testrun
+
 VERSION=$(fgrep logstash.version "${DIR}/../../../pom.xml" | cut -d'>' -f2 | cut -d'<' -f1)
 
 [ -z "$VERSION" ] && echo "Unable to get the logstash version to use" && exit 1
@@ -32,7 +34,7 @@ FILTERGEM=$(find "${DIR}/../logstash-filter/target/" -maxdepth 1 | grep 'logstas
 
 echo "Testing ${FILTERGEM}"
 
-"${DIR}/logstash-${VERSION}/bin/logstash-plugin" install "${FILTERGEM}"
+"${DIR}/__testrun/logstash-${VERSION}/bin/logstash-plugin" install "${FILTERGEM}"
 
 
 cat - > run-test.conf << EOF
@@ -66,7 +68,7 @@ EOF
 
 
 echo "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36" | \
-  "${DIR}/logstash-${VERSION}/bin/logstash" -f run-test.conf
+  "${DIR}/__testrun/logstash-${VERSION}/bin/logstash" -f run-test.conf
 
 
 
