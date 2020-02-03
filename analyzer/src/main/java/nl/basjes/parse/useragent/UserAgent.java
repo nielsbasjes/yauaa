@@ -531,6 +531,10 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         return field.getConfidence();
     }
 
+    public String escapeYaml(String input) {
+        return input.replace("'", "''");
+    }
+
     public String toYamlTestCase() {
         return toYamlTestCase(false, null);
     }
@@ -546,7 +550,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         sb.append("#    - 'init'\n");
         sb.append("#    - 'only'\n");
         sb.append("    input:\n");
-        sb.append("      user_agent_string: '").append(userAgentString).append("'\n");
+        sb.append("      user_agent_string: '").append(escapeYaml(userAgentString)).append("'\n");
         sb.append("    expected:\n");
 
         List<String> fieldNames = getAvailableFieldNamesSorted();
@@ -700,7 +704,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     }
 
     public String toString(List<String> fieldNames) {
-        StringBuilder sb = new StringBuilder("  - user_agent_string: '\"" + userAgentString + "\"'\n");
+        StringBuilder sb = new StringBuilder("  - user_agent_string: '" + escapeYaml(userAgentString) + "'\n");
         int maxLength = 0;
         for (String fieldName : fieldNames) {
             maxLength = Math.max(maxLength, fieldName.length());
