@@ -77,6 +77,9 @@ public class ParseService {
     private static final String            ANALYZER_VERSION                = getVersion();
     private static final String            API_BASE_PATH                   = "/yauaa/v1";
 
+    private static final String            TEXT_XYAML_VALUE = "text/x-yaml";
+
+
     private static final String            EXAMPLE_USERAGENT               =
         "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36";
@@ -134,8 +137,36 @@ public class ParseService {
         "    <AgentNameVersionMajor>Chrome 53</AgentNameVersionMajor>\n" +
         "  </Yauaa>";
 
+    private static final String EXAMPLE_YAML =
+        "- test:\n" +
+        "    input:\n" +
+        "      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36'\n" +
+        "    expected:\n" +
+        "      DeviceClass                           : 'Phone'\n" +
+        "      DeviceName                            : 'Google Nexus 6'\n" +
+        "      DeviceBrand                           : 'Google'\n" +
+        "      OperatingSystemClass                  : 'Mobile'\n" +
+        "      OperatingSystemName                   : 'Android'\n" +
+        "      OperatingSystemVersion                : '7.0'\n" +
+        "      OperatingSystemVersionMajor           : '7'\n" +
+        "      OperatingSystemNameVersion            : 'Android 7.0'\n" +
+        "      OperatingSystemNameVersionMajor       : 'Android 7'\n" +
+        "      OperatingSystemVersionBuild           : 'NBD90Z'\n" +
+        "      LayoutEngineClass                     : 'Browser'\n" +
+        "      LayoutEngineName                      : 'Blink'\n" +
+        "      LayoutEngineVersion                   : '53.0'\n" +
+        "      LayoutEngineVersionMajor              : '53'\n" +
+        "      LayoutEngineNameVersion               : 'Blink 53.0'\n" +
+        "      LayoutEngineNameVersionMajor          : 'Blink 53'\n" +
+        "      AgentClass                            : 'Browser'\n" +
+        "      AgentName                             : 'Chrome'\n" +
+        "      AgentVersion                          : '53.0.2785.124'\n" +
+        "      AgentVersionMajor                     : '53'\n" +
+        "      AgentNameVersion                      : 'Chrome 53.0.2785.124'\n" +
+        "      AgentNameVersionMajor                 : 'Chrome 53'\n";
 
     private enum OutputType {
+        YAML,
         HTML,
         JSON,
         XML,
@@ -195,6 +226,9 @@ public class ParseService {
             String message;
 
             switch (yauaaIsBusyStarting.getOutputType()) {
+                case YAML:
+                    message = "status: \"Starting\"\ntimeInMs: " + timeSinceStart + "\n";
+                    break;
                 case TXT:
                     message = "NO";
                     break;
@@ -252,6 +286,76 @@ public class ParseService {
         return doHTML(userAgent);
     }
 
+    // =============== YAML OUTPUT ===============
+
+    @ApiOperation(
+        value = "Analyze the provided User-Agent",
+        notes = "<b>Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
+            "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035</b>"
+    )
+    @ApiResponses({
+        @ApiResponse(
+            code = 200, // HttpStatus.OK
+            message = "The agent was successfully analyzed",
+            examples = @Example({
+                @ExampleProperty(mediaType = APPLICATION_JSON_VALUE,    value = EXAMPLE_JSON),
+                @ExampleProperty(mediaType = APPLICATION_XML_VALUE,     value = EXAMPLE_XML),
+                @ExampleProperty(mediaType = TEXT_XYAML_VALUE,          value = EXAMPLE_YAML),
+                @ExampleProperty(mediaType = TEXT_PLAIN_VALUE,          value = EXAMPLE_YAML)
+            })
+        )
+    })
+    @GetMapping(
+        value = API_BASE_PATH + "/analyze",
+        produces = { TEXT_XYAML_VALUE, TEXT_PLAIN_VALUE }
+    )
+    public String getYamlGET(
+        @ApiParam(
+            value = "The standard browser request header User-Agent is used as the input that is to be analyzed.",
+            example = EXAMPLE_USERAGENT
+        )
+        @RequestHeader("User-Agent")
+            String userAgentString
+    ) {
+        return doYaml(userAgentString);
+    }
+
+    // -------------------------------------------------
+
+    @ApiOperation(
+        value = "Analyze the provided User-Agent"
+    )
+    @PostMapping(
+        value = API_BASE_PATH + "/analyze",
+        consumes = TEXT_PLAIN_VALUE,
+        produces = { TEXT_XYAML_VALUE, TEXT_PLAIN_VALUE }
+    )
+    @ApiResponses({
+        @ApiResponse(
+            code = 200, // HttpStatus.OK
+            message = "The agent was successfully analyzed",
+            examples = @Example({
+                @ExampleProperty(mediaType = APPLICATION_JSON_VALUE,    value = EXAMPLE_JSON),
+                @ExampleProperty(mediaType = APPLICATION_XML_VALUE,     value = EXAMPLE_XML),
+                @ExampleProperty(mediaType = TEXT_XYAML_VALUE,          value = EXAMPLE_YAML),
+                @ExampleProperty(mediaType = TEXT_PLAIN_VALUE,          value = EXAMPLE_YAML)
+            })
+        )
+    })
+    public String getYamlPOST(
+        @ApiParam(
+            name ="Request body",
+            type = "Map",
+            defaultValue = EXAMPLE_USERAGENT,
+            value = "The entire POSTed value is used as the input that is to be analyzed.",
+            examples = @Example(@ExampleProperty(mediaType = TEXT_PLAIN_VALUE, value = EXAMPLE_USERAGENT))
+        )
+        @RequestBody String userAgentString
+    ) {
+        return doYaml(userAgentString);
+    }
+
+
     // =============== JSON OUTPUT ===============
 
     @ApiOperation(
@@ -264,8 +368,10 @@ public class ParseService {
             code = 200, // HttpStatus.OK
             message = "The agent was successfully analyzed",
             examples = @Example({
-                @ExampleProperty(mediaType = APPLICATION_JSON_VALUE, value = EXAMPLE_JSON),
-                @ExampleProperty(mediaType = APPLICATION_XML_VALUE, value = EXAMPLE_XML)
+                @ExampleProperty(mediaType = APPLICATION_JSON_VALUE,    value = EXAMPLE_JSON),
+                @ExampleProperty(mediaType = APPLICATION_XML_VALUE,     value = EXAMPLE_XML),
+                @ExampleProperty(mediaType = TEXT_XYAML_VALUE,          value = EXAMPLE_YAML),
+                @ExampleProperty(mediaType = TEXT_PLAIN_VALUE,          value = EXAMPLE_YAML)
             })
         )
     })
@@ -299,8 +405,10 @@ public class ParseService {
             code = 200, // HttpStatus.OK
             message = "The agent was successfully analyzed",
             examples = @Example({
-                @ExampleProperty(mediaType = APPLICATION_JSON_VALUE, value = EXAMPLE_JSON),
-                @ExampleProperty(mediaType = APPLICATION_XML_VALUE, value = EXAMPLE_XML)
+                @ExampleProperty(mediaType = APPLICATION_JSON_VALUE,    value = EXAMPLE_JSON),
+                @ExampleProperty(mediaType = APPLICATION_XML_VALUE,     value = EXAMPLE_XML),
+                @ExampleProperty(mediaType = TEXT_XYAML_VALUE,          value = EXAMPLE_YAML),
+                @ExampleProperty(mediaType = TEXT_PLAIN_VALUE,          value = EXAMPLE_YAML)
             })
         )
     })
@@ -328,12 +436,12 @@ public class ParseService {
         @ApiResponse(
             code = 200, // HttpStatus.OK
             message = "The agent was successfully analyzed",
-            examples = @Example(
-                value = {
-                    @ExampleProperty(mediaType = APPLICATION_JSON_VALUE, value = EXAMPLE_JSON),
-                    @ExampleProperty(mediaType = APPLICATION_XML_VALUE, value = EXAMPLE_XML)
-                }
-            )
+            examples = @Example({
+                @ExampleProperty(mediaType = APPLICATION_JSON_VALUE, value = EXAMPLE_JSON),
+                @ExampleProperty(mediaType = APPLICATION_XML_VALUE,  value = EXAMPLE_XML),
+                @ExampleProperty(mediaType = TEXT_XYAML_VALUE,       value = EXAMPLE_YAML),
+                @ExampleProperty(mediaType = TEXT_PLAIN_VALUE,       value = EXAMPLE_YAML)
+            })
         )
     })
     @GetMapping(
@@ -618,6 +726,19 @@ public class ParseService {
         result = result.replace("Agent", "<b><u>Agent</u></b>");
         return result.trim();
     }
+
+    private String doYaml(String userAgentString) {
+        if (userAgentString == null) {
+            throw new MissingUserAgentException();
+        }
+        ensureStartedForApis(OutputType.JSON);
+        if (userAgentAnalyzerIsAvailable) {
+            UserAgent userAgent = userAgentAnalyzer.parse(userAgentString);
+            return userAgent.toYamlTestCase();
+        }
+        return "";
+    }
+
 
     private String doJSon(String userAgentString) {
         if (userAgentString == null) {
