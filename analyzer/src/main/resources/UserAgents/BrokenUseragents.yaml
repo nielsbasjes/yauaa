@@ -1317,7 +1317,89 @@ config:
       AgentNameVersion                     : 'Chrome 49.0.2623.91'
       AgentNameVersionMajor                : 'Chrome 49'
 
-# Lots of quotes half way the useragent
+
+# With broken url encoding ...
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0(%20 %'
+    expected:
+      DeviceClass                           : 'Unknown'
+      DeviceName                            : 'Unknown'
+      DeviceBrand                           : 'Unknown'
+      OperatingSystemClass                  : 'Unknown'
+      OperatingSystemName                   : 'Unknown'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Unknown ??'
+      OperatingSystemNameVersionMajor       : 'Unknown ??'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Mozilla'
+      LayoutEngineVersion                   : '5.0'
+      LayoutEngineVersionMajor              : '5'
+      LayoutEngineNameVersion               : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor          : 'Mozilla 5'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Netscape'
+      AgentVersion                          : '5.0'
+      AgentVersionMajor                     : '5'
+      AgentNameVersion                      : 'Netscape 5.0'
+      AgentNameVersionMajor                 : 'Netscape 5'
+
+  # With broken url encoding ...
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0(%20 %%'
+    expected:
+      DeviceClass                           : 'Unknown'
+      DeviceName                            : 'Unknown'
+      DeviceBrand                           : 'Unknown'
+      OperatingSystemClass                  : 'Unknown'
+      OperatingSystemName                   : 'Unknown'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Unknown ??'
+      OperatingSystemNameVersionMajor       : 'Unknown ??'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Mozilla'
+      LayoutEngineVersion                   : '5.0'
+      LayoutEngineVersionMajor              : '5'
+      LayoutEngineNameVersion               : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor          : 'Mozilla 5'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Netscape'
+      AgentVersion                          : '5.0'
+      AgentVersionMajor                     : '5'
+      AgentNameVersion                      : 'Netscape 5.0'
+      AgentNameVersionMajor                 : 'Netscape 5'
+
+  # With broken url encoding ...
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0(%20 %ZZ'
+    expected:
+      DeviceClass                           : 'Unknown'
+      DeviceName                            : 'Unknown'
+      DeviceBrand                           : 'Unknown'
+      OperatingSystemClass                  : 'Unknown'
+      OperatingSystemName                   : 'Unknown'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Unknown ??'
+      OperatingSystemNameVersionMajor       : 'Unknown ??'
+      LayoutEngineClass                     : 'Browser'
+      LayoutEngineName                      : 'Mozilla'
+      LayoutEngineVersion                   : '5.0'
+      LayoutEngineVersionMajor              : '5'
+      LayoutEngineNameVersion               : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor          : 'Mozilla 5'
+      AgentClass                            : 'Browser'
+      AgentName                             : 'Netscape'
+      AgentVersion                          : '5.0'
+      AgentVersionMajor                     : '5'
+      AgentNameVersion                      : 'Netscape 5.0'
+      AgentNameVersionMajor                 : 'Netscape 5'
+
+  # Lots of quotes half way the useragent
 - test:
     input:
       user_agent_string: '"""Mozilla/5.0 (Linux; U; Android 4.2.2; en-us; Lenco 7\"""" tablet Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30"""'
