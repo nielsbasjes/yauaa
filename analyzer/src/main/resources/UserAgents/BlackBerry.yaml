@@ -371,3 +371,116 @@ config:
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
 
+
+- test: # FIXME: Verify if these results are correct
+    input:
+      user_agent_string: 'LeapApp-AppStore/4.75.0.1 CFNetwork/1107.1 Darwin/19.0.0'
+    expected:
+      DeviceClass                           : 'Mobile'
+      DeviceName                            : 'Apple iOS Device'
+      DeviceBrand                           : 'Apple'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Darwin (iOS)'
+      OperatingSystemVersion                : '19.0.0'
+      OperatingSystemVersionMajor           : '19'
+      OperatingSystemNameVersion            : 'Darwin (iOS) 19.0.0'
+      OperatingSystemNameVersionMajor       : 'Darwin (iOS) 19'
+      LayoutEngineClass                     : 'Mobile App'
+      LayoutEngineName                      : 'LeapApp-AppStore'
+      LayoutEngineVersion                   : '4.75.0.1'
+      LayoutEngineVersionMajor              : '4'
+      LayoutEngineNameVersion               : 'LeapApp-AppStore 4.75.0.1'
+      LayoutEngineNameVersionMajor          : 'LeapApp-AppStore 4'
+      AgentClass                            : 'Mobile App'
+      AgentName                             : 'LeapApp-AppStore'
+      AgentVersion                          : '4.75.0.1'
+      AgentVersionMajor                     : '4'
+      AgentNameVersion                      : 'LeapApp-AppStore 4.75.0.1'
+      AgentNameVersionMajor                 : 'LeapApp-AppStore 4'
+
+
+- test: # FIXME: Verify if these results are correct
+    input:
+      user_agent_string: 'App/1.57.0.1 (iPad4,4; iOS 12.4.2) LeapLMN/36.2.0 LeapHTTPClient/8.0.2'
+    expected:
+      DeviceClass                           : 'Tablet'
+      DeviceName                            : 'Apple iPad'
+      DeviceBrand                           : 'Apple'
+      DeviceVersion                         : 'iPad mini 2 (Wi-Fi)'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'iOS'
+      OperatingSystemVersion                : '12.4.2'
+      OperatingSystemVersionMajor           : '12'
+      OperatingSystemNameVersion            : 'iOS 12.4.2'
+      OperatingSystemNameVersionMajor       : 'iOS 12'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Special'
+      AgentName                             : 'App'
+      AgentVersion                          : '1.57.0.1'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'App 1.57.0.1'
+      AgentNameVersionMajor                 : 'App 1'
+
+
+
+- test: # FIXME: Verify if these results are correct
+    input:
+      user_agent_string: 'Leap/5.9.0 DashVideoOnDemandMediaDecoder/0.0.7 leapExoPlayer/0.0.5'
+    expected:
+      DeviceClass                           : 'Unknown'
+      DeviceName                            : 'Unknown'
+      DeviceBrand                           : 'Unknown'
+      OperatingSystemClass                  : 'Unknown'
+      OperatingSystemName                   : 'Unknown'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Unknown ??'
+      OperatingSystemNameVersionMajor       : 'Unknown ??'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Special'
+      AgentName                             : 'Leap'
+      AgentVersion                          : '5.9.0'
+      AgentVersionMajor                     : '5'
+      AgentNameVersion                      : 'Leap 5.9.0'
+      AgentNameVersionMajor                 : 'Leap 5'
+
+
+- test: # FIXME: Verify if these results are correct
+    input:
+      user_agent_string: 'LeapAndroid/5.9.0 (110807 uk)'
+    expected:
+      DeviceClass                           : 'Mobile'
+      DeviceName                            : 'Unknown'
+      DeviceBrand                           : 'Unknown'
+      OperatingSystemClass                  : 'Mobile'
+      OperatingSystemName                   : 'Android'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Android ??'
+      OperatingSystemNameVersionMajor       : 'Android ??'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Special'
+      AgentName                             : 'LeapAndroid'
+      AgentVersion                          : '5.9.0'
+      AgentVersionMajor                     : '5'
+      AgentNameVersion                      : 'LeapAndroid 5.9.0'
+      AgentNameVersionMajor                 : 'LeapAndroid 5'
+      AgentLanguage                         : 'Ukrainian'
+      AgentLanguageCode                     : 'uk'
+
+
