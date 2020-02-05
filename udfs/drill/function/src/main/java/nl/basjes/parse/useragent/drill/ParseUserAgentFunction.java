@@ -28,6 +28,8 @@ import org.apache.drill.exec.vector.complex.writer.BaseWriter;
 
 import javax.inject.Inject;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 @FunctionTemplate(
     name    = "parse_user_agent",
     scope   = FunctionTemplate.FunctionScope.SIMPLE,
@@ -79,7 +81,7 @@ public class ParseUserAgentFunction implements DrillSimpleFunc {
                 field = "Unknown";
             }
 
-            byte[] rowStringBytes = field.getBytes();
+            byte[] rowStringBytes = field.getBytes(UTF_8);
             outBuffer.reallocIfNeeded(rowStringBytes.length);
             outBuffer.setBytes(0, rowStringBytes);
 

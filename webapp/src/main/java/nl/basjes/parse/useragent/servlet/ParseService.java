@@ -203,7 +203,7 @@ public class ParseService {
         }
     }
 
-    private static void ensureStartedForApis(OutputType outputType) {
+    private void ensureStartedForApis(OutputType outputType) {
         if (!userAgentAnalyzerIsAvailable) {
             throw new YauaaIsBusyStarting(outputType);
         }

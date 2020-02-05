@@ -21,6 +21,7 @@ v5.15-SNAPSHOT
   - Improve scripting for generated files
   - Only build the docker image for the webservlet if docker is available.
   - Automatically download the logstash dependency from the elastic website.
+  - Use SpotBugs (=FindBugs) to detect subtle problems.
 - Demonstration WebServlet
   - Updated to SpringFox 3.0.0-SNAPSHOT to support better examples in the Swagger UI.
 - UDF changes

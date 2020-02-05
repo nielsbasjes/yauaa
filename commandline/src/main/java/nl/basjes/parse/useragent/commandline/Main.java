@@ -36,6 +36,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
 import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.CSV;
 import static nl.basjes.parse.useragent.commandline.Main.OutputFormat.JSON;
@@ -110,13 +111,21 @@ public final class Main {
                 throw new CmdLineException(parser, "No input specified."); // NOSONAR: Deprecated
             }
 
-            OutputFormat outputFormat = YAML;
+            OutputFormat outputFormat = null;
             if (commandlineOptions.csvFormat) {
                 outputFormat = CSV;
             } else {
                 if (commandlineOptions.jsonFormat) {
                     outputFormat = JSON;
+                } else {
+                    if (commandlineOptions.yamlFormat) {
+                        outputFormat = YAML;
+                    }
                 }
+            }
+
+            if (outputFormat == null) {
+                throw new CmdLineException(parser, "No output format specified."); // NOSONAR: Deprecated
             }
 
             UserAgentAnalyzerTesterBuilder builder = UserAgentAnalyzerTester.newBuilder();
@@ -152,7 +161,7 @@ public final class Main {
                 inputStream = new FileInputStream(commandlineOptions.inFile);
             }
 
-            try(BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, UTF_8))) {
 
                 String strLine;
 
@@ -323,8 +332,8 @@ public final class Main {
         @Option(name = "-bad", usage = "Output only cases that have a problem")
         private boolean outputOnlyBadResults = false;
 
-        @Option(name = "-debug", usage = "Set to enable debugging.")
-        private boolean debug = false;
+//        @Option(name = "-debug", usage = "Set to enable debugging.")
+//        private boolean debug = false;
 
         @Option(name = "-fullFlatten", usage = "Set to flatten each parsed agent string.")
         private boolean fullFlatten = false;

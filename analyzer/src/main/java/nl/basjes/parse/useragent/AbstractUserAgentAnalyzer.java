@@ -71,7 +71,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         initializeCache();
     }
 
-    private void initializeCache() {
+    private synchronized void initializeCache() {
         if (cacheSize >= 1) {
             parseCache = new LRUMap<>(cacheSize);
         } else {

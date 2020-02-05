@@ -750,75 +750,79 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
 
     // We manually sort the list of fields to ensure the output is consistent.
     // Any unspecified fieldnames will be appended to the end.
-    protected static final List<String> PRE_SORTED_FIELDS_LIST = new ArrayList<>(32);
+    protected static final List<String> PRE_SORTED_FIELDS_LIST;
 
     static {
-        PRE_SORTED_FIELDS_LIST.add(DEVICE_CLASS);
-        PRE_SORTED_FIELDS_LIST.add(DEVICE_NAME);
-        PRE_SORTED_FIELDS_LIST.add(DEVICE_BRAND);
-        PRE_SORTED_FIELDS_LIST.add(DEVICE_CPU);
-        PRE_SORTED_FIELDS_LIST.add(DEVICE_CPU_BITS);
-        PRE_SORTED_FIELDS_LIST.add(DEVICE_FIRMWARE_VERSION);
-        PRE_SORTED_FIELDS_LIST.add(DEVICE_VERSION);
+        List<String> mutablePreSortedFields = new ArrayList<>(32);
 
-        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_CLASS);
-        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_NAME);
-        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_VERSION);
-        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_VERSION_MAJOR);
-        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_NAME_VERSION);
-        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_NAME_VERSION_MAJOR);
-        PRE_SORTED_FIELDS_LIST.add(OPERATING_SYSTEM_VERSION_BUILD);
+        mutablePreSortedFields.add(DEVICE_CLASS);
+        mutablePreSortedFields.add(DEVICE_NAME);
+        mutablePreSortedFields.add(DEVICE_BRAND);
+        mutablePreSortedFields.add(DEVICE_CPU);
+        mutablePreSortedFields.add(DEVICE_CPU_BITS);
+        mutablePreSortedFields.add(DEVICE_FIRMWARE_VERSION);
+        mutablePreSortedFields.add(DEVICE_VERSION);
 
-        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_CLASS);
-        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_NAME);
-        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_VERSION);
-        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_VERSION_MAJOR);
-        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_NAME_VERSION);
-        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_NAME_VERSION_MAJOR);
-        PRE_SORTED_FIELDS_LIST.add(LAYOUT_ENGINE_BUILD);
+        mutablePreSortedFields.add(OPERATING_SYSTEM_CLASS);
+        mutablePreSortedFields.add(OPERATING_SYSTEM_NAME);
+        mutablePreSortedFields.add(OPERATING_SYSTEM_VERSION);
+        mutablePreSortedFields.add(OPERATING_SYSTEM_VERSION_MAJOR);
+        mutablePreSortedFields.add(OPERATING_SYSTEM_NAME_VERSION);
+        mutablePreSortedFields.add(OPERATING_SYSTEM_NAME_VERSION_MAJOR);
+        mutablePreSortedFields.add(OPERATING_SYSTEM_VERSION_BUILD);
 
-        PRE_SORTED_FIELDS_LIST.add(AGENT_CLASS);
-        PRE_SORTED_FIELDS_LIST.add(AGENT_NAME);
-        PRE_SORTED_FIELDS_LIST.add(AGENT_VERSION);
-        PRE_SORTED_FIELDS_LIST.add(AGENT_VERSION_MAJOR);
-        PRE_SORTED_FIELDS_LIST.add(AGENT_NAME_VERSION);
-        PRE_SORTED_FIELDS_LIST.add(AGENT_NAME_VERSION_MAJOR);
-        PRE_SORTED_FIELDS_LIST.add(AGENT_BUILD);
-        PRE_SORTED_FIELDS_LIST.add(AGENT_LANGUAGE);
-        PRE_SORTED_FIELDS_LIST.add(AGENT_LANGUAGE_CODE);
-        PRE_SORTED_FIELDS_LIST.add(AGENT_INFORMATION_EMAIL);
-        PRE_SORTED_FIELDS_LIST.add(AGENT_INFORMATION_URL);
-        PRE_SORTED_FIELDS_LIST.add(AGENT_SECURITY);
-        PRE_SORTED_FIELDS_LIST.add(AGENT_UUID);
+        mutablePreSortedFields.add(LAYOUT_ENGINE_CLASS);
+        mutablePreSortedFields.add(LAYOUT_ENGINE_NAME);
+        mutablePreSortedFields.add(LAYOUT_ENGINE_VERSION);
+        mutablePreSortedFields.add(LAYOUT_ENGINE_VERSION_MAJOR);
+        mutablePreSortedFields.add(LAYOUT_ENGINE_NAME_VERSION);
+        mutablePreSortedFields.add(LAYOUT_ENGINE_NAME_VERSION_MAJOR);
+        mutablePreSortedFields.add(LAYOUT_ENGINE_BUILD);
 
-        PRE_SORTED_FIELDS_LIST.add(WEBVIEW_APP_NAME);
-        PRE_SORTED_FIELDS_LIST.add(WEBVIEW_APP_VERSION);
-        PRE_SORTED_FIELDS_LIST.add(WEBVIEW_APP_VERSION_MAJOR);
-        PRE_SORTED_FIELDS_LIST.add(WEBVIEW_APP_NAME_VERSION_MAJOR);
+        mutablePreSortedFields.add(AGENT_CLASS);
+        mutablePreSortedFields.add(AGENT_NAME);
+        mutablePreSortedFields.add(AGENT_VERSION);
+        mutablePreSortedFields.add(AGENT_VERSION_MAJOR);
+        mutablePreSortedFields.add(AGENT_NAME_VERSION);
+        mutablePreSortedFields.add(AGENT_NAME_VERSION_MAJOR);
+        mutablePreSortedFields.add(AGENT_BUILD);
+        mutablePreSortedFields.add(AGENT_LANGUAGE);
+        mutablePreSortedFields.add(AGENT_LANGUAGE_CODE);
+        mutablePreSortedFields.add(AGENT_INFORMATION_EMAIL);
+        mutablePreSortedFields.add(AGENT_INFORMATION_URL);
+        mutablePreSortedFields.add(AGENT_SECURITY);
+        mutablePreSortedFields.add(AGENT_UUID);
 
-        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_CARRIER);
-        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_DEVICE_CLASS);
-        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_DEVICE_NAME);
-        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_DEVICE_VERSION);
-        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_F_B_O_P);
-        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_F_B_S_S);
-        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_OPERATING_SYSTEM_NAME);
-        PRE_SORTED_FIELDS_LIST.add(FACEBOOK_OPERATING_SYSTEM_VERSION);
+        mutablePreSortedFields.add(WEBVIEW_APP_NAME);
+        mutablePreSortedFields.add(WEBVIEW_APP_VERSION);
+        mutablePreSortedFields.add(WEBVIEW_APP_VERSION_MAJOR);
+        mutablePreSortedFields.add(WEBVIEW_APP_NAME_VERSION_MAJOR);
 
-        PRE_SORTED_FIELDS_LIST.add(ANONYMIZED);
+        mutablePreSortedFields.add(FACEBOOK_CARRIER);
+        mutablePreSortedFields.add(FACEBOOK_DEVICE_CLASS);
+        mutablePreSortedFields.add(FACEBOOK_DEVICE_NAME);
+        mutablePreSortedFields.add(FACEBOOK_DEVICE_VERSION);
+        mutablePreSortedFields.add(FACEBOOK_F_B_O_P);
+        mutablePreSortedFields.add(FACEBOOK_F_B_S_S);
+        mutablePreSortedFields.add(FACEBOOK_OPERATING_SYSTEM_NAME);
+        mutablePreSortedFields.add(FACEBOOK_OPERATING_SYSTEM_VERSION);
 
-        PRE_SORTED_FIELDS_LIST.add(HACKER_ATTACK_VECTOR);
-        PRE_SORTED_FIELDS_LIST.add(HACKER_TOOLKIT);
+        mutablePreSortedFields.add(ANONYMIZED);
 
-        PRE_SORTED_FIELDS_LIST.add(KOBO_AFFILIATE);
-        PRE_SORTED_FIELDS_LIST.add(KOBO_PLATFORM_ID);
+        mutablePreSortedFields.add(HACKER_ATTACK_VECTOR);
+        mutablePreSortedFields.add(HACKER_TOOLKIT);
 
-        PRE_SORTED_FIELDS_LIST.add(IE_COMPATIBILITY_VERSION);
-        PRE_SORTED_FIELDS_LIST.add(IE_COMPATIBILITY_VERSION_MAJOR);
-        PRE_SORTED_FIELDS_LIST.add(IE_COMPATIBILITY_NAME_VERSION);
-        PRE_SORTED_FIELDS_LIST.add(IE_COMPATIBILITY_NAME_VERSION_MAJOR);
+        mutablePreSortedFields.add(KOBO_AFFILIATE);
+        mutablePreSortedFields.add(KOBO_PLATFORM_ID);
 
-        PRE_SORTED_FIELDS_LIST.add(SYNTAX_ERROR);
+        mutablePreSortedFields.add(IE_COMPATIBILITY_VERSION);
+        mutablePreSortedFields.add(IE_COMPATIBILITY_VERSION_MAJOR);
+        mutablePreSortedFields.add(IE_COMPATIBILITY_NAME_VERSION);
+        mutablePreSortedFields.add(IE_COMPATIBILITY_NAME_VERSION_MAJOR);
+
+        mutablePreSortedFields.add(SYNTAX_ERROR);
+
+        PRE_SORTED_FIELDS_LIST = Collections.unmodifiableList(mutablePreSortedFields);
     }
 
     public List<String> getAvailableFieldNamesSorted() {
