@@ -1403,3 +1403,255 @@ config:
       AgentNameVersion                     : 'ZXing Android'
       AgentNameVersionMajor                : 'ZXing Android'
 
+
+# =========================================
+# Some testcases that are NOT BlackBerry
+# =========================================
+
+- test: # Constructed test case
+    input:
+      user_agent_string: 'LeapApp-AppStore/4.75.0.1 CFNetwork/1107.1 Darwin/19.0.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Darwin (iOS)'
+      OperatingSystemVersion               : '19.0.0'
+      OperatingSystemVersionMajor          : '19'
+      OperatingSystemNameVersion           : 'Darwin (iOS) 19.0.0'
+      OperatingSystemNameVersionMajor      : 'Darwin (iOS) 19'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'LeapApp-AppStore'
+      LayoutEngineVersion                  : '4.75.0.1'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'LeapApp-AppStore 4.75.0.1'
+      LayoutEngineNameVersionMajor         : 'LeapApp-AppStore 4'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'LeapApp-AppStore'
+      AgentVersion                         : '4.75.0.1'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'LeapApp-AppStore 4.75.0.1'
+      AgentNameVersionMajor                : 'LeapApp-AppStore 4'
+
+
+- test: # Constructed test case
+    input:
+      user_agent_string: 'App/1.57.0.1 (iPad4,4; iOS 12.4.2) LeapLMN/36.2.0 LeapHTTPClient/8.0.2'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad mini 2 (Wi-Fi)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.4.2'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.4.2'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'App'
+      AgentVersion                         : '1.57.0.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'App 1.57.0.1'
+      AgentNameVersionMajor                : 'App 1'
+
+
+
+- test: # Constructed test case
+    input:
+      user_agent_string: 'Leap/5.9.0 DashVideoOnDemandMediaDecoder/0.0.7 leapExoPlayer/0.0.5'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Leap'
+      AgentVersion                         : '5.9.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Leap 5.9.0'
+      AgentNameVersionMajor                : 'Leap 5'
+
+
+- test: # Constructed test case
+    input:
+      user_agent_string: 'LeapAndroid/5.9.0 (110807 uk)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'LeapAndroid'
+      AgentVersion                         : '5.9.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'LeapAndroid 5.9.0'
+      AgentNameVersionMajor                : 'LeapAndroid 5'
+      AgentLanguage                        : 'Ukrainian'
+      AgentLanguageCode                    : 'uk'
+
+
+- test:
+    input:
+      user_agent_string: 'BBCNewsAndroid/5.9.0 (110807)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'BBCNewsAndroid'
+      AgentVersion                         : '5.9.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'BBCNewsAndroid 5.9.0'
+      AgentNameVersionMajor                : 'BBCNewsAndroid 5'
+
+
+- test:
+    input:
+      user_agent_string: 'iPlayerKids/1.57.0.1 (iPad4,4; iOS 12.4.2) BBCSMP/36.2.0 BBCHTTPClient/8.0.2'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad mini 2 (Wi-Fi)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.4.2'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.4.2'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'iPlayerKids'
+      AgentVersion                         : '1.57.0.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'iPlayerKids 1.57.0.1'
+      AgentNameVersionMajor                : 'iPlayerKids 1'
+
+
+- test:
+    input:
+      user_agent_string: 'BBCiPlayer/4.75.0.1 (iPad2,5; iPhone OS 9.3.5) BBCSMP/36.2.0 BBCHTTPClient/8.0.2'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad mini (Wi-Fi)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '9.3.5'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'iOS 9.3.5'
+      OperatingSystemNameVersionMajor      : 'iOS 9'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'BBCiPlayer'
+      AgentVersion                         : '4.75.0.1'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'BBCiPlayer 4.75.0.1'
+      AgentNameVersionMajor                : 'BBCiPlayer 4'
+
+
+- test:
+    input:
+      user_agent_string: 'BBCiPlayer-AppStore/4.75.0.1 CFNetwork/1107.1 Darwin/19.0.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Darwin (iOS)'
+      OperatingSystemVersion               : '19.0.0'
+      OperatingSystemVersionMajor          : '19'
+      OperatingSystemNameVersion           : 'Darwin (iOS) 19.0.0'
+      OperatingSystemNameVersionMajor      : 'Darwin (iOS) 19'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'BBCiPlayer-AppStore'
+      LayoutEngineVersion                  : '4.75.0.1'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'BBCiPlayer-AppStore 4.75.0.1'
+      LayoutEngineNameVersionMajor         : 'BBCiPlayer-AppStore 4'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'BBCiPlayer-AppStore'
+      AgentVersion                         : '4.75.0.1'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'BBCiPlayer-AppStore 4.75.0.1'
+      AgentNameVersionMajor                : 'BBCiPlayer-AppStore 4'
+
+- test:
+    input:
+      user_agent_string: 'BBCNewsAndroid/5.9.0 DashVideoOnDemandMediaDecoder/0.0.7 bbcExoPlayer/0.0.5 (Android 9)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'BBCNewsAndroid'
+      AgentVersion                         : '5.9.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'BBCNewsAndroid 5.9.0'
+      AgentNameVersionMajor                : 'BBCNewsAndroid 5'
+
