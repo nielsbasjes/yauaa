@@ -21,6 +21,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.util.Collections;
 import java.util.Set;
 
 public class StepIsInSet extends Step {
@@ -30,8 +31,8 @@ public class StepIsInSet extends Step {
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepIsInSet() {
-        listName = null;
-        list = null;
+        listName = "<< Should not be seen anywhere >>";
+        list = Collections.emptySet();
     }
 
 

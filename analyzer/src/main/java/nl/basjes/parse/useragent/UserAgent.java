@@ -390,17 +390,18 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     }
 
     public void clone(UserAgent userAgent) {
+        userAgentString  = userAgent.userAgentString;
         wantedFieldNames = userAgent.wantedFieldNames;
-        init();
-        debug=userAgent.debug;
+        debug            = userAgent.debug;
+        hasSyntaxError   = userAgent.hasSyntaxError;
+        hasAmbiguity     = userAgent.hasAmbiguity;
+        ambiguityCount   = userAgent.ambiguityCount;
 
-        setUserAgentString(userAgent.userAgentString);
+        init(); // Making sure the default values are copied correctly.
+
         for (Map.Entry<String, AgentField> entry : userAgent.allFields.entrySet()) {
             set(entry.getKey(), entry.getValue().getValue(), entry.getValue().confidence);
         }
-        hasSyntaxError  = userAgent.hasSyntaxError;
-        hasAmbiguity    = userAgent.hasAmbiguity;
-        ambiguityCount  = userAgent.ambiguityCount;
     }
 
     private void init() {

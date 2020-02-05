@@ -17,30 +17,13 @@
 
 package nl.basjes.parse.useragent;
 
-import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzerTesterBuilder;
-import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestResourceLoading {
-
-    private void runTest(String resourceString, Matcher<String> expectedMessage) {
-        InvalidParserConfigurationException exception =
-            assertThrows(InvalidParserConfigurationException.class, () -> {
-                UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
-                    .newBuilder()
-                    .dropDefaultResources()
-                    .keepTests()
-                    .addResources(resourceString)
-                    .build();
-                assertTrue(uaa.runTests(false, false));
-            });
-        assertTrue(expectedMessage.matches(exception.getMessage()));
-    }
 
     @Test
     public void checkEmptyAndNormalFile() {

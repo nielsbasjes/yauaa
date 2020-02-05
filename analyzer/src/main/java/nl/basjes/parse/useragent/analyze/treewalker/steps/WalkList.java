@@ -86,6 +86,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -132,8 +133,8 @@ public class WalkList implements Serializable {
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private WalkList() {
-        lookups = null;
-        lookupSets = null;
+        lookups = Collections.emptyMap();
+        lookupSets = Collections.emptyMap();
         verbose = false;
     }
 

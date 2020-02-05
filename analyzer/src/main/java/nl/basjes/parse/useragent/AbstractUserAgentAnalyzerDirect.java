@@ -1136,7 +1136,7 @@ config:
         private boolean didBuildStep = false;
         private int preheatIterations = 0;
 
-        private List<String> resources = new ArrayList<>();
+        private final List<String> resources = new ArrayList<>();
 
         protected void failIfAlreadyBuilt() {
             if (didBuildStep) {

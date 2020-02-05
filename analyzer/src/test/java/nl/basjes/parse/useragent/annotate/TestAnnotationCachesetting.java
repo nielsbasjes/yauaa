@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestAnnotationCachesetting {
 
+    @SuppressWarnings("unused")
     public static class TestRecord implements Serializable {
         final String useragent;
         String deviceClass;
@@ -40,6 +41,7 @@ public class TestAnnotationCachesetting {
         }
     }
 
+    @SuppressWarnings("unused")
     public static class MyMapper implements UserAgentAnnotationMapper<TestRecord>, Serializable {
         @Override
         public String getUserAgentString(TestRecord record) {
@@ -61,8 +63,6 @@ public class TestAnnotationCachesetting {
 
     @Test
     public void testAnnotationCacheSetting1() throws IllegalAccessException, NoSuchFieldException {
-        MyMapper mapper = new MyMapper();
-
         UserAgentAnnotationAnalyzer<TestRecord> userAgentAnnotationAnalyzer = new UserAgentAnnotationAnalyzer<>();
 
         // To make sure the internals behave as expected
@@ -106,8 +106,6 @@ public class TestAnnotationCachesetting {
 
     @Test
     public void testAnnotationCacheSetting2() throws IllegalAccessException, NoSuchFieldException {
-        MyMapper mapper = new MyMapper();
-
         UserAgentAnnotationAnalyzer<TestRecord> userAgentAnnotationAnalyzer = new UserAgentAnnotationAnalyzer<>();
 
         // To make sure the internals behave as expected

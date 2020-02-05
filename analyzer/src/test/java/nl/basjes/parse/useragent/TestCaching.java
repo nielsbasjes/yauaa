@@ -22,6 +22,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestCaching {
 
@@ -99,14 +100,14 @@ public class TestCaching {
 
         agent = uaa.parse(uuid);
         assertEquals(uuid, agent.get(fieldName).getValue());
-        assertEquals(null, getCache(uaa));
+        assertNull(getCache(uaa));
     }
 
     private LRUMap<?, ?> getCache(UserAgentAnalyzer uaa) throws IllegalAccessException {
         LRUMap<?, ?> actualCache = null;
         Object rawParseCache = FieldUtils.readField(uaa, "parseCache", true);
         if (rawParseCache instanceof LRUMap<?, ?>) {
-            actualCache = (LRUMap) rawParseCache;
+            actualCache = (LRUMap<?, ?>) rawParseCache;
         }
         return actualCache;
     }

@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.parse;
 
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.parser.UserAgentBaseListener;
@@ -164,7 +165,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private UserAgentTreeFlattener() {
-        analyzer = null;
+        analyzer = new UserAgentAnalyzerDirect(); // Set unused value
     }
 
     public UserAgentTreeFlattener(Analyzer analyzer) {
@@ -235,9 +236,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
     private String inform(ParseTree stateCtx, ParseTree ctx, String name, String value, boolean fakeChild) {
         String path = name;
-        if (stateCtx == null) {
-            analyzer.inform(path, value, ctx);
-        } else {
+        if (stateCtx != null) {
             State myState = new State(stateCtx, name);
 
             if (!fakeChild) {
@@ -257,8 +256,8 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
             }
 
             path = myState.calculatePath(childType, fakeChild);
-            analyzer.inform(path, value, ctx);
         }
+        analyzer.inform(path, value, ctx);
         return path;
     }
 

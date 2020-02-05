@@ -21,6 +21,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.util.Collections;
 import java.util.Map;
 
 public class StepLookup extends Step {
@@ -31,9 +32,9 @@ public class StepLookup extends Step {
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepLookup() {
-        lookupName = null;
-        lookup = null;
-        defaultValue = null;
+        lookupName = "<< Should not be seen anywhere >>";
+        lookup = Collections.emptyMap();
+        defaultValue = "<< Should not be seen anywhere >>";
     }
 
     public StepLookup(String lookupName, Map<String, String> lookup, String defaultValue) {
@@ -60,7 +61,7 @@ public class StepLookup extends Step {
 
     @Override
     public String toString() {
-        return "Lookup(@" + lookupName + " ; default="+defaultValue+")";
+        return "Lookup(@" + lookupName + " ; default=" + defaultValue + ")";
     }
 
 }

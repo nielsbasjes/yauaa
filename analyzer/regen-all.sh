@@ -18,5 +18,5 @@
 
 find src -type f -name Generate.sh | sed 's@/Generate.sh@@' | while read -r dir ;
 do
-  ( cd "${dir}" || exit 1 ; ./Generate.sh $@ )
+  ( cd "${dir}" || exit 1 ; ./Generate.sh "$@" )
 done

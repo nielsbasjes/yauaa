@@ -129,8 +129,6 @@ public class TestUseragent {
 
     @Test
     public void testCopying() {
-        String name = "Foo";
-
         AgentField origNull = new AgentField(null);
         origNull.setValue("One", 1);
         AgentField copyNull = new AgentField("Foo"); // Different default!
