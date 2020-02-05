@@ -32,7 +32,7 @@ If you use a maven based project simply add this dependency to your project.
 </code></pre>
 
 ## Installation
-To install this function put the jar file in the <drill-path>/jars/3rdparty directory.
+To install this function put the jar file in the `<drill-path>/jars/3rdparty` directory.
 
     cp yauaa-drill-<version>.jar <drill-path>/jars/3rdparty
 

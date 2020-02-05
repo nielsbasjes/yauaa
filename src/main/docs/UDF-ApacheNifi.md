@@ -18,7 +18,7 @@ If you use a maven based project simply add this dependency
 </code></pre>
 
 ## Installation
-To install this function put the nar file in the <nifi-path>/lib directory.
+To install this function put the nar file in the `<nifi-path>/lib` directory.
 
     cp ./udfs/nifi/nifi-nar/target/yauaa-nifi-<version>.nar <nifi-path>/lib
 
