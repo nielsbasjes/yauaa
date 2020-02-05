@@ -577,11 +577,16 @@
 &lt;/dependency&gt;
 </code></pre>
 
+
+<h2 id="important-breaking-api-change">IMPORTANT: Breaking API change</h2>
+<p>In version 5.15 this function was rewritten and as a consequence the API has changed.</p>
+<p>The function now returns a <code>Map&lt;String, String&gt;</code> with all the requested values in one go.</p>
 <h2 id="syntax">Syntax</h2>
 <p>Assume you register this function under the name <code>ParseUserAgent</code>
 Then the generic usage in your SQL is</p>
-<pre><code>ParseUserAgent(&lt;useragent&gt;, &lt;requested fieldname&gt;)</code></pre>
+<pre><code>ParseUserAgent(&lt;useragent&gt;)</code></pre>
 
+<p>This returns a <code>Map&lt;String, String&gt;</code> with all the requested values in one go.</p>
 <h2 id="example-usage-java">Example usage (Java)</h2>
 <p>Assume you have a either a BatchTableEnvironment or a StreamTableEnvironment in which you have defined your records as a table.
 In most cases I see (clickstream data) these records contain the useragent string in a column.</p>
@@ -591,7 +596,7 @@ tableEnv.registerDataStream(&quot;AgentStream&quot;, inputStream, &quot;timestam
 <ul>
 <li>Determine the names of the fields you need.</li>
 <li>Register the function with the full list of all the fields you want under the name you want.</li>
-<li>Use the function in your SQL to extract one field at a time.</li>
+<li>Use the function in your SQL to do the parsing and extract the fields from that.</li>
 <li>Run the query</li>
 </ul>
 <pre><code>// Register the function with all the desired fieldnames and optionally the size of the cache
@@ -600,11 +605,34 @@ tableEnv.registerFunction(&quot;ParseUserAgent&quot;, new AnalyzeUseragentFuncti
 // Define the query.
 String sqlQuery =
     &quot;SELECT useragent,&quot;+
-    &quot;       ParseUserAgent(useragent, &apos;DeviceClass&apos;)            as DeviceClass,&quot; +
-    &quot;       ParseUserAgent(useragent, &apos;AgentNameVersionMajor&apos;)  as AgentNameVersionMajor&quot; +
+    &quot;       ParseUserAgent(useragent)   as parsedUseragent&quot; +
     &quot;FROM AgentStream&quot;;
 
 Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
+
+// A String and the Map with all results
+TypeInformation&lt;Row&gt; tupleType = new RowTypeInfo(STRING, MAP(STRING, STRING));
+DataStream&lt;Row&gt; resultSet = tableEnv.toAppendStream(resultTable, tupleType);
+</code></pre><p>or something like this</p>
+<pre><code>// Register the function with all the desired fieldnames and optionally the size of the cache
+tableEnv.registerFunction(&quot;ParseUserAgent&quot;, new AnalyzeUseragentFunction(15000, &quot;DeviceClass&quot;, &quot;AgentNameVersionMajor&quot;));
+
+// Define the query.
+String sqlQuery =
+    &quot;SELECT useragent,&quot;+
+    &quot;       parsedUseragent[&apos;DeviceClass&apos;]              AS deviceClass,&quot; +
+    &quot;       parsedUseragent[&apos;AgentNameVersionMajor&apos;]    AS agentNameVersionMajor &quot; +
+    &quot;FROM ( &quot; +
+    &quot;   SELECT useragent,&quot; +
+    &quot;          ParseUserAgent(useragent) AS parsedUseragent&quot; +
+    &quot;   FROM   AgentStream &quot; +
+    &quot;)&quot;;
+
+Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
+
+// 3 Strings
+TypeInformation&lt;Row&gt; tupleType = new RowTypeInfo(STRING, STRING, STRING);
+DataStream&lt;Row&gt; resultSet = tableEnv.toAppendStream(resultTable, tupleType);
 </code></pre>
                                 
                                 </section>
@@ -648,7 +676,7 @@ Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Apache Flink (Table/SQL)","level":"3.6","depth":1,"next":{"title":"Apache Hive","level":"3.7","depth":1,"path":"UDF-ApacheHive.md","ref":"UDF-ApacheHive.md","articles":[]},"previous":{"title":"Apache Flink","level":"3.5","depth":1,"path":"UDF-ApacheFlink.md","ref":"UDF-ApacheFlink.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.14.1"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"UDF-ApacheFlinkTable.md","mtime":"2018-12-07T10:51:09.289Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-06T13:02:39.625Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Apache Flink (Table/SQL)","level":"3.6","depth":1,"next":{"title":"Apache Hive","level":"3.7","depth":1,"path":"UDF-ApacheHive.md","ref":"UDF-ApacheHive.md","articles":[]},"previous":{"title":"Apache Flink","level":"3.5","depth":1,"path":"UDF-ApacheFlink.md","ref":"UDF-ApacheFlink.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.14.1"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"UDF-ApacheFlinkTable.md","mtime":"2020-01-30T13:40:34.774Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-05T11:46:47.378Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
