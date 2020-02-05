@@ -7,6 +7,7 @@ v5.15-SNAPSHOT
   - Fix NPE when defining invalid rules (walk left/right/up from the top of the tree)
   - The Tencent/Alibaba NetType and Language tags are now better extracted.
   - AgentName is now more consistent (konqueror/Konqueror)
+  - Handle the BlackBerry Leap devices a bit better
 - New/improved detections
   - App: Desktop apps using Electron (https://electronjs.org/)
   - Devices: Improve detection of Apple devices
