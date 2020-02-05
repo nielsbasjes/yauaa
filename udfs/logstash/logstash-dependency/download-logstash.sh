@@ -43,13 +43,13 @@ echo -e "${IWhite}[${BIRed}WARN${IWhite}] ${IYellow}\\==========================
 echo -e "${Color_Off}"
 
 
-[ -f ${HOME}/.m2/repository/org/logstash/logstash-core/${VERSION}/logstash-core-${VERSION}.jar ] && echo -e "${IYellow}Logstash ${VERSION} was already downloaded${Color_Off}" && exit 0;
+[ -f "${HOME}/.m2/repository/org/logstash/logstash-core/${VERSION}/logstash-core-${VERSION}.jar" ] && echo -e "${IYellow}Logstash ${VERSION} was already downloaded${Color_Off}" && exit 0;
 
 cd /tmp || exit 1
 
 echo -e "${IYellow}Logstash ${VERSION}: Downloading${Color_Off}"
 
-curl https://artifacts.elastic.co/downloads/logstash/logstash-oss-${VERSION}.tar.gz | tar xzf - --to-stdout logstash-${VERSION}/logstash-core/lib/jars/logstash-core.jar > logstash-core.jar
+curl "https://artifacts.elastic.co/downloads/logstash/logstash-oss-${VERSION}.tar.gz" | tar xzf - --to-stdout "logstash-${VERSION}/logstash-core/lib/jars/logstash-core.jar" > logstash-core.jar
 
 echo -e "${IYellow}Logstash ${VERSION}: Installing${Color_Off}"
 
@@ -57,7 +57,7 @@ mvn install:install-file        \
      -DgroupId=org.logstash     \
      -DartifactId=logstash-core \
      -Dpackaging=jar            \
-     -Dversion=${VERSION}       \
+     -Dversion="${VERSION}"     \
      -Dfile=logstash-core.jar
 
 echo -e "${IYellow}Logstash ${VERSION}: Cleanup${Color_Off}"

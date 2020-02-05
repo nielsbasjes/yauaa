@@ -20,9 +20,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 cd "${DIR}" || exit 1
 
-mkdir -p __testrun && cd __testrun
+mkdir -p __testrun || exit 1
+cd __testrun || exit 1
 
-VERSION=$(fgrep logstash.version "${DIR}/../../../pom.xml" | cut -d'>' -f2 | cut -d'<' -f1)
+VERSION=$(grep -F logstash.version "${DIR}/../../../pom.xml" | cut -d'>' -f2 | cut -d'<' -f1)
 
 [ -z "$VERSION" ] && echo "Unable to get the logstash version to use" && exit 1
 

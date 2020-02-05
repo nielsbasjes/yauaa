@@ -99,7 +99,7 @@ public class TestParseServlet {
     }
 
     @Test
-    public void testGetHtml() throws URISyntaxException {
+    public void testGetHtml() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(TEXT_HTML));
         headers.set("User-Agent", USERAGENT);

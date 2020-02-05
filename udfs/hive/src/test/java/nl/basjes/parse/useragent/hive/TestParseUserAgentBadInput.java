@@ -34,7 +34,7 @@ public class TestParseUserAgentBadInput {
     private ParseUserAgent parseUserAgent = new ParseUserAgent();
 
     @Test
-    public void testBadInputType() throws HiveException {
+    public void testBadInputType() {
         Exception exception = assertThrows(UDFArgumentException.class, () ->
             parseUserAgent
             .initialize(new ObjectInspector[]{

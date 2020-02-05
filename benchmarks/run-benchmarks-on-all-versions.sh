@@ -18,7 +18,7 @@
 
 git tag | \
 sed 's/v//' | \
-egrep -v '^(0.1|0.10|0.3)$' | while read -r version ;
+grep -E -v '^(0.1|0.10|0.3)$' | while read -r version ;
 do
   if [ -f "results/version-${version}.txt" ];
   then
