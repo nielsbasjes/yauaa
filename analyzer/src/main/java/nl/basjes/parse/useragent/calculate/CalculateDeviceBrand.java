@@ -19,7 +19,7 @@ package nl.basjes.parse.useragent.calculate;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
-import nl.basjes.parse.useragent.utils.publicsuffix.PublicSuffixMatcherLoader;
+import org.apache.http.conn.util.PublicSuffixMatcherLoader;
 
 import java.util.HashSet;
 import java.util.Set;
