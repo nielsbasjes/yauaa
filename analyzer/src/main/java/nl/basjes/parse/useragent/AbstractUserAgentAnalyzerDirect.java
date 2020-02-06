@@ -321,11 +321,19 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         flattener = new UserAgentTreeFlattener(this);
         Yaml yaml = new Yaml();
 
+        final boolean loadingDefaultResources = DEFAULT_RESOURCES.equals(resourceString);
+
         Map<String, Resource> resources = new TreeMap<>();
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
             Resource[] resourceArray = resolver.getResources(resourceString);
+            if (!loadingDefaultResources) {
+                LOG.info("Loading {} rule files from {}", resourceArray.length, resourceString);
+            }
             for (Resource resource : resourceArray) {
+                if (!loadingDefaultResources) {
+                    LOG.info("Loading rule file {} ({} bytes}", resource.getFilename(), resource.contentLength());
+                }
                 resources.put(resource.getFilename(), resource);
             }
         } catch (IOException e) {
@@ -337,7 +345,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         if (resources.isEmpty()) {
             LOG.warn("NO config files were found matching this expression: {}", resourceString);
 
-            if (DEFAULT_RESOURCES.equals(resourceString)) {
+            if (loadingDefaultResources) {
                 LOG.warn("Unable to load the default resources, usually caused by classloader problems.");
                 LOG.warn("Retrying with built in list.");
                 PackagedRules.getRuleFileNames().forEach(this::loadResources);
