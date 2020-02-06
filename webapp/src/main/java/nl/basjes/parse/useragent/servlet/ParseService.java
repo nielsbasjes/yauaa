@@ -30,6 +30,8 @@ import nl.basjes.parse.useragent.Version;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpHeaders;
@@ -59,7 +61,10 @@ import java.util.Map;
 
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
+import static org.apache.commons.text.StringEscapeUtils.escapeJson;
+import static org.apache.commons.text.StringEscapeUtils.escapeXml10;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
@@ -69,6 +74,8 @@ import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 @SpringBootApplication
 @RestController
 public class ParseService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ParseService.class);
 
     private static       UserAgentAnalyzer userAgentAnalyzer               = null;
     private static       long              initStartMoment;
@@ -179,13 +186,22 @@ public class ParseService {
             initStartMoment = System.currentTimeMillis();
             new Thread(() -> {
                 try {
-                    userAgentAnalyzer = UserAgentAnalyzer.newBuilder().hideMatcherLoadStats().keepTests().build();
+                    userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
+                        .hideMatcherLoadStats()
+                        .addResources("file:UserAgents/*.yaml")
+                        .keepTests()
+                        .build();
                     userAgentAnalyzer.initializeMatchers();
                     userAgentAnalyzerIsAvailable = true;
                 } catch (Exception e) {
                     userAgentAnalyzerFailureMessage =
                         e.getClass().getSimpleName() + "<br/>" +
                             e.getMessage().replaceAll("\n", "<br/>");
+                    LOG.error("Fatal error during startup: {}\n" +
+                            "=======================================================\n" +
+                            "{}\n" +
+                            "=======================================================\n",
+                            e.getClass().getCanonicalName(), e.getMessage());
                 }
             }).start();
         }
@@ -225,26 +241,48 @@ public class ParseService {
             long timeSinceStart = System.currentTimeMillis() - initStartMoment;
             String message;
 
-            switch (yauaaIsBusyStarting.getOutputType()) {
-                case YAML:
-                    message = "status: \"Starting\"\ntimeInMs: " + timeSinceStart + "\n";
-                    break;
-                case TXT:
-                    message = "NO";
-                    break;
-                case JSON:
-                    message = "{ \"status\": \"Starting\", \"timeInMs\": " + timeSinceStart + " }";
-                    break;
-                case XML:
-                    message = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><status>Starting</status><timeInMs>" + timeSinceStart + "</timeInMs>";
-                    break;
-                case HTML:
-                default:
-                    message = "Yauaa has been starting up for " + timeSinceStart + " seconds now.";
-                    break;
+            if (userAgentAnalyzerFailureMessage == null) {
+                switch (yauaaIsBusyStarting.getOutputType()) {
+                    case YAML:
+                        message = "status: \"Starting\"\ntimeInMs: " + timeSinceStart + "\n";
+                        break;
+                    case TXT:
+                        message = "NO";
+                        break;
+                    case JSON:
+                        message = "{ \"status\": \"Starting\", \"timeInMs\": " + timeSinceStart + " }";
+                        break;
+                    case XML:
+                        message = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><status>Starting</status><timeInMs>" + timeSinceStart + "</timeInMs>";
+                        break;
+                    case HTML:
+                    default:
+                        message = "Yauaa has been starting up for " + timeSinceStart + " seconds now.";
+                        break;
+                }
+                return new ResponseEntity<>(message, httpHeaders, SERVICE_UNAVAILABLE);
+            } else {
+                switch (yauaaIsBusyStarting.getOutputType()) {
+                    case YAML:
+                        message = "status: \"Failed\"\nerrorMessage: |\n" + userAgentAnalyzerFailureMessage + "\n";
+                        break;
+                    case TXT:
+                        message = "FAILED: \n" + userAgentAnalyzerFailureMessage;
+                        break;
+                    case JSON:
+                        message = "{ \"status\": \"Failed\", \"errorMessage\": " + escapeJson(userAgentAnalyzerFailureMessage) + " }";
+                        break;
+                    case XML:
+                        message = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><status>Failed</status><errorMessage>" + escapeXml10(userAgentAnalyzerFailureMessage) + "</errorMessage>";
+                        break;
+                    case HTML:
+                    default:
+                        message = "Yauaa start up has failed with message \n" + userAgentAnalyzerFailureMessage;
+                        break;
+                }
+                return new ResponseEntity<>(message, httpHeaders, INTERNAL_SERVER_ERROR);
             }
 
-            return new ResponseEntity<>(message, httpHeaders, INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -541,7 +579,7 @@ public class ParseService {
             sb.append("<meta name=\"theme-color\" content=\"dodgerblue\" />");
 
             // While initializing automatically reload the page.
-            if (!userAgentAnalyzerIsAvailable) {
+            if (!userAgentAnalyzerIsAvailable && userAgentAnalyzerFailureMessage == null) {
                 sb.append("<meta http-equiv=\"refresh\" content=\"1\" >");
             }
             sb.append("<link rel=\"stylesheet\" href=\"style.css\">");

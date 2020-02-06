@@ -33,6 +33,22 @@ and then open
 
 in your browser to get the output of the servlet.
 
+# Custom rules
+
+The servlet supports loading your own custom rules, which can be useful to classify internal monitoring systems.
+It does this by looking in the UserAgents folder for yaml files (i.e. `file:UserAgents/*.yaml` ).
+
+Based on the docker image this can be easily done with an additional layer where your entire `Dockerfile` looks like this
+
+    FROM nielsbasjes/yauaa:{{ book.YauaaVersion }}
+    ADD InternalTraffic.yaml UserAgents/
+
+When you build that docker image and run it the logging should contain something like this:
+
+    Loading 1 rule files from file:UserAgents/*.yaml
+    Loading rule file InternalTraffic.yaml (9608 bytes}
+    Loading  1 files in    9 msec from file:UserAgents/*.yaml
+
 # Kubernetes
 
 I've been playing around with Kubernetes and the code below "works on my cluster".

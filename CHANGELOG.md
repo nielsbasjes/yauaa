@@ -24,8 +24,9 @@ v5.15-SNAPSHOT
   - Use SpotBugs (=FindBugs) to detect subtle problems.
 - Demonstration WebServlet
   - Updated to SpringFox 3.0.0-SNAPSHOT to support better examples in the Swagger UI.
+  - Support for custom rules
 - UDF changes
-  - Flink Table function now returns a Map<String, String> with all the values in a single call.
+  - Flink Table function now returns a Map&gt;String, Stringi&lt; with all the values in a single call.
 
 v5.14.1
 ===
