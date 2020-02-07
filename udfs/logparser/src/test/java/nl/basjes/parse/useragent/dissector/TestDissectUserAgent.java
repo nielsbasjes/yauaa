@@ -17,7 +17,6 @@
 
 package nl.basjes.parse.useragent.dissector;
 
-import nl.basjes.parse.core.Dissector;
 import nl.basjes.parse.core.Parser;
 import nl.basjes.parse.core.exceptions.InvalidDissectorException;
 import nl.basjes.parse.core.test.DissectorTester;
