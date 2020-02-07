@@ -52,6 +52,17 @@ public class TestDissectUserAgent {
     }
 
     @Test
+    public void testNullInput() {
+        // This is an edge case where the webview fields are calulcated AND wiped again.
+        DissectorTester
+            .create()
+            .withDissector(new UserAgentDissector())
+            .withInput(null)
+            .expectAbsentString("STRING:device_class")
+            .checkExpectations();
+    }
+
+    @Test
     public void validateNameConversion() {
         UserAgentDissector uad = new UserAgentDissector();
         uad.ensureMappingsExistForFieldName("Foo");
