@@ -17,8 +17,12 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.ByteBufferInput;
+import com.esotericsoftware.kryo.io.ByteBufferOutput;
 import org.junit.jupiter.api.Test;
 
+import java.nio.ByteBuffer;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -93,6 +97,61 @@ public class TestMatcherList {
         assertEquals(2, array.length);
         assertTrue(array[0] instanceof Matcher);
         assertTrue(array[1] instanceof Matcher);
+    }
+
+    // The MatcherList is currently only used as a transient member.
+    // To ensure the serialization works we test that here.
+    byte[] serialize(MatcherList list) {
+        Kryo             kryo             = new Kryo();
+        ByteBufferOutput byteBufferOutput = new ByteBufferOutput(1_000_000, -1);
+        kryo.writeClassAndObject(byteBufferOutput, list);
+
+        ByteBuffer buf = byteBufferOutput.getByteBuffer();
+        byte[]     arr = new byte[buf.position()];
+        buf.rewind();
+        buf.get(arr);
+
+        return arr;
+    }
+
+    MatcherList deserialize(byte[] bytes) {
+        Kryo            kryo            = new Kryo();
+        ByteBufferInput byteBufferInput = new ByteBufferInput(bytes);
+        return (MatcherList) kryo.readClassAndObject(byteBufferInput);
+    }
+
+    @Test
+    public void serializeAndDeserializeMatcherListNonEmpty() {
+        MatcherList list = new MatcherList(5);
+        list.add(new Matcher(null));
+
+        final IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
+            serialize(list);
+        });
+
+        assertEquals("Cannot serialize MatcherList with a non-zero size.", exception.getMessage());
+    }
+
+    @Test
+    public void serializeAndDeserializeMatcherList() {
+        MatcherList list = new MatcherList(5);
+        list.add(new Matcher(null));
+        list.add(new Matcher(null));
+
+        final Object[] array = list.toArray();
+        assertNotNull(array);
+        assertEquals(2, array.length);
+        assertTrue(array[0] instanceof Matcher);
+        assertTrue(array[1] instanceof Matcher);
+
+        list.clear();
+
+        final byte[] bytes = serialize(list);
+
+        MatcherList list2 = deserialize(bytes);
+        final Object[] array2 = list2.toArray();
+        assertNotNull(array2);
+        assertEquals(0, array2.length);
     }
 
     @Test
