@@ -164,8 +164,12 @@ public class UserAgentDissector extends Dissector {
     @Override
     protected void initializeNewInstance(Dissector newInstance) throws InvalidDissectorException {
         if (!(newInstance instanceof UserAgentDissector)) {
+            String className = "<<<null>>>";
+            if (newInstance != null) {
+                className = newInstance.getClass().getCanonicalName();
+            }
             throw new InvalidDissectorException("The provided instance of the dissector is a " +
-                newInstance.getClass().getCanonicalName() + " which is not a UserAgentDissector");
+                className + " which is not a UserAgentDissector");
         }
         UserAgentDissector newUserAgentDissector = (UserAgentDissector) newInstance;
         newUserAgentDissector.extraResources = new ArrayList<>(extraResources);

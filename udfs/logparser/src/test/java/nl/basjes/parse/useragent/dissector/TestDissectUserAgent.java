@@ -17,7 +17,9 @@
 
 package nl.basjes.parse.useragent.dissector;
 
+import nl.basjes.parse.core.Dissector;
 import nl.basjes.parse.core.Parser;
+import nl.basjes.parse.core.exceptions.InvalidDissectorException;
 import nl.basjes.parse.core.test.DissectorTester;
 import nl.basjes.parse.core.test.TestRecord;
 import nl.basjes.parse.httpdlog.HttpdLoglineParser;
@@ -26,6 +28,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestDissectUserAgent {
@@ -60,6 +63,28 @@ public class TestDissectUserAgent {
             .withInput(null)
             .expectAbsentString("STRING:device_class")
             .checkExpectations();
+    }
+
+    @Test
+    public void testBadInit() {
+        final InvalidDissectorException invalidDissectorException = assertThrows(InvalidDissectorException.class, () -> {
+            final UserAgentDissector userAgentDissector = new UserAgentDissector();
+            userAgentDissector.initializeNewInstance(new DissectorTester.DummyDissector());
+        });
+        assertTrue(invalidDissectorException.getMessage()
+            .startsWith("The provided instance of the dissector is a nl.basjes.parse.core.test.DissectorTester.DummyDissector"),
+            invalidDissectorException.getMessage());
+    }
+
+    @Test
+    public void testBadInitNull() {
+        final InvalidDissectorException invalidDissectorException = assertThrows(InvalidDissectorException.class, () -> {
+            final UserAgentDissector userAgentDissector = new UserAgentDissector();
+            userAgentDissector.initializeNewInstance(null);
+        });
+        assertTrue(invalidDissectorException.getMessage()
+            .startsWith("The provided instance of the dissector is a <<<null>>>"),
+            invalidDissectorException.getMessage());
     }
 
     @Test
