@@ -36,6 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.logstash.filters.nl.basjes.parse.useragent.logstash.Yauaa.FIELDS_CONFIG;
+import static org.logstash.filters.nl.basjes.parse.useragent.logstash.Yauaa.SOURCE_CONFIG;
 
 public class TestYauaa {
 
@@ -67,6 +69,10 @@ public class TestYauaa {
         assertEquals(1, results.size());
         assertEquals("Desktop", e.getField("DC"));
         assertEquals("Chrome 48.0.2564.82", e.getField("ANV"));
+        assertEquals("testNormalUse", filter.getId());
+        assertEquals("testNormalUse", filter.getId());
+        assertTrue(filter.configSchema().contains(SOURCE_CONFIG));
+        assertTrue(filter.configSchema().contains(FIELDS_CONFIG));
     }
 
     @Test
