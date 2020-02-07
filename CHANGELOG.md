@@ -14,7 +14,8 @@ v5.15-SNAPSHOT
   - Brand: Huawei/Honor
   - Robots: 'probe' and 'alyzer' both imply 'Robot', new Bing useragents.
 - Updated UDF dependencies
-  - Apache Beam      2.17.0
+  - Apache Flink     1.9.2
+  - Apache Beam      2.19.0
   - Apache Nifi      1.11.0
   - Elastic Logstash 7.5.2
 - Build
