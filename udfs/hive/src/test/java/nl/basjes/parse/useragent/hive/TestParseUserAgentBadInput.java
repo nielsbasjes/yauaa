@@ -45,6 +45,18 @@ public class TestParseUserAgentBadInput {
     }
 
     @Test
+    public void testBadInputCount() {
+        Exception exception = assertThrows(UDFArgumentException.class, () ->
+            parseUserAgent
+                .initialize(new ObjectInspector[]{
+                    PrimitiveObjectInspectorFactory.javaStringObjectInspector,
+                    PrimitiveObjectInspectorFactory.javaStringObjectInspector
+                }));
+        assertEquals("The argument list must be exactly 1 element", exception.getMessage());
+    }
+
+
+    @Test
     public void testBadInputNull() throws HiveException {
         parseUserAgent
             .initialize(new ObjectInspector[]{
@@ -53,7 +65,5 @@ public class TestParseUserAgentBadInput {
 
         assertNull(parseUserAgent.evaluate(new DeferredObject[]{new DeferredJavaObject(null)}));
     }
-
-
 
 }

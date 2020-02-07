@@ -26,13 +26,16 @@ import org.apache.hadoop.hive.serde2.objectinspector.primitive.PrimitiveObjectIn
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestParseUserAgent {
 
     @Test
     public void testBasic() throws HiveException {
-        String userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36";
+        // This is an edge case where the webview fields are calulcated AND wiped again.
+        String userAgent = "Mozilla/5.0 (Linux; Android 5.1.1; KFFOWI Build/LMY47O) AppleWebKit/537.36 (KHTML, like Gecko) " +
+            "Version/4.0 Chrome/41.51020.2250.0246 Mobile Safari/537.36 cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0";
 
         ParseUserAgent parseUserAgent = new ParseUserAgent();
 
@@ -43,14 +46,20 @@ public class TestParseUserAgent {
 
         for (int i = 0; i < 100000; i++) {
             Object row = parseUserAgent.evaluate(new DeferredObject[]{new DeferredJavaObject(userAgent)});
-
-            checkField(resultInspector, row, "DeviceName", "Linux Desktop");
-            checkField(resultInspector, row, "AgentNameVersionMajor", "Chrome 58");
+            checkField(resultInspector, row, "DeviceClass", "Tablet");
+            checkField(resultInspector, row, "OperatingSystemNameVersion", "FireOS 3.4.0");
+            checkField(resultInspector, row, "WebviewAppName", null);
         }
     }
 
     private void checkField(StandardStructObjectInspector resultInspector, Object row, String fieldName, String expectedValue) {
-        assertEquals(expectedValue, resultInspector.getStructFieldData(row, resultInspector.getStructFieldRef(fieldName)).toString());
+        final Object result = resultInspector.getStructFieldData(row, resultInspector.getStructFieldRef(fieldName));
+
+        if (result == null) {
+            assertNull(expectedValue);
+        } else {
+            assertEquals(expectedValue, result.toString());
+        }
     }
 
     @Test
