@@ -353,12 +353,6 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     }
 
     private void enterProductVersion(ParseTree ctx) {
-        if (ctx.getChildCount() != 1) {
-            // These are the specials with multiple children like keyvalue, etc.
-            inform(ctx, VERSION);
-            return;
-        }
-
         ParseTree child = ctx.getChild(0);
         // Only for the SingleVersion edition we want to have splits of the version.
         if (child instanceof SingleVersionContext || child instanceof SingleVersionWithCommasContext) {
@@ -367,7 +361,6 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
         inform(ctx, VERSION);
     }
-
 
     @Override
     public void enterProductVersionSingleWord(UserAgentParser.ProductVersionSingleWordContext ctx) {
