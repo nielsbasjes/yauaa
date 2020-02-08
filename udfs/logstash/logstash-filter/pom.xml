@@ -238,42 +238,42 @@
         <artifactId>jacoco-maven-plugin</artifactId>
       </plugin>
 
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>1.7</version>
-        <executions>
-          <!-- Calculate the filter.gem.version incase of a release -->
-          <execution>
-            <id>gem-version-property-release</id>
-            <goals>
-              <goal>regex-property</goal>
-            </goals>
-            <configuration>
-              <name>filter.gem.version</name>
-              <value>${project.version}</value>
-              <regex>^([0-9.]+)$</regex>
-              <replacement>$1</replacement>
-              <failIfNoMatch>false</failIfNoMatch>
-            </configuration>
-          </execution>
+<!--      <plugin>-->
+<!--        <groupId>org.codehaus.mojo</groupId>-->
+<!--        <artifactId>build-helper-maven-plugin</artifactId>-->
+<!--        <version>1.7</version>-->
+<!--        <executions>-->
+<!--          &lt;!&ndash; Calculate the filter.gem.version incase of a release &ndash;&gt;-->
+<!--          <execution>-->
+<!--            <id>gem-version-property-release</id>-->
+<!--            <goals>-->
+<!--              <goal>regex-property</goal>-->
+<!--            </goals>-->
+<!--            <configuration>-->
+<!--              <name>filter.gem.version</name>-->
+<!--              <value>${project.version}</value>-->
+<!--              <regex>^([0-9.]+)$</regex>-->
+<!--              <replacement>$1</replacement>-->
+<!--              <failIfNoMatch>false</failIfNoMatch>-->
+<!--            </configuration>-->
+<!--          </execution>-->
 
-          <!-- Calculate the filter.gem.version incase of a SNAPSHOT -->
-          <execution>
-            <id>gem-version-property-snapshot</id>
-            <goals>
-              <goal>regex-property</goal>
-            </goals>
-            <configuration>
-              <name>filter.gem.version</name>
-              <value>${project.version}</value>
-              <regex>^([0-9.]+)-SNAPSHOT$</regex>
-              <replacement>$1.pre.SNAPSHOT</replacement>
-              <failIfNoMatch>false</failIfNoMatch>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+<!--          &lt;!&ndash; Calculate the filter.gem.version incase of a SNAPSHOT &ndash;&gt;-->
+<!--          <execution>-->
+<!--            <id>gem-version-property-snapshot</id>-->
+<!--            <goals>-->
+<!--              <goal>regex-property</goal>-->
+<!--            </goals>-->
+<!--            <configuration>-->
+<!--              <name>filter.gem.version</name>-->
+<!--              <value>${project.version}</value>-->
+<!--              <regex>^([0-9.]+)-SNAPSHOT$</regex>-->
+<!--              <replacement>$1.pre.SNAPSHOT</replacement>-->
+<!--              <failIfNoMatch>false</failIfNoMatch>-->
+<!--            </configuration>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--      </plugin>-->
 
 <!--      <plugin>-->
 <!--        <groupId>org.apache.maven.plugins</groupId>-->
