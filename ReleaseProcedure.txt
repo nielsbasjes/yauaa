@@ -8,11 +8,11 @@ mvn clean verify -PpackageForRelease
 mvn clean
 
 # Prepare the versions for the release
-RELEASEVERSION=5.14.1
-NEXTVERSION=5.15
+RELEASEVERSION=5.15
+NEXTVERSION=5.16
 
 # Creating and publishing the new Tagging
-mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION} -Plogstash
+mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION}
 
 # Update the version number in all of the examples in the generated documentation website.
 sed -i "s@YauaaVersion: \+\"[0-9\.]\+\"@YauaaVersion: \"${RELEASEVERSION}\"@g" src/book.js
@@ -35,7 +35,7 @@ mvn clean deploy -PpackageForRelease -Prelease -PdeployToSonatype
 
 # Now check SONATYPE
 
-mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${NEXTVERSION}-SNAPSHOT -Plogstash
+mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${NEXTVERSION}-SNAPSHOT
 
 # Update ReleaseProcedure.txt (versions near the top)
 
