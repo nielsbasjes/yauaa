@@ -6,7 +6,7 @@ The logstash UDF java api is still experimental.
 See https://github.com/logstash-plugins/logstash-filter-java_filter_example and https://github.com/elastic/logstash/issues/9215 for more information.
 
 Starting with version 5.15 you can get the prebuilt filter from
-[github](https://github.com/nielsbasjes/yauaa/releases/download/{{ book.YauaaVersion }}/logstash-filter-yauaa-{{ book.YauaaVersion }}.gem).
+[github](https://github.com/nielsbasjes/yauaa/releases/download/v{{ book.YauaaVersion }}/logstash-filter-yauaa-{{ book.YauaaVersion }}.gem).
 
 # Building has side effects !
 Because at this time none of the required dependencies are in maven central this build does something rarely seen:
