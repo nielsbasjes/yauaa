@@ -39,10 +39,10 @@
     <maven.compiler.source>${jdkLevel}</maven.compiler.source>
     <maven.compiler.target>${jdkLevel}</maven.compiler.target>
 
-    <!-- In order for everything to work correctly we need atleast this version of maven. -->
+    <!-- In order for everything to work correctly we need at least this version of maven. -->
     <maven.minimal.version>3.5.2</maven.minimal.version>
 
-    <antlr.version>4.7.2</antlr.version>
+    <antlr.version>4.8-1</antlr.version>
     <snakeyaml.version>1.25</snakeyaml.version>
 
     <!-- ============================================== -->
@@ -58,7 +58,7 @@
 
     <!-- Apache Drill -->
     <drill.version>1.17.0</drill.version>
-    <netty.version>4.1.32.Final</netty.version>
+    <netty.version>4.1.45.Final</netty.version>
 
     <!-- Apache Hadoop -->
     <hadoop.version>3.2.1</hadoop.version>
@@ -70,8 +70,8 @@
     <hive.version>3.1.2</hive.version>
 
     <!-- Apache Nifi -->
-    <nifi.version>1.11.0</nifi.version>
-    <nifi-nar-maven-plugin.version>1.2.0</nifi-nar-maven-plugin.version>
+    <nifi.version>1.11.1</nifi.version>
+    <nifi-nar-maven-plugin.version>1.3.1</nifi-nar-maven-plugin.version>
 
     <!-- LogParser -->
     <logparser.version>5.2</logparser.version>
@@ -83,15 +83,17 @@
 
     <checkstyle-plugin.version>3.1.0</checkstyle-plugin.version>
     <checkstyle.version>8.29</checkstyle.version>
+    <spotbugs-maven-plugin.version>3.1.12.2</spotbugs-maven-plugin.version>
+    <spotbugs.version>4.0.0-RC3</spotbugs.version>
     <slf4j.version>1.7.30</slf4j.version>
     <kryo.version>4.0.2</kryo.version>
     <rat.version>0.13</rat.version>
     <jacoco.version>0.8.5</jacoco.version>
-    <junit5.version>5.6.0-RC1</junit5.version>
+    <junit5.version>5.6.0</junit5.version>
     <hamcrest-core.version>2.2</hamcrest-core.version>
 
     <spring.version>5.2.3.RELEASE</spring.version>
-    <spring-boot.version>2.2.3.RELEASE</spring-boot.version>
+    <spring-boot.version>2.2.4.RELEASE</spring-boot.version>
     <spring-boot-legacy.version>2.1.0.RELEASE</spring-boot-legacy.version>
 
     <!-- FIXME: Update when springfox 3.0.0 has been released! -->
@@ -708,7 +710,7 @@
         <plugin>
           <groupId>com.github.spotbugs</groupId>
           <artifactId>spotbugs-maven-plugin</artifactId>
-          <version>3.1.12.2</version>
+          <version>${spotbugs-maven-plugin.version}</version>
           <configuration>
             <excludeFilterFile>spotbugs/spotbugs-exclude.xml</excludeFilterFile>
           </configuration>
@@ -717,7 +719,7 @@
             <dependency>
               <groupId>com.github.spotbugs</groupId>
               <artifactId>spotbugs</artifactId>
-              <version>4.0.0-RC1</version>
+              <version>${spotbugs.version}</version>
             </dependency>
             <dependency>
               <groupId>nl.basjes.parse.useragent</groupId>

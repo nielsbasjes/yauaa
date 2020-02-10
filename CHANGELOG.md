@@ -1,6 +1,11 @@
 This is intended as an overview of the major changes
 
-v5.15-SNAPSHOT
+v5.16-SNAPSHOT
+===
+- Updated UDF dependencies
+  - Apache Nifi      1.11.1
+
+v5.15
 ===
 - Analyzer:
   - Better url extraction.

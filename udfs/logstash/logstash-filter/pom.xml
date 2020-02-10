@@ -54,6 +54,9 @@
     <filter.name>yauaa</filter.name>
     <!-- The java classname of the filter class. -->
     <filter.class>Yauaa</filter.class>
+
+    <log4j.version>2.13.0</log4j.version>
+
   </properties>
 
   <dependencies>
@@ -68,14 +71,14 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>2.9.1</version>
+      <version>${log4j.version}</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.9.1</version>
+      <version>${log4j.version}</version>
       <scope>provided</scope>
     </dependency>
 
@@ -100,7 +103,7 @@
     <dependency>
       <groupId>org.jruby</groupId>
       <artifactId>jruby-complete</artifactId>
-      <version>9.1.13.0</version>
+      <version>9.2.9.0</version>
       <scope>test</scope>
     </dependency>
 
