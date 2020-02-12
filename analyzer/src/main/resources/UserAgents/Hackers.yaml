@@ -1333,3 +1333,70 @@ config:
       HackerToolkit                        : 'Nmap'
       HackerAttackVector: 'Unknown'     #   999901 | FAILED; Should be '<<absent>>'
 
+- matcher:
+    require:
+      - 'agent.product.comments.entry.product.name="Windows NT"^.version[1]="9"'
+    extract:
+      - 'DeviceClass                       : 10000 : "Hacker"'
+      - 'OperatingSystemClass              : 10000 : "Hacker"'
+      - 'AgentClass                        : 10000 : "Hacker"'
+
+- test: # There is no such a thing as Windows 9 --> Hacker
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; MSIE 9.0; Windows NT 9.0; en-US)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '9.0'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Windows NT 9.0'
+      OperatingSystemNameVersionMajor      : 'Windows NT 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Trident 5.0'
+      LayoutEngineNameVersionMajor         : 'Trident 5'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '9.0'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Internet Explorer 9.0'
+      AgentNameVersionMajor                : 'Internet Explorer 9'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test: # There is no such a thing as Windows 9 --> Hacker
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; Windows NT 9.0; en-US)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '9.0'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Windows NT 9.0'
+      OperatingSystemNameVersionMajor      : 'Windows NT 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Windows NT'
+      AgentVersion                         : '9.0'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Windows NT 9.0'
+      AgentNameVersionMajor                : 'Windows NT 9'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'

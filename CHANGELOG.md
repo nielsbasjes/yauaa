@@ -2,6 +2,8 @@ This is intended as an overview of the major changes
 
 v5.16-SNAPSHOT
 ===
+- Analyzer:
+  - Windows NT 9 --> Hacker
 - Updated UDF dependencies
   - Apache Nifi      1.11.1
 
