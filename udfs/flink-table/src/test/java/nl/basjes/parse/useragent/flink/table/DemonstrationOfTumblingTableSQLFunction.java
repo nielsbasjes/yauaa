@@ -126,7 +126,7 @@ public class DemonstrationOfTumblingTableSQLFunction {
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
 
         // Give the stream a Table Name
-        tableEnv.registerDataStream("AgentStream", inputStream, "eventTime.rowtime, useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
+        tableEnv.createTemporaryView("AgentStream", inputStream, "eventTime.rowtime, useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
 
         // register the function
         tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));

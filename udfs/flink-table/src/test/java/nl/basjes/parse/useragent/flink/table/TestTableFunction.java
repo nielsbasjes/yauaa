@@ -75,7 +75,7 @@ public class TestTableFunction {
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
 
         // Give the stream a Table Name
-        tableEnv.registerDataStream("AgentStream", inputStream, "useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
+        tableEnv.createTemporaryView("AgentStream", inputStream, "useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
 
         // register the function
         tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
@@ -126,7 +126,7 @@ public class TestTableFunction {
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
 
         // Give the stream a Table Name
-        tableEnv.registerDataStream("AgentStream", inputStream, "useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
+        tableEnv.createTemporaryView("AgentStream", inputStream, "useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
 
         // register the function
         tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
@@ -181,7 +181,7 @@ public class TestTableFunction {
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
 
         // Give the stream a Table Name
-        tableEnv.registerDataStream("AgentStream", inputStream, "useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
+        tableEnv.createTemporaryView("AgentStream", inputStream, "useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
 
         // register the function
         tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));

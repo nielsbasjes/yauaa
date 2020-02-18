@@ -24,8 +24,10 @@ import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.LocalEnvironment;
 import org.apache.flink.api.java.io.LocalCollectionOutputFormat;
 import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.datastream.DataStreamUtils;
 import org.apache.flink.streaming.api.environment.LocalStreamEnvironment;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.sink.DiscardingSink;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class TestUserAgentAnalysisMapperInline {
     public void testInlineDefinitionDataSet() throws Exception {
         ExecutionEnvironment environment = LocalEnvironment.getExecutionEnvironment();
 
-        DataSet<TestRecord> testRecordDataSet = environment
+        DataSet<TestRecord> resultDataSet = environment
             .fromElements(
                 "Mozilla/5.0 (X11; Linux x86_64) " +
                     "AppleWebKit/537.36 (KHTML, like Gecko) " +
@@ -73,7 +75,7 @@ public class TestUserAgentAnalysisMapperInline {
             });
 
         List<TestRecord> result = new ArrayList<>(5);
-        testRecordDataSet
+        resultDataSet
             .output(new LocalCollectionOutputFormat<>(result));
 
         environment.execute();
@@ -103,7 +105,7 @@ public class TestUserAgentAnalysisMapperInline {
     public void testInlineDefinitionDataStream() throws Exception {
         StreamExecutionEnvironment environment = LocalStreamEnvironment.getExecutionEnvironment();
 
-        DataStream<TestRecord> testRecordDataSet = environment
+        DataStream<TestRecord> resultDataStream = environment
             .fromElements(
                 "Mozilla/5.0 (X11; Linux x86_64) " +
                     "AppleWebKit/537.36 (KHTML, like Gecko) " +
@@ -136,8 +138,10 @@ public class TestUserAgentAnalysisMapperInline {
             });
 
         List<TestRecord> result = new ArrayList<>(5);
-        testRecordDataSet
-            .writeUsingOutputFormat(new LocalCollectionOutputFormat<>(result));
+        DataStreamUtils.collect(resultDataStream).forEachRemaining(result::add);
+
+        // Note: Without this sink: "No operators defined in streaming topology. Cannot execute."
+        resultDataStream.addSink(new DiscardingSink<>());
 
         environment.execute();
 
