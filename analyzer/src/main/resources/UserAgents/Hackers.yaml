@@ -1335,7 +1335,7 @@ config:
 
 - matcher:
     require:
-      - 'agent.product.comments.entry.product.name="Windows NT"^.version[1]="9"'
+      - 'agent.(1-2)product.comments.entry.(1-2)product.name="Windows NT"^.version[1]="9"'
     extract:
       - 'DeviceClass                       : 10000 : "Hacker"'
       - 'OperatingSystemClass              : 10000 : "Hacker"'
