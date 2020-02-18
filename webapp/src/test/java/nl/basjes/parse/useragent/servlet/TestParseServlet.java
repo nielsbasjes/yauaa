@@ -132,7 +132,8 @@ public class TestParseServlet {
         assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
 
         assertThat(json.from(response.getBody()))
-            .extractingJsonPathStringValue("@.AgentNameVersion")
+            // Uses this expression tool https://github.com/json-path/JsonPath
+            .extractingJsonPathStringValue("$[0].AgentNameVersion")
             .isEqualTo(EXPECT_AGENT_NAME_VERSION);
     }
 
@@ -150,7 +151,8 @@ public class TestParseServlet {
         assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
 
         assertThat(json.from(response.getBody()))
-            .extractingJsonPathStringValue("@.AgentNameVersion")
+            // Uses this expression tool https://github.com/json-path/JsonPath
+            .extractingJsonPathStringValue("$[0].AgentNameVersion")
             .isEqualTo(EXPECT_AGENT_NAME_VERSION);
     }
 
