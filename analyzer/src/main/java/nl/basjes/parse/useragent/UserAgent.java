@@ -672,7 +672,6 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     public String toXML(List<String> fieldNames) {
         StringBuilder sb =
             new StringBuilder(10240)
-            .append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
             .append("<Yauaa>");
 
         for (String fieldName : fieldNames) {

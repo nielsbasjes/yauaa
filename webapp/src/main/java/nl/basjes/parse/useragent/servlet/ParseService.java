@@ -91,7 +91,7 @@ public class ParseService {
         "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36";
 
-    private static final String EXAMPLE_JSON = "{\n" +
+    private static final String EXAMPLE_JSON = "[ {\n" +
         "  \"Useragent\": \"Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36\",\n" +
         "  \"DeviceClass\": \"Phone\",\n" +
         "  \"DeviceName\": \"Google Nexus 6\",\n" +
@@ -115,7 +115,7 @@ public class ParseService {
         "  \"AgentVersionMajor\": \"53\",\n" +
         "  \"AgentNameVersion\": \"Chrome 53.0.2785.124\",\n" +
         "  \"AgentNameVersionMajor\": \"Chrome 53\"\n" +
-        "}";
+        "} ]";
 
     private static final String EXAMPLE_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
         "  <Yauaa>\n" +
@@ -765,18 +765,35 @@ public class ParseService {
         return result.trim();
     }
 
+    private List<String> splitPerFilledLine(String input) {
+        String[] lines = input.split("\\r?\\n");
+        List<String> result = new ArrayList<>(lines.length);
+        for (String line: lines) {
+            String trimmedLine = line.trim();
+            if (!trimmedLine.isEmpty()) {
+                result.add(trimmedLine);
+            }
+        }
+        if (result.size() == 0) {
+            // Apparently the only input was an empty string, we want to keep that.
+            result.add("");
+        }
+        return result;
+    }
+
     private String doYaml(String userAgentString) {
         if (userAgentString == null) {
             throw new MissingUserAgentException();
         }
         ensureStartedForApis(OutputType.JSON);
         if (userAgentAnalyzerIsAvailable) {
-            UserAgent userAgent = userAgentAnalyzer.parse(userAgentString);
-            return userAgent.toYamlTestCase();
+            List<String> result = new ArrayList<>(2048);
+            splitPerFilledLine(userAgentString)
+                .forEach(ua -> result.add(userAgentAnalyzer.parse(ua).toYamlTestCase()));
+            return String.join("\n", result);
         }
         return "";
     }
-
 
     private String doJSon(String userAgentString) {
         if (userAgentString == null) {
@@ -784,10 +801,12 @@ public class ParseService {
         }
         ensureStartedForApis(OutputType.JSON);
         if (userAgentAnalyzerIsAvailable) {
-            UserAgent userAgent = userAgentAnalyzer.parse(userAgentString);
-            return userAgent.toJson();
+            List<String> result = new ArrayList<>(2048);
+            splitPerFilledLine(userAgentString)
+                .forEach(ua -> result.add(userAgentAnalyzer.parse(ua).toJson()));
+            return "[" + String.join(",\n", result) + "]";
         }
-        return "{}";
+        return "[{}]";
     }
 
     private String doXML(String userAgentString) {
@@ -796,8 +815,10 @@ public class ParseService {
         }
         ensureStartedForApis(OutputType.XML);
         if (userAgentAnalyzerIsAvailable) {
-            UserAgent userAgent = userAgentAnalyzer.parse(userAgentString);
-            return userAgent.toXML();
+            List<String> result = new ArrayList<>(2048);
+            splitPerFilledLine(userAgentString)
+                .forEach(ua -> result.add(userAgentAnalyzer.parse(ua).toXML()));
+            return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + String.join("\n", result);
         }
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Yauaa></Yauaa>";
     }

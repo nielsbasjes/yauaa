@@ -6,6 +6,8 @@ v5.16-SNAPSHOT
   - Windows NT 9 --> Hacker
 - Updated UDF dependencies
   - Apache Nifi      1.11.1
+- Demonstration WebServlet
+  - Support multiple useragents in one API request (line separated)
 
 v5.15
 ===
