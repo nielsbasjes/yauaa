@@ -55,6 +55,8 @@ public class TestParseServlet {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    private int attemptsRemaining = 20;
+
     @Before
     public void ensureServiceHasStarted() throws InterruptedException {
         HttpHeaders headers = new HttpHeaders();
@@ -65,9 +67,14 @@ public class TestParseServlet {
 
         HttpStatus statusCode = null;
         LOG.info("Is running?");
+
         while (statusCode != HttpStatus.OK) {
             if (statusCode != null) {
                 LOG.info("No, not yet running (last code = {}).", statusCode);
+                if (--attemptsRemaining == 0) {
+                    throw new IllegalStateException("Unable to initialize the parser.");
+                }
+
             }
             Thread.sleep(100);
             ResponseEntity<String> response = this.restTemplate.exchange(getAliveURI(), GET, request, String.class);

@@ -312,6 +312,10 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     // --------------------------------------------
 
     public void loadResources(String resourceString) {
+        loadResources(resourceString, true, false);
+    }
+
+    public void loadResources(String resourceString, boolean showLoadMessages, boolean optionalResources) {
         if (matchersHaveBeenInitialized) {
             throw new IllegalStateException("Refusing to load additional resources after the datastructures have been initialized.");
         }
@@ -327,32 +331,41 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
             Resource[] resourceArray = resolver.getResources(resourceString);
-            if (!loadingDefaultResources) {
-                LOG.info("Loading {} rule files from {}", resourceArray.length, resourceString);
+            if (!loadingDefaultResources && showLoadMessages) {
+                LOG.info("Loading {} rule files using expression: {}", resourceArray.length, resourceString);
             }
             for (Resource resource : resourceArray) {
-                if (!loadingDefaultResources) {
-                    LOG.info("Loading rule file {} ({} bytes}", resource.getFilename(), resource.contentLength());
+                if (!loadingDefaultResources && showLoadMessages) {
+                    LOG.info("- Preparing {} ({} bytes)", resource.getFilename(), resource.contentLength());
                 }
                 resources.put(resource.getFilename(), resource);
             }
         } catch (IOException e) {
-            throw new InvalidParserConfigurationException("Error reading resources: " + e.getMessage(), e);
+            if (optionalResources) {
+                LOG.error("The specified (optional) resource string is invalid: {}", resourceString);
+                return;
+            } else {
+                throw new InvalidParserConfigurationException("Error reading resources: " + e.getMessage(), e);
+            }
         }
         doingOnlyASingleTest = false;
         int maxFilenameLength = 0;
 
         if (resources.isEmpty()) {
-            LOG.warn("NO config files were found matching this expression: {}", resourceString);
-
-            if (loadingDefaultResources) {
-                LOG.warn("Unable to load the default resources, usually caused by classloader problems.");
-                LOG.warn("Retrying with built in list.");
-                PackagedRules.getRuleFileNames().forEach(this::loadResources);
+            if (optionalResources) {
+                LOG.warn("NO optional resources were loaded from expression: {}", resourceString);
             } else {
-                LOG.error("If you are using wildcards in your expression then try explicitly naming all yamls files explicitly.");
-            }
+                LOG.error("NO config files were found matching this expression: {}", resourceString);
 
+                if (loadingDefaultResources) {
+                    LOG.warn("Unable to load the default resources, usually caused by classloader problems.");
+                    LOG.warn("Retrying with built in list.");
+                    PackagedRules.getRuleFileNames().forEach(s -> loadResources(s, false, false));
+                } else {
+                    LOG.warn("If you are using wildcards in your expression then try explicitly naming all yamls files explicitly.");
+                }
+                throw new InvalidParserConfigurationException("There were no resources found for the expression: " + resourceString);
+            }
             return;
         }
 
@@ -391,7 +404,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
 
         long stopFiles = System.nanoTime();
         try(Formatter msg = new Formatter(Locale.ENGLISH)) {
-            msg.format("Loading %2d files in %4d msec from %s",
+            msg.format("- Loaded %2d files in %4d msec using expression: %s",
                 resources.size(),
                 (stopFiles - startFiles) / 1000000,
                 resourceString);
@@ -1145,6 +1158,7 @@ config:
         private int preheatIterations = 0;
 
         private final List<String> resources = new ArrayList<>();
+        private final List<String> optionalResources = new ArrayList<>();
 
         protected void failIfAlreadyBuilt() {
             if (didBuildStep) {
@@ -1178,6 +1192,19 @@ config:
             resources.add(resourceString);
             return (B)this;
         }
+
+        /**
+         * Add a set of additional rules. Useful in handling specific cases.
+         * The startup will continue even if these do not exist.
+         * @param resourceString The resource list that should to be added.
+         * @return the current Builder instance.
+         */
+        public B addOptionalResources(String resourceString) {
+            failIfAlreadyBuilt();
+            optionalResources.add(resourceString);
+            return (B)this;
+        }
+
 
         /**
          * Use the available testcases to preheat the jvm on this analyzer.
@@ -1407,6 +1434,7 @@ config:
             if (preheatIterations != 0) {
                 uaa.keepTests();
             }
+            optionalResources.forEach(resource -> uaa.loadResources(resource, true, true));
             uaa.initialize(resources);
             if (preheatIterations < 0) {
                 uaa.preHeat();

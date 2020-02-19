@@ -44,14 +44,14 @@ public class TestErrorHandling {
                 assertTrue(uaa.runTests(false, false));
             });
 
-        assertTrue(expectedMessage.matches(exception.getMessage()));
+        assertTrue(expectedMessage.matches(exception.getMessage()), "Bad message:" + exception.getMessage());
     }
 
     @Test
     public void checkNoFile() {
         runTest(
             "classpath*:BadDefinitions/ThisOneDoesNotExist---Really.yaml",
-            containsString("No matchers were loaded at all."));
+            containsString("There were no resources found for the expression: "));
     }
 
     @Test

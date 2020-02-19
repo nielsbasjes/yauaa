@@ -17,24 +17,41 @@
 
 package nl.basjes.parse.useragent;
 
+import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzerTesterBuilder;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestResourceLoading {
 
     @Test
-    public void checkEmptyAndNormalFile() {
+    public void checkEmptyAndNormalAndOptionalMissingFile() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
             .dropDefaultResources()
-            .addResources("classpath*:BadDefinitions/ThisOneDoesNotExist---Really.yaml")
-            .addResources("classpath*:BadDefinitions/EmptyFile.yaml")
             .addResources("classpath*:AllSteps.yaml")
+            .addResources("classpath*:BadDefinitions/EmptyFile.yaml")
+            .addOptionalResources("classpath*:BadDefinitions/ThisOneDoesNotExist---Really.yaml")
             .build();
         assertTrue(uaa.runTests(false, false));
+    }
+
+    @Test
+    public void checkEmptyAndNormalAndMandatoryMissingFile() {
+        assertThrows(InvalidParserConfigurationException.class, () -> {
+            UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
+                .newBuilder()
+                .dropDefaultResources()
+                .addResources("classpath*:AllSteps.yaml")
+                .addResources("classpath*:BadDefinitions/EmptyFile.yaml")
+                .addResources("classpath*:BadDefinitions/ThisOneDoesNotExist---Really.yaml") // Should cause a failure
+                .build();
+            assertTrue(uaa.runTests(false, false));
+            }
+        );
     }
 
     @Test
@@ -45,6 +62,22 @@ public class TestResourceLoading {
             .dropDefaultResources();
 
         PackagedRules.getRuleFileNames().forEach(uaaB::addResources);
+
+        UserAgentAnalyzerTester uaa = uaaB
+            .withCache(10000)
+            .build();
+
+        assertTrue(uaa.runTests(false, false));
+    }
+
+    @Test
+    public void checkIfLoadingAllFilesSeparatelyAsOptionalWorks() {
+        UserAgentAnalyzerTesterBuilder uaaB = UserAgentAnalyzerTester
+            .newBuilder()
+            .hideMatcherLoadStats()
+            .dropDefaultResources();
+
+        PackagedRules.getRuleFileNames().forEach(uaaB::addOptionalResources);
 
         UserAgentAnalyzerTester uaa = uaaB
             .withCache(10000)

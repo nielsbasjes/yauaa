@@ -4,6 +4,7 @@ v5.16-SNAPSHOT
 ===
 - Analyzer:
   - Windows NT 9 --> Hacker
+  - Can now load a resource string as 'Optional' (so it does not fail if these are missing)
 - Updated UDF dependencies
   - Apache Nifi      1.11.1
   - Apache Flink     1.10.0

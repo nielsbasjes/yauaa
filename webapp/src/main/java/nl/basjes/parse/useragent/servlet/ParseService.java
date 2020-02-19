@@ -188,7 +188,7 @@ public class ParseService {
                 try {
                     userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
                         .hideMatcherLoadStats()
-                        .addResources("file:UserAgents/*.yaml")
+                        .addOptionalResources("file:UserAgents/*.yaml")
                         .keepTests()
                         .build();
                     userAgentAnalyzer.initializeMatchers();
