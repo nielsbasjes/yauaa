@@ -26,6 +26,7 @@ import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MessageFormatter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -65,6 +66,36 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         long confidence;
     }
 
+    private void logInfo(StringBuilder errorMessageReceiver, String format, Object... args) {
+        if (LOG.isInfoEnabled()) {
+            final String message = MessageFormatter.arrayFormat(format, args).getMessage();
+            LOG.info(message, args);
+            if (errorMessageReceiver != null) {
+                errorMessageReceiver.append(message).append('\n');
+            }
+        }
+    }
+
+    private void logWarn(StringBuilder errorMessageReceiver, String format, Object... args) {
+        if (LOG.isWarnEnabled()) {
+            final String message = MessageFormatter.arrayFormat(format, args).getMessage();
+            LOG.warn(message, args);
+            if (errorMessageReceiver != null) {
+                errorMessageReceiver.append(message).append('\n');
+            }
+        }
+    }
+
+    private void logError(StringBuilder errorMessageReceiver, String format, Object... args) {
+        if (LOG.isErrorEnabled()) {
+            final String message = MessageFormatter.arrayFormat(format, args).getMessage();
+            LOG.error(message, args);
+            if (errorMessageReceiver != null) {
+                errorMessageReceiver.append(message).append('\n');
+            }
+        }
+    }
+
     /**
      * Run all the test_cases available.
      *
@@ -84,6 +115,15 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                             Collection<String> onlyValidateFieldNames,
                             boolean measureSpeed,
                             boolean showPassedTests) {
+        return runTests(showAll, failOnUnexpected, onlyValidateFieldNames, measureSpeed, showPassedTests, null);
+    }
+
+    public boolean runTests(boolean showAll,
+                            boolean failOnUnexpected,
+                            Collection<String> onlyValidateFieldNames,
+                            boolean measureSpeed,
+                            boolean showPassedTests,
+                            StringBuilder errorMessageReceiver) {
         initializeMatchers();
         if (getTestCases() == null) {
             return true;
@@ -322,21 +362,21 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
             if (!init && pass && !showAll) {
                 if (showPassedTests) {
-                    LOG.info(testLogLine);
+                    logInfo(errorMessageReceiver, testLogLine);
                 }
                 continue;
             }
 
             if (!pass) {
-                LOG.info(testLogLine);
-                LOG.error("| TEST FAILED !");
+                logInfo(errorMessageReceiver, testLogLine);
+                logError(errorMessageReceiver, "| TEST FAILED !");
             }
 
             if (agent.hasAmbiguity()) {
-                LOG.info("| Parsing problem: Ambiguity {} times. ", agent.getAmbiguityCount());
+                logInfo(errorMessageReceiver, "| Parsing problem: Ambiguity {} times. ", agent.getAmbiguityCount());
             }
             if (agent.hasSyntaxError()) {
-                LOG.info("| Parsing problem: Syntax Error");
+                logInfo(errorMessageReceiver, "| Parsing problem: Syntax Error");
             }
 
             if (init || !pass) {
@@ -386,7 +426,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             sb.append("-+");
 
             String separator = sb.toString();
-            LOG.info(separator);
+            logInfo(errorMessageReceiver, separator);
 
             sb.setLength(0);
             sb.append("| Result | Field ");
@@ -403,9 +443,9 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             }
             sb.append(" |");
 
-            LOG.info(sb.toString());
+            logInfo(errorMessageReceiver, sb.toString());
 
-            LOG.info(separator);
+            logInfo(errorMessageReceiver, separator);
 
             Map<String, String> failComments = new HashMap<>();
 
@@ -443,7 +483,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                         sb.append(' ');
                     }
                     sb.append(" |");
-                    LOG.info(sb.toString());
+                    logInfo(errorMessageReceiver, sb.toString());
                 } else {
                     sb.append(result.expected);
                     for (int i = result.expected.length(); i < maxExpectedLength; i++) {
@@ -451,20 +491,20 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                     }
                     sb.append(" |");
                     if (result.warn) {
-                        LOG.warn(sb.toString());
+                        logWarn(errorMessageReceiver, sb.toString());
                     } else {
-                        LOG.error(sb.toString());
+                        logError(errorMessageReceiver, sb.toString());
                     }
                 }
             }
 
-            LOG.info(separator);
-            LOG.info("");
+            logInfo(errorMessageReceiver, separator);
+            logInfo(errorMessageReceiver, "");
 
-            LOG.info(agent.toMatchTrace(failedFieldNames));
+            logInfo(errorMessageReceiver, agent.toMatchTrace(failedFieldNames));
 
-            LOG.info("\n\nconfig:\n{}", agent.toYamlTestCase(!init, failComments));
-            LOG.info("Location of failed test.({}:{})", filename, linenumber);
+            logInfo(errorMessageReceiver, "\n\nconfig:\n{}", agent.toYamlTestCase(!init, failComments));
+            logInfo(errorMessageReceiver, "Location of failed test.({}:{})", filename, linenumber);
             if (!pass && !showAll) {
                 return false;
             }

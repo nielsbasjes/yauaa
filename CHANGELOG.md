@@ -10,6 +10,7 @@ v5.16-SNAPSHOT
   - Apache Flink     1.10.0
 - Demonstration WebServlet
   - Support multiple useragents in one API request (line separated)
+  - Support for custom rules
 
 v5.15
 ===

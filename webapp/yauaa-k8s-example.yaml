@@ -15,10 +15,61 @@
 # limitations under the License.
 #
 
+## For this demo we use a separate namespace
 apiVersion: v1
 kind: Namespace
 metadata:
   name: yauaa
+
+---
+
+## [OPTIONAL] We define some custom rules... just to show how to do it.
+## This can be useful if you want to extract values from services you wrote
+## A different way of creating such a config map is by putting the config files in a folder 'foo'
+## and doing something like: kubectl create -n yauaa configmap niels-yauaa-rules --from-file=foo
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: niels-yauaa-rules
+  namespace: yauaa
+data:
+  MyCustomRules.yaml: |
+    config:
+    - matcher:
+        require:
+        - 'agent.product.name="NielsBasjes"'
+        extract:
+        - 'CustomRuleDemonstrationName    : 42 :"A Simple demonstration of a custom rule"'
+        - 'CustomRuleDemonstrationWebsite : 42 :"https://yauaa.basjes.nl"'
+    - test:
+        input:
+          user_agent_string: 'NielsBasjes/42 (https://niels.basjes.nl)'
+        expected:
+          DeviceClass                           : 'Robot'
+          DeviceName                            : 'Basjes Robot'
+          DeviceBrand                           : 'Basjes'
+          OperatingSystemClass                  : 'Cloud'
+          OperatingSystemName                   : 'Cloud'
+          OperatingSystemVersion                : '??'
+          OperatingSystemVersionMajor           : '??'
+          OperatingSystemNameVersion            : 'Cloud ??'
+          OperatingSystemNameVersionMajor       : 'Cloud ??'
+          LayoutEngineClass                     : 'Unknown'
+          LayoutEngineName                      : 'Unknown'
+          LayoutEngineVersion                   : '??'
+          LayoutEngineVersionMajor              : '??'
+          LayoutEngineNameVersion               : 'Unknown ??'
+          LayoutEngineNameVersionMajor          : 'Unknown ??'
+          AgentClass                            : 'Special'
+          AgentName                             : 'NielsBasjes'
+          AgentVersion                          : '42'
+          AgentVersionMajor                     : '42'
+          AgentNameVersion                      : 'NielsBasjes 42'
+          AgentNameVersionMajor                 : 'NielsBasjes 42'
+          AgentInformationUrl                   : 'https://niels.basjes.nl'
+          CustomRuleDemonstrationName           : 'A Simple demonstration of a custom rule'
+          CustomRuleDemonstrationWebsite        : 'https://yauaa.basjes.nl'
+
 
 ---
 
@@ -37,9 +88,18 @@ spec:
       labels:
         app: yauaa
     spec:
+      volumes: ## [OPTIONAL] Bind the config map as a volume
+        - name: niels-yauaa-rules-volume
+          configMap:
+            name: niels-yauaa-rules
       containers:
       - name: yauaa
         image: nielsbasjes/yauaa:latest
+        volumeMounts: ## [OPTIONAL] Mount the config map volume under /UserAgents
+          - name: niels-yauaa-rules-volume
+            # NOTE 1: The directory name MUST start with  "/UserAgents" !!
+            # NOTE 2: You can have multiple as long as the mountPaths are all different.
+            mountPath: /UserAgents-Niels
         ports:
         - containerPort: 8080
           name: yauaa
@@ -96,6 +156,6 @@ spec:
 #  tls:
 #    - hosts:
 #        - yauaa.example.nl
-#      secretName: kluster-cert
-# Create this secret with a command similar to this:
-# kubectl -n yauaa create secret tls kluster-cert --key=certs/privkey.pem --cert=certs/fullchain.pem
+#      secretName: yauaa-cert
+## Create this secret with a command similar to this:
+## kubectl -n yauaa create secret tls yauaa-cert --key=certs/privkey.pem --cert=certs/fullchain.pem

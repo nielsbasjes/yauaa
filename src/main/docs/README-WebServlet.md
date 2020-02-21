@@ -33,10 +33,10 @@ and then open
 
 in your browser to get the output of the servlet.
 
-# Custom rules
+## Custom rules
 
 The servlet supports loading your own custom rules, which can be useful to classify internal monitoring systems.
-It does this by looking in the UserAgents folder for yaml files (i.e. `file:UserAgents/*.yaml` ).
+It does this by looking in the folder that start with UserAgents for yaml files (i.e. `file:UserAgents*/*.yaml` ).
 
 Based on the docker image this can be easily done with an additional layer where your entire `Dockerfile` looks like this
 
@@ -45,9 +45,9 @@ Based on the docker image this can be easily done with an additional layer where
 
 When you build that docker image and run it the logging should contain something like this:
 
-    Loading 1 rule files from file:UserAgents/*.yaml
-    Loading rule file InternalTraffic.yaml (9608 bytes}
-    Loading  1 files in    9 msec from file:UserAgents/*.yaml
+    Loading 1 rule files using expression: file:UserAgents*/*.yaml
+    - Preparing InternalTraffic.yaml (9608 bytes)
+    - Loaded  1 files in   11 msec using expression: file:UserAgents*/*.yaml
 
 # Kubernetes
 
@@ -57,7 +57,7 @@ I've been playing around with Kubernetes and the code below "works on my cluster
 First create a dedicated namespace and a very basic deployment to run this image 3 times and
 exposes it as a ```Service``` that simply does ```http```.
 
-```
+```yaml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -118,6 +118,114 @@ spec:
   type: ClusterIP
 ```
 
+## Custom rules
+
+In some cases you'll have internal systems with custom useragents.
+You can write your own rules and include them in the deployment.
+
+First define your rules and store them as a configmap in k8s.
+
+You can do this by putting the config files in a folder 'foo' and doing something like: `kubectl create -n yauaa configmap niels-yauaa-rules --from-file=foo`
+
+Or you can include them directly in the kubectl config file like this:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: niels-yauaa-rules
+  namespace: yauaa
+data:
+  MyCustomRules.yaml: |
+    config:
+    - matcher:
+        require:
+        - 'agent.product.name="NielsBasjes"'
+        extract:
+        - 'CustomRuleDemonstrationName    : 42 :"A Simple demonstration of a custom rule"'
+        - 'CustomRuleDemonstrationWebsite : 42 :"https://yauaa.basjes.nl"'
+    - test:
+        input:
+          user_agent_string: 'NielsBasjes/42 (https://niels.basjes.nl)'
+        expected:
+          DeviceClass                           : 'Robot'
+          DeviceName                            : 'Basjes Robot'
+          DeviceBrand                           : 'Basjes'
+          OperatingSystemClass                  : 'Cloud'
+          OperatingSystemName                   : 'Cloud'
+          OperatingSystemVersion                : '??'
+          OperatingSystemVersionMajor           : '??'
+          OperatingSystemNameVersion            : 'Cloud ??'
+          OperatingSystemNameVersionMajor       : 'Cloud ??'
+          LayoutEngineClass                     : 'Unknown'
+          LayoutEngineName                      : 'Unknown'
+          LayoutEngineVersion                   : '??'
+          LayoutEngineVersionMajor              : '??'
+          LayoutEngineNameVersion               : 'Unknown ??'
+          LayoutEngineNameVersionMajor          : 'Unknown ??'
+          AgentClass                            : 'Special'
+          AgentName                             : 'NielsBasjes'
+          AgentVersion                          : '42'
+          AgentVersionMajor                     : '42'
+          AgentNameVersion                      : 'NielsBasjes 42'
+          AgentNameVersionMajor                 : 'NielsBasjes 42'
+          AgentInformationUrl                   : 'https://niels.basjes.nl'
+          CustomRuleDemonstrationName           : 'A Simple demonstration of a custom rule'
+          CustomRuleDemonstrationWebsite        : 'https://yauaa.basjes.nl'
+```
+
+Then the deployment must turn this config map into a volume and mount it in the pods.
+Note that the folder under which is is mounted must be a the root level and the name must start with "UserAgent".
+
+So the deployment becomes something like this
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yauaa
+  namespace: yauaa
+spec:
+  selector:
+    matchLabels:
+      app: yauaa
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: yauaa
+    spec:
+      volumes:
+        - name: niels-yauaa-rules-volume
+          configMap:
+            name: niels-yauaa-rules
+      containers:
+      - name: yauaa
+        image: nielsbasjes/yauaa:latest
+        volumeMounts:
+          # NOTE 1: The directory name MUST start with  "/UserAgents" !!
+          # NOTE 2: You can have multiple as long as the mountPaths are all different.
+          - name: niels-yauaa-rules-volume
+            mountPath: /UserAgents-Niels
+        ports:
+        - containerPort: 8080
+          name: yauaa
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /running
+            port: yauaa
+          initialDelaySeconds: 2
+          periodSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /running
+            port: yauaa
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
+```
+
 
 ## Available outside the cluster (HTTP)
 Depending on your Kubernetes cluster you may have the option to change
@@ -128,7 +236,7 @@ I have been able to get it working with the helm chart for ```stable/nginx-ingre
 
 Simply putting up an ```Ingress``` works something like this
 
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -154,13 +262,13 @@ Before you can start this you need the SSL (TLS actually) certificate and key fo
 
 I created the required secret (in the correct namespace) with a command similar to this (I have letsencrypt):
 
-```
+```shell script
 kubectl -n yauaa create secret tls yauaa-cert --key=/etc/letsencrypt/live/example.nl/privkey.pem --cert=/etc/letsencrypt/live/example.nl/fullchain.pem
 ```
 
 After the secret has been put into place the ```Ingress``` can be created with SSL.
 
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:

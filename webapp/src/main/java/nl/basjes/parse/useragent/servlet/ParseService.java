@@ -27,6 +27,7 @@ import io.swagger.annotations.ExampleProperty;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.Version;
+import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -188,7 +189,7 @@ public class ParseService {
                 try {
                     userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
                         .hideMatcherLoadStats()
-                        .addOptionalResources("file:UserAgents/*.yaml")
+                        .addOptionalResources("file:UserAgents*/*.yaml")
                         .keepTests()
                         .build();
                     userAgentAnalyzer.initializeMatchers();
@@ -216,6 +217,12 @@ public class ParseService {
 
         public YauaaIsBusyStarting(OutputType outputType) {
             this.outputType = outputType;
+        }
+    }
+
+    public static class YauaaTestsFailed extends RuntimeException {
+        public YauaaTestsFailed(String message) {
+            super(message);
         }
     }
 
@@ -284,6 +291,15 @@ public class ParseService {
             }
 
         }
+
+        @ExceptionHandler({YauaaTestsFailed.class})
+        public ResponseEntity<Object> handleYauaaTestsInError(
+            Exception ex,
+            @SuppressWarnings("unused") WebRequest request) {
+            final HttpHeaders httpHeaders = new HttpHeaders();
+            return new ResponseEntity<>(ex.getMessage(), httpHeaders, INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     private static final long MEGABYTE = 1024L * 1024L;
@@ -544,8 +560,8 @@ public class ParseService {
         value = API_BASE_PATH + "/preheat",
         produces = APPLICATION_JSON_VALUE
     )
-    public String getHtmlPreHeat() {
-        ensureStartedForApis(OutputType.HTML);
+    public String getPreHeat() {
+        ensureStartedForApis(OutputType.JSON);
         final int cacheSize = userAgentAnalyzer.getCacheSize();
         userAgentAnalyzer.disableCaching();
         long       start     = System.nanoTime();
@@ -556,6 +572,54 @@ public class ParseService {
             return "{ \"status\": \"No testcases available\", \"testsDone\": 0 , \"timeInMs\" : -1 } ";
         }
         return "{ \"status\": \"Ran tests\", \"testsDone\": " + testsDone + " , \"timeInMs\" : " + (stop - start) / 1000000 + " } ";
+    }
+
+    // ===========================================
+
+    @ApiOperation(
+        value = "Fire all available test cases against the analyzer and return 200 if all tests were good"
+    )
+    @ApiResponses({
+        @ApiResponse(
+            code = 200, // HttpStatus.OK
+            message = "All tests were good",
+            examples = @Example(
+                value = {
+                    @ExampleProperty(
+                        mediaType = TEXT_PLAIN_VALUE,
+                        value = "All tests passed"),
+                }
+            )
+        ),
+        @ApiResponse(
+            code = 500, // HttpStatus.INTERNAL_SERVER_ERROR
+            message = "A test failed",
+            examples = @Example(
+                value = {
+                    @ExampleProperty(
+                        mediaType = TEXT_PLAIN_VALUE,
+                        value = "Extensive text describing what went wrong in the test that failed"),
+                }
+            )
+        )
+    })
+    @GetMapping(
+        value = API_BASE_PATH + "/runtests",
+        produces = TEXT_PLAIN_VALUE
+    )
+    public String getRunTests() {
+        UserAgentAnalyzerTester tester = UserAgentAnalyzerTester.newBuilder()
+            .hideMatcherLoadStats()
+            .addOptionalResources("file:UserAgents*/*.yaml")
+            .keepTests()
+            .build();
+        tester.initializeMatchers();
+        StringBuilder errorMessage = new StringBuilder();
+        boolean ok = tester.runTests(false, true, null, false, false, errorMessage);
+        if (ok) {
+            return "All tests passed";
+        }
+        throw new YauaaTestsFailed(errorMessage.toString());
     }
 
     // ===========================================

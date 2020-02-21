@@ -125,9 +125,8 @@ public class TestMatcherList {
         MatcherList list = new MatcherList(5);
         list.add(new Matcher(null));
 
-        final IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
-            serialize(list);
-        });
+        final IllegalStateException exception =
+            assertThrows(IllegalStateException.class, () -> serialize(list));
 
         assertEquals("Cannot serialize MatcherList with a non-zero size.", exception.getMessage());
     }
