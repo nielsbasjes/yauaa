@@ -38,6 +38,10 @@ public class ParseUserAgent implements SerializableFunction<String, Map<String, 
         this.cacheSize = cacheSize;
     }
 
+    // FIXME: This DOES NOT work at the time of writing.
+    //  waiting for https://issues.apache.org/jira/browse/BEAM-9267
+    //  to be implemented which depends on Calcite 1.22 to be released.
+
     @Override
     public Map<String, String> apply(String input) {
         if (userAgentAnalyzer == null) {
