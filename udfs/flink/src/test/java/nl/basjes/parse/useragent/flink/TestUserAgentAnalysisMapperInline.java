@@ -27,7 +27,6 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamUtils;
 import org.apache.flink.streaming.api.environment.LocalStreamEnvironment;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.functions.sink.DiscardingSink;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -138,12 +137,9 @@ public class TestUserAgentAnalysisMapperInline {
             });
 
         List<TestRecord> result = new ArrayList<>(5);
-        DataStreamUtils.collect(resultDataStream).forEachRemaining(result::add);
-
-        // Note: Without this sink: "No operators defined in streaming topology. Cannot execute."
-        resultDataStream.addSink(new DiscardingSink<>());
-
-        environment.execute();
+        DataStreamUtils
+            .collect(resultDataStream)
+            .forEachRemaining(result::add);
 
         assertEquals(2, result.size());
 
