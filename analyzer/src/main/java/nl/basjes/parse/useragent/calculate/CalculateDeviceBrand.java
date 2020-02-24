@@ -19,7 +19,7 @@ package nl.basjes.parse.useragent.calculate;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
-import org.apache.http.conn.util.PublicSuffixMatcherLoader;
+import org.apache.hc.client5.http.psl.PublicSuffixMatcherLoader;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +28,7 @@ import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 import static nl.basjes.parse.useragent.utils.HostnameExtracter.extractHostname;
-import static org.apache.http.conn.util.DomainType.ICANN;
+import static org.apache.hc.client5.http.psl.DomainType.ICANN;
 
 public class CalculateDeviceBrand implements FieldCalculator {
 

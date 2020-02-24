@@ -17,9 +17,9 @@
 
 package nl.basjes.parse.useragent.utils;
 
-import org.apache.http.conn.util.DomainType;
-import org.apache.http.conn.util.PublicSuffixMatcher;
-import org.apache.http.conn.util.PublicSuffixMatcherLoader;
+import org.apache.hc.client5.http.psl.DomainType;
+import org.apache.hc.client5.http.psl.PublicSuffixMatcher;
+import org.apache.hc.client5.http.psl.PublicSuffixMatcherLoader;
 import org.junit.jupiter.api.Test;
 
 import static nl.basjes.parse.useragent.utils.HostnameExtracter.extractHostname;
