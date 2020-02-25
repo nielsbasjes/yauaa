@@ -656,55 +656,61 @@ public class ParseService {
             sb.append("<p class=\"version\">").append(ANALYZER_VERSION).append("</p>");
             sb.append("</div>");
 
-            sb.append("<hr/>");
 
             if (userAgentAnalyzerIsAvailable) {
                 startParse = System.nanoTime();
-                UserAgent userAgent = userAgentAnalyzer.parse(userAgentString);
+
+                List<UserAgent> userAgents = new ArrayList<>();
+                final List<String> userAgentStrings = splitPerFilledLine(userAgentString);
+                userAgentStrings.forEach(ua -> userAgents.add(userAgentAnalyzer.parse(ua)));
                 stopParse = System.nanoTime();
 
-                sb.append("<h2 class=\"title\">The UserAgent</h2>");
-                sb.append("<p class=\"input\">").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
-                sb.append("<h2 class=\"title\">The analysis result</h2>");
-                sb.append("<table id=\"result\">");
-                sb.append("<tr><th colspan=2>Field</th><th>Value</th></tr>");
+                for (UserAgent userAgent: userAgents) {
 
-                Map<String, Integer>                     fieldGroupCounts = new HashMap<>();
-                List<Pair<String, Pair<String, String>>> fields           = new ArrayList<>(32);
-                for (String fieldname : userAgent.getAvailableFieldNamesSorted()) {
-                    Pair<String, String> split = prefixSplitter(fieldname);
-                    fields.add(new ImmutablePair<>(fieldname, split));
-                    Integer count = fieldGroupCounts.get(split.getLeft());
-                    if (count == null) {
-                        count = 1;
-                    } else {
-                        count++;
-                    }
-                    fieldGroupCounts.put(split.getLeft(), count);
-                }
+                    sb.append("<hr/>");
+                    sb.append("<h2 class=\"title\">The UserAgent</h2>");
+                    sb.append("<p class=\"input\">").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
+                    sb.append("<h2 class=\"title\">The analysis result</h2>");
+                    sb.append("<table id=\"result\">");
+                    sb.append("<tr><th colspan=2>Field</th><th>Value</th></tr>");
 
-                String currentGroup = "";
-                for (Pair<String, Pair<String, String>> field : fields) {
-                    String fieldname  = field.getLeft();
-                    String groupName  = field.getRight().getLeft();
-                    String fieldLabel = field.getRight().getRight();
-                    sb.append("<tr>");
-                    if (!currentGroup.equals(groupName)) {
-                        currentGroup = groupName;
-                        sb.append("<td rowspan=").append(fieldGroupCounts.get(currentGroup)).append("><b><u>")
-                            .append(escapeHtml4(currentGroup)).append("</u></b></td>");
+                    Map<String, Integer>                     fieldGroupCounts = new HashMap<>();
+                    List<Pair<String, Pair<String, String>>> fields           = new ArrayList<>(32);
+                    for (String fieldname : userAgent.getAvailableFieldNamesSorted()) {
+                        Pair<String, String> split = prefixSplitter(fieldname);
+                        fields.add(new ImmutablePair<>(fieldname, split));
+                        Integer count = fieldGroupCounts.get(split.getLeft());
+                        if (count == null) {
+                            count = 1;
+                        } else {
+                            count++;
+                        }
+                        fieldGroupCounts.put(split.getLeft(), count);
                     }
-                    sb.append("<td>").append(camelStretcher(escapeHtml4(fieldLabel))).append("</td>")
-                        .append("<td>").append(escapeHtml4(userAgent.getValue(fieldname))).append("</td>")
-                        .append("</tr>");
+
+                    String currentGroup = "";
+                    for (Pair<String, Pair<String, String>> field : fields) {
+                        String fieldname  = field.getLeft();
+                        String groupName  = field.getRight().getLeft();
+                        String fieldLabel = field.getRight().getRight();
+                        sb.append("<tr>");
+                        if (!currentGroup.equals(groupName)) {
+                            currentGroup = groupName;
+                            sb.append("<td rowspan=").append(fieldGroupCounts.get(currentGroup)).append("><b><u>")
+                                .append(escapeHtml4(currentGroup)).append("</u></b></td>");
+                        }
+                        sb.append("<td>").append(camelStretcher(escapeHtml4(fieldLabel))).append("</td>")
+                            .append("<td>").append(escapeHtml4(userAgent.getValue(fieldname))).append("</td>")
+                            .append("</tr>");
+                    }
+                    sb.append("</table>");
                 }
-                sb.append("</table>");
                 sb.append("<hr/>");
 
                 sb.append("<p class=\"logobar documentation\">Read the online documentation at <a href=\"https://yauaa.basjes.nl\">" +
                     "https://yauaa.basjes.nl</a></p>");
                 sb.append("<p class=\"logobar bug\">");
-                addBugReportButton(sb, userAgent);
+                addBugReportButton(sb, userAgents.get(0));
                 sb.append("</p>");
                 sb.append("<p class=\"logobar swagger\">A simple Swagger based API has been created for testing purposes: " +
                     "<a href=\"/swagger-ui.html\">Swagger UI</a></p>");

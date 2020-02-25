@@ -10,7 +10,7 @@ v5.16-SNAPSHOT
   - Apache Nifi      1.11.1
   - Apache Flink     1.10.0
 - Demonstration WebServlet
-  - Support multiple useragents in one API request (line separated)
+  - Support multiple useragents in one API request/manual test (line separated)
   - Support for custom rules
 
 v5.15
