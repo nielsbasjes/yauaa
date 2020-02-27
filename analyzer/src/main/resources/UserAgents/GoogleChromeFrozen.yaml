@@ -1,0 +1,110 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2020 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+# Chrome is working on freezing the User Agent string
+# https://www.chromestatus.com/feature/5704553745874944
+# https://wicg.github.io/ua-client-hints/
+# https://github.com/WICG/ua-client-hints
+
+# This commit shows what it will probably look like
+# https://chromium.googlesource.com/chromium/src.git/+/ac24e578a3694c8f4c6c35ee3b7a8d046d686e67%5E%21/
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3764.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '75.0'
+      LayoutEngineVersionMajor             : '75'
+      LayoutEngineNameVersion              : 'Blink 75.0'
+      LayoutEngineNameVersionMajor         : 'Blink 75'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '75.0.3764.0'
+      AgentVersionMajor                    : '75'
+      AgentNameVersion                     : 'Chrome 75.0.3764.0'
+      AgentNameVersionMajor                : 'Chrome 75'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; Unspecified Device) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3764.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '75.0'
+      LayoutEngineVersionMajor             : '75'
+      LayoutEngineNameVersion              : 'Blink 75.0'
+      LayoutEngineNameVersionMajor         : 'Blink 75'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '75.0.3764.0'
+      AgentVersionMajor                    : '75'
+      AgentNameVersion                     : 'Chrome 75.0.3764.0'
+      AgentNameVersionMajor                : 'Chrome 75'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; Unspecified Device) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3764.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '75.0'
+      LayoutEngineVersionMajor             : '75'
+      LayoutEngineNameVersion              : 'Blink 75.0'
+      LayoutEngineNameVersionMajor         : 'Blink 75'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '75.0.3764.0'
+      AgentVersionMajor                    : '75'
+      AgentNameVersion                     : 'Chrome 75.0.3764.0'
+      AgentNameVersionMajor                : 'Chrome 75'
+
+

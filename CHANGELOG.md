@@ -6,6 +6,8 @@ v5.16-SNAPSHOT
   - Windows NT 9 --> Hacker
   - Can now load a resource string as 'Optional' (so it does not fail if these are missing)
   - Updated to HttpComponents Client 5.0
+- New/improved detections
+  - Test cases for the 'frozen' Chrome strings.
 - Updated UDF dependencies
   - Apache Nifi      1.11.1
   - Apache Flink     1.10.0
