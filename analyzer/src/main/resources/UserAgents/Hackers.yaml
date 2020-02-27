@@ -1335,11 +1335,11 @@ config:
 
 - matcher:
     require:
-      - 'agent.(1-2)product.comments.entry.(1-2)product.name="Windows NT"^.version[1]="9"'
+    - 'agent.(1-2)product.comments.entry.(1-2)product.name="Windows NT"^.version[1]="9"'
     extract:
-      - 'DeviceClass                       : 10000 : "Hacker"'
-      - 'OperatingSystemClass              : 10000 : "Hacker"'
-      - 'AgentClass                        : 10000 : "Hacker"'
+    - 'DeviceClass                         :    10000 : "Hacker"'
+    - 'OperatingSystemClass                :    10000 : "Hacker"'
+    - 'AgentClass                          :    10000 : "Hacker"'
 
 - test: # There is no such a thing as Windows 9 --> Hacker
     input:
