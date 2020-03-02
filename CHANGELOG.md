@@ -8,6 +8,7 @@ v5.16-SNAPSHOT
   - Updated to HttpComponents Client 5.0
 - New/improved detections
   - Test cases for the 'frozen' Chrome strings.
+  - Fixed edge case with duplicated tags
 - Updated UDF dependencies
   - Apache Nifi      1.11.1
   - Apache Flink     1.10.0

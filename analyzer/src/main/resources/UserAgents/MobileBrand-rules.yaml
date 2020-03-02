@@ -45,27 +45,27 @@ config:
 # In some cases the version of the BUILD starts with the Brand name
 - matcher:
     extract:
-    - 'DeviceBrand                         :      302 :LookUpPrefix[MobileBrands;agent.(1-2)product.(1)comments.entry.(1-4)product.name[1]="Build"^.version]'
+    - 'DeviceBrand                         :      303 :LookUpPrefix[MobileBrands;agent.(1-2)product.(1)comments.entry.(1-4)product.name[1]="Build"^.version]'
 
 - matcher:
     extract:
-    - 'DeviceBrand                         :      302 :LookUpPrefix[MobileBrands;agent.(1-2)product.(1)comments.entry.(1-4)product.name[2]="Build"^.version]'
+    - 'DeviceBrand                         :      303 :LookUpPrefix[MobileBrands;agent.(1-2)product.(1)comments.entry.(1-4)product.name[2]="Build"^.version]'
 
 - matcher:
     extract:
-    - 'DeviceBrand                         :      302 :LookUpPrefix[MobileBrands;agent.(1-2)product.(1)comments.entry.(1-4)product.name[3]="Build"^.version]'
+    - 'DeviceBrand                         :      303 :LookUpPrefix[MobileBrands;agent.(1-2)product.(1)comments.entry.(1-4)product.name[3]="Build"^.version]'
 
 - matcher:
     extract:
-    - 'DeviceBrand                         :      302 :LookUpPrefix[MobileBrands;agent.(1-2)product.(1)comments.entry.(1-4)product.name[4]="Build"^.version]'
+    - 'DeviceBrand                         :      303 :LookUpPrefix[MobileBrands;agent.(1-2)product.(1)comments.entry.(1-4)product.name[4]="Build"^.version]'
 
 - matcher:
     extract:
-    - 'DeviceBrand                         :      302 :LookUpPrefix[MobileBrands;agent.(1-2)product.(1)comments.entry.(1-4)product.name[5]="Build"^.version]'
+    - 'DeviceBrand                         :      303 :LookUpPrefix[MobileBrands;agent.(1-2)product.(1)comments.entry.(1-4)product.name[5]="Build"^.version]'
 
 - matcher:
     extract:
-    - 'DeviceBrand                         :      302 :LookUpPrefix[MobileBrands;agent.(1-2)product.(1)comments.entry.(1-4)product.name[6]="Build"^.version]'
+    - 'DeviceBrand                         :      303 :LookUpPrefix[MobileBrands;agent.(1-2)product.(1)comments.entry.(1-4)product.name[6]="Build"^.version]'
 
 # Basic initial assumption: The first word is the brand
 
@@ -130,49 +130,49 @@ config:
     variable:
     - 'BuildString                         :agent.(1-2)product.(1)comments.entry[2]="Build"@'
     extract:
-    - 'DeviceName                          :      301 :@BuildString[-1]'
+    - 'DeviceName                          :      302 :@BuildString[-1]'
     - 'DeviceBrand                         :      324 :LookUpPrefix[MobileBrandPrefixes;@BuildString]'
 
 - matcher:
     variable:
     - 'BuildString                         :agent.(1-2)product.(1)comments.entry[3]="Build"@'
     extract:
-    - 'DeviceName                          :      301 :@BuildString[-2]'
+    - 'DeviceName                          :      302 :@BuildString[-2]'
     - 'DeviceBrand                         :      324 :LookUpPrefix[MobileBrandPrefixes;@BuildString]'
 
 - matcher:
     variable:
     - 'BuildString                         :agent.(1-2)product.(1)comments.entry[4]="Build"@'
     extract:
-    - 'DeviceName                          :      301 :@BuildString[-3]'
+    - 'DeviceName                          :      302 :@BuildString[-3]'
     - 'DeviceBrand                         :      324 :LookUpPrefix[MobileBrandPrefixes;@BuildString]'
 
 - matcher:
     variable:
     - 'BuildString                         :agent.(1-2)product.(1)comments.entry[5]="Build"@'
     extract:
-    - 'DeviceName                          :      301 :@BuildString[-4]'
+    - 'DeviceName                          :      302 :@BuildString[-4]'
     - 'DeviceBrand                         :      324 :LookUpPrefix[MobileBrandPrefixes;@BuildString]'
 
 - matcher:
     variable:
     - 'BuildString                         :agent.(1-2)product.(1)comments.entry[6]="Build"@'
     extract:
-    - 'DeviceName                          :      301 :@BuildString[-5]'
+    - 'DeviceName                          :      302 :@BuildString[-5]'
     - 'DeviceBrand                         :      324 :LookUpPrefix[MobileBrandPrefixes;@BuildString]'
 
 - matcher:
     variable:
     - 'BuildString                         :agent.(1-2)product.(1)comments.entry[7]="Build"@'
     extract:
-    - 'DeviceName                          :      301 :@BuildString[-6]'
+    - 'DeviceName                          :      302 :@BuildString[-6]'
     - 'DeviceBrand                         :      324 :LookUpPrefix[MobileBrandPrefixes;@BuildString]'
 
 - matcher:
     variable:
     - 'BuildString                         :agent.(1-2)product.(1)comments.entry[8]="Build"@'
     extract:
-    - 'DeviceName                          :      301 :@BuildString[-7]'
+    - 'DeviceName                          :      302 :@BuildString[-7]'
     - 'DeviceBrand                         :      324 :LookUpPrefix[MobileBrandPrefixes;@BuildString]'
 
 # Same as above but now we try to match the prefix to see if we recognise a LITERAL brand.
