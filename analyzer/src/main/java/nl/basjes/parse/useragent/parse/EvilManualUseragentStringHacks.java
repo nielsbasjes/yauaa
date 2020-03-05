@@ -115,6 +115,8 @@ public final class EvilManualUseragentStringHacks {
         result = replaceString(result, "(/", "(Unknown/");
         result = replaceString(result, "; /", "; Unknown/");
 
+        result = replaceString(result, ", _TV_", " _TV_");
+
         // Repair certain cases of broken useragents (like we see for the Facebook app a lot)
         if (MISSING_PRODUCT_AT_START.matcher(result).matches()) {
             // We simply prefix a fake product name to continue parsing.

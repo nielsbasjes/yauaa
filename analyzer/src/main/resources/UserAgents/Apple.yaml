@@ -18,9 +18,80 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry[-2]="iPhone OS"'
+    - 'agent.(1-5)product.(1)comments.entry="iPhone"'
+    extract:
+    - 'DeviceClass                         :        9 :"Phone"'
+    - 'DeviceBrand                         :        9 :"Apple"'
+    - 'DeviceName                          :        9 :"iPhone"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
+
+- matcher:
+    require:
+    - 'agent.(1-5)product.(1)comments.entry="iPad"'
+    extract:
+    - 'DeviceClass                         :        9 :"Tablet"'
+    - 'DeviceBrand                         :        9 :"Apple"'
+    - 'DeviceName                          :        9 :"iPhone"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
+
+- matcher:
     variable:
-    - 'AppleTag                            :agent.(1-2)product.comments.entry[1]?AppleDeviceClass'
+    - 'AppleTag                            :agent.(1-5)product.name[1]?AppleDeviceClass'
+    extract:
+    - 'DeviceClass                         :      140 :LookUp[AppleDeviceClass;@AppleTag]'
+    - 'DeviceBrand                         :      140 :"Apple"'
+    - 'DeviceName                          :      140 :LookUp[AppleDeviceName;@AppleTag]'
+    - 'DeviceVersion                       :      140 :LookUp[AppleDeviceVersion;@AppleTag]'
+    - 'OperatingSystemClass                :      140 :"Mobile"'
+    - 'OperatingSystemName                 :      140 :"iOS"'
+    - 'OperatingSystemVersion              :      140 :"??"'
+
+- matcher:
+    variable:
+    - 'AppleTag                            :agent.(1-5)product.name[-2]?AppleDeviceClass'
+    extract:
+    - 'DeviceClass                         :      140 :LookUp[AppleDeviceClass;@AppleTag]'
+    - 'DeviceBrand                         :      140 :"Apple"'
+    - 'DeviceName                          :      140 :LookUp[AppleDeviceName;@AppleTag]'
+    - 'DeviceVersion                       :      140 :LookUp[AppleDeviceVersion;@AppleTag]'
+    - 'OperatingSystemClass                :      140 :"Mobile"'
+    - 'OperatingSystemName                 :      140 :"iOS"'
+    - 'OperatingSystemVersion              :      140 :"??"'
+
+- matcher:
+    variable:
+    - 'AppleTag                            :agent.(1-5)product.version?AppleDeviceClass'
+    extract:
+    - 'DeviceClass                         :      141 :LookUp[AppleDeviceClass;@AppleTag]'
+    - 'DeviceBrand                         :      141 :"Apple"'
+    - 'DeviceName                          :      141 :LookUp[AppleDeviceName;@AppleTag]'
+    - 'DeviceVersion                       :      141 :LookUp[AppleDeviceVersion;@AppleTag]'
+    - 'OperatingSystemClass                :      141 :"Mobile"'
+    - 'OperatingSystemName                 :      141 :"iOS"'
+    - 'OperatingSystemVersion              :      141 :"??"'
+
+#- matcher:
+#    variable:
+#      - 'AppleTag                            :agent.(1-5)product.version[-2]?AppleDeviceClass'
+#    extract:
+#      - 'DeviceClass                         :      140 :LookUp[AppleDeviceClass;@AppleTag]'
+#      - 'DeviceBrand                         :      140 :"Apple"'
+#      - 'DeviceName                          :      140 :LookUp[AppleDeviceName;@AppleTag]'
+#      - 'DeviceVersion                       :      140 :LookUp[AppleDeviceVersion;@AppleTag]'
+#      - 'OperatingSystemClass                :      140 :"Mobile"'
+#      - 'OperatingSystemName                 :      140 :"iOS"'
+#      - 'OperatingSystemVersion              :      140 :"??"'
+
+
+- matcher:
+    require:
+    - 'agent.(1-5)product.(1)comments.entry[-2]="iPhone OS"'
+    variable:
+    - 'AppleTag                            :agent.(1-5)product.comments.entry[1]?AppleDeviceClass'
     extract:
     - 'DeviceClass                         :      102 :LookUp[AppleDeviceClass;@AppleTag]'
     - 'DeviceBrand                         :      102 :"Apple"'
@@ -29,9 +100,9 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry[-3]="CPU iPhone OS"'
+    - 'agent.(1-5)product.(1)comments.entry[2-3]="iPhone OS"'
     variable:
-    - 'AppleTag                            :agent.(1-2)product.comments.entry[1]?AppleDeviceClass'
+    - 'AppleTag                            :agent.(1-5)product.comments.entry[1]?AppleDeviceClass'
     extract:
     - 'DeviceClass                         :      102 :LookUp[AppleDeviceClass;@AppleTag]'
     - 'DeviceBrand                         :      102 :"Apple"'
@@ -40,9 +111,9 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry[-2]="iPhone OS"'
+    - 'agent.(1-5)product.(1)comments.entry[-2]="iPhone OS"'
     variable:
-    - 'AppleTag                            :agent.(1-2)product.comments.entry[-2]?AppleDeviceClass'
+    - 'AppleTag                            :agent.(1-5)product.comments.entry[-2]?AppleDeviceClass'
     extract:
     - 'DeviceClass                         :      103 :LookUp[AppleDeviceClass;@AppleTag]'
     - 'DeviceBrand                         :      103 :"Apple"'
@@ -51,9 +122,9 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry[-3]="CPU iPhone OS"'
+    - 'agent.(1-5)product.(1)comments.entry[2-3]="iPhone OS"'
     variable:
-    - 'AppleTag                            :agent.(1-2)product.comments.entry[-2]?AppleDeviceClass'
+    - 'AppleTag                            :agent.(1-5)product.comments.entry[-2]?AppleDeviceClass'
     extract:
     - 'DeviceClass                         :      103 :LookUp[AppleDeviceClass;@AppleTag]'
     - 'DeviceBrand                         :      103 :"Apple"'
@@ -62,7 +133,7 @@ config:
 
 - matcher:
     variable:
-    - 'OS                                  :agent.(1-2)product.(1)comments.entry.product.name="iPhone OS"'
+    - 'OS                                  :agent.(1-5)product.(1)comments.entry.product.name="iPhone OS"'
     extract:
     - 'DeviceClass                         :      100 :"Phone"'
     - 'DeviceBrand                         :      100 :"Apple"'
@@ -73,7 +144,7 @@ config:
 
 - matcher:
     variable:
-    - 'OS                                  :agent.(1-2)product.(1)comments.entry.product.name="CPU iOS"'
+    - 'OS                                  :agent.(1-5)product.(1)comments.entry.product.name="CPU iOS"'
     extract:
     - 'OperatingSystemClass                :      100 :"Mobile"'
     - 'OperatingSystemName                 :      100 :"iOS"'
@@ -81,181 +152,78 @@ config:
 
 - matcher:
     require:
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.product.name="like Mac OS X"]'
+    - 'IsNull[agent.(1-5)product.(1)comments.entry.product.name="like Mac OS X"]'
     extract:
     - 'DeviceClass                         :       20 :"Desktop"'
     - 'DeviceBrand                         :       20 :"Apple"'
     - 'DeviceName                          :       20 :"Apple Macintosh"'
     - 'OperatingSystemClass                :       20 :"Desktop"'
     - 'OperatingSystemName                 :       20 :"Mac OS X"'
-    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-2)product.(1)comments.entry.product.name="OS X"^.version]'
+    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-5)product.(1)comments.entry.product.name="OS X"^.version]'
 
 - matcher:
     require:
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.product.name="like Mac OS X"]'
+    - 'IsNull[agent.(1-5)product.(1)comments.entry.product.name="like Mac OS X"]'
     extract:
     - 'DeviceClass                         :       20 :"Desktop"'
     - 'DeviceBrand                         :       20 :"Apple"'
     - 'DeviceName                          :       20 :"Apple Macintosh"'
     - 'OperatingSystemClass                :       20 :"Desktop"'
     - 'OperatingSystemName                 :       20 :"Mac OS X"'
-    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-2)product.(1)comments.entry.product.name[-3]="Mac OS X"^.version]'
+    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-5)product.(1)comments.entry.product.name[-3]="Mac OS X"^.version]'
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.(1-2)text[-3]="Mac OS X"'
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.(1-2)text="like Mac OS X"]'
+    - 'agent.(1-5)product.(1)comments.entry.(1-2)text[-3]="Mac OS X"'
+    - 'IsNull[agent.(1-5)product.(1)comments.entry.(1-2)text="like Mac OS X"]'
     extract:
     - 'DeviceClass                         :       19 :"Desktop"'
     - 'DeviceBrand                         :       19 :"Apple"'
     - 'DeviceName                          :       19 :"Apple Macintosh"'
-    - 'DeviceCpu                           :       19 :"Intel"'
     - 'OperatingSystemClass                :       19 :"Desktop"'
     - 'OperatingSystemName                 :       19 :"Mac OS X"'
     - 'OperatingSystemVersion              :       19 :"10.?"'
 
 - matcher:
     require:
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.product.name="like Mac OS X"]'
-    extract:
-    - 'DeviceClass                         :       20 :"Desktop"'
-    - 'DeviceBrand                         :       20 :"Apple"'
-    - 'DeviceName                          :       20 :"Apple Macintosh"'
-    - 'DeviceCpu                           :       20 :"Intel"'
-    - 'OperatingSystemClass                :       20 :"Desktop"'
-    - 'OperatingSystemName                 :       20 :"Mac OS X"'
-    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-2)product.(1)comments.entry.(1-2)product.name[-4]="Intel Mac OS X"^.version]'
-
-- matcher:
-    require:
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.product.name="like Mac OS X"]'
-    extract:
-    - 'DeviceClass                         :       20 :"Desktop"'
-    - 'DeviceBrand                         :       20 :"Apple"'
-    - 'DeviceName                          :       20 :"Apple Macintosh"'
-    - 'DeviceCpu                           :       20 :"Intel x86_64"'
-    - 'OperatingSystemClass                :       20 :"Desktop"'
-    - 'OperatingSystemName                 :       20 :"Mac OS X"'
-    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-2)product.(1)comments.entry.(1-2)product.name[-4]="Intelx64 Mac OS X"^.version]'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.(1)comments.entry.(1)text[-4]="Intel Mac OS X"'
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.(1)text="like Mac OS X"]'
+    - 'agent.(1-5)product.(1)comments.entry.(1)text[2-4]="Mac OS X"'
+    - 'IsNull[agent.(1-5)product.(1)comments.entry.(1)text="like Mac OS X"]'
     extract:
     - 'DeviceClass                         :       19 :"Desktop"'
     - 'DeviceBrand                         :       19 :"Apple"'
     - 'DeviceName                          :       19 :"Apple Macintosh"'
-    - 'DeviceCpu                           :       19 :"Intel"'
     - 'OperatingSystemClass                :       19 :"Desktop"'
     - 'OperatingSystemName                 :       19 :"Mac OS X"'
     - 'OperatingSystemVersion              :       19 :"10.?"'
 
 - matcher:
+    variable:
+    - 'MacOS                               :agent.(1-5)product.(1)comments.entry.(1)text[2-3]="Mac OS"'
+    - 'MacOSVersion                        :@MacOS@[4]{"X"'
     require:
-    - 'agent.(1-2)product.(1)comments.entry.(1)text[-4]="Intelx64 Mac OS X"'
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.(1)text="like Mac OS X"]'
+    - 'IsNull[agent.(1-5)product.(1)comments.entry.(1)text="like Mac OS X"]'
     extract:
     - 'DeviceClass                         :       19 :"Desktop"'
     - 'DeviceBrand                         :       19 :"Apple"'
     - 'DeviceName                          :       19 :"Apple Macintosh"'
-    - 'DeviceCpu                           :       19 :"Intel x86_64"'
     - 'OperatingSystemClass                :       19 :"Desktop"'
     - 'OperatingSystemName                 :       19 :"Mac OS X"'
-    - 'OperatingSystemVersion              :       19 :"10.?"'
-
+    - 'OperatingSystemVersion              :       18 :"10.?"'
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.(1)text[-4]="PPC Mac OS X"'
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.(1)text="like Mac OS X"]'
-    extract:
-    - 'DeviceClass                         :       19 :"Desktop"'
-    - 'DeviceBrand                         :       19 :"Apple"'
-    - 'DeviceName                          :       19 :"Apple Macintosh"'
-    - 'DeviceCpu                           :       19 :"PowerPC"'
-    - 'OperatingSystemClass                :       19 :"Desktop"'
-    - 'OperatingSystemName                 :       19 :"Mac OS X"'
-    - 'OperatingSystemVersion              :       19 :"10.?"'
-
-- matcher:
-    require:
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.(1)text="like Mac OS X"]'
+    - 'IsNull[agent.(1-5)product.(1)comments.entry.(1)text="like Mac OS X"]'
     extract:
     - 'DeviceClass                         :       20 :"Desktop"'
     - 'DeviceBrand                         :       20 :"Apple"'
     - 'DeviceName                          :       20 :"Apple Macintosh"'
-    - 'DeviceCpu                           :       20 :"PowerPC"'
     - 'OperatingSystemClass                :       20 :"Desktop"'
     - 'OperatingSystemName                 :       20 :"Mac OS X"'
-    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-2)product.(1)comments.entry.product.name[-4]="PPC Mac OS X"^.version]'
+    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-5)product.(1)comments.entry.product.name[2-4]="Mac OS X"^.version]'
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.(1)text[-4]="PowerPC Mac OS X"'
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.(1)text="like Mac OS X"]'
-    extract:
-    - 'DeviceClass                         :       19 :"Desktop"'
-    - 'DeviceBrand                         :       19 :"Apple"'
-    - 'DeviceName                          :       19 :"Apple Macintosh"'
-    - 'DeviceCpu                           :       19 :"PowerPC"'
-    - 'OperatingSystemClass                :       19 :"Desktop"'
-    - 'OperatingSystemName                 :       19 :"Mac OS X"'
-    - 'OperatingSystemVersion              :       19 :"10.?"'
-
-- matcher:
-    require:
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.(1)text="like Mac OS X"]'
-    extract:
-    - 'DeviceClass                         :       20 :"Desktop"'
-    - 'DeviceBrand                         :       20 :"Apple"'
-    - 'DeviceName                          :       20 :"Apple Macintosh"'
-    - 'DeviceCpu                           :       20 :"PowerPC"'
-    - 'OperatingSystemClass                :       20 :"Desktop"'
-    - 'OperatingSystemName                 :       20 :"Mac OS X"'
-    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-2)product.(1)comments.entry.(1-2)product.name[-4]="PowerPC Mac OS X"^.version]'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.(1)comments.entry.(1)text[-4]="PowerPC Mac OS X"'
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.(1)text="like Mac OS X"]'
-    extract:
-    - 'DeviceClass                         :       19 :"Desktop"'
-    - 'DeviceBrand                         :       19 :"Apple"'
-    - 'DeviceName                          :       19 :"Apple Macintosh"'
-    - 'DeviceCpu                           :       19 :"PowerPC"'
-    - 'OperatingSystemClass                :       19 :"Desktop"'
-    - 'OperatingSystemName                 :       19 :"Mac OS X"'
-    - 'OperatingSystemVersion              :       19 :"10.?"'
-
-- matcher:
-    require:
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.(1)text="like Mac OS X"]'
-    extract:
-    - 'DeviceClass                         :       20 :"Desktop"'
-    - 'DeviceBrand                         :       20 :"Apple"'
-    - 'DeviceName                          :       20 :"Apple Macintosh"'
-    - 'DeviceCpu                           :       20 :"ARM"'
-    - 'OperatingSystemClass                :       20 :"Desktop"'
-    - 'OperatingSystemName                 :       20 :"Mac OS X"'
-    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-2)product.(1)comments.entry.(1-2)product.name[-4]="ARM Mac OS X"^.version]'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.(1)comments.entry.(1)text[-4]="ARM Mac OS X"'
-    - 'IsNull[agent.(1-2)product.(1)comments.entry.(1)text="like Mac OS X"]'
-    extract:
-    - 'DeviceClass                         :       19 :"Desktop"'
-    - 'DeviceBrand                         :       19 :"Apple"'
-    - 'DeviceName                          :       19 :"Apple Macintosh"'
-    - 'DeviceCpu                           :       19 :"ARM"'
-    - 'OperatingSystemClass                :       19 :"Desktop"'
-    - 'OperatingSystemName                 :       19 :"Mac OS X"'
-    - 'OperatingSystemVersion              :       19 :"X"'
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.(1)comments.entry.(1)text="CPU like Mac OS X"'
+    - 'agent.(1-5)product.(1)comments.entry.(1)text="CPU like Mac OS X"'
     extract:
     - 'OperatingSystemClass                :       20 :"Mobile"'
     - 'OperatingSystemName                 :       20 :"iOS"'
@@ -263,7 +231,7 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU"^'
+    - 'CPUProduct                          :agent.(1-5)product.(1)comments.entry.(1-2)product.name="CPU"^'
     require:
     - '@CPUProduct>="like Mac OS X"'
     extract:
@@ -274,7 +242,7 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU OS"^'
+    - 'CPUProduct                          :agent.(1-5)product.(1)comments.entry.(1-2)product.name="CPU OS"^'
     require:
     - '@CPUProduct>="like Mac OS X"'
     extract:
@@ -282,7 +250,7 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU OS"^'
+    - 'CPUProduct                          :agent.(1-5)product.(1)comments.entry.(1-2)product.name="CPU OS"^'
     require:
     - '@CPUProduct>="like Mac OS X"'
     extract:
@@ -292,7 +260,27 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU OS"^'
+    - 'CPUProduct                          :agent.(1-5)product.(1)comments.entry.(1-2)product.name="CPU OS"^'
+    require:
+    - '@CPUProduct>="like Mac OS X"'
+    extract:
+    - 'OperatingSystemClass                :       20 :"Mobile"'
+    - 'OperatingSystemName                 :       20 :"iOS"'
+    - 'OperatingSystemVersion              :       20 :CleanVersion[@CPUProduct.version]'
+
+- matcher:
+    variable:
+    - 'CPUProduct                          :agent.(1-5)product.(1)comments.entry.(1-2)product.name="OS"^'
+    require:
+    - '@CPUProduct>="like Mac OS X"'
+    extract:
+    - 'OperatingSystemClass                :       20 :"Mobile"'
+    - 'OperatingSystemName                 :       20 :"iOS"'
+    - 'OperatingSystemVersion              :       20 :CleanVersion[@CPUProduct.version]'
+
+- matcher:
+    variable:
+    - 'CPUProduct                          :agent.(1-5)product.(1)comments.entry.(1-2)product.name="OS"^'
     require:
     - '@CPUProduct>="like Mac OS X"'
     extract:
@@ -303,17 +291,13 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU iPhone OS"^'
-    require:
-    - '@CPUProduct>="like Mac OS X"'
+    - 'CPUProduct                          :agent.(1-5)product.(1)comments.entry.(1-2)product.name="CPU iPhone OS"^'
     extract:
     - 'DeviceFirmwareVersion               :       20 :agent.product.name="Mobile"^.version'
 
 - matcher:
     variable:
-    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU iPhone OS"^'
-    require:
-    - '@CPUProduct>="like Mac OS X"'
+    - 'CPUProduct                          :agent.(1-5)product.(1)comments.entry.(1-2)product.name="CPU iPhone OS"^'
     extract:
     - 'OperatingSystemClass                :       20 :"Mobile"'
     - 'OperatingSystemName                 :       20 :"iOS"'
@@ -321,17 +305,13 @@ config:
 
 - matcher:
     variable:
-    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU iPad OS"^'
-    require:
-    - '@CPUProduct>="like Mac OS X"'
+    - 'CPUProduct                          :agent.(1-5)product.(1)comments.entry.(1-2)product.name="CPU iPad OS"^'
     extract:
     - 'DeviceFirmwareVersion               :       20 :agent.product.name="Mobile"^.version'
 
 - matcher:
     variable:
-    - 'CPUProduct                          :agent.(1-2)product.(1)comments.entry.(1-2)product.name="CPU iPad OS"^'
-    require:
-    - '@CPUProduct>="like Mac OS X"'
+    - 'CPUProduct                          :agent.(1-5)product.(1)comments.entry.(1-2)product.name="CPU iPad OS"^'
     extract:
     - 'OperatingSystemClass                :       20 :"Mobile"'
     - 'OperatingSystemName                 :       20 :"iOS"'
@@ -411,17 +391,46 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.(1)entry.(1-2)text="Macintosh"'
+    - 'agent.(1-5)product.(1)comments.entry.(1-2)text="Macintosh"'
     extract:
     - 'DeviceClass                         :       10 :"Desktop"'
     - 'DeviceBrand                         :       10 :"Apple"'
     - 'DeviceName                          :       10 :"Macintosh"'
+    - 'OperatingSystemClass                :        1 :"Desktop"'
+    - 'OperatingSystemName                 :        1 :"Mac OS"'
+    - 'OperatingSystemVersion              :        1 :"??"'
+
+- matcher:
+    variable:
+    - 'MacOS                               :agent.(1-5)product.(1)comments.entry.(1-2)text[2-3]="Mac OS"'
+    require:
+    - 'IsNull[@MacOS@[4]]'
+    extract:
+    - 'DeviceClass                         :       10 :"Desktop"'
+    - 'DeviceBrand                         :       10 :"Apple"'
+    - 'DeviceName                          :       10 :"Macintosh"'
+    - 'OperatingSystemClass                :        1 :"Desktop"'
+    - 'OperatingSystemName                 :        1 :"Mac OS"'
+    - 'OperatingSystemVersion              :        1 :"??"'
+
+- matcher:
+    variable:
+    - 'MacOS                               :agent.(1-5)product.(1)comments.entry.(1-2)text[3-4]="Mac OS"'
+    require:
+    - 'IsNull[@MacOS@[5]]'
+    extract:
+    - 'DeviceClass                         :       10 :"Desktop"'
+    - 'DeviceBrand                         :       10 :"Apple"'
+    - 'DeviceName                          :       10 :"Macintosh"'
+    - 'OperatingSystemClass                :        1 :"Desktop"'
+    - 'OperatingSystemName                 :        1 :"Mac OS"'
+    - 'OperatingSystemVersion              :        1 :"??"'
 
 - matcher:
     extract:
     - 'OperatingSystemClass                :       20 :"Mobile"'
     - 'OperatingSystemName                 :       20 :"iOS"'
-    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-2)product.(1)comments.entry.(1-2)product.name="iOS"^.version]'
+    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-5)product.(1)comments.entry.(1-2)product.name="iOS"^.version]'
 
 # Testcases for apps
 
@@ -950,6 +959,7 @@ config:
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '32'                       #      105 | FAILED; Should be '<<absent>>'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Mac OS X'
       OperatingSystemVersion               : '10.10.2'

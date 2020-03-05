@@ -65,6 +65,7 @@ config:
 - lookup:
     name: 'CPUArchitectures'
     map:
+      "Intel" : "Intel"
       "i386" : "Intel i386"
       "i486" : "Intel i486"
       "i586" : "Intel i586"
@@ -78,6 +79,7 @@ config:
       "x8664" : "Intel x86_64"
       "x6464" : "Intel x86_64"
       "Intelx64" : "Intel x86_64"
+      "AMD" : "AMD"
       "amd64" : "AMD64"
       "x64" : "x64"
       "Win64" : "x64"
@@ -112,8 +114,10 @@ config:
       "sh4" : "SH4"
       "sh5" : "SH5"
       "ti8148" : "Ti8148"
+      "68K" : "Motorola 68000"
       "Mac_68K" : "Motorola 68000"
       "Mac_PowerPC" : "PowerPC"
+      "Mac_Intel" : "PowerPC"
 
 - matcher:
     extract:
@@ -161,6 +165,7 @@ config:
 - lookup:
     name: 'CPUArchitecturesBits'
     map:
+      "Intel" : "32"
       "i386" : "32"
       "i486" : "32"
       "i586" : "32"
@@ -174,6 +179,7 @@ config:
       "x8664" : "64"
       "x6464" : "64"
       "Intelx64" : "64"
+      "AMD" : "32"
       "amd64" : "64"
       "x64" : "64"
       "Win64" : "64"
@@ -208,5 +214,7 @@ config:
       "sh4" : "32"
       "sh5" : "64"
       "ti8148" : "32"
+      "68K" : "32"
       "Mac_68K" : "32"
       "Mac_PowerPC" : "32"
+      "Mac_Intel" : "32"

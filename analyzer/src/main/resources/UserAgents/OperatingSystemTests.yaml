@@ -1,0 +1,1208 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2020 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[1-1]="Linux"'
+    - 'IsNull[agent.product.(1)comments.entry[1-1]="Android"]'
+    - 'IsNull[agent.product.(1)comments.entry[1-1]="Windows"]'
+    extract:
+    - 'DeviceClass                         :        4 :"Desktop"'
+    - 'DeviceName                          :        4 :"Linux Desktop"'
+    - 'OperatingSystemClass                :        3 :"Desktop"'
+    - 'OperatingSystemName                 :        3 :"Linux"'
+    - 'OperatingSystemVersion              :        0 :"??"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X10_11_5) AppleWebKit/537.36 (KHTML, like Gecko)Chrome/50.0.2661.102 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '50.0'
+      LayoutEngineVersionMajor             : '50'
+      LayoutEngineNameVersion              : 'Blink 50.0'
+      LayoutEngineNameVersionMajor         : 'Blink 50'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '50.0.2661.102'
+      AgentVersionMajor                    : '50'
+      AgentNameVersion                     : 'Chrome 50.0.2661.102'
+      AgentNameVersionMajor                : 'Chrome 50'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC; en-US; rv:1.2a) Gecko/20020910'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'PowerPC'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.2a'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.2a'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20020910'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Gecko'
+      AgentVersion                         : '1.2a'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Gecko 1.2a'
+      AgentNameVersionMajor                : 'Gecko 1'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC; de-DE; rv:0.9.2) Gecko/20010726 Netscape6/6.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'PowerPC'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '0.9.2'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'Gecko 0.9.2'
+      LayoutEngineNameVersionMajor         : 'Gecko 0'
+      LayoutEngineBuild                    : '20010726'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape6'
+      AgentVersion                         : '6.1'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Netscape6 6.1'
+      AgentNameVersionMajor                : 'Netscape6 6'
+      AgentLanguage                        : 'German (Germany)'
+      AgentLanguageCode                    : 'de-de'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/3.01 (Macintosh; U; PPC)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'PowerPC'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '3.01'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'Mozilla 3.01'
+      LayoutEngineNameVersionMajor         : 'Mozilla 3'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '3.01'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Netscape 3.01'
+      AgentNameVersionMajor                : 'Netscape 3'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.74 (Macintosh; U; PPC)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'PowerPC'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '4.74'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Mozilla 4.74'
+      LayoutEngineNameVersionMajor         : 'Mozilla 4'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '4.74'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Netscape 4.74'
+      AgentNameVersionMajor                : 'Netscape 4'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; AMD Mac OS X 10_8_2) AppleWebKit/535.22 (KHTML, like Gecko) Chrome/18.6.872'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'AMD'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.8.2'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Mac OS X 10.8.2'
+      OperatingSystemNameVersionMajor      : 'Mac OS X 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '535.22'
+      LayoutEngineVersionMajor             : '535'
+      LayoutEngineNameVersion              : 'AppleWebKit 535.22'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '18.6.872'
+      AgentVersionMajor                    : '18'
+      AgentNameVersion                     : 'Chrome 18.6.872'
+      AgentNameVersionMajor                : 'Chrome 18'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.6 (Macintosh; I; PPC)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'PowerPC'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '4.6'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Mozilla 4.6'
+      LayoutEngineNameVersionMajor         : 'Mozilla 4'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '4.6'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Netscape 4.6'
+      AgentNameVersionMajor                : 'Netscape 4'
+      AgentSecurity                        : 'Weak security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS; pl-pl) AppleWebKit/412 (KHTML, like Gecko) Safari/412'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'PowerPC'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '412'
+      LayoutEngineVersionMajor             : '412'
+      LayoutEngineNameVersion              : 'AppleWebKit 412'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 412'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '412'
+      AgentVersionMajor                    : '412'
+      AgentNameVersion                     : 'Safari 412'
+      AgentNameVersionMajor                : 'Safari 412'
+      AgentLanguage                        : 'Polish (Poland)'
+      AgentLanguageCode                    : 'pl-pl'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC; en-US; mimic; rv:9.3.0) Clecko/20120101 Classilla/CFM'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'PowerPC'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Clecko'
+      AgentVersion                         : '20120101'
+      AgentVersionMajor                    : '20120101'
+      AgentNameVersion                     : 'Clecko 20120101'
+      AgentNameVersionMajor                : 'Clecko 20120101'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/3.01Gold (Macintosh; I; 68K)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Motorola 68000'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '3.01'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'Mozilla 3.01'
+      LayoutEngineNameVersionMajor         : 'Mozilla 3'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netscape'
+      AgentVersion                         : '3.01'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Netscape 3.01'
+      AgentNameVersionMajor                : 'Netscape 3'
+      AgentSecurity                        : 'Weak security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.17; Mac_PowerPC Mac OS; en)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'PowerPC'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Internet Explorer'
+      LayoutEngineVersion                  : '5.17'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Internet Explorer 5.17'
+      LayoutEngineNameVersionMajor         : 'Internet Explorer 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '5.17'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Internet Explorer 5.17'
+      AgentNameVersionMajor                : 'Internet Explorer 5'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input: # NOTE: It says "Max OS" NOT "Mac OS"
+      user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Max OS X Mach-O; it-IT; rv:1.8.0.7) Gecko/200609211 Camino/1.0.3'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'PowerPC'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.0.7'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.0.7'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '200609211'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Camino'
+      AgentVersion                         : '1.0.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Camino 1.0.3'
+      AgentNameVersionMajor                : 'Camino 1'
+      AgentLanguage                        : 'Italian (Italy)'
+      AgentLanguageCode                    : 'it-it'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Cyberdog/2.0 (Macintosh; 68k)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Motorola 68000'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Cyberdog'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Cyberdog 2.0'
+      AgentNameVersionMajor                : 'Cyberdog 2'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 12.2; en_US; ) AppleWebKit/0.0 (KHTML, like Gecko) Version/0.0; GmmClient:google_ios/com.google.Maps/5.15.11/Mobile/ios:iPhone11,8/iOS-AppStore'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone' # FIXME: Use the iPhone11,8 tag
+      DeviceFirmwareVersion                : 'ios:iPhone11,8' #FIXME: Not quite right
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.2'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.2'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '0.0'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'AppleWebKit 0.0'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 0'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '0.0'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'UIWebView 0.0'
+      AgentNameVersionMajor                : 'UIWebView 0'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+      WebviewAppName                       : 'Unknown Webview App' # FIXME: Use the Google Maps tag.
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (iPad; Opera Mini/14.0.0/146.51; U; en) Presto/2.12.423 Version/12.16'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.423'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.423'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera Mini'
+      AgentVersion                         : '14.0.0'
+      AgentVersionMajor                    : '14'
+      AgentNameVersion                     : 'Opera Mini 14.0.0'
+      AgentNameVersionMajor                : 'Opera Mini 14'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'com.google.GoogleMobile/42.0.0 iPad/9.3.5 hw/iPad3_1'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad (3rd gen, Wi-Fi)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'com.google.GoogleMobile'
+      AgentVersion                         : '42.0.0'
+      AgentVersionMajor                    : '42'
+      AgentNameVersion                     : 'com.google.GoogleMobile 42.0.0'
+      AgentNameVersionMajor                : 'com.google.GoogleMobile 42'
+
+
+- test:
+    input:
+      user_agent_string: 'com.google.GoogleMobile/65.0.0 iPad/12.1.1 hw/iPad4_1'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad Air (Wi-Fi)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'com.google.GoogleMobile'
+      AgentVersion                         : '65.0.0'
+      AgentVersionMajor                    : '65'
+      AgentNameVersion                     : 'com.google.GoogleMobile 65.0.0'
+      AgentNameVersionMajor                : 'com.google.GoogleMobile 65'
+
+
+- test:
+    input:
+      user_agent_string: 'com.google.OPA/1.5.9205 iPad/12.2 hw/iPad6_11'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad (2017)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'com.google.OPA'
+      AgentVersion                         : '1.5.9205'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'com.google.OPA 1.5.9205'
+      AgentNameVersionMajor                : 'com.google.OPA 1'
+
+
+- test:
+    input:
+      user_agent_string: 'MediBangPaintTablet/15.1/260 iPad7,5 Scale/2.00; Mozilla/5.0 (iPad; CPU OS 12_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16C50'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad (6th gen, A1893)'
+      DeviceFirmwareVersion                : '16C50'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '605.1.15'
+      AgentVersionMajor                    : '605'
+      AgentNameVersion                     : 'UIWebView 605.1.15'
+      AgentNameVersionMajor                : 'UIWebView 605'
+      WebviewAppName                       : 'MediBang Paint'
+      WebviewAppVersion                    : '15.1'
+      WebviewAppVersionMajor               : '15'
+      WebviewAppNameVersionMajor           : 'MediBang Paint 15'
+
+
+- test:
+    input:
+      user_agent_string: 'MediBangPaintTablet/17.4/277 iPad7,5 Scale/2.00; Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad (6th gen, A1893)'
+      DeviceFirmwareVersion                : '15E148'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '605.1.15'
+      AgentVersionMajor                    : '605'
+      AgentNameVersion                     : 'UIWebView 605.1.15'
+      AgentNameVersionMajor                : 'UIWebView 605'
+      WebviewAppName                       : 'MediBang Paint'
+      WebviewAppVersion                    : '17.4'
+      WebviewAppVersionMajor               : '17'
+      WebviewAppNameVersionMajor           : 'MediBang Paint 17'
+
+
+- test:
+    input:
+      user_agent_string: 'Pinterest for iOS/6.80 (iPad5,1; 12.1.1)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad mini 4 (Wi-Fi)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Pinterest for iOS'
+      AgentVersion                         : '6.80'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Pinterest for iOS 6.80'
+      AgentNameVersionMajor                : 'Pinterest for iOS 6'
+
+
+- test:
+    input:
+      user_agent_string: 'Pinterest for iOS/7.19 (iPad5,3; 12.3.1)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad Air 2 (Wi-Fi)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Pinterest for iOS'
+      AgentVersion                         : '7.19'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Pinterest for iOS 7.19'
+      AgentNameVersionMajor                : 'Pinterest for iOS 7'
+
+
+- test: # TODO: Fix the iOS detection (messy case)
+    input:
+      user_agent_string: 'iPad (compatible; Smartphone2.0) NRC Digitale Editie, nl.nrc.nrcapp 9.14 (156) / iOS 13.1.2'
+      #    - 'agent.(2)product="NRC Digitale Editie, nl.nrc.nrcapp 9.14 (156) / iOS"'
+      #    - 'agent.(2)product.(1)name="NRC Digitale Editie, nl.nrc.nrcapp"'
+      #    - 'agent.(2)product.(1)version="9.14"'
+      #    - 'agent.(2)product.(1)comments="(156)"'
+      #    - 'agent.(2)product.(1)comments.(1)entry="156"'
+      #    - 'agent.(2)product.(1)comments.(1)entry.(1)text="156"'
+      #    - 'agent.(2)product.(2)version="iOS"'
+      #    - 'agent.(3)text="13.1.2"'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'                  #      140 | FAILED; Should be '13.1.2'
+      OperatingSystemVersionMajor          : '??'                  #      140 | FAILED; Should be '13'
+      OperatingSystemNameVersion           : 'iOS ??'              #      140 | FAILED; Should be 'iOS 13.1.2'
+      OperatingSystemNameVersionMajor      : 'iOS ??'              #      140 | FAILED; Should be 'iOS 13'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'iPad'
+      AgentVersion                         : 'compatible'
+      AgentVersionMajor                    : 'compatible'
+      AgentNameVersion                     : 'iPad compatible'
+      AgentNameVersionMajor                : 'iPad compatible'
+
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (iPad; U; xx) Presto/2.10.254 Version/12.00'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.10.254'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.10.254'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.00'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.00'
+      AgentNameVersionMajor                : 'Opera 12'
+      AgentSecurity                        : 'Strong security'
+
+
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: 'osee2unifiedRelease/1482 osee2unifiedReleaseVersion/6.10.0 Mozilla/5.0 (iPad; CPU OS 12_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
+#
+#
+- test: # TODO: Verify output
+    input:
+      user_agent_string: 'ZhihuHybrid DefaultBrowser osee2unifiedRelease/1622 osee2unifiedReleaseVersion/6.20.0 Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad'
+      DeviceFirmwareVersion                : '15E148'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.2'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.2'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '605.1.15'
+      AgentVersionMajor                    : '605'
+      AgentNameVersion                     : 'UIWebView 605.1.15'
+      AgentNameVersionMajor                : 'UIWebView 605'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+# Chineese apps found here https://zhuanlan.zhihu.com/p/75196956
+#
+#  zhihu
+- test: # TODO: Verify output
+    input:
+      user_agent_string: 'ZhihuHybrid DefaultBrowser com.zhihu.android/Futureve/6.5.0 Mozilla/5.0 (Linux; Android 9; MI 9 Build/PKQ1.181121.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/74.0.3729.136 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Xiaomi MI 9'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersionBuild          : 'PKQ1.181121.001'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '74.0'
+      LayoutEngineVersionMajor             : '74'
+      LayoutEngineNameVersion              : 'Blink 74.0'
+      LayoutEngineNameVersionMajor         : 'Blink 74'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '74.0.3729.136'
+      AgentVersionMajor                    : '74'
+      AgentNameVersion                     : 'Chrome Webview 74.0.3729.136'
+      AgentNameVersionMajor                : 'Chrome Webview 74'
+      AgentInformationUrl                  : 'com.zhihu.android/Futureve/6.5.0'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+- test: # TODO: Verify output
+    input:
+      user_agent_string: 'ZhihuHybrid DefaultBrowser com.zhihu.android/Futureve/6.5.0 Mozilla/5.0 (Linux; Android 6.0.1; Le X820 Build/FEXCNFN5902605092S; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/49.0.2623.91 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'LE X820'
+      DeviceBrand                          : 'LE'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemVersionMajor          : '6'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemNameVersionMajor      : 'Android 6'
+      OperatingSystemVersionBuild          : 'FEXCNFN5902605092S'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '49.0.2623.91'
+      AgentVersionMajor                    : '49'
+      AgentNameVersion                     : 'Chrome Webview 49.0.2623.91'
+      AgentNameVersionMajor                : 'Chrome Webview 49'
+      AgentInformationUrl                  : 'com.zhihu.android/Futureve/6.5.0'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+#  weixin
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; VTR-AL00 Build/HUAWEIVTR-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/044705 Mobile Safari/537.36 MMWEBID/9843 MicroMessenger/7.0.5.1440(0x27000537) Process/tools NetType/4G Language/zh_CN'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei VTR-AL00'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      OperatingSystemVersionBuild          : 'HUAWEIVTR-AL00'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '66.0'
+      LayoutEngineVersionMajor             : '66'
+      LayoutEngineNameVersion              : 'Blink 66.0'
+      LayoutEngineNameVersionMajor         : 'Blink 66'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '7.0.5.1440'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'WeChat 7.0.5.1440'
+      AgentNameVersionMajor                : 'WeChat 7'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown'
+      NetworkType                          : '4G'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/7.0.4(0x17000428) NetType/4G Language/zh_CN'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.3.1'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.3.1'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '7.0.4'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'WeChat 7.0.4'
+      AgentNameVersionMajor                : 'WeChat 7'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown'
+      NetworkType                          : '4G'
+
+
+#  QQ
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 QQ/8.0.8.458 V1_IPH_SQ_8.0.8_1_APP_A Pixel/750 Core/WKWebView Device/Apple(iPhone 8) NetType/WIFI QBWebViewType/1 WKType/1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : '8'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.3.1'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.3.1'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'QQ Client'
+      AgentVersion                         : '8.0.8.458'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'QQ Client 8.0.8.458'
+      AgentNameVersionMajor                : 'QQ Client 8'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown'
+      NetworkType                          : 'Wifi'
+
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (iPad; Opera Mini/7.0.5/139.90; U; nl) Presto/2.12.423 Version/12.16'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.423'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.423'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera Mini'
+      AgentVersion                         : '7.0.5'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Opera Mini 7.0.5'
+      AgentNameVersionMajor                : 'Opera Mini 7'
+      AgentLanguage                        : 'Dutch'
+      AgentLanguageCode                    : 'nl'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPad; OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '5.0'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'iOS 5.0'
+      OperatingSystemNameVersionMajor      : 'iOS 5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.46'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.46'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '5.1'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Safari 5.1'
+      AgentNameVersionMajor                : 'Safari 5'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 Delfi/504.53.0 EmbeddedBrowser (iPad; CPU OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 DeviceUID: 95941A67-DF2A-45FA-B1C6-0E966D3AAA6C'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad'
+      DeviceFirmwareVersion                : '15E148'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.3.1'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.3.1'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Delfi'
+      AgentVersion                         : '504.53.0'
+      AgentVersionMajor                    : '504'
+      AgentNameVersion                     : 'Delfi 504.53.0'
+      AgentNameVersionMajor                : 'Delfi 504'
+      AgentUuid                            : '95941A67-DF2A-45FA-B1C6-0E966D3AAA6C'
+
+
+
+- test: # TODO: Verify output
+    input:
+      user_agent_string: 'Mozilla/5.0 Lrytas/4.2.0 EmbeddedBrowser (iPad; CPU OS 12_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 DeviceUID: 74535009-9D07-407A-9C67-C124D2B12FC2'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad'
+      DeviceFirmwareVersion                : '15E148'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.4'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.4'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Lrytas'
+      AgentVersion                         : '4.2.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Lrytas 4.2.0'
+      AgentNameVersionMajor                : 'Lrytas 4'
+      AgentUuid                            : '74535009-9D07-407A-9C67-C124D2B12FC2'
+
+
+- test:
+    input:
+      user_agent_string: 'Instagram 121.0.0.29.119 Android (28/9; 240dpi; 1200x1848; samsung; SM-T510; gta3xlwifi; exynos7885; nl_NL; 185203686)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung SM-T510'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Instagram'
+      AgentVersion                         : '121.0.0.29.119'
+      AgentVersionMajor                    : '121'
+      AgentNameVersion                     : 'Instagram 121.0.0.29.119'
+      AgentNameVersionMajor                : 'Instagram 121'
+
+
+
+#  #FIXME: Unknown OS --> Windows !!
+#
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT5)'
+#
+#
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.0; Windows ME) Opera 5.11 [en]'
+#
+#
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: 'Mozilla/2.0 (compatible; MSIE 3.03; Windows 3.1)'
+#
+#
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows XP 5.1) Lobo/0.98.4'
+#
+#
+#
+#  #FIXME: Unknown OS --> Unix !!
+#
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.0; UNIX) Opera 6.11 [fr]'
+#
+#
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.0; UNIX) Opera 6.12 [en]'
+#
+#
+#
+#  #FIXME: Unknown OS --> Symbian OS !!
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 8.0; S60; SymbOS; Opera Mobi/SYB-1107071606; en) Opera 11.10'
+#
+#
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: 'Opera/9.80 (S60; SymbOS; Opera Tablet/9174; U; en) Presto/2.7.81 Version/10.5'
+#
+#
+#
+#  #FIXME: Unknown OS --> Palm OS !!
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: 'Mozilla/1.22 (compatible; MSIE 5.01; PalmOS 3.0) EudoraWeb 2'
+#
+## FIXME: Really special with json part.
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: '"ntvmobil iPhone 7.0 Mozilla/5.0 (iPhone; U; CPU iPhone OS like Mac OS X; de-DE) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 ntvAgof (agof={\""angebot\"":\""appntv\"",\""plattform\"":\""iphone\""}) ntvPrivacy (allowed={\""adTracking\"":true,\""agof\"":true,\""googleanalytics\"":true,\""medienGruppenCookie\"":true,\""linkpulse\"":true,\""adjust\"":true})"'
+#
+#
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: '"ntvmobil iPhone 7.1 Mozilla/5.0 (iPhone; U; CPU iPhone OS like Mac OS X; de-DE) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 ntvAgof (agof={\""angebot\"":\""appntv\"",\""plattform\"":\""iphone\""}) ntvPrivacy (allowed={\""adTracking\"":true,\""agof\"":true,\""googleanalytics\"":true,\""medienGruppenCookie\"":true,\""linkpulse\"":true,\""adjust\"":true})"'
+#
+#
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: '"ntvmobil iPhone 6.35 Mozilla/5.0 (iPhone; U; CPU iPhone OS like Mac OS X; en-NL) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 ntvAgof (agof={\""angebot\"":\""appntv\"",\""plattform\"":\""iphone\""}) ntvPrivacy (allowed={\""adTracking\"":true,\""agof\"":true,\""googleanalytics\"":true,\""medienGruppenCookie\"":true,\""linkpulse\"":true,\""adjust\"":true})"'
+#
+#
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: '"ntvmobil iPhone 6.35 Mozilla/5.0 (iPhone; U; CPU iPhone OS like Mac OS X; de-DE) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 ntvAgof (agof={\""angebot\"":\""appntv\"",\""plattform\"":\""iphone\""}) ntvPrivacy (allowed={\""adTracking\"":true,\""agof\"":true,\""googleanalytics\"":true,\""medienGruppenCookie\"":true,\""linkpulse\"":true,\""adjust\"":true})"'
+#
+#
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: 'Mozilla/5.0 HLNApp/4.8.6.1 EmbeddedBrowser (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16B92 DeviceUID: 1E0EE834-D7CB-4B6F-A5B7-50555D41A7AB'
+#
+#
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 12.2; en_US; ) AppleWebKit/0.0 (KHTML, like Gecko) Version/0.0; GmmClient:google_ios/com.google.Maps/5.15.11/Mobile/ios:iPhone11,8/iOS-AppStore'
+
+
+
+
+#- test: # TODO: Verify output
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Linux; U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36 OPR/46.0.2207.0 LOEWE-SL310/5.1.8.0 HbbTV/1.2.1 (; LOEWE; SL310; LOH/5.1.8.0;;) CE-HTML/1.0 Config (L:nld,CC:NLD) NETRANGEMMH'
+
+#

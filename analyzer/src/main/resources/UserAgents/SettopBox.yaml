@@ -231,6 +231,37 @@ config:
       AgentNameVersion                     : 'Chrome 49.0.2623.87'
       AgentNameVersionMajor                : 'Chrome 49'
 
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (CrKey armv7l 1.5.16041) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Google Chromecast'
+      DeviceBrand                          : 'Google'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      DeviceVersion                        : '1.5.16041'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '31.0'
+      LayoutEngineVersionMajor             : '31'
+      LayoutEngineNameVersion              : 'Blink 31.0'
+      LayoutEngineNameVersionMajor         : 'Blink 31'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '31.0.1650.0'
+      AgentVersionMajor                    : '31'
+      AgentNameVersion                     : 'Chrome 31.0.1650.0'
+      AgentNameVersionMajor                : 'Chrome 31'
+
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (CrKey - 0.9.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1573.2 Safari/537.36'

@@ -638,3 +638,31 @@ config:
       AgentVersionMajor                    : '63'
       AgentNameVersion                     : 'Chrome 63.0.3239.132'
       AgentNameVersionMajor                : 'Chrome 63'
+
+# TODO: Windows 3.1 ... with IE 10.0 ... yeah right. Hacker perhaps?
+- test:
+    input:
+      user_agent_string: 'Mozilla/1.22 (compatible; MSIE 10.0; Windows 3.1)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '16'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows 3.x'
+      OperatingSystemVersion               : '3.1'
+      OperatingSystemVersionMajor          : '3'
+      OperatingSystemNameVersion           : 'Windows 3.1'
+      OperatingSystemNameVersionMajor      : 'Windows 3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '6.0'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Trident 6.0'
+      LayoutEngineNameVersionMajor         : 'Trident 6'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Internet Explorer 10.0'
+      AgentNameVersionMajor                : 'Internet Explorer 10'

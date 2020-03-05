@@ -23,6 +23,9 @@ config:
     - 'DeviceClass                         :      120 :"Phone"'
     - 'DeviceName                          :      120 :"iPhone"'
     - 'DeviceVersion                       :       99 :"iPhone"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     extract:
@@ -30,24 +33,33 @@ config:
     - 'DeviceClass                         :      220 :"Phone"'
     - 'DeviceName                          :      220 :"iPhone"'
     - 'DeviceVersion                       :      220 :agent.product.comments.entry.(1)product.name="iPhone"^.version'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     require:
-    - 'agent.product.name="iPhone"'
+    - 'agent.product.name[1]="iPhone"'
     extract:
     - 'DeviceBrand                         :      121 :"Apple"'
     - 'DeviceClass                         :      121 :"Phone"'
     - 'DeviceName                          :      121 :"iPhone"'
     - 'DeviceVersion                       :      121 :"iPhone"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     require:
-    - 'agent.text="iPhone"'
+    - 'agent.text[1]="iPhone"'
     extract:
     - 'DeviceBrand                         :      121 :"Apple"'
     - 'DeviceClass                         :      121 :"Phone"'
     - 'DeviceName                          :      121 :"iPhone"'
     - 'DeviceVersion                       :      121 :"iPhone"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     require:
@@ -57,6 +69,9 @@ config:
     - 'DeviceClass                         :      120 :"Tablet"'
     - 'DeviceName                          :      120 :"iPad"'
     - 'DeviceVersion                       :      120 :"iPad"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     extract:
@@ -64,24 +79,33 @@ config:
     - 'DeviceClass                         :      220 :"Tablet"'
     - 'DeviceName                          :      220 :"iPad"'
     - 'DeviceVersion                       :      220 :agent.product.comments.entry.(1)product.name="iPad"^.version'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     require:
-    - 'agent.product.name="iPad"'
+    - 'agent.product.name[1]="iPad"'
     extract:
     - 'DeviceBrand                         :      121 :"Apple"'
     - 'DeviceClass                         :      121 :"Tablet"'
     - 'DeviceName                          :      121 :"iPad"'
     - 'DeviceVersion                       :      121 :"iPad"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     require:
-    - 'agent.text="iPad"'
+    - 'agent.text[1]="iPad"'
     extract:
     - 'DeviceBrand                         :      121 :"Apple"'
     - 'DeviceClass                         :      121 :"Tablet"'
     - 'DeviceName                          :      121 :"iPad"'
     - 'DeviceVersion                       :      121 :"iPad"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     require:
@@ -91,6 +115,9 @@ config:
     - 'DeviceClass                         :      120 :"Phone"'
     - 'DeviceName                          :      120 :"iPod"'
     - 'DeviceVersion                       :      120 :"iPod"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     extract:
@@ -98,6 +125,9 @@ config:
     - 'DeviceClass                         :      220 :"Phone"'
     - 'DeviceName                          :      220 :"iPod"'
     - 'DeviceVersion                       :      220 :agent.product.comments.entry.(1)product.name="iPod"^.version'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     require:
@@ -107,6 +137,9 @@ config:
     - 'DeviceClass                         :      121 :"Phone"'
     - 'DeviceName                          :      121 :"iPod"'
     - 'DeviceVersion                       :      121 :"iPod"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     require:
@@ -116,6 +149,9 @@ config:
     - 'DeviceClass                         :      121 :"Phone"'
     - 'DeviceName                          :      121 :"iPod"'
     - 'DeviceVersion                       :      121 :"iPod"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     require:
@@ -125,6 +161,9 @@ config:
     - 'DeviceClass                         :      120 :"Phone"'
     - 'DeviceName                          :      120 :"iPod touch"'
     - 'DeviceVersion                       :      120 :"iPod touch"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     extract:
@@ -132,6 +171,9 @@ config:
     - 'DeviceClass                         :      220 :"Phone"'
     - 'DeviceName                          :      220 :"iPod touch"'
     - 'DeviceVersion                       :      220 :agent.product.comments.entry.(1)product.name="iPod touch"^.version'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     require:
@@ -141,6 +183,9 @@ config:
     - 'DeviceClass                         :      121 :"Phone"'
     - 'DeviceName                          :      121 :"iPod touch"'
     - 'DeviceVersion                       :      121 :"iPod touch"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     require:
@@ -150,6 +195,9 @@ config:
     - 'DeviceClass                         :      121 :"Phone"'
     - 'DeviceName                          :      121 :"iPod touch"'
     - 'DeviceVersion                       :      121 :"iPod touch"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     variable:
@@ -159,6 +207,9 @@ config:
     - 'DeviceClass                         :      111 :LookUp[AppleDeviceClass;@Input]'
     - 'DeviceName                          :      111 :LookUp[AppleDeviceName;@Input]'
     - 'DeviceVersion                       :      111 :LookUp[AppleDeviceVersion;@Input]'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     variable:
@@ -168,6 +219,9 @@ config:
     - 'DeviceClass                         :      112 :LookUp[AppleDeviceClass;@Input]'
     - 'DeviceName                          :      112 :LookUp[AppleDeviceName;@Input]'
     - 'DeviceVersion                       :      112 :LookUp[AppleDeviceVersion;@Input^]' # Here the ^ is the difference
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 
 - matcher:
@@ -178,6 +232,9 @@ config:
     - 'DeviceClass                         :      114 :LookUp[AppleDeviceClass;@Input]'
     - 'DeviceName                          :      114 :LookUp[AppleDeviceName;@Input]'
     - 'DeviceVersion                       :      114 :LookUp[AppleDeviceVersion;@Input]'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     variable:
@@ -187,6 +244,9 @@ config:
     - 'DeviceClass                         :      110 :LookUp[AppleDeviceClass;@Input]'
     - 'DeviceName                          :      110 :LookUp[AppleDeviceName;@Input]'
     - 'DeviceVersion                       :      110 :LookUp[AppleDeviceVersion;@Input]'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     variable:
@@ -196,6 +256,9 @@ config:
     - 'DeviceClass                         :      131 :LookUp[AppleDeviceClass;@Input]'
     - 'DeviceName                          :      131 :LookUp[AppleDeviceName;@Input]'
     - 'DeviceVersion                       :      131 :LookUp[AppleDeviceVersion;@Input]'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     variable:
@@ -205,6 +268,9 @@ config:
     - 'DeviceClass                         :      112 :LookUp[AppleDeviceClass;@Input]'
     - 'DeviceName                          :      112 :LookUp[AppleDeviceName;@Input]'
     - 'DeviceVersion                       :      112 :LookUp[AppleDeviceVersion;@Input^]'   # Here the ^ is the difference
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     variable:
@@ -214,6 +280,9 @@ config:
     - 'DeviceClass                         :      110 :LookUp[AppleDeviceClass;@Input]'
     - 'DeviceName                          :      110 :LookUp[AppleDeviceName;@Input]'
     - 'DeviceVersion                       :      110 :LookUp[AppleDeviceVersion;@Input]'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     variable:
@@ -223,6 +292,9 @@ config:
     - 'DeviceClass                         :      132 :LookUp[AppleDeviceClass;@Input]'
     - 'DeviceName                          :      132 :LookUp[AppleDeviceName;@Input]'
     - 'DeviceVersion                       :      132 :LookUp[AppleDeviceVersion;@Input^]' # Here the ^ is the difference
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 
 - matcher:
     variable:
@@ -232,4 +304,7 @@ config:
     - 'DeviceClass                         :      130 :LookUp[AppleDeviceClass;@Input]'
     - 'DeviceName                          :      130 :LookUp[AppleDeviceName;@Input]'
     - 'DeviceVersion                       :      130 :LookUp[AppleDeviceVersion;@Input]'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"??"'
 

@@ -17,36 +17,52 @@
 config:
 
 - matcher:
+    variable:
+    - 'Android                             :agent.(1-2)product.comments.entry.(1-2)product.name[1]="Android"'
+    require:
+    - '@Android'
     extract:
     - 'DeviceClass                         :       50 :"Mobile"'
     - 'DeviceName                          :       10 :"Android Mobile"'
     - 'OperatingSystemClass                :      500 :"Mobile"'
     - 'OperatingSystemName                 :      500 :"Android"'
-    - 'OperatingSystemVersion              :      500 :agent.(1-2)product.comments.entry.(1-2)product.name[1]="Android"^.version'
+    - 'OperatingSystemVersion              :      502 :DefaultIfNull[@Android^.version;"??"]'
 
 - matcher:
+    variable:
+    - 'Android                             :agent.(1-2)product.comments.entry.(1-2)product.name[1]="Adr"'
+    require:
+    - '@Android'
     extract:
     - 'DeviceClass                         :       50 :"Mobile"'
     - 'DeviceName                          :       10 :"Android Mobile"'
     - 'OperatingSystemClass                :      500 :"Mobile"'
     - 'OperatingSystemName                 :      500 :"Android"'
-    - 'OperatingSystemVersion              :      500 :agent.(1-2)product.comments.entry.(1-2)product.name="Adr"^.version'
+    - 'OperatingSystemVersion              :      502 :DefaultIfNull[@Android^.version;"??"]'
 
 - matcher:
+    variable:
+    - 'Android                             :agent.product.name="Android"'
+    require:
+    - '@Android'
     extract:
     - 'DeviceClass                         :       51 :"Mobile"'
     - 'DeviceName                          :       11 :"Android Mobile"'
     - 'OperatingSystemClass                :      501 :"Mobile"'
     - 'OperatingSystemName                 :      501 :"Android"'
-    - 'OperatingSystemVersion              :      501 :agent.product.name="Android"^.version'
+    - 'OperatingSystemVersion              :      501 :DefaultIfNull[@Android^.version;"??"]'
 
 - matcher:
+    variable:
+    - 'Android                             :agent.product.name="Adr"'
+    require:
+    - '@Android'
     extract:
     - 'DeviceClass                         :       51 :"Mobile"'
     - 'DeviceName                          :       11 :"Android Mobile"'
     - 'OperatingSystemClass                :      501 :"Mobile"'
     - 'OperatingSystemName                 :      501 :"Android"'
-    - 'OperatingSystemVersion              :      501 :agent.product.name="Adr"^.version'
+    - 'OperatingSystemVersion              :      501 :DefaultIfNull[@Android^.version;"??"]'
 
 - matcher:
     require:

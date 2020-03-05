@@ -407,6 +407,32 @@ config:
       AgentNameVersion                     : 'SamsungBrowser 4.0'
       AgentNameVersionMajor                : 'SamsungBrowser 4'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.2; Pacific Build/N2G48H) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/5.5.8.135542447 SamsungBrowser/4.0 Chrome/66.0.3359.203 Mobile VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Pacific'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.2'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1.2'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      OperatingSystemVersionBuild          : 'N2G48H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '66.0'
+      LayoutEngineVersionMajor             : '66'
+      LayoutEngineNameVersion              : 'Blink 66.0'
+      LayoutEngineNameVersionMajor         : 'Blink 66'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome' # FIXME: OculusBrowser !
+      AgentVersion                         : '66.0.3359.203'
+      AgentVersionMajor                    : '66'
+      AgentNameVersion                     : 'Chrome 66.0.3359.203'
+      AgentNameVersionMajor                : 'Chrome 66'
 
 - test:
     input:

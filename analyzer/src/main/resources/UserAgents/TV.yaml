@@ -1617,6 +1617,7 @@ config:
       DeviceBrand                          : 'Philips'
       DeviceCpu                            : 'AArch64'
       DeviceCpuBits                        : '64'
+      DeviceVersion                        : '091.002.078.253'
       OperatingSystemClass                 : 'Embedded'
       OperatingSystemName                  : 'Linux'
       OperatingSystemVersion               : 'AArch64'
@@ -1635,3 +1636,109 @@ config:
       AgentVersionMajor                    : '36'
       AgentNameVersion                     : 'Opera 36.0.2128.0'
       AgentNameVersionMajor                : 'Opera 36'
+      NetworkType                          : 'Wireless'
+
+
+- matcher:
+    variable:
+    - 'TVProduct                           :agent.product.name{"_TV_"^'
+    extract:
+    - 'DeviceClass                         :      201 : "TV"'
+    - 'DeviceBrand                         :      201 : @TVProduct.(1)comments.(1)entry'
+    - 'DeviceName                          :      201 : @TVProduct.(1)comments.(2)entry'
+    - 'DeviceVersion                       :      201 : @TVProduct.version'
+    - 'NetworkType                         :      201 : @TVProduct.(1)comments.(3)entry'
+
+- matcher:
+    require:
+    - 'agent.product.name="NETTV"'
+    - 'agent.product.comments.entry[1]="Linux"'
+    extract:
+    - 'OperatingSystemClass                :      201 : "Embedded"'
+    - 'OperatingSystemName                 :      201 : "Linux"'
+
+- test:
+    input:
+      user_agent_string: 'Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux;CE-HTML/1.0;U;en), Chrome/49.0.2623.87 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_UNKONWN/V8-S586T02-LF1V424 (TCL,49DP60*,wired)'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'TCL 49DP60*'
+      DeviceBrand                          : 'TCL'
+      DeviceVersion                        : 'V8-S586T02-LF1V424'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Tbrowser'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Tbrowser 2.0'
+      AgentNameVersionMajor                : 'Tbrowser 2'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      NetworkType                          : 'Wired'
+
+#- test: # TODO: Verify output
+#    options:
+#      - 'only'
+#    input:
+#      user_agent_string: 'Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/61.0.3163.100 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_UNKONWN/V8-NT563LA-LF1V200 (AKAI,AK3219NF,wireless)'
+#  Zeasn/2.0 Mozilla/5.0 (Linux;CE-HTML/1.0;U;en), Chrome/49.0.2623.87 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_UNKONWN/V8-NT563LA-LF1V250 (WESTPOINT,TETS-4919SM,wireless)
+
+
+#  SoC: MediaTek MT5800
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.66.Driver2.23 , _TV_MT5800/012.002.051.001 (Philips, 32PHS5301-12, wireless) CE-HTML/1.0 NETTV/4.5.0 SignOn/2.0 SmartTvA/4.0.0 en'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Philips 32PHS5301-12'
+      DeviceBrand                          : 'Philips'
+      DeviceVersion                        : '012.002.051.001'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'ARMv7l'
+      OperatingSystemVersionMajor          : 'ARMv7l'
+      OperatingSystemNameVersion           : 'Linux ARMv7l'
+      OperatingSystemNameVersionMajor      : 'Linux ARMv7l'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '36.0.2128.0'
+      AgentVersionMajor                    : '36'
+      AgentNameVersion                     : 'Opera 36.0.2128.0'
+      AgentNameVersionMajor                : 'Opera 36'
+      NetworkType                          : 'Wireless'
+
+#  Mozilla/5.0 (Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.Driver6.25 , _TV_MT5806/091.002.078.253 (Philips, OLED754, wired)  CE-HTML/1.0 NETTV/4.6.0.2 SignOn/2.0 SmartTvA/5.0.0 WH1.0 en
+#  Mozilla/5.0 (Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.Driver6.25 , _TV_MT5806/091.002.078.253 (Philips, PUS6504, wired)  CE-HTML/1.0 NETTV/4.6.0.2 SignOn/2.0 SmartTvA/5.0.0 WH1.0 en
+#  Mozilla/5.0 (Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.Driver6.25 , _TV_MT5806/091.002.078.253 (Philips, PUS6504, wireless)  CE-HTML/1.0 NETTV/4.6.0.2 SignOn/2.0 SmartTvA/5.0.0 WH1.0 en
+#  Mozilla/5.0 (Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.Driver6.25 , _TV_MT5806/091.002.078.253 (Philips, PUS6804, wired)  CE-HTML/1.0 NETTV/4.6.0.2 SignOn/2.0 SmartTvA/5.0.0 WH1.0 en
+#
+#  Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 OPR/40.0.2207.0 OMI/4.9.0.237.DOM3.194 Model/Vestel-MB211 VSTVB MB200 HbbTV/1.2.1 (; SALORA; MB211; 0.49.3.0; _TV_NT72563_2017;) SmartTvA/3.0.0
+#  Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 OPR/40.0.2207.0 OMI/4.9.0.237.DOM3-OPT.235 Model/Vestel-MB130 VSTVB MB100 HbbTV/1.2.1 (; ALDINORD; MB130; 5.7.9.0; _TV_G10_2017;) SmartTvA/3.0.0 CE-HTML/1.0 FXM-U2FsdGVkX1+oZew0140/QIEzVMHjA54RB34hhk2Aai+6G2fyuolRFrh0HcgJ55RC-END
+#  Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 OPR/40.0.2207.0 OMI/4.9.0.237.DOM3-OPT.235 Model/Vestel-MB130 VSTVB MB100 HbbTV/1.2.1 (; HORIZON; MB130; 3.62.35.1; _TV_G10_2017;) SmartTvA/3.0.0
+#
+#  Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/42.0.2311.152 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_MS6586/V8-S586T02-LF1V089 (TCL,U55P6006,wired)
+#  Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/42.0.2311.152 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_MT5655/V8-S586T02-LF1V052 (THOMSON,43UC6306,wired)
+#  Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/42.0.2311.152 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_nt563/V8-N563T01-LF1V156 (TCL,43S312,wireless)
+#  Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/61.0.3163.100 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_ms6586/V8-S586T02-LF1V299 (TCL,U49P60*6,wired)
+#  Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux;CE-HTML/1.0;U;en), Chrome/49.0.2623.87 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_UNKONWN/V8-NT563LA-LF1V291 (MANTA,32LHS79T,wireless)
+#  Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux;CE-HTML/1.0;U;en), Chrome/49.0.2623.87 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_UNKONWN/V8-S586T02-LF1V424 (TCL,49DP60*,wired)
+
