@@ -56,7 +56,9 @@ config:
     - 'Symbian'
     - 'SymbianOS'
     - 'Symbian OS'
+    - 'SymbOS'
     - 'PalmSource'
+    - 'PalmOS'
     - 'DragonFly'
     - 'FreeBSD'
     - 'NetBSD'
@@ -3914,6 +3916,116 @@ config:
 
 
 # =======================================================================
+# SymbOS
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Phone"'
+    - 'DeviceName                          :      111 :"Symbian Phone"'
+    - 'DeviceBrand                         :      111 :"Nokia"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"SymbianOS"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1)comments.entry.(1-2)product.name="SymbOS"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="SymbOS"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :      111 :"Phone"'
+    - 'DeviceName                          :      111 :"Symbian Phone"'
+    - 'DeviceBrand                         :      111 :"Nokia"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"SymbianOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@Version]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry="SymbOS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Phone"'
+    - 'DeviceName                          :      111 :"Symbian Phone"'
+    - 'DeviceBrand                         :      111 :"Nokia"'
+    - 'OperatingSystemClass                :      151 :"Mobile"'
+    - 'OperatingSystemName                 :      151 :"SymbianOS"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[1-1]="SymbOS"'
+    extract:
+    - 'DeviceClass                         :      108 :"Phone"'
+    - 'DeviceName                          :      108 :"Symbian Phone"'
+    - 'DeviceBrand                         :      108 :"Nokia"'
+    - 'OperatingSystemClass                :      148 :"Mobile"'
+    - 'OperatingSystemName                 :      148 :"SymbianOS"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[2-2]="SymbOS"'
+    extract:
+    - 'DeviceClass                         :      107 :"Phone"'
+    - 'DeviceName                          :      107 :"Symbian Phone"'
+    - 'DeviceBrand                         :      107 :"Nokia"'
+    - 'OperatingSystemClass                :      147 :"Mobile"'
+    - 'OperatingSystemName                 :      147 :"SymbianOS"'
+    - 'OperatingSystemVersion              :      148 :"??"'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Phone"'
+    - 'DeviceName                          :      111 :"Symbian Phone"'
+    - 'DeviceBrand                         :      111 :"Nokia"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"SymbianOS"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.product.name="SymbOS"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version                             :agent.product.name="SymbOS"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :      111 :"Phone"'
+    - 'DeviceName                          :      111 :"Symbian Phone"'
+    - 'DeviceBrand                         :      111 :"Nokia"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"SymbianOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="SymbOS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Phone"'
+    - 'DeviceName                          :      111 :"Symbian Phone"'
+    - 'DeviceBrand                         :      111 :"Nokia"'
+    - 'OperatingSystemClass                :      152 :"Mobile"'
+    - 'OperatingSystemName                 :      152 :"SymbianOS"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="SymbOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Phone"'
+    - 'DeviceName                          :      112 :"Symbian Phone"'
+    - 'DeviceBrand                         :      112 :"Nokia"'
+    - 'OperatingSystemClass                :      153 :"Mobile"'
+    - 'OperatingSystemName                 :      153 :"SymbianOS"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+
+
+# =======================================================================
 # PalmSource
 
 - matcher:
@@ -4013,6 +4125,116 @@ config:
 - matcher:
     require:
     - 'agent.product.name[-2]="PalmSource"'
+    extract:
+    - 'DeviceClass                         :      112 :"Mobile"'
+    - 'DeviceName                          :      112 :"PalmOS PDA"'
+    - 'DeviceBrand                         :      112 :"Palm"'
+    - 'OperatingSystemClass                :      153 :"Mobile"'
+    - 'OperatingSystemName                 :      153 :"PalmSource"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+
+
+# =======================================================================
+# PalmOS
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Mobile"'
+    - 'DeviceName                          :      111 :"PalmOS PDA"'
+    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"PalmSource"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1)comments.entry.(1-2)product.name="PalmOS"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="PalmOS"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :      111 :"Mobile"'
+    - 'DeviceName                          :      111 :"PalmOS PDA"'
+    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"PalmSource"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@Version]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry="PalmOS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Mobile"'
+    - 'DeviceName                          :      111 :"PalmOS PDA"'
+    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'OperatingSystemClass                :      151 :"Mobile"'
+    - 'OperatingSystemName                 :      151 :"PalmSource"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[1-1]="PalmOS"'
+    extract:
+    - 'DeviceClass                         :      108 :"Mobile"'
+    - 'DeviceName                          :      108 :"PalmOS PDA"'
+    - 'DeviceBrand                         :      108 :"Palm"'
+    - 'OperatingSystemClass                :      148 :"Mobile"'
+    - 'OperatingSystemName                 :      148 :"PalmSource"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[2-2]="PalmOS"'
+    extract:
+    - 'DeviceClass                         :      107 :"Mobile"'
+    - 'DeviceName                          :      107 :"PalmOS PDA"'
+    - 'DeviceBrand                         :      107 :"Palm"'
+    - 'OperatingSystemClass                :      147 :"Mobile"'
+    - 'OperatingSystemName                 :      147 :"PalmSource"'
+    - 'OperatingSystemVersion              :      148 :"??"'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Mobile"'
+    - 'DeviceName                          :      111 :"PalmOS PDA"'
+    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"PalmSource"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.product.name="PalmOS"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version                             :agent.product.name="PalmOS"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :      111 :"Mobile"'
+    - 'DeviceName                          :      111 :"PalmOS PDA"'
+    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"PalmSource"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="PalmOS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Mobile"'
+    - 'DeviceName                          :      111 :"PalmOS PDA"'
+    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'OperatingSystemClass                :      152 :"Mobile"'
+    - 'OperatingSystemName                 :      152 :"PalmSource"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="PalmOS"'
     extract:
     - 'DeviceClass                         :      112 :"Mobile"'
     - 'DeviceName                          :      112 :"PalmOS PDA"'
