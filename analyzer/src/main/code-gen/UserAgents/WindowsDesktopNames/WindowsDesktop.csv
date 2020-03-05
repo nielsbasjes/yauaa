@@ -38,6 +38,25 @@ Windows 2000        | Windows NT    | 2000                          | Windows 20
 Windows NT 4.0      | Windows NT    | 4.0                           | Windows NT 4.0                        | 32
 Windows NT          | Windows NT    | ??                            | Windows NT ??                         | 32
 
+# Broken tags (without a space)
+Windows NT10.0      | Windows NT    | 10.0                          | Windows 10.0                          | 32
+Windows NT6.4       | Windows NT    | 10 Preview                    | Windows 10 Preview                    | 32
+Windows NT6.3       | Windows NT    | 8.1                           | Windows 8.1                           | 32
+Windows NT6.2       | Windows NT    | 8                             | Windows 8                             | 32
+Windows NT6.1       | Windows NT    | 7                             | Windows 7                             | 32
+Windows NT6.0       | Windows NT    | Vista                         | Windows Vista                         | 32
+Windows NT5.2       | Windows NT    | XP x64 Edition                | Windows XP x64 Edition                | 64
+Windows NT5.1       | Windows NT    | XP                            | Windows XP                            | 32
+Windows NT5.01      | Windows NT    | 2000, Service Pack 1 (SP1)    | Windows 2000, Service Pack 1 (SP1)    | 32
+Windows NT5.0       | Windows NT    | 2000                          | Windows 2000                          | 32
+Windows NT4.0       | Windows NT    | 4.0                           | Windows NT 4.0                        | 32
+
+# Broken tags (without a space, without the minor version, we assume the .0)
+Windows NT10        | Windows NT    | 10.0                          | Windows 10.0                          | 32
+Windows NT6         | Windows NT    | Vista                         | Windows Vista                         | 32
+Windows NT5         | Windows NT    | 2000                          | Windows 2000                          | 32
+Windows NT4         | Windows NT    | 4.0                           | Windows NT 4.0                        | 32
+
 # Broken tags (i.e. without the NT part)
 Windows 10.0        | Windows NT    | 10.0                          | Windows 10.0                          | 32
 Windows 6.4         | Windows NT    | 10 Preview                    | Windows 10 Preview                    | 32
@@ -66,6 +85,11 @@ Windows/5.0         | Windows NT    | 2000                          | Windows 20
 Windows/4.0         | Windows NT    | 4.0                           | Windows NT 4.0                        | 32
 Windows/NT          | Windows NT    | ??                            | Windows NT ??                         | 32
 
+# More broken variants ...
+Windows Vista 6.0   | Windows NT    | Vista                         | Windows Vista                         | 32
+Windows XP 5.2      | Windows NT    | XP x64 Edition                | Windows XP x64 Edition                | 64
+Windows XP 5.1      | Windows NT    | XP                            | Windows XP                            | 32
+
 # Broken tags: The OS name as tag
 Windows 10          | Windows NT    | 10.0                          | Windows 10.0                          | 32
 Windows 8.1         | Windows NT    | 8.1                           | Windows 8.1                           | 32
@@ -83,6 +107,7 @@ Microsoft Windows NT 6.2.9200.0  | Windows NT | 8                   | Windows 8 
 
 # Really old versions
 Win 9x 4.90         | Windows 9x    | Millennium Edition            | Windows Millennium Edition            | 32
+Windows ME          | Windows 9x    | Millennium Edition            | Windows Millennium Edition            | 32
 Windows 98          | Windows 9x    | 98                            | Windows 98                            | 32
 Windows 95          | Windows 9x    | 95                            | Windows 95                            | 32
 Windows CE          | Windows CE    | CE                            | Windows CE                            | 32

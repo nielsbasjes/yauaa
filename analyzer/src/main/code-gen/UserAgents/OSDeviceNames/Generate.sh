@@ -131,12 +131,12 @@ echo "
     require:
     - 'agent.product.(1)comments.entry[2-2]=\"${ospattern}\"'
     extract:
-    - 'DeviceClass                         :      108 :\"${devclass}\"'
-    - 'DeviceName                          :      108 :\"${devname}\"'
-    - 'DeviceBrand                         :      108 :\"${devbrand}\"'
-    - 'OperatingSystemClass                :      148 :\"${osclass}\"'
-    - 'OperatingSystemName                 :      148 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      149 :\"??\"'
+    - 'DeviceClass                         :      107 :\"${devclass}\"'
+    - 'DeviceName                          :      107 :\"${devname}\"'
+    - 'DeviceBrand                         :      107 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      147 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      147 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      148 :\"??\"'
 "
 ;;
 

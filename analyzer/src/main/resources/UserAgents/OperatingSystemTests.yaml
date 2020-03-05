@@ -431,8 +431,7 @@ config:
       DeviceClass                          : 'Phone'
       DeviceName                           : 'Apple iPhone'
       DeviceBrand                          : 'Apple'
-      DeviceVersion                        : 'iPhone' # FIXME: Use the iPhone11,8 tag
-      DeviceFirmwareVersion                : 'ios:iPhone11,8' #FIXME: Not quite right
+      DeviceVersion                        : 'iPhone XR'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'iOS'
       OperatingSystemVersion               : '12.2'
@@ -1114,41 +1113,179 @@ config:
       AgentNameVersionMajor                : 'Instagram 121'
 
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT5)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '2000'
+      OperatingSystemVersionMajor          : '2000'
+      OperatingSystemNameVersion           : 'Windows 2000'
+      OperatingSystemNameVersionMajor      : 'Windows 2000'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Internet Explorer'
+      LayoutEngineVersion                  : '5.5'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Internet Explorer 5.5'
+      LayoutEngineNameVersionMajor         : 'Internet Explorer 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '5.5'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Internet Explorer 5.5'
+      AgentNameVersionMajor                : 'Internet Explorer 5'
 
-#  #FIXME: Unknown OS --> Windows !!
-#
-#- test: # TODO: Verify output
-#    input:
-#      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT5)'
-#
-#
-#- test: # TODO: Verify output
-#    input:
-#      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.0; Windows ME) Opera 5.11 [en]'
-#
-#
-#- test: # TODO: Verify output
-#    input:
-#      user_agent_string: 'Mozilla/2.0 (compatible; MSIE 3.03; Windows 3.1)'
-#
-#
-#- test: # TODO: Verify output
-#    input:
-#      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows XP 5.1) Lobo/0.98.4'
-#
-#
-#
-#  #FIXME: Unknown OS --> Unix !!
-#
-#- test: # TODO: Verify output
-#    input:
-#      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.0; UNIX) Opera 6.11 [fr]'
-#
-#
-#- test: # TODO: Verify output
-#    input:
-#      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.0; UNIX) Opera 6.12 [en]'
-#
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.0; Windows ME) Opera 5.11 [en]'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows 9x'
+      OperatingSystemVersion               : 'Millennium Edition'
+      OperatingSystemVersionMajor          : 'Millennium Edition'
+      OperatingSystemNameVersion           : 'Windows Millennium Edition'
+      OperatingSystemNameVersionMajor      : 'Windows Millennium Edition'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Presto 1'
+      LayoutEngineNameVersionMajor         : 'Presto 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '5.11'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Opera 5.11'
+      AgentNameVersionMajor                : 'Opera 5'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/2.0 (compatible; MSIE 3.03; Windows 3.1)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '16'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows 3.x'
+      OperatingSystemVersion               : '3.1'
+      OperatingSystemVersionMajor          : '3'
+      OperatingSystemNameVersion           : 'Windows 3.1'
+      OperatingSystemNameVersionMajor      : 'Windows 3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Internet Explorer'
+      LayoutEngineVersion                  : '3.03'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'Internet Explorer 3.03'
+      LayoutEngineNameVersionMajor         : 'Internet Explorer 3'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '3.03'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Internet Explorer 3.03'
+      AgentNameVersionMajor                : 'Internet Explorer 3'
+
+
+- test: # FIXME: Must be Lobo/0.98.4 instead of Internet Explorer
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows XP 5.1) Lobo/0.98.4'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'XP'
+      OperatingSystemVersionMajor          : 'XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      OperatingSystemNameVersionMajor      : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Internet Explorer'
+      LayoutEngineVersion                  : '6.0'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Internet Explorer 6.0'
+      LayoutEngineNameVersionMajor         : 'Internet Explorer 6'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '6.0'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Internet Explorer 6.0'
+      AgentNameVersionMajor                : 'Internet Explorer 6'
+
+
+- test: # TODO: Verify output
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.0; UNIX) Opera 6.11 [fr]'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Unix Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'UNIX'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'UNIX ??'
+      OperatingSystemNameVersionMajor      : 'UNIX ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Presto 1'
+      LayoutEngineNameVersionMajor         : 'Presto 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '6.11'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Opera 6.11'
+      AgentNameVersionMajor                : 'Opera 6'
+      AgentLanguage                        : 'French'
+      AgentLanguageCode                    : 'fr'
+
+
+
+- test: # TODO: Verify output
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.0; UNIX) Opera 6.12 [en]'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Unix Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'UNIX'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'UNIX ??'
+      OperatingSystemNameVersionMajor      : 'UNIX ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Presto 1'
+      LayoutEngineNameVersionMajor         : 'Presto 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '6.12'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Opera 6.12'
+      AgentNameVersionMajor                : 'Opera 6'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+
 #
 #
 #  #FIXME: Unknown OS --> Symbian OS !!
@@ -1187,16 +1324,71 @@ config:
 #- test: # TODO: Verify output
 #    input:
 #      user_agent_string: '"ntvmobil iPhone 6.35 Mozilla/5.0 (iPhone; U; CPU iPhone OS like Mac OS X; de-DE) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 ntvAgof (agof={\""angebot\"":\""appntv\"",\""plattform\"":\""iphone\""}) ntvPrivacy (allowed={\""adTracking\"":true,\""agof\"":true,\""googleanalytics\"":true,\""medienGruppenCookie\"":true,\""linkpulse\"":true,\""adjust\"":true})"'
-#
-#
-#- test: # TODO: Verify output
-#    input:
-#      user_agent_string: 'Mozilla/5.0 HLNApp/4.8.6.1 EmbeddedBrowser (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16B92 DeviceUID: 1E0EE834-D7CB-4B6F-A5B7-50555D41A7AB'
-#
-#
-#- test: # TODO: Verify output
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 12.2; en_US; ) AppleWebKit/0.0 (KHTML, like Gecko) Version/0.0; GmmClient:google_ios/com.google.Maps/5.15.11/Mobile/ios:iPhone11,8/iOS-AppStore'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 HLNApp/4.8.6.1 EmbeddedBrowser (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16B92 DeviceUID: 1E0EE834-D7CB-4B6F-A5B7-50555D41A7AB'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '16B92'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.1'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.1'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'HLNApp'
+      AgentVersion                         : '4.8.6.1'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'HLNApp 4.8.6.1'
+      AgentNameVersionMajor                : 'HLNApp 4'
+      AgentUuid                            : '1E0EE834-D7CB-4B6F-A5B7-50555D41A7AB'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 12.2; en_US; ) AppleWebKit/0.0 (KHTML, like Gecko) Version/0.0; GmmClient:google_ios/com.google.Maps/5.15.11/Mobile/ios:iPhone11,8/iOS-AppStore'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone XR'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.2'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.2'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '0.0'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'AppleWebKit 0.0'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 0'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '0.0'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'UIWebView 0.0'
+      AgentNameVersionMajor                : 'UIWebView 0'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+      WebviewAppName                       : 'Unknown Webview App' # FIXME: GmmClient:google_ios/com.google.Maps/5.15.11
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
 
 
 
