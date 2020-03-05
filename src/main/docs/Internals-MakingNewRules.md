@@ -258,6 +258,7 @@ Special operations
 Operation | Symbol | Example | Result value (if applicable)
 :--- |:--- |:---|:---
 Check if the expresssion resulted in a null 'no match' value. | IsNull[expression] | IsNull[agent.(1)product.(3)name] | true
+Return the result or the provided default value in case the expression was a null 'no match' value. | DefaultIfNull[expression;defaultvalue] | DefaultIfNull[agent.(1)product.(3)name;"Something"]
 Cleanup the version from an _ separated to a . separated string| CleanVersion[expression] | CleanVersion["1_2_3"] | 1.2.3
 LookUp the value against a lookup table | LookUp[lookupname;expression] | LookUp[OSNames;agent.product.entry.text]
 LookUp the value against a lookup table (with fallback in case no match) | LookUp[lookupname;expression;defaultvalue] | LookUp[OSNames;agent.product.entry.text;"Unknown"]

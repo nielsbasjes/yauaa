@@ -27,6 +27,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherBaseCon
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherDefaultIfNullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherExtractContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContainsContext;
@@ -209,6 +210,12 @@ public abstract class MatcherAction implements Serializable {
         }
 
         @Override
+        public Void visitMatcherDefaultIfNull(MatcherDefaultIfNullContext ctx) {
+            unQuoteToken(ctx.defaultValue);
+            return super.visitMatcherDefaultIfNull(ctx);
+        }
+
+        @Override
         public Void visitPathFixedValue(PathFixedValueContext ctx) {
             unQuoteToken(ctx.value);
             return super.visitPathFixedValue(ctx);
@@ -366,15 +373,17 @@ public abstract class MatcherAction implements Serializable {
             calculateInformPath(action, treeName, ((MatcherCleanVersionContext) tree).matcher()));
         CALCULATE_INFORM_PATH.put(MatcherPathLookupContext.class,       (action, treeName, tree) ->
             calculateInformPath(action, treeName, ((MatcherPathLookupContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathLookupContainsContext.class,       (action, treeName, tree) ->
+        CALCULATE_INFORM_PATH.put(MatcherPathLookupContainsContext.class,      (action, treeName, tree) ->
             calculateInformPath(action, treeName, ((MatcherPathLookupContainsContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupContainsContext.class,       (action, treeName, tree) ->
+        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupContainsContext.class,  (action, treeName, tree) ->
             calculateInformPath(action, treeName, ((MatcherPathIsInLookupContainsContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathLookupPrefixContext.class,       (action, treeName, tree) ->
+        CALCULATE_INFORM_PATH.put(MatcherPathLookupPrefixContext.class,        (action, treeName, tree) ->
             calculateInformPath(action, treeName, ((MatcherPathLookupPrefixContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupPrefixContext.class,       (action, treeName, tree) ->
+        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupPrefixContext.class,    (action, treeName, tree) ->
             calculateInformPath(action, treeName, ((MatcherPathIsInLookupPrefixContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherWordRangeContext.class,        (action, treeName, tree) ->
+        CALCULATE_INFORM_PATH.put(MatcherDefaultIfNullContext.class,           (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherDefaultIfNullContext) tree).matcher()));
+        CALCULATE_INFORM_PATH .put(MatcherWordRangeContext.class,        (action, treeName, tree) ->
             calculateInformPath(action, treeName, ((MatcherWordRangeContext) tree).matcher()));
 
         // -------------

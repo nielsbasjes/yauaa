@@ -83,7 +83,8 @@ matcher         : basePath                                                      
                 | 'IsInLookUpContains' BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsInLookupContains
                 | 'LookUpPrefix'       BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookupPrefix
                 | 'IsInLookUpPrefix'   BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsInLookupPrefix
-                | matcher wordRange                                                                     #matcherWordRange
+                | 'DefaultIfNull'      BLOCKOPEN                            matcher  SEMICOLON defaultValue=VALUE    BLOCKCLOSE #matcherDefaultIfNull
+                | matcher wordRange                                                                                             #matcherWordRange
                 ;
 
 basePath        : value=VALUE                              #pathFixedValue

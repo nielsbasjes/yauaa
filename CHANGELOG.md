@@ -6,6 +6,7 @@ v5.16-SNAPSHOT
   - Windows NT 9 --> Hacker
   - Can now load a resource string as 'Optional' (so it does not fail if these are missing)
   - Updated to HttpComponents Client 5.0
+  - Added new function DefaultIfNull
 - New/improved detections
   - Test cases for the 'frozen' Chrome strings.
   - Fixed edge case with duplicated tags

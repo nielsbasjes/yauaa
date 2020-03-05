@@ -27,6 +27,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsInSet;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepDefaultIfNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
@@ -50,6 +51,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVe
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherDefaultIfNullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContainsContext;
@@ -225,7 +227,7 @@ public class WalkList implements Serializable {
 
         Step step = getFirstStep();
         while (step != null) {
-            if (step instanceof StepIsNull) {
+            if (step instanceof StepIsNull || step instanceof StepDefaultIfNull) {
                 usesIsNull = true;
                 return true;
             }
@@ -349,6 +351,14 @@ public class WalkList implements Serializable {
             Map<String, String> lookup = getLookup(lookupName);
 
             add(new StepIsInLookupPrefix(lookupName, lookup));
+            return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherDefaultIfNull(MatcherDefaultIfNullContext ctx) {
+            // Always add this one, it's special
+            steps.add(new StepDefaultIfNull(ctx.defaultValue.getText()));
+            visit(ctx.matcher());
             return null; // Void
         }
 
