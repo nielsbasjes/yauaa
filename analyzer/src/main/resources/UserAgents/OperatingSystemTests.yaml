@@ -453,7 +453,7 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-      WebviewAppName                       : 'Unknown Webview App' # FIXME: Use the Google Maps tag.
+      WebviewAppName                       : 'Unknown Webview App'  # FIXME: GmmClient:google_ios/com.google.Maps/5.15.11
       WebviewAppVersion                    : '??'
       WebviewAppVersionMajor               : '??'
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
@@ -1525,43 +1525,6 @@ config:
       AgentNameVersion                     : 'HLNApp 4.8.6.1'
       AgentNameVersionMajor                : 'HLNApp 4'
       AgentUuid                            : '1E0EE834-D7CB-4B6F-A5B7-50555D41A7AB'
-
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 12.2; en_US; ) AppleWebKit/0.0 (KHTML, like Gecko) Version/0.0; GmmClient:google_ios/com.google.Maps/5.15.11/Mobile/ios:iPhone11,8/iOS-AppStore'
-    expected:
-      DeviceClass                          : 'Phone'
-      DeviceName                           : 'Apple iPhone'
-      DeviceBrand                          : 'Apple'
-      DeviceVersion                        : 'iPhone XR'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'iOS'
-      OperatingSystemVersion               : '12.2'
-      OperatingSystemVersionMajor          : '12'
-      OperatingSystemNameVersion           : 'iOS 12.2'
-      OperatingSystemNameVersionMajor      : 'iOS 12'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '0.0'
-      LayoutEngineVersionMajor             : '0'
-      LayoutEngineNameVersion              : 'AppleWebKit 0.0'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 0'
-      AgentClass                           : 'Browser Webview'
-      AgentName                            : 'UIWebView'
-      AgentVersion                         : '0.0'
-      AgentVersionMajor                    : '0'
-      AgentNameVersion                     : 'UIWebView 0.0'
-      AgentNameVersionMajor                : 'UIWebView 0'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      AgentSecurity                        : 'Strong security'
-      WebviewAppName                       : 'Unknown Webview App' # FIXME: GmmClient:google_ios/com.google.Maps/5.15.11
-      WebviewAppVersion                    : '??'
-      WebviewAppVersionMajor               : '??'
-      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
-
-
 
 
 #- test: # TODO: Verify output
