@@ -51,7 +51,7 @@ echo -e "${IYellow}Logstash ${VERSION}: Downloading${Color_Off}"
 
 curl "https://artifacts.elastic.co/downloads/logstash/logstash-oss-${VERSION}.tar.gz" | tar xzf - --to-stdout "logstash-${VERSION}/logstash-core/lib/jars/logstash-core.jar" > logstash-core.jar
 
-[ -s logstash-core.jar ] || echo -e "${IWhite}[${BIRed}FATAL${IWhite}] ${BIRed}Downloaded file is 0 bytes in size !!${Color_Off}" && exit 1
+[ -s logstash-core.jar ] || ( echo -e "${IWhite}[${BIRed}FATAL${IWhite}] ${BIRed}Downloaded file is 0 bytes in size !!${Color_Off}" && exit 1 )
 
 echo -e "${IYellow}Logstash ${VERSION}: Installing${Color_Off}"
 
