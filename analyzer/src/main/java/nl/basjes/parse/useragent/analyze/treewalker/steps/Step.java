@@ -42,6 +42,10 @@ public abstract class Step implements Serializable {
         this.verbose = newVerbose;
     }
 
+    public void destroy() {
+        nextStep = null;
+    }
+
     public final void setNextStep(int newStepNr, Step newNextStep) {
         this.stepNr = newStepNr;
         this.nextStep = newNextStep;

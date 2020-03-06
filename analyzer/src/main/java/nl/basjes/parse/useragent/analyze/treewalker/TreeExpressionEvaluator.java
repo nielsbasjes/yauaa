@@ -57,7 +57,6 @@ public class TreeExpressionEvaluator implements Serializable {
         walkList = null;
     }
 
-
     public TreeExpressionEvaluator(ParserRuleContext requiredPattern,
                                    Matcher matcher,
                                    boolean verbose) {
@@ -66,6 +65,10 @@ public class TreeExpressionEvaluator implements Serializable {
         this.verbose = verbose;
         this.fixedValue = calculateFixedValue(requiredPattern);
         walkList = new WalkList(requiredPattern, matcher.getLookups(), matcher.getLookupSets(), verbose);
+    }
+
+    public void destroy() {
+        walkList.destroy();
     }
 
     /**
@@ -87,7 +90,8 @@ public class TreeExpressionEvaluator implements Serializable {
             protected String aggregateResult(String aggregate, String nextResult) {
                 return nextResult == null ? aggregate : nextResult;
             }
-// FIXME: Handle UserAgentTreeWalkerParser.MatcherPathLookupContainsContext
+
+            // FIXME: Handle UserAgentTreeWalkerParser.MatcherPathLookupContainsContext
             @Override
             public String visitMatcherPathLookup(MatcherPathLookupContext ctx) {
                 return visitLookups(ctx.matcher(), ctx.lookup, ctx.defaultValue);

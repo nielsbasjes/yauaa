@@ -72,7 +72,6 @@ import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
 public class UserAgentTreeFlattener extends UserAgentBaseListener implements Serializable {
-    private static final ParseTreeWalker WALKER = new ParseTreeWalker();
     private final Analyzer               analyzer;
 
     private static final String AGENT    = "agent";
@@ -172,6 +171,10 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         this.analyzer = analyzer;
     }
 
+    public void clear() {
+        state = null;
+    }
+
     private boolean verbose = false;
 
     public void setVerbose(boolean newVerbose) {
@@ -216,7 +219,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
             inform(null, SYNTAX_ERROR, "false");
         }
 
-        WALKER.walk(this, userAgentContext);
+        ParseTreeWalker.DEFAULT.walk(this, userAgentContext);
         return userAgent;
     }
 

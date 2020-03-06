@@ -78,6 +78,17 @@ public class Matcher implements Serializable {
         this.dynamicActions = new ArrayList<>();
     }
 
+    public void destroy() {
+        variableActions.forEach(MatcherAction::destroy);
+        variableActions.clear();
+
+        dynamicActions.forEach(MatcherAction::destroy);
+        dynamicActions.clear();
+
+        fixedStringActions.forEach(MatcherAction::destroy);
+        fixedStringActions.clear();
+    }
+
     public Map<String, Map<String, String>> getLookups() {
         return analyzer.getLookups();
     }

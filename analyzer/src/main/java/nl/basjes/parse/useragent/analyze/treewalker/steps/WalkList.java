@@ -165,6 +165,13 @@ public class WalkList implements Serializable {
         }
     }
 
+    public void destroy() {
+        steps.forEach(Step::destroy);
+        steps.clear();
+        lookups.clear();
+        lookupSets.clear();
+    }
+
     private void linkSteps() {
         Step nextStep = null;
         for (int i = steps.size() - 1; i >= 0; i--) {

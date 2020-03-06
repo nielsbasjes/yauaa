@@ -8,6 +8,7 @@ v5.16-SNAPSHOT
   - Updated to HttpComponents Client 5.0
   - Added new function DefaultIfNull
   - Added new string split by '|' to make some lookups easier.
+  - Added destroy() method to clean up all memory usage.
 - New/improved detections
   - Test cases for the 'frozen' Chrome strings.
   - Fixed edge case with duplicated tags.

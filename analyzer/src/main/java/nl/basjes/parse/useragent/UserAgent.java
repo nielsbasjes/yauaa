@@ -184,6 +184,12 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     private boolean     hasAmbiguity;
     private int         ambiguityCount;
 
+    public void destroy() {
+        if (wantedFieldNames != null) {
+            wantedFieldNames.clear();
+        }
+    }
+
     public boolean hasSyntaxError() {
         return hasSyntaxError;
     }

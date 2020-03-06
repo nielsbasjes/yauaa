@@ -52,6 +52,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -205,6 +206,23 @@ public class ParseService {
                             e.getClass().getCanonicalName(), e.getMessage());
                 }
             }).start();
+        }
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        destroy();
+    }
+
+    private static void destroy() {
+        if (userAgentAnalyzer != null) {
+            UserAgentAnalyzer uaa = userAgentAnalyzer;
+            // First we disable it for all uses.
+            userAgentAnalyzer = null;
+            userAgentAnalyzerIsAvailable = false;
+            userAgentAnalyzerFailureMessage = "UserAgentAnalyzer has been destroyed.";
+            // Then we actually wipe it.
+            uaa.destroy();
         }
     }
 

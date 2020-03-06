@@ -89,6 +89,10 @@ public abstract class MatcherAction implements Serializable {
         return mustHaveMatches;
     }
 
+    public void destroy() {
+        evaluator.destroy();
+    }
+
     boolean verbose = false;
     private boolean verbosePermanent = false;
     private boolean verboseTemporary = false;

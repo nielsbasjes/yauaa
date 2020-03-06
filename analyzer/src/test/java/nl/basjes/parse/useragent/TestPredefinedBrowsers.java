@@ -46,6 +46,7 @@ public class TestPredefinedBrowsers {
         LOG.info("Validating when getting all fields");
         LOG.info("--------------------------------------------------------------");
         assertTrue(uaa.runTests(false, true, null, false, true));
+        uaa.destroy();
     }
 
     private void validateAllPredefinedBrowsersMultipleFields(Collection<String> fields) {

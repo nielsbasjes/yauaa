@@ -312,6 +312,34 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
 
     // --------------------------------------------
 
+    /**
+     * In some cases it was found that a memory leak could occur.
+     * This will wipe all internal data structures to avoid these problems.
+     * After calling this method this instance becomes unusable and cannot be 'repaired'
+     */
+    public synchronized void destroy() {
+        allMatchers.forEach(Matcher::destroy);
+        allMatchers.clear();
+
+        zeroInputMatchers.forEach(Matcher::destroy);
+        zeroInputMatchers.clear();
+
+        informMatcherActions.clear();
+        matcherConfigs.clear();
+
+        if (wantedFieldNames != null) {
+            wantedFieldNames.clear();
+        }
+
+        testCases.clear();
+
+        lookups.clear();
+        lookupSets.clear();
+        flattener.clear();
+    }
+
+    // --------------------------------------------
+
     public void loadResources(String resourceString) {
         loadResources(resourceString, true, false);
     }
