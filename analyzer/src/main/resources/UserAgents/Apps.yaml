@@ -1813,6 +1813,29 @@ config:
       AgentNameVersion                     : 'BBCSounds 1.13.2'
       AgentNameVersionMajor                : 'BBCSounds 1'
 
+# ===========================
+# The useragent created by the https://www.mytheresa.com/ App.
+
+- matcher:
+    require:
+    - 'agent.product.name="mythapp"'
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
+    - 'AgentClass                          :       42 :"Browser Webview"'
+    - 'AgentName                           :       42 :"UIWebView"'
+    - 'WebviewAppName                      :        1 :"Mytheresa App"'
+    - 'WebviewAppVersion                   :        1 :agent.product.name="mythapp"^.comments.(1)entry'
+
+- matcher:
+    require:
+    - 'agent.product.name="mythapp"'
+    - 'agent.product.name="Chrome"'
+    extract:
+    - 'AgentClass                          :       42 :"Browser Webview"'
+    - 'AgentName                           :       42 :"Chrome Webview"'
+    - 'WebviewAppName                      :        1 :"Mytheresa App"'
+    - 'WebviewAppVersion                   :        1 :agent.product.name="mythapp"^.comments.(1)entry'
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 9; SM-N960N Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/79.0.3945.93 Mobile Safari/537.36 mythapp (3.9.0 build 201905272; samsung SM-N960N; ko_KR; Android 9)'
@@ -1833,14 +1856,82 @@ config:
       LayoutEngineVersionMajor             : '79'
       LayoutEngineNameVersion              : 'Blink 79.0'
       LayoutEngineNameVersionMajor         : 'Blink 79'
-      # FIXME: Should be  mythapp (3.9.0 build 201905272; ... ; ko_KR; ... )
       AgentClass                           : 'Browser Webview'
       AgentName                            : 'Chrome Webview'
       AgentVersion                         : '79.0.3945.93'
       AgentVersionMajor                    : '79'
       AgentNameVersion                     : 'Chrome Webview 79.0.3945.93'
       AgentNameVersionMajor                : 'Chrome Webview 79'
-      WebviewAppName                       : 'Unknown Webview App'
-      WebviewAppVersion                    : '??'
-      WebviewAppVersionMajor               : '??'
-      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+      AgentLanguage                        : 'Korean (South Korea)'
+      AgentLanguageCode                    : 'ko-kr'
+      WebviewAppName                       : 'Mytheresa App'
+      WebviewAppVersion                    : '3.9.0 build 201905272'
+      WebviewAppVersionMajor               : '3'
+      WebviewAppNameVersionMajor           : 'Mytheresa App 3'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 mythapp (2.12.2 build 2110016; iPhone 7; en-US; iOS 13.1.2)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : '7'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '13.1.2'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'iOS 13.1.2'
+      OperatingSystemNameVersionMajor      : 'iOS 13'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '605.1.15'
+      AgentVersionMajor                    : '605'
+      AgentNameVersion                     : 'UIWebView 605.1.15'
+      AgentNameVersionMajor                : 'UIWebView 605'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      WebviewAppName                       : 'Mytheresa App'
+      WebviewAppVersion                    : '2.12.2 build 2110016'
+      WebviewAppVersionMajor               : '2'
+      WebviewAppNameVersionMajor           : 'Mytheresa App 2'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; SM-G955F Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/78.0.3904.62 Mobile Safari/537.36 mythapp (4.0.21.202000013 build 202000013 react-native; samsung SM-G955F; null; Android 9)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G955F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersionBuild          : 'PPR1.180610.011'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '78.0'
+      LayoutEngineVersionMajor             : '78'
+      LayoutEngineNameVersion              : 'Blink 78.0'
+      LayoutEngineNameVersionMajor         : 'Blink 78'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '78.0.3904.62'
+      AgentVersionMajor                    : '78'
+      AgentNameVersion                     : 'Chrome Webview 78.0.3904.62'
+      AgentNameVersionMajor                : 'Chrome Webview 78'
+      WebviewAppName                       : 'Mytheresa App'
+      WebviewAppVersion                    : '4.0.21.202000013 build 202000013 react-native'
+      WebviewAppVersionMajor               : '4'
+      WebviewAppNameVersionMajor           : 'Mytheresa App 4'
