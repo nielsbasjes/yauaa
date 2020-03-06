@@ -17,9 +17,9 @@
 
 package nl.basjes.parse.useragent.parse;
 
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.GetAllPathsAnalyzer;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.GetAllPathsAnalyzer;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

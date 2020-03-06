@@ -63,6 +63,13 @@ public class TestYamlBasedExpressions {
     }
 
     @Test
+    public void runSubsegmentTests() {
+        UserAgentAnalyzerTester uaa = createTester("SubSegment-tests.yaml");
+        assertTrue(uaa.runTests(false, false));
+    }
+
+
+    @Test
     public void runLookupTests() {
         UserAgentAnalyzerTester uaa = createTester("Lookup-tests.yaml");
         assertTrue(uaa.runTests(false, false));

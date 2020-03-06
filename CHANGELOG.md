@@ -7,6 +7,7 @@ v5.16-SNAPSHOT
   - Can now load a resource string as 'Optional' (so it does not fail if these are missing)
   - Updated to HttpComponents Client 5.0
   - Added new function DefaultIfNull
+  - Added new string split by '|' to make some lookups easier.
 - New/improved detections
   - Test cases for the 'frozen' Chrome strings.
   - Fixed edge case with duplicated tags.

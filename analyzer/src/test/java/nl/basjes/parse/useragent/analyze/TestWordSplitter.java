@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.utils.ListSplitter;
 import nl.basjes.parse.useragent.utils.Splitter;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
@@ -414,6 +415,49 @@ public class TestWordSplitter {
         assertNull(splitter.getSplitRange(value, -1, 2));
         assertNull(splitter.getSplitRange(value, 1, -2));
         assertNull(splitter.getSplitRange(value, 3, 2));
+    }
+
+
+    @Test
+    public void segmentSplitterRange() {
+        String value = "one two | three | four five";
+
+        Splitter splitter = ListSplitter.getInstance();
+
+        // Single word
+        assertEquals(null,                              splitter.getSplitRange(value, 0, 0));
+        assertEquals("one two ",                        splitter.getSplitRange(value, 1, 1));
+        assertEquals(" three ",                         splitter.getSplitRange(value, 2, 2));
+        assertEquals(" four five",                      splitter.getSplitRange(value, 3, 3));
+        assertEquals(null,                              splitter.getSplitRange(value, 4, 4));
+
+        // First words
+        assertEquals("one two ",                        splitter.getSplitRange(value, 1, 1));
+        assertEquals("one two | three ",                splitter.getSplitRange(value, 1, 2));
+        assertEquals("one two | three | four five",     splitter.getSplitRange(value, 1, 3));
+        assertEquals(null,                              splitter.getSplitRange(value, 1, 4));
+
+        // Last words
+        assertEquals("one two | three | four five",     splitter.getSplitRange(value, 1, -1));
+        assertEquals(" three | four five",              splitter.getSplitRange(value, 2, -1));
+        assertEquals(" four five",                      splitter.getSplitRange(value, 3, -1));
+        assertEquals(null,                              splitter.getSplitRange(value, 4, -1));
+
+        // 2 word slices
+        assertEquals(null,                              splitter.getSplitRange(value, 0, 1));
+        assertEquals("one two | three ",                splitter.getSplitRange(value, 1, 2));
+        assertEquals(" three | four five",              splitter.getSplitRange(value, 2, 3));
+        assertEquals(null,                              splitter.getSplitRange(value, 3, 4));
+
+        // 3 word slices
+        assertEquals(null,                              splitter.getSplitRange(value, 0, 2));
+        assertEquals("one two | three | four five",     splitter.getSplitRange(value, 1, 3));
+        assertEquals(null,                              splitter.getSplitRange(value, 2, 4));
+
+        // Edge cases
+        assertEquals(null,                              splitter.getSplitRange(value, 0,  0));
+        assertEquals(null,                              splitter.getSplitRange(value, 0, -1));
+        assertEquals(null,                              splitter.getSplitRange(value, -1, -1));
     }
 
 }

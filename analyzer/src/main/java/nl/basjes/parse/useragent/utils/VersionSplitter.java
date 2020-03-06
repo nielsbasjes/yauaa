@@ -31,6 +31,7 @@ public final class VersionSplitter extends Splitter {
 
     public boolean isSeparator(char c) {
         switch (c) {
+            case '|': // Next segment
             case '.':
             case '_':
             case '-':

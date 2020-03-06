@@ -34,6 +34,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsI
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContainsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupPrefixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherSegmentRangeContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherVariableContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableContext;
@@ -385,6 +386,8 @@ public abstract class MatcherAction implements Serializable {
             calculateInformPath(action, treeName, ((MatcherDefaultIfNullContext) tree).matcher()));
         CALCULATE_INFORM_PATH .put(MatcherWordRangeContext.class,        (action, treeName, tree) ->
             calculateInformPath(action, treeName, ((MatcherWordRangeContext) tree).matcher()));
+        CALCULATE_INFORM_PATH .put(MatcherSegmentRangeContext.class,        (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherSegmentRangeContext) tree).matcher()));
 
         // -------------
         CALCULATE_INFORM_PATH.put(PathVariableContext.class,            (action, treeName, tree) -> {

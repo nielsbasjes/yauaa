@@ -27,7 +27,6 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsInSet;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepDefaultIfNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
@@ -38,7 +37,9 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepDefaultIfNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSegmentRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNext;
@@ -47,6 +48,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrevN;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
@@ -80,6 +82,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrev4Conte
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrevContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepStartsWithValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepUpContext;
+import nl.basjes.parse.useragent.utils.AntlrUtils;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -204,7 +207,7 @@ public class WalkList implements Serializable {
         }
         Step firstStep = steps.get(0);
         if (verbose) {
-            Step.LOG.info("Tree: >>>{}<<<", tree.getText());
+            Step.LOG.info("Tree: >>>{}<<<", AntlrUtils.getSourceText((ParserRuleContext)tree));
             Step.LOG.info("Enter step: {}", firstStep);
         }
         WalkResult result = firstStep.walk(tree, value);
@@ -415,6 +418,14 @@ public class WalkList implements Serializable {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepWordRange(WordRangeVisitor.getRange(ctx.wordRange())));
+            return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherSegmentRange(UserAgentTreeWalkerParser.MatcherSegmentRangeContext ctx) {
+            visit(ctx.matcher());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepSegmentRange(WordRangeVisitor.getRange(ctx.wordRange())));
             return null; // Void
         }
 

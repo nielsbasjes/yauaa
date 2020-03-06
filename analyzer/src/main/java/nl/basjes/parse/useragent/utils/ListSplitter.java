@@ -17,43 +17,23 @@
 
 package nl.basjes.parse.useragent.utils;
 
-public final class WordSplitter extends Splitter {
-    private WordSplitter() {
+public final class ListSplitter extends Splitter {
+    private ListSplitter() {
     }
 
-    private static WordSplitter instance = null;
+    private static ListSplitter instance = null;
 
-    public static WordSplitter getInstance() {
+    public static ListSplitter getInstance() {
         if (instance == null) {
-            instance = new WordSplitter();
+            instance = new ListSplitter();
         }
         return instance;
     }
 
     public boolean isSeparator(char c) {
-        switch (c) {
-            case '|': // Next segment
-            case ' ':
-            case '.':
-            case ':':
-            case ';':
-            case '=':
-            case '/':
-            case '\\':
-            case '+':
-            case '-':
-            case '_':
-            case '<':
-            case '>':
-            case '~':
-            case '(': // EndOfString marker
-            case ')': // EndOfString marker
-                return true;
-            default:
-                return false;
-        }
+        return c == '|';
     }
     public boolean isEndOfStringSeparator(char c) {
-        return c == '(' || c == ')';
+        return false;
     }
 }
