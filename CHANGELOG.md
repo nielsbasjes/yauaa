@@ -15,6 +15,7 @@ v5.16-SNAPSHOT
 - Updated UDF dependencies
   - Apache Nifi      1.11.1
   - Apache Flink     1.10.0
+  - Elastic Logstash 7.6.1
 - Demonstration WebServlet
   - Support multiple useragents in one API request/manual test (line separated)
   - Support for custom rules

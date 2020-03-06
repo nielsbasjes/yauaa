@@ -42,6 +42,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.nodes.MappingNode;
 import org.yaml.snakeyaml.nodes.Node;
@@ -323,7 +324,9 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         long startFiles = System.nanoTime();
 
         flattener = new UserAgentTreeFlattener(this);
-        Yaml yaml = new Yaml();
+        final LoaderOptions yamlLoaderOptions = new LoaderOptions();
+        yamlLoaderOptions.setMaxAliasesForCollections(100); // We use this many in the hacker/sql injection config.
+        Yaml yaml = new Yaml(yamlLoaderOptions);
 
         final boolean loadingDefaultResources = DEFAULT_RESOURCES.equals(resourceString);
 
