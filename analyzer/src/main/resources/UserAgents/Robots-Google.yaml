@@ -1120,7 +1120,7 @@ config:
 
 - matcher:
     variable:
-    - 'BotName:LookUp[NamedGoogleRobots;agent.product.comments.entry.product.name]'
+    - 'BotName:LookUp[NamedGoogleRobots;agent.(1-5)product.comments.entry.product.name]'
     extract:
     - '__Set_ALL_Fields__                  :   299930 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   300030 :"Robot"'
@@ -1138,7 +1138,7 @@ config:
 
 - matcher:
     variable:
-    - 'Google:agent.product.comments.entry.product.name?NamedGoogleRobots'
+    - 'Google:agent.(1-5)product.comments.entry.product.name?NamedGoogleRobots'
     - 'BotVersion:@Google^.version'
     extract:
     - 'OperatingSystemVersion              :   300031 :@BotVersion'
@@ -1147,7 +1147,7 @@ config:
 
 - matcher:
     variable:
-    - 'Google:LookUp[NamedGoogleRobots;agent.product.comments.entry.text]'
+    - 'Google:LookUp[NamedGoogleRobots;agent.(1-5)product.comments.entry.text]'
     extract:
     - '__Set_ALL_Fields__                  :   299920 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   300020 :"Robot"'
