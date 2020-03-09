@@ -313,9 +313,11 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     // --------------------------------------------
 
     /**
-     * In some cases it was found that a memory leak could occur.
-     * This will wipe all internal data structures to avoid these problems.
-     * After calling this method this instance becomes unusable and cannot be 'repaired'
+     * In some cases it was found that simply dereferencing the instance and letting the GC clean it all up was "too hard".
+     * To assist in these kinds of problem cases this method will wipe the internal data structures as much as possible.
+     * After calling this method this instance becomes unusable and cannot be 'repaired'.
+     * Normal applications will never need this. Simply defererencing the analyzer will clean everything,
+     * no memory leaks (that we know of).
      */
     public synchronized void destroy() {
         allMatchers.forEach(Matcher::destroy);

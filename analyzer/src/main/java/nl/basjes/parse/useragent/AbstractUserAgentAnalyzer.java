@@ -37,11 +37,6 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         initializeCache();
     }
 
-    /**
-     * In some cases it was found that a memory leak could occur.
-     * This will wipe all internal data structures to avoid these problems.
-     * After calling this method this instance becomes unusable and cannot be 'repaired'
-     */
     public synchronized void destroy() {
         super.destroy();
         if (parseCache != null) {
