@@ -44,8 +44,11 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
      */
     public synchronized void destroy() {
         super.destroy();
-        parseCache.values().forEach(UserAgent::destroy);
-        parseCache.clear();
+        if (parseCache != null) {
+            parseCache.values().forEach(UserAgent::destroy);
+            parseCache.clear();
+            parseCache = null;
+        }
     }
 
     public static class KryoSerializer extends AbstractUserAgentAnalyzerDirect.KryoSerializer {
