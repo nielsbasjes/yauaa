@@ -122,6 +122,22 @@ config:
     - 'AgentLanguage                       :   501100 :LookUp[ISOLanguageCodes3Name;@Language]'
 
 - matcher:
+    variable:
+    - 'Language                            :agent.product.name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
+    extract:
+    - 'AgentLanguageCode                   :   501000 :LookUp[ISOLanguageCodes;@Language]'
+    - 'AgentLanguage                       :   501000 :LookUp[ISOLanguageCodesName;@Language]'
+
+- matcher:
+    variable:
+    - 'Language                            :agent.product.name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
+    extract:
+    - 'AgentLanguageCode                   :   501100 :LookUp[ISOLanguageCodes3;@Language]'
+    - 'AgentLanguage                       :   501100 :LookUp[ISOLanguageCodes3Name;@Language]'
+
+
+
+- matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1-3)product.name="HbbTV"'
     extract:
@@ -1110,6 +1126,8 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'HbbTV 1.1.1'
       AgentNameVersionMajor                : 'HbbTV 1'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
 
 - test:
     input:
@@ -1636,6 +1654,8 @@ config:
       AgentVersionMajor                    : '36'
       AgentNameVersion                     : 'Opera 36.0.2128.0'
       AgentNameVersionMajor                : 'Opera 36'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
       NetworkType                          : 'Wireless'
 
 
@@ -1724,21 +1744,386 @@ config:
       AgentVersionMajor                    : '36'
       AgentNameVersion                     : 'Opera 36.0.2128.0'
       AgentNameVersionMajor                : 'Opera 36'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
       NetworkType                          : 'Wireless'
 
-#  Mozilla/5.0 (Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.Driver6.25 , _TV_MT5806/091.002.078.253 (Philips, OLED754, wired)  CE-HTML/1.0 NETTV/4.6.0.2 SignOn/2.0 SmartTvA/5.0.0 WH1.0 en
-#  Mozilla/5.0 (Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.Driver6.25 , _TV_MT5806/091.002.078.253 (Philips, PUS6504, wired)  CE-HTML/1.0 NETTV/4.6.0.2 SignOn/2.0 SmartTvA/5.0.0 WH1.0 en
-#  Mozilla/5.0 (Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.Driver6.25 , _TV_MT5806/091.002.078.253 (Philips, PUS6504, wireless)  CE-HTML/1.0 NETTV/4.6.0.2 SignOn/2.0 SmartTvA/5.0.0 WH1.0 en
-#  Mozilla/5.0 (Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.Driver6.25 , _TV_MT5806/091.002.078.253 (Philips, PUS6804, wired)  CE-HTML/1.0 NETTV/4.6.0.2 SignOn/2.0 SmartTvA/5.0.0 WH1.0 en
-#
-#  Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 OPR/40.0.2207.0 OMI/4.9.0.237.DOM3.194 Model/Vestel-MB211 VSTVB MB200 HbbTV/1.2.1 (; SALORA; MB211; 0.49.3.0; _TV_NT72563_2017;) SmartTvA/3.0.0
-#  Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 OPR/40.0.2207.0 OMI/4.9.0.237.DOM3-OPT.235 Model/Vestel-MB130 VSTVB MB100 HbbTV/1.2.1 (; ALDINORD; MB130; 5.7.9.0; _TV_G10_2017;) SmartTvA/3.0.0 CE-HTML/1.0 FXM-U2FsdGVkX1+oZew0140/QIEzVMHjA54RB34hhk2Aai+6G2fyuolRFrh0HcgJ55RC-END
-#  Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 OPR/40.0.2207.0 OMI/4.9.0.237.DOM3-OPT.235 Model/Vestel-MB130 VSTVB MB100 HbbTV/1.2.1 (; HORIZON; MB130; 3.62.35.1; _TV_G10_2017;) SmartTvA/3.0.0
-#
-#  Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/42.0.2311.152 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_MS6586/V8-S586T02-LF1V089 (TCL,U55P6006,wired)
-#  Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/42.0.2311.152 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_MT5655/V8-S586T02-LF1V052 (THOMSON,43UC6306,wired)
-#  Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/42.0.2311.152 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_nt563/V8-N563T01-LF1V156 (TCL,43S312,wireless)
-#  Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/61.0.3163.100 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_ms6586/V8-S586T02-LF1V299 (TCL,U49P60*6,wired)
-#  Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux;CE-HTML/1.0;U;en), Chrome/49.0.2623.87 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_UNKONWN/V8-NT563LA-LF1V291 (MANTA,32LHS79T,wireless)
-#  Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux;CE-HTML/1.0;U;en), Chrome/49.0.2623.87 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_UNKONWN/V8-S586T02-LF1V424 (TCL,49DP60*,wired)
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.Driver6.25 , _TV_MT5806/091.002.078.253 (Philips, OLED754, wired)  CE-HTML/1.0 NETTV/4.6.0.2 SignOn/2.0 SmartTvA/5.0.0 WH1.0 en'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Philips OLED754'
+      DeviceBrand                          : 'Philips'
+      DeviceCpu                            : 'AArch64'
+      DeviceCpuBits                        : '64'
+      DeviceVersion                        : '091.002.078.253'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'AArch64'
+      OperatingSystemVersionMajor          : 'AArch64'
+      OperatingSystemNameVersion           : 'Linux AArch64'
+      OperatingSystemNameVersionMajor      : 'Linux AArch64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '36.0.2128.0'
+      AgentVersionMajor                    : '36'
+      AgentNameVersion                     : 'Opera 36.0.2128.0'
+      AgentNameVersionMajor                : 'Opera 36'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      NetworkType                          : 'Wired'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.Driver6.25 , _TV_MT5806/091.002.078.253 (Philips, PUS6504, wired)  CE-HTML/1.0 NETTV/4.6.0.2 SignOn/2.0 SmartTvA/5.0.0 WH1.0 en'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Philips PUS6504'
+      DeviceBrand                          : 'Philips'
+      DeviceCpu                            : 'AArch64'
+      DeviceCpuBits                        : '64'
+      DeviceVersion                        : '091.002.078.253'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'AArch64'
+      OperatingSystemVersionMajor          : 'AArch64'
+      OperatingSystemNameVersion           : 'Linux AArch64'
+      OperatingSystemNameVersionMajor      : 'Linux AArch64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '36.0.2128.0'
+      AgentVersionMajor                    : '36'
+      AgentNameVersion                     : 'Opera 36.0.2128.0'
+      AgentNameVersionMajor                : 'Opera 36'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      NetworkType                          : 'Wired'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.Driver6.25 , _TV_MT5806/091.002.078.253 (Philips, PUS6504, wireless)  CE-HTML/1.0 NETTV/4.6.0.2 SignOn/2.0 SmartTvA/5.0.0 WH1.0 en'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Philips PUS6504'
+      DeviceBrand                          : 'Philips'
+      DeviceCpu                            : 'AArch64'
+      DeviceCpuBits                        : '64'
+      DeviceVersion                        : '091.002.078.253'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'AArch64'
+      OperatingSystemVersionMajor          : 'AArch64'
+      OperatingSystemNameVersion           : 'Linux AArch64'
+      OperatingSystemNameVersionMajor      : 'Linux AArch64'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '36.0.2128.0'
+      AgentVersionMajor                    : '36'
+      AgentNameVersion                     : 'Opera 36.0.2128.0'
+      AgentNameVersionMajor                : 'Opera 36'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      NetworkType                          : 'Wireless'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 OPR/40.0.2207.0 OMI/4.9.0.237.DOM3.194 Model/Vestel-MB211 VSTVB MB200 HbbTV/1.2.1 (; SALORA; MB211; 0.49.3.0; _TV_NT72563_2017;) SmartTvA/3.0.0'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Salora MB211'
+      DeviceBrand                          : 'Salora'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '0.49.3.0'
+      OperatingSystemVersionMajor          : '0'
+      OperatingSystemNameVersion           : 'Linux 0.49.3.0'
+      OperatingSystemNameVersionMajor      : 'Linux 0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '40.0.2207.0'
+      AgentVersionMajor                    : '40'
+      AgentNameVersion                     : 'Opera 40.0.2207.0'
+      AgentNameVersionMajor                : 'Opera 40'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 OPR/40.0.2207.0 OMI/4.9.0.237.DOM3-OPT.235 Model/Vestel-MB130 VSTVB MB100 HbbTV/1.2.1 (; ALDINORD; MB130; 5.7.9.0; _TV_G10_2017;) SmartTvA/3.0.0 CE-HTML/1.0 FXM-U2FsdGVkX1+oZew0140/QIEzVMHjA54RB34hhk2Aai+6G2fyuolRFrh0HcgJ55RC-END'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Aldinord MB130'
+      DeviceBrand                          : 'Aldinord'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '5.7.9.0'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'Linux 5.7.9.0'
+      OperatingSystemNameVersionMajor      : 'Linux 5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '40.0.2207.0'
+      AgentVersionMajor                    : '40'
+      AgentNameVersion                     : 'Opera 40.0.2207.0'
+      AgentNameVersionMajor                : 'Opera 40'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 OPR/40.0.2207.0 OMI/4.9.0.237.DOM3-OPT.235 Model/Vestel-MB130 VSTVB MB100 HbbTV/1.2.1 (; HORIZON; MB130; 3.62.35.1; _TV_G10_2017;) SmartTvA/3.0.0'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Horizon MB130'
+      DeviceBrand                          : 'Horizon'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '3.62.35.1'
+      OperatingSystemVersionMajor          : '3'
+      OperatingSystemNameVersion           : 'Linux 3.62.35.1'
+      OperatingSystemNameVersionMajor      : 'Linux 3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '40.0.2207.0'
+      AgentVersionMajor                    : '40'
+      AgentNameVersion                     : 'Opera 40.0.2207.0'
+      AgentNameVersionMajor                : 'Opera 40'
+
+
+- test:
+    input:
+      user_agent_string: 'Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/42.0.2311.152 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_MS6586/V8-S586T02-LF1V089 (TCL,U55P6006,wired)'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'TCL U55P6006'
+      DeviceBrand                          : 'TCL'
+      DeviceCpu                            : 'ARMv7i'
+      DeviceCpuBits                        : '32'
+      DeviceVersion                        : 'V8-S586T02-LF1V089'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '42.0'
+      LayoutEngineVersionMajor             : '42'
+      LayoutEngineNameVersion              : 'Blink 42.0'
+      LayoutEngineNameVersionMajor         : 'Blink 42'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Tbrowser'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Tbrowser 2.0'
+      AgentNameVersionMajor                : 'Tbrowser 2'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      NetworkType                          : 'Wired'
+
+
+- test:
+    input:
+      user_agent_string: 'Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/42.0.2311.152 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_MT5655/V8-S586T02-LF1V052 (THOMSON,43UC6306,wired)'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Thomson 43UC6306'
+      DeviceBrand                          : 'Thomson'
+      DeviceCpu                            : 'ARMv7i'
+      DeviceCpuBits                        : '32'
+      DeviceVersion                        : 'V8-S586T02-LF1V052'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '42.0'
+      LayoutEngineVersionMajor             : '42'
+      LayoutEngineNameVersion              : 'Blink 42.0'
+      LayoutEngineNameVersionMajor         : 'Blink 42'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Tbrowser'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Tbrowser 2.0'
+      AgentNameVersionMajor                : 'Tbrowser 2'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      NetworkType                          : 'Wired'
+
+
+- test:
+    input:
+      user_agent_string: 'Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/42.0.2311.152 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_nt563/V8-N563T01-LF1V156 (TCL,43S312,wireless)'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'TCL 43S312'
+      DeviceBrand                          : 'TCL'
+      DeviceCpu                            : 'ARMv7i'
+      DeviceCpuBits                        : '32'
+      DeviceVersion                        : 'V8-N563T01-LF1V156'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '42.0'
+      LayoutEngineVersionMajor             : '42'
+      LayoutEngineNameVersion              : 'Blink 42.0'
+      LayoutEngineNameVersionMajor         : 'Blink 42'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Tbrowser'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Tbrowser 2.0'
+      AgentNameVersionMajor                : 'Tbrowser 2'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      NetworkType                          : 'Wireless'
+
+
+- test:
+    input:
+      user_agent_string: 'Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/61.0.3163.100 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_ms6586/V8-S586T02-LF1V299 (TCL,U49P60*6,wired)'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'TCL U49P60*6'
+      DeviceBrand                          : 'TCL'
+      DeviceCpu                            : 'ARMv7i'
+      DeviceCpuBits                        : '32'
+      DeviceVersion                        : 'V8-S586T02-LF1V299'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Tbrowser'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Tbrowser 2.0'
+      AgentNameVersionMajor                : 'Tbrowser 2'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      NetworkType                          : 'Wired'
+
+
+- test:
+    input:
+      user_agent_string: 'Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux;CE-HTML/1.0;U;en), Chrome/49.0.2623.87 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_UNKONWN/V8-NT563LA-LF1V291 (MANTA,32LHS79T,wireless)'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Manta 32LHS79T'
+      DeviceBrand                          : 'Manta'
+      DeviceVersion                        : 'V8-NT563LA-LF1V291'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Tbrowser'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Tbrowser 2.0'
+      AgentNameVersionMajor                : 'Tbrowser 2'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      NetworkType                          : 'Wireless'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36 OPR/46.0.2207.0 LOEWE-SL310/5.1.8.0 HbbTV/1.2.1 (; LOEWE; SL310; LOH/5.1.8.0;;) CE-HTML/1.0 Config (L:nld,CC:NLD) NETRANGEMMH'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Loewe SL310'
+      DeviceBrand                          : 'Loewe'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'LOH'
+      OperatingSystemVersion               : '5.1.8.0'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'LOH 5.1.8.0'
+      OperatingSystemNameVersionMajor      : 'LOH 5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '59.0'
+      LayoutEngineVersionMajor             : '59'
+      LayoutEngineNameVersion              : 'Blink 59.0'
+      LayoutEngineNameVersionMajor         : 'Blink 59'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '46.0.2207.0'
+      AgentVersionMajor                    : '46'
+      AgentNameVersion                     : 'Opera 46.0.2207.0'
+      AgentNameVersionMajor                : 'Opera 46'
+      AgentSecurity                        : 'Strong security'
+      AgentLanguage                        : 'Dutch'
+      AgentLanguageCode                    : 'nld'
 

@@ -424,39 +424,6 @@ config:
       AgentNameVersionMajor                : 'Cyberdog 2'
 
 
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 12.2; en_US; ) AppleWebKit/0.0 (KHTML, like Gecko) Version/0.0; GmmClient:google_ios/com.google.Maps/5.15.11/Mobile/ios:iPhone11,8/iOS-AppStore'
-    expected:
-      DeviceClass                          : 'Phone'
-      DeviceName                           : 'Apple iPhone'
-      DeviceBrand                          : 'Apple'
-      DeviceVersion                        : 'iPhone XR'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'iOS'
-      OperatingSystemVersion               : '12.2'
-      OperatingSystemVersionMajor          : '12'
-      OperatingSystemNameVersion           : 'iOS 12.2'
-      OperatingSystemNameVersionMajor      : 'iOS 12'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '0.0'
-      LayoutEngineVersionMajor             : '0'
-      LayoutEngineNameVersion              : 'AppleWebKit 0.0'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 0'
-      AgentClass                           : 'Browser Webview'
-      AgentName                            : 'UIWebView'
-      AgentVersion                         : '0.0'
-      AgentVersionMajor                    : '0'
-      AgentNameVersion                     : 'UIWebView 0.0'
-      AgentNameVersionMajor                : 'UIWebView 0'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      AgentSecurity                        : 'Strong security'
-      WebviewAppName                       : 'Unknown Webview App'  # FIXME: GmmClient:google_ios/com.google.Maps/5.15.11
-      WebviewAppVersion                    : '??'
-      WebviewAppVersionMajor               : '??'
-      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
 
 
 - test:
@@ -696,7 +663,16 @@ config:
       AgentNameVersionMajor                : 'Pinterest for iOS 7'
 
 
-- test: # TODO: Fix the iOS detection (messy case)
+- matcher:
+    variable:
+    - 'NRC                                 :agent.product.(1)name="NRC Digitale Editie, nl.nrc.nrcapp"'
+    require:
+    - '@NRC^.(2)version="iOS"'
+    extract:
+    - 'OperatingSystemName                 :      200 : "iOS"'
+    - 'OperatingSystemVersion              :      200 : @NRC^>.text'
+
+- test:
     input:
       user_agent_string: 'iPad (compatible; Smartphone2.0) NRC Digitale Editie, nl.nrc.nrcapp 9.14 (156) / iOS 13.1.2'
       #    - 'agent.(2)product="NRC Digitale Editie, nl.nrc.nrcapp 9.14 (156) / iOS"'
@@ -714,10 +690,10 @@ config:
       DeviceVersion                        : 'iPad'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'iOS'
-      OperatingSystemVersion               : '??'          # FIXME: Should be '13.1.2'
-      OperatingSystemVersionMajor          : '??'          # FIXME: Should be '13'
-      OperatingSystemNameVersion           : 'iOS ??'      # FIXME: Should be 'iOS 13.1.2'
-      OperatingSystemNameVersionMajor      : 'iOS ??'      # FIXME: Should be 'iOS 13'
+      OperatingSystemVersion               : '13.1.2'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'iOS 13.1.2'
+      OperatingSystemNameVersionMajor      : 'iOS 13'
       LayoutEngineClass                    : 'Unknown'
       LayoutEngineName                     : 'Unknown'
       LayoutEngineVersion                  : '??'
@@ -1227,7 +1203,7 @@ config:
       AgentNameVersionMajor                : 'Internet Explorer 6'
 
 
-- test: # TODO: Verify output
+- test:
     input:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.0; UNIX) Opera 6.11 [fr]'
     expected:
@@ -1257,7 +1233,7 @@ config:
 
 
 
-- test: # TODO: Verify output
+- test:
     input:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.0; UNIX) Opera 6.12 [en]'
     expected:
@@ -1372,163 +1348,3 @@ config:
       AgentNameVersionMajor                : 'Internet Explorer 5'
 
 
-## Really special with json part.
-- test:
-    input:
-      user_agent_string: '"ntvmobil iPhone 7.0 Mozilla/5.0 (iPhone; U; CPU iPhone OS like Mac OS X; de-DE) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 ntvAgof (agof={\""angebot\"":\""appntv\"",\""plattform\"":\""iphone\""}) ntvPrivacy (allowed={\""adTracking\"":true,\""agof\"":true,\""googleanalytics\"":true,\""medienGruppenCookie\"":true,\""linkpulse\"":true,\""adjust\"":true})"'
-    expected:
-      DeviceClass                          : 'Phone'
-      DeviceName                           : 'Apple iPhone'
-      DeviceBrand                          : 'Apple'
-      DeviceVersion                        : 'iPhone'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'iOS'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'iOS ??'
-      OperatingSystemNameVersionMajor      : 'iOS ??'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '600.1.4'
-      LayoutEngineVersionMajor             : '600'
-      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Safari'
-      AgentVersion                         : '8.0'
-      AgentVersionMajor                    : '8'
-      AgentNameVersion                     : 'Safari 8.0'
-      AgentNameVersionMajor                : 'Safari 8'
-      AgentLanguage                        : 'German (Germany)'
-      AgentLanguageCode                    : 'de-de'
-      AgentSecurity                        : 'Strong security'
-
-
-- test: # TODO: is really the NTV Mobile app
-    input:
-      user_agent_string: '"ntvmobil iPhone 7.1 Mozilla/5.0 (iPhone; U; CPU iPhone OS like Mac OS X; de-DE) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 ntvAgof (agof={\""angebot\"":\""appntv\"",\""plattform\"":\""iphone\""}) ntvPrivacy (allowed={\""adTracking\"":true,\""agof\"":true,\""googleanalytics\"":true,\""medienGruppenCookie\"":true,\""linkpulse\"":true,\""adjust\"":true})"'
-    expected:
-      DeviceClass                          : 'Phone'
-      DeviceName                           : 'Apple iPhone'
-      DeviceBrand                          : 'Apple'
-      DeviceVersion                        : 'iPhone'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'iOS'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'iOS ??'
-      OperatingSystemNameVersionMajor      : 'iOS ??'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '600.1.4'
-      LayoutEngineVersionMajor             : '600'
-      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Safari'
-      AgentVersion                         : '8.0'
-      AgentVersionMajor                    : '8'
-      AgentNameVersion                     : 'Safari 8.0'
-      AgentNameVersionMajor                : 'Safari 8'
-      AgentLanguage                        : 'German (Germany)'
-      AgentLanguageCode                    : 'de-de'
-      AgentSecurity                        : 'Strong security'
-
-
-- test: # TODO: is really the NTV Mobile app
-    input:
-      user_agent_string: '"ntvmobil iPhone 6.35 Mozilla/5.0 (iPhone; U; CPU iPhone OS like Mac OS X; en-NL) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 ntvAgof (agof={\""angebot\"":\""appntv\"",\""plattform\"":\""iphone\""}) ntvPrivacy (allowed={\""adTracking\"":true,\""agof\"":true,\""googleanalytics\"":true,\""medienGruppenCookie\"":true,\""linkpulse\"":true,\""adjust\"":true})"'
-    expected:
-      DeviceClass                          : 'Phone'
-      DeviceName                           : 'Apple iPhone'
-      DeviceBrand                          : 'Apple'
-      DeviceVersion                        : 'iPhone'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'iOS'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'iOS ??'
-      OperatingSystemNameVersionMajor      : 'iOS ??'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '600.1.4'
-      LayoutEngineVersionMajor             : '600'
-      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Safari'
-      AgentVersion                         : '8.0'
-      AgentVersionMajor                    : '8'
-      AgentNameVersion                     : 'Safari 8.0'
-      AgentNameVersionMajor                : 'Safari 8'
-      AgentLanguage                        : 'English (Netherlands)'
-      AgentLanguageCode                    : 'en-nl'
-      AgentSecurity                        : 'Strong security'
-
-
-- test: # TODO: is really the NTV Mobile app
-    input:
-      user_agent_string: '"ntvmobil iPhone 6.35 Mozilla/5.0 (iPhone; U; CPU iPhone OS like Mac OS X; de-DE) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 ntvAgof (agof={\""angebot\"":\""appntv\"",\""plattform\"":\""iphone\""}) ntvPrivacy (allowed={\""adTracking\"":true,\""agof\"":true,\""googleanalytics\"":true,\""medienGruppenCookie\"":true,\""linkpulse\"":true,\""adjust\"":true})"'
-    expected:
-      DeviceClass                          : 'Phone'
-      DeviceName                           : 'Apple iPhone'
-      DeviceBrand                          : 'Apple'
-      DeviceVersion                        : 'iPhone'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'iOS'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'iOS ??'
-      OperatingSystemNameVersionMajor      : 'iOS ??'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '600.1.4'
-      LayoutEngineVersionMajor             : '600'
-      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Safari'
-      AgentVersion                         : '8.0'
-      AgentVersionMajor                    : '8'
-      AgentNameVersion                     : 'Safari 8.0'
-      AgentNameVersionMajor                : 'Safari 8'
-      AgentLanguage                        : 'German (Germany)'
-      AgentLanguageCode                    : 'de-de'
-      AgentSecurity                        : 'Strong security'
-
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 HLNApp/4.8.6.1 EmbeddedBrowser (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16B92 DeviceUID: 1E0EE834-D7CB-4B6F-A5B7-50555D41A7AB'
-    expected:
-      DeviceClass                          : 'Phone'
-      DeviceName                           : 'Apple iPhone'
-      DeviceBrand                          : 'Apple'
-      DeviceFirmwareVersion                : '16B92'
-      DeviceVersion                        : 'iPhone'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'iOS'
-      OperatingSystemVersion               : '12.1'
-      OperatingSystemVersionMajor          : '12'
-      OperatingSystemNameVersion           : 'iOS 12.1'
-      OperatingSystemNameVersionMajor      : 'iOS 12'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '605.1.15'
-      LayoutEngineVersionMajor             : '605'
-      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'HLNApp'
-      AgentVersion                         : '4.8.6.1'
-      AgentVersionMajor                    : '4'
-      AgentNameVersion                     : 'HLNApp 4.8.6.1'
-      AgentNameVersionMajor                : 'HLNApp 4'
-      AgentUuid                            : '1E0EE834-D7CB-4B6F-A5B7-50555D41A7AB'
-
-
-#- test: # TODO: Verify output
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (Linux; U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36 OPR/46.0.2207.0 LOEWE-SL310/5.1.8.0 HbbTV/1.2.1 (; LOEWE; SL310; LOH/5.1.8.0;;) CE-HTML/1.0 Config (L:nld,CC:NLD) NETRANGEMMH'
-
-#

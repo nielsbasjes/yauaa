@@ -13,6 +13,7 @@ v5.16-SNAPSHOT
   - Test cases for the 'frozen' Chrome strings.
   - Fixed edge case with duplicated tags.
   - Mytheresa app, Catchpoint Analyzer, Dynatrace Ruxit.
+  - More Google related bots
 - Updated UDF dependencies
   - Apache Nifi      1.11.1
   - Apache Flink     1.10.0

@@ -57,6 +57,12 @@ echo ""
 echo "config:"
 
 echo "# Match the 2 and 2-2 letter variants:"
+
+echo "- matcher:"
+echo "    extract:"
+echo "      - 'AgentLanguageCode                   :   100 :LookUp[ISOLanguageCodes;agent.(1-20)text]'"
+echo "      - 'AgentLanguage                       :   100 :LookUp[ISOLanguageCodesName;agent.(1-20)text]'"
+
 echo "- matcher:"
 echo "    extract:"
 echo "    - 'AgentLanguageCode                   :   500005 :LookUp[ISOLanguageCodes;agent.(1)product.(1)comments.entry.(1-2)text]'"
@@ -82,6 +88,12 @@ echo "    - 'AgentLanguage                       :   500008 :LookUp[ISOLanguageC
 echo ""
 
 echo "# Match the 3 variants:"
+
+echo "- matcher:"
+echo "    extract:"
+echo "      - 'AgentLanguageCode                   :   100 :LookUp[ISOLanguageCodes3;agent.(1-20)text]'"
+echo "      - 'AgentLanguage                       :   100 :LookUp[ISOLanguageCodes3Name;agent.(1-20)text]'"
+
 echo "- matcher:"
 echo "    extract:"
 echo "    - 'AgentLanguageCode                   :   499905 :LookUp[ISOLanguageCodes3;agent.(1)product.(1)comments.entry.(1-2)text]'"

@@ -1133,38 +1133,31 @@ config:
 
 # "Today, we’re launching a new feature which will let everyone using Google Go’s browser listen to webpages out loud."
 
-- matcher:
-    require:
-    - 'agent="google-speakr"'
-    extract:
-    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :    10000 :"Mobile"'
-    - 'AgentClass                          :    10000 :"Voice"'
-    - 'OperatingSystemClass                :    10000 :"Mobile"'
-    - 'OperatingSystemName                 :    10000 :"Android"'
-    - 'AgentClass                          :    10000 :"Voice"'
-    - 'AgentName                           :    10000 :"Google Go"'
-
-
 - test:
     input:
       user_agent_string: 'google-speakr'
     expected:
-      DeviceClass                          : 'Mobile'
-      DeviceName                           : 'Unknown'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Read Aloud'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
       OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Android ??'
-      OperatingSystemNameVersionMajor      : 'Android ??'
-      AgentClass                           : 'Voice'
-      AgentName                            : 'Google Go'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Read Aloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Read Aloud ??'
+      LayoutEngineNameVersionMajor         : 'Google Read Aloud ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Read Aloud'
       AgentVersion                         : '??'
       AgentVersionMajor                    : '??'
-      AgentNameVersion                     : 'Google Go ??'
-      AgentNameVersionMajor                : 'Google Go ??'
+      AgentNameVersion                     : 'Google Read Aloud ??'
+      AgentNameVersionMajor                : 'Google Read Aloud ??'
 
 
 - test:
@@ -1363,19 +1356,349 @@ config:
       AgentUuid                            : '4AEB9FB8-F815-4150-9B25-7CAED49F185C'
 
 
-#- test: # TODO: Verify
-#    input:
-#      user_agent_string: '15min/3.2.18 Mozilla/5.0 (iPhone; CPU iPhone OS 13_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 EmbeddedBrowser DeviceUID: 4111C299-2E0A-430D-994A-E63AC824065F'
-#
-#
-#- test: # TODO: Verify
-#    input:
-#      user_agent_string: 'Autoplius.lt/4.4.0 Mozilla/5.0 (iPhone; CPU iPhone OS 12_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 EmbeddedBrowser DeviceUID: CEDA6E92-1204-4630-BA16-61871A213A10'
-#
-#
-#- test: # TODO: Verify
-#    input:
-#      user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 12.4.1; en_US; ) AppleWebKit/0.0 (KHTML, like Gecko) Version/0.0; GmmClient:google_ios/com.google.Maps/5.27.8/Mobile/ios:iPhone10,5/iOS-AppStore'
+- matcher:
+    require:
+    - 'IsNull[agent.(1)product.name="Mozilla"]'
+    - 'agent.(2)product.name="Mozilla"'
+    - 'agent.(2)product.version="5.0"'
+    - 'agent.product.name="EmbeddedBrowser"'
+    extract:
+    - 'AgentClass                          :      100 : "Mobile App"'
+    - 'AgentName                           :      100 : agent.(1)product.name'
+    - 'AgentVersion                        :      100 : agent.(1)product.version'
+
+- matcher:
+    require:
+    - 'IsNull[agent.(1)product.name="Mozilla"]'
+    - 'agent.(3)product.name="EmbeddedBrowser"'
+    extract:
+    - 'AgentClass                          :      100 : "Mobile App"'
+    - 'AgentName                           :      100 : agent.(2)product.name'
+    - 'AgentVersion                        :      100 : agent.(2)product.version'
+
+- matcher:
+    variable:
+    - 'EmbeddedBrowser                     :agent.product.name="EmbeddedBrowser"'
+    extract:
+    - 'AgentUuid                           :      100 : @EmbeddedBrowser^.version.(1)keyvalue.(2)uuid'
+
+
+- test:
+    input:
+      user_agent_string: '15min/3.2.18 Mozilla/5.0 (iPhone; CPU iPhone OS 13_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 EmbeddedBrowser DeviceUID: 4111C299-2E0A-430D-994A-E63AC824065F'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '13.1.1'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'iOS 13.1.1'
+      OperatingSystemNameVersionMajor      : 'iOS 13'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : '15min'
+      AgentVersion                         : '3.2.18'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : '15min 3.2.18'
+      AgentNameVersionMajor                : '15min 3'
+      AgentUuid                            : '4111C299-2E0A-430D-994A-E63AC824065F'
+
+
+- test:
+    input:
+      user_agent_string: 'Autoplius.lt/4.4.0 Mozilla/5.0 (iPhone; CPU iPhone OS 12_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 EmbeddedBrowser DeviceUID: CEDA6E92-1204-4630-BA16-61871A213A10'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.4.1'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.4.1'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Autoplius.lt'
+      AgentVersion                         : '4.4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Autoplius.lt 4.4.0'
+      AgentNameVersionMajor                : 'Autoplius.lt 4'
+      AgentInformationUrl                  : 'Autoplius.lt'
+      AgentUuid                            : 'CEDA6E92-1204-4630-BA16-61871A213A10'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 HLNApp/4.8.6.1 EmbeddedBrowser (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16B92 DeviceUID: 1E0EE834-D7CB-4B6F-A5B7-50555D41A7AB'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '16B92'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.1'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.1'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'HLNApp'
+      AgentVersion                         : '4.8.6.1'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'HLNApp 4.8.6.1'
+      AgentNameVersionMajor                : 'HLNApp 4'
+      AgentUuid                            : '1E0EE834-D7CB-4B6F-A5B7-50555D41A7AB'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.name[1]="ntvmobil"'
+    - 'agent.(2)product.name="Mozilla"'
+    - 'agent.(2)product.version="5.0"'
+    extract:
+    - 'AgentClass                          :      100 : "Mobile App"'
+    - 'AgentName                           :      100 : "ntvmobil"'
+    - 'AgentVersion                        :      100 : "??"'
+
+
+  ## Really special with json part.
+- test:
+    input:
+      user_agent_string: 'ntvmobil iPhone 7.0 Mozilla/5.0 (iPhone; U; CPU iPhone OS like Mac OS X; de-DE) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 ntvAgof (agof={\""angebot\"":\""appntv\"",\""plattform\"":\""iphone\""}) ntvPrivacy (allowed={\""adTracking\"":true,\""agof\"":true,\""googleanalytics\"":true,\""medienGruppenCookie\"":true,\""linkpulse\"":true,\""adjust\"":true})'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '600.1.4'
+      LayoutEngineVersionMajor             : '600'
+      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Ntvmobil'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Ntvmobil ??'
+      AgentNameVersionMajor                : 'Ntvmobil ??'
+      AgentLanguage                        : 'German (Germany)'
+      AgentLanguageCode                    : 'de-de'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: '"ntvmobil iPhone 7.1 Mozilla/5.0 (iPhone; U; CPU iPhone OS like Mac OS X; de-DE) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 ntvAgof (agof={\""angebot\"":\""appntv\"",\""plattform\"":\""iphone\""}) ntvPrivacy (allowed={\""adTracking\"":true,\""agof\"":true,\""googleanalytics\"":true,\""medienGruppenCookie\"":true,\""linkpulse\"":true,\""adjust\"":true})"'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '600.1.4'
+      LayoutEngineVersionMajor             : '600'
+      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Ntvmobil'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Ntvmobil ??'
+      AgentNameVersionMajor                : 'Ntvmobil ??'
+      AgentLanguage                        : 'German (Germany)'
+      AgentLanguageCode                    : 'de-de'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: '"ntvmobil iPhone 6.35 Mozilla/5.0 (iPhone; U; CPU iPhone OS like Mac OS X; en-NL) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 ntvAgof (agof={\""angebot\"":\""appntv\"",\""plattform\"":\""iphone\""}) ntvPrivacy (allowed={\""adTracking\"":true,\""agof\"":true,\""googleanalytics\"":true,\""medienGruppenCookie\"":true,\""linkpulse\"":true,\""adjust\"":true})"'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '600.1.4'
+      LayoutEngineVersionMajor             : '600'
+      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Ntvmobil'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Ntvmobil ??'
+      AgentNameVersionMajor                : 'Ntvmobil ??'
+      AgentLanguage                        : 'English (Netherlands)'
+      AgentLanguageCode                    : 'en-nl'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: '"ntvmobil iPhone 6.35 Mozilla/5.0 (iPhone; U; CPU iPhone OS like Mac OS X; de-DE) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 ntvAgof (agof={\""angebot\"":\""appntv\"",\""plattform\"":\""iphone\""}) ntvPrivacy (allowed={\""adTracking\"":true,\""agof\"":true,\""googleanalytics\"":true,\""medienGruppenCookie\"":true,\""linkpulse\"":true,\""adjust\"":true})"'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '600.1.4'
+      LayoutEngineVersionMajor             : '600'
+      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Ntvmobil'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Ntvmobil ??'
+      AgentNameVersionMajor                : 'Ntvmobil ??'
+      AgentLanguage                        : 'German (Germany)'
+      AgentLanguageCode                    : 'de-de'
+      AgentSecurity                        : 'Strong security'
+
+
+- matcher:
+    variable:
+    - 'GMMClient:agent.(4)product.(1)name="GmmClient:google_ios"^'
+    extract:
+    - 'AgentClass                          :      100 : "Browser Webview"'
+    - 'WebviewAppName                      :      100 : @GMMClient.(1)version'
+    - 'WebviewAppVersion                   :      100 : @GMMClient.(2)version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 12.4.1; en_US; ) AppleWebKit/0.0 (KHTML, like Gecko) Version/0.0; GmmClient:google_ios/com.google.Maps/5.27.8/Mobile/ios:iPhone10,5/iOS-AppStore'
+    #    - 'agent.(4)product="GmmClient:google_ios/com.google.Maps/5.27.8/"'
+    #    - 'agent.(4)product.(1)name.(1)keyvalue="GmmClient:google_ios"'
+    #    - 'agent.(4)product.(1)name="GmmClient:google_ios"'
+    #    - 'agent.(4)product.(1)name.(1)keyvalue.(1)key="GmmClient"'
+    #    - 'agent.(4)product.(1)name.(1)keyvalue.(2)text="google_ios"'
+    #    - 'agent.(4)product.(1)version="com.google.Maps"'
+    #    - 'agent.(4)product.(2)version="5.27.8"'
+    #    - 'agent.(5)product="Mobile/ios:iPhone10,5/iOS-AppStore"'
+    #    - 'agent.(5)product.(1)name="Mobile"'
+    #    - 'agent.(5)product.(1)version="ios:iPhone10,5"'
+    #    - 'agent.(5)product.(1)version.(1)keyvalue="ios:iPhone10,5"'
+    #    - 'agent.(5)product.(1)version.(1)keyvalue.(1)key="ios"'
+    #    - 'agent.(5)product.(1)version.(1)keyvalue.(1)version="iPhone10,5"'
+    #    - 'agent.(5)product.(2)version="iOS-AppStore"'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 8 Plus (A1897)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.4.1'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.4.1'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '0.0'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'AppleWebKit 0.0'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 0'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '0.0'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'UIWebView 0.0'
+      AgentNameVersionMajor                : 'UIWebView 0'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+      WebviewAppName                       : 'com.google.Maps'
+      WebviewAppVersion                    : '5.27.8'
+      WebviewAppVersionMajor               : '5'
+      WebviewAppNameVersionMajor           : 'com.google.Maps 5'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 12.2; en_US; ) AppleWebKit/0.0 (KHTML, like Gecko) Version/0.0; GmmClient:google_ios/com.google.Maps/5.15.11/Mobile/ios:iPhone11,8/iOS-AppStore'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone XR'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.2'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.2'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '0.0'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'AppleWebKit 0.0'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 0'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '0.0'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'UIWebView 0.0'
+      AgentNameVersionMajor                : 'UIWebView 0'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+      WebviewAppName                       : 'com.google.Maps'
+      WebviewAppVersion                    : '5.15.11'
+      WebviewAppVersionMajor               : '5'
+      WebviewAppNameVersionMajor           : 'com.google.Maps 5'
+
 
 - test:
     input: # QR Scanner app
