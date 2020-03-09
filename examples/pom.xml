@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
 
   <artifactId>yauaa-example-parent</artifactId>
-  <name>Yauaa : Examples : </name>
+  <name>Yauaa : Examples :</name>
 
   <properties>
     <!-- We override this setting because the one in the parent causes problems -->
@@ -37,8 +37,20 @@
 
   <modules>
     <module>java</module>
-    <module>scala</module>
   </modules>
+
+  <!-- Apparently Scala and anything other than Java 1.8 is a problem. -->
+  <profiles>
+    <profile>
+      <id>Build with JDK 8</id>
+      <activation>
+        <jdk>1.8</jdk>
+      </activation>
+      <modules>
+        <module>scala</module>
+      </modules>
+    </profile>
+  </profiles>
 
   <build>
     <plugins>
