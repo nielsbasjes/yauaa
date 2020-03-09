@@ -15,21 +15,26 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.examples.scala
+package nl.basjes.parse.useragent.example;
 
-import nl.basjes.parse.useragent.{UserAgent, UserAgentAnalyzer}
+import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
 
-class Demo {
+public class Demo {
 
-  private val uaa = UserAgentAnalyzer
-    .newBuilder()
-    .withCache(1234)
-    .withField("DeviceClass")
-    .withAllFields()
-    .build
+    private UserAgentAnalyzer uaa;
 
-  def parse(userAgent: String) : UserAgent = {
-    uaa.parse(userAgent)
-  }
+    public Demo() {
+        uaa = UserAgentAnalyzer
+            .newBuilder()
+            .withCache(1234)
+            .withField("DeviceClass")
+            .withAllFields()
+            .build();
+    }
+
+    public UserAgent parse(String userAgent) {
+        return uaa.parse(userAgent);
+    }
 
 }

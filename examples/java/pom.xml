@@ -19,49 +19,39 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
   <parent>
-    <artifactId>yauaa-parent</artifactId>
     <groupId>nl.basjes.parse.useragent</groupId>
+    <artifactId>yauaa-example-parent</artifactId>
     <version>5.16-SNAPSHOT</version>
   </parent>
-  <modelVersion>4.0.0</modelVersion>
+
   <packaging>pom</packaging>
 
-  <artifactId>yauaa-example-parent</artifactId>
-  <name>Yauaa : Examples : </name>
+  <artifactId>yauaa-example-java</artifactId>
+  <name>Yauaa : Examples : Java</name>
 
-  <properties>
-    <!-- We override this setting because the one in the parent causes problems -->
-    <argLine>-Xmx2048m</argLine>
-  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>nl.basjes.parse.useragent</groupId>
+      <artifactId>yauaa</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
-  <modules>
-    <module>java</module>
-    <module>scala</module>
-  </modules>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>dependency-convergence</id>
-            <phase>none</phase>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <dependencyConvergence/>
-              </rules>
-              <skip>true</skip>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
 
 </project>
