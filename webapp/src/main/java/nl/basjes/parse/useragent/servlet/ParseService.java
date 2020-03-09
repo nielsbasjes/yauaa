@@ -79,15 +79,16 @@ public class ParseService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ParseService.class);
 
-    private static       UserAgentAnalyzer userAgentAnalyzer               = null;
-    private static       long              initStartMoment;
-    private static       boolean           userAgentAnalyzerIsAvailable    = false;
-    private static       String            userAgentAnalyzerFailureMessage = null;
-    private static final String            ANALYZER_VERSION                = getVersion();
-    private static final String            API_BASE_PATH                   = "/yauaa/v1";
+    private static ParseService instance = null;
+
+    private              UserAgentAnalyzer userAgentAnalyzer               = null;
+    private              long              initStartMoment;
+    private              boolean           userAgentAnalyzerIsAvailable    = false;
+    private              String userAgentAnalyzerFailureMessage = null;
+    private        final String analyzerVersion                 = getVersion();
+    private static final String API_BASE_PATH                   = "/yauaa/v1";
 
     private static final String            TEXT_XYAML_VALUE = "text/x-yaml";
-
 
     private static final String            EXAMPLE_USERAGENT               =
         "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
@@ -182,8 +183,14 @@ public class ParseService {
         TXT
     }
 
+    private static void setInstance(ParseService newInstance) {
+        instance = newInstance;
+    }
+
     @PostConstruct
     public void automaticStartup() {
+        setInstance(this);
+
         if (!userAgentAnalyzerIsAvailable && userAgentAnalyzerFailureMessage == null) {
             initStartMoment = System.currentTimeMillis();
             new Thread(() -> {
@@ -211,10 +218,6 @@ public class ParseService {
 
     @PreDestroy
     public void preDestroy() {
-        destroy();
-    }
-
-    private static void destroy() {
         if (userAgentAnalyzer != null) {
             UserAgentAnalyzer uaa = userAgentAnalyzer;
             // First we disable it for all uses.
@@ -224,6 +227,7 @@ public class ParseService {
             // Then we actually wipe it.
             uaa.destroy();
         }
+        setInstance(null);
     }
 
     public static class YauaaIsBusyStarting extends RuntimeException {
@@ -263,10 +267,14 @@ public class ParseService {
 
             YauaaIsBusyStarting yauaaIsBusyStarting = (YauaaIsBusyStarting) ex;
 
-            long timeSinceStart = System.currentTimeMillis() - initStartMoment;
+            if (instance == null) {
+                return new ResponseEntity<>("There is no instance", httpHeaders, INTERNAL_SERVER_ERROR);
+            }
+
+            long timeSinceStart = System.currentTimeMillis() - instance.initStartMoment;
             String message;
 
-            if (userAgentAnalyzerFailureMessage == null) {
+            if (instance.userAgentAnalyzerFailureMessage == null) {
                 switch (yauaaIsBusyStarting.getOutputType()) {
                     case YAML:
                         message = "status: \"Starting\"\ntimeInMs: " + timeSinceStart + "\n";
@@ -289,20 +297,20 @@ public class ParseService {
             } else {
                 switch (yauaaIsBusyStarting.getOutputType()) {
                     case YAML:
-                        message = "status: \"Failed\"\nerrorMessage: |\n" + userAgentAnalyzerFailureMessage + "\n";
+                        message = "status: \"Failed\"\nerrorMessage: |\n" + instance.userAgentAnalyzerFailureMessage + "\n";
                         break;
                     case TXT:
-                        message = "FAILED: \n" + userAgentAnalyzerFailureMessage;
+                        message = "FAILED: \n" + instance.userAgentAnalyzerFailureMessage;
                         break;
                     case JSON:
-                        message = "{ \"status\": \"Failed\", \"errorMessage\": " + escapeJson(userAgentAnalyzerFailureMessage) + " }";
+                        message = "{ \"status\": \"Failed\", \"errorMessage\": " + escapeJson(instance.userAgentAnalyzerFailureMessage) + " }";
                         break;
                     case XML:
-                        message = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><status>Failed</status><errorMessage>" + escapeXml10(userAgentAnalyzerFailureMessage) + "</errorMessage>";
+                        message = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><status>Failed</status><errorMessage>" + escapeXml10(instance.userAgentAnalyzerFailureMessage) + "</errorMessage>";
                         break;
                     case HTML:
                     default:
-                        message = "Yauaa start up has failed with message \n" + userAgentAnalyzerFailureMessage;
+                        message = "Yauaa start up has failed with message \n" + instance.userAgentAnalyzerFailureMessage;
                         break;
                 }
                 return new ResponseEntity<>(message, httpHeaders, INTERNAL_SERVER_ERROR);
@@ -671,7 +679,7 @@ public class ParseService {
             sb.append("<body>");
             sb.append("<div class=\"header\">");
             sb.append("<h1 class=\"title\">Yet Another UserAgent Analyzer.</h1>");
-            sb.append("<p class=\"version\">").append(ANALYZER_VERSION).append("</p>");
+            sb.append("<p class=\"version\">").append(analyzerVersion).append("</p>");
             sb.append("</div>");
 
 
@@ -771,17 +779,19 @@ public class ParseService {
                 String timeString = String.format("%3.1f", ((double) millisBusy / 1000.0));
 
                 if (userAgentAnalyzerFailureMessage == null) {
-                    sb.append("<div class=\"notYetStartedBorder\">");
-                    sb.append("<p class=\"notYetStarted\">The analyzer is currently starting up.</p>");
-                    sb.append("<p class=\"notYetStarted\">It has been starting up for <u>").append(timeString).append("</u> seconds</p>");
-                    sb.append("<p class=\"notYetStarted\">Anything between 5-15 seconds is normal.</p>");
-                    sb.append("<p class=\"notYetStartedAppEngine\">On a free AppEngine 50 seconds is 'normal'.</p>");
-                    sb.append("</div>");
+                    sb
+                        .append("<div class=\"notYetStartedBorder\">")
+                        .append("<p class=\"notYetStarted\">The analyzer is currently starting up.</p>")
+                        .append("<p class=\"notYetStarted\">It has been starting up for <u>").append(timeString).append("</u> seconds</p>")
+                        .append("<p class=\"notYetStarted\">Anything between 5-15 seconds is normal.</p>")
+                        .append("<p class=\"notYetStartedAppEngine\">On a free AppEngine 50 seconds is 'normal'.</p>")
+                        .append("</div>");
                 } else {
-                    sb.append("<div class=\"failureBorder\">");
-                    sb.append("<p class=\"failureContent\">The analyzer startup failed with this message</p>");
-                    sb.append("<p class=\"failureContent\">").append(userAgentAnalyzerFailureMessage).append("</p>");
-                    sb.append("</div>");
+                    sb
+                        .append("<div class=\"failureBorder\">")
+                        .append("<p class=\"failureContent\">The analyzer startup failed with this message</p>")
+                        .append("<p class=\"failureContent\">").append(userAgentAnalyzerFailureMessage).append("</p>")
+                        .append("</div>");
                 }
             }
         } catch (Exception e) {

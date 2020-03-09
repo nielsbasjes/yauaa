@@ -36,6 +36,12 @@ If you need multiple instances of the UserAgentAnalyzer then you MUST create a n
 
 Note that not all fields are available after every parse. So be prepared to receive a 'null' if you extract a specific name.
 
+# Avoid using it as a static member
+If you make the UserAgentAnalyzer a static member of a class then cleaning it up after use may be a problem.
+One case where this happens is in the context of something like Tomcat where a webapp is loaded and then unloaded.
+If the analyzer is a static member of your servlet then this unloading may retain a lot of the memory used for the internal
+data structures.
+
 # Cache size setting
 I recommend you leave the cache to a size that is roughly the unique number of useragents your site finds
 in a limited timespan. Something like 15/30/60 minutes usually gives you a fine cache size.

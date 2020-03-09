@@ -70,19 +70,8 @@ import java.util.List;
 public class ParseUserAgent extends GenericUDF {
 
     private StringObjectInspector useragentOI = null;
-    private static UserAgentAnalyzer userAgentAnalyzer = null;
-    private static List<String> fieldNames = null;
-
-    private static synchronized void constructAnalyzer(){
-        if (userAgentAnalyzer == null) {
-            userAgentAnalyzer = UserAgentAnalyzer
-                .newBuilder()
-                .hideMatcherLoadStats()
-                .delayInitialization()
-                .build();
-            fieldNames = userAgentAnalyzer.getAllPossibleFieldNamesSorted();
-        }
-    }
+    private UserAgentAnalyzer userAgentAnalyzer = null;
+    private List<String> fieldNames = null;
 
     @Override
     public ObjectInspector initialize(ObjectInspector[] args) throws UDFArgumentException {
@@ -102,7 +91,13 @@ public class ParseUserAgent extends GenericUDF {
 
         // ================================
         // Initialize the parser
-        constructAnalyzer();
+        userAgentAnalyzer = UserAgentAnalyzer
+            .newBuilder()
+            .hideMatcherLoadStats()
+            .delayInitialization()
+            .build();
+
+        fieldNames = userAgentAnalyzer.getAllPossibleFieldNamesSorted();
 
         // ================================
         // Define the output

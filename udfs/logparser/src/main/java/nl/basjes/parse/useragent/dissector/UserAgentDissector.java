@@ -44,7 +44,7 @@ public class UserAgentDissector extends Dissector {
     private static final Logger LOG = LoggerFactory.getLogger(UserAgentDissector.class);
 
     private transient UserAgentAnalyzerBuilder userAgentAnalyzerBuilder;
-    private static UserAgentAnalyzer userAgentAnalyzer = null;
+    private UserAgentAnalyzer userAgentAnalyzer = null;
     private static final String INPUT_TYPE = "HTTP.USERAGENT";
 
     private List<String> extraResources = new ArrayList<>();
@@ -123,12 +123,10 @@ public class UserAgentDissector extends Dissector {
     }
 
     private String getFieldOutputType(String fieldName) {
-        switch (fieldName) {
-            case "AgentInformationUrl":
-                return "HTTP.URI";
-            default:
-                return "STRING";
+        if ("AgentInformationUrl".equals(fieldName)) {
+            return "HTTP.URI";
         }
+        return "STRING";
     }
 
     @Override
@@ -156,7 +154,7 @@ public class UserAgentDissector extends Dissector {
         setupUserAgentAnalyzer();
     }
 
-    private synchronized void setupUserAgentAnalyzer() {
+    private void setupUserAgentAnalyzer() {
         userAgentAnalyzer = getUserAgentAnalyzerBuilder().build();
         userAgentAnalyzer.initializeMatchers();
     }
