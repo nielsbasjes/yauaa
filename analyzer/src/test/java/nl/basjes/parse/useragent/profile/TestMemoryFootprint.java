@@ -23,6 +23,9 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class TestMemoryFootprint {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestMemoryFootprint.class);
@@ -44,9 +47,69 @@ public class TestMemoryFootprint {
             iterationsDone, memory, bytesToMegabytes(memory), averageNanos, averageNanos / 1000000.0));
     }
 
+
+    private long getMemoryUsageAfterGC() {
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        return runtime.totalMemory() - runtime.freeMemory();
+    }
+
+    @Test
+    public void checkForMemoryLeaks() {
+
+        // ----------------------------------------------
+        long memoryInitial = getMemoryUsageAfterGC();
+        LOG.info(String.format("1: Startup + GC --> Used memory is %10d bytes (%5d MiB).",
+            memoryInitial, bytesToMegabytes(memoryInitial)));
+
+        // ----------------------------------------------
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .immediateInitialization()
+            .keepTests()
+            .build();
+
+        LOG.info("Init complete");
+
+        long memoryAfterInit =getMemoryUsageAfterGC();
+        LOG.info(String.format("2: Init Analyzer + GC --> Used memory is %10d bytes (%5d MiB).",
+                memoryAfterInit, bytesToMegabytes(memoryAfterInit)));
+
+        // ----------------------------------------------
+        LOG.info("Run preheat");
+        uaa.preHeat();
+        LOG.info("Preheat completed");
+
+        long memoryAfterRun =getMemoryUsageAfterGC();
+        LOG.info(String.format("3: Run Analyzer + GC --> Used memory is %10d bytes (%5d MiB).",
+            memoryAfterRun, bytesToMegabytes(memoryAfterRun)));
+
+        // ----------------------------------------------
+//        uaa.destroy();
+
+        long memoryAfterDestroy = getMemoryUsageAfterGC();
+        LOG.info(String.format("4: Destroy Analyzer + GC --> Used memory is %10d bytes (%5d MiB).",
+            memoryAfterDestroy, bytesToMegabytes(memoryAfterDestroy)));
+
+        // ----------------------------------------------
+        // Now we free it to be cleaned up by the GC
+        uaa = null;
+
+        assertNull(uaa);
+
+        long memoryAfterClean = getMemoryUsageAfterGC();
+        LOG.info(String.format("5: Null Analyzer + GC --> Used memory is %10d bytes (%5d MiB).",
+            memoryAfterClean, bytesToMegabytes(memoryAfterClean)));
+
+        // ----------------------------------------------
+        // Assert the overall delta is below 10 MB
+
+        assertTrue(Math.abs(memoryAfterClean - memoryInitial) < 10_000_000, "To much memory remained after cleanup");
+    }
+
     @Disabled
     @Test
-    public void checkForMemoryLeaks() { //NOSONAR: Do not complain about ignored performance test
+    public void checkForMemoryLeaksDuringRuns() { //NOSONAR: Do not complain about ignored performance test
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .withoutCache()
