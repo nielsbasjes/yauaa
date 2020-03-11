@@ -80,7 +80,7 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
             .immediateInitialization()
             .build();
 
-        if (extractedFields.size() == 0) {
+        if (extractedFields.isEmpty()) {
             extractedFields.addAll(userAgentAnalyzer.getAllPossibleFieldNamesSorted());
         }
     }

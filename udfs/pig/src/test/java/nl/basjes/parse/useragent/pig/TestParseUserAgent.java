@@ -31,6 +31,7 @@ import static org.apache.pig.builtin.mock.Storage.resetData;
 import static org.apache.pig.builtin.mock.Storage.tuple;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -174,8 +175,7 @@ public class TestParseUserAgent {
     }
 
     private void checkResult(Tuple data, Schema schema, String fieldName, String value) throws FrontendException, ExecException {
-
-        assertNotEquals(schema.getField(fieldName), null,
+        assertNotNull(schema.getField(fieldName),
             "Field named "+fieldName +" is missing in the schema");
 
         int position = schema.getPosition(fieldName);

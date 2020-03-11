@@ -106,9 +106,9 @@ public class ParseUserAgent extends GenericUDF {
         // Define the field names for the struct<> and their types
         List<ObjectInspector> fieldObjectInspectors = new ArrayList<>(fieldNames.size());
 
-        for (String ignored : fieldNames) {
-            fieldObjectInspectors.add(PrimitiveObjectInspectorFactory.writableStringObjectInspector);
-        }
+        fieldNames
+            .forEach(f -> fieldObjectInspectors.add(PrimitiveObjectInspectorFactory.writableStringObjectInspector));
+
         return ObjectInspectorFactory.getStandardStructObjectInspector(fieldNames, fieldObjectInspectors);
     }
 
