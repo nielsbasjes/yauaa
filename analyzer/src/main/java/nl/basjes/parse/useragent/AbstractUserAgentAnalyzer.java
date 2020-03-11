@@ -37,6 +37,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         initializeCache();
     }
 
+    @Override
     public synchronized void destroy() {
         super.destroy();
         if (parseCache != null) {

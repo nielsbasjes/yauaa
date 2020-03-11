@@ -485,9 +485,9 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
 
                 if (showMatcherStats) {
                     try(Formatter msg = new Formatter(Locale.ENGLISH)) {
-                        msg.format("Loading %4d (dropped %4d) matchers from " +
-                                "%-" + maxFilenameLength + "s " + // NOSONAR: I'm creating the format using concatenation
-                                "took %5d msec",
+                        String format = "Loading %4d (dropped %4d) matchers from " +
+                            "%-" + maxFilenameLength + "s took %5d msec";
+                        msg.format(format,
                             matcherConfig.size() - (stopSkipped - startSkipped),
                             stopSkipped - startSkipped,
                             configFilename,
@@ -985,7 +985,7 @@ config:
         return wantedFieldNames.contains(fieldName);
     }
 
-    final List<FieldCalculator> fieldCalculators = new ArrayList<>();
+    protected final List<FieldCalculator> fieldCalculators = new ArrayList<>();
 
     private UserAgent hardCodedPostProcessing(UserAgent userAgent) {
         // If it is really really bad ... then it is a Hacker.
@@ -998,7 +998,7 @@ config:
         // Calculate all fields that are constructed from the found ones.
         for (FieldCalculator fieldCalculator: fieldCalculators) {
             if (verbose) {
-                LOG.info("Running FieldCalculator: {}", fieldCalculator.toString());
+                LOG.info("Running FieldCalculator: {}", fieldCalculator);
             }
             fieldCalculator.calculate(userAgent);
         }
