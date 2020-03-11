@@ -205,7 +205,7 @@ public class WalkList implements Serializable {
         lastRelevantStep.setNextStep(lastRelevantStepIndex, null);
 
         steps.subList(lastRelevantStepIndex + 1, steps.size()).clear();
-        return steps.size() - (lastRelevantStepIndex + 1);
+        return ((long)steps.size()) - (lastRelevantStepIndex + 1);
     }
 
     public WalkResult walk(ParseTree tree, String value) {
