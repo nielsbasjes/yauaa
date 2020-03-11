@@ -21,39 +21,39 @@ public enum DeviceClass {
     /**
      * The device is assessed as a Desktop/Laptop class device.
      */
-    Desktop("Desktop"),
+    DESKTOP("Desktop"),
     /**
      * In some cases the useragent has been altered by anonimization software.
      */
-    Anonymized("Anonymized"),
+    ANONYMIZED("Anonymized"),
     /**
      * A device that is mobile yet we do not know if it is a eReader/Tablet/Phone or Watch.
      */
-    Mobile("Mobile"),
+    MOBILE("Mobile"),
     /**
      * A mobile device with a rather large screen (common &gt; 7").
      */
-    Tablet("Tablet"),
+    TABLET("Tablet"),
     /**
      * A mobile device with a small screen (common &lt; 7").
      */
-    Phone("Phone"),
+    PHONE("Phone"),
     /**
      * A mobile device with a tiny screen (common &lt; 2"). Normally these are an additional screen for a phone/tablet type device.
      */
-    Watch("Watch"),
+    WATCH("Watch"),
     /**
      * A mobile device with a VR capabilities.
      */
-    VirtualReality("Virtual Reality"),
+    VIRTUAL_REALITY("Virtual Reality"),
     /**
      * Similar to a Tablet yet in most cases with an eInk screen.
      */
-    eReader("eReader"),
+    E_READER("eReader"),
     /**
      * A connected device that allows interacting via a TV sized screen.
      */
-    SetTopBox("Set-top box"),
+    SET_TOP_BOX("Set-top box"),
     /**
      * Similar to Set-top box yet here this is built into the TV.
      */
@@ -61,35 +61,35 @@ public enum DeviceClass {
     /**
      * 'Fixed' game systems like the PlayStation and XBox.
      */
-    GameConsole("Game Console"),
+    GAME_CONSOLE("Game Console"),
     /**
      * 'Mobile' game systems like the 3DS.
      */
-    HandheldGameConsole("Handheld Game Console"),
+    HANDHELD_GAME_CONSOLE("Handheld Game Console"),
     /**
      * Robots that visit the site.
      */
-    Robot("Robot"),
+    ROBOT("Robot"),
     /**
      * Robots that visit the site indicating they want to be seen as a Mobile visitor.
      */
-    RobotMobile("Robot Mobile"),
+    ROBOT_MOBILE("Robot Mobile"),
     /**
      * Robots that visit the site pretending they are robots like google, but they are not.
      */
-    RobotImitator("Robot Imitator"),
+    ROBOT_IMITATOR("Robot Imitator"),
     /**
      * In case scripting is detected in the useragent string, also fallback in really broken situations.
      */
-    Hacker("Hacker"),
+    HACKER("Hacker"),
     /**
      * We really don't know, these are usually useragents that look normal yet contain almost no information about the device.
      */
-    Unknown("Unknown"),
+    UNKNOWN("Unknown"),
     /**
      * We found a deviceclass string that we have no enum value for.
      */
-    Unclassified("Unclassified");
+    UNCLASSIFIED("Unclassified");
 
     private final String value;
 

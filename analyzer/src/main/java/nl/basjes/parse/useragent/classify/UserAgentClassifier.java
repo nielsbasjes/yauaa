@@ -20,48 +20,48 @@ package nl.basjes.parse.useragent.classify;
 import nl.basjes.parse.useragent.UserAgent;
 
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Anonymized;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Desktop;
-import static nl.basjes.parse.useragent.classify.DeviceClass.GameConsole;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Hacker;
-import static nl.basjes.parse.useragent.classify.DeviceClass.HandheldGameConsole;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Mobile;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Phone;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Robot;
-import static nl.basjes.parse.useragent.classify.DeviceClass.RobotImitator;
-import static nl.basjes.parse.useragent.classify.DeviceClass.RobotMobile;
-import static nl.basjes.parse.useragent.classify.DeviceClass.SetTopBox;
+import static nl.basjes.parse.useragent.classify.DeviceClass.ANONYMIZED;
+import static nl.basjes.parse.useragent.classify.DeviceClass.DESKTOP;
+import static nl.basjes.parse.useragent.classify.DeviceClass.GAME_CONSOLE;
+import static nl.basjes.parse.useragent.classify.DeviceClass.HACKER;
+import static nl.basjes.parse.useragent.classify.DeviceClass.HANDHELD_GAME_CONSOLE;
+import static nl.basjes.parse.useragent.classify.DeviceClass.MOBILE;
+import static nl.basjes.parse.useragent.classify.DeviceClass.PHONE;
+import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT;
+import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT_IMITATOR;
+import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT_MOBILE;
+import static nl.basjes.parse.useragent.classify.DeviceClass.SET_TOP_BOX;
 import static nl.basjes.parse.useragent.classify.DeviceClass.TV;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Tablet;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Unclassified;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Unknown;
-import static nl.basjes.parse.useragent.classify.DeviceClass.VirtualReality;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Watch;
-import static nl.basjes.parse.useragent.classify.DeviceClass.eReader;
+import static nl.basjes.parse.useragent.classify.DeviceClass.TABLET;
+import static nl.basjes.parse.useragent.classify.DeviceClass.UNCLASSIFIED;
+import static nl.basjes.parse.useragent.classify.DeviceClass.UNKNOWN;
+import static nl.basjes.parse.useragent.classify.DeviceClass.VIRTUAL_REALITY;
+import static nl.basjes.parse.useragent.classify.DeviceClass.WATCH;
+import static nl.basjes.parse.useragent.classify.DeviceClass.E_READER;
 
 public final class UserAgentClassifier {
     private UserAgentClassifier(){} // Utility class
 
     public static DeviceClass getDeviceClass(UserAgent userAgent) {
         switch (userAgent.getValue(DEVICE_CLASS)) {
-            case "Desktop":                return Desktop;
-            case "Anonymized":             return Anonymized;
-            case "Mobile":                 return Mobile;
-            case "Tablet":                 return Tablet;
-            case "Phone":                  return Phone;
-            case "Watch":                  return Watch;
-            case "Virtual Reality":        return VirtualReality;
-            case "eReader":                return eReader;
-            case "Set-top box":            return SetTopBox;
+            case "Desktop":                return DESKTOP;
+            case "Anonymized":             return ANONYMIZED;
+            case "Mobile":                 return MOBILE;
+            case "Tablet":                 return TABLET;
+            case "Phone":                  return PHONE;
+            case "Watch":                  return WATCH;
+            case "Virtual Reality":        return VIRTUAL_REALITY;
+            case "eReader":                return E_READER;
+            case "Set-top box":            return SET_TOP_BOX;
             case "TV":                     return TV;
-            case "Game Console":           return GameConsole;
-            case "Handheld Game Console":  return HandheldGameConsole;
-            case "Robot":                  return Robot;
-            case "Robot Mobile":           return RobotMobile;
-            case "Robot Imitator":         return RobotImitator;
-            case "Hacker":                 return Hacker;
-            case "Unknown":                return Unknown;
-            default:                       return Unclassified;
+            case "Game Console":           return GAME_CONSOLE;
+            case "Handheld Game Console":  return HANDHELD_GAME_CONSOLE;
+            case "Robot":                  return ROBOT;
+            case "Robot Mobile":           return ROBOT_MOBILE;
+            case "Robot Imitator":         return ROBOT_IMITATOR;
+            case "Hacker":                 return HACKER;
+            case "Unknown":                return UNKNOWN;
+            default:                       return UNCLASSIFIED;
         }
     }
 
@@ -71,26 +71,26 @@ public final class UserAgentClassifier {
      */
     public static boolean isNormalConsumerDevice(UserAgent userAgent) {
         switch (getDeviceClass(userAgent)) {
-            case Desktop:
-            case Mobile:
-            case Tablet:
-            case Phone:
-            case Watch:
-            case VirtualReality:
-            case eReader:
-            case SetTopBox:
+            case DESKTOP:
+            case MOBILE:
+            case TABLET:
+            case PHONE:
+            case WATCH:
+            case VIRTUAL_REALITY:
+            case E_READER:
+            case SET_TOP_BOX:
             case TV:
-            case GameConsole:
-            case HandheldGameConsole:
+            case GAME_CONSOLE:
+            case HANDHELD_GAME_CONSOLE:
                 return true;
 
-            case Anonymized:
-            case Robot:
-            case RobotMobile:
-            case RobotImitator:
-            case Hacker:
-            case Unknown:
-            case Unclassified:
+            case ANONYMIZED:
+            case ROBOT:
+            case ROBOT_MOBILE:
+            case ROBOT_IMITATOR:
+            case HACKER:
+            case UNKNOWN:
+            case UNCLASSIFIED:
             default:
                 return false;
         }
@@ -102,26 +102,26 @@ public final class UserAgentClassifier {
      */
     public static boolean isMobile(UserAgent userAgent) {
         switch (getDeviceClass(userAgent)) {
-            case Mobile:
-            case Tablet:
-            case Phone:
-            case Watch:
-            case VirtualReality:
-            case eReader:
-            case HandheldGameConsole:
-            case RobotMobile:
+            case MOBILE:
+            case TABLET:
+            case PHONE:
+            case WATCH:
+            case VIRTUAL_REALITY:
+            case E_READER:
+            case HANDHELD_GAME_CONSOLE:
+            case ROBOT_MOBILE:
                 return true;
 
-            case Desktop:
-            case SetTopBox:
+            case DESKTOP:
+            case SET_TOP_BOX:
             case TV:
-            case GameConsole:
-            case Anonymized:
-            case Robot:
-            case RobotImitator:
-            case Hacker:
-            case Unknown:
-            case Unclassified:
+            case GAME_CONSOLE:
+            case ANONYMIZED:
+            case ROBOT:
+            case ROBOT_IMITATOR:
+            case HACKER:
+            case UNKNOWN:
+            case UNCLASSIFIED:
             default:
                 return false;
         }
@@ -133,26 +133,26 @@ public final class UserAgentClassifier {
      */
     public static boolean isHuman(UserAgent userAgent) {
         switch (getDeviceClass(userAgent)) {
-            case Desktop:
-            case Mobile:
-            case Tablet:
-            case Phone:
-            case Watch:
-            case VirtualReality:
-            case eReader:
-            case SetTopBox:
+            case DESKTOP:
+            case MOBILE:
+            case TABLET:
+            case PHONE:
+            case WATCH:
+            case VIRTUAL_REALITY:
+            case E_READER:
+            case SET_TOP_BOX:
             case TV:
-            case GameConsole:
-            case HandheldGameConsole:
-            case Anonymized:
+            case GAME_CONSOLE:
+            case HANDHELD_GAME_CONSOLE:
+            case ANONYMIZED:
                 return true;
 
-            case Robot:
-            case RobotMobile:
-            case RobotImitator:
-            case Hacker:
-            case Unknown:
-            case Unclassified:
+            case ROBOT:
+            case ROBOT_MOBILE:
+            case ROBOT_IMITATOR:
+            case HACKER:
+            case UNKNOWN:
+            case UNCLASSIFIED:
             default:
                 return false;
         }
@@ -164,26 +164,26 @@ public final class UserAgentClassifier {
      */
     public static boolean isDeliberateMisuse(UserAgent userAgent) {
         switch (getDeviceClass(userAgent)) {
-            case Anonymized:
-            case RobotImitator:
-            case Hacker:
+            case ANONYMIZED:
+            case ROBOT_IMITATOR:
+            case HACKER:
                 return true;
 
-            case Desktop:
-            case Mobile:
-            case Tablet:
-            case Phone:
-            case Watch:
-            case VirtualReality:
-            case eReader:
-            case SetTopBox:
+            case DESKTOP:
+            case MOBILE:
+            case TABLET:
+            case PHONE:
+            case WATCH:
+            case VIRTUAL_REALITY:
+            case E_READER:
+            case SET_TOP_BOX:
             case TV:
-            case GameConsole:
-            case HandheldGameConsole:
-            case Robot:
-            case RobotMobile:
-            case Unknown:
-            case Unclassified:
+            case GAME_CONSOLE:
+            case HANDHELD_GAME_CONSOLE:
+            case ROBOT:
+            case ROBOT_MOBILE:
+            case UNKNOWN:
+            case UNCLASSIFIED:
             default:
                 return false;
         }

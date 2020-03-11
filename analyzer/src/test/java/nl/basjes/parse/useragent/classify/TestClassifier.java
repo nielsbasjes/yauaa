@@ -21,24 +21,24 @@ import nl.basjes.parse.useragent.UserAgent;
 import org.junit.jupiter.api.Test;
 
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Anonymized;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Desktop;
-import static nl.basjes.parse.useragent.classify.DeviceClass.GameConsole;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Hacker;
-import static nl.basjes.parse.useragent.classify.DeviceClass.HandheldGameConsole;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Mobile;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Phone;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Robot;
-import static nl.basjes.parse.useragent.classify.DeviceClass.RobotImitator;
-import static nl.basjes.parse.useragent.classify.DeviceClass.RobotMobile;
-import static nl.basjes.parse.useragent.classify.DeviceClass.SetTopBox;
+import static nl.basjes.parse.useragent.classify.DeviceClass.ANONYMIZED;
+import static nl.basjes.parse.useragent.classify.DeviceClass.DESKTOP;
+import static nl.basjes.parse.useragent.classify.DeviceClass.GAME_CONSOLE;
+import static nl.basjes.parse.useragent.classify.DeviceClass.HACKER;
+import static nl.basjes.parse.useragent.classify.DeviceClass.HANDHELD_GAME_CONSOLE;
+import static nl.basjes.parse.useragent.classify.DeviceClass.MOBILE;
+import static nl.basjes.parse.useragent.classify.DeviceClass.PHONE;
+import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT;
+import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT_IMITATOR;
+import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT_MOBILE;
+import static nl.basjes.parse.useragent.classify.DeviceClass.SET_TOP_BOX;
 import static nl.basjes.parse.useragent.classify.DeviceClass.TV;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Tablet;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Unclassified;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Unknown;
-import static nl.basjes.parse.useragent.classify.DeviceClass.VirtualReality;
-import static nl.basjes.parse.useragent.classify.DeviceClass.Watch;
-import static nl.basjes.parse.useragent.classify.DeviceClass.eReader;
+import static nl.basjes.parse.useragent.classify.DeviceClass.TABLET;
+import static nl.basjes.parse.useragent.classify.DeviceClass.UNCLASSIFIED;
+import static nl.basjes.parse.useragent.classify.DeviceClass.UNKNOWN;
+import static nl.basjes.parse.useragent.classify.DeviceClass.VIRTUAL_REALITY;
+import static nl.basjes.parse.useragent.classify.DeviceClass.WATCH;
+import static nl.basjes.parse.useragent.classify.DeviceClass.E_READER;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isDeliberateMisuse;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isHuman;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isMobile;
@@ -77,25 +77,25 @@ public class TestClassifier {
 
     @Test
     public void testClassifier() {
-                       // DeviceClass,          human, mobile, normal, misuse
-        verifyDeviceClass(Desktop,               true,  false,  true, false);
-        verifyDeviceClass(Anonymized,            true,  false, false,  true);
-        verifyDeviceClass(Mobile,                true,   true,  true, false);
-        verifyDeviceClass(Tablet,                true,   true,  true, false);
-        verifyDeviceClass(Phone,                 true,   true,  true, false);
-        verifyDeviceClass(Watch,                 true,   true,  true, false);
-        verifyDeviceClass(VirtualReality,        true,   true,  true, false);
-        verifyDeviceClass(eReader,               true,   true,  true, false);
-        verifyDeviceClass(SetTopBox,             true,  false,  true, false);
-        verifyDeviceClass(TV,                    true,  false,  true, false);
-        verifyDeviceClass(GameConsole,           true,  false,  true, false);
-        verifyDeviceClass(HandheldGameConsole,   true,   true,  true, false);
-        verifyDeviceClass(Robot,                 false, false, false, false);
-        verifyDeviceClass(RobotMobile,           false,  true, false, false);
-        verifyDeviceClass(RobotImitator,         false, false, false,  true);
-        verifyDeviceClass(Hacker,                false, false, false,  true);
-        verifyDeviceClass(Unknown,               false, false, false, false);
-        verifyDeviceClass(Unclassified,          false, false, false, false);
+                       // DeviceClass,           human, mobile, normal, misuse
+        verifyDeviceClass(DESKTOP,                true,  false,  true, false);
+        verifyDeviceClass(ANONYMIZED,             true,  false, false,  true);
+        verifyDeviceClass(MOBILE,                 true,   true,  true, false);
+        verifyDeviceClass(TABLET,                 true,   true,  true, false);
+        verifyDeviceClass(PHONE,                  true,   true,  true, false);
+        verifyDeviceClass(WATCH,                  true,   true,  true, false);
+        verifyDeviceClass(VIRTUAL_REALITY,        true,   true,  true, false);
+        verifyDeviceClass(E_READER,               true,   true,  true, false);
+        verifyDeviceClass(SET_TOP_BOX,            true,  false,  true, false);
+        verifyDeviceClass(TV,                     true,  false,  true, false);
+        verifyDeviceClass(GAME_CONSOLE,           true,  false,  true, false);
+        verifyDeviceClass(HANDHELD_GAME_CONSOLE,  true,   true,  true, false);
+        verifyDeviceClass(ROBOT,                 false,  false, false, false);
+        verifyDeviceClass(ROBOT_MOBILE,          false,   true, false, false);
+        verifyDeviceClass(ROBOT_IMITATOR,        false,  false, false,  true);
+        verifyDeviceClass(HACKER,                false,  false, false,  true);
+        verifyDeviceClass(UNKNOWN,               false,  false, false, false);
+        verifyDeviceClass(UNCLASSIFIED,          false,  false, false, false);
     }
 
     private void verifyDeviceClass(DeviceClass deviceClass, boolean human, boolean mobile, boolean normal, boolean misuse) {
