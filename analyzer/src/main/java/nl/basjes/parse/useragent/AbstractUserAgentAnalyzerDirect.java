@@ -245,10 +245,6 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         return testCases.size();
     }
 
-    protected void initialize() {
-        initialize(Collections.singletonList(DEFAULT_RESOURCES));
-    }
-
     protected void initialize(List<String> resources) {
         logVersion();
         long fullStart = System.nanoTime();
