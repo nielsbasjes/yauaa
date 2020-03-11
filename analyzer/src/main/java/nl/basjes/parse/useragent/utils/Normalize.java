@@ -177,9 +177,9 @@ public final class Normalize {
     public static boolean isLowerCase(String text) {
         return !text
             .codePoints()
-            // Using the uppercase check because numbers are not lowercase.
-            .filter(Character::isUpperCase)
-            .findFirst().isPresent();
+            .filter(Character::isUpperCase) // Using the uppercase check because numbers are not lowercase.
+            .findFirst()
+            .isPresent();
     }
 
 }
