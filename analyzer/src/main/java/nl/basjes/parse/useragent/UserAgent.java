@@ -539,6 +539,9 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     }
 
     public String escapeYaml(String input) {
+        if (input == null) {
+            return NULL_VALUE;
+        }
         return input.replace("'", "''");
     }
 
