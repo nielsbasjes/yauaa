@@ -40,6 +40,8 @@
       <version>${project.version}</version>
     </dependency>
 
+    <!--TEST DEPENDENCIES-->
+
     <dependency>
       <groupId>org.apache.drill.exec</groupId>
       <artifactId>drill-java-exec</artifactId>
@@ -50,6 +52,10 @@
           <artifactId>netty-all</artifactId>
           <groupId>io.netty</groupId>
         </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>log4j-over-slf4j</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
 
@@ -58,9 +64,13 @@
       <artifactId>drill-memory-base</artifactId>
       <version>${drill.version}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>log4j-over-slf4j</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
-
-    <!--TEST DEPENDENCIES-->
 
     <dependency>
       <groupId>org.apache.drill</groupId>
@@ -68,6 +78,12 @@
       <version>${drill.version}</version>
       <classifier>tests</classifier>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>log4j-over-slf4j</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -76,6 +92,12 @@
       <version>${drill.version}</version>
       <classifier>tests</classifier>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>log4j-over-slf4j</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
