@@ -174,5 +174,13 @@ public final class Normalize {
         return result.toString();
     }
 
+    public static boolean isLowerCase(String text) {
+        return !text
+            .codePoints()
+            // Using the uppercase check because numbers are not lowercase.
+            .filter(Character::isUpperCase)
+            .findFirst().isPresent();
+    }
+
 }
 

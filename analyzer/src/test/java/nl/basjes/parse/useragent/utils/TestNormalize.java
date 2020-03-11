@@ -20,6 +20,8 @@ package nl.basjes.parse.useragent.utils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestNormalize {
 
@@ -113,4 +115,19 @@ public class TestNormalize {
         Normalize.cleanupDeviceBrandName("${N", "${N.Foo");
     }
 
+    @Test
+    public void checkIsLowerCase() {
+        assertTrue(Normalize.isLowerCase("basjes0123456789`~!@#$%^&*()_-+={}[];:'\",.<>/?"));
+
+        assertTrue(Normalize.isLowerCase("niels"));
+        assertTrue(Normalize.isLowerCase("basjes"));
+
+        assertFalse(Normalize.isLowerCase("Basjes"));
+        assertFalse(Normalize.isLowerCase("bAsjes"));
+        assertFalse(Normalize.isLowerCase("baSjes"));
+        assertFalse(Normalize.isLowerCase("basJes"));
+        assertFalse(Normalize.isLowerCase("basjEs"));
+        assertFalse(Normalize.isLowerCase("basjeS"));
+        assertFalse(Normalize.isLowerCase("BASJES"));
+    }
 }
