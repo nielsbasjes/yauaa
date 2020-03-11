@@ -108,6 +108,7 @@ public class MatcherExtractAction extends MatcherAction {
         if (verbose) {
             LOG.info("Nothing found for {}", attribute);
         }
+
         return false;
     }
 

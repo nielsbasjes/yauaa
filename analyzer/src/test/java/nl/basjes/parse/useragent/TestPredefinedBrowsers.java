@@ -46,6 +46,8 @@ public class TestPredefinedBrowsers {
         LOG.info("Validating when getting all fields");
         LOG.info("--------------------------------------------------------------");
         assertTrue(uaa.runTests(false, true, null, false, true));
+
+        // Only here for ensuring the code being tested with "all fields".
         uaa.destroy();
     }
 
@@ -63,6 +65,9 @@ public class TestPredefinedBrowsers {
 
         assertNotNull(userAgentAnalyzer);
         assertTrue(userAgentAnalyzer.runTests(false, true, fields, false, false));
+
+        // Only here for ensuring the code being tested with "some fields".
+        userAgentAnalyzer.destroy();
     }
 
     @Test

@@ -94,15 +94,29 @@ config:
     - 'verbose'
     input:
       name: 'Validate Debug Output looks good'
-      user_agent_string: 'Word/1 ( One Two Three )'
+      user_agent_string: 'Word/1 ( One Two Three; One|Two|Three|Four)'
     expected:
       Name:              'Word'
+      FirstCommentEntry:   'One Two Three'
+      LookupSegment23:   'Two|Three'
 
 - matcher:
     options:
     - 'verbose'
     extract:
       - 'Name:1:NormalizeBrand [ agent.(1)product.(1)name^.name]'
+
+- matcher:
+    options:
+      - 'verbose'
+    extract:
+      - 'LookupSegment23 :   1 : agent.product.comments.(2)entry[[2-3]]'
+
+- matcher:
+    options:
+      - 'verbose'
+    extract:
+      - 'FirstCommentEntry    :   1 : DefaultIfNull[agent.product.comments.(1)entry;"There is no commment entry"]'
 
 - test:
     options:
@@ -111,6 +125,7 @@ config:
       user_agent_string: 'MoZilLa/1_2.3'
     expected:
       Name: 'Mozilla'
+      FirstCommentEntry                       : 'There is no commment entry'
 
 - test:
     options:
@@ -144,6 +159,7 @@ config:
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
       __SyntaxError__                      : 'true'
+      FirstCommentEntry                       : 'There is no commment entry'
 
 
 - matcher:
@@ -162,3 +178,4 @@ config:
     expected:
       IgnoreSecond                         : 'Name'
       Name                                 : 'Name'
+      FirstCommentEntry                       : 'There is no commment entry'

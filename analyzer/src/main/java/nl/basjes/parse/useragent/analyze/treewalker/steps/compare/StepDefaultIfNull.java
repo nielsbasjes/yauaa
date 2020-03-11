@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.analyze.treewalker.steps.value;
+package nl.basjes.parse.useragent.analyze.treewalker.steps.compare;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
@@ -32,11 +32,6 @@ public class StepDefaultIfNull  extends Step {
 
     public StepDefaultIfNull(String defaultValue) {
         this.defaultValue = defaultValue;
-    }
-
-    @Override
-    public boolean canFail(){
-        return false;
     }
 
     @Override

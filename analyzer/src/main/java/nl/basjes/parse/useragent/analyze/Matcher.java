@@ -79,9 +79,6 @@ public class Matcher implements Serializable {
     }
 
     public void destroy() {
-        variableActions.forEach(MatcherAction::destroy);
-        variableActions.clear();
-
         dynamicActions.forEach(MatcherAction::destroy);
         dynamicActions.clear();
 

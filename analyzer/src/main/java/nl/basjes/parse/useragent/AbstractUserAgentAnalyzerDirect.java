@@ -495,20 +495,6 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         }
     }
 
-//    private static final long MEGABYTE = 1024L * 1024L;
-//
-//    private static long bytesToMegabytes(long bytes) {
-//        return bytes / MEGABYTE;
-//    }
-//
-//    private static long getMemoryUsage() {
-//        // Get the Java runtime
-//        Runtime runtime = Runtime.getRuntime();
-//        runtime.gc();
-//        // Calculate the used memory
-//        return runtime.totalMemory() - runtime.freeMemory();
-//    }
-
     private boolean matchersHaveBeenInitialized = false;
     public void initializeMatchers() {
         if (matchersHaveBeenInitialized) {
@@ -520,18 +506,15 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
             throw new InvalidParserConfigurationException("No matchers were loaded at all.");
         }
 
-//        long memoryBeforeInit = getMemoryUsage();
         long start = System.nanoTime();
         allMatchers.forEach(Matcher::initialize);
         long stop = System.nanoTime();
-//        long memoryAfterInit = getMemoryUsage();
+
         matchersHaveBeenInitialized = true;
         LOG.info("Built in {} msec : Hashmap {}, Ranges map:{}",
             (stop - start) / 1000000,
             informMatcherActions.size(),
             informMatcherActionRanges.size());
-//        LOG.info("Extra memory usage after initialization: {} MiB",
-//            bytesToMegabytes(memoryAfterInit - memoryBeforeInit));
 
         for (Matcher matcher: allMatchers) {
             if (matcher.getActionsThatRequireInput() == 0) {

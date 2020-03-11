@@ -37,7 +37,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepDefaultIfNull;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepDefaultIfNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSegmentRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
@@ -235,16 +235,17 @@ public class WalkList implements Serializable {
             return usesIsNull;
         }
 
+        usesIsNull = false;
+
         Step step = getFirstStep();
         while (step != null) {
             if (step instanceof StepIsNull || step instanceof StepDefaultIfNull) {
                 usesIsNull = true;
-                return true;
+                break;
             }
             step = step.getNextStep();
         }
-        usesIsNull = false;
-        return false;
+        return usesIsNull;
     }
 
     @Override

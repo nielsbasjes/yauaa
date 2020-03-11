@@ -327,7 +327,14 @@ public abstract class MatcherAction implements Serializable {
             WalkResult matchedValue = evaluator.evaluate(match.getResult(), match.getKey(), match.getValue());
             if (matchedValue != null) {
                 inform(match.getKey(), matchedValue);
-                break; // We always stick to the first match
+                return; // We always stick to the first match
+            }
+        }
+
+        if (isValidIsNull()) {
+            WalkResult matchedValue = evaluator.evaluate(null, null, null);
+            if (matchedValue != null) {
+                inform(null, matchedValue);
             }
         }
     }

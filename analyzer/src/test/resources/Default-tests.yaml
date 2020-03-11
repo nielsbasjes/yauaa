@@ -18,22 +18,34 @@
 config:
   - matcher:
       extract:
-        - 'TestA : 1 : DefaultIfNull[agent.product.name     ; "Default A"]'
+        - 'InputExists : 1 : DefaultIfNull[agent.product.name     ; "Default A"]'
 
   - matcher:
       extract:
-        - 'TestB : 1 : DefaultIfNull[agent.product.name^>>> ; "Default B"]'
+        - 'InputExistsWalkFailed : 1 : DefaultIfNull[agent.product.name^>>> ; "Default B"]'
 
   - matcher:
       require:
         - 'IsNull[agent.product.name^>>>]'
       extract:
-        - 'TestC : 1 : "Is Null"'
+        - 'InputExistsWalkFailedIsNull : 1 : "Is Null"'
+
+  - matcher:
+      extract:
+        - 'NoInput : 1 : DefaultIfNull[agent.uuid;"No input received"]'
+
+  - matcher:
+      require:
+        - 'IsNull[agent.uuid]'
+      extract:
+        - 'NoInputIsNull : 1 : "Is Null"'
 
   - test:
       input:
         user_agent_string: 'Mozilla/5.0 (Something)'
       expected:
-        TestA : "Mozilla"
-        TestB : "Default B"
-        TestC : "Is Null"
+        InputExists                 : "Mozilla"
+        InputExistsWalkFailed       : "Default B"
+        InputExistsWalkFailedIsNull : "Is Null"
+        NoInput                     : "No input received"
+        NoInputIsNull               : "Is Null"
