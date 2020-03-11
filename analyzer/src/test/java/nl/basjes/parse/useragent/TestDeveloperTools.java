@@ -54,6 +54,9 @@ public class TestDeveloperTools {
         uaa.keepTests();
         uaa.loadResources("classpath*:**/CheckNewTestcaseOutput.yaml");
         assertTrue(uaa.runTests(false, true));
+
+        // Immediately test the output of the toString methods of all of these classes.
+        assertTrue(uaa.toString().length() > 1000);
     }
 
 
