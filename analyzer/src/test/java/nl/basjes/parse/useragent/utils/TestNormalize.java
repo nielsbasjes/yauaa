@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestNormalize {
@@ -112,7 +113,7 @@ public class TestNormalize {
     @Test
     public void checkBadInputData() {
         // This used to trigger an exception in the underlying RegEx.
-        Normalize.cleanupDeviceBrandName("${N", "${N.Foo");
+        assertNotNull(Normalize.cleanupDeviceBrandName("${N", "${N.Foo"));
     }
 
     @Test

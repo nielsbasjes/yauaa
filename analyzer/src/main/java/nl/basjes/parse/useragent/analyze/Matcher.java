@@ -287,7 +287,7 @@ public class Matcher implements Serializable {
                 missingVariableNames.add(variableName);
             }
         }
-        if (missingVariableNames.size() > 0) {
+        if (!missingVariableNames.isEmpty()) {
             throw new InvalidParserConfigurationException(
                 "Syntax error (" + matcherSourceLocation + "): Used, yet undefined variables: " + missingVariableNames);
         }

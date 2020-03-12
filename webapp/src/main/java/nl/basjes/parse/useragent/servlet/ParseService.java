@@ -872,7 +872,7 @@ public class ParseService {
                 result.add(trimmedLine);
             }
         }
-        if (result.size() == 0) {
+        if (result.isEmpty()) {
             // Apparently the only input was an empty string, we want to keep that.
             result.add("");
         }

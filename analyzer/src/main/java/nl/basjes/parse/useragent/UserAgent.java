@@ -496,12 +496,10 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             agentField.setValue(userAgentString, 0L);
             return agentField;
         } else {
-            AgentField foundField = allFields.get(fieldName);
-            if (foundField == null) {
-                foundField = new AgentField(getDefaultValueForField(fieldName));
-                allFields.put(fieldName, foundField);
-            }
-            return foundField;
+            return allFields
+                .computeIfAbsent(
+                    fieldName,
+                    f -> new AgentField(getDefaultValueForField(fieldName)));
         }
     }
 

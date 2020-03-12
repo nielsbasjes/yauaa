@@ -178,11 +178,9 @@ public final class Normalize {
     }
 
     public static boolean isLowerCase(String text) {
-        return !text
+        return text
             .codePoints()
-            .filter(Character::isUpperCase) // Using the uppercase check because numbers are not lowercase.
-            .findFirst()
-            .isPresent();
+            .noneMatch(Character::isUpperCase); // Using the uppercase check because numbers are not lowercase.
     }
 
 }
