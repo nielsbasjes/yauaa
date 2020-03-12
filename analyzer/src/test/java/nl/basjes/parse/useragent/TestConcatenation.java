@@ -105,11 +105,11 @@ public class TestConcatenation {
 
         fc = new ConcatNONDuplicatedCalculator("Combined2", "One", "NonExistent");
         fc.calculate(userAgent);
-        assertEquals("One", userAgent.getValue("Combined2"));
+        assertEquals("One Unknown", userAgent.getValue("Combined2"));
 
         fc = new ConcatNONDuplicatedCalculator("Combined3", "NonExistent", "Two");
         fc.calculate(userAgent);
-        assertEquals("Two", userAgent.getValue("Combined3"));
+        assertEquals("Unknown Two", userAgent.getValue("Combined3"));
 
         fc = new ConcatNONDuplicatedCalculator("Combined4", "NonExistent1", "NonExistent2");
         fc.calculate(userAgent);

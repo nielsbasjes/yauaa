@@ -130,22 +130,22 @@ public class TestParseUserAgent {
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "Anonymized",                       "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceBrand",                      "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceCpu",                        "Intel x86_64"        );
-        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceFirmwareVersion",            "Unknown"             );
-        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceVersion",                    "Unknown"             );
+        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceFirmwareVersion",            "??"                  );
+        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceVersion",                    "??"                  );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "FacebookCarrier",                  "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "FacebookDeviceClass",              "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "FacebookDeviceName",               "Unknown"             );
-        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "FacebookDeviceVersion",            "Unknown"             );
+        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "FacebookDeviceVersion",            "??"                  );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "FacebookFBOP",                     "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "FacebookFBSS",                     "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "FacebookOperatingSystemName",      "Unknown"             );
-        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "FacebookOperatingSystemVersion",   "Unknown"             );
+        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "FacebookOperatingSystemVersion",   "??"                  );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "HackerAttackVector",               "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "HackerToolkit",                    "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "KoboAffiliate",                    "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "KoboPlatformId",                   "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "LayoutEngineBuild",                "Unknown"             );
-        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "OperatingSystemVersionBuild",      "Unknown"             );
+        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "OperatingSystemVersionBuild",      "??"                  );
 
         // Test attributes and content
         result.assertContentEquals(content);

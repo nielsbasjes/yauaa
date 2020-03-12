@@ -64,11 +64,7 @@ public class MatcherRequireAction extends MatcherAction {
 
     @Override
     public boolean obtainResult() {
-        if (isValidIsNull()) {
-            foundRequiredValue = true;
-        } else {
-            processInformedMatches();
-        }
+        processInformedMatches();
         return foundRequiredValue;
     }
 

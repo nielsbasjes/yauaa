@@ -25,8 +25,12 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.List;
 
+import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
+import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VALUE;
+import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestUseragent {
@@ -56,22 +60,22 @@ public class TestUseragent {
         agent.setDebug(debug);
 
         // Setting unknown new attributes
-        assertNull(agent.get("UnknownOne"));
+        assertNotNull(agent.get("UnknownOne"));
         assertEquals("Unknown", agent.getValue("UnknownOne"));
         assertEquals(-1, agent.getConfidence("UnknownOne").longValue());
         agent.set("UnknownOne", "One", 111);
         check(agent, "UnknownOne", "One", 111);
         agent.get("UnknownOne").reset();
-        check(agent, "UnknownOne", null, -1);
+        check(agent, "UnknownOne", "Unknown", -1);
 
         // Setting unknown new attributes FORCED
-        assertNull(agent.get("UnknownTwo"));
+        assertNotNull(agent.get("UnknownTwo"));
         assertEquals("Unknown", agent.getValue("UnknownTwo"));
         assertEquals(-1, agent.getConfidence("UnknownTwo").longValue());
         agent.setForced("UnknownTwo", "Two", 222);
         check(agent, "UnknownTwo", "Two", 222);
         agent.get("UnknownTwo").reset();
-        check(agent, "UnknownTwo", null, -1);
+        check(agent, "UnknownTwo", "Unknown", -1);
 
         // Setting known attributes
         check(agent, "AgentClass", "Unknown", -1);
@@ -103,10 +107,10 @@ public class TestUseragent {
         check(agent, name, "Four", 4);
 
         agent.set(name, "<<<null>>>", 5); // Should be used
-        check(agent, name, null, -1); // -1 --> SPECIAL CASE!!!
+        check(agent, name, "Unknown", -1); // -1 --> SPECIAL CASE!!!
 
         agent.set(name, "Four", 4); // Should be IGNORED (special case remember)
-        check(agent, name, null, -1); // -1 --> SPECIAL CASE!!!
+        check(agent, name, "Unknown", -1); // -1 --> SPECIAL CASE!!!
 
         // Set a 'normal' value again.
         agent.set(name, "Three", 333); // Should be used
@@ -116,7 +120,7 @@ public class TestUseragent {
         field.setValueForced("Five", 5); // Should be used
         check(agent, name, "Five", 5);
         field.setValueForced("<<<null>>>", 4); // Should be used
-        check(agent, name, null, -1); // -1 --> SPECIAL CASE!!!
+        check(agent, name, "Unknown", -1); // -1 --> SPECIAL CASE!!!
     }
 
 
@@ -125,6 +129,27 @@ public class TestUseragent {
         assertEquals(expectedValue, agent.getValue(name));
         assertEquals(expectedConfidence, agent.get(name).getConfidence());
         assertEquals(expectedConfidence, agent.getConfidence(name).longValue());
+    }
+
+    @Test
+    public void testDefaults() {
+        UserAgent agent = new UserAgent();
+        // Defaults for known fields
+        assertEquals(UNKNOWN_VALUE,     agent.getValue("DeviceClass"));
+        assertEquals(UNKNOWN_VERSION,   agent.getValue("AgentVersion"));
+
+        // The field is not present
+        assertEquals(UNKNOWN_VALUE,   agent.getValue("SomethingNew"));
+
+        // The field is present
+        agent.set("SomethingNew", "A value", 10);
+        assertEquals("A value",   agent.getValue("SomethingNew"));
+
+        agent.set("SomethingNew", NULL_VALUE, 20);
+        assertEquals(UNKNOWN_VALUE,   agent.getValue("SomethingNew"));
+
+        agent.reset();
+        assertEquals(UNKNOWN_VALUE,   agent.getValue("SomethingNew"));
     }
 
     @Test
@@ -249,28 +274,28 @@ public class TestUseragent {
         UserAgent userAgent = new UserAgent("Some'Agent");
 
         assertEquals(
-            "  - user_agent_string: 'Some''Agent'\n" +
-            "    DeviceClass                      : 'Unknown'\n" +
-            "    DeviceName                       : 'Unknown'\n" +
-            "    DeviceBrand                      : 'Unknown'\n" +
-            "    OperatingSystemClass             : 'Unknown'\n" +
-            "    OperatingSystemName              : 'Unknown'\n" +
-            "    OperatingSystemVersion           : '??'\n" +
-            "    OperatingSystemVersionMajor      : '??'\n" +
-            "    OperatingSystemNameVersion       : 'Unknown ??'\n" +
-            "    OperatingSystemNameVersionMajor  : 'Unknown ??'\n" +
-            "    LayoutEngineClass                : 'Unknown'\n" +
-            "    LayoutEngineName                 : 'Unknown'\n" +
-            "    LayoutEngineVersion              : '??'\n" +
-            "    LayoutEngineVersionMajor         : '??'\n" +
-            "    LayoutEngineNameVersion          : 'Unknown ??'\n" +
-            "    LayoutEngineNameVersionMajor     : 'Unknown ??'\n" +
-            "    AgentClass                       : 'Unknown'\n" +
-            "    AgentName                        : 'Unknown'\n" +
-            "    AgentVersion                     : '??'\n" +
-            "    AgentVersionMajor                : '??'\n" +
-            "    AgentNameVersion                 : 'Unknown ??'\n" +
-            "    AgentNameVersionMajor            : 'Unknown ??'\n",
+            "  - user_agent_string: 'Some''Agent'\n", // +
+//            "    DeviceClass                      : 'Unknown'\n" +
+//            "    DeviceName                       : 'Unknown'\n" +
+//            "    DeviceBrand                      : 'Unknown'\n" +
+//            "    OperatingSystemClass             : 'Unknown'\n" +
+//            "    OperatingSystemName              : 'Unknown'\n" +
+//            "    OperatingSystemVersion           : '??'\n" +
+//            "    OperatingSystemVersionMajor      : '??'\n" +
+//            "    OperatingSystemNameVersion       : 'Unknown ??'\n" +
+//            "    OperatingSystemNameVersionMajor  : 'Unknown ??'\n" +
+//            "    LayoutEngineClass                : 'Unknown'\n" +
+//            "    LayoutEngineName                 : 'Unknown'\n" +
+//            "    LayoutEngineVersion              : '??'\n" +
+//            "    LayoutEngineVersionMajor         : '??'\n" +
+//            "    LayoutEngineNameVersion          : 'Unknown ??'\n" +
+//            "    LayoutEngineNameVersionMajor     : 'Unknown ??'\n" +
+//            "    AgentClass                       : 'Unknown'\n" +
+//            "    AgentName                        : 'Unknown'\n" +
+//            "    AgentVersion                     : '??'\n" +
+//            "    AgentVersionMajor                : '??'\n" +
+//            "    AgentNameVersion                 : 'Unknown ??'\n" +
+//            "    AgentNameVersionMajor            : 'Unknown ??'\n",
             userAgent.toString());
     }
 
@@ -283,9 +308,9 @@ public class TestUseragent {
         UserAgent userAgent = new UserAgent("Some Agent", wanted);
 
         assertEquals(
-            "  - user_agent_string: 'Some Agent'\n" +
-            "    DeviceClass   : 'Unknown'\n" +
-            "    AgentVersion  : '??'\n",
+            "  - user_agent_string: 'Some Agent'\n", // +
+//            "    DeviceClass   : 'Unknown'\n" +
+//            "    AgentVersion  : '??'\n",
             userAgent.toString());
 
         assertEquals("Unknown", userAgent.getValue("DeviceClass"));

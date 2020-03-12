@@ -9,6 +9,7 @@ v5.16-SNAPSHOT
   - Added new function DefaultIfNull
   - Added new string split by '|' to make some lookups easier.
   - Added destroy() method to clean up all memory usage.
+  - Fixed inconsistent behaviour regarding the default value of a field
 - New/improved detections
   - Test cases for the 'frozen' Chrome strings.
   - Fixed edge case with duplicated tags.

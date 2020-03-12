@@ -37,6 +37,9 @@ public final class Normalize {
     }
 
     public static String brand(String brand) {
+        if (brand == null) {
+            return null;
+        }
         if (brand.length() <= 3) {
             return brand.toUpperCase(Locale.ENGLISH);
         }

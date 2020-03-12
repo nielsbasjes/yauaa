@@ -24,21 +24,35 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class StepDefaultIfNull  extends Step {
 
     private final String defaultValue;
+    private boolean canFail;
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepDefaultIfNull() {
         defaultValue = "<< Should not be seen anywhere >>";
+        canFail = false;
     }
 
     public StepDefaultIfNull(String defaultValue) {
         this.defaultValue = defaultValue;
+        canFail = defaultValue == null;
+    }
+
+    @Override
+    public boolean canFail() {
+        return canFail;
+    }
+
+    @Override
+    public boolean mustHaveInput() {
+        return canFail;
     }
 
     @Override
     public WalkResult walk(ParseTree tree, String value) {
         WalkResult actualValue = walkNextStep(tree, value);
 
-        if (actualValue == null || actualValue.getValue() == null) {
+        if (actualValue == null ||
+            actualValue.getValue() == null) {
             return new WalkResult(tree, defaultValue);
         }
         return actualValue;

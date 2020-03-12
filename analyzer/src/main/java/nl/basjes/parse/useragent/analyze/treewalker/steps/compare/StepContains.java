@@ -38,7 +38,8 @@ public class StepContains extends Step {
     public WalkResult walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
 
-        if (actualValue.toLowerCase().contains(desiredValue)) {
+        if (actualValue != null &&
+            actualValue.toLowerCase().contains(desiredValue)) {
             return walkNextStep(tree, actualValue);
         }
         return null;

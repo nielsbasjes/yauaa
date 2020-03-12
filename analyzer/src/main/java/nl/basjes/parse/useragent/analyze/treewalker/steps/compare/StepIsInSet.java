@@ -35,7 +35,6 @@ public class StepIsInSet extends Step {
         list = Collections.emptySet();
     }
 
-
     public StepIsInSet(String listName, Set<String> list) {
         this.listName = listName;
         this.list = list;
@@ -45,7 +44,8 @@ public class StepIsInSet extends Step {
     public WalkResult walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
 
-        if (list.contains(actualValue.toLowerCase())) {
+        if (actualValue != null &&
+            list.contains(actualValue.toLowerCase())) {
             return walkNextStep(tree, actualValue);
         }
         return null;

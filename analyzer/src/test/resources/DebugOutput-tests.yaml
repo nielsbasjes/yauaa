@@ -54,6 +54,12 @@ config:
     extract:
     - 'Impossible: 2:CleanVersion[LookUp[Dummy;agent.(1)product.(1)name="Bla"]]'
 
+- matcher:
+    options:
+      - 'verbose'
+    extract:
+      - 'LookupDefaultNoInput: 2:CleanVersion[LookUp[Dummy;agent.uuid;"Default for no input"]]'
+
 # Partial match
 - matcher:
     options:
@@ -96,9 +102,10 @@ config:
       name: 'Validate Debug Output looks good'
       user_agent_string: 'Word/1 ( One Two Three; One|Two|Three|Four)'
     expected:
-      Name:              'Word'
-      FirstCommentEntry:   'One Two Three'
-      LookupSegment23:   'Two|Three'
+      Name                    : 'Word'
+      FirstCommentEntry       : 'One Two Three'
+      LookupSegment23         : 'Two|Three'
+      LookupDefaultNoInput    : 'Default for no input'
 
 - matcher:
     options:
@@ -124,8 +131,9 @@ config:
     input:
       user_agent_string: 'MoZilLa/1_2.3'
     expected:
-      Name: 'Mozilla'
-      FirstCommentEntry                       : 'There is no commment entry'
+      Name                   : 'Mozilla'
+      FirstCommentEntry      : 'There is no commment entry'
+      LookupDefaultNoInput   : 'Default for no input'
 
 - test:
     options:
@@ -159,8 +167,8 @@ config:
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
       __SyntaxError__                      : 'true'
-      FirstCommentEntry                       : 'There is no commment entry'
-
+      FirstCommentEntry                    : 'There is no commment entry'
+      LookupDefaultNoInput                 : 'Default for no input'
 
 - matcher:
     options:
@@ -178,4 +186,5 @@ config:
     expected:
       IgnoreSecond                         : 'Name'
       Name                                 : 'Name'
-      FirstCommentEntry                       : 'There is no commment entry'
+      FirstCommentEntry                    : 'There is no commment entry'
+      LookupDefaultNoInput                 : 'Default for no input'

@@ -48,7 +48,7 @@ public class TestParseUserAgent {
             Object row = parseUserAgent.evaluate(new DeferredObject[]{new DeferredJavaObject(userAgent)});
             checkField(resultInspector, row, "DeviceClass", "Tablet");
             checkField(resultInspector, row, "OperatingSystemNameVersion", "FireOS 3.4.0");
-            checkField(resultInspector, row, "WebviewAppName", null);
+            checkField(resultInspector, row, "WebviewAppName", "Unknown");
         }
     }
 

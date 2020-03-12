@@ -30,12 +30,14 @@ public class StepLookupPrefix extends Step {
     private final String            lookupName;
     private final String            defaultValue;
     private final PrefixMap<String> prefixMap;
+    private boolean canFail;
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepLookupPrefix() {
         lookupName = null;
         defaultValue = null;
         prefixMap = null;
+        canFail = true;
     }
 
     public StepLookupPrefix(String lookupName, Map<String, String> prefixList, String defaultValue) {
@@ -43,13 +45,23 @@ public class StepLookupPrefix extends Step {
         this.defaultValue = defaultValue;
         this.prefixMap = new StringPrefixMap<>(false);
         this.prefixMap.putAll(prefixList);
+        canFail = defaultValue == null;
+    }
+
+    @Override
+    public boolean canFail() {
+        return canFail;
     }
 
     @Override
     public WalkResult walk(ParseTree tree, String value) {
-        String input = getActualValue(tree, value);
+        String actualValue = getActualValue(tree, value);
 
-        String result = prefixMap.getLongestMatch(input);
+        String result = null;
+
+        if (actualValue != null) {
+            result = prefixMap.getLongestMatch(actualValue);
+        }
 
         if (result == null) {
             if (defaultValue == null) {

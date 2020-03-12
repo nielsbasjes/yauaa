@@ -125,7 +125,7 @@ config:
     expected:
       DeviceClass                          : 'Robot Imitator'
       DeviceName                           : 'Googlebot Imitator'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Googlebot'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
@@ -153,7 +153,7 @@ config:
     expected:
       DeviceClass                          : 'Robot Imitator'
       DeviceName                           : 'Googlebot Imitator'
-      DeviceBrand                          : 'Unknown'
+      DeviceBrand                          : 'Googlebot'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
@@ -747,9 +747,47 @@ config:
 #      AgentNameVersion                     : 'Googlebot Imitator Nutch-1.7'
 #      AgentNameVersionMajor                : 'Googlebot Imitator Nutch'
 
+
+#- matcher:
+#    require:
+#      - '__SyntaxError__="true"'
+#      - 'agent.product.name="GoogleBot"'
+#    extract:
+#      - 'DeviceBrand          : 100 : "Googlebot Imitator"'
+#      - 'LayoutEngineName     : 100 : "Googlebot Imitator"'
+#      - 'AgentName            : 100 : "Googlebot Imitator"'
+#
+#
 #- test: # FIXME: This is really an imitator because of the missing ')' at the end.
+#    options:
+#      - 'only'
 #    input:
 #      user_agent_string: 'Googlebot/2.1 (+http://www.google.com/bot.html'
+#    expected:
+#      DeviceClass                           : 'Robot'
+#      DeviceName                            : 'Google Imitator GoogleBOT'
+#      DeviceBrand                           : 'Google Imitator'
+#      OperatingSystemClass                  : 'Cloud'
+#      OperatingSystemName                   : 'Google'
+#      OperatingSystemVersion                : 'Google'
+#      OperatingSystemVersionMajor           : 'Google'
+#      OperatingSystemNameVersion            : 'Google'
+#      OperatingSystemNameVersionMajor       : 'Google'
+#      LayoutEngineClass                     : 'Robot'
+#      LayoutEngineName                      : 'Googlebot'
+#      LayoutEngineVersion                   : 'Googlebot'
+#      LayoutEngineVersionMajor              : 'Googlebot'
+#      LayoutEngineNameVersion               : 'Googlebot'
+#      LayoutEngineNameVersionMajor          : 'Googlebot'
+#      AgentClass                            : 'Robot'
+#      AgentName                             : 'Googlebot Imitator'
+#      AgentVersion                          : '2.1'
+#      AgentVersionMajor                     : '2'
+#      AgentNameVersion                      : 'Googlebot Imitator 2.1'
+#      AgentNameVersionMajor                 : 'Googlebot Imitator 2'
+#      AgentInformationUrl                   : 'http://www.google.com/bot.html'
+#
+
 
 #- test: # FIXME: This is really an imitator because of the missing spaces.
 #    input:

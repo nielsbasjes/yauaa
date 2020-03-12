@@ -168,7 +168,7 @@ public abstract class MatcherAction implements Serializable {
             return 0; // Not interested in any patterns
         }
 
-        mustHaveMatches = !evaluator.usesIsNull();
+        mustHaveMatches = evaluator.mustHaveMatches();
 
         int informs = calculateInformPath(this, "agent", requiredPattern);
 
@@ -314,8 +314,8 @@ public abstract class MatcherAction implements Serializable {
      */
     public abstract boolean obtainResult();
 
-    boolean isValidIsNull() {
-        return matches.isEmpty() && evaluator.usesIsNull();
+    boolean isValidWithoutMatches() {
+        return matches.isEmpty() && !evaluator.mustHaveMatches();
     }
 
     /**
@@ -331,7 +331,7 @@ public abstract class MatcherAction implements Serializable {
             }
         }
 
-        if (isValidIsNull()) {
+        if (isValidWithoutMatches()) {
             WalkResult matchedValue = evaluator.evaluate(null, null, null);
             if (matchedValue != null) {
                 inform(null, matchedValue);

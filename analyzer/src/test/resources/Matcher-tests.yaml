@@ -378,7 +378,7 @@ config:
         name: 'Validating setting a value to NULL'
         user_agent_string: 'Setting NULL Value'
       expected:
-        TheNullValue           : '<<<null>>>'  # The default for non-builtin fields
+        TheNullValue           : 'Unknown'  # The default for non-builtin fields
         OperatingSystemVersion : '??'       # This is the build in default value
 
   - matcher:
@@ -398,7 +398,7 @@ config:
         user_agent_string: 'Set NULL Value'
       expected:
         A : 'Three'
-        B : '<<<null>>>'
+        B : 'Unknown'
 
   - matcher:
       require:

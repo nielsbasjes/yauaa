@@ -21,6 +21,7 @@ import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepContains;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepDefaultIfNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEndsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsInSet;
@@ -37,7 +38,6 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepDefaultIfNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSegmentRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
@@ -228,24 +228,24 @@ public class WalkList implements Serializable {
         return steps.isEmpty() ? null : steps.get(0);
     }
 
-    private Boolean usesIsNull = null;
+    private Boolean mustHaveMatches = null;
 
-    public boolean usesIsNull() {
-        if (usesIsNull != null) {
-            return usesIsNull;
+    public boolean mustHaveMatches() {
+        if (mustHaveMatches != null) {
+            return mustHaveMatches;
         }
 
-        usesIsNull = false;
+        mustHaveMatches = true;
 
         Step step = getFirstStep();
         while (step != null) {
-            if (step instanceof StepIsNull || step instanceof StepDefaultIfNull) {
-                usesIsNull = true;
+            if (!step.mustHaveInput()) {
+                mustHaveMatches = false;
                 break;
             }
             step = step.getNextStep();
         }
-        return usesIsNull;
+        return mustHaveMatches;
     }
 
     @Override

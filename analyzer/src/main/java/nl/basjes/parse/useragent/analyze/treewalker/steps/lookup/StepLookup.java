@@ -29,25 +29,42 @@ public class StepLookup extends Step {
     private final String lookupName;
     private final Map<String, String> lookup;
     private final String defaultValue;
+    private boolean canFail;
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepLookup() {
         lookupName = "<< Should not be seen anywhere >>";
         lookup = Collections.emptyMap();
         defaultValue = "<< Should not be seen anywhere >>";
+        canFail = false;
     }
 
     public StepLookup(String lookupName, Map<String, String> lookup, String defaultValue) {
         this.lookupName = lookupName;
         this.lookup = lookup;
         this.defaultValue = defaultValue;
+        canFail = defaultValue == null;
+    }
+
+    @Override
+    public boolean canFail() {
+        return canFail;
+    }
+
+    @Override
+    public boolean mustHaveInput() {
+        return canFail;
     }
 
     @Override
     public WalkResult walk(ParseTree tree, String value) {
-        String input = getActualValue(tree, value);
+        String actualValue = getActualValue(tree, value);
 
-        String result = lookup.get(input.toLowerCase());
+        String result = null;
+
+        if (actualValue != null) {
+            result = lookup.get(actualValue.toLowerCase());
+        }
 
         if (result == null) {
             if (defaultValue == null) {

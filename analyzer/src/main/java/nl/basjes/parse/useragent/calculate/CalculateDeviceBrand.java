@@ -68,7 +68,6 @@ public class CalculateDeviceBrand implements FieldCalculator {
                     1);
             }
         }
-
     }
 
     private String determineDeviceBrand(UserAgent userAgent) {

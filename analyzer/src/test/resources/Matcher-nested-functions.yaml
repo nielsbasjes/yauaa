@@ -28,17 +28,33 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'A:1:LookUp[ Versions ; CleanVersion [ agent.(1)product.(1)version ] ; "Ugly" ]'
+        - 'A:1:LookUp[ Versions ; CleanVersion [ agent.(1)product.(1)version ] ]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'B:1:LookUp [ Versions ; CleanVersion[agent.(1)product.(1)version="1_2.3"] ; "Ugly" ]'
+        - 'B:1:LookUp [ Versions ; CleanVersion[agent.(1)product.(1)version="1_2.3"] ]'
 
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'C:1:LookUp [ Versions ; CleanVersion[agent.(1)product.(1)version="1_2.3123" ] ; "Ugly"]'
+        - 'C:1:LookUp [ Versions ; CleanVersion[agent.(1)product.(1)version="1_2.3123" ] ]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'Ad:1:LookUp[ Versions ; CleanVersion [ agent.(1)product.(1)version ] ; "Ugly" ]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'Bd:1:LookUp [ Versions ; CleanVersion[agent.(1)product.(1)version="1_2.3"] ; "Ugly" ]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'Cd:1:LookUp [ Versions ; CleanVersion[agent.(1)product.(1)version="1_2.3123" ] ; "Ugly"]'
+
 
   - lookup:
       name: 'Versions'
@@ -47,20 +63,28 @@ config:
         "1.2.3": "Good"
 
   - test:
+      <<: *TEST_OPTIONS
       input:
         user_agent_string: 'MoZillA/1_2.3'
       expected:
-        A : 'Good'
-        B : 'Good'
-        C : 'Unknown'
+        A       : 'Good'
+        Ad      : 'Good'
+        B       : 'Good'
+        Bd      : 'Good'
+        C       : 'Unknown'
+        Cd      : 'Ugly'
 
   - test:
+      <<: *TEST_OPTIONS
       input:
         user_agent_string: 'MoZillA/1_2.3123'
       expected:
-        A : 'Ugly'
-        B : '<<<null>>>'
-        C : 'Ugly'
+        A       : 'Unknown'
+        Ad      : 'Ugly'
+        B       : 'Unknown'
+        Bd      : 'Ugly'
+        C       : 'Unknown'
+        Cd      : 'Ugly'
 
 
   - matcher:

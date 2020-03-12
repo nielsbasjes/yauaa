@@ -45,13 +45,17 @@ public class StepLookupContains extends Step {
 
     @Override
     public WalkResult walk(ParseTree tree, String value) {
-        String input = getActualValue(tree, value).toLowerCase();
+        String input = getActualValue(tree, value);
 
-        for (Map.Entry<String, String> entry: lookup.entrySet()) {
-            if (input.contains(entry.getKey())) {
-                return walkNextStep(tree, entry.getValue());
+        if (input != null) {
+            input = input.toLowerCase();
+            for (Map.Entry<String, String> entry: lookup.entrySet()) {
+                if (input.contains(entry.getKey())) {
+                    return walkNextStep(tree, entry.getValue());
+                }
             }
         }
+
         // Not found:
         if (defaultValue == null) {
             return null;

@@ -42,12 +42,14 @@ public class StepIsInLookupContains extends Step {
 
     @Override
     public WalkResult walk(ParseTree tree, String value) {
-        String input = getActualValue(tree, value);
+        String actualValue = getActualValue(tree, value);
 
-        String compareInput = input.toLowerCase();
-        for (String key: lookupKeys) {
-            if (compareInput.contains(key)) {
-                return walkNextStep(tree, input);
+        if (actualValue != null) {
+            String compareInput = actualValue.toLowerCase();
+            for (String key : lookupKeys) {
+                if (compareInput.contains(key)) {
+                    return walkNextStep(tree, actualValue);
+                }
             }
         }
         // Not found:

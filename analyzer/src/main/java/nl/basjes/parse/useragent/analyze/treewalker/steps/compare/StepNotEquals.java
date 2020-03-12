@@ -38,7 +38,8 @@ public class StepNotEquals extends Step {
     public WalkResult walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
 
-        if (!actualValue.equalsIgnoreCase(desiredValue)) {
+        if (actualValue != null &&
+            !actualValue.equalsIgnoreCase(desiredValue)) {
             return walkNextStep(tree, actualValue);
         }
         return null;

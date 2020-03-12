@@ -147,8 +147,8 @@ public class TreeExpressionEvaluator implements Serializable {
         return result;
     }
 
-    public boolean usesIsNull() {
-        return walkList.usesIsNull();
+    public boolean mustHaveMatches() {
+        return walkList.mustHaveMatches();
     }
 
     public WalkList getWalkListForUnitTesting() {

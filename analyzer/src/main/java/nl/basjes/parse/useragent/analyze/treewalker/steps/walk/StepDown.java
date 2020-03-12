@@ -76,7 +76,7 @@ public class StepDown extends Step {
         this(NumberRangeVisitor.getList(numberRange), name);
     }
 
-    private StepDown(NumberRangeList numberRange, String name) {
+    public StepDown(NumberRangeList numberRange, String name) {
         this.name = name;
         this.start = numberRange.getStart();
         this.end = numberRange.getEnd();
@@ -85,12 +85,14 @@ public class StepDown extends Step {
 
     @Override
     public WalkResult walk(ParseTree tree, String value) {
-        Iterator<? extends ParseTree> children = userAgentGetChildrenVisitor.visit(tree);
-        while (children.hasNext()) {
-            ParseTree child = children.next();
-            WalkResult childResult = walkNextStep(child, null);
-            if (childResult != null) {
-                return childResult;
+        if (tree != null) {
+            Iterator<? extends ParseTree> children = userAgentGetChildrenVisitor.visit(tree);
+            while (children.hasNext()) {
+                ParseTree  child       = children.next();
+                WalkResult childResult = walkNextStep(child, null);
+                if (childResult != null) {
+                    return childResult;
+                }
             }
         }
         return null;

@@ -94,22 +94,22 @@ public class TestParseUserAgent {
         checkResult(data, schema, "Anonymized",                       "Unknown"               );
         checkResult(data, schema, "DeviceBrand",                      "Unknown"               );
         checkResult(data, schema, "DeviceCpu",                        "Intel x86_64"          );
-        checkResult(data, schema, "DeviceFirmwareVersion",            "Unknown"               );
-        checkResult(data, schema, "DeviceVersion",                    "Unknown"               );
+        checkResult(data, schema, "DeviceFirmwareVersion",            "??"                    );
+        checkResult(data, schema, "DeviceVersion",                    "??"                    );
         checkResult(data, schema, "FacebookCarrier",                  "Unknown"               );
         checkResult(data, schema, "FacebookDeviceClass",              "Unknown"               );
         checkResult(data, schema, "FacebookDeviceName",               "Unknown"               );
-        checkResult(data, schema, "FacebookDeviceVersion",            "Unknown"               );
+        checkResult(data, schema, "FacebookDeviceVersion",            "??"                    );
         checkResult(data, schema, "FacebookFBOP",                     "Unknown"               );
         checkResult(data, schema, "FacebookFBSS",                     "Unknown"               );
         checkResult(data, schema, "FacebookOperatingSystemName",      "Unknown"               );
-        checkResult(data, schema, "FacebookOperatingSystemVersion",   "Unknown"               );
+        checkResult(data, schema, "FacebookOperatingSystemVersion",   "??"                    );
         checkResult(data, schema, "HackerAttackVector",               "Unknown"               );
         checkResult(data, schema, "HackerToolkit",                    "Unknown"               );
         checkResult(data, schema, "KoboAffiliate",                    "Unknown"               );
         checkResult(data, schema, "KoboPlatformId",                   "Unknown"               );
         checkResult(data, schema, "LayoutEngineBuild",                "Unknown"               );
-        checkResult(data, schema, "OperatingSystemVersionBuild",      "Unknown"               );
+        checkResult(data, schema, "OperatingSystemVersionBuild",      "??"                    );
     }
 
     @Test

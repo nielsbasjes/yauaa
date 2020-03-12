@@ -38,7 +38,8 @@ public class StepEndsWith extends Step {
     public WalkResult walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
 
-        if (actualValue.toLowerCase().endsWith(desiredValue)) {
+        if (actualValue != null &&
+            actualValue.toLowerCase().endsWith(desiredValue)) {
             return walkNextStep(tree, actualValue);
         }
         return null;

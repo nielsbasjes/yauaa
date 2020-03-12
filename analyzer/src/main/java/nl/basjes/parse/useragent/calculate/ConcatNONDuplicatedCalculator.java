@@ -36,8 +36,8 @@ public class ConcatNONDuplicatedCalculator implements FieldCalculator {
 
     @Override
     public void calculate(UserAgent userAgent) {
-        UserAgent.AgentField firstField = userAgent.get(firstName);
-        UserAgent.AgentField secondField = userAgent.get(secondName);
+        UserAgent.AgentField firstField = firstName == null ? null : userAgent.get(firstName);
+        UserAgent.AgentField secondField = secondName == null ? null : userAgent.get(secondName);
 
         String first = null;
         long firstConfidence = -1;

@@ -146,37 +146,14 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         AGENT_NAME_VERSION_MAJOR
     ));
 
-    private static final Map<String, AgentField> DEFAULTS_FOR_KNOWN_FIELDS = new TreeMap<>();
-
-    static {
-        // Device : Family - Brand - Model
-        DEFAULTS_FOR_KNOWN_FIELDS.put(DEVICE_CLASS,                         new AgentField(UNKNOWN_VALUE));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(DEVICE_BRAND,                         new AgentField(UNKNOWN_VALUE));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(DEVICE_NAME,                          new AgentField(UNKNOWN_VALUE));
-
-        // Operating system
-        DEFAULTS_FOR_KNOWN_FIELDS.put(OPERATING_SYSTEM_CLASS,               new AgentField(UNKNOWN_VALUE));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(OPERATING_SYSTEM_NAME,                new AgentField(UNKNOWN_VALUE));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(OPERATING_SYSTEM_VERSION,             new AgentField(UNKNOWN_VERSION));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(OPERATING_SYSTEM_VERSION_MAJOR,       new AgentField(UNKNOWN_VERSION));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(OPERATING_SYSTEM_NAME_VERSION,        new AgentField(UNKNOWN_NAME_VERSION));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(OPERATING_SYSTEM_NAME_VERSION_MAJOR,  new AgentField(UNKNOWN_NAME_VERSION));
-
-        // Engine : Class (=None/Hacker/Robot/Browser) - Name - Version
-        DEFAULTS_FOR_KNOWN_FIELDS.put(LAYOUT_ENGINE_CLASS,                  new AgentField(UNKNOWN_VALUE));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(LAYOUT_ENGINE_NAME,                   new AgentField(UNKNOWN_VALUE));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(LAYOUT_ENGINE_VERSION,                new AgentField(UNKNOWN_VERSION));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(LAYOUT_ENGINE_VERSION_MAJOR,          new AgentField(UNKNOWN_VERSION));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(LAYOUT_ENGINE_NAME_VERSION,           new AgentField(UNKNOWN_NAME_VERSION));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(LAYOUT_ENGINE_NAME_VERSION_MAJOR,     new AgentField(UNKNOWN_NAME_VERSION));
-
-        // Agent: Class (=Hacker/Robot/Browser) - Name - Version
-        DEFAULTS_FOR_KNOWN_FIELDS.put(AGENT_CLASS,                          new AgentField(UNKNOWN_VALUE));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(AGENT_NAME,                           new AgentField(UNKNOWN_VALUE));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(AGENT_VERSION,                        new AgentField(UNKNOWN_VERSION));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(AGENT_VERSION_MAJOR,                  new AgentField(UNKNOWN_VERSION));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(AGENT_NAME_VERSION,                   new AgentField(UNKNOWN_NAME_VERSION));
-        DEFAULTS_FOR_KNOWN_FIELDS.put(AGENT_NAME_VERSION_MAJOR,             new AgentField(UNKNOWN_NAME_VERSION));
+    private static String getDefaultValueForField(String fieldName) {
+        if (fieldName.contains("NameVersion")) {
+            return UNKNOWN_NAME_VERSION;
+        }
+        if (fieldName.contains("Version")) {
+            return UNKNOWN_VERSION;
+        }
+        return UNKNOWN_VALUE;
     }
 
     private Set<String> wantedFieldNames = null;
@@ -294,7 +271,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         }
 
         public boolean isDefaultValue() {
-            return confidence < 0 || value == null;
+            return confidence < 0 || value == null || Objects.equals(value, defaultValue);
         }
 
         public long getConfidence() {
@@ -412,14 +389,9 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
 
     private void init() {
         if (wantedFieldNames == null) {
-            DEFAULTS_FOR_KNOWN_FIELDS.forEach((k, v) -> allFields.put(k, new UserAgent.AgentField(v.defaultValue)));
+            STANDARD_FIELDS.forEach(this::get); // Just getting a field initializes the AgentField
         } else {
-            for (String wantedFieldName: wantedFieldNames) {
-                final AgentField agentField = DEFAULTS_FOR_KNOWN_FIELDS.get(wantedFieldName);
-                if (agentField != null) {
-                    allFields.put(wantedFieldName, new UserAgent.AgentField(agentField.defaultValue));
-                }
-            }
+            wantedFieldNames.forEach(this::get);
         }
     }
 
@@ -443,9 +415,14 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     }
 
     public static boolean isSystemField(String fieldname) {
-        return  SET_ALL_FIELDS.equals(fieldname) ||
-                SYNTAX_ERROR.equals(fieldname) ||
-                USERAGENT_FIELDNAME.equals(fieldname);
+        switch (fieldname) {
+            case SET_ALL_FIELDS:
+            case SYNTAX_ERROR:
+            case USERAGENT_FIELDNAME:
+                return true;
+            default:
+                return false;
+        }
     }
 
     public void processSetAll() {
@@ -453,7 +430,14 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         if (setAllField == null) {
             return;
         }
-        String value = setAllField.getValue();
+
+        String value;
+        if (setAllField.isDefaultValue()) {
+            value = NULL_VALUE;
+        } else {
+            value = setAllField.getValue();
+        }
+
         long confidence = setAllField.confidence;
         for (Map.Entry<String, AgentField> fieldEntry : allFields.entrySet()) {
             if (!isSystemField(fieldEntry.getKey())) {
@@ -465,7 +449,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     public void set(String attribute, String value, long confidence) {
         AgentField field = allFields.get(attribute);
         if (field == null) {
-            field = new AgentField(null); // The fields we do not know get a 'null' default
+            field = new AgentField(getDefaultValueForField(attribute));
         }
 
         boolean wasEmpty = confidence == -1;
@@ -483,7 +467,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     public void setForced(String attribute, String value, long confidence) {
         AgentField field = allFields.get(attribute);
         if (field == null) {
-            field = new AgentField(null); // The fields we do not know get a 'null' default
+            field = new AgentField(getDefaultValueForField(attribute));
         }
 
         boolean wasEmpty = confidence == -1;
@@ -512,7 +496,12 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             agentField.setValue(userAgentString, 0L);
             return agentField;
         } else {
-            return allFields.get(fieldName);
+            AgentField foundField = allFields.get(fieldName);
+            if (foundField == null) {
+                foundField = new AgentField(getDefaultValueForField(fieldName));
+                allFields.put(fieldName, foundField);
+            }
+            return foundField;
         }
     }
 
@@ -522,7 +511,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         }
         AgentField field = allFields.get(fieldName);
         if (field == null) {
-            return UNKNOWN_VALUE;
+            return getDefaultValueForField(fieldName);
         }
         return field.getValue();
     }
@@ -578,11 +567,15 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         }
 
         for (String fieldName : fieldNames) {
+            AgentField field = get(fieldName);
+            if (field.isDefaultValue()) {
+                continue;
+            }
             sb.append("      ").append(fieldName);
             for (int l = fieldName.length(); l < maxNameLength + 7; l++) {
                 sb.append(' ');
             }
-            String value = getValue(fieldName);
+            String value = field.getValue();
             sb.append(": '").append(value).append('\'');
             if (showConfidence) {
                 int l = value == null ? 0 : value.length();
@@ -622,7 +615,11 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             if (USERAGENT_FIELDNAME.equals(fieldName)) {
                 result.put(USERAGENT_FIELDNAME, getUserAgentString());
             } else {
-                result.put(fieldName, getValue(fieldName));
+                AgentField field = get(fieldName);
+                if (field.isDefaultValue()) {
+                    continue;
+                }
+                result.put(fieldName, field.getValue());
             }
         }
         return result;
@@ -656,10 +653,14 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
                     .append(':')
                     .append('"').append(StringEscapeUtils.escapeJson(getUserAgentString())).append('"');
             } else {
+                AgentField field = get(fieldName);
+                if (field.isDefaultValue()) {
+                    continue;
+                }
                 sb
                     .append('"').append(StringEscapeUtils.escapeJson(fieldName)).append('"')
                     .append(':')
-                    .append('"').append(StringEscapeUtils.escapeJson(getValue(fieldName))).append('"');
+                    .append('"').append(StringEscapeUtils.escapeJson(field.getValue())).append('"');
             }
         }
 
@@ -690,9 +691,13 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
                     .append(StringEscapeUtils.escapeXml10(getUserAgentString()))
                     .append("</Useragent>");
             } else {
+                AgentField field = get(fieldName);
+                if (field.isDefaultValue()) {
+                    continue;
+                }
                 sb
                     .append('<').append(StringEscapeUtils.escapeXml10(fieldName)).append('>')
-                    .append(StringEscapeUtils.escapeXml10(getValue(fieldName)))
+                    .append(StringEscapeUtils.escapeXml10(field.getValue()))
                     .append("</").append(StringEscapeUtils.escapeXml10(fieldName)).append('>');
             }
         }
@@ -721,7 +726,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         for (String fieldName : fieldNames) {
             if (!USERAGENT_FIELDNAME.equals(fieldName)) {
                 AgentField field = allFields.get(fieldName);
-                if (field != null && field.getValue() != null) {
+                if (field != null && !field.isDefaultValue()) {
                     sb.append("    ").append(fieldName);
                     for (int l = fieldName.length(); l < maxLength + 2; l++) {
                         sb.append(' ');

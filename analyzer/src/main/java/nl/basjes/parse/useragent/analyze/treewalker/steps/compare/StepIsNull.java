@@ -27,10 +27,16 @@ public class StepIsNull extends Step {
     public WalkResult walk(ParseTree tree, String value) {
         WalkResult actualValue = walkNextStep(tree, value);
 
-        if (actualValue == null || actualValue.getValue() == null) {
+        if (actualValue == null ||
+            actualValue.getValue() == null) {
             return new WalkResult(tree, "<<<IsNull Success Value>>>");
         }
         return null;
+    }
+
+    @Override
+    public boolean mustHaveInput() {
+        return false;
     }
 
     @Override

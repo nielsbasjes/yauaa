@@ -38,7 +38,8 @@ public class StepStartsWith extends Step {
     public WalkResult walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
 
-        if (actualValue.toLowerCase().startsWith(desiredValue)) {
+        if (actualValue != null &&
+            actualValue.toLowerCase().startsWith(desiredValue)) {
             return walkNextStep(tree, actualValue);
         }
         return null;

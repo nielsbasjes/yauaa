@@ -22,6 +22,7 @@ import nl.basjes.parse.useragent.UserAgent;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.classify.DeviceClass.ANONYMIZED;
 import static nl.basjes.parse.useragent.classify.DeviceClass.DESKTOP;
+import static nl.basjes.parse.useragent.classify.DeviceClass.E_READER;
 import static nl.basjes.parse.useragent.classify.DeviceClass.GAME_CONSOLE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.HACKER;
 import static nl.basjes.parse.useragent.classify.DeviceClass.HANDHELD_GAME_CONSOLE;
@@ -31,13 +32,12 @@ import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT;
 import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT_IMITATOR;
 import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT_MOBILE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.SET_TOP_BOX;
-import static nl.basjes.parse.useragent.classify.DeviceClass.TV;
 import static nl.basjes.parse.useragent.classify.DeviceClass.TABLET;
+import static nl.basjes.parse.useragent.classify.DeviceClass.TV;
 import static nl.basjes.parse.useragent.classify.DeviceClass.UNCLASSIFIED;
 import static nl.basjes.parse.useragent.classify.DeviceClass.UNKNOWN;
 import static nl.basjes.parse.useragent.classify.DeviceClass.VIRTUAL_REALITY;
 import static nl.basjes.parse.useragent.classify.DeviceClass.WATCH;
-import static nl.basjes.parse.useragent.classify.DeviceClass.E_READER;
 
 public final class UserAgentClassifier {
     private UserAgentClassifier(){} // Utility class

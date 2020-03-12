@@ -45,8 +45,14 @@ public class StepWordRange extends Step {
     @Override
     public WalkResult walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
+        if (actualValue == null) {
+            return null;
+        }
+
         String filteredValue;
-        if (tree.getChildCount() == 1 && (
+        if (tree !=null &&
+            tree.getChildCount() == 1 &&
+            (
               tree.getChild(0) instanceof SingleVersionContext ||
               tree.getChild(0) instanceof SingleVersionWithCommasContext)) {
             filteredValue = VersionSplitter.getInstance().getSplitRange(actualValue, firstWord, lastWord);

@@ -81,6 +81,10 @@ public abstract class Step implements Serializable {
     }
 
     protected final ParseTree up(ParseTree tree) {
+        if (tree == null) {
+            return null;
+        }
+
         ParseTree parent = tree.getParent();
 
         // Needed because of the way the ANTLR rules have been defined.
@@ -122,8 +126,16 @@ public abstract class Step implements Serializable {
      * to improve performance at run time.
      * @return If this specific step can or cannot fail.
      */
-    public boolean canFail(){
+    public boolean canFail() {
         return true; // Default is to assume the step is always needed.
+    }
+
+    /**
+     * Some steps can even pass if there is no input provided.
+     * @return If this specific step needs input to pass.
+     */
+    public boolean mustHaveInput() {
+        return true; // Default is to assume the step always needs input.
     }
 
     public Step getNextStep() {

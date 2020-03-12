@@ -41,6 +41,9 @@ public class StepConcat extends Step {
     @Override
     public WalkResult walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
+        if (actualValue == null) {
+            return null;
+        }
         String filteredValue = prefix + actualValue + postfix;
         return walkNextStep(tree, filteredValue);
     }

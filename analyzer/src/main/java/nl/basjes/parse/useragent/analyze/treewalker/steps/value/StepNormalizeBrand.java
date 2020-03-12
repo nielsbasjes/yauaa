@@ -27,6 +27,9 @@ public class StepNormalizeBrand extends Step {
     @Override
     public WalkResult walk(ParseTree tree, String value) {
         String actualValue = getActualValue(tree, value);
+        if (actualValue == null) {
+            return null;
+        }
         String filteredValue = Normalize.brand(actualValue);
         return walkNextStep(tree, filteredValue);
     }

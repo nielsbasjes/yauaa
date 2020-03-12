@@ -84,21 +84,21 @@ public class DebugUserAgent extends UserAgent { // NOSONAR: No need to override 
             for (String fieldName : result.getAvailableFieldNamesSorted()) {
                 AgentField field = result.get(fieldName);
 
-                if (field == null) {
-                    LOG.error("Should not happen: No such field: {}", fieldName);
-                } else {
-                    if (field.getConfidence() >= 0) {
-                        String marker = "";
-                        if (highlightNames.contains(fieldName)) {
-                            marker = " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
-                        }
-                        sb.append("| ").append(fieldName).append('(').append(field.getConfidence());
-                        if (field.isDefaultValue()) {
-                            sb.append(" => isDefaultValue");
-                        }
-                        sb.append(") = ").append(field.getValue()).append(marker).append('\n');
+//                if (field == null) {
+//                    LOG.error("Should not happen: No such field: {}", fieldName);
+//                } else {
+                if (field.getConfidence() >= 0) {
+                    String marker = "";
+                    if (highlightNames.contains(fieldName)) {
+                        marker = " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
                     }
+                    sb.append("| ").append(fieldName).append('(').append(field.getConfidence());
+                    if (field.isDefaultValue()) {
+                        sb.append(" => isDefaultValue");
+                    }
+                    sb.append(") = ").append(field.getValue()).append(marker).append('\n');
                 }
+//                }
             }
             sb.append("+================\n");
         }

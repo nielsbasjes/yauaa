@@ -27,6 +27,7 @@ import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import static java.util.regex.Pattern.LITERAL;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
+import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VALUE;
 
 public class CalculateDeviceName implements FieldCalculator {
 
@@ -48,7 +49,7 @@ public class CalculateDeviceName implements FieldCalculator {
             String deviceBrandValue = deviceBrand.getValue();
             if (deviceName.getConfidence() >= 0 &&
                 deviceBrand.getConfidence() >= 0 &&
-                !deviceBrandValue.equals("Unknown")) {
+                !deviceBrandValue.equals(UNKNOWN_VALUE)) {
                 // In some cases it does start with the brand but without a separator following the brand
                 deviceNameValue = Normalize.cleanupDeviceBrandName(deviceBrandValue, deviceNameValue);
             } else {

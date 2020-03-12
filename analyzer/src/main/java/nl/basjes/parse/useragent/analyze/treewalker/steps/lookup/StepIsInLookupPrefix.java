@@ -44,14 +44,18 @@ public class StepIsInLookupPrefix extends Step {
 
     @Override
     public WalkResult walk(ParseTree tree, String value) {
-        String input = getActualValue(tree, value);
+        String actualValue = getActualValue(tree, value);
 
-        String result = prefixMap.getLongestMatch(input);
+        String result = null;
+
+        if (actualValue != null) {
+            result = prefixMap.getLongestMatch(actualValue);
+        }
 
         if (result == null) {
             return null;
         }
-        return walkNextStep(tree, input);
+        return walkNextStep(tree, actualValue);
     }
 
     @Override
