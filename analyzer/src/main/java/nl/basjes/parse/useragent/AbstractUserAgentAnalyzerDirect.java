@@ -913,6 +913,8 @@ config:
         try {
             userAgent = flattener.parse(userAgent);
 
+            inform(SYNTAX_ERROR, userAgent.getValue(SYNTAX_ERROR), null);
+
             if (verbose) {
                 LOG.info("=========== Checking all Touched Matchers: {}", touchedMatchers.size());
             }

@@ -106,6 +106,7 @@ config:
       FirstCommentEntry       : 'One Two Three'
       LookupSegment23         : 'Two|Three'
       LookupDefaultNoInput    : 'Default for no input'
+      DidWeHaveASyntaxError   : 'No we did''t'
 
 - matcher:
     options:
@@ -134,6 +135,7 @@ config:
       Name                   : 'Mozilla'
       FirstCommentEntry      : 'There is no commment entry'
       LookupDefaultNoInput   : 'Default for no input'
+      DidWeHaveASyntaxError  : 'No we did''t'
 
 - test:
     options:
@@ -169,6 +171,7 @@ config:
       __SyntaxError__                      : 'true'
       FirstCommentEntry                    : 'There is no commment entry'
       LookupDefaultNoInput                 : 'Default for no input'
+      DidWeHaveASyntaxError                : 'Yes we did'
 
 - matcher:
     options:
@@ -178,6 +181,21 @@ config:
     extract:
       - 'IgnoreSecond:1:NormalizeBrand [agent.product.(1)name]'
 
+- matcher:
+    options:
+      - 'verbose'
+    require:
+      - '__SyntaxError__="true"'
+    extract:
+      - 'DidWeHaveASyntaxError:1:"Yes we did"'
+
+- matcher:
+    options:
+      - 'verbose'
+    require:
+      - '__SyntaxError__="false"'
+    extract:
+      - 'DidWeHaveASyntaxError:1:"No we did''t"'
 
 - test:
     input:
@@ -188,3 +206,4 @@ config:
       Name                                 : 'Name'
       FirstCommentEntry                    : 'There is no commment entry'
       LookupDefaultNoInput                 : 'Default for no input'
+      DidWeHaveASyntaxError                : 'No we did''t'

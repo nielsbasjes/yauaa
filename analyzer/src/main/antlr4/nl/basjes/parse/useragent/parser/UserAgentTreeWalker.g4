@@ -63,7 +63,7 @@ BACKTOFULL      : '@'           ;
 // LookUp[TridentName;agent.(1)product.(2-4)comments.(*)product.name#1="Trident"^.(*)version%1="7.";"DefaultValue"]
 
 matcherRequire  : matcher                                        EOF   #matcherBase
-//                | '__SyntaxError__' EQUALS value=VALUE                   #isSyntaxError
+                | '__SyntaxError__' EQUALS value=VALUE                 #isSyntaxError
                 | 'IsNull'         BLOCKOPEN matcher BLOCKCLOSE  EOF   #matcherPathIsNull
                 ;
 

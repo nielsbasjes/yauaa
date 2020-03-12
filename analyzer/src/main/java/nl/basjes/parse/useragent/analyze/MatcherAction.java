@@ -23,6 +23,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerLexer;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.IsSyntaxErrorContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherBaseContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
@@ -57,6 +58,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.analyze.NumberRangeVisitor.NUMBER_RANGE_VISITOR;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
@@ -361,6 +363,10 @@ public abstract class MatcherAction implements Serializable {
             calculateInformPath(action, treeName, ((MatcherBaseContext) tree).matcher()));
         CALCULATE_INFORM_PATH.put(MatcherPathIsNullContext.class,       (action, treeName, tree) ->
             calculateInformPath(action, treeName, ((MatcherPathIsNullContext) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(IsSyntaxErrorContext.class,       (action, treeName, tree) -> {
+            action.matcher.informMeAbout(action, SYNTAX_ERROR + "=" + ((IsSyntaxErrorContext) tree).value.getText());
+            return 1;
+        });
 
         // -------------
         CALCULATE_INFORM_PATH.put(MatcherExtractContext.class,          (action, treeName, tree) ->

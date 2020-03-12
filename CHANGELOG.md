@@ -10,6 +10,7 @@ v5.16-SNAPSHOT
   - Added new string split by '|' to make some lookups easier.
   - Added destroy() method to clean up all memory usage.
   - Fixed inconsistent behaviour regarding the default value of a field
+  - Rules can now test if there was a syntax error while parsing.
 - New/improved detections
   - Test cases for the 'frozen' Chrome strings.
   - Fixed edge case with duplicated tags.
