@@ -558,7 +558,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             maxNameLength = Math.max(maxNameLength, fieldName.length());
         }
         for (String fieldName : fieldNames) {
-            String value = getValue(fieldName);
+            String value = escapeYaml(getValue(fieldName));
             if (value != null) {
                 maxValueLength = Math.max(maxValueLength, value.length());
             }
@@ -573,7 +573,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             for (int l = fieldName.length(); l < maxNameLength + 7; l++) {
                 sb.append(' ');
             }
-            String value = field.getValue();
+            String value = escapeYaml(field.getValue());
             sb.append(": '").append(value).append('\'');
             if (showConfidence) {
                 int l = value == null ? 0 : value.length();
@@ -729,7 +729,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
                     for (int l = fieldName.length(); l < maxLength + 2; l++) {
                         sb.append(' ');
                     }
-                    sb.append(": '").append(field.getValue()).append('\'');
+                    sb.append(": '").append(escapeYaml(field.getValue())).append('\'');
                     sb.append('\n');
                 }
             }
