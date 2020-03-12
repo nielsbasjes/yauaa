@@ -101,15 +101,20 @@ public final class Normalize {
         return sb.toString().trim();
     }
 
+    private static final Pattern DEVICE_CLEANUP_PATTERN_1 = Pattern.compile("- +");
+    private static final Pattern DEVICE_CLEANUP_PATTERN_2 = Pattern.compile(" +-");
+    private static final Pattern DEVICE_CLEANUP_PATTERN_3 = Pattern.compile(" +");
+    private static final Pattern DEVICE_CLEANUP_PATTERN_4 = Pattern.compile("( -| )+");
+
     public static String cleanupDeviceBrandName(String deviceBrand, String deviceName) {
         String lowerDeviceBrand = deviceBrand.toLowerCase(Locale.ENGLISH);
 
         deviceName = replaceString(deviceName, "'", " ");
         deviceName = replaceString(deviceName, "_", " ");
 
-        deviceName = deviceName.replaceAll("- +", "-");
-        deviceName = deviceName.replaceAll(" +-", "-");
-        deviceName = deviceName.replaceAll(" +", " ");
+        deviceName = DEVICE_CLEANUP_PATTERN_1.matcher(deviceName).replaceAll("-");
+        deviceName = DEVICE_CLEANUP_PATTERN_2.matcher(deviceName).replaceAll("-");
+        deviceName = DEVICE_CLEANUP_PATTERN_3.matcher(deviceName).replaceAll(" ");
 
         String lowerDeviceName = deviceName.toLowerCase(Locale.ENGLISH);
 
@@ -118,7 +123,7 @@ public final class Normalize {
             deviceName = replaceString(deviceName, "_", " ");
             // (?i) means: case insensitive
             deviceName = deviceName.replaceAll("(?i)^" + Pattern.quote(deviceBrand) + "([^ ].*)$", Matcher.quoteReplacement(deviceBrand)+" $1");
-            deviceName = deviceName.replaceAll("( -| )+", " ");
+            deviceName = DEVICE_CLEANUP_PATTERN_4.matcher(deviceName).replaceAll(" ");
         } else {
             deviceName = deviceBrand + ' ' + deviceName;
         }
@@ -135,15 +140,14 @@ public final class Normalize {
 
     public static String email(String email) {
         String cleaned = email;
-        cleaned = cleaned.replaceAll("\\[at]", "@");
-
-        cleaned = cleaned.replaceAll("\\[\\\\xc3\\\\xa07]", "@");
-        cleaned = cleaned.replaceAll("\\[dot]", ".");
-        cleaned = cleaned.replaceAll("\\\\", " ");
-        cleaned = cleaned.replaceAll(" at ", "@");
-        cleaned = cleaned.replaceAll("dot", ".");
-        cleaned = cleaned.replaceAll(" dash ", "-");
-        cleaned = cleaned.replaceAll(" ", "");
+        cleaned = replaceString(cleaned, "[at]", "@");
+        cleaned = replaceString(cleaned, "[\\xc3\\xa07]", "@");
+        cleaned = replaceString(cleaned, "[dot]", ".");
+        cleaned = replaceString(cleaned, "\\", " ");
+        cleaned = replaceString(cleaned, " at ", "@");
+        cleaned = replaceString(cleaned, "dot", ".");
+        cleaned = replaceString(cleaned, " dash ", "-");
+        cleaned = replaceString(cleaned, " ", "");
         return cleaned;
     }
 

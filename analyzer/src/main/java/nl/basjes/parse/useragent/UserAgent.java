@@ -576,7 +576,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
             String value = escapeYaml(field.getValue());
             sb.append(": '").append(value).append('\'');
             if (showConfidence) {
-                int l = value == null ? 0 : value.length();
+                int l = value.length();
                 for (; l < maxValueLength + 5; l++) {
                     sb.append(' ');
                 }
