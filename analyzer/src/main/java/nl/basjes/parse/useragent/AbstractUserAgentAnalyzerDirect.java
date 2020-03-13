@@ -966,7 +966,11 @@ config:
         return wantedFieldNames.contains(fieldName);
     }
 
-    protected final List<FieldCalculator> fieldCalculators = new ArrayList<>();
+    private final List<FieldCalculator> fieldCalculators = new ArrayList<>();
+
+    protected void setFieldCalculators(List<FieldCalculator> newFieldCalculators) {
+        fieldCalculators.addAll(newFieldCalculators);
+    }
 
     private UserAgent hardCodedPostProcessing(UserAgent userAgent) {
         // If it is really really bad ... then it is a Hacker.
@@ -1173,6 +1177,7 @@ config:
 
         private final List<String> resources = new ArrayList<>();
         private final List<String> optionalResources = new ArrayList<>();
+        private final List<FieldCalculator> fieldCalculators = new ArrayList<>();
 
         protected void failIfAlreadyBuilt() {
             if (didBuildStep) {
@@ -1372,7 +1377,7 @@ config:
 
         private void addCalculatedMajorVersionField(String result, String dependency) {
             if (uaa.isWantedField(result)) {
-                uaa.fieldCalculators.add(new MajorVersionCalculator(result, dependency));
+                fieldCalculators.add(new MajorVersionCalculator(result, dependency));
                 if (uaa.wantedFieldNames != null) {
                     Collections.addAll(uaa.wantedFieldNames, dependency);
                 }
@@ -1381,7 +1386,7 @@ config:
 
         private void addCalculatedConcatNONDuplicated(String result, String first, String second) {
             if (uaa.isWantedField(result)) {
-                uaa.fieldCalculators.add(new ConcatNONDuplicatedCalculator(result, first, second));
+                fieldCalculators.add(new ConcatNONDuplicatedCalculator(result, first, second));
                 if (uaa.wantedFieldNames != null) {
                     Collections.addAll(uaa.wantedFieldNames, first, second);
                 }
@@ -1420,29 +1425,30 @@ config:
             addCalculatedMajorVersionField(OPERATING_SYSTEM_VERSION_MAJOR,          OPERATING_SYSTEM_VERSION);
 
             if (uaa.isWantedField(AGENT_NAME)) {
-                uaa.fieldCalculators.add(new CalculateAgentName());
+                fieldCalculators.add(new CalculateAgentName());
             }
 
             if (uaa.isWantedField(NETWORK_TYPE)) {
-                uaa.fieldCalculators.add(new CalculateNetworkType());
+                fieldCalculators.add(new CalculateNetworkType());
             }
 
             if (uaa.isWantedField(DEVICE_NAME)) {
-                uaa.fieldCalculators.add(new CalculateDeviceName());
+                fieldCalculators.add(new CalculateDeviceName());
                 addSpecialDependencies(DEVICE_NAME, DEVICE_BRAND);
             }
 
             if (uaa.isWantedField(DEVICE_BRAND)) {
-                uaa.fieldCalculators.add(new CalculateDeviceBrand());
+                fieldCalculators.add(new CalculateDeviceBrand());
                 // If we do not have a Brand we try to extract it from URL/Email iff present.
                 addSpecialDependencies(DEVICE_BRAND, AGENT_INFORMATION_URL, AGENT_INFORMATION_EMAIL);
             }
 
             if (uaa.isWantedField(AGENT_INFORMATION_EMAIL)) {
-                uaa.fieldCalculators.add(new CalculateAgentEmail());
+                fieldCalculators.add(new CalculateAgentEmail());
             }
 
-            Collections.reverse(uaa.fieldCalculators);
+            Collections.reverse(fieldCalculators);
+            uaa.setFieldCalculators(fieldCalculators);
 
             boolean mustDropTestsLater = !uaa.willKeepTests();
             if (preheatIterations != 0) {
