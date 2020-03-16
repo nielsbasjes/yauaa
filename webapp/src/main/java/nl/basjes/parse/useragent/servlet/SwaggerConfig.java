@@ -67,7 +67,7 @@ public class SwaggerConfig {
             "Yauaa - Yet Another UserAgent Analyzer",
             "These basic calls allow you to retrieve the analysis output of Yauaa via a few REST interfaces.<br/>" +
             "<br/>" +
-            "<b>This MUST be treated as an <u>insecure</u> \"Proof of concept\" implementation.</b>",
+            "<h1><b>This MUST be treated as an <u>insecure</u> \"Proof of concept\" implementation.</b></h1>",
             Version.PROJECT_VERSION,
             null,
             new Contact("Yauaa - Yet Another UserAgent Analyzer", "https://yauaa.basjes.nl", null),
