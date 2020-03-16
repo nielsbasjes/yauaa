@@ -386,7 +386,7 @@ public class ParseService {
         )
     })
     @GetMapping(
-        value = API_BASE_PATH + "/analyze",
+        value = { API_BASE_PATH + "/analyze", API_BASE_PATH + "/analyze/yaml" },
         produces = { TEXT_XYAML_VALUE, TEXT_PLAIN_VALUE }
     )
     public String getYamlGET(
@@ -406,7 +406,7 @@ public class ParseService {
         value = "Analyze the provided User-Agent"
     )
     @PostMapping(
-        value = API_BASE_PATH + "/analyze",
+        value = { API_BASE_PATH + "/analyze", API_BASE_PATH + "/analyze/yaml" },
         consumes = TEXT_PLAIN_VALUE,
         produces = { TEXT_XYAML_VALUE, TEXT_PLAIN_VALUE }
     )
@@ -456,7 +456,7 @@ public class ParseService {
         )
     })
     @GetMapping(
-        value = API_BASE_PATH + "/analyze",
+        value = { API_BASE_PATH + "/analyze", API_BASE_PATH + "/analyze/json" },
         produces = APPLICATION_JSON_VALUE
     )
     public String getJSonGET(
@@ -476,7 +476,7 @@ public class ParseService {
         value = "Analyze the provided User-Agent"
     )
     @PostMapping(
-        value = API_BASE_PATH + "/analyze",
+        value = { API_BASE_PATH + "/analyze", API_BASE_PATH + "/analyze/json" },
         consumes = TEXT_PLAIN_VALUE,
         produces = APPLICATION_JSON_VALUE
     )
@@ -525,7 +525,7 @@ public class ParseService {
         )
     })
     @GetMapping(
-        value = API_BASE_PATH + "/analyze",
+        value = { API_BASE_PATH + "/analyze", API_BASE_PATH + "/analyze/xml" },
         produces = APPLICATION_XML_VALUE
     )
     public String getXMLGET(
@@ -545,7 +545,7 @@ public class ParseService {
         value = "Analyze the provided User-Agent"
     )
     @PostMapping(
-        value = API_BASE_PATH + "/analyze",
+        value = { API_BASE_PATH + "/analyze", API_BASE_PATH + "/analyze/xml" },
         consumes = TEXT_PLAIN_VALUE,
         produces = APPLICATION_XML_VALUE
     )
