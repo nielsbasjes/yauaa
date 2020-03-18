@@ -104,7 +104,7 @@ public class TestMemoryFootprint {
         // ----------------------------------------------
         // Assert the overall delta is below 10 MB
 
-        assertTrue(Math.abs(memoryAfterClean - memoryInitial) < 10_000_000, "To much memory remained after cleanup");
+        assertTrue((memoryAfterClean - memoryInitial) < 10_000_000, "To much memory remained after cleanup");
     }
 
     @Disabled
