@@ -23,6 +23,8 @@ v5.16-SNAPSHOT
 - Demonstration WebServlet
   - Support multiple useragents in one API request/manual test (line separated)
   - Support for custom rules
+- Other
+  - Added simple Kotlin example
 
 v5.15
 ===
