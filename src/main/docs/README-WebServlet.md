@@ -24,8 +24,9 @@ Starting with version 5.14.1 the webservlet is also published to the central doc
 So with docker installed and running on your (Linux) desktop
 you should be able to so something as simple as
 
-    docker pull nielsbasjes/yauaa
-    docker run -p8080:8080 nielsbasjes/yauaa
+<pre><code>docker pull nielsbasjes/yauaa:{{ book.YauaaVersion }}
+docker run -p8080:8080 nielsbasjes/yauaa:{{ book.YauaaVersion }}
+</code></pre>
 
 and then open
 
@@ -40,8 +41,9 @@ It does this by looking in the folder that start with UserAgents for yaml files 
 
 Based on the docker image this can be easily done with an additional layer where your entire `Dockerfile` looks like this
 
-    FROM nielsbasjes/yauaa:{{ book.YauaaVersion }}
-    ADD InternalTraffic.yaml UserAgents/
+<pre><code>FROM nielsbasjes/yauaa:{{ book.YauaaVersion }}
+ADD InternalTraffic.yaml UserAgents/
+</code></pre>
 
 When you build that docker image and run it the logging should contain something like this:
 
@@ -57,8 +59,7 @@ I've been playing around with Kubernetes and the code below "works on my cluster
 First create a dedicated namespace and a very basic deployment to run this image 3 times and
 exposes it as a ```Service``` that simply does ```http```.
 
-```yaml
-apiVersion: v1
+<pre><code>apiVersion: v1
 kind: Namespace
 metadata:
   name: yauaa
@@ -82,7 +83,7 @@ spec:
     spec:
       containers:
       - name: yauaa
-        image: nielsbasjes/yauaa:latest
+        image: nielsbasjes/yauaa:{{ book.YauaaVersion }}
         ports:
         - containerPort: 8080
           name: yauaa
@@ -116,7 +117,7 @@ spec:
     port: 80
     targetPort: 8080
   type: ClusterIP
-```
+</code></pre>
 
 ## Custom rules
 
@@ -129,8 +130,7 @@ You can do this by putting the config files in a folder 'foo' and doing somethin
 
 Or you can include them directly in the kubectl config file like this:
 
-```yaml
-apiVersion: v1
+<pre><code>apiVersion: v1
 kind: ConfigMap
 metadata:
   name: niels-yauaa-rules
@@ -172,15 +172,14 @@ data:
           AgentInformationUrl                   : 'https://niels.basjes.nl'
           CustomRuleDemonstrationName           : 'A Simple demonstration of a custom rule'
           CustomRuleDemonstrationWebsite        : 'https://yauaa.basjes.nl'
-```
+</code></pre>
 
 Then the deployment must turn this config map into a volume and mount it in the pods.
 Note that the folder under which is is mounted must be a the root level and the name must start with "UserAgent".
 
 So the deployment becomes something like this
 
-```yaml
-apiVersion: apps/v1
+<pre><code>apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: yauaa
@@ -201,7 +200,7 @@ spec:
             name: niels-yauaa-rules
       containers:
       - name: yauaa
-        image: nielsbasjes/yauaa:latest
+        image: nielsbasjes/yauaa:{{ book.YauaaVersion }}
         volumeMounts:
           # NOTE 1: The directory name MUST start with  "/UserAgents" !!
           # NOTE 2: You can have multiple as long as the mountPaths are all different.
@@ -223,8 +222,7 @@ spec:
             port: yauaa
           initialDelaySeconds: 10
           periodSeconds: 10
-
-```
+</code></pre>
 
 
 ## Available outside the cluster (HTTP)
@@ -236,7 +234,7 @@ I have been able to get it working with the helm chart for ```stable/nginx-ingre
 
 Simply putting up an ```Ingress``` works something like this
 
-```yaml
+<pre><code>
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -253,7 +251,7 @@ spec:
               serviceName: yauaa
               servicePort: 80
             path: /
-```
+</code></pre>
 
 ## Available outside the cluster (HTTPS)
 Now I wanted to use ```https://``` instead of ```http://```.
@@ -268,8 +266,7 @@ kubectl -n yauaa create secret tls yauaa-cert --key=/etc/letsencrypt/live/exampl
 
 After the secret has been put into place the ```Ingress``` can be created with SSL.
 
-```yaml
-apiVersion: extensions/v1beta1
+<pre><code>apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: yauaa
@@ -290,5 +287,5 @@ spec:
     - hosts:
         - yauaa.example.nl
       secretName: yauaa-cert
-```
+</code></pre>
 

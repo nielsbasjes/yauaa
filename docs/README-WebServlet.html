@@ -585,21 +585,25 @@ some APIs that allow you to try things out.</p>
 <pre><code>https://hub.docker.com/r/nielsbasjes/yauaa
 </code></pre><p>So with docker installed and running on your (Linux) desktop
 you should be able to so something as simple as</p>
-<pre><code>docker pull nielsbasjes/yauaa
-docker run -p8080:8080 nielsbasjes/yauaa
-</code></pre><p>and then open</p>
+<pre><code>docker pull nielsbasjes/yauaa:5.15
+docker run -p8080:8080 nielsbasjes/yauaa:5.15
+</code></pre>
+
+<p>and then open</p>
 <pre><code>http://localhost:8080/
 </code></pre><p>in your browser to get the output of the servlet.</p>
-<h1 id="custom-rules">Custom rules</h1>
+<h2 id="custom-rules">Custom rules</h2>
 <p>The servlet supports loading your own custom rules, which can be useful to classify internal monitoring systems.
-It does this by looking in the UserAgents folder for yaml files (i.e. <code>file:UserAgents/*.yaml</code> ).</p>
+It does this by looking in the folder that start with UserAgents for yaml files (i.e. <code>file:UserAgents*/*.yaml</code> ).</p>
 <p>Based on the docker image this can be easily done with an additional layer where your entire <code>Dockerfile</code> looks like this</p>
-<pre><code>FROM nielsbasjes/yauaa:{{ book.YauaaVersion }}
+<pre><code>FROM nielsbasjes/yauaa:5.15
 ADD InternalTraffic.yaml UserAgents/
-</code></pre><p>When you build that docker image and run it the logging should contain something like this:</p>
-<pre><code>Loading 1 rule files from file:UserAgents/*.yaml
-Loading rule file InternalTraffic.yaml (9608 bytes}
-Loading  1 files in    9 msec from file:UserAgents/*.yaml
+</code></pre>
+
+<p>When you build that docker image and run it the logging should contain something like this:</p>
+<pre><code>Loading 1 rule files using expression: file:UserAgents*/*.yaml
+- Preparing InternalTraffic.yaml (9608 bytes)
+- Loaded  1 files in   11 msec using expression: file:UserAgents*/*.yaml
 </code></pre><h1 id="kubernetes">Kubernetes</h1>
 <p>I&apos;ve been playing around with Kubernetes and the code below &quot;works on my cluster&quot;.</p>
 <h2 id="basic-service">Basic Service</h2>
@@ -629,7 +633,7 @@ spec:
     spec:
       containers:
       - name: yauaa
-        image: nielsbasjes/yauaa:latest
+        image: nielsbasjes/yauaa:5.15
         ports:
         - containerPort: 8080
           name: yauaa
@@ -663,13 +667,115 @@ spec:
     port: 80
     targetPort: 8080
   type: ClusterIP
-</code></pre><h2 id="available-outside-the-cluster-http">Available outside the cluster (HTTP)</h2>
+</code></pre>
+
+<h2 id="custom-rules">Custom rules</h2>
+<p>In some cases you&apos;ll have internal systems with custom useragents.
+You can write your own rules and include them in the deployment.</p>
+<p>First define your rules and store them as a configmap in k8s.</p>
+<p>You can do this by putting the config files in a folder &apos;foo&apos; and doing something like: <code>kubectl create -n yauaa configmap niels-yauaa-rules --from-file=foo</code></p>
+<p>Or you can include them directly in the kubectl config file like this:</p>
+<pre><code>apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: niels-yauaa-rules
+  namespace: yauaa
+data:
+  MyCustomRules.yaml: |
+    config:
+    - matcher:
+        require:
+        - &apos;agent.product.name=&quot;NielsBasjes&quot;&apos;
+        extract:
+        - &apos;CustomRuleDemonstrationName    : 42 :&quot;A Simple demonstration of a custom rule&quot;&apos;
+        - &apos;CustomRuleDemonstrationWebsite : 42 :&quot;https://yauaa.basjes.nl&quot;&apos;
+    - test:
+        input:
+          user_agent_string: &apos;NielsBasjes/42 (https://niels.basjes.nl)&apos;
+        expected:
+          DeviceClass                           : &apos;Robot&apos;
+          DeviceName                            : &apos;Basjes Robot&apos;
+          DeviceBrand                           : &apos;Basjes&apos;
+          OperatingSystemClass                  : &apos;Cloud&apos;
+          OperatingSystemName                   : &apos;Cloud&apos;
+          OperatingSystemVersion                : &apos;??&apos;
+          OperatingSystemVersionMajor           : &apos;??&apos;
+          OperatingSystemNameVersion            : &apos;Cloud ??&apos;
+          OperatingSystemNameVersionMajor       : &apos;Cloud ??&apos;
+          LayoutEngineClass                     : &apos;Unknown&apos;
+          LayoutEngineName                      : &apos;Unknown&apos;
+          LayoutEngineVersion                   : &apos;??&apos;
+          LayoutEngineVersionMajor              : &apos;??&apos;
+          LayoutEngineNameVersion               : &apos;Unknown ??&apos;
+          LayoutEngineNameVersionMajor          : &apos;Unknown ??&apos;
+          AgentClass                            : &apos;Special&apos;
+          AgentName                             : &apos;NielsBasjes&apos;
+          AgentVersion                          : &apos;42&apos;
+          AgentVersionMajor                     : &apos;42&apos;
+          AgentNameVersion                      : &apos;NielsBasjes 42&apos;
+          AgentNameVersionMajor                 : &apos;NielsBasjes 42&apos;
+          AgentInformationUrl                   : &apos;https://niels.basjes.nl&apos;
+          CustomRuleDemonstrationName           : &apos;A Simple demonstration of a custom rule&apos;
+          CustomRuleDemonstrationWebsite        : &apos;https://yauaa.basjes.nl&apos;
+</code></pre>
+
+<p>Then the deployment must turn this config map into a volume and mount it in the pods.
+Note that the folder under which is is mounted must be a the root level and the name must start with &quot;UserAgent&quot;.</p>
+<p>So the deployment becomes something like this</p>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yauaa
+  namespace: yauaa
+spec:
+  selector:
+    matchLabels:
+      app: yauaa
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: yauaa
+    spec:
+      volumes:
+        - name: niels-yauaa-rules-volume
+          configMap:
+            name: niels-yauaa-rules
+      containers:
+      - name: yauaa
+        image: nielsbasjes/yauaa:5.15
+        volumeMounts:
+          # NOTE 1: The directory name MUST start with  &quot;/UserAgents&quot; !!
+          # NOTE 2: You can have multiple as long as the mountPaths are all different.
+          - name: niels-yauaa-rules-volume
+            mountPath: /UserAgents-Niels
+        ports:
+        - containerPort: 8080
+          name: yauaa
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /running
+            port: yauaa
+          initialDelaySeconds: 2
+          periodSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /running
+            port: yauaa
+          initialDelaySeconds: 10
+          periodSeconds: 10
+</code></pre>
+
+
+<h2 id="available-outside-the-cluster-http">Available outside the cluster (HTTP)</h2>
 <p>Depending on your Kubernetes cluster you may have the option to change
 the <code>.spec.type</code> of the above <code>Service</code> to <code>LoadBalancer</code>
 or you may choose to expose it via an <code>Ingress</code>.</p>
 <p>I have been able to get it working with the helm chart for <code>stable/nginx-ingress</code> where I have enabled SSL.</p>
 <p>Simply putting up an <code>Ingress</code> works something like this</p>
-<pre><code>apiVersion: extensions/v1beta1
+<pre><code>
+apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: yauaa
@@ -685,12 +791,15 @@ spec:
               serviceName: yauaa
               servicePort: 80
             path: /
-</code></pre><h2 id="available-outside-the-cluster-https">Available outside the cluster (HTTPS)</h2>
+</code></pre>
+
+<h2 id="available-outside-the-cluster-https">Available outside the cluster (HTTPS)</h2>
 <p>Now I wanted to use <code>https://</code> instead of <code>http://</code>.</p>
 <p>Before you can start this you need the SSL (TLS actually) certificate and key for the hostname you have.</p>
 <p>I created the required secret (in the correct namespace) with a command similar to this (I have letsencrypt):</p>
-<pre><code>kubectl -n yauaa create secret tls yauaa-cert --key=/etc/letsencrypt/live/example.nl/privkey.pem --cert=/etc/letsencrypt/live/example.nl/fullchain.pem
-</code></pre><p>After the secret has been put into place the <code>Ingress</code> can be created with SSL.</p>
+<p><code>shell script
+kubectl -n yauaa create secret tls yauaa-cert --key=/etc/letsencrypt/live/example.nl/privkey.pem --cert=/etc/letsencrypt/live/example.nl/fullchain.pem</code></p>
+<p>After the secret has been put into place the <code>Ingress</code> can be created with SSL.</p>
 <pre><code>apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -713,6 +822,8 @@ spec:
         - yauaa.example.nl
       secretName: yauaa-cert
 </code></pre>
+
+
                                 
                                 </section>
                             
@@ -755,7 +866,7 @@ spec:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"WebServlet","level":"2.6","depth":1,"next":{"title":"Overview","level":"3.1","depth":1,"path":"UDFs.md","ref":"UDFs.md","articles":[]},"previous":{"title":"Commandline","level":"2.5","depth":1,"path":"README-Commandline.md","ref":"README-Commandline.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.15"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-WebServlet.md","mtime":"2020-02-06T09:44:27.961Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-08T20:38:03.194Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"WebServlet","level":"2.6","depth":1,"next":{"title":"Overview","level":"3.1","depth":1,"path":"UDFs.md","ref":"UDFs.md","articles":[]},"previous":{"title":"Commandline","level":"2.5","depth":1,"path":"README-Commandline.md","ref":"README-Commandline.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.15"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-WebServlet.md","mtime":"2020-03-18T19:14:13.569Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-18T19:15:47.465Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
