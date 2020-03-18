@@ -28,7 +28,7 @@ class Demo {
     .withAllFields()
     .build
 
-  def parse(userAgent: String) : UserAgent = {
+  def parse(userAgent: String): UserAgent = {
     uaa.parse(userAgent)
   }
 

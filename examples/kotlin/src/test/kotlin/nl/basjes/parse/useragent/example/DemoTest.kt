@@ -26,8 +26,13 @@ class DemoTest {
     @Test
     fun testExtractDeviceName() {
         val demo = Demo()
-        val userAgent = "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36"
+
+        val userAgent = "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36"
+
         val result = demo.parse(userAgent)
-        assertTrue(result.toXML().contains("<DeviceName>Google Nexus 6</DeviceName>"))
+
+        assertTrue(result.toXML().contains("<DeviceName>Google Nexus 6</DeviceName>"),
+                "The parser must extract the correct DeviceName")
     }
 }
