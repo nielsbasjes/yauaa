@@ -16,6 +16,9 @@
 # limitations under the License.
 #
 
+# Install all plugins needed
+( cd ~/yauaa/src && gitbook install )
+
 . "/scripts/build_env_checks.sh"
 . "/scripts/bashcolors.sh"
 

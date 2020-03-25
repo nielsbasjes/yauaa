@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM centos:7
+FROM centos:8
 
 WORKDIR /root
 
@@ -44,6 +44,9 @@ ENV PATH ${M2_HOME}/bin:${PATH}
 # Avoid out of memory errors in builds
 ENV MAVEN_OPTS -Xms256m -Xmx512m
 
+# Install command line completion for maven
+RUN wget https://raw.githubusercontent.com/juven/maven-bash-completion/master/bash_completion.bash -O /etc/bash_completion.d/maven
+
 # --------------------------------
 # Install Pig
 ENV PIG_VERSION=0.17.0
@@ -55,7 +58,11 @@ RUN chmod a+rwX -R ${PIG_HOME}/bin
 
 # --------------------------------
 # Install shellcheck
-RUN yum install -y ShellCheck
+RUN cd /usr/local/bin && \
+     wget https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz && \
+     tar xJf shellcheck-stable.linux.x86_64.tar.xz && \
+     mv shellcheck-stable/shellcheck . && \
+     rm -rf shellcheck-stable*
 
 # --------------------------------
 # Install node.js, npm and gitbook

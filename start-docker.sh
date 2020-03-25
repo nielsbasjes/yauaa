@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-OS=centos7
+OS=centos8
 PROJECTNAME=yauaa
 USER=$(id -un)
 CONTAINER_NAME=${PROJECTNAME}-${OS}-${USER}-$$
@@ -72,8 +72,8 @@ fi
 
 cat - > ___UserSpecificDockerfile << UserSpecificDocker
 FROM ${PROJECTNAME}-${OS}
-${EXTRA_DOCKER_STEPS}
 RUN bash /scripts/configure-for-user.sh "${USER_NAME}" "${USER_ID}" "${GROUP_ID}" "$(grep -F vboxsf /etc/group)"
+${EXTRA_DOCKER_STEPS}
 UserSpecificDocker
 
 ${DOCKER_BUILD} -t "${PROJECTNAME}-${OS}-${USER_NAME}" -f ___UserSpecificDockerfile .
