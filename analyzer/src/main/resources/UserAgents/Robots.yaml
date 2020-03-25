@@ -71,6 +71,10 @@ config:
       'YaK'                          : 'Linkfluence|YaK'
       'wget'                         : 'wget|wget'
       'zgrab'                        : 'zgrab|zgrab'
+      'Jakarta Commons-HttpClient'   : 'Jakarta Commons-HttpClient|Jakarta Commons-HttpClient'
+      'lwp-request'                  : 'lwp-request|lwp-request'
+      'libwww-perl'                  : 'libwww-perl|libwww-perl'
+      'spray-can'                    : 'spray-can|spray-can'
 
 - lookup:
     name: 'NamedSpecialLayoutEngines'
@@ -3602,7 +3606,7 @@ config:
       AgentInformationUrl                  : 'http://www.exabot.com/go/robot'
 
 
-# TODO: Pingdom: A lot of stray '_' cause parsing problems.
+# NOTE: Pingdom: A lot of stray '_' cause parsing problems.
 - test:
     input:
       user_agent_string: 'Pingdom.com_bot_version_1.4_(http://www.pingdom.com/)'
@@ -6041,6 +6045,92 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'Wget 1.17.1'
       AgentNameVersionMajor                : 'Wget 1'
+
+
+- test:
+    input:
+      user_agent_string: 'Jakarta Commons-HttpClient/3.1'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Jakarta Commons-HttpClient'
+      DeviceBrand                           : 'Jakarta Commons-HttpClient'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'Jakarta Commons-HttpClient'
+      LayoutEngineVersion                   : '3.1'
+      LayoutEngineVersionMajor              : '3'
+      LayoutEngineNameVersion               : 'Jakarta Commons-HttpClient 3.1'
+      LayoutEngineNameVersionMajor          : 'Jakarta Commons-HttpClient 3'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Jakarta Commons-HttpClient'
+      AgentVersion                          : '3.1'
+      AgentVersionMajor                     : '3'
+      AgentNameVersion                      : 'Jakarta Commons-HttpClient 3.1'
+      AgentNameVersionMajor                 : 'Jakarta Commons-HttpClient 3'
+
+- test:
+    input:
+      user_agent_string: 'lwp-request/5.827 libwww-perl/5.833'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'LWP-Request'
+      DeviceBrand                           : 'LWP-Request'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'lwp-request'
+      LayoutEngineVersion                   : '5.827'
+      LayoutEngineVersionMajor              : '5'
+      LayoutEngineNameVersion               : 'lwp-request 5.827'
+      LayoutEngineNameVersionMajor          : 'lwp-request 5'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'LWP-Request'
+      AgentVersion                          : '5.827'
+      AgentVersionMajor                     : '5'
+      AgentNameVersion                      : 'LWP-Request 5.827'
+      AgentNameVersionMajor                 : 'LWP-Request 5'
+
+
+- test:
+    input:
+      user_agent_string: 'spray-can/1.3.3'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Spray-CAN'
+      DeviceBrand                           : 'Spray-CAN'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Robot'
+      LayoutEngineName                      : 'spray-can'
+      LayoutEngineVersion                   : '1.3.3'
+      LayoutEngineVersionMajor              : '1'
+      LayoutEngineNameVersion               : 'spray-can 1.3.3'
+      LayoutEngineNameVersionMajor          : 'spray-can 1'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Spray-CAN'
+      AgentVersion                          : '1.3.3'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'Spray-CAN 1.3.3'
+      AgentNameVersionMajor                 : 'Spray-CAN 1'
+
+# FIXME: Nagios --> Monitoring tool ~ Robot ?
+#check_http/v2.1.3.git (nagios-plugins 2.1.3)
+
+# FIXME: Cypress is a testing framework
+# Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/4.1.0 Chrome/78.0.3904.130 Electron/7.1.13 Safari/537.36
 
 
   # Default useragent for the Apache Nifi InvokeHTTP processor after https://issues.apache.org/jira/browse/NIFI-6666
