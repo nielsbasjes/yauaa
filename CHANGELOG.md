@@ -17,7 +17,7 @@ v5.16-SNAPSHOT
   - Mytheresa app, Catchpoint Analyzer, Dynatrace Ruxit.
   - More Google related bots
 - Updated UDF dependencies
-  - Apache Nifi      1.11.1
+  - Apache Nifi      1.11.4
   - Apache Flink     1.10.0
   - Elastic Logstash 7.6.1
 - Demonstration WebServlet
