@@ -27,9 +27,12 @@ public final class UserAgentAnalyzerPreLoader {
 
     public static synchronized UserAgentAnalyzer getInstance() {
         if (instance == null) {
-            instance = UserAgentAnalyzer.newBuilder().dropTests().hideMatcherLoadStats().build();
-            // Bootstrap the engine only once.
-            instance.getAllPossibleFieldNamesSorted();
+            instance = UserAgentAnalyzer
+                .newBuilder()
+                .dropTests()
+                .hideMatcherLoadStats()
+                .immediateInitialization()
+                .build();
         }
         return instance;
     }

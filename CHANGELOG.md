@@ -25,6 +25,7 @@ v5.16-SNAPSHOT
   - Support for custom rules
 - Other
   - Added simple Kotlin example
+  - Improvements in the Drill UDF and tests
 
 v5.15
 ===

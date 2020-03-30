@@ -23,12 +23,10 @@ import org.apache.drill.exec.expr.annotations.FunctionTemplate;
 import org.apache.drill.exec.expr.annotations.Output;
 import org.apache.drill.exec.expr.annotations.Param;
 import org.apache.drill.exec.expr.annotations.Workspace;
-import org.apache.drill.exec.expr.holders.NullableVarCharHolder;
+import org.apache.drill.exec.expr.holders.VarCharHolder;
 import org.apache.drill.exec.vector.complex.writer.BaseWriter;
 
 import javax.inject.Inject;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 @FunctionTemplate(
     name    = "parse_user_agent",
@@ -38,7 +36,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class ParseUserAgentFunction implements DrillSimpleFunc {
 
     @Param
-    NullableVarCharHolder input;
+    VarCharHolder input;
 
     @Output
     BaseWriter.ComplexWriter outWriter;
@@ -72,16 +70,16 @@ public class ParseUserAgentFunction implements DrillSimpleFunc {
 
         nl.basjes.parse.useragent.UserAgent agent = uaa.parse(userAgentString);
 
-        for (String fieldName: agent.getAvailableFieldNamesSorted()) {
+        for (String fieldName: allFields) {
 
             org.apache.drill.exec.expr.holders.VarCharHolder rowHolder = new org.apache.drill.exec.expr.holders.VarCharHolder();
             String field = agent.getValue(fieldName);
 
             if (field == null) {
-                field = "Unknown";
+                field = nl.basjes.parse.useragent.UserAgent.UNKNOWN_VALUE;
             }
 
-            byte[] rowStringBytes = field.getBytes(UTF_8);
+            byte[] rowStringBytes = field.getBytes(java.nio.charset.StandardCharsets.UTF_8);
             outBuffer.reallocIfNeeded(rowStringBytes.length);
             outBuffer.setBytes(0, rowStringBytes);
 

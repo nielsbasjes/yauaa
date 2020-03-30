@@ -67,7 +67,7 @@ public class ParseUserAgentFunctionField implements DrillSimpleFunc {
         String field = agent.getValue(userAgentField);
 
         if (field == null) {
-            field = "Unknown";
+            field = nl.basjes.parse.useragent.UserAgent.UNKNOWN_VALUE;
         }
 
         byte[] rowStringBytes = field.getBytes(java.nio.charset.StandardCharsets.UTF_8);

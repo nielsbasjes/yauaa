@@ -25,12 +25,10 @@ import org.apache.drill.exec.expr.holders.NullableVarCharHolder;
 import org.apache.drill.exec.expr.holders.VarCharHolder;
 import org.apache.drill.exec.memory.BufferAllocator;
 import org.apache.drill.exec.memory.RootAllocatorFactory;
-import org.apache.drill.test.BaseDirTestWatcher;
 import org.apache.drill.test.ClusterFixture;
 import org.apache.drill.test.ClusterFixtureBuilder;
 import org.apache.drill.test.ClusterTest;
 import org.junit.BeforeClass;
-import org.junit.ClassRule;
 import org.junit.Test;
 
 import java.nio.charset.StandardCharsets;
@@ -46,13 +44,9 @@ public class TestParseUserAgentFunctionField extends ClusterTest {
     private static final String EXPECTED_DEVICE_CLASS = "Desktop";
     private static final String EXPECTED_AGENT_NAME_VERSION = "Chrome 48.0.2564.82";
 
-    @ClassRule
-    public static final BaseDirTestWatcher DIR_TEST_WATCHER = new BaseDirTestWatcher();
-
     @BeforeClass
     public static void setup() throws Exception {
-        ClusterFixtureBuilder builder = ClusterFixture.builder(DIR_TEST_WATCHER)
-            .configProperty("drill.classpath.scanning.cache.enabled", false);
+        ClusterFixtureBuilder builder = ClusterFixture.builder(dirTestWatcher);
         startCluster(builder);
     }
 
@@ -102,12 +96,12 @@ public class TestParseUserAgentFunctionField extends ClusterTest {
     @Test
     public void testParseUserAgentField() throws Exception {
         final String query = "SELECT " +
-            "parse_user_agent_field('"+TEST_INPUT+"', 'AgentNameVersion') as AgentNameVersion " +
-//            ", parse_user_agent_field('"+TEST_INPUT+"', 'DeviceClass'     ) as DeviceClass " +
-            "from (values(1))";
+            "parse_user_agent_field('"+TEST_INPUT+"', 'AgentNameVersion') as AgentNameVersion," +
+            "parse_user_agent_field('"+TEST_INPUT+"', 'DeviceClass'     ) as DeviceClass " +
+            "FROM (values(1))";
         testBuilder().sqlQuery(query).ordered()
-            .baselineColumns("AgentNameVersion")    .baselineValues(EXPECTED_AGENT_NAME_VERSION)
-//            .baselineColumns("DeviceClass")         .baselineValues(EXPECTED_DEVICE_CLASS)
+            .baselineColumns("AgentNameVersion",         "DeviceClass")
+            .baselineValues(EXPECTED_AGENT_NAME_VERSION, EXPECTED_DEVICE_CLASS)
             .go();
     }
 
