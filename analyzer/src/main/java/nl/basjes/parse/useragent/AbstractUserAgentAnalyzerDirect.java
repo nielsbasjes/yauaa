@@ -123,8 +123,8 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     private static final int INFORM_ACTIONS_HASHMAP_CAPACITY = 1000000;
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractUserAgentAnalyzerDirect.class);
-    private final List<Matcher> allMatchers = new ArrayList<>(5000);
-    private final List<Matcher> zeroInputMatchers = new ArrayList<>(100);
+    private final ArrayList<Matcher> allMatchers = new ArrayList<>(5000);
+    private final ArrayList<Matcher> zeroInputMatchers = new ArrayList<>(100);
 
     protected List<Matcher> getAllMatchers() {
         return allMatchers;
@@ -139,7 +139,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
     protected Set<String> wantedFieldNames = null; // NOSONAR: Only accessed via Builder.
 
-    private final List<Map<String, Map<String, String>>> testCases = new ArrayList<>(2048);
+    private final ArrayList<Map<String, Map<String, String>>> testCases = new ArrayList<>(2048);
 
     public List<Map<String, Map<String, String>>> getTestCases() {
         return testCases;
@@ -318,9 +318,11 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     public synchronized void destroy() {
         allMatchers.forEach(Matcher::destroy);
         allMatchers.clear();
+        allMatchers.trimToSize();
 
         zeroInputMatchers.forEach(Matcher::destroy);
         zeroInputMatchers.clear();
+        zeroInputMatchers.trimToSize();
 
         informMatcherActions.clear();
         matcherConfigs.clear();
@@ -330,6 +332,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         }
 
         testCases.clear();
+        testCases.trimToSize();
 
         lookups.clear();
         lookupSets.clear();
