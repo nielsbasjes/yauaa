@@ -133,6 +133,14 @@
         <configuration>
           <minimizeJar>true</minimizeJar>
           <createDependencyReducedPom>true</createDependencyReducedPom>
+		  <filters>
+		    <filter>
+			  <artifact>org.springframework:spring-core</artifact>
+			  <excludes>
+			    <exclude>META-INF/services/**</exclude>
+			  </excludes>
+			</filter>
+		  </filters>
           <relocations>
             <relocation>
               <pattern>org.springframework</pattern>
