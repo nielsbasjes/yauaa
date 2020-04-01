@@ -759,6 +759,21 @@
         <plugin><artifactId>maven-surefire-plugin</artifactId><version>3.0.0-M4</version></plugin>
         <plugin><artifactId>maven-war-plugin</artifactId><version>3.2.3</version></plugin>
 
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>2.7</version>
+          <configuration>
+            <rulesUri>classpath:///maven-version-rules.xml</rulesUri>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>nl.basjes.parse.useragent</groupId>
+              <artifactId>devtools</artifactId>
+              <version>${project.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
