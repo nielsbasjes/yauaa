@@ -1,6 +1,9 @@
 This is intended as an overview of the major changes
 
-v5.17-SNAPSHOT
+v5.18-SNAPSHOT
+===
+
+v5.17
 ===
 - Analyzer:
   - Make Yauaa usable as an automatic module in Java 9+ (Fix by [James Pether Sörling](https://github.com/pethers))
