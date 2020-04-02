@@ -533,26 +533,31 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         touchedMatchers = new MatcherList(16);
     }
 
+    private Set<String> allPossibleFieldNamesCache = null;
     public Set<String> getAllPossibleFieldNames() {
-        Set<String> results = new TreeSet<>(HARD_CODED_GENERATED_FIELDS);
-        for (Matcher matcher : allMatchers) {
-            results.addAll(matcher.getAllPossibleFieldNames());
+        if (allPossibleFieldNamesCache == null) {
+            allPossibleFieldNamesCache = new TreeSet<>(HARD_CODED_GENERATED_FIELDS);
+            for (Matcher matcher : allMatchers) {
+                allPossibleFieldNamesCache.addAll(matcher.getAllPossibleFieldNames());
+            }
         }
-        return results;
+        return allPossibleFieldNamesCache;
     }
 
+    private List<String> allPossibleFieldNamesSortedCache = null;
     public List<String> getAllPossibleFieldNamesSorted() {
-        List<String> fieldNames = new ArrayList<>(getAllPossibleFieldNames());
-        Collections.sort(fieldNames);
+        if (allPossibleFieldNamesSortedCache == null) {
+            List<String> fieldNames = new ArrayList<>(getAllPossibleFieldNames());
+            Collections.sort(fieldNames);
 
-        List<String> result = new ArrayList<>();
-        for (String fieldName : PRE_SORTED_FIELDS_LIST) {
-            fieldNames.remove(fieldName);
-            result.add(fieldName);
+            allPossibleFieldNamesSortedCache = new ArrayList<>();
+            for (String fieldName : PRE_SORTED_FIELDS_LIST) {
+                fieldNames.remove(fieldName);
+                allPossibleFieldNamesSortedCache.add(fieldName);
+            }
+            allPossibleFieldNamesSortedCache.addAll(fieldNames);
         }
-        result.addAll(fieldNames);
-
-        return result;
+        return allPossibleFieldNamesSortedCache;
     }
 
 /*
