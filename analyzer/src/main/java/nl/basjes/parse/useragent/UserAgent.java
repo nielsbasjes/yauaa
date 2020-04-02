@@ -271,7 +271,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         }
 
         public boolean isDefaultValue() {
-            return confidence < 0 || value == null || Objects.equals(value, defaultValue);
+            return confidence < 0 || value == null;
         }
 
         public long getConfidence() {
@@ -739,16 +739,16 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
 
     public List<String> getAvailableFieldNames() {
         List<String> resultSet = new ArrayList<>(allFields.size()+10);
+        if (wantedFieldNames == null) {
+            resultSet.addAll(STANDARD_FIELDS);
+        }
+
         allFields.forEach((fieldName, value) -> {
             if (!resultSet.contains(fieldName)) {
                 AgentField field = allFields.get(fieldName);
-                if (field != null && field.getValue() != null) {
+                if (field != null && !field.isDefaultValue()) {
                     if (wantedFieldNames == null || wantedFieldNames.contains(fieldName)) {
                         resultSet.add(fieldName);
-                    } else {
-                        if (field.confidence >= 0) {
-                            resultSet.add(fieldName);
-                        }
                     }
                 }
             }
