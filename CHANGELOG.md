@@ -1,6 +1,14 @@
 This is intended as an overview of the major changes
 
-v5.16-SNAPSHOT
+v5.17-SNAPSHOT
+===
+- Analyzer:
+  - Make Yauaa usable as an automatic module in Java 9+ (Fix by [James Pether Sörling](https://github.com/pethers))
+  - Updated dependencies
+  - Cache the result of getAllPossibleFieldNames and getAllPossibleFieldNamesSorted
+  - Improved behaviour regarding the default value of a field ("Unknown" is not always the default)
+
+v5.16
 ===
 - Analyzer:
   - Windows NT 9 --> Hacker
