@@ -350,6 +350,10 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
             throw new IllegalStateException("Refusing to load additional resources after the datastructures have been initialized.");
         }
 
+        // Because we are loading additional resources these caches must be invalidated
+        allPossibleFieldNamesCache = null;
+        allPossibleFieldNamesSortedCache = null;
+
         long startFiles = System.nanoTime();
 
         flattener = new UserAgentTreeFlattener(this);
@@ -533,29 +537,39 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         touchedMatchers = new MatcherList(16);
     }
 
-    private Set<String> allPossibleFieldNamesCache = null;
+    private transient volatile Set<String> allPossibleFieldNamesCache = null; //NOSONAR: The getter avoids the java:S3077 issues
     public Set<String> getAllPossibleFieldNames() {
         if (allPossibleFieldNamesCache == null) {
-            allPossibleFieldNamesCache = new TreeSet<>(HARD_CODED_GENERATED_FIELDS);
-            for (Matcher matcher : allMatchers) {
-                allPossibleFieldNamesCache.addAll(matcher.getAllPossibleFieldNames());
+            synchronized (this) {
+                if (allPossibleFieldNamesCache == null) {
+                    Set<String> names = new TreeSet<>(HARD_CODED_GENERATED_FIELDS);
+                    for (Matcher matcher : allMatchers) {
+                        names .addAll(matcher.getAllPossibleFieldNames());
+                    }
+                    allPossibleFieldNamesCache = names;
+                }
             }
         }
         return allPossibleFieldNamesCache;
     }
 
-    private List<String> allPossibleFieldNamesSortedCache = null;
+    private transient volatile List<String> allPossibleFieldNamesSortedCache = null; //NOSONAR: The getter avoids the java:S3077 issues
     public List<String> getAllPossibleFieldNamesSorted() {
         if (allPossibleFieldNamesSortedCache == null) {
-            List<String> fieldNames = new ArrayList<>(getAllPossibleFieldNames());
-            Collections.sort(fieldNames);
+            synchronized (this) {
+                if (allPossibleFieldNamesSortedCache == null) {
+                    List<String> fieldNames = new ArrayList<>(getAllPossibleFieldNames());
+                    Collections.sort(fieldNames);
 
-            allPossibleFieldNamesSortedCache = new ArrayList<>();
-            for (String fieldName : PRE_SORTED_FIELDS_LIST) {
-                fieldNames.remove(fieldName);
-                allPossibleFieldNamesSortedCache.add(fieldName);
+                    List<String> names = new ArrayList<>();
+                    for (String fieldName : PRE_SORTED_FIELDS_LIST) {
+                        fieldNames.remove(fieldName);
+                        names.add(fieldName);
+                    }
+                    names.addAll(fieldNames);
+                    allPossibleFieldNamesSortedCache = names;
+                }
             }
-            allPossibleFieldNamesSortedCache.addAll(fieldNames);
         }
         return allPossibleFieldNamesSortedCache;
     }

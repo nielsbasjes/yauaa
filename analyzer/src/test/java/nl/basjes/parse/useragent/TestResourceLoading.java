@@ -22,6 +22,12 @@ import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzerTesterBuilder;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -84,6 +90,48 @@ public class TestResourceLoading {
             .build();
 
         assertTrue(uaa.runTests(false, false));
+    }
+
+    @Test
+    public void checkAllFieldsCallsAfterLoadingAdditionalResourceUnsorted() {
+        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
+            .newBuilder()
+            .dropDefaultResources()
+            .addResources("classpath*:AllSteps.yaml")
+            .build();
+
+        Set<String> fieldSet1 = uaa.getAllPossibleFieldNames();
+
+        uaa.loadResources("CompanyInternalUserAgents.yaml");
+
+        Set<String> fieldSet2 = uaa.getAllPossibleFieldNames();
+
+        List<String> extraFields = new ArrayList<>();
+        Collections.addAll(extraFields, "ApplicationName", "ApplicationVersion", "ApplicationInstance", "ApplicationGitCommit", "ServerName");
+
+        assertFalse(fieldSet1.containsAll(extraFields));
+        assertTrue(fieldSet2.containsAll(extraFields));
+    }
+
+    @Test
+    public void checkAllFieldsCallsAfterLoadingAdditionalResourceSorted() {
+        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
+            .newBuilder()
+            .dropDefaultResources()
+            .addResources("classpath*:AllSteps.yaml")
+            .build();
+
+        List<String> fieldList1 = uaa.getAllPossibleFieldNamesSorted();
+
+        uaa.loadResources("CompanyInternalUserAgents.yaml");
+
+        List<String> fieldList2 = uaa.getAllPossibleFieldNamesSorted();
+
+        List<String> extraFields = new ArrayList<>();
+        Collections.addAll(extraFields, "ApplicationName", "ApplicationVersion", "ApplicationInstance", "ApplicationGitCommit", "ServerName");
+
+        assertFalse(fieldList1.containsAll(extraFields));
+        assertTrue(fieldList2.containsAll(extraFields));
     }
 
 }

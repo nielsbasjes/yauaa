@@ -2,6 +2,8 @@ This is intended as an overview of the major changes
 
 v5.18-SNAPSHOT
 ===
+- Analyzer:
+  - Fixed caches for getAllPossibleFieldNames and getAllPossibleFieldNamesSorted
 
 v5.17
 ===
