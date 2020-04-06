@@ -16,7 +16,9 @@
 # limitations under the License.
 #
 
-find src -type f -name Generate.sh | sed 's@/Generate.sh@@' | while read -r dir ;
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+find "${DIR}/src" -type f -name Generate.sh | sed 's@/Generate.sh@@' | while read -r dir ;
 do
   ( cd "${dir}" || exit 1 ; ./Generate.sh "$@" )
 done

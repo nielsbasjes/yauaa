@@ -119,7 +119,7 @@ spec:
   type: ClusterIP
 </code></pre>
 
-## Custom rules
+## Custom rules in Kubernetes
 
 In some cases you'll have internal systems with custom useragents.
 You can write your own rules and include them in the deployment.

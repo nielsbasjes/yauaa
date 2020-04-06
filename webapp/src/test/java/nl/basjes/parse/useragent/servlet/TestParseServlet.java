@@ -124,7 +124,7 @@ public class TestParseServlet {
     // ==========================================================================================
     // JSON
 
-    private BasicJsonTester json = new BasicJsonTester(getClass());
+    private final BasicJsonTester json = new BasicJsonTester(getClass());
 
     @Test
     public void testGetToJSon() {

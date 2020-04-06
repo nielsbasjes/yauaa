@@ -27,7 +27,7 @@ class Demo {
             .withCache(1234)
             .withField("DeviceClass")
             .withAllFields()
-            .build();
+            .build()
 
 
     fun parse(userAgent: String): UserAgent {

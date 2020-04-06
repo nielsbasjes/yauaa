@@ -1,10 +1,10 @@
 #!/bin/bash
 
-( cd devtools && mvn package )
+( cd devtools && mvn install )
 echo "==============================="
 echo "===- CHECKING DEPENDENCIES -==="
 echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
-mvn versions:display-dependency-updates versions:display-plugin-updates | fgrep ' -> ' | sort | uniq -c
+mvn versions:display-dependency-updates versions:display-plugin-updates | grep -E '( -> | Building )'
 echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 echo "===-         DONE!         -==="
 echo "==============================="

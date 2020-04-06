@@ -28,8 +28,8 @@ public class StepLookup extends Step {
 
     private final String lookupName;
     private final Map<String, String> lookup;
-    private final String defaultValue;
-    private boolean canFail;
+    private final String  defaultValue;
+    private final boolean canFail;
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepLookup() {

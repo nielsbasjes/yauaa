@@ -30,7 +30,7 @@ public abstract class UserAgentAnalysisDoFn<T extends Serializable> extends DoFn
     implements UserAgentAnnotationMapper<T>, Serializable {
     private transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer = null;
 
-    private int cacheSize;
+    private final int cacheSize;
 
     public UserAgentAnalysisDoFn() {
         this.cacheSize = DEFAULT_PARSE_CACHE_SIZE;
@@ -40,6 +40,7 @@ public abstract class UserAgentAnalysisDoFn<T extends Serializable> extends DoFn
         this.cacheSize = cacheSize;
     }
 
+    @SuppressWarnings("unused") // Called via the annotation
     @Setup
     public void initialize() {
         userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
@@ -47,6 +48,7 @@ public abstract class UserAgentAnalysisDoFn<T extends Serializable> extends DoFn
         userAgentAnalyzer.initialize(this);
     }
 
+    @SuppressWarnings("unused") // Called via the annotation
     @ProcessElement
     public void processElement(ProcessContext c) {
         // Currently Beam does not allow changing the input instance.

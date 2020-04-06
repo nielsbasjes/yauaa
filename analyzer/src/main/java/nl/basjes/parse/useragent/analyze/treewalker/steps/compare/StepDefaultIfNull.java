@@ -23,8 +23,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepDefaultIfNull  extends Step {
 
-    private final String defaultValue;
-    private boolean canFail;
+    private final String  defaultValue;
+    private final boolean canFail;
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepDefaultIfNull() {

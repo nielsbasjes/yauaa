@@ -30,7 +30,7 @@ public class StepLookupPrefix extends Step {
     private final String            lookupName;
     private final String            defaultValue;
     private final PrefixMap<String> prefixMap;
-    private boolean canFail;
+    private final boolean           canFail;
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepLookupPrefix() {

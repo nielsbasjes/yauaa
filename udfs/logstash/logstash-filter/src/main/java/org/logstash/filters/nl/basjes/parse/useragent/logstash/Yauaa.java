@@ -42,10 +42,10 @@ public class Yauaa implements Filter {
 
     private static final Logger LOG = LoggerFactory.getLogger(Yauaa.class);
 
-    private String id;
-    private UserAgentAnalyzer userAgentAnalyzer;
+    private final String            id;
+    private final UserAgentAnalyzer userAgentAnalyzer;
 
-    private List<String> requestedFieldNames = new ArrayList<>();
+    private final List<String> requestedFieldNames = new ArrayList<>();
 
     public static final PluginConfigSpec<String> SOURCE_CONFIG =
         PluginConfigSpec.stringSetting("source");
@@ -53,8 +53,8 @@ public class Yauaa implements Filter {
     public static final PluginConfigSpec<Map<String, Object>> FIELDS_CONFIG =
         PluginConfigSpec.hashSetting("fields");
 
-    private String sourceField;
-    private Map<String, String> outputFields;
+    private final String              sourceField;
+    private       Map<String, String> outputFields;
 
     public Yauaa(String id, Configuration config, Context context) {
         this.id = id;

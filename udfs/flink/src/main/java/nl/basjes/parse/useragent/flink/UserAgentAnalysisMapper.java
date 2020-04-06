@@ -30,7 +30,7 @@ public abstract class UserAgentAnalysisMapper<T> extends RichMapFunction<T, T>
     implements UserAgentAnnotationMapper<T>, Serializable {
     private transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer = null;
 
-    private int cacheSize;
+    private final int cacheSize;
 
     public UserAgentAnalysisMapper() {
         this.cacheSize = DEFAULT_PARSE_CACHE_SIZE;

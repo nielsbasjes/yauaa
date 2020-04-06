@@ -70,9 +70,9 @@ public class ParseUserAgent extends AbstractProcessor {
 
     private UserAgentAnalyzer uaa = null;
 
-    private static final List<String> ALL_FIELD_NAMES = new ArrayList<>();
-    private List<PropertyDescriptor> supportedPropertyDescriptors = new ArrayList<>();
-    private List<String> extractFieldNames = new ArrayList<>();
+    private static final List<String>             ALL_FIELD_NAMES              = new ArrayList<>();
+    private final        List<PropertyDescriptor> supportedPropertyDescriptors = new ArrayList<>();
+    private final        List<String>             extractFieldNames            = new ArrayList<>();
 
     @Override
     protected void init(ProcessorInitializationContext context) {
@@ -118,6 +118,7 @@ public class ParseUserAgent extends AbstractProcessor {
         return supportedPropertyDescriptors;
     }
 
+    @SuppressWarnings("unused") // Called via the annotation
     @OnScheduled
     public void onSchedule(ProcessContext context) {
         if (uaa == null) {

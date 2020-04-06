@@ -54,21 +54,17 @@ public final class Main {
     }
 
     private static void printHeader(OutputFormat outputFormat, List<String> fields) {
-        switch (outputFormat) {
-            case CSV:
-                boolean doSeparator = false;
-                for (String field : fields) {
-                    if (doSeparator) {
-                        System.out.print("\t");
-                    } else {
-                        doSeparator = true;
-                    }
-                    System.out.print(field);
+        if (outputFormat == CSV) {
+            boolean doSeparator = false;
+            for (String field : fields) {
+                if (doSeparator) {
+                    System.out.print("\t");
+                } else {
+                    doSeparator = true;
                 }
-                System.out.println();
-                break;
-            default:
-                break;
+                System.out.print(field);
+            }
+            System.out.println();
         }
     }
 

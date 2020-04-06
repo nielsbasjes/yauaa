@@ -22,7 +22,7 @@ import nl.basjes.parse.useragent.UserAgentAnalyzer;
 
 public class Demo {
 
-    private UserAgentAnalyzer uaa;
+    private final UserAgentAnalyzer uaa;
 
     public Demo() {
         uaa = UserAgentAnalyzer

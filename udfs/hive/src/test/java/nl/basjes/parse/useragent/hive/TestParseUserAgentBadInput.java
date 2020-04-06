@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestParseUserAgentBadInput {
 
-    private ParseUserAgent parseUserAgent = new ParseUserAgent();
+    private final ParseUserAgent parseUserAgent = new ParseUserAgent();
 
     @Test
     public void testBadInputType() {

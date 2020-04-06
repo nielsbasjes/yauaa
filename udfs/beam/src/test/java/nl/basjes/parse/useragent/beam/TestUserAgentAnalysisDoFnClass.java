@@ -43,11 +43,13 @@ public class TestUserAgentAnalysisDoFnClass implements Serializable {
             return record.useragent;
         }
 
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("DeviceClass")
         public void setDeviceClass(TestRecord record, String value) {
             record.deviceClass = value;
         }
 
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("AgentNameVersion")
         public void setAgentNameVersion(TestRecord record, String value) {
             record.agentNameVersion = value;
@@ -75,6 +77,7 @@ public class TestUserAgentAnalysisDoFnClass implements Serializable {
         PCollection<TestRecord> testRecords = input
             .apply("Create testrecords from input",
                 ParDo.of(new DoFn<String, TestRecord>() {
+                    @SuppressWarnings("unused") // Called via the annotation
                     @ProcessElement
                     public void processElement(ProcessContext c) {
                         c.output(new TestRecord(c.element()));
