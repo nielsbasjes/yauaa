@@ -1,6 +1,6 @@
 /*
  * Yet Another UserAgent Analyzer
- * Copyright (C) 2013-2020 Niels Basjes
+ * Copyright (C) 2013-2019 Niels Basjes
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeFirstWordsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeLastWordsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeSingleWordContext;
@@ -27,11 +26,11 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeStart
 import java.io.Serializable;
 import java.util.Objects;
 
-public final class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordRangeVisitor.Range> {
+public final class WordRangeVisitor<P> extends UserAgentTreeWalkerBaseVisitor<WordRangeVisitor.Range, P> {
 
     public static class Range implements Serializable {
 
-        @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
+        // private constructor for serialization systems ONLY (like Kyro)
         private Range() {
             first = -1;
             last = -1;
@@ -83,39 +82,29 @@ public final class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordR
         }
     }
 
-    private static final WordRangeVisitor WORD_RANGE_VISITOR = new WordRangeVisitor();
-
-    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
-    private WordRangeVisitor() {
-    }
-
-    public static Range getRange(WordRangeContext ctx) {
-        return WORD_RANGE_VISITOR.visit(ctx);
-    }
-
     @Override
-    public Range visitWordRangeStartToEnd(WordRangeStartToEndContext ctx) {
+    public Range visitWordRangeStartToEnd(WordRangeStartToEndContext<P> ctx) {
         return new Range(
             Integer.parseInt(ctx.firstWord.getText()),
             Integer.parseInt(ctx.lastWord.getText()));
     }
 
     @Override
-    public Range visitWordRangeFirstWords(WordRangeFirstWordsContext ctx) {
+    public Range visitWordRangeFirstWords(WordRangeFirstWordsContext<P> ctx) {
         return new Range(
             1,
             Integer.parseInt(ctx.lastWord.getText()));
     }
 
     @Override
-    public Range visitWordRangeLastWords(WordRangeLastWordsContext ctx) {
+    public Range visitWordRangeLastWords(WordRangeLastWordsContext<P> ctx) {
         return new Range(
             Integer.parseInt(ctx.firstWord.getText()),
             -1);
     }
 
     @Override
-    public Range visitWordRangeSingleWord(WordRangeSingleWordContext ctx) {
+    public Range visitWordRangeSingleWord(WordRangeSingleWordContext<P> ctx) {
         int wordNumber = Integer.parseInt(ctx.singleWord.getText());
         return new Range(
             wordNumber,

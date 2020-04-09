@@ -1,6 +1,6 @@
 /*
  * Yet Another UserAgent Analyzer
- * Copyright (C) 2013-2020 Niels Basjes
+ * Copyright (C) 2013-2019 Niels Basjes
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.analyze.treewalker.steps;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parser.UserAgentParser;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentSeparatorContext;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -56,11 +57,11 @@ public abstract class Step implements Serializable {
         logprefix = sb.toString();
     }
 
-    protected final WalkResult walkNextStep(ParseTree tree, String value) {
+    protected final WalkResult walkNextStep(ParseTree<MatcherTree> tree, String value) {
         if (nextStep == null) {
             String result = value;
             if (value == null) {
-                result = getSourceText((ParserRuleContext)tree);
+                result = getSourceText((ParserRuleContext<MatcherTree>)tree);
             }
             if (verbose) {
                 LOG.info("{} Final (implicit) step: {}", logprefix, result);
@@ -69,7 +70,7 @@ public abstract class Step implements Serializable {
         }
 
         if (verbose) {
-            LOG.info("{} Tree: >>>{}<<<", logprefix, getSourceText((ParserRuleContext)tree));
+            LOG.info("{} Tree: >>>{}<<<", logprefix, getSourceText((ParserRuleContext<MatcherTree>)tree));
             LOG.info("{} Enter step({}): {}", logprefix, stepNr, nextStep);
         }
         WalkResult result = nextStep.walk(tree, value);
@@ -80,31 +81,27 @@ public abstract class Step implements Serializable {
         return result;
     }
 
-    protected final ParseTree up(ParseTree tree) {
-        if (tree == null) {
-            return null;
-        }
-
-        ParseTree parent = tree.getParent();
+    protected final ParseTree<MatcherTree> up(ParseTree<MatcherTree> tree) {
+        ParseTree<MatcherTree> parent = tree.getParent();
 
         // Needed because of the way the ANTLR rules have been defined.
         if (parent instanceof UserAgentParser.ProductNameContext ||
             parent instanceof UserAgentParser.ProductVersionContext ||
             parent instanceof UserAgentParser.ProductVersionWithCommasContext
-            ) {
+        ) {
             return up(parent);
         }
         return parent;
     }
 
-    public static boolean treeIsSeparator(ParseTree tree) {
+    public static boolean treeIsSeparator(ParseTree<?> tree) {
         return tree instanceof CommentSeparatorContext
             || tree instanceof TerminalNode;
     }
 
-    protected String getActualValue(ParseTree tree, String value) {
+    protected String getActualValue(ParseTree<MatcherTree> tree, String value) {
         if (value == null) {
-            return getSourceText((ParserRuleContext)tree);
+            return getSourceText((ParserRuleContext<MatcherTree>)tree);
         }
         return value;
     }
@@ -118,7 +115,7 @@ public abstract class Step implements Serializable {
      *              The null value means to use the implicit 'full' value (i.e. getSourceText(tree) )
      * @return Either null or the actual value that was found.
      */
-    public abstract WalkResult walk(ParseTree tree, String value);
+    public abstract WalkResult walk(ParseTree<MatcherTree> tree, String value);
 
     /**
      * Some steps cannot fail.
@@ -126,7 +123,7 @@ public abstract class Step implements Serializable {
      * to improve performance at run time.
      * @return If this specific step can or cannot fail.
      */
-    public boolean canFail() {
+    public boolean canFail(){
         return true; // Default is to assume the step is always needed.
     }
 

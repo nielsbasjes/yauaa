@@ -433,7 +433,7 @@ public class TestTreewalkerRequire {
 
 
         @Override
-        public void inform(String path, String value, ParseTree ctx) {
+        public void inform(String path, String value, ParseTree<MatcherTree> ctx) {
             // Not used during tests
         }
 

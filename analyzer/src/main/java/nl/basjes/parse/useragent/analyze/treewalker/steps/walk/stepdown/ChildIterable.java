@@ -1,6 +1,6 @@
 /*
  * Yet Another UserAgent Analyzer
- * Copyright (C) 2013-2020 Niels Basjes
+ * Copyright (C) 2013-2019 Niels Basjes
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,34 +26,34 @@ import java.util.function.Predicate;
 
 import static nl.basjes.parse.useragent.analyze.treewalker.steps.Step.treeIsSeparator;
 
-public class ChildIterable {
+public class ChildIterable<P> {
 
     private final boolean privateNumberRange;
     private final int start;
     private final int end;
 
-    private final Predicate<ParseTree> isWantedClassPredicate;
+    private final Predicate<ParseTree<P>> isWantedClassPredicate;
 
     public ChildIterable(boolean privateNumberRange,
                          int start, int end,
-                         Predicate<ParseTree> isWantedClassPredicate) {
+                         Predicate<ParseTree<P>> isWantedClassPredicate) {
         this.privateNumberRange = privateNumberRange;
         this.start = start;
         this.end = end;
         this.isWantedClassPredicate = isWantedClassPredicate;
     }
 
-    public Iterator<ParseTree> iterator(ParserRuleContext treeContext) {
+    public Iterator<ParseTree<P>> iterator(ParserRuleContext<P> treeContext) {
         return new ChildIterator(treeContext);
     }
 
-    class ChildIterator implements Iterator<ParseTree> {
-        private final Iterator<ParseTree> childIter;
+    class ChildIterator implements Iterator<ParseTree<P>> {
+        private final Iterator<ParseTree<P>> childIter;
         private       Boolean             hasNext;
         private       int                 index = 0;
-        private       ParseTree           nextChild;
+        private       ParseTree<P>        nextChild;
 
-        ChildIterator(ParserRuleContext treeContext) {
+        ChildIterator(ParserRuleContext<P> treeContext) {
             if (treeContext.children == null) {
                 childIter = null;
                 nextChild = null;
@@ -70,7 +70,7 @@ public class ChildIterable {
          */
         private boolean findNext() {
             while (childIter.hasNext()) {
-                ParseTree nextParseTree = childIter.next();
+                ParseTree<P> nextParseTree = childIter.next();
                 if (treeIsSeparator(nextParseTree)) {
                     continue;
                 }
@@ -107,7 +107,7 @@ public class ChildIterable {
         }
 
         @Override
-        public ParseTree next() {
+        public ParseTree<P> next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }

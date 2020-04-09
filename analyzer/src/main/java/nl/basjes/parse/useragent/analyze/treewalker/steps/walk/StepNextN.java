@@ -1,6 +1,6 @@
 /*
  * Yet Another UserAgent Analyzer
- * Copyright (C) 2013-2020 Niels Basjes
+ * Copyright (C) 2013-2019 Niels Basjes
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,14 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.walk;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepNextN extends Step {
 
     private final int steps;
 
-    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
+    // Private constructor for serialization systems ONLY (like Kyro)
     private StepNextN() {
         steps = -1;
     }
@@ -34,16 +35,11 @@ public class StepNextN extends Step {
         this.steps = steps;
     }
 
-    private ParseTree next(ParseTree tree) {
-        ParseTree parent = up(tree);
-
-        if (parent == null) {
-            return null;
-        }
-
-        ParseTree child;
-        boolean foundCurrent = false;
-        int stepsToDo = steps;
+    private ParseTree<MatcherTree> next(ParseTree<MatcherTree> tree) {
+        ParseTree<MatcherTree> parent       = up(tree);
+        ParseTree<MatcherTree> child;
+        boolean                foundCurrent = false;
+        int                    stepsToDo    = steps;
         for (int i = 0; i < parent.getChildCount(); i++) {
             child = parent.getChild(i);
             if (foundCurrent) {
@@ -64,8 +60,8 @@ public class StepNextN extends Step {
     }
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
-        ParseTree nextTree = next(tree);
+    public WalkResult walk(ParseTree<MatcherTree> tree, String value) {
+        ParseTree<MatcherTree> nextTree = next(tree);
         if (nextTree == null) {
             return null;
         }

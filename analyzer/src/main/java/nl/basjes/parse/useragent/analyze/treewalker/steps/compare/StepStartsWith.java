@@ -1,6 +1,6 @@
 /*
  * Yet Another UserAgent Analyzer
- * Copyright (C) 2013-2020 Niels Basjes
+ * Copyright (C) 2013-2019 Niels Basjes
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,14 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.compare;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StepStartsWith extends Step {
 
     private final String desiredValue;
 
-    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
+    // Private constructor for serialization systems ONLY (like Kyro)
     private StepStartsWith() {
         desiredValue = null;
     }
@@ -35,11 +36,10 @@ public class StepStartsWith extends Step {
     }
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree<MatcherTree> tree, String value) {
         String actualValue = getActualValue(tree, value);
 
-        if (actualValue != null &&
-            actualValue.toLowerCase().startsWith(desiredValue)) {
+        if (actualValue.toLowerCase().startsWith(desiredValue)) {
             return walkNextStep(tree, actualValue);
         }
         return null;

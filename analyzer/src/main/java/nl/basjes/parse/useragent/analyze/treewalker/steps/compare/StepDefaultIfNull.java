@@ -19,9 +19,10 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.compare;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-public class StepDefaultIfNull  extends Step {
+public class StepDefaultIfNull extends Step {
 
     private final String  defaultValue;
     private final boolean canFail;
@@ -48,7 +49,7 @@ public class StepDefaultIfNull  extends Step {
     }
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree<MatcherTree> tree, String value) {
         WalkResult actualValue = walkNextStep(tree, value);
 
         if (actualValue == null ||

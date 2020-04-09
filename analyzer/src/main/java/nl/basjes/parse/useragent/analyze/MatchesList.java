@@ -1,6 +1,6 @@
 /*
  * Yet Another UserAgent Analyzer
- * Copyright (C) 2013-2020 Niels Basjes
+ * Copyright (C) 2013-2019 Niels Basjes
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.Serializable;
@@ -35,25 +36,25 @@ import java.util.NoSuchElementException;
 public final class MatchesList implements Collection<MatchesList.Match>, Serializable {
 
     public static final class Match implements Serializable {
-        private String key;
-        private String value;
-        private transient ParseTree result;
+        private transient MatcherTree key;
+        private transient String      value;
+        private transient ParseTree<MatcherTree>   result;
 
-        @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
+        // Private constructor for serialization systems ONLY (like Kyro)
         private Match() {
         }
 
-        public Match(String key, String value, ParseTree result) {
+        public Match(MatcherTree key, String value, ParseTree<MatcherTree> result) {
             fill(key, value, result);
         }
 
-        public void fill(String nKey, String nValue, ParseTree nResult) {
+        public void fill(MatcherTree nKey, String nValue, ParseTree<MatcherTree> nResult) {
             this.key = nKey;
             this.value = nValue;
             this.result = nResult;
         }
 
-        public String getKey() {
+        public MatcherTree getKey() {
             return key;
         }
 
@@ -61,17 +62,17 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
             return value;
         }
 
-        public ParseTree getResult() {
+        public ParseTree<MatcherTree> getResult() {
             return result;
         }
     }
 
+    private int size;
     private int maxSize;
 
-    private transient int size;
-    private transient Match[] allElements;
+    private Match[] allElements;
 
-    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
+    // Private constructor for serialization systems ONLY (like Kyro)
     private MatchesList() {
     }
 
@@ -98,12 +99,6 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
 
     }
 
-    private void readObject(java.io.ObjectInputStream stream)
-        throws java.io.IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-        initialize();
-    }
-
     public MatchesList(int newMaxSize) {
         maxSize = newMaxSize;
         initialize();
@@ -115,6 +110,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
         for (int i = 0; i < maxSize; i++) {
             allElements[i] = new Match(null, null, null);
         }
+
     }
 
     @Override
@@ -132,13 +128,14 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
         size = 0;
     }
 
-    public void add(String key, String value, ParseTree result) {
+    public boolean add(ParseTree<MatcherTree> result, MatcherTree key, String value) {
         if (size >= maxSize) {
             increaseCapacity();
         }
 
         allElements[size].fill(key, value, result);
         size++;
+        return true;
     }
 
     @Override
@@ -185,11 +182,6 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
             result.add("{ \"" + match.key + "\"=\"" + match.value + "\" }");
         }
         return result;
-    }
-
-    public String toString() {
-//        return "MatchesList("+maxSize+","+size+"){allElements="+(allElements==null?"<<null>>":("array of "+ allElements.length))+"} " + toStrings().toString() + " ";
-        return "MatchesList("+size+") " + toStrings().toString();
     }
 
 // ============================================================

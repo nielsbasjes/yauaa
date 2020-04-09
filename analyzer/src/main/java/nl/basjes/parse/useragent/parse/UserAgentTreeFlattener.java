@@ -100,7 +100,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         long comment = 0;
         final String name;
         String path;
-        ParseTree ctx = null;
+        ParseTree<MatcherTree> ctx = null;
 
         @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
         private State() {
@@ -111,7 +111,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
             this.name = name;
         }
 
-        public State(ParseTree ctx, String name) {
+        public State(ParseTree<MatcherTree> ctx, String name) {
             this.ctx = ctx;
             this.name = name;
         }
@@ -226,19 +226,19 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
     // =================================================================================
 
-    private String inform(ParseTree ctx, String path) {
+    private String inform(ParseTree<MatcherTree> ctx, String path) {
         return inform(ctx, path, getSourceText((ParserRuleContext)ctx));
     }
 
-    private String inform(ParseTree ctx, String name, String value) {
+    private String inform(ParseTree<MatcherTree> ctx, String name, String value) {
         return inform(ctx, ctx, name, value, false);
     }
 
-    private String inform(ParseTree ctx, String name, String value, boolean fakeChild) {
+    private String inform(ParseTree<MatcherTree> ctx, String name, String value, boolean fakeChild) {
         return inform(ctx, ctx, name, value, fakeChild);
     }
 
-    private String inform(ParseTree stateCtx, ParseTree ctx, String name, String value, boolean fakeChild) {
+    private String inform(ParseTree stateCtx, ParseTree<MatcherTree> ctx, String name, String value, boolean fakeChild) {
         String path = name;
         if (stateCtx != null) {
             State myState = new State(stateCtx, name);
@@ -356,7 +356,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         enterProductVersion(ctx);
     }
 
-    private void enterProductVersion(ParseTree ctx) {
+    private void enterProductVersion(ParseTree<MatcherTree> ctx) {
         ParseTree child = ctx.getChild(0);
         // Only for the SingleVersion edition we want to have splits of the version.
         if (child instanceof SingleVersionContext || child instanceof SingleVersionWithCommasContext) {

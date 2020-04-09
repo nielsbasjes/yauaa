@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.value;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.utils.ListSplitter;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -40,7 +41,7 @@ public class StepSegmentRange extends Step {
     }
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree<MatcherTree> tree, String value) {
         String actualValue = getActualValue(tree, value);
         String filteredValue = ListSplitter.getInstance().getSplitRange(actualValue, firstSegment, lastSegment);
         if (filteredValue == null) {

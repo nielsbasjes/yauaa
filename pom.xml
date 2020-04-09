@@ -43,7 +43,10 @@
     <!-- In order for everything to work correctly we need at least this version of maven. -->
     <maven.minimal.version>3.5.2</maven.minimal.version>
 
-    <antlr.version>4.8-1</antlr.version>
+    <!-- You cannot simply upgrade this because of the customize visitor!!! -->
+    <antlr4.version>4.7.2</antlr4.version>
+    <antlr4-pvisitor.version>0.1-${antlr4.version}</antlr4-pvisitor.version>
+
     <snakeyaml.version>1.27</snakeyaml.version>
 
     <!-- ============================================== -->
@@ -841,11 +844,11 @@
   <modules>
     <module>devtools</module>
     <module>analyzer</module>
-    <module>udfs</module>
-    <module>webapp</module>
-    <module>commandline</module>
-    <module>examples</module>
-    <module>benchmarks</module>
+<!--    <module>udfs</module>-->
+<!--    <module>webapp</module>-->
+<!--    <module>commandline</module>-->
+<!--    <module>examples</module>-->
+<!--    <module>benchmarks</module>-->
   </modules>
 
   <licenses>

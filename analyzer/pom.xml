@@ -34,11 +34,26 @@
   <url>https://yauaa.basjes.nl</url>
 
   <dependencies>
+    <!-- ================================================================ -->
+    <!-- FOR THESE DEPENDENCIES THE ORDERING OF THEM IS VERY IMPORTANT !!!-->
+    <dependency>
+      <groupId>nl.basjes.antlr</groupId>
+      <artifactId>antlr4-pvisitor</artifactId>
+      <version>${antlr4-pvisitor.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
     <dependency>
       <groupId>org.antlr</groupId>
       <artifactId>antlr4-runtime</artifactId>
-      <version>${antlr.version}</version>
+      <version>${antlr4.version}</version>
     </dependency>
+    <!-- ================================================================ -->
 
     <dependency>
       <groupId>org.springframework</groupId>
@@ -275,7 +290,15 @@
       <plugin>
         <groupId>org.antlr</groupId>
         <artifactId>antlr4-maven-plugin</artifactId>
-        <version>${antlr.version}</version>
+        <version>${antlr4.version}</version>
+        <dependencies>
+          <!--  THIS IS WHERE THE MAGIC HAPPENS -->
+          <dependency>
+            <groupId>nl.basjes.antlr</groupId>
+            <artifactId>antlr4-pvisitor</artifactId>
+            <version>${antlr4-pvisitor.version}</version>
+          </dependency>
+        </dependencies>
         <executions>
           <execution>
             <id>antlr</id>

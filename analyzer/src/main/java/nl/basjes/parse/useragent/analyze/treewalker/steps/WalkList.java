@@ -50,6 +50,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNextN;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrevN;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
@@ -72,7 +73,17 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableCo
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathWalkContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepBackToFullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownBase64Context;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownCommentsContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownEmailContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownEntryContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownKeyContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownKeyvalueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownTextContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownUrlContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownUuidContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEndsWithValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEqualsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepIsInSetContext;
@@ -104,6 +115,20 @@ import java.util.Map;
 import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgentAnalyzerDirect.MAX_PREFIX_HASH_MATCH;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.BASE64;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.COMMENTS;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.EMAIL;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.ENTRY;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEY;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEYVALUE;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.NAME;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.PRODUCT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.TEXT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.URL;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.UUID;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.VALUE;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.VERSION;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
 
@@ -266,7 +291,7 @@ public class WalkList implements Serializable {
         return sb.toString();
     }
 
-    private class WalkListBuilder extends UserAgentTreeWalkerBaseVisitor<Void> {
+    private class WalkListBuilder extends UserAgentTreeWalkerBaseVisitor<Void, MatcherTree> {
 
         // Because we are jumping in 'mid way' we need to skip creating steps until that point.
         boolean foundHashEntryPoint = false;
@@ -285,14 +310,14 @@ public class WalkList implements Serializable {
             }
         }
 
-        private void visitNext(PathContext nextStep) {
+        private void visitNext(PathContext<MatcherTree> nextStep) {
             if (nextStep != null) {
                 visit(nextStep);
             }
         }
 
         @Override
-        public Void visitMatcherPath(MatcherPathContext ctx) {
+        public Void visitMatcherPath(MatcherPathContext<MatcherTree> ctx) {
             visit(ctx.basePath());
             return null; // Void
         }
@@ -305,7 +330,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherPathLookup(MatcherPathLookupContext ctx) {
+        public Void visitMatcherPathLookup(MatcherPathLookupContext<MatcherTree> ctx) {
             visit(ctx.matcher());
 
             fromHereItCannotBeInHashMapAnymore();
@@ -318,7 +343,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherPathLookupContains(MatcherPathLookupContainsContext ctx) {
+        public Void visitMatcherPathLookupContains(MatcherPathLookupContainsContext<MatcherTree> ctx) {
             visit(ctx.matcher());
 
             fromHereItCannotBeInHashMapAnymore();
@@ -331,7 +356,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext ctx) {
+        public Void visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext<MatcherTree> ctx) {
             visit(ctx.matcher());
 
             fromHereItCannotBeInHashMapAnymore();
@@ -345,7 +370,7 @@ public class WalkList implements Serializable {
 
 
         @Override
-        public Void visitMatcherPathIsInLookupContains(MatcherPathIsInLookupContainsContext ctx) {
+        public Void visitMatcherPathIsInLookupContains(MatcherPathIsInLookupContainsContext<MatcherTree> ctx) {
             visit(ctx.matcher());
 
             fromHereItCannotBeInHashMapAnymore();
@@ -359,7 +384,7 @@ public class WalkList implements Serializable {
 
 
         @Override
-        public Void visitMatcherPathIsInLookupPrefix(MatcherPathIsInLookupPrefixContext ctx) {
+        public Void visitMatcherPathIsInLookupPrefix(MatcherPathIsInLookupPrefixContext<MatcherTree> ctx) {
             visit(ctx.matcher());
 
             fromHereItCannotBeInHashMapAnymore();
@@ -372,7 +397,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherPathIsNotInLookupPrefix(MatcherPathIsNotInLookupPrefixContext ctx) {
+        public Void visitMatcherPathIsNotInLookupPrefix(MatcherPathIsNotInLookupPrefixContext<MatcherTree> ctx) {
             visit(ctx.matcher());
 
             fromHereItCannotBeInHashMapAnymore();
@@ -393,8 +418,7 @@ public class WalkList implements Serializable {
             return null; // Void
         }
 
-        @Override
-        public Void visitMatcherDefaultIfNull(MatcherDefaultIfNullContext ctx) {
+        public Void visitMatcherDefaultIfNull(MatcherDefaultIfNullContext<MatcherTree> ctx) {
             // Always add this one, it's special
             steps.add(new StepDefaultIfNull(ctx.defaultValue.getText()));
             visit(ctx.matcher());
@@ -410,7 +434,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherCleanVersion(MatcherCleanVersionContext ctx) {
+        public Void visitMatcherCleanVersion(MatcherCleanVersionContext<MatcherTree> ctx) {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepCleanVersion());
@@ -418,7 +442,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherReplaceString(MatcherReplaceStringContext ctx) {
+        public Void visitMatcherReplaceString(MatcherReplaceStringContext<MatcherTree> ctx) {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepReplaceString(ctx.search.getText(), ctx.replace.getText()));
@@ -426,7 +450,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherNormalizeBrand(MatcherNormalizeBrandContext ctx) {
+        public Void visitMatcherNormalizeBrand(MatcherNormalizeBrandContext<MatcherTree> ctx) {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepNormalizeBrand());
@@ -434,7 +458,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherConcat(MatcherConcatContext ctx) {
+        public Void visitMatcherConcat(MatcherConcatContext<MatcherTree> ctx) {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepConcat(ctx.prefix.getText(), ctx.postfix.getText()));
@@ -442,7 +466,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherConcatPrefix(MatcherConcatPrefixContext ctx) {
+        public Void visitMatcherConcatPrefix(MatcherConcatPrefixContext<MatcherTree> ctx) {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepConcatPrefix(ctx.prefix.getText()));
@@ -450,7 +474,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherConcatPostfix(MatcherConcatPostfixContext ctx) {
+        public Void visitMatcherConcatPostfix(MatcherConcatPostfixContext<MatcherTree> ctx) {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepConcatPostfix(ctx.postfix.getText()));
@@ -458,7 +482,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherWordRange(MatcherWordRangeContext ctx) {
+        public Void visitMatcherWordRange(MatcherWordRangeContext<MatcherTree> ctx) {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepWordRange(WordRangeVisitor.getRange(ctx.wordRange())));
@@ -466,7 +490,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherSegmentRange(UserAgentTreeWalkerParser.MatcherSegmentRangeContext ctx) {
+        public Void visitMatcherSegmentRange(UserAgentTreeWalkerParser.MatcherSegmentRangeContext<MatcherTree> ctx) {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepSegmentRange(WordRangeVisitor.getRange(ctx.wordRange())));
@@ -474,7 +498,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherPathIsNull(MatcherPathIsNullContext ctx) {
+        public Void visitMatcherPathIsNull(MatcherPathIsNullContext<MatcherTree> ctx) {
             // Always add this one, it's special
             steps.add(new StepIsNull());
             visit(ctx.matcher());
@@ -482,27 +506,125 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitPathVariable(PathVariableContext ctx) {
+        public Void visitPathVariable(PathVariableContext<MatcherTree> ctx) {
             fromHereItCannotBeInHashMapAnymore();
             visitNext(ctx.nextStep);
             return null; // Void
         }
 
         @Override
-        public Void visitPathWalk(PathWalkContext ctx) {
+        public Void visitPathWalk(PathWalkContext<MatcherTree> ctx) {
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+//        @Override
+//        public Void visitStepDown(StepDownContext<MatcherTree> ctx) {
+//            add(new StepDown(ctx.numberRange(), ctx.name.getText()));
+//            visitNext(ctx.nextStep);
+//            return null; // Void
+//        }
+
+        @Override
+        public Void visitStepDownAgent(UserAgentTreeWalkerParser.StepDownAgentContext<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), AGENT));
             visitNext(ctx.nextStep);
             return null; // Void
         }
 
         @Override
-        public Void visitStepDown(StepDownContext ctx) {
-            add(new StepDown(ctx.numberRange(), ctx.name.getText()));
+        public Void visitStepDownProduct(UserAgentTreeWalkerParser.StepDownProductContext<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), PRODUCT));
             visitNext(ctx.nextStep);
             return null; // Void
         }
 
         @Override
-        public Void visitStepUp(StepUpContext ctx) {
+        public Void visitStepDownName(UserAgentTreeWalkerParser.StepDownNameContext<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), NAME));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownVersion(StepDownVersionContext<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), VERSION));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownComments(StepDownCommentsContext<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), COMMENTS));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownEntry(StepDownEntryContext<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), ENTRY));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownText(StepDownTextContext<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), TEXT));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownUrl(StepDownUrlContext<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), URL));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownEmail(StepDownEmailContext<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), EMAIL));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownBase64(StepDownBase64Context<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), BASE64));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownUuid(StepDownUuidContext<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), UUID));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownKeyvalue(StepDownKeyvalueContext<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), KEYVALUE));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownKey(StepDownKeyContext<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), KEY));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownValue(StepDownValueContext<MatcherTree> ctx) {
+            add(new StepDown(ctx.numberRange(), VALUE));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepUp(StepUpContext<MatcherTree> ctx) {
             fromHereItCannotBeInHashMapAnymore();
             add(new StepUp());
             visitNext(ctx.nextStep);
@@ -511,7 +633,7 @@ public class WalkList implements Serializable {
 
         //----
         @Override
-        public Void visitStepNext(StepNextContext ctx) {
+        public Void visitStepNext(StepNextContext<MatcherTree> ctx) {
             fromHereItCannotBeInHashMapAnymore();
             add(new StepNext());
             visitNext(ctx.nextStep);
@@ -526,23 +648,23 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitStepNext2(StepNext2Context ctx) {
+        public Void visitStepNext2(StepNext2Context<MatcherTree> ctx) {
             return doStepNextN(ctx.nextStep, 2);
         }
 
         @Override
-        public Void visitStepNext3(StepNext3Context ctx) {
+        public Void visitStepNext3(StepNext3Context<MatcherTree> ctx) {
             return doStepNextN(ctx.nextStep, 3);
         }
 
         @Override
-        public Void visitStepNext4(StepNext4Context ctx) {
+        public Void visitStepNext4(StepNext4Context<MatcherTree> ctx) {
             return doStepNextN(ctx.nextStep, 4);
         }
 
         //----
         @Override
-        public Void visitStepPrev(StepPrevContext ctx) {
+        public Void visitStepPrev(StepPrevContext<MatcherTree> ctx) {
             fromHereItCannotBeInHashMapAnymore();
             add(new StepPrev());
             visitNext(ctx.nextStep);
@@ -557,23 +679,23 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitStepPrev2(StepPrev2Context ctx) {
+        public Void visitStepPrev2(StepPrev2Context<MatcherTree> ctx) {
             return doStepPrevN(ctx.nextStep, 2);
         }
 
         @Override
-        public Void visitStepPrev3(StepPrev3Context ctx) {
+        public Void visitStepPrev3(StepPrev3Context<MatcherTree> ctx) {
             return doStepPrevN(ctx.nextStep, 3);
         }
 
         @Override
-        public Void visitStepPrev4(StepPrev4Context ctx) {
+        public Void visitStepPrev4(StepPrev4Context<MatcherTree> ctx) {
             return doStepPrevN(ctx.nextStep, 4);
         }
 
         //----
         @Override
-        public Void visitStepEqualsValue(StepEqualsValueContext ctx) {
+        public Void visitStepEqualsValue(StepEqualsValueContext<MatcherTree> ctx) {
             add(new StepEquals(ctx.value.getText()));
             fromHereItCannotBeInHashMapAnymore();
             visitNext(ctx.nextStep);
@@ -581,7 +703,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitStepNotEqualsValue(StepNotEqualsValueContext ctx) {
+        public Void visitStepNotEqualsValue(StepNotEqualsValueContext<MatcherTree> ctx) {
             fromHereItCannotBeInHashMapAnymore();
             add(new StepNotEquals(ctx.value.getText()));
             visitNext(ctx.nextStep);
@@ -589,7 +711,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitStepIsInSet(StepIsInSetContext ctx) {
+        public Void visitStepIsInSet(StepIsInSetContext<MatcherTree> ctx) {
             fromHereItCannotBeInHashMapAnymore();
             String      lookupSetName = ctx.set.getText();
             add(new StepIsInSet(lookupSetName, getLookupSet(lookupSetName)));
@@ -621,7 +743,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitStepStartsWithValue(StepStartsWithValueContext ctx) {
+        public Void visitStepStartsWithValue(StepStartsWithValueContext<MatcherTree> ctx) {
             boolean skipIfShortEnough = stillGoingToHashMap();
             fromHereItCannotBeInHashMapAnymore();
             String value = ctx.value.getText();
@@ -643,7 +765,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitStepEndsWithValue(StepEndsWithValueContext ctx) {
+        public Void visitStepEndsWithValue(StepEndsWithValueContext<MatcherTree> ctx) {
             fromHereItCannotBeInHashMapAnymore();
             add(new StepEndsWith(ctx.value.getText()));
             visitNext(ctx.nextStep);
@@ -651,7 +773,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitStepContainsValue(StepContainsValueContext ctx) {
+        public Void visitStepContainsValue(StepContainsValueContext<MatcherTree> ctx) {
             fromHereItCannotBeInHashMapAnymore();
             add(new StepContains(ctx.value.getText()));
             visitNext(ctx.nextStep);
@@ -659,7 +781,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitStepWordRange(StepWordRangeContext ctx) {
+        public Void visitStepWordRange(StepWordRangeContext<MatcherTree> ctx) {
             Range range = WordRangeVisitor.getRange(ctx.wordRange());
             add(new StepWordRange(range));
             visitNext(ctx.nextStep);
@@ -667,7 +789,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitStepBackToFull(StepBackToFullContext ctx) {
+        public Void visitStepBackToFull(StepBackToFullContext<MatcherTree> ctx) {
             add(new StepBackToFull());
             visitNext(ctx.nextStep);
             return null; // Void

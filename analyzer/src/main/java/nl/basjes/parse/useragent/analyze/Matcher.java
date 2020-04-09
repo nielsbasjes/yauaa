@@ -1,6 +1,6 @@
 /*
  * Yet Another UserAgent Analyzer
- * Copyright (C) 2013-2020 Niels Basjes
+ * Copyright (C) 2013-2019 Niels Basjes
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.utils.YamlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +48,7 @@ public class Matcher implements Serializable {
 
     private final Analyzer analyzer;
     private final List<MatcherVariableAction> variableActions;
-    private final List<MatcherAction> dynamicActions;
+    private List<MatcherAction> dynamicActions;
     private final List<MatcherAction> fixedStringActions;
 
     private MutableUserAgent newValuesUserAgent = null;
@@ -56,14 +57,13 @@ public class Matcher implements Serializable {
     private boolean verbose;
     private boolean permanentVerbose;
 
-    public String getMatcherSourceLocation() {
+    // Used for error reporting: The filename and line number where the config was located.
+    private String matcherSourceLocation;
+    String getMatcherSourceLocation() {
         return matcherSourceLocation;
     }
 
-    // Used for error reporting: The filename and line number where the config was located.
-    private String matcherSourceLocation;
-
-    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
+    // Private constructor for serialization systems ONLY (like Kyro)
     private Matcher() {
         this.analyzer = null;
         this.fixedStringActions = new ArrayList<>();
@@ -72,19 +72,11 @@ public class Matcher implements Serializable {
     }
 
     // Package private constructor for testing purposes only
-    Matcher(Analyzer analyzer) {
+    public Matcher(Analyzer analyzer) { // FIXME: NOT IN FINAL VERSION: Making this public is bad
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
         this.variableActions = new ArrayList<>();
         this.dynamicActions = new ArrayList<>();
-    }
-
-    public void destroy() {
-        dynamicActions.forEach(MatcherAction::destroy);
-        dynamicActions.clear();
-
-        fixedStringActions.forEach(MatcherAction::destroy);
-        fixedStringActions.clear();
     }
 
     public Map<String, Map<String, String>> getLookups() {
@@ -93,6 +85,10 @@ public class Matcher implements Serializable {
 
     public Map<String, Set<String>> getLookupSets() {
         return analyzer.getLookupSets();
+    }
+
+    public MatcherTree getPathTreeRoot() {
+        return analyzer.getMatcherTreeRoot();
     }
 
     static class ConfigLine {
@@ -341,16 +337,12 @@ public class Matcher implements Serializable {
         return results;
     }
 
-    public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
-        analyzer.lookingForRange(treeName, range);
-    }
+//    public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
+//        analyzer.lookingForRange(treeName, range);
+//    }
 
-    public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
-        analyzer.informMeAbout(matcherAction, keyPattern);
-    }
-
-    public void informMeAboutPrefix(MatcherAction matcherAction, String keyPattern, String prefix) {
-        analyzer.informMeAboutPrefix(matcherAction, keyPattern, prefix);
+    public void informMeAbout(MatcherAction matcherAction, MatcherTree matcherTree) {
+        analyzer.informMeAbout(matcherAction, matcherTree);
     }
 
     private final Map<String, Set<MatcherAction>> informMatcherActionsAboutVariables = new HashMap<>(8);

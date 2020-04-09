@@ -1,6 +1,6 @@
 /*
  * Yet Another UserAgent Analyzer
- * Copyright (C) 2013-2020 Niels Basjes
+ * Copyright (C) 2013-2019 Niels Basjes
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.value;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
-import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionContext;
-import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionWithCommasContext;
+import nl.basjes.parse.useragent.parse.MatcherTree;
+import nl.basjes.parse.useragent.parser.UserAgentParser;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -31,7 +31,7 @@ public class StepWordRange extends Step {
     private final int firstWord;
     private final int lastWord;
 
-    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
+    // Private constructor for serialization systems ONLY (like Kyro)
     private StepWordRange() {
         firstWord = -1;
         lastWord = -1;
@@ -43,18 +43,12 @@ public class StepWordRange extends Step {
     }
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
+    public WalkResult walk(ParseTree<MatcherTree> tree, String value) {
         String actualValue = getActualValue(tree, value);
-        if (actualValue == null) {
-            return null;
-        }
-
         String filteredValue;
-        if (tree !=null &&
-            tree.getChildCount() == 1 &&
-            (
-              tree.getChild(0) instanceof SingleVersionContext ||
-              tree.getChild(0) instanceof SingleVersionWithCommasContext)) {
+        if (tree.getChildCount() == 1 && (
+              tree.getChild(0) instanceof UserAgentParser.SingleVersionContext ||
+              tree.getChild(0) instanceof UserAgentParser.SingleVersionWithCommasContext)) {
             filteredValue = VersionSplitter.getInstance().getSplitRange(actualValue, firstWord, lastWord);
         } else {
             filteredValue = WordSplitter.getInstance().getSplitRange(actualValue, firstWord, lastWord);
