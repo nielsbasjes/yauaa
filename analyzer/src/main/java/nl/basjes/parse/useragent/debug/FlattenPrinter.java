@@ -86,6 +86,10 @@ public class FlattenPrinter implements Analyzer {
     public List<Map<String, Map<String, String>>> getTestCases() {
         // Never called
         return Collections.emptyList();
+
+    @Override
+    public MatcherTree getMatcherTreeRoot() {
+        return null;
     }
 
 }

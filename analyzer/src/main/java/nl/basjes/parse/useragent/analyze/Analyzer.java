@@ -42,4 +42,6 @@ public interface Analyzer extends Serializable {
     MatcherTree getMatcherTreeRoot();
 
     List<Map<String, Map<String, String>>> getTestCases();
+
+    MatcherTree getMatcherTreeRoot();
 }

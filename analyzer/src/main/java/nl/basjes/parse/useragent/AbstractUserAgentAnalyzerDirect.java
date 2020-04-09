@@ -78,6 +78,7 @@ import nl.basjes.parse.useragent.calculate.CalculateDeviceName;
 import nl.basjes.parse.useragent.calculate.CalculateNetworkType;
 import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
+import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
 import nl.basjes.parse.useragent.parse.AgentPathFragment;
 import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
@@ -93,9 +94,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
@@ -840,6 +843,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         @Override
         public MatcherTree getMatcherTreeRoot() {
             return matcherTreeRoot;
+        }
 
         @Override
         public List<Map<String, Map<String, String>>> getTestCases() {
