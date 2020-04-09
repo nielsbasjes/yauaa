@@ -67,6 +67,14 @@ echo "Generating: ${OUTPUT}"
   echo "      \"Apple-iPad\"       : \"Tablet\""
   echo "      \"Apple-iPod\"       : \"Phone\""
   echo "      \"Apple-iPod touch\" : \"Phone\""
+  echo "      \"Apple iPhone\"     : \"Phone\""
+  echo "      \"Apple iPad\"       : \"Tablet\""
+  echo "      \"Apple iPod\"       : \"Phone\""
+  echo "      \"Apple iPod touch\" : \"Phone\""
+  echo "      \"Apple iPhone iOS\"     : \"Phone\""
+  echo "      \"Apple iPad iOS\"       : \"Tablet\""
+  echo "      \"Apple iPod iOS\"       : \"Phone\""
+  echo "      \"Apple iPod touch iOS\" : \"Phone\""
 
   grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line; do
     key=$(echo "${line}" | cut -d'|' -f1)
@@ -101,6 +109,14 @@ echo "Generating: ${OUTPUT}"
   echo "      \"Apple-iPad\"       : \"Apple iPad\""
   echo "      \"Apple-iPod\"       : \"Apple iPod\""
   echo "      \"Apple-iPod touch\" : \"Apple iPod touch\""
+  echo "      \"Apple iPhone\"     : \"Apple iPhone\""
+  echo "      \"Apple iPad\"       : \"Apple iPad\""
+  echo "      \"Apple iPod\"       : \"Apple iPod\""
+  echo "      \"Apple iPod touch\" : \"Apple iPod touch\""
+  echo "      \"Apple iPhone iOS\"     : \"Apple iPhone\""
+  echo "      \"Apple iPad iOS\"       : \"Apple iPad\""
+  echo "      \"Apple iPod iOS\"       : \"Apple iPod\""
+  echo "      \"Apple iPod touch iOS\" : \"Apple iPod touch\""
   grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line; do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
@@ -134,6 +150,15 @@ echo "Generating: ${OUTPUT}"
   echo "      \"Apple-iPad\"       : \"iPad\""
   echo "      \"Apple-iPod\"       : \"iPod\""
   echo "      \"Apple-iPod touch\" : \"iPod touch\""
+  echo "      \"Apple iPhone\"     : \"iPhone\""
+  echo "      \"Apple iPad\"       : \"iPad\""
+  echo "      \"Apple iPod\"       : \"iPod\""
+  echo "      \"Apple iPod touch\" : \"iPod touch\""
+  echo "      \"Apple iPhone iOS\"     : \"iPhone\""
+  echo "      \"Apple iPad iOS\"       : \"iPad\""
+  echo "      \"Apple iPod iOS\"       : \"iPod\""
+  echo "      \"Apple iPod touch iOS\" : \"iPod touch\""
+
   grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line; do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')

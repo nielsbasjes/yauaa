@@ -4,6 +4,8 @@ v5.18-SNAPSHOT
 ===
 - Analyzer:
   - Fixed caches for getAllPossibleFieldNames and getAllPossibleFieldNamesSorted
+- New/improved detections
+  - Detect a very rare iPhone variant
 
 v5.17
 ===

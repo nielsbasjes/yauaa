@@ -1552,3 +1552,57 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
+
+- matcher:
+    variable:
+    - 'Device                              :agent.product.name[1]="Apple"'
+    - 'iOS                                 :@Device@[2]="iOS"'
+    extract:
+    - 'OperatingSystemClass                :      150 : "Mobile"'
+    - 'OperatingSystemName                 :      150 : "iOS"'
+    - 'OperatingSystemVersion              :      150 : @iOS^.version'
+
+- matcher:
+    variable:
+    - 'Device                              :agent.product.name[1]="Apple"'
+    - 'iOS                                 :@Device@[3]="iOS"'
+    extract:
+    - 'OperatingSystemClass                :      150 : "Mobile"'
+    - 'OperatingSystemName                 :      150 : "iOS"'
+    - 'OperatingSystemVersion              :      150 : @iOS^.version'
+
+- matcher:
+    variable:
+    - 'Device                              :agent.product.name[1]="Apple"'
+    - 'iOS                                 :@Device@[4]="iOS"'
+    extract:
+    - 'OperatingSystemClass                :      150 : "Mobile"'
+    - 'OperatingSystemName                 :      150 : "iOS"'
+    - 'OperatingSystemVersion              :      150 : @iOS^.version'
+
+- test:
+    input:
+      user_agent_string: 'Apple iPhone iOS 13.3.1 AppleWebKit/1 Safari/1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '13.3.1'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'iOS 13.3.1'
+      OperatingSystemNameVersionMajor      : 'iOS 13'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'AppleWebKit 1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Safari 1'
+      AgentNameVersionMajor                : 'Safari 1'
