@@ -36,7 +36,7 @@
     <dependency>
       <groupId>org.scala-lang</groupId>
       <artifactId>scala-library</artifactId>
-      <version>2.11.7</version>
+      <version>2.13.1</version>
     </dependency>
 
     <dependency>
@@ -66,8 +66,14 @@
 
     <dependency>
       <groupId>org.scalatest</groupId>
-      <artifactId>scalatest_2.11</artifactId>
-      <version>2.2.4</version>
+      <artifactId>scalatest_2.13</artifactId>
+      <version>3.1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.scalatestplus</groupId>
+      <artifactId>junit-4-12_2.13</artifactId>
+      <version>3.1.1.0</version>
     </dependency>
   </dependencies>
 
@@ -78,10 +84,10 @@
       <plugin>
         <groupId>net.alchim31.maven</groupId>
         <artifactId>scala-maven-plugin</artifactId>
-        <version>3.2.1</version>
+        <version>4.3.1</version>
         <configuration>
 <!--          <mainClass>Demo</mainClass>-->
-          <scalaCompatVersion>2.11</scalaCompatVersion>
+          <scalaCompatVersion>2.13</scalaCompatVersion>
         </configuration>
         <executions>
           <execution>
@@ -99,7 +105,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.7</version>
         <configuration>
           <skipTests>true</skipTests>
         </configuration>
@@ -108,7 +113,7 @@
       <plugin>
         <groupId>org.scalatest</groupId>
         <artifactId>scalatest-maven-plugin</artifactId>
-        <version>1.0</version>
+        <version>2.0.0</version>
         <configuration>
           <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
           <junitxml>.</junitxml>

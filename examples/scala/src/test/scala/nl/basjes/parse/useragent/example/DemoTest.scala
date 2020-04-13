@@ -17,12 +17,12 @@
 
 package nl.basjes.parse.useragent.example
 
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
+import org.scalatest.flatspec.AnyFlatSpec
 
 @RunWith(classOf[JUnitRunner])
-class DemoTest extends FlatSpec {
+class DemoTest extends AnyFlatSpec {
   "The parser" must "extract the correct DeviceName" in {
     val demo = new Demo()
 
