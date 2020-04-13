@@ -4,8 +4,13 @@ v5.18-SNAPSHOT
 ===
 - Analyzer:
   - Fixed caches for getAllPossibleFieldNames and getAllPossibleFieldNamesSorted
+  - Updated dependencies
+- Updated UDF dependencies
+  - Elastic Logstash 7.6.2
 - New/improved detections
   - Detect a very rare iPhone variant
+- Build
+  - Include OWASP check for bad dependencies
 
 v5.17
 ===
