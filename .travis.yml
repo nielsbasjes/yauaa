@@ -28,7 +28,7 @@ addons:
     organization: "nielsbasjes-github"
 
 script:
-  - mvn test -DEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
+  - mvn test -DEnableReportPlugins -Dowasp.dependency-check.skip=true coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
 
 cache:
   directories:
