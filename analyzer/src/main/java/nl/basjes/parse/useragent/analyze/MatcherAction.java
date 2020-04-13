@@ -109,7 +109,6 @@ public abstract class MatcherAction implements Serializable {
 
     private static final Logger LOG = LoggerFactory.getLogger(MatcherAction.class);
 
-
     private Matcher     matcher;
     private MatchesList matches = new MatchesList(0);
     private boolean     mustHaveMatches = false;
@@ -195,7 +194,7 @@ public abstract class MatcherAction implements Serializable {
 
         mustHaveMatches = evaluator.mustHaveMatches();
 
-        int informs = calculateInformPath(this, matcher.get"agent", requiredPattern);
+        int informs = calculateInformPath(this, new MatcherTree(AGENT, 0), requiredPattern);
 
         // If this is based on a variable we do not need any matches from the hashmap.
         if (mustHaveMatches && informs == 0) {
@@ -207,6 +206,7 @@ public abstract class MatcherAction implements Serializable {
             listSize = 1;
         }
         this.matches = new MatchesList(listSize);
+        return informs;
     }
 
     protected abstract ParserRuleContext<MatcherTree> parseWalkerExpression(UserAgentTreeWalkerParser<MatcherTree> parser);

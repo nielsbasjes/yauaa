@@ -38,6 +38,7 @@ import nl.basjes.parse.useragent.calculate.CalculateNetworkType;
 import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
+import nl.basjes.parse.useragent.parse.AgentPathFragment;
 import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -124,6 +125,8 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     private static final Logger LOG = LoggerFactory.getLogger(AbstractUserAgentAnalyzerDirect.class);
     private final ArrayList<Matcher> allMatchers = new ArrayList<>(5000);
     private final ArrayList<Matcher> zeroInputMatchers = new ArrayList<>(100);
+
+    private MatcherTree matcherTree = null;
 
     protected List<Matcher> getAllMatchers() {
         return allMatchers;
@@ -550,13 +553,15 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
             throw new InvalidParserConfigurationException("No matchers were loaded at all.");
         }
 
+        // Initialize the now empty tree of all matchers
+        matcherTree = new MatcherTree(AgentPathFragment.AGENT, 1);
+
         long start = System.nanoTime();
-        allMatchers.forEach(Matcher::initialize);
+        allMatchers.forEach(m -> m.initialize(matcherTree));
         long stop = System.nanoTime();
 
         matchersHaveBeenInitialized = true;
-        LOG.info("Built in {} msec",
-            (stop - start) / 1000000);
+        LOG.info("Built in {} msec", (stop - start) / 1000000);
 
         for (Matcher matcher: allMatchers) {
             if (matcher.getActionsThatRequireInput() == 0) {

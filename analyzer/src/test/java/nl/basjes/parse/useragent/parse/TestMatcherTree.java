@@ -21,7 +21,7 @@ import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.MatcherRequireAction;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +33,7 @@ import static nl.basjes.parse.useragent.parse.AgentPathFragment.COMMENTS;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.ENTRY;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.PRODUCT;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.VERSION;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestMatcherTree {
 
@@ -229,7 +229,7 @@ public class TestMatcherTree {
             LOG.info("==> {}", s);
         });
 
-        expected.forEach(e -> assertTrue("Missing " + e, result.contains(e)));
+        expected.forEach(e -> assertTrue(result.contains(e), "Missing " + e));
     }
 
 }

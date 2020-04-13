@@ -79,7 +79,7 @@ public class TreeExpressionEvaluator implements Serializable {
     }
 
     private String calculateFixedValue(ParserRuleContext requiredPattern) {
-        return new UserAgentTreeWalkerBaseVisitor<String>() {
+        return new UserAgentTreeWalkerBaseVisitor<String, Void>() {
 
             @Override
             protected boolean shouldVisitNextChild(RuleNode node, String currentResult) {
@@ -93,11 +93,11 @@ public class TreeExpressionEvaluator implements Serializable {
 
             // FIXME: Handle UserAgentTreeWalkerParser.MatcherPathLookupContainsContext
             @Override
-            public String visitMatcherPathLookup(MatcherPathLookupContext ctx) {
+            public String visitMatcherPathLookup(MatcherPathLookupContext<Void> ctx) {
                 return visitLookups(ctx.matcher(), ctx.lookup, ctx.defaultValue);
             }
             @Override
-            public String visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext ctx) {
+            public String visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext<Void> ctx) {
                 return visitLookups(ctx.matcher(), ctx.lookup, ctx.defaultValue);
             }
 

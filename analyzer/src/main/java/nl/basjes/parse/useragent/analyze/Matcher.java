@@ -222,12 +222,12 @@ public class Matcher implements Serializable {
 
     }
 
-    public void initialize() {
+    public void initialize(MatcherTree treeRoot) {
         long newEntries = 0;
         long initStart = System.nanoTime();
         try {
             for (MatcherVariableAction variableAction : variableActions) {
-                newEntries += variableAction.initialize();
+                newEntries += variableAction.initialize(treeRoot);
             }
         } catch (InvalidParserConfigurationException e) {
             throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ")", e);
