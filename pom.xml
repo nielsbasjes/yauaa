@@ -170,6 +170,18 @@
   </dependencies>
 
   <profiles>
+
+    <profile>
+      <id>skipQuality</id>
+      <properties>
+        <sonar.skip>true</sonar.skip>
+        <rat.skip>true</rat.skip>
+        <checkstyle.skip>true</checkstyle.skip>
+        <jacoco.skip>true</jacoco.skip>
+        <spotbugs.skip>true</spotbugs.skip>
+      </properties>
+    </profile>
+
     <profile>
       <id>packageForRelease</id>
       <build>
