@@ -59,7 +59,7 @@ public class Matcher implements Serializable {
 
     // Used for error reporting: The filename and line number where the config was located.
     private String matcherSourceLocation;
-    String getMatcherSourceLocation() {
+    public String getMatcherSourceLocation() {
         return matcherSourceLocation;
     }
 
@@ -236,7 +236,7 @@ public class Matcher implements Serializable {
         Set<MatcherAction> uselessRequireActions = new HashSet<>();
         for (MatcherAction dynamicAction : dynamicActions) {
             try {
-                newEntries += dynamicAction.initialize();
+                newEntries += dynamicAction.initialize(treeRoot);
             } catch (InvalidParserConfigurationException e) {
                 if (!e.getMessage().startsWith("It is useless to put a fixed value")) {// Ignore fixed values in require
                     throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ")" + e.getMessage(), e);

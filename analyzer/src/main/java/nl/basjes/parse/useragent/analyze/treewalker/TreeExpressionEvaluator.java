@@ -21,6 +21,7 @@ import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupPrefixContext;
@@ -57,7 +58,7 @@ public class TreeExpressionEvaluator implements Serializable {
         walkList = null;
     }
 
-    public TreeExpressionEvaluator(ParserRuleContext requiredPattern,
+    public TreeExpressionEvaluator(ParserRuleContext<MatcherTree> requiredPattern,
                                    Matcher matcher,
                                    boolean verbose) {
         this.requiredPatternText = requiredPattern.getText();
@@ -78,8 +79,8 @@ public class TreeExpressionEvaluator implements Serializable {
         return fixedValue;
     }
 
-    private String calculateFixedValue(ParserRuleContext requiredPattern) {
-        return new UserAgentTreeWalkerBaseVisitor<String, Void>() {
+    private String calculateFixedValue(ParserRuleContext<MatcherTree> requiredPattern) {
+        return new UserAgentTreeWalkerBaseVisitor<String, MatcherTree>() {
 
             @Override
             protected boolean shouldVisitNextChild(RuleNode node, String currentResult) {
@@ -93,15 +94,15 @@ public class TreeExpressionEvaluator implements Serializable {
 
             // FIXME: Handle UserAgentTreeWalkerParser.MatcherPathLookupContainsContext
             @Override
-            public String visitMatcherPathLookup(MatcherPathLookupContext<Void> ctx) {
+            public String visitMatcherPathLookup(MatcherPathLookupContext<MatcherTree> ctx) {
                 return visitLookups(ctx.matcher(), ctx.lookup, ctx.defaultValue);
             }
             @Override
-            public String visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext<Void> ctx) {
+            public String visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext<MatcherTree> ctx) {
                 return visitLookups(ctx.matcher(), ctx.lookup, ctx.defaultValue);
             }
 
-            private String visitLookups(ParseTree matcherTree, Token lookup, Token defaultValue) {
+            private String visitLookups(ParseTree<MatcherTree> matcherTree, Token lookup, Token defaultValue) {
                 String value = visit(matcherTree);
                 if (value == null) {
                     return null;
@@ -126,7 +127,7 @@ public class TreeExpressionEvaluator implements Serializable {
             }
 
             @Override
-            public String visitPathFixedValue(PathFixedValueContext ctx) {
+            public String visitPathFixedValue(PathFixedValueContext<MatcherTree> ctx) {
                 return ctx.value.getText();
             }
         }.visit(requiredPattern);
@@ -134,7 +135,7 @@ public class TreeExpressionEvaluator implements Serializable {
 
     // ------------------------------------------
 
-    public WalkResult evaluate(ParseTree tree, String key, String value) {
+    public WalkResult evaluate(ParseTree<MatcherTree> tree, MatcherTree key, String value) {
         if (verbose) {
             LOG.info("Evaluate: {} => {}", key, value);
             LOG.info("Pattern : {}", requiredPatternText);

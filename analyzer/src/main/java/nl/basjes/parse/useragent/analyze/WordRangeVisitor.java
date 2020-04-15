@@ -17,11 +17,13 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeFirstWordsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeLastWordsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeSingleWordContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.WordRangeStartToEndContext;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -80,6 +82,11 @@ public final class WordRangeVisitor<P> extends UserAgentTreeWalkerBaseVisitor<Wo
         public int hashCode() {
             return Objects.hash(first, last);
         }
+    }
+
+    private static final WordRangeVisitor<MatcherTree> INSTANCE = new WordRangeVisitor<MatcherTree>();
+    public static Range getRange(ParseTree<MatcherTree> tree) {
+        return INSTANCE.visit(tree);
     }
 
     @Override

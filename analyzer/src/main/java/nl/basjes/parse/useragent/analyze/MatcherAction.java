@@ -109,7 +109,7 @@ public abstract class MatcherAction implements Serializable {
 
     private static final Logger LOG = LoggerFactory.getLogger(MatcherAction.class);
 
-    private Matcher     matcher;
+    protected Matcher     matcher;
     private MatchesList matches = new MatchesList(0);
     private boolean     mustHaveMatches = false;
 
@@ -161,7 +161,7 @@ public abstract class MatcherAction implements Serializable {
         setVerbose(newMatcher.getVerbose());
     }
 
-    public long initialize() {
+    public long initialize(MatcherTree treeRoot) {
         InitErrorListener errorListener = new InitErrorListener();
 
         CodePointCharStream      input = CharStreams.fromString(this.matchExpression);
@@ -194,7 +194,7 @@ public abstract class MatcherAction implements Serializable {
 
         mustHaveMatches = evaluator.mustHaveMatches();
 
-        int informs = calculateInformPath(this, new MatcherTree(AGENT, 0), requiredPattern);
+        int informs = calculateInformPath(this, treeRoot, requiredPattern);
 
         // If this is based on a variable we do not need any matches from the hashmap.
         if (mustHaveMatches && informs == 0) {
@@ -209,7 +209,7 @@ public abstract class MatcherAction implements Serializable {
         return informs;
     }
 
-    protected abstract ParserRuleContext<MatcherTree> parseWalkerExpression(UserAgentTreeWalkerParser<MatcherTree> parser);
+    protected abstract <T> ParserRuleContext<T> parseWalkerExpression(UserAgentTreeWalkerParser<T> parser);
 
     private static class UnQuoteValues extends UserAgentTreeWalkerBaseVisitor<Void, MatcherTree> {
         private void unQuoteToken(Token token) {

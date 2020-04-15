@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent.debug;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.PrintStream;
@@ -41,22 +42,22 @@ public class FlattenPrinter implements Analyzer {
     }
 
     @Override
-    public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
+    public void informMeAbout(MatcherAction matcherAction, MatcherTree keyPattern) {
         // Not needed
     }
 
-    public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
-        // Never called
-    }
+//    public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
+//         Never called
+//    }
 
     public Set<WordRangeVisitor.Range> getRequiredInformRanges(String treeName){
         // Never called
         return Collections.emptySet();
     }
 
-    public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
-        // Never called
-    }
+//    public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
+//         Never called
+//    }
 
     public Set<Integer> getRequiredPrefixLengths(String treeName){
         // Never called
@@ -73,6 +74,11 @@ public class FlattenPrinter implements Analyzer {
     public Map<String, Set<String>> getLookupSets() {
         // Never called
         return Collections.emptyMap();
+    }
+
+    @Override
+    public MatcherTree getMatcherTreeRoot() {
+        return null;
     }
 
 }

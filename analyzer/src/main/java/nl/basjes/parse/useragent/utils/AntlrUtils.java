@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.utils;
 
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.Interval;
@@ -24,7 +25,7 @@ import org.antlr.v4.runtime.misc.Interval;
 public final class AntlrUtils {
     private AntlrUtils() {}
 
-    public static String getSourceText(ParserRuleContext ctx){
+    public static String getSourceText(ParserRuleContext<MatcherTree> ctx){
         if (ctx == null) {
             return null;
         }

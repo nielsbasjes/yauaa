@@ -129,40 +129,40 @@ public class MatcherTree implements Serializable {
         hasAnyActions = true;
     }
 
-    public void fireMatchingActions(ParseTree<MatcherTree> uaTree, String value) {
-        if (!hasAnyActions) {
-            return; // Nothing to fire
-        }
-        // Inform the actions at THIS level that need to be informed.
-        String informValue = value == null ? AntlrUtils.getSourceText(uaTree) : value;
-
-        actions.forEach(action ->
-            action.inform(this, uaTree, informValue)
-        );
-
-        equalsActions.forEach((text, actionList) -> {
-            if (informValue.equals(text)) {
-                actionList.forEach(action ->
-                    action.inform(this, uaTree, informValue)
-                );
-            }
-        });
-
-        startsWithActions.forEach((text, actionList) -> {
-            if (informValue.startsWith(text)) {
-                actionList.forEach(action ->
-                    action.inform(this, uaTree, informValue)
-                );
-            }
-        });
-
-        wordRangeActions.forEach((wordRange, actionList) -> {
-            String words = WordSplitter.getInstance().getSplitRange(informValue, wordRange);
-            actionList.forEach(action ->
-                action.inform(this, uaTree, words)
-            );
-        });
-    }
+//    public void fireMatchingActions(ParseTree<MatcherTree> uaTree, String value) {
+//        if (!hasAnyActions) {
+//            return; // Nothing to fire
+//        }
+//        // Inform the actions at THIS level that need to be informed.
+//        String informValue = value == null ? AntlrUtils.getSourceText(uaTree) : value;
+//
+//        actions.forEach(action ->
+//            action.inform(this, uaTree, informValue)
+//        );
+//
+//        equalsActions.forEach((text, actionList) -> {
+//            if (informValue.equals(text)) {
+//                actionList.forEach(action ->
+//                    action.inform(this, uaTree, informValue)
+//                );
+//            }
+//        });
+//
+//        startsWithActions.forEach((text, actionList) -> {
+//            if (informValue.startsWith(text)) {
+//                actionList.forEach(action ->
+//                    action.inform(this, uaTree, informValue)
+//                );
+//            }
+//        });
+//
+//        wordRangeActions.forEach((wordRange, actionList) -> {
+//            String words = WordSplitter.getInstance().getSplitRange(informValue, wordRange);
+//            actionList.forEach(action ->
+//                action.inform(this, uaTree, words)
+//            );
+//        });
+//    }
 
     public MatcherTree getOrCreateChild(AgentPathFragment newChildFragment, int newChildIndex) {
 //        LOG.info("[getOrCreateChild]>: {} --- {} --- {}", this, newChildFragment, newChildIndex);

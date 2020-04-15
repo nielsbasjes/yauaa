@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class MatcherVariableAction extends MatcherAction {
         init(config, matcher);
     }
 
-    protected ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser) {
+    protected <T> ParserRuleContext<T> parseWalkerExpression(UserAgentTreeWalkerParser<T> parser) {
         return parser.matcherVariable();
     }
 
@@ -55,7 +56,7 @@ public class MatcherVariableAction extends MatcherAction {
         return variableName;
     }
 
-    public void inform(String key, WalkResult newlyFoundValue) {
+    public void inform(MatcherTree key, WalkResult newlyFoundValue) {
         if (verbose) {
             LOG.info("INFO  : VARIABLE ({}): {}", variableName, key);
             LOG.info("NEED  : VARIABLE ({}): {}", variableName, getMatchExpression());
@@ -73,7 +74,7 @@ public class MatcherVariableAction extends MatcherAction {
 
             if (interestedActions != null && !interestedActions.isEmpty()) {
                 for (MatcherAction action : interestedActions) {
-                    action.inform(variableName, newlyFoundValue.getValue(), newlyFoundValue.getTree());
+// FIXME                   action.inform(variableName, newlyFoundValue.getValue(), newlyFoundValue.getTree());
                 }
             }
         }
