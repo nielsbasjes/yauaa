@@ -7597,4 +7597,86 @@ config:
       AgentNameVersionMajor                : 'Chrome 74'
 
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36 ohio-development'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '32'  # TODO: Is 32 or 64 better ?
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.11.6'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Mac OS X 10.11.6'
+      OperatingSystemNameVersionMajor      : 'Mac OS X 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '71.0'
+      LayoutEngineVersionMajor             : '71'
+      LayoutEngineNameVersion              : 'Blink 71.0'
+      LayoutEngineNameVersionMajor         : 'Blink 71'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '71.0.3578.98'
+      AgentVersionMajor                    : '71'
+      AgentNameVersion                     : 'Chrome 71.0.3578.98'
+      AgentNameVersionMajor                : 'Chrome 71'
 
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 SECSSOBrowserChrome'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      OperatingSystemNameVersionMajor      : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '75.0'
+      LayoutEngineVersionMajor             : '75'
+      LayoutEngineNameVersion              : 'Blink 75.0'
+      LayoutEngineNameVersionMajor         : 'Blink 75'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '75.0.3770.142'
+      AgentVersionMajor                    : '75'
+      AgentNameVersion                     : 'Chrome 75.0.3770.142'
+      AgentNameVersionMajor                : 'Chrome 75'
+
+
+- test:
+    input:
+      user_agent_string: 'Google Chrome Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '58.0'
+      LayoutEngineVersionMajor             : '58'
+      LayoutEngineNameVersion              : 'Blink 58.0'
+      LayoutEngineNameVersionMajor         : 'Blink 58'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '58.0.3029.110'
+      AgentVersionMajor                    : '58'
+      AgentNameVersion                     : 'Chrome 58.0.3029.110'
+      AgentNameVersionMajor                : 'Chrome 58'

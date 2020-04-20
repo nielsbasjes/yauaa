@@ -1568,6 +1568,34 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 YaBrowser/19.4.0.2397 Yowser/2.5 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      OperatingSystemNameVersionMajor      : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '73.0'
+      LayoutEngineVersionMajor             : '73'
+      LayoutEngineNameVersion              : 'Blink 73.0'
+      LayoutEngineNameVersionMajor         : 'Blink 73'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'YaBrowser'
+      AgentVersion                         : '19.4.0.2397'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : 'YaBrowser 19.4.0.2397'
+      AgentNameVersionMajor                : 'YaBrowser 19'
+
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko)  Iron/13.0.800.0 Chrome/13.0.800.0 Safari/535.1'
     expected:
       DeviceClass                          : 'Desktop'
@@ -2486,4 +2514,3 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-
