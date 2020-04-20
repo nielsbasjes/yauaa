@@ -6,6 +6,7 @@ v5.18-SNAPSHOT
   - Fixed caches for getAllPossibleFieldNames and getAllPossibleFieldNamesSorted
   - Updated dependencies
 - Updated UDF dependencies
+  - Apache Beam      2.20.0
   - Elastic Logstash 7.6.2
 - New/improved detections
   - Detect a very rare iPhone variant
