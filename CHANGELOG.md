@@ -5,6 +5,7 @@ v5.18-SNAPSHOT
 - Analyzer:
   - Fixed caches for getAllPossibleFieldNames and getAllPossibleFieldNamesSorted
   - Updated dependencies
+  - Fixed bug returning default values from cached results (no incorrect results, just too many)
 - Updated UDF dependencies
   - Apache Beam      2.20.0
   - Elastic Logstash 7.6.2

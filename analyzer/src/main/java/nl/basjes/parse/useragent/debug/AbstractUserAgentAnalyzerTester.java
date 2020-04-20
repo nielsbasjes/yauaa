@@ -61,6 +61,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         String field;
         String expected;
         String actual;
+        boolean isDefault;
         boolean pass;
         boolean warn;
         long confidence;
@@ -310,6 +311,8 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
                     // Actual value
                     result.actual = agent.getValue(result.field);
+                    result.isDefault = agent.get(result.field).isDefaultValue();
+
                     result.confidence = agent.getConfidence(result.field);
                     if (result.actual == null) {
                         result.actual = NULL_VALUE;
@@ -319,8 +322,8 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                     String expectedValue = expected.get(fieldName);
                     if (expectedValue == null) {
                         expectedSomething = false;
-                        if (result.confidence < 0) {
-                            continue; // A negative value really means 'absent'
+                        if (result.isDefault) {
+                            continue;
                         }
                         result.expected = "<<absent>>";
                     } else {

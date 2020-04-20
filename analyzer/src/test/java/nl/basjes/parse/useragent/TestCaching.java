@@ -120,6 +120,24 @@ public class TestCaching {
         return cache.maxSize();
     }
 
+    @Test
+    public void testResultFromCacheMustBeIdentical() {
+        String userAgent = "Mozilla/5.0 (compatible; coccocbot-image/1.0; +http://help.coccoc.com/searchengine)";
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .withCache(10)
+            .hideMatcherLoadStats()
+            .build();
+
+        // First time
+        UserAgent agent1 = uaa.parse(userAgent);
+
+        // Should come from cache
+        UserAgent agent2 = uaa.parse(userAgent);
+
+        // Both should be the same
+        assertEquals(agent1.toYamlTestCase(), agent2.toYamlTestCase());
+    }
 
 
 }

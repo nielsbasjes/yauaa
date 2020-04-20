@@ -383,7 +383,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
         init(); // Making sure the default values are copied correctly.
 
         for (Map.Entry<String, AgentField> entry : userAgent.allFields.entrySet()) {
-            set(entry.getKey(), entry.getValue().getValue(), entry.getValue().confidence);
+            set(entry.getKey(), entry.getValue().value, entry.getValue().confidence);
         }
     }
 
