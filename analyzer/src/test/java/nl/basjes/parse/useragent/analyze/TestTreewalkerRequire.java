@@ -21,6 +21,8 @@ import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
+import nl.basjes.parse.useragent.parse.AgentPathFragment;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.api.Test;
 
@@ -201,7 +203,7 @@ public class TestTreewalkerRequire {
 
         TestMatcher matcher = new TestMatcher(new HashMap<>(), new HashMap<>());
         MatcherRequireAction action = new MatcherRequireAction(path, matcher);
-        assertThrows(InvalidParserConfigurationException.class, action::initialize);
+        assertThrows(InvalidParserConfigurationException.class, () -> action.initialize(MatcherTree.createNewAgentRoot()));
     }
 
 
@@ -381,7 +383,7 @@ public class TestTreewalkerRequire {
 
         TestMatcher matcher = new TestMatcher(lookups, new HashMap<>());
         MatcherAction action = new MatcherRequireAction(path, matcher);
-        action.initialize();
+        action.initialize(MatcherTree.createNewAgentRoot());
 
         StringBuilder sb = new StringBuilder("\n---------------------------\nActual list (")
             .append(matcher.receivedValues.size())
@@ -426,6 +428,11 @@ public class TestTreewalkerRequire {
             return lookupSets;
         }
 
+        @Override
+        public MatcherTree getMatcherTreeRoot() {
+            return null;
+        }
+
         TestAnalyzer(Map<String, Map<String, String>> lookups, Map<String, Set<String>> lookupSets) {
             this.lookups = lookups;
             this.lookupSets = lookupSets;
@@ -438,30 +445,29 @@ public class TestTreewalkerRequire {
         }
 
         @Override
-        public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
+        public void informMeAbout(MatcherAction matcherAction, MatcherTree keyPattern) {
             // Not used during tests
         }
 
-        @Override
-        public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
-            // Not used during tests
-        }
-
-        @Override
-        public Set<WordRangeVisitor.Range> getRequiredInformRanges(String treeName) {
-            // Not used during tests
-            return Collections.emptySet();
-        }
-
-        @Override
-        public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
-            // Not used during tests
-        }
-
-        @Override
-        public Set<Integer> getRequiredPrefixLengths(String treeName) {
-            return Collections.emptySet();
-        }
+//        @Override
+//        public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
+//            // Not used during tests
+//        }
+//
+//        @Override
+//        public Set<WordRangeVisitor.Range> getRequiredInformRanges(String treeName) {
+//            // Not used during tests
+//            return Collections.emptySet();
+//        }
+//
+//        @Override
+//        public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
+//            // Not used during tests
+//        }
+//        @Override
+//        public Set<Integer> getRequiredPrefixLengths(String treeName) {
+//            return Collections.emptySet();
+//        }
     }
 
     public static class TestMatcher extends Matcher {
@@ -472,23 +478,23 @@ public class TestTreewalkerRequire {
         }
 
         @Override
-        public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
-            receivedValues.add(keyPattern);
+        public void informMeAbout(MatcherAction matcherAction, MatcherTree keyPattern) {
+            receivedValues.add(keyPattern.toString());
         }
 
-        @Override
-        public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
-            informMeAbout(matcherAction, treeName + "{\"" + firstCharactersForPrefixHash(prefix, MAX_PREFIX_HASH_MATCH) + "\"");
-        }
+//        @Override
+//        public void informMeAboutPrefix(MatcherAction matcherAction, String treeName, String prefix) {
+//            informMeAbout(matcherAction, treeName + "{\"" + firstCharactersForPrefixHash(prefix, MAX_PREFIX_HASH_MATCH) + "\"");
+//        }
 
         @Override
         public void analyze(MutableUserAgent userAgent) {
             // Do nothing
         }
 
-        @Override
-        public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
-            // Do nothing
-        }
+//        @Override
+//        public void lookingForRange(String treeName, WordRangeVisitor.Range range) {
+////             Do nothing
+//        }
     }
 }

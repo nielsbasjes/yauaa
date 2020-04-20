@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown.ChildIterable;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.api.Test;
@@ -32,27 +33,27 @@ public class TestChildIterable {
 
     @Test
     public void testEdgeNoChildren(){
-        ChildIterable ci = new ChildIterable(true, 1, 5, x -> (true));
+        ChildIterable<MatcherTree> ci = new ChildIterable<>(true, 1, 5, x -> (true));
 
-        ParserRuleContext prc = new ParserRuleContext();
+        ParserRuleContext<MatcherTree> prc = new ParserRuleContext<>();
 
-        Iterator<ParseTree> iterator = ci.iterator(prc);
+        Iterator<ParseTree<MatcherTree>> iterator = ci.iterator(prc);
 
         assertThrows(NoSuchElementException.class, iterator::next);
     }
 
     @Test
     public void testEdgeFewChildrens(){
-        ChildIterable ci = new ChildIterable(true, 1, 5, x -> (true));
+        ChildIterable<MatcherTree> ci = new ChildIterable<>(true, 1, 5, x -> (true));
 
-        ParserRuleContext prc = new ParserRuleContext();
+        ParserRuleContext<MatcherTree> prc = new ParserRuleContext<>();
         prc.children = new ArrayList<>();
-        prc.children.add(new ParserRuleContext());
-        prc.children.add(new ParserRuleContext());
-        prc.children.add(new ParserRuleContext());
-        prc.children.add(new ParserRuleContext());
+        prc.children.add(new ParserRuleContext<>());
+        prc.children.add(new ParserRuleContext<>());
+        prc.children.add(new ParserRuleContext<>());
+        prc.children.add(new ParserRuleContext<>());
 
-        Iterator<ParseTree> iterator = ci.iterator(prc);
+        Iterator<ParseTree<MatcherTree>> iterator = ci.iterator(prc);
 
         assertThrows(NoSuchElementException.class, () -> {
             int i = 0;

@@ -38,6 +38,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import static java.util.Locale.ENGLISH;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
 
 public class MatcherTree implements Serializable {
 
@@ -82,6 +83,11 @@ public class MatcherTree implements Serializable {
 
     // Fire for each range of words
     private Map<Range, List<MatcherAction>> wordRangeActions = new HashMap<>();
+
+    public static MatcherTree createNewAgentRoot() {
+        return new MatcherTree(AGENT, 1);
+    }
+
 
     public MatcherTree(AgentPathFragment fragment, int index) {
         this.fragment = fragment;

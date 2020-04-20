@@ -80,7 +80,7 @@ public class StepDown extends Step {
         this(NUMBER_RANGE_VISITOR.visit(numberRange), name);
     }
 
-    private StepDown(NumberRangeList numberRange, AgentPathFragment name) {
+    public StepDown(NumberRangeList numberRange, AgentPathFragment name) {
         this.name = name;
         this.start = numberRange.getStart();
         this.end = numberRange.getEnd();

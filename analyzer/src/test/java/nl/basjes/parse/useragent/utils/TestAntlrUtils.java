@@ -16,6 +16,7 @@
  */
 package nl.basjes.parse.useragent.utils;
 
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RuleContext;
@@ -31,9 +32,9 @@ public class TestAntlrUtils {
 
     @Test
     public void testEdges() {
-        ParserRuleContext context = new ParserRuleContext(null, 42);
+        ParserRuleContext<MatcherTree> context = new ParserRuleContext<>(null, 42);
 
-        ParseTree content = new RuleContext() {
+        ParseTree<MatcherTree> content = new RuleContext<MatcherTree>() {
             @Override
             public String getText() {
                 return "Content";

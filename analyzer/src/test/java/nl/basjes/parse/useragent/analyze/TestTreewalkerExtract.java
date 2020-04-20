@@ -21,6 +21,8 @@ import nl.basjes.parse.useragent.analyze.TestTreewalkerRequire.TestMatcher;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
+import nl.basjes.parse.useragent.parse.AgentPathFragment;
+import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -221,7 +223,7 @@ public class TestTreewalkerExtract {
 
         TestMatcher matcher = new TestMatcher(new HashMap<>(), new HashMap<>());
         MatcherExtractAction action = new MatcherExtractAction("Dummy", 42, path, matcher);
-        assertThrows(InvalidParserConfigurationException.class, action::initialize);
+        assertThrows(InvalidParserConfigurationException.class, () -> action.initialize(new MatcherTree(AgentPathFragment.AGENT, 1)));
     }
 
     private void checkPath(String path, String[] expectedHashEntries, String[] expectedWalkList) {
@@ -230,7 +232,7 @@ public class TestTreewalkerExtract {
 
         TestMatcher matcher = new TestMatcher(lookups, new HashMap<>());
         MatcherExtractAction action = new MatcherExtractAction("Dummy", 42, path, matcher);
-        action.initialize();
+        action.initialize(MatcherTree.createNewAgentRoot());
 
         StringBuilder sb = new StringBuilder("\n---------------------------\nActual list (")
             .append(matcher.receivedValues.size())
