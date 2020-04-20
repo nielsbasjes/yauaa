@@ -52,12 +52,15 @@ public class TestPredefinedBrowsersPerField {
         UserAgentAnalyzerTester userAgentAnalyzer =
             UserAgentAnalyzerTester
                 .newBuilder()
-                .withoutCache()
                 .withField(fieldName)
                 .hideMatcherLoadStats()
                 .build();
 
         assertNotNull(userAgentAnalyzer);
+        assertTrue(userAgentAnalyzer.runTests(false, true, singleFieldList, false, false));
+
+        LOG.info("--------------------------------------------------------------");
+        LOG.info("Running all tests again which should return the cached values");
         assertTrue(userAgentAnalyzer.runTests(false, true, singleFieldList, false, false));
     }
 

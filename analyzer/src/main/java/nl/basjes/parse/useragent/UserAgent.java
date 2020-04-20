@@ -162,9 +162,7 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     private int         ambiguityCount;
 
     public void destroy() {
-        if (wantedFieldNames != null) {
-            wantedFieldNames.clear();
-        }
+        wantedFieldNames = null;
     }
 
     public boolean hasSyntaxError() {
@@ -369,21 +367,40 @@ public class UserAgent extends UserAgentBaseListener implements Serializable, De
     }
 
     public UserAgent(UserAgent userAgent) {
-        clone(userAgent);
+        clone(userAgent, true);
     }
 
-    public void clone(UserAgent userAgent) {
+    public void clone(UserAgent userAgent, boolean skipUnwanted) {
         userAgentString  = userAgent.userAgentString;
         wantedFieldNames = userAgent.wantedFieldNames;
         debug            = userAgent.debug;
         hasSyntaxError   = userAgent.hasSyntaxError;
         hasAmbiguity     = userAgent.hasAmbiguity;
         ambiguityCount   = userAgent.ambiguityCount;
+        allFields.clear();
 
         init(); // Making sure the default values are copied correctly.
 
-        for (Map.Entry<String, AgentField> entry : userAgent.allFields.entrySet()) {
-            set(entry.getKey(), entry.getValue().value, entry.getValue().confidence);
+        if (skipUnwanted) {
+            for (Map.Entry<String, AgentField> entry : userAgent.allFields.entrySet()) {
+                String     fieldName  = entry.getKey();
+                AgentField agentField = entry.getValue();
+                boolean copyField;
+                if (wantedFieldNames == null) {
+                    copyField = !agentField.isDefaultValue();
+                } else {
+                    copyField = wantedFieldNames.contains(fieldName);
+                }
+                if (copyField) {
+                    set(fieldName, agentField.value, agentField.confidence);
+                }
+            }
+        } else {
+            for (Map.Entry<String, AgentField> entry : userAgent.allFields.entrySet()) {
+                String     fieldName  = entry.getKey();
+                AgentField agentField = entry.getValue();
+                set(fieldName, agentField.value, agentField.confidence);
+            }
         }
     }
 

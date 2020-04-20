@@ -316,5 +316,6 @@ public class TestUseragent {
         assertEquals("Unknown", userAgent.getValue("DeviceClass"));
         assertEquals("??",      userAgent.getValue("AgentVersion"));
         assertEquals("Unknown", userAgent.getValue("SomethingElse"));
+        userAgent.destroy();
     }
 }

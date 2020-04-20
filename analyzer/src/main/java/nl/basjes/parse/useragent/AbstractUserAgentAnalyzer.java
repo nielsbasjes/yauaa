@@ -107,7 +107,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         String userAgentString = userAgent.getUserAgentString();
         UserAgent cachedValue = parseCache.get(userAgentString);
         if (cachedValue != null) {
-            userAgent.clone(cachedValue);
+            userAgent.clone(cachedValue, false);
         } else {
             cachedValue = new UserAgent(super.parse(userAgent));
             parseCache.put(userAgentString, cachedValue);

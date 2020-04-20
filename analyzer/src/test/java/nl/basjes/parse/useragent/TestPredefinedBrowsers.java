@@ -47,6 +47,10 @@ public class TestPredefinedBrowsers {
         LOG.info("--------------------------------------------------------------");
         assertTrue(uaa.runTests(false, true, null, false, true));
 
+        LOG.info("--------------------------------------------------------------");
+        LOG.info("Running all tests again which should return the cached values");
+        assertTrue(uaa.runTests(false, true, null, false, false));
+
         // Only here for ensuring the code being tested with "all fields".
         uaa.destroy();
     }
@@ -58,12 +62,14 @@ public class TestPredefinedBrowsers {
         UserAgentAnalyzerTester userAgentAnalyzer =
             UserAgentAnalyzerTester
                 .newBuilder()
-                .withoutCache()
                 .withFields(fields)
                 .hideMatcherLoadStats()
                 .build();
 
         assertNotNull(userAgentAnalyzer);
+        assertTrue(userAgentAnalyzer.runTests(false, true, fields, false, false));
+        LOG.info("--------------------------------------------------------------");
+        LOG.info("Running all tests again which should return the cached values");
         assertTrue(userAgentAnalyzer.runTests(false, true, fields, false, false));
 
         // Only here for ensuring the code being tested with "some fields".
