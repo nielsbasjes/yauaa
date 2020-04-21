@@ -17,8 +17,8 @@
 
 package nl.basjes.parse.useragent.calculate;
 
-import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgent.AgentField;
+import nl.basjes.parse.useragent.AgentField;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
 
 import java.util.regex.Pattern;
@@ -40,7 +40,7 @@ public class CalculateDeviceName implements FieldCalculator {
     }
 
     @Override
-    public void calculate(UserAgent userAgent) {
+    public void calculate(MutableUserAgent userAgent) {
         // Make sure the DeviceName always starts with the DeviceBrand
         AgentField deviceName = userAgent.get(DEVICE_NAME);
         if (deviceName.getConfidence() >= 0) {

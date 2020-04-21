@@ -17,7 +17,8 @@
 
 package nl.basjes.parse.useragent.calculate;
 
-import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.AgentField;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 
 public class ConcatNONDuplicatedCalculator implements FieldCalculator {
 
@@ -35,9 +36,9 @@ public class ConcatNONDuplicatedCalculator implements FieldCalculator {
     private ConcatNONDuplicatedCalculator() { }
 
     @Override
-    public void calculate(UserAgent userAgent) {
-        UserAgent.AgentField firstField = firstName == null ? null : userAgent.get(firstName);
-        UserAgent.AgentField secondField = secondName == null ? null : userAgent.get(secondName);
+    public void calculate(MutableUserAgent userAgent) {
+        AgentField firstField  = firstName == null ? null : userAgent.get(firstName);
+        AgentField secondField = secondName == null ? null : userAgent.get(secondName);
 
         String first = null;
         long firstConfidence = -1;

@@ -17,8 +17,8 @@
 
 package nl.basjes.parse.useragent.calculate;
 
-import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgent.AgentField;
+import nl.basjes.parse.useragent.AgentField;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
 
 import static nl.basjes.parse.useragent.UserAgent.NETWORK_TYPE;
@@ -26,7 +26,7 @@ import static nl.basjes.parse.useragent.UserAgent.NETWORK_TYPE;
 public class CalculateNetworkType implements FieldCalculator {
 
     @Override
-    public void calculate(UserAgent userAgent) {
+    public void calculate(MutableUserAgent userAgent) {
         // Make sure the DeviceName always starts with the DeviceBrand
         AgentField networkType = userAgent.get(NETWORK_TYPE);
         if (networkType != null && networkType.getConfidence() >= 0) {

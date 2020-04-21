@@ -17,7 +17,9 @@
 
 package nl.basjes.parse.useragent.calculate;
 
+import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
 import org.apache.hc.client5.http.psl.PublicSuffixMatcherLoader;
 
@@ -48,9 +50,9 @@ public class CalculateDeviceBrand implements FieldCalculator {
     }
 
     @Override
-    public void calculate(UserAgent userAgent) {
+    public void calculate(MutableUserAgent userAgent) {
         // The device brand field is a mess.
-        UserAgent.AgentField deviceBrand = userAgent.get(DEVICE_BRAND);
+        AgentField deviceBrand = userAgent.get(DEVICE_BRAND);
         if (!deviceBrand.isDefaultValue()) {
             userAgent.setForced(
                 DEVICE_BRAND,
@@ -77,7 +79,7 @@ public class CalculateDeviceBrand implements FieldCalculator {
 
         String deviceBrand = null;
 
-        UserAgent.AgentField informationUrl = userAgent.get(AGENT_INFORMATION_URL);
+        AgentField informationUrl = userAgent.get(AGENT_INFORMATION_URL);
         if (informationUrl != null && informationUrl.getConfidence() >= 0) {
             String hostname = extractHostname(informationUrl.getValue());
             deviceBrand = extractCompanyFromHostName(hostname, unwantedUrlBrands);
@@ -87,7 +89,7 @@ public class CalculateDeviceBrand implements FieldCalculator {
             return deviceBrand;
         }
 
-        UserAgent.AgentField informationEmail = userAgent.get(AGENT_INFORMATION_EMAIL);
+        AgentField informationEmail = userAgent.get(AGENT_INFORMATION_EMAIL);
         if (informationEmail != null && informationEmail.getConfidence() >= 0) {
             String hostname = informationEmail.getValue();
             int atOffset = hostname.indexOf('@');

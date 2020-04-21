@@ -17,10 +17,10 @@
 
 package nl.basjes.parse.useragent.calculate;
 
-import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 
 import java.io.Serializable;
 
 public interface FieldCalculator extends Serializable {
-    void calculate(UserAgent userAgent);
+    void calculate(MutableUserAgent userAgent);
 }

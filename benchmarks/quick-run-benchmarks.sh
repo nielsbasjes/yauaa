@@ -16,8 +16,10 @@
 # limitations under the License.
 #
 
-( cd .. && mvn clean install -PskipQuality ) || exit
+( cd .. && mvn clean install -PskipQuality -DskipTests ) || exit
 version=$(grep -F '<version>' pom.xml | head -1 | sed 's@.*>\(.*\)<.*$@\1@g')
 echo "Testing version ${version}" && \
-mvn clean test -Dyauaa.version="${version}" -Dtest=RunBenchmarks > "results/quick-speed-test-${version}-$(date +%Y%m%d-%H%M%S).txt"
+date
+mvn clean test -PskipQuality -Dyauaa.version="${version}" -Dtest=RunBenchmarks > "results/quick-speed-test-${version}-$(date +%Y%m%d-%H%M%S).txt"
+date
 

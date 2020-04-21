@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.commandline;
 
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import nl.basjes.parse.useragent.debug.FlattenPrinter;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
@@ -200,7 +201,7 @@ public final class Main {
                     }
 
                     if (commandlineOptions.matchedFlatten) {
-                        for (Match match : uaa.getUsedMatches(new UserAgent(agentStr))) {
+                        for (Match match : uaa.getUsedMatches(new MutableUserAgent(agentStr))) {
                             System.out.println(match.getKey() + " " + match.getValue());
                         }
                         continue;

@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -31,8 +31,8 @@ public class MatcherExtractAction extends MatcherAction {
     private final long confidence;
     private String foundValue = null;
     private String fixedValue = null;
-    private final String expression;
-    private UserAgent.AgentField resultAgentField;
+    private final String                       expression;
+    private       MutableAgentField resultAgentField;
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private MatcherExtractAction() {
@@ -48,7 +48,7 @@ public class MatcherExtractAction extends MatcherAction {
         init(config, matcher);
     }
 
-    public void setResultAgentField(UserAgent.AgentField newResultAgentField){
+    public void setResultAgentField(MutableAgentField newResultAgentField){
         resultAgentField = newResultAgentField;
     }
 

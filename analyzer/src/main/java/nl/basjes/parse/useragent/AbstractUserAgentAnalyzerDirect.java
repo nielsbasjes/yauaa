@@ -21,6 +21,8 @@ import com.esotericsoftware.kryo.DefaultSerializer;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
+import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.Matcher;
@@ -88,6 +90,7 @@ import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.MutableUserAgent.isSystemField;
 import static nl.basjes.parse.useragent.UserAgent.NETWORK_TYPE;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME;
@@ -293,7 +296,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         List<String> allPossibleFields = getAllPossibleFieldNamesSorted();
 
         for (String wantedFieldName: wantedFieldNames) {
-            if (UserAgent.isSystemField(wantedFieldName)) {
+            if (isSystemField(wantedFieldName)) {
                 continue; // These are fine
             }
             if (!allPossibleFields.contains(wantedFieldName)) {
@@ -864,12 +867,7 @@ config:
         return this.userAgentMaxLength;
     }
 
-    public UserAgent parse(String userAgentString) {
-        UserAgent userAgent = new UserAgent(userAgentString, wantedFieldNames);
-        return parse(userAgent);
-    }
-
-    private void setAsHacker(UserAgent userAgent, int confidence) {
+    private void setAsHacker(MutableUserAgent userAgent, int confidence) {
         userAgent.set(DEVICE_CLASS,                 "Hacker",  confidence);
         userAgent.set(DEVICE_BRAND,                 "Hacker",  confidence);
         userAgent.set(DEVICE_NAME,                  "Hacker",  confidence);
@@ -914,13 +912,28 @@ config:
         }
     }
 
-    public synchronized UserAgent parse(UserAgent userAgent) {
+    /**
+     * Parses and analyzes the provided useragent string
+     * @param userAgentString The User-Agent String that is to be parsed and analyzed
+     * @return An ImmutableUserAgent record that holds all of the results.
+     */
+    public ImmutableUserAgent parse(String userAgentString) {
+        MutableUserAgent userAgent = new MutableUserAgent(userAgentString, wantedFieldNames);
+        return parse(userAgent);
+    }
+
+    /**
+     * Parses and analyzes the useragent string provided in the MutableUserAgent instance
+     * @param userAgent The MutableUserAgent instance that is to be parsed and that gets all results
+     * @return An ImmutableUserAgent copy of the results that is suitable for further usage and caching.
+     */
+    public synchronized ImmutableUserAgent parse(MutableUserAgent userAgent) {
         initializeMatchers();
         String useragentString = userAgent.getUserAgentString();
         if (useragentString != null && useragentString.length() > userAgentMaxLength) {
             setAsHacker(userAgent, 100);
             userAgent.setForced(HACKER_ATTACK_VECTOR, "Buffer overflow", 100);
-            return hardCodedPostProcessing(userAgent);
+            return new ImmutableUserAgent(hardCodedPostProcessing(userAgent));
         }
 
         // Reset all Matchers
@@ -954,15 +967,14 @@ config:
             }
 
             userAgent.processSetAll();
-            return hardCodedPostProcessing(userAgent);
         } catch (RuntimeException rte) {
             // If this occurs then someone has found a previously undetected problem.
             // So this is a safety for something that 'can' but 'should not' occur.
             userAgent.reset();
             setAsHacker(userAgent, 10000);
             userAgent.setForced(HACKER_ATTACK_VECTOR, "Yauaa Exploit", 10000);
-            return hardCodedPostProcessing(userAgent);
         }
+        return new ImmutableUserAgent(hardCodedPostProcessing(userAgent));
     }
 
     private static final List<String> HARD_CODED_GENERATED_FIELDS = new ArrayList<>();
@@ -994,7 +1006,7 @@ config:
         fieldCalculators.addAll(newFieldCalculators);
     }
 
-    private UserAgent hardCodedPostProcessing(UserAgent userAgent) {
+    private MutableUserAgent hardCodedPostProcessing(MutableUserAgent userAgent) {
         // If it is really really bad ... then it is a Hacker.
         if ("true".equals(userAgent.getValue(SYNTAX_ERROR))) {
             if (userAgent.get(DEVICE_CLASS).getConfidence() == -1) {

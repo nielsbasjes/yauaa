@@ -17,6 +17,8 @@
 
 package nl.basjes.parse.useragent;
 
+import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.junit.jupiter.api.Test;
@@ -63,23 +65,26 @@ public class TestDeveloperTools {
     @Test
     public void validateStringOutputsAndMatches() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester.newBuilder().withField("DeviceName").build();
-        UserAgent useragent = uaa.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+
+        MutableUserAgent useragent = new MutableUserAgent("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36");
-        assertTrue(useragent.toString().contains("'Google Nexus 6'"));
 
-        assertTrue(useragent.toJson().contains("\"DeviceName\":\"Google Nexus 6\""));
-        assertTrue(useragent.toJson("DeviceName").contains("\"DeviceName\":\"Google Nexus 6\""));
-        assertFalse(useragent.toJson("DeviceClass").contains("\"DeviceName\":\"Google Nexus 6\""));
+        ImmutableUserAgent parseResult = uaa.parse(useragent);
+        assertTrue(parseResult.toString().contains("'Google Nexus 6'"));
 
-        assertTrue(useragent.toXML().contains("<DeviceName>Google Nexus 6</DeviceName>"));
-        assertTrue(useragent.toXML("DeviceName").contains("<DeviceName>Google Nexus 6</DeviceName>"));
-        assertFalse(useragent.toXML("DeviceClass").contains("<DeviceName>Google Nexus 6</DeviceName>"));
+        assertTrue(parseResult.toJson().contains("\"DeviceName\":\"Google Nexus 6\""));
+        assertTrue(parseResult.toJson("DeviceName").contains("\"DeviceName\":\"Google Nexus 6\""));
+        assertFalse(parseResult.toJson("DeviceClass").contains("\"DeviceName\":\"Google Nexus 6\""));
 
-        assertEquals("Google Nexus 6", useragent.toMap().get("DeviceName"));
-        assertEquals("Google Nexus 6", useragent.toMap("DeviceName").get("DeviceName"));
-        assertNull(useragent.toMap("DeviceClass").get("DeviceName"));
+        assertTrue(parseResult.toXML().contains("<DeviceName>Google Nexus 6</DeviceName>"));
+        assertTrue(parseResult.toXML("DeviceName").contains("<DeviceName>Google Nexus 6</DeviceName>"));
+        assertFalse(parseResult.toXML("DeviceClass").contains("<DeviceName>Google Nexus 6</DeviceName>"));
 
-        assertTrue(useragent.toYamlTestCase(true).contains("'Google Nexus 6'"));
+        assertEquals("Google Nexus 6", parseResult.toMap().get("DeviceName"));
+        assertEquals("Google Nexus 6", parseResult.toMap("DeviceName").get("DeviceName"));
+        assertNull(parseResult.toMap("DeviceClass").get("DeviceName"));
+
+        assertTrue(parseResult.toYamlTestCase(true).contains("'Google Nexus 6'"));
 
         boolean ok = false;
         for (Match match : uaa.getMatches()) {

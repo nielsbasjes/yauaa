@@ -21,6 +21,7 @@ import com.esotericsoftware.kryo.DefaultSerializer;
 import com.esotericsoftware.kryo.Kryo;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
@@ -220,7 +221,8 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             agent.setUserAgentString(userAgentString);
 
 
-            long measuredSpeed=-1;
+            UserAgent parseResult = null;
+            long      measuredSpeed=-1;
             if (measureSpeed) {
                 disableCaching();
                 // Preheat
@@ -229,22 +231,27 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                 }
                 long startTime = System.nanoTime();
                 for (int i = 0; i < 1000; i++) {
-                    parse(agent);
+                    parseResult = parse(agent);
                 }
                 long stopTime = System.nanoTime();
                 measuredSpeed = (1000000000L*(1000))/(stopTime-startTime);
             } else {
-                parse(agent);
+                parseResult = parse(agent);
+            }
+
+            if (parseResult == null) {
+                LOG.error("Boem"); // FIXME
+                return false;
             }
 
             sb.append('|');
-            if (agent.hasSyntaxError()) {
+            if (parseResult.hasSyntaxError()) {
                 sb.append('S');
             } else {
                 sb.append(' ');
             }
-            if (agent.hasAmbiguity()) {
-                sb.append(String.format("|%2d", agent.getAmbiguityCount()));
+            if (parseResult.hasAmbiguity()) {
+                sb.append(String.format("|%2d", parseResult.getAmbiguityCount()));
             } else {
                 sb.append("|  ");
             }
@@ -283,7 +290,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             int maxExpectedLength = 9; // "Expected".length()+1;         NOSONAR: This is not commented code.
 
             if (expected != null) {
-                List<String> fieldNames = agent.getAvailableFieldNamesSorted();
+                List<String> fieldNames = new ArrayList<>(parseResult.getAvailableFieldNamesSorted());
 
                 if (onlyValidateFieldNames != null && onlyValidateFieldNames.isEmpty()) {
                     onlyValidateFieldNames = null;
@@ -310,10 +317,10 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                     boolean expectedSomething;
 
                     // Actual value
-                    result.actual = agent.getValue(result.field);
-                    result.isDefault = agent.get(result.field).isDefaultValue();
+                    result.actual = parseResult.getValue(result.field);
+                    result.isDefault = parseResult.get(result.field).isDefaultValue();
 
-                    result.confidence = agent.getConfidence(result.field);
+                    result.confidence = parseResult.getConfidence(result.field);
                     if (result.actual == null) {
                         result.actual = NULL_VALUE;
                     }
@@ -375,10 +382,10 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                 logError(errorMessageReceiver, "| TEST FAILED !");
             }
 
-            if (agent.hasAmbiguity()) {
-                logInfo(errorMessageReceiver, "| Parsing problem: Ambiguity {} times. ", agent.getAmbiguityCount());
+            if (parseResult.hasAmbiguity()) {
+                logInfo(errorMessageReceiver, "| Parsing problem: Ambiguity {} times. ", parseResult.getAmbiguityCount());
             }
-            if (agent.hasSyntaxError()) {
+            if (parseResult.hasSyntaxError()) {
                 logInfo(errorMessageReceiver, "| Parsing problem: Syntax Error");
             }
 
@@ -506,7 +513,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
             logInfo(errorMessageReceiver, agent.toMatchTrace(failedFieldNames));
 
-            logInfo(errorMessageReceiver, "\n\nconfig:\n{}", agent.toYamlTestCase(!init, failComments));
+            logInfo(errorMessageReceiver, "\n\nconfig:\n{}", parseResult.toYamlTestCase(!init, failComments));
             logInfo(errorMessageReceiver, "Location of failed test.({}:{})", filename, linenumber);
             if (!pass && !showAll) {
                 return false;
@@ -552,7 +559,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         return allMatches;
     }
 
-    public List<Match> getUsedMatches(UserAgent userAgent) {
+    public List<Match> getUsedMatches(MutableUserAgent userAgent) {
         // Reset all Matchers
         for (Matcher matcher : getAllMatchers()) {
             matcher.reset();

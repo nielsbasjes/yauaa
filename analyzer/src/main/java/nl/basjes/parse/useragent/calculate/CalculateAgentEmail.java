@@ -17,16 +17,17 @@
 
 package nl.basjes.parse.useragent.calculate;
 
-import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.AgentField;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
 
 public class CalculateAgentEmail implements FieldCalculator {
     @Override
-    public void calculate(UserAgent userAgent) {
+    public void calculate(MutableUserAgent userAgent) {
         // The email address is a mess
-        UserAgent.AgentField email = userAgent.get(AGENT_INFORMATION_EMAIL);
+        AgentField email = userAgent.get(AGENT_INFORMATION_EMAIL);
         if (email != null && email.getConfidence() >= 0) {
             userAgent.setForced(
                 AGENT_INFORMATION_EMAIL,

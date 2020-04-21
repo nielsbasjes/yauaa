@@ -17,7 +17,8 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.AgentField;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.YamlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +50,7 @@ public class Matcher implements Serializable {
     private final List<MatcherAction> dynamicActions;
     private final List<MatcherAction> fixedStringActions;
 
-    private UserAgent newValuesUserAgent = null;
+    private MutableUserAgent newValuesUserAgent = null;
 
     private long actionsThatRequireInput;
     private boolean verbose;
@@ -121,7 +122,7 @@ public class Matcher implements Serializable {
         this.fixedStringActions = new ArrayList<>();
         this.variableActions = new ArrayList<>();
         this.dynamicActions = new ArrayList<>();
-        this.newValuesUserAgent = new UserAgent(wantedFieldNames);
+        this.newValuesUserAgent = new MutableUserAgent(wantedFieldNames);
 
         matcherSourceLocation = filename + ':' + matcherConfig.getStartMark().getLine();
 
@@ -216,7 +217,7 @@ public class Matcher implements Serializable {
 
                     // Make sure the field actually exists
                     newValuesUserAgent.set(configLine.attribute, "Dummy", -9999);
-                    action.setResultAgentField(newValuesUserAgent.get(configLine.attribute));
+                    action.setResultAgentField((AgentField.MutableAgentField) newValuesUserAgent.get(configLine.attribute));
                     break;
                 default:
                     break;
@@ -366,7 +367,7 @@ public class Matcher implements Serializable {
      *
      * @param userAgent The useragent that needs to analyzed
      */
-    public void analyze(UserAgent userAgent) {
+    public void analyze(MutableUserAgent userAgent) {
 
         if (verbose) {
             LOG.info("");

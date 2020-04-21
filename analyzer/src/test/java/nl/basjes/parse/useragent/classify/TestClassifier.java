@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.classify;
 
-import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import org.junit.jupiter.api.Test;
 
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
@@ -69,7 +69,7 @@ public class TestClassifier {
     }
 
     private void verifyEnum(String deviceClass) {
-        UserAgent userAgent = new UserAgent();
+        MutableUserAgent userAgent = new MutableUserAgent();
         userAgent.set(DEVICE_CLASS, deviceClass, 1);
         assertEquals(deviceClass, UserAgentClassifier.getDeviceClass(userAgent).getValue());
     }
@@ -99,7 +99,7 @@ public class TestClassifier {
     }
 
     private void verifyDeviceClass(DeviceClass deviceClass, boolean human, boolean mobile, boolean normal, boolean misuse) {
-        UserAgent userAgent = new UserAgent();
+        MutableUserAgent userAgent = new MutableUserAgent();
 
         userAgent.set(DEVICE_CLASS, deviceClass.getValue(), 1);
         assertEquals(human, isHuman(userAgent),

@@ -6,6 +6,7 @@ v5.18-SNAPSHOT
   - Fixed caches for getAllPossibleFieldNames and getAllPossibleFieldNamesSorted
   - Updated dependencies
   - Fixed bug returning default values from cached results (no incorrect results, just too many)
+  - The output is now "immutable" which makes returning from cache faster.
 - Updated UDF dependencies
   - Apache Beam      2.20.0
   - Elastic Logstash 7.6.2

@@ -17,8 +17,8 @@
 
 package nl.basjes.parse.useragent.calculate;
 
-import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgent.AgentField;
+import nl.basjes.parse.useragent.AgentField;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 
 public class MajorVersionCalculator implements FieldCalculator {
@@ -35,7 +35,7 @@ public class MajorVersionCalculator implements FieldCalculator {
     private MajorVersionCalculator() { }
 
     @Override
-    public void calculate(UserAgent userAgent) {
+    public void calculate(MutableUserAgent userAgent) {
         AgentField agentVersionMajor = userAgent.get(majorVersionName);
         if (agentVersionMajor == null || agentVersionMajor.getConfidence() == -1) {
             AgentField agentVersion = userAgent.get(versionName);

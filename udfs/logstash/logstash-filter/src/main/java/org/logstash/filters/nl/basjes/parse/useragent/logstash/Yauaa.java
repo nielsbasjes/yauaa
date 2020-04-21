@@ -37,6 +37,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static nl.basjes.parse.useragent.UserAgent.MutableUserAgent.isSystemField;
+
 @LogstashPlugin(name = "yauaa")
 public class Yauaa implements Filter {
 
@@ -170,7 +172,7 @@ public class Yauaa implements Filter {
         errorMessage.append("       fields => {\n");
 
         for (String field: allFieldNames) {
-            if (!UserAgent.isSystemField(field)) {
+            if (!isSystemField(field)) {
                 errorMessage.append("           \"").append(field).append("\"");
                 for (int i = field.length(); i < maxNameLength; i++) {
                     errorMessage.append(' ');

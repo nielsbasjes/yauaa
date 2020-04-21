@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
@@ -482,7 +482,7 @@ public class TestTreewalkerRequire {
         }
 
         @Override
-        public void analyze(UserAgent userAgent) {
+        public void analyze(MutableUserAgent userAgent) {
             // Do nothing
         }
 

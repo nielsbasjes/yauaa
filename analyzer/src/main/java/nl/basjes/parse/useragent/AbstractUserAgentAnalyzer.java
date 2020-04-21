@@ -21,6 +21,8 @@ import com.esotericsoftware.kryo.DefaultSerializer;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import org.apache.commons.collections4.map.LRUMap;
 
 import java.io.Serializable;
@@ -30,7 +32,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
     public static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
     protected int cacheSize = DEFAULT_PARSE_CACHE_SIZE;
-    private transient LRUMap<String, UserAgent> parseCache = null;
+    private transient LRUMap<String, ImmutableUserAgent> parseCache = null;
 
     protected AbstractUserAgentAnalyzer() {
         super();
@@ -41,7 +43,6 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
     public synchronized void destroy() {
         super.destroy();
         if (parseCache != null) {
-            parseCache.values().forEach(UserAgent::destroy);
             parseCache.clear();
             parseCache = null;
         }
@@ -94,26 +95,25 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
     }
 
     @Override
-    public synchronized UserAgent parse(UserAgent userAgent) {
+    public synchronized ImmutableUserAgent parse(MutableUserAgent userAgent) {
         if (userAgent == null) {
             return null;
         }
-        userAgent.reset();
-
         if (parseCache == null) {
+            userAgent.reset();
             return super.parse(userAgent);
         }
 
-        String userAgentString = userAgent.getUserAgentString();
-        UserAgent cachedValue = parseCache.get(userAgentString);
+        String             userAgentString = userAgent.getUserAgentString();
+        ImmutableUserAgent cachedValue     = parseCache.get(userAgentString);
         if (cachedValue != null) {
-            userAgent.clone(cachedValue, false);
+            return cachedValue; // As it is immutable it can safely be returned as is
         } else {
-            cachedValue = new UserAgent(super.parse(userAgent));
+            cachedValue = super.parse(userAgent);
             parseCache.put(userAgentString, cachedValue);
         }
         // We have our answer.
-        return userAgent;
+        return cachedValue;
     }
 
     @SuppressWarnings("unchecked")

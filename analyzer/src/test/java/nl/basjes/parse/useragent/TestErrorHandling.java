@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent;
 
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.parse.EvilManualUseragentStringHacks;
@@ -227,7 +228,7 @@ public class TestErrorHandling {
         assertNotNull(agent);
         assertNull(agent.getUserAgentString());
 
-        agent = uaa.parse((UserAgent) null);
+        agent = uaa.parse((MutableUserAgent) null);
         assertNull(agent);
 
         assertNull(EvilManualUseragentStringHacks.fixIt(null));

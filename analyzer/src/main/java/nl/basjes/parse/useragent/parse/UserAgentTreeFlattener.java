@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.parse;
 
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
@@ -182,11 +183,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     }
 
     public UserAgent parse(String userAgentString) {
-        UserAgent userAgent = new UserAgent(userAgentString);
+        MutableUserAgent userAgent = new MutableUserAgent(userAgentString);
         return parseIntoCleanUserAgent(userAgent);
     }
 
-    public UserAgent parse(UserAgent userAgent) {
+    public MutableUserAgent parse(MutableUserAgent userAgent) {
         userAgent.reset();
         return parseIntoCleanUserAgent(userAgent);
     }
@@ -197,7 +198,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
      * @param userAgent The useragent instance that needs to be parsed
      * @return If the parse was valid (i.e. were there any parser errors: true=valid; false=has errors
      */
-    private UserAgent parseIntoCleanUserAgent(UserAgent userAgent) {
+    private MutableUserAgent parseIntoCleanUserAgent(MutableUserAgent userAgent) {
         if (userAgent.getUserAgentString() == null) {
             userAgent.set(SYNTAX_ERROR, "true", 1);
             return userAgent; // Cannot parse this
@@ -266,7 +267,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
 //  =================================================================================
 
-    private UserAgentContext parseUserAgent(UserAgent userAgent) {
+    private UserAgentContext parseUserAgent(MutableUserAgent userAgent) {
         String userAgentString = EvilManualUseragentStringHacks.fixIt(userAgent.getUserAgentString());
 
         CodePointCharStream input = CharStreams.fromString(userAgentString);

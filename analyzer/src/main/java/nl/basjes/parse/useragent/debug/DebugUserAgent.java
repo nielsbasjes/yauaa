@@ -17,7 +17,9 @@
 
 package nl.basjes.parse.useragent.debug;
 
+import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -30,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DebugUserAgent extends UserAgent { // NOSONAR: No need to override equals and hashcode
+public class DebugUserAgent extends MutableUserAgent { // NOSONAR: No need to override equals and hashcode
 
     private static final Logger LOG = LoggerFactory.getLogger(DebugUserAgent.class);
 
@@ -41,8 +43,8 @@ public class DebugUserAgent extends UserAgent { // NOSONAR: No need to override 
     }
 
     @Override
-    public void set(UserAgent newValuesUserAgent, Matcher appliedMatcher) {
-        appliedMatcherResults.add(new ImmutablePair<>(new UserAgent(newValuesUserAgent), appliedMatcher));
+    public void set(MutableUserAgent newValuesUserAgent, Matcher appliedMatcher) {
+        appliedMatcherResults.add(new ImmutablePair<>(new ImmutableUserAgent(newValuesUserAgent), appliedMatcher));
         super.set(newValuesUserAgent, appliedMatcher);
     }
 

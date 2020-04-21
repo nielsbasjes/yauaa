@@ -17,7 +17,8 @@
 
 package nl.basjes.parse.useragent.calculate;
 
-import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.AgentField;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
@@ -25,9 +26,9 @@ import static nl.basjes.parse.useragent.utils.Normalize.isLowerCase;
 
 public class CalculateAgentName implements FieldCalculator {
     @Override
-    public void calculate(UserAgent userAgent) {
+    public void calculate(MutableUserAgent userAgent) {
         // Cleanup the name of the useragent
-        UserAgent.AgentField name = userAgent.get(AGENT_NAME);
+        AgentField name = userAgent.get(AGENT_NAME);
         if (name != null && name.getConfidence() >= 0) {
             String value = name.getValue();
             if (isLowerCase(value)) {

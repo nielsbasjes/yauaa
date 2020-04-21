@@ -17,7 +17,9 @@
 
 package nl.basjes.parse.useragent;
 
-import nl.basjes.parse.useragent.UserAgent.AgentField;
+import nl.basjes.parse.useragent.AgentField.MutableAgentField;
+import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestUseragent {
 
@@ -40,7 +43,7 @@ public class TestUseragent {
     @Test
     public void testUseragent() {
         String    uaString = "Foo Bar";
-        UserAgent agent    = new UserAgent(uaString);
+        UserAgent agent    = new MutableUserAgent(uaString);
         assertEquals(uaString, agent.get(UserAgent.USERAGENT_FIELDNAME).getValue());
         assertEquals(0, agent.get(UserAgent.USERAGENT_FIELDNAME).getConfidence());
         assertEquals(uaString, agent.getValue(UserAgent.USERAGENT_FIELDNAME));
@@ -56,7 +59,7 @@ public class TestUseragent {
     private void testUseragentValuesDebug(boolean debug) {
         String    name     = "Attribute";
         String    uaString = "Foo Bar";
-        UserAgent agent    = new UserAgent(uaString);
+        MutableUserAgent agent    = new MutableUserAgent(uaString);
         agent.setDebug(debug);
 
         // Setting unknown new attributes
@@ -65,7 +68,7 @@ public class TestUseragent {
         assertEquals(-1, agent.getConfidence("UnknownOne").longValue());
         agent.set("UnknownOne", "One", 111);
         check(agent, "UnknownOne", "One", 111);
-        agent.get("UnknownOne").reset();
+        ((MutableAgentField)agent.get("UnknownOne")).reset();
         check(agent, "UnknownOne", "Unknown", -1);
 
         // Setting unknown new attributes FORCED
@@ -74,21 +77,21 @@ public class TestUseragent {
         assertEquals(-1, agent.getConfidence("UnknownTwo").longValue());
         agent.setForced("UnknownTwo", "Two", 222);
         check(agent, "UnknownTwo", "Two", 222);
-        agent.get("UnknownTwo").reset();
+        ((MutableAgentField)agent.get("UnknownTwo")).reset();
         check(agent, "UnknownTwo", "Unknown", -1);
 
         // Setting known attributes
         check(agent, "AgentClass", "Unknown", -1);
         agent.set("AgentClass", "One", 111);
         check(agent, "AgentClass", "One", 111);
-        agent.get("AgentClass").reset();
+        ((MutableAgentField)agent.get("AgentClass")).reset();
         check(agent, "AgentClass", "Unknown", -1);
 
         // Setting known attributes FORCED
         check(agent, "AgentVersion", "??", -1);
         agent.setForced("AgentVersion", "Two", 222);
         check(agent, "AgentVersion", "Two", 222);
-        agent.get("AgentVersion").reset();
+        ((MutableAgentField)agent.get("AgentVersion")).reset();
         check(agent, "AgentVersion", "??", -1);
 
         agent.set(name, "One", 111);
@@ -116,7 +119,7 @@ public class TestUseragent {
         agent.set(name, "Three", 333); // Should be used
         check(agent, name, "Three", 333);
 
-        AgentField field = agent.get(name);
+        MutableAgentField field = (MutableAgentField) agent.get(name);
         field.setValueForced("Five", 5); // Should be used
         check(agent, name, "Five", 5);
         field.setValueForced("<<<null>>>", 4); // Should be used
@@ -133,7 +136,7 @@ public class TestUseragent {
 
     @Test
     public void testDefaults() {
-        UserAgent agent = new UserAgent();
+        MutableUserAgent agent = new MutableUserAgent();
         // Defaults for known fields
         assertEquals(UNKNOWN_VALUE,     agent.getValue("DeviceClass"));
         assertEquals(UNKNOWN_VERSION,   agent.getValue("AgentVersion"));
@@ -154,9 +157,9 @@ public class TestUseragent {
 
     @Test
     public void testCopying() {
-        AgentField origNull = new AgentField(null);
+        MutableAgentField origNull = new MutableAgentField(null);
         origNull.setValue("One", 1);
-        AgentField copyNull = new AgentField("Foo"); // Different default!
+        MutableAgentField copyNull = new MutableAgentField("Foo"); // Different default!
         copyNull.setValue(origNull);
 
         assertEquals("One", copyNull.getValue());
@@ -166,9 +169,9 @@ public class TestUseragent {
         assertEquals(-1, copyNull.getConfidence());
 
 
-        AgentField origFoo = new AgentField("Foo");
+        MutableAgentField origFoo = new MutableAgentField("Foo");
         origFoo.setValue("Two", 2);
-        AgentField copyFoo = new AgentField(null); // Different default!
+        MutableAgentField copyFoo = new MutableAgentField(null); // Different default!
         copyFoo.setValue(origFoo);
 
         assertEquals("Two", copyFoo.getValue());
@@ -180,67 +183,108 @@ public class TestUseragent {
 
     @Test
     public void comparingUserAgents() {
-        UserAgent baseAgent = new UserAgent("Something 2");
-        UserAgent agent0    = new UserAgent("Something 2");
-        UserAgent agent1    = new UserAgent("Something 1");
-        UserAgent agent2    = new UserAgent("Something 2");
-        UserAgent agent3    = new UserAgent("Something 2");
-        UserAgent agent4    = new UserAgent("Something 2");
+        MutableUserAgent baseAgent = new MutableUserAgent("Something 2");
+        MutableUserAgent mutableAgent0    = new MutableUserAgent("Something 2");
+        MutableUserAgent mutableAgent1    = new MutableUserAgent("Something 1");
+        MutableUserAgent mutableAgent2    = new MutableUserAgent("Something 2");
+        MutableUserAgent mutableAgent3    = new MutableUserAgent("Something 2");
+        MutableUserAgent mutableAgent4    = new MutableUserAgent("Something 2");
 
-        AgentField field0 = new AgentField("Foo");
+        MutableAgentField field0 = new MutableAgentField("Foo");
         field0.setValue("One", 1);
 
-        AgentField field1 = new AgentField("Foo");
+        MutableAgentField field1 = new MutableAgentField("Foo");
         field1.setValue("One", 1);
 
-        AgentField field2 = new AgentField("Foo"); // Same, different value
+        MutableAgentField field2 = new MutableAgentField("Foo"); // Same, different value
         field2.setValue("Two", 1);
 
-        AgentField field3 = new AgentField("Foo"); // Same, different confidence
+        MutableAgentField field3 = new MutableAgentField("Foo"); // Same, different confidence
         field3.setValue("One", 2);
 
-        AgentField field4 = new AgentField(null); // Same, different default
+        MutableAgentField field4 = new MutableAgentField(null); // Same, different default
         field4.setValue("One", 1);
 
         // We compare the base agent with 4 variations
         baseAgent.setImmediateForTesting("Field", field0);
-        agent0.setImmediateForTesting("Field", field1); // Same
-        agent1.setImmediateForTesting("Field", field1); // Different useragent
-        agent2.setImmediateForTesting("Field", field2); // Different field value
-        agent3.setImmediateForTesting("Field", field3); // Different field confidence
-        agent4.setImmediateForTesting("Field", field4); // Different field default value
+        mutableAgent0.setImmediateForTesting("Field", field1); // Same
+        mutableAgent1.setImmediateForTesting("Field", field1); // Different useragent
+        mutableAgent2.setImmediateForTesting("Field", field2); // Different field value
+        mutableAgent3.setImmediateForTesting("Field", field3); // Different field confidence
+        mutableAgent4.setImmediateForTesting("Field", field4); // Different field default value
 
         // Check em
         assertEquals(baseAgent, baseAgent);
-        assertEquals(baseAgent, agent0);
-        assertEquals(agent0, baseAgent);
-        assertEquals(baseAgent.hashCode(), agent0.hashCode());
+        assertEquals(baseAgent, mutableAgent0);
+        assertEquals(mutableAgent0, baseAgent);
+        assertEquals(baseAgent.hashCode(), mutableAgent0.hashCode());
 
-        LOG.info(baseAgent.toString("Field"));
+        assertNotEquals(baseAgent, mutableAgent2);
+        assertNotEquals(baseAgent, mutableAgent3);
+        assertNotEquals(baseAgent, mutableAgent4);
 
-        assertNotEquals(baseAgent, agent2);
-        assertNotEquals(baseAgent, agent3);
-        assertNotEquals(baseAgent, agent4);
+        assertNotEquals("String", mutableAgent1);
+        assertNotEquals(mutableAgent1, "String");
 
-        assertNotEquals("String", agent1);
-        assertNotEquals(agent1, "String");
+        UserAgent immutableAgent0 = new ImmutableUserAgent(mutableAgent0);
+        UserAgent immutableAgent1 = new ImmutableUserAgent(mutableAgent1);
+        UserAgent immutableAgent2 = new ImmutableUserAgent(mutableAgent2);
+        UserAgent immutableAgent3 = new ImmutableUserAgent(mutableAgent3);
+        UserAgent immutableAgent4 = new ImmutableUserAgent(mutableAgent4);
+
+        assertEquals(mutableAgent0.hashCode(), immutableAgent0.hashCode());
+        assertEquals(mutableAgent1.hashCode(), immutableAgent1.hashCode());
+        assertEquals(mutableAgent2.hashCode(), immutableAgent2.hashCode());
+        assertEquals(mutableAgent3.hashCode(), immutableAgent3.hashCode());
+        assertEquals(mutableAgent4.hashCode(), immutableAgent4.hashCode());
+
+        assertEquals(mutableAgent0, immutableAgent0);
+        assertEquals(mutableAgent1, immutableAgent1);
+        assertEquals(mutableAgent2, immutableAgent2);
+        assertEquals(mutableAgent3, immutableAgent3);
+        assertEquals(mutableAgent4, immutableAgent4);
+
+        assertEquals(immutableAgent0, mutableAgent0);
+        assertEquals(immutableAgent1, mutableAgent1);
+        assertEquals(immutableAgent2, mutableAgent2);
+        assertEquals(immutableAgent3, mutableAgent3);
+        assertEquals(immutableAgent4, mutableAgent4);
+
+        assertEquals(mutableAgent0.toString(), immutableAgent0.toString());
+        assertEquals(mutableAgent1.toString(), immutableAgent1.toString());
+        assertEquals(mutableAgent2.toString(), immutableAgent2.toString());
+        assertEquals(mutableAgent3.toString(), immutableAgent3.toString());
+        assertEquals(mutableAgent4.toString(), immutableAgent4.toString());
+
+        assertEquals(mutableAgent0.toXML(), immutableAgent0.toXML());
+        assertEquals(mutableAgent1.toXML(), immutableAgent1.toXML());
+        assertEquals(mutableAgent2.toXML(), immutableAgent2.toXML());
+        assertEquals(mutableAgent3.toXML(), immutableAgent3.toXML());
+        assertEquals(mutableAgent4.toXML(), immutableAgent4.toXML());
+
+        assertEquals(mutableAgent0.toYamlTestCase(), immutableAgent0.toYamlTestCase());
+        assertEquals(mutableAgent1.toYamlTestCase(), immutableAgent1.toYamlTestCase());
+        assertEquals(mutableAgent2.toYamlTestCase(), immutableAgent2.toYamlTestCase());
+        assertEquals(mutableAgent3.toYamlTestCase(), immutableAgent3.toYamlTestCase());
+        assertEquals(mutableAgent4.toYamlTestCase(), immutableAgent4.toYamlTestCase());
+
     }
 
     @Test
     public void comparingUserAgentFields() {
-        AgentField field0 = new AgentField("Foo");
+        MutableAgentField field0 = new MutableAgentField("Foo");
         field0.setValue("One", 1);
 
-        AgentField field1 = new AgentField("Foo");
+        MutableAgentField field1 = new MutableAgentField("Foo");
         field1.setValue("One", 1);
 
-        AgentField field2 = new AgentField("Foo"); // Same, different value
+        MutableAgentField field2 = new MutableAgentField("Foo"); // Same, different value
         field2.setValue("Two", 1);
 
-        AgentField field3 = new AgentField("Foo"); // Same, different confidence
+        MutableAgentField field3 = new MutableAgentField("Foo"); // Same, different confidence
         field3.setValue("One", 2);
 
-        AgentField field4 = new AgentField(null); // Same, different default
+        MutableAgentField field4 = new MutableAgentField(null); // Same, different default
         field4.setValue("One", 1);
 
         // This is mainly used when rendering in a debugger.
@@ -271,32 +315,68 @@ public class TestUseragent {
 
     @Test
     public void fullToString() {
-        UserAgent userAgent = new UserAgent("Some'Agent");
+        MutableUserAgent userAgent1 = new MutableUserAgent("Some'Agent");
+        ((MutableAgentField)userAgent1.get("Niels")).setValue("Basjes", 42);
+
+        ((MutableAgentField)userAgent1.get("BackToDefault")).setValue("One", 42);
+        assertEquals("One", userAgent1.getValue("BackToDefault"));
+        assertEquals(42, userAgent1.getConfidence("BackToDefault"));
+
+        ((MutableAgentField)userAgent1.get("BackToDefault")).setValue("<<<null>>>", 84);
+        assertTrue(userAgent1.get("BackToDefault").isDefaultValue());
+        assertEquals("Unknown", userAgent1.getValue("BackToDefault"));
+        assertEquals(-1, userAgent1.getConfidence("BackToDefault")); // The system will LIE about the confidence here
+
+        assertEquals("Basjes", userAgent1.getValue("Niels"));
+        assertEquals(42, userAgent1.getConfidence("Niels"));
+
+        UserAgent userAgent2 = new ImmutableUserAgent(userAgent1);
+
+        assertEquals("Basjes", userAgent2.getValue("Niels"));
+        assertEquals(42, userAgent2.getConfidence("Niels"));
+
+        assertTrue(userAgent2.get("BackToDefault").isDefaultValue());
+        assertEquals("Unknown", userAgent2.getValue("BackToDefault"));
+        assertEquals(-1, userAgent2.getConfidence("BackToDefault")); // The system will LIE about the confidence here
 
         assertEquals(
-            "  - user_agent_string: 'Some''Agent'\n", // +
-//            "    DeviceClass                      : 'Unknown'\n" +
-//            "    DeviceName                       : 'Unknown'\n" +
-//            "    DeviceBrand                      : 'Unknown'\n" +
-//            "    OperatingSystemClass             : 'Unknown'\n" +
-//            "    OperatingSystemName              : 'Unknown'\n" +
-//            "    OperatingSystemVersion           : '??'\n" +
-//            "    OperatingSystemVersionMajor      : '??'\n" +
-//            "    OperatingSystemNameVersion       : 'Unknown ??'\n" +
-//            "    OperatingSystemNameVersionMajor  : 'Unknown ??'\n" +
-//            "    LayoutEngineClass                : 'Unknown'\n" +
-//            "    LayoutEngineName                 : 'Unknown'\n" +
-//            "    LayoutEngineVersion              : '??'\n" +
-//            "    LayoutEngineVersionMajor         : '??'\n" +
-//            "    LayoutEngineNameVersion          : 'Unknown ??'\n" +
-//            "    LayoutEngineNameVersionMajor     : 'Unknown ??'\n" +
-//            "    AgentClass                       : 'Unknown'\n" +
-//            "    AgentName                        : 'Unknown'\n" +
-//            "    AgentVersion                     : '??'\n" +
-//            "    AgentVersionMajor                : '??'\n" +
-//            "    AgentNameVersion                 : 'Unknown ??'\n" +
-//            "    AgentNameVersionMajor            : 'Unknown ??'\n",
-            userAgent.toString());
+            // You get the fields in the order you ask them!
+            "  - user_agent_string: 'Some''Agent'\n" +
+            "    Niels        : 'Basjes'\n" +
+            "    DeviceClass  : 'Unknown'\n",
+            userAgent1.toString("Niels", "DeviceClass"));
+
+        assertEquals(
+            "  - user_agent_string: 'Some''Agent'\n" +
+            "    DeviceClass                      : 'Unknown'\n" +
+            "    DeviceName                       : 'Unknown'\n" +
+            "    DeviceBrand                      : 'Unknown'\n" +
+            "    OperatingSystemClass             : 'Unknown'\n" +
+            "    OperatingSystemName              : 'Unknown'\n" +
+            "    OperatingSystemVersion           : '??'\n" +
+            "    OperatingSystemVersionMajor      : '??'\n" +
+            "    OperatingSystemNameVersion       : 'Unknown ??'\n" +
+            "    OperatingSystemNameVersionMajor  : 'Unknown ??'\n" +
+            "    LayoutEngineClass                : 'Unknown'\n" +
+            "    LayoutEngineName                 : 'Unknown'\n" +
+            "    LayoutEngineVersion              : '??'\n" +
+            "    LayoutEngineVersionMajor         : '??'\n" +
+            "    LayoutEngineNameVersion          : 'Unknown ??'\n" +
+            "    LayoutEngineNameVersionMajor     : 'Unknown ??'\n" +
+            "    AgentClass                       : 'Unknown'\n" +
+            "    AgentName                        : 'Unknown'\n" +
+            "    AgentVersion                     : '??'\n" +
+            "    AgentVersionMajor                : '??'\n" +
+            "    AgentNameVersion                 : 'Unknown ??'\n" +
+            "    AgentNameVersionMajor            : 'Unknown ??'\n" +
+            "    Niels                            : 'Basjes'\n",
+            userAgent1.toString());
+
+        assertEquals(userAgent1.getAvailableFieldNamesSorted(), userAgent2.getAvailableFieldNamesSorted());
+
+        assertEquals(userAgent1.toString(),         userAgent2.toString());
+        assertEquals(userAgent1.toXML(),            userAgent2.toXML());
+        assertEquals(userAgent1.toYamlTestCase(),   userAgent2.toYamlTestCase());
     }
 
     @Test
@@ -305,7 +385,7 @@ public class TestUseragent {
 
         // When only asking for a limited set of fields then the internal datastructures are
         // initialized with only the known attributes for which we have 'non standard' default values.
-        UserAgent userAgent = new UserAgent("Some Agent", wanted);
+        MutableUserAgent userAgent = new MutableUserAgent("Some Agent", wanted);
 
         assertEquals(
             "  - user_agent_string: 'Some Agent'\n", // +
