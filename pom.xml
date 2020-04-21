@@ -177,13 +177,12 @@
     <profile>
       <id>skipQuality</id>
       <properties>
-        <skipTests>true</skipTests>
         <sonar.skip>true</sonar.skip>
         <rat.skip>true</rat.skip>
         <checkstyle.skip>true</checkstyle.skip>
         <jacoco.skip>true</jacoco.skip>
         <spotbugs.skip>true</spotbugs.skip>
-        <owasp.dependency-check.skip>true</owasp.dependency-check.skip>
+        <dependency-check.skip>true</dependency-check.skip>
       </properties>
     </profile>
 
@@ -659,7 +658,6 @@
               <goal>check</goal>
             </goals>
             <configuration>
-              <skip>${owasp.dependency-check.skip}</skip>
               <failBuildOnCVSS>1</failBuildOnCVSS>
               <skipProvidedScope>true</skipProvidedScope>
               <skipRuntimeScope>true</skipRuntimeScope>

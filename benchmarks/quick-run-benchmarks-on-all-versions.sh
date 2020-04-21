@@ -31,7 +31,7 @@ do
     echo '/ ============================================== ' && \
     echo "| Testing version ${version}" && \
     echo '\ ============================================== ' && \
-    mvn clean test -Dyauaa.version="${version}" -Dtest=RunBenchmarks > "${OUTPUT}"
+    mvn clean test -Dyauaa.version="${version}" -PskipQuality -Dtest=RunBenchmarks > "${OUTPUT}"
   fi
 done
 
