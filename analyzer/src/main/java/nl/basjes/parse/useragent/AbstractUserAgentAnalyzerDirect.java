@@ -923,7 +923,8 @@ config:
     }
 
     /**
-     * Parses and analyzes the useragent string provided in the MutableUserAgent instance
+     * Parses and analyzes the useragent string provided in the MutableUserAgent instance.
+     * NOTE: This method is synchronized because the way the analyzer works is not reentrant.
      * @param userAgent The MutableUserAgent instance that is to be parsed and that gets all results
      * @return An ImmutableUserAgent copy of the results that is suitable for further usage and caching.
      */
