@@ -74,7 +74,7 @@ public class Yauaa implements Filter {
         UserAgentAnalyzerBuilder userAgentAnalyzerBuilder =
             UserAgentAnalyzer
                 .newBuilder()
-                .delayInitialization()
+                .immediateInitialization()
                 .dropTests()
                 .hideMatcherLoadStats();
 
@@ -84,7 +84,6 @@ public class Yauaa implements Filter {
         });
 
         userAgentAnalyzer = userAgentAnalyzerBuilder.build();
-        userAgentAnalyzer.initializeMatchers();
     }
 
     @Override

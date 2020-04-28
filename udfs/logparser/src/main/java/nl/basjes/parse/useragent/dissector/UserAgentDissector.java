@@ -155,8 +155,9 @@ public class UserAgentDissector extends Dissector {
     }
 
     private void setupUserAgentAnalyzer() {
-        userAgentAnalyzer = getUserAgentAnalyzerBuilder().build();
-        userAgentAnalyzer.initializeMatchers();
+        userAgentAnalyzer = getUserAgentAnalyzerBuilder()
+            .immediateInitialization()
+            .build();
     }
 
     @Override

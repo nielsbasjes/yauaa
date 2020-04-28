@@ -198,9 +198,9 @@ public class ParseService {
                     userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
                         .hideMatcherLoadStats()
                         .addOptionalResources("file:UserAgents*/*.yaml")
+                        .immediateInitialization()
                         .keepTests()
                         .build();
-                    userAgentAnalyzer.initializeMatchers();
                     userAgentAnalyzerIsAvailable = true;
                 } catch (Exception e) {
                     userAgentAnalyzerFailureMessage =
@@ -637,9 +637,9 @@ public class ParseService {
         UserAgentAnalyzerTester tester = UserAgentAnalyzerTester.newBuilder()
             .hideMatcherLoadStats()
             .addOptionalResources("file:UserAgents*/*.yaml")
+            .immediateInitialization()
             .keepTests()
             .build();
-        tester.initializeMatchers();
         StringBuilder errorMessage = new StringBuilder();
         boolean ok = tester.runTests(false, true, null, false, false, errorMessage);
         if (ok) {
