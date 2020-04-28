@@ -1,6 +1,6 @@
 #!/bin/bash
 
-( cd devtools && mvn install )
+( cd devtools && mvn install -PskipQuality )
 echo "==============================="
 echo "===- CHECKING DEPENDENCIES -==="
 echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
