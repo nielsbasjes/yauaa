@@ -71,6 +71,10 @@
           <groupId>com.fasterxml</groupId>
           <artifactId>classmate</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-core</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
 
@@ -148,6 +152,10 @@
       <version>${spring-boot.version}</version>
       <scope>test</scope>
       <exclusions>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-core</artifactId>
+        </exclusion>
         <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
