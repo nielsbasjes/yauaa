@@ -60,8 +60,8 @@ echo "# Match the 2 and 2-2 letter variants:"
 
 echo "- matcher:"
 echo "    extract:"
-echo "      - 'AgentLanguageCode                   :   100 :LookUp[ISOLanguageCodes;agent.(1-20)text]'"
-echo "      - 'AgentLanguage                       :   100 :LookUp[ISOLanguageCodesName;agent.(1-20)text]'"
+echo "    - 'AgentLanguageCode                   :      100 :LookUp[ISOLanguageCodes;agent.(1-20)text]'"
+echo "    - 'AgentLanguage                       :      100 :LookUp[ISOLanguageCodesName;agent.(1-20)text]'"
 
 echo "- matcher:"
 echo "    extract:"
@@ -91,8 +91,8 @@ echo "# Match the 3 variants:"
 
 echo "- matcher:"
 echo "    extract:"
-echo "      - 'AgentLanguageCode                   :   100 :LookUp[ISOLanguageCodes3;agent.(1-20)text]'"
-echo "      - 'AgentLanguage                       :   100 :LookUp[ISOLanguageCodes3Name;agent.(1-20)text]'"
+echo "    - 'AgentLanguageCode                   :      100 :LookUp[ISOLanguageCodes3;agent.(1-20)text]'"
+echo "    - 'AgentLanguage                       :      100 :LookUp[ISOLanguageCodes3Name;agent.(1-20)text]'"
 
 echo "- matcher:"
 echo "    extract:"
