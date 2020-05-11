@@ -52,6 +52,7 @@ import org.yaml.snakeyaml.nodes.NodeTuple;
 import org.yaml.snakeyaml.nodes.SequenceNode;
 import org.yaml.snakeyaml.reader.UnicodeReader;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -70,6 +71,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
@@ -247,67 +249,6 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         return testCases.size();
     }
 
-    protected void initialize(List<String> resources) {
-        logVersion();
-        long fullStart = System.nanoTime();
-
-        if (wantedFieldNames != null) {
-            int wantedSize = wantedFieldNames.size();
-            if (wantedFieldNames.contains(SET_ALL_FIELDS)) {
-                wantedSize--;
-            }
-            LOG.info("Building all needed matchers for the requested {} fields.", wantedSize);
-        } else {
-            LOG.info("Building all matchers for all possible fields.");
-        }
-
-        resources.forEach(this::loadResources);
-
-        if (matcherConfigs.isEmpty()) {
-            throw new InvalidParserConfigurationException("No matchers were loaded at all.");
-        }
-
-        long fullStop = System.nanoTime();
-
-        try(Formatter msg = new Formatter(Locale.ENGLISH)) {
-            msg.format("Loading %4d matchers, %d lookups, %d lookupsets, %d testcases from %4d files took %5d msec",
-                allMatchers.size(),
-                (lookups == null) ? 0 : lookups.size(),
-                lookupSets.size(),
-                testCases.size(),
-                matcherConfigs.size(),
-                (fullStop - fullStart) / 1000000);
-            LOG.info(msg.toString());
-        }
-
-
-        verifyWeAreNotAskingForImpossibleFields();
-        if (!delayInitialization) {
-            initializeMatchers();
-        }
-    }
-
-    protected void verifyWeAreNotAskingForImpossibleFields() {
-        if (wantedFieldNames == null) {
-            return; // Nothing to check
-        }
-        List<String> impossibleFields = new ArrayList<>();
-        List<String> allPossibleFields = getAllPossibleFieldNamesSorted();
-
-        for (String wantedFieldName: wantedFieldNames) {
-            if (isSystemField(wantedFieldName)) {
-                continue; // These are fine
-            }
-            if (!allPossibleFields.contains(wantedFieldName)) {
-                impossibleFields.add(wantedFieldName);
-            }
-        }
-        if (impossibleFields.isEmpty()) {
-            return;
-        }
-        throw new InvalidParserConfigurationException("We cannot provide these fields:" + impossibleFields.toString());
-    }
-
     // --------------------------------------------
 
     /**
@@ -347,6 +288,12 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         loadResources(resourceString, true, false);
     }
 
+    private Yaml createYaml() {
+        final LoaderOptions yamlLoaderOptions = new LoaderOptions();
+        yamlLoaderOptions.setMaxAliasesForCollections(100); // We use this many in the hacker/sql injection config.
+        return new Yaml(yamlLoaderOptions);
+    }
+
     public void loadResources(String resourceString, boolean showLoadMessages, boolean optionalResources) {
         if (matchersHaveBeenInitialized) {
             throw new IllegalStateException("Refusing to load additional resources after the datastructures have been initialized.");
@@ -358,10 +305,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
 
         long startFiles = System.nanoTime();
 
-        flattener = new UserAgentTreeFlattener(this);
-        final LoaderOptions yamlLoaderOptions = new LoaderOptions();
-        yamlLoaderOptions.setMaxAliasesForCollections(100); // We use this many in the hacker/sql injection config.
-        Yaml yaml = new Yaml(yamlLoaderOptions);
+        Yaml yaml = createYaml();
 
         final boolean loadingDefaultResources = DEFAULT_RESOURCES.equals(resourceString);
 
@@ -433,7 +377,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
                 String filename = resource.getFilename();
                 if (filename != null) {
                     maxFilenameLength = Math.max(maxFilenameLength, filename.length());
-                    loadResource(yaml, resource.getInputStream(), filename);
+                    loadYaml(yaml, resource.getInputStream(), filename);
                 }
             } catch (IOException e) {
                 throw new InvalidParserConfigurationException("Error reading resources: " + e.getMessage(), e);
@@ -453,6 +397,27 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
             throw new InvalidParserConfigurationException("No matchers were loaded at all.");
         }
 
+    }
+
+    protected synchronized void finalizeLoadingRules() {
+        logVersion();
+//        long fullStart = System.nanoTime();
+        flattener = new UserAgentTreeFlattener(this);
+
+        if (wantedFieldNames != null) {
+            int wantedSize = wantedFieldNames.size();
+            if (wantedFieldNames.contains(SET_ALL_FIELDS)) {
+                wantedSize--;
+            }
+            LOG.info("Building all needed matchers for the requested {} fields.", wantedSize);
+        } else {
+            LOG.info("Building all matchers for all possible fields.");
+        }
+
+        if (matcherConfigs.isEmpty()) {
+            throw new InvalidParserConfigurationException("No matchers were loaded at all.");
+        }
+
         if (lookups != null && !lookups.isEmpty()) {
             // All compares are done in a case insensitive way. So we lowercase ALL keys of the lookups beforehand.
             Map<String, Map<String, String>> cleanedLookups = new LinkedHashMap<>(lookups.size());
@@ -466,42 +431,79 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
             lookups = cleanedLookups;
         }
 
-        int skippedMatchers = 0;
-        if (matcherConfigs != null) {
-            for (Map.Entry<String, Resource> resourceEntry : resources.entrySet()) {
-                Resource resource = resourceEntry.getValue();
-                String configFilename = resource.getFilename();
-                List<MappingNode> matcherConfig = matcherConfigs.get(configFilename);
-                if (matcherConfig == null) {
-                    continue; // No matchers in this file (probably only lookups and/or tests)
-                }
+        allMatchers.clear();
+        for (Map.Entry<String, List<MappingNode>> matcherConfigEntry : matcherConfigs.entrySet()) {
+            int skippedMatchers = 0;
+            String configFilename = matcherConfigEntry.getKey();
+            List<MappingNode> matcherConfig = matcherConfigEntry.getValue();
+            if (matcherConfig == null) {
+                continue; // No matchers in this file (probably only lookups and/or tests)
+            }
 
-                long start = System.nanoTime();
-                int startSkipped = skippedMatchers;
-                for (MappingNode map : matcherConfig) {
-                    try {
-                        allMatchers.add(new Matcher(this, wantedFieldNames, map, configFilename));
-                    } catch (UselessMatcherException ume) {
-                        skippedMatchers++;
-                    }
+            long start = System.nanoTime();
+            int startSkipped = skippedMatchers;
+            for (MappingNode map : matcherConfig) {
+                try {
+                    allMatchers.add(new Matcher(this, wantedFieldNames, map, configFilename));
+                } catch (UselessMatcherException ume) {
+                    skippedMatchers++;
                 }
-                long stop = System.nanoTime();
-                int stopSkipped = skippedMatchers;
+            }
+            long stop = System.nanoTime();
+            int stopSkipped = skippedMatchers;
 
-                if (showMatcherStats) {
-                    try(Formatter msg = new Formatter(Locale.ENGLISH)) {
-                        String format = "Loading %4d (dropped %4d) matchers from " +
-                            "%-" + maxFilenameLength + "s took %5d msec";
-                        msg.format(format,
-                            matcherConfig.size() - (stopSkipped - startSkipped),
-                            stopSkipped - startSkipped,
-                            configFilename,
-                            (stop - start) / 1000000);
-                        LOG.info(msg.toString());
-                    }
+            if (showMatcherStats) {
+                try(Formatter msg = new Formatter(Locale.ENGLISH)) {
+                    String format = "Loading %4d (dropped %4d) matchers from " +
+                        "%-20s took %5d msec";
+                    msg.format(format,
+                        matcherConfig.size() - (stopSkipped - startSkipped),
+                        stopSkipped - startSkipped,
+                        configFilename,
+                        (stop - start) / 1000000);
+                    LOG.info(msg.toString());
                 }
             }
         }
+
+//        long fullStop = System.nanoTime();
+//
+//        try(Formatter msg = new Formatter(Locale.ENGLISH)) {
+//            msg.format("Loading %4d matchers, %d lookups, %d lookupsets, %d testcases from %4d files took %5d msec",
+//                allMatchers.size(),
+//                (lookups == null) ? 0 : lookups.size(),
+//                lookupSets.size(),
+//                testCases.size(),
+//                matcherConfigs.size(),
+//                (fullStop - fullStart) / 1000000);
+//            LOG.info(msg.toString());
+//        }
+
+        verifyWeAreNotAskingForImpossibleFields();
+        if (!delayInitialization) {
+            initializeMatchers();
+        }
+    }
+
+    protected void verifyWeAreNotAskingForImpossibleFields() {
+        if (wantedFieldNames == null) {
+            return; // Nothing to check
+        }
+        List<String> impossibleFields = new ArrayList<>();
+        List<String> allPossibleFields = getAllPossibleFieldNamesSorted();
+
+        for (String wantedFieldName: wantedFieldNames) {
+            if (isSystemField(wantedFieldName)) {
+                continue; // These are fine
+            }
+            if (!allPossibleFields.contains(wantedFieldName)) {
+                impossibleFields.add(wantedFieldName);
+            }
+        }
+        if (impossibleFields.isEmpty()) {
+            return;
+        }
+        throw new InvalidParserConfigurationException("We cannot provide these fields:" + impossibleFields.toString());
     }
 
     private boolean matchersHaveBeenInitialized = false;
@@ -606,7 +608,11 @@ config:
 ----------------------------
 */
 
-    private void loadResource(Yaml yaml, InputStream yamlStream, String filename) {
+    void loadYaml(String yamlString, String filename) {
+        loadYaml(createYaml(), new ByteArrayInputStream(yamlString.getBytes(UTF_8)), filename);
+    }
+
+    private synchronized void loadYaml(Yaml yaml, InputStream yamlStream, String filename) {
         Node loadedYaml;
         try {
             loadedYaml = yaml.compose(new UnicodeReader(yamlStream));
@@ -849,7 +855,7 @@ config:
 
     private boolean verbose = false;
 
-    public void setVerbose(boolean newVerbose) {
+    public synchronized void setVerbose(boolean newVerbose) {
         this.verbose = newVerbose;
         flattener.setVerbose(newVerbose);
     }
@@ -1209,9 +1215,10 @@ config:
         private boolean didBuildStep = false;
         private int preheatIterations = 0;
 
-        private final List<String> resources = new ArrayList<>();
-        private final List<String> optionalResources = new ArrayList<>();
-        private final List<FieldCalculator> fieldCalculators = new ArrayList<>();
+        private final List<String>          resources         = new ArrayList<>();
+        private final List<String>          optionalResources = new ArrayList<>();
+        private final List<String>          yamlRules         = new ArrayList<>();
+        private final List<FieldCalculator> fieldCalculators  = new ArrayList<>();
 
         protected void failIfAlreadyBuilt() {
             if (didBuildStep) {
@@ -1258,6 +1265,17 @@ config:
             return (B)this;
         }
 
+        /**
+         * Add a set of additional rules. Useful in handling specific cases.
+         * The startup will continue even if these do not exist.
+         * @param yamlRule The Yaml expression that should to be added.
+         * @return the current Builder instance.
+         */
+        public B addYamlRule(String yamlRule) {
+            failIfAlreadyBuilt();
+            yamlRules.add(yamlRule);
+            return (B)this;
+        }
 
         /**
          * Use the available testcases to preheat the jvm on this analyzer.
@@ -1401,14 +1419,6 @@ config:
             return (B)this;
         }
 
-        private void addSpecialDependencies(String result, String... dependencies) {
-            if (uaa.isWantedField(result)) {
-                if (uaa.wantedFieldNames != null) {
-                    Collections.addAll(uaa.wantedFieldNames, dependencies);
-                }
-            }
-        }
-
         private void addCalculator(FieldCalculator calculator) {
             fieldCalculators.add(calculator);
             if (uaa.wantedFieldNames != null) {
@@ -1492,8 +1502,16 @@ config:
             if (preheatIterations != 0) {
                 uaa.keepTests();
             }
+
             optionalResources.forEach(resource -> uaa.loadResources(resource, true, true));
-            uaa.initialize(resources);
+            resources.forEach(resource -> uaa.loadResources(resource, true, false));
+
+            int yamlRuleCount = 1;
+            for (String yamlRule : yamlRules) {
+                uaa.loadYaml(yamlRule, "Manually Inserted Rules " + yamlRuleCount++);
+            }
+
+            uaa.finalizeLoadingRules();
             if (preheatIterations < 0) {
                 uaa.preHeat();
             } else {

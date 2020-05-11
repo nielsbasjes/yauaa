@@ -100,10 +100,12 @@ public class TestResourceLoading {
             .addResources("classpath*:AllSteps.yaml")
             .build();
 
+        uaa.finalizeLoadingRules();
         Set<String> fieldSet1 = uaa.getAllPossibleFieldNames();
 
         uaa.loadResources("CompanyInternalUserAgents.yaml");
 
+        uaa.finalizeLoadingRules();
         Set<String> fieldSet2 = uaa.getAllPossibleFieldNames();
 
         List<String> extraFields = new ArrayList<>();
@@ -121,10 +123,12 @@ public class TestResourceLoading {
             .addResources("classpath*:AllSteps.yaml")
             .build();
 
+        uaa.finalizeLoadingRules();
         List<String> fieldList1 = uaa.getAllPossibleFieldNamesSorted();
 
         uaa.loadResources("CompanyInternalUserAgents.yaml");
 
+        uaa.finalizeLoadingRules();
         List<String> fieldList2 = uaa.getAllPossibleFieldNamesSorted();
 
         List<String> extraFields = new ArrayList<>();

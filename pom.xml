@@ -77,12 +77,15 @@
     <logparser.version>5.3</logparser.version>
 
     <!-- LogStash -->
-    <logstash.version>7.7.0</logstash.version>
+    <elastic.version>7.7.0</elastic.version>
+
+    <logstash.version>${elastic.version}</logstash.version>
+    <elasticsearch.version>${elastic.version}</elasticsearch.version>
 
     <!-- ============================================== -->
 
     <checkstyle-plugin.version>3.1.1</checkstyle-plugin.version>
-    <checkstyle.version>8.32</checkstyle.version>
+    <checkstyle.version>8.33</checkstyle.version>
     <spotbugs-maven-plugin.version>4.0.0</spotbugs-maven-plugin.version>
     <spotbugs.version>4.0.3</spotbugs.version>
     <slf4j.version>1.7.30</slf4j.version>
@@ -483,7 +486,7 @@
       <properties>
         <BuildingWithJDK>13</BuildingWithJDK>
       </properties>
-      </profile>
+    </profile>
 
   </profiles>
 
@@ -578,7 +581,7 @@
         </dependencies>
         <executions>
           <execution>
-            <phase>test</phase>
+            <phase>validate</phase>
             <goals>
               <goal>check</goal>
             </goals>
@@ -767,7 +770,7 @@
           <executions>
             <execution>
               <id>validate bugs</id>
-              <phase>compile</phase>
+              <phase>validate</phase>
               <goals>
                 <goal>check</goal>
               </goals>

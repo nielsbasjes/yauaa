@@ -559,7 +559,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         return allMatches;
     }
 
-    public List<Match> getUsedMatches(MutableUserAgent userAgent) {
+    public synchronized List<Match> getUsedMatches(MutableUserAgent userAgent) {
         // Reset all Matchers
         for (Matcher matcher : getAllMatchers()) {
             matcher.reset();
