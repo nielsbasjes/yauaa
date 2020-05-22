@@ -3300,3 +3300,18 @@ config:
       AgentVersionMajor                    : '7'
       AgentNameVersion                     : 'Google Earth Pro 7.3.2.5776'
       AgentNameVersionMajor                : 'Google Earth Pro 7'
+
+
+# A Microsoft OneDrive related useragent
+# TODO: Figure out what the right values are
+- test:
+    input:
+      user_agent_string: 'OneDriveMpc-Transform_Thumbnail/1.0'
+    expected:
+      DeviceName                            : 'OnedriveMpc-Transform_Thumbnail'
+      AgentClass                            : 'Special'
+      AgentName                             : 'OneDriveMpc-Transform_Thumbnail'
+      AgentVersion                          : '1.0'
+      AgentVersionMajor                     : '1'
+      AgentNameVersion                      : 'OneDriveMpc-Transform_Thumbnail 1.0'
+      AgentNameVersionMajor                 : 'OneDriveMpc-Transform_Thumbnail 1'
