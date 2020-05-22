@@ -9,6 +9,7 @@ v5.18-SNAPSHOT
   - The output is now "immutable" which makes returning from cache faster.
   - Avoid "OneDrive" being classified as the DeviceBrand "OnePlus"
 - Updated UDF dependencies
+  - Apache Flink     1.10.1
   - Apache Beam      2.20.0
   - Elastic Logstash 7.6.2
 - New/improved detections
