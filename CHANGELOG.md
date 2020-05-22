@@ -11,6 +11,8 @@ v5.18-SNAPSHOT
   - Rewrite the handling of "Default" values
   - Rewrote Calculators.
   - Improved Robot classifications, no more urls as 'version'
+  - Voice/Audio devices: Spotify, Alexa, Echo, Sonos
+  - Improve PlayStation 3,4 OS names
 - Updated UDF dependencies
   - Apache Flink     1.10.1
   - Apache Beam      2.21.0

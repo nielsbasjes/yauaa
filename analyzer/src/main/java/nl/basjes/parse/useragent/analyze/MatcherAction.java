@@ -125,7 +125,7 @@ public abstract class MatcherAction implements Serializable {
                 String msg,
                 RecognitionException e) {
             LOG.error("Syntax error");
-            LOG.error("Source : {}", matchExpression);
+            LOG.error("Source {}: {}", matcher.getMatcherSourceLocation(), matchExpression);
             LOG.error("Message: {}", msg);
             throw new InvalidParserConfigurationException("Syntax error \"" + msg + "\" caused by \"" + matchExpression + "\".");
         }

@@ -51,6 +51,21 @@ config:
     - 'OperatingSystemName                 :     2014 :@PlayStationName'
     - 'OperatingSystemVersion              :     2014 :@PlayStationTag[3-]'
 
+- lookup:
+    name: 'PlayStationOSNames'
+    map:
+      "3"  : "Cell OS"
+      "4"  : "Orbis OS"
+      "5"  : "PlayStation 5" # FIXME: 2020-05-22 Current name of the OS is still unknown
+
+- matcher:
+    variable:
+    - 'PlayStationTag                      :agent.(1)product.(1)comments.entry.(1-2)product.name[1]="PlayStation"^'
+    extract:
+    - 'OperatingSystemClass                :     2015 : "Game Console"'
+    - 'OperatingSystemName                 :     2015 : LookUp[PlayStationOSNames;@PlayStationTag[2]]'
+    - 'OperatingSystemVersion              :     2015 : @PlayStationTag[3-]'
+
 - matcher:
     variable:
     - 'Vita                                :agent.(1)product.(1)comments.entry.product.name="PlayStation Vita"^.version'
@@ -161,11 +176,11 @@ config:
       DeviceName                           : 'Sony PlayStation 3'
       DeviceBrand                          : 'Sony'
       OperatingSystemClass                 : 'Game Console'
-      OperatingSystemName                  : 'PlayStation 3'
+      OperatingSystemName                  : 'Cell OS'
       OperatingSystemVersion               : '4.82'
       OperatingSystemVersionMajor          : '4'
-      OperatingSystemNameVersion           : 'PlayStation 3 4.82'
-      OperatingSystemNameVersionMajor      : 'PlayStation 3 4'
+      OperatingSystemNameVersion           : 'Cell OS 4.82'
+      OperatingSystemNameVersionMajor      : 'Cell OS 4'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '531.22.8'
@@ -188,11 +203,11 @@ config:
       DeviceName                           : 'Sony PlayStation 4'
       DeviceBrand                          : 'Sony'
       OperatingSystemClass                 : 'Game Console'
-      OperatingSystemName                  : 'PlayStation 4'
+      OperatingSystemName                  : 'Orbis OS'
       OperatingSystemVersion               : '2.03'
       OperatingSystemVersionMajor          : '2'
-      OperatingSystemNameVersion           : 'PlayStation 4 2.03'
-      OperatingSystemNameVersionMajor      : 'PlayStation 4 2'
+      OperatingSystemNameVersion           : 'Orbis OS 2.03'
+      OperatingSystemNameVersionMajor      : 'Orbis OS 2'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '537.73'
@@ -598,3 +613,40 @@ config:
       AgentNameVersion                     : 'Internet Explorer 9.0'
       AgentNameVersionMajor                : 'Internet Explorer 9'
 
+- matcher:
+    variable:
+    - 'AlexaDevice                         :agent.(1)product.(1)name{"PS3"'
+    extract:
+    - 'DeviceClass                         :      105 :"Game Console"'
+    - 'DeviceBrand                         :     1405 :"Sony"'
+    - 'DeviceName                          :      105 :"Sony PlayStation 3"'
+    - 'OperatingSystemClass                :      100 : "Game Console"'
+    - 'OperatingSystemName                 :      100 : "CellOS"'
+    - 'OperatingSystemVersion              :      100 : "??"'
+
+
+- test:
+    input:
+      user_agent_string: 'PS3Application libhttp/4.8.5-000 (CellOS)'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Sony PlayStation 3'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'CellOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'CellOS ??'
+      OperatingSystemNameVersionMajor      : 'CellOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'PS3Application libhttp'
+      AgentVersion                         : '4.8.5-000'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'PS3Application libhttp 4.8.5-000'
+      AgentNameVersionMajor                : 'PS3Application libhttp 4'
