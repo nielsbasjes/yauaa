@@ -14,6 +14,7 @@ v5.18-SNAPSHOT
 - Updated UDF dependencies
   - Apache Flink     1.10.1
   - Apache Beam      2.20.0
+  - Apache Flink     1.10.1
   - Elastic Logstash 7.6.2
 - New/improved detections
   - Detect a very rare iPhone variant
