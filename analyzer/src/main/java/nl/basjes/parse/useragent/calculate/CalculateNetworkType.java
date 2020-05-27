@@ -29,7 +29,7 @@ public class CalculateNetworkType implements FieldCalculator {
     public void calculate(MutableUserAgent userAgent) {
         // Make sure the DeviceName always starts with the DeviceBrand
         AgentField networkType = userAgent.get(NETWORK_TYPE);
-        if (networkType != null && networkType.getConfidence() >= 0) {
+        if (!networkType.isDefaultValue()) {
             userAgent.setForced(
                 NETWORK_TYPE,
                 Normalize.brand(networkType.getValue()),

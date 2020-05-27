@@ -23,4 +23,9 @@ import java.io.Serializable;
 
 public interface FieldCalculator extends Serializable {
     void calculate(MutableUserAgent userAgent);
+
+    default String[] getDependencies() {
+        return new String[0];
+    }
+
 }

@@ -23,6 +23,7 @@ import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestConcatenation {
 
@@ -56,28 +57,6 @@ public class TestConcatenation {
         fc = new ConcatNONDuplicatedCalculator("Combined4", "One", "MinusOne");
         fc.calculate(userAgent);
         assertEquals("One MinusOne", userAgent.getValue("Combined4"));
-    }
-
-    @Test
-    public void testFieldConcatenationNulls() {
-        FieldCalculator fc;
-        MutableUserAgent       userAgent = createUserAgent();
-
-        fc = new ConcatNONDuplicatedCalculator("Combined3", "MinusOne", null);
-        fc.calculate(userAgent);
-        assertEquals("Unknown", userAgent.getValue("Combined3"));
-
-        fc = new ConcatNONDuplicatedCalculator("Combined4", null, "MinusOne");
-        fc.calculate(userAgent);
-        assertEquals("Unknown", userAgent.getValue("Combined4"));
-
-        fc = new ConcatNONDuplicatedCalculator("Combined3", null, "One");
-        fc.calculate(userAgent);
-        assertEquals("One", userAgent.getValue("Combined3"));
-
-        fc = new ConcatNONDuplicatedCalculator("Combined4", "One", null);
-        fc.calculate(userAgent);
-        assertEquals("One", userAgent.getValue("Combined4"));
     }
 
     @Test
@@ -118,24 +97,6 @@ public class TestConcatenation {
     }
 
     @Test
-    public void testFieldConcatenationNull() {
-        FieldCalculator fc;
-        MutableUserAgent       userAgent = createUserAgent();
-
-        fc = new ConcatNONDuplicatedCalculator("Combined2", "One", null);
-        fc.calculate(userAgent);
-        assertEquals("One", userAgent.getValue("Combined2"));
-
-        fc = new ConcatNONDuplicatedCalculator("Combined3", null, "Two");
-        fc.calculate(userAgent);
-        assertEquals("Two", userAgent.getValue("Combined3"));
-
-        fc = new ConcatNONDuplicatedCalculator("Combined4", null, null);
-        fc.calculate(userAgent);
-        assertEquals("Unknown", userAgent.getValue("Combined4"));
-    }
-
-    @Test
     public void testFieldConcatenationNoConfidence() {
         FieldCalculator fc;
         MutableUserAgent       userAgent = createUserAgent();
@@ -147,6 +108,25 @@ public class TestConcatenation {
         fc = new ConcatNONDuplicatedCalculator("Combined3", "MinusOne", "Two");
         fc.calculate(userAgent);
         assertEquals("MinusOne Two", userAgent.getValue("Combined3"));
+    }
+
+    @Test
+    public void testFieldConcatenationAllDefaults() {
+        FieldCalculator fc;
+        MutableUserAgent       userAgent = new MutableUserAgent();
+        userAgent.set("FooBarName", "Dummy", 1);
+        userAgent.set("FooBarVersion", "Dummy", 1);
+        userAgent.reset();
+
+        fc = new ConcatNONDuplicatedCalculator("FooBarNameVersion", "FooBarName", "FooBarVersion");
+        fc.calculate(userAgent);
+        assertEquals("Unknown", userAgent.getValue("FooBarName"));
+        assertEquals("??", userAgent.getValue("FooBarVersion"));
+        assertEquals("Unknown ??", userAgent.getValue("FooBarNameVersion"));
+
+        assertTrue(userAgent.get("FooBarName").isDefaultValue());
+        assertTrue(userAgent.get("FooBarVersion").isDefaultValue());
+        assertTrue(userAgent.get("FooBarNameVersion").isDefaultValue());
     }
 
 }

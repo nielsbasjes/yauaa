@@ -49,6 +49,7 @@ config:
 
 - matcher:
     require:
+    - 'IsNull[agent.(1)product.version.url]'
     - 'agent.(1-10)product.(1-2)comments.(1-8)entry.(1-4)product.name="Googlebot"'
     - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="http://www.google.com/bot.html"]'
     - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="https://www.google.com/bot.html"]'
@@ -59,18 +60,47 @@ config:
     - 'AgentName                           :   320200 : @RealAgent'
     - 'AgentVersion                        :   320200 : @RealAgent^.version'
 
-
 - matcher:
     require:
+    - 'agent.(1)product.version.url'
     - 'agent.(1-10)product.(1-2)comments.(1-8)entry.(1-4)product.name="Googlebot"'
     - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="http://www.google.com/bot.html"]'
     - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="https://www.google.com/bot.html"]'
     - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url~"googlebot.com"]'
     variable:
-    - 'RealAgent                           :agent.(1)product.comments.entry.product.name!="GoogleBot"'
+    - 'RealAgent                           :agent.(1)product.name!="Mozilla"'
     extract:
     - 'AgentName                           :   320200 : @RealAgent'
-    - 'AgentVersion                        :   320200 : @RealAgent^.version'
+    - 'AgentVersion                        :   320200 : "<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'RealAgent                           :agent.(1)product.comments.entry.product.name!="GoogleBot"'
+    - 'RealAgentVersion                    :@RealAgent^.version'
+    require:
+    - 'IsNull[@RealAgentVersion.url]'
+    - 'agent.(1-10)product.(1-2)comments.(1-8)entry.(1-4)product.name="Googlebot"'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="http://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="https://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url~"googlebot.com"]'
+    extract:
+    - 'AgentName                           :   320200 : @RealAgent'
+    - 'AgentVersion                        :   320200 : @RealAgentVersion'
+
+- matcher:
+    variable:
+    - 'RealAgent                           :agent.(1)product.comments.entry.product.name!="GoogleBot"'
+    - 'RealAgentVersion                    :@RealAgent^.version'
+    require:
+    - '@RealAgentVersion.url'
+    - 'agent.(1-10)product.(1-2)comments.(1-8)entry.(1-4)product.name="Googlebot"'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="http://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url="https://www.google.com/bot.html"]'
+    - 'IsNull[agent.(1-10)product.(1-2)comments.(1-8)entry.(1-2)url~"googlebot.com"]'
+    extract:
+    - 'AgentName                           :   320200 : @RealAgent'
+    - 'AgentVersion                        :   320200 : "<<<null>>>"'
 
 
 - matcher:
@@ -688,10 +718,10 @@ config:
       LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
       AgentClass                           : 'Robot'
       AgentName                            : 'Actually This IS'                                #  Really silly, but can't do better
-      AgentVersion                         : 'http://ismyblogworking.com/'
-      AgentVersionMajor                    : 'http://ismyblogworking.com/'
-      AgentNameVersion                     : 'Actually This IS http://ismyblogworking.com/'
-      AgentNameVersionMajor                : 'Actually This IS http://ismyblogworking.com/'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Actually This IS ??'
+      AgentNameVersionMajor                : 'Actually This IS ??'
       AgentInformationUrl                  : 'http://ismyblogworking.com/'
 
 
@@ -804,3 +834,50 @@ config:
 #- test: #TODO: Implement
 #    input:
 #      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html) https://deepcrawl.com/bot'
+
+
+- matcher:
+    variable:
+    - 'NonGoogleBotURL: agent.product.comments.entry.url!="http://www.google.com/bot.html"'
+    require:
+    - 'agent.product.comments.entry.url="http://www.google.com/bot.html"'
+    extract:
+    - 'DeviceClass                         :   380101 : "Robot Imitator"'
+    - 'DeviceBrand                         :   380101 : "<<<null>>>"'
+    - 'DeviceName                          :   380101 : "<<<null>>>"'
+    - 'OperatingSystemClass                :   380101 : "Cloud"'
+    - 'OperatingSystemName                 :   380101 : "Cloud"'
+    - 'OperatingSystemVersion              :   380101 : "??"'
+    - 'LayoutEngineName                    :   380101 : "<<<null>>>"'
+    - 'LayoutEngineVersion                 :   380101 : "<<<null>>>"'
+    - 'AgentName                           :   380101 : "<<<null>>>"'
+    - 'AgentVersion                        :   380101 : "<<<null>>>"'
+    - 'AgentInformationUrl                 :  1504700 : @NonGoogleBotURL'
+
+- test:
+    input:
+      user_agent_string: 'Googlebot v2.1 (+http://www.google.com/bot.html) (http://www.openwebspider.org/)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Openwebspider'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Openwebspider'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Openwebspider ??'
+      AgentNameVersionMajor                : 'Openwebspider ??'
+      AgentInformationUrl                  : 'http://www.openwebspider.org/'
+

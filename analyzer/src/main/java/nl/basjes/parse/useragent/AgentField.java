@@ -51,11 +51,17 @@ public interface AgentField extends Serializable {
     }
 
     default String afToString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ value:'").append(getValue()).append("', confidence:'").append(getConfidence()).append("', ");
+
         String defaultValue = getDefaultValue();
         if (defaultValue == null) {
-            return "{ value:'" + getValue() + "', confidence:'" + getConfidence() + "', default:null }";
+            sb.append("default:null, ");
+        } else {
+            sb.append("default:'").append(getDefaultValue()).append("', ");
         }
-        return "{ value:'" + getValue() + "', confidence:'" + getConfidence() + "', default:'" + getDefaultValue() + "' }";
+        sb.append("isDefault:").append(isDefaultValue()).append(" }");
+        return sb.toString();
     }
 
     class MutableAgentField implements AgentField {
@@ -95,9 +101,9 @@ public interface AgentField extends Serializable {
         }
 
         public long getConfidence() {
-            if (value == null) {
-                return -1; // Lie in case the value was wiped.
-            }
+//            if (value == null) {
+//                return -1; // Lie in case the value was wiped.
+//            }
             return confidence;
         }
 

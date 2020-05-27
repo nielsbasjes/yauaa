@@ -35,7 +35,7 @@ public class CalculateDeviceName implements FieldCalculator {
     private static final Pattern CLEAN_1_PATTERN = Pattern.compile("AppleWebKit", CASE_INSENSITIVE | LITERAL);
 
     private String removeBadSubStrings(String input) {
-        input =  CLEAN_1_PATTERN.matcher(input).replaceAll("");
+        input = CLEAN_1_PATTERN.matcher(input).replaceAll("");
         return input;
     }
 
@@ -43,7 +43,7 @@ public class CalculateDeviceName implements FieldCalculator {
     public void calculate(MutableUserAgent userAgent) {
         // Make sure the DeviceName always starts with the DeviceBrand
         AgentField deviceName = userAgent.get(DEVICE_NAME);
-        if (deviceName.getConfidence() >= 0) {
+        if (!deviceName.isDefaultValue()) {
             AgentField deviceBrand = userAgent.get(DEVICE_BRAND);
             String deviceNameValue = removeBadSubStrings(deviceName.getValue());
             String deviceBrandValue = deviceBrand.getValue();
@@ -61,6 +61,11 @@ public class CalculateDeviceName implements FieldCalculator {
                 deviceNameValue,
                 deviceName.getConfidence());
         }
+    }
+
+    @Override
+    public String[] getDependencies() {
+        return new String[]{DEVICE_BRAND};
     }
 
     @Override

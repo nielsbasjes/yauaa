@@ -63,6 +63,13 @@ public class TestErrorHandling {
     }
 
     @Test
+    public void checkAlmostEmptyFile() {
+        runTest(
+            "classpath*:BadDefinitions/AlmostEmptyFile.yaml",
+            containsString("The value should be a sequence but it is a scalar"));
+    }
+
+    @Test
     public void checkBadStructure() {
         runTest(
             "classpath*:BadDefinitions/BadStructure.yaml",

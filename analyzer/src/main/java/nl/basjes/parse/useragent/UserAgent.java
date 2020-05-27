@@ -272,28 +272,36 @@ public interface UserAgent extends Serializable {
 
         for (String fieldName : fieldNames) {
             AgentField field = get(fieldName);
-            if (field.isDefaultValue()) {
-                continue;
-            }
             sb.append("      ").append(fieldName);
-            for (int l = fieldName.length(); l < maxNameLength + 7; l++) {
+            for (int l = fieldName.length(); l < maxNameLength + 6; l++) {
                 sb.append(' ');
             }
             String value = escapeYaml(field.getValue());
             sb.append(": '").append(value).append('\'');
-            if (showConfidence) {
+
+            if (showConfidence || comments != null) {
                 int l = value.length();
                 for (; l < maxValueLength + 5; l++) {
                     sb.append(' ');
                 }
-                sb.append("# ").append(String.format("%8d", getConfidence(fieldName)));
-            }
-            if (comments != null) {
-                String comment = comments.get(fieldName);
-                if (comment != null) {
-                    sb.append(" | ").append(comment);
+                sb.append("# ");
+                if (showConfidence) {
+                    sb.append(String.format("%8d", getConfidence(fieldName)));
+                    if (field.isDefaultValue()) {
+                        sb.append(" [Default]");
+                    }
+                }
+                if (comments != null) {
+                    String comment = comments.get(fieldName);
+                    if (comment != null) {
+                        if (!field.isDefaultValue()) {
+                            sb.append("          ");
+                        }
+                        sb.append(" | ").append(comment);
+                    }
                 }
             }
+
             sb.append('\n');
         }
         sb.append("\n\n");

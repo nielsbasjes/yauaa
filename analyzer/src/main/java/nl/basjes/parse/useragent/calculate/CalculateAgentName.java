@@ -22,6 +22,8 @@ import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
+import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.utils.Normalize.isLowerCase;
 
 public class CalculateAgentName implements FieldCalculator {
@@ -29,15 +31,38 @@ public class CalculateAgentName implements FieldCalculator {
     public void calculate(MutableUserAgent userAgent) {
         // Cleanup the name of the useragent
         AgentField name = userAgent.get(AGENT_NAME);
-        if (name != null && name.getConfidence() >= 0) {
-            String value = name.getValue();
-            if (isLowerCase(value)) {
+        if (name.isDefaultValue()) {
+            name = userAgent.get(DEVICE_BRAND);
+            if (name.isDefaultValue()) {
                 userAgent.setForced(
                     AGENT_NAME,
-                    Normalize.brand(value),
+                    NULL_VALUE,
+                    name.getConfidence());
+            } else {
+                userAgent.setForced(
+                    AGENT_NAME,
+                    name.getValue(),
                     name.getConfidence());
             }
+            return;
         }
+
+        String value = name.getValue();
+        if (isLowerCase(value)) {
+            long confidence = name.getConfidence();
+            if (confidence < 0) {
+                confidence = 0;
+            }
+            userAgent.setForced(
+                AGENT_NAME,
+                Normalize.brand(value),
+                confidence);
+        }
+    }
+
+    @Override
+    public String[] getDependencies() {
+        return new String[]{DEVICE_BRAND};
     }
 
     @Override

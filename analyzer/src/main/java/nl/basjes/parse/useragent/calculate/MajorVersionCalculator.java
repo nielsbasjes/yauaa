@@ -21,6 +21,8 @@ import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 
+import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
+
 public class MajorVersionCalculator implements FieldCalculator {
 
     private String versionName;
@@ -37,21 +39,22 @@ public class MajorVersionCalculator implements FieldCalculator {
     @Override
     public void calculate(MutableUserAgent userAgent) {
         AgentField agentVersionMajor = userAgent.get(majorVersionName);
-        if (agentVersionMajor == null || agentVersionMajor.getConfidence() == -1) {
+        if (agentVersionMajor.isDefaultValue()) {
             AgentField agentVersion = userAgent.get(versionName);
-            if (agentVersion != null) {
-                String version = agentVersion.getValue();
-                if (version != null) {
-                    version = VersionSplitter.getInstance().getSingleSplit(agentVersion.getValue(), 1);
-                } else {
-                    version = "??";
-                }
-                userAgent.setForced(
-                    majorVersionName,
-                    version,
-                    agentVersion.getConfidence());
+            String version = NULL_VALUE;
+            if (!agentVersion.isDefaultValue()) {
+                version = VersionSplitter.getInstance().getSingleSplit(agentVersion.getValue(), 1);
             }
+            userAgent.setForced(
+                majorVersionName,
+                version,
+                agentVersion.getConfidence());
         }
+    }
+
+    @Override
+    public String[] getDependencies() {
+        return new String[]{versionName};
     }
 
     @Override

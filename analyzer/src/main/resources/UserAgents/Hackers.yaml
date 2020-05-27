@@ -64,7 +64,7 @@ config:
     - 'AgentClass                          :  1000000 :"Hacker"'
     - 'AgentName                           :  1000000 :"Hacker"'
     - 'AgentVersion                        :  1000000 :"Hacker"'
-    - 'HackerToolkit                       :   999901 :"Unknown"'
+    - 'HackerToolkit                       :   999901 :"<<<null>>>"'
     - 'HackerAttackVector                  :  1000000 :LookUpContains[HackerAttackVectors;agent]'
 
 - matcher:
@@ -84,7 +84,7 @@ config:
     - 'AgentName                           :  1000000 :"Hacker"'
     - 'AgentVersion                        :  1000000 :"Hacker"'
     - 'HackerToolkit                       :  1000000 :LookUpContains[HackerToolKits;agent]'
-    - 'HackerAttackVector                  :   999901 :"Unknown"'
+    - 'HackerAttackVector                  :   999901 :"<<<null>>>"'
 
 - test:
     input:
@@ -486,8 +486,8 @@ config:
     - 'AgentClass                          :       10 :"Hacker"'
     - 'AgentName                           :       10 :"Hacker"'
     - 'AgentVersion                        :       10 :"Hacker"'
-    - 'HackerAttackVector                  :       10 :"Unknown"'
-    - 'HackerToolkit                       :       10 :"Unknown"'
+    - 'HackerAttackVector                  :       10 :"<<<null>>>"'
+    - 'HackerToolkit                       :       10 :"<<<null>>>"'
 
 # If there are NO products found this is either manipulated or a Hacker.
 - matcher:
@@ -509,8 +509,8 @@ config:
     - 'AgentClass                          :       10 :"Hacker"'
     - 'AgentName                           :       10 :"Hacker"'
     - 'AgentVersion                        :       10 :"Hacker"'
-    - 'HackerAttackVector                  :       10 :"Unknown"'
-    - 'HackerToolkit                       :       10 :"Unknown"'
+    - 'HackerAttackVector                  :       10 :"<<<null>>>"'
+    - 'HackerToolkit                       :       10 :"<<<null>>>"'
 
 - test:
     input:
@@ -589,8 +589,8 @@ config:
     - 'AgentClass                          :       10 :"Hacker"'
     - 'AgentName                           :       10 :"Hacker"'
     - 'AgentVersion                        :       10 :"Hacker"'
-    - 'HackerAttackVector                  :       10 :"Unknown"'
-    - 'HackerToolkit                       :       10 :"Unknown"'
+    - 'HackerAttackVector                  :       10 :"<<<null>>>"'
+    - 'HackerToolkit                       :       10 :"<<<null>>>"'
 
 - test:
     input:
@@ -642,8 +642,8 @@ config:
     - 'AgentClass                          :       10 :"Hacker"'
     - 'AgentName                           :       10 :"Hacker"'
     - 'AgentVersion                        :       10 :"Hacker"'
-    - 'HackerAttackVector                  :       10 :"Unknown"'
-    - 'HackerToolkit                       :       10 :"Unknown"'
+    - 'HackerAttackVector                  :       10 :"<<<null>>>"'
+    - 'HackerToolkit                       :       10 :"<<<null>>>"'
 
 - test:
     input:
@@ -694,8 +694,8 @@ config:
     - 'AgentClass                          :    10000 :"Hacker"'
     - 'AgentName                           :    10000 :"Hacker"'
     - 'AgentVersion                        :    10000 :"Hacker"'
-    - 'HackerAttackVector                  :     5000 :"Unknown"'
-    - 'HackerToolkit                       :     5000 :"Unknown"'
+    - 'HackerAttackVector                  :     5000 :"<<<null>>>"'
+    - 'HackerToolkit                       :     5000 :"<<<null>>>"'
 
 - test:
     input:
@@ -836,7 +836,7 @@ config:
     - 'AgentNameVersion                    :        9 :"Hacker"'
     - 'AgentNameVersionMajor               :        9 :"Hacker"'
     - 'HackerAttackVector                  :        9 :"Fuzzing"'
-    - 'HackerToolkit                       :        9 :"Unknown"'
+    - 'HackerToolkit                       :        9 :"<<<null>>>"'
 
 - test:
     input:
@@ -1329,7 +1329,7 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       AgentInformationUrl                  : 'https://nmap.org/book/nse.html'
       HackerToolkit                        : 'Nmap'
-      HackerAttackVector                   : 'Unknown'     #   999901 | FAILED; Should be '<<absent>>'
+      HackerAttackVector                   : 'Unknown'
 
 - matcher:
     require:

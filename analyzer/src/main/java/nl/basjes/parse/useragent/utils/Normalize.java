@@ -107,8 +107,6 @@ public final class Normalize {
     private static final Pattern DEVICE_CLEANUP_PATTERN_4 = Pattern.compile("( -| )+");
 
     public static String cleanupDeviceBrandName(String deviceBrand, String deviceName) {
-        String lowerDeviceBrand = deviceBrand.toLowerCase(Locale.ENGLISH);
-
         deviceName = replaceString(deviceName, "'", " ");
         deviceName = replaceString(deviceName, "_", " ");
 
@@ -118,18 +116,22 @@ public final class Normalize {
 
         String lowerDeviceName = deviceName.toLowerCase(Locale.ENGLISH);
 
-        // In some cases it does start with the brand but without a separator following the brand
-        if (lowerDeviceName.startsWith(lowerDeviceBrand)) {
-            deviceName = replaceString(deviceName, "_", " ");
-            // (?i) means: case insensitive
-            deviceName = deviceName.replaceAll("(?i)^" + Pattern.quote(deviceBrand) + "([^ ].*)$", Matcher.quoteReplacement(deviceBrand)+" $1");
-            deviceName = DEVICE_CLEANUP_PATTERN_4.matcher(deviceName).replaceAll(" ");
-        } else {
-            deviceName = deviceBrand + ' ' + deviceName;
+        if (!deviceBrand.isEmpty()) {
+            String lowerDeviceBrand = deviceBrand.toLowerCase(Locale.ENGLISH);
+
+            // In some cases it does start with the brand but without a separator following the brand
+            if (lowerDeviceName.startsWith(lowerDeviceBrand)) {
+                deviceName = replaceString(deviceName, "_", " ");
+                // (?i) means: case insensitive
+                deviceName = deviceName.replaceAll("(?i)^" + Pattern.quote(deviceBrand) + "([^ ].*)$", Matcher.quoteReplacement(deviceBrand) + " $1");
+                deviceName = DEVICE_CLEANUP_PATTERN_4.matcher(deviceName).replaceAll(" ");
+            } else {
+                deviceName = deviceBrand + ' ' + deviceName;
+            }
         }
         String result = Normalize.brand(deviceName);
 
-        if (result.contains("I")) {
+        if (result.indexOf('I') != -1) {
             result = replaceString(result, "Ipad", "iPad");
             result = replaceString(result, "Ipod", "iPod");
             result = replaceString(result, "Iphone", "iPhone");

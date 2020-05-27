@@ -8,6 +8,9 @@ v5.18-SNAPSHOT
   - Fixed bug returning default values from cached results (no incorrect results, just too many)
   - The output is now "immutable" which makes returning from cache faster.
   - Avoid "OneDrive" being classified as the DeviceBrand "OnePlus"
+  - Rewrite the handling of "Default" values
+  - Rewrote Calculators.
+  - Improved Robot classifications, no more urls as 'version'
 - Updated UDF dependencies
   - Apache Flink     1.10.1
   - Apache Beam      2.20.0

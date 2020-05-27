@@ -29,6 +29,7 @@ import java.util.Set;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
+import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.utils.HostnameExtracter.extractHostname;
 import static org.apache.hc.client5.http.psl.DomainType.ICANN;
 
@@ -53,13 +54,6 @@ public class CalculateDeviceBrand implements FieldCalculator {
     public void calculate(MutableUserAgent userAgent) {
         // The device brand field is a mess.
         AgentField deviceBrand = userAgent.get(DEVICE_BRAND);
-        if (!deviceBrand.isDefaultValue()) {
-            userAgent.setForced(
-                DEVICE_BRAND,
-                Normalize.brand(deviceBrand.getValue()),
-                deviceBrand.getConfidence());
-        }
-
         if (deviceBrand.isDefaultValue()) {
             // If no brand is known then try to extract something that looks like a Brand from things like URL and Email addresses.
             String newDeviceBrand = determineDeviceBrand(userAgent);
@@ -67,8 +61,18 @@ public class CalculateDeviceBrand implements FieldCalculator {
                 userAgent.setForced(
                     DEVICE_BRAND,
                     newDeviceBrand,
-                    1);
+                    0);
+            } else {
+                userAgent.setForced(
+                    DEVICE_BRAND,
+                    NULL_VALUE,
+                    0);
             }
+        } else {
+            userAgent.setForced(
+                DEVICE_BRAND,
+                Normalize.brand(deviceBrand.getValue()),
+                deviceBrand.getConfidence());
         }
     }
 
@@ -80,7 +84,7 @@ public class CalculateDeviceBrand implements FieldCalculator {
         String deviceBrand = null;
 
         AgentField informationUrl = userAgent.get(AGENT_INFORMATION_URL);
-        if (informationUrl != null && informationUrl.getConfidence() >= 0) {
+        if (!informationUrl.isDefaultValue()) {
             String hostname = extractHostname(informationUrl.getValue());
             deviceBrand = extractCompanyFromHostName(hostname, unwantedUrlBrands);
         }
@@ -90,11 +94,11 @@ public class CalculateDeviceBrand implements FieldCalculator {
         }
 
         AgentField informationEmail = userAgent.get(AGENT_INFORMATION_EMAIL);
-        if (informationEmail != null && informationEmail.getConfidence() >= 0) {
+        if (!informationEmail.isDefaultValue()) {
             String hostname = informationEmail.getValue();
-            int atOffset = hostname.indexOf('@');
+            int    atOffset = hostname.indexOf('@');
             if (atOffset >= 0) {
-                hostname = hostname.substring(atOffset+1);
+                hostname = hostname.substring(atOffset + 1);
             }
             deviceBrand = extractCompanyFromHostName(hostname, unwantedEmailBrands);
         }
@@ -105,7 +109,7 @@ public class CalculateDeviceBrand implements FieldCalculator {
     private String extractCompanyFromHostName(String hostname, Set<String> blackList) {
         String root = PublicSuffixMatcherLoader.getDefault().getDomainRoot(hostname, ICANN);
 
-        if (root == null){
+        if (root == null) {
             return null;
         }
         String brand = Normalize.brand(root.split("\\.", 2)[0]);
@@ -113,6 +117,11 @@ public class CalculateDeviceBrand implements FieldCalculator {
             return null;
         }
         return brand;
+    }
+
+    @Override
+    public String[] getDependencies() {
+        return new String[]{AGENT_INFORMATION_URL, AGENT_INFORMATION_EMAIL};
     }
 
     @Override

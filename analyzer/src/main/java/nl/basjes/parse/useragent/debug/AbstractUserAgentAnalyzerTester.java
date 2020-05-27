@@ -239,11 +239,6 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                 parseResult = parse(agent);
             }
 
-            if (parseResult == null) {
-                LOG.error("Boem"); // FIXME
-                return false;
-            }
-
             sb.append('|');
             if (parseResult.hasSyntaxError()) {
                 sb.append('S');
@@ -429,7 +424,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             for (int i = 0; i < maxActualLength; i++) {
                 sb.append('-');
             }
-            sb.append("-+------------+-");
+            sb.append("-+---------+------------+-");
             for (int i = 0; i < maxExpectedLength; i++) {
                 sb.append('-');
             }
@@ -447,7 +442,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             for (int i = 7; i < maxActualLength; i++) {
                 sb.append(' ');
             }
-            sb.append(" | Confidence | Expected ");
+            sb.append(" | Default | Confidence | Expected ");
             for (int i = 9; i < maxExpectedLength; i++) {
                 sb.append(' ');
             }
@@ -484,7 +479,12 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                 for (int i = result.actual.length(); i < maxActualLength; i++) {
                     sb.append(' ');
                 }
-                sb.append(" | ");
+
+                if (result.isDefault) {
+                    sb.append(" | Default | ");
+                } else {
+                    sb.append(" |         | ");
+                }
                 sb.append(String.format("%10d", result.confidence));
                 sb.append(" | ");
 

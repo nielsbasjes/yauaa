@@ -72,7 +72,6 @@ import java.util.stream.Collectors;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
-import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION_MAJOR;
@@ -1410,6 +1409,13 @@ config:
             }
         }
 
+        private void addCalculator(FieldCalculator calculator) {
+            fieldCalculators.add(calculator);
+            if (uaa.wantedFieldNames != null) {
+                Collections.addAll(uaa.wantedFieldNames, calculator.getDependencies());
+            }
+        }
+
         private void addCalculatedMajorVersionField(String result, String dependency) {
             if (uaa.isWantedField(result)) {
                 fieldCalculators.add(new MajorVersionCalculator(result, dependency));
@@ -1460,26 +1466,23 @@ config:
             addCalculatedMajorVersionField(OPERATING_SYSTEM_VERSION_MAJOR,          OPERATING_SYSTEM_VERSION);
 
             if (uaa.isWantedField(AGENT_NAME)) {
-                fieldCalculators.add(new CalculateAgentName());
+                addCalculator(new CalculateAgentName());
             }
 
             if (uaa.isWantedField(NETWORK_TYPE)) {
-                fieldCalculators.add(new CalculateNetworkType());
+                addCalculator(new CalculateNetworkType());
             }
 
             if (uaa.isWantedField(DEVICE_NAME)) {
-                fieldCalculators.add(new CalculateDeviceName());
-                addSpecialDependencies(DEVICE_NAME, DEVICE_BRAND);
+                addCalculator(new CalculateDeviceName());
             }
 
             if (uaa.isWantedField(DEVICE_BRAND)) {
-                fieldCalculators.add(new CalculateDeviceBrand());
-                // If we do not have a Brand we try to extract it from URL/Email iff present.
-                addSpecialDependencies(DEVICE_BRAND, AGENT_INFORMATION_URL, AGENT_INFORMATION_EMAIL);
+                addCalculator(new CalculateDeviceBrand());
             }
 
             if (uaa.isWantedField(AGENT_INFORMATION_EMAIL)) {
-                fieldCalculators.add(new CalculateAgentEmail());
+                addCalculator(new CalculateAgentEmail());
             }
 
             Collections.reverse(fieldCalculators);

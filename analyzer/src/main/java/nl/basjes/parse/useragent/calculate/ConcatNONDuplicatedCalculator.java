@@ -20,78 +20,66 @@ package nl.basjes.parse.useragent.calculate;
 import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 
+import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
+
 public class ConcatNONDuplicatedCalculator implements FieldCalculator {
 
-    private String targetName;
-    private String firstName;
-    private String secondName;
+    private final String targetName;
+    private final String firstName;
+    private final String secondName;
 
     public ConcatNONDuplicatedCalculator(String targetName, String firstName, String secondName) {
         this.targetName = targetName;
         this.firstName = firstName;
         this.secondName = secondName;
+
+        if (targetName  == null ||
+            firstName   == null ||
+            secondName  == null) {
+            throw new IllegalArgumentException("Target, first and second name may not be null");
+        }
     }
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
-    private ConcatNONDuplicatedCalculator() { }
+    private ConcatNONDuplicatedCalculator() {
+        targetName  = "Dummy";
+        firstName   = "Dummy";
+        secondName  = "Dummy";
+    }
 
     @Override
     public void calculate(MutableUserAgent userAgent) {
-        AgentField firstField  = firstName == null ? null : userAgent.get(firstName);
-        AgentField secondField = secondName == null ? null : userAgent.get(secondName);
+        AgentField firstField  = userAgent.get(firstName);
+        AgentField secondField = userAgent.get(secondName);
 
-        String first = null;
-        long firstConfidence = -1;
-        String second = null;
-        long secondConfidence = -1;
+        String  first               = firstField.getValue();
+        long    firstConfidence     = firstField.getConfidence();
+        String  second              = secondField.getValue();
+        long    secondConfidence    = secondField.getConfidence();
+        long    confidence          = Math.max(firstConfidence, secondConfidence);
 
-        if (firstField != null) {
-            first = firstField.getValue();
-            firstConfidence = firstField.getConfidence();
-        }
-        if (secondField != null) {
-            second = secondField.getValue();
-            secondConfidence = secondField.getConfidence();
-        }
-
-        if (first == null && second == null) {
-            return; // Nothing to do
-        }
-
-        if (second == null) {
-            if (firstConfidence >= 0) {
-                userAgent.set(targetName, first, firstConfidence);
-            } else {
-                userAgent.setForced(targetName, "Unknown", firstConfidence);
-            }
-            return; // Nothing to do
-        } else {
-            if (first == null) {
-                if (secondConfidence >= 0) {
-                    userAgent.set(targetName, second, secondConfidence);
-                } else {
-                    userAgent.setForced(targetName, "Unknown", secondConfidence);
-                }
-                return;
-            }
+        if (firstField.isDefaultValue() && secondField.isDefaultValue()) {
+            userAgent.set(targetName, NULL_VALUE, confidence);
+            return;
         }
 
         if (first.equals(second)) {
-            userAgent.set(targetName, first, firstConfidence);
-        } else {
-            if (second.startsWith(first)) {
-                userAgent.set(targetName, second, secondConfidence);
-            } else {
-                String value = first + " " + second;
-                long confidence = Math.max(firstConfidence, secondConfidence);
-                if (confidence < 0) {
-                    userAgent.setForced(targetName, value, confidence);
-                } else {
-                    userAgent.set(targetName, value, confidence);
-                }
-            }
+            userAgent.setForced(targetName, first, firstConfidence);
+            return;
         }
 
+        if (second.startsWith(first)) {
+            userAgent.setForced(targetName, second, secondConfidence);
+            return;
+        }
+
+        String value      = first + " " + second;
+        userAgent.set(targetName, value, confidence);
+    }
+
+    @Override
+    public String[] getDependencies() {
+        return new String[]{firstName, secondName};
     }
 
     @Override

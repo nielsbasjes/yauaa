@@ -110,10 +110,10 @@ public class TestUseragent {
         check(agent, name, "Four", 4);
 
         agent.set(name, "<<<null>>>", 5); // Should be used
-        check(agent, name, "Unknown", -1); // -1 --> SPECIAL CASE!!!
+        check(agent, name, "Unknown", 5);
 
-        agent.set(name, "Four", 4); // Should be IGNORED (special case remember)
-        check(agent, name, "Unknown", -1); // -1 --> SPECIAL CASE!!!
+        agent.set(name, "Four", 4); // Should be IGNORED
+        check(agent, name, "Unknown", 5);
 
         // Set a 'normal' value again.
         agent.set(name, "Three", 333); // Should be used
@@ -123,7 +123,7 @@ public class TestUseragent {
         field.setValueForced("Five", 5); // Should be used
         check(agent, name, "Five", 5);
         field.setValueForced("<<<null>>>", 4); // Should be used
-        check(agent, name, "Unknown", -1); // -1 --> SPECIAL CASE!!!
+        check(agent, name, "Unknown", 4);
     }
 
 
@@ -288,11 +288,11 @@ public class TestUseragent {
         field4.setValue("One", 1);
 
         // This is mainly used when rendering in a debugger.
-        assertEquals("{ value:'One', confidence:'1', default:'Foo' }", field0.toString());
-        assertEquals("{ value:'One', confidence:'1', default:'Foo' }", field1.toString());
-        assertEquals("{ value:'Two', confidence:'1', default:'Foo' }", field2.toString());
-        assertEquals("{ value:'One', confidence:'2', default:'Foo' }", field3.toString());
-        assertEquals("{ value:'One', confidence:'1', default:null }", field4.toString());
+        assertEquals("{ value:'One', confidence:'1', default:'Foo', isDefault:false }", field0.toString());
+        assertEquals("{ value:'One', confidence:'1', default:'Foo', isDefault:false }", field1.toString());
+        assertEquals("{ value:'Two', confidence:'1', default:'Foo', isDefault:false }", field2.toString());
+        assertEquals("{ value:'One', confidence:'2', default:'Foo', isDefault:false }", field3.toString());
+        assertEquals("{ value:'One', confidence:'1', default:null, isDefault:false }", field4.toString());
 
         assertEquals(field1, field1);
         assertEquals(field1.hashCode(), field1.hashCode());
@@ -325,7 +325,7 @@ public class TestUseragent {
         ((MutableAgentField)userAgent1.get("BackToDefault")).setValue("<<<null>>>", 84);
         assertTrue(userAgent1.get("BackToDefault").isDefaultValue());
         assertEquals("Unknown", userAgent1.getValue("BackToDefault"));
-        assertEquals(-1, userAgent1.getConfidence("BackToDefault")); // The system will LIE about the confidence here
+        assertEquals(84, userAgent1.getConfidence("BackToDefault"));
 
         assertEquals("Basjes", userAgent1.getValue("Niels"));
         assertEquals(42, userAgent1.getConfidence("Niels"));
@@ -335,9 +335,10 @@ public class TestUseragent {
         assertEquals("Basjes", userAgent2.getValue("Niels"));
         assertEquals(42, userAgent2.getConfidence("Niels"));
 
+        // A values that is "Default" is not copied so when getting the confidence it will return -1
         assertTrue(userAgent2.get("BackToDefault").isDefaultValue());
         assertEquals("Unknown", userAgent2.getValue("BackToDefault"));
-        assertEquals(-1, userAgent2.getConfidence("BackToDefault")); // The system will LIE about the confidence here
+        assertEquals(-1, userAgent2.getConfidence("BackToDefault"));
 
         assertEquals(
             // You get the fields in the order you ask them!

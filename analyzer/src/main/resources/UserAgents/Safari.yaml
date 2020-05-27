@@ -122,6 +122,8 @@ config:
     - 'agent.product.name="Mobile Safari"'
     - 'agent.(1)product.comments.entry.product.name[1]="Android"'
     extract:
+    - 'LayoutEngineClass                   :       10 : "Browser"'
+    - 'LayoutEngineName                    :       56 :"AppleWebKit"'
     - 'AgentClass                          :       56 :"Browser"'
     - 'AgentName                           :       56 :"Stock Android Browser"'
     - 'AgentVersion                        :       56 :agent.product.name="Version"^.version'
@@ -131,12 +133,16 @@ config:
     - 'agent.product.name="Safari"'
     - 'agent.(1)product.comments.entry.product.name[1]="Android"'
     extract:
+    - 'LayoutEngineClass                   :       10 : "Browser"'
+    - 'LayoutEngineName                    :       56 :"AppleWebKit"'
     - 'AgentClass                          :       56 :"Browser"'
     - 'AgentName                           :       56 :"Stock Android Browser"'
     - 'AgentVersion                        :       56 :agent.product.name="Version"^.version'
 
 - matcher:
     extract:
+    - 'LayoutEngineClass                   :       10 : "Browser"'
+    - 'LayoutEngineName                    :       10 :"AppleWebKit"'
     - 'AgentClass                          :       10 :"Browser"'
     - 'AgentName                           :       10 :"Stock Android Browser"'
     - 'AgentVersion                        :       10 :agent.product.name[1]="Android"^.version'

@@ -28,7 +28,7 @@ public class CalculateAgentEmail implements FieldCalculator {
     public void calculate(MutableUserAgent userAgent) {
         // The email address is a mess
         AgentField email = userAgent.get(AGENT_INFORMATION_EMAIL);
-        if (email != null && email.getConfidence() >= 0) {
+        if (!email.isDefaultValue()) {
             userAgent.setForced(
                 AGENT_INFORMATION_EMAIL,
                 Normalize.email(email.getValue()),
