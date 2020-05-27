@@ -6192,6 +6192,60 @@ config:
       AgentNameVersionMajor                : 'Apache Nifi 1'
       AgentInformationUrl                  : 'https://nifi.apache.org/'
 
+- test:
+    input:
+      user_agent_string: 'Apache Nifi/1.12.0 (git:rel/nifi-1.12.0; Java/1.8.0_252; Linux 4.4.0-178-generic; amd64; https://nifi.apache.org/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apache Nifi'
+      DeviceBrand                          : 'Apache'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Apache Nifi'
+      LayoutEngineVersion                  : '1.12.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Apache Nifi 1.12.0'
+      LayoutEngineNameVersionMajor         : 'Apache Nifi 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Apache Nifi'
+      AgentVersion                         : '1.12.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Apache Nifi 1.12.0'
+      AgentNameVersionMajor                : 'Apache Nifi 1'
+      AgentInformationUrl                  : 'https://nifi.apache.org/'
+
+- test:
+    input:
+      user_agent_string: 'Apache Nifi/1.12.0-SNAPSHOT (git:rel/nifi-1.11.0-231-gd98a0f5-dirty; Java/1.8.0_252; Linux 4.4.0-178-generic; amd64; https://nifi.apache.org/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apache Nifi'
+      DeviceBrand                          : 'Apache'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Apache Nifi'
+      LayoutEngineVersion                  : '1.12.0-SNAPSHOT'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Apache Nifi 1.12.0-SNAPSHOT'
+      LayoutEngineNameVersionMajor         : 'Apache Nifi 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Apache Nifi'
+      AgentVersion                         : '1.12.0-SNAPSHOT'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Apache Nifi 1.12.0-SNAPSHOT'
+      AgentNameVersionMajor                : 'Apache Nifi 1'
+      AgentInformationUrl                  : 'https://nifi.apache.org/'
+
 
 - test:
     input:
