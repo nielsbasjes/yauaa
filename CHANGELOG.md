@@ -17,6 +17,7 @@ v5.18-SNAPSHOT
   - Elastic Logstash 7.7.0
 - New/improved detections
   - Detect a very rare iPhone variant
+  - Detect RetroZilla browser
 - Build
   - Include OWASP check for bad dependencies
 

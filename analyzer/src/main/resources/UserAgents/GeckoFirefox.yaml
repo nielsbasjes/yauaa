@@ -22,6 +22,13 @@ config:
     - 'anonymized'
     - 'owasmime'
 
+- set:
+    name: 'SpecialGeckoNames'
+    values:
+    - 'Firefox'
+    - 'SeaMonkey'
+
+
 - matcher:
     variable:
     - 'RV                                  :agent.(1)product.comments.entry.(1)keyvalue.key="rv"^.value'
@@ -49,6 +56,7 @@ config:
     - 'Gecko                               :agent.(2-5)product.name="Gecko"^>>'
     require:
     - 'IsNull[@Gecko.name[-1]?BadGeckoNames]'
+    - 'IsNull[@Gecko>.name?SpecialGeckoNames]'
     extract:
     - 'AgentClass                          :     2001 :"Browser"'
     - 'AgentName                           :     2001 :@Gecko.name'
@@ -935,3 +943,131 @@ config:
       AgentLanguage                        : 'French'
       AgentLanguageCode                    : 'fr'
       AgentSecurity                        : 'Weak security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows ME; en-US; rv:1.8.1.24) Gecko/20180708 RetroZilla/2.2 SeaMonkey/1.1.19 Firefox/2.0.20'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows 9x'
+      OperatingSystemVersion               : 'Millennium Edition'
+      OperatingSystemVersionMajor          : 'Millennium Edition'
+      OperatingSystemNameVersion           : 'Windows Millennium Edition'
+      OperatingSystemNameVersionMajor      : 'Windows Millennium Edition'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1.24'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1.24'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20180708'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'RetroZilla'
+      AgentVersion                         : '2.2'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'RetroZilla 2.2'
+      AgentNameVersionMajor                : 'RetroZilla 2'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 4.0; en-US; rv:1.8.1.24) Gecko/20160422 RetroZilla/2.0 SeaMonkey/1.1.19 Firefox/2.0.20'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '4.0'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'Windows NT 4.0'
+      OperatingSystemNameVersionMajor      : 'Windows NT 4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1.24'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1.24'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20160422'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'RetroZilla'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'RetroZilla 2.0'
+      AgentNameVersionMajor                : 'RetroZilla 2'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows 98; en-US; rv:1.8.1.24) Gecko/20171013 RetroZilla/2.1 SeaMonkey/1.1.19 Firefox/2.0.20'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows 9x'
+      OperatingSystemVersion               : '98'
+      OperatingSystemVersionMajor          : '98'
+      OperatingSystemNameVersion           : 'Windows 98'
+      OperatingSystemNameVersionMajor      : 'Windows 98'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1.24'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1.24'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20171013'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'RetroZilla'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'RetroZilla 2.1'
+      AgentNameVersionMajor                : 'RetroZilla 2'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.8.1.24) Gecko/20160422 RetroZilla/2.0 SeaMonkey/1.1.19 Firefox/2.0.20'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '2000'
+      OperatingSystemVersionMajor          : '2000'
+      OperatingSystemNameVersion           : 'Windows 2000'
+      OperatingSystemNameVersionMajor      : 'Windows 2000'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1.24'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1.24'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20160422'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'RetroZilla'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'RetroZilla 2.0'
+      AgentNameVersionMajor                : 'RetroZilla 2'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
