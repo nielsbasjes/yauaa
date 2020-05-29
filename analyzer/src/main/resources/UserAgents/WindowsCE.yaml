@@ -20,12 +20,23 @@ config:
     require:
     - 'agent.product.comments.entry="Windows CE"'
     extract:
-    - 'DeviceClass                         :      101 :"Mobile"'
-    - 'DeviceName                          :      101 :"Mobile"'
-    - 'OperatingSystemClass                :      101 :"Mobile"'
-    - 'OperatingSystemName                 :      100 :"Windows CE"'
-    - 'OperatingSystemVersion              :      100 :"CE"'
-    - 'OperatingSystemNameVersion          :      100 :"Windows CE"'
+    - 'DeviceClass                         :      201 :"Mobile"'
+    - 'DeviceName                          :      201 :"Mobile"'
+    - 'OperatingSystemClass                :      201 :"Mobile"'
+    - 'OperatingSystemName                 :      200 :"Windows CE"'
+    - 'OperatingSystemVersion              :      200 :"CE"'
+    - 'OperatingSystemNameVersion          :      200 :"Windows CE"'
+
+- matcher:
+    variable:
+    - 'WindowsCE                           :agent.product.comments.entry.product.name="Windows CE"^'
+    extract:
+    - 'DeviceClass                         :      201 :"Mobile"'
+    - 'DeviceName                          :      201 :"Mobile"'
+    - 'OperatingSystemClass                :      201 :"Mobile"'
+    - 'OperatingSystemName                 :      200 :"Windows CE"'
+    - 'OperatingSystemVersion              :      200 :Concat["CE ";@WindowsCE.version]'
+    - 'OperatingSystemNameVersion          :      200 :Concat["Windows CE ";@WindowsCE.version]'
 
 - matcher:
     extract:
@@ -52,6 +63,7 @@ config:
     - 'DeviceClass                         :      401 :"Mobile"'
     - 'DeviceName                          :      402 :@Product.name'
     - 'DeviceVersion                       :      402 :@Product.version'
+
 
 #  - test:
 #      input:
@@ -199,4 +211,133 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'IE Mobile 6.12'
       AgentNameVersionMajor                : 'IE Mobile 6'
+
+
+# https://en.wikipedia.org/wiki/Minimo
+# Minimo (from "Mini Mozilla") was a project to create a version of the Mozilla web browser for small devices like PDAs and mobile phones.
+
+- matcher:
+    require:
+    - 'agent.product.name="Minimo"'
+    extract:
+    - 'DeviceClass                         :      200 : "Mobile"'
+    - 'OperatingSystemClass                :      200 : "Mobile"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux armv6l; rv: 1.8.1.5pre) Gecko/20070619 Minimo/0.020'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'ARMv6l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'ARMv6l'
+      OperatingSystemVersionMajor          : 'ARMv6l'
+      OperatingSystemNameVersion           : 'Linux ARMv6l'
+      OperatingSystemNameVersionMajor      : 'Linux ARMv6l'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1.5pre'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1.5pre'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20070619'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Minimo'
+      AgentVersion                         : '0.020'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Minimo 0.020'
+      AgentNameVersionMajor                : 'Minimo 0'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; Windows; U; Windows NT 5.1; Windows CE 5.2; rv:1.8.1.4pre) Gecko/20070327 Minimo/0.020'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Mobile'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows CE'
+      OperatingSystemVersion               : 'CE 5.2'
+      OperatingSystemVersionMajor          : 'CE 5'
+      OperatingSystemNameVersion           : 'Windows CE 5.2'
+      OperatingSystemNameVersionMajor      : 'Windows CE 5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1.4pre'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1.4pre'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20070327'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Minimo'
+      AgentVersion                         : '0.020'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Minimo 0.020'
+      AgentNameVersionMajor                : 'Minimo 0'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows CE 5.1; rv:1.8.1.4pre) Gecko/20070327 Minimo/0.020'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows CE'
+      OperatingSystemVersion               : 'CE 5.1'
+      OperatingSystemVersionMajor          : 'CE 5'
+      OperatingSystemNameVersion           : 'Windows CE 5.1'
+      OperatingSystemNameVersionMajor      : 'Windows CE 5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1.4pre'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1.4pre'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20070327'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Minimo'
+      AgentVersion                         : '0.020'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Minimo 0.020'
+      AgentNameVersionMajor                : 'Minimo 0'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; OpenBSD macppc; rv:1.8.1) Gecko/20070222 Minimo/0.016'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'OpenBsd Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'OpenBSD'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'OpenBSD ??'
+      OperatingSystemNameVersionMajor      : 'OpenBSD ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20070222'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Minimo'
+      AgentVersion                         : '0.016'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Minimo 0.016'
+      AgentNameVersionMajor                : 'Minimo 0'
+      AgentSecurity                        : 'Strong security'
 

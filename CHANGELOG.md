@@ -18,6 +18,7 @@ v5.18-SNAPSHOT
 - New/improved detections
   - Detect a very rare iPhone variant
   - Detect RetroZilla browser
+  - Detect Windows CE better and related Minimo browser
 - Build
   - Include OWASP check for bad dependencies
 
