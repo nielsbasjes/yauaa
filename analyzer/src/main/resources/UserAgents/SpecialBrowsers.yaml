@@ -3304,13 +3304,20 @@ config:
       AgentNameVersionMajor                : 'Google Earth Pro 7'
 
 
+- matcher:
+    require:
+    - 'agent.product.name[1]="OnedriveMpc"'
+    extract:
+    - 'DeviceName                          :     1000 : "<<<null>>>"'
+
 # A Microsoft OneDrive related useragent
-# TODO: Figure out what the right values are
+# The real client is kinda unknown. It is probably the OneDrive client running on Windows 10 (i.e. Desktop)
+# But it may also be a OneDrive client on a Mobile device. Because the useragent does not show this returns "Unknown".
 - test:
     input:
       user_agent_string: 'OneDriveMpc-Transform_Thumbnail/1.0'
     expected:
-      DeviceName                           : 'OnedriveMpc-Transform_Thumbnail'
+      DeviceName                           : 'Unknown'
       AgentClass                           : 'Special'
       AgentName                            : 'OneDriveMpc-Transform_Thumbnail'
       AgentVersion                         : '1.0'
