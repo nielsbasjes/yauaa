@@ -107,6 +107,7 @@ config:
       "18.17763" : "44.17763"
       "18.18362" : "44.18362.1.0"
       "18.18363" : "44.18363"
+      "18.19041" : "44.19041"
       # In addition if the Windows 10 build is not in this list we assume the base version is using the latest major
       "12"       : "20.??"
       "13"       : "28.??"
@@ -582,6 +583,36 @@ config:
       AgentVersion                         : '44.17763'
       AgentVersionMajor                    : '44'
       AgentNameVersion                     : 'Edge 44.17763'
+      AgentNameVersionMajor                : 'Edge 44'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19041'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      OperatingSystemVersionBuild          : '19041'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'EdgeHTML'
+      LayoutEngineVersion                  : '18'
+      LayoutEngineVersionMajor             : '18'
+      LayoutEngineNameVersion              : 'EdgeHTML 18'
+      LayoutEngineNameVersionMajor         : 'EdgeHTML 18'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '44.19041'
+      AgentVersionMajor                    : '44'
+      AgentNameVersion                     : 'Edge 44.19041'
       AgentNameVersionMajor                : 'Edge 44'
 
 
