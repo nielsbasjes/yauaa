@@ -29,7 +29,7 @@ config:
 
 - matcher:
     variable:
-    - 'WindowsCE                           :agent.product.comments.entry.product.name="Windows CE"^'
+    - 'WindowsCE                           :agent.product.(1)comments.(1-5)entry.(1)product.(1)name="Windows CE"^'
     extract:
     - 'DeviceClass                         :      201 :"Mobile"'
     - 'DeviceName                          :      201 :"Mobile"'
