@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Limitations of the engine · Yauaa: Yet Another UserAgent Analyzer</title>
+        <title>Elastic Search · Yauaa: Yet Another UserAgent Analyzer</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -59,10 +59,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="README-MemoryUsage.html" />
+    <link rel="next" href="Internals-BaseDesign.html" />
     
     
-    <link rel="prev" href="README-Usage.html" />
+    <link rel="prev" href="UDF-Logstash.html" />
     
 
     </head>
@@ -152,7 +152,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.2" data-path="README-Limitations.html">
+        <li class="chapter " data-level="2.2" data-path="README-Limitations.html">
             
                 <a href="README-Limitations.html">
             
@@ -354,7 +354,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.11" data-path="UDF-ElasticSearch.html">
+        <li class="chapter active" data-level="3.11" data-path="UDF-ElasticSearch.html">
             
                 <a href="UDF-ElasticSearch.html">
             
@@ -564,7 +564,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Limitations of the engine</a>
+        <a href="." >Elastic Search</a>
     </h1>
 </div>
 
@@ -579,37 +579,167 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="limitations">Limitations</h1>
-<p>This system is based on analyzing the useragent string and looking for the patterns in the useragent string as they have been defined by parties like Google, Microsoft, Samsung and many others. These have been augmented with observations how developers apparently do things. There are really no (ok, very limited) lookup tables that define if a certain device name is a Phone or a Tablet. This makes this system very maintainable because there is no need to have a list of all possible devices.</p>
-<p>As a consequence if a useragent does not follow these patterns the analysis will yield the &apos;wrong&apos; answer.
-Take for example these two (both were found exactly as shown here in the logs of a live website):</p>
-<pre><code>Mozilla/5.0 (Linux; Android 5.1; SAMSUNG-T805s Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.94 Mobile Safari/537.36
-Mozilla/5.0 (Linux; Android 4.4.2; SAMSUNG-T805S Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.89 Safari/537.36
-</code></pre><p>The difference between &quot;Mobile Safari&quot; and &quot;Safari&quot; has been defined for Google Chrome as the difference between &quot;Phone&quot; and &quot;Tablet&quot; (see <a href="https://developer.chrome.com/multidevice/user-agent" target="_blank">https://developer.chrome.com/multidevice/user-agent</a> ).</p>
-<p>And as you can see in this example: we sometimes get it wrong.
-The impact in this case is however very limited: Of the 445 visitors I found using this device only 2 were classified wrong all others were correct.</p>
-<p>A second example is when the Samsung Browser is installed on a non-Samsung device (in this example a Google Nexus 6):</p>
-<pre><code>Mozilla/5.0 (Linux; Android 7.0; SAMSUNG Nexus 6 Build/NBD92G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.4 Chrome/51.0.2704.106 Mobile Safari/537.36
-</code></pre><p>As you can see this browser assumes it is only installed on Samsung devices so they &apos;force&apos; the word Samsung in there.
-In this case you will see this being reported as a &quot;Samsung Nexus 6&quot;, which is obviously wrong.</p>
-<h1 id="device-name-and-device-brand">Device Name and Device Brand</h1>
-<p>The detection of the brand and name of the device are the most britle and unreliable part of the output.</p>
-<p>There are a few reasons for this:</p>
-<ol>
-<li>There are a LOT of different devices from a LOT of vendors.
-To give you an impression; In november 2018 I did a count on the index page of <a href="https://deviceatlas.com/device-data/devices" target="_blank">DeviceAtlas</a> and found over 4100 brands and a total of over 55000 different devices.</li>
-<li>In most cases the useragent string ONLY include the model of the device and NOT the brand. So you need to be able to determine JUST from the model what brand it was.</li>
-<li>This system tries to limit the number of lookup tables and rely on patterns as much as possible. As a consequence I really do not want to have a complete list of all devices in here. So what are the patterns in the mapping from model to brand?</li>
-<li>I did an analysis on some of these brands and found that Acer, Lenovo, LG and QMobile all have a device called &apos;A200&apos;.
-So if the useragent only contains &apos;A200&apos; there is no way to determine what device it really was.</li>
-</ol>
-<p>So as a consequence I have chosen to limit this detection to</p>
-<ol>
-<li>Brands that are included as the first word in the appropriate field.</li>
-<li>Special cases (like robots)</li>
-<li>The &quot;most used brands&quot; as good as possible.</li>
-</ol>
-<p><strong>WARNING</strong>: The detection of DeviceBrand will therefor never be complete and accurate.</p>
+                                <h1 id="user-defined-function-for-elastic-search">User Defined Function for Elastic Search</h1>
+<h1 id="status--experimental-">STATUS: ... EXPERIMENTAL ...</h1>
+<p>The ElasticSearch ingest plugin is very new.</p>
+<h2 id="getting-the-udf">Getting the UDF</h2>
+<p>You can get the prebuilt ingest plugin from <a href="https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-elasticsearch/5.17/yauaa-elasticsearch-5.17.zip" target="_blank">maven central</a>.</p>
+<h2 id="installing-the-plugin">Installing the plugin</h2>
+<p>You only need to install it into your elasticsearch once</p>
+<pre><code>bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-5.17.zip</code></pre>
+
+<h2 id="usage">Usage</h2>
+<p>This plugin is intended to be used in an ingest pipeline.</p>
+<p>You have to specify the name of the input <code>field</code> and the place where
+the possible configuration flags are:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Mandatory/Optional</th>
+<th>Description</th>
+<th>Default</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>field</td>
+<td>M</td>
+<td>The name of the input field that contains the UserAgent string</td>
+<td>-</td>
+<td><code>&quot;useragent&quot;</code></td>
+</tr>
+<tr>
+<td>target_field</td>
+<td>M</td>
+<td>The name of the output structure that will be filled with the parse results</td>
+<td><code>&quot;user_agent&quot;</code></td>
+<td><code>&quot;parsed_ua&quot;</code></td>
+</tr>
+<tr>
+<td>fieldNames</td>
+<td>O</td>
+<td>A list of Yauaa fieldnames that are desired. When specified the system will limit processing to what is needed to get these. This means faster and less memory used.</td>
+<td>All possible fields</td>
+<td><code>[ &quot;DeviceClass&quot;, &quot;DeviceBrand&quot;, &quot;DeviceName&quot;, &quot;AgentNameVersionMajor&quot; ]</code></td>
+</tr>
+<tr>
+<td>cacheSize</td>
+<td>O</td>
+<td>The number of entries in the LRU cache of the parser</td>
+<td><code>10000</code></td>
+<td><code>100</code></td>
+</tr>
+<tr>
+<td>preheat</td>
+<td>O</td>
+<td>How many testcases are put through the parser at startup to warmup the JVM</td>
+<td><code>0</code></td>
+<td><code>1000</code></td>
+</tr>
+<tr>
+<td>extraRules</td>
+<td>O</td>
+<td>A yaml expression that is a set of extra rules and testcases.</td>
+<td>-</td>
+<td><code>&quot;config:\n- matcher:\n    extract:\n      - &apos;&quot;&apos;&quot;&apos;FirstProductName     : 1 :agent.(1)product.(1)name&apos;&quot;&apos;&quot;&apos;\n&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="example-usage">Example usage</h2>
+<h3 id="basic-pipeline">Basic pipeline</h3>
+<p>Create a pipeline that just extracts everything using the default settings:</p>
+<pre><code>curl -H &apos;Content-Type: application/json&apos; -X PUT &apos;localhost:9200/_ingest/pipeline/yauaa-test-pipeline_basic&apos; -d &apos;
+{
+  &quot;description&quot;: &quot;A pipeline to do whatever&quot;,
+  &quot;processors&quot;: [
+    {
+      &quot;yauaa&quot; : {
+        &quot;field&quot;         : &quot;useragent&quot;,
+        &quot;target_field&quot;  : &quot;parsed&quot;
+      }
+    }
+  ]
+}
+&apos;
+</code></pre><h3 id="common-pipeline">Common pipeline</h3>
+<p>In this example a pipeline is created that only gets the fields that are actually desired.</p>
+<pre><code>curl -H &apos;Content-Type: application/json&apos; -X PUT &apos;localhost:9200/_ingest/pipeline/yauaa-test-pipeline_some&apos; -d &apos;
+{
+  &quot;description&quot;: &quot;A pipeline to do whatever&quot;,
+  &quot;processors&quot;: [
+    {
+      &quot;yauaa&quot; : {
+        &quot;field&quot;         : &quot;useragent&quot;,
+        &quot;target_field&quot;  : &quot;parsed&quot;,
+        &quot;fieldNames&quot;    : [ &quot;DeviceClass&quot;, &quot;DeviceBrand&quot;, &quot;DeviceName&quot;, &quot;AgentNameVersionMajor&quot;, &quot;FirstProductName&quot; ],
+      }
+    }
+  ]
+}
+&apos;
+</code></pre><h3 id="advanced-pipeline">Advanced pipeline</h3>
+<p>In this example a pipeline is created that includes an example of a custom rule.
+The hardest part is making the yaml (with quotes, newlines and the needed indentation) encode correctly inside a JSon structure.</p>
+<pre><code>curl -H &apos;Content-Type: application/json&apos; -X PUT &apos;localhost:9200/_ingest/pipeline/yauaa-test-pipeline_full&apos; -d &apos;
+{
+  &quot;description&quot;: &quot;A pipeline to do whatever&quot;,
+  &quot;processors&quot;: [
+    {
+      &quot;yauaa&quot; : {
+        &quot;field&quot;         : &quot;useragent&quot;,
+        &quot;target_field&quot;  : &quot;parsed&quot;,
+        &quot;fieldNames&quot;    : [ &quot;DeviceClass&quot;, &quot;DeviceBrand&quot;, &quot;DeviceName&quot;, &quot;AgentNameVersionMajor&quot;, &quot;FirstProductName&quot; ],
+        &quot;cacheSize&quot; : 10,
+        &quot;preheat&quot;   : 10,
+        &quot;extraRules&quot; : &quot;config:\n- matcher:\n    extract:\n      - &apos;&quot;&apos;&quot;&apos;FirstProductName     : 1 :agent.(1)product.(1)name&apos;&quot;&apos;&quot;&apos;\n&quot;
+      }
+    }
+  ]
+}
+&apos;
+</code></pre><h2 id="put-record">Put record</h2>
+<p>I put a record in ElasticSearch using the above mentioned <code>Advanced pipeline</code></p>
+<pre><code>curl -H &apos;Content-Type: application/json&apos; -X PUT &apos;localhost:9200/my-index/my-type/1?pipeline=yauaa-test-pipeline_full&apos; -d &apos;
+{
+  &quot;useragent&quot; : &quot;Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36&quot;
+}
+&apos;
+</code></pre><p>which returns</p>
+<pre><code>{&quot;_index&quot;:&quot;my-index&quot;,&quot;_type&quot;:&quot;my-type&quot;,&quot;_id&quot;:&quot;1&quot;,&quot;_version&quot;:1,&quot;result&quot;:&quot;created&quot;,&quot;_shards&quot;:{&quot;total&quot;:2,&quot;successful&quot;:1,&quot;failed&quot;:0},&quot;_seq_no&quot;:0,&quot;_primary_term&quot;:1}
+</code></pre><p>then I retrieve the record from elasticsearch and the additional parse results are now part of the indexed record.</p>
+<pre><code>curl -s -H &apos;Content-Type: application/json&apos; -X GET &apos;localhost:9200/my-index/my-type/1&apos; | python -m json.tool
+</code></pre><p>results in</p>
+<pre><code>{
+    &quot;_id&quot;: &quot;1&quot;,
+    &quot;_index&quot;: &quot;my-index&quot;,
+    &quot;_primary_term&quot;: 1,
+    &quot;_seq_no&quot;: 0,
+    &quot;_source&quot;: {
+        &quot;parsed&quot;: {
+            &quot;AgentName&quot;: &quot;Chrome&quot;,
+            &quot;AgentNameVersionMajor&quot;: &quot;Chrome 53&quot;,
+            &quot;AgentVersion&quot;: &quot;53.0.2785.124&quot;,
+            &quot;AgentVersionMajor&quot;: &quot;53&quot;,
+            &quot;DeviceBrand&quot;: &quot;Google&quot;,
+            &quot;DeviceClass&quot;: &quot;Phone&quot;,
+            &quot;DeviceName&quot;: &quot;Google Nexus 6&quot;,
+            &quot;FirstProductName&quot;: &quot;Mozilla&quot;
+        },
+        &quot;useragent&quot;: &quot;Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36&quot;
+    },
+    &quot;_type&quot;: &quot;my-type&quot;,
+    &quot;_version&quot;: 1,
+    &quot;found&quot;: true
+}
+</code></pre><h1 id="notes-for-developers">NOTES for developers</h1>
+<p>The ElasticSearch testing tools are quick to complain about jar classloading issues: &quot;jar hell&quot;.</p>
+<p>To make it possible to test this in IntelliJ you&apos;ll need to set a custom property</p>
+<p>1) Help --&gt; Edit Custom properties
+2) Make sure there is a line with <code>idea.no.launcher=true</code>
+3) Restart IntelliJ</p>
+<p>See also <a href="https://stackoverflow.com/questions/51045201/using-the-elasticsearch-test-framework-in-intellij-how-to-resolve-the-jar-hell/51045272" target="_blank">https://stackoverflow.com/questions/51045201/using-the-elasticsearch-test-framework-in-intellij-how-to-resolve-the-jar-hell/51045272</a></p>
 
                                 
                                 </section>
@@ -637,12 +767,12 @@ So if the useragent only contains &apos;A200&apos; there is no way to determine 
 
             
                 
-                <a href="README-Usage.html" class="navigation navigation-prev " aria-label="Previous page: Basic usage">
+                <a href="UDF-Logstash.html" class="navigation navigation-prev " aria-label="Previous page: Elastic Logstash">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="README-MemoryUsage.html" class="navigation navigation-next " aria-label="Next page: Memory usage">
+                <a href="Internals-BaseDesign.html" class="navigation navigation-next " aria-label="Next page: Base design idea">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -653,7 +783,7 @@ So if the useragent only contains &apos;A200&apos; there is no way to determine 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Limitations of the engine","level":"2.2","depth":1,"next":{"title":"Memory usage","level":"2.3","depth":1,"path":"README-MemoryUsage.md","ref":"README-MemoryUsage.md","articles":[]},"previous":{"title":"Basic usage","level":"2.1","depth":1,"path":"README-Usage.md","ref":"README-Usage.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap","livereload"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.17"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-Limitations.md","mtime":"2020-03-30T08:07:58.904Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-08T13:45:04.016Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Elastic Search","level":"3.11","depth":1,"next":{"title":"Base design idea","level":"4.1","depth":1,"path":"Internals-BaseDesign.md","ref":"Internals-BaseDesign.md","articles":[]},"previous":{"title":"Elastic Logstash","level":"3.10","depth":1,"path":"UDF-Logstash.md","ref":"UDF-Logstash.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap","livereload"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.17"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"UDF-ElasticSearch.md","mtime":"2020-06-08T09:26:20.903Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-08T13:45:04.016Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
