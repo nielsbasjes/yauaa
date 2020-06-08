@@ -15,6 +15,7 @@ v5.18-SNAPSHOT
   - Apache Flink     1.10.1
   - Apache Beam      2.21.0
   - Elastic Logstash 7.7.0
+- New UDF: ElasticSearch 7.7.0
 - New/improved detections
   - Detect a very rare iPhone variant
   - Detect RetroZilla browser

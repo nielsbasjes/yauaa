@@ -1,4 +1,4 @@
-# User Defined Function for Logstash
+# User Defined Function for Elastic Logstash
 
 # STATUS: ... EXPERIMENTAL ...
 The logstash UDF java api is still experimental.

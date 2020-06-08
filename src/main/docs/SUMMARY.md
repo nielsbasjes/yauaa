@@ -23,7 +23,8 @@
 * [Apache Hive](UDF-ApacheHive.md)
 * [Apache Nifi](UDF-ApacheNifi.md)
 * [Apache Pig](UDF-ApachePig.md)
-* [Logstash](UDF-Logstash.md)
+* [Elastic Logstash](UDF-Logstash.md)
+* [Elastic Search](UDF-ElasticSearch.md)
 
 ### Internals
 * [Base design idea](Internals-BaseDesign.md)
