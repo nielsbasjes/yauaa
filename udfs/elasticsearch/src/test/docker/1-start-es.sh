@@ -22,7 +22,7 @@ export ELK_VERSION=7.7.0
 DOCKER_IMAGE=yauaa-elasticsearch:latest
 CONTAINER_NAME=yauaa-elasticsearch
 
-# First we wipe the old version of the image
+# First we fully wipe the old instance of our integration test
 docker kill ${CONTAINER_NAME}
 docker rm ${CONTAINER_NAME}
 docker rmi ${DOCKER_IMAGE}
@@ -35,6 +35,14 @@ echo "Starting ElasticSearch with plugin installed"
 docker run -d --rm -p 9300:9300 -p 9200:9200 --name yauaa-elasticsearch  "${DOCKER_IMAGE}"
 
 echo "Waiting for ElasticSearch to become operational"
-until curl http://localhost:9200/_cluster/health?pretty; do sleep 5; done
+count=0
+until curl http://localhost:9200/_cluster/health?pretty; do
+  sleep 1;
+  count=$((count+1));
+  if [[ $count -ge 10 ]];
+  then
+    exit 255;
+  fi
+done
 
 echo "ElasticSearch is operational now"
