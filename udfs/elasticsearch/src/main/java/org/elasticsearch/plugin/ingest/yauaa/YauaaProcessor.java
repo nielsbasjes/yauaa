@@ -104,12 +104,12 @@ public class YauaaProcessor extends AbstractProcessor {
 
         @Override
         public YauaaProcessor create(Map<String, Processor.Factory> factories, String tag, Map<String, Object> config) {
-            String       field       = readStringProperty(TYPE, tag, config, "field");
-            String       targetField = readStringProperty(TYPE, tag, config, "target_field", "user_agent");
-            List<String> fieldNames  = readOptionalList(TYPE, tag, config, "fieldNames");
-            Integer      cacheSize   = readIntProperty(TYPE, tag, config, "cacheSize", -1);
-            Integer      preheat   = readIntProperty(TYPE, tag, config, "preheat", -1);
-            String       extraRules = readOptionalStringProperty(TYPE, tag, config, "extraRules");
+            String       field          = readStringProperty(TYPE, tag, config, "field");
+            String       targetField    = readStringProperty(TYPE, tag, config, "target_field", "user_agent");
+            List<String> fieldNames     = readOptionalList(TYPE, tag, config, "fieldNames");
+            Integer      cacheSize      = readIntProperty(TYPE, tag, config, "cacheSize", -1);
+            Integer      preheat        = readIntProperty(TYPE, tag, config, "preheat", -1);
+            String       extraRules     = readOptionalStringProperty(TYPE, tag, config, "extraRules");
 
             return new YauaaProcessor(tag, field, targetField, fieldNames, cacheSize, preheat, extraRules);
         }

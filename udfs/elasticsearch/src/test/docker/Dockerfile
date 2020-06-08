@@ -20,14 +20,16 @@ ARG ELK_VERSION
 # https://github.com/elastic/elasticsearch-docker
 FROM docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
 
-COPY ./plugin ./plugin
-COPY elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
+COPY ./target/*.zip ./plugin/
+COPY src/test/docker/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 # Add your elasticsearch plugins setup here
 # Example: RUN elasticsearch-plugin install analysis-icu
 #RUN ls -laF /usr/share/elasticsearch/plugin/yauaa-elasticsearch*.zip
-RUN bin/elasticsearch-plugin -v -v -v install file:///$(ls /usr/share/elasticsearch/plugin/*.zip)
+RUN bin/elasticsearch-plugin -v -v -v install file:///$(ls /usr/share/elasticsearch/plugin/*.zip | head -1)
 
 ENV ES_JAVA_OPTS "-Xmx1024m -Xms1024m"
+
+RUN ls -laF /usr/share/elasticsearch/plugin
 
 EXPOSE 9200
 EXPOSE 9300

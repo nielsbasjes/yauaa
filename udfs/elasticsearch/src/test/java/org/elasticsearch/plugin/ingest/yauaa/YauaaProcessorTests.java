@@ -19,7 +19,6 @@ package org.elasticsearch.plugin.ingest.yauaa;
 
 import org.elasticsearch.ingest.IngestDocument;
 import org.elasticsearch.ingest.RandomDocumentPicks;
-import org.elasticsearch.test.ESTestCase;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
@@ -28,18 +27,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.apache.lucene.util.LuceneTestCase.random;
+import static org.elasticsearch.test.ESTestCase.randomAlphaOfLength;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.not;
 
-public class YauaaProcessorTests extends ESTestCase {
+public class YauaaProcessorTests {
 
     private static final String SOURCE_FIELD = "source_field";
     private static final String TARGET_FIELD = "target_field";
 
     @SuppressWarnings("unchecked")
     @Test
-    public void testThatProcessorWorks() throws Exception {
+    public void testThatProcessorWorks() {
         Map<String, Object> document = new HashMap<>();
         document.put(SOURCE_FIELD,
             "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
@@ -54,33 +55,33 @@ public class YauaaProcessorTests extends ESTestCase {
 
         Map<String, String> results = (Map<String, String>) data.get(TARGET_FIELD);
 
-        MatcherAssert.assertThat(results, hasEntry("DeviceClass", "Phone"));
-        MatcherAssert.assertThat(results, hasEntry("DeviceBrand", "Google"));
-        MatcherAssert.assertThat(results, hasEntry("DeviceName", "Google Nexus 6"));
-        MatcherAssert.assertThat(results, hasEntry("OperatingSystemClass", "Mobile"));
-        MatcherAssert.assertThat(results, hasEntry("OperatingSystemName", "Android"));
-        MatcherAssert.assertThat(results, hasEntry("OperatingSystemNameVersion", "Android 7.0"));
-        MatcherAssert.assertThat(results, hasEntry("OperatingSystemNameVersionMajor", "Android 7"));
-        MatcherAssert.assertThat(results, hasEntry("OperatingSystemVersion", "7.0"));
-        MatcherAssert.assertThat(results, hasEntry("OperatingSystemVersionBuild", "NBD90Z"));
-        MatcherAssert.assertThat(results, hasEntry("OperatingSystemVersionMajor", "7"));
-        MatcherAssert.assertThat(results, hasEntry("LayoutEngineClass", "Browser"));
-        MatcherAssert.assertThat(results, hasEntry("LayoutEngineName", "Blink"));
-        MatcherAssert.assertThat(results, hasEntry("LayoutEngineNameVersion", "Blink 53.0"));
-        MatcherAssert.assertThat(results, hasEntry("LayoutEngineNameVersionMajor", "Blink 53"));
-        MatcherAssert.assertThat(results, hasEntry("LayoutEngineVersion", "53.0"));
-        MatcherAssert.assertThat(results, hasEntry("LayoutEngineVersionMajor", "53"));
-        MatcherAssert.assertThat(results, hasEntry("AgentClass", "Browser"));
-        MatcherAssert.assertThat(results, hasEntry("AgentName", "Chrome"));
-        MatcherAssert.assertThat(results, hasEntry("AgentNameVersion", "Chrome 53.0.2785.124"));
-        MatcherAssert.assertThat(results, hasEntry("AgentNameVersionMajor", "Chrome 53"));
-        MatcherAssert.assertThat(results, hasEntry("AgentVersion", "53.0.2785.124"));
-        MatcherAssert.assertThat(results, hasEntry("AgentVersionMajor", "53"));
+        assertHasKValue(results, "DeviceClass",                      "Phone");
+        assertHasKValue(results, "DeviceBrand",                      "Google");
+        assertHasKValue(results, "DeviceName",                       "Google Nexus 6");
+        assertHasKValue(results, "OperatingSystemClass",             "Mobile");
+        assertHasKValue(results, "OperatingSystemName",              "Android");
+        assertHasKValue(results, "OperatingSystemNameVersion",       "Android 7.0");
+        assertHasKValue(results, "OperatingSystemNameVersionMajor",  "Android 7");
+        assertHasKValue(results, "OperatingSystemVersion",           "7.0");
+        assertHasKValue(results, "OperatingSystemVersionBuild",      "NBD90Z");
+        assertHasKValue(results, "OperatingSystemVersionMajor",      "7");
+        assertHasKValue(results, "LayoutEngineClass",                "Browser");
+        assertHasKValue(results, "LayoutEngineName",                 "Blink");
+        assertHasKValue(results, "LayoutEngineNameVersion",          "Blink 53.0");
+        assertHasKValue(results, "LayoutEngineNameVersionMajor",     "Blink 53");
+        assertHasKValue(results, "LayoutEngineVersion",              "53.0");
+        assertHasKValue(results, "LayoutEngineVersionMajor",         "53");
+        assertHasKValue(results, "AgentClass",                       "Browser");
+        assertHasKValue(results, "AgentName",                        "Chrome");
+        assertHasKValue(results, "AgentNameVersion",                 "Chrome 53.0.2785.124");
+        assertHasKValue(results, "AgentNameVersionMajor",            "Chrome 53");
+        assertHasKValue(results, "AgentVersion",                     "53.0.2785.124");
+        assertHasKValue(results, "AgentVersionMajor",                "53");
     }
 
     @SuppressWarnings("unchecked")
     @Test
-    public void testExtraRules() throws Exception {
+    public void testExtraRules() {
         Map<String, Object> document = new HashMap<>();
         document.put(SOURCE_FIELD,
             "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
@@ -101,34 +102,41 @@ public class YauaaProcessorTests extends ESTestCase {
         Map<String, String> results = (Map<String, String>) data.get(TARGET_FIELD);
 
         // The EXPLICITLY requested fields
-        MatcherAssert.assertThat(results, hasEntry("FirstProductName", "Mozilla"));
-        MatcherAssert.assertThat(results, hasEntry("DeviceClass", "Phone"));
-        MatcherAssert.assertThat(results, hasEntry("DeviceBrand", "Google"));
-        MatcherAssert.assertThat(results, hasEntry("DeviceName", "Google Nexus 6"));
-        MatcherAssert.assertThat(results, hasEntry("AgentNameVersionMajor", "Chrome 53"));
+        assertHasKValue(results, "FirstProductName",        "Mozilla");
+        assertHasKValue(results, "DeviceClass",             "Phone");
+        assertHasKValue(results, "DeviceBrand",             "Google");
+        assertHasKValue(results, "DeviceName",              "Google Nexus 6");
+        assertHasKValue(results, "AgentNameVersionMajor",   "Chrome 53");
 
         // The IMPLICITLY requested fields (i.e. partials of the actually requested ones)
-        MatcherAssert.assertThat(results, hasEntry("AgentName", "Chrome"));
-        MatcherAssert.assertThat(results, hasEntry("AgentVersion", "53.0.2785.124"));
-        MatcherAssert.assertThat(results, hasEntry("AgentVersionMajor", "53"));
+        assertHasKValue(results, "AgentName",               "Chrome");
+        assertHasKValue(results, "AgentVersion",            "53.0.2785.124");
+        assertHasKValue(results, "AgentVersionMajor",       "53");
 
         // The NOT requested fields
-        MatcherAssert.assertThat(results, not(hasKey("OperatingSystemClass")));
-        MatcherAssert.assertThat(results, not(hasKey("OperatingSystemName")));
-        MatcherAssert.assertThat(results, not(hasKey("OperatingSystemNameVersion")));
-        MatcherAssert.assertThat(results, not(hasKey("OperatingSystemNameVersionMajor")));
-        MatcherAssert.assertThat(results, not(hasKey("OperatingSystemVersion")));
-        MatcherAssert.assertThat(results, not(hasKey("OperatingSystemVersionBuild")));
-        MatcherAssert.assertThat(results, not(hasKey("OperatingSystemVersionMajor")));
-        MatcherAssert.assertThat(results, not(hasKey("LayoutEngineClass")));
-        MatcherAssert.assertThat(results, not(hasKey("LayoutEngineName")));
-        MatcherAssert.assertThat(results, not(hasKey("LayoutEngineNameVersion")));
-        MatcherAssert.assertThat(results, not(hasKey("LayoutEngineNameVersionMajor")));
-        MatcherAssert.assertThat(results, not(hasKey("LayoutEngineVersion")));
-        MatcherAssert.assertThat(results, not(hasKey("LayoutEngineVersionMajor")));
-        MatcherAssert.assertThat(results, not(hasKey("AgentClass")));
-        MatcherAssert.assertThat(results, not(hasKey("AgentNameVersion")));
+        assertHasNotKey(results, "OperatingSystemClass");
+        assertHasNotKey(results, "OperatingSystemName");
+        assertHasNotKey(results, "OperatingSystemNameVersion");
+        assertHasNotKey(results, "OperatingSystemNameVersionMajor");
+        assertHasNotKey(results, "OperatingSystemVersion");
+        assertHasNotKey(results, "OperatingSystemVersionBuild");
+        assertHasNotKey(results, "OperatingSystemVersionMajor");
+        assertHasNotKey(results, "LayoutEngineClass");
+        assertHasNotKey(results, "LayoutEngineName");
+        assertHasNotKey(results, "LayoutEngineNameVersion");
+        assertHasNotKey(results, "LayoutEngineNameVersionMajor");
+        assertHasNotKey(results, "LayoutEngineVersion");
+        assertHasNotKey(results, "LayoutEngineVersionMajor");
+        assertHasNotKey(results, "AgentClass");
+        assertHasNotKey(results, "AgentNameVersion");
     }
 
+    private void assertHasKValue(Map<String, String> results, String key, String value) {
+        MatcherAssert.assertThat(results, hasEntry(key, value));
+    }
+
+    private void assertHasNotKey(Map<String, String> results, String key) {
+        MatcherAssert.assertThat(results, not(hasKey(key)));
+    }
 
 }

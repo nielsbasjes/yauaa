@@ -18,7 +18,7 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-( cd .. ; mvn clean package )
+( cd "${DIR}/../../.." && mvn clean package )
 
 "${DIR}/1-start-es.sh"
 "${DIR}/2-do-test.sh"
