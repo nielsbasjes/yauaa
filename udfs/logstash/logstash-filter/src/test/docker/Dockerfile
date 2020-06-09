@@ -19,12 +19,10 @@ ARG ELK_VERSION
 
 FROM docker.elastic.co/logstash/logstash:${ELK_VERSION}
 
-RUN echo 3
-
 COPY ./target/*.gem                /plugin/
 RUN rm  /usr/share/logstash/pipeline/logstash.conf
 COPY src/test/docker/run-test.conf /usr/share/logstash/pipeline/
 COPY src/test/docker/logstash.yml  /usr/share/logstash/config/
 
-RUN echo -e "\n\n\nThis next step can take quite long.\n\n\n"
+RUN echo -e "\n\n\nThis next step can take quite long (about 1 minute is 'normal').\n\n\n"
 RUN bin/logstash-plugin install $(ls /plugin/*.gem | head -1)
