@@ -161,6 +161,25 @@
         <artifactId>jacoco-maven-plugin</artifactId>
       </plugin>
 
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>Run Docker based IT test</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${basedir}/src/test/docker/run-it-test.sh</executable>
+              <arguments>
+                <agrument>${elasticsearch.version}</agrument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
 
     </plugins>
 

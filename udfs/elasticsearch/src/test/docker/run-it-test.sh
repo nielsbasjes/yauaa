@@ -18,24 +18,25 @@
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
-(cd "${DIR}/../../.." && mvn clean package)
-
-export ELK_VERSION=7.7.0
+export ELK_VERSION=$1
 
 DOCKER_IMAGE=yauaa-elasticsearch:latest
 CONTAINER_NAME=yauaa-elasticsearch
 
-# First we fully wipe the old instance of our integration test
+# First we fully wipe any old instance of our integration test
+echo "Removing any remaining stuff from previous test runs."
 docker kill ${CONTAINER_NAME}
 docker rm ${CONTAINER_NAME}
 docker rmi ${DOCKER_IMAGE}
 
 # Second we build a new image with the plugin installed
+echo "Building docker image for ElasticSearch ${ELK_VERSION} with the plugin installed."
 docker build --build-arg ELK_VERSION="${ELK_VERSION}" -t "${DOCKER_IMAGE}" -f "${DIR}/Dockerfile" "${DIR}/../../.."
 
 # Third we start the instance
-echo "Starting ElasticSearch with plugin installed"
-docker run -d --rm -p 9300:9300 -p 9200:9200 --name yauaa-elasticsearch "${DOCKER_IMAGE}"
+echo "Starting ElasticSearch with plugin installed."
+# NOTE: Using & instead of -d so you'll see the console logs os ES (which is useful if something goes wrong)
+docker run -p 9300:9300 -p 9200:9200 --name yauaa-elasticsearch "${DOCKER_IMAGE}" &
 
 killContainer() {
   docker kill ${CONTAINER_NAME}
@@ -44,22 +45,30 @@ killContainer() {
 trap killContainer EXIT
 
 echo "Waiting for ElasticSearch to become operational"
-count=0
-until curl http://localhost:9200/_cluster/health?pretty; do
+# We wait for at most 60 seconds
+count=60
+until curl -s http://localhost:9200/_cluster/health?pretty; do
   sleep 1
-  count=$((count + 1))
-  if [[ $count -ge 20 ]]; then
-    echo "Test FAILED"
+  count=$((count - 1))
+  if docker ps --filter "name=${CONTAINER_NAME}" | grep -F "${CONTAINER_NAME}" > /dev/null ;
+  then
+    echo -- "- Remaining waiting: ${count}"
+    if [[ $count -eq 0 ]]; then
+      echo "Test FAILED (had to wait too long)"
+      exit 255
+    fi
+  else
+    echo "Test FAILED (container has stopped)"
     exit 255
   fi
-done
 
-echo "ElasticSearch is operational now"
+done
+echo "ElasticSearch is operational now."
 
 # =================================================="
-echo "Loading pipeline "
+echo "Loading pipeline."
 
-curl -H 'Content-Type: application/json' -X PUT 'localhost:9200/_ingest/pipeline/yauaa-test-pipeline_some' -d '
+curl -s -H 'Content-Type: application/json' -X PUT 'localhost:9200/_ingest/pipeline/yauaa-test-pipeline_some' -d '
 {
   "description": "A pipeline to do whatever",
   "processors": [
@@ -76,24 +85,24 @@ curl -H 'Content-Type: application/json' -X PUT 'localhost:9200/_ingest/pipeline
   ]
 }
 '
-echo " done"
 
 # =================================================="
-echo "Putting record "
+echo "Putting record."
 
-curl -H 'Content-Type: application/json' -X PUT 'localhost:9200/my-index/my-type/2?pipeline=yauaa-test-pipeline_some' -d '
+curl -s -H 'Content-Type: application/json' -X PUT 'localhost:9200/my-index/my-type/2?pipeline=yauaa-test-pipeline_some' -d '
 {
   "useragent" : "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36"
 }
 '
-echo " done"
 
 # =================================================="
 # Get result"
+echo "Retrieving result and checking if it contains the desired value."
 
-curl -s -H 'Content-Type: application/json' -X GET 'localhost:9200/my-index/my-type/2' |
-  python -m json.tool |
-  fgrep '"AgentNameVersionMajor": "Chrome 53"'
+curl -s -H 'Content-Type: application/json' -X GET 'localhost:9200/my-index/my-type/2' | \
+  python -m json.tool | \
+  grep -F '"AgentNameVersionMajor"' | \
+  grep -F '"Chrome 53"'
 
 RESULT=$?
 
