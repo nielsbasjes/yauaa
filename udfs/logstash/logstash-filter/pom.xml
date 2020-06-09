@@ -204,8 +204,8 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>1.6.0</version>
         <executions>
+
           <execution>
             <id>Build the final gem</id>
             <phase>package</phase>
@@ -221,6 +221,21 @@
               </arguments>
             </configuration>
           </execution>
+
+          <execution>
+            <id>Run Docker based IT test</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${basedir}/src/test/docker/run-it-test.sh</executable>
+              <arguments>
+                <agrument>${logstash.version}</agrument>
+              </arguments>
+            </configuration>
+          </execution>
+
         </executions>
       </plugin>
 
@@ -238,104 +253,6 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
       </plugin>
-
-<!--      <plugin>-->
-<!--        <groupId>org.codehaus.mojo</groupId>-->
-<!--        <artifactId>build-helper-maven-plugin</artifactId>-->
-<!--        <version>1.7</version>-->
-<!--        <executions>-->
-<!--          &lt;!&ndash; Calculate the filter.gem.version incase of a release &ndash;&gt;-->
-<!--          <execution>-->
-<!--            <id>gem-version-property-release</id>-->
-<!--            <goals>-->
-<!--              <goal>regex-property</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <name>filter.gem.version</name>-->
-<!--              <value>${project.version}</value>-->
-<!--              <regex>^([0-9.]+)$</regex>-->
-<!--              <replacement>$1</replacement>-->
-<!--              <failIfNoMatch>false</failIfNoMatch>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-
-<!--          &lt;!&ndash; Calculate the filter.gem.version incase of a SNAPSHOT &ndash;&gt;-->
-<!--          <execution>-->
-<!--            <id>gem-version-property-snapshot</id>-->
-<!--            <goals>-->
-<!--              <goal>regex-property</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <name>filter.gem.version</name>-->
-<!--              <value>${project.version}</value>-->
-<!--              <regex>^([0-9.]+)-SNAPSHOT$</regex>-->
-<!--              <replacement>$1.pre.SNAPSHOT</replacement>-->
-<!--              <failIfNoMatch>false</failIfNoMatch>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--      </plugin>-->
-
-<!--      <plugin>-->
-<!--        <groupId>org.apache.maven.plugins</groupId>-->
-<!--        <artifactId>maven-install-plugin</artifactId>-->
-<!--        <executions>-->
-<!--          &lt;!&ndash; Do NOT install the JAR file, only the gem file must be installed. &ndash;&gt;-->
-<!--          <execution>-->
-<!--            <id>default-install</id>-->
-<!--            <phase>install</phase>-->
-<!--            <configuration>-->
-<!--              <skip>true</skip>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-
-<!--          &lt;!&ndash; Manually install the GEM file. &ndash;&gt;-->
-<!--          <execution>-->
-<!--            <id>install-gem-file</id>-->
-<!--            <phase>install</phase>-->
-<!--            <goals>-->
-<!--              <goal>install-file</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <file>${project.build.directory}/logstash-filter-yauaa-${filter.gem.version}.gem</file>-->
-<!--              <groupId>${project.groupId}</groupId>-->
-<!--              <artifactId>${project.artifactId}</artifactId>-->
-<!--              <version>${project.version}</version>-->
-<!--              <packaging>gem</packaging>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--      </plugin>-->
-
-<!--      <plugin>-->
-<!--        <groupId>org.apache.maven.plugins</groupId>-->
-<!--        <artifactId>maven-deploy-plugin</artifactId>-->
-<!--        <executions>-->
-<!--          &lt;!&ndash; Do NOT install the JAR file, only the gem file must be installed. &ndash;&gt;-->
-<!--          <execution>-->
-<!--            <id>default-deploy</id>-->
-<!--            <phase>deploy</phase>-->
-<!--            <configuration>-->
-<!--              <skip>true</skip>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-<!--          <execution>-->
-<!--            <id>deploy-gem-file</id>-->
-<!--            <phase>deploy</phase>-->
-<!--            <goals>-->
-<!--              <goal>deploy-file</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <file>${project.build.directory}/logstash-filter-yauaa-${filter.gem.version}.gem</file>-->
-<!--              <url>${project.distributionManagement.snapshotRepository.url}</url>-->
-<!--              <groupId>${project.groupId}</groupId>-->
-<!--              <artifactId>${project.artifactId}</artifactId>-->
-<!--              <version>${project.version}</version>-->
-<!--              <packaging>gem</packaging>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--      </plugin>-->
 
     </plugins>
 

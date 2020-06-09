@@ -25,9 +25,9 @@ CONTAINER_NAME=yauaa-elasticsearch
 
 # First we fully wipe any old instance of our integration test
 echo "Removing any remaining stuff from previous test runs."
-docker kill ${CONTAINER_NAME}
-docker rm ${CONTAINER_NAME}
-docker rmi ${DOCKER_IMAGE}
+docker kill "${CONTAINER_NAME}"
+docker rm   "${CONTAINER_NAME}"
+docker rmi  "${DOCKER_IMAGE}"
 
 # Second we build a new image with the plugin installed
 echo "Building docker image for ElasticSearch ${ELK_VERSION} with the plugin installed."
@@ -36,7 +36,7 @@ docker build --build-arg ELK_VERSION="${ELK_VERSION}" -t "${DOCKER_IMAGE}" -f "$
 # Third we start the instance
 echo "Starting ElasticSearch with plugin installed."
 # NOTE: Using & instead of -d so you'll see the console logs os ES (which is useful if something goes wrong)
-docker run -p 9300:9300 -p 9200:9200 --name yauaa-elasticsearch "${DOCKER_IMAGE}" &
+docker run --rm -p 9300:9300 -p 9200:9200 --name "${CONTAINER_NAME}" "${DOCKER_IMAGE}" &
 
 killContainer() {
   docker kill ${CONTAINER_NAME}
