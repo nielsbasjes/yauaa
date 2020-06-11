@@ -8995,3 +8995,29 @@ config:
       AgentNameVersionMajor                : 'Pinterestbot 1'
       AgentInformationUrl                  : 'http://www.pinterest.com/bot.html'
 
+- test:
+    input:
+      user_agent_string: "'Mozilla/5.0 (compatible; DuckDuckBot-Https/1.1; https://duckduckgo.com/duckduckbot)'"
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Duckduckgo DuckDuckBot-Https'
+      DeviceBrand                          : 'Duckduckgo'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'DuckDuckBot-Https'
+      LayoutEngineVersion                  : '1.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'DuckDuckBot-Https 1.1'
+      LayoutEngineNameVersionMajor         : 'DuckDuckBot-Https 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'DuckDuckBot-Https'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'DuckDuckBot-Https 1.1'
+      AgentNameVersionMajor                : 'DuckDuckBot-Https 1'
+      AgentInformationUrl                  : 'https://duckduckgo.com/duckduckbot'

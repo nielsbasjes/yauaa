@@ -143,8 +143,8 @@ config:
     - 'Chrome                              :agent.(3)product.name="Chrome"^'
     - 'ChromeVersion                       :@Chrome.version'
     require:
-    - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     - 'IsNull[agent.product.name="Edg"]'
+    - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     - '@ChromeVersion}".0.0.0"'
     extract:
     - 'OperatingSystemName                 :      200 : "<<<null>>>"'
