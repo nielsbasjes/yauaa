@@ -63,10 +63,10 @@ config:
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '9'
-      OperatingSystemVersionMajor          : '9'
-      OperatingSystemNameVersion           : 'Android 9'
-      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
       LayoutEngineVersion                  : '75.0'
@@ -90,10 +90,10 @@ config:
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '9'
-      OperatingSystemVersionMajor          : '9'
-      OperatingSystemNameVersion           : 'Android 9'
-      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
       LayoutEngineVersion                  : '75.0'
@@ -106,5 +106,263 @@ config:
       AgentVersionMajor                    : '75'
       AgentNameVersion                     : 'Chrome 75.0.3764.0'
       AgentNameVersionMajor                : 'Chrome 75'
+
+
+
+# Starting with Chrome 83 a special feature can be enabled
+#  chrome://flags/#freeze-user-agent   ( Edge has the same under edge://flags/#freeze-user-agent )
+#  Freeze User-Agent request header
+#    Set the User-Agent request header to a static string that conforms to
+#    the current User-Agent string format but only reveals desktop vs Android
+#    and if the 'mobile' flag is set
+#    – Mac, Windows, Linux, Chrome OS, Android
+
+# The actual code was found here:
+# https://github.com/chromium/chromium/blob/master/content/public/common/user_agent.h#L17
+
+# namespace frozen_user_agent_strings {
+#
+#   const char kDesktop[] =
+#   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, "
+#   "like Gecko) Chrome/%s.0.0.0 Safari/537.36";
+#   const char kAndroid[] =
+#   "Mozilla/5.0 (Linux; Android 9; Unspecified Device) "
+#   "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%s.0.0.0 "
+#   "Safari/537.36";
+#   const char kAndroidMobile[] =
+#   "Mozilla/5.0 (Linux; Android 9; Unspecified Device) "
+#   "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%s.0.0.0 Mobile "
+#   "Safari/537.36";
+#
+# }  // namespace frozen_user_agent_strings
+
+
+# Desktop Chrome: If the frozen agent is detected the Operating system is nonsense
+- matcher:
+    variable:
+    - 'Chrome                              :agent.(3)product.name="Chrome"^'
+    - 'ChromeVersion                       :@Chrome.version'
+    require:
+    - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
+    - 'IsNull[agent.product.name="Edg"]'
+    - '@ChromeVersion}".0.0.0"'
+    extract:
+    - 'OperatingSystemName                 :      200 : "<<<null>>>"'
+    - 'OperatingSystemVersion              :      200 : "<<<null>>>"'
+
+# Desktop Edge: If the frozen agent is detected the Operating system is nonsense
+- matcher:
+    variable:
+    - 'Chrome                              :agent.(3)product.name="Chrome"^'
+    - 'ChromeVersion                       :@Chrome.version'
+    require:
+    - 'agent.product.name="Edg"'
+    - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
+    - '@ChromeVersion}".0.0.0"'
+    extract:
+    - 'AgentVersion                        :     3000 : @ChromeVersion'
+
+# Android: If the frozen agent is detected the Operating system Version is nonsense
+- matcher:
+    require:
+    - 'agent.(1)product="Mozilla/5.0 (Linux; Android 9; Unspecified Device)"'
+    extract:
+    - 'OperatingSystemVersion              :     1000 : "<<<null>>>"'
+
+
+# ======================================
+# Chrome 83 on Ubuntu Linux
+
+# Ubuntu, Chrome 83, Default UserAgent
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemVersionMajor          : 'Intel x86'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      OperatingSystemNameVersionMajor      : 'Linux Intel x86'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '83.0.4103.97'
+      AgentVersionMajor                    : '83'
+      AgentNameVersion                     : 'Chrome 83.0.4103.97'
+      AgentNameVersionMajor                : 'Chrome 83'
+
+
+# Ubuntu, Chrome 83, FROZEN UserAgent
+# --
+# Notable changes
+# - Chrome version loses minor versions
+# - Completely different operating system: Windows 10
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '83.0.0.0'
+      AgentVersionMajor                    : '83'
+      AgentNameVersion                     : 'Chrome 83.0.0.0'
+      AgentNameVersionMajor                : 'Chrome 83'
+
+# ======================================
+# Chrome 83 on Samsung Galaxy S8 Android 9
+
+# Phone, Android 9, Chrome 83, Default UserAgent
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; SM-G950F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.101 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G950F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '83.0.4103.101'
+      AgentVersionMajor                    : '83'
+      AgentNameVersion                     : 'Chrome 83.0.4103.101'
+      AgentNameVersionMajor                : 'Chrome 83'
+
+
+# Phone, Android 9, Chrome 83, FROZEN UserAgent
+# --
+# Notable changes
+# - Chrome version loses minor versions
+# - Device: Unspecified Device
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; Unspecified Device) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '83.0.0.0'
+      AgentVersionMajor                    : '83'
+      AgentNameVersion                     : 'Chrome 83.0.0.0'
+      AgentNameVersionMajor                : 'Chrome 83'
+
+
+# ======================================
+# Edge 83 on Windows 10
+
+# Desktop, Windows 10, Edge 83, Default UserAgent
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36 Edg/83.0.478.45'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '83.0.478.45'
+      AgentVersionMajor                    : '83'
+      AgentNameVersion                     : 'Edge 83.0.478.45'
+      AgentNameVersionMajor                : 'Edge 83'
+
+
+# Desktop, Windows 10, Edge 83, FROZEN UserAgent
+# --
+# Notable changes
+# - Chrome version loses minor versions
+# - Edge 83 --> 75 -- Actually the version in the Chrome part becomes more reliable
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.0.0 Safari/537.36 Edg/75.0.131.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '83.0.0.0'
+      AgentVersionMajor                    : '83'
+      AgentNameVersion                     : 'Edge 83.0.0.0'
+      AgentNameVersionMajor                : 'Edge 83'
 
 
