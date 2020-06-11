@@ -236,15 +236,24 @@ config:
       AgentNameVersionMajor                : 'Spotify 112000510'
 
 # =====================================================================
-# Amazon Alexa devices
+# Amazon Alexa/Echo devices and the Alexa app
 
 - matcher:
+    require:
+    - 'IsNull[agent.(1)product.(1)name="AlexaMediaPlayer"]'
     variable:
     - 'AlexaDevice                         :agent.(1)product.(1)name{"Alexa"'
     extract:
     - 'DeviceClass                         :      105 :"Voice"'
     - 'DeviceBrand                         :     1405 :"Amazon"'
     - 'DeviceName                          :      105 :"Alexa"'
+    - 'AgentClass                          :      105 :"Voice"'
+
+- matcher:
+    variable:
+    - 'AlexaDevice                         :agent.(1)product.(1)name="AlexaMediaPlayer"'
+    extract:
+    - 'AgentClass                          :      106 :"Voice"'
 
 - matcher:
     variable:
@@ -257,6 +266,7 @@ config:
     - 'OperatingSystemClass                :       10 : "Mobile"'
     - 'OperatingSystemName                 :       10 : "FireOS"'
     - 'OperatingSystemVersion              :       10 : "??"'
+    - 'AgentClass                          :      106 :"Voice"'
 
 - matcher:
     variable:
@@ -266,14 +276,13 @@ config:
     - 'LayoutEngineName                    :      100 : "ExoPlayer"'
     - 'LayoutEngineVersion                 :      100 : @ExoPlayerLib^.version'
 
-
 - test:
     input:
       user_agent_string: 'AlexaMediaPlayer/2.1.2860.0 (Linux;Android 5.1.1) ExoPlayerLib/1.5.9'
     expected:
-      DeviceClass                          : 'Voice'
-      DeviceName                           : 'Amazon Alexa'
-      DeviceBrand                          : 'Amazon'
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
       OperatingSystemVersion               : '5.1.1'
@@ -286,7 +295,7 @@ config:
       LayoutEngineVersionMajor             : '1'
       LayoutEngineNameVersion              : 'ExoPlayer 1.5.9'
       LayoutEngineNameVersionMajor         : 'ExoPlayer 1'
-      AgentClass                           : 'Special'
+      AgentClass                           : 'Voice'
       AgentName                            : 'AlexaMediaPlayer'
       AgentVersion                         : '2.1.2860.0'
       AgentVersionMajor                    : '2'
@@ -314,7 +323,7 @@ config:
       LayoutEngineVersionMajor             : '2'
       LayoutEngineNameVersion              : 'ExoPlayer 2.8.4'
       LayoutEngineNameVersionMajor         : 'ExoPlayer 2'
-      AgentClass                           : 'Special'
+      AgentClass                           : 'Voice'
       AgentName                            : 'AlexaService'
       AgentVersion                         : '2.2.305814.0'
       AgentVersionMajor                    : '2'
@@ -345,7 +354,7 @@ config:
       LayoutEngineVersionMajor             : '??'
       LayoutEngineNameVersion              : 'Unknown ??'
       LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
+      AgentClass                           : 'Voice'
       AgentName                            : 'Echo'
       AgentVersion                         : '1.0'
       AgentVersionMajor                    : '1'
