@@ -23,6 +23,7 @@ v5.18-SNAPSHOT
   - Voice/Audio devices: Spotify, Alexa, Echo, Sonos
   - Improve PlayStation 3,4 OS names
   - Handle the Frozen User-Agent as used in Chrome and Edge.
+  - Detect the "new" Fuchsia OS
 - Build
   - Include OWASP check for bad dependencies
 

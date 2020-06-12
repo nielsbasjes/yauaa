@@ -70,6 +70,7 @@ config:
     - 'BeOS'
     - 'UNIX BSD/SYSV system'
     - 'UNIX'
+    - 'Fuchsia'
 
 
 # =======================================================================
@@ -5450,6 +5451,116 @@ config:
     - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      153 :"Desktop"'
     - 'OperatingSystemName                 :      153 :"UNIX"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+
+
+# =======================================================================
+# Fuchsia
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Mobile"'
+    - 'DeviceName                          :      111 :"Fuchsia Device"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"Fuchsia"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1)comments.entry.(1-2)product.name="Fuchsia"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version                             :agent.(1)product.(1)comments.entry.product.name="Fuchsia"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :      111 :"Mobile"'
+    - 'DeviceName                          :      111 :"Fuchsia Device"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"Fuchsia"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@Version]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry="Fuchsia"'
+    extract:
+    - 'DeviceClass                         :      111 :"Mobile"'
+    - 'DeviceName                          :      111 :"Fuchsia Device"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      151 :"Mobile"'
+    - 'OperatingSystemName                 :      151 :"Fuchsia"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[1-1]="Fuchsia"'
+    extract:
+    - 'DeviceClass                         :      108 :"Mobile"'
+    - 'DeviceName                          :      108 :"Fuchsia Device"'
+    - 'DeviceBrand                         :      108 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      148 :"Mobile"'
+    - 'OperatingSystemName                 :      148 :"Fuchsia"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[2-2]="Fuchsia"'
+    extract:
+    - 'DeviceClass                         :      107 :"Mobile"'
+    - 'DeviceName                          :      107 :"Fuchsia Device"'
+    - 'DeviceBrand                         :      107 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      147 :"Mobile"'
+    - 'OperatingSystemName                 :      147 :"Fuchsia"'
+    - 'OperatingSystemVersion              :      148 :"??"'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Mobile"'
+    - 'DeviceName                          :      111 :"Fuchsia Device"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"Fuchsia"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.product.name="Fuchsia"^.(1)version]'
+
+# Only if the second version field is NOT a type of CPU.
+- matcher:
+    variable:
+    - 'Version                             :agent.product.name="Fuchsia"^.(2)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
+    extract:
+    - 'DeviceClass                         :      111 :"Mobile"'
+    - 'DeviceName                          :      111 :"Fuchsia Device"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"Fuchsia"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@Version]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="Fuchsia"'
+    extract:
+    - 'DeviceClass                         :      111 :"Mobile"'
+    - 'DeviceName                          :      111 :"Fuchsia Device"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      152 :"Mobile"'
+    - 'OperatingSystemName                 :      152 :"Fuchsia"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="Fuchsia"'
+    extract:
+    - 'DeviceClass                         :      112 :"Mobile"'
+    - 'DeviceName                          :      112 :"Fuchsia Device"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      153 :"Mobile"'
+    - 'OperatingSystemName                 :      153 :"Fuchsia"'
     - 'OperatingSystemVersion              :      149 :"??"'
 
 
