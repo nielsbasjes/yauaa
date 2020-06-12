@@ -17,12 +17,11 @@
 
 package org.elasticsearch.plugin.ingest.yauaa;
 
+import org.elasticsearch.index.VersionType;
 import org.elasticsearch.ingest.IngestDocument;
 import org.elasticsearch.ingest.Processor;
-import org.elasticsearch.ingest.RandomDocumentPicks;
 import org.hamcrest.MatcherAssert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
@@ -30,19 +29,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.lucene.util.LuceneTestCase.random;
-import static org.elasticsearch.test.ESTestCase.randomAlphaOfLength;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertEquals;
 
-@RunWith(com.carrotsearch.randomizedtesting.RandomizedRunner.class)
+@SuppressWarnings("unchecked")
 public class YauaaProcessorTest {
 
     private static final String SOURCE_FIELD = "source_field";
     private static final String TARGET_FIELD = "target_field";
 
-    @SuppressWarnings("unchecked")
     @Test
     public void testThatProcessorWorks() {
         Map<String, Object> document = new HashMap<>();
@@ -50,9 +47,9 @@ public class YauaaProcessorTest {
             "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
                 "AppleWebKit/537.36 (KHTML, like Gecko) " +
                 "Chrome/53.0.2785.124 Mobile Safari/537.36");
-        IngestDocument ingestDocument = RandomDocumentPicks.randomIngestDocument(random(), document);
+        IngestDocument ingestDocument = new IngestDocument("index", "type", "id", null, 42L, VersionType.EXTERNAL, document);
 
-        YauaaProcessor      processor = new YauaaProcessor(randomAlphaOfLength(10), SOURCE_FIELD, TARGET_FIELD, null, -1, -1, null);
+        YauaaProcessor      processor = new YauaaProcessor("tag", SOURCE_FIELD, TARGET_FIELD, null, -1, -1, null);
         Map<String, Object> data      = processor.execute(ingestDocument).getSourceAndMetadata();
 
         MatcherAssert.assertThat(data, hasKey(TARGET_FIELD));
@@ -83,7 +80,6 @@ public class YauaaProcessorTest {
         assertHasKValue(results, "AgentVersionMajor",                "53");
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void testExtraRules() {
         Map<String, Object> document = new HashMap<>();
@@ -91,14 +87,14 @@ public class YauaaProcessorTest {
             "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
                 "AppleWebKit/537.36 (KHTML, like Gecko) " +
                 "Chrome/53.0.2785.124 Mobile Safari/537.36");
-        IngestDocument ingestDocument = RandomDocumentPicks.randomIngestDocument(random(), document);
+        IngestDocument ingestDocument = new IngestDocument("index", "type", "id", null, 42L, VersionType.EXTERNAL, document);
 
         List<String> fieldNames = Arrays.asList("DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor", "FirstProductName");
         Integer      cacheSize  = 10;
         Integer      preheat    = 10;
         String       extraRules = "config:\n- matcher:\n    extract:\n      - 'FirstProductName     : 1 :agent.(1)product.(1)name'\n";
 
-        YauaaProcessor      processor = new YauaaProcessor(randomAlphaOfLength(10), SOURCE_FIELD, TARGET_FIELD, fieldNames, cacheSize, preheat, extraRules);
+        YauaaProcessor      processor = new YauaaProcessor("tag", SOURCE_FIELD, TARGET_FIELD, fieldNames, cacheSize, preheat, extraRules);
         Map<String, Object> data      = processor.execute(ingestDocument).getSourceAndMetadata();
 
         MatcherAssert.assertThat(data, hasKey(TARGET_FIELD));
@@ -143,7 +139,6 @@ public class YauaaProcessorTest {
         MatcherAssert.assertThat(results, not(hasKey(key)));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void testIngestPlugin() throws Exception {
         IngestYauaaPlugin plugin = new IngestYauaaPlugin();
@@ -161,14 +156,16 @@ public class YauaaProcessorTest {
         configuration.put("preheat",      10);
         configuration.put("extraRules",   "config:\n- matcher:\n    extract:\n      - 'FirstProductName     : 1 :agent.(1)product.(1)name'\n");
 
-        Processor processor = yauaaFactory.create(processors, randomAlphaOfLength(10), configuration);
+        Processor processor = yauaaFactory.create(processors, "tag", configuration);
+
+        assertEquals("yauaa", processor.getType());
 
         Map<String, Object> document = new HashMap<>();
         document.put(SOURCE_FIELD,
             "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
                 "AppleWebKit/537.36 (KHTML, like Gecko) " +
                 "Chrome/53.0.2785.124 Mobile Safari/537.36");
-        IngestDocument ingestDocument = RandomDocumentPicks.randomIngestDocument(random(), document);
+        IngestDocument ingestDocument = new IngestDocument("index", "type", "id", null, 42L, VersionType.EXTERNAL, document);
 
         Map<String, Object> data      = processor.execute(ingestDocument).getSourceAndMetadata();
 
