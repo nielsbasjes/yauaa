@@ -18,9 +18,12 @@
 package org.elasticsearch.plugin.ingest.yauaa;
 
 import org.elasticsearch.ingest.IngestDocument;
+import org.elasticsearch.ingest.Processor;
 import org.elasticsearch.ingest.RandomDocumentPicks;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,7 +36,8 @@ import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.not;
 
-public class YauaaProcessorTests {
+@RunWith(com.carrotsearch.randomizedtesting.RandomizedRunner.class)
+public class YauaaProcessorTest {
 
     private static final String SOURCE_FIELD = "source_field";
     private static final String TARGET_FIELD = "target_field";
@@ -137,6 +141,71 @@ public class YauaaProcessorTests {
 
     private void assertHasNotKey(Map<String, String> results, String key) {
         MatcherAssert.assertThat(results, not(hasKey(key)));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testIngestPlugin() throws Exception {
+        IngestYauaaPlugin plugin = new IngestYauaaPlugin();
+
+        Map<String, Processor.Factory> processors = plugin.getProcessors(null);
+
+        Processor.Factory yauaaFactory = processors.get("yauaa");
+
+        Map<String, Object>  configuration = new HashMap<>();
+
+        configuration.put("field",        SOURCE_FIELD);
+        configuration.put("target_field", TARGET_FIELD);
+        configuration.put("fieldNames",   Arrays.asList("DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor", "FirstProductName"));
+        configuration.put("cacheSize",    10);
+        configuration.put("preheat",      10);
+        configuration.put("extraRules",   "config:\n- matcher:\n    extract:\n      - 'FirstProductName     : 1 :agent.(1)product.(1)name'\n");
+
+        Processor processor = yauaaFactory.create(processors, randomAlphaOfLength(10), configuration);
+
+        Map<String, Object> document = new HashMap<>();
+        document.put(SOURCE_FIELD,
+            "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+                "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                "Chrome/53.0.2785.124 Mobile Safari/537.36");
+        IngestDocument ingestDocument = RandomDocumentPicks.randomIngestDocument(random(), document);
+
+        Map<String, Object> data      = processor.execute(ingestDocument).getSourceAndMetadata();
+
+        MatcherAssert.assertThat(data, hasKey(TARGET_FIELD));
+
+        Map<String, String> results    = (Map<String, String>) data.get(TARGET_FIELD);
+
+        // The EXPLICITLY requested fields
+        assertHasKValue(results, "FirstProductName",        "Mozilla");
+        assertHasKValue(results, "DeviceClass",             "Phone");
+        assertHasKValue(results, "DeviceBrand",             "Google");
+        assertHasKValue(results, "DeviceName",              "Google Nexus 6");
+        assertHasKValue(results, "AgentNameVersionMajor",   "Chrome 53");
+
+        // The IMPLICITLY requested fields (i.e. partials of the actually requested ones)
+        assertHasKValue(results, "AgentName",               "Chrome");
+        assertHasKValue(results, "AgentVersion",            "53.0.2785.124");
+        assertHasKValue(results, "AgentVersionMajor",       "53");
+
+        // The NOT requested fields
+        assertHasNotKey(results, "OperatingSystemClass");
+        assertHasNotKey(results, "OperatingSystemName");
+        assertHasNotKey(results, "OperatingSystemNameVersion");
+        assertHasNotKey(results, "OperatingSystemNameVersionMajor");
+        assertHasNotKey(results, "OperatingSystemVersion");
+        assertHasNotKey(results, "OperatingSystemVersionBuild");
+        assertHasNotKey(results, "OperatingSystemVersionMajor");
+        assertHasNotKey(results, "LayoutEngineClass");
+        assertHasNotKey(results, "LayoutEngineName");
+        assertHasNotKey(results, "LayoutEngineNameVersion");
+        assertHasNotKey(results, "LayoutEngineNameVersionMajor");
+        assertHasNotKey(results, "LayoutEngineVersion");
+        assertHasNotKey(results, "LayoutEngineVersionMajor");
+        assertHasNotKey(results, "AgentClass");
+        assertHasNotKey(results, "AgentNameVersion");
+
+        LoggerFactory.getLogger("TestYauaaProcessor").info("Complete set of returned results:{}", results);
     }
 
 }

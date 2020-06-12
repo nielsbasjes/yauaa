@@ -23,8 +23,6 @@ import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
 import org.elasticsearch.ingest.AbstractProcessor;
 import org.elasticsearch.ingest.IngestDocument;
 import org.elasticsearch.ingest.Processor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.List;
@@ -78,9 +76,6 @@ public class YauaaProcessor extends AbstractProcessor {
         }
 
         this.uaa = builder.build();
-
-        Logger log = LoggerFactory.getLogger("PROCESSOR");
-        log.error("{}", uaa);
     }
 
     @Override

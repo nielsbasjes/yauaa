@@ -155,9 +155,16 @@
 
   <dependencies>
 
+
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.hamcrest</groupId>
+          <artifactId>hamcrest-core</artifactId>
+        </exclusion>
+      </exclusions>
       <scope>test</scope>
     </dependency>
 
@@ -500,6 +507,11 @@
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>
       </plugin>
 
@@ -803,6 +815,7 @@
         <plugin><artifactId>maven-site-plugin</artifactId><version>3.8.2</version></plugin>
         <plugin><artifactId>maven-source-plugin</artifactId><version>3.2.1</version></plugin>
         <plugin><artifactId>maven-surefire-plugin</artifactId><version>3.0.0-M4</version></plugin>
+        <plugin><artifactId>maven-failsafe-plugin</artifactId><version>3.0.0-M4</version></plugin>
         <plugin><artifactId>maven-war-plugin</artifactId><version>3.2.3</version></plugin>
 
         <plugin>
