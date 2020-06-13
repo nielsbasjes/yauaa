@@ -57,7 +57,7 @@ config:
       "Iron Safari"     : "Iron"
       "Mobile Iron Safari" : "Iron"
       "Falkon"          : "Falkon"
-      "QupZilla"        : "QupZilla"
+      "QupZilla"        : "QupZilla" # The old name of what is now called Falkon
       "Colibri"         : "Colibri"
       "Midori"          : "Midori"
       "SE"              : "Sogou Explorer"
@@ -69,6 +69,8 @@ config:
       "IceDragon"       : "Comodo IceDragon"
       "XVast"           : "XVast"
       "Tbrowser"        : "Tbrowser" # Used in TVs
+      "PHX"             : "Phoenix"
+      "AlohaBrowser"    : "Aloha Browser"
 
 - lookup:
     name: 'KnownWebviewAppNames'
@@ -78,6 +80,7 @@ config:
       'Acheetahi'            : 'Cheetah Mobile Browser'
       'MediBangPaintTablet'  : 'MediBang Paint'
       'ZhihuHybrid'          : 'Zhihu Hybrid'
+      'Cake'                 : 'Cake Browser'
 
 # ================================
 # Specific browser rules
@@ -387,14 +390,34 @@ config:
 - matcher:
     variable:
     - 'Chrome                              :agent.product.name="Chrome"^'
+    - 'WebViewApp                          :@Chrome>'
+    - 'WebViewAppName                      :@WebViewApp.name'
     require:
+    - '@WebViewAppName!="Safari"'
+    - '@WebViewAppName!="Mobile Safari"'
     - 'agent.product.name="Version"'
     extract:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
     - 'AgentVersion                        :     2500 :@Chrome.version'
-    - 'WebviewAppName                      :       10 :NormalizeBrand[@Chrome>>.name]'
-    - 'WebviewAppVersion                   :       10 :@Chrome>>.version'
+    - 'WebviewAppName                      :        9 :NormalizeBrand[@WebViewAppName]'
+    - 'WebviewAppVersion                   :        9 :@WebViewApp.version'
+
+- matcher:
+    variable:
+    - 'Chrome                              :agent.product.name="Chrome"^'
+    - 'WebViewApp                          :@Chrome>>'
+    - 'WebViewAppName                      :@WebViewApp.name'
+    require:
+    - '@WebViewAppName!="Safari"'
+    - '@WebViewAppName!="Mobile Safari"'
+    - 'agent.product.name="Version"'
+    extract:
+    - 'AgentClass                          :     2500 :"Browser Webview"'
+    - 'AgentName                           :     2500 :"Chrome Webview"'
+    - 'AgentVersion                        :     2500 :@Chrome.version'
+    - 'WebviewAppName                      :       10 :NormalizeBrand[@WebViewAppName]'
+    - 'WebviewAppVersion                   :       10 :@WebViewApp.version'
 
 - matcher:
     variable:
@@ -480,9 +503,6 @@ config:
 
 - matcher:
     extract:
-#    - 'AgentClass                          :     2500 :"Browser Webview"'
-#    - 'AgentName                           :       10 :"Chrome Webview"'
-#    - 'AgentVersion                        :     2500 :agent.product.name="Chrome"^.version'
     - 'WebviewAppName                      :       12 :LookUp[KnownWebviewAppNames;agent.(1)product.name]'
     - 'WebviewAppVersion                   :       12 :agent.(1)product.version'
 
@@ -506,6 +526,32 @@ config:
     - 'WebviewAppName                      :       12 :LookUp[KnownWebviewAppNames;@WebViewProduct.name]'
     - 'WebviewAppVersion                   :       12 :@WebViewProduct.version'
 
+
+- matcher:
+    variable:
+    - 'WebViewApp                          :agent.product.comments.entry.text?KnownWebviewAppNames'
+    require:
+    - 'agent.product.name="Chrome"'
+    - 'agent.product.name="Version"'
+    extract:
+    - 'AgentClass                          :     2500 :"Browser Webview"'
+    - 'AgentName                           :     2500 :"Chrome Webview"'
+    - 'AgentVersion                        :     2500 :agent.product.name="Chrome"^.version'
+    - 'WebviewAppName                      :       13 :LookUp[KnownWebviewAppNames;@WebViewApp]'
+    - 'WebviewAppVersion                   :       13 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'WebViewApp                          :agent.product.comments.entry.product.name?KnownWebviewAppNames'
+    require:
+    - 'agent.product.name="Chrome"'
+    - 'agent.product.name="Version"'
+    extract:
+    - 'AgentClass                          :     2500 :"Browser Webview"'
+    - 'AgentName                           :     2500 :"Chrome Webview"'
+    - 'AgentVersion                        :     2500 :agent.product.name="Chrome"^.version'
+    - 'WebviewAppName                      :       13 :LookUp[KnownWebviewAppNames;@WebViewApp]'
+    - 'WebviewAppVersion                   :       13 :@WebViewApp^.version'
 
 # WebView UA in Lollipop and Above
 # In the newer versions of WebView, you can differentiate the WebView by looking for the wv field

@@ -22,6 +22,18 @@ config:
     - 'AgentName                           :     2015 :"Maxthon"'
     - 'AgentVersion                        :     2015 :agent.product.name="Maxthon"^.version'
 
+- matcher:
+    extract:
+    - 'AgentClass                          :     2080 :"Browser"'
+    - 'AgentName                           :     2080 :"Maxthon"'
+    - 'AgentVersion                        :     2080 :agent.product.name="MxBrowser"^.version'
+
+- matcher:
+    extract:
+    - 'AgentClass                          :     2080 :"Browser"'
+    - 'AgentName                           :     2080 :"Maxthon Nitro"'
+    - 'AgentVersion                        :     2080 :agent.product.name="MxNitro"^.version'
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 6.0) AppleWebKit/537.36 (KHTML, like Gecko) Maxthon/4.4.3.1000 Chrome/30.0.1599.101 Safari/537.36'
@@ -77,11 +89,6 @@ config:
       AgentNameVersion                     : 'Maxthon 1.0.5.3'
       AgentNameVersionMajor                : 'Maxthon 1'
 
-- matcher:
-    extract:
-    - 'AgentClass                          :     2080 :"Browser"'
-    - 'AgentName                           :     2080 :"Maxthon"'
-    - 'AgentVersion                        :     2080 :agent.product.name="MxBrowser"^.version'
 
 - test:
     input:
@@ -168,3 +175,31 @@ config:
       AgentNameVersion                     : 'Maxthon 4.5.9.3000'
       AgentVersionMajor                    : '4'
       AgentNameVersionMajor                : 'Maxthon 4'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) MxNitro/1.0.0.500 Chrome/35.0.1849.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      OperatingSystemNameVersionMajor      : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '35.0'
+      LayoutEngineVersionMajor             : '35'
+      LayoutEngineNameVersion              : 'Blink 35.0'
+      LayoutEngineNameVersionMajor         : 'Blink 35'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Maxthon Nitro'
+      AgentVersion                         : '1.0.0.500'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Maxthon Nitro 1.0.0.500'
+      AgentNameVersionMajor                : 'Maxthon Nitro 1'

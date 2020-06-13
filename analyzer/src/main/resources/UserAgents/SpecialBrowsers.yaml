@@ -1341,6 +1341,35 @@ config:
       AgentLanguage                        : 'Dutch (Belgium)'
       AgentLanguageCode                    : 'nl-be'
 
+
+# Current Tor Browser (i.e. undetectable)
+- test:
+    input:
+      user_agent_string: "Mozilla/5.0 (Android 6.0; Mobile; rv:68.0) Gecko/20100101 Firefox/68.0"
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemVersionMajor          : '6'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemNameVersionMajor      : 'Android 6'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '68.0'
+      LayoutEngineVersionMajor             : '68'
+      LayoutEngineNameVersion              : 'Gecko 68.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 68'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '68.0'
+      AgentVersionMajor                    : '68'
+      AgentNameVersion                     : 'Firefox 68.0'
+      AgentNameVersionMajor                : 'Firefox 68'
+
 - test:
     input:
       user_agent_string: 'Iframely/0.8.5 (+http://iframely.com/;)'
@@ -3324,3 +3353,310 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'OneDriveMpc-Transform_Thumbnail 1.0'
       AgentNameVersionMajor                : 'OneDriveMpc-Transform_Thumbnail 1'
+
+
+# Tenta Browser (on Phone, Motorola/Google Nexus 6, Android 7.1.1)
+# Avast Secure Browser is really IDENTICAL to the Tenta Browser
+# NOTE: This one does NOT conform to the "Mobile Safari" for a "Phone" pattern
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6; U; en) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.137 Mobile Tenta/4.0.18 Build/2471 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '64.0'
+      LayoutEngineVersionMajor             : '64'
+      LayoutEngineNameVersion              : 'Blink 64.0'
+      LayoutEngineNameVersionMajor         : 'Blink 64'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Tenta'
+      AgentVersion                         : '4.0.18'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Tenta 4.0.18'
+      AgentNameVersionMajor                : 'Tenta 4'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
+
+
+# NoxBrowser (on Phone, Motorola/Google Nexus 6, Android 7.1.1)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6 Build/N6F27M) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/76.0.3809.111 NoxBrowser/2.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      OperatingSystemVersionBuild          : 'N6F27M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '76.0'
+      LayoutEngineVersionMajor             : '76'
+      LayoutEngineNameVersion              : 'Blink 76.0'
+      LayoutEngineNameVersionMajor         : 'Blink 76'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '76.0.3809.111'
+      AgentVersionMajor                    : '76'
+      AgentNameVersion                     : 'Chrome Webview 76.0.3809.111'
+      AgentNameVersionMajor                : 'Chrome Webview 76'
+      WebviewAppName                       : 'Noxbrowser'
+      WebviewAppVersion                    : '2.0.0'
+      WebviewAppVersionMajor               : '2'
+      WebviewAppNameVersionMajor           : 'Noxbrowser 2'
+
+
+- matcher:
+    variable:
+    - 'XiaoMi                              :agent.product.(1)name="XiaoMi"^'
+    require:
+    - 'agent.product.name="Version"'
+    extract:
+    - 'WebviewAppName                      :       20 : Concat["XiaoMi ";@XiaoMi.(1)version]'
+    - 'WebviewAppVersion                   :       20 : @XiaoMi.(2)version'
+
+# Xiaomi Mint Browser (on Phone, Motorola/Google Nexus 6, Android 7.1.1)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 7.1.1; en-gb; Nexus 6 Build/N6F27M) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.128 Mobile Safari/537.36 XiaoMi/Mint Browser/3.4.7'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      OperatingSystemVersionBuild          : 'N6F27M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '61.0.3163.128'
+      AgentVersionMajor                    : '61'
+      AgentNameVersion                     : 'Chrome Webview 61.0.3163.128'
+      AgentNameVersionMajor                : 'Chrome Webview 61'
+      AgentLanguage                        : 'English (United Kingdom)'
+      AgentLanguageCode                    : 'en-gb'
+      AgentSecurity                        : 'Strong security'
+      WebviewAppName                       : 'XiaoMi Mint Browser'
+      WebviewAppVersion                    : '3.4.7'
+      WebviewAppVersionMajor               : '3'
+      WebviewAppNameVersionMajor           : 'XiaoMi Mint Browser 3'
+
+
+# Epic browser (on Phone, Motorola/Google Nexus 6, Android 7.1.1)
+# Undetectable
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '72.0'
+      LayoutEngineVersionMajor             : '72'
+      LayoutEngineNameVersion              : 'Blink 72.0'
+      LayoutEngineNameVersionMajor         : 'Blink 72'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '72.0.3626.121'
+      AgentVersionMajor                    : '72'
+      AgentNameVersion                     : 'Chrome 72.0.3626.121'
+      AgentNameVersionMajor                : 'Chrome 72'
+
+
+- matcher:
+    require:
+    - 'agent.product.(2)version="TansoDL"'
+    extract:
+    - 'WebviewAppName                      :       10 : "Kode"'
+    - 'WebviewAppVersion                   :       10 : "<<<null>>>"'
+
+# Kode browser (on Phone, Motorola/Google Nexus 6, Android 7.1.1)
+# Messed up everything
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.1.0; One) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36/TansoDL'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Oneplus ONE'
+      DeviceBrand                          : 'Oneplus'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.1.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '70.0'
+      LayoutEngineVersionMajor             : '70'
+      LayoutEngineNameVersion              : 'Blink 70.0'
+      LayoutEngineNameVersionMajor         : 'Blink 70'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '70.0.3538.110'
+      AgentVersionMajor                    : '70'
+      AgentNameVersion                     : 'Chrome Webview 70.0.3538.110'
+      AgentNameVersionMajor                : 'Chrome Webview 70'
+      WebviewAppName                       : 'Kode'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Kode ??'
+
+
+# Cake browser (on Phone, Motorola/Google Nexus 6, Android 7.1.1)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6 Build/N6F27M; Cake) AppleWebKit/537.36 (KHTML, like Gecko) Version/6.0.21 Chrome/83.0.4103.101 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      OperatingSystemVersionBuild          : 'N6F27M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '83.0.4103.101'
+      AgentVersionMajor                    : '83'
+      AgentNameVersion                     : 'Chrome Webview 83.0.4103.101'
+      AgentNameVersionMajor                : 'Chrome Webview 83'
+      WebviewAppName                       : 'Cake Browser'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Cake Browser ??'
+
+# Fake test case based upon Cake browser to check version extraction
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6 Build/N6F27M; Cake/1.2.3) AppleWebKit/537.36 (KHTML, like Gecko) Version/6.0.21 Chrome/83.0.4103.101 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      OperatingSystemVersionBuild          : 'N6F27M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '83.0.4103.101'
+      AgentVersionMajor                    : '83'
+      AgentNameVersion                     : 'Chrome Webview 83.0.4103.101'
+      AgentNameVersionMajor                : 'Chrome Webview 83'
+      WebviewAppName                       : 'Cake Browser'
+      WebviewAppVersion                    : '1.2.3'
+      WebviewAppVersionMajor               : '1'
+      WebviewAppNameVersionMajor           : 'Cake Browser 1'
+
+
+# Phoenix Browser  (on Phone, Motorola/Google Nexus 6, Android 7.1.1)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 7.1.1; en-gb; Nexus 6 Build/N6F27M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.101 Mobile Safari/537.36 PHX/5.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      OperatingSystemVersionBuild          : 'N6F27M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Phoenix'
+      AgentVersion                         : '5.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Phoenix 5.0'
+      AgentNameVersionMajor                : 'Phoenix 5'
+      AgentLanguage                        : 'English (United Kingdom)'
+      AgentLanguageCode                    : 'en-gb'
+      AgentSecurity                        : 'Strong security'
+
+
+# Aloha (on Phone, Motorola/Google Nexus 6, Android 7.1.1)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; MOTOROLA Nexus 6 Build/NMF26F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.111 Mobile Safari/537.36 AlohaBrowser/2.18.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Motorola Nexus 6'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      OperatingSystemVersionBuild          : 'NMF26F'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '76.0'
+      LayoutEngineVersionMajor             : '76'
+      LayoutEngineNameVersion              : 'Blink 76.0'
+      LayoutEngineNameVersionMajor         : 'Blink 76'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Aloha Browser'
+      AgentVersion                         : '2.18.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Aloha Browser 2.18.1'
+      AgentNameVersionMajor                : 'Aloha Browser 2'
+

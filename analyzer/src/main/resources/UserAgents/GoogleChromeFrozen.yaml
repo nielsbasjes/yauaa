@@ -389,6 +389,7 @@ config:
 
 
 # Tablet, Android 7.0, Chrome 83, FROZEN UserAgent
+# Tablet, Android 11, Chrome 83, FROZEN UserAgent (Android Studio Emulator)
 # Notable changes
 # - Chrome version loses minor versions
 # - Incorrect Android version
@@ -485,3 +486,62 @@ config:
       AgentVersionMajor                    : '83'
       AgentNameVersion                     : 'Edge 83.0.0.0'
       AgentNameVersionMajor                : 'Edge 83'
+
+
+# Tablet, Android 11, Chrome 83, Default UserAgent (Android Studio Emulator)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 11; sdk_gphone_x86_arm) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.44 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'x86'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '83.0.4103.44'
+      AgentVersionMajor                    : '83'
+      AgentNameVersion                     : 'Chrome 83.0.4103.44'
+      AgentNameVersionMajor                : 'Chrome 83'
+
+
+# Tablet, Android 9, Chrome 83, Default UserAgent (Samsung Galaxy Tab S5e)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; SM-T720) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.101 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung SM-T720'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '83.0.4103.101'
+      AgentVersionMajor                    : '83'
+      AgentNameVersion                     : 'Chrome 83.0.4103.101'
+      AgentNameVersionMajor                : 'Chrome 83'
+

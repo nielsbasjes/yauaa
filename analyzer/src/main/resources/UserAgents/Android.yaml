@@ -169,6 +169,19 @@ config:
     - 'DeviceClass                         :     1000 :"Tablet"'
     - 'OperatingSystemClass                :     1000 :"Mobile"'
 
+
+# This is to catch browsers that show phones with "Mobile" and "Safari" but not with "Mobile Safari"
+- matcher:
+    variable:
+    - 'ActualAgent                         :agent.product.name[1]="Mobile"^'
+    require:
+    - 'agent.product.name="Chrome"'
+    - 'agent.product.name[1]="Safari"'
+    extract:
+    - 'DeviceClass                         :     3001 :                          "Phone"'
+    - 'AgentName                           :     3001 :                          @ActualAgent.name[2-]'
+    - 'AgentVersion                        :     3001 :                          @ActualAgent.version'
+
 # ===========================
 
 - matcher:

@@ -409,6 +409,34 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/11.2 Chrome/75.0.3770.143 Mobile Safari/537.3'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '75.0'
+      LayoutEngineVersionMajor             : '75'
+      LayoutEngineNameVersion              : 'Blink 75.0'
+      LayoutEngineNameVersionMajor         : 'Blink 75'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '11.2'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'SamsungBrowser 11.2'
+      AgentNameVersionMajor                : 'SamsungBrowser 11'
+
+
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.2; Pacific Build/N2G48H) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/5.5.8.135542447 SamsungBrowser/4.0 Chrome/66.0.3359.203 Mobile VR Safari/537.36'
     expected:
       DeviceClass                          : 'Virtual Reality'
