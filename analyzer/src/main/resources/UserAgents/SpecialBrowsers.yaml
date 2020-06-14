@@ -3357,12 +3357,19 @@ config:
 
 # Tenta Browser (on Phone, Motorola/Google Nexus 6, Android 7.1.1)
 # Avast Secure Browser is really IDENTICAL to the Tenta Browser
-# NOTE: This one does NOT conform to the "Mobile Safari" for a "Phone" pattern
+# NOTE: This one does NOT conform to the "Mobile Safari" for a "Phone" pattern.
+#       Because this agent DOES NOT show the difference between Phone and Tablet they are classified as "Mobile"
+- matcher:
+    require:
+    - 'agent.product.name="Mobile Tenta"'
+    extract:
+    - 'DeviceClass                         :     3100 : "Mobile"'
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6; U; en) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.137 Mobile Tenta/4.0.18 Build/2471 Safari/537.36'
     expected:
-      DeviceClass                          : 'Phone'
+      DeviceClass                          : 'Mobile'
       DeviceName                           : 'Google Nexus 6'
       DeviceBrand                          : 'Google'
       OperatingSystemClass                 : 'Mobile'
@@ -3371,6 +3378,38 @@ config:
       OperatingSystemVersionMajor          : '7'
       OperatingSystemNameVersion           : 'Android 7.1.1'
       OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '64.0'
+      LayoutEngineVersionMajor             : '64'
+      LayoutEngineNameVersion              : 'Blink 64.0'
+      LayoutEngineNameVersionMajor         : 'Blink 64'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Tenta'
+      AgentVersion                         : '4.0.18'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Tenta 4.0.18'
+      AgentNameVersionMajor                : 'Tenta 4'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
+
+# Tenta Browser (on emulated Tablet in Android Studio, Android 10)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 10; Android SDK built for x86; U; en) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.137 Mobile Tenta/4.0.18 Build/2473 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Google Android SDK Built FOR X86'
+      DeviceBrand                          : 'Google'
+      DeviceCpu                            : 'x86'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
       LayoutEngineVersion                  : '64.0'

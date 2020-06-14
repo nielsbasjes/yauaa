@@ -170,7 +170,7 @@ config:
     - 'OperatingSystemClass                :     1000 :"Mobile"'
 
 
-# This is to catch browsers that show phones with "Mobile" and "Safari" but not with "Mobile Safari"
+# This is to catch browsers that show bad labels with "Mobile" and "Safari" but not with "Mobile Safari"
 - matcher:
     variable:
     - 'ActualAgent                         :agent.product.name[1]="Mobile"^'
