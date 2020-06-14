@@ -24,7 +24,7 @@ v5.18-SNAPSHOT
   - Improve PlayStation 3,4 OS names
   - Handle the Frozen User-Agent as used in Chrome and Edge.
   - Detect the "new" Fuchsia OS
-  - Browsers: Maxthon Nitro, Aloha, Phoenix, Cake, Kode, Mint, Nox, Tenta
+  - Browsers: Maxthon Nitro, Aloha, Phoenix, Cake, Kode, Mint, Nox, Tenta, Sleipnir
 - Build
   - Include OWASP check for bad dependencies
 

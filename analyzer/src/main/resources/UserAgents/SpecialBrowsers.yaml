@@ -628,6 +628,7 @@ config:
       AgentNameVersion                     : 'Chrome 22.0.1229.94'
       AgentNameVersionMajor                : 'Chrome 22'
 
+# https://www.zemana.com/antimalware
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.7 (KHTML, like Gecko) Chrome/22.0.1229.94 Safari/534.7 ZemanaAID/FFFF0089'
@@ -3699,3 +3700,31 @@ config:
       AgentNameVersion                     : 'Aloha Browser 2.18.1'
       AgentNameVersionMajor                : 'Aloha Browser 2'
 
+# Sleipnir (on Windows 10)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36 Sleipnir/6.4.6'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Sleipnir'
+      AgentVersion                         : '6.4.6'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Sleipnir 6.4.6'
+      AgentNameVersionMajor                : 'Sleipnir 6'
