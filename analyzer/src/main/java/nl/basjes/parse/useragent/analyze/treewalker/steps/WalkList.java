@@ -25,11 +25,13 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepDefaultIfN
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEndsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsInSet;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNotInSet;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupPrefix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsNotInLookupPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookupContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookupPrefix;
@@ -58,6 +60,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormali
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContainsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupPrefixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNotInLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContainsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
@@ -71,6 +74,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContex
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEndsWithValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEqualsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepIsInSetContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepIsNotInSetContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext2Context;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext3Context;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext4Context;
@@ -366,6 +370,28 @@ public class WalkList implements Serializable {
         }
 
         @Override
+        public Void visitMatcherPathIsNotInLookupPrefix(MatcherPathIsNotInLookupPrefixContext ctx) {
+            visit(ctx.matcher());
+
+            fromHereItCannotBeInHashMapAnymore();
+
+            String              lookupName = ctx.lookup.getText();
+            Set<String>         lookupSet  = lookupSets.get(lookupName);
+            if (lookupSet != null) {
+                add(new StepIsNotInLookupPrefix(lookupName, lookupSet));
+            } else {
+                Map<String, String> lookup     = lookups.get(lookupName);
+                if (lookup != null) {
+                    add(new StepIsNotInLookupPrefix(lookupName, lookup));
+                } else {
+                    throw new InvalidParserConfigurationException("Missing lookup/set \"" + lookupName + "\" ");
+                }
+            }
+
+            return null; // Void
+        }
+
+        @Override
         public Void visitMatcherDefaultIfNull(MatcherDefaultIfNullContext ctx) {
             // Always add this one, it's special
             steps.add(new StepDefaultIfNull(ctx.defaultValue.getText()));
@@ -569,6 +595,27 @@ public class WalkList implements Serializable {
             }
 
             add(new StepIsInSet(lookupSetName, lookupSet));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepIsNotInSet(StepIsNotInSetContext ctx) {
+            fromHereItCannotBeInHashMapAnymore();
+
+            String lookupSetName = ctx.set.getText();
+            Set<String> lookupSet = lookupSets.get(lookupSetName);
+            if (lookupSet == null) {
+                Map<String, String> lookup = lookups.get(lookupSetName);
+                if (lookup != null) {
+                    lookupSet = new LinkedHashSet<>(lookup.keySet());
+                }
+            }
+            if (lookupSet == null) {
+                throw new InvalidParserConfigurationException("Missing lookupSet \"" + lookupSetName + "\" ");
+            }
+
+            add(new StepIsNotInSet(lookupSetName, lookupSet));
             visitNext(ctx.nextStep);
             return null; // Void
         }

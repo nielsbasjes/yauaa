@@ -151,6 +151,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
 
     private Map<String, Map<String, String>> lookups = new LinkedHashMap<>(128);
     private final Map<String, Set<String>> lookupSets = new LinkedHashMap<>(128);
+    private final Map<String, Set<String>> lookupSetMerge = new LinkedHashMap<>(128);
 
     @Override
     public Map<String, Map<String, String>> getLookups() {
@@ -429,6 +430,24 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
                 cleanedLookups.put(lookupsEntry.getKey(), cleanedLookup);
             }
             lookups = cleanedLookups;
+        }
+
+        if (!lookupSetMerge.isEmpty()) {
+            lookupSetMerge.forEach((set, allExtraToLoad) -> {
+                Set<String> theSet = lookupSets.get(set);
+                if (theSet != null) {
+                    allExtraToLoad.forEach(extraToLoad -> {
+                        Map<String, String> extralookup = lookups.get(extraToLoad);
+                        if (extralookup != null) {
+                            theSet.addAll(extralookup.keySet());
+                        }
+                        Set<String> extralookupSet = lookupSets.get(extraToLoad);
+                        if (extralookupSet != null) {
+                            theSet.addAll(extralookupSet);
+                        }
+                    });
+                }
+            });
         }
 
         allMatchers.clear();
@@ -717,10 +736,15 @@ config:
         String name = null;
         Set<String> lookupSet = new LinkedHashSet<>();
 
+        Set<String> merge = new LinkedHashSet<>();
+
         for (NodeTuple tuple : entry.getValue()) {
             switch (getKeyAsString(tuple, filename)) {
                 case "name":
                     name = getValueAsString(tuple, filename);
+                    break;
+                case "merge":
+                    merge.addAll(getStringValues(getValueAsSequenceNode(tuple, filename), filename));
                     break;
                 case "values":
                     SequenceNode node = getValueAsSequenceNode(tuple, filename);
@@ -731,6 +755,10 @@ config:
                 default:
                     break;
             }
+        }
+
+        if (!merge.isEmpty()) {
+            lookupSetMerge.put(name, merge);
         }
 
         lookupSets.put(name, lookupSet);

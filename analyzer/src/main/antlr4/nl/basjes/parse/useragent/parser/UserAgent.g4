@@ -397,7 +397,7 @@ singleVersion
     ;
 
 singleVersionWithCommas
-    : VERSION (COMMA VERSION)?
+    : VERSION (COMMA VERSION)*
     ;
 
 productNameVersion

@@ -2646,11 +2646,11 @@ config:
       LayoutEngineNameVersion              : 'Trident 7.0'
       LayoutEngineNameVersionMajor         : 'Trident 7'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Internet Explorer'
-      AgentVersion                         : '11.0'
-      AgentVersionMajor                    : '11'
-      AgentNameVersion                     : 'Internet Explorer 11.0'
-      AgentNameVersionMajor                : 'Internet Explorer 11'
+      AgentName                            : 'TB-GMX'
+      AgentVersion                         : '2.6.12'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'TB-GMX 2.6.12'
+      AgentNameVersionMajor                : 'TB-GMX 2'
 
 
 # TODO: Review this. tb-webde is the real useragent. Perhaps this is Thunderbird via web.de free email website in Germany ??
@@ -2676,11 +2676,11 @@ config:
       LayoutEngineNameVersion              : 'Trident 7.0'
       LayoutEngineNameVersionMajor         : 'Trident 7'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Internet Explorer'
-      AgentVersion                         : '11.0'
-      AgentVersionMajor                    : '11'
-      AgentNameVersion                     : 'Internet Explorer 11.0'
-      AgentNameVersionMajor                : 'Internet Explorer 11'
+      AgentName                            : 'TB-Webde'
+      AgentVersion                         : '2.7.4'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'TB-Webde 2.7.4'
+      AgentNameVersionMajor                : 'TB-Webde 2'
 
 
 - test:
@@ -3249,7 +3249,7 @@ config:
       AgentSecurity                        : 'Strong security'
 
 
-- test: # TODO: Verify if this should be something like MRSPUTNIK or MRA instead??
+- test:
     input:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; MRSPUTNIK 2, 4, 0, 463; MRA 5.8 (build 4156); SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; HPNTDF; .NET4.0C)'
     expected:
@@ -3271,11 +3271,11 @@ config:
       LayoutEngineNameVersion              : 'Trident 4.0'
       LayoutEngineNameVersionMajor         : 'Trident 4'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Internet Explorer'
-      AgentVersion                         : '8.0'
-      AgentVersionMajor                    : '8'
-      AgentNameVersion                     : 'Internet Explorer 8.0'
-      AgentNameVersionMajor                : 'Internet Explorer 8'
+      AgentName                            : 'Mrsputnik'
+      AgentVersion                         : '2.4.0.463'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Mrsputnik 2.4.0.463'
+      AgentNameVersionMajor                : 'Mrsputnik 2'
 
 - test:
     input:
@@ -3534,6 +3534,36 @@ config:
       AgentNameVersion                     : 'Chrome 72.0.3626.121'
       AgentNameVersionMajor                : 'Chrome 72'
 
+# Epic browser on Windows 10
+# Undetectable
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3990.90 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '80.0'
+      LayoutEngineVersionMajor             : '80'
+      LayoutEngineNameVersion              : 'Blink 80.0'
+      LayoutEngineNameVersionMajor         : 'Blink 80'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '80.0.3990.90'
+      AgentVersionMajor                    : '80'
+      AgentNameVersion                     : 'Chrome 80.0.3990.90'
+      AgentNameVersionMajor                : 'Chrome 80'
+
 
 - matcher:
     require:
@@ -3728,3 +3758,205 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'Sleipnir 6.4.6'
       AgentNameVersionMajor                : 'Sleipnir 6'
+
+
+- set:
+    name: 'UnwantedIEPrefixes'
+    merge:
+      - 'CPUArchitectures'
+      - 'OSPatterns'
+      - 'MobileBrands'
+      - 'MobileBrandPrefixes'
+    values:
+      - 'Mozilla'
+      - 'compatible'
+      - 'Windows'
+      - 'Xbox'
+      - 'Linux'
+      - 'Macintosh'
+      - 'MSIE'
+      - 'Trident'
+      - 'rv:'
+      - 'InfoPath'
+      - '.NET'
+      - 'Media Center'
+      - 'Tablet'
+      - 'Touch'
+      - 'IEMobile'
+      - 'OWASMIME'
+      - 'BTRS'
+      - 'GTB'
+      - 'static'
+      - 'anonymized'
+      - '{'
+      - '@'
+      - '#'
+
+- set:
+    name: 'UnwantedIENames'
+    merge:
+      - 'SecurityFlags'
+      - 'ISOLanguageCodes'
+      - 'WindowsOEMCodes'
+      - 'WindowsDesktopOSName'
+    values:
+      - ''  # Don't want an empty name
+      - 'X11'
+      - 'SV1'
+      - 'SLCC2' # Microsoft-Windows-Security-Licensing-SLCC --> https://stackoverflow.com/questions/49700209/does-anyone-know-what-slcc2-stands-for-in-the-ie-11-useragent-string/49701703
+
+      # https://stackoverflow.com/questions/5984880/decoding-the-ie9-user-agent
+      # Bing Optimized IE8/IE9? https://www.webmasterworld.com/search_engine_spiders/4432587.htm
+      - 'BOIE8'
+      - 'BOIE9'
+      - 'ENUSMSNIP' # EN_US : Locale (US English); MS: Microsoft; NIP: Network Intrusion Prevention
+      - 'LCTE' # The LCTE part is currently still unknown. https://stackoverflow.com/questions/42500881/what-is-lcte-in-user-agent
+      - 'WPDesktop'
+
+- matcher:
+    variable:
+    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
+    - 'AgentName : @Agent.text'
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"'
+    - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
+    extract:
+    - 'AgentName                           :     2008 : NormalizeBrand[@AgentName]'
+    - 'AgentVersion                        :     2008 : "<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
+    - 'AgentVersion : @Agent.product.version'
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"'
+    - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.keyvalue]'
+    extract:
+    - 'AgentName                           :     2009 : NormalizeBrand[@Agent.product.name]'
+    - 'AgentVersion                        :     2009 : CleanVersion[@AgentVersion]'
+
+- matcher:
+    variable:
+      - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
+      - 'AgentName : @Agent.text'
+    require:
+      - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Trident"'
+      - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
+      - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"]'
+    extract:
+      - 'AgentName                           :     2008 : NormalizeBrand[@AgentName]'
+      - 'AgentVersion                        :     2008 : "<<<null>>>"'
+
+- matcher:
+    variable:
+      - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
+      - 'AgentVersion : @Agent.product.version'
+    require:
+      - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Trident"'
+      - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
+      - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"]'
+      - 'IsNull[@AgentVersion.url]'
+      - 'IsNull[@AgentVersion.uuid]'
+      - 'IsNull[@AgentVersion.keyvalue]'
+    extract:
+      - 'AgentName                           :     2009 : NormalizeBrand[@Agent.product.name]'
+      - 'AgentVersion                        :     2009 : CleanVersion[@AgentVersion]'
+
+
+
+  # GreenBrowser on Windows 10 (www.morequick.com)
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; GreenBrowser)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      OperatingSystemNameVersionMajor      : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'GreenBrowser'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'GreenBrowser ??'
+      AgentNameVersionMajor                : 'GreenBrowser ??'
+      IECompatibilityVersion               : '7.0'
+      IECompatibilityVersionMajor          : '7'
+      IECompatibilityNameVersion           : 'Internet Explorer 7.0'
+      IECompatibilityNameVersionMajor      : 'Internet Explorer 7'
+
+
+# Slimbrowser https://www.slimbrowser.net/
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; MASM; .NET4.0C; BOIE9;DEDE; SlimBrowser/6.01.095)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Samsung Desktop'
+      DeviceBrand                          : 'Samsung'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      OperatingSystemNameVersionMajor      : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '4.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Trident 4.0'
+      LayoutEngineNameVersionMajor         : 'Trident 4'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SlimBrowser'
+      AgentVersion                         : '6.01.095'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'SlimBrowser 6.01.095'
+      AgentNameVersionMajor                : 'SlimBrowser 6'
+      AgentLanguage                        : 'German (Germany)'
+      AgentLanguageCode                    : 'de-de'
+
+# Lunascape 6 on Windows 10
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; rv:11.0; Lunascape 6.15.2.27564) like Gecko'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Lunascape'
+      AgentVersion                         : '6.15.2.27564'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Lunascape 6.15.2.27564'
+      AgentNameVersionMajor                : 'Lunascape 6'
+

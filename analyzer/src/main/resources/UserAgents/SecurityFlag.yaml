@@ -17,6 +17,13 @@
 
 config:
 
+- set:
+    name: 'SecurityFlags'
+    values:
+      - 'N'
+      - 'U'
+      - 'I'
+
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.(1)text="N"'

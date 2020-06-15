@@ -24,11 +24,13 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepDefaultIfN
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEndsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsInSet;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNotInSet;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupPrefix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsNotInLookupPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookupContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookupPrefix;
@@ -119,6 +121,14 @@ public class TestSteps {
     }
 
     @Test
+    public void testStepIsNotInSet() {
+        Step step = new StepIsNotInSet("MySet", set);
+        assertNull(step.walk(null, null));
+        assertEquals("Something", step.walk(null, "Something").getValue());
+        assertNull(step.walk(null, "Foo"));
+    }
+
+    @Test
     public void testStepIsNull() {
         Step step = new StepIsNull();
         assertNull(step.walk(null, "Something"));
@@ -158,6 +168,14 @@ public class TestSteps {
         assertNull(step.walk(null, null));
         assertNull(step.walk(null, "Something"));
         assertEquals("FooFoo", step.walk(null, "FooFoo").getValue());
+    }
+
+    @Test
+    public void testStepIsNotInLookupPrefix() {
+        Step step = new StepIsNotInLookupPrefix("Foo", lookup);
+        assertNull(step.walk(null, null).getValue());
+        assertEquals("Something", step.walk(null, "Something").getValue());
+        assertNull(step.walk(null, "FooFoo"));
     }
 
     @Test

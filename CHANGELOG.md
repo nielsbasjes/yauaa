@@ -9,6 +9,8 @@ v5.18-SNAPSHOT
   - The output is now "immutable" which makes returning from cache faster.
   - Rewrite the handling of "Default" values
   - Rewrote Calculators.
+  - Allow creating a set by merging others in it.
+  - Match if value is NOT in "set"/"lookup"/"lookup prefix"
 - Updated UDF dependencies
   - Apache Flink     1.10.1
   - Apache Beam      2.21.0
@@ -24,7 +26,9 @@ v5.18-SNAPSHOT
   - Improve PlayStation 3,4 OS names
   - Handle the Frozen User-Agent as used in Chrome and Edge.
   - Detect the "new" Fuchsia OS
-  - Browsers: Maxthon Nitro, Aloha, Phoenix, Cake, Kode, Mint, Nox, Tenta, Sleipnir
+  - Browsers: Maxthon Nitro, Aloha, Phoenix, Cake, Kode, Mint, Nox, Tenta, Sleipnir, GreenBrowser, SlimBrowser, Lunascape,
+  - Browsers: More automatically detect MS-IE derivatives
+  - Languages: Detect language variants as "nlbe" in addition to "nl-be" and "nl_be"
 - Build
   - Include OWASP check for bad dependencies
 

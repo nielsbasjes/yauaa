@@ -128,6 +128,7 @@ do
     echo "      \"${CODE}\" : \"${CODE}\""
     if [[ ${CODE} = *"-"* ]]; then
         echo "      \"${CODE//-/_}\" : \"${CODE}\""
+        echo "      \"${CODE//-/}\" : \"${CODE}\""
     fi
 done
 
@@ -142,6 +143,7 @@ do
     echo "      \"${CODE}\" : \"${NAME}\""
     if [[ ${CODE} = *"-"* ]]; then
         echo "      \"${CODE//-/_}\" : \"${NAME}\""
+        echo "      \"${CODE//-/}\" : \"${NAME}\""
     fi
 done
 

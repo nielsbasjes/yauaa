@@ -32,6 +32,7 @@ public class StepCleanVersion extends Step {
             // Sanitize the provided value
             actualValue = replaceString(actualValue, "_", ".");
             actualValue = replaceString(actualValue, "/", " ");
+            actualValue = replaceString(actualValue, ", ", ".");
         }
 
         return walkNextStep(tree, actualValue);

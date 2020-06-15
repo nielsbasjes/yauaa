@@ -38,6 +38,7 @@ DOT             : '.'           ;
 MINUS           : '-'           ;
 STAR            : '*'           ;
 IN              : '?'           ;
+NOTIN           : '?!'          ;
 
 NUMBER          : [0-9]+        ;
 BLOCKOPEN       : '['           ;
@@ -72,20 +73,21 @@ matcherExtract  : expression=matcher EOF;
 // Is a bit duplicate but this gives a lot of clarity in the code
 matcherVariable : expression=matcher EOF;
 
-matcher         : basePath                                                                                                      #matcherPath
-                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher SEMICOLON postfix=VALUE BLOCKCLOSE                          #matcherConcat
-                | 'Concat' BLOCKOPEN prefix=VALUE SEMICOLON matcher                         BLOCKCLOSE                          #matcherConcatPrefix
-                | 'Concat' BLOCKOPEN                        matcher SEMICOLON postfix=VALUE BLOCKCLOSE                          #matcherConcatPostfix
-                | 'NormalizeBrand'     BLOCKOPEN matcher BLOCKCLOSE                                                             #matcherNormalizeBrand
-                | 'CleanVersion'       BLOCKOPEN matcher BLOCKCLOSE                                                             #matcherCleanVersion
-                | 'LookUp'             BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookup
-                | 'LookUpContains'     BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookupContains
-                | 'IsInLookUpContains' BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsInLookupContains
-                | 'LookUpPrefix'       BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookupPrefix
-                | 'IsInLookUpPrefix'   BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsInLookupPrefix
-                | 'DefaultIfNull'      BLOCKOPEN                            matcher  SEMICOLON defaultValue=VALUE    BLOCKCLOSE #matcherDefaultIfNull
-                | matcher wordRange                                                                                             #matcherWordRange
-                | matcher BLOCKOPEN wordRange BLOCKCLOSE                                                                        #matcherSegmentRange
+matcher         : basePath                                                                                                       #matcherPath
+                | 'Concat'              BLOCKOPEN prefix=VALUE     SEMICOLON matcher  SEMICOLON postfix=VALUE         BLOCKCLOSE #matcherConcat
+                | 'Concat'              BLOCKOPEN prefix=VALUE     SEMICOLON matcher                                  BLOCKCLOSE #matcherConcatPrefix
+                | 'Concat'              BLOCKOPEN                            matcher  SEMICOLON postfix=VALUE         BLOCKCLOSE #matcherConcatPostfix
+                | 'NormalizeBrand'      BLOCKOPEN matcher                                                             BLOCKCLOSE #matcherNormalizeBrand
+                | 'CleanVersion'        BLOCKOPEN matcher                                                             BLOCKCLOSE #matcherCleanVersion
+                | 'LookUp'              BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookup
+                | 'LookUpContains'      BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookupContains
+                | 'IsInLookUpContains'  BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsInLookupContains
+                | 'LookUpPrefix'        BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookupPrefix
+                | 'IsInLookUpPrefix'    BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsInLookupPrefix
+                | 'IsNotInLookUpPrefix' BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsNotInLookupPrefix
+                | 'DefaultIfNull'       BLOCKOPEN                            matcher  SEMICOLON defaultValue=VALUE    BLOCKCLOSE #matcherDefaultIfNull
+                | matcher wordRange                                                                                              #matcherWordRange
+                | matcher BLOCKOPEN wordRange BLOCKCLOSE                                                                         #matcherSegmentRange
                 ;
 
 basePath        : value=VALUE                              #pathFixedValue
@@ -108,7 +110,8 @@ path            : DOT numberRange name=PATHTOKENNAME  (nextStep=path)?  #stepDow
                 | STARTSWITH value=VALUE          (nextStep=path)?  #stepStartsWithValue
                 | ENDSWITH   value=VALUE          (nextStep=path)?  #stepEndsWithValue
                 | CONTAINS   value=VALUE          (nextStep=path)?  #stepContainsValue
-                | IN         set=VALUENAME        (nextStep=path)?  #stepIsInSet
+                | IN         set=VALUENAME        (nextStep=path)?  #stepIsInSet          // Works with both set and lookup
+                | NOTIN      set=VALUENAME        (nextStep=path)?  #stepIsNotInSet       // Works with both set and lookup
                 | wordRange                       (nextStep=path)?  #stepWordRange
                 | BACKTOFULL                      (nextStep=path)?  #stepBackToFull
                 ;

@@ -63,6 +63,9 @@ The overall structure is this:
 
     - set:
         name: 'setname'
+        merge:
+        - 'nameOtherSet'
+        - 'nameOtherLookup'
         values:
         - 'foo'
         - 'bar'
@@ -240,6 +243,7 @@ Contains | ~ | agent.product.name~"ar" | agent.(2)product.(1)name="bar baz" | Th
 Starts with | { | agent.product.name{"b" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that starts with "b"
 Ends with | }| agent.product.name}"z" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that ends with "z"
 (Key)set contains | ? | agent.product.name?mySetOfValues | agent.(3)product.(1)name | The name of the third product was present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated
+(Key)set does NOT contain | ?! | agent.product.name?!mySetOfValues | agent.(3)product.(1)name | The name of the third product was NOT present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated
 
 Extracting substrings
 
@@ -267,6 +271,7 @@ LookUp the lookupname in the lookup table that the value contains (with fallback
 LookUp the lookupname in the lookup table that the value contains and return the original value if a matching prefix is present. | IsInLookUpContains[lookupname;expression] | IsInLookUpContains[OSNames;agent.product.entry.text]
 LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value. | LookUpPrefix[lookupname;expression] | LookUpPrefix[OSNames;agent.product.entry.text]
 LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value (with fallback in case no match). | LookUpPrefix[lookupname;expression;defaultvalue] | LookUpPrefix[OSNames;agent.product.entry.text;"Unknown"]
+LookUp the value against a lookup table and return the value if there is NO matching prefix of the key. | LookUpIsNotInPrefix[lookupname;expression] | LookUpIsNotInPrefix[OSNames;agent.product.entry.text]
 LookUp the value against a lookup table and return the original value if a matching prefix is present. | IsInLookUpPrefix[lookupname;expression] | IsInLookUpPrefix[OSNames;agent.product.entry.text]
 Put a fixed string before an expression | Concat[value;expression] | Concat["Something";agent.product.entry.text]
 Put a fixed string after an expression | Concat[expression;value] | Concat[agent.product.entry.text;"Something"]

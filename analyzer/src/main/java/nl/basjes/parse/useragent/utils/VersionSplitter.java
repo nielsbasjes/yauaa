@@ -35,6 +35,7 @@ public final class VersionSplitter extends Splitter {
             case '.':
             case '_':
             case '-':
+            case ',':
                 return true;
             default:
                 return false;

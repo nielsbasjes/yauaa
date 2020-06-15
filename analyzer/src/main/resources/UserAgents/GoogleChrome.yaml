@@ -530,7 +530,7 @@ config:
 
 - matcher:
     variable:
-    - 'WebViewApp                          :agent.product.comments.entry.text?KnownWebviewAppNames'
+    - 'WebViewApp                          :agent.(1)product.(1)comments.entry.(1)text?KnownWebviewAppNames'
     require:
     - 'agent.product.name="Chrome"'
     - 'agent.product.name="Version"'
@@ -543,7 +543,7 @@ config:
 
 - matcher:
     variable:
-    - 'WebViewApp                          :agent.product.comments.entry.product.name?KnownWebviewAppNames'
+    - 'WebViewApp                          :agent.(1)product.(1)comments.entry.(1)product.(1)name?KnownWebviewAppNames'
     require:
     - 'agent.product.name="Chrome"'
     - 'agent.product.name="Version"'
