@@ -630,6 +630,9 @@ In general a field will receive a value from multiple matchers; the value with t
 
 - set:
     name: &apos;setname&apos;
+    merge:
+    - &apos;nameOtherSet&apos;
+    - &apos;nameOtherLookup&apos;
     values:
     - &apos;foo&apos;
     - &apos;bar&apos;
@@ -868,6 +871,13 @@ The FIRST matching pattern is used for the end result.</p>
 <td style="text-align:left">agent.(3)product.(1)name</td>
 <td style="text-align:left">The name of the third product was present in the defined set of values. This set may be a &quot;set&quot; or a &quot;lookup&quot; in the last case only the keys of this lookup will be evaluated</td>
 </tr>
+<tr>
+<td style="text-align:left">(Key)set does NOT contain</td>
+<td style="text-align:left">?!</td>
+<td style="text-align:left">agent.product.name?!mySetOfValues</td>
+<td style="text-align:left">agent.(3)product.(1)name</td>
+<td style="text-align:left">The name of the third product was NOT present in the defined set of values. This set may be a &quot;set&quot; or a &quot;lookup&quot; in the last case only the keys of this lookup will be evaluated</td>
+</tr>
 </tbody>
 </table>
 <p>Extracting substrings</p>
@@ -976,6 +986,11 @@ The FIRST matching pattern is used for the end result.</p>
 <td style="text-align:left">LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value (with fallback in case no match).</td>
 <td style="text-align:left">LookUpPrefix[lookupname;expression;defaultvalue]</td>
 <td style="text-align:left">LookUpPrefix[OSNames;agent.product.entry.text;&quot;Unknown&quot;]</td>
+</tr>
+<tr>
+<td style="text-align:left">LookUp the value against a lookup table and return the value if there is NO matching prefix of the key.</td>
+<td style="text-align:left">LookUpIsNotInPrefix[lookupname;expression]</td>
+<td style="text-align:left">LookUpIsNotInPrefix[OSNames;agent.product.entry.text]</td>
 </tr>
 <tr>
 <td style="text-align:left">LookUp the value against a lookup table and return the original value if a matching prefix is present.</td>
@@ -1385,7 +1400,7 @@ extract:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Making new rules","level":"4.2","depth":1,"next":{"title":"Shading Java dependencies","level":"4.3","depth":1,"path":"NOTES-shading-dependencies.md","ref":"NOTES-shading-dependencies.md","articles":[]},"previous":{"title":"Base design idea","level":"4.1","depth":1,"path":"Internals-BaseDesign.md","ref":"Internals-BaseDesign.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap","livereload"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.17"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"Internals-MakingNewRules.md","mtime":"2020-03-30T08:07:58.900Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-08T13:45:04.016Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Making new rules","level":"4.2","depth":1,"next":{"title":"Shading Java dependencies","level":"4.3","depth":1,"path":"NOTES-shading-dependencies.md","ref":"NOTES-shading-dependencies.md","articles":[]},"previous":{"title":"Base design idea","level":"4.1","depth":1,"path":"Internals-BaseDesign.md","ref":"Internals-BaseDesign.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap","livereload"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.17"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"Internals-MakingNewRules.md","mtime":"2020-06-15T16:09:06.702Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-15T19:14:47.922Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
