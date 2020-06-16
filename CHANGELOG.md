@@ -13,7 +13,7 @@ v5.18-SNAPSHOT
   - Match if value is NOT in "set"/"lookup"/"lookup prefix"
 - Updated UDF dependencies
   - Apache Flink     1.10.1
-  - Apache Beam      2.21.0
+  - Apache Beam      2.22.0
   - Elastic Logstash 7.7.1
 - New UDF: ElasticSearch 7.7.1
 - New/improved detections
