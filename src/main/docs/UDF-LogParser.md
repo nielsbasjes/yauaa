@@ -1,4 +1,4 @@
-# User Defined Function for LogParser
+# User Defined Function for [LogParser](https://github.com/nielsbasjes/logparser/)
 
 ## Getting the UDF
 You can get the prebuilt UDF from [maven central](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-logparser/{{ book.YauaaVersion }}/yauaa-logparser-{{ book.YauaaVersion }}-udf.jar).

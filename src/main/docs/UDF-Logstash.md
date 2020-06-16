@@ -1,4 +1,4 @@
-# User Defined Function for Elastic Logstash
+# User Defined Function (Filter plugin) for [Elastic Logstash](https://www.elastic.co/guide/en/logstash/current/filter-plugins.html)
 
 # STATUS: ... EXPERIMENTAL ...
 The logstash UDF java api is still experimental.

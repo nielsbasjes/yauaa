@@ -1,4 +1,4 @@
-# User Defined Function for Elastic Search
+# User Defined Function (ingest processor) for [Elastic Search](https://www.elastic.co/guide/en/elasticsearch/plugins/current/intro.html)
 
 # STATUS: ... EXPERIMENTAL ...
 The ElasticSearch ingest plugin is very new.

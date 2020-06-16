@@ -16,6 +16,12 @@
 # limitations under the License.
 #
 
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+echo "PWD: ${SCRIPTDIR}"
+
+cd "${SCRIPTDIR}" || ( echo "This should not be possible" ; exit 1 )
+
 OS=centos8
 PROJECTNAME=yauaa
 USER=$(id -un)
@@ -101,7 +107,9 @@ then
   echo "Setting up for release process"
 fi
 
-docker run --rm=true -t -i                                      \
+if [ $# -eq 0 ];
+then
+  docker run --rm=true -t -i                                    \
            -u "${USER_NAME}"                                    \
            -v "${PWD}:/home/${USER_NAME}/${PROJECTNAME}"        \
            -v "${PWD}/docker/_m2:/home/${USER_NAME}/.m2"        \
@@ -112,5 +120,17 @@ docker run --rm=true -t -i                                      \
            --name "${CONTAINER_NAME}"                           \
            "${PROJECTNAME}-${OS}-${USER_NAME}"                  \
            bash
-
+else
+  docker run --rm=true                                          \
+           -u "${USER_NAME}"                                    \
+           -v "${PWD}:/home/${USER_NAME}/${PROJECTNAME}"        \
+           -v "${PWD}/docker/_m2:/home/${USER_NAME}/.m2"        \
+           -v "${MOUNTGPGDIR}:/home/${USER_NAME}/.gnupg"        \
+           -w "/home/${USER}/${PROJECTNAME}"                    \
+           -p 4000:4000                                         \
+           -p 35729:35729                                       \
+           --name "${CONTAINER_NAME}"                           \
+           "${PROJECTNAME}-${OS}-${USER_NAME}"                  \
+           bash "$@"
+fi
 exit 0
