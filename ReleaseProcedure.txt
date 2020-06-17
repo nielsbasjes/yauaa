@@ -17,7 +17,8 @@ mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION}
 # Update the version number in all of the examples in the generated documentation website.
 sed -i "s@YauaaVersion: \+\"[0-9\.]\+\"@YauaaVersion: \"${RELEASEVERSION}\"@g" src/book.js
 git diff src
-gitbook build ./src ./docs
+# Build the documentation using the docker environment
+( cd src && mvn package )
 
 # Update the top of the CHANGELOG.md
 
