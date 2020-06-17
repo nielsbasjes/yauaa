@@ -20,4 +20,4 @@ SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 gitbook build "${SCRIPTDIR}" "${SCRIPTDIR}/../docs"
 
-( cd "${SCRIPTDIR}/../docs" && ( echo "Cleaning generated html" ; sed -i 's@,"gitbook":{"version":"3.2.3","time":"[^"]\+"}@@g' *.html ) || echo "WTF" )
+#( cd "${SCRIPTDIR}/../docs" && ( echo "Cleaning generated html" ; sed -i 's@,"gitbook":{"version":"3.2.3","time":"[^"]\+"}@@g' *.html ) || echo "WTF" )
