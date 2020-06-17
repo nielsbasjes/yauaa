@@ -14,24 +14,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 
 HIGH Profile release notes:
 ===========================
-Version 5.14.1
+Version 5.18
 ---
-- Quick patch to go to the latest __stable__ version of SLF4J.
-- A ready to run docker image is now available: ([more info](https://yauaa.basjes.nl/README-WebServlet.html)).
-
-  With docker installed do
-
-      docker pull nielsbasjes/yauaa
-      docker run -p8080:8080 nielsbasjes/yauaa
-
-   and then open
-
-      http://localhost:8080/
-
-Version 5.14
----
-- The Builders no longer expose any generics. This is a small (breaking) API change with major benefits for people using other JVM languages (like Scala).
-- The serialization had issues in specific scenarios that have been fixed.
+- Correctly classify the elements in the Google Chrome (and Chromium based MS Edge) User-Agent string that are incorrect when the ["Freeze User-Agent request header" flag](chrome://flags/#freeze-user-agent) is enabled.
+- New UDF for [Elastic Search](UDF-ElasticSearch.md). I have done limited (local single node) testing. Please report anything you find so I can fix it.
 
 Blog post
 =========
@@ -77,6 +63,16 @@ You can try it online with your own browser here: [https://try.yauaa.basjes.nl/]
 1. This runs under a "Free quota" on Google AppEngine. If this quota is exceeded then it will simply become unavailable for that day.
 2. After a while of inactivity the instance is terminated so the first page may take 15-30 seconds to load.
 3. If you really like this then run it on your local systems. It's much faster that way.
+   A ready to run docker image that can be used in both local mode and also in Kubernetes: ([more info](https://yauaa.basjes.nl/README-WebServlet.html)).
+
+   With docker installed do
+
+       docker pull nielsbasjes/yauaa
+       docker run -p8080:8080 nielsbasjes/yauaa
+
+   and then open
+
+       http://localhost:8080/
 
 Related projects
 ===

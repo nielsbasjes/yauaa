@@ -3,15 +3,17 @@
 # STATUS: ... EXPERIMENTAL ...
 The logstash UDF java api is still experimental.
 
-See https://github.com/logstash-plugins/logstash-filter-java_filter_example and https://github.com/elastic/logstash/issues/9215 for more information.
+See for more information:
+- https://github.com/logstash-plugins/logstash-filter-java_filter_example
+- https://github.com/elastic/logstash/issues/9215
 
-Starting with version 5.15 you can get the prebuilt filter from
-[github](https://github.com/nielsbasjes/yauaa/releases/download/v{{ book.YauaaVersion }}/logstash-filter-yauaa-{{ book.YauaaVersion }}.gem).
+## Getting the UDF
+You can get the prebuilt filter from [the github releases page](https://github.com/nielsbasjes/yauaa/releases/download/v{{ book.YauaaVersion }}/logstash-filter-yauaa-{{ book.YauaaVersion }}.gem).
 
 # Building has side effects !
 Because at this time none of the required dependencies are in maven central this build does something rarely seen:
 
-It downloads the logstash distribution, extracts the logstash-core.jar and installs it locally for maven
+It downloads the entire logstash distribution, extracts the logstash-core.jar and installs it locally for maven
 to use as dependency.
 
 So your local maven repo will get a jar injected that is not normally available via Maven central or something similar.
@@ -21,7 +23,6 @@ See these for more details:
 - https://github.com/elastic/logstash/issues/11002
 
 ## Installing the filter
-
 You only need to install it into your logstash once per installation
 
 <pre><code>logstash-plugin remove logstash-filter-yauaa
