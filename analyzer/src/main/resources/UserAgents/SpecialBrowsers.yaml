@@ -3763,60 +3763,60 @@ config:
 - set:
     name: 'UnwantedIEPrefixes'
     merge:
-      - 'CPUArchitectures'
-      - 'OSPatterns'
-      - 'MobileBrands'
-      - 'MobileBrandPrefixes'
+    - 'CPUArchitectures'
+    - 'OSPatterns'
+    - 'MobileBrands'
+    - 'MobileBrandPrefixes'
     values:
-      - 'Mozilla'
-      - 'compatible'
-      - 'Windows'
-      - 'Xbox'
-      - 'Linux'
-      - 'Macintosh'
-      - 'MSIE'
-      - 'Trident'
-      - 'rv:'
-      - 'InfoPath'
-      - '.NET'
-      - 'Media Center'
-      - 'Tablet'
-      - 'Touch'
-      - 'IEMobile'
-      - 'OWASMIME'
-      - 'BTRS'
-      - 'GTB'
-      - 'static'
-      - 'anonymized'
-      - '{'
-      - '@'
-      - '#'
+    - 'Mozilla'
+    - 'compatible'
+    - 'Windows'
+    - 'Xbox'
+    - 'Linux'
+    - 'Macintosh'
+    - 'MSIE'
+    - 'Trident'
+    - 'rv:'
+    - 'InfoPath'
+    - '.NET'
+    - 'Media Center'
+    - 'Tablet'
+    - 'Touch'
+    - 'IEMobile'
+    - 'OWASMIME'
+    - 'BTRS'
+    - 'GTB'
+    - 'static'
+    - 'anonymized'
+    - '{'
+    - '@'
+    - '#'
 
 - set:
     name: 'UnwantedIENames'
     merge:
-      - 'SecurityFlags'
-      - 'ISOLanguageCodes'
-      - 'WindowsOEMCodes'
-      - 'WindowsDesktopOSName'
+    - 'SecurityFlags'
+    - 'ISOLanguageCodes'
+    - 'WindowsOEMCodes'
+    - 'WindowsDesktopOSName'
     values:
-      - ''  # Don't want an empty name
-      - 'X11'
-      - 'SV1'
-      - 'SLCC2' # Microsoft-Windows-Security-Licensing-SLCC --> https://stackoverflow.com/questions/49700209/does-anyone-know-what-slcc2-stands-for-in-the-ie-11-useragent-string/49701703
+    - ''  # Don't want an empty name
+    - 'X11'
+    - 'SV1'
+    - 'SLCC2' # Microsoft-Windows-Security-Licensing-SLCC --> https://stackoverflow.com/questions/49700209/does-anyone-know-what-slcc2-stands-for-in-the-ie-11-useragent-string/49701703
 
       # https://stackoverflow.com/questions/5984880/decoding-the-ie9-user-agent
       # Bing Optimized IE8/IE9? https://www.webmasterworld.com/search_engine_spiders/4432587.htm
-      - 'BOIE8'
-      - 'BOIE9'
-      - 'ENUSMSNIP' # EN_US : Locale (US English); MS: Microsoft; NIP: Network Intrusion Prevention
-      - 'LCTE' # The LCTE part is currently still unknown. https://stackoverflow.com/questions/42500881/what-is-lcte-in-user-agent
-      - 'WPDesktop'
+    - 'BOIE8'
+    - 'BOIE9'
+    - 'ENUSMSNIP' # EN_US : Locale (US English); MS: Microsoft; NIP: Network Intrusion Prevention
+    - 'LCTE' # The LCTE part is currently still unknown. https://stackoverflow.com/questions/42500881/what-is-lcte-in-user-agent
+    - 'WPDesktop'
 
 - matcher:
     variable:
     - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
-    - 'AgentName : @Agent.text'
+    - 'AgentName                           :@Agent.text'
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"'
     - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
@@ -3827,7 +3827,7 @@ config:
 - matcher:
     variable:
     - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
-    - 'AgentVersion : @Agent.product.version'
+    - 'AgentVersion                        :@Agent.product.version'
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"'
     - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
@@ -3840,30 +3840,30 @@ config:
 
 - matcher:
     variable:
-      - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
-      - 'AgentName : @Agent.text'
+    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
+    - 'AgentName                           :@Agent.text'
     require:
-      - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Trident"'
-      - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
-      - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"]'
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Trident"'
+    - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
+    - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"]'
     extract:
-      - 'AgentName                           :     2008 : NormalizeBrand[@AgentName]'
-      - 'AgentVersion                        :     2008 : "<<<null>>>"'
+    - 'AgentName                           :     2008 : NormalizeBrand[@AgentName]'
+    - 'AgentVersion                        :     2008 : "<<<null>>>"'
 
 - matcher:
     variable:
-      - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
-      - 'AgentVersion : @Agent.product.version'
+    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
+    - 'AgentVersion                        :@Agent.product.version'
     require:
-      - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Trident"'
-      - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
-      - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"]'
-      - 'IsNull[@AgentVersion.url]'
-      - 'IsNull[@AgentVersion.uuid]'
-      - 'IsNull[@AgentVersion.keyvalue]'
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Trident"'
+    - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
+    - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.keyvalue]'
     extract:
-      - 'AgentName                           :     2009 : NormalizeBrand[@Agent.product.name]'
-      - 'AgentVersion                        :     2009 : CleanVersion[@AgentVersion]'
+    - 'AgentName                           :     2009 : NormalizeBrand[@Agent.product.name]'
+    - 'AgentVersion                        :     2009 : CleanVersion[@AgentVersion]'
 
 
 

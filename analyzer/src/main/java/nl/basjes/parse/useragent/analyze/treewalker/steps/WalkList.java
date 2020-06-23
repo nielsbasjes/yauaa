@@ -591,20 +591,8 @@ public class WalkList implements Serializable {
         @Override
         public Void visitStepIsInSet(StepIsInSetContext ctx) {
             fromHereItCannotBeInHashMapAnymore();
-
-            String lookupSetName = ctx.set.getText();
-            Set<String> lookupSet = lookupSets.get(lookupSetName);
-            if (lookupSet == null) {
-                Map<String, String> lookup = lookups.get(lookupSetName);
-                if (lookup != null) {
-                    lookupSet = new LinkedHashSet<>(lookup.keySet());
-                }
-            }
-            if (lookupSet == null) {
-                throw new InvalidParserConfigurationException("Missing lookupSet \"" + lookupSetName + "\" ");
-            }
-
-            add(new StepIsInSet(lookupSetName, lookupSet));
+            String      lookupSetName = ctx.set.getText();
+            add(new StepIsInSet(lookupSetName, getLookupSet(lookupSetName)));
             visitNext(ctx.nextStep);
             return null; // Void
         }
@@ -612,8 +600,13 @@ public class WalkList implements Serializable {
         @Override
         public Void visitStepIsNotInSet(StepIsNotInSetContext ctx) {
             fromHereItCannotBeInHashMapAnymore();
+            String      lookupSetName = ctx.set.getText();
+            add(new StepIsNotInSet(lookupSetName, getLookupSet(lookupSetName)));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
 
-            String lookupSetName = ctx.set.getText();
+        private Set<String> getLookupSet(String lookupSetName) {
             Set<String> lookupSet = lookupSets.get(lookupSetName);
             if (lookupSet == null) {
                 Map<String, String> lookup = lookups.get(lookupSetName);
@@ -624,10 +617,7 @@ public class WalkList implements Serializable {
             if (lookupSet == null) {
                 throw new InvalidParserConfigurationException("Missing lookupSet \"" + lookupSetName + "\" ");
             }
-
-            add(new StepIsNotInSet(lookupSetName, lookupSet));
-            visitNext(ctx.nextStep);
-            return null; // Void
+            return lookupSet;
         }
 
         @Override

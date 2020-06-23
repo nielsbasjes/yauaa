@@ -30,6 +30,7 @@ s@^  *values:@    values:@
 s@^  *input:@    input:@
 s@^  *expected:@    expected:@
 s@^  *name:@    name:@
+s@^  *merge:@    merge:@
 s@^  *map:@    map:@
 s@^\(    \+[A-Z_][a-zA-Z_]\+\) *:@\1                                                  :@
 s@^\(    \+[A-Z_][a-zA-Z_ ]\{36\}\) \+:@\1:@
