@@ -4,6 +4,8 @@ v5.19-SNAPSHOT
 ===
 - Analyzer:
   - Added ReplaceString to support extracting texts
+- New/improved detections
+  - Extract Google tools name from the provided url
 
 v5.18
 ===

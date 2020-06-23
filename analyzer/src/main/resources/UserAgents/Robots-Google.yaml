@@ -603,19 +603,87 @@ config:
       OperatingSystemVersionMajor          : '??'
       OperatingSystemNameVersion           : 'Cloud ??'
       OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google-Structured-Data-Testing-Tool'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google-Structured-Data-Testing-Tool ??'
+      LayoutEngineNameVersionMajor         : 'Google-Structured-Data-Testing-Tool ??'
       AgentClass                           : 'Testclient'
       AgentName                            : 'Google-Structured-Data-Testing-Tool'
-      AgentVersion                         : 'http://developers.google.com/structured-data/testing-tool/'
-      AgentVersionMajor                    : 'http://developers.google.com/structured-data/testing-tool/'
-      AgentNameVersion                     : 'Google-Structured-Data-Testing-Tool http://developers.google.com/structured-data/testing-tool/'
-      AgentNameVersionMajor                : 'Google-Structured-Data-Testing-Tool http://developers.google.com/structured-data/testing-tool/'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google-Structured-Data-Testing-Tool ??'
+      AgentNameVersionMajor                : 'Google-Structured-Data-Testing-Tool ??'
       AgentInformationUrl                  : 'http://developers.google.com/structured-data/testing-tool/'
+
+# Google developer testing tool
+- matcher:
+    variable:
+    - 'ToolName:NormalizeBrand[agent.product.(1)comments.entry.product.version.url~"://developers.google.com"^.name]'
+    extract:
+    - 'DeviceClass                         :    99999 : "Robot"'
+    - 'DeviceName                          :    99999 : "Google Robot"'
+    - 'DeviceBrand                         :    99999 : "Google"'
+    - 'OperatingSystemClass                :    99999 : "Cloud"'
+    - 'OperatingSystemName                 :    99999 : "Cloud"'
+    - 'OperatingSystemVersion              :    99999 : "<<<null>>>"'
+    - 'LayoutEngineClass                   :    99999 : "Robot"'
+    - 'LayoutEngineName                    :    99999 : @ToolName'
+    - 'LayoutEngineVersion                 :    99999 : "<<<null>>>"'
+    - 'AgentClass                          :    99999 : "Robot"'
+    - 'AgentName                           :    99999 : @ToolName'
+    - 'AgentVersion                        :    99999 : "<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'URL:agent.product.(1)comments.entry.url~"https://developers.google.com"'
+    - 'ToolName:Concat["Google Robot ";NormalizeBrand[ReplaceString[ReplaceString[ReplaceString[@URL;"https://developers.google.com";""];"+";""];"/";" "]]]'
+    extract:
+    - 'DeviceClass                         :    99999 : "Robot"'
+    - 'DeviceName                          :    99999 : "Google Robot"'
+    - 'DeviceBrand                         :    99999 : "Google"'
+    - 'OperatingSystemClass                :    99999 : "Cloud"'
+    - 'OperatingSystemName                 :    99999 : "Cloud"'
+    - 'OperatingSystemVersion              :    99999 : "<<<null>>>"'
+    - 'LayoutEngineClass                   :    99999 : "Robot"'
+    - 'LayoutEngineName                    :    99999 : @ToolName'
+    - 'LayoutEngineVersion                 :    99999 : "<<<null>>>"'
+    - 'AgentClass                          :    99999 : "Robot"'
+    - 'AgentName                           :    99999 : @ToolName'
+    - 'AgentVersion                        :    99999 : "<<<null>>>"'
+
+  # https://stackoverflow.com/questions/20750191/google-plus-crawler/20751481
+  # This was the Google+ Snippet bot
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36 Google (+https://developers.google.com/+/web/snippet/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Robot'
+      DeviceBrand                          : 'Google'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Robot WEB Snippet'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Robot WEB Snippet ??'
+      LayoutEngineNameVersionMajor         : 'Google Robot WEB Snippet ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Robot WEB Snippet'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Robot WEB Snippet ??'
+      AgentNameVersionMajor                : 'Google Robot WEB Snippet ??'
+      AgentInformationUrl                  : 'https://developers.google.com/+/web/snippet/'
+
 
 - matcher:
     extract:
