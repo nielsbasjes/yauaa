@@ -2,7 +2,8 @@ This is intended as an overview of the major changes
 
 v5.19-SNAPSHOT
 ===
---
+- Analyzer:
+  - Added ReplaceString to support extracting texts
 
 v5.18
 ===

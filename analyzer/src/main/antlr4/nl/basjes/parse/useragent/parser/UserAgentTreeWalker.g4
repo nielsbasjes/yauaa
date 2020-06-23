@@ -79,6 +79,7 @@ matcher         : basePath                                                      
                 | 'Concat'              BLOCKOPEN                            matcher  SEMICOLON postfix=VALUE         BLOCKCLOSE #matcherConcatPostfix
                 | 'NormalizeBrand'      BLOCKOPEN matcher                                                             BLOCKCLOSE #matcherNormalizeBrand
                 | 'CleanVersion'        BLOCKOPEN matcher                                                             BLOCKCLOSE #matcherCleanVersion
+                | 'ReplaceString'       BLOCKOPEN matcher          SEMICOLON search=VALUE SEMICOLON replace=VALUE     BLOCKCLOSE #matcherReplaceString
                 | 'LookUp'              BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookup
                 | 'LookUpContains'      BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookupContains
                 | 'IsInLookUpContains'  BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsInLookupContains

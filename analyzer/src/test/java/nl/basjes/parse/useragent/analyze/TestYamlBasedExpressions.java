@@ -152,4 +152,11 @@ public class TestYamlBasedExpressions {
         assertTrue(uaa.runTests(false, true));
     }
 
+    @Test
+    public void runReplaceStringTest() {
+        UserAgentAnalyzerTester uaa = createTester("ReplaceString-tests.yaml");
+        uaa.setVerbose(true);
+        assertTrue(uaa.runTests(false, true));
+    }
+
 }

@@ -41,6 +41,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepReplaceString;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSegmentRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
@@ -65,6 +66,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsN
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContainsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupPrefixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherReplaceStringContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathWalkContext;
@@ -412,6 +414,14 @@ public class WalkList implements Serializable {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepCleanVersion());
+            return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherReplaceString(MatcherReplaceStringContext ctx) {
+            visit(ctx.matcher());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepReplaceString(ctx.search.getText(), ctx.replace.getText()));
             return null; // Void
         }
 

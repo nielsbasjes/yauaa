@@ -40,6 +40,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepReplaceString;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSegmentRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
@@ -240,6 +241,16 @@ public class TestSteps {
         assertEquals("Something", step.walk(null, "Something").getValue());
         assertEquals("1.2.3", step.walk(null, "1.2.3").getValue());
         assertEquals("1.2.3", step.walk(null, "1_2_3").getValue());
+    }
+
+
+    @Test
+    public void testStepReplaceString() {
+        Step step = new StepReplaceString("foo", "bar");
+        assertNull(step.walk(null, null).getValue());
+        assertEquals("Something", step.walk(null, "Something").getValue());
+        assertEquals("barbar1bar2", step.walk(null, "foofoo1bar2").getValue());
+        assertEquals("1bar2bar3bar4", step.walk(null, "1foo2bar3foo4").getValue());
     }
 
     @Test

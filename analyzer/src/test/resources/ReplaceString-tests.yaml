@@ -1,0 +1,63 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2020 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+MATCH_OPTIONS: &MATCH_OPTIONS
+  options:
+#    - 'verbose'
+
+TEST_OPTIONS: &TEST_OPTIONS
+  options:
+#    - 'verbose'
+#    - 'init'
+
+
+config:
+
+# Normal match
+- matcher:
+    <<: *MATCH_OPTIONS
+    extract:
+      - 'ReplaceString1:1:ReplaceString[agent.(1)product.(1)name;"foo";"FOO"]'
+
+# Nested usage
+- matcher:
+    <<: *MATCH_OPTIONS
+    extract:
+      - 'ReplaceString2:1:ReplaceString[ReplaceString[ReplaceString[agent.(1)product.(1)name;"foo";"FOO"];"bar";"foo"];"FOO";"bar"]'
+
+
+# No match
+- matcher:
+    <<: *MATCH_OPTIONS
+    extract:
+      - 'ReplaceString01:1:ReplaceString[agent.(1)product.(1)name;"no matches";"at all"]'
+
+# No match case sensitive!!
+- matcher:
+    <<: *MATCH_OPTIONS
+    extract:
+      - 'ReplaceString02:1:ReplaceString[agent.(1)product.(1)name;"FOO";"at all"]'
+
+- test:
+    <<: *TEST_OPTIONS
+    input:
+      user_agent_string: 'The product name contains foo, foo and bar/5.0'
+    expected:
+      ReplaceString1:  "The product name contains FOO, FOO and bar"
+      ReplaceString2:  "The product name contains bar, bar and foo"
+      ReplaceString01: "The product name contains foo, foo and bar"
+      ReplaceString02: "The product name contains foo, foo and bar"
