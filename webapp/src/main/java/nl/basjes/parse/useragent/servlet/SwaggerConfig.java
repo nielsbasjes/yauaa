@@ -21,10 +21,10 @@ import io.swagger.annotations.ApiOperation;
 import nl.basjes.parse.useragent.Version;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ResponseMessageBuilder;
+import springfox.documentation.builders.ResponseBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.ResponseMessage;
+import springfox.documentation.service.Response;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
@@ -32,8 +32,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static springfox.documentation.builders.RequestHandlerSelectors.withMethodAnnotation;
 
 @Configuration
@@ -42,14 +42,14 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
 
-        final ArrayList<ResponseMessage> responseMessages = new ArrayList<>();
-        responseMessages.add(new ResponseMessageBuilder()
-            .code(200)
-            .message("Successfully parsed the provided input")
+        final ArrayList<Response> responseMessages = new ArrayList<>();
+        responseMessages.add(new ResponseBuilder()
+            .code("200")
+            .description("Successfully parsed the provided input")
             .build());
-        responseMessages.add(new ResponseMessageBuilder()
-            .code(503)
-            .message("Internal error, or Yauaa is currently still busy starting up.")
+        responseMessages.add(new ResponseBuilder()
+            .code("503")
+            .description("Internal error, or Yauaa is currently still busy starting up.")
             .build());
 
         return new Docket(DocumentationType.SWAGGER_2)
@@ -57,8 +57,8 @@ public class SwaggerConfig {
             .select()
             .apis(withMethodAnnotation(ApiOperation.class))
             .build()
-            .globalResponseMessage(GET, responseMessages)
-            .globalResponseMessage(POST, responseMessages)
+            .globalResponses(GET, responseMessages)
+            .globalResponses(POST, responseMessages)
             .apiInfo(apiInfo());
     }
 
