@@ -38,6 +38,9 @@
     <appengine.maven.plugin>2.2.0</appengine.maven.plugin>
     <main.class>nl.basjes.parse.useragent.servlet.ParseService</main.class>
 
+    <!-- The default port on which to expose if you do "mvn docker:run" -->
+    <yauaa.port>8080</yauaa.port>
+
     <!-- By default we disable building the docker image and reenable it if docker is present. -->
     <docker.skip>true</docker.skip>
   </properties>
@@ -397,7 +400,7 @@
                  <http>
                    <url>http://localhost:${yauaa.port}/running</url>
                  </http>
-                 <time>10000</time>
+                 <time>20000</time>
                </wait>
                <log>
                  <prefix>[ LOCAL TEST OF YAUAA ]::</prefix>
