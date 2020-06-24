@@ -83,6 +83,7 @@
 
     <!-- ============================================== -->
 
+    <depencency-convergence.phase>validate</depencency-convergence.phase>
     <checkstyle-plugin.version>3.1.1</checkstyle-plugin.version>
     <checkstyle.version>8.33</checkstyle.version>
     <spotbugs-maven-plugin.version>4.0.0</spotbugs-maven-plugin.version>
@@ -193,6 +194,7 @@
         <jacoco.skip>true</jacoco.skip>
         <spotbugs.skip>true</spotbugs.skip>
         <dependency-check.skip>true</dependency-check.skip>
+        <depencency-convergence.phase>none</depencency-convergence.phase>
       </properties>
     </profile>
 
@@ -557,7 +559,7 @@
 
           <execution>
             <id>dependency-convergence</id>
-            <phase>validate</phase>
+            <phase>${depencency-convergence.phase}</phase>
             <goals>
               <goal>enforce</goal>
             </goals>
