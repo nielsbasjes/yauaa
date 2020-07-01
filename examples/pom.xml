@@ -40,20 +40,8 @@
   <modules>
     <module>java</module>
     <module>kotlin</module>
+    <module>scala</module>
   </modules>
-
-  <!-- Apparently Scala and anything other than Java 1.8 is a problem. -->
-  <profiles>
-    <profile>
-      <id>Build with JDK 8</id>
-      <activation>
-        <jdk>1.8</jdk>
-      </activation>
-      <modules>
-        <module>scala</module>
-      </modules>
-    </profile>
-  </profiles>
 
   <build>
     <plugins>

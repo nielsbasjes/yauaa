@@ -135,6 +135,10 @@
     <version.copyright>Copyright (C) 2013-2020 Niels Basjes</version.copyright>
     <version.license>License Apache 2.0</version.license>
     <version.url>${project.url}</version.url>
+
+    <!-- By default we disable anything requiring docker and reenable it if docker is present. -->
+    <docker.skip>true</docker.skip>
+
   </properties>
 
   <!-- Enable this only to run:  mvn versions:display-dependency-updates versions:display-plugin-updates  -->
@@ -155,7 +159,6 @@
   </dependencyManagement>
 
   <dependencies>
-
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -189,6 +192,7 @@
     <profile>
       <id>skipQuality</id>
       <properties>
+        <skipTests>true</skipTests>
         <sonar.skip>true</sonar.skip>
         <rat.skip>true</rat.skip>
         <checkstyle.skip>true</checkstyle.skip>
@@ -199,42 +203,51 @@
       </properties>
     </profile>
 
+    <!-- From https://www.dontpanicblog.co.uk/2017/02/28/activate-the-maven-docker-plugin/ -->
+    <profile>
+      <id>enableDocker-linux</id>
+      <properties>
+        <docker.skip>false</docker.skip>
+      </properties>
+      <activation>
+        <!-- Activate on Linux systems. Assume presence of docker.pid file indicates Docker is available -->
+        <file>
+          <exists>/var/run/docker.pid</exists>
+        </file>
+      </activation>
+    </profile>
+
+    <profile>
+      <id>enableDocker-win10</id>
+      <properties>
+        <docker.skip>false</docker.skip>
+      </properties>
+      <activation>
+        <!-- Activate on Windows 10 systems with native Docker. Check for docker.exe in default install directory -->
+        <file>
+          <exists>C:\Program Files\Docker\Docker\resources\bin\docker.exe</exists>
+        </file>
+      </activation>
+    </profile>
+
+    <profile>
+      <id>enableDocker-toolbox</id>
+      <properties>
+        <docker.skip>false</docker.skip>
+      </properties>
+      <activation>
+        <!-- Activate on Windows (Docker Toolbox) systems. Assume presence of DOCKER_HOST indicates Docker is available -->
+        <property>
+          <name>env.DOCKER_HOST</name>
+        </property>
+      </activation>
+    </profile>
+
+
     <profile>
       <id>packageForRelease</id>
       <build>
         <plugins>
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-enforcer-plugin</artifactId>
-
-            <executions>
-              <execution>
-                <id>Ensure-releasing-using-JDK-1.8</id>
-                <phase>validate</phase>
-                <goals>
-                  <goal>enforce</goal>
-                </goals>
-                <configuration>
-                  <rules>
-                    <!-- This MUST be done via a property of else it won't work -->
-                    <!-- https://stackoverflow.com/questions/33442256/maven-enforcer-plugin-and-child-pom -->
-                    <requireProperty>
-                      <property>BuildingWithJDK</property>
-                      <regex>1\.8</regex>
-                      <regexMessage>.
-
-                        ----------------------------------------------
-                        We are ONLY releasing Yauaa built using Java 8
-                        ----------------------------------------------
-                      </regexMessage>
-                    </requireProperty>
-                  </rules>
-                  <fail>true</fail>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
 
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -393,6 +406,17 @@
             <configuration>
               <timestampFormat>EpochMillis</timestampFormat>
             </configuration>
+            <dependencies>
+              <!-- Explicit dep on jaxb-api to avoid problems with
+                JDK9 and later, until a new version of
+                coveralls-maven-plugin is released.
+                See also https://github.com/trautonen/coveralls-maven-plugin/issues/112 -->
+              <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>2.3.1</version>
+              </dependency>
+            </dependencies>
           </plugin>
         </plugins>
       </build>
@@ -415,9 +439,6 @@
       <activation>
         <jdk>1.8</jdk>
       </activation>
-      <properties>
-        <BuildingWithJDK>1.8</BuildingWithJDK>
-      </properties>
       <build>
         <plugins>
           <plugin>
@@ -447,9 +468,6 @@
       <activation>
         <jdk>[1.11,)</jdk>
       </activation>
-      <properties>
-        <BuildingWithJDK>11</BuildingWithJDK>
-      </properties>
       <build>
         <plugins>
           <plugin>
@@ -458,6 +476,7 @@
             <configuration>
               <!-- The semantics of this option are reversed, see MCOMPILER-209. -->
               <useIncrementalCompilation>false</useIncrementalCompilation>
+              <release>${jdk.release}</release>
               <compilerArgs>
                 <!-- Enable almost all warnings.-->
                 <!-- FIXME: Why does the hive udf fail with "An unknown compilation problem occurred" when using -Xlint:classfile,processing ? -->
@@ -468,32 +487,11 @@
               </compilerArgs>
               <showWarnings>true</showWarnings>
               <showDeprecation>true</showDeprecation>
-              <release>${jdk.release}</release>
-            </configuration>
-          </plugin>
-
-          <!-- Never run Coveralls under JDK 11 ... it won't work -->
-          <plugin>
-            <groupId>org.eluder.coveralls</groupId>
-            <artifactId>coveralls-maven-plugin</artifactId>
-            <version>4.3.0</version>
-            <configuration>
-              <skip>true</skip>
             </configuration>
           </plugin>
 
         </plugins>
       </build>
-    </profile>
-
-    <profile>
-      <id>Build with JDK 13</id>
-      <activation>
-        <jdk>[1.13,)</jdk>
-      </activation>
-      <properties>
-        <BuildingWithJDK>13</BuildingWithJDK>
-      </properties>
     </profile>
 
   </profiles>

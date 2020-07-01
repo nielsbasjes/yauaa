@@ -8,6 +8,8 @@ v5.19-SNAPSHOT
   - Extract Google tools name from the provided url
 - Updated UDF dependencies
   - Elastic Search/Logstash 7.8.0
+- Build
+  - Improved support for building using JDK 11
 
 v5.18
 ===

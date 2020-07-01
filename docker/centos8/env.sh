@@ -31,12 +31,12 @@ function __INTERNAL__SwitchJDK {
     sudo alternatives --set javac "java-${JDK}-openjdk.x86_64";
 #    export JDK_VERSION="JDK ${JDK}"
 }
-echo "Use switch-jdk8, switch-jdk11 or switch-jdk13 to select the desired JDK"
+echo "Use switch-jdk8 or switch-jdk11 to select the desired JDK to build with."
 alias switch-jdk8="__INTERNAL__SwitchJDK 1.8.0; export JDK_VERSION=JDK-8"
 alias switch-jdk11="__INTERNAL__SwitchJDK 11; export JDK_VERSION=JDK-11"
-alias switch-jdk13="__INTERNAL__SwitchJDK latest; export JDK_VERSION=JDK-13"
+#alias switch-jdk13="__INTERNAL__SwitchJDK latest; export JDK_VERSION=JDK-13"
 
-switch-jdk8
+switch-jdk11
 
 . "/usr/share/git-core/contrib/completion/git-prompt.sh"
 export PS1='\['${IBlue}${On_Black}'\] \u@\['${IWhite}${On_Red}'\][Yauaa Builder \['${BWhite}${On_Blue}'\]<'\${JDK_VERSION}'>\['${IWhite}${On_Red}'\]]\['${IBlue}${On_Black}'\]:\['${Cyan}${On_Black}'\]\w$(declare -F __git_ps1 &>/dev/null && __git_ps1 " \['${BIPurple}'\]{\['${BIGreen}'\]%s\['${BIPurple}'\]}")\['${BIBlue}'\] ]\['${Color_Off}'\]\n$ '

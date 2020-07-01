@@ -29,7 +29,6 @@ RUN yum install -y curl wget git tar expect rpm-build rpm-sign vim-enhanced bash
 # Java Development
 RUN yum install -y java-1.8.0-openjdk-devel
 RUN yum install -y java-11-openjdk-devel
-RUN yum install -y java-13-openjdk-devel
 ENV JAVA_HOME /usr/lib/jvm/java
 
 # --------------------------------
@@ -63,6 +62,10 @@ RUN cd /usr/local/bin && \
      tar xJf shellcheck-stable.linux.x86_64.tar.xz && \
      mv shellcheck-stable/shellcheck . && \
      rm -rf shellcheck-stable*
+
+# --------------------------------
+# Install ruby (for Logstash plugin)
+RUN yum install -y ruby
 
 # --------------------------------
 # Install node.js, npm and gitbook

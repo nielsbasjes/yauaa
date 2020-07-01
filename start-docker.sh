@@ -58,6 +58,14 @@ fi
 
 ${DOCKER_BUILD} -t ${PROJECTNAME}-${OS} docker/${OS}
 
+buildStatus=$?
+
+if [ ${buildStatus} -ne 0 ];
+then
+    echo "Building the docker image failed."
+    exit ${buildStatus}
+fi
+
 if [ "$(uname -s)" == "Linux" ]; then
   USER_NAME=${SUDO_USER:=${USER}}
   USER_ID=$(id -u "${USER_NAME}")
@@ -88,6 +96,7 @@ buildStatus=$?
 
 if [ ${buildStatus} -ne 0 ];
 then
+    echo "Building the user specific docker image failed."
     exit ${buildStatus}
 fi
 

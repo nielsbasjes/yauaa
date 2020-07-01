@@ -229,6 +229,7 @@
               <goal>exec</goal>
             </goals>
             <configuration>
+              <skip>${docker.skip}</skip>
               <executable>${basedir}/src/test/docker/run-it-test.sh</executable>
               <arguments>
                 <agrument>${logstash.version}</agrument>
