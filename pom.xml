@@ -33,11 +33,12 @@
   <url>https://yauaa.basjes.nl</url>
 
   <properties>
-    <jdkLevel>1.8</jdkLevel>
+    <jdk.version>1.8</jdk.version>
+    <jdk.release>8</jdk.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
-    <maven.compiler.source>${jdkLevel}</maven.compiler.source>
-    <maven.compiler.target>${jdkLevel}</maven.compiler.target>
+    <maven.compiler.source>${jdk.version}</maven.compiler.source>
+    <maven.compiler.target>${jdk.version}</maven.compiler.target>
 
     <!-- In order for everything to work correctly we need at least this version of maven. -->
     <maven.minimal.version>3.5.2</maven.minimal.version>
@@ -423,9 +424,9 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-              <compilerVersion>${jdkLevel}</compilerVersion>
-              <source>${jdkLevel}</source>
-              <target>${jdkLevel}</target>
+              <compilerVersion>${jdk.version}</compilerVersion>
+              <source>${jdk.version}</source>
+              <target>${jdk.version}</target>
               <compilerArgs>
                 <!-- Enable almost all warnings.-->
                 <!-- FIXME: Why does the hive udf fail with "An unknown compilation problem occurred" when using -Xlint:classfile,processing ? -->
@@ -455,9 +456,8 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-              <compilerVersion>${jdkLevel}</compilerVersion>
-              <source>${jdkLevel}</source>
-              <target>${jdkLevel}</target>
+              <!-- The semantics of this option are reversed, see MCOMPILER-209. -->
+              <useIncrementalCompilation>false</useIncrementalCompilation>
               <compilerArgs>
                 <!-- Enable almost all warnings.-->
                 <!-- FIXME: Why does the hive udf fail with "An unknown compilation problem occurred" when using -Xlint:classfile,processing ? -->
@@ -468,7 +468,7 @@
               </compilerArgs>
               <showWarnings>true</showWarnings>
               <showDeprecation>true</showDeprecation>
-              <release>8</release>
+              <release>${jdk.release}</release>
             </configuration>
           </plugin>
 
@@ -489,7 +489,7 @@
     <profile>
       <id>Build with JDK 13</id>
       <activation>
-        <jdk>[1.11,)</jdk>
+        <jdk>[1.13,)</jdk>
       </activation>
       <properties>
         <BuildingWithJDK>13</BuildingWithJDK>
