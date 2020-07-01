@@ -620,7 +620,7 @@ config:
 # Google developer testing tool
 - matcher:
     variable:
-    - 'ToolName:NormalizeBrand[agent.product.(1)comments.(1-5)entry.(1)product.version.url~"://developers.google.com"^.name]'
+    - 'ToolName:NormalizeBrand[agent.product.(1)comments.(1-5)entry.(1)product.(1-2)version.(1-2)url~"://developers.google.com"^.name]'
     extract:
     - 'DeviceClass                         :    99999 : "Robot"'
     - 'DeviceName                          :    99999 : "Google Robot"'
