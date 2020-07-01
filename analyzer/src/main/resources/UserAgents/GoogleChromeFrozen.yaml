@@ -295,6 +295,36 @@ config:
 
 
 # ======================================
+# Chrome 83 on Motorola/Google Nexus 6, Android 7.1.1
+
+# Phone, Android 7.1.1, Chrome 83, Default UserAgent
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '83.0.4103.106'
+      AgentVersionMajor                    : '83'
+      AgentNameVersion                     : 'Chrome 83.0.4103.106'
+      AgentNameVersionMajor                : 'Chrome 83'
+
+# ======================================
 # Chrome 83 on Samsung Galaxy S8 Android 9
 
 # Phone, Android 9, Chrome 83, Default UserAgent
@@ -324,8 +354,39 @@ config:
       AgentNameVersion                     : 'Chrome 83.0.4103.101'
       AgentNameVersionMajor                : 'Chrome 83'
 
+# ======================================
+# Chrome 83 on Nokia 7.2 Android 10
 
+# Phone, Android 10, Chrome 83, Default UserAgent
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 10; Nokia 7.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia 7.2'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '83.0.4103.106'
+      AgentVersionMajor                    : '83'
+      AgentNameVersion                     : 'Chrome 83.0.4103.106'
+      AgentNameVersionMajor                : 'Chrome 83'
+
+# Phone, Android 7.1.1, Chrome 83, FROZEN UserAgent
 # Phone, Android 9, Chrome 83, FROZEN UserAgent
+# Phone, Android 10, Chrome 83, FROZEN UserAgent
 # --
 # Notable changes
 # - Chrome version loses minor versions

@@ -9044,3 +9044,31 @@ config:
       AgentNameVersion                     : 'DuckDuckBot-Https 1.1'
       AgentNameVersionMajor                : 'DuckDuckBot-Https 1'
       AgentInformationUrl                  : 'https://duckduckgo.com/duckduckbot'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; BarkRowler/0.9; +https://babbar.tech/crawler)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Babbar Robot'
+      DeviceBrand                          : 'Babbar'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'BarkRowler'
+      AgentVersion                         : '0.9'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'BarkRowler 0.9'
+      AgentNameVersionMajor                : 'BarkRowler 0'
+      AgentInformationUrl                  : 'https://babbar.tech/crawler'
