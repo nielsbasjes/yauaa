@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.utils;
 
-import nl.basjes.parse.useragent.LibraryVersion;
+import nl.basjes.parse.useragent.Version;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +30,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static nl.basjes.parse.useragent.Version.COPYRIGHT;
+import static nl.basjes.parse.useragent.Version.LICENSE;
+import static nl.basjes.parse.useragent.Version.URL;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getExactlyOneNodeTuple;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsSequenceNode;
@@ -43,7 +46,7 @@ public final class YauaaVersion {
     private YauaaVersion() {
     }
 
-    public abstract static class Version {
+    public abstract static class AbstractVersion {
         public abstract String getGitCommitIdDescribeShort();
         public abstract String getBuildTimeStamp();
         public abstract String getProjectVersion();
@@ -58,10 +61,10 @@ public final class YauaaVersion {
             if (this == o) {
                 return true;
             }
-            if (!(o instanceof Version)) {
+            if (!(o instanceof AbstractVersion)) {
                 return false;
             }
-            Version version = (Version) o;
+            AbstractVersion version = (AbstractVersion) o;
             return
                 getGitCommitIdDescribeShort() .equals(version.getGitCommitIdDescribeShort()) &&
                 getBuildTimeStamp()           .equals(version.getBuildTimeStamp()) &&
@@ -98,12 +101,10 @@ public final class YauaaVersion {
         logVersion(Arrays.asList(extraLines));
     }
 
-    private static final Version LIBRARY_VERSION = new LibraryVersion();
-
     public static void logVersion(List<String> extraLines) {
         String[] lines = {
-            "For more information: " + LIBRARY_VERSION.getUrl(),
-            LIBRARY_VERSION.getCopyright() + " - " + LIBRARY_VERSION.getLicense()
+            "For more information: " + URL,
+            COPYRIGHT + " - " + LICENSE
         };
         String version = getVersion();
         int width = version.length();
@@ -145,10 +146,10 @@ public final class YauaaVersion {
     }
 
     public static String getVersion() {
-        return getVersion(LIBRARY_VERSION);
+        return getVersion(Version.getInstance());
     }
 
-    public static String getVersion(Version version) {
+    public static String getVersion(AbstractVersion version) {
         return getVersion(version.getProjectVersion(), version.getGitCommitIdDescribeShort(), version.getBuildTimeStamp());
     }
 
@@ -160,16 +161,15 @@ public final class YauaaVersion {
         return "Yauaa " + projectVersion + " (" + gitCommitIdDescribeShort + " @ " + buildTimestamp + " [JDK:"+buildJDKVersion+";JRE:"+targetJREVersion+"])";
     }
 
-    private static final class RulesVersion extends Version {
+    private static final class RulesVersion extends AbstractVersion {
         private String gitCommitIdDescribeShort = "<undefined>";
-        private String buildTimeStamp = "<undefined>";
-        private String projectVersion = "<undefined>";
-        private String copyright = "<undefined>";
-        private String license = "<undefined>";
-        private String url = "<undefined>";
-
-        private String buildJDKVersion = "<undefined>";
-        private String targetJREVersion = "<undefined>";
+        private String buildTimeStamp           = "<undefined>";
+        private String projectVersion           = "<undefined>";
+        private String copyright                = "<undefined>";
+        private String license                  = "<undefined>";
+        private String url                      = "<undefined>";
+        private String buildJDKVersion          = "<undefined>";
+        private String targetJREVersion         = "<undefined>";
 
         @Override
         public String getGitCommitIdDescribeShort() {
@@ -255,10 +255,10 @@ public final class YauaaVersion {
 
     public static void assertSameVersion(NodeTuple versionNodeTuple, String filename) {
         RulesVersion rulesVersion = new RulesVersion(versionNodeTuple, filename);
-        assertSameVersion(LIBRARY_VERSION, rulesVersion);
+        assertSameVersion(Version.getInstance(), rulesVersion);
     }
 
-    public static void assertSameVersion(Version libraryVersion, Version rulesVersion) {
+    public static void assertSameVersion(AbstractVersion libraryVersion, AbstractVersion rulesVersion) {
         if (libraryVersion.equals(rulesVersion)) {
             return;
         }
