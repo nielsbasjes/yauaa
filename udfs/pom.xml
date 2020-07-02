@@ -36,6 +36,7 @@
   <!-- Documentation of the used shading construct: https://yauaa.basjes.nl/NOTES-shading-dependencies.html -->
   <dependencyManagement>
     <dependencies>
+
       <dependency>
         <groupId>nl.basjes.parse.useragent</groupId>
         <artifactId>yauaa</artifactId>
@@ -55,16 +56,19 @@
           </exclusion>
         </exclusions>
       </dependency>
+
     </dependencies>
   </dependencyManagement>
 
   <dependencies>
+
     <dependency>
       <groupId>org.antlr</groupId>
       <artifactId>antlr4-runtime</artifactId>
       <version>${antlr.version}</version>
       <scope>provided</scope>
     </dependency>
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
@@ -90,7 +94,9 @@
       <version>${snakeyaml.version}</version>
       <scope>provided</scope>
     </dependency>
+
   </dependencies>
+
   <!-- ======================================================= -->
 
   <modules>
@@ -98,27 +104,14 @@
     <module>pig</module>
     <module>flink</module>
     <module>flink-table</module>
+    <module>beam</module>
+    <!-- <module>beam-sql</module> -->
     <module>hive</module>
     <module>drill</module>
     <module>nifi</module>
     <module>logstash</module>
     <module>elasticsearch</module>
   </modules>
-
-  <profiles>
-
-    <!-- A few modules fail to build under JDK 13. -->
-    <profile>
-      <id>Building UDFs up to JDK 11</id>
-      <activation>
-        <jdk>[,11]</jdk>
-      </activation>
-      <modules>
-        <module>beam</module>
-<!--        <module>beam-sql</module>-->
-      </modules>
-    </profile>
-  </profiles>
 
   <build>
     <plugins>
