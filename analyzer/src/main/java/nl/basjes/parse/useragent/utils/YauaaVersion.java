@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.utils;
 
+import nl.basjes.parse.useragent.LibraryVersion;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,13 +28,8 @@ import org.yaml.snakeyaml.nodes.SequenceNode;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
-import static nl.basjes.parse.useragent.Version.BUILD_TIME_STAMP;
-import static nl.basjes.parse.useragent.Version.COPYRIGHT;
-import static nl.basjes.parse.useragent.Version.GIT_COMMIT_ID_DESCRIBE_SHORT;
-import static nl.basjes.parse.useragent.Version.LICENSE;
-import static nl.basjes.parse.useragent.Version.PROJECT_VERSION;
-import static nl.basjes.parse.useragent.Version.URL;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getExactlyOneNodeTuple;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsSequenceNode;
@@ -47,14 +43,67 @@ public final class YauaaVersion {
     private YauaaVersion() {
     }
 
+    public abstract static class Version {
+        public abstract String getGitCommitIdDescribeShort();
+        public abstract String getBuildTimeStamp();
+        public abstract String getProjectVersion();
+        public abstract String getCopyright();
+        public abstract String getLicense();
+        public abstract String getUrl();
+        public abstract String getBuildJDKVersion();
+        public abstract String getTargetJREVersion();
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof Version)) {
+                return false;
+            }
+            Version version = (Version) o;
+            return
+                getGitCommitIdDescribeShort() .equals(version.getGitCommitIdDescribeShort()) &&
+                getBuildTimeStamp()           .equals(version.getBuildTimeStamp()) &&
+                getProjectVersion()           .equals(version.getProjectVersion()) &&
+                getCopyright()                .equals(version.getCopyright()) &&
+                getLicense()                  .equals(version.getLicense()) &&
+                getUrl()                      .equals(version.getUrl()) &&
+                getBuildJDKVersion()          .equals(version.getBuildJDKVersion()) &&
+                getTargetJREVersion()         .equals(version.getTargetJREVersion());
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                getGitCommitIdDescribeShort(),
+                getBuildTimeStamp(),
+                getProjectVersion(),
+                getCopyright(),
+                getLicense(),
+                getUrl(),
+                getBuildJDKVersion(),
+                getTargetJREVersion());
+        }
+
+        @Override
+        public String toString() {
+            return "Yauaa " + getProjectVersion() +
+                " (" + getGitCommitIdDescribeShort() + " @ " + getBuildTimeStamp() +
+                " [JDK:"+getBuildJDKVersion()+";JRE:"+getTargetJREVersion()+"])";
+        }
+    }
+
     public static void logVersion(String... extraLines) {
         logVersion(Arrays.asList(extraLines));
     }
 
+    private static final Version LIBRARY_VERSION = new LibraryVersion();
+
     public static void logVersion(List<String> extraLines) {
         String[] lines = {
-            "For more information: " + URL,
-            COPYRIGHT + " - " + LICENSE
+            "For more information: " + LIBRARY_VERSION.getUrl(),
+            LIBRARY_VERSION.getCopyright() + " - " + LIBRARY_VERSION.getLicense()
         };
         String version = getVersion();
         int width = version.length();
@@ -96,61 +145,123 @@ public final class YauaaVersion {
     }
 
     public static String getVersion() {
-        return getVersion(PROJECT_VERSION, GIT_COMMIT_ID_DESCRIBE_SHORT, BUILD_TIME_STAMP);
+        return getVersion(LIBRARY_VERSION);
+    }
+
+    public static String getVersion(Version version) {
+        return getVersion(version.getProjectVersion(), version.getGitCommitIdDescribeShort(), version.getBuildTimeStamp());
     }
 
     public static String getVersion(String projectVersion, String gitCommitIdDescribeShort, String buildTimestamp) {
         return "Yauaa " + projectVersion + " (" + gitCommitIdDescribeShort + " @ " + buildTimestamp + ")";
     }
 
-    public static void assertSameVersion(NodeTuple versionNodeTuple, String filename) {
-        // Check the version information from the Yaml files
-        SequenceNode versionNode = getValueAsSequenceNode(versionNodeTuple, filename);
-        String gitCommitIdDescribeShort = null;
-        String buildTimestamp = null;
-        String projectVersion = null;
-
-        List<Node> versionList = versionNode.getValue();
-        for (Node versionEntry : versionList) {
-            requireNodeInstanceOf(MappingNode.class, versionEntry, filename, "The entry MUST be a mapping");
-            NodeTuple entry = getExactlyOneNodeTuple((MappingNode) versionEntry, filename);
-            String key = getKeyAsString(entry, filename);
-            String value = getValueAsString(entry, filename);
-            switch (key) {
-                case "git_commit_id_describe_short":
-                    gitCommitIdDescribeShort = value;
-                    break;
-                case "build_timestamp":
-                    buildTimestamp = value;
-                    break;
-                case "project_version":
-                    projectVersion = value;
-                    break;
-                case "copyright":
-                case "license":
-                case "url":
-                    // Ignore those two when comparing.
-                    break;
-                default:
-                    throw new InvalidParserConfigurationException(
-                        "Yaml config.(" + filename + ":" + versionNode.getStartMark().getLine() + "): " +
-                            "Found unexpected config entry: " + key + ", allowed are " +
-                            "'git_commit_id_describe_short', 'build_timestamp' and 'project_version'");
-            }
-        }
-        assertSameVersion(gitCommitIdDescribeShort, buildTimestamp, projectVersion);
+    public static String getVersion(String projectVersion, String gitCommitIdDescribeShort, String buildTimestamp, String buildJDKVersion, String targetJREVersion) {
+        return "Yauaa " + projectVersion + " (" + gitCommitIdDescribeShort + " @ " + buildTimestamp + " [JDK:"+buildJDKVersion+";JRE:"+targetJREVersion+"])";
     }
 
-    public static void assertSameVersion(String gitCommitIdDescribeShort, String buildTimestamp, String projectVersion) {
-        if (GIT_COMMIT_ID_DESCRIBE_SHORT.equals(gitCommitIdDescribeShort) &&
-            BUILD_TIME_STAMP.equals(buildTimestamp) &&
-            PROJECT_VERSION.equals(projectVersion)) {
-            return;
+    private static final class RulesVersion extends Version {
+        private String gitCommitIdDescribeShort = "<undefined>";
+        private String buildTimeStamp = "<undefined>";
+        private String projectVersion = "<undefined>";
+        private String copyright = "<undefined>";
+        private String license = "<undefined>";
+        private String url = "<undefined>";
+
+        private String buildJDKVersion = "<undefined>";
+        private String targetJREVersion = "<undefined>";
+
+        @Override
+        public String getGitCommitIdDescribeShort() {
+            return gitCommitIdDescribeShort;
         }
 
-        String libraryVersion = getVersion(PROJECT_VERSION, GIT_COMMIT_ID_DESCRIBE_SHORT, BUILD_TIME_STAMP);
-        String rulesVersion = getVersion(projectVersion, gitCommitIdDescribeShort, buildTimestamp);
+        @Override
+        public String getBuildTimeStamp() {
+            return buildTimeStamp;
+        }
 
+        @Override
+        public String getProjectVersion() {
+            return projectVersion;
+        }
+
+        @Override public String getCopyright() {
+            return copyright;
+        }
+
+        @Override public String getLicense() {
+            return license;
+        }
+
+        @Override public String getUrl() {
+            return url;
+        }
+
+        @Override
+        public String getBuildJDKVersion() {
+            return buildJDKVersion;
+        }
+
+        @Override
+        public String getTargetJREVersion() {
+            return targetJREVersion;
+        }
+
+        RulesVersion(NodeTuple versionNodeTuple, String filename) {
+            // Check the version information from the Yaml files
+            SequenceNode versionNode = getValueAsSequenceNode(versionNodeTuple, filename);
+
+            List<Node> versionList = versionNode.getValue();
+            for (Node versionEntry : versionList) {
+                requireNodeInstanceOf(MappingNode.class, versionEntry, filename, "The entry MUST be a mapping");
+                NodeTuple entry = getExactlyOneNodeTuple((MappingNode) versionEntry, filename);
+                String key = getKeyAsString(entry, filename);
+                String value = getValueAsString(entry, filename);
+                switch (key) {
+                    case "git_commit_id_describe_short":
+                        gitCommitIdDescribeShort = value;
+                        break;
+                    case "build_timestamp":
+                        buildTimeStamp = value;
+                        break;
+                    case "project_version":
+                        projectVersion = value;
+                        break;
+                    case "license":
+                        license = value;
+                        break;
+                    case "copyright":
+                        copyright = value;
+                        break;
+                    case "url":
+                        url = value;
+                        break;
+                    case "buildJDKVersion":
+                        buildJDKVersion = value;
+                        break;
+                    case "targetJREVersion":
+                        targetJREVersion = value;
+                        break;
+                    default:
+                        throw new InvalidParserConfigurationException(
+                            "Yaml config.(" + filename + ":" + versionNode.getStartMark().getLine() + "): " +
+                                "Found unexpected config entry: " + key + ", allowed are " +
+                                "'git_commit_id_describe_short', 'build_timestamp' and 'project_version'");
+                }
+            }
+        }
+    }
+
+    public static void assertSameVersion(NodeTuple versionNodeTuple, String filename) {
+        RulesVersion rulesVersion = new RulesVersion(versionNodeTuple, filename);
+        assertSameVersion(LIBRARY_VERSION, rulesVersion);
+    }
+
+    public static void assertSameVersion(Version libraryVersion, Version rulesVersion) {
+        if (libraryVersion.equals(rulesVersion)) {
+            return;
+        }
         LOG.error("===============================================");
         LOG.error("==========        FATAL ERROR       ===========");
         LOG.error("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");

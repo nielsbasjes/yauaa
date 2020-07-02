@@ -33,12 +33,12 @@
   <url>https://yauaa.basjes.nl</url>
 
   <properties>
-    <jdk.version>1.8</jdk.version>
-    <jdk.release>8</jdk.release>
+    <target.java.version>1.8</target.java.version>
+    <target.java.release>8</target.java.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
-    <maven.compiler.source>${jdk.version}</maven.compiler.source>
-    <maven.compiler.target>${jdk.version}</maven.compiler.target>
+    <maven.compiler.source>${target.java.version}</maven.compiler.source>
+    <maven.compiler.target>${target.java.version}</maven.compiler.target>
 
     <!-- In order for everything to work correctly we need at least this version of maven. -->
     <maven.minimal.version>3.5.2</maven.minimal.version>
@@ -444,9 +444,9 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-              <compilerVersion>${jdk.version}</compilerVersion>
-              <source>${jdk.version}</source>
-              <target>${jdk.version}</target>
+              <compilerVersion>${target.java.version}</compilerVersion>
+              <source>${target.java.version}</source>
+              <target>${target.java.version}</target>
               <compilerArgs>
                 <!-- Enable almost all warnings.-->
                 <!-- FIXME: Why does the hive udf fail with "An unknown compilation problem occurred" when using -Xlint:classfile,processing ? -->
@@ -473,7 +473,7 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-              <release>${jdk.release}</release>
+              <release>${target.java.release}</release>
               <compilerArgs>
                 <!-- Enable almost all warnings.-->
                 <!-- FIXME: Why does the hive udf fail with "An unknown compilation problem occurred" when using -Xlint:classfile,processing ? -->
