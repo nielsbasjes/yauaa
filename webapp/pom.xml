@@ -55,29 +55,8 @@
       <version>${spring-boot.version}</version>
       <exclusions>
         <exclusion>
-          <!-- Avoid violation due to version 1.19 still being in Spring -->
-          <groupId>org.yaml</groupId>
-          <artifactId>snakeyaml</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.logging.log4j</groupId>
-          <artifactId>log4j-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.logging.log4j</groupId>
-          <artifactId>log4j-to-slf4j</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.fasterxml</groupId>
-          <artifactId>classmate</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-core</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -90,67 +69,25 @@
 
     <dependency>
       <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger2</artifactId>
+      <artifactId>springfox-boot-starter</artifactId>
       <version>${springfox-swagger.version}</version>
       <exclusions>
         <exclusion>
-          <groupId>com.fasterxml</groupId>
-          <artifactId>classmate</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>org.springframework</groupId>
-          <artifactId>spring-context</artifactId>
+          <artifactId>spring-aop</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.springframework</groupId>
           <artifactId>spring-beans</artifactId>
         </exclusion>
         <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+        </exclusion>
+        <exclusion>
           <groupId>com.fasterxml.jackson.core</groupId>
           <artifactId>jackson-annotations</artifactId>
         </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-aop</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jakarta.activation-api</artifactId>
-          <groupId>jakarta.activation</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jakarta.xml.bind-api</artifactId>
-          <groupId>jakarta.xml.bind</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger-ui</artifactId>
-      <version>${springfox-swagger.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-spring-web</artifactId>
-      <version>${springfox-swagger.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-spring-webmvc</artifactId>
-      <version>${springfox-swagger.version}</version>
-      <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
@@ -165,20 +102,8 @@
       <scope>test</scope>
       <exclusions>
         <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-core</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.hamcrest</groupId>
-          <artifactId>hamcrest</artifactId>
-        </exclusion>
-        <exclusion>
-          <artifactId>byte-buddy</artifactId>
-          <groupId>net.bytebuddy</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -327,49 +252,49 @@
         <configuration>
           <images>
             <image>
-             <name>nielsbasjes/yauaa:${project.version}</name>
-             <build>
-               <maintainer>Niels Basjes</maintainer>
-               <from>openjdk:8-jdk-alpine</from>
-               <tags>
-                 <tag>latest</tag>
-                 <tag>${project.version}</tag>
-               </tags>
-               <assembly>
-                 <name>${project.build.finalName}.war</name>
-                 <targetDir>/</targetDir>
-                 <mode>dir</mode>
-                 <descriptorRef>artifact</descriptorRef>
-               </assembly>
-               <ports>
-                 <port>8080</port>
-               </ports>
-               <entryPoint>
-                 <exec>
-                   <arg>java</arg>
-                   <arg>-Djava.security.egd=file:/dev/./urandom</arg>
-                   <arg>-jar</arg>
-                   <arg>/${project.build.finalName}.war</arg>
-                 </exec>
-               </entryPoint>
-             </build>
+              <name>nielsbasjes/yauaa:${project.version}</name>
+              <build>
+                <maintainer>Niels Basjes</maintainer>
+                <from>openjdk:8-jdk-alpine</from>
+                <tags>
+                  <tag>latest</tag>
+                  <tag>${project.version}</tag>
+                </tags>
+                <assembly>
+                  <name>${project.build.finalName}.war</name>
+                  <targetDir>/</targetDir>
+                  <mode>dir</mode>
+                  <descriptorRef>artifact</descriptorRef>
+                </assembly>
+                <ports>
+                  <port>8080</port>
+                </ports>
+                <entryPoint>
+                  <exec>
+                    <arg>java</arg>
+                    <arg>-Djava.security.egd=file:/dev/./urandom</arg>
+                    <arg>-jar</arg>
+                    <arg>/${project.build.finalName}.war</arg>
+                  </exec>
+                </entryPoint>
+              </build>
 
-             <run>
-               <autoRemove>true</autoRemove>
-               <ports>
-                 <port>yauaa.port:8080</port>
-               </ports>
-               <wait>
-                 <http>
-                   <url>http://localhost:${yauaa.port}/running</url>
-                 </http>
-                 <time>20000</time>
-               </wait>
-               <log>
-                 <prefix>[ LOCAL TEST OF YAUAA ]::</prefix>
-                 <color>red</color>
-               </log>
-             </run>
+              <run>
+                <autoRemove>true</autoRemove>
+                <ports>
+                  <port>yauaa.port:8080</port>
+                </ports>
+                <wait>
+                  <http>
+                    <url>http://localhost:${yauaa.port}/running</url>
+                  </http>
+                  <time>20000</time>
+                </wait>
+                <log>
+                  <prefix>[ LOCAL TEST OF YAUAA ]::</prefix>
+                  <color>red</color>
+                </log>
+              </run>
             </image>
 
           </images>

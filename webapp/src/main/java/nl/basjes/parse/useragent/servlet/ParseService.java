@@ -739,7 +739,7 @@ public class ParseService {
                 addBugReportButton(sb, userAgents.get(0));
                 sb.append("</p>");
                 sb.append("<p class=\"logobar swagger\">A simple Swagger based API has been created for testing purposes: " +
-                    "<a href=\"/swagger-ui.html\">Swagger UI</a></p>");
+                    "<a href=\"/swagger-ui/\">Swagger UI</a></p>");
 
                 sb.append("<p class=\"logobar source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">" +
                     "https://github.com/nielsbasjes/yauaa</a></p>");
