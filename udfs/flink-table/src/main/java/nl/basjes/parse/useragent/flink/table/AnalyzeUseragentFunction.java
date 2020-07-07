@@ -18,8 +18,6 @@
 package nl.basjes.parse.useragent.flink.table;
 
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import org.apache.flink.api.common.typeinfo.TypeInformation;
-import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.table.functions.FunctionContext;
 import org.apache.flink.table.functions.ScalarFunction;
 
@@ -87,10 +85,5 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
 
     public Map<String, String> eval(String userAgentString) {
         return userAgentAnalyzer.parse(userAgentString).toMap(extractedFields);
-    }
-
-    @Override
-    public TypeInformation<?> getResultType(Class<?>[] bla) {
-        return Types.MAP(Types.STRING, Types.STRING);
     }
 }

@@ -17,6 +17,8 @@
 
 package nl.basjes.parse.useragent.flink.table;
 
+import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.java.tuple.Tuple4;
@@ -24,18 +26,20 @@ import org.apache.flink.api.java.typeutils.RowTypeInfo;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks;
 import org.apache.flink.streaming.api.functions.source.SourceFunction;
-import org.apache.flink.streaming.api.watermark.Watermark;
 import org.apache.flink.table.api.Table;
-import org.apache.flink.table.api.java.StreamTableEnvironment;
+import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 import org.apache.flink.types.Row;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+
 import static org.apache.flink.api.common.typeinfo.Types.LONG;
 import static org.apache.flink.api.common.typeinfo.Types.SQL_TIMESTAMP;
 import static org.apache.flink.api.common.typeinfo.Types.STRING;
+import static org.apache.flink.table.api.Expressions.$;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DemonstrationOfTumblingTableSQLFunction {
@@ -89,26 +93,6 @@ public class DemonstrationOfTumblingTableSQLFunction {
 
     // ============================================================================================================
 
-    public static class UAWatermarker implements AssignerWithPeriodicWatermarks<Tuple4<Long, String, String, String>> {
-        private static final long MAX_OUT_OF_ORDERNESS = MINUTE;
-        private long              currentMaxTimestamp;
-
-        @Override
-        public long extractTimestamp(Tuple4<Long, String, String, String> element, long previousElementTimestamp) {
-            long timestamp = element.getField(0);
-            currentMaxTimestamp = Math.max(timestamp, currentMaxTimestamp);
-            return timestamp;
-        }
-
-        @Override
-        public Watermark getCurrentWatermark() {
-            // return the watermark as current highest timestamp minus the out-of-orderness bound
-            return new Watermark(currentMaxTimestamp - MAX_OUT_OF_ORDERNESS);
-        }
-    }
-
-    // ============================================================================================================
-
     // This "test" takes too long to run in the build.
     @Disabled
     @Test
@@ -118,18 +102,26 @@ public class DemonstrationOfTumblingTableSQLFunction {
         senv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
         senv.getConfig().setAutoWatermarkInterval(1000);
 
+        WatermarkStrategy<Tuple4<Long, String, String, String>> watermarkStrategy = WatermarkStrategy
+            .forBoundedOutOfOrderness(Duration.of(1, ChronoUnit.MINUTES));
+
+        watermarkStrategy
+            .withTimestampAssigner((SerializableTimestampAssigner<Tuple4<Long, String, String, String>>) (element, recordTimestamp) -> element.f0);
+
         DataStream<Tuple4<Long, String, String, String>> inputStream = senv
             .addSource(new UAStreamSource())
-            .assignTimestampsAndWatermarks(new UAWatermarker());
+            .assignTimestampsAndWatermarks(watermarkStrategy);
 
         // The table environment
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
 
+
         // Give the stream a Table Name
-        tableEnv.createTemporaryView("AgentStream", inputStream, "eventTime.rowtime, useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
+        tableEnv.createTemporaryView("AgentStream", inputStream,
+            $("eventTime").rowtime(), $("useragent"), $("expectedDeviceClass"), $("expectedAgentNameVersionMajor"));
 
         // register the function
-        tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
+        tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
 
         int windowIntervalCount =  5;
         String windowIntervalScale =  "MINUTE";

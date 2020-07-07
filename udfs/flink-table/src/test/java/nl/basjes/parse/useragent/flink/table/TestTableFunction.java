@@ -25,7 +25,7 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.Table;
-import org.apache.flink.table.api.java.StreamTableEnvironment;
+import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 import org.apache.flink.types.Row;
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +36,7 @@ import java.util.Map;
 
 import static org.apache.flink.api.common.typeinfo.Types.MAP;
 import static org.apache.flink.api.common.typeinfo.Types.STRING;
+import static org.apache.flink.table.api.Expressions.$;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -75,11 +76,10 @@ public class TestTableFunction {
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
 
         // Give the stream a Table Name
-        tableEnv.createTemporaryView("AgentStream", inputStream, "useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
+        tableEnv.createTemporaryView("AgentStream", inputStream, $("useragent"), $("expectedDeviceClass"), $("expectedAgentNameVersionMajor"));
 
         // register the function
-        tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
-
+        tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
 
         // The downside of doing it this way is that the parsing function (i.e. parsing and converting all results into a map)
         // is called for each field you want. So in this simple case twice.
@@ -126,10 +126,10 @@ public class TestTableFunction {
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
 
         // Give the stream a Table Name
-        tableEnv.createTemporaryView("AgentStream", inputStream, "useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
+        tableEnv.createTemporaryView("AgentStream", inputStream, $("useragent"), $("expectedDeviceClass"), $("expectedAgentNameVersionMajor"));
 
         // register the function
-        tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
+        tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
 
         String sqlQuery =
             "SELECT useragent,"+
@@ -181,10 +181,10 @@ public class TestTableFunction {
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
 
         // Give the stream a Table Name
-        tableEnv.createTemporaryView("AgentStream", inputStream, "useragent, expectedDeviceClass, expectedAgentNameVersionMajor");
+        tableEnv.createTemporaryView("AgentStream", inputStream, $("useragent"), $("expectedDeviceClass"), $("expectedAgentNameVersionMajor"));
 
         // register the function
-        tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
+        tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
 
         String sqlQuery =
             "SELECT useragent," +
