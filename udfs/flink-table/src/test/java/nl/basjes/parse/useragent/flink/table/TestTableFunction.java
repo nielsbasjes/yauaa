@@ -65,20 +65,21 @@ public class TestTableFunction {
         return env.fromCollection(data);
     }
 
-
     @Test
     public void testFunctionExtractDirect() throws Exception {
-        // The base input stream
-        StreamExecutionEnvironment                       senv        = StreamExecutionEnvironment.getExecutionEnvironment();
-        DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
+        // The base execution environment
+        StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
 
         // The table environment
-        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
+        StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
 
-        // Give the stream a Table Name
+        // The demo input stream
+        DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
+
+        // Give the stream a Table Name and name the fields
         tableEnv.createTemporaryView("AgentStream", inputStream, $("useragent"), $("expectedDeviceClass"), $("expectedAgentNameVersionMajor"));
 
-        // register the function
+        // Register the function
         tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
 
         // The downside of doing it this way is that the parsing function (i.e. parsing and converting all results into a map)
@@ -90,6 +91,7 @@ public class TestTableFunction {
             "       expectedDeviceClass," +
             "       expectedAgentNameVersionMajor " +
             "FROM AgentStream";
+
         Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
 
         TypeInformation<Row> tupleType = new RowTypeInfo(STRING, STRING, STRING, STRING, STRING);
@@ -118,19 +120,22 @@ public class TestTableFunction {
 
     @Test
     public void testMapFunctionExtractInSQLSubSelect() throws Exception {
-        // The base input stream
-        StreamExecutionEnvironment                       senv        = StreamExecutionEnvironment.getExecutionEnvironment();
-        DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
+        // The base execution environment
+        StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
 
         // The table environment
-        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
+        StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
 
-        // Give the stream a Table Name
+        // The demo input stream
+        DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
+
+        // Give the stream a Table Name and name the fields
         tableEnv.createTemporaryView("AgentStream", inputStream, $("useragent"), $("expectedDeviceClass"), $("expectedAgentNameVersionMajor"));
 
-        // register the function
+        // Register the function
         tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
 
+        // Doing it this way the function is called once and then the results are picked from the map that was returned.
         String sqlQuery =
             "SELECT useragent,"+
             "       parsedUseragent['DeviceClass']              AS deviceClass," +
@@ -173,19 +178,22 @@ public class TestTableFunction {
 
     @Test
     public void testMapFunctionReturnMap() throws Exception {
-        // The base input stream
-        StreamExecutionEnvironment                       senv        = StreamExecutionEnvironment.getExecutionEnvironment();
-        DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
+        // The base execution environment
+        StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
 
         // The table environment
-        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
+        StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
 
-        // Give the stream a Table Name
+        // The demo input stream
+        DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
+
+        // Give the stream a Table Name and name the fields
         tableEnv.createTemporaryView("AgentStream", inputStream, $("useragent"), $("expectedDeviceClass"), $("expectedAgentNameVersionMajor"));
 
-        // register the function
+        // Register the function
         tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
 
+        // Here the query returns the entire map as one thing
         String sqlQuery =
             "SELECT useragent," +
             "       ParseUserAgent(useragent)        AS parsedUseragent," +
@@ -228,44 +236,32 @@ public class TestTableFunction {
     private static final String USERAGENT =
         "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36";
 
-    @Test
-    public void testMapFunctionList() {
-        AnalyzeUseragentFunction function = new AnalyzeUseragentFunction(Arrays.asList("DeviceClass", "AgentNameVersionMajor"));
+    private void verifyFunction(AnalyzeUseragentFunction function){
         function.open(null);
         final Map<String, String> result = function.eval(USERAGENT);
         assertEquals(2,           result.size());
         assertEquals("Desktop",   result.get("DeviceClass"));
         assertEquals("Chrome 70", result.get("AgentNameVersionMajor"));
+    }
+
+    @Test
+    public void testMapFunctionList() {
+        verifyFunction(new AnalyzeUseragentFunction(Arrays.asList("DeviceClass", "AgentNameVersionMajor")));
     }
 
     @Test
     public void testMapFunctionListNoCache() {
-        AnalyzeUseragentFunction function = new AnalyzeUseragentFunction(0, Arrays.asList("DeviceClass", "AgentNameVersionMajor"));
-        function.open(null);
-        final Map<String, String> result = function.eval(USERAGENT);
-        assertEquals(2,           result.size());
-        assertEquals("Desktop",   result.get("DeviceClass"));
-        assertEquals("Chrome 70", result.get("AgentNameVersionMajor"));
+        verifyFunction(new AnalyzeUseragentFunction(0, Arrays.asList("DeviceClass", "AgentNameVersionMajor")));
     }
 
     @Test
     public void testMapFunctionArray() {
-        AnalyzeUseragentFunction function = new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor");
-        function.open(null);
-        final Map<String, String> result = function.eval(USERAGENT);
-        assertEquals(2,           result.size());
-        assertEquals("Desktop",   result.get("DeviceClass"));
-        assertEquals("Chrome 70", result.get("AgentNameVersionMajor"));
+        verifyFunction(new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
     }
 
     @Test
     public void testMapFunctionArrayNoCache() {
-        AnalyzeUseragentFunction function = new AnalyzeUseragentFunction(0, "DeviceClass", "AgentNameVersionMajor");
-        function.open(null);
-        final Map<String, String> result = function.eval(USERAGENT);
-        assertEquals(2,           result.size());
-        assertEquals("Desktop",   result.get("DeviceClass"));
-        assertEquals("Chrome 70", result.get("AgentNameVersionMajor"));
+        verifyFunction(new AnalyzeUseragentFunction(0, "DeviceClass", "AgentNameVersionMajor"));
     }
 
     @Test

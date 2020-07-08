@@ -41,6 +41,7 @@ import static org.apache.flink.api.common.typeinfo.Types.SQL_TIMESTAMP;
 import static org.apache.flink.api.common.typeinfo.Types.STRING;
 import static org.apache.flink.table.api.Expressions.$;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DemonstrationOfTumblingTableSQLFunction {
 
@@ -78,7 +79,7 @@ public class DemonstrationOfTumblingTableSQLFunction {
                     "WeChat 6"));
 
                 minutes++;
-                Thread.sleep(200);
+                wait(200);
                 if (minutes > 120) {
                     running = false;
                 }
@@ -97,30 +98,31 @@ public class DemonstrationOfTumblingTableSQLFunction {
     @Disabled
     @Test
     public void runDemonstration() throws Exception {
-        // The base input stream
+        // The base execution environment
         StreamExecutionEnvironment senv = StreamExecutionEnvironment.getExecutionEnvironment();
         senv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
         senv.getConfig().setAutoWatermarkInterval(1000);
 
+        // The table environment
+        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
+
+        // Setup the watermark system
         WatermarkStrategy<Tuple4<Long, String, String, String>> watermarkStrategy = WatermarkStrategy
             .forBoundedOutOfOrderness(Duration.of(1, ChronoUnit.MINUTES));
 
         watermarkStrategy
             .withTimestampAssigner((SerializableTimestampAssigner<Tuple4<Long, String, String, String>>) (element, recordTimestamp) -> element.f0);
 
+        // The demo input stream
         DataStream<Tuple4<Long, String, String, String>> inputStream = senv
             .addSource(new UAStreamSource())
             .assignTimestampsAndWatermarks(watermarkStrategy);
 
-        // The table environment
-        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(senv);
-
-
-        // Give the stream a Table Name
+        // Give the stream a Table Name and name the fields
         tableEnv.createTemporaryView("AgentStream", inputStream,
             $("eventTime").rowtime(), $("useragent"), $("expectedDeviceClass"), $("expectedAgentNameVersionMajor"));
 
-        // register the function
+        // Register the function
         tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
 
         int windowIntervalCount =  5;
@@ -171,6 +173,12 @@ public class DemonstrationOfTumblingTableSQLFunction {
             Object agentNameVersionMajor          = row.getField(2);
             Object expectedDeviceClass            = row.getField(3);
             Object expectedAgentNameVersionMajor  = row.getField(4);
+
+            assertTrue(useragent                     instanceof String);
+            assertTrue(deviceClass                   instanceof String);
+            assertTrue(agentNameVersionMajor         instanceof String);
+            assertTrue(expectedDeviceClass           instanceof String);
+            assertTrue(expectedAgentNameVersionMajor instanceof String);
 
             assertEquals(
                 expectedDeviceClass,
