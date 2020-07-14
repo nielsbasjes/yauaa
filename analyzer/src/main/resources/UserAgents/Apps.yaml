@@ -2293,3 +2293,122 @@ config:
       WebviewAppVersion                    : '4.0.21.202000013 build 202000013 react-native'
       WebviewAppVersionMajor               : '4'
       WebviewAppNameVersionMajor           : 'Mytheresa App 4'
+
+
+- matcher:
+    require:
+      - 'agent.(1)product.(1)name="bol.com"'
+    extract:
+      - 'AgentClass : 100 : "Mobile App"'
+
+- test:
+    input:
+      user_agent_string: 'Bol.com/1.2.3 (Android 9; SM-G955F; Phone)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G955F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Bol.com'
+      AgentVersion                         : '1.2.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Bol.com 1.2.3'
+      AgentNameVersionMajor                : 'Bol.com 1'
+      AgentInformationUrl                  : 'Bol.com'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Bol.com/1.2.3 (Android 9; SM-G955F; Tablet)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung SM-G955F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Bol.com'
+      AgentVersion                         : '1.2.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Bol.com 1.2.3'
+      AgentNameVersionMajor                : 'Bol.com 1'
+      AgentInformationUrl                  : 'Bol.com'
+
+- test:
+    input:
+      user_agent_string: 'Bol.com/1.2.3 (iOS 4.5.6; iPad; Tablet)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '4.5.6'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'iOS 4.5.6'
+      OperatingSystemNameVersionMajor      : 'iOS 4'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Bol.com'
+      AgentVersion                         : '1.2.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Bol.com 1.2.3'
+      AgentNameVersionMajor                : 'Bol.com 1'
+      AgentInformationUrl                  : 'Bol.com'
+
+- test:
+    input:
+      user_agent_string: 'Bol.com/1.2.3 (iOS 4.5.6; iPhone; Phone)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '4.5.6'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'iOS 4.5.6'
+      OperatingSystemNameVersionMajor      : 'iOS 4'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Bol.com'
+      AgentVersion                         : '1.2.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Bol.com 1.2.3'
+      AgentNameVersionMajor                : 'Bol.com 1'
+      AgentInformationUrl                  : 'Bol.com'
