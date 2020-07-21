@@ -8,7 +8,7 @@ v5.19-SNAPSHOT
   - Extract Google tools name from the provided url
 - Updated UDF dependencies
   - Elastic Search/Logstash 7.8.0
-  - Apache Flink            1.11.0
+  - Apache Flink            1.11.1
 - Build
   - Improved support for building using JDK 11
 
