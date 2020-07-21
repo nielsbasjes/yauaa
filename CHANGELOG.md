@@ -6,6 +6,7 @@ v5.19-SNAPSHOT
   - Added ReplaceString to support extracting texts
 - New/improved detections
   - Extract Google tools name from the provided url
+  - Apache Beam useragent
 - Updated UDF dependencies
   - Elastic Search/Logstash 7.8.0
   - Apache Flink            1.11.1

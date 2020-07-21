@@ -24,6 +24,8 @@ config:
     name: 'NamedRobots'
     map:
       'Apache Nifi'                  : 'Apache|Apache Nifi'
+      'Apache Beam'                  : 'Apache|Apache Beam'
+      'Apache_Beam_SDK_for_'         : 'Apache|Apache Beam'
       'App3leWebKit'                 : 'App3leWebKit|App3leWebKit'
       'Buck'                         : 'Hypefactors|Buck'
       'Catchpoint'                   : 'Catchpoint|Catchpoint Analyzer'
@@ -124,6 +126,25 @@ config:
     - 'AgentName                           :   400001 :@RobotProductName'
     - 'AgentVersion                        :   400001 :@RobotProductVersion'
 
+- matcher:
+    variable:
+    - 'RobotProductName                    :agent.(1)product.(1)name'
+    - 'RobotProductVersion                 :agent.(1)product.(1)version'
+    - 'RobotProduct                        :LookUpPrefix[NamedRobots;@RobotProductName]'
+    extract:
+    - '__Set_ALL_Fields__                  :   200000 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   200001 :"Robot"'
+    - 'DeviceBrand                         :   200001 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   200001 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   200001 :"Cloud"'
+    - 'OperatingSystemName                 :   200001 :"Cloud"'
+    - 'OperatingSystemVersion              :   200001 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   200001 :"Robot"'
+    - 'LayoutEngineName                    :   200001 :@RobotProductName'
+    - 'LayoutEngineVersion                 :   200001 :@RobotProductVersion'
+    - 'AgentClass                          :   200001 :"Robot"'
+    - 'AgentName                           :   200001 :@RobotProductName'
+    - 'AgentVersion                        :   200001 :@RobotProductVersion'
 
 - matcher:
     variable:
@@ -6245,6 +6266,34 @@ config:
       AgentNameVersion                     : 'Apache Nifi 1.12.0-SNAPSHOT'
       AgentNameVersionMajor                : 'Apache Nifi 1'
       AgentInformationUrl                  : 'https://nifi.apache.org/'
+
+
+# The default useragent as available in the PipelineOptions for Apache Beam 2.22.0
+- test:
+    input:
+      user_agent_string: 'Apache_Beam_SDK_for_Java/2.22.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apache Beam'
+      DeviceBrand                          : 'Apache'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Apache_Beam_SDK_for_Java'
+      LayoutEngineVersion                  : '2.22.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Apache_Beam_SDK_for_Java 2.22.0'
+      LayoutEngineNameVersionMajor         : 'Apache_Beam_SDK_for_Java 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Apache_Beam_SDK_for_Java'
+      AgentVersion                         : '2.22.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Apache_Beam_SDK_for_Java 2.22.0'
+      AgentNameVersionMajor                : 'Apache_Beam_SDK_for_Java 2'
 
 
 - test:
