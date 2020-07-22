@@ -19,12 +19,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <artifactId>yauaa-example-parent</artifactId>
-    <groupId>nl.basjes.parse.useragent</groupId>
-    <version>5.19-SNAPSHOT</version>
-  </parent>
-
+  <groupId>nl.basjes.parse.useragent</groupId>
   <artifactId>quarkus</artifactId>
   <version>5.19-SNAPSHOT</version>
   <name>Yauaa : Examples : Quarkus</name>
@@ -40,8 +35,10 @@
     <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>1.6.1.Final</quarkus.platform.version>
-    <surefire-plugin.version>2.22.1</surefire-plugin.version>
+    <surefire-plugin.version>2.22.2</surefire-plugin.version>
+    <failsafe-plugin.version>2.22.2</failsafe-plugin.version>
   </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -56,67 +53,29 @@
 
   <dependencies>
 
-    <!-- ================================================================================================ -->
-    <!-- These 4 dependencies are excluded by all UDFs because of dependency/shading/ relocating problems -->
-    <!-- But they do need them for the compilation and testing ... -->
-    <!-- Documentation of the used shading construct: https://yauaa.basjes.nl/NOTES-shading-dependencies.html -->
-    <dependency>
-      <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa</artifactId>
-      <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.antlr</groupId>
-          <artifactId>antlr4-runtime</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-core</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.yaml</groupId>
-          <artifactId>snakeyaml</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <!-- The webapp needs more classes than have been shaded in. -->
-    <dependency>
-      <groupId>org.antlr</groupId>
-      <artifactId>antlr4-runtime</artifactId>
-      <version>${antlr.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.yaml</groupId>
-      <artifactId>snakeyaml</artifactId>
-      <version>${snakeyaml.version}</version>
-    </dependency>
-    <!-- ================================================================================================ -->
-
-
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy</artifactId>
     </dependency>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>nl.basjes.parse.useragent</groupId>
+      <artifactId>yauaa</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -149,7 +108,9 @@
       </plugin>
     </plugins>
   </build>
+
   <profiles>
+
     <profile>
       <id>native</id>
       <activation>
@@ -161,7 +122,7 @@
         <plugins>
           <plugin>
             <artifactId>maven-failsafe-plugin</artifactId>
-            <version>${surefire-plugin.version}</version>
+            <version>${failsafe-plugin.version}</version>
             <executions>
               <execution>
                 <goals>
@@ -180,9 +141,12 @@
           </plugin>
         </plugins>
       </build>
+
       <properties>
         <quarkus.package.type>native</quarkus.package.type>
       </properties>
-    </profile>
+      </profile>
+
   </profiles>
+
 </project>

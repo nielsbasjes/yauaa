@@ -26,7 +26,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/")
+@Path("/parse")
 public class ParseService {
 
     private UserAgentAnalyzer userAgentAnalyzer = null;
@@ -40,16 +40,7 @@ public class ParseService {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getYamlGET(@HeaderParam("user-agent") String userAgentString
-    ) {
-        return doYaml(userAgentString);
-    }
-
-    private String doYaml(String userAgentString) {
-        if (userAgentString == null) {
-            return "";
-        }
-
+    public String getYamlGET(@HeaderParam("user-agent") String userAgentString) {
         return userAgentAnalyzer.parse(userAgentString).toYamlTestCase();
     }
 

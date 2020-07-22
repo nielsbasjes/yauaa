@@ -29,11 +29,12 @@ public class ParseServiceTest {
     @Test
     public void testParserEndpoint() {
         given()
-          .header("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36")
-          .when().get("/")
-          .then()
-             .statusCode(200)
-             .body(containsString("Chrome 84.0.4147.89"));
+            .header("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36")
+            .when()
+                .get("/parse")
+            .then()
+                .statusCode(200)
+                .body(containsString("Chrome 84.0.4147.89"));
     }
 
 }

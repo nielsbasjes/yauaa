@@ -17,7 +17,7 @@ The application can be packaged using `mvn package`.
 It produces the `quarkus-*-runner.jar` file in the `/target` directory.
 Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/lib` directory.
 
-The application is now runnable using `java -jar target/quarkus-5.19-SNAPSHOT-runner.jar`.
+The application is now runnable using `java -jar target/quarkus-*-runner.jar`.
 
 ## Creating a native executable
 
