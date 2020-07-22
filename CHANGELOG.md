@@ -12,6 +12,8 @@ v5.19-SNAPSHOT
   - Apache Flink            1.11.1
 - Build
   - Improved support for building using JDK 11
+- Examples
+  - Basic testing example to verify it works with Quarkus
 
 v5.18
 ===
