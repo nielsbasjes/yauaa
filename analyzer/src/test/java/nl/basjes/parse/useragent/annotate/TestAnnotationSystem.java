@@ -61,13 +61,14 @@ public class TestAnnotationSystem {
 
     // ----------------------------------------------------------------
 
-    @SuppressWarnings("unused")
     public static class MyMapper extends MyBaseMapper {
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("DeviceClass")
         public void setDeviceClass(TestRecord record, String value) {
             record.deviceClass = value;
         }
 
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("AgentNameVersion")
         public void setAgentNameVersion(TestRecord record, String value) {
             record.agentNameVersion = value;
@@ -90,7 +91,7 @@ public class TestAnnotationSystem {
     // ----------------------------------------------------------------
 
     public static class ImpossibleFieldMapper extends MyBaseMapper {
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("NielsBasjes")
         public void setImpossibleField(TestRecord record, String value) {
             record.agentNameVersion = value;
@@ -107,7 +108,7 @@ public class TestAnnotationSystem {
     // ----------------------------------------------------------------
 
     public static class InaccessibleSetterMapper  extends MyBaseMapper {
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("DeviceClass")
         private void inaccessibleSetter(TestRecord record, String value) {
             fail("May NEVER call this method");
@@ -124,7 +125,7 @@ public class TestAnnotationSystem {
     // ----------------------------------------------------------------
 
     public static class TooManyParameters extends MyBaseMapper {
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("DeviceClass")
         public void wrongSetter(TestRecord record, String value, String extra) {
             fail("May NEVER call this method");
@@ -143,7 +144,7 @@ public class TestAnnotationSystem {
     // ----------------------------------------------------------------
 
     public static class WrongTypeParameters1 extends MyBaseMapper {
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("DeviceClass")
         public void wrongSetter(String record, String value) {
             fail("May NEVER call this method");
@@ -162,7 +163,7 @@ public class TestAnnotationSystem {
     // ----------------------------------------------------------------
 
     public static class WrongTypeParameters2 extends MyBaseMapper {
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("DeviceClass")
         public void wrongSetter(TestRecord record, Double value) {
             fail("May NEVER call this method");
@@ -181,7 +182,7 @@ public class TestAnnotationSystem {
     // ----------------------------------------------------------------
 
     public static class MissingAnnotations extends MyBaseMapper {
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Deliberate test case missing annotation
         public void setWasNotAnnotated(TestRecord record, Double value) {
             fail("May NEVER call this method");
         }
@@ -197,7 +198,7 @@ public class TestAnnotationSystem {
     // ----------------------------------------------------------------
 
     public static class WrongReturnType extends MyBaseMapper {
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("DeviceClass")
         public boolean nonVoidSetter(TestRecord record, String value) {
             fail("May NEVER call this method");
@@ -233,7 +234,6 @@ public class TestAnnotationSystem {
             userAgentAnalyzer.initialize(this);
         }
 
-        @SuppressWarnings("unused")
         public PrivateTestRecord enrich(PrivateTestRecord record) {
             return userAgentAnalyzer.map(record);
         }
@@ -245,7 +245,7 @@ public class TestAnnotationSystem {
     }
 
     private static class InaccessibleSetterMapperClass extends PrivateMyBaseMapper {
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("DeviceClass")
         public void correctSetter(PrivateTestRecord record, String value) {
             fail("May NEVER call this method");
@@ -254,8 +254,10 @@ public class TestAnnotationSystem {
 
     @Test
     public void testInaccessibleSetterClass() {
+        PrivateTestRecord record = new PrivateTestRecord("Bla bla bla");
+
         InvalidParserConfigurationException exception =
-            assertThrows(InvalidParserConfigurationException.class, InaccessibleSetterMapperClass::new);
+            assertThrows(InvalidParserConfigurationException.class, () -> new InaccessibleSetterMapperClass().enrich(record));
         assertEquals("The class nl.basjes.parse.useragent.annotate.TestAnnotationSystem.PrivateTestRecord is not public.", exception.getMessage());
     }
 
@@ -269,7 +271,5 @@ public class TestAnnotationSystem {
             assertThrows(InvalidParserConfigurationException.class, () -> assertNull(userAgentAnalyzer.map("Foo")));
         assertEquals("[Map] The mapper instance is null.", exception.getMessage());
     }
-
-
 
 }

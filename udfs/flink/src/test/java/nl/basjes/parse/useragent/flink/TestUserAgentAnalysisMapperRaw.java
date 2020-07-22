@@ -31,13 +31,13 @@ public class TestUserAgentAnalysisMapperRaw {
             return record.useragent;
         }
 
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("DeviceClass")
         public void setDeviceClass(TestRecord record, String value) {
             record.deviceClass = value;
         }
 
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("AgentNameVersion")
         public void setAgentNameVersion(TestRecord record, String value) {
             record.agentNameVersion = value;
@@ -72,7 +72,7 @@ public class TestUserAgentAnalysisMapperRaw {
             return record.useragent;
         }
 
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Deliberate test case of bad annotation
         @YauaaField("NielsBasjes")
         public void setImpossibleField(TestRecord record, String value) {
             record.agentNameVersion = value;

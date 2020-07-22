@@ -1237,7 +1237,7 @@ config:
 
     // ===============================================================================================================
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // For all the casts of 'this' to 'B'
     public abstract static class AbstractUserAgentAnalyzerDirectBuilder<UAA extends AbstractUserAgentAnalyzerDirect, B extends AbstractUserAgentAnalyzerDirectBuilder<UAA, B>> {
         private final UAA uaa;
         private boolean didBuildStep = false;

@@ -37,7 +37,6 @@ public class TestAnnotationSystemAnonymous {
         String agentNameVersion;
     }
 
-    @SuppressWarnings("unused")
     public abstract static class MyMapper<T>
         implements UserAgentAnnotationMapper<T>, Serializable {
         private final transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer;
@@ -61,13 +60,13 @@ public class TestAnnotationSystemAnonymous {
                     return testRecord.useragent;
                 }
 
-                @SuppressWarnings("unused")
+                @SuppressWarnings("unused") // Called via the annotation
                 @YauaaField("DeviceClass")
                 public void setDeviceClass(TestRecord testRecord, String value) {
                     testRecord.deviceClass = value;
                 }
 
-                @SuppressWarnings("unused")
+                @SuppressWarnings("unused") // Called via the annotation
                 @YauaaField("AgentNameVersion")
                 public void setAgentNameVersion(TestRecord testRecord, String value) {
                     testRecord.agentNameVersion = value;
@@ -92,7 +91,7 @@ public class TestAnnotationSystemAnonymous {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () -> record =
             new MyErrorMapper() {
-                @SuppressWarnings("unused")
+                @SuppressWarnings("unused") // Called via the annotation
                 @YauaaField("NielsBasjes")
                 public void setImpossibleField(TestRecord testRecord, String value) {
                     fail("May NEVER call this method");
@@ -108,7 +107,7 @@ public class TestAnnotationSystemAnonymous {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () -> record =
             new MyErrorMapper() {
-                @SuppressWarnings("unused")
+                @SuppressWarnings("unused") // Called via the annotation
                 @YauaaField("DeviceClass")
                 public boolean wrongSetter(TestRecord testRecord, Double value) {
                     fail("May NEVER call this method");
@@ -127,7 +126,7 @@ public class TestAnnotationSystemAnonymous {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () -> record =
             new MyErrorMapper() {
-                @SuppressWarnings("unused")
+                @SuppressWarnings("unused") // Called via the annotation
                 @YauaaField("DeviceClass")
                 private void inaccessibleSetter(TestRecord testRecord, String value) {
                     fail("May NEVER call this method");
@@ -144,7 +143,7 @@ public class TestAnnotationSystemAnonymous {
             assertThrows(InvalidParserConfigurationException.class, () ->
             record =
             new MyErrorMapper() {
-                @SuppressWarnings("unused")
+                @SuppressWarnings("unused") // Called via the annotation
                 @YauaaField("DeviceClass")
                 public void wrongSetter(TestRecord testRecord, String value, String extra) {
                     fail("May NEVER call this method");
@@ -163,7 +162,7 @@ public class TestAnnotationSystemAnonymous {
             assertThrows(InvalidParserConfigurationException.class, () ->
             record =
             new MyErrorMapper() {
-                @SuppressWarnings("unused")
+                @SuppressWarnings("unused") // Called via the annotation
                 @YauaaField("DeviceClass")
                 public void wrongSetter(String string, String value) {
                     fail("May NEVER call this method");
@@ -182,7 +181,7 @@ public class TestAnnotationSystemAnonymous {
             assertThrows(InvalidParserConfigurationException.class, () ->
             record =
             new MyErrorMapper() {
-                @SuppressWarnings("unused")
+                @SuppressWarnings("unused") // Called via the annotation
                 @YauaaField("DeviceClass")
                 public void wrongSetter(TestRecord testRecord, Double value) {
                     fail("May NEVER call this method");
@@ -201,7 +200,7 @@ public class TestAnnotationSystemAnonymous {
             assertThrows(InvalidParserConfigurationException.class, () ->
             record =
             new MyErrorMapper() {
-                @SuppressWarnings("unused")
+                @SuppressWarnings("unused") // Called via the annotation
                 public void setWasNotAnnotated(TestRecord testRecord, String value) {
                     fail("May NEVER call this method");
                 }
@@ -217,7 +216,7 @@ public class TestAnnotationSystemAnonymous {
             assertThrows(InvalidParserConfigurationException.class, () ->
             record =
             new MyErrorMapper() {
-                @SuppressWarnings("unused")
+                @SuppressWarnings("unused") // Called via the annotation
                 @YauaaField("DeviceClass")
                 public void failingSetter(TestRecord testRecord, String value) {
                     throw new IllegalStateException("Just testing the error handling");

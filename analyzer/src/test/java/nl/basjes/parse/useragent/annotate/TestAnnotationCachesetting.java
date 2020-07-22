@@ -30,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestAnnotationCachesetting {
 
-    @SuppressWarnings("unused")
     public static class TestRecord implements Serializable {
         final String useragent;
         String deviceClass;
@@ -41,7 +40,7 @@ public class TestAnnotationCachesetting {
         }
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("unused") // Called via the annotation
     public static class MyMapper implements UserAgentAnnotationMapper<TestRecord>, Serializable {
         @Override
         public String getUserAgentString(TestRecord record) {

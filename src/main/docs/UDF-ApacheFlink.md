@@ -29,13 +29,13 @@ Note that the name of the two setters is not important, the system looks at the 
             return record.useragent;
         }
 
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("DeviceClass")
         public void setDC(TestRecord record, String value) {
             record.deviceClass = value;
         }
 
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("AgentNameVersion")
         public void setANV(TestRecord record, String value) {
             record.agentNameVersion = value;
@@ -56,13 +56,13 @@ So the earlier example will look something like this:
             return record.useragent;
         }
 
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("DeviceClass")
         public void setDC(TestRecord record, String value) {
             record.deviceClass = value;
         }
 
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("AgentNameVersion")
         public void setANV(TestRecord record, String value) {
             record.agentNameVersion = value;

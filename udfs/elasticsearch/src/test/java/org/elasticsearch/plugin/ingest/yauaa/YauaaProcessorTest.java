@@ -33,8 +33,8 @@ import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-@SuppressWarnings("unchecked")
 public class YauaaProcessorTest {
 
     private static final String SOURCE_FIELD = "source_field";
@@ -54,7 +54,9 @@ public class YauaaProcessorTest {
 
         MatcherAssert.assertThat(data, hasKey(TARGET_FIELD));
 
-        Map<String, String> results = (Map<String, String>) data.get(TARGET_FIELD);
+        Object targetFieldData = data.get(TARGET_FIELD);
+        assertTrue("Wrong type", targetFieldData instanceof Map);
+        Map<?, ?> results = (Map<?, ?>) targetFieldData;
 
         assertHasKValue(results, "DeviceClass",                      "Phone");
         assertHasKValue(results, "DeviceBrand",                      "Google");
@@ -99,7 +101,9 @@ public class YauaaProcessorTest {
 
         MatcherAssert.assertThat(data, hasKey(TARGET_FIELD));
 
-        Map<String, String> results = (Map<String, String>) data.get(TARGET_FIELD);
+        Object targetFieldData = data.get(TARGET_FIELD);
+        assertTrue("Wrong type", targetFieldData instanceof Map);
+        Map<?, ?> results = (Map<?, ?>) targetFieldData;
 
         // The EXPLICITLY requested fields
         assertHasKValue(results, "FirstProductName",        "Mozilla");
@@ -131,11 +135,11 @@ public class YauaaProcessorTest {
         assertHasNotKey(results, "AgentNameVersion");
     }
 
-    private void assertHasKValue(Map<String, String> results, String key, String value) {
+    private void assertHasKValue(Map<?, ?> results, String key, String value) {
         MatcherAssert.assertThat(results, hasEntry(key, value));
     }
 
-    private void assertHasNotKey(Map<String, String> results, String key) {
+    private void assertHasNotKey(Map<?, ?> results, String key) {
         MatcherAssert.assertThat(results, not(hasKey(key)));
     }
 
@@ -171,7 +175,9 @@ public class YauaaProcessorTest {
 
         MatcherAssert.assertThat(data, hasKey(TARGET_FIELD));
 
-        Map<String, String> results    = (Map<String, String>) data.get(TARGET_FIELD);
+        Object targetFieldData = data.get(TARGET_FIELD);
+        assertTrue("Wrong type", targetFieldData instanceof Map);
+        Map<?, ?> results = (Map<?, ?>) targetFieldData;
 
         // The EXPLICITLY requested fields
         assertHasKValue(results, "FirstProductName",        "Mozilla");

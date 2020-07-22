@@ -116,7 +116,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         return cachedValue;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // For all the casts of 'this' to 'B'
     public abstract  static class AbstractUserAgentAnalyzerBuilder<UAA extends AbstractUserAgentAnalyzer, B extends AbstractUserAgentAnalyzerBuilder<UAA, B>>
             extends AbstractUserAgentAnalyzerDirectBuilder<UAA, B> {
         private final UAA uaa;

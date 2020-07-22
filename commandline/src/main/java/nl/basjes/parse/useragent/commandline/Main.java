@@ -26,6 +26,7 @@ import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzer
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Localizable;
 import org.kohsuke.args4j.Option;
 import org.kohsuke.args4j.spi.StringArrayOptionHandler;
 import org.slf4j.Logger;
@@ -36,6 +37,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Locale;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
@@ -96,7 +98,24 @@ public final class Main {
         }
     }
 
-    @SuppressWarnings("deprecation")
+    private static class FakeLocalizable implements Localizable {
+        String message;
+
+        FakeLocalizable(String message) {
+            this.message = message;
+        }
+
+        @Override
+        public String formatWithLocale(Locale locale, Object... args) {
+            return message;
+        }
+
+        @Override
+        public String format(Object... args) {
+            return message;
+        }
+    }
+
     public static void main(String[] args) {
         int returnValue = 0;
         final CommandOptions commandlineOptions = new CommandOptions();
@@ -105,7 +124,7 @@ public final class Main {
             parser.parseArgument(args);
 
             if (commandlineOptions.useragent == null && commandlineOptions.inFile == null) {
-                throw new CmdLineException(parser, "No input specified."); // NOSONAR: Deprecated
+                throw new CmdLineException(parser, new FakeLocalizable("No input specified."));
             }
 
             OutputFormat outputFormat = null;
@@ -122,7 +141,7 @@ public final class Main {
             }
 
             if (outputFormat == null) {
-                throw new CmdLineException(parser, "No output format specified."); // NOSONAR: Deprecated
+                throw new CmdLineException(parser, new FakeLocalizable("No output format specified."));
             }
 
             UserAgentAnalyzerTesterBuilder builder = UserAgentAnalyzerTester.newBuilder();
