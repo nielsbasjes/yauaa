@@ -26,21 +26,22 @@
   </parent>
 
 <!--  <groupId>nl.basjes.parse.useragent</groupId>-->
-  <artifactId>quarkus</artifactId>
+  <artifactId>yauaa-example-quarkus</artifactId>
 <!--  <version>5.19-SNAPSHOT</version>-->
   <name>Yauaa : Examples : Quarkus</name>
 
   <properties>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
-    <maven.compiler.parameters>true</maven.compiler.parameters>
+    <maven.compiler.parameters>true</maven.compiler.parameters> <!-- Set to true to generate metadata for reflection on method parameters. -->
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
     <quarkus-plugin.version>1.6.1.Final</quarkus-plugin.version>
-    <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
-    <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>1.6.1.Final</quarkus.platform.version>
+
     <surefire-plugin.version>2.22.2</surefire-plugin.version>
     <failsafe-plugin.version>2.22.2</failsafe-plugin.version>
   </properties>
@@ -48,8 +49,8 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>${quarkus.platform.group-id}</groupId>
-        <artifactId>${quarkus.platform.artifact-id}</artifactId>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-universe-bom</artifactId>
         <version>${quarkus.platform.version}</version>
         <type>pom</type>
         <scope>import</scope>
@@ -164,6 +165,57 @@
               </execution>
             </executions>
           </plugin>
+
+          <plugin>
+            <groupId>io.fabric8</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <version>0.33.0</version>
+
+            <configuration>
+              <images>
+                <image>
+                  <name>nielsbasjes/yauaa-quarkus:${project.version}</name>
+                  <build>
+                    <maintainer>Niels Basjes</maintainer>
+                    <from>registry.access.redhat.com/ubi8/ubi-minimal:8.1</from>
+                    <tags>
+                      <tag>latest</tag>
+                      <tag>${project.version}</tag>
+                    </tags>
+                    <dockerFile>src/main/docker/Dockerfile.native</dockerFile>
+                    <contextDir>${project.basedir}</contextDir>
+                  </build>
+
+                  <run>
+                    <autoRemove>true</autoRemove>
+                    <ports>
+                      <port>yauaa.port:8080</port>
+                    </ports>
+                    <wait>
+                      <http>
+                        <url>http://localhost:${yauaa.port}/parse</url>
+                      </http>
+                      <time>20000</time>
+                    </wait>
+                    <log>
+                      <prefix>[ LOCAL TEST OF YAUAA ]::</prefix>
+                      <color>red</color>
+                    </log>
+                  </run>
+                </image>
+
+              </images>
+            </configuration>
+            <executions>
+              <execution>
+                <id>build-docker</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
         </plugins>
       </build>
 
@@ -171,7 +223,7 @@
         <quarkus.package.type>native</quarkus.package.type>
         <quarkus.native.additional-build-args>-H:ResourceConfigurationFiles=resources-config.json,--initialize-at-run-time=nl.basjes.shaded.org.springframework.core.io.VfsUtils</quarkus.native.additional-build-args>
       </properties>
-      </profile>
+    </profile>
 
   </profiles>
 
