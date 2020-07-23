@@ -1,27 +1,41 @@
-# IMPORTANT: THIS DOES NOT WORK!
+# IMPORTANT: THIS DOES NOT WORK A QUARKUS WAS INTENDED!
 
 See https://github.com/nielsbasjes/yauaa/issues/216 and the reproduction of the core problem https://github.com/nielsbasjes/BugReport-SpringQuarkus-ResourceLoading
 
-The current status is that this problem has been reported to both Spring and Quarkus
+The current status is that this problem is under investigation at Quarkus
 - https://github.com/quarkusio/quarkus/issues/10943
-- https://github.com/spring-projects/spring-framework/issues/25465
+- ~~https://github.com/spring-projects/spring-framework/issues/25465~~
+
+# What works and what does not?
+Does NOT work:
+- `mvn quarkus:dev`
+
+Does NOT work standalone but does work as a module within Yauaa:
+- `mvn clean package`
+
+Works:
+1. Java variant
+    - `mvn clean package -DskipTests=true`
+    - `java -jar target/yauaa-example-quarkus-*-runner.jar`
+1. Native variant
+    - `mvn clean package -DskipTests=true -Pnative -Dquarkus.native.container-build=true`
+    - `./target/yauaa-example-quarkus-*-runner`
 
 
-# IMPORTANT: THIS DOES NOT WORK!
+# Using yauaa in your own Quarkus project
+## Normal
+Include not only `yauaa` as a dependency but also `jcl-over-slf4j`.
+
+## Native
+1. Use the quarkus.native.additional-build-args properties as shown in the `pom.xml`.
+1. Make sure you copy the `src/main/resources/resources-config.json` to your own project.
 
 
-# IMPORTANT: THIS DOES NOT WORK!
+Standard Quarkus readme
+========================
 
 
-
-
-
-
-
-
-
-
-
+ ==============================================
 
 # quarkus project
 
