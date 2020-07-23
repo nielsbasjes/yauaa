@@ -137,6 +137,7 @@
 
     <!-- By default we disable anything requiring docker and reenable it if docker is present. -->
     <docker.skip>true</docker.skip>
+    <docker-based-tests.skip>true</docker-based-tests.skip>
 
   </properties>
 
@@ -183,25 +184,12 @@
 
   <profiles>
 
-    <profile>
-      <id>skipQuality</id>
-      <properties>
-        <skipTests>true</skipTests>
-        <sonar.skip>true</sonar.skip>
-        <rat.skip>true</rat.skip>
-        <checkstyle.skip>true</checkstyle.skip>
-        <jacoco.skip>true</jacoco.skip>
-        <spotbugs.skip>true</spotbugs.skip>
-        <dependency-check.skip>true</dependency-check.skip>
-        <depencency-convergence.phase>none</depencency-convergence.phase>
-      </properties>
-    </profile>
-
     <!-- From https://www.dontpanicblog.co.uk/2017/02/28/activate-the-maven-docker-plugin/ -->
     <profile>
       <id>Docker enabled for linux</id>
       <properties>
         <docker.skip>false</docker.skip>
+        <docker-based-tests.skip>false</docker-based-tests.skip>
       </properties>
       <activation>
         <!-- Activate on Linux systems. Assume presence of docker.pid file indicates Docker is available -->
@@ -215,6 +203,7 @@
       <id>Docker enabled for Windows 10 native</id>
       <properties>
         <docker.skip>false</docker.skip>
+        <docker-based-tests.skip>false</docker-based-tests.skip>
       </properties>
       <activation>
         <!-- Activate on Windows 10 systems with native Docker. Check for docker.exe in default install directory -->
@@ -228,6 +217,7 @@
       <id>Docker enabled for Windows 10 toolbox</id>
       <properties>
         <docker.skip>false</docker.skip>
+        <docker-based-tests.skip>false</docker-based-tests.skip>
       </properties>
       <activation>
         <!-- Activate on Windows (Docker Toolbox) systems. Assume presence of DOCKER_HOST indicates Docker is available -->
@@ -237,6 +227,20 @@
       </activation>
     </profile>
 
+    <profile>
+      <id>skipQuality</id>
+      <properties>
+        <skipTests>true</skipTests>
+        <sonar.skip>true</sonar.skip>
+        <rat.skip>true</rat.skip>
+        <checkstyle.skip>true</checkstyle.skip>
+        <jacoco.skip>true</jacoco.skip>
+        <spotbugs.skip>true</spotbugs.skip>
+        <dependency-check.skip>true</dependency-check.skip>
+        <depencency-convergence.phase>none</depencency-convergence.phase>
+        <docker-based-tests.skip>true</docker-based-tests.skip>
+      </properties>
+    </profile>
 
     <profile>
       <id>packageForRelease</id>
