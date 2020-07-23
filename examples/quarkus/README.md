@@ -1,3 +1,28 @@
+# IMPORTANT: THIS DOES NOT WORK!
+
+See https://github.com/nielsbasjes/yauaa/issues/216 and the reproduction of the core problem https://github.com/nielsbasjes/BugReport-SpringQuarkus-ResourceLoading
+
+The current status is that this problem has been reported to both Spring and Quarkus
+- https://github.com/quarkusio/quarkus/issues/10943
+- https://github.com/spring-projects/spring-framework/issues/25465
+
+
+# IMPORTANT: THIS DOES NOT WORK!
+
+
+# IMPORTANT: THIS DOES NOT WORK!
+
+
+
+
+
+
+
+
+
+
+
+
 # quarkus project
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
