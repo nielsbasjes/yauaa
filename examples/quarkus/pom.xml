@@ -102,6 +102,7 @@
               <goal>build</goal>
             </goals>
           </execution>
+
         </executions>
       </plugin>
 
@@ -128,39 +129,6 @@
         <configuration>
           <skip>true</skip>
         </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0-M3</version>
-        <executions>
-          <execution>
-            <id>fail-always</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <requireMavenVersion>
-                  <version>[0.0.0]</version>
-                  <message>
-.
-
-
-This project won't build because it does not work (so I deliberately disabled building it).
-The base problem has been reported to both SpringFramework and Quarkus.
- - https://github.com/quarkusio/quarkus/issues/10943
- - https://github.com/spring-projects/spring-framework/issues/25465
-
-.
-                  </message>
-                </requireMavenVersion>
-              </rules>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
 
     </plugins>
@@ -201,6 +169,7 @@ The base problem has been reported to both SpringFramework and Quarkus.
 
       <properties>
         <quarkus.package.type>native</quarkus.package.type>
+        <quarkus.native.additional-build-args>-H:ResourceConfigurationFiles=resources-config.json,--initialize-at-run-time=nl.basjes.shaded.org.springframework.core.io.VfsUtils</quarkus.native.additional-build-args>
       </properties>
       </profile>
 
