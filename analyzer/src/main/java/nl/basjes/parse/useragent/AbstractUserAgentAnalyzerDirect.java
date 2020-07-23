@@ -346,8 +346,8 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
                     PackagedRules.getRuleFileNames().forEach(s -> loadResources(s, false, false));
                 } else {
                     LOG.warn("If you are using wildcards in your expression then try explicitly naming all yamls files explicitly.");
+                    throw new InvalidParserConfigurationException("There were no resources found for the expression: " + resourceString);
                 }
-                throw new InvalidParserConfigurationException("There were no resources found for the expression: " + resourceString);
             }
             return;
         }
