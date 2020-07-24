@@ -14,6 +14,8 @@ NEXTVERSION=5.20
 # Creating and publishing the new Tagging
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION}
 
+# Edit the yauaa.version in ./examples/quarkus/pom.xml
+
 # Update the version number in all of the examples in the generated documentation website.
 sed -i "s@YauaaVersion: \+\"[0-9\.]\+\"@YauaaVersion: \"${RELEASEVERSION}\"@g" src/book.js
 git diff src

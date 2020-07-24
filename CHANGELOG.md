@@ -1,6 +1,10 @@
 This is intended as an overview of the major changes
 
-v5.19-SNAPSHOT
+v5.20-SNAPSHOT
+===
+- ...
+
+v5.19
 ===
 - Analyzer:
   - Added ReplaceString to support extracting texts
