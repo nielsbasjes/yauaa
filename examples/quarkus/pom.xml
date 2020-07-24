@@ -96,6 +96,7 @@
 
   <build>
     <plugins>
+
       <plugin>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
@@ -106,7 +107,6 @@
               <goal>build</goal>
             </goals>
           </execution>
-
         </executions>
       </plugin>
 
@@ -149,6 +149,7 @@
       </activation>
       <build>
         <plugins>
+
           <plugin>
             <artifactId>maven-failsafe-plugin</artifactId>
             <version>${failsafe-plugin.version}</version>
@@ -173,7 +174,6 @@
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
             <version>0.33.0</version>
-
             <configuration>
               <images>
                 <image>

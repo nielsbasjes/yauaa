@@ -1,4 +1,5 @@
-# IMPORTANT: THIS DOES NOT WORK AS QUARKUS WAS INTENDED!
+# IMPORTANT: There are some issues loading resources ...
+In Quarkus the loading of resources has problems.
 
 See https://github.com/nielsbasjes/yauaa/issues/216 and the reproduction of
 the core problem https://github.com/nielsbasjes/BugReport-SpringQuarkus-ResourceLoading
@@ -9,29 +10,26 @@ The current status is that this problem is under investigation at Quarkus
 The core is that there is something different when dynamically finding and loading resources which are located in subdirectories.
 
 This affects the ability to dynamically find all the rule files and load them.
-The resources are found, but because the indicated path is wrong which causes actual loading of the content to fail.
+The resources are found, but because the indicated path is wrong actual loading of the content fails.
 
 It behaves differently if this is
 - a module within the Yauaa maven project (then it can find the files as 'file' resources)
 - standalone project that includes Yauaa as a dependency (then it finds the files as 'URL' resources with an incorrect path)
 
-# What works and what does not?
-Does NOT work:
+When the resource loading problems appear then yauaa will fallback to only load the built in rulesets, so custom rulesets are expected to simply "not work".
+
+With these fallbacks in place (and not loading your own rules) really everything works.
+
+As a consequence you'll see different startup messages depending on either having a normal Java version or a Quarkus modified version.
+
+1. Developer mode
 - `mvn quarkus:dev`
-
-Running unit tests does NOT work standalone but does work as a module within Yauaa:
-- `mvn clean package`
-
-Works:
 1. Java variant
-    - `mvn clean package -DskipTests=true`
-    - `java -jar target/yauaa-example-quarkus-*-runner.jar`
+- `mvn clean package`
+- `java -jar target/yauaa-example-quarkus-*-runner.jar`
 1. Native variant
-    - `mvn clean package -DskipTests=true -Pnative -Dquarkus.native.container-build=true`
-    - `./target/yauaa-example-quarkus-*-runner`
-
-Note that for the native variant the classloading is even more broken.
-So Yauaa can only load the bundled rulesets (because of classloading issues elsewhere an explicit list of all bundled rulesets has been generated into the code).
+- `mvn clean package -Pnative -Dquarkus.native.container-build=true`
+- `./target/yauaa-example-quarkus-*-runner`
 
 # Using yauaa in your own Quarkus project
 ## Normal
@@ -41,10 +39,8 @@ Include `yauaa` and `jcl-over-slf4j` as a dependency.
 1. Use the quarkus.native.additional-build-args properties as shown in the `pom.xml`.
 1. Make sure you copy the `src/main/resources/resources-config.json` to your own project.
 
-
 Standard Quarkus readme
 ========================
-
 
  ==============================================
 
