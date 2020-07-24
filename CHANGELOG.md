@@ -4,6 +4,7 @@ v5.19-SNAPSHOT
 ===
 - Analyzer:
   - Added ReplaceString to support extracting texts
+  - Added additional fallback for resource finding problems (like in Quarkus)
 - New/improved detections
   - Extract Google tools name from the provided url
   - Apache Beam useragent

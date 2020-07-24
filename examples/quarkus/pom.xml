@@ -19,15 +19,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <artifactId>yauaa-example-parent</artifactId>
-    <groupId>nl.basjes.parse.useragent</groupId>
-    <version>5.19-SNAPSHOT</version>
-  </parent>
+<!--  <parent>-->
+<!--    <artifactId>yauaa-example-parent</artifactId>-->
+<!--    <groupId>nl.basjes.parse.useragent</groupId>-->
+<!--    <version>5.19-SNAPSHOT</version>-->
+<!--  </parent>-->
 
-<!--  <groupId>nl.basjes.parse.useragent</groupId>-->
+  <groupId>nl.basjes.parse.useragent</groupId>
   <artifactId>yauaa-example-quarkus</artifactId>
-<!--  <version>5.19-SNAPSHOT</version>-->
+  <version>0.1-SNAPSHOT</version>
   <name>Yauaa : Examples : Quarkus</name>
 
   <properties>
@@ -44,6 +44,9 @@
 
     <surefire-plugin.version>2.22.2</surefire-plugin.version>
     <failsafe-plugin.version>2.22.2</failsafe-plugin.version>
+
+    <yauaa.version>5.19-SNAPSHOT</yauaa.version>
+
   </properties>
 
   <dependencyManagement>
@@ -80,7 +83,7 @@
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
-      <version>${project.version}</version>
+      <version>${yauaa.version}</version>
     </dependency>
 
     <dependency>

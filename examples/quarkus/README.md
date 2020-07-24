@@ -1,16 +1,25 @@
-# IMPORTANT: THIS DOES NOT WORK A QUARKUS WAS INTENDED!
+# IMPORTANT: THIS DOES NOT WORK AS QUARKUS WAS INTENDED!
 
-See https://github.com/nielsbasjes/yauaa/issues/216 and the reproduction of the core problem https://github.com/nielsbasjes/BugReport-SpringQuarkus-ResourceLoading
+See https://github.com/nielsbasjes/yauaa/issues/216 and the reproduction of
+the core problem https://github.com/nielsbasjes/BugReport-SpringQuarkus-ResourceLoading
 
 The current status is that this problem is under investigation at Quarkus
 - https://github.com/quarkusio/quarkus/issues/10943
-- ~~https://github.com/spring-projects/spring-framework/issues/25465~~
+
+The core is that there is something different when dynamically finding and loading resources which are located in subdirectories.
+
+This affects the ability to dynamically find all the rule files and load them.
+The resources are found, but because the indicated path is wrong which causes actual loading of the content to fail.
+
+It behaves differently if this is
+- a module within the Yauaa maven project (then it can find the files as 'file' resources)
+- standalone project that includes Yauaa as a dependency (then it finds the files as 'URL' resources with an incorrect path)
 
 # What works and what does not?
 Does NOT work:
 - `mvn quarkus:dev`
 
-Does NOT work standalone but does work as a module within Yauaa:
+Running unit tests does NOT work standalone but does work as a module within Yauaa:
 - `mvn clean package`
 
 Works:
@@ -21,10 +30,12 @@ Works:
     - `mvn clean package -DskipTests=true -Pnative -Dquarkus.native.container-build=true`
     - `./target/yauaa-example-quarkus-*-runner`
 
+Note that for the native variant the classloading is even more broken.
+So Yauaa can only load the bundled rulesets (because of classloading issues elsewhere an explicit list of all bundled rulesets has been generated into the code).
 
 # Using yauaa in your own Quarkus project
 ## Normal
-Include not only `yauaa` as a dependency but also `jcl-over-slf4j`.
+Include `yauaa` and `jcl-over-slf4j` as a dependency.
 
 ## Native
 1. Use the quarkus.native.additional-build-args properties as shown in the `pom.xml`.
@@ -64,7 +75,7 @@ You can create a native executable using: `mvn package -Pnative`.
 
 Or, if you don't have GraalVM installed, you can run the native executable build in a container using: `mvn package -Pnative -Dquarkus.native.container-build=true`.
 
-You can then execute your native executable with: `./target/quarkus-5.19-SNAPSHOT-runner`
+You can then execute your native executable with: `./target/quarkus-*-runner`
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/building-native-image.
 
