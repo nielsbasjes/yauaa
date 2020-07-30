@@ -13,8 +13,9 @@ v5.19
   - Extract Google tools name from the provided url
   - Apache Beam useragent
 - Updated UDF dependencies
-  - Elastic Search/Logstash 7.8.0
+  - Elastic Search/Logstash 7.8.1
   - Apache Flink            1.11.1
+  - Apache Beam             2.22.0
 - Build
   - Improved support for building using JDK 11
 - Examples
