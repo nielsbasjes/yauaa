@@ -2,7 +2,8 @@ This is intended as an overview of the major changes
 
 v5.20-SNAPSHOT
 ===
-- ...
+- Build
+  - Disable sonarcloud on JDK 8
 
 v5.19
 ===

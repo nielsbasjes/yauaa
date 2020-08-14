@@ -436,6 +436,11 @@
       <activation>
         <jdk>1.8</jdk>
       </activation>
+      <properties>
+        <!-- Sonar is no longer supported on Java 8                                -->
+        <!-- https://sonarcloud.io/documentation/user-guide/move-analysis-java-11/ -->
+        <sonar.skip>true</sonar.skip>
+      </properties>
       <build>
         <plugins>
           <plugin>
