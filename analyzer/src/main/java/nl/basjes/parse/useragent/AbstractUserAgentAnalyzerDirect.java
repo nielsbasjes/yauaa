@@ -338,9 +338,10 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         // Just trying to open a stream for one of the resources is enough to see if we can continue.
         if (!resources.isEmpty()) {
             Resource resource = resources.entrySet().iterator().next().getValue();
-            InputStream ignored = null;
-            try {
-                ignored = resource.getInputStream();
+            try (InputStream ignored = resource.getInputStream()) {
+                // Just seeing if opening this stream triggers an error.
+                // Having a useless statement that references the 'ignored' to avoid checkstyle and compilation warnings.
+                LOG.debug("Opening the resource worked. {}", ignored);
             } catch (IOException e) {
                 LOG.error("Cannot load the resources (usually classloading problem).");
                 LOG.error("- Resource   : {}", resource);
@@ -351,15 +352,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
                     resources.clear();
                 } else {
                     LOG.error("FATAL: Unable to load the specified resources for {}", resourceString);
-                    throw new InvalidParserConfigurationException("Error reading resources ("+resourceString+"): " + e.getMessage(), e);
-                }
-            } finally {
-                if (ignored != null) {
-                    try {
-                        ignored.close();
-                    } catch (IOException e) {
-                        // Ignore
-                    }
+                    throw new InvalidParserConfigurationException("Error reading resources (" + resourceString + "): " + e.getMessage(), e);
                 }
             }
         }
