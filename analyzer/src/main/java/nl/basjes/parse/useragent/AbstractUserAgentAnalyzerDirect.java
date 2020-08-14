@@ -337,35 +337,30 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         // When using a framework like Quarkus loading resources can fail in mysterious ways.
         // Just trying to open a stream for one of the resources is enough to see if we can continue.
         if (!resources.isEmpty()) {
-            for (Map.Entry<String, Resource> entry: resources.entrySet()){
-                Resource resource = entry.getValue();
-                InputStream ignored = null;
-                try {
-                    ignored = resource.getInputStream();
-                } catch (IOException e) {
-                    LOG.error("Cannot load the resources (usually classloading problem).");
-                    LOG.error("- Resource   : {}", resource);
-                    LOG.error("- Filename   : {}", resource.getFilename());
-                    LOG.error("- Description: {}", resource.getDescription());
-                    if (loadingDefaultResources) {
-                        LOG.warn("Falling back to the built in list of resources");
-                        resources.clear();
-                    } else {
-                        LOG.error("FATAL: Unable to load the specified resources for {}", resourceString);
-                        throw new InvalidParserConfigurationException("Error reading resources ("+resourceString+"): " + e.getMessage(), e);
-                    }
-                } finally {
-                    if (ignored != null) {
-                        try {
-                            ignored.close();
-                        } catch (IOException e) {
-                            // Ignore
-                        }
+            Resource resource = resources.entrySet().iterator().next().getValue();
+            InputStream ignored = null;
+            try {
+                ignored = resource.getInputStream();
+            } catch (IOException e) {
+                LOG.error("Cannot load the resources (usually classloading problem).");
+                LOG.error("- Resource   : {}", resource);
+                LOG.error("- Filename   : {}", resource.getFilename());
+                LOG.error("- Description: {}", resource.getDescription());
+                if (loadingDefaultResources) {
+                    LOG.warn("Falling back to the built in list of resources");
+                    resources.clear();
+                } else {
+                    LOG.error("FATAL: Unable to load the specified resources for {}", resourceString);
+                    throw new InvalidParserConfigurationException("Error reading resources ("+resourceString+"): " + e.getMessage(), e);
+                }
+            } finally {
+                if (ignored != null) {
+                    try {
+                        ignored.close();
+                    } catch (IOException e) {
+                        // Ignore
                     }
                 }
-
-                // We only need to test one of the provided resources to find if we have a classloading problem.
-                break;
             }
         }
 
