@@ -4,6 +4,8 @@ v5.20-SNAPSHOT
 ===
 - Build
   - Disable sonarcloud on JDK 8
+- Updated UDF dependencies
+  - Apache Nifi             1.12.0
 
 v5.19
 ===
