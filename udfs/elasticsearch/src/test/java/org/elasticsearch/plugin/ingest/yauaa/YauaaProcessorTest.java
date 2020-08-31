@@ -17,6 +17,7 @@
 
 package org.elasticsearch.plugin.ingest.yauaa;
 
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.elasticsearch.index.VersionType;
 import org.elasticsearch.ingest.IngestDocument;
 import org.elasticsearch.ingest.Processor;
@@ -26,7 +27,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.hasEntry;
@@ -49,7 +49,8 @@ public class YauaaProcessorTest {
                 "Chrome/53.0.2785.124 Mobile Safari/537.36");
         IngestDocument ingestDocument = new IngestDocument("index", "type", "id", null, 42L, VersionType.EXTERNAL, document);
 
-        YauaaProcessor      processor = new YauaaProcessor("tag", SOURCE_FIELD, TARGET_FIELD, null, -1, -1, null);
+        UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder().build();
+        YauaaProcessor      processor = new YauaaProcessor("tag", "description", SOURCE_FIELD, TARGET_FIELD, userAgentAnalyzer);
         Map<String, Object> data      = processor.execute(ingestDocument).getSourceAndMetadata();
 
         MatcherAssert.assertThat(data, hasKey(TARGET_FIELD));
@@ -91,12 +92,13 @@ public class YauaaProcessorTest {
                 "Chrome/53.0.2785.124 Mobile Safari/537.36");
         IngestDocument ingestDocument = new IngestDocument("index", "type", "id", null, 42L, VersionType.EXTERNAL, document);
 
-        List<String> fieldNames = Arrays.asList("DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor", "FirstProductName");
-        Integer      cacheSize  = 10;
-        Integer      preheat    = 10;
-        String       extraRules = "config:\n- matcher:\n    extract:\n      - 'FirstProductName     : 1 :agent.(1)product.(1)name'\n";
-
-        YauaaProcessor      processor = new YauaaProcessor("tag", SOURCE_FIELD, TARGET_FIELD, fieldNames, cacheSize, preheat, extraRules);
+        UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
+            .withFields(Arrays.asList("DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor", "FirstProductName"))
+            .withCache(10)
+            .preheat(10)
+            .addYamlRule("config:\n- matcher:\n    extract:\n      - 'FirstProductName     : 1 :agent.(1)product.(1)name'\n")
+            .build();
+        YauaaProcessor      processor = new YauaaProcessor("tag", "description", SOURCE_FIELD, TARGET_FIELD, userAgentAnalyzer);
         Map<String, Object> data      = processor.execute(ingestDocument).getSourceAndMetadata();
 
         MatcherAssert.assertThat(data, hasKey(TARGET_FIELD));
@@ -160,7 +162,7 @@ public class YauaaProcessorTest {
         configuration.put("preheat",      10);
         configuration.put("extraRules",   "config:\n- matcher:\n    extract:\n      - 'FirstProductName     : 1 :agent.(1)product.(1)name'\n");
 
-        Processor processor = yauaaFactory.create(processors, "tag", configuration);
+        Processor processor = yauaaFactory.create(processors, "tag", "description", configuration);
 
         assertEquals("yauaa", processor.getType());
 

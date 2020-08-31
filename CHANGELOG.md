@@ -6,6 +6,7 @@ v5.20-SNAPSHOT
   - Disable sonarcloud on JDK 8
 - Updated UDF dependencies
   - Apache Nifi             1.12.0
+  - Elastic Search/Logstash 7.9.0
 
 v5.19
 ===

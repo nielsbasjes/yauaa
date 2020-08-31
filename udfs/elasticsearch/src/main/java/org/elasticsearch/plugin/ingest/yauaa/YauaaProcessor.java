@@ -24,7 +24,6 @@ import org.elasticsearch.ingest.AbstractProcessor;
 import org.elasticsearch.ingest.IngestDocument;
 import org.elasticsearch.ingest.Processor;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -43,39 +42,15 @@ public class YauaaProcessor extends AbstractProcessor {
 
     private final UserAgentAnalyzer uaa;
 
-    public YauaaProcessor(String tag,
-                          String field,
-                          String targetField,
-                          Collection<String> fieldNames,
-                          Integer cacheSize,
-                          Integer preheat,
-                          String  extraRules) {
-        super(tag);
+    YauaaProcessor(String tag,
+                   String description,
+                   String field,
+                   String targetField,
+                   UserAgentAnalyzer uaa) {
+        super(tag, description);
         this.field = field;
         this.targetField = targetField;
-
-        UserAgentAnalyzerBuilder builder = UserAgentAnalyzer
-            .newBuilder()
-            .dropTests()
-            .immediateInitialization();
-
-        if (cacheSize >= 0) {
-            builder.withCache(cacheSize);
-        }
-
-        if (preheat >= 0) {
-            builder.preheat(preheat);
-        }
-
-        if (extraRules != null) {
-            builder.addYamlRule(extraRules);
-        }
-
-        if (fieldNames != null && !fieldNames.isEmpty()) {
-            builder.withFields(fieldNames);
-        }
-
-        this.uaa = builder.build();
+        this.uaa = uaa;
     }
 
     @Override
@@ -98,7 +73,7 @@ public class YauaaProcessor extends AbstractProcessor {
     public static final class Factory implements Processor.Factory {
 
         @Override
-        public YauaaProcessor create(Map<String, Processor.Factory> factories, String tag, Map<String, Object> config) {
+        public Processor create(Map<String, Processor.Factory> processorFactories, String tag, String description, Map<String, Object> config) {
             String       field          = readStringProperty(TYPE, tag, config, "field");
             String       targetField    = readStringProperty(TYPE, tag, config, "target_field", "user_agent");
             List<String> fieldNames     = readOptionalList(TYPE, tag, config, "fieldNames");
@@ -106,7 +81,28 @@ public class YauaaProcessor extends AbstractProcessor {
             Integer      preheat        = readIntProperty(TYPE, tag, config, "preheat", -1);
             String       extraRules     = readOptionalStringProperty(TYPE, tag, config, "extraRules");
 
-            return new YauaaProcessor(tag, field, targetField, fieldNames, cacheSize, preheat, extraRules);
+            UserAgentAnalyzerBuilder builder = UserAgentAnalyzer
+                .newBuilder()
+                .dropTests()
+                .immediateInitialization();
+
+            if (cacheSize >= 0) {
+                builder.withCache(cacheSize);
+            }
+
+            if (preheat >= 0) {
+                builder.preheat(preheat);
+            }
+
+            if (extraRules != null) {
+                builder.addYamlRule(extraRules);
+            }
+
+            if (fieldNames != null && !fieldNames.isEmpty()) {
+                builder.withFields(fieldNames);
+            }
+
+            return new YauaaProcessor(tag, description, field, targetField, builder.build());
         }
     }
 }
