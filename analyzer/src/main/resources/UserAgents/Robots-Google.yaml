@@ -37,6 +37,7 @@ config:
         'DuplexWeb-Google'             : 'Google Duplex on the Web'
         'Google Favicon'               : 'Google Favicon'
         'Google-Shopping-Quality'      : 'Google Shopping Quality'
+        'Google-SearchByImage'         : 'Google Search by image'
 
 - matcher:
     variable:
@@ -1230,6 +1231,9 @@ config:
     - 'AgentClass                          :   300020 :"Robot"'
     - 'AgentName                           :   300020 :@Google'
     - 'AgentVersion                        :   300020 :"??"'
+    - 'AgentLanguage                       :   500010 :"<<<null>>>"'
+    - 'AgentLanguageCode                   :   500010 :"<<<null>>>"'
+    - 'AgentSecurity                       :   500010 :"<<<null>>>"'
 
 
 - matcher:
@@ -1637,3 +1641,32 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'Google AdSense crawler ??'
       AgentNameVersionMajor                : 'Google AdSense crawler ??'
+
+# If you put an image url in the Google search box and then press the "search for this image" functionality
+# the Google servers will retrieve the image using this useragent
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.0.7; Google-SearchByImage) Gecko/2009021910 Firefox/3.0.7'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Search BY Image'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Search by image'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Search by image ??'
+      LayoutEngineNameVersionMajor         : 'Google Search by image ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Search by image'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Search by image ??'
+      AgentNameVersionMajor                : 'Google Search by image ??'
+

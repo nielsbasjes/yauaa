@@ -1707,12 +1707,69 @@ config:
       AgentLanguageCode                    : 'en'
       NetworkType                          : 'Wired'
 
-#- test: # TODO: Verify output
-#    options:
-#      - 'only'
-#    input:
-#      user_agent_string: 'Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/61.0.3163.100 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_UNKONWN/V8-NT563LA-LF1V200 (AKAI,AK3219NF,wireless)'
-#  Zeasn/2.0 Mozilla/5.0 (Linux;CE-HTML/1.0;U;en), Chrome/49.0.2623.87 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_UNKONWN/V8-NT563LA-LF1V250 (WESTPOINT,TETS-4919SM,wireless)
+- test:
+    input:
+      user_agent_string: 'Zeasn/2.0 NETTV/4.5.0 Mozilla/5.0 (Linux armv7i;CE-HTML/1.0;U;en), Chrome/61.0.3163.100 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_UNKONWN/V8-NT563LA-LF1V200 (AKAI,AK3219NF,wireless)'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Akai AK3219NF'
+      DeviceBrand                          : 'Akai'
+      DeviceCpu                            : 'ARMv7i'
+      DeviceCpuBits                        : '32'
+      DeviceVersion                        : 'V8-NT563LA-LF1V200'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '61.0'
+      LayoutEngineVersionMajor             : '61'
+      LayoutEngineNameVersion              : 'Blink 61.0'
+      LayoutEngineNameVersionMajor         : 'Blink 61'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Tbrowser'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Tbrowser 2.0'
+      AgentNameVersionMajor                : 'Tbrowser 2'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      NetworkType                          : 'Wireless'
+
+
+- test:
+    input:
+      user_agent_string: 'Zeasn/2.0 Mozilla/5.0 (Linux;CE-HTML/1.0;U;en), Chrome/49.0.2623.87 Safari/537.36 AppleWebKit 537.36 (KHTML, like Gecko) Tbrowser/2.0, _TV_UNKONWN/V8-NT563LA-LF1V250 (WESTPOINT,TETS-4919SM,wireless)'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Westpoint Tets-4919SM'
+      DeviceBrand                          : 'Westpoint'
+      DeviceVersion                        : 'V8-NT563LA-LF1V250'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Tbrowser'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Tbrowser 2.0'
+      AgentNameVersionMajor                : 'Tbrowser 2'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
+      NetworkType                          : 'Wireless'
 
 
 #  SoC: MediaTek MT5800

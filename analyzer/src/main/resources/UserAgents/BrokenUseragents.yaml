@@ -1641,9 +1641,32 @@ config:
       AgentNameVersionMajor                : 'Firefox 17'
 
 
-#- test: #TODO: Implement
-#    input:
-#      user_agent_string: 'device_id={763835ca-1b38-48ef-9693-ad6bef1c60b6}&brand=bebook&model=neo&access=wlan'
+- test: #NOTE: There is a limit to what we are going to parse. This is beyond that limit.
+    input:
+      user_agent_string: 'device_id={763835ca-1b38-48ef-9693-ad6bef1c60b6}&brand=bebook&model=neo&access=wlan'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Device_ID={763835CA-1B38-48EF-9693-AD6BEF1C60B6}'
+      AgentVersion                         : '&brand=bebook&model=neo&access=wlan'
+      AgentVersionMajor                    : '&brand=bebook&model=neo&access=wlan'
+      AgentNameVersion                     : 'Device_ID={763835CA-1B38-48EF-9693-AD6BEF1C60B6} &brand=bebook&model=neo&access=wlan'
+      AgentNameVersionMajor                : 'Device_ID={763835CA-1B38-48EF-9693-AD6BEF1C60B6} &brand=bebook&model=neo&access=wlan'
+
 
 - matcher:
     variable:
@@ -2743,7 +2766,7 @@ config:
       AgentNameVersion                     : 'Chrome 68.0.3440.106'
       AgentNameVersionMajor                : 'Chrome 68'
 
-- test: # FIXME: The ${USR_AGNT} part triggers the 'hacker' classification. Is this really a hacker?
+- test: # The ${USR_AGNT} part triggers the 'hacker' classification. Is this really a hacker? I think it is.
     input:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Trident/5.0; SLCC1; ${USR_AGNT}; .NET CLR 3.5.30729; .NET4.0C; BRI/2; McAfee)'
     expected:
@@ -2977,7 +3000,7 @@ config:
       DeviceCpu                            : 'Intel x86_64'
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Solaris'  # FIXME: Can we make this to show Windows ?
+      OperatingSystemName                  : 'Solaris'
       OperatingSystemVersion               : '9'
       OperatingSystemVersionMajor          : '9'
       OperatingSystemNameVersion           : 'Solaris 9'
@@ -3024,7 +3047,7 @@ config:
       AgentNameVersionMajor                : 'Chrome 79'
 
 # No ; to separate the entries in the comment block
-- test: # TODO: Verify output
+- test: # Somewhat messy result yet the best we can do.
     input:
       user_agent_string: 'Mozilla/5.0 (Linux U Android 4.4.4 en-US XT1022 Build/KXC21.5-40) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/10.7.0.636 U3/0.8.0 Mobile Safari/534.30'
     expected:
