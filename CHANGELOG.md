@@ -1,7 +1,10 @@
+
 This is intended as an overview of the major changes
 
 v5.20-SNAPSHOT
 ===
+- Analyzer:
+  - Improved the brand extraction from the url (github and gitlab urls).
 - Build
   - Disable sonarcloud on JDK 8
 - Updated UDF dependencies

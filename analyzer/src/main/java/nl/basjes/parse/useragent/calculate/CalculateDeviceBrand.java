@@ -23,7 +23,9 @@ import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
 import org.apache.hc.client5.http.psl.PublicSuffixMatcherLoader;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
@@ -40,14 +42,18 @@ public class CalculateDeviceBrand implements FieldCalculator {
 
     public CalculateDeviceBrand() {
         unwantedUrlBrands = new HashSet<>();
-        unwantedUrlBrands.add("Localhost");
-        unwantedUrlBrands.add("Github");
-        unwantedUrlBrands.add("Gitlab");
+        // Localhost ...
+        unwantedUrlBrands.add("localhost");
+        // Software repositories
+        unwantedUrlBrands.add("github.com");
+        unwantedUrlBrands.add("gitlab.com");
+        // Url shortners
+        unwantedUrlBrands.add("bit.ly");
 
         unwantedEmailBrands = new HashSet<>();
-        unwantedEmailBrands.add("Localhost");
-        unwantedEmailBrands.add("Gmail");
-        unwantedEmailBrands.add("Outlook");
+        unwantedEmailBrands.add("localhost");
+        unwantedEmailBrands.add("gmail.com");
+        unwantedEmailBrands.add("outlook.com");
     }
 
     @Override
@@ -87,6 +93,12 @@ public class CalculateDeviceBrand implements FieldCalculator {
         if (!informationUrl.isDefaultValue()) {
             String hostname = extractHostname(informationUrl.getValue());
             deviceBrand = extractCompanyFromHostName(hostname, unwantedUrlBrands);
+
+            if (deviceBrand == null) {
+                // Perhaps this is software repository
+                deviceBrand = extractCompanyFromSoftwareRepositoryUrl(informationUrl.getValue());
+            }
+
         }
 
         if (deviceBrand != null) {
@@ -106,17 +118,53 @@ public class CalculateDeviceBrand implements FieldCalculator {
         return deviceBrand;
     }
 
+    private static final class SitePathExtract {
+        String prefix;
+        int    prefixLength;
+        int    brandSegment;
+
+        SitePathExtract(String prefix, int brandSegment) {
+            this.prefix = prefix;
+            this.prefixLength = prefix.length();
+            this.brandSegment = brandSegment;
+        }
+    }
+
+    private static final List<SitePathExtract> SITE_PATH_EXTRACTS = Arrays.asList(
+        // The 0 is array index 0 AFTER the prefix !!!
+        new SitePathExtract("https://github.com/",                   0),
+        new SitePathExtract("https://gitlab.com/",                   0),
+        new SitePathExtract("https://sourceforge.net/projects/",    0)
+    );
+
+    private String extractCompanyFromSoftwareRepositoryUrl(String url) {
+        for (SitePathExtract sitePathExtract : SITE_PATH_EXTRACTS) {
+            if (url.startsWith(sitePathExtract.prefix)) {
+                String path = url.substring(sitePathExtract.prefixLength);
+                String[] splits = path.split("/");
+                if (splits.length == 0 || splits.length < sitePathExtract.brandSegment){
+                    return null;
+                }
+                String brand = splits[sitePathExtract.brandSegment];
+                if (brand.isEmpty()) {
+                    return null;
+                }
+                return Normalize.brand(brand);
+            }
+        }
+        return null;
+    }
+
     private String extractCompanyFromHostName(String hostname, Set<String> blackList) {
+        if (blackList.contains(hostname)) {
+            return null;
+        }
         String root = PublicSuffixMatcherLoader.getDefault().getDomainRoot(hostname, ICANN);
 
         if (root == null) {
             return null;
         }
-        String brand = Normalize.brand(root.split("\\.", 2)[0]);
-        if (blackList.contains(brand)) {
-            return null;
-        }
-        return brand;
+        return Normalize.brand(root.split("\\.", 2)[0]);
     }
 
     @Override
