@@ -8,8 +8,9 @@ v5.20-SNAPSHOT
 - Build
   - Disable sonarcloud on JDK 8
 - Updated UDF dependencies
+  - Apache Drill            1.18.0
   - Apache Nifi             1.12.0
-  - Elastic Search/Logstash 7.9.0
+  - Elastic Search/Logstash 7.9.1
 
 v5.19
 ===
