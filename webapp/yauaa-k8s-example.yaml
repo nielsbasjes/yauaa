@@ -98,7 +98,8 @@ spec:
         volumeMounts: ## [OPTIONAL] Mount the config map volume under /UserAgents
           - name: niels-yauaa-rules-volume
             # NOTE 1: The directory name MUST start with  "/UserAgents" !!
-            # NOTE 2: You can have multiple as long as the mountPaths are all different.
+            # NOTE 2: I MUST be exactly 1 subdirectory deep (i.e. no multi level deep)
+            # NOTE 3: You can have multiple as long as the mountPaths are all different.
             mountPath: /UserAgents-Niels
         ports:
         - containerPort: 8080
@@ -136,7 +137,7 @@ spec:
 
 ---
 
-#apiVersion: extensions/v1beta1
+#apiVersion: networking.k8s.io/v1
 #kind: Ingress
 #metadata:
 #  name: yauaa
@@ -149,13 +150,10 @@ spec:
 #    - host: yauaa.example.nl
 #      http:
 #        paths:
-#          - backend:
-#              serviceName: yauaa
-#              servicePort: 80
-#            path: /
-#  tls:
-#    - hosts:
-#        - yauaa.example.nl
-#      secretName: yauaa-cert
-## Create this secret with a command similar to this:
-## kubectl -n yauaa create secret tls yauaa-cert --key=certs/privkey.pem --cert=certs/fullchain.pem
+#          - path: /
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: yauaa
+#                port:
+#                  number: 80
