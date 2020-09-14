@@ -28,6 +28,11 @@ config:
     - 'Firefox'
     - 'SeaMonkey'
 
+- set:
+    name: 'GeckoCommentAgentNames'
+    values:
+      - 'Ghostery'
+
 
 - matcher:
     variable:
@@ -1071,3 +1076,43 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
+
+
+- matcher:
+    variable:
+      - 'KVProductKey : agent.(1)product.(1)comments.entry.(1)keyvalue.(1)key?GeckoCommentAgentNames'
+    extract:
+      - 'AgentName    : 2500 : @KVProductKey'
+      - 'AgentVersion : 2500 : @KVProductKey^.value'
+
+
+#    - 'agent.(1)product.(1)comments.(4)entry="Ghostery:3.0"'
+#    - 'agent.(1)product.(1)comments.(4)entry.(1)keyvalue="Ghostery:3.0"'
+#    - 'agent.(1)product.(1)comments.(4)entry.(1)keyvalue.(1)key="Ghostery"'
+#    - 'agent.(1)product.(1)comments.(4)entry.(1)keyvalue.(1)version="3.0"'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Android 10; Mobile; rv:78.0; Ghostery:3.0) Gecko/78.0 Firefox/78.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '78.0'
+      LayoutEngineVersionMajor             : '78'
+      LayoutEngineNameVersion              : 'Gecko 78.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 78'
+      LayoutEngineBuild                    : '78.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ghostery'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Ghostery 3.0'
+      AgentNameVersionMajor                : 'Ghostery 3'

@@ -5,6 +5,8 @@ v5.20-SNAPSHOT
 ===
 - Analyzer:
   - Improved the brand extraction from the url (github and gitlab urls).
+- New/improved detections
+  - Ghostery 3.0
 - Build
   - Disable sonarcloud on JDK 8
 - Updated UDF dependencies
