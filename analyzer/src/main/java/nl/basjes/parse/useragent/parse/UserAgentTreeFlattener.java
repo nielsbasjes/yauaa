@@ -373,12 +373,12 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
     @Override
     public void enterSingleVersion(SingleVersionContext ctx) {
-        informSubVersions(ctx, VERSION);
+        informSubVersions(ctx);
     }
 
     @Override
     public void enterSingleVersionWithCommas(SingleVersionWithCommasContext ctx) {
-        informSubVersions(ctx, VERSION);
+        informSubVersions(ctx);
     }
 
     @Override
@@ -409,8 +409,8 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         informSubstrings(ctx, name, fakeChild, WordSplitter.getInstance());
     }
 
-    private void informSubVersions(ParserRuleContext ctx, String name) {
-        informSubstrings(ctx, name, false, VersionSplitter.getInstance());
+    private void informSubVersions(ParserRuleContext ctx) {
+        informSubstrings(ctx, VERSION, false, VersionSplitter.getInstance());
     }
 
     private void informSubstrings(ParserRuleContext ctx, String name, boolean fakeChild, Splitter splitter) {

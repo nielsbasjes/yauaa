@@ -64,8 +64,8 @@ public class TestCalculators {
     }
 
     private static final class UrlBrandPair{
-        String url;
-        String brand;
+        final String url;
+        final String brand;
 
         UrlBrandPair(String url, String brand) {
             this.url = url;

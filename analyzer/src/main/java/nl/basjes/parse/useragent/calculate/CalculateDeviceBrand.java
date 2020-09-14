@@ -119,9 +119,9 @@ public class CalculateDeviceBrand implements FieldCalculator {
     }
 
     private static final class SitePathExtract {
-        String prefix;
-        int    prefixLength;
-        int    brandSegment;
+        final String prefix;
+        final int    prefixLength;
+        final int    brandSegment;
 
         SitePathExtract(String prefix, int brandSegment) {
             this.prefix = prefix;

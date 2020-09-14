@@ -99,7 +99,7 @@ public final class Main {
     }
 
     private static class FakeLocalizable implements Localizable {
-        String message;
+        final String message;
 
         FakeLocalizable(String message) {
             this.message = message;

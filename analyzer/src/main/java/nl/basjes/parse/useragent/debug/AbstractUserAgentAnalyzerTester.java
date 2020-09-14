@@ -272,12 +272,6 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                 LOG.info(testLogLine);
                 sb.append(agent.toYamlTestCase());
                 LOG.info(sb.toString());
-            } else {
-                if (expected == null) {
-                    LOG.info(testLogLine);
-                    LOG.warn("| - No expectations ... ");
-                    continue;
-                }
             }
 
             int maxNameLength     = 6; // "Field".length()+1;            NOSONAR: This is not commented code.
