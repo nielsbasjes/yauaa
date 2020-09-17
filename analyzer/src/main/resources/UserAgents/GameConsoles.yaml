@@ -168,6 +168,122 @@ config:
       AgentNameVersion                     : 'NintendoBrowser 4.1.1.9601.EU'
       AgentNameVersionMajor                : 'NintendoBrowser 4'
 
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Nintendo Switch; WifiWebAuthApplet) AppleWebKit/606.4 (KHTML, like Gecko) NF/6.0.1.15.4 NintendoBrowser/5.1.0.20393'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Nintendo Switch'
+      DeviceBrand                          : 'Nintendo'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'Nintendo'
+      OperatingSystemVersion               : 'Nintendo Switch'
+      OperatingSystemVersionMajor          : 'Nintendo Switch'
+      OperatingSystemNameVersion           : 'Nintendo Switch'
+      OperatingSystemNameVersionMajor      : 'Nintendo Switch'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '606.4'
+      LayoutEngineVersionMajor             : '606'
+      LayoutEngineNameVersion              : 'AppleWebKit 606.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 606'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'NintendoBrowser'
+      AgentVersion                         : '5.1.0.20393'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'NintendoBrowser 5.1.0.20393'
+      AgentNameVersionMajor                : 'NintendoBrowser 5'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Nintendo Switch; WebApplet) AppleWebKit/606.4 (KHTML, like Gecko) NF/6.0.1.16.6 NintendoBrowser/5.1.0.20812'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Nintendo Switch'
+      DeviceBrand                          : 'Nintendo'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'Nintendo'
+      OperatingSystemVersion               : 'Nintendo Switch'
+      OperatingSystemVersionMajor          : 'Nintendo Switch'
+      OperatingSystemNameVersion           : 'Nintendo Switch'
+      OperatingSystemNameVersionMajor      : 'Nintendo Switch'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '606.4'
+      LayoutEngineVersionMajor             : '606'
+      LayoutEngineNameVersion              : 'AppleWebKit 606.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 606'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'NintendoBrowser'
+      AgentVersion                         : '5.1.0.20812'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'NintendoBrowser 5.1.0.20812'
+      AgentNameVersionMajor                : 'NintendoBrowser 5'
+
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.30 (Nintendo Wii; U; ; 2047-7;es)'
+    expected:
+      DeviceClass                          : 'Game Console'        #
+      DeviceName                           : 'Nintendo WII'        #
+      DeviceBrand                          : 'Nintendo'            #
+      OperatingSystemClass                 : 'Game Console'        #
+      OperatingSystemName                  : 'Nintendo'            #
+      OperatingSystemVersion               : 'Nintendo Wii'        #
+      OperatingSystemVersionMajor          : 'Nintendo Wii'        #
+      OperatingSystemNameVersion           : 'Nintendo Wii'        #
+      OperatingSystemNameVersionMajor      : 'Nintendo Wii'        #
+      LayoutEngineClass                    : 'Browser'             #
+      LayoutEngineName                     : 'Presto'              #
+      LayoutEngineVersion                  : '1'                   #
+      LayoutEngineVersionMajor             : '1'                   #
+      LayoutEngineNameVersion              : 'Presto 1'            #
+      LayoutEngineNameVersionMajor         : 'Presto 1'            #
+      AgentClass                           : 'Browser'             #
+      AgentName                            : 'Opera'               #
+      AgentVersion                         : '9.30'                #
+      AgentVersionMajor                    : '9'                   #
+      AgentNameVersion                     : 'Opera 9.30'          #
+      AgentNameVersionMajor                : 'Opera 9'             #
+      AgentLanguage                        : 'Spanish'             #
+      AgentLanguageCode                    : 'es'                  #
+      AgentSecurity                        : 'Strong security'     #
+
+
+- test:
+    input:
+      user_agent_string: 'Opera/9.23 (Nintendo Wii; U; ; 1038-58; Wii Internet Channel/1.0; en)'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Nintendo WII'
+      DeviceBrand                          : 'Nintendo'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'Nintendo'
+      OperatingSystemVersion               : 'Nintendo Wii'
+      OperatingSystemVersionMajor          : 'Nintendo Wii'
+      OperatingSystemNameVersion           : 'Nintendo Wii'
+      OperatingSystemNameVersionMajor      : 'Nintendo Wii'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Presto 1'
+      LayoutEngineNameVersionMajor         : 'Presto 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '9.23'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Opera 9.23'
+      AgentNameVersionMajor                : 'Opera 9'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
+
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (PLAYSTATION 3 4.82) AppleWebKit/531.22.8 (KHTML, like Gecko)'
