@@ -12,6 +12,8 @@ v5.20-SNAPSHOT
 - Updated UDF dependencies
   - Apache Drill            1.18.0
   - Apache Nifi             1.12.0
+  - Apache Flink            1.11.2
+  - Apache Beam             2.24.0
   - Elastic Search/Logstash 7.9.1
 
 v5.19
