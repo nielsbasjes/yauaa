@@ -1091,6 +1091,123 @@ config:
       AgentNameVersionMajor                : 'Applebot 0'
       AgentInformationUrl                  : 'http://www.apple.com/go/applebot'
 
+
+# From https://support.apple.com/nl-nl/HT204683
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/600.2.5 (KHTML, like Gecko) Version/8.0.2 Safari/600.2.5 (Applebot/0.1)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apple BOT'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Applebot'
+      LayoutEngineVersion                  : '0.1'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'Applebot 0.1'
+      LayoutEngineNameVersionMajor         : 'Applebot 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Applebot'
+      AgentVersion                         : '0.1'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Applebot 0.1'
+      AgentNameVersionMajor                : 'Applebot 0'
+
+
+# From https://support.apple.com/nl-nl/HT204683
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Safari/605.1.15 (Applebot/0.1)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apple BOT'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Applebot'
+      LayoutEngineVersion                  : '0.1'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'Applebot 0.1'
+      LayoutEngineNameVersionMajor         : 'Applebot 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Applebot'
+      AgentVersion                         : '0.1'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Applebot 0.1'
+      AgentNameVersionMajor                : 'Applebot 0'
+
+
+# From https://support.apple.com/nl-nl/HT204683
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B410 Safari/600.1.4 (Applebot/0.1; +http://www.apple.com/go/applebot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apple BOT'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '12B410'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '600.1.4'
+      LayoutEngineVersionMajor             : '600'
+      LayoutEngineNameVersion              : 'AppleWebKit 600.1.4'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 600'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Applebot'
+      AgentVersion                         : '0.1'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Applebot 0.1'
+      AgentNameVersionMajor                : 'Applebot 0'
+      AgentInformationUrl                  : 'http://www.apple.com/go/applebot'
+
+
+# From https://support.apple.com/nl-nl/HT204683
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_4_1 like Mac OS X) AppleWebKit/605.1.15Z (KHTML, like Gecko) Version/13.1 Mobile/15E148 Safari/604.1 (Applebot/0.1)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apple BOT'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15Z'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15Z'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Applebot'
+      AgentVersion                         : '0.1'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Applebot 0.1'
+      AgentNameVersionMajor                : 'Applebot 0'
+
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0); 360Spider(compatible; HaosouSpider; http://www.haosou.com/help/help_3_2.html)'
