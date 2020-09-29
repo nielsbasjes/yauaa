@@ -28,8 +28,10 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherBaseCon
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherDefaultIfNullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherExtractContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContainsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNotInLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContainsContext;
@@ -377,52 +379,32 @@ public abstract class MatcherAction implements Serializable {
 
     static {
         // -------------
-        CALCULATE_INFORM_PATH.put(MatcherBaseContext.class,             (action, pathMatcherTree, tree) ->
-            calculateInformPath(action, pathMatcherTree, ((MatcherBaseContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathIsNullContext.class,       (action, pathMatcherTree, tree) ->
-            calculateInformPath(action, pathMatcherTree, ((MatcherPathIsNullContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherBaseContext.class,             (action, pathMatcherTree, tree) -> calculateInformPath(action, pathMatcherTree, ((MatcherBaseContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathIsNullContext.class,       (action, pathMatcherTree, tree) -> calculateInformPath(action, pathMatcherTree, ((MatcherPathIsNullContext<MatcherTree>) tree).matcher()));
 
         // -------------
-        CALCULATE_INFORM_PATH.put(MatcherExtractContext.class,          (action, pathMatcherTree, tree) ->
-            calculateInformPath(action, pathMatcherTree, ((MatcherExtractContext<MatcherTree>) tree).expression));
+        CALCULATE_INFORM_PATH.put(MatcherExtractContext.class,          (action, pathMatcherTree, tree) -> calculateInformPath(action, pathMatcherTree, ((MatcherExtractContext<MatcherTree>) tree).expression));
 
         // -------------
-        CALCULATE_INFORM_PATH.put(MatcherVariableContext.class,         (action, pathMatcherTree, tree) ->
-            calculateInformPath(action, pathMatcherTree, ((MatcherVariableContext<MatcherTree>) tree).expression));
+        CALCULATE_INFORM_PATH.put(MatcherVariableContext.class,         (action, pathMatcherTree, tree) -> calculateInformPath(action, pathMatcherTree, ((MatcherVariableContext<MatcherTree>) tree).expression));
 
         // -------------
-        CALCULATE_INFORM_PATH.put(MatcherPathContext.class,             (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathContext<MatcherTree>) tree).basePath()));
-        CALCULATE_INFORM_PATH.put(MatcherConcatContext.class,           (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherConcatContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherConcatPrefixContext.class,     (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherConcatPrefixContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherConcatPostfixContext.class,    (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherConcatPostfixContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherNormalizeBrandContext.class,   (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherNormalizeBrandContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherCleanVersionContext.class,     (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherCleanVersionContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherReplaceStringContext.class,     (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherReplaceStringContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathLookupContext.class,       (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathLookupContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathLookupContainsContext.class,      (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathLookupContainsContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupContainsContext.class,  (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathIsInLookupContainsContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathLookupPrefixContext.class,        (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathLookupPrefixContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupPrefixContext.class,    (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathIsInLookupPrefixContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathIsNotInLookupPrefixContext.class,    (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathIsNotInLookupPrefixContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherDefaultIfNullContext.class,           (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherDefaultIfNullContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH .put(MatcherWordRangeContext.class,        (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherWordRangeContext<MatcherTree>) tree).matcher()));
-        CALCULATE_INFORM_PATH .put(MatcherSegmentRangeContext.class,        (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherSegmentRangeContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathContext.class,                    (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherPathContext                    <MatcherTree>) tree).basePath()));
+        CALCULATE_INFORM_PATH.put(MatcherConcatContext.class,                  (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherConcatContext                  <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherConcatPrefixContext.class,            (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherConcatPrefixContext            <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherConcatPostfixContext.class,           (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherConcatPostfixContext           <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherNormalizeBrandContext.class,          (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherNormalizeBrandContext          <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherCleanVersionContext.class,            (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherCleanVersionContext            <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherReplaceStringContext.class,           (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherReplaceStringContext           <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathLookupContext.class,              (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherPathLookupContext              <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathLookupContainsContext.class,      (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherPathLookupContainsContext      <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupContainsContext.class,  (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherPathIsInLookupContainsContext  <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathLookupPrefixContext.class,        (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherPathLookupPrefixContext        <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupPrefixContext.class,    (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherPathIsInLookupPrefixContext    <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathIsNotInLookupPrefixContext.class, (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherPathIsNotInLookupPrefixContext <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherDefaultIfNullContext.class,           (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherDefaultIfNullContext           <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherWordRangeContext.class,               (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherWordRangeContext               <MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherSegmentRangeContext.class,            (action, treeName, tree) -> calculateInformPath(action, treeName, ((MatcherSegmentRangeContext            <MatcherTree>) tree).matcher()));
 
         // -------------
         CALCULATE_INFORM_PATH.put(PathVariableContext.class, (action, pathMatcherTree, tree) -> {
