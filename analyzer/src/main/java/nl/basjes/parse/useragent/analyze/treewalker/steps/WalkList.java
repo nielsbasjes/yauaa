@@ -720,7 +720,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitStepIsNotInSet(StepIsNotInSetContext ctx) {
+        public Void visitStepIsNotInSet(StepIsNotInSetContext<MatcherTree> ctx) {
             fromHereItCannotBeInHashMapAnymore();
             String      lookupSetName = ctx.set.getText();
             add(new StepIsNotInSet(lookupSetName, getLookupSet(lookupSetName)));
