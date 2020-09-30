@@ -75,7 +75,7 @@ public class MatcherTree implements Serializable {
     // Fire if equals
     private Map<String, List<MatcherAction>> equalsActions = new TreeMap<>();
 
-    // Fire if equals
+    // Fire if starts with --> FIXME: Use a PrefixMap or Trie or something like that !!
     private Map<String, List<MatcherAction>> startsWithActions = new TreeMap<>();
 
     // Fire for each range of words

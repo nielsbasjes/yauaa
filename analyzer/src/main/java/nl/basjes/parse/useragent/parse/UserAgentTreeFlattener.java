@@ -70,19 +70,19 @@ import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
 public class UserAgentTreeFlattener extends UserAgentBaseListener<MatcherTree> implements Serializable {
     private final Analyzer               analyzer;
-
-    private static final String AGENT    = "agent";
-    private static final String PRODUCT  = "product";
-    private static final String NAME     = "name";
-    private static final String VERSION  = "version";
-    private static final String COMMENTS = "comments";
-    private static final String KEYVALUE = "keyvalue";
-    private static final String KEY      = "key";
-    private static final String TEXT     = "text";
-    private static final String URL      = "url";
-    private static final String UUID     = "uuid";
-    private static final String EMAIL    = "email";
-    private static final String BASE64   = "base64";
+//
+//    private static final String AGENT    = "agent";
+//    private static final String PRODUCT  = "product";
+//    private static final String NAME     = "name";
+//    private static final String VERSION  = "version";
+//    private static final String COMMENTS = "comments";
+//    private static final String KEYVALUE = "keyvalue";
+//    private static final String KEY      = "key";
+//    private static final String TEXT     = "text";
+//    private static final String URL      = "url";
+//    private static final String UUID     = "uuid";
+//    private static final String EMAIL    = "email";
+//    private static final String BASE64   = "base64";
 
     enum PathType {
         CHILD,
@@ -90,86 +90,86 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener<MatcherTree> i
         VERSION
     }
 
-    public class State {
-        long child = 0;
-        long version = 0;
-        long comment = 0;
-        final String name;
-        String path;
-        ParseTree<MatcherTree> ctx = null;
+//    public class State {
+//        long child = 0;
+//        long version = 0;
+//        long comment = 0;
+//        final String name;
+//        String path;
+//        ParseTree<MatcherTree> ctx = null;
+//
+//        @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
+//        private State() {
+//            name = null;
+//        }
+//
+//        public State(String name) {
+//            this.name = name;
+//        }
+//
+//        public State(ParseTree<MatcherTree> ctx, String name) {
+//            this.ctx = ctx;
+//            this.name = name;
+//        }
+//
+//        public String calculatePath(PathType type, boolean fakeChild) {
+//            ParseTree<MatcherTree> node = ctx;
+//            path = name;
+//            if (node == null) {
+//                return path;
+//            }
+//            State parentState = null;
+//
+//            while (parentState == null) {
+//                node = node.getParent();
+//                if (node == null) {
+//                    return path;
+//                }
+//                parentState = state.get(node);
+//            }
+//
+//            long counter = 0;
+//            switch (type) {
+//                case CHILD:
+//                    if (!fakeChild) {
+//                        parentState.child++;
+//                    }
+//                    counter = parentState.child;
+//                    break;
+//                case COMMENT:
+//                    if (!fakeChild) {
+//                        parentState.comment++;
+//                    }
+//                    counter = parentState.comment;
+//                    break;
+//                case VERSION:
+//                    if (!fakeChild) {
+//                        parentState.version++;
+//                    }
+//                    counter = parentState.version;
+//                    break;
+//                default:
+//            }
+//
+//            this.path = parentState.path + ".(" + counter + ')' + name;
+//
+//            return this.path;
+//        }
+//    }
+//
+//    private transient ParseTreeProperty<State> state;
 
-        @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
-        private State() {
-            name = null;
-        }
-
-        public State(String name) {
-            this.name = name;
-        }
-
-        public State(ParseTree<MatcherTree> ctx, String name) {
-            this.ctx = ctx;
-            this.name = name;
-        }
-
-        public String calculatePath(PathType type, boolean fakeChild) {
-            ParseTree<MatcherTree> node = ctx;
-            path = name;
-            if (node == null) {
-                return path;
-            }
-            State parentState = null;
-
-            while (parentState == null) {
-                node = node.getParent();
-                if (node == null) {
-                    return path;
-                }
-                parentState = state.get(node);
-            }
-
-            long counter = 0;
-            switch (type) {
-                case CHILD:
-                    if (!fakeChild) {
-                        parentState.child++;
-                    }
-                    counter = parentState.child;
-                    break;
-                case COMMENT:
-                    if (!fakeChild) {
-                        parentState.comment++;
-                    }
-                    counter = parentState.comment;
-                    break;
-                case VERSION:
-                    if (!fakeChild) {
-                        parentState.version++;
-                    }
-                    counter = parentState.version;
-                    break;
-                default:
-            }
-
-            this.path = parentState.path + ".(" + counter + ')' + name;
-
-            return this.path;
-        }
-    }
-
-    private transient ParseTreeProperty<State> state;
-
-    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
-    private UserAgentTreeFlattener() {
-        analyzer = new UserAgentAnalyzerDirect(); // Set unused value
-    }
+//    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
+//    private UserAgentTreeFlattener() {
+//        analyzer = new UserAgentAnalyzerDirect(); // Set unused value
+//    }
 
     public UserAgentTreeFlattener(Analyzer analyzer) {
         this.analyzer = analyzer;
     }
 
     public void clear() {
-        state = null;
+//        state = null;
     }
 
     private boolean verbose = false;
@@ -203,12 +203,12 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener<MatcherTree> i
         // Parse the userAgent into tree
         UserAgentContext<MatcherTree> userAgentContext = parseUserAgent(userAgent);
 
-        // Walk the tree an inform the calling analyzer about all the nodes found
-        state = new ParseTreeProperty<>();
-
-        State rootState = new State(AGENT);
-        rootState.calculatePath(PathType.CHILD, false);
-        state.put(userAgentContext, rootState);
+//        // Walk the tree an inform the calling analyzer about all the nodes found
+//        state = new ParseTreeProperty<>();
+//
+//        State rootState = new State(AGENT);
+//        rootState.calculatePath(PathType.CHILD, false);
+//        state.put(userAgentContext, rootState);
 
         if (userAgent.hasSyntaxError()) {
             inform(null, SYNTAX_ERROR, "true");
@@ -222,41 +222,41 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener<MatcherTree> i
 
     // =================================================================================
 
-    private String inform(ParseTree<MatcherTree> ctx, String path) {
+    private String inform(ParseTree<MatcherTree> ctx, AgentPathFragment path) {
         return inform(ctx, path, getSourceText((ParserRuleContext<MatcherTree>)ctx));
     }
 
-    private String inform(ParseTree<MatcherTree> ctx, String name, String value) {
-        return inform(ctx, ctx, name, value, false);
+    private String inform(ParseTree<MatcherTree> ctx, AgentPathFragment name, String value) {
+        return inform(ctx, name, value, false);
     }
+//
+//    private String inform(ParseTree<MatcherTree> ctx, AgentPathFragment name, String value, boolean fakeChild) {
+//        return inform(ctx, name, value, fakeChild);
+//    }
 
-    private String inform(ParseTree<MatcherTree> ctx, String name, String value, boolean fakeChild) {
-        return inform(ctx, ctx, name, value, fakeChild);
-    }
-
-    private String inform(ParseTree<MatcherTree> stateCtx, ParseTree<MatcherTree> ctx, String name, String value, boolean fakeChild) {
-        String path = name;
-        if (stateCtx != null) {
-            State myState = new State(stateCtx, name);
-
-            if (!fakeChild) {
-                state.put(stateCtx, myState);
-            }
-
-            PathType childType;
-            switch (name) {
-                case COMMENTS:
-                    childType = PathType.COMMENT;
-                    break;
-                case VERSION:
-                    childType = PathType.VERSION;
-                    break;
-                default:
-                    childType = PathType.CHILD;
-            }
-
-            path = myState.calculatePath(childType, fakeChild);
-        }
+    private String inform(ParseTree<MatcherTree> ctx, AgentPathFragment name, String value, boolean fakeChild) {
+//        String path = name;
+//        if (stateCtx != null) {
+//            State myState = new State(stateCtx, name);
+//
+//            if (!fakeChild) {
+//                state.put(stateCtx, myState);
+//            }
+//
+//            PathType childType;
+//            switch (name) {
+//                case COMMENTS:
+//                    childType = PathType.COMMENT;
+//                    break;
+//                case VERSION:
+//                    childType = PathType.VERSION;
+//                    break;
+//                default:
+//                    childType = PathType.CHILD;
+//            }
+//
+//            path = myState.calculatePath(childType, fakeChild);
+//        }
         analyzer.inform(path, value, ctx);
         return path;
     }

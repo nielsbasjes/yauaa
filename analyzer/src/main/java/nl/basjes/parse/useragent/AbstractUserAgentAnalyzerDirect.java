@@ -37,6 +37,7 @@ import nl.basjes.parse.useragent.calculate.CalculateNetworkType;
 import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
+import nl.basjes.parse.useragent.parse.AgentPathFragment;
 import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -576,7 +577,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
             matcher.reset();
         }
 
-        touchedMatchers = new MatcherList(16);
+        touchedMatchers = new MatcherList(32);
     }
 
     private transient volatile Set<String> allPossibleFieldNamesCache = null; //NOSONAR: The getter avoids the java:S3077 issues
@@ -1063,9 +1064,9 @@ config:
 //        return informMatcherActionRanges.computeIfAbsent(treeName, k -> Collections.emptySet());
 //    }
 
-    public void inform(String key, String value, ParseTree<MatcherTree> ctx) {
+    public void inform(AgentPathFragment key, String value, ParseTree<MatcherTree> ctx) {
         inform(key, key, value, ctx);
-        inform(key + "=\"" + value + '"', key, value, ctx);
+//        inform(key + "=\"" + value + '"', key, value, ctx);
         // FIXME
 
 //        Set<Integer> lengths = getRequiredPrefixLengths(key);
@@ -1079,7 +1080,7 @@ config:
 //        }
     }
 
-    private void inform(String match, String key, String value, ParseTree<MatcherTree> ctx) {
+    private void inform(AgentPathFragment match, AgentPathFragment key, String value, ParseTree<MatcherTree> ctx) {
         // FIXME
 //        Set<MatcherAction> relevantActions = null; // informMatcherActions.get(match.toLowerCase(Locale.ENGLISH));
 //        if (verbose) {
@@ -1188,7 +1189,7 @@ config:
             return result;
         }
 
-        public void inform(String path, String value, ParseTree<MatcherTree> ctx) {
+        public void inform(AgentPathFragment path, String value, ParseTree<MatcherTree> ctx) {
             values.add(path);
             values.add(path + "=\"" + value + "\"");
             values.add(path + "{\"" + firstCharactersForPrefixHash(value, MAX_PREFIX_HASH_MATCH) + "\"");
