@@ -17,7 +17,7 @@ Also the periodic drops in time needed are clearly visible when a performance im
 Between version 5.5 and 5.6 a lot of extra rules to detect more brands of mobile devices on Android (at one point during development the needed time to reached ~ 3ms).
 Followed by a few steps in a rewrite of that part resulting in effectively the fastest versions to date.
 
-Output from the benchmark ( [using this code](https://github.com/nielsbasjes/yauaa/blob/master/benchmarks/src/test/java/nl/basjes/parse/useragent/benchmarks/RunBenchmarks.java) ) on a Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz from version 3.0 onwards:
+Output from the benchmark ( [using this code](https://github.com/nielsbasjes/yauaa/blob/master/benchmarks/src/test/java/nl/basjes/parse/useragent/benchmarks/RunBenchmarks.java) ) on a Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz from version 4.0 onwards:
 
 <div id="curve_chart" style="height: 1000px"></div>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
