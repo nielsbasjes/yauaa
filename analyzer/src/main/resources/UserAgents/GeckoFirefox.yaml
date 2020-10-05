@@ -31,7 +31,7 @@ config:
 - set:
     name: 'GeckoCommentAgentNames'
     values:
-      - 'Ghostery'
+    - 'Ghostery'
 
 
 - matcher:
@@ -1080,10 +1080,10 @@ config:
 
 - matcher:
     variable:
-      - 'KVProductKey : agent.(1)product.(1)comments.entry.(1)keyvalue.(1)key?GeckoCommentAgentNames'
+    - 'KVProductKey                        :agent.(1)product.(1)comments.entry.(1)keyvalue.(1)key?GeckoCommentAgentNames'
     extract:
-      - 'AgentName    : 2500 : @KVProductKey'
-      - 'AgentVersion : 2500 : @KVProductKey^.value'
+    - 'AgentName                           :     2500 : @KVProductKey'
+    - 'AgentVersion                        :     2500 : @KVProductKey^.value'
 
 
 #    - 'agent.(1)product.(1)comments.(4)entry="Ghostery:3.0"'
