@@ -3960,3 +3960,72 @@ config:
       AgentNameVersion                     : 'Lunascape 6.15.2.27564'
       AgentNameVersionMajor                : 'Lunascape 6'
 
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Open AnyConnect VPN Agent"'
+    extract:
+    - 'AgentClass                          :      100 : "Special"'
+    - 'AgentName                           :      100 : "OpenConnect VPN Agent"'
+    - 'AgentVersion                        :      100 : agent.(1)product.version'
+
+# OpenConnect VPN client over https (Ubuntu 20.04) started from commandline
+- test:
+    input:
+      user_agent_string: 'Open AnyConnect VPN Agent v8.05-1'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'OpenConnect VPN Agent'
+      AgentVersion                         : 'v8.05-1'
+      AgentVersionMajor                    : 'v8'
+      AgentNameVersion                     : 'OpenConnect VPN Agent v8.05-1'
+      AgentNameVersionMajor                : 'OpenConnect VPN Agent v8'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="OpenConnect VPN Agent"'
+    extract:
+    - 'AgentClass                          :      100 : "Special"'
+    - 'AgentName                           :      100 : "OpenConnect VPN Agent"'
+    - 'AgentVersion                        :      100 : agent.(2)text'
+
+# OpenConnect VPN client over https (Ubuntu 20.04) started by NetworkManager
+- test:
+    input:
+      user_agent_string: 'OpenConnect VPN Agent (NetworkManager) v8.05-1'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'OpenConnect VPN Agent'
+      AgentVersion                         : 'v8.05-1'
+      AgentVersionMajor                    : 'v8'
+      AgentNameVersion                     : 'OpenConnect VPN Agent v8.05-1'
+      AgentNameVersionMajor                : 'OpenConnect VPN Agent v8'
