@@ -31,6 +31,13 @@ RUN yum install -y java-1.8.0-openjdk-devel
 RUN yum install -y java-11-openjdk-devel
 ENV JAVA_HOME /usr/lib/jvm/java
 
+#
+# Being able to build docker images from within this docker based build environment
+#RUN yum install -y podman-docker
+
+RUN dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+RUN dnf install docker-ce --nobest -y
+
 # --------------------------------
 # Install Maven
 ENV MAVEN_VERSION=3.6.3

@@ -66,6 +66,8 @@ then
     exit ${buildStatus}
 fi
 
+DOCKER_SOCKET=/var/run/docker.sock
+
 if [ "$(uname -s)" == "Linux" ]; then
   USER_NAME=${SUDO_USER:=${USER}}
   USER_ID=$(id -u "${USER_NAME}")
@@ -124,6 +126,7 @@ then
            -v "${PWD}/docker/_m2:/home/${USER_NAME}/.m2"        \
            -v "${MOUNTGPGDIR}:/home/${USER_NAME}/.gnupg"        \
            -w "/home/${USER}/${PROJECTNAME}"                    \
+           -v "${DOCKER_SOCKET}:/var/run/docker.sock"           \
            -p 4000:4000                                         \
            -p 35729:35729                                       \
            --name "${CONTAINER_NAME}"                           \
@@ -136,6 +139,7 @@ else
            -v "${PWD}/docker/_m2:/home/${USER_NAME}/.m2"        \
            -v "${MOUNTGPGDIR}:/home/${USER_NAME}/.gnupg"        \
            -w "/home/${USER}/${PROJECTNAME}"                    \
+           -v "${DOCKER_SOCKET}:/var/run/docker.sock"           \
            -p 4000:4000                                         \
            -p 35729:35729                                       \
            --name "${CONTAINER_NAME}"                           \

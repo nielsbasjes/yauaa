@@ -102,7 +102,6 @@ import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.PRE_SORTED_FIELDS_LIST;
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
-import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION;
@@ -1043,7 +1042,7 @@ config:
 
     private MutableUserAgent hardCodedPostProcessing(MutableUserAgent userAgent) {
         // If it is really really bad ... then it is a Hacker.
-        if ("true".equals(userAgent.getValue(SYNTAX_ERROR))) {
+        if ("true".equals(userAgent.getValue(SYNTAX_ERROR.toString()))) {
             if (userAgent.get(DEVICE_CLASS).getConfidence() == -1) {
                 setAsHacker(userAgent, 10);
             }
@@ -1190,7 +1189,7 @@ config:
         }
 
         public void inform(AgentPathFragment path, String value, ParseTree<MatcherTree> ctx) {
-            values.add(path);
+            values.add(String.valueOf(path));
             values.add(path + "=\"" + value + "\"");
             values.add(path + "{\"" + firstCharactersForPrefixHash(value, MAX_PREFIX_HASH_MATCH) + "\"");
         }

@@ -192,6 +192,6 @@ public class TestMatcherList {
     @Test
     public void testUnsupportedToArray() {
         assertThrows(UnsupportedOperationException.class, () ->
-            new MatcherList(1).toArray(null));
+            new MatcherList(1).toArray((Object[]) null));
     }
 }

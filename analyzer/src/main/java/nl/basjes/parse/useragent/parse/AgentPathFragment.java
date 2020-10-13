@@ -40,6 +40,9 @@ public enum AgentPathFragment {
     EQUALS("Equals"),
     STARTSWITH("StartsWith");
 
+    // Special values
+    SYNTAX_ERROR("__SyntaxError__");
+
     private final String name;
 
     AgentPathFragment(String s) {

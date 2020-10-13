@@ -17,6 +17,8 @@
 
 package nl.basjes.parse.useragent.parse;
 
+import nl.basjes.collections.PrefixMap;
+import nl.basjes.collections.prefixmap.ASCIIPrefixMap;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown.UserAgentGetChildrenVisitor;
@@ -50,7 +52,7 @@ public class MatcherTree implements Serializable {
 
     // MY position with my parent.
     // Root element = agent (1)
-    final AgentPathFragment fragment;
+    final AgentPathFragment         fragment;
     private String                  fragmentName;
     private final int               index;
 
@@ -75,8 +77,8 @@ public class MatcherTree implements Serializable {
     // Fire if equals
     private Map<String, List<MatcherAction>> equalsActions = new TreeMap<>();
 
-    // Fire if starts with --> FIXME: Use a PrefixMap or Trie or something like that !!
-    private Map<String, List<MatcherAction>> startsWithActions = new TreeMap<>();
+    // Fire if starts with
+    private PrefixMap<ArrayList<MatcherAction>> startsWithActions = new ASCIIPrefixMap<>(false);
 
     // Fire for each range of words
     private Map<Range, List<MatcherAction>> wordRangeActions = new HashMap<>();
@@ -84,7 +86,6 @@ public class MatcherTree implements Serializable {
     public static MatcherTree createNewAgentRoot() {
         return new MatcherTree(AGENT, 1);
     }
-
 
     public MatcherTree(AgentPathFragment fragment, int index) {
         this.fragment = fragment;
@@ -121,8 +122,7 @@ public class MatcherTree implements Serializable {
     }
 
     public void addStartsWithMatcherAction(String nMatchString, MatcherAction action) {
-        List<MatcherAction> actionList = startsWithActions.computeIfAbsent(nMatchString, e -> new ArrayList<>());
-        actionList.add(action);
+        List<MatcherAction> actionList = startsWithActions.put(nMatchString, action);
         hasAnyActions = true;
     }
 
