@@ -4029,3 +4029,107 @@ config:
       AgentVersionMajor                    : 'v8'
       AgentNameVersion                     : 'OpenConnect VPN Agent v8.05-1'
       AgentNameVersionMajor                : 'OpenConnect VPN Agent v8'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name[1]="AnyConnect"'
+    extract:
+    - 'AgentClass                          :      100 : "Special"'
+    - 'AgentName                           :      100 : "AnyConnect VPN Agent"'
+    - 'AgentVersion                        :      100 : agent.(1)product.(1)version'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name[1]="AnyConnect"'
+    - 'agent.(1)product.(1)version[1]="Darwin"'
+    extract:
+    - 'DeviceClass                         :      100 : "Mobile"'
+    - 'DeviceBrand                         :      100 : "Apple"'
+    - 'OperatingSystemClass                :      100 : "Mobile"'
+    - 'OperatingSystemName                 :      100 : "iOS"'
+    - 'AgentClass                          :      100 : "Special"'
+    - 'AgentName                           :      100 : "AnyConnect VPN Agent"'
+    - 'AgentVersion                        :      101 : agent.(1)product.(2)version'
+
+- test:
+    input:
+      user_agent_string: 'AnyConnect Android 4.9.00564'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'AnyConnect VPN Agent'
+      AgentVersion                         : '4.9.00564'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'AnyConnect VPN Agent 4.9.00564'
+      AgentNameVersionMajor                : 'AnyConnect VPN Agent 4'
+
+
+- test:
+    input:
+      user_agent_string: 'AnyConnect Darwin_i386 4.6.02074'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'AnyConnect VPN Agent'
+      AgentVersion                         : '4.6.02074'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'AnyConnect VPN Agent 4.6.02074'
+      AgentNameVersionMajor                : 'AnyConnect VPN Agent 4'
+
+
+- test:
+    input:
+      user_agent_string: 'AnyConnect Darwin_i386 3.1.05161'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'AnyConnect VPN Agent'
+      AgentVersion                         : '3.1.05161'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'AnyConnect VPN Agent 3.1.05161'
+      AgentNameVersionMajor                : 'AnyConnect VPN Agent 3'
+
