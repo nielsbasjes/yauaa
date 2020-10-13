@@ -1331,6 +1331,60 @@ config:
       HackerToolkit                        : 'Nmap'
       HackerAttackVector                   : 'Unknown'
 
+# This EXACT version is really nmap
+# https://nmap.org/nsedoc/lib/anyconnect.html
+- matcher:
+    require:
+    - 'agent="AnyConnect Darwin_i386 3.1.05160"'
+    extract:
+    - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :  1000000 :"Hacker"'
+    - 'DeviceBrand                         :  1000000 :"Hacker"'
+    - 'DeviceName                          :  1000000 :"Hacker"'
+    - 'DeviceVersion                       :  1000000 :"Hacker"'
+    - 'OperatingSystemClass                :  1000000 :"Hacker"'
+    - 'OperatingSystemName                 :  1000000 :"Hacker"'
+    - 'OperatingSystemVersion              :  1000000 :"Hacker"'
+    - 'LayoutEngineClass                   :  1000000 :"Hacker"'
+    - 'LayoutEngineName                    :  1000000 :"Hacker"'
+    - 'LayoutEngineVersion                 :  1000000 :"Hacker"'
+    - 'AgentClass                          :  1000000 :"Hacker"'
+    - 'AgentName                           :  1000000 :"Hacker"'
+    - 'AgentVersion                        :  1000000 :"Hacker"'
+    - 'HackerToolkit                       :  1000000 :"Nmap"'
+    - 'HackerAttackVector                  :   999901 :"<<<null>>>"'
+
+  # This EXACT version is really nmap
+  # https://nmap.org/nsedoc/lib/anyconnect.html
+- test:
+    input:
+      user_agent_string: 'AnyConnect Darwin_i386 3.1.05160'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerToolkit                        : 'Nmap'
+
+
 - matcher:
     require:
     - 'agent.(1-2)product.comments.entry.(1-2)product.name="Windows NT"^.version[1]="9"'
