@@ -571,6 +571,17 @@ config:
     extract:
     - 'DeviceCpuBits                       :      199 :LookUp[WindowsPhoneOSCpuBits;agent.product]'
 
+# Edge case: No version for Windows Phone and possibly without "ARM"
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)text="Windows Phone"'
+    extract:
+    - 'DeviceClass                         :       10 :"Phone"'
+    - 'OperatingSystemClass                :        1 :"Mobile"'
+    - 'OperatingSystemName                 :        1 :"Windows Phone"'
+    - 'OperatingSystemVersion              :        1 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :        1 :"Windows Phone ??"'
+
 # Smartphones classified as desktops "Windows NT 6.2; ARM" --> Windows Phone 8
 - test:
     input:
@@ -726,3 +737,34 @@ config:
       AgentVersionMajor                    : '7'
       AgentNameVersion                     : 'IE Mobile 7.0'
       AgentNameVersionMajor                : 'IE Mobile 7'
+
+
+# Windows Phone without a version
+- test:
+    input:
+      user_agent_string: 'Opera/9.80 (Windows Phone; Opera Mini/8.1.0/37.6116; U; en) Presto/2.12.423 Version/12.16'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Phone'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows Phone ??'
+      OperatingSystemNameVersionMajor      : 'Windows Phone ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.423'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.423'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera Mini'
+      AgentVersion                         : '8.1.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Opera Mini 8.1.0'
+      AgentNameVersionMajor                : 'Opera Mini 8'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'

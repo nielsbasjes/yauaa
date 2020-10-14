@@ -8,6 +8,7 @@ v5.20-SNAPSHOT
 - New/improved detections
   - Ghostery 3.0
   - OpenConnect VPN client, Cisco AnyConnect, NMap imitating AnyConnect
+  - Windows Phone (via Opera)
 - Build
   - Disable sonarcloud on JDK 8
 - Updated UDF dependencies
