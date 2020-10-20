@@ -9,6 +9,7 @@ v5.20-SNAPSHOT
   - Ghostery 3.0
   - OpenConnect VPN client, Cisco AnyConnect, NMap imitating AnyConnect
   - Windows Phone (via Opera)
+  - LinkedIn app (on iPhone)
 - Build
   - Disable sonarcloud on JDK 8
 - Updated UDF dependencies
