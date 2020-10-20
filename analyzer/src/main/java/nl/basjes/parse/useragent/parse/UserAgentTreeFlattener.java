@@ -66,6 +66,19 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import java.io.Serializable;
 
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.BASE64;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.COMMENTS;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.EMAIL;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.ENTRY;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEY;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEYVALUE;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.NAME;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.PRODUCT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.TEXT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.URL;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.UUID;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.VERSION;
 import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
 public class UserAgentTreeFlattener extends UserAgentBaseListener<MatcherTree> implements Serializable {
@@ -210,11 +223,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener<MatcherTree> i
 //        rootState.calculatePath(PathType.CHILD, false);
 //        state.put(userAgentContext, rootState);
 
-        if (userAgent.hasSyntaxError()) {
-            inform(null, SYNTAX_ERROR, "true");
-        } else {
-            inform(null, SYNTAX_ERROR, "false");
-        }
+//        if (userAgent.hasSyntaxError()) {
+//            inform(null, SYNTAX_ERROR, "true");
+//        } else {
+//            inform(null, SYNTAX_ERROR, "false");
+//        }
 
         new ParseTreeWalker<MatcherTree>().walk(this, userAgentContext);
         return userAgent;
@@ -257,8 +270,8 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener<MatcherTree> i
 //
 //            path = myState.calculatePath(childType, fakeChild);
 //        }
-        analyzer.inform(path, value, ctx);
-        return path;
+        analyzer.inform(name, value, ctx);
+        return name.toString();
     }
 
 //  =================================================================================
@@ -328,7 +341,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener<MatcherTree> i
 
     @Override
     public void enterProductNameKeyValue(ProductNameKeyValueContext<MatcherTree> ctx) {
-        inform(ctx, "name.(1)keyvalue", ctx.getText(), false);
+        // FIXME: inform(ctx, "name.(1)keyvalue", ctx.getText(), false);
         informSubstrings(ctx, NAME, true);
     }
 
@@ -394,14 +407,14 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener<MatcherTree> i
 
     @Override
     public void enterCommentEntry(CommentEntryContext<MatcherTree> ctx) {
-        informSubstrings(ctx, "entry");
+        informSubstrings(ctx, ENTRY);
     }
 
-    private void informSubstrings(ParserRuleContext<MatcherTree> ctx, String name) {
+    private void informSubstrings(ParserRuleContext<MatcherTree> ctx, AgentPathFragment name) {
         informSubstrings(ctx, name, false);
     }
 
-    private void informSubstrings(ParserRuleContext<MatcherTree> ctx, String name, boolean fakeChild) {
+    private void informSubstrings(ParserRuleContext<MatcherTree> ctx, AgentPathFragment name, boolean fakeChild) {
         informSubstrings(ctx, name, fakeChild, WordSplitter.getInstance());
     }
 
@@ -409,7 +422,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener<MatcherTree> i
         informSubstrings(ctx, VERSION, false, VersionSplitter.getInstance());
     }
 
-    private void informSubstrings(ParserRuleContext<MatcherTree> ctx, String name, boolean fakeChild, Splitter splitter) {
+    private void informSubstrings(ParserRuleContext<MatcherTree> ctx, AgentPathFragment name, boolean fakeChild, Splitter splitter) {
         String text = getSourceText(ctx);
         String path = inform(ctx, name, text, fakeChild);
 //        Set<Range> ranges = analyzer.getRequiredInformRanges(path);

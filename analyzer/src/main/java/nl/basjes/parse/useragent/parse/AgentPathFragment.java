@@ -40,16 +40,13 @@ public enum AgentPathFragment {
     EQUALS("Equals"),
     STARTSWITH("StartsWith");
 
-    // Special values
-    SYNTAX_ERROR("__SyntaxError__");
-
     private final String name;
 
     AgentPathFragment(String s) {
         name = s;
     }
 
-    public boolean equalsName(String otherName) {
+    public boolean equals(String otherName) {
         // (otherName == null) check is not needed because name.equals(null) returns false
         return name.equals(otherName);
     }

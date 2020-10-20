@@ -21,11 +21,13 @@ import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
+import nl.basjes.parse.useragent.parse.AgentPathFragment;
 import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -378,9 +380,11 @@ public class TestTreewalkerRequire {
         Map<String, Map<String, String>> lookups = new HashMap<>();
         lookups.put("TridentVersions", new HashMap<>());
 
-        TestMatcher matcher = new TestMatcher(lookups, new HashMap<>());
+        TestAnalyzer analyzer = new TestAnalyzer(lookups, Collections.emptyMap());
+        TestMatcher matcher = new TestMatcher(analyzer);
         MatcherAction action = new MatcherRequireAction(path, matcher);
-        action.initialize(MatcherTree.createNewAgentRoot());
+        MatcherTree matcherTree = MatcherTree.createNewAgentRoot();
+        action.initialize(matcherTree);
 
         StringBuilder sb = new StringBuilder("\n---------------------------\nActual list (")
             .append(matcher.receivedValues.size())
@@ -435,7 +439,6 @@ public class TestTreewalkerRequire {
             this.lookupSets = lookupSets;
         }
 
-
         @Override
         public void inform(AgentPathFragment path, String value, ParseTree<MatcherTree> ctx) {
             // Not used during tests
@@ -469,6 +472,10 @@ public class TestTreewalkerRequire {
 
     public static class TestMatcher extends Matcher {
         final List<String> receivedValues = new ArrayList<>(128);
+
+        TestMatcher(Analyzer analyzer) {
+            super(analyzer);
+        }
 
         TestMatcher(Map<String, Map<String, String>> lookups, Map<String, Set<String>> lookupSets) {
             super(new TestAnalyzer(lookups, lookupSets));

@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent.debug;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
+import nl.basjes.parse.useragent.parse.AgentPathFragment;
 import nl.basjes.parse.useragent.parse.MatcherTree;
 import org.antlr.v4.runtime.tree.ParseTree;
 

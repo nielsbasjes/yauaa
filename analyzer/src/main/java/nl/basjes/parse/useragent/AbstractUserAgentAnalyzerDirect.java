@@ -102,6 +102,7 @@ import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.PRE_SORTED_FIELDS_LIST;
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
+import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION;
@@ -982,7 +983,7 @@ config:
         try {
             userAgent = flattener.parse(userAgent);
 
-            inform(SYNTAX_ERROR, userAgent.getValue(SYNTAX_ERROR), null);
+            // FIXME: inform(SYNTAX_ERROR, userAgent.getValue(SYNTAX_ERROR.toString()), null);
 
             if (verbose) {
                 LOG.info("=========== Checking all Touched Matchers: {}", touchedMatchers.size());

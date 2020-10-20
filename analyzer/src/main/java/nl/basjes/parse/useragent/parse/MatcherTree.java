@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -122,7 +123,7 @@ public class MatcherTree implements Serializable {
     }
 
     public void addStartsWithMatcherAction(String nMatchString, MatcherAction action) {
-        List<MatcherAction> actionList = startsWithActions.put(nMatchString, action);
+        List<MatcherAction> actionList = startsWithActions.put(nMatchString, new ArrayList<>(Collections.singletonList(action)));
         hasAnyActions = true;
     }
 
