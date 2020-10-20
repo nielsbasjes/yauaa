@@ -2471,3 +2471,45 @@ config:
       AgentLanguage                        : 'French (Belgium)'
       AgentLanguageCode                    : 'fr-be'
       AgentInformationUrl                  : 'Bol.com'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.(1)entry.(1)text="LinkedInApp"'
+    extract:
+    - 'WebviewAppName                      :       10 :                   "LinkedIn"'
+
+
+# 2020-10-20: When clicking on a link in the LinkedIn chat on an iPhone
+#             On Android you do not get an annotation indicating the LinkedApp is used.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_4_8 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 [LinkedInApp]'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.4.8'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.4.8'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '605.1.15'
+      AgentVersionMajor                    : '605'
+      AgentNameVersion                     : 'UIWebView 605.1.15'
+      AgentNameVersionMajor                : 'UIWebView 605'
+      WebviewAppName                       : 'LinkedIn'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'LinkedIn ??'
+
