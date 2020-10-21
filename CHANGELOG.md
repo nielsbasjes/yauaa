@@ -14,10 +14,10 @@ v5.20-SNAPSHOT
   - Disable sonarcloud on JDK 8
 - Updated UDF dependencies
   - Apache Drill            1.18.0
-  - Apache Nifi             1.12.0
+  - Apache Nifi             1.12.1
   - Apache Flink            1.11.2
   - Apache Beam             2.24.0
-  - Elastic Search/Logstash 7.9.1
+  - Elastic Search/Logstash 7.9.2
 
 v5.19
 ===
