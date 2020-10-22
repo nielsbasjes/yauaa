@@ -10,6 +10,7 @@ v5.20-SNAPSHOT
   - OpenConnect VPN client, Cisco AnyConnect, NMap imitating AnyConnect
   - Windows Phone (via Opera)
   - LinkedIn app (on iPhone)
+  - HTC Sensation is a 'Phone'
 - Build
   - Disable sonarcloud on JDK 8
 - Updated UDF dependencies
