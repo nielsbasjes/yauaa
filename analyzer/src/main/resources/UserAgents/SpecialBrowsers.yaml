@@ -1817,42 +1817,6 @@ config:
 
 
 - matcher:
-    require:
-    - 'agent.(1)product.name[1]="Outlook"'
-    extract:
-    - 'AgentName                           :     2040 :agent.(1)product.name'
-    - 'AgentVersion                        :     2040 :agent.(1)product.(1)version'
-
-- test:
-    input:
-      user_agent_string: 'Outlook-Express/7.0 (MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; TmstmpExt)'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel x86_64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '8'
-      OperatingSystemVersionMajor          : '8'
-      OperatingSystemNameVersion           : 'Windows 8'
-      OperatingSystemNameVersionMajor      : 'Windows 8'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Trident'
-      LayoutEngineVersion                  : '7.0'
-      LayoutEngineVersionMajor             : '7'
-      LayoutEngineNameVersion              : 'Trident 7.0'
-      LayoutEngineNameVersionMajor         : 'Trident 7'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Outlook-Express'
-      AgentVersion                         : '7.0'
-      AgentVersionMajor                    : '7'
-      AgentNameVersion                     : 'Outlook-Express 7.0'
-      AgentNameVersionMajor                : 'Outlook-Express 7'
-
-
-- matcher:
     variable:
     - 'IBrowseVersion                      :agent.(1)product.(1)comments.entry.(1)product.name="IBrowse"^.version'
     extract:
@@ -1868,6 +1832,7 @@ config:
     - 'AgentClass                          :      100 :"Browser"'
     - 'AgentName                           :      100 :"IBrowse"'
     - 'AgentVersion                        :      100 :@IBrowseVersion'
+
 
 - matcher:
     require:
