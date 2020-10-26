@@ -801,6 +801,76 @@ config:
       AgentNameVersionMajor                : 'Microsoft Outlook Mobile 4'
 
 
+# NASTY: The SAME string is documented for both iOS and Android without any information about Phone/Tablet.
+# https://docs.microsoft.com/en-us/exchange/clients/outlook-for-ios-and-android/manage-devices?view=exchserver-2019#blocking-outlook-for-ios-and-android
+- matcher:
+    require:
+    - 'agent.(1)product.name="Outlook-iOS-Android"'
+    extract:
+    - 'AgentClass                          :      100 : "Email Client"'
+    - 'AgentName                           :      100 : "Microsoft Outlook Mobile"'
+    - 'OperatingSystemName                 :      100 : "<<<null>>>"'
+    - 'OperatingSystemVersion              :      100 : "<<<null>>>"'
+
+- test:
+    input:
+      user_agent_string: 'Outlook-iOS-Android/1.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook Mobile'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Microsoft Outlook Mobile 1.0'
+      AgentNameVersionMajor                : 'Microsoft Outlook Mobile 1'
+
+# Requesting an image within an email in the real Outlook on Android simply shows a webview
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; SM-G950F Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/86.0.4240.110 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G950F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersionBuild          : 'PPR1.180610.011'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '86.0'
+      LayoutEngineVersionMajor             : '86'
+      LayoutEngineNameVersion              : 'Blink 86.0'
+      LayoutEngineNameVersionMajor         : 'Blink 86'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '86.0.4240.110'
+      AgentVersionMajor                    : '86'
+      AgentNameVersion                     : 'Chrome Webview 86.0.4240.110'
+      AgentNameVersionMajor                : 'Chrome Webview 86'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
 # Broken: No application name --> Hence the generic answer "Office"
 - test:
     input:
