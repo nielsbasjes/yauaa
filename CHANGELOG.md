@@ -11,6 +11,7 @@ v5.20-SNAPSHOT
   - Windows Phone (via Opera)
   - LinkedIn app (on iPhone)
   - HTC Sensation is a 'Phone'
+  - Made "Microsoft Outlook", "MacOutlook", "Outlook-Express", "Outlook-iOS" consistent and "Email Client"
 - Build
   - Disable sonarcloud on JDK 8
 - Updated UDF dependencies
