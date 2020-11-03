@@ -581,7 +581,8 @@
                                 
                                 <h1 id="user-defined-function-for-apache-hive">User Defined Function for <a href="https://hive.apache.org" target="_blank">Apache Hive</a></h1>
 <h2 id="getting-the-udf">Getting the UDF</h2>
-<p>You can get the prebuilt UDF from <a href="https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-hive/5.19/yauaa-hive-5.19-udf.jar" target="_blank">maven central</a>.</p>
+<p>You can get the prebuilt UDF from <a href="https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-hive/5.19/yauaa-hive-5.19-udf.jar" target="_blank">maven central (yauaa-hive-5.19-udf.jar)</a>.</p>
+<p>NOTE: You MUST use the <code>-udf.jar</code>: yauaa-hive-5.19-udf.jar</p>
 <p>If you use a maven based project simply add this dependency</p>
 <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
@@ -603,6 +604,12 @@ Either by doing</p>
 <pre><code>CREATE FUNCTION ParseUserAgent
 AS &apos;nl.basjes.parse.useragent.hive.ParseUserAgent&apos;
 USING JAR &apos;hdfs:///yauaa-hive-5.19-udf.jar&apos;;
+</code></pre>
+
+<p>If you are using a recent version of Hive you can also do</p>
+<pre><code>CREATE FUNCTION ParseUserAgent
+AS &apos;nl.basjes.parse.useragent.hive.ParseUserAgent&apos;
+USING JAR &apos;ivy://nl.basjes.parse.useragent:yauaa-hive:5.19?classifier=udf&apos;;
 </code></pre>
 
 <p>or installing it locally with the Hive Server</p>
@@ -638,6 +645,26 @@ USING JAR &apos;hdfs:///yauaa-hive-5.19-udf.jar&apos;;
 | +---------------+-----------------------------+------------------------+  |
 |                                                                           |
 +---------------------------------------------------------------------------+
+</code></pre><p>Basic test it works (trimmed the output here)</p>
+<pre><code>&gt; SELECT ParseUserAgent(&apos;Mozil la/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36&apos;);
++----------------------------------------------------+
+|                        _c0                         |
++----------------------------------------------------+
+| { &quot;deviceclass&quot;:&quot;Phone&quot;,
+    &quot;devicename&quot;:&quot;Google Nexus 6&quot;,
+    &quot;devicebrand&quot;:&quot;Google&quot;,
+    ...
+    &quot;operatingsystemnameversion&quot;:&quot;Android 6.0&quot;,
+    ...
+    &quot;layoutenginenameversion&quot;:&quot;Blink 46.0&quot;,
+    ...
+    &quot;agentclass&quot;:&quot;Browser&quot;,
+    ...
+    &quot;agentnameversion&quot;:&quot;Chrome 46.0.2490.76&quot;,
+    ...
+    } |
++----------------------------------------------------+
+1 row selected (5.682 seconds)
 </code></pre><p>Usage example:</p>
 <pre><code>CREATE TABLE useragents (useragent STRING COMMENT &apos;The useragent string&apos;);
 
@@ -697,7 +724,7 @@ SELECT ParseUserAgent(useragent).DeviceClass, ParseUserAgent(useragent).Operatin
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Apache Hive","level":"3.7","depth":1,"next":{"title":"Apache Nifi","level":"3.8","depth":1,"path":"UDF-ApacheNifi.md","ref":"UDF-ApacheNifi.md","articles":[]},"previous":{"title":"Apache Flink (Table/SQL)","level":"3.6","depth":1,"path":"UDF-ApacheFlinkTable.md","ref":"UDF-ApacheFlinkTable.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.19"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"UDF-ApacheHive.md","mtime":"2020-09-29T12:58:44.836Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-01T19:10:30.825Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Apache Hive","level":"3.7","depth":1,"next":{"title":"Apache Nifi","level":"3.8","depth":1,"path":"UDF-ApacheNifi.md","ref":"UDF-ApacheNifi.md","articles":[]},"previous":{"title":"Apache Flink (Table/SQL)","level":"3.6","depth":1,"path":"UDF-ApacheFlinkTable.md","ref":"UDF-ApacheFlinkTable.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.19"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"UDF-ApacheHive.md","mtime":"2020-11-03T15:45:53.374Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-03T15:50:01.873Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
