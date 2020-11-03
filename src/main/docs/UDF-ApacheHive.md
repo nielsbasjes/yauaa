@@ -2,7 +2,9 @@
 
 ## Getting the UDF
 
-You can get the prebuilt UDF from [maven central](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-hive/{{ book.YauaaVersion }}/yauaa-hive-{{ book.YauaaVersion }}-udf.jar).
+You can get the prebuilt UDF from [maven central (yauaa-hive-{{ book.YauaaVersion }}-udf.jar)](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-hive/{{ book.YauaaVersion }}/yauaa-hive-{{ book.YauaaVersion }}-udf.jar).
+
+NOTE: You MUST use the `-udf.jar`: yauaa-hive-{{ book.YauaaVersion }}-udf.jar
 
 If you use a maven based project simply add this dependency
 
@@ -31,6 +33,13 @@ or by defining it as a [permanent function](https://cwiki.apache.org/confluence/
 <pre><code>CREATE FUNCTION ParseUserAgent
 AS 'nl.basjes.parse.useragent.hive.ParseUserAgent'
 USING JAR 'hdfs:///yauaa-hive-{{ book.YauaaVersion }}-udf.jar';
+</code></pre>
+
+If you are using a recent version of Hive you can also do
+
+<pre><code>CREATE FUNCTION ParseUserAgent
+AS 'nl.basjes.parse.useragent.hive.ParseUserAgent'
+USING JAR 'ivy://nl.basjes.parse.useragent:yauaa-hive:{{ book.YauaaVersion }}?classifier=udf';
 </code></pre>
 
 or installing it locally with the Hive Server
@@ -69,6 +78,29 @@ Verify if it has been installed
     | +---------------+-----------------------------+------------------------+  |
     |                                                                           |
     +---------------------------------------------------------------------------+
+
+Basic test it works (trimmed the output here)
+
+    > SELECT ParseUserAgent('Mozil la/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
+    +----------------------------------------------------+
+    |                        _c0                         |
+    +----------------------------------------------------+
+    | { "deviceclass":"Phone",
+        "devicename":"Google Nexus 6",
+        "devicebrand":"Google",
+        ...
+        "operatingsystemnameversion":"Android 6.0",
+        ...
+        "layoutenginenameversion":"Blink 46.0",
+        ...
+        "agentclass":"Browser",
+        ...
+        "agentnameversion":"Chrome 46.0.2490.76",
+        ...
+        } |
+    +----------------------------------------------------+
+    1 row selected (5.682 seconds)
+
 
 Usage example:
 
