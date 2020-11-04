@@ -34,13 +34,11 @@ public class TestDeveloperTools {
     public void validateErrorSituationOutput() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
-            .hideMatcherLoadStats()
-            .delayInitialization()
-            .dropTests()
+            .dropDefaultResources()
+            .showMatcherLoadStats()
+            .keepTests()
+            .addResources("classpath*:**/CheckErrorOutput.yaml")
             .build();
-        uaa.setShowMatcherStats(true);
-        uaa.keepTests();
-        uaa.loadResources("classpath*:**/CheckErrorOutput.yaml");
         assertFalse(uaa.runTests(false, true)); // This test must return an error state
     }
 
@@ -48,13 +46,10 @@ public class TestDeveloperTools {
     public void validateNewTestcaseSituationOutput() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
-            .delayInitialization()
-            .hideMatcherLoadStats()
-            .dropTests()
+            .showMatcherLoadStats()
+            .keepTests()
+            .addResources("classpath*:**/CheckNewTestcaseOutput.yaml")
             .build();
-        uaa.setShowMatcherStats(true);
-        uaa.keepTests();
-        uaa.loadResources("classpath*:**/CheckNewTestcaseOutput.yaml");
         assertTrue(uaa.runTests(false, true));
 
         // Immediately test the output of the toString methods of all of these classes.
