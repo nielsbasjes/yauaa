@@ -33,6 +33,7 @@ import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.MatcherExtractAction;
 import nl.basjes.parse.useragent.analyze.MatcherList;
+<<<<<<< HEAD
 import nl.basjes.parse.useragent.analyze.MatcherRequireAction;
 import nl.basjes.parse.useragent.analyze.MatcherVariableAction;
 import nl.basjes.parse.useragent.analyze.MatchesList;
@@ -77,8 +78,9 @@ import nl.basjes.parse.useragent.calculate.CalculateDeviceBrand;
 import nl.basjes.parse.useragent.calculate.CalculateDeviceName;
 import nl.basjes.parse.useragent.calculate.CalculateNetworkType;
 import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
+=======
+>>>>>>> d06cac2d... WIP Splitting the loading of config
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
-import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
 import nl.basjes.parse.useragent.parse.AgentPathFragment;
 import nl.basjes.parse.useragent.parse.MatcherTree;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
@@ -94,11 +96,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
