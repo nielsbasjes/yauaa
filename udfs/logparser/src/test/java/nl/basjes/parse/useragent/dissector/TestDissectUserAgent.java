@@ -18,15 +18,20 @@
 package nl.basjes.parse.useragent.dissector;
 
 import nl.basjes.parse.core.Parser;
+import nl.basjes.parse.core.exceptions.DissectionFailure;
 import nl.basjes.parse.core.exceptions.InvalidDissectorException;
+import nl.basjes.parse.core.exceptions.MissingDissectorsException;
 import nl.basjes.parse.core.test.DissectorTester;
 import nl.basjes.parse.core.test.TestRecord;
 import nl.basjes.parse.httpdlog.HttpdLoglineParser;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -55,7 +60,7 @@ public class TestDissectUserAgent {
 
     @Test
     public void testNullInput() {
-        // This is an edge case where the webview fields are calulcated AND wiped again.
+        // This is an edge case where the webview fields are calculated AND wiped again.
         DissectorTester
             .create()
             .withDissector(new UserAgentDissector())
@@ -248,5 +253,44 @@ public class TestDissectUserAgent {
             .checkExpectations();
     }
 
+    /*
+     * There was a bug that if the parser was reset after initialization some things would be duplicated.
+     * This is to verify this bug no longer happens.
+     */
+    public static class NoDuplicatesRecord {
+        Set<String> gotValuesFor = new HashSet<>();
+        @SuppressWarnings("unused") // Used via reflection
+        public void setValue(String name, String ignored) {
+            assertFalse(gotValuesFor.contains(name), "Setter was called for a second time for " + name);
+            gotValuesFor.add(name);
+        }
+    }
+
+    @Test
+    public void testResetScenario() throws NoSuchMethodException, InvalidDissectorException, MissingDissectorsException, DissectionFailure {
+        // Create a basic parser
+        Parser<NoDuplicatesRecord> parser = new HttpdLoglineParser<>(NoDuplicatesRecord.class, "%t \"%{User-agent}i\"");
+        parser.addDissector(new UserAgentDissector());
+        parser.addParseTarget("setValue", "STRING:request.user-agent.device_name");
+
+        // Initialize
+        parser.getPossiblePaths();
+
+        // Reset by adding a new target
+        parser.addParseTarget("setValue", "STRING:request.user-agent.agent_name_version_major");
+
+        // Parse a valid log line
+        String testUserAgent =
+            "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) " +
+                "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                "Chrome/41.0.2272.96 " +
+                "Mobile Safari/537.36";
+
+        String testLogLine = "[10/Aug/2012:23:55:11 +0200] \""+testUserAgent+"\"";
+
+        parser.parse(testLogLine);
+
+        // If you get here it passed.
+    }
 
 }
