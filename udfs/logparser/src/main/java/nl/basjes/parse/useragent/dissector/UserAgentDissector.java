@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeSet;
 
 import static nl.basjes.parse.core.Casts.NO_CASTS;
 import static nl.basjes.parse.core.Casts.STRING_ONLY;
@@ -47,10 +48,9 @@ public class UserAgentDissector extends Dissector {
     private UserAgentAnalyzer userAgentAnalyzer = null;
     private static final String INPUT_TYPE = "HTTP.USERAGENT";
 
-    private List<String> extraResources = new ArrayList<>();
-    private List<String> allPossibleFieldNames = new ArrayList<>();
-    private List<String> requestedFieldNames = new ArrayList<>();
-
+    private TreeSet<String> extraResources          = new TreeSet<>();
+    private List<String>    allPossibleFieldNames   = new ArrayList<>();
+    private TreeSet<String> requestedFieldNames     = new TreeSet<>();
 
     @Override
     public String getInputType() {
@@ -171,9 +171,9 @@ public class UserAgentDissector extends Dissector {
                 className + " which is not a UserAgentDissector");
         }
         UserAgentDissector newUserAgentDissector = (UserAgentDissector) newInstance;
-        newUserAgentDissector.extraResources = new ArrayList<>(extraResources);
+        newUserAgentDissector.extraResources = new TreeSet<>(extraResources);
         newUserAgentDissector.allPossibleFieldNames = new ArrayList<>(allPossibleFieldNames);
-        newUserAgentDissector.requestedFieldNames = new ArrayList<>(requestedFieldNames);
+        newUserAgentDissector.requestedFieldNames = new TreeSet<>(requestedFieldNames);
         allPossibleFieldNames.forEach(newUserAgentDissector::ensureMappingsExistForFieldName);
     }
 

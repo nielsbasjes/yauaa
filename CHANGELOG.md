@@ -5,6 +5,8 @@ v5.20-SNAPSHOT
 ===
 - Analyzer:
   - Improved the brand extraction from the url (github and gitlab urls).
+- UDFs:
+  - Fixed bug in LogParser UDF that causes setters to be called twice
 - New/improved detections
   - Ghostery 3.0
   - OpenConnect VPN client, Cisco AnyConnect, NMap imitating AnyConnect
