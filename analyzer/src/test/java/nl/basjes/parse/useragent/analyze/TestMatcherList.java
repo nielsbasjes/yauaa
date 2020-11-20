@@ -99,10 +99,17 @@ public class TestMatcherList {
         assertTrue(array[1] instanceof Matcher);
     }
 
+    private Kryo getKryo() {
+        Kryo kryo = new Kryo();
+        kryo.register(Matcher.class);
+        kryo.register(MatcherList.class);
+        return kryo;
+    }
+
     // The MatcherList is currently only used as a transient member.
     // To ensure the serialization works we test that here.
     byte[] serialize(MatcherList list) {
-        Kryo             kryo             = new Kryo();
+        Kryo             kryo             = getKryo();
         ByteBufferOutput byteBufferOutput = new ByteBufferOutput(1_000_000, -1);
         kryo.writeClassAndObject(byteBufferOutput, list);
 
@@ -115,7 +122,7 @@ public class TestMatcherList {
     }
 
     MatcherList deserialize(byte[] bytes) {
-        Kryo            kryo            = new Kryo();
+        Kryo            kryo            =  getKryo();
         ByteBufferInput byteBufferInput = new ByteBufferInput(bytes);
         return (MatcherList) kryo.readClassAndObject(byteBufferInput);
     }

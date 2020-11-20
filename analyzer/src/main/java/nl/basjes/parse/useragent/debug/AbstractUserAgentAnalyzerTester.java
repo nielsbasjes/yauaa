@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent.debug;
 import com.esotericsoftware.kryo.DefaultSerializer;
 import com.esotericsoftware.kryo.Kryo;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
@@ -42,15 +43,17 @@ import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractUserAgentAnalyzerTester.class);
 
-//    public UserAgentAnalyzerTester() {
-//        super();
-//        keepTests();
-//    }
-
-//    public UserAgentAnalyzerTester(String resourceString) {
-//        this();
-//        loadResources(resourceString);
-//    }
+    /**
+     * This is used to configure the provided Kryo instance if Kryo serialization is desired.
+     * The expected type here is Object because otherwise the Kryo library becomes
+     * a mandatory dependency on any project that uses Yauaa.
+     * @param kryoInstance The instance of com.esotericsoftware.kryo.Kryo that needs to be configured.
+     */
+    public static void configureKryo(Object kryoInstance) {
+        Kryo kryo = (Kryo) kryoInstance;
+        kryo.register(AbstractUserAgentAnalyzerTester.class);
+        AbstractUserAgentAnalyzer.configureKryo(kryo);
+    }
 
     public static class KryoSerializer extends UserAgentAnalyzerDirect.KryoSerializer {
         public KryoSerializer(Kryo kryo, Class<?> type) {
@@ -68,7 +71,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         long confidence;
     }
 
-    private void logInfo(StringBuilder errorMessageReceiver, String format, Object... args) {
+    private static void logInfo(StringBuilder errorMessageReceiver, String format, Object... args) {
         if (LOG.isInfoEnabled()) {
             final String message = MessageFormatter.arrayFormat(format, args).getMessage();
             LOG.info(message, args);
@@ -78,7 +81,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         }
     }
 
-    private void logWarn(StringBuilder errorMessageReceiver, String format, Object... args) {
+    private static void logWarn(StringBuilder errorMessageReceiver, String format, Object... args) {
         if (LOG.isWarnEnabled()) {
             final String message = MessageFormatter.arrayFormat(format, args).getMessage();
             LOG.warn(message, args);
@@ -88,7 +91,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         }
     }
 
-    private void logError(StringBuilder errorMessageReceiver, String format, Object... args) {
+    private static void logError(StringBuilder errorMessageReceiver, String format, Object... args) {
         if (LOG.isErrorEnabled()) {
             final String message = MessageFormatter.arrayFormat(format, args).getMessage();
             LOG.error(message, args);
@@ -117,27 +120,29 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                             Collection<String> onlyValidateFieldNames,
                             boolean measureSpeed,
                             boolean showPassedTests) {
-        return runTests(showAll, failOnUnexpected, onlyValidateFieldNames, measureSpeed, showPassedTests, null);
+        return runTests(this, showAll, failOnUnexpected, onlyValidateFieldNames, measureSpeed, showPassedTests, null);
     }
 
-    public boolean runTests(boolean showAll,
+    public static boolean runTests(
+                            AbstractUserAgentAnalyzerDirect analyzer,
+                            boolean showAll,
                             boolean failOnUnexpected,
                             Collection<String> onlyValidateFieldNames,
                             boolean measureSpeed,
                             boolean showPassedTests,
                             StringBuilder errorMessageReceiver) {
-        initializeMatchers();
-        if (getTestCases() == null) {
+        analyzer.initializeMatchers();
+        if (analyzer.getTestCases() == null) {
             return true;
         }
-        DebugUserAgent agent = new DebugUserAgent(wantedFieldNames);
+        DebugUserAgent agent = new DebugUserAgent(analyzer.getWantedFieldNames());
 
         List<TestResult> results = new ArrayList<>(32);
 
         String filenameHeader = "Test number and source";
         int filenameHeaderLength = filenameHeader.length();
         int maxFilenameLength = filenameHeaderLength;
-        for (Map<String, Map<String, String>> test : getTestCases()) {
+        for (Map<String, Map<String, String>> test : analyzer.getTestCases()) {
             Map<String, String> metaData = test.get("metaData");
             String filename = metaData.get("filename");
             maxFilenameLength = Math.max(maxFilenameLength, filename.length());
@@ -171,7 +176,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
         boolean allPass = true;
         int testcount = 0;
-        for (Map<String, Map<String, String>> test : getTestCases()) {
+        for (Map<String, Map<String, String>> test : analyzer.getTestCases()) {
             testcount++;
             Map<String, String> input = test.get("input");
             Map<String, String> expected = test.get("expected");
@@ -187,11 +192,11 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             boolean init = false;
 
             if (options == null) {
-                setVerbose(false);
+                analyzer.setVerbose(false);
                 agent.setDebug(false);
             } else {
                 boolean newVerbose = options.contains("verbose");
-                setVerbose(newVerbose);
+                analyzer.setVerbose(newVerbose);
                 agent.setDebug(newVerbose);
                 init = options.contains("init");
             }
@@ -224,19 +229,18 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             UserAgent parseResult = null;
             long      measuredSpeed=-1;
             if (measureSpeed) {
-                disableCaching();
                 // Preheat
                 for (int i = 0; i < 100; i++) {
-                    parse(agent);
+                    analyzer.parse(agent);
                 }
                 long startTime = System.nanoTime();
                 for (int i = 0; i < 1000; i++) {
-                    parseResult = parse(agent);
+                    parseResult = analyzer.parse(agent);
                 }
                 long stopTime = System.nanoTime();
-                measuredSpeed = (1000000000L*(1000))/(stopTime-startTime);
+                measuredSpeed = (1000000000L * (1000)) / (stopTime - startTime);
             } else {
-                parseResult = parse(agent);
+                parseResult = analyzer.parse(agent);
             }
 
             sb.append('|');

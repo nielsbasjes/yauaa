@@ -60,7 +60,7 @@ public class StepDown extends Step {
         }
 
         @Override
-        public StepDown read(Kryo kryo, Input input, Class<StepDown> type) {
+        public StepDown read(Kryo kryo, Input input, Class<? extends StepDown> type) {
             StepDown stepDown = super.read(kryo, input, type);
             stepDown.setDefaultFieldValues();
             return stepDown;

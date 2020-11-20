@@ -67,12 +67,12 @@
     <flink.scala.version>2.12</flink.scala.version>
 
     <!-- Apache Beam -->
-    <beam.version>2.24.0</beam.version>
+    <beam.version>2.25.0</beam.version>
     <hamcrest-all.version>1.3</hamcrest-all.version>
 
     <!-- Apache Drill -->
     <drill.version>1.18.0</drill.version>
-    <netty.version>4.1.53.Final</netty.version>
+    <netty.version>4.1.54.Final</netty.version>
 
     <!-- Apache Hadoop -->
     <hadoop.version>3.3.0</hadoop.version>
@@ -91,7 +91,7 @@
     <logparser.version>5.6</logparser.version>
 
     <!-- Elastic tools -->
-    <elastic.version>7.9.2</elastic.version>
+    <elastic.version>7.10.0</elastic.version>
     <logstash.version>${elastic.version}</logstash.version>
     <elasticsearch.version>${elastic.version}</elasticsearch.version>
 
@@ -99,19 +99,19 @@
 
     <depencency-convergence.phase>validate</depencency-convergence.phase>
     <checkstyle-plugin.version>3.1.1</checkstyle-plugin.version>
-    <checkstyle.version>8.36.2</checkstyle.version>
+    <checkstyle.version>8.37</checkstyle.version>
     <spotbugs-maven-plugin.version>4.1.3</spotbugs-maven-plugin.version>
     <spotbugs.version>4.1.4</spotbugs.version>
     <slf4j.version>1.7.30</slf4j.version>
-    <log4j2.version>2.13.3</log4j2.version>
-    <kryo.version>4.0.2</kryo.version>
+    <log4j2.version>2.14.0</log4j2.version>
+    <kryo.version>5.0.0-RC9</kryo.version> <!-- FIXME: DO NOT USE 5.0.0 because of bad java 9 module definition ! Next update to 5.0.1 -->
     <rat.version>0.13</rat.version>
     <jacoco.version>0.8.6</jacoco.version>
     <junit5.version>5.7.0</junit5.version>
     <hamcrest-core.version>2.2</hamcrest-core.version>
 
-    <spring.version>5.2.9.RELEASE</spring.version>
-    <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
+    <spring.version>5.3.1</spring.version>
+    <spring-boot.version>2.4.0</spring-boot.version>
     <spring-boot-legacy.version>2.1.0.RELEASE</spring-boot-legacy.version>
 
     <springfox-swagger.version>3.0.0</springfox-swagger.version>
@@ -856,6 +856,7 @@
   <modules>
     <module>devtools</module>
     <module>analyzer</module>
+<!--    <module>serialization</module>-->
 <!--    <module>udfs</module>-->
 <!--    <module>webapp</module>-->
 <!--    <module>commandline</module>-->

@@ -87,7 +87,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
         }
 
         @Override
-        public MatchesList read(Kryo kryo, Input input, Class<MatchesList> type) {
+        public MatchesList read(Kryo kryo, Input input, Class<? extends MatchesList> type) {
             MatchesList matchesList = new MatchesList();
             matchesList.maxSize = input.read();
 

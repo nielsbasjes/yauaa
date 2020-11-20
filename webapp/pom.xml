@@ -54,6 +54,10 @@
           <artifactId>slf4j-api</artifactId>
         </exclusion>
         <exclusion>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>log4j-to-slf4j</artifactId>
+        </exclusion>
+        <exclusion>
           <groupId>org.yaml</groupId>
           <artifactId>snakeyaml</artifactId>
         </exclusion>
@@ -184,6 +188,18 @@
       <version>${snakeyaml.version}</version>
     </dependency>
     <!-- ================================================================================================ -->
+
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.hamcrest</groupId>
+          <artifactId>hamcrest-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
 
   </dependencies>
 

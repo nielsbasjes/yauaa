@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent;
 
 import com.esotericsoftware.kryo.DefaultSerializer;
+import com.esotericsoftware.kryo.Kryo;
 
 import java.io.Serializable;
 
@@ -29,9 +30,21 @@ public final class UserAgentAnalyzer extends AbstractUserAgentAnalyzer implement
     }
 
     public static final class UserAgentAnalyzerBuilder extends AbstractUserAgentAnalyzerBuilder<UserAgentAnalyzer, UserAgentAnalyzerBuilder>{
-
         private UserAgentAnalyzerBuilder(UserAgentAnalyzer newUaa) {
             super(newUaa);
         }
     }
+
+    /**
+     * This is used to configure the provided Kryo instance if Kryo serialization is desired.
+     * The expected type here is Object because otherwise the Kryo library becomes
+     * a mandatory dependency on any project that uses Yauaa.
+     * @param kryoInstance The instance of com.esotericsoftware.kryo.Kryo that needs to be configured.
+     */
+    public static void configureKryo(Object kryoInstance) {
+        Kryo kryo = (Kryo) kryoInstance;
+        kryo.register(UserAgentAnalyzer.class);
+        AbstractUserAgentAnalyzer.configureKryo(kryo);
+    }
+
 }
