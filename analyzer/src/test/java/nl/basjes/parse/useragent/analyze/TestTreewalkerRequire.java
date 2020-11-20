@@ -462,6 +462,12 @@ public class TestTreewalkerRequire {
         public Set<Integer> getRequiredPrefixLengths(String treeName) {
             return Collections.emptySet();
         }
+
+        @Override
+        public List<Map<String, Map<String, String>>> getTestCases() {
+            // Never called
+            return Collections.emptyList();
+        }
     }
 
     public static class TestMatcher extends Matcher {

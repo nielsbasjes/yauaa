@@ -21,6 +21,7 @@ import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -44,4 +45,6 @@ public interface Analyzer extends Serializable {
     Map<String, Map<String, String>> getLookups();
 
     Map<String, Set<String>> getLookupSets();
+
+    List<Map<String, Map<String, String>>> getTestCases();
 }

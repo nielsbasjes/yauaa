@@ -24,6 +24,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.PrintStream;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -73,6 +74,12 @@ public class FlattenPrinter implements Analyzer {
     public Map<String, Set<String>> getLookupSets() {
         // Never called
         return Collections.emptyMap();
+    }
+
+    @Override
+    public List<Map<String, Map<String, String>>> getTestCases() {
+        // Never called
+        return Collections.emptyList();
     }
 
 }

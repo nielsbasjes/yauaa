@@ -5,6 +5,7 @@ v5.20-SNAPSHOT
 ===
 - Analyzer:
   - Improved the brand extraction from the url (github and gitlab urls).
+  - Improved support for Kryo
 - UDFs:
   - Fixed bug in LogParser UDF that causes setters to be called twice
 - New/improved detections
@@ -20,8 +21,8 @@ v5.20-SNAPSHOT
   - Apache Drill            1.18.0
   - Apache Nifi             1.12.1
   - Apache Flink            1.11.2
-  - Apache Beam             2.24.0
-  - Elastic Search/Logstash 7.9.2
+  - Apache Beam             2.25.0
+  - Elastic Search/Logstash 7.10.0
 
 v5.19
 ===

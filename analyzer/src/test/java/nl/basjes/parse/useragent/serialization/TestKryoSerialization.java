@@ -28,6 +28,12 @@ public class TestKryoSerialization extends AbstractSerializationTest {
 
     byte[] serialize(UserAgentAnalyzerTester uaa) {
         Kryo             kryo             = new Kryo();
+        UserAgentAnalyzerTester.configureKryo(kryo);
+
+        // For debugging
+        kryo.setRegistrationRequired(true);
+        kryo.setWarnUnregisteredClasses(true);
+
         ByteBufferOutput byteBufferOutput = new ByteBufferOutput(1_000_000, -1);
         kryo.writeClassAndObject(byteBufferOutput, uaa);
 
@@ -41,6 +47,8 @@ public class TestKryoSerialization extends AbstractSerializationTest {
 
     UserAgentAnalyzerTester deserialize(byte[] bytes) {
         Kryo            kryo            = new Kryo();
+        UserAgentAnalyzerTester.configureKryo(kryo);
+
         ByteBufferInput byteBufferInput = new ByteBufferInput(bytes);
         return (UserAgentAnalyzerTester) kryo.readClassAndObject(byteBufferInput);
     }

@@ -20,16 +20,57 @@ package nl.basjes.parse.useragent;
 import com.esotericsoftware.kryo.DefaultSerializer;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
+import nl.basjes.collections.prefixmap.StringPrefixMap;
+import nl.basjes.parse.useragent.AgentField.ImmutableAgentField;
+import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
+import nl.basjes.parse.useragent.analyze.MatcherExtractAction;
 import nl.basjes.parse.useragent.analyze.MatcherList;
+import nl.basjes.parse.useragent.analyze.MatcherRequireAction;
+import nl.basjes.parse.useragent.analyze.MatcherVariableAction;
+import nl.basjes.parse.useragent.analyze.MatchesList;
 import nl.basjes.parse.useragent.analyze.UselessMatcherException;
+import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
+import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepContains;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepDefaultIfNull;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEndsWith;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEquals;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsInSet;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNotInSet;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupContains;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupPrefix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsNotInLookupPrefix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookupContains;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookupPrefix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepBackToFull;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepReplaceString;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSegmentRange;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNext;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNextN;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrevN;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import nl.basjes.parse.useragent.calculate.CalculateAgentEmail;
 import nl.basjes.parse.useragent.calculate.CalculateAgentName;
 import nl.basjes.parse.useragent.calculate.CalculateDeviceBrand;
@@ -61,6 +102,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Formatter;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -174,7 +216,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     /*
      * Initialize the transient default values
      */
-    private void initTransientFields() {
+    void initTransientFields() {
         matcherConfigs = new HashMap<>(64);
         touchedMatchers = new MatcherList(32);
     }
@@ -186,13 +228,119 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         showDeserializationStats();
     }
 
+    /**
+     * This is used to configure the provided Kryo instance if Kryo serialization is desired.
+     * The expected type here is Object because otherwise the Kryo library becomes
+     * a mandatory dependency on any project that uses Yauaa.
+     * @param kryoInstance The instance of com.esotericsoftware.kryo.Kryo that needs to be configured.
+     */
+    public static void configureKryo(Object kryoInstance) {
+        Kryo kryo = (Kryo) kryoInstance;
+        // Since kryo 5.0.0-RC3 the default is to not use references.
+        // With Yauaa you will go into a StackOverflow if you do not support references in Kryo because of
+        // circulair references in the data structures.
+        // See https://github.com/EsotericSoftware/kryo/issues/617
+        //     https://github.com/EsotericSoftware/kryo/issues/789
+        kryo.setReferences(true);
+
+        // Let Kryo output a lot of debug information
+//        Log.DEBUG();
+//        kryo.setRegistrationRequired(true);
+//        kryo.setWarnUnregisteredClasses(true);
+
+        // Register the Java classes we need
+        kryo.register(Collections.emptySet().getClass());
+        kryo.register(Collections.emptyList().getClass());
+        kryo.register(Collections.emptyMap().getClass());
+
+        kryo.register(ArrayList.class);
+
+        kryo.register(LinkedHashSet.class);
+        kryo.register(LinkedHashMap.class);
+        kryo.register(HashSet.class);
+        kryo.register(HashMap.class);
+        kryo.register(TreeSet.class);
+        kryo.register(TreeMap.class);
+
+        // This class
+        kryo.register(AbstractUserAgentAnalyzerDirect.class);
+
+        // All classes we have under this.
+        kryo.register(Analyzer.class);
+        kryo.register(ImmutableUserAgent.class);
+        kryo.register(ImmutableAgentField.class);
+        kryo.register(MutableUserAgent.class);
+        kryo.register(MutableAgentField.class);
+
+        kryo.register(Matcher.class);
+        kryo.register(MatcherAction.class);
+        kryo.register(MatcherList.class);
+        kryo.register(MatchesList.class);
+        kryo.register(MatcherExtractAction.class);
+        kryo.register(MatcherVariableAction.class);
+        kryo.register(MatcherRequireAction.class);
+        kryo.register(WordRangeVisitor.Range.class);
+
+        kryo.register(CalculateAgentEmail.class);
+        kryo.register(CalculateAgentName.class);
+        kryo.register(CalculateDeviceBrand.class);
+        kryo.register(CalculateDeviceName.class);
+        kryo.register(CalculateNetworkType.class);
+        kryo.register(ConcatNONDuplicatedCalculator.class);
+        kryo.register(FieldCalculator.class);
+        kryo.register(MajorVersionCalculator.class);
+
+        kryo.register(UserAgentTreeFlattener.class);
+        kryo.register(TreeExpressionEvaluator.class);
+        kryo.register(WalkList.class);
+        kryo.register(StepContains.class);
+        kryo.register(StepDefaultIfNull.class);
+        kryo.register(StepEndsWith.class);
+        kryo.register(StepEquals.class);
+        kryo.register(StepIsInSet.class);
+        kryo.register(StepIsNotInSet.class);
+        kryo.register(StepIsNull.class);
+        kryo.register(StepNotEquals.class);
+        kryo.register(StepStartsWith.class);
+        kryo.register(StepIsInLookupContains.class);
+        kryo.register(StepIsInLookupPrefix.class);
+        kryo.register(StepIsNotInLookupPrefix.class);
+        kryo.register(StepLookup.class);
+        kryo.register(StepLookupContains.class);
+        kryo.register(StepLookupPrefix.class);
+        kryo.register(StepBackToFull.class);
+        kryo.register(StepCleanVersion.class);
+        kryo.register(StepConcat.class);
+        kryo.register(StepConcatPostfix.class);
+        kryo.register(StepConcatPrefix.class);
+        kryo.register(StepNormalizeBrand.class);
+        kryo.register(StepReplaceString.class);
+        kryo.register(StepSegmentRange.class);
+        kryo.register(StepWordRange.class);
+        kryo.register(StepDown.class);
+        kryo.register(StepNext.class);
+        kryo.register(StepNextN.class);
+        kryo.register(StepPrev.class);
+        kryo.register(StepPrevN.class);
+        kryo.register(StepUp.class);
+
+        StringPrefixMap.configureKryo(kryo);
+    }
+
     public static class KryoSerializer extends FieldSerializer<AbstractUserAgentAnalyzerDirect> {
         public KryoSerializer(Kryo kryo, Class<?> type) {
             super(kryo, type);
         }
 
         @Override
-        public AbstractUserAgentAnalyzerDirect read(Kryo kryo, Input input, Class<AbstractUserAgentAnalyzerDirect> type) {
+        public void write(Kryo kryo, Output output, AbstractUserAgentAnalyzerDirect object) {
+            // Get rid of needless data
+            object.reset();
+            super.write(kryo, output, object);
+        }
+
+        @Override
+        public AbstractUserAgentAnalyzerDirect read(Kryo kryo, Input input, Class<? extends AbstractUserAgentAnalyzerDirect> type) {
             AbstractUserAgentAnalyzerDirect uaa = super.read(kryo, input, type);
             uaa.initTransientFields();
             uaa.showDeserializationStats();
@@ -256,7 +404,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
      * In some cases it was found that simply dereferencing the instance and letting the GC clean it all up was "too hard".
      * To assist in these kinds of problem cases this method will wipe the internal data structures as much as possible.
      * After calling this method this instance becomes unusable and cannot be 'repaired'.
-     * Normal applications will never need this. Simply defererencing the analyzer will clean everything,
+     * Normal applications will never need this. Simply dereferencing the analyzer will clean everything,
      * no memory leaks (that we know of).
      */
     public synchronized void destroy() {
@@ -1057,6 +1205,10 @@ config:
         return wantedFieldNames.contains(fieldName);
     }
 
+    public Set<String> getWantedFieldNames(){
+        return wantedFieldNames;
+    }
+
     private final List<FieldCalculator> fieldCalculators = new ArrayList<>();
 
     protected void setFieldCalculators(List<FieldCalculator> newFieldCalculators) {
@@ -1247,6 +1399,11 @@ config:
         public Map<String, Set<String>> getLookupSets() {
             // Not needed to only get all paths
             return Collections.emptyMap();
+        }
+
+        @Override
+        public List<Map<String, Map<String, String>>> getTestCases() {
+            return Collections.emptyList();
         }
     }
 
@@ -1501,6 +1658,7 @@ config:
          */
         public UAA build() {
             failIfAlreadyBuilt();
+            uaa.initTransientFields();
 
             // In case we only want specific fields we must all these special cases too
             if (uaa.wantedFieldNames != null) {

@@ -61,6 +61,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static nl.basjes.parse.useragent.debug.AbstractUserAgentAnalyzerTester.runTests;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
 import static org.apache.commons.text.StringEscapeUtils.escapeJson;
@@ -641,7 +642,7 @@ public class ParseService {
             .keepTests()
             .build();
         StringBuilder errorMessage = new StringBuilder();
-        boolean ok = tester.runTests(false, true, null, false, false, errorMessage);
+        boolean ok = runTests(tester, false, true, null, false, false, errorMessage);
         if (ok) {
             return "All tests passed";
         }
@@ -759,6 +760,9 @@ public class ParseService {
 
                 sb.append("<hr/>");
                 userAgentString =
+
+
+
                     "Mozilla/5.0 (Linux; Android 7.8.9; nl-nl ; " +
                         "Niels Ultimate 42 demo phone Build/42 ; " +
                         "https://yauaa.basjes.nl ) " +

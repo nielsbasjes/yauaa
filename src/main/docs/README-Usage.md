@@ -36,6 +36,18 @@ If you need multiple instances of the UserAgentAnalyzer then you MUST create a n
 
 Note that not all fields are available after every parse. So be prepared to receive a 'null' if you extract a specific name.
 
+# Serialization
+If your application needs to serialize the instance of the UserAgentAnalyzer then both the standard Java serialization and
+Kryo are supported. Note that with Kryo 5.x you need to register all classes and configure Kryo correctly.
+
+To facilitate doing this correctly the static method `configureKryo` was created.
+So in general your code should look something like this:
+
+        Kryo kryo = new Kryo();
+        UserAgentAnalyzer.configureKryo(kryo);
+
+Note that both the serializing and the deserializing instance of Kryo must be configured in the same way.
+
 # Avoid using it as a static member
 If you make the UserAgentAnalyzer a static member of a class then cleaning it up after use may be a problem.
 One case where this happens is in the context of something like Tomcat where a webapp is loaded and then unloaded.

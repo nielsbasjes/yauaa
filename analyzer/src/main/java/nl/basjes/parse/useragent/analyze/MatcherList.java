@@ -55,7 +55,7 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
         }
 
         @Override
-        public MatcherList read(Kryo kryo, Input input, Class<MatcherList> type) {
+        public MatcherList read(Kryo kryo, Input input, Class<? extends MatcherList> type) {
             MatcherList matcherList = new MatcherList();
             matcherList.maxSize = input.read();
 

@@ -48,6 +48,24 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         }
     }
 
+    private void readObject(java.io.ObjectInputStream stream)
+        throws java.io.IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        initializeCache();
+    }
+
+    /**
+     * This is used to configure the provided Kryo instance if Kryo serialization is desired.
+     * The expected type here is Object because otherwise the Kryo library becomes
+     * a mandatory dependency on any project that uses Yauaa.
+     * @param kryoInstance The instance of com.esotericsoftware.kryo.Kryo that needs to be configured.
+     */
+    public static void configureKryo(Object kryoInstance) {
+        Kryo kryo = (Kryo) kryoInstance;
+        kryo.register(AbstractUserAgentAnalyzer.class);
+        AbstractUserAgentAnalyzerDirect.configureKryo(kryo);
+    }
+
     public static class KryoSerializer extends AbstractUserAgentAnalyzerDirect.KryoSerializer {
         public KryoSerializer(Kryo kryo, Class<?> type) {
             super(kryo, type);
@@ -55,13 +73,14 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
 
         @Override
         public void write(Kryo kryo, Output output, AbstractUserAgentAnalyzerDirect object) {
-            output.write(((AbstractUserAgentAnalyzer)object).cacheSize);
+            super.write(kryo, output, object);
+            output.writeInt(((AbstractUserAgentAnalyzer)object).cacheSize);
         }
 
         @Override
-        public AbstractUserAgentAnalyzer read(Kryo kryo, Input input, Class<AbstractUserAgentAnalyzerDirect> type) {
+        public AbstractUserAgentAnalyzer read(Kryo kryo, Input input, Class<? extends AbstractUserAgentAnalyzerDirect> type) {
             final AbstractUserAgentAnalyzer uaa = (AbstractUserAgentAnalyzer) super.read(kryo, input, type);
-            uaa.cacheSize = input.read();
+            uaa.cacheSize = input.readInt();
             uaa.initializeCache();
             return uaa;
         }
