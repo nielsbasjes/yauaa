@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v5.20-SNAPSHOT
+v5.21-SNAPSHOT
+===
+- ...
+
+v5.20
 ===
 - Analyzer:
   - Improved the brand extraction from the url (github and gitlab urls).
