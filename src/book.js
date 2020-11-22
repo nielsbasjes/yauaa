@@ -31,7 +31,7 @@ module.exports = {
 
     variables: {
         version: pkg.version,
-        YauaaVersion: "5.19"
+        YauaaVersion: "5.20"
     },
 
     pluginsConfig: {
