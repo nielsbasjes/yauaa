@@ -3,7 +3,8 @@ This is intended as an overview of the major changes
 
 v5.21-SNAPSHOT
 ===
-- ...
+- Analyzer:
+  - Tests: Edge on Linux
 
 v5.20
 ===
