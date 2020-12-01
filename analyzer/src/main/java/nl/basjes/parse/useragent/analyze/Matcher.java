@@ -48,7 +48,7 @@ public class Matcher implements Serializable {
 
     private final Analyzer analyzer;
     private final List<MatcherVariableAction> variableActions;
-    private List<MatcherAction> dynamicActions;
+    private final List<MatcherAction> dynamicActions;
     private final List<MatcherAction> fixedStringActions;
 
     private MutableUserAgent newValuesUserAgent = null;

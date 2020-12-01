@@ -131,7 +131,6 @@ DOCKER_INTERACTIVE_RUN=${DOCKER_INTERACTIVE_RUN-"-i -t"}
 DOCKER_SOCKET_MOUNT=""
 if [ -S /var/run/docker.sock ];
 then
-<<<<<<< HEAD
   DOCKER_SOCKET_MOUNT="-v /var/run/docker.sock:/var/run/docker.sock${V_OPTS:-}"
   echo "Enabling Docker support with the docker build environment."
 else
